@@ -21,9 +21,6 @@ namespace MDPlayer
         MDChipParams newParam = new MDChipParams();
         int[] oldButton = new int[6];
         int[] newButton = new int[6];
-        int ot1 = 11;
-        int ot2 = 11;
-        int ot3 = 11;
         bool isRunning = false;
         bool stopped = false;
         int[] FmFNum = new int[] {
@@ -44,7 +41,7 @@ namespace MDPlayer
         };
 
 
-        //static int SamplingRate = 44100;
+        static int SamplingRate = 44100;
         //static int PSGClockValue = 3579545;
         //static int FMClockValue = 7670454;
         //static int samplingBuffer = 512;
@@ -278,7 +275,8 @@ namespace MDPlayer
 
                     int freq = fmRegister[p][0xa0+c]+ (fmRegister[p][0xa4+c]&0x07)*0x100;
                     int octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
-                    newParam.ym2612.channels[ch].note = octav * 12+searchNote(freq);
+                    int n = Math.Min(Math.Max(octav * 12 + searchNote(freq), 0), 95);
+                    newParam.ym2612.channels[ch].note = n;
                 }
 
                 int[] psgRegister = Audio.GetPSGRegister();
@@ -294,6 +292,22 @@ namespace MDPlayer
                     }
                 }
 
+                long w = Audio.GetCounter();
+                double sec = (double)w / (double)SamplingRate;
+                newParam.Cminutes = (int)(sec / 60);
+                sec -= newParam.Cminutes * 60;
+                newParam.Csecond = (int)sec;
+                sec -= newParam.Csecond;
+                newParam.Cmillisecond = (int)(sec * 100.0);
+
+                w = Audio.GetTotalCounter();
+                sec = (double)w / (double)SamplingRate;
+                newParam.TCminutes = (int)(sec / 60);
+                sec -= newParam.TCminutes * 60;
+                newParam.TCsecond = (int)sec;
+                sec -= newParam.TCsecond;
+                newParam.TCmillisecond = (int)(sec * 100.0);
+
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
                     nextFrame += period;
@@ -304,8 +318,8 @@ namespace MDPlayer
                 // 描画
                 screen.drawParams(oldParam, newParam);
                 screen.drawButtons(oldButton, newButton);
-                screen.drawTimer(0, ref ot1, ref ot2, ref ot3, 999, 99, 99);
-                screen.drawTimer(1, ref ot1, ref ot2, ref ot3, 987, 65, 43);
+                screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes,newParam.Csecond, newParam.Cmillisecond);
+                screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
                 screen.Refresh();
 
 

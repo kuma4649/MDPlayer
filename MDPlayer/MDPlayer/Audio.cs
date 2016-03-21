@@ -31,6 +31,9 @@ namespace MDPlayer
         private static uint vgmEof;
         private static bool vgmAnalyze;
         private static vgmStream[] vgmStreams = new vgmStream[0x100];
+        private static long vgmCounter = 0;
+        private static long vgmTotalCounter = 0;
+        private static long vgmLoopSamples = 0;
 
 
         internal static void callback(IntPtr userData, IntPtr stream, int len)
@@ -88,6 +91,9 @@ namespace MDPlayer
                 vgmAdr = vgmDataOffset;
                 vgmWait = 0;
                 vgmAnalyze = true;
+                vgmCounter = 0;
+                vgmTotalCounter = getLE32(0x18);
+                vgmLoopSamples = getLE32(0x20);
 
                 mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
@@ -141,6 +147,16 @@ namespace MDPlayer
             return mds.ReadPSGRegister();
         }
 
+        public static long GetCounter()
+        {
+            return vgmCounter;
+        }
+
+        public static long GetTotalCounter()
+        {
+            return vgmTotalCounter;
+        }
+
         private static void oneFrameVGM()
         {
 
@@ -148,6 +164,7 @@ namespace MDPlayer
             {
                 oneFrameVGMStream();
                 vgmWait--;
+                vgmCounter++;
                 return;
             }
 
@@ -328,6 +345,7 @@ namespace MDPlayer
 
             oneFrameVGMStream();
             vgmWait--;
+            vgmCounter++;
 
         }
 
