@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.pbScreen = new System.Windows.Forms.PictureBox();
+            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.SuspendLayout();
             // 
             // pbScreen
             // 
+            this.pbScreen.BackColor = System.Drawing.Color.Black;
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.plane;
             this.pbScreen.Location = new System.Drawing.Point(2, 2);
             this.pbScreen.Name = "pbScreen";
@@ -44,12 +46,23 @@
             this.pbScreen.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
             this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.BackColor = System.Drawing.Color.Black;
+            this.lblTitle.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblTitle.Location = new System.Drawing.Point(22, 209);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(202, 16);
+            this.lblTitle.TabIndex = 1;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(324, 228);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximumSize = new System.Drawing.Size(340, 267);
@@ -68,6 +81,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbScreen;
+        private System.Windows.Forms.Label lblTitle;
     }
 }
 

@@ -247,6 +247,8 @@ namespace MDPlayer
                 }
 
                 int[][] fmRegister = Audio.GetFMRegister();
+                int[][] fmVol = Audio.GetFMVolume();
+
                 for (int ch = 0; ch < 6; ch++)
                 {
                     int p = (ch > 2) ? 1 : 0;
@@ -277,7 +279,13 @@ namespace MDPlayer
                     int octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
                     int n = Math.Min(Math.Max(octav * 12 + searchNote(freq), 0), 95);
                     newParam.ym2612.channels[ch].note = n;
+
+                    newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
+                    newParam.ym2612.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+
                 }
+
+                newParam.ym2612.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
 
                 int[] psgRegister = Audio.GetPSGRegister();
                 for(int ch = 0; ch < 4; ch++)
@@ -320,6 +328,7 @@ namespace MDPlayer
                 screen.drawButtons(oldButton, newButton);
                 screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes,newParam.Csecond, newParam.Cmillisecond);
                 screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+                screen.drawCh6( ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode);
                 screen.Refresh();
 
 
@@ -382,6 +391,8 @@ namespace MDPlayer
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            lblTitle.Text = Audio.vgmTrackName;
 
         }
 

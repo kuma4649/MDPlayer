@@ -35,6 +35,15 @@ namespace MDPlayer
         private static long vgmTotalCounter = 0;
         private static long vgmLoopSamples = 0;
 
+        public static string vgmTrackName = "";
+        public static string vgmGameName = "";
+        public static string vgmSystemName = "";
+        public static string vgmOriginalTrackAuthor = "";
+        public static string vgmReleaseDate = "";
+        public static string vgmConverted = "";
+        public static string vgmNotes = "";
+
+
 
         internal static void callback(IntPtr userData, IntPtr stream, int len)
         {
@@ -55,13 +64,19 @@ namespace MDPlayer
         public static void SetVGMBuffer(byte[] srcBuf)
         {
             Stop();
+            for (int i = 0; i < 10; i++)
+            {
+                System.Threading.Thread.Sleep(1);
+                System.Windows.Forms.Application.DoEvents();
+            }
             vgmBuf = srcBuf;
         }
 
         public static bool Play()
         {
 
-            try {
+            try
+            {
 
                 if (vgmBuf == null) return false;
 
@@ -78,6 +93,19 @@ namespace MDPlayer
 
                 vgmEof = getLE32(0x04);
 
+                uint vgmGd3 = getLE32(0x14);
+                if (vgmGd3 != 0)
+                {
+                    uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
+                    if (vgmGd3Id != 0x20336447) return false;
+                    getGD3Info(vgmGd3);
+                }
+
+                vgmTotalCounter = getLE32(0x18);
+                if (vgmTotalCounter <= 0) return false;
+
+                vgmLoopSamples = getLE32(0x20);
+
                 uint vgmDataOffset = getLE32(0x34);
                 if (vgmDataOffset == 0)
                 {
@@ -92,8 +120,6 @@ namespace MDPlayer
                 vgmWait = 0;
                 vgmAnalyze = true;
                 vgmCounter = 0;
-                vgmTotalCounter = getLE32(0x18);
-                vgmLoopSamples = getLE32(0x20);
 
                 mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
@@ -155,6 +181,11 @@ namespace MDPlayer
         public static long GetTotalCounter()
         {
             return vgmTotalCounter;
+        }
+
+        public static int[][] GetFMVolume()
+        {
+            return mds.ReadFMVolume();
         }
 
         private static void oneFrameVGM()
@@ -416,6 +447,59 @@ namespace MDPlayer
             dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100 + (UInt32)vgmBuf[adr + 2] * 0x10000 + (UInt32)vgmBuf[adr + 3] * 0x1000000;
 
             return dat;
+        }
+
+        private static void getGD3Info(uint vgmGd3)
+        {
+            uint adr = vgmGd3 + 12 + 0x14;
+            try
+            {
+                //trackName
+                vgmTrackName = System.Text.Encoding.Unicode.GetString(getByteArray4(ref adr));
+                //gameName
+                vgmGameName = System.Text.Encoding.Unicode.GetString(getByteArray4(ref adr));
+                //systemName
+                vgmSystemName = System.Text.Encoding.Unicode.GetString(getByteArray4(ref adr));
+                //OriginalTrackAuthor
+                vgmOriginalTrackAuthor = System.Text.Encoding.Unicode.GetString(getByteArray4(ref adr));
+                //ReleaseDate
+                vgmReleaseDate = System.Text.Encoding.Unicode.GetString(getByteArray2(ref adr));
+                //Converted
+                vgmConverted = System.Text.Encoding.Unicode.GetString(getByteArray2(ref adr));
+                //Notes
+                vgmNotes = System.Text.Encoding.Unicode.GetString(getByteArray2(ref adr));
+            }
+            catch { }
+        }
+
+        private static byte[] getByteArray2(ref uint adr)
+        {
+            List<byte> ary = new List<byte>();
+            while (vgmBuf[adr] != 0 || vgmBuf[adr + 1] != 0)
+            {
+                ary.Add(vgmBuf[adr]);
+                adr++;
+                ary.Add(vgmBuf[adr]);
+                adr++;
+            }
+            adr += 2;
+
+            return ary.ToArray();
+        }
+
+        private static byte[] getByteArray4(ref uint adr)
+        {
+            List<byte> ary = new List<byte>();
+            while (vgmBuf[adr] != 0 || vgmBuf[adr + 1] != 0 || vgmBuf[adr + 2] != 0 || vgmBuf[adr + 3] != 0)
+            {
+                ary.Add(vgmBuf[adr]);
+                adr++;
+                ary.Add(vgmBuf[adr]);
+                adr++;
+            }
+            adr += 4;
+
+            return ary.ToArray();
         }
 
     }

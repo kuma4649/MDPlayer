@@ -26,6 +26,7 @@ namespace MDPlayer
                 public int volumeL = -1;
                 public int volumeR = -1;
                 public int freq = -1;
+                public int pcmMode = -1;
 
                 public int[] inst = new int[48];
 

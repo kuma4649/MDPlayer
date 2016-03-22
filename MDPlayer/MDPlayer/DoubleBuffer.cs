@@ -249,6 +249,20 @@ namespace MDPlayer
             }
         }
 
+        public void drawCh6P(int x,int y,int m)
+        {
+            if (m == 0)
+            {
+                drawByteArray(x, y, fontBuf, 128, 72, 120, 16, 8);
+                drawFont8(x + 16, y, 0, "6");
+            }
+            else
+            {
+                drawByteArray(x, y, fontBuf, 128, 88, 120, 16, 8);
+                drawFont8(x + 16, y, 0, " ");
+            }
+        }
+
 
         public void drawFont4(int x, int y, int t, string msg)
         {
@@ -392,28 +406,35 @@ namespace MDPlayer
             if (c == 2) { sy = 4; }
             y = (y + 1) * 8;
 
-            if (ov - nv <= 0)
+            for (int i = 0; i <= 19; i++)
             {
-                for (int i = ov; i <= nv; i++)
-                {
-                    drawVolumeP(256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t));
-                }
-
+                drawVolumeP(256 + i * 2, y + sy, (1 + t));
             }
-            else
+
+            for (int i = 0; i <= nv; i++)
             {
-                for (int i = nv + 1; i <= ov; i++)
-                {
-                    drawVolumeP(256 + i * 2, y + sy, (1 + t));
-                }
+                drawVolumeP(256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t));
             }
 
             ov = nv;
 
         }
 
+        public void drawCh6(ref int ot, int nt)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawCh6P(0, 48, nt);
+            ot = nt;
+        }
+
         public void drawPan(int c, ref int ot, int nt)
         {
+
             if (ot == nt)
             {
                 return;
