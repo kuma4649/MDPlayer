@@ -192,6 +192,33 @@ namespace MDPlayer
         {
             if (e.Location.Y < 208)
             {
+                int ch = (e.Location.Y / 8)-1;
+                if (ch >= 0 && ch < 6)
+                {
+                    if (!newParam.ym2612.channels[ch].mask)
+                    {
+                        Audio.setFMMask(ch);
+
+                    }
+                    else
+                    {
+                        Audio.resetFMMask(ch);
+                    }
+                    newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
+                }else if (ch < 10)
+                {
+                    if (!newParam.sn76489.channels[ch-6].mask)
+                    {
+                        Audio.setPSGMask(ch-6);
+
+                    }
+                    else
+                    {
+                        Audio.resetPSGMask(ch-6);
+                    }
+                    newParam.sn76489.channels[ch-6].mask = !newParam.sn76489.channels[ch-6].mask;
+                }
+
                 return;
             }
 
@@ -328,7 +355,15 @@ namespace MDPlayer
                 screen.drawButtons(oldButton, newButton);
                 screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes,newParam.Csecond, newParam.Cmillisecond);
                 screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
-                screen.drawCh6( ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode);
+                screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode, ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask);
+                for (int ch = 0; ch < 5; ch++)
+                {
+                    screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask);
+                }
+                for (int ch = 6; ch < 10; ch++)
+                {
+                    screen.drawCh(ch, ref oldParam.sn76489.channels[ch-6].mask, newParam.sn76489.channels[ch-6].mask);
+                }
                 screen.Refresh();
 
 
@@ -387,12 +422,23 @@ namespace MDPlayer
         {
             stop();
 
+            for (int ch = 0; ch < 6; ch++)
+            {
+                newParam.ym2612.channels[ch].mask = false;
+            }
+            for (int ch = 0; ch < 4; ch++)
+            {
+                newParam.sn76489.channels[ch].mask = false;
+            }
             if (!Audio.Play())
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            lblTitle.Text = Audio.vgmTrackName;
+            if (Audio.vgmTrackNameJ != "")
+                lblTitle.Text = Audio.vgmTrackNameJ;
+            else
+                lblTitle.Text = Audio.vgmTrackName;
 
         }
 

@@ -27,6 +27,7 @@ namespace MDPlayer
                 public int volumeR = -1;
                 public int freq = -1;
                 public int pcmMode = -1;
+                public bool mask = false;
 
                 public int[] inst = new int[48];
 
@@ -53,6 +54,7 @@ namespace MDPlayer
                 public int note = -1;
                 public int volume = -1;
                 public int freq = -1;
+                public bool mask = false;
 
             }
             public Channel[] channels = new Channel[4] { new Channel(), new Channel(), new Channel(), new Channel() };

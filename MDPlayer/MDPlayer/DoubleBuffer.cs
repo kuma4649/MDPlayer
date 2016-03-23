@@ -249,16 +249,34 @@ namespace MDPlayer
             }
         }
 
-        public void drawCh6P(int x,int y,int m)
+        public void drawChP(int x, int y, int ch, bool mask)
+        {
+            if (ch == 5)
+            {
+                return;
+            }
+            if (ch < 5)
+            {
+                drawByteArray(x, y, fontBuf, 128, 64, 120 - (mask ? 24 : 0), 16, 8);
+                drawFont8(x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 10)
+            {
+                drawByteArray(x, y, fontBuf, 128, 96, 120 - (mask ? 24 : 0), 16, 8);
+                drawFont8(x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+        }
+
+        public void drawCh6P(int x, int y, int m, bool mask)
         {
             if (m == 0)
             {
-                drawByteArray(x, y, fontBuf, 128, 72, 120, 16, 8);
-                drawFont8(x + 16, y, 0, "6");
+                drawByteArray(x, y, fontBuf, 128, 64, 120 - (mask ? 24 : 0), 16, 8);
+                drawFont8(x + 16, y, mask ? 1 : 0, "6");
             }
             else
             {
-                drawByteArray(x, y, fontBuf, 128, 88, 120, 16, 8);
+                drawByteArray(x, y, fontBuf, 128, 80, 120 - (mask ? 24 : 0), 16, 8);
                 drawFont8(x + 16, y, 0, " ");
             }
         }
@@ -333,6 +351,37 @@ namespace MDPlayer
             {
                 drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
             }
+
+            n = num / 1;
+            x += 4;
+            drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+        }
+
+        public void drawFont4Int2(int x, int y, int t, int k, int num)
+        {
+            int n;
+            if (k == 3)
+            {
+                n = num / 100;
+                num -= n * 100;
+                n = (n > 9) ? 0 : n;
+                drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
+
+                n = num / 10;
+                num -= n * 10;
+                x += 4;
+                drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+
+                n = num / 1;
+                x += 4;
+                drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
 
             n = num / 1;
             x += 4;
@@ -420,16 +469,29 @@ namespace MDPlayer
 
         }
 
-        public void drawCh6(ref int ot, int nt)
+        public void drawCh(int ch, ref bool om, bool nm)
         {
 
-            if (ot == nt)
+            if (om == nm)
             {
                 return;
             }
 
-            drawCh6P(0, 48, nt);
+            drawChP(0, 8 + ch * 8, ch, nm);
+            om = nm;
+        }
+
+        public void drawCh6(ref int ot, int nt, ref bool om, bool nm)
+        {
+
+            if (ot == nt && om == nm)
+            {
+                return;
+            }
+
+            drawCh6P(0, 48, nt, nm);
             ot = nt;
+            om = nm;
         }
 
         public void drawPan(int c, ref int ot, int nt)
@@ -533,17 +595,17 @@ namespace MDPlayer
         {
             if (ot1 != nt1)
             {
-                drawFont4Int(4 * 42 + c * 4 * 11, 0, 0, 3, nt1);
+                drawFont4Int2(4 * 42 + c * 4 * 11, 0, 0, 3, nt1);
                 ot1 = nt1;
             }
             if (ot2 != nt2)
             {
-                drawFont4Int(4 * 46 + c * 4 * 11, 0, 0, 2, nt2);
+                drawFont4Int2(4 * 46 + c * 4 * 11, 0, 0, 2, nt2);
                 ot2 = nt2;
             }
             if (ot3 != nt3)
             {
-                drawFont4Int(4 * 49 + c * 4 * 11, 0, 0, 2, nt3);
+                drawFont4Int2(4 * 49 + c * 4 * 11, 0, 0, 2, nt3);
                 ot3 = nt3;
             }
         }
