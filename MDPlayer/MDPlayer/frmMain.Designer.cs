@@ -42,6 +42,8 @@
             this.pbScreen.Size = new System.Drawing.Size(320, 224);
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
+            this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.pbScreen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             this.pbScreen.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
             this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);

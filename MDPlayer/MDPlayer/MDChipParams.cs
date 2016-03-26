@@ -11,9 +11,14 @@ namespace MDPlayer
         public int Cminutes = 0;
         public int Csecond = 0;
         public int Cmillisecond = 0;
+
         public int TCminutes = 0;
         public int TCsecond = 0;
         public int TCmillisecond = 0;
+
+        public int LCminutes = 0;
+        public int LCsecond = 0;
+        public int LCmillisecond = 0;
 
         public class YM2612
         {

@@ -595,17 +595,17 @@ namespace MDPlayer
         {
             if (ot1 != nt1)
             {
-                drawFont4Int2(4 * 42 + c * 4 * 11, 0, 0, 3, nt1);
+                drawFont4Int2(4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
                 ot1 = nt1;
             }
             if (ot2 != nt2)
             {
-                drawFont4Int2(4 * 46 + c * 4 * 11, 0, 0, 2, nt2);
+                drawFont4Int2(4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
                 ot2 = nt2;
             }
             if (ot3 != nt3)
             {
-                drawFont4Int2(4 * 49 + c * 4 * 11, 0, 0, 2, nt3);
+                drawFont4Int2(4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
                 ot3 = nt3;
             }
         }

@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +18,17 @@ namespace MDPlayer
         private DoubleBuffer screen;
         private int pWidth = 0;
         private int pHeight = 0;
-        //private Graphics g;
-        MDChipParams oldParam = new MDChipParams();
-        MDChipParams newParam = new MDChipParams();
-        int[] oldButton = new int[6];
-        int[] newButton = new int[6];
-        bool isRunning = false;
-        bool stopped = false;
-        int[] FmFNum = new int[] {
+
+        private MDChipParams oldParam = new MDChipParams();
+        private MDChipParams newParam = new MDChipParams();
+
+        private int[] oldButton = new int[6];
+        private int[] newButton = new int[6];
+
+        private bool isRunning = false;
+        private bool stopped = false;
+
+        private int[] FmFNum = new int[] {
             0x289/8, 0x2af/8, 0x2d8/8, 0x303/8, 0x331/8, 0x362/8, 0x395/8, 0x3cc/8, 0x405/8, 0x443/8, 0x484/8,0x4c8/8,
             0x289/4, 0x2af/4, 0x2d8/4, 0x303/4, 0x331/4, 0x362/4, 0x395/4, 0x3cc/4, 0x405/4, 0x443/4, 0x484/4,0x4c8/4,
             0x289/2, 0x2af/2, 0x2d8/2, 0x303/2, 0x331/2, 0x362/2, 0x395/2, 0x3cc/2, 0x405/2, 0x443/2, 0x484/2,0x4c8/2,
@@ -31,7 +36,7 @@ namespace MDPlayer
             0x289*2, 0x2af*2, 0x2d8*2, 0x303*2, 0x331*2, 0x362*2, 0x395*2, 0x3cc*2, 0x405*2, 0x443*2, 0x484*2,0x4c8*2
         };
 
-        int[] PsgFNum = new int[] { 0x357,0x327,0x2fa,0x2cf,0x2a7,0x281,0x25d,0x23b,0x21b,0x1fc,0x1e0,0x1c5,
+        private int[] PsgFNum = new int[] { 0x357,0x327,0x2fa,0x2cf,0x2a7,0x281,0x25d,0x23b,0x21b,0x1fc,0x1e0,0x1c5,
             0x1ac,0x194,0x17d,0x168,0x153,0x140,0x12e,0x11d,0x10d,0x0fe,0x0f0,0x0e3,
             0x0d6,0x0ca,0x0be,0x0b4,0x0aa,0x0a0,0x097,0x08f,0x087,0x07f,0x078,0x071,
             0x06b,0x065,0x05f,0x05a,0x055,0x050,0x04c,0x047,0x043,0x040,0x03c,0x039,
@@ -41,19 +46,20 @@ namespace MDPlayer
         };
 
 
-        static int SamplingRate = 44100;
+        private static int SamplingRate = 44100;
         //static int PSGClockValue = 3579545;
         //static int FMClockValue = 7670454;
         //static int samplingBuffer = 512;
         //static short[] frames = new short[samplingBuffer * 2];
         //MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
-        byte[] srcBuf;
+        private byte[] srcBuf;
 
 
         public frmMain()
         {
             InitializeComponent();
+            pbScreen.AllowDrop = true;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -77,7 +83,7 @@ namespace MDPlayer
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
-            System.Threading.Thread trd = new System.Threading.Thread(mainLoop);
+            System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
             trd.Start();
         }
 
@@ -92,62 +98,6 @@ namespace MDPlayer
             }
             // 解放
             screen.Dispose();
-        }
-
-        private void pbScreen_Click(object sender, EventArgs e)
-        {
-
-
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    for (int j = 0; j < 9; j++)
-            //    {
-            //        if (newParam.ym2612.channels[j].pan == 3)
-            //            newParam.ym2612.channels[j].pan = 0;
-            //        else newParam.ym2612.channels[j].pan++;
-
-            //        if (newParam.ym2612.channels[j].note > 94)
-            //            newParam.ym2612.channels[j].note = 0;
-            //        else newParam.ym2612.channels[j].note++;
-
-            //        if (newParam.ym2612.channels[j].volumeL > 19)
-            //            newParam.ym2612.channels[j].volumeL = 0;
-            //        else newParam.ym2612.channels[j].volumeL++;
-
-            //        if (newParam.ym2612.channels[j].volumeR > 19)
-            //            newParam.ym2612.channels[j].volumeR = 0;
-            //        else newParam.ym2612.channels[j].volumeR++;
-
-            //        if (j < 6)
-            //        {
-            //            if (newParam.ym2612.channels[j].inst[0] > 99)
-            //                newParam.ym2612.channels[j].inst[0] = 0;
-            //            else newParam.ym2612.channels[j].inst[0]++;
-            //        }
-
-            //        if (j < 4)
-            //        {
-            //            if (newParam.sn76489.channels[j].note > 94)
-            //                newParam.sn76489.channels[j].note = 0;
-            //            else newParam.sn76489.channels[j].note++;
-
-            //            if (newParam.sn76489.channels[j].volume > 19)
-            //                newParam.sn76489.channels[j].volume = 0;
-            //            else newParam.sn76489.channels[j].volume++;
-
-            //        }
-
-            //    }
-            //    System.Threading.Thread.Sleep(1);
-            //    Application.DoEvents();
-            //}
-            //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            //sw.Start();
-
-            //sw.Stop();
-            //double time = sw.ElapsedTicks / (double)System.Diagnostics.Stopwatch.Frequency * 1000.0;
-            //Console.WriteLine("DrawTime = " + time.ToString() + "msec");
-
         }
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
@@ -193,6 +143,7 @@ namespace MDPlayer
             if (e.Location.Y < 208)
             {
                 int ch = (e.Location.Y / 8)-1;
+                if (ch < 0) return;
                 if (ch >= 0 && ch < 6)
                 {
                     if (!newParam.ym2612.channels[ch].mask)
@@ -253,7 +204,7 @@ namespace MDPlayer
 
         }
 
-        private void mainLoop()
+        private void screenMainLoop()
         {
             double nextFrame = (double)System.Environment.TickCount;
             float period = 1000f / 60f;
@@ -273,75 +224,7 @@ namespace MDPlayer
                     continue;
                 }
 
-                int[][] fmRegister = Audio.GetFMRegister();
-                int[][] fmVol = Audio.GetFMVolume();
-
-                for (int ch = 0; ch < 6; ch++)
-                {
-                    int p = (ch > 2) ? 1 : 0;
-                    int c = (ch > 2) ? ch - 3 : ch;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                        newParam.ym2612.channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops+c] & 0x1f; //AR
-                        newParam.ym2612.channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
-                        newParam.ym2612.channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
-                        newParam.ym2612.channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
-                        newParam.ym2612.channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
-                        newParam.ym2612.channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
-                        newParam.ym2612.channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
-                        newParam.ym2612.channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
-                        newParam.ym2612.channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
-                        newParam.ym2612.channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
-                        newParam.ym2612.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
-                    }
-                    newParam.ym2612.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
-                    newParam.ym2612.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38 >> 3);//FB
-                    newParam.ym2612.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38 >> 3);//AMS
-                    newParam.ym2612.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
-
-                    newParam.ym2612.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
-
-                    int freq = fmRegister[p][0xa0+c]+ (fmRegister[p][0xa4+c]&0x07)*0x100;
-                    int octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
-                    int n = Math.Min(Math.Max(octav * 12 + searchNote(freq), 0), 95);
-                    newParam.ym2612.channels[ch].note = n;
-
-                    newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
-                    newParam.ym2612.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
-
-                }
-
-                newParam.ym2612.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
-
-                int[] psgRegister = Audio.GetPSGRegister();
-                for(int ch = 0; ch < 4; ch++)
-                {
-                    if (psgRegister[ch * 2 + 1] != 15)
-                    {
-                        newParam.sn76489.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
-                    }
-                    else
-                    {
-                        newParam.sn76489.channels[ch].note = -1;
-                    }
-                }
-
-                long w = Audio.GetCounter();
-                double sec = (double)w / (double)SamplingRate;
-                newParam.Cminutes = (int)(sec / 60);
-                sec -= newParam.Cminutes * 60;
-                newParam.Csecond = (int)sec;
-                sec -= newParam.Csecond;
-                newParam.Cmillisecond = (int)(sec * 100.0);
-
-                w = Audio.GetTotalCounter();
-                sec = (double)w / (double)SamplingRate;
-                newParam.TCminutes = (int)(sec / 60);
-                sec -= newParam.TCminutes * 60;
-                newParam.TCsecond = (int)sec;
-                sec -= newParam.TCsecond;
-                newParam.TCmillisecond = (int)(sec * 100.0);
+                screenChangeParams();
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
@@ -349,23 +232,7 @@ namespace MDPlayer
                     continue;
                 }
 
-
-                // 描画
-                screen.drawParams(oldParam, newParam);
-                screen.drawButtons(oldButton, newButton);
-                screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes,newParam.Csecond, newParam.Cmillisecond);
-                screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
-                screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode, ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask);
-                for (int ch = 0; ch < 5; ch++)
-                {
-                    screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask);
-                }
-                for (int ch = 6; ch < 10; ch++)
-                {
-                    screen.drawCh(ch, ref oldParam.sn76489.channels[ch-6].mask, newParam.sn76489.channels[ch-6].mask);
-                }
-                screen.Refresh();
-
+                screenDrawParams();
 
                 nextFrame += period;
             }
@@ -373,7 +240,108 @@ namespace MDPlayer
             stopped = true;
         }
 
-        private int searchNote(int freq)
+        private void screenChangeParams()
+        {
+            int[][] fmRegister = Audio.GetFMRegister();
+            int[][] fmVol = Audio.GetFMVolume();
+
+            for (int ch = 0; ch < 6; ch++)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.ym2612.channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops + c] & 0x1f; //AR
+                    newParam.ym2612.channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
+                    newParam.ym2612.channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
+                    newParam.ym2612.channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
+                    newParam.ym2612.channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.ym2612.channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
+                    newParam.ym2612.channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.ym2612.channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
+                    newParam.ym2612.channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.ym2612.channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.ym2612.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.ym2612.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
+                newParam.ym2612.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38 >> 3);//FB
+                newParam.ym2612.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38 >> 3);//AMS
+                newParam.ym2612.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
+
+                newParam.ym2612.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
+
+                int freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
+                int octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+                int n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                newParam.ym2612.channels[ch].note = n;
+
+                newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
+                newParam.ym2612.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+
+            }
+
+            newParam.ym2612.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
+
+            int[] psgRegister = Audio.GetPSGRegister();
+            for (int ch = 0; ch < 4; ch++)
+            {
+                if (psgRegister[ch * 2 + 1] != 15)
+                {
+                    newParam.sn76489.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                }
+                else
+                {
+                    newParam.sn76489.channels[ch].note = -1;
+                }
+            }
+
+            long w = Audio.GetCounter();
+            double sec = (double)w / (double)SamplingRate;
+            newParam.Cminutes = (int)(sec / 60);
+            sec -= newParam.Cminutes * 60;
+            newParam.Csecond = (int)sec;
+            sec -= newParam.Csecond;
+            newParam.Cmillisecond = (int)(sec * 100.0);
+
+            w = Audio.GetTotalCounter();
+            sec = (double)w / (double)SamplingRate;
+            newParam.TCminutes = (int)(sec / 60);
+            sec -= newParam.TCminutes * 60;
+            newParam.TCsecond = (int)sec;
+            sec -= newParam.TCsecond;
+            newParam.TCmillisecond = (int)(sec * 100.0);
+
+            w = Audio.GetLoopCounter();
+            sec = (double)w / (double)SamplingRate;
+            newParam.LCminutes = (int)(sec / 60);
+            sec -= newParam.LCminutes * 60;
+            newParam.LCsecond = (int)sec;
+            sec -= newParam.LCsecond;
+            newParam.LCmillisecond = (int)(sec * 100.0);
+        }
+
+        private void screenDrawParams()
+        {
+            // 描画
+            screen.drawParams(oldParam, newParam);
+            screen.drawButtons(oldButton, newButton);
+            screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
+            screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+            screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+            screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode, ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask);
+            for (int ch = 0; ch < 5; ch++)
+            {
+                screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask);
+            }
+            for (int ch = 6; ch < 10; ch++)
+            {
+                screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask);
+            }
+            screen.Refresh();
+        }
+
+        private int searchFMNote(int freq)
         {
             int m = int.MaxValue;
             int n = 0;
@@ -415,7 +383,7 @@ namespace MDPlayer
 
         private void pause()
         {
-
+            Audio.Pause();
         }
 
         private void play()
@@ -444,36 +412,97 @@ namespace MDPlayer
 
         private void ff()
         {
-
+            Audio.FF();
         }
 
         private void open()
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter =
-                "VGMファイル(*.vgm)|*.vgm";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
             ofd.Title = "ファイルを選択してください";
             ofd.RestoreDirectory = true;
             ofd.CheckPathExists = true;
 
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() != DialogResult.OK)
             {
+                return;
+            }
+
+            try
+            {
+
+                srcBuf = getAllBytes(ofd.FileName);
+                Audio.SetVGMBuffer(srcBuf);
+                play();
+
+            }
+            catch
+            {
+                MessageBox.Show("ファイルの読み込みに失敗しました。");
+            }
+        }
+
+        private void pbScreen_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+
+        }
+
+        private void pbScreen_DragDrop(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+
                 try
                 {
 
-                    srcBuf = System.IO.File.ReadAllBytes(ofd.FileName);
+                    srcBuf = getAllBytes(filename);
                     Audio.SetVGMBuffer(srcBuf);
+                    play();
 
                 }
                 catch
                 {
-
                     MessageBox.Show("ファイルの読み込みに失敗しました。");
-                    return;
-
                 }
             }
         }
 
+        private byte[] getAllBytes(string filename)
+        {
+
+            if (!filename.ToLower().EndsWith(".vgz"))
+            {
+                return System.IO.File.ReadAllBytes(filename);
+            }
+
+            int num;
+            byte[] buf = new byte[1024]; // 1Kbytesずつ処理する
+
+            FileStream inStream // 入力ストリーム
+              = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+            GZipStream decompStream // 解凍ストリーム
+              = new GZipStream(
+                inStream, // 入力元となるストリームを指定
+                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+            MemoryStream outStream // 出力ストリーム
+              = new MemoryStream();
+            
+            using (inStream)
+            using (outStream)
+            using (decompStream)
+            {
+                while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                {
+                    outStream.Write(buf, 0, num);
+                }
+            }
+
+            return outStream.ToArray();
+        }
     }
 }

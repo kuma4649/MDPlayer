@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SdlDotNet.Audio;
 using System.Runtime.InteropServices;
 
@@ -10,30 +7,6 @@ namespace MDPlayer
 {
     public class Audio
     {
-        static int SamplingRate = 44100;
-        static int PSGClockValue = 3579545;
-        static int FMClockValue = 7670454;
-
-        static int samplingBuffer = 1024;
-        static short[] frames = new short[samplingBuffer * 2];
-        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
-
-        private static AudioStream sdl;
-        private static AudioCallback sdlCb = new AudioCallback(callback);
-        private static IntPtr sdlCbPtr;
-        private static GCHandle sdlCbHandle;
-
-        private static byte[] vgmBuf = null;
-        private static uint vgmPcmPtr;
-        private static uint vgmPcmBaseAdr;
-        private static uint vgmAdr;
-        private static int vgmWait;
-        private static uint vgmEof;
-        private static bool vgmAnalyze;
-        private static vgmStream[] vgmStreams = new vgmStream[0x100];
-        private static long vgmCounter = 0;
-        private static long vgmTotalCounter = 0;
-        private static long vgmLoopSamples = 0;
 
         public static string vgmTrackName = "";
         public static string vgmTrackNameJ = "";
@@ -47,31 +20,40 @@ namespace MDPlayer
         public static string vgmNotes = "";
 
 
+        private static int SamplingRate = 44100;
+        private static int PSGClockValue = 3579545;
+        private static int FMClockValue = 7670454;
 
-        internal static void callback(IntPtr userData, IntPtr stream, int len)
-        {
-            int i;
+        private static int samplingBuffer = 1024;
+        private static short[] frames = new short[samplingBuffer * 2];
+        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
-            int[][] buf = mds.Update2(oneFrameVGM);
+        private static AudioStream sdl;
+        private static AudioCallback sdlCb = new AudioCallback(callback);
+        private static IntPtr sdlCbPtr;
+        private static GCHandle sdlCbHandle;
 
-            for (i = 0; i < len / 4; i++)
-            {
-                frames[i * 2 + 0] = (short)buf[0][i];
-                frames[i * 2 + 1] = (short)buf[1][i];
-            }
+        private static byte[] vgmBuf = null;
+        private static uint vgmPcmPtr;
+        private static uint vgmPcmBaseAdr;
+        private static uint vgmAdr;
+        private static int vgmWait;
+        private static double vgmSpeed;
+        private static double vgmSpeedCounter;
+        private static uint vgmEof;
+        private static bool vgmAnalyze;
+        private static vgmStream[] vgmStreams = new vgmStream[0x100];
+        private static long vgmCounter = 0;
+        private static long vgmTotalCounter = 0;
+        private static long vgmLoopCounter = 0;
+        private static long vgmDataOffset = 0;
+        private static long vgmLoopOffset = 0;
 
 
-            Marshal.Copy(frames, 0, stream, len / 2);
-        }
 
         public static void SetVGMBuffer(byte[] srcBuf)
         {
             Stop();
-            for (int i = 0; i < 10; i++)
-            {
-                System.Threading.Thread.Sleep(1);
-                System.Windows.Forms.Application.DoEvents();
-            }
             vgmBuf = srcBuf;
         }
 
@@ -82,6 +64,8 @@ namespace MDPlayer
             {
 
                 if (vgmBuf == null) return false;
+
+                Stop();
 
                 //ヘッダーを読み込めるサイズをもっているかチェック
                 if (vgmBuf.Length < 0x40) return false;
@@ -107,9 +91,10 @@ namespace MDPlayer
                 vgmTotalCounter = getLE32(0x18);
                 if (vgmTotalCounter <= 0) return false;
 
-                vgmLoopSamples = getLE32(0x20);
+                vgmLoopOffset = getLE32(0x1c);
+                vgmLoopCounter = getLE32(0x20);
 
-                uint vgmDataOffset = getLE32(0x34);
+                vgmDataOffset = getLE32(0x34);
                 if (vgmDataOffset == 0)
                 {
                     vgmDataOffset = 0x40;
@@ -119,16 +104,18 @@ namespace MDPlayer
                     vgmDataOffset += 0x34;
                 }
 
-                vgmAdr = vgmDataOffset;
+                vgmAdr = (uint)vgmDataOffset;
                 vgmWait = 0;
                 vgmAnalyze = true;
                 vgmCounter = 0;
+                vgmSpeed = 1;
+                vgmSpeedCounter = 0;
 
                 mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
                 sdlCbHandle = GCHandle.Alloc(sdlCb);
                 sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
-                sdl = new SdlDotNet.Audio.AudioStream(SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+                sdl = new AudioStream(SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
                 sdl.Paused = false;
 
                 return true;
@@ -136,6 +123,25 @@ namespace MDPlayer
             catch
             {
                 return false;
+            }
+
+        }
+
+        public static void FF()
+        {
+            vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
+        }
+
+        public static void Pause()
+        {
+            if (sdl == null) return;
+
+            try
+            {
+                    sdl.Paused = !sdl.Paused;
+            }
+            catch
+            {
             }
 
         }
@@ -148,6 +154,7 @@ namespace MDPlayer
                 if (sdl != null)
                 {
                     sdl.Paused = true;
+                    sdl.Close();
                     sdl.Dispose();
                     sdl = null;
                 }
@@ -186,6 +193,11 @@ namespace MDPlayer
             return vgmTotalCounter;
         }
 
+        public static long GetLoopCounter()
+        {
+            return vgmLoopCounter;
+        }
+
         public static int[][] GetFMVolume()
         {
             return mds.ReadFMVolume();
@@ -211,6 +223,40 @@ namespace MDPlayer
             mds.resetPSGMask(1 << ch);
         }
 
+
+
+        internal static void callback(IntPtr userData, IntPtr stream, int len)
+        {
+            int i;
+
+            int[][] buf = mds.Update2(oneFrameVGMWithSpeedControl);
+
+            for (i = 0; i < len / 4; i++)
+            {
+                frames[i * 2 + 0] = (short)buf[0][i];
+                frames[i * 2 + 1] = (short)buf[1][i];
+            }
+
+
+            Marshal.Copy(frames, 0, stream, len / 2);
+        }
+
+        private static void oneFrameVGMWithSpeedControl()
+        {
+            try {
+                vgmSpeedCounter += vgmSpeed;
+                while (vgmSpeedCounter >= 1.0)
+                {
+                    vgmSpeedCounter -= 1.0;
+                    oneFrameVGM();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         private static void oneFrameVGM()
         {
 
@@ -228,179 +274,211 @@ namespace MDPlayer
                 return;
             }
 
-            byte p = 0;
-            byte si = 0;
-            byte rAdr = 0;
-            byte rDat = 0;
-
             while (vgmWait <= 0)
             {
                 if (vgmAdr == vgmBuf.Length || vgmAdr == vgmEof)
                 {
-                    vgmAnalyze = false;
-                    return;
+                    if (vgmLoopCounter != 0)
+                    {
+                        //vgmAdr = (uint)(vgmDataOffset + vgmLoopOffset);
+                        vgmAdr = (uint)(vgmLoopOffset + 0x1c);
+                        vgmPcmPtr = 0;
+                        vgmCounter = 0;
+                    }
+                    else
+                    {
+                        vgmAnalyze = false;
+                        return;
+                    }
                 }
 
                 byte cmd = vgmBuf[vgmAdr];
-                switch (cmd)
-                {
-                    case 0x4f: //GG PSG
-                    case 0x50: //PSG
-                        mds.WritePSG(vgmBuf[vgmAdr + 1]);
-                        vgmAdr += 2;
-                        break;
-                    case 0x52: //YM2612 Port0
-                    case 0x53: //YM2612 Port1
-                        p = (byte)((cmd == 0x52) ? 0 : 1);
-                        rAdr = vgmBuf[vgmAdr + 1];
-                        rDat = vgmBuf[vgmAdr + 2];
-                        vgmAdr += 3;
-                        mds.WriteFM(p, rAdr, rDat);
-
-                        break;
-                    case 0x55: //YM2203
-                        vgmAdr += 3;
-
-                        break;
-                    case 0x61: //Wait n samples
-                        vgmAdr++;
-                        vgmWait += (int)getLE16(vgmAdr);
-                        vgmAdr += 2;
-                        break;
-                    case 0x62: //Wait 735 samples
-                        vgmAdr++;
-                        vgmWait += 735;
-                        break;
-                    case 0x63: //Wait 882 samples
-                        vgmAdr++;
-                        vgmWait += 882;
-                        break;
-                    case 0x64: //override length of 0x62/0x63
-                        vgmAdr += 4;
-                        break;
-                    case 0x66: //end of sound data
-                        vgmAdr = (uint)vgmBuf.Length;
-                        break;
-                    case 0x67: //data block
-                        vgmPcmBaseAdr = vgmAdr + 7;
-                        vgmAdr += getLE32(vgmAdr + 3) + 7;
-                        break;
-                    case 0x70: //Wait 1 sample
-                    case 0x71: //Wait 2 sample
-                    case 0x72: //Wait 3 sample
-                    case 0x73: //Wait 4 sample
-                    case 0x74: //Wait 5 sample
-                    case 0x75: //Wait 6 sample
-                    case 0x76: //Wait 7 sample
-                    case 0x77: //Wait 8 sample
-                    case 0x78: //Wait 9 sample
-                    case 0x79: //Wait 10 sample
-                    case 0x7a: //Wait 11 sample
-                    case 0x7b: //Wait 12 sample
-                    case 0x7c: //Wait 13 sample
-                    case 0x7d: //Wait 14 sample
-                    case 0x7e: //Wait 15 sample
-                    case 0x7f: //Wait 16 sample
-                        vgmWait += (int)(cmd - 0x6f);
-                        vgmAdr++;
-                        break;
-                    case 0x80: //Write adr2A and Wait 0 sample
-                    case 0x81: //Write adr2A and Wait 1 sample
-                    case 0x82: //Write adr2A and Wait 2 sample
-                    case 0x83: //Write adr2A and Wait 3 sample
-                    case 0x84: //Write adr2A and Wait 4 sample
-                    case 0x85: //Write adr2A and Wait 5 sample
-                    case 0x86: //Write adr2A and Wait 6 sample
-                    case 0x87: //Write adr2A and Wait 7 sample
-                    case 0x88: //Write adr2A and Wait 8 sample
-                    case 0x89: //Write adr2A and Wait 9 sample
-                    case 0x8a: //Write adr2A and Wait 10 sample
-                    case 0x8b: //Write adr2A and Wait 11 sample
-                    case 0x8c: //Write adr2A and Wait 12 sample
-                    case 0x8d: //Write adr2A and Wait 13 sample
-                    case 0x8e: //Write adr2A and Wait 14 sample
-                    case 0x8f: //Write adr2A and Wait 15 sample
-                        mds.WriteFM(0, 0x2a, vgmBuf[vgmPcmPtr++]);
-                        vgmWait += (int)(cmd - 0x80);
-                        vgmAdr++;
-                        break;
-                    case 0x90:
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].chipId = vgmBuf[vgmAdr++];
-                        vgmStreams[si].port = vgmBuf[vgmAdr++];
-                        vgmStreams[si].cmd = vgmBuf[vgmAdr++];
-                        break;
-                    case 0x91:
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].databankId = vgmBuf[vgmAdr++];
-                        vgmStreams[si].stepsize = vgmBuf[vgmAdr++];
-                        vgmStreams[si].stepbase = vgmBuf[vgmAdr++];
-                        break;
-                    case 0x92:
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].frequency = getLE32(vgmAdr);
-                        vgmAdr += 4;
-                        break;
-                    case 0x93:
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].dataStartOffset = getLE32(vgmAdr);
-                        vgmAdr += 4;
-                        vgmStreams[si].lengthMode = vgmBuf[vgmAdr++];//用途がいまいちわかってません
-                        vgmStreams[si].dataLength = getLE32(vgmAdr);
-                        vgmAdr += 4;
-
-                        vgmStreams[si].sw = true;
-                        vgmStreams[si].wkDataAdr = vgmStreams[si].dataStartOffset;
-                        vgmStreams[si].wkDataLen = vgmStreams[si].dataLength;
-                        vgmStreams[si].wkDataStep = 1.0;
-
-                        break;
-                    case 0x94:
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].sw = false;
-                        break;
-                    case 0x95:
-                        //使い方がいまいちわかってません
-                        vgmAdr++;
-                        si = vgmBuf[vgmAdr++];
-                        vgmStreams[si].blockId = getLE16(vgmAdr);
-                        vgmAdr += 2;
-                        p = vgmBuf[vgmAdr++];
-                        if ((p & 1) > 0)
-                        {
-                            vgmStreams[si].lengthMode |= 0x80;
-                        }
-                        if ((p & 16) > 0)
-                        {
-                            vgmStreams[si].lengthMode |= 0x10;
-                        }
-
-                        vgmStreams[si].sw = true;
-                        vgmStreams[si].wkDataAdr = vgmStreams[si].dataStartOffset;
-                        vgmStreams[si].wkDataLen = vgmStreams[si].dataLength;
-                        vgmStreams[si].wkDataStep = 1.0;
-
-                        break;
-                    case 0xe0: //seek to offset in PCM data bank
-                        vgmPcmPtr = getLE32(vgmAdr + 1) + vgmPcmBaseAdr;
-                        vgmAdr += 5;
-                        break;
-                    default:
-                        //わからんコマンド
-                        Console.WriteLine("{0:X}", vgmBuf[vgmAdr]);
-                        return;
-                }
+                VGMCommander(cmd);
             }
 
             oneFrameVGMStream();
             vgmWait--;
             vgmCounter++;
 
+        }
+
+        private static void VGMCommander(byte cmd)
+        {
+            byte p = 0;
+            byte si = 0;
+            byte rAdr = 0;
+            byte rDat = 0;
+
+            switch (cmd)
+            {
+                case 0x4f: //GG PSG
+                case 0x50: //PSG
+                    mds.WritePSG(vgmBuf[vgmAdr + 1]);
+                    vgmAdr += 2;
+                    break;
+
+                case 0x52: //YM2612 Port0
+                case 0x53: //YM2612 Port1
+                    p = (byte)((cmd == 0x52) ? 0 : 1);
+                    rAdr = vgmBuf[vgmAdr + 1];
+                    rDat = vgmBuf[vgmAdr + 2];
+                    vgmAdr += 3;
+                    mds.WriteFM(p, rAdr, rDat);
+                    break;
+
+                case 0x55: //YM2203
+                    vgmAdr += 3;
+                    break;
+
+                case 0x61: //Wait n samples
+                    vgmAdr++;
+                    vgmWait += (int)getLE16(vgmAdr);
+                    vgmAdr += 2;
+                    break;
+
+                case 0x62: //Wait 735 samples
+                    vgmAdr++;
+                    vgmWait += 735;
+                    break;
+
+                case 0x63: //Wait 882 samples
+                    vgmAdr++;
+                    vgmWait += 882;
+                    break;
+
+                case 0x64: //override length of 0x62/0x63
+                    vgmAdr += 4;
+                    break;
+
+                case 0x66: //end of sound data
+                    vgmAdr = (uint)vgmBuf.Length;
+                    break;
+
+                case 0x67: //data block
+                    vgmPcmBaseAdr = vgmAdr + 7;
+                    vgmAdr += getLE32(vgmAdr + 3) + 7;
+                    break;
+
+                case 0x70: //Wait 1 sample
+                case 0x71: //Wait 2 sample
+                case 0x72: //Wait 3 sample
+                case 0x73: //Wait 4 sample
+                case 0x74: //Wait 5 sample
+                case 0x75: //Wait 6 sample
+                case 0x76: //Wait 7 sample
+                case 0x77: //Wait 8 sample
+                case 0x78: //Wait 9 sample
+                case 0x79: //Wait 10 sample
+                case 0x7a: //Wait 11 sample
+                case 0x7b: //Wait 12 sample
+                case 0x7c: //Wait 13 sample
+                case 0x7d: //Wait 14 sample
+                case 0x7e: //Wait 15 sample
+                case 0x7f: //Wait 16 sample
+                    vgmWait += (int)(cmd - 0x6f);
+                    vgmAdr++;
+                    break;
+
+                case 0x80: //Write adr2A and Wait 0 sample
+                case 0x81: //Write adr2A and Wait 1 sample
+                case 0x82: //Write adr2A and Wait 2 sample
+                case 0x83: //Write adr2A and Wait 3 sample
+                case 0x84: //Write adr2A and Wait 4 sample
+                case 0x85: //Write adr2A and Wait 5 sample
+                case 0x86: //Write adr2A and Wait 6 sample
+                case 0x87: //Write adr2A and Wait 7 sample
+                case 0x88: //Write adr2A and Wait 8 sample
+                case 0x89: //Write adr2A and Wait 9 sample
+                case 0x8a: //Write adr2A and Wait 10 sample
+                case 0x8b: //Write adr2A and Wait 11 sample
+                case 0x8c: //Write adr2A and Wait 12 sample
+                case 0x8d: //Write adr2A and Wait 13 sample
+                case 0x8e: //Write adr2A and Wait 14 sample
+                case 0x8f: //Write adr2A and Wait 15 sample
+                    mds.WriteFM(0, 0x2a, vgmBuf[vgmPcmPtr++]);
+                    vgmWait += (int)(cmd - 0x80);
+                    vgmAdr++;
+                    break;
+
+                case 0x90:
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].chipId = vgmBuf[vgmAdr++];
+                    vgmStreams[si].port = vgmBuf[vgmAdr++];
+                    vgmStreams[si].cmd = vgmBuf[vgmAdr++];
+                    break;
+
+                case 0x91:
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].databankId = vgmBuf[vgmAdr++];
+                    vgmStreams[si].stepsize = vgmBuf[vgmAdr++];
+                    vgmStreams[si].stepbase = vgmBuf[vgmAdr++];
+                    break;
+
+                case 0x92:
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].frequency = getLE32(vgmAdr);
+                    vgmAdr += 4;
+                    break;
+
+                case 0x93:
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].dataStartOffset = getLE32(vgmAdr);
+                    vgmAdr += 4;
+                    vgmStreams[si].lengthMode = vgmBuf[vgmAdr++];//用途がいまいちわかってません
+                    vgmStreams[si].dataLength = getLE32(vgmAdr);
+                    vgmAdr += 4;
+
+                    vgmStreams[si].sw = true;
+                    vgmStreams[si].wkDataAdr = vgmStreams[si].dataStartOffset;
+                    vgmStreams[si].wkDataLen = vgmStreams[si].dataLength;
+                    vgmStreams[si].wkDataStep = 1.0;
+
+                    break;
+
+                case 0x94:
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].sw = false;
+                    break;
+
+                case 0x95:
+                    //使い方がいまいちわかってません
+                    vgmAdr++;
+                    si = vgmBuf[vgmAdr++];
+                    vgmStreams[si].blockId = getLE16(vgmAdr);
+                    vgmAdr += 2;
+                    p = vgmBuf[vgmAdr++];
+                    if ((p & 1) > 0)
+                    {
+                        vgmStreams[si].lengthMode |= 0x80;
+                    }
+                    if ((p & 16) > 0)
+                    {
+                        vgmStreams[si].lengthMode |= 0x10;
+                    }
+
+                    vgmStreams[si].sw = true;
+                    vgmStreams[si].wkDataAdr = vgmStreams[si].dataStartOffset;
+                    vgmStreams[si].wkDataLen = vgmStreams[si].dataLength;
+                    vgmStreams[si].wkDataStep = 1.0;
+
+                    break;
+
+                case 0xe0: //seek to offset in PCM data bank
+                    vgmPcmPtr = getLE32(vgmAdr + 1) + vgmPcmBaseAdr;
+                    vgmAdr += 5;
+                    break;
+
+                default:
+                    //わからんコマンド
+                    Console.WriteLine("{0:X}", vgmBuf[vgmAdr++]);
+                    break;
+
+            }
         }
 
         private static void oneFrameVGMStream()
@@ -427,7 +505,6 @@ namespace MDPlayer
 
             }
         }
-
 
 
         private struct vgmStream
