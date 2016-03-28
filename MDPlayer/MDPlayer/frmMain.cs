@@ -85,6 +85,25 @@ namespace MDPlayer
         {
             System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
             trd.Start();
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length < 2)
+            {
+                return;
+            }
+
+            try
+            {
+
+                srcBuf = getAllBytes(args[1]);
+                Audio.SetVGMBuffer(srcBuf);
+                play();
+
+            }
+            catch
+            {
+                MessageBox.Show("ファイルの読み込みに失敗しました。");
+            }
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -265,8 +284,8 @@ namespace MDPlayer
                     newParam.ym2612.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
                 }
                 newParam.ym2612.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
-                newParam.ym2612.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38 >> 3);//FB
-                newParam.ym2612.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38 >> 3);//AMS
+                newParam.ym2612.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
+                newParam.ym2612.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 3;//AMS
                 newParam.ym2612.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
 
                 newParam.ym2612.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;

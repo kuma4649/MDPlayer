@@ -50,7 +50,6 @@ namespace MDPlayer
         private static long vgmLoopOffset = 0;
 
 
-
         public static void SetVGMBuffer(byte[] srcBuf)
         {
             Stop();
@@ -113,10 +112,10 @@ namespace MDPlayer
 
                 mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
 
-                sdlCbHandle = GCHandle.Alloc(sdlCb);
-                sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
-                sdl = new AudioStream(SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
-                sdl.Paused = false;
+                    sdlCbHandle = GCHandle.Alloc(sdlCb);
+                    sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
+                    sdl = new AudioStream(SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+                    sdl.Paused = false;
 
                 return true;
             }
@@ -153,10 +152,10 @@ namespace MDPlayer
             {
                 if (sdl != null)
                 {
-                    sdl.Paused = true;
-                    sdl.Close();
-                    sdl.Dispose();
-                    sdl = null;
+                        sdl.Paused = true;
+                        sdl.Close();
+                        sdl.Dispose();
+                        sdl = null;
                 }
             }
             catch
@@ -237,7 +236,6 @@ namespace MDPlayer
                 frames[i * 2 + 1] = (short)buf[1][i];
             }
 
-
             Marshal.Copy(frames, 0, stream, len / 2);
         }
 
@@ -259,6 +257,10 @@ namespace MDPlayer
 
         private static void oneFrameVGM()
         {
+            if (sdl==null || sdl.Paused)
+            {
+                return;
+            }
 
             if (vgmWait > 0)
             {
