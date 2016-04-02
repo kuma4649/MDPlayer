@@ -19,11 +19,18 @@ namespace MDPlayer
         private int pWidth = 0;
         private int pHeight = 0;
 
+        private frmInfo frmInfo = null;
+
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
         private int[] oldButton = new int[6];
         private int[] newButton = new int[6];
+
+        private bool isStandup = false;
+        private int[] oldButtonY = new int[6];
+        private int[] newButtonY = new int[6];
+        private int wid = 0;
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -37,6 +44,7 @@ namespace MDPlayer
         };
 
         private int[] PsgFNum = new int[] {
+            0x6ae,0x64e,0x5f4,0x59e,0x54e,0x502,0x4ba,0x476,0x436,0x3f8,0x3c0,0x38a, // 0
             0x357,0x327,0x2fa,0x2cf,0x2a7,0x281,0x25d,0x23b,0x21b,0x1fc,0x1e0,0x1c5, // 1
             0x1ac,0x194,0x17d,0x168,0x153,0x140,0x12e,0x11d,0x10d,0x0fe,0x0f0,0x0e3, // 2
             0x0d6,0x0ca,0x0be,0x0b4,0x0aa,0x0a0,0x097,0x08f,0x087,0x07f,0x078,0x071, // 3
@@ -122,6 +130,7 @@ namespace MDPlayer
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
         {
+            isStandup = true;
             if (e.Location.Y < 208)
             {
                 newButton[0] = 0;
@@ -149,6 +158,11 @@ namespace MDPlayer
 
         }
 
+        private void pbScreen_MouseEnter(object sender, EventArgs e)
+        {
+            isStandup = true;
+        }
+
         private void pbScreen_MouseLeave(object sender, EventArgs e)
         {
             newButton[0] = 0;
@@ -156,38 +170,72 @@ namespace MDPlayer
             newButton[2] = 0;
             newButton[3] = 0;
             newButton[4] = 0;
+            isStandup = false;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Location.Y < 208)
             {
-                int ch = (e.Location.Y / 8)-1;
-                if (ch < 0) return;
-                if (ch >= 0 && ch < 6)
+                if (e.Button == MouseButtons.Left)
                 {
-                    if (!newParam.ym2612.channels[ch].mask)
+                    int ch = (e.Location.Y / 8) - 1;
+                    if (ch < 0) return;
+                    if (ch >= 0 && ch < 6)
                     {
-                        Audio.setFMMask(ch);
+                        if (!newParam.ym2612.channels[ch].mask)
+                        {
+                            Audio.setFMMask(ch);
 
+                        }
+                        else
+                        {
+                            Audio.resetFMMask(ch);
+                        }
+                        newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
                     }
-                    else
+                    else if (ch < 10)
                     {
-                        Audio.resetFMMask(ch);
+                        if (!newParam.sn76489.channels[ch - 6].mask)
+                        {
+                            Audio.setPSGMask(ch - 6);
+
+                        }
+                        else
+                        {
+                            Audio.resetPSGMask(ch - 6);
+                        }
+                        newParam.sn76489.channels[ch - 6].mask = !newParam.sn76489.channels[ch - 6].mask;
                     }
-                    newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
-                }else if (ch < 10)
+                    else if (ch < 13)
+                    {
+                        if (!newParam.ym2612.channels[2].mask)
+                        {
+                            Audio.setFMMask(2);
+
+                        }
+                        else
+                        {
+                            Audio.resetFMMask(2);
+                        }
+                        newParam.ym2612.channels[2].mask = !newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
+                    }
+                }
+                else if (e.Button == MouseButtons.Right)
                 {
-                    if (!newParam.sn76489.channels[ch-6].mask)
+                    for (int ch = 0; ch < 9; ch++)
                     {
-                        Audio.setPSGMask(ch-6);
-
+                        newParam.ym2612.channels[ch].mask = false;
+                        if (ch < 6) Audio.resetFMMask(ch);
                     }
-                    else
+                    for (int ch = 0; ch < 4; ch++)
                     {
-                        Audio.resetPSGMask(ch-6);
+                        newParam.sn76489.channels[ch].mask = false;
+                        Audio.resetPSGMask(ch);
                     }
-                    newParam.sn76489.channels[ch-6].mask = !newParam.sn76489.channels[ch-6].mask;
                 }
 
                 return;
@@ -264,8 +312,11 @@ namespace MDPlayer
         {
             int[][] fmRegister = Audio.GetFMRegister();
             int[][] fmVol = Audio.GetFMVolume();
+            int[] fmCh3SlotVol = Audio.GetFMCh3SlotVolume();
             int[] fmKey = Audio.GetFMKeyOn();
             int[][] psgVol = Audio.GetPSGVolume();
+
+            bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
 
             for (int ch = 0; ch < 6; ch++)
             {
@@ -293,15 +344,53 @@ namespace MDPlayer
 
                 newParam.ym2612.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
 
-                int freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
-                int octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+                int freq = 0;
+                int octav = 0;
                 int n = -1;
-                if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                if (ch != 2 || !isFmEx)
+                {
+                    freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
+                    octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+
+                    if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
+                    newParam.ym2612.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+                }
+                else
+                {
+                    freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
+                    octav = (fmRegister[0][0xad] & 0x38) >> 3;
+
+                    if ((fmKey[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    newParam.ym2612.channels[2].volumeL = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
+                    newParam.ym2612.channels[2].volumeR = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
+                }
                 newParam.ym2612.channels[ch].note = n;
 
-                newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
-                newParam.ym2612.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
 
+            }
+
+            for (int ch = 6; ch < 9; ch++)
+            {
+                int[] exReg = new int[3] { 2, 0, -6 };
+                int c = exReg[ch - 6];
+
+                newParam.ym2612.channels[ch].pan = 0;
+
+                if (isFmEx)
+                {
+                    int freq = fmRegister[0][0xa8 + c] + (fmRegister[0][0xac + c] & 0x07) * 0x100;
+                    int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
+                    int n = -1;
+                    if ((fmKey[2] & (0x20 << (ch-6)) ) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    newParam.ym2612.channels[ch].note = n;
+                    newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmCh3SlotVol[ch - 5] / 80, 0), 19);
+                }
+                else
+                {
+                    newParam.ym2612.channels[ch].note = -1;
+                    newParam.ym2612.channels[ch].volumeL = 0;
+                }
             }
 
             newParam.ym2612.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
@@ -344,16 +433,36 @@ namespace MDPlayer
             newParam.LCsecond = (int)sec;
             sec -= newParam.LCsecond;
             newParam.LCmillisecond = (int)(sec * 100.0);
+
+            if (isStandup)
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    newButtonY[c]--;
+                    newButtonY[c] = Math.Max(newButtonY[c], 0);
+                }
+            }
+            else
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    newButtonY[c]++;
+                    newButtonY[c] = Math.Min(newButtonY[c], 16);
+                }
+            }
         }
 
         private void screenDrawParams()
         {
             // 描画
             screen.drawParams(oldParam, newParam);
-            screen.drawButtons(oldButton, newButton);
+
+            screen.drawButtons(oldButtonY,newButtonY,oldButton, newButton);
+
             screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+
             screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode, ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask);
             for (int ch = 0; ch < 5; ch++)
             {
@@ -363,7 +472,13 @@ namespace MDPlayer
             {
                 screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask);
             }
+            for (int ch = 0; ch < 3; ch++)
+            {
+                screen.drawCh(ch+10, ref oldParam.ym2612.channels[ch+6].mask, newParam.ym2612.channels[ch+6].mask);
+            }
+
             screen.Refresh();
+
         }
 
         private int searchFMNote(int freq)
@@ -386,7 +501,7 @@ namespace MDPlayer
         {
             int m = int.MaxValue;
             int n = 0;
-            for (int i = 0; i < 12 * 7; i++)
+            for (int i = 0; i < 12 * 8; i++)
             {
                 int a = Math.Abs(freq - PsgFNum[i]);
                 if (m > a)
@@ -426,6 +541,7 @@ namespace MDPlayer
             if (!Audio.Play())
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             if (Audio.vgmTrackNameJ != "")
@@ -433,6 +549,19 @@ namespace MDPlayer
             else
                 lblTitle.Text = Audio.vgmTrackName;
 
+            if (frmInfo != null && frmInfo.isClosed)
+            {
+                frmInfo.Dispose();
+                frmInfo = null;
+            }
+            if (frmInfo == null)
+            {
+                frmInfo = new frmInfo();
+                frmInfo.x = this.Location.X+328;
+                frmInfo.y = this.Location.Y;
+                frmInfo.Show();
+            }
+            frmInfo.update();
         }
 
         private void ff()
@@ -529,5 +658,6 @@ namespace MDPlayer
 
             return outStream.ToArray();
         }
+
     }
 }

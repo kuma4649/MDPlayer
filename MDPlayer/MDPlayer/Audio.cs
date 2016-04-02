@@ -14,11 +14,15 @@ namespace MDPlayer
         public static string vgmGameNameJ = "";
         public static string vgmSystemName = "";
         public static string vgmSystemNameJ = "";
-        public static string vgmOriginalTrackAuthor = "";
-        public static string vgmReleaseDate = "";
+        public static string vgmComposer = "";
+        public static string vgmComposerJ = "";
         public static string vgmConverted = "";
+        public static string vgmVGMBy = "";
         public static string vgmNotes = "";
+        public static string vgmVersion = "";
+        public static string vgmUsedChips = "";
 
+        private static List<string> chips = null;
 
         private static int SamplingRate = 44100;
         private static int PSGClockValue = 3579545;
@@ -68,6 +72,8 @@ namespace MDPlayer
 
                 Stop();
 
+                chips = new List<string>();
+
                 //ヘッダーを読み込めるサイズをもっているかチェック
                 if (vgmBuf.Length < 0x40) return false;
 
@@ -76,10 +82,17 @@ namespace MDPlayer
                 uint vgm = getLE32(0x00);
                 if (vgm != 0x206d6756) return false;
 
+                vgmEof = getLE32(0x04);
+
                 uint version = getLE32(0x08);
                 if (version < 0x0150) return false;
+                vgmVersion = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
-                vgmEof = getLE32(0x04);
+                uint SN76489clock = getLE32(0x0c);
+                if (SN76489clock != 0) chips.Add("SN76489");
+
+                uint YM2413clock = getLE32(0x10);
+                if (YM2413clock != 0) chips.Add("YM2413");
 
                 uint vgmGd3 = getLE32(0x14);
                 if (vgmGd3 != 0)
@@ -93,7 +106,14 @@ namespace MDPlayer
                 if (vgmTotalCounter <= 0) return false;
 
                 vgmLoopOffset = getLE32(0x1c);
+
                 vgmLoopCounter = getLE32(0x20);
+
+                uint YM2612clock = getLE32(0x2c);
+                if (YM2612clock != 0) chips.Add("YM2612");
+
+                uint YM2151clock = getLE32(0x30);
+                if (YM2151clock != 0) chips.Add("YM2151");
 
                 vgmDataOffset = getLE32(0x34);
                 if (vgmDataOffset == 0)
@@ -103,6 +123,65 @@ namespace MDPlayer
                 else
                 {
                     vgmDataOffset += 0x34;
+                }
+
+                if (version >= 0x0151)
+                {
+                    uint SegaPCMclock = getLE32(0x38);
+                    if (SegaPCMclock != 0) chips.Add("Sega PCM");
+
+                    uint RF5C68clock = getLE32(0x40);
+                    if (RF5C68clock != 0) chips.Add("RF5C68");
+
+                    uint YM2203clock = getLE32(0x44);
+                    if (YM2203clock != 0) chips.Add("YM2203");
+
+                    uint YM2608clock = getLE32(0x48);
+                    if (YM2608clock != 0) chips.Add("YM2608");
+
+                    uint YM2610Bclock = getLE32(0x4c);
+                    if (YM2610Bclock != 0) chips.Add("YM2610/B");
+
+                    uint YM3812clock = getLE32(0x50);
+                    if (YM3812clock != 0) chips.Add("YM3812");
+
+                    uint YM3526clock = getLE32(0x54);
+                    if (YM3526clock != 0) chips.Add("YM3526");
+
+                    uint Y8950clock = getLE32(0x58);
+                    if (Y8950clock != 0) chips.Add("Y8950");
+
+                    uint YMF262clock = getLE32(0x5c);
+                    if (YMF262clock != 0) chips.Add("YMF262");
+
+                    uint YMF278Bclock = getLE32(0x60);
+                    if (YMF278Bclock != 0) chips.Add("YMF278B");
+
+                    uint YMF271clock = getLE32(0x64);
+                    if (YMF271clock != 0) chips.Add("YMF271");
+
+                    uint YMZ280Bclock = getLE32(0x68);
+                    if (YMZ280Bclock != 0) chips.Add("YMZ280B");
+
+                    uint RF5C164clock = getLE32(0x6c);
+                    if (RF5C164clock != 0) chips.Add("RF5C164");
+
+                    uint PWMclock = getLE32(0x70);
+                    if (PWMclock != 0) chips.Add("PWM");
+
+                    uint AY8910clock = getLE32(0x74);
+                    if (AY8910clock != 0) chips.Add("AY8910");
+
+                }
+
+                vgmUsedChips = "";
+                foreach (string chip in chips)
+                {
+                    vgmUsedChips += chip + " , ";
+                }
+                if (vgmUsedChips.Length > 2)
+                {
+                    vgmUsedChips = vgmUsedChips.Substring(0, vgmUsedChips.Length - 3);
                 }
 
                 vgmAdr = (uint)vgmDataOffset;
@@ -221,6 +300,11 @@ namespace MDPlayer
         public static int[][] GetFMVolume()
         {
             return mds.ReadFMVolume();
+        }
+
+        public static int[] GetFMCh3SlotVolume()
+        {
+            return mds.ReadFMCh3SlotVolume();
         }
 
         public static int[][] GetPSGVolume()
@@ -663,31 +747,34 @@ namespace MDPlayer
             vgmGameNameJ = "";
             vgmSystemName = "";
             vgmSystemNameJ = "";
-            vgmOriginalTrackAuthor = "";
-            vgmReleaseDate = "";
+            vgmComposer = "";
+            vgmComposerJ = "";
             vgmConverted = "";
+            vgmVGMBy = "";
             vgmNotes = "";
 
             try
             {
                 //trackName
                 vgmTrackName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
-                //trackName
+                //trackNameJ
                 vgmTrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
                 //gameName
                 vgmGameName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
-                //gameName
+                //gameNameJ
                 vgmGameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
                 //systemName
                 vgmSystemName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
-                //systemName
+                //systemNameJ
                 vgmSystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
-                //OriginalTrackAuthor
-                vgmOriginalTrackAuthor = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
-                //ReleaseDate
-                vgmReleaseDate = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                //Composer
+                vgmComposer = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                //ComposerJ
+                vgmComposerJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
                 //Converted
                 vgmConverted = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                //VGMBy
+                vgmVGMBy = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
                 //Notes
                 vgmNotes = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
             }

@@ -109,6 +109,14 @@ namespace MDPlayer
             {
                 for (int j = 0; j < imgWidth * 4; j++)
                 {
+                    if (adr1 + j >= planeBuf.Length)
+                    {
+                        continue;
+                    }
+                    if (adr2 + j >= src.Length)
+                    {
+                        continue;
+                    }
                     planeBuf[adr1 + j] = src[adr2 + j];
                 }
 
@@ -264,6 +272,11 @@ namespace MDPlayer
             {
                 drawByteArray(x, y, fontBuf, 128, 96, 120 - (mask ? 24 : 0), 16, 8);
                 drawFont8(x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+            else if (ch < 13)
+            {
+                drawByteArray(x, y, fontBuf, 128,112, 120 - (mask ? 24 : 0), 16, 8);
+                drawFont8(x + 16, y, mask ? 1 : 0, (1 + ch - 10).ToString());
             }
         }
 
@@ -506,15 +519,17 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public void drawButton(int c, ref int ot, int nt)
+        public void drawButton(ref int oy, int ny,int c, ref int ot, int nt)
         {
-            if (ot == nt)
+            if (ot == nt && oy==ny)
             {
                 return;
             }
-
-            drawButtonP(224 + c * 16, 208, nt * 6+c);
+            drawFont8(224 + c * 16, 208, 0, "  ");
+            drawFont8(224 + c * 16, 216, 0, "  ");
+            drawButtonP(224 + c * 16, 208+ny, nt * 6+c);
             ot = nt;
+            oy = ny;
         }
 
         public void drawKb(int y, ref int ot, int nt)
@@ -629,8 +644,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    drawVolume(c + 4, 1, ref oyc.volumeL, nyc.volumeL);
-                    drawVolume(c + 4, 2, ref oyc.volumeR, nyc.volumeR);
+                    drawVolume(c + 4, 0, ref oyc.volumeL, nyc.volumeL);
                     drawKb(c + 4, ref oyc.note, nyc.note);
                 }
 
@@ -649,12 +663,12 @@ namespace MDPlayer
 
         }
 
-        public void drawButtons(int[] oldButton, int[] newButton)
+        public void drawButtons(int[] oldButtonY,int[] newButtonY,int[] oldButton, int[] newButton)
         { 
 
-            for(int i = 0; i < 6; i++)
+            for(int i = 0; i < 5; i++)
             {
-                drawButton(i, ref oldButton[i], newButton[i]);
+                drawButton(ref oldButtonY[i], newButtonY[i],i, ref oldButton[i], newButton[i]);
             }
 
         }
