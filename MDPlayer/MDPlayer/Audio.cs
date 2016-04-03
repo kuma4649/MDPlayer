@@ -24,13 +24,14 @@ namespace MDPlayer
 
         private static List<string> chips = null;
 
-        private static int SamplingRate = 44100;
-        private static int PSGClockValue = 3579545;
-        private static int FMClockValue = 7670454;
+        private static uint SamplingRate = 44100;
+        private static uint PSGClockValue = 3579545;
+        private static uint FMClockValue = 7670454;
+        private static uint rf5c164ClockValue = 12500000;
 
-        private static int samplingBuffer = 1024;
+        private static uint samplingBuffer = 1024;
         private static short[] frames = new short[samplingBuffer * 2];
-        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
+        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue);
 
         private static AudioStream sdl;
         private static AudioCallback sdlCb = new AudioCallback(callback);
@@ -39,8 +40,16 @@ namespace MDPlayer
 
         private static byte[] vgmBuf = null;
         private static uint vgmPcmPtr;
-        private static uint[] vgmPcmBaseAdr = new uint[0x100];
-        private static int[] vgmPcmBaseLength = new int[0x100];
+
+        private static uint[] vgmYM2612PcmBaseAdr = new uint[0x100];
+        private static byte[] vgmYM2612PcmBaseType = new byte[0x100];
+        private static int[] vgmYM2612PcmBaseLength = new int[0x100];
+        private static int vgmYM2612DataBlockCounter = 0;
+
+        private static uint vgmRF5C164PcmBaseAdr = 0;
+        private static byte vgmRF5C164PcmBaseType = 0;
+        private static int vgmRF5C164PcmBaseLength = 0;
+
         private static uint vgmAdr;
         private static int vgmWait;
         private static double vgmSpeed;
@@ -53,7 +62,6 @@ namespace MDPlayer
         private static long vgmLoopCounter = 0;
         private static long vgmDataOffset = 0;
         private static long vgmLoopOffset = 0;
-        private static int vgmDataBlockCounter=0;
 
 
         public static void SetVGMBuffer(byte[] srcBuf)
@@ -165,6 +173,7 @@ namespace MDPlayer
 
                     uint RF5C164clock = getLE32(0x6c);
                     if (RF5C164clock != 0) chips.Add("RF5C164");
+                    rf5c164ClockValue = RF5C164clock;
 
                     uint PWMclock = getLE32(0x70);
                     if (PWMclock != 0) chips.Add("PWM");
@@ -190,7 +199,7 @@ namespace MDPlayer
                 vgmCounter = 0;
                 vgmSpeed = 1;
                 vgmSpeedCounter = 0;
-                vgmDataBlockCounter = 0;
+                vgmYM2612DataBlockCounter = 0;
                 for (int i = 0; i < 0x100; i++)
                 {
                     vgmStreams[i].blockId = 0;
@@ -210,11 +219,11 @@ namespace MDPlayer
                     vgmStreams[i].wkDataStep = 0;
                 }
 
-                mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
+                mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, (rf5c164ClockValue & 0x80000000) +(uint)((rf5c164ClockValue & 0x7fffffff)* (SamplingRate / (12500000.0 / 384))));
 
                 sdlCbHandle = GCHandle.Alloc(sdlCb);
                 sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
-                sdl = new AudioStream(SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+                sdl = new AudioStream((int)SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
                 sdl.Paused = false;
 
                 return true;
@@ -477,7 +486,9 @@ namespace MDPlayer
             null,null,null,null,null,null,null,null, //0x98
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xA0
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xA8
-            vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB0
+            vcDummy2Ope, //0xB0
+            vcRf5c164, //0xB1
+            vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB2
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB8
             vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xC0
             vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xC8
@@ -498,39 +509,43 @@ namespace MDPlayer
 
         private static void vcPSG()
         {
-            mds.WritePSG(vgmBuf[vgmAdr + 1]);
+            mds.WriteSN76489(vgmBuf[vgmAdr + 1]);
             vgmAdr += 2;
         }
 
         private static void vcDummy1Ope()
         {
+            Console.Write("({0}:{1})", vgmBuf[vgmAdr], vgmBuf[vgmAdr+1]);
             vgmAdr += 2;
         }
 
         private static void vcDummy2Ope()
         {
+            Console.Write("({0}:{1}:{2})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private static void vcDummy3Ope()
         {
+            Console.Write("({0}:{1}:{2}:{3})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
             vgmAdr += 4;
         }
 
         private static void vcDummy4Ope()
         {
+            Console.Write("({0}:{1}:{2}:{3}:{4})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
             vgmAdr += 5;
         }
 
         private static void vcYM2612Port0()
         {
-            mds.WriteFM(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            mds.WriteYM2612(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private static void vcYM2612Port1()
         {
-            mds.WriteFM(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            mds.WriteYM2612(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
@@ -565,19 +580,55 @@ namespace MDPlayer
         private static void vcDataBlock()
         {
             uint bAdr = vgmAdr + 7;
-            int bLen = (int)getLE32(vgmAdr + 3);
-            vgmAdr += (uint)bLen + 7;
+            byte bType = vgmBuf[vgmAdr + 2];
+            uint bLen = getLE32(vgmAdr + 3);
 
-            if (vgmDataBlockCounter < vgmPcmBaseAdr.Length)
+            switch (bType)
             {
-                vgmPcmBaseAdr[vgmDataBlockCounter] = bAdr;
-                vgmPcmBaseLength[vgmDataBlockCounter] = (int)bLen;
-                vgmDataBlockCounter++;
+                case 0x00:
+                    if (vgmYM2612DataBlockCounter < vgmYM2612PcmBaseAdr.Length)
+                    {
+                        vgmYM2612PcmBaseAdr[vgmYM2612DataBlockCounter] = bAdr;
+                        vgmYM2612PcmBaseType[vgmYM2612DataBlockCounter] = bType;
+                        vgmYM2612PcmBaseLength[vgmYM2612DataBlockCounter] = (int)bLen;
+                        vgmYM2612DataBlockCounter++;
+                    }
+                    vgmAdr += (uint)bLen + 7;
+                    break;
+                case 0x02:
+                    vgmRF5C164PcmBaseAdr = bAdr;
+                    vgmRF5C164PcmBaseType = bType;
+                    vgmRF5C164PcmBaseLength = (int)bLen;
+                    vgmAdr += (uint)bLen + 7;
+                    break;
+                case 0xc1:
+                    uint stAdr = getLE16(vgmAdr + 7);
+                    uint dataSize = bLen - 2;
+
+                    mds.WriteRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9);
+
+                    vgmAdr += bLen + 7;
+                    break;
+                default:
+                    vgmAdr += bLen + 7;
+                    break;
             }
+
         }
 
         private static void vcPCMRamWrite()
         {
+            byte bType = vgmBuf[vgmAdr + 2];
+            uint bReadOffset = getLE24(vgmAdr + 3);
+            uint bWriteOffset = getLE24(vgmAdr + 6);
+            uint bSize = getLE24(vgmAdr + 9);
+            if (bSize == 0) bSize = 0x1000000;
+
+            if (bType == 0xc1)
+            {
+                mds.WriteRF5C164PCMData(0, bWriteOffset , bSize , vgmBuf, vgmRF5C164PcmBaseAdr);
+            }
+
             vgmAdr += 12;
         }
 
@@ -589,7 +640,7 @@ namespace MDPlayer
 
         private static void vcWaitNSamplesAndSendYM26120x2a()
         {
-            mds.WriteFM(0, 0x2a, vgmBuf[vgmPcmPtr++]);
+            mds.WriteYM2612(0, 0x2a, vgmBuf[vgmPcmPtr++]);
             vgmWait += (int)(vgmBuf[vgmAdr] - 0x80);
             vgmAdr++;
         }
@@ -658,15 +709,21 @@ namespace MDPlayer
 
             vgmStreams[si].sw = true;
             vgmStreams[si].wkDataAdr = 0;// vgmStreams[si].dataStartOffset;
-            vgmStreams[si].wkDataLen = vgmPcmBaseLength[vgmStreams[si].blockId];// (int)vgmStreams[si].dataLength;
+            vgmStreams[si].wkDataLen = vgmYM2612PcmBaseLength[vgmStreams[si].blockId];// (int)vgmStreams[si].dataLength;
             vgmStreams[si].wkDataStep = 1.0;
 
         }
 
         private static void vcSeekToOffsetInPCMDataBank()
         {
-            vgmPcmPtr = getLE32(vgmAdr + 1) + vgmPcmBaseAdr[0];
+            vgmPcmPtr = getLE32(vgmAdr + 1) + vgmYM2612PcmBaseAdr[0];
             vgmAdr += 5;
+        }
+
+        private static void vcRf5c164()
+        {
+            mds.WriteRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            vgmAdr += 3;
         }
 
         private static void oneFrameVGMStream()
@@ -679,7 +736,7 @@ namespace MDPlayer
 
                 while (vgmStreams[i].wkDataStep >= 1.0)
                 {
-                    mds.WriteFM(vgmStreams[i].port, vgmStreams[i].cmd, vgmBuf[vgmPcmBaseAdr[vgmStreams[i].blockId] + vgmStreams[i].wkDataAdr]);
+                    mds.WriteYM2612(vgmStreams[i].port, vgmStreams[i].cmd, vgmBuf[vgmYM2612PcmBaseAdr[vgmStreams[i].blockId] + vgmStreams[i].wkDataAdr]);
                     vgmStreams[i].wkDataAdr++;
                     vgmStreams[i].wkDataLen--;
                     vgmStreams[i].wkDataStep -= 1.0;
@@ -725,6 +782,14 @@ namespace MDPlayer
         {
             UInt32 dat;
             dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100;
+
+            return dat;
+        }
+
+        private static UInt32 getLE24(UInt32 adr)
+        {
+            UInt32 dat;
+            dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100 + (UInt32)vgmBuf[adr + 2] * 0x10000;
 
             return dat;
         }

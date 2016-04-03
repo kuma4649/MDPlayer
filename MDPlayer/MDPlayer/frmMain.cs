@@ -30,7 +30,6 @@ namespace MDPlayer
         private bool isStandup = false;
         private int[] oldButtonY = new int[6];
         private int[] newButtonY = new int[6];
-        private int wid = 0;
 
         private bool isRunning = false;
         private bool stopped = false;
