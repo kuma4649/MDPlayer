@@ -7,18 +7,10 @@ namespace MDPlayer
 {
     public class Audio
     {
+        public const int FCC_VGM = 0x206D6756;	// "Vgm "
+        public const int FCC_GD3 = 0x20336447;  // "Gd3 "
 
-        public static string vgmTrackName = "";
-        public static string vgmTrackNameJ = "";
-        public static string vgmGameName = "";
-        public static string vgmGameNameJ = "";
-        public static string vgmSystemName = "";
-        public static string vgmSystemNameJ = "";
-        public static string vgmComposer = "";
-        public static string vgmComposerJ = "";
-        public static string vgmConverted = "";
-        public static string vgmVGMBy = "";
-        public static string vgmNotes = "";
+        public static GD3 GD3 = new GD3();
         public static string vgmVersion = "";
         public static string vgmUsedChips = "";
 
@@ -39,16 +31,6 @@ namespace MDPlayer
         private static GCHandle sdlCbHandle;
 
         private static byte[] vgmBuf = null;
-        private static uint vgmPcmPtr;
-
-        private static uint[] vgmYM2612PcmBaseAdr = new uint[0x100];
-        private static byte[] vgmYM2612PcmBaseType = new byte[0x100];
-        private static int[] vgmYM2612PcmBaseLength = new int[0x100];
-        private static int vgmYM2612DataBlockCounter = 0;
-
-        private static uint vgmRF5C164PcmBaseAdr = 0;
-        private static byte vgmRF5C164PcmBaseType = 0;
-        private static int vgmRF5C164PcmBaseLength = 0;
 
         private static uint vgmAdr;
         private static int vgmWait;
@@ -56,13 +38,28 @@ namespace MDPlayer
         private static double vgmSpeedCounter;
         private static uint vgmEof;
         private static bool vgmAnalyze;
-        private static vgmStream[] vgmStreams = new vgmStream[0x100];
+
+        private const int PCM_BANK_COUNT = 0x40;
+        private static VGM_PCM_BANK[] PCMBank=new VGM_PCM_BANK[PCM_BANK_COUNT];
+        private static dacControl dacControl = new dacControl();
+        private static PCMBANK_TBL PCMTbl=new PCMBANK_TBL();
+        private static byte DacCtrlUsed;
+        private static byte[] DacCtrlUsg= new byte[0xFF];
+        private static DACCTRL_DATA[] DacCtrl=new DACCTRL_DATA[0xFF];
+        private static uint VGMCurLoop=0;
+
         private static long vgmCounter = 0;
         private static long vgmTotalCounter = 0;
         private static long vgmLoopCounter = 0;
         private static long vgmDataOffset = 0;
         private static long vgmLoopOffset = 0;
 
+        public static void Init()
+        {
+            dacControl.mds = mds;
+            sdl = new AudioStream((int)SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+            sdl.Paused = false;
+        }
 
         public static void SetVGMBuffer(byte[] srcBuf)
         {
@@ -88,7 +85,7 @@ namespace MDPlayer
                 //ヘッダーから情報取得
 
                 uint vgm = getLE32(0x00);
-                if (vgm != 0x206d6756) return false;
+                if (vgm != FCC_VGM) return false;
 
                 vgmEof = getLE32(0x04);
 
@@ -106,8 +103,8 @@ namespace MDPlayer
                 if (vgmGd3 != 0)
                 {
                     uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
-                    if (vgmGd3Id != 0x20336447) return false;
-                    getGD3Info(vgmGd3);
+                    if (vgmGd3Id != FCC_GD3) return false;
+                    GD3.getGD3Info(vgmBuf, vgmGd3);
                 }
 
                 vgmTotalCounter = getLE32(0x18);
@@ -199,31 +196,21 @@ namespace MDPlayer
                 vgmCounter = 0;
                 vgmSpeed = 1;
                 vgmSpeedCounter = 0;
-                vgmYM2612DataBlockCounter = 0;
-                for (int i = 0; i < 0x100; i++)
+                for (int i = 0; i < PCM_BANK_COUNT; i++) PCMBank[i] = new VGM_PCM_BANK();
+                dacControl.refresh();
+                DacCtrlUsed = 0x00;
+                for (byte CurChip = 0x00; CurChip < 0xFF; CurChip++)
                 {
-                    vgmStreams[i].blockId = 0;
-                    vgmStreams[i].chipId = 0;
-                    vgmStreams[i].cmd = 0;
-                    vgmStreams[i].databankId = 0;
-                    vgmStreams[i].dataLength = 0;
-                    vgmStreams[i].dataStartOffset = 0;
-                    vgmStreams[i].frequency = 0;
-                    vgmStreams[i].lengthMode = 0;
-                    vgmStreams[i].port = 0;
-                    vgmStreams[i].stepbase = 0;
-                    vgmStreams[i].stepsize = 0;
-                    vgmStreams[i].sw = false;
-                    vgmStreams[i].wkDataAdr = 0;
-                    vgmStreams[i].wkDataLen = 0;
-                    vgmStreams[i].wkDataStep = 0;
+                    DacCtrl[CurChip] = new DACCTRL_DATA();
+                    DacCtrl[CurChip].Enable = false;
                 }
 
-                mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, (rf5c164ClockValue & 0x80000000) +(uint)((rf5c164ClockValue & 0x7fffffff)* (SamplingRate / (12500000.0 / 384))));
+                mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384))));
 
                 sdlCbHandle = GCHandle.Alloc(sdlCb);
                 sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
                 sdl = new AudioStream((int)SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+
                 sdl.Paused = false;
 
                 return true;
@@ -406,9 +393,7 @@ namespace MDPlayer
                 {
                     if (vgmLoopCounter != 0)
                     {
-                        //vgmAdr = (uint)(vgmDataOffset + vgmLoopOffset);
                         vgmAdr = (uint)(vgmLoopOffset + 0x1c);
-                        vgmPcmPtr = 0;
                         vgmCounter = 0;
                     }
                     else
@@ -490,7 +475,10 @@ namespace MDPlayer
             vcRf5c164, //0xB1
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB2
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB8
-            vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xC0
+            vcDummy3Ope,//0xc0
+            vcDummy3Ope,//0xc1
+            vcRf5c164MemoryWrite,//0xc2
+            vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xC3
             vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xC8
             vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xD0
             vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope,vcDummy3Ope, //0xD8
@@ -586,19 +574,8 @@ namespace MDPlayer
             switch (bType)
             {
                 case 0x00:
-                    if (vgmYM2612DataBlockCounter < vgmYM2612PcmBaseAdr.Length)
-                    {
-                        vgmYM2612PcmBaseAdr[vgmYM2612DataBlockCounter] = bAdr;
-                        vgmYM2612PcmBaseType[vgmYM2612DataBlockCounter] = bType;
-                        vgmYM2612PcmBaseLength[vgmYM2612DataBlockCounter] = (int)bLen;
-                        vgmYM2612DataBlockCounter++;
-                    }
-                    vgmAdr += (uint)bLen + 7;
-                    break;
                 case 0x02:
-                    vgmRF5C164PcmBaseAdr = bAdr;
-                    vgmRF5C164PcmBaseType = bType;
-                    vgmRF5C164PcmBaseLength = (int)bLen;
+                    AddPCMData(bType, bLen, bAdr);
                     vgmAdr += (uint)bLen + 7;
                     break;
                 case 0xc1:
@@ -623,10 +600,10 @@ namespace MDPlayer
             uint bWriteOffset = getLE24(vgmAdr + 6);
             uint bSize = getLE24(vgmAdr + 9);
             if (bSize == 0) bSize = 0x1000000;
-
-            if (bType == 0xc1)
+            uint? pcmAdr = GetPCMAddressFromPCMBank(bType, bReadOffset);
+            if (pcmAdr!=null && bType == 0x02)
             {
-                mds.WriteRF5C164PCMData(0, bWriteOffset , bSize , vgmBuf, vgmRF5C164PcmBaseAdr);
+                mds.WriteRF5C164PCMData(0, bWriteOffset , bSize , PCMBank[bType].Data, (uint)pcmAdr);
             }
 
             vgmAdr += 12;
@@ -640,83 +617,132 @@ namespace MDPlayer
 
         private static void vcWaitNSamplesAndSendYM26120x2a()
         {
-            mds.WriteYM2612(0, 0x2a, vgmBuf[vgmPcmPtr++]);
+            byte dat = GetDACFromPCMBank();
+            mds.WriteYM2612(0, 0x2a, dat);
             vgmWait += (int)(vgmBuf[vgmAdr] - 0x80);
             vgmAdr++;
         }
 
-        private static void vcSetupStreamControl() {
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].chipId = vgmBuf[vgmAdr++];
-            vgmStreams[si].port = vgmBuf[vgmAdr++];
-            vgmStreams[si].cmd = vgmBuf[vgmAdr++];
+        private static void vcSetupStreamControl()
+        {
+            byte si = vgmBuf[vgmAdr + 1];
+            if (si == 0xff)
+            {
+                vgmAdr += 5;
+                return;
+            }
+            if (!DacCtrl[si].Enable)
+            {
+                dacControl.device_start_daccontrol(si);
+                dacControl.device_reset_daccontrol(si);
+                DacCtrl[si].Enable = true;
+                DacCtrlUsg[DacCtrlUsed] = si;
+                DacCtrlUsed++;
+            }
+            byte chipId = vgmBuf[vgmAdr + 2];
+            byte port = vgmBuf[vgmAdr + 3];
+            byte cmd = vgmBuf[vgmAdr + 4];
+            dacControl.setup_chip(si, (byte)(chipId & 0x7F), (byte)((chipId & 0x80) >> 7),(uint)(port * 0x100 + cmd));
+            vgmAdr += 5;
         }
 
-        private static void vcSetStreamData() {
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].databankId = vgmBuf[vgmAdr++];
-            vgmStreams[si].stepsize = vgmBuf[vgmAdr++];
-            vgmStreams[si].stepbase = vgmBuf[vgmAdr++];
+        private static void vcSetStreamData()
+        {
+            byte si = vgmBuf[vgmAdr + 1];
+            if (si == 0xff)
+            {
+                vgmAdr += 5;
+                return;
+            }
+            DacCtrl[si].Bank = vgmBuf[vgmAdr+2];
+            if (DacCtrl[si].Bank >= PCM_BANK_COUNT)
+                DacCtrl[si].Bank = 0x00;
+
+            VGM_PCM_BANK TempPCM = PCMBank[DacCtrl[si].Bank];
+            //Last95Max = TempPCM->BankCount;
+            dacControl.set_data(si, TempPCM.Data, TempPCM.DataSize,
+                                vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
+
+            vgmAdr += 5;
         }
 
         private static void vcSetStreamFrequency() {
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].frequency = getLE32(vgmAdr);
-            vgmAdr += 4;
+            byte si = vgmBuf[vgmAdr + 1];
+            if (si == 0xFF || !DacCtrl[si].Enable)
+            {
+                vgmAdr += 0x06;
+                return;
+            }
+            uint TempLng = getLE32(vgmAdr + 2);
+            //Last95Freq = TempLng;
+            dacControl.set_frequency(si, TempLng);
+            vgmAdr += 6;
         }
 
         private static void vcStartStream() {
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].dataStartOffset = getLE32(vgmAdr);
-            vgmAdr += 4;
-            vgmStreams[si].lengthMode = vgmBuf[vgmAdr++];//用途がいまいちわかってません
-            vgmStreams[si].dataLength = getLE32(vgmAdr);
-            vgmAdr += 4;
-
-            vgmStreams[si].sw = true;
-            vgmStreams[si].wkDataAdr = vgmStreams[si].dataStartOffset;
-            vgmStreams[si].wkDataLen = (int)vgmStreams[si].dataLength;
-            vgmStreams[si].wkDataStep = 1.0;
+            byte si = vgmBuf[vgmAdr + 1];
+            if (si == 0xFF || !DacCtrl[si].Enable || PCMBank[DacCtrl[si].Bank].BankCount==0)
+            {
+                vgmAdr += 0x08;
+                return;
+            }
+            uint DataStart = getLE32(vgmAdr + 2);
+            //Last95Drum = 0xFFFF;
+            byte TempByt = vgmBuf[vgmAdr + 6];
+            uint DataLen = getLE32(vgmAdr + 7);
+            dacControl.start(si, DataStart, TempByt, DataLen);
+            vgmAdr += 0x0B;
 
         }
 
         private static void vcStopStream() {
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].sw = false;
+            byte si = vgmBuf[vgmAdr + 1];
+            if (!DacCtrl[si].Enable)
+            {
+                vgmAdr += 0x02;
+                return;
+            }
+            //Last95Drum = 0xFFFF;
+            if (si < 0xFF)
+            {
+                dacControl.stop(si);
+            }
+            else
+            {
+                for (si = 0x00; si < 0xFF; si++)
+                    dacControl.stop(si);
+            }
+            vgmAdr += 0x02;
         }
 
         private static void vcStartStreamFastCall()
         {
-            //使い方がいまいちわかってません
-            vgmAdr++;
-            byte si = vgmBuf[vgmAdr++];
-            vgmStreams[si].blockId = getLE16(vgmAdr);
-            vgmAdr += 2;
-            byte p = vgmBuf[vgmAdr++];
-            if ((p & 1) > 0)
+            byte CurChip = vgmBuf[vgmAdr + 1];
+            if (CurChip == 0xFF || !DacCtrl[CurChip].Enable ||
+                PCMBank[DacCtrl[CurChip].Bank].BankCount==0)
             {
-                vgmStreams[si].lengthMode |= 0x80;
+                vgmAdr += 0x05;
+                return;
             }
-            if ((p & 16) > 0)
-            {
-                vgmStreams[si].lengthMode |= 0x10;
-            }
+            VGM_PCM_BANK TempPCM = PCMBank[DacCtrl[CurChip].Bank];
+            uint TempSht = getLE16(vgmAdr + 2);
+            //Last95Drum = TempSht;
+            //Last95Max = TempPCM->BankCount;
+            if (TempSht >= TempPCM.BankCount)
+                TempSht = 0x00;
+            VGM_PCM_DATA TempBnk = TempPCM.Bank[(int)TempSht];
 
-            vgmStreams[si].sw = true;
-            vgmStreams[si].wkDataAdr = 0;// vgmStreams[si].dataStartOffset;
-            vgmStreams[si].wkDataLen = vgmYM2612PcmBaseLength[vgmStreams[si].blockId];// (int)vgmStreams[si].dataLength;
-            vgmStreams[si].wkDataStep = 1.0;
+            byte TempByt = (byte)(dacControl.DCTRL_LMODE_BYTES |
+                        (vgmBuf[vgmAdr+4] & 0x10) |         // Reverse Mode
+                        ((vgmBuf[vgmAdr+4] & 0x01) << 7));   // Looping
+            dacControl.start(CurChip, TempBnk.DataStart, TempByt, TempBnk.DataSize);
+            vgmAdr += 0x05;
 
         }
 
         private static void vcSeekToOffsetInPCMDataBank()
         {
-            vgmPcmPtr = getLE32(vgmAdr + 1) + vgmYM2612PcmBaseAdr[0];
+            PCMBank[0x00].DataPos = getLE32(vgmAdr + 1);
             vgmAdr += 5;
         }
 
@@ -726,56 +752,163 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private static void vcRf5c164MemoryWrite() {
+            uint offset = getLE16(vgmAdr + 1);
+            mds.WriteRF5C164MemW(0, offset, vgmBuf[vgmAdr + 3]);
+            vgmAdr += 4;
+        }
+
         private static void oneFrameVGMStream()
         {
-            for (int i = 0; i < 0x100; i++)
+            for (int CurChip = 0x00; CurChip < DacCtrlUsed; CurChip++)
             {
-
-                if (!vgmStreams[i].sw) continue;
-                if (vgmStreams[i].chipId != 0x02) continue;//とりあえずYM2612のみ
-
-                while (vgmStreams[i].wkDataStep >= 1.0)
-                {
-                    mds.WriteYM2612(vgmStreams[i].port, vgmStreams[i].cmd, vgmBuf[vgmYM2612PcmBaseAdr[vgmStreams[i].blockId] + vgmStreams[i].wkDataAdr]);
-                    vgmStreams[i].wkDataAdr++;
-                    vgmStreams[i].wkDataLen--;
-                    vgmStreams[i].wkDataStep -= 1.0;
-                }
-                vgmStreams[i].wkDataStep += (double)vgmStreams[i].frequency / (double)SamplingRate;
-
-                if (vgmStreams[i].wkDataLen <= 0)
-                {
-                    vgmStreams[i].sw = false;
-                }
-
+                dacControl.update(DacCtrlUsg[CurChip], 1);
             }
         }
 
-
-        private struct vgmStream
+        private static void AddPCMData(byte Type, uint DataSize, uint Adr)
         {
+            uint CurBnk;
+            VGM_PCM_BANK TempPCM;
+            VGM_PCM_DATA TempBnk;
+            uint BankSize;
+            //bool RetVal;
+            byte BnkType;
+            byte CurDAC;
 
-            public byte chipId;
-            public byte port;
-            public byte cmd;
+            BnkType = (byte)(Type & 0x3F);
+            if (BnkType >= PCM_BANK_COUNT || VGMCurLoop>0)
+                return;
 
-            public byte databankId;
-            public byte stepsize;
-            public byte stepbase;
+            if (Type == 0x7F)
+            {
+                //ReadPCMTable(DataSize, Data);
+                ReadPCMTable(DataSize, Adr);
+                return;
+            }
 
-            public uint frequency;
+            TempPCM = PCMBank[BnkType];// &PCMBank[BnkType];
+            TempPCM.BnkPos++;
+            if (TempPCM.BnkPos <= TempPCM.BankCount)
+                return; // Speed hack for restarting playback (skip already loaded blocks)
+            CurBnk = TempPCM.BankCount;
+            TempPCM.BankCount++;
+            //if (Last95Max != 0xFFFF) Last95Max = TempPCM.BankCount;
+            TempPCM.Bank.Add(new VGM_PCM_DATA());// = (VGM_PCM_DATA*)realloc(TempPCM->Bank,
+                                                 // sizeof(VGM_PCM_DATA) * TempPCM->BankCount);
 
-            public uint dataStartOffset;
-            public byte lengthMode;
-            public uint dataLength;
+            if ((Type & 0x40) == 0)
+                BankSize = DataSize;
+            else
+                BankSize = getLE32(Adr + 1);// ReadLE32(&Data[0x01]);
 
-            public bool sw;
+            TempPCM.Data = new byte[TempPCM.DataSize + BankSize];// realloc(TempPCM->Data, TempPCM->DataSize + BankSize);
+            TempBnk = TempPCM.Bank[(int)CurBnk];
+            TempBnk.DataStart = TempPCM.DataSize;
+            TempBnk.Data = new byte[BankSize];
+            if ((Type & 0x40) == 0)
+            {
+                TempBnk.DataSize = DataSize;
+                for (int i = 0; i < DataSize; i++)
+                {
+                    TempPCM.Data[i + TempBnk.DataStart] = vgmBuf[Adr + i];
+                    TempBnk.Data[i] = vgmBuf[Adr + i];
+                }
+                //TempBnk.Data = TempPCM.Data + TempBnk.DataStart;
+                //memcpy(TempBnk->Data, Data, DataSize);
+            }
+            else
+            {
+                //TempBnk.Data = TempPCM.Data + TempBnk.DataStart;
+                //RetVal = DecompressDataBlk(TempBnk, DataSize, Data);
+                //if (!RetVal)
+                //{
+                //    TempBnk.Data = null;
+                //    TempBnk.DataSize = 0x00;
+                //    //return;
+                //    goto RefreshDACStrm;    // sorry for the goto, but I don't want to copy-paste the code
+                //}
+            }
+            if (BankSize != TempBnk.DataSize)
+                Console.Write("Error reading Data Block! Data Size conflict!\n");
+            TempPCM.DataSize += BankSize;
 
-            public uint blockId;
+            // realloc may've moved the Bank block, so refresh all DAC Streams
+            //RefreshDACStrm:
+            for (CurDAC = 0x00; CurDAC < DacCtrlUsed; CurDAC++)
+            {
+                if (DacCtrl[DacCtrlUsg[CurDAC]].Bank == BnkType)
+                    dacControl.refresh_data(DacCtrlUsg[CurDAC], TempPCM.Data, TempPCM.DataSize);
+            }
 
-            public uint wkDataAdr;
-            public int wkDataLen;
-            public double wkDataStep;
+            return;
+        }
+
+        private static void ReadPCMTable(uint DataSize, uint Adr)
+        {
+            byte ValSize;
+            uint TblSize;
+
+            PCMTbl.ComprType = vgmBuf[Adr + 0];// Data[0x00];
+            PCMTbl.CmpSubType = vgmBuf[Adr + 1];// Data[0x01];
+            PCMTbl.BitDec = vgmBuf[Adr + 2];// Data[0x02];
+            PCMTbl.BitCmp = vgmBuf[Adr + 3];// Data[0x03];
+            PCMTbl.EntryCount = getLE16(Adr + 4);// ReadLE16(&Data[0x04]);
+
+            ValSize = (byte)((PCMTbl.BitDec + 7) / 8);
+            TblSize = PCMTbl.EntryCount * ValSize;
+
+            PCMTbl.Entries = new byte[TblSize];// realloc(PCMTbl.Entries, TblSize);
+            for (int i = 0; i < TblSize; i++) PCMTbl.Entries[i] = vgmBuf[Adr + 6 + i];
+            //memcpy(PCMTbl.Entries, &Data[0x06], TblSize);
+
+            if (DataSize < 0x06 + TblSize)
+            {
+                Console.Write("Warning! Bad PCM Table Length!\n");
+                //printf("Warning! Bad PCM Table Length!\n");
+            }
+
+            return;
+        }
+
+        private static byte GetDACFromPCMBank()
+        {
+            // for YM2612 DAC data only
+            /*VGM_PCM_BANK* TempPCM;
+            UINT32 CurBnk;*/
+            uint DataPos;
+
+            /*TempPCM = &PCMBank[0x00];
+            DataPos = TempPCM->DataPos;
+            for (CurBnk = 0x00; CurBnk < TempPCM->BankCount; CurBnk ++)
+            {
+                if (DataPos < TempPCM->Bank[CurBnk].DataSize)
+                {
+                    if (TempPCM->DataPos < TempPCM->DataSize)
+                        TempPCM->DataPos ++;
+                    return TempPCM->Bank[CurBnk].Data[DataPos];
+                }
+                DataPos -= TempPCM->Bank[CurBnk].DataSize;
+            }
+            return 0x80;*/
+
+            DataPos = PCMBank[0x00].DataPos;
+            if (DataPos >= PCMBank[0x00].DataSize)
+                return 0x80;
+
+            PCMBank[0x00].DataPos++;
+            return PCMBank[0x00].Bank[0].Data[DataPos];
+        }
+
+        private static uint? GetPCMAddressFromPCMBank(byte Type, uint DataPos)
+        {
+            if (Type >= PCM_BANK_COUNT)
+                return null;
+
+            if (DataPos >= PCMBank[Type].DataSize)
+                return null;
+
+            return DataPos;
         }
 
         private static UInt32 getLE16(UInt32 adr)
@@ -802,58 +935,74 @@ namespace MDPlayer
             return dat;
         }
 
-        private static void getGD3Info(uint vgmGd3)
+    }
+
+    public class GD3
+    {
+        public string TrackName = "";
+        public string TrackNameJ = "";
+        public string GameName = "";
+        public string GameNameJ = "";
+        public string SystemName = "";
+        public string SystemNameJ = "";
+        public string Composer = "";
+        public string ComposerJ = "";
+        public string Converted = "";
+        public string Notes = "";
+        public string VGMBy = "";
+
+        public void getGD3Info(byte[] buf,uint vgmGd3)
         {
             uint adr = vgmGd3 + 12 + 0x14;
 
-            vgmTrackName = "";
-            vgmTrackNameJ = "";
-            vgmGameName = "";
-            vgmGameNameJ = "";
-            vgmSystemName = "";
-            vgmSystemNameJ = "";
-            vgmComposer = "";
-            vgmComposerJ = "";
-            vgmConverted = "";
-            vgmVGMBy = "";
-            vgmNotes = "";
+            TrackName = "";
+            TrackNameJ = "";
+            GameName = "";
+            GameNameJ = "";
+            SystemName = "";
+            SystemNameJ = "";
+            Composer = "";
+            ComposerJ = "";
+            Converted = "";
+            Notes = "";
+            VGMBy = "";
 
             try
             {
                 //trackName
-                vgmTrackName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                TrackName = System.Text.Encoding.Unicode.GetString(getByteArray(buf,ref adr));
                 //trackNameJ
-                vgmTrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                TrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //gameName
-                vgmGameName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                GameName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //gameNameJ
-                vgmGameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                GameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //systemName
-                vgmSystemName = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                SystemName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //systemNameJ
-                vgmSystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                SystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //Composer
-                vgmComposer = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                Composer = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //ComposerJ
-                vgmComposerJ = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                ComposerJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //Converted
-                vgmConverted = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                Converted = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //VGMBy
-                vgmVGMBy = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                VGMBy = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
                 //Notes
-                vgmNotes = System.Text.Encoding.Unicode.GetString(getByteArray(ref adr));
+                Notes = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
             }
             catch { }
         }
 
-        private static byte[] getByteArray(ref uint adr)
+        private static byte[] getByteArray(byte[] buf,ref uint adr)
         {
             List<byte> ary = new List<byte>();
-            while (vgmBuf[adr] != 0 || vgmBuf[adr + 1] != 0)
+            while (buf[adr] != 0 || buf[adr + 1] != 0)
             {
-                ary.Add(vgmBuf[adr]);
+                ary.Add(buf[adr]);
                 adr++;
-                ary.Add(vgmBuf[adr]);
+                ary.Add(buf[adr]);
                 adr++;
             }
             adr += 2;
@@ -862,4 +1011,39 @@ namespace MDPlayer
         }
 
     }
+
+    public class VGM_PCM_DATA
+    {
+        public uint DataSize;
+        public byte[] Data;
+        public uint DataStart;
+    }
+
+    public class VGM_PCM_BANK
+    {
+        public uint BankCount;
+        public List<VGM_PCM_DATA> Bank=new List<VGM_PCM_DATA>();
+        public uint DataSize;
+        public byte[] Data;
+        public uint DataPos;
+        public uint BnkPos;
+    }
+
+    public class DACCTRL_DATA
+    {
+        public bool Enable;
+        public byte Bank;
+    }
+
+    public class PCMBANK_TBL
+    {
+        public byte ComprType;
+        public byte CmpSubType;
+        public byte BitDec;
+        public byte BitCmp;
+        public uint EntryCount;
+        public byte[] Entries;// void* Entries;
+    }
+
+
 }

@@ -55,12 +55,6 @@ namespace MDPlayer
 
 
         private static int SamplingRate = 44100;
-        //static int PSGClockValue = 3579545;
-        //static int FMClockValue = 7670454;
-        //static int samplingBuffer = 512;
-        //static short[] frames = new short[samplingBuffer * 2];
-        //MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue);
-
         private byte[] srcBuf;
 
 
@@ -68,6 +62,7 @@ namespace MDPlayer
         {
             InitializeComponent();
             pbScreen.AllowDrop = true;
+            Audio.Init();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -543,10 +538,10 @@ namespace MDPlayer
                 return;
             }
 
-            if (Audio.vgmTrackNameJ != "")
-                lblTitle.Text = Audio.vgmTrackNameJ;
+            if (Audio.GD3.TrackNameJ != "")
+                lblTitle.Text = Audio.GD3.TrackNameJ;
             else
-                lblTitle.Text = Audio.vgmTrackName;
+                lblTitle.Text = Audio.GD3.TrackName;
 
             if (frmInfo != null && frmInfo.isClosed)
             {

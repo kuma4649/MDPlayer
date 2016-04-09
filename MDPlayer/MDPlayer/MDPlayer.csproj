@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio.cs" />
+    <Compile Include="dacControl.cs" />
     <Compile Include="frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>

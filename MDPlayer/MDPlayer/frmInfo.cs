@@ -24,17 +24,17 @@ namespace MDPlayer
 
         public void update()
         {
-            lblTitle.Text = Audio.vgmTrackName;
-            lblTitleJ.Text = Audio.vgmTrackNameJ;
-            lblGame.Text = Audio.vgmGameName;
-            lblGameJ.Text = Audio.vgmGameNameJ;
-            lblSystem.Text = Audio.vgmSystemName;
-            lblSystemJ.Text = Audio.vgmSystemNameJ;
-            lblComposer.Text = Audio.vgmComposer;
-            lblComposerJ.Text = Audio.vgmComposerJ;
-            lblRelease.Text = Audio.vgmConverted;
-            lblVGMBy.Text = Audio.vgmVGMBy;
-            lblNotes.Text = Audio.vgmNotes;
+            lblTitle.Text = Audio.GD3.TrackName;
+            lblTitleJ.Text = Audio.GD3.TrackNameJ;
+            lblGame.Text = Audio.GD3.GameName;
+            lblGameJ.Text = Audio.GD3.GameNameJ;
+            lblSystem.Text = Audio.GD3.SystemName;
+            lblSystemJ.Text = Audio.GD3.SystemNameJ;
+            lblComposer.Text = Audio.GD3.Composer;
+            lblComposerJ.Text = Audio.GD3.ComposerJ;
+            lblRelease.Text = Audio.GD3.Converted;
+            lblVGMBy.Text = Audio.GD3.VGMBy;
+            lblNotes.Text = Audio.GD3.Notes;
             lblVersion.Text = Audio.vgmVersion;
             lblUsedChips.Text = Audio.vgmUsedChips;
         }
