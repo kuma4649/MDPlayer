@@ -562,7 +562,7 @@ namespace MDPlayer
             }
             if (frmInfo == null)
             {
-                frmInfo = new frmInfo();
+                frmInfo = new frmInfo(this);
                 frmInfo.x = this.Location.X+328;
                 frmInfo.y = this.Location.Y;
                 frmInfo.Show();
@@ -693,8 +693,7 @@ namespace MDPlayer
             SendMessage(targetWindowHandle, WM_COPYDATA, myWindowHandle, ref cds);
         }
 
-        //メッセージ処理
-        protected override void WndProc(ref Message m)
+        public void windowsMessage(ref Message m)
         {
             if (m.Msg == WM_COPYDATA)
             {
@@ -710,10 +709,16 @@ namespace MDPlayer
                 catch
                 {
                     //メッセージによる読み込み失敗の場合は何も表示しない
-//                    MessageBox.Show("ファイルの読み込みに失敗しました。");
+                    //                    MessageBox.Show("ファイルの読み込みに失敗しました。");
                 }
             }
 
+        }
+
+        //メッセージ処理
+        protected override void WndProc(ref Message m)
+        {
+            windowsMessage(ref m);
             base.WndProc(ref m);
         }
 

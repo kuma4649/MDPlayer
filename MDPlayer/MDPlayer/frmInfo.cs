@@ -15,9 +15,11 @@ namespace MDPlayer
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
+        public frmMain parent = null;
 
-        public frmInfo()
+        public frmInfo(frmMain frm)
         {
+            parent = frm;
             InitializeComponent();
             update();
         }
@@ -48,5 +50,16 @@ namespace MDPlayer
         {
             this.Location = new Point(x, y);
         }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (parent != null)
+            {
+                parent.windowsMessage(ref m);
+            }
+
+            base.WndProc(ref m);
+        }
+
     }
 }
