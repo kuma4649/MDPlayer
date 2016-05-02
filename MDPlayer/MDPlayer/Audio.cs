@@ -20,10 +20,11 @@ namespace MDPlayer
         private static uint PSGClockValue = 3579545;
         private static uint FMClockValue = 7670454;
         private static uint rf5c164ClockValue = 12500000;
+        private static uint pwmClockValue = 23011361;
 
         private static uint samplingBuffer = 1024;
         private static short[] frames = new short[samplingBuffer * 2];
-        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue);
+        private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue, pwmClockValue);
 
         private static AudioStream sdl;
         private static AudioCallback sdlCb = new AudioCallback(callback);
@@ -174,6 +175,7 @@ namespace MDPlayer
 
                     uint PWMclock = getLE32(0x70);
                     if (PWMclock != 0) chips.Add("PWM");
+                    pwmClockValue = PWMclock;
 
                     uint AY8910clock = getLE32(0x74);
                     if (AY8910clock != 0) chips.Add("AY8910");
@@ -205,7 +207,13 @@ namespace MDPlayer
                     DacCtrl[CurChip].Enable = false;
                 }
 
-                mds.Init(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384))));
+                mds.Init(SamplingRate, samplingBuffer
+                    , FMClockValue
+                    , PSGClockValue
+                    , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
+                    , (pwmClockValue & 0x80000000) + (uint)((pwmClockValue & 0x7fffffff) * (SamplingRate / (23011361.0 / 384)))
+                    //, pwmClockValue
+                    );
 
                 sdlCbHandle = GCHandle.Alloc(sdlCb);
                 sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
@@ -473,7 +481,8 @@ namespace MDPlayer
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xA8
             vcDummy2Ope, //0xB0
             vcRf5c164, //0xB1
-            vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB2
+            vcPWM, //0xB2
+            vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB3
             vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope,vcDummy2Ope, //0xB8
             vcDummy3Ope,//0xc0
             vcDummy3Ope,//0xc1
@@ -571,18 +580,30 @@ namespace MDPlayer
             byte bType = vgmBuf[vgmAdr + 2];
             uint bLen = getLE32(vgmAdr + 3);
 
-            switch (bType)
+            switch (bType & 0xc0)
             {
                 case 0x00:
-                case 0x02:
+                case 0x40:
                     AddPCMData(bType, bLen, bAdr);
                     vgmAdr += (uint)bLen + 7;
                     break;
-                case 0xc1:
+                case 0xc0:
                     uint stAdr = getLE16(vgmAdr + 7);
                     uint dataSize = bLen - 2;
+                    uint ROMData = vgmAdr + 9;
+                    if ((bType & 0x20) != 0)
+                    {
+                        stAdr = getLE32(vgmAdr + 7);
+                        dataSize = bLen - 4;
+                        ROMData = vgmAdr + 11;
+                    }
 
-                    mds.WriteRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9);
+                    switch (bType)
+                    {
+                        case 0xc1:
+                            mds.WriteRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9);
+                            break;
+                    }
 
                     vgmAdr += bLen + 7;
                     break;
@@ -748,7 +769,7 @@ namespace MDPlayer
 
         private static void vcRf5c164()
         {
-            mds.WriteRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+             mds.WriteRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
@@ -756,6 +777,12 @@ namespace MDPlayer
             uint offset = getLE16(vgmAdr + 1);
             mds.WriteRF5C164MemW(0, offset, vgmBuf[vgmAdr + 3]);
             vgmAdr += 4;
+        }
+
+        private static void vcPWM()
+        {
+            mds.WritePWM(0, (byte)((vgmBuf[vgmAdr + 1] & 0xf0) >> 4), (uint)((vgmBuf[vgmAdr + 1] & 0xf) * 0x100 + vgmBuf[vgmAdr + 2]));
+            vgmAdr += 3;
         }
 
         private static void oneFrameVGMStream()
@@ -820,21 +847,25 @@ namespace MDPlayer
             else
             {
                 //TempBnk.Data = TempPCM.Data + TempBnk.DataStart;
-                //RetVal = DecompressDataBlk(TempBnk, DataSize, Data);
-                //if (!RetVal)
-                //{
-                //    TempBnk.Data = null;
-                //    TempBnk.DataSize = 0x00;
-                //    //return;
-                //    goto RefreshDACStrm;    // sorry for the goto, but I don't want to copy-paste the code
-                //}
+                bool RetVal = DecompressDataBlk(TempBnk, DataSize, Adr);
+                if (RetVal==false)
+                {
+                    TempBnk.Data = null;
+                    TempBnk.DataSize = 0x00;
+                    //return;
+                    goto RefreshDACStrm;    // sorry for the goto, but I don't want to copy-paste the code
+                }
+                for (int i = 0; i < DataSize; i++)
+                {
+                    TempPCM.Data[i + TempBnk.DataStart] = TempBnk.Data[i];
+                }
             }
             if (BankSize != TempBnk.DataSize)
                 Console.Write("Error reading Data Block! Data Size conflict!\n");
             TempPCM.DataSize += BankSize;
 
             // realloc may've moved the Bank block, so refresh all DAC Streams
-            //RefreshDACStrm:
+            RefreshDACStrm:
             for (CurDAC = 0x00; CurDAC < DacCtrlUsed; CurDAC++)
             {
                 if (DacCtrl[DacCtrlUsg[CurDAC]].Bank == BnkType)
@@ -843,6 +874,248 @@ namespace MDPlayer
 
             return;
         }
+
+        private static bool DecompressDataBlk(VGM_PCM_DATA Bank, uint DataSize, uint Adr)
+        {
+            byte ComprType;
+            byte BitDec;
+            byte BitCmp;
+            byte CmpSubType;
+            uint AddVal;
+            uint InPos;
+            uint InDataEnd;
+            uint OutPos;
+            uint OutDataEnd;
+            uint InVal;
+            uint OutVal = 0;// FUINT16 OutVal;
+            byte ValSize;
+            byte InShift;
+            byte OutShift;
+            uint Ent1B = 0;// UINT8* Ent1B;
+            uint Ent2B = 0;// UINT16* Ent2B;
+            //#if defined(_DEBUG) && defined(WIN32)
+            //	UINT32 Time;
+            //#endif
+
+            // ReadBits Variables
+            byte BitsToRead;
+            byte BitReadVal;
+            byte InValB;
+            byte BitMask;
+            byte OutBit;
+
+            // Variables for DPCM
+            uint OutMask;
+
+            //#if defined(_DEBUG) && defined(WIN32)
+            //	Time = GetTickCount();
+            //#endif
+            ComprType = vgmBuf[Adr + 0];
+            Bank.DataSize = getLE32(Adr + 1);
+
+            switch (ComprType)
+            {
+                case 0x00:  // n-Bit compression
+                    BitDec = vgmBuf[Adr + 5];
+                    BitCmp = vgmBuf[Adr + 6];
+                    CmpSubType = vgmBuf[Adr + 7];
+                    AddVal = getLE16(Adr + 8);
+
+                    if (CmpSubType == 0x02)
+                    {
+                        Ent1B = 0;// (UINT8*)PCMTbl.Entries; // Big Endian note: Those are stored in LE and converted when reading.
+                        Ent2B = 0;// (UINT16*)PCMTbl.Entries;
+                        if (PCMTbl.EntryCount == 0)
+                        {
+                            Bank.DataSize = 0x00;
+                            //printf("Error loading table-compressed data block! No table loaded!\n");
+                            return false;
+                        }
+                        else if (BitDec != PCMTbl.BitDec || BitCmp != PCMTbl.BitCmp)
+                        {
+                            Bank.DataSize = 0x00;
+                            //printf("Warning! Data block and loaded value table incompatible!\n");
+                            return false;
+                        }
+                    }
+
+                    ValSize = (byte)((BitDec + 7) / 8);
+                    InPos = Adr + 0x0A;
+                    InDataEnd = Adr + DataSize;
+                    InShift = 0;
+                    OutShift = (byte)(BitDec - BitCmp);
+                    //                    OutDataEnd = Bank.Data + Bank.DataSize;
+                    OutDataEnd = Bank.DataSize;
+
+                    //for (OutPos = Bank->Data; OutPos < OutDataEnd && InPos < InDataEnd; OutPos += ValSize)
+                    for (OutPos = 0; OutPos < OutDataEnd && InPos < InDataEnd; OutPos += ValSize)
+                    {
+                        //InVal = ReadBits(Data, InPos, &InShift, BitCmp);
+                        // inlined - is 30% faster
+                        OutBit = 0x00;
+                        InVal = 0x0000;
+                        BitsToRead = BitCmp;
+                        while (BitsToRead != 0)
+                        {
+                            BitReadVal = (byte)((BitsToRead >= 8) ? 8 : BitsToRead);
+                            BitsToRead -= BitReadVal;
+                            BitMask = (byte)((1 << BitReadVal) - 1);
+
+                            InShift += BitReadVal;
+                            InValB = (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
+                            if (InShift >= 8)
+                            {
+                                InShift -= 8;
+                                InPos++;
+                                if (InShift != 0)
+                                    InValB |= (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
+                            }
+
+                            InVal |= (byte)(InValB << OutBit);
+                            OutBit += BitReadVal;
+                        }
+
+                        switch (CmpSubType)
+                        {
+                            case 0x00:  // Copy
+                                OutVal = InVal + AddVal;
+                                break;
+                            case 0x01:  // Shift Left
+                                OutVal = (InVal << OutShift) + AddVal;
+                                break;
+                            case 0x02:  // Table
+                                switch (ValSize)
+                                {
+                                    case 0x01:
+                                        OutVal = PCMTbl.Entries[Ent1B + InVal];
+                                        break;
+                                    case 0x02:
+                                        //#ifndef BIG_ENDIAN
+                                        //					OutVal = Ent2B[InVal];
+                                        //#else
+                                        OutVal = (uint)(PCMTbl.Entries[Ent2B + InVal] + PCMTbl.Entries[Ent2B + InVal + 1] * 0x100);// ReadLE16((UINT8*)&Ent2B[InVal]);
+                                                                                                                                   //#endif
+                                        break;
+                                }
+                                break;
+                        }
+
+                        //#ifndef BIG_ENDIAN
+                        //			//memcpy(OutPos, &OutVal, ValSize);
+                        //			if (ValSize == 0x01)
+                        //               *((UINT8*)OutPos) = (UINT8)OutVal;
+                        //			else //if (ValSize == 0x02)
+                        //                *((UINT16*)OutPos) = (UINT16)OutVal;
+                        //#else
+                        if (ValSize == 0x01)
+                        {
+                            Bank.Data[OutPos] = (byte)OutVal;
+                        }
+                        else //if (ValSize == 0x02)
+                        {
+                            Bank.Data[OutPos + 0x00] = (byte)((OutVal & 0x00FF) >> 0);
+                            Bank.Data[OutPos + 0x01] = (byte)((OutVal & 0xFF00) >> 8);
+                        }
+                        //#endif
+                    }
+                    break;
+                case 0x01:  // Delta-PCM
+                    BitDec = vgmBuf[Adr + 5];// Data[0x05];
+                    BitCmp = vgmBuf[Adr + 6];// Data[0x06];
+                    OutVal = getLE16(Adr + 8);// ReadLE16(&Data[0x08]);
+
+                    Ent1B = 0;// (UINT8*)PCMTbl.Entries;
+                    Ent2B = 0;// (UINT16*)PCMTbl.Entries;
+                    if (PCMTbl.EntryCount == 0)
+                    {
+                        Bank.DataSize = 0x00;
+                        //printf("Error loading table-compressed data block! No table loaded!\n");
+                        return false;
+                    }
+                    else if (BitDec != PCMTbl.BitDec || BitCmp != PCMTbl.BitCmp)
+                    {
+                        Bank.DataSize = 0x00;
+                        //printf("Warning! Data block and loaded value table incompatible!\n");
+                        return false;
+                    }
+
+                    ValSize = (byte)((BitDec + 7) / 8);
+                    OutMask = (uint)((1 << BitDec) - 1);
+                    InPos = vgmBuf[Adr + 0xa];// Data + 0x0A;
+                    InDataEnd = vgmBuf[Adr + DataSize];// Data + DataSize;
+                    InShift = 0;
+                    OutShift = (byte)(BitDec - BitCmp);
+                    OutDataEnd = Bank.DataSize;// Bank.Data + Bank.DataSize;
+                    AddVal = 0x0000;
+
+                    //                    for (OutPos = Bank.Data; OutPos < OutDataEnd && InPos < InDataEnd; OutPos += ValSize)
+                    for (OutPos = 0; OutPos < OutDataEnd && InPos < InDataEnd; OutPos += ValSize)
+                    {
+                        //InVal = ReadBits(Data, InPos, &InShift, BitCmp);
+                        // inlined - is 30% faster
+                        OutBit = 0x00;
+                        InVal = 0x0000;
+                        BitsToRead = BitCmp;
+                        while (BitsToRead != 0)
+                        {
+                            BitReadVal = (byte)((BitsToRead >= 8) ? 8 : BitsToRead);
+                            BitsToRead -= BitReadVal;
+                            BitMask = (byte)((1 << BitReadVal) - 1);
+
+                            InShift += BitReadVal;
+                            InValB = (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
+                            if (InShift >= 8)
+                            {
+                                InShift -= 8;
+                                InPos++;
+                                if (InShift != 0)
+                                    InValB |= (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
+                            }
+
+                            InVal |= (byte)(InValB << OutBit);
+                            OutBit += BitReadVal;
+                        }
+
+                        switch (ValSize)
+                        {
+                            case 0x01:
+                                AddVal = PCMTbl.Entries[Ent1B + InVal];
+                                OutVal += AddVal;
+                                OutVal &= OutMask;
+                                Bank.Data[OutPos] = (byte)OutVal;// *((UINT8*)OutPos) = (UINT8)OutVal;
+                                break;
+                            case 0x02:
+                                //#ifndef BIG_ENDIAN
+                                //				AddVal = Ent2B[InVal];
+                                //#else
+                                AddVal = (uint)(PCMTbl.Entries[Ent2B + InVal] + PCMTbl.Entries[Ent2B + InVal + 1] * 0x100);
+                                //AddVal = ReadLE16((UINT8*)&Ent2B[InVal]);
+                                //#endif
+                                OutVal += AddVal;
+                                OutVal &= OutMask;
+                                //#ifndef BIG_ENDIAN
+                                //				*((UINT16*)OutPos) = (UINT16)OutVal;
+                                //#else
+                                Bank.Data[OutPos + 0x00] = (byte)((OutVal & 0x00FF) >> 0);
+                                Bank.Data[OutPos + 0x01] = (byte)((OutVal & 0xFF00) >> 8);
+                                //#endif
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    //printf("Error: Unknown data block compression!\n");
+                    return false;
+            }
+
+            //#if defined(_DEBUG) && defined(WIN32)
+            //	Time = GetTickCount() - Time;
+            //	printf("Decompression Time: %lu\n", Time);
+            //#endif
+
+            return true;
+        }
+
 
         private static void ReadPCMTable(uint DataSize, uint Adr)
         {

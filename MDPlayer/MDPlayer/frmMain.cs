@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,6 +65,16 @@ namespace MDPlayer
             InitializeComponent();
             pbScreen.AllowDrop = true;
             Audio.Init();
+
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                Process prc = GetPreviousProcess();
+                if (prc != null)
+                {
+                    SendString(prc.MainWindowHandle, Environment.GetCommandLineArgs()[1]);
+                    this.Close();
+                }
+            }
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -651,6 +663,97 @@ namespace MDPlayer
             }
 
             return outStream.ToArray();
+        }
+
+        //SendMessageで送る構造体（Unicode文字列送信に最適化したパターン）
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cbData;
+            [MarshalAs(UnmanagedType.LPWStr)]
+            public string lpData;
+        }
+
+        //SendMessage（データ転送）
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, ref COPYDATASTRUCT lParam);
+        public const int WM_COPYDATA = 0x004A;
+
+        //SendMessageを使ってプロセス間通信で文字列を渡す
+        void SendString(IntPtr targetWindowHandle, string str)
+        {
+            COPYDATASTRUCT cds = new COPYDATASTRUCT();
+            cds.dwData = IntPtr.Zero;
+            cds.lpData = str;
+            cds.cbData = str.Length * sizeof(char);
+            //受信側ではlpDataの文字列を(cbData/2)の長さでstring.Substring()する
+
+            IntPtr myWindowHandle = Process.GetCurrentProcess().MainWindowHandle;
+            SendMessage(targetWindowHandle, WM_COPYDATA, myWindowHandle, ref cds);
+        }
+
+        //メッセージ処理
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_COPYDATA)
+            {
+                string sParam = ReceiveString(m);
+                try
+                {
+                    stop();
+                    srcBuf = getAllBytes(sParam);
+                    Audio.SetVGMBuffer(srcBuf);
+                    play();
+
+                }
+                catch
+                {
+                    //メッセージによる読み込み失敗の場合は何も表示しない
+//                    MessageBox.Show("ファイルの読み込みに失敗しました。");
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+
+        //SendString()で送信された文字列を取り出す
+        string ReceiveString(Message m)
+        {
+            string str = null;
+            try
+            {
+                COPYDATASTRUCT cds = (COPYDATASTRUCT)m.GetLParam(typeof(COPYDATASTRUCT));
+                str = cds.lpData;
+                str = str.Substring(0, cds.cbData / 2);
+            }
+            catch { str = null; }
+            return str;
+        }
+
+        public static Process GetPreviousProcess()
+        {
+            Process curProcess = Process.GetCurrentProcess();
+            Process[] allProcesses = Process.GetProcessesByName(curProcess.ProcessName);
+
+            foreach (Process checkProcess in allProcesses)
+            {
+                // 自分自身のプロセスIDは無視する
+                if (checkProcess.Id != curProcess.Id)
+                {
+                    // プロセスのフルパス名を比較して同じアプリケーションか検証
+                    if (String.Compare(
+                        checkProcess.MainModule.FileName,
+                        curProcess.MainModule.FileName, true) == 0)
+                    {
+                        // 同じフルパス名のプロセスを取得
+                        return checkProcess;
+                    }
+                }
+            }
+
+            // 同じアプリケーションのプロセスが見つからない！
+            return null;
         }
 
     }

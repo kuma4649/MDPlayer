@@ -430,6 +430,9 @@ namespace MDPlayer
                 case 0x10:
                     mds.WriteRF5C164(ChipID, Offset, Data);
                     break;
+                case 0x11:  // PWM
+                    mds.WritePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)));
+                    break;
             }
         }
 
