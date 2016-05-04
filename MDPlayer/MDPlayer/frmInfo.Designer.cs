@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInfo));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblTitleJ = new System.Windows.Forms.Label();
             this.lblGame = new System.Windows.Forms.Label();
@@ -234,6 +235,7 @@
             this.Controls.Add(this.lblTitleJ);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(800, 252);
             this.MinimumSize = new System.Drawing.Size(252, 252);
             this.Name = "frmInfo";

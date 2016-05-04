@@ -235,6 +235,11 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
         }
 
+        public static void Slow()
+        {
+            vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
+        }
+
         public static void Pause()
         {
             if (sdl == null) return;
@@ -284,6 +289,16 @@ namespace MDPlayer
         public static int[] GetPSGRegister()
         {
             return mds.ReadPSGRegister();
+        }
+
+        public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register()
+        {
+            return mds.ReadRf5c164Register();
+        }
+
+        public static int[][] GetRf5c164Volume()
+        {
+            return mds.ReadRf5c164Volume();
         }
 
         public static long GetCounter()

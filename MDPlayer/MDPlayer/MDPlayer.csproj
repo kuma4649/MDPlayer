@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>フェーリ.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MDSound, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,6 +75,12 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="DoubleBuffer.cs" />
+    <Compile Include="frmMegaCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMegaCD.Designer.cs">
+      <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDChipParams.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMegaCD.resx">
+      <DependentUpon>frmMegaCD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -117,6 +129,10 @@
     <Content Include="lib\SDL_mixer.dll" />
     <Content Include="lib\Tao.Sdl.dll" />
     <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\フェーリ.ico" />
+    <Content Include="Resources\フェーリ.png" />
+    <Content Include="フェーリ.ico" />
+    <None Include="Resources\planeC.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

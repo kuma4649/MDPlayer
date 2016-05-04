@@ -17,21 +17,19 @@ namespace MDPlayer
 {
     public partial class frmMain : Form
     {
+        private PictureBox pbRf5c164Screen;
         private DoubleBuffer screen;
         private int pWidth = 0;
         private int pHeight = 0;
 
         private frmInfo frmInfo = null;
+        private frmMegaCD frmMCD = null;
 
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[6];
-        private int[] newButton = new int[6];
-
-        private bool isStandup = false;
-        private int[] oldButtonY = new int[6];
-        private int[] newButtonY = new int[6];
+        private int[] oldButton = new int[8];
+        private int[] newButton = new int[8];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -55,6 +53,21 @@ namespace MDPlayer
             0x00d,0x00d,0x00c,0x00b,0x00b,0x00a,0x009,0x008,0x007,0x006,0x005,0x004  // 7
         };
 
+        private float[] pcmMTbl = new float[]
+        {
+            1.0f
+            ,1.05947557526183f
+            ,1.122467701246082f
+            ,1.189205718217262f
+            ,1.259918966439875f
+            ,1.334836786178427f
+            ,1.414226741074841f
+            ,1.498318171393624f
+            ,1.587416864154117f
+            ,1.681828606375659f
+            ,1.781820961700176f
+            ,1.887776163901842f
+        };
 
         private static int SamplingRate = 44100;
         private byte[] srcBuf;
@@ -80,10 +93,14 @@ namespace MDPlayer
         private void frmMain_Load(object sender, EventArgs e)
         {
             // DoubleBufferオブジェクトの作成
+
+            pbRf5c164Screen = new PictureBox();
+            pbRf5c164Screen.Width = 320;
+            pbRf5c164Screen.Height = 72;
+
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
-
 
         }
 
@@ -136,7 +153,6 @@ namespace MDPlayer
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
         {
-            isStandup = true;
             if (e.Location.Y < 208)
             {
                 newButton[0] = 0;
@@ -144,29 +160,36 @@ namespace MDPlayer
                 newButton[2] = 0;
                 newButton[3] = 0;
                 newButton[4] = 0;
+                newButton[5] = 0;
+                newButton[6] = 0;
+                newButton[7] = 0;
                 return;
             }
 
-            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16) newButton[0] = 1;
+            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16) newButton[0] = 1;
             else newButton[0] = 0;
 
-            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16) newButton[1] = 1;
+            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16) newButton[1] = 1;
             else newButton[1] = 0;
 
-            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16) newButton[2] = 1;
+            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16) newButton[2] = 1;
             else newButton[2] = 0;
 
-            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16) newButton[3] = 1;
+            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16) newButton[3] = 1;
             else newButton[3] = 0;
 
-            if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16) newButton[4] = 1;
+            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16) newButton[4] = 1;
             else newButton[4] = 0;
 
-        }
+            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16) newButton[5] = 1;
+            else newButton[5] = 0;
 
-        private void pbScreen_MouseEnter(object sender, EventArgs e)
-        {
-            isStandup = true;
+            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16) newButton[6] = 1;
+            else newButton[6] = 0;
+
+            if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16) newButton[7] = 1;
+            else newButton[7] = 0;
+
         }
 
         private void pbScreen_MouseLeave(object sender, EventArgs e)
@@ -176,7 +199,9 @@ namespace MDPlayer
             newButton[2] = 0;
             newButton[3] = 0;
             newButton[4] = 0;
-            isStandup = false;
+            newButton[5] = 0;
+            newButton[6] = 0;
+            newButton[7] = 0;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -199,6 +224,12 @@ namespace MDPlayer
                             Audio.resetFMMask(ch);
                         }
                         newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
+                        if (ch == 2)
+                        {
+                            newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
+                            newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
+                            newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
+                        }
                     }
                     else if (ch < 10)
                     {
@@ -247,33 +278,48 @@ namespace MDPlayer
                 return;
             }
 
-            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16)
+            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
             {
                 stop();
                 return;
             }
 
-            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
+            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
             {
                 pause();
                 return;
             }
 
-            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
+            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16)
+            {
+                slow();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16)
             {
                 play();
                 return;
             }
 
-            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16)
+            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
             {
                 ff();
-                return;
+            }
+
+            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
+            {
+                open();
+            }
+
+            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16)
+            {
+                openInfo();
             }
 
             if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16)
             {
-                open();
+                openMegaCD();
             }
 
         }
@@ -299,6 +345,8 @@ namespace MDPlayer
                 }
 
                 screenChangeParams();
+                if (frmMCD != null && !frmMCD.isClosed) frmMCD.screenChangeParams();
+                else frmMCD = null;
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
@@ -307,6 +355,8 @@ namespace MDPlayer
                 }
 
                 screenDrawParams();
+                if (frmMCD != null && !frmMCD.isClosed) frmMCD.screenDrawParams();
+                else frmMCD = null;
 
                 nextFrame += period;
             }
@@ -416,6 +466,25 @@ namespace MDPlayer
                 newParam.sn76489.channels[ch].volume = Math.Min(Math.Max((psgVol[ch][0] + psgVol[ch][1]) / 2 / 100, 0), 19);
             }
 
+            MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register();
+            int[][] rf5c164Vol = Audio.GetRf5c164Volume();
+            for (int ch = 0; ch < 8; ch++)
+            {
+                if (rf5c164Register.Channel[ch].Enable != 0)
+                {
+                    newParam.rf5c164.channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
+                    newParam.rf5c164.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
+                    newParam.rf5c164.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                }
+                else
+                {
+                    newParam.rf5c164.channels[ch].note = -1;
+                    newParam.rf5c164.channels[ch].volumeL = 0;
+                    newParam.rf5c164.channels[ch].volumeR = 0;
+                }
+                newParam.rf5c164.channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
+            }
+
             long w = Audio.GetCounter();
             double sec = (double)w / (double)SamplingRate;
             newParam.Cminutes = (int)(sec / 60);
@@ -440,22 +509,6 @@ namespace MDPlayer
             sec -= newParam.LCsecond;
             newParam.LCmillisecond = (int)(sec * 100.0);
 
-            if (isStandup)
-            {
-                for (int c = 0; c < 5; c++)
-                {
-                    newButtonY[c]--;
-                    newButtonY[c] = Math.Max(newButtonY[c], 0);
-                }
-            }
-            else
-            {
-                for (int c = 0; c < 5; c++)
-                {
-                    newButtonY[c]++;
-                    newButtonY[c] = Math.Min(newButtonY[c], 16);
-                }
-            }
         }
 
         private void screenDrawParams()
@@ -463,7 +516,7 @@ namespace MDPlayer
             // 描画
             screen.drawParams(oldParam, newParam);
 
-            screen.drawButtons(oldButtonY,newButtonY,oldButton, newButton);
+            screen.drawButtons(oldButton, newButton);
 
             screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
@@ -519,7 +572,22 @@ namespace MDPlayer
             return n;
         }
 
-
+        private int searchRf5c164Note(uint freq)
+        {
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(freq - (0x0800 * pcmMTbl[i%12] * Math.Pow(2, ((int)(i/12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+         
         private void stop()
         {
 
@@ -550,29 +618,20 @@ namespace MDPlayer
                 return;
             }
 
-            if (Audio.GD3.TrackNameJ != "")
-                lblTitle.Text = Audio.GD3.TrackNameJ;
-            else
-                lblTitle.Text = Audio.GD3.TrackName;
-
-            if (frmInfo != null && frmInfo.isClosed)
+            if (frmInfo != null)
             {
-                frmInfo.Dispose();
-                frmInfo = null;
+                frmInfo.update();
             }
-            if (frmInfo == null)
-            {
-                frmInfo = new frmInfo(this);
-                frmInfo.x = this.Location.X+328;
-                frmInfo.y = this.Location.Y;
-                frmInfo.Show();
-            }
-            frmInfo.update();
         }
 
         private void ff()
         {
             Audio.FF();
+        }
+
+        private void slow()
+        {
+            Audio.Slow();
         }
 
         private void open()
@@ -600,6 +659,54 @@ namespace MDPlayer
             {
                 MessageBox.Show("ファイルの読み込みに失敗しました。");
             }
+        }
+
+        private void openInfo()
+        {
+            if (frmInfo != null)// && frmInfo.isClosed)
+            {
+                frmInfo.Close();
+                frmInfo.Dispose();
+                frmInfo = null;
+                return;
+            }
+
+            frmInfo = new frmInfo(this);
+            frmInfo.x = this.Location.X + 328;
+            frmInfo.y = this.Location.Y;
+            frmInfo.Show();
+            frmInfo.update();
+        }
+
+        private void openMegaCD()
+        {
+            if (frmMCD != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveRf5c164();
+                }
+                catch { }
+                try
+                {
+                    frmMCD.Close();
+                }
+                catch { }
+                try
+                {
+                    frmMCD.Dispose();
+                }
+                catch { }
+                frmMCD = null;
+                return;
+            }
+
+            frmMCD = new frmMegaCD(this);
+            frmMCD.x = this.Location.X;
+            frmMCD.y = this.Location.Y+264;
+            screen.AddRf5c164(frmMCD.pbScreen, Properties.Resources.planeC);
+            frmMCD.Show();
+            frmMCD.update();
         }
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)

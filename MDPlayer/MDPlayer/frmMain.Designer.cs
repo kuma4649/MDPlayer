@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pbScreen = new System.Windows.Forms.PictureBox();
-            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,22 +45,8 @@
             this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
             this.pbScreen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
-            this.pbScreen.MouseEnter += new System.EventHandler(this.pbScreen_MouseEnter);
             this.pbScreen.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
             this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.BackColor = System.Drawing.Color.Black;
-            this.lblTitle.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblTitle.Location = new System.Drawing.Point(22, 209);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(202, 16);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.MouseEnter += new System.EventHandler(this.pbScreen_MouseEnter);
-            this.lblTitle.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
-            this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);
             // 
             // frmMain
             // 
@@ -68,9 +54,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(324, 228);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(340, 267);
             this.MinimumSize = new System.Drawing.Size(340, 267);
             this.Name = "frmMain";
@@ -87,7 +73,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbScreen;
-        private System.Windows.Forms.Label lblTitle;
     }
 }
 
