@@ -796,7 +796,9 @@ namespace MDPlayer
 
         private static void vcPWM()
         {
-            mds.WritePWM(0, (byte)((vgmBuf[vgmAdr + 1] & 0xf0) >> 4), (uint)((vgmBuf[vgmAdr + 1] & 0xf) * 0x100 + vgmBuf[vgmAdr + 2]));
+            byte cmd = (byte)((vgmBuf[vgmAdr + 1] & 0xf0) >> 4);
+            uint data = (uint)((vgmBuf[vgmAdr + 1] & 0xf) * 0x100 + vgmBuf[vgmAdr + 2]);
+            mds.WritePWM(0, cmd, data);
             vgmAdr += 3;
         }
 
@@ -870,7 +872,7 @@ namespace MDPlayer
                     //return;
                     goto RefreshDACStrm;    // sorry for the goto, but I don't want to copy-paste the code
                 }
-                for (int i = 0; i < DataSize; i++)
+                for (int i = 0; i < BankSize;i++)// DataSize; i++)
                 {
                     TempPCM.Data[i + TempBnk.DataStart] = TempBnk.Data[i];
                 }
@@ -986,7 +988,7 @@ namespace MDPlayer
                                     InValB |= (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
                             }
 
-                            InVal |= (byte)(InValB << OutBit);
+                            InVal |= (uint)(InValB << OutBit);
                             OutBit += BitReadVal;
                         }
 

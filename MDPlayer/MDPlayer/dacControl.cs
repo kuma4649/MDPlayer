@@ -403,7 +403,7 @@ namespace MDPlayer
             chip.Running |= (byte)((LenMode & 0x80) > 0 ? 0x04 : 0x00);    // set loop mode
 
             chip.Running |= 0x01;  // start
-            chip.Running &= 0x7f;// ~0x10; // command isn't yet sent
+            chip.Running &= 0xef;// ~0x10; // command isn't yet sent
 
             return;
         }
