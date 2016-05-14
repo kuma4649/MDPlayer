@@ -332,25 +332,32 @@ namespace MDPlayer
             {
                 case 0:
                 case 1:
-                case 2:
+                case 9:
+                case 10:
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 + (t % 9) * 16, 112 + 16 * (t / 9), 16, 16);
+                    break;
+
                 case 3:
                 case 4:
                 case 5:
-                case 8:
-                case 9:
-                case 10:
-                case 11:
+                case 6:
                 case 12:
                 case 13:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 + (t % 8) * 16, 112 + 16 * (t / 8), 16, 8);
-                    mainScreen.drawByteArray(x, y + 8, fontBuf, 128, 0 + (t % 8) * 16, 120 + 16 * (t / 8), 16, 8);
-                    break;
-                case 6:
-                case 7:
                 case 14:
                 case 15:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 + (t - (6 + 8 * (t / 8))) * 32, 144 + 16 * (t / 8), 16, 8);
-                    mainScreen.drawByteArray(x, y + 8, fontBuf, 128, 0 + (t - (6 + 8 * (t / 8))) * 32, 152 + 16 * (t / 8), 16, 8);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, -16 + (t % 9) * 16, 112 + 16 * (t / 9), 16, 16);
+                    break;
+
+                case 2:
+                case 11:
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 64, 144 + 16 * (t / 9), 16, 16);
+                    break;
+
+                case 7:
+                case 8:
+                case 16:
+                case 17:
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, ((t - 7) % 9) * 32, 144 + 16 * (t / 9), 16, 16);
                     break;
             }
         }
@@ -674,9 +681,9 @@ namespace MDPlayer
             {
                 return;
             }
-            drawFont8(176 + c * 16, 208, 0, "  ");
-            drawFont8(176 + c * 16, 216, 0, "  ");
-            drawButtonP(176 + c * 16, 208, nt * 8 + c);
+            drawFont8(160 + c * 16, 208, 0, "  ");
+            drawFont8(160 + c * 16, 216, 0, "  ");
+            drawButtonP(160 + c * 16, 208, nt * 9 + c);
             ot = nt;
         }
 
@@ -862,7 +869,7 @@ namespace MDPlayer
         public void drawButtons(int[] oldButton, int[] newButton)
         {
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 9; i++)
             {
                 drawButton(i, ref oldButton[i], newButton[i]);
             }

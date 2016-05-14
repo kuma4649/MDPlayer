@@ -28,8 +28,8 @@ namespace MDPlayer
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[8];
-        private int[] newButton = new int[8];
+        private int[] oldButton = new int[9];
+        private int[] newButton = new int[9];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -155,40 +155,18 @@ namespace MDPlayer
         {
             if (e.Location.Y < 208)
             {
-                newButton[0] = 0;
-                newButton[1] = 0;
-                newButton[2] = 0;
-                newButton[3] = 0;
-                newButton[4] = 0;
-                newButton[5] = 0;
-                newButton[6] = 0;
-                newButton[7] = 0;
+                for(int n=0 ;n < newButton.Length;n++)
+                {
+                    newButton[n] = 0;
+                }
                 return;
             }
 
-            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16) newButton[0] = 1;
-            else newButton[0] = 0;
-
-            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16) newButton[1] = 1;
-            else newButton[1] = 0;
-
-            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16) newButton[2] = 1;
-            else newButton[2] = 0;
-
-            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16) newButton[3] = 1;
-            else newButton[3] = 0;
-
-            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16) newButton[4] = 1;
-            else newButton[4] = 0;
-
-            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16) newButton[5] = 1;
-            else newButton[5] = 0;
-
-            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16) newButton[6] = 1;
-            else newButton[6] = 0;
-
-            if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16) newButton[7] = 1;
-            else newButton[7] = 0;
+            for (int n = 0; n < newButton.Length; n++)
+            {
+                if (e.Location.X >= 320 - (10- n) * 16 && e.Location.X < 320 - (9- n) * 16) newButton[n] = 1;
+                else newButton[n] = 0;
+            }
 
         }
 
@@ -278,15 +256,21 @@ namespace MDPlayer
                 return;
             }
 
-            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
+            if (e.Location.X >= 320 -10 * 16 && e.Location.X < 320 - 9 * 16)
             {
                 stop();
                 return;
             }
 
-            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
+            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
             {
                 pause();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
+            {
+                fadeout();
                 return;
             }
 
@@ -598,6 +582,11 @@ namespace MDPlayer
         private void pause()
         {
             Audio.Pause();
+        }
+
+        private void fadeout()
+        {
+            Audio.Fadeout();
         }
 
         private void play()

@@ -36,6 +36,9 @@ namespace MDPlayer
         private static uint vgmAdr;
         private static int vgmWait;
         private static double vgmSpeed;
+        private static bool vgmFadeout;
+        private static double vgmFadeoutCounter;
+        private static double vgmFadeoutCounterV;
         private static double vgmSpeedCounter;
         private static uint vgmEof;
         private static bool vgmAnalyze;
@@ -91,7 +94,8 @@ namespace MDPlayer
                 vgmEof = getLE32(0x04);
 
                 uint version = getLE32(0x08);
-                if (version < 0x0150) return false;
+                //バージョンチェック
+                if (version < 0x0110) return false;
                 vgmVersion = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
                 uint SN76489clock = getLE32(0x0c);
@@ -197,6 +201,9 @@ namespace MDPlayer
                 vgmAnalyze = true;
                 vgmCounter = 0;
                 vgmSpeed = 1;
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.001;
                 vgmSpeedCounter = 0;
                 for (int i = 0; i < PCM_BANK_COUNT; i++) PCMBank[i] = new VGM_PCM_BANK();
                 dacControl.refresh();
@@ -246,11 +253,19 @@ namespace MDPlayer
 
             try
             {
-                    sdl.Paused = !sdl.Paused;
+                sdl.Paused = !sdl.Paused;
             }
             catch
             {
             }
+
+        }
+
+        public static void Fadeout()
+        {
+            if (sdl == null) return;
+
+            vgmFadeout = true;
 
         }
 
@@ -366,11 +381,26 @@ namespace MDPlayer
 
             for (i = 0; i < len / 4; i++)
             {
-                frames[i * 2 + 0] = (short)buf[0][i];
-                frames[i * 2 + 1] = (short)buf[1][i];
+                frames[i * 2 + 0] = (short)(buf[0][i] * vgmFadeoutCounter);
+                frames[i * 2 + 1] = (short)(buf[1][i] * vgmFadeoutCounter);
             }
 
             Marshal.Copy(frames, 0, stream, len / 2);
+
+            if (vgmFadeout)
+            {
+                vgmFadeoutCounter -= vgmFadeoutCounterV;
+                vgmFadeoutCounterV += 0.0002;
+                if (vgmFadeoutCounterV >= 0.04)
+                {
+                    vgmFadeoutCounterV = 0.04;
+                }
+
+                if (vgmFadeoutCounter <= 0.0)
+                {
+                    Stop();
+                }
+            }
         }
 
         private static void oneFrameVGMWithSpeedControl()
