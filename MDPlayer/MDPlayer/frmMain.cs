@@ -184,7 +184,7 @@ namespace MDPlayer
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Location.Y < 208)
+            if (e.Location.Y < 14 * 8)
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -256,6 +256,24 @@ namespace MDPlayer
                 return;
             }
 
+
+            // 音色表示欄の判定
+
+            if (e.Location.Y < 26 * 8)
+            {
+                int h = (e.Location.Y - 14 * 8 ) / (6 * 8);
+                int w = Math.Min(e.Location.X / (13 * 8), 2);
+                int instCh = h * 3 + w;
+
+                //クリップボードに音色をコピーする
+                getInstCh(instCh);
+
+                return;
+            }
+
+                
+            // ボタンの判定
+
             if (e.Location.X >= 320 -10 * 16 && e.Location.X < 320 - 9 * 16)
             {
                 stop();
@@ -289,21 +307,25 @@ namespace MDPlayer
             if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
             {
                 ff();
+                return;
             }
 
             if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
             {
                 open();
+                return;
             }
 
             if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16)
             {
                 openInfo();
+                return;
             }
 
             if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16)
             {
                 openMegaCD();
+                return;
             }
 
         }
@@ -855,6 +877,40 @@ namespace MDPlayer
 
             // 同じアプリケーションのプロセスが見つからない！
             return null;
+        }
+
+        public void getInstCh(int ch)
+        {
+            int p = (ch > 2) ? 1 : 0;
+            int c = (ch > 2) ? ch - 3 : ch;
+            int[][] fmRegister = Audio.GetFMRegister();
+
+            string n = "AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
+
+            for (int i = 0; i < 4; i++)
+            {
+                int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
+                    , fmRegister[p][0x50 + ops + c] & 0x1f //AR
+                    , fmRegister[p][0x60 + ops + c] & 0x1f //DR
+                    , fmRegister[p][0x70 + ops + c] & 0x1f //SR
+                    , fmRegister[p][0x80 + ops + c] & 0x0f //RR
+                    , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
+                    , fmRegister[p][0x40 + ops + c] & 0x7f//TL
+                    , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
+                    , fmRegister[p][0x30 + ops + c] & 0x0f//ML
+                    , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
+                    , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
+                    , fmRegister[p][0x90 + ops + c] & 0x0f//SG
+                );
+            }
+            n += "ALG FB\r\n";
+            n += string.Format("{0:D3},{1:D3}\r\n"
+                , fmRegister[p][0xb0 + c] & 0x07//AL
+                , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
+            );
+
+            Clipboard.SetText(n);
         }
 
     }
