@@ -331,33 +331,54 @@ namespace MDPlayer
             switch (t)
             {
                 case 0:
-                case 1:
-                case 9:
                 case 10:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 + (t % 9) * 16, 112 + 16 * (t / 9), 16, 16);
+                    //setting
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (9 + (t / 10)), 16, 16);
                     break;
-
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 12:
-                case 13:
-                case 14:
-                case 15:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, -16 + (t % 9) * 16, 112 + 16 * (t / 9), 16, 16);
-                    break;
-
-                case 2:
+                case 1:
                 case 11:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 64, 144 + 16 * (t / 9), 16, 16);
+                    //stop
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (7 + (t / 10)), 16, 16);
                     break;
-
-                case 7:
-                case 8:
+                case 2:
+                case 12:
+                    //pause
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 1 * 16, 16 * (7 + (t / 10)), 16, 16);
+                    break;
+                case 3:
+                case 13:
+                    //fadeout
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (9 + (t / 10)), 16, 16);
+                    break;
+                case 4:
+                case 14:
+                    //slow
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (7 + (t / 10)), 16, 16);
+                    break;
+                case 5:
+                case 15:
+                    //play
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 3 * 16, 16 * (7 + (t / 10)), 16, 16);
+                    break;
+                case 6:
                 case 16:
+                    //fast
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (7 + (t / 10)), 16, 16);
+                    break;
+                case 7:
                 case 17:
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, ((t - 7) % 9) * 32, 144 + 16 * (t / 9), 16, 16);
+                    //folder
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (7 + (t / 10)), 16, 16);
+                    break;
+                case 8:
+                case 18:
+                    //info
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (9 + (t / 10)), 16, 16);
+                    break;
+                case 9:
+                case 19:
+                    //megacd
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (9 + (t / 10)), 16, 16);
                     break;
             }
         }
@@ -681,9 +702,9 @@ namespace MDPlayer
             {
                 return;
             }
-            drawFont8(160 + c * 16, 208, 0, "  ");
-            drawFont8(160 + c * 16, 216, 0, "  ");
-            drawButtonP(160 + c * 16, 208, nt * 9 + c);
+            drawFont8(144 + c * 16, 208, 0, "  ");
+            drawFont8(144 + c * 16, 216, 0, "  ");
+            drawButtonP(144 + c * 16, 208, nt * 10 + c);
             ot = nt;
         }
 
@@ -869,7 +890,7 @@ namespace MDPlayer
         public void drawButtons(int[] oldButton, int[] newButton)
         {
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
                 drawButton(i, ref oldButton[i], newButton[i]);
             }

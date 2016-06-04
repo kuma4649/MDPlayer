@@ -43,9 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
     </Reference>
-    <Reference Include="SdlDotNet, Version=6.1.0.0, Culture=neutral, PublicKeyToken=26ad4f7e10c61408, processorArchitecture=MSIL">
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SdlDotNet.dll</HintPath>
+      <HintPath>lib\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,9 +81,17 @@
     <Compile Include="frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetting.Designer.cs">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDChipParams.cs" />
+    <Compile Include="NAudioWrap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting.cs" />
     <EmbeddedResource Include="frmInfo.resx">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSetting.resx">
+      <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -103,6 +114,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,10 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\MDSound.dll" />
-    <Content Include="lib\SDL.dll" />
-    <Content Include="lib\SdlDotNet.dll" />
-    <Content Include="lib\SDL_mixer.dll" />
-    <Content Include="lib\Tao.Sdl.dll" />
+    <Content Include="lib\NAudio.dll" />
     <Content Include="Resources\planeB.png" />
     <Content Include="Resources\フェーリ.ico" />
     <Content Include="Resources\フェーリ.png" />

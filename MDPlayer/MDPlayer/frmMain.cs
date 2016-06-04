@@ -28,8 +28,8 @@ namespace MDPlayer
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[9];
-        private int[] newButton = new int[9];
+        private int[] oldButton = new int[10];
+        private int[] newButton = new int[10];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -71,6 +71,8 @@ namespace MDPlayer
 
         private static int SamplingRate = 44100;
         private byte[] srcBuf;
+
+        private Setting setting = Setting.Load();
 
 
         public frmMain()
@@ -164,7 +166,7 @@ namespace MDPlayer
 
             for (int n = 0; n < newButton.Length; n++)
             {
-                if (e.Location.X >= 320 - (10- n) * 16 && e.Location.X < 320 - (9- n) * 16) newButton[n] = 1;
+                if (e.Location.X >= 320 - (11- n) * 16 && e.Location.X < 320 - (10- n) * 16) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -180,6 +182,8 @@ namespace MDPlayer
             newButton[5] = 0;
             newButton[6] = 0;
             newButton[7] = 0;
+            newButton[8] = 0;
+            newButton[9] = 0;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -271,10 +275,16 @@ namespace MDPlayer
                 return;
             }
 
-                
+
             // ボタンの判定
 
-            if (e.Location.X >= 320 -10 * 16 && e.Location.X < 320 - 9 * 16)
+            if (e.Location.X >= 320 - 11 * 16 && e.Location.X < 320 - 10 * 16)
+            {
+                openSetting();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 10 * 16 && e.Location.X < 320 - 9 * 16)
             {
                 stop();
                 return;
@@ -593,6 +603,16 @@ namespace MDPlayer
             }
             return n;
         }
+
+        private void openSetting()
+        {
+            frmSetting frm = new frmSetting(setting);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                setting = frm.setting;
+                setting.Save();
+            }
+        }
          
         private void stop()
         {
@@ -623,7 +643,7 @@ namespace MDPlayer
             {
                 newParam.sn76489.channels[ch].mask = false;
             }
-            if (!Audio.Play())
+            if (!Audio.Play(setting))
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

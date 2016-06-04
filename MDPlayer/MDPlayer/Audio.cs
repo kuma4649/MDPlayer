@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SdlDotNet.Audio;
 using System.Runtime.InteropServices;
 
 namespace MDPlayer
@@ -26,10 +25,7 @@ namespace MDPlayer
         private static short[] frames = new short[samplingBuffer * 2];
         private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue, pwmClockValue);
 
-        private static AudioStream sdl;
-        private static AudioCallback sdlCb = new AudioCallback(callback);
-        private static IntPtr sdlCbPtr;
-        private static GCHandle sdlCbHandle;
+        private static NAudioWrap naudioWrap;
 
         private static byte[] vgmBuf = null;
 
@@ -58,11 +54,17 @@ namespace MDPlayer
         private static long vgmDataOffset = 0;
         private static long vgmLoopOffset = 0;
 
+        private static bool Paused = false;
+        private static bool Stopped = false;
+
+        private static Setting setting = null;
+
         public static void Init()
         {
             dacControl.mds = mds;
-            sdl = new AudioStream((int)SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
-            sdl.Paused = false;
+            naudioWrap = new NAudioWrap((int)SamplingRate, naudioCb);
+            Paused = false;
+            Stopped = true;
         }
 
         public static void SetVGMBuffer(byte[] srcBuf)
@@ -71,13 +73,15 @@ namespace MDPlayer
             vgmBuf = srcBuf;
         }
 
-        public static bool Play()
+        public static bool Play(Setting setting)
         {
 
             try
             {
 
-                if (vgmBuf == null) return false;
+                if (vgmBuf == null || setting == null) return false;
+
+                Audio.setting = setting.Copy();
 
                 Stop();
 
@@ -214,19 +218,17 @@ namespace MDPlayer
                     DacCtrl[CurChip].Enable = false;
                 }
 
-                mds.Init(SamplingRate, samplingBuffer
+                mds.Init(SamplingRate, samplingBuffer/2
                     , FMClockValue
                     , PSGClockValue
                     , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                     , (pwmClockValue & 0x80000000) + (uint)((pwmClockValue & 0x7fffffff) * (SamplingRate / (23011361.0 / 384)))
-                    //, pwmClockValue
                     );
 
-                sdlCbHandle = GCHandle.Alloc(sdlCb);
-                sdlCbPtr = Marshal.GetFunctionPointerForDelegate(sdlCb);
-                sdl = new AudioStream((int)SamplingRate, AudioFormat.Signed16Little, SoundChannel.Stereo, (short)samplingBuffer, sdlCb, null);
+                Paused = false;
+                Stopped = false;
 
-                sdl.Paused = false;
+                naudioWrap.Start(Audio.setting);
 
                 return true;
             }
@@ -249,11 +251,10 @@ namespace MDPlayer
 
         public static void Pause()
         {
-            if (sdl == null) return;
 
             try
             {
-                sdl.Paused = !sdl.Paused;
+                Paused = !Paused;
             }
             catch
             {
@@ -263,7 +264,6 @@ namespace MDPlayer
 
         public static void Fadeout()
         {
-            if (sdl == null) return;
 
             vgmFadeout = true;
 
@@ -274,21 +274,17 @@ namespace MDPlayer
 
             try
             {
-                if (sdl != null)
+                if (!Paused)
                 {
-                        sdl.Paused = true;
-                        sdl.Close();
-                        sdl.Dispose();
-                        sdl = null;
+                    vgmFadeoutCounterV = 0.1;
+                    vgmFadeout = true;
+                    while (!Stopped)
+                    {
+                        System.Threading.Thread.Sleep(1);
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                 }
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                if (sdlCbHandle.IsAllocated) sdlCbHandle.Free();
+                naudioWrap.Stop();
             }
             catch
             {
@@ -371,36 +367,45 @@ namespace MDPlayer
             mds.resetPSGMask(1 << ch);
         }
 
-
-
-        internal static void callback(IntPtr userData, IntPtr stream, int len)
+        internal static int naudioCb(short[] buffer, int offset, int sampleCount)
         {
             int i;
 
-            int[][] buf = mds.Update2(oneFrameVGMWithSpeedControl);
-
-            for (i = 0; i < len / 4; i++)
+            if (Stopped || Paused)
             {
-                frames[i * 2 + 0] = (short)(buf[0][i] * vgmFadeoutCounter);
-                frames[i * 2 + 1] = (short)(buf[1][i] * vgmFadeoutCounter);
+                for (i = 0; i < sampleCount; i++)
+                {
+                    buffer[offset + i] = 0;
+                }
+
+                return sampleCount;
             }
 
-            Marshal.Copy(frames, 0, stream, len / 2);
+            int cnt = mds.Update3(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
 
             if (vgmFadeout)
             {
+
+                for (i = 0; i < sampleCount; i++)
+                {
+                    buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
+                }
+
                 vgmFadeoutCounter -= vgmFadeoutCounterV;
                 vgmFadeoutCounterV += 0.0002;
-                if (vgmFadeoutCounterV >= 0.04)
+                if (vgmFadeoutCounterV >= 0.04 && vgmFadeoutCounterV!=0.1)
                 {
                     vgmFadeoutCounterV = 0.04;
                 }
 
-                if (vgmFadeoutCounter <= 0.0)
+                if (vgmFadeoutCounter < 0.0)
                 {
-                    Stop();
+                    vgmFadeoutCounter = 0.0;
+                    Stopped = true;
                 }
             }
+
+            return cnt;
         }
 
         private static void oneFrameVGMWithSpeedControl()
@@ -421,10 +426,10 @@ namespace MDPlayer
 
         private static void oneFrameVGM()
         {
-            if (sdl==null || sdl.Paused)
-            {
-                return;
-            }
+            //if (sdl==null || sdl.Paused)
+            //{
+            //    return;
+            //}
 
             if (vgmWait > 0)
             {
@@ -436,7 +441,7 @@ namespace MDPlayer
 
             if (!vgmAnalyze)
             {
-                Stop();
+                Stopped=true;
                 return;
             }
 
@@ -1162,7 +1167,6 @@ namespace MDPlayer
 
             return true;
         }
-
 
         private static void ReadPCMTable(uint DataSize, uint Adr)
         {
