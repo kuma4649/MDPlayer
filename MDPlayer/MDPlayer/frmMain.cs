@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NAudio.Midi;
 
 namespace MDPlayer
 {
@@ -74,13 +75,14 @@ namespace MDPlayer
 
         private Setting setting = Setting.Load();
 
+        private MidiIn midiin = null;
+
 
         public frmMain()
         {
             InitializeComponent();
-            pbScreen.AllowDrop = true;
-            Audio.Init();
 
+            //引数が指定されている場合のみプロセスチェックを行い、自分と同じアプリケーションが実行中ならばそちらに引数を渡し終了する
             if (Environment.GetCommandLineArgs().Length > 1)
             {
                 Process prc = GetPreviousProcess();
@@ -90,6 +92,10 @@ namespace MDPlayer
                     this.Close();
                 }
             }
+
+            pbScreen.AllowDrop = true;
+            Audio.Init(setting);
+            StartMIDIInMonitoring();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -142,7 +148,8 @@ namespace MDPlayer
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Audio.Stop();
+            StopMIDIInMonitoring();
+            Audio.Close();
             isRunning = false;
             while (!stopped)
             {
@@ -157,7 +164,7 @@ namespace MDPlayer
         {
             if (e.Location.Y < 208)
             {
-                for(int n=0 ;n < newButton.Length;n++)
+                for (int n = 0; n < newButton.Length; n++)
                 {
                     newButton[n] = 0;
                 }
@@ -166,7 +173,7 @@ namespace MDPlayer
 
             for (int n = 0; n < newButton.Length; n++)
             {
-                if (e.Location.X >= 320 - (11- n) * 16 && e.Location.X < 320 - (10- n) * 16) newButton[n] = 1;
+                if (e.Location.X >= 320 - (11 - n) * 16 && e.Location.X < 320 - (10 - n) * 16) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -265,7 +272,7 @@ namespace MDPlayer
 
             if (e.Location.Y < 26 * 8)
             {
-                int h = (e.Location.Y - 14 * 8 ) / (6 * 8);
+                int h = (e.Location.Y - 14 * 8) / (6 * 8);
                 int w = Math.Min(e.Location.X / (13 * 8), 2);
                 int instCh = h * 3 + w;
 
@@ -454,7 +461,7 @@ namespace MDPlayer
                     int freq = fmRegister[0][0xa8 + c] + (fmRegister[0][0xac + c] & 0x07) * 0x100;
                     int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKey[2] & (0x20 << (ch-6)) ) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    if ((fmKey[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
                     newParam.ym2612.channels[ch].note = n;
                     newParam.ym2612.channels[ch].volumeL = Math.Min(Math.Max(fmCh3SlotVol[ch - 5] / 80, 0), 19);
                 }
@@ -549,7 +556,7 @@ namespace MDPlayer
             }
             for (int ch = 0; ch < 3; ch++)
             {
-                screen.drawCh(ch+10, ref oldParam.ym2612.channels[ch+6].mask, newParam.ym2612.channels[ch+6].mask);
+                screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask);
             }
 
             screen.Refresh();
@@ -594,7 +601,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - (0x0800 * pcmMTbl[i%12] * Math.Pow(2, ((int)(i/12) - 4))));
+                double a = Math.Abs(freq - (0x0800 * pcmMTbl[i % 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -611,9 +618,16 @@ namespace MDPlayer
             {
                 setting = frm.setting;
                 setting.Save();
+
+                StopMIDIInMonitoring();
+                Audio.Close();
+
+                Audio.Init(setting);
+                StartMIDIInMonitoring();
+
             }
         }
-         
+
         private void stop()
         {
 
@@ -734,7 +748,7 @@ namespace MDPlayer
 
             frmMCD = new frmMegaCD(this);
             frmMCD.x = this.Location.X;
-            frmMCD.y = this.Location.Y+264;
+            frmMCD.y = this.Location.Y + 264;
             screen.AddRf5c164(frmMCD.pbScreen, Properties.Resources.planeC);
             frmMCD.Show();
             frmMCD.update();
@@ -789,7 +803,7 @@ namespace MDPlayer
 
             MemoryStream outStream // 出力ストリーム
               = new MemoryStream();
-            
+
             using (inStream)
             using (outStream)
             using (decompStream)
@@ -932,6 +946,89 @@ namespace MDPlayer
 
             Clipboard.SetText(n);
         }
+
+        private void StartMIDIInMonitoring()
+        {
+
+            //if (setting.other.MidiInDeviceName == "")
+            //{
+            //    return;
+            //}
+
+            //if (midiin != null)
+            //{
+            //    try
+            //    {
+            //        midiin.Stop();
+            //        midiin.Dispose();
+            //        midiin.MessageReceived -= midiIn_MessageReceived;
+            //        midiin.ErrorReceived -= midiIn_ErrorReceived;
+            //        midiin = null;
+            //    }
+            //    catch
+            //    {
+            //        midiin = null;
+            //    }
+            //}
+
+            //if (midiin == null)
+            //{
+            //    for (int i = 0; i < MidiIn.NumberOfDevices; i++)
+            //    {
+            //        if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
+            //        {
+            //            try
+            //            {
+            //                midiin = new MidiIn(i);
+            //                midiin.MessageReceived += midiIn_MessageReceived;
+            //                midiin.ErrorReceived += midiIn_ErrorReceived;
+            //                midiin.Start();
+            //            }
+            //            catch
+            //            {
+            //                midiin = null;
+            //            }
+            //        }
+            //    }
+            //}
+
+        }
+
+        void midiIn_ErrorReceived(object sender, MidiInMessageEventArgs e)
+        {
+            //            Console.WriteLine(String.Format("Error Time {0} Message 0x{1:X8} Event {2}",
+            //                e.Timestamp, e.RawMessage, e.MidiEvent));
+        }
+
+        private void StopMIDIInMonitoring()
+        {
+            //if (midiin != null)
+            //{
+            //    try
+            //    {
+            //        midiin.Stop();
+            //        midiin.Dispose();
+            //        midiin.MessageReceived -= midiIn_MessageReceived;
+            //        midiin.ErrorReceived -= midiIn_ErrorReceived;
+            //        midiin = null;
+            //    }
+            //    catch
+            //    {
+            //        midiin = null;
+            //    }
+            //}
+        }
+
+        void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        {
+            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+            {
+                Console.WriteLine(String.Format("Time {0} Message 0x{1:X8} Event {2}",
+                    e.Timestamp, e.RawMessage, e.MidiEvent));
+            }
+        }
+
+
 
     }
 }

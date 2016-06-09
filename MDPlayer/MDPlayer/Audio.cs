@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace MDPlayer
 {
@@ -16,13 +15,13 @@ namespace MDPlayer
         private static List<string> chips = null;
 
         private static uint SamplingRate = 44100;
+        //private static uint SamplingRate = 48000;
         private static uint PSGClockValue = 3579545;
         private static uint FMClockValue = 7670454;
         private static uint rf5c164ClockValue = 12500000;
         private static uint pwmClockValue = 23011361;
 
         private static uint samplingBuffer = 1024;
-        private static short[] frames = new short[samplingBuffer * 2];
         private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue, pwmClockValue);
 
         private static NAudioWrap naudioWrap;
@@ -59,12 +58,25 @@ namespace MDPlayer
 
         private static Setting setting = null;
 
-        public static void Init()
+        public static void Init(Setting setting)
         {
+
             dacControl.mds = mds;
             naudioWrap = new NAudioWrap((int)SamplingRate, naudioCb);
+            Audio.setting = setting.Copy();
+
+            mds.Init(SamplingRate, samplingBuffer / 2
+                , FMClockValue
+                , PSGClockValue
+                , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
+                , (uint)(pwmClockValue * (SamplingRate / (23011361.0 / 384)))
+            );
+
             Paused = false;
             Stopped = true;
+
+            naudioWrap.Start(Audio.setting);
+
         }
 
         public static void SetVGMBuffer(byte[] srcBuf)
@@ -80,8 +92,6 @@ namespace MDPlayer
             {
 
                 if (vgmBuf == null || setting == null) return false;
-
-                Audio.setting = setting.Copy();
 
                 Stop();
 
@@ -218,17 +228,15 @@ namespace MDPlayer
                     DacCtrl[CurChip].Enable = false;
                 }
 
-                mds.Init(SamplingRate, samplingBuffer/2
+                mds.Init(SamplingRate, samplingBuffer / 2
                     , FMClockValue
                     , PSGClockValue
                     , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
-                    , (pwmClockValue & 0x80000000) + (uint)((pwmClockValue & 0x7fffffff) * (SamplingRate / (23011361.0 / 384)))
+                    , (uint)(pwmClockValue * (SamplingRate / (23011361.0 / 384)))
                     );
 
                 Paused = false;
                 Stopped = false;
-
-                naudioWrap.Start(Audio.setting);
 
                 return true;
             }
@@ -284,12 +292,24 @@ namespace MDPlayer
                         System.Windows.Forms.Application.DoEvents();
                     }
                 }
-                naudioWrap.Stop();
+                //naudioWrap.Stop();
             }
             catch
             {
             }
 
+        }
+
+        public static void Close()
+        {
+            try
+            {
+                Stop();
+                naudioWrap.Stop();
+            }
+            catch
+            {
+            }
         }
 
         public static int[][] GetFMRegister()
@@ -373,12 +393,9 @@ namespace MDPlayer
 
             if (Stopped || Paused)
             {
-                for (i = 0; i < sampleCount; i++)
-                {
-                    buffer[offset + i] = 0;
-                }
 
-                return sampleCount;
+                return mds.Update3(buffer, offset, sampleCount, null);
+
             }
 
             int cnt = mds.Update3(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
@@ -401,6 +418,13 @@ namespace MDPlayer
                 if (vgmFadeoutCounter < 0.0)
                 {
                     vgmFadeoutCounter = 0.0;
+                    mds.Init(SamplingRate, samplingBuffer / 2
+                        , FMClockValue
+                        , PSGClockValue
+                        , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
+                        //, (pwmClockValue & 0x80000000) + (uint)((pwmClockValue & 0x7fffffff) * (SamplingRate / (23011361.0 / 384)))
+                        , (uint)(pwmClockValue * (SamplingRate / (23011361.0 / 384)))
+                        );
                     Stopped = true;
                 }
             }

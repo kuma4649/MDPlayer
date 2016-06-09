@@ -24,6 +24,21 @@ namespace MDPlayer
             }
         }
 
+        private Other _other = new Other();
+        public Other other
+        {
+            get
+            {
+                return _other;
+            }
+
+            set
+            {
+                _other = value;
+            }
+        }
+
+
         [Serializable]
         public class OutputDevice
         {
@@ -84,6 +99,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _WasapiShareMode = true;
+            public bool WasapiShareMode
+            {
+                get
+                {
+                    return _WasapiShareMode;
+                }
+
+                set
+                {
+                    _WasapiShareMode = value;
+                }
+            }
+
             private string _AsioDeviceName = "";
             public string AsioDeviceName
             {
@@ -105,9 +134,55 @@ namespace MDPlayer
                 outputDevice.WaveOutDeviceName = this.WaveOutDeviceName;
                 outputDevice.DirectSoundDeviceName = this.DirectSoundDeviceName;
                 outputDevice.WasapiDeviceName = this.WasapiDeviceName;
+                outputDevice.WasapiShareMode = this.WasapiShareMode;
                 outputDevice.AsioDeviceName = this.AsioDeviceName;
 
                 return outputDevice;
+            }
+        }
+
+        [Serializable]
+        public class Other
+        {
+
+            private string _MidiInDeviceName="";
+            public string MidiInDeviceName
+            {
+                get
+                {
+                    return _MidiInDeviceName;
+                }
+
+                set
+                {
+                    _MidiInDeviceName = value;
+                }
+            }
+
+            private bool[] _UseChannel = new bool[13];
+            public bool[] UseChannel
+            {
+                get
+                {
+                    return _UseChannel;
+                }
+
+                set
+                {
+                    _UseChannel = value;
+                }
+            }
+
+            public Other Copy()
+            {
+                Other other = new Other();
+                other.MidiInDeviceName = this.MidiInDeviceName;
+                for (int i = 0; i < other.UseChannel.Length; i++)
+                {
+                    other.UseChannel[i] = this.UseChannel[i];
+                }
+
+                return other;
             }
         }
 
@@ -115,6 +190,7 @@ namespace MDPlayer
         {
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
+            setting.other = this.other.Copy();
 
             return setting;
         }
@@ -171,7 +247,30 @@ namespace MDPlayer
             }
         }
 
+        public Other Other1
+        {
+            get
+            {
+                return Other2;
+            }
 
+            set
+            {
+                Other2 = value;
+            }
+        }
 
+        public Other Other2
+        {
+            get
+            {
+                return _other;
+            }
+
+            set
+            {
+                _other = value;
+            }
+        }
     }
 }

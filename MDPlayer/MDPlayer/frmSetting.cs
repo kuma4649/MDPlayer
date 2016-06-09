@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
+using System.Reflection;
 
 namespace MDPlayer
 {
@@ -27,6 +28,12 @@ namespace MDPlayer
         }
 
         public void Init() {
+
+            this.labelProductName.Text = AssemblyProduct;
+            this.labelVersion.Text = String.Format("バージョン {0}", AssemblyVersion);
+            this.labelCopyright.Text = AssemblyCopyright;
+            this.labelCompanyName.Text = AssemblyCompany;
+            this.textBoxDescription.Text = Properties.Resources.cntDescription;
 
             //ASIOサポートチェック
             if (!AsioOut.isSupported())
@@ -74,6 +81,15 @@ namespace MDPlayer
                 {
                     cmbAsioDevice.Items.Add(s);
                 }
+            }
+
+            if (NAudio.Midi.MidiIn.NumberOfDevices > 0)
+            {
+                for (int i = 0; i < NAudio.Midi.MidiIn.NumberOfDevices; i++)
+                {
+                    cmbMIDIIN.Items.Add(NAudio.Midi.MidiIn.DeviceInfo(i).ProductName);
+                }
+                cmbMIDIIN.SelectedIndex = 0;
             }
 
 
@@ -146,6 +162,35 @@ namespace MDPlayer
                 }
             }
 
+            if (cmbMIDIIN.Items.Count > 0)
+            {
+                cmbMIDIIN.SelectedIndex = 0;
+                foreach (string item in cmbMIDIIN.Items)
+                {
+                    if (item == setting.other.MidiInDeviceName)
+                    {
+                        cmbMIDIIN.SelectedItem = item;
+                    }
+                }
+            }
+
+            rbShare.Checked = setting.outputDevice.WasapiShareMode;
+            rbExclusive.Checked = !setting.outputDevice.WasapiShareMode;
+
+            cbFM1.Checked = setting.other.UseChannel[0];
+            cbFM2.Checked = setting.other.UseChannel[1];
+            cbFM3.Checked = setting.other.UseChannel[2];
+            cbFM4.Checked = setting.other.UseChannel[3];
+            cbFM5.Checked = setting.other.UseChannel[4];
+            cbFM6.Checked = setting.other.UseChannel[5];
+            cbPSG1.Checked = setting.other.UseChannel[6];
+            cbPSG2.Checked = setting.other.UseChannel[7];
+            cbPSG3.Checked = setting.other.UseChannel[8];
+            cbPSG4.Checked = setting.other.UseChannel[9];
+            cbFM3ex1.Checked = setting.other.UseChannel[10];
+            cbFM3ex2.Checked = setting.other.UseChannel[11];
+            cbFM3ex3.Checked = setting.other.UseChannel[12];
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -176,8 +221,106 @@ namespace MDPlayer
             setting.outputDevice.WasapiDeviceName = cmbWasapiDevice.SelectedItem.ToString();
             setting.outputDevice.AsioDeviceName = cmbAsioDevice.SelectedItem.ToString();
 
+            setting.outputDevice.WasapiShareMode = rbShare.Checked;
+
+            setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
+            setting.other.UseChannel[0] = cbFM1.Checked;
+            setting.other.UseChannel[1] = cbFM2.Checked;
+            setting.other.UseChannel[2] = cbFM3.Checked;
+            setting.other.UseChannel[3] = cbFM4.Checked;
+            setting.other.UseChannel[4] = cbFM5.Checked;
+            setting.other.UseChannel[5] = cbFM6.Checked;
+            setting.other.UseChannel[6] = cbPSG1.Checked;
+            setting.other.UseChannel[7] = cbPSG2.Checked;
+            setting.other.UseChannel[8] = cbPSG3.Checked;
+            setting.other.UseChannel[9] = cbPSG4.Checked;
+            setting.other.UseChannel[10] = cbFM3ex1.Checked;
+            setting.other.UseChannel[11] = cbFM3ex2.Checked;
+            setting.other.UseChannel[12] = cbFM3ex3.Checked;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        #region アセンブリ属性アクセサー
+
+        public string AssemblyTitle
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                if (attributes.Length > 0)
+                {
+                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (titleAttribute.Title != "")
+                    {
+                        return titleAttribute.Title;
+                    }
+                }
+                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+            }
+        }
+
+        public string AssemblyVersion
+        {
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
+
+        public string AssemblyDescription
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                if (attributes.Length == 0)
+                {
+                    return "";
+                }
+                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+            }
+        }
+
+        public string AssemblyProduct
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                if (attributes.Length == 0)
+                {
+                    return "";
+                }
+                return ((AssemblyProductAttribute)attributes[0]).Product;
+            }
+        }
+
+        public string AssemblyCopyright
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                if (attributes.Length == 0)
+                {
+                    return "";
+                }
+                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+            }
+        }
+
+        public string AssemblyCompany
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                if (attributes.Length == 0)
+                {
+                    return "";
+                }
+                return ((AssemblyCompanyAttribute)attributes[0]).Company;
+            }
+        }
+        #endregion
+
     }
 }

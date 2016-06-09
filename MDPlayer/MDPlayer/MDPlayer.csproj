@@ -144,6 +144,7 @@
     <Content Include="Resources\フェーリ128.png" />
     <Content Include="Resources\フェーリ48.png" />
     <Content Include="Resources\フェーリ64.png" />
+    <None Include="Resources\フェーリAndMD2.png" />
     <Content Include="フェーリ.ico" />
     <None Include="Resources\planeC.png" />
   </ItemGroup>

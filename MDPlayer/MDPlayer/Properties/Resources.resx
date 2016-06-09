@@ -130,4 +130,43 @@
   <data name="planeC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planeC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cntDescription" xml:space="preserve">
+    <value>MDPlayer
+VGMPlayer(メガドライブ 音源チップエミュレーション専用)
+
+[概要]
+このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。
+
+[機能、特徴]
+・現在、以下のメガドライブ系音源チップの再生のみ可能です。
+YM2612 , SN76489 , RF5C164 , PWM
+(PWMは鍵盤表示しません)
+・C#で作成されています。
+・VGMPlayのソースを参考、一部移植しています。
+・ボタンは以下の順に並んでいます。
+停止、一時停止、フェードアウト、1/4速再生、再生、4倍速再生、ファイルを開く、情報パネル表示、RF5C164パネル表示
+・YM2612 , SN76489はチャンネルを左クリックすることでマスクをさせることができます。
+右クリックすると全チャンネルのマスクを解除します。
+
+[SpecialThanks]
+本ツールは以下の方々にお世話になっております。また以下のソフトウェア、ウェブページを参考、使用しています。
+本当にありがとうございます。
+
+・ラエル さん
+・とぼけがお さん
+
+・Visual Studio Community 2015
+・SGDK
+・VGM Player
+・Git
+・SourceTree
+・さくらエディター
+
+・SMS Power!
+・DOBON.NET
+・Wikipedia</value>
+  </data>
+  <data name="フェーリAndMD2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\フェーリAndMD2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

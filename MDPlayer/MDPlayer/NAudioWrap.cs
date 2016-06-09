@@ -90,11 +90,11 @@ namespace MDPlayer
                         }
                         if (dev == null)
                         {
-                            wasapiOut = new WasapiOut(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 10);
+                            wasapiOut = new WasapiOut(setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, 10);
                         }
                         else
                         {
-                            wasapiOut = new WasapiOut(dev, AudioClientShareMode.Shared, false, 10);
+                            wasapiOut = new WasapiOut(dev, setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, false, 10);
                         }
                         wasapiOut.Init(waveProvider);
                         wasapiOut.Play();
