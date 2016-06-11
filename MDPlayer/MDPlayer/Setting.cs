@@ -57,6 +57,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _Latency = 0;
+            public int Latency
+            {
+                get
+                {
+                    return _Latency;
+                }
+
+                set
+                {
+                    _Latency = value;
+                }
+            }
+
             private string _WaveOutDeviceName = "";
             public string WaveOutDeviceName
             {
@@ -131,6 +145,7 @@ namespace MDPlayer
             {
                 OutputDevice outputDevice = new OutputDevice();
                 outputDevice.DeviceType = this.DeviceType;
+                outputDevice.Latency = this.Latency;
                 outputDevice.WaveOutDeviceName = this.WaveOutDeviceName;
                 outputDevice.DirectSoundDeviceName = this.DirectSoundDeviceName;
                 outputDevice.WasapiDeviceName = this.WasapiDeviceName;
@@ -144,6 +159,20 @@ namespace MDPlayer
         [Serializable]
         public class Other
         {
+
+            private bool _UseMIDIKeyboard = false;
+            public bool UseMIDIKeyboard
+            {
+                get
+                {
+                    return _UseMIDIKeyboard;
+                }
+
+                set
+                {
+                    _UseMIDIKeyboard = value;
+                }
+            }
 
             private string _MidiInDeviceName="";
             public string MidiInDeviceName
@@ -159,7 +188,7 @@ namespace MDPlayer
                 }
             }
 
-            private bool[] _UseChannel = new bool[13];
+            private bool[] _UseChannel = new bool[9];
             public bool[] UseChannel
             {
                 get
@@ -177,6 +206,7 @@ namespace MDPlayer
             {
                 Other other = new Other();
                 other.MidiInDeviceName = this.MidiInDeviceName;
+                other.UseMIDIKeyboard = this.UseMIDIKeyboard;
                 for (int i = 0; i < other.UseChannel.Length; i++)
                 {
                     other.UseChannel[i] = this.UseChannel[i];

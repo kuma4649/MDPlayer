@@ -35,6 +35,8 @@ namespace MDPlayer
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = Properties.Resources.cntDescription;
 
+            this.cmbLatency.SelectedIndex = 5;
+
             //ASIOサポートチェック
             if (!AsioOut.isSupported())
             {
@@ -177,6 +179,17 @@ namespace MDPlayer
             rbShare.Checked = setting.outputDevice.WasapiShareMode;
             rbExclusive.Checked = !setting.outputDevice.WasapiShareMode;
 
+                lblLatency.Enabled = !rbAsioOut.Checked;
+                lblLatencyUnit.Enabled = !rbAsioOut.Checked;
+                cmbLatency.Enabled = !rbAsioOut.Checked;
+
+            if (cmbLatency.Items.Contains(setting.outputDevice.Latency.ToString()))
+            {
+                cmbLatency.SelectedItem = setting.outputDevice.Latency.ToString();
+            }
+
+            cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
+
             cbFM1.Checked = setting.other.UseChannel[0];
             cbFM2.Checked = setting.other.UseChannel[1];
             cbFM3.Checked = setting.other.UseChannel[2];
@@ -186,10 +199,6 @@ namespace MDPlayer
             cbPSG1.Checked = setting.other.UseChannel[6];
             cbPSG2.Checked = setting.other.UseChannel[7];
             cbPSG3.Checked = setting.other.UseChannel[8];
-            cbPSG4.Checked = setting.other.UseChannel[9];
-            cbFM3ex1.Checked = setting.other.UseChannel[10];
-            cbFM3ex2.Checked = setting.other.UseChannel[11];
-            cbFM3ex3.Checked = setting.other.UseChannel[12];
 
         }
 
@@ -222,6 +231,7 @@ namespace MDPlayer
             setting.outputDevice.AsioDeviceName = cmbAsioDevice.SelectedItem.ToString();
 
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
+            setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
 
             setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
             setting.other.UseChannel[0] = cbFM1.Checked;
@@ -233,10 +243,8 @@ namespace MDPlayer
             setting.other.UseChannel[6] = cbPSG1.Checked;
             setting.other.UseChannel[7] = cbPSG2.Checked;
             setting.other.UseChannel[8] = cbPSG3.Checked;
-            setting.other.UseChannel[9] = cbPSG4.Checked;
-            setting.other.UseChannel[10] = cbFM3ex1.Checked;
-            setting.other.UseChannel[11] = cbFM3ex2.Checked;
-            setting.other.UseChannel[12] = cbFM3ex3.Checked;
+
+            setting.other.UseMIDIKeyboard = cbUseMIDIKeyboard.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -322,5 +330,37 @@ namespace MDPlayer
         }
         #endregion
 
+        private void cbUseMIDIKeyboard_CheckedChanged(object sender, EventArgs e)
+        {
+            gbMIDIKeyboard.Enabled = cbUseMIDIKeyboard.Checked;
+        }
+
+        private void rbWaveOut_CheckedChanged(object sender, EventArgs e)
+        {
+            lblLatency.Enabled = true;
+            lblLatencyUnit.Enabled = true;
+            cmbLatency.Enabled = true;
+        }
+
+        private void rbDirectSoundOut_CheckedChanged(object sender, EventArgs e)
+        {
+            lblLatency.Enabled = true;
+            lblLatencyUnit.Enabled = true;
+            cmbLatency.Enabled = true;
+        }
+
+        private void rbWasapiOut_CheckedChanged(object sender, EventArgs e)
+        {
+            lblLatency.Enabled = true;
+            lblLatencyUnit.Enabled = true;
+            cmbLatency.Enabled = true;
+        }
+
+        private void rbAsioOut_CheckedChanged(object sender, EventArgs e)
+        {
+            lblLatency.Enabled = false;
+            lblLatencyUnit.Enabled = false;
+            cmbLatency.Enabled = false;
+        }
     }
 }

@@ -51,16 +51,16 @@
             this.cmbDirectSoundDevice = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblLatencyUnit = new System.Windows.Forms.Label();
+            this.lblLatency = new System.Windows.Forms.Label();
+            this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cbUseMIDIKeyboard = new System.Windows.Forms.CheckBox();
             this.gbMIDIKeyboard = new System.Windows.Forms.GroupBox();
             this.gbUseChannel = new System.Windows.Forms.GroupBox();
-            this.cbFM3ex3 = new System.Windows.Forms.CheckBox();
             this.cbFM1 = new System.Windows.Forms.CheckBox();
-            this.cbFM3ex2 = new System.Windows.Forms.CheckBox();
             this.cbFM2 = new System.Windows.Forms.CheckBox();
-            this.cbFM3ex1 = new System.Windows.Forms.CheckBox();
             this.cbFM3 = new System.Windows.Forms.CheckBox();
-            this.cbPSG4 = new System.Windows.Forms.CheckBox();
             this.cbFM4 = new System.Windows.Forms.CheckBox();
             this.cbPSG3 = new System.Windows.Forms.CheckBox();
             this.cbFM5 = new System.Windows.Forms.CheckBox();
@@ -157,6 +157,7 @@
             this.rbWaveOut.TabStop = true;
             this.rbWaveOut.Text = "WaveOut";
             this.rbWaveOut.UseVisualStyleBackColor = true;
+            this.rbWaveOut.CheckedChanged += new System.EventHandler(this.rbWaveOut_CheckedChanged);
             // 
             // rbAsioOut
             // 
@@ -167,6 +168,7 @@
             this.rbAsioOut.TabIndex = 6;
             this.rbAsioOut.Text = "AsioOut";
             this.rbAsioOut.UseVisualStyleBackColor = true;
+            this.rbAsioOut.CheckedChanged += new System.EventHandler(this.rbAsioOut_CheckedChanged);
             // 
             // rbWasapiOut
             // 
@@ -177,6 +179,7 @@
             this.rbWasapiOut.TabIndex = 4;
             this.rbWasapiOut.Text = "WasapiOut";
             this.rbWasapiOut.UseVisualStyleBackColor = true;
+            this.rbWasapiOut.CheckedChanged += new System.EventHandler(this.rbWasapiOut_CheckedChanged);
             // 
             // gbAsioOut
             // 
@@ -232,6 +235,7 @@
             this.rbDirectSoundOut.TabIndex = 2;
             this.rbDirectSoundOut.Text = "DirectSound";
             this.rbDirectSoundOut.UseVisualStyleBackColor = true;
+            this.rbDirectSoundOut.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
             // 
             // gbWasapiOut
             // 
@@ -336,6 +340,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblLatencyUnit);
+            this.tabPage1.Controls.Add(this.lblLatency);
+            this.tabPage1.Controls.Add(this.cmbLatency);
             this.tabPage1.Controls.Add(this.rbDirectSoundOut);
             this.tabPage1.Controls.Add(this.rbWaveOut);
             this.tabPage1.Controls.Add(this.rbAsioOut);
@@ -352,8 +359,45 @@
             this.tabPage1.Text = "出力";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // lblLatencyUnit
+            // 
+            this.lblLatencyUnit.AutoSize = true;
+            this.lblLatencyUnit.Location = new System.Drawing.Point(213, 268);
+            this.lblLatencyUnit.Name = "lblLatencyUnit";
+            this.lblLatencyUnit.Size = new System.Drawing.Size(20, 12);
+            this.lblLatencyUnit.TabIndex = 9;
+            this.lblLatencyUnit.Text = "ms";
+            // 
+            // lblLatency
+            // 
+            this.lblLatency.AutoSize = true;
+            this.lblLatency.Location = new System.Drawing.Point(11, 268);
+            this.lblLatency.Name = "lblLatency";
+            this.lblLatency.Size = new System.Drawing.Size(53, 12);
+            this.lblLatency.TabIndex = 9;
+            this.lblLatency.Text = "遅延時間";
+            // 
+            // cmbLatency
+            // 
+            this.cmbLatency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLatency.FormattingEnabled = true;
+            this.cmbLatency.Items.AddRange(new object[] {
+            "25",
+            "50",
+            "100",
+            "150",
+            "200",
+            "300",
+            "400",
+            "500"});
+            this.cmbLatency.Location = new System.Drawing.Point(86, 265);
+            this.cmbLatency.Name = "cmbLatency";
+            this.cmbLatency.Size = new System.Drawing.Size(121, 20);
+            this.cmbLatency.TabIndex = 8;
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.cbUseMIDIKeyboard);
             this.tabPage3.Controls.Add(this.gbMIDIKeyboard);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -362,28 +406,35 @@
             this.tabPage3.Text = "Other";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cbUseMIDIKeyboard
+            // 
+            this.cbUseMIDIKeyboard.AutoSize = true;
+            this.cbUseMIDIKeyboard.Enabled = false;
+            this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(9, 3);
+            this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
+            this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(122, 16);
+            this.cbUseMIDIKeyboard.TabIndex = 10;
+            this.cbUseMIDIKeyboard.Text = "Use MIDI Keyboard";
+            this.cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
+            this.cbUseMIDIKeyboard.CheckedChanged += new System.EventHandler(this.cbUseMIDIKeyboard_CheckedChanged);
+            // 
             // gbMIDIKeyboard
             // 
             this.gbMIDIKeyboard.Controls.Add(this.gbUseChannel);
             this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
             this.gbMIDIKeyboard.Controls.Add(this.label5);
             this.gbMIDIKeyboard.Enabled = false;
-            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 3);
+            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 7);
             this.gbMIDIKeyboard.Name = "gbMIDIKeyboard";
-            this.gbMIDIKeyboard.Size = new System.Drawing.Size(368, 135);
+            this.gbMIDIKeyboard.Size = new System.Drawing.Size(368, 110);
             this.gbMIDIKeyboard.TabIndex = 0;
             this.gbMIDIKeyboard.TabStop = false;
-            this.gbMIDIKeyboard.Text = "MIDI Keyboard";
             // 
             // gbUseChannel
             // 
-            this.gbUseChannel.Controls.Add(this.cbFM3ex3);
             this.gbUseChannel.Controls.Add(this.cbFM1);
-            this.gbUseChannel.Controls.Add(this.cbFM3ex2);
             this.gbUseChannel.Controls.Add(this.cbFM2);
-            this.gbUseChannel.Controls.Add(this.cbFM3ex1);
             this.gbUseChannel.Controls.Add(this.cbFM3);
-            this.gbUseChannel.Controls.Add(this.cbPSG4);
             this.gbUseChannel.Controls.Add(this.cbFM4);
             this.gbUseChannel.Controls.Add(this.cbPSG3);
             this.gbUseChannel.Controls.Add(this.cbFM5);
@@ -392,20 +443,10 @@
             this.gbUseChannel.Controls.Add(this.cbPSG1);
             this.gbUseChannel.Location = new System.Drawing.Point(6, 44);
             this.gbUseChannel.Name = "gbUseChannel";
-            this.gbUseChannel.Size = new System.Drawing.Size(356, 85);
+            this.gbUseChannel.Size = new System.Drawing.Size(356, 60);
             this.gbUseChannel.TabIndex = 1;
             this.gbUseChannel.TabStop = false;
             this.gbUseChannel.Text = "use channel";
-            // 
-            // cbFM3ex3
-            // 
-            this.cbFM3ex3.AutoSize = true;
-            this.cbFM3ex3.Location = new System.Drawing.Point(275, 18);
-            this.cbFM3ex3.Name = "cbFM3ex3";
-            this.cbFM3ex3.Size = new System.Drawing.Size(64, 16);
-            this.cbFM3ex3.TabIndex = 12;
-            this.cbFM3ex3.Text = "FM3ex3";
-            this.cbFM3ex3.UseVisualStyleBackColor = true;
             // 
             // cbFM1
             // 
@@ -417,60 +458,30 @@
             this.cbFM1.Text = "FM1";
             this.cbFM1.UseVisualStyleBackColor = true;
             // 
-            // cbFM3ex2
-            // 
-            this.cbFM3ex2.AutoSize = true;
-            this.cbFM3ex2.Location = new System.Drawing.Point(203, 62);
-            this.cbFM3ex2.Name = "cbFM3ex2";
-            this.cbFM3ex2.Size = new System.Drawing.Size(64, 16);
-            this.cbFM3ex2.TabIndex = 12;
-            this.cbFM3ex2.Text = "FM3ex2";
-            this.cbFM3ex2.UseVisualStyleBackColor = true;
-            // 
             // cbFM2
             // 
             this.cbFM2.AutoSize = true;
-            this.cbFM2.Location = new System.Drawing.Point(6, 40);
+            this.cbFM2.Location = new System.Drawing.Point(64, 18);
             this.cbFM2.Name = "cbFM2";
             this.cbFM2.Size = new System.Drawing.Size(46, 16);
             this.cbFM2.TabIndex = 3;
             this.cbFM2.Text = "FM2";
             this.cbFM2.UseVisualStyleBackColor = true;
             // 
-            // cbFM3ex1
-            // 
-            this.cbFM3ex1.AutoSize = true;
-            this.cbFM3ex1.Location = new System.Drawing.Point(203, 40);
-            this.cbFM3ex1.Name = "cbFM3ex1";
-            this.cbFM3ex1.Size = new System.Drawing.Size(64, 16);
-            this.cbFM3ex1.TabIndex = 11;
-            this.cbFM3ex1.Text = "FM3ex1";
-            this.cbFM3ex1.UseVisualStyleBackColor = true;
-            // 
             // cbFM3
             // 
             this.cbFM3.AutoSize = true;
-            this.cbFM3.Location = new System.Drawing.Point(6, 62);
+            this.cbFM3.Location = new System.Drawing.Point(122, 18);
             this.cbFM3.Name = "cbFM3";
             this.cbFM3.Size = new System.Drawing.Size(46, 16);
             this.cbFM3.TabIndex = 3;
             this.cbFM3.Text = "FM3";
             this.cbFM3.UseVisualStyleBackColor = true;
             // 
-            // cbPSG4
-            // 
-            this.cbPSG4.AutoSize = true;
-            this.cbPSG4.Location = new System.Drawing.Point(203, 18);
-            this.cbPSG4.Name = "cbPSG4";
-            this.cbPSG4.Size = new System.Drawing.Size(52, 16);
-            this.cbPSG4.TabIndex = 10;
-            this.cbPSG4.Text = "PSG4";
-            this.cbPSG4.UseVisualStyleBackColor = true;
-            // 
             // cbFM4
             // 
             this.cbFM4.AutoSize = true;
-            this.cbFM4.Location = new System.Drawing.Point(70, 18);
+            this.cbFM4.Location = new System.Drawing.Point(180, 18);
             this.cbFM4.Name = "cbFM4";
             this.cbFM4.Size = new System.Drawing.Size(46, 16);
             this.cbFM4.TabIndex = 4;
@@ -480,7 +491,7 @@
             // cbPSG3
             // 
             this.cbPSG3.AutoSize = true;
-            this.cbPSG3.Location = new System.Drawing.Point(136, 62);
+            this.cbPSG3.Location = new System.Drawing.Point(122, 40);
             this.cbPSG3.Name = "cbPSG3";
             this.cbPSG3.Size = new System.Drawing.Size(52, 16);
             this.cbPSG3.TabIndex = 9;
@@ -490,7 +501,7 @@
             // cbFM5
             // 
             this.cbFM5.AutoSize = true;
-            this.cbFM5.Location = new System.Drawing.Point(70, 40);
+            this.cbFM5.Location = new System.Drawing.Point(238, 18);
             this.cbFM5.Name = "cbFM5";
             this.cbFM5.Size = new System.Drawing.Size(46, 16);
             this.cbFM5.TabIndex = 5;
@@ -500,7 +511,7 @@
             // cbPSG2
             // 
             this.cbPSG2.AutoSize = true;
-            this.cbPSG2.Location = new System.Drawing.Point(136, 40);
+            this.cbPSG2.Location = new System.Drawing.Point(64, 40);
             this.cbPSG2.Name = "cbPSG2";
             this.cbPSG2.Size = new System.Drawing.Size(52, 16);
             this.cbPSG2.TabIndex = 8;
@@ -510,7 +521,7 @@
             // cbFM6
             // 
             this.cbFM6.AutoSize = true;
-            this.cbFM6.Location = new System.Drawing.Point(70, 62);
+            this.cbFM6.Location = new System.Drawing.Point(296, 18);
             this.cbFM6.Name = "cbFM6";
             this.cbFM6.Size = new System.Drawing.Size(46, 16);
             this.cbFM6.TabIndex = 6;
@@ -520,7 +531,7 @@
             // cbPSG1
             // 
             this.cbPSG1.AutoSize = true;
-            this.cbPSG1.Location = new System.Drawing.Point(136, 18);
+            this.cbPSG1.Location = new System.Drawing.Point(6, 40);
             this.cbPSG1.Name = "cbPSG1";
             this.cbPSG1.Size = new System.Drawing.Size(52, 16);
             this.cbPSG1.TabIndex = 7;
@@ -683,6 +694,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.gbMIDIKeyboard.ResumeLayout(false);
             this.gbMIDIKeyboard.PerformLayout();
             this.gbUseChannel.ResumeLayout(false);
@@ -729,13 +741,10 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox gbMIDIKeyboard;
         private System.Windows.Forms.GroupBox gbUseChannel;
-        private System.Windows.Forms.CheckBox cbFM3ex3;
         private System.Windows.Forms.CheckBox cbFM1;
-        private System.Windows.Forms.CheckBox cbFM3ex2;
         private System.Windows.Forms.CheckBox cbFM2;
-        private System.Windows.Forms.CheckBox cbFM3ex1;
         private System.Windows.Forms.CheckBox cbFM3;
-        private System.Windows.Forms.CheckBox cbPSG4;
+        private System.Windows.Forms.CheckBox cbUseMIDIKeyboard;
         private System.Windows.Forms.CheckBox cbFM4;
         private System.Windows.Forms.CheckBox cbPSG3;
         private System.Windows.Forms.CheckBox cbFM5;
@@ -746,5 +755,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbExclusive;
         private System.Windows.Forms.RadioButton rbShare;
+        private System.Windows.Forms.Label lblLatencyUnit;
+        private System.Windows.Forms.Label lblLatency;
+        private System.Windows.Forms.ComboBox cmbLatency;
     }
 }

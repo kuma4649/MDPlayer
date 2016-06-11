@@ -44,6 +44,7 @@ namespace MDPlayer
                     case 0:
                         waveOut = new WaveOut();
                         waveOut.DeviceNumber = 0;
+                        waveOut.DesiredLatency = setting.outputDevice.Latency;
                         for (int i = 0; i < WaveOut.DeviceCount; i++)
                         {
                             if (setting.outputDevice.WaveOutDeviceName == WaveOut.GetCapabilities(i).ProductName)
@@ -67,11 +68,11 @@ namespace MDPlayer
                         }
                         if (g == System.Guid.Empty)
                         {
-                            dsOut = new DirectSoundOut();
+                            dsOut = new DirectSoundOut(setting.outputDevice.Latency);
                         }
                         else
                         {
-                            dsOut = new DirectSoundOut(g);
+                            dsOut = new DirectSoundOut(g,setting.outputDevice.Latency);
                         }
                         dsOut.Init(waveProvider);
                         dsOut.Play();
@@ -90,11 +91,11 @@ namespace MDPlayer
                         }
                         if (dev == null)
                         {
-                            wasapiOut = new WasapiOut(setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, 10);
+                            wasapiOut = new WasapiOut(setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, setting.outputDevice.Latency);
                         }
                         else
                         {
-                            wasapiOut = new WasapiOut(dev, setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, false, 10);
+                            wasapiOut = new WasapiOut(dev, setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, false, setting.outputDevice.Latency);
                         }
                         wasapiOut.Init(waveProvider);
                         wasapiOut.Play();

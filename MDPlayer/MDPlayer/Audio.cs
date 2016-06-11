@@ -394,11 +394,11 @@ namespace MDPlayer
             if (Stopped || Paused)
             {
 
-                return mds.Update3(buffer, offset, sampleCount, null);
+                return mds.Update2(buffer, offset, sampleCount, null);
 
             }
 
-            int cnt = mds.Update3(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
+            int cnt = mds.Update2(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
 
             if (vgmFadeout)
             {
