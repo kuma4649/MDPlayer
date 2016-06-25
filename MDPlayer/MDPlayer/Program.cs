@@ -14,9 +14,32 @@ namespace MDPlayer
         [STAThread]
         static void Main()
         {
+            string fn = checkFiles();
+            if (fn != null)
+            {
+                MessageBox.Show(string.Format("動作に必要なファイル({0})がみつかりません。", fn), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());
+        }
+
+        static string checkFiles()
+        {
+            string fn;
+
+            fn = "MDSound.dll";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath),fn))) return fn;
+            fn = "NAudio.dll";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+            fn = "NScci.dll";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+            fn = "scci.dll";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+
+            return null;
         }
     }
 }

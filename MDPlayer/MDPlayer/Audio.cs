@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using NScci;
+using System.Threading;
+using System.Diagnostics;
 
 namespace MDPlayer
 {
@@ -11,6 +14,32 @@ namespace MDPlayer
         public static GD3 GD3 = new GD3();
         public static string vgmVersion = "";
         public static string vgmUsedChips = "";
+        private static object lockObj = new object();
+        private static bool _fatalError = false;
+        public static bool fatalError
+        {
+            get
+            {
+                lock(lockObj)
+                {
+                    return _fatalError;
+                }
+            }
+
+            set
+            {
+                lock(lockObj)
+                {
+                    _fatalError = value;
+                }
+            }
+        }
+
+        public enum enmChipType : int
+        {
+            YM2612 = 5
+            , SN76489 = 7
+        }
 
         private static List<string> chips = null;
 
@@ -25,6 +54,15 @@ namespace MDPlayer
         private static MDSound.MDSound mds = new MDSound.MDSound(SamplingRate, samplingBuffer, FMClockValue, PSGClockValue, rf5c164ClockValue, pwmClockValue);
 
         private static NAudioWrap naudioWrap;
+
+        private static NScci.NScci nscci;
+        private static NSoundChip scYM2612 = null;
+        private static NSoundChip scSN76489 = null;
+
+        private static Thread trdMain = null;
+        private static bool trdClosed = false;
+        private static Stopwatch sw = Stopwatch.StartNew();
+        private static double swFreq = Stopwatch.Frequency;
 
         private static byte[] vgmBuf = null;
 
@@ -63,6 +101,7 @@ namespace MDPlayer
 
             dacControl.mds = mds;
             naudioWrap = new NAudioWrap((int)SamplingRate, naudioCb);
+            naudioWrap.PlaybackStopped += NaudioWrap_PlaybackStopped;
             Audio.setting = setting.Copy();
 
             mds.Init(SamplingRate, samplingBuffer / 2
@@ -72,11 +111,121 @@ namespace MDPlayer
                 , (uint)(pwmClockValue * (SamplingRate / (23011361.0 / 384)))
             );
 
+            nscci = new NScci.NScci();
+            scYM2612 = getChip(Audio.setting.YM2612Type.SoundLocation, Audio.setting.YM2612Type.BusID, Audio.setting.YM2612Type.SoundChip);
+            if (scYM2612 != null)
+            {
+                scYM2612.init();
+                dacControl.scYM2612 = scYM2612;
+            }
+            scSN76489 = getChip(Audio.setting.SN76489Type.SoundLocation, Audio.setting.SN76489Type.BusID, Audio.setting.SN76489Type.SoundChip);
+            if (scSN76489 != null)
+            {
+                scSN76489.init();
+                dacControl.scSN76489 = scSN76489;
+            }
+
             Paused = false;
             Stopped = true;
+            fatalError = false;
 
             naudioWrap.Start(Audio.setting);
 
+        }
+
+        private static void ThreadFunction()
+        {
+            double o = sw.ElapsedTicks / swFreq;
+            double step = 1 / (double)SamplingRate;
+            while (!trdClosed)
+            {
+                Thread.Sleep(0);
+                if (Stopped || Paused) continue;
+
+                double el1 = sw.ElapsedTicks / swFreq;
+                if (el1 - o < step) continue;
+
+                o = el1 - ((el1 - o) - step);
+
+                if (scYM2612 != null) oneFrameVGMWithSpeedControl();
+            }
+        }
+
+        private static NScci.NSoundChip getChip(int SoundLocation,int BusID,int SoundChip)
+        {
+            int ifc = nscci.getInterfaceCount();
+            for (int i = 0; i < ifc; i++)
+            {
+                NSoundInterface sif = nscci.getInterface(i);
+                int scc = sif.getSoundChipCount();
+                for (int j = 0; j < scc; j++)
+                {
+                    NSoundChip sc = sif.getSoundChip(j);
+                    NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    if (info.getdSoundLocation() == SoundLocation && info.getdBusID() == BusID && info.getiSoundChip() == SoundChip)
+                    {
+                        return sc;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static List<NScci.NSoundChip> getChipList(int chipType)
+        {
+            List<NScci.NSoundChip> ret = new List<NSoundChip>();
+
+            int ifc = nscci.getInterfaceCount();
+            for (int i = 0; i < ifc; i++)
+            {
+                NSoundInterface sif = nscci.getInterface(i);
+                int scc = sif.getSoundChipCount();
+                for (int j = 0; j < scc; j++)
+                {
+                    NSoundChip sc = sif.getSoundChip(j);
+                    int t = sc.getSoundChipType();
+                    if (t == chipType)
+                    {
+                        ret.Add(sc);
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        public static List<NScci.NSoundChip> getYM2612ChipList()
+        {
+            return getChipList((int)enmChipType.YM2612);
+        }
+
+        public static List<NScci.NSoundChip> getSN76489ChipList()
+        {
+            return getChipList((int)enmChipType.SN76489);
+        }
+
+        private static void NaudioWrap_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
+        {
+            if (e.Exception != null)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    string.Format("デバイスが何らかの原因で停止しました。\r\nメッセージ:\r\n{0}", e.Exception.Message)
+                    , "エラー"
+                    , System.Windows.Forms.MessageBoxButtons.OK
+                    , System.Windows.Forms.MessageBoxIcon.Error);
+                try
+                {
+                    naudioWrap.Stop();
+                }
+                catch
+                {
+                }
+            }
+            else
+            {
+                Stop();
+            }
         }
 
         public static void SetVGMBuffer(byte[] srcBuf)
@@ -217,7 +366,7 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmFadeout = false;
                 vgmFadeoutCounter = 1.0;
-                vgmFadeoutCounterV = 0.001;
+                vgmFadeoutCounterV = 0.00001;
                 vgmSpeedCounter = 0;
                 for (int i = 0; i < PCM_BANK_COUNT; i++) PCMBank[i] = new VGM_PCM_BANK();
                 dacControl.refresh();
@@ -227,6 +376,13 @@ namespace MDPlayer
                     DacCtrl[CurChip] = new DACCTRL_DATA();
                     DacCtrl[CurChip].Enable = false;
                 }
+
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(ThreadFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Start();
 
                 mds.Init(SamplingRate, samplingBuffer / 2
                     , FMClockValue
@@ -249,12 +405,12 @@ namespace MDPlayer
 
         public static void FF()
         {
-            vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
+                vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
         }
 
         public static void Slow()
         {
-            vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
+                vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
         }
 
         public static void Pause()
@@ -262,7 +418,7 @@ namespace MDPlayer
 
             try
             {
-                Paused = !Paused;
+                    Paused = !Paused;
             }
             catch
             {
@@ -272,9 +428,7 @@ namespace MDPlayer
 
         public static void Fadeout()
         {
-
-            vgmFadeout = true;
-
+                vgmFadeout = true;
         }
 
         public static void Stop()
@@ -282,16 +436,31 @@ namespace MDPlayer
 
             try
             {
+
+                if (Stopped)
+                {
+                    trdClosed = true;
+                    return;
+                }
+
                 if (!Paused)
                 {
-                    vgmFadeoutCounterV = 0.1;
-                    vgmFadeout = true;
-                    while (!Stopped)
+                    NAudio.Wave.PlaybackState? ps = naudioWrap.GetPlaybackState();
+                    if (ps != null && ps != NAudio.Wave.PlaybackState.Stopped)
                     {
-                        System.Threading.Thread.Sleep(1);
-                        System.Windows.Forms.Application.DoEvents();
+                        vgmFadeoutCounterV = 0.1;
+                        vgmFadeout = true;
+                        int cnt = 0;
+                        while (!Stopped && cnt < 100)
+                        {
+                            System.Threading.Thread.Sleep(1);
+                            System.Windows.Forms.Application.DoEvents();
+                            cnt++;
+                        }
                     }
                 }
+                trdClosed = true;
+                scYM2612.init();
                 //naudioWrap.Stop();
             }
             catch
@@ -306,6 +475,7 @@ namespace MDPlayer
             {
                 Stop();
                 naudioWrap.Stop();
+                nscci.Dispose();
             }
             catch
             {
@@ -389,47 +559,63 @@ namespace MDPlayer
 
         internal static int naudioCb(short[] buffer, int offset, int sampleCount)
         {
-            int i;
-
-            if (Stopped || Paused)
+            try
             {
+                int i;
 
-                return mds.Update2(buffer, offset, sampleCount, null);
-
-            }
-
-            int cnt = mds.Update2(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
-
-            if (vgmFadeout)
-            {
-
-                for (i = 0; i < sampleCount; i++)
+                if (Stopped || Paused)
                 {
-                    buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
+
+                    return mds.Update2(buffer, offset, sampleCount, null);
+
                 }
 
-                vgmFadeoutCounter -= vgmFadeoutCounterV;
-                vgmFadeoutCounterV += 0.0002;
-                if (vgmFadeoutCounterV >= 0.04 && vgmFadeoutCounterV!=0.1)
+                int cnt;
+                if(scYM2612== null) cnt = mds.Update2(buffer, offset, sampleCount, oneFrameVGMWithSpeedControl);
+                else cnt = mds.Update2(buffer, offset, sampleCount, null);
+
+                if (vgmFadeout)
                 {
-                    vgmFadeoutCounterV = 0.04;
+
+                    for (i = 0; i < sampleCount; i++)
+                    {
+                        buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
+
+
+                        vgmFadeoutCounter -= vgmFadeoutCounterV;
+                        //vgmFadeoutCounterV += 0.00001;
+                        if (vgmFadeoutCounterV >= 0.004 && vgmFadeoutCounterV != 0.1)
+                        {
+                            vgmFadeoutCounterV = 0.004;
+                        }
+
+                        if (vgmFadeoutCounter < 0.0)
+                        {
+                            vgmFadeoutCounter = 0.0;
+                        }
+                    }
                 }
 
-                if (vgmFadeoutCounter < 0.0)
+                if (vgmFadeoutCounter == 0.0)
                 {
-                    vgmFadeoutCounter = 0.0;
                     mds.Init(SamplingRate, samplingBuffer / 2
                         , FMClockValue
                         , PSGClockValue
                         , (rf5c164ClockValue & 0x80000000) + (uint)((rf5c164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
-                        //, (pwmClockValue & 0x80000000) + (uint)((pwmClockValue & 0x7fffffff) * (SamplingRate / (23011361.0 / 384)))
                         , (uint)(pwmClockValue * (SamplingRate / (23011361.0 / 384)))
-                        );
+                    );
                     Stopped = true;
                 }
-            }
 
-            return cnt;
+                return cnt;
+
+            }
+            catch
+            {
+                fatalError = true;
+                Stopped = true;
+            }
+            return -1;
         }
 
         private static void oneFrameVGMWithSpeedControl()
@@ -450,11 +636,6 @@ namespace MDPlayer
 
         private static void oneFrameVGM()
         {
-            //if (sdl==null || sdl.Paused)
-            //{
-            //    return;
-            //}
-
             if (vgmWait > 0)
             {
                 oneFrameVGMStream();
@@ -610,13 +791,15 @@ namespace MDPlayer
 
         private static void vcYM2612Port0()
         {
-            mds.WriteYM2612(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            if (scYM2612 == null) mds.WriteYM2612(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            else scYM2612.setRegister(vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private static void vcYM2612Port1()
         {
-            mds.WriteYM2612(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            if (scYM2612 == null) mds.WriteYM2612(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            else scYM2612.setRegister(vgmBuf[vgmAdr + 1] + 0x100, vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
@@ -713,7 +896,10 @@ namespace MDPlayer
         private static void vcWaitNSamplesAndSendYM26120x2a()
         {
             byte dat = GetDACFromPCMBank();
-            mds.WriteYM2612(0, 0x2a, dat);
+
+            if (scYM2612 == null) mds.WriteYM2612(0, 0x2a, dat);
+            else scYM2612.setRegister(0x2a, dat);
+
             vgmWait += (int)(vgmBuf[vgmAdr] - 0x80);
             vgmAdr++;
         }

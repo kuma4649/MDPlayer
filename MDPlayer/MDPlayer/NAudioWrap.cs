@@ -1,10 +1,16 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using System;
+using System.Threading;
 
 namespace MDPlayer
 {
     public class NAudioWrap
     {
+
+        public delegate int naudioCallBack(short[] buffer, int offset, int sampleCount);
+        public event EventHandler<StoppedEventArgs> PlaybackStopped;
+
         private WaveOut waveOut;
         private WasapiOut wasapiOut;
         private DirectSoundOut dsOut;
@@ -12,9 +18,9 @@ namespace MDPlayer
 
         private SineWaveProvider16 waveProvider;
 
-        public delegate int naudioCallBack(short[] buffer, int offset, int sampleCount);
         private static naudioCallBack callBack = null;
         private Setting setting = null;
+        private SynchronizationContext syncContext = SynchronizationContext.Current;
 
         public NAudioWrap(int sampleRate, naudioCallBack nCallBack)
         {
@@ -53,6 +59,7 @@ namespace MDPlayer
                                 break;
                             }
                         }
+                        waveOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                         waveOut.Init(waveProvider);
                         waveOut.Play();
                         break;
@@ -74,6 +81,7 @@ namespace MDPlayer
                         {
                             dsOut = new DirectSoundOut(g,setting.outputDevice.Latency);
                         }
+                        dsOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                         dsOut.Init(waveProvider);
                         dsOut.Play();
                         break;
@@ -97,6 +105,7 @@ namespace MDPlayer
                         {
                             wasapiOut = new WasapiOut(dev, setting.outputDevice.WasapiShareMode ? AudioClientShareMode.Shared : AudioClientShareMode.Exclusive, false, setting.outputDevice.Latency);
                         }
+                        wasapiOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                         wasapiOut.Init(waveProvider);
                         wasapiOut.Play();
                         break;
@@ -113,6 +122,7 @@ namespace MDPlayer
                                 i++;
                             }
                             asioOut = new AsioOut(i);
+                            asioOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                             asioOut.Init(waveProvider);
                             asioOut.Play();
                         }
@@ -122,11 +132,28 @@ namespace MDPlayer
             catch
             {
                 waveOut = new WaveOut();
+                waveOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                 waveOut.Init(waveProvider);
                 waveOut.DeviceNumber = 0;
                 waveOut.Play();
             }
 
+        }
+
+        private void DeviceOut_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            var handler = PlaybackStopped;
+            if (handler != null)
+            {
+                if (this.syncContext == null)
+                {
+                    handler(this, e);
+                }
+                else
+                {
+                    syncContext.Post(state => handler(this,e), null);
+                }
+            }
         }
 
         /// <summary>
@@ -194,6 +221,28 @@ namespace MDPlayer
 
         }
 
+        public NAudio.Wave.PlaybackState? GetPlaybackState()
+        {
+            bool notNull = false;
 
+            if (waveOut != null)
+            {
+                if (waveOut.PlaybackState != PlaybackState.Stopped) return waveOut.PlaybackState;
+            }
+            if (dsOut != null)
+            {
+                if (dsOut.PlaybackState != PlaybackState.Stopped) return dsOut.PlaybackState;
+            }
+            if (wasapiOut != null)
+            {
+                if (wasapiOut.PlaybackState != PlaybackState.Stopped) return wasapiOut.PlaybackState;
+            }
+            if (asioOut != null)
+            {
+                if (asioOut.PlaybackState != PlaybackState.Stopped) return asioOut.PlaybackState;
+            }
+
+            return notNull ? (PlaybackState?)PlaybackState.Stopped : null;
+        }
     }
 }

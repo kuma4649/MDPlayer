@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Midi;
 
@@ -329,7 +321,7 @@ namespace MDPlayer
 
             if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
             {
-                open();
+                fileOpenAndPlay();
                 return;
             }
 
@@ -382,6 +374,14 @@ namespace MDPlayer
                 else frmMCD = null;
 
                 nextFrame += period;
+
+                if (Audio.fatalError)
+                {
+                    try { Audio.Stop(); } catch { }
+                    try { Audio.Close(); } catch { }
+                    Audio.fatalError = false;
+                    Audio.Init(setting);
+                }
             }
 
             stopped = true;
@@ -563,6 +563,14 @@ namespace MDPlayer
 
         }
 
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private int searchFMNote(int freq)
         {
             int m = int.MaxValue;
@@ -647,6 +655,15 @@ namespace MDPlayer
 
         private void play()
         {
+            if (srcBuf == null)
+            {
+                fileOpen();
+            }
+            if (srcBuf == null)
+            {
+                return;
+            }
+
             stop();
 
             for (int ch = 0; ch < 6; ch++)
@@ -679,7 +696,16 @@ namespace MDPlayer
             Audio.Slow();
         }
 
-        private void open()
+        private void fileOpenAndPlay()
+        {
+            fileOpen();
+            if (srcBuf != null)
+            {
+                play();
+            }
+        }
+
+        private void fileOpen()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
@@ -697,11 +723,11 @@ namespace MDPlayer
 
                 srcBuf = getAllBytes(ofd.FileName);
                 Audio.SetVGMBuffer(srcBuf);
-                play();
 
             }
             catch
             {
+                srcBuf = null;
                 MessageBox.Show("ファイルの読み込みに失敗しました。");
             }
         }

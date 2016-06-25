@@ -96,7 +96,7 @@ namespace MDPlayer
                     {
                         Remove(p);
                     }
-                    bgPlane.Render();
+                    if(bgPlane!= null) bgPlane.Render();
                 });
             }
 

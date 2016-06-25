@@ -23,6 +23,14 @@ namespace MDPlayer
         {
         }
 
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private void frmMegaCD_FormClosed(object sender, FormClosedEventArgs e)
         {
             isClosed = true;

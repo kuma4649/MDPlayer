@@ -77,6 +77,15 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbYM2612Emu = new System.Windows.Forms.RadioButton();
+            this.rbYM2612Scci = new System.Windows.Forms.RadioButton();
+            this.cmbYM2612Scci = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbSN76489Scci = new System.Windows.Forms.ComboBox();
+            this.rbSN76489Scci = new System.Windows.Forms.RadioButton();
+            this.rbSN76489Emu = new System.Windows.Forms.RadioButton();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -89,6 +98,9 @@
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -330,6 +342,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(1, 3);
@@ -665,6 +678,103 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox2);
+            this.tabPage4.Controls.Add(this.groupBox1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(374, 291);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "音源";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cmbYM2612Scci);
+            this.groupBox1.Controls.Add(this.rbYM2612Scci);
+            this.groupBox1.Controls.Add(this.rbYM2612Emu);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(368, 68);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "YM2612";
+            // 
+            // rbYM2612Emu
+            // 
+            this.rbYM2612Emu.AutoSize = true;
+            this.rbYM2612Emu.Checked = true;
+            this.rbYM2612Emu.Location = new System.Drawing.Point(6, 18);
+            this.rbYM2612Emu.Name = "rbYM2612Emu";
+            this.rbYM2612Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2612Emu.TabIndex = 0;
+            this.rbYM2612Emu.TabStop = true;
+            this.rbYM2612Emu.Text = "エミュレーション";
+            this.rbYM2612Emu.UseVisualStyleBackColor = true;
+            // 
+            // rbYM2612Scci
+            // 
+            this.rbYM2612Scci.AutoSize = true;
+            this.rbYM2612Scci.Location = new System.Drawing.Point(6, 40);
+            this.rbYM2612Scci.Name = "rbYM2612Scci";
+            this.rbYM2612Scci.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2612Scci.TabIndex = 1;
+            this.rbYM2612Scci.Text = "SCCI";
+            this.rbYM2612Scci.UseVisualStyleBackColor = true;
+            // 
+            // cmbYM2612Scci
+            // 
+            this.cmbYM2612Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2612Scci.FormattingEnabled = true;
+            this.cmbYM2612Scci.Location = new System.Drawing.Point(61, 39);
+            this.cmbYM2612Scci.Name = "cmbYM2612Scci";
+            this.cmbYM2612Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbYM2612Scci.TabIndex = 2;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cmbSN76489Scci);
+            this.groupBox2.Controls.Add(this.rbSN76489Scci);
+            this.groupBox2.Controls.Add(this.rbSN76489Emu);
+            this.groupBox2.Location = new System.Drawing.Point(3, 77);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(368, 68);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "SN76489";
+            // 
+            // cmbSN76489Scci
+            // 
+            this.cmbSN76489Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSN76489Scci.FormattingEnabled = true;
+            this.cmbSN76489Scci.Location = new System.Drawing.Point(61, 39);
+            this.cmbSN76489Scci.Name = "cmbSN76489Scci";
+            this.cmbSN76489Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbSN76489Scci.TabIndex = 2;
+            // 
+            // rbSN76489Scci
+            // 
+            this.rbSN76489Scci.AutoSize = true;
+            this.rbSN76489Scci.Location = new System.Drawing.Point(6, 40);
+            this.rbSN76489Scci.Name = "rbSN76489Scci";
+            this.rbSN76489Scci.Size = new System.Drawing.Size(49, 16);
+            this.rbSN76489Scci.TabIndex = 1;
+            this.rbSN76489Scci.Text = "SCCI";
+            this.rbSN76489Scci.UseVisualStyleBackColor = true;
+            // 
+            // rbSN76489Emu
+            // 
+            this.rbSN76489Emu.AutoSize = true;
+            this.rbSN76489Emu.Checked = true;
+            this.rbSN76489Emu.Location = new System.Drawing.Point(6, 18);
+            this.rbSN76489Emu.Name = "rbSN76489Emu";
+            this.rbSN76489Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbSN76489Emu.TabIndex = 0;
+            this.rbSN76489Emu.TabStop = true;
+            this.rbSN76489Emu.Text = "エミュレーション";
+            this.rbSN76489Emu.UseVisualStyleBackColor = true;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -703,6 +813,11 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -758,5 +873,14 @@
         private System.Windows.Forms.Label lblLatencyUnit;
         private System.Windows.Forms.Label lblLatency;
         private System.Windows.Forms.ComboBox cmbLatency;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cmbYM2612Scci;
+        private System.Windows.Forms.RadioButton rbYM2612Scci;
+        private System.Windows.Forms.RadioButton rbYM2612Emu;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox cmbSN76489Scci;
+        private System.Windows.Forms.RadioButton rbSN76489Scci;
+        private System.Windows.Forms.RadioButton rbSN76489Emu;
     }
 }

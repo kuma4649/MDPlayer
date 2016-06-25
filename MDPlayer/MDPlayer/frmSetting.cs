@@ -94,6 +94,37 @@ namespace MDPlayer
                 cmbMIDIIN.SelectedIndex = 0;
             }
 
+            List<NScci.NSoundChip> lstYM2612 = Audio.getYM2612ChipList();
+            if (lstYM2612.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstYM2612)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    cmbYM2612Scci.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                cmbYM2612Scci.SelectedIndex = 0;
+            }
+            else
+            {
+                rbYM2612Scci.Enabled = false;
+                cmbYM2612Scci.Enabled = false;
+            }
+
+            List<NScci.NSoundChip> lstSN76489 = Audio.getSN76489ChipList();
+            if (lstSN76489.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstSN76489)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    cmbSN76489Scci.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                cmbSN76489Scci.SelectedIndex = 0;
+            }
+            else
+            {
+                rbSN76489Scci.Enabled = false;
+                cmbSN76489Scci.Enabled = false;
+            }
 
             //設定内容をコントロールへ適用
 
@@ -188,6 +219,44 @@ namespace MDPlayer
                 cmbLatency.SelectedItem = setting.outputDevice.Latency.ToString();
             }
 
+            if (!setting.YM2612Type.UseScci)
+            {
+                rbYM2612Emu.Checked = true;
+            }
+            else
+            {
+                rbYM2612Scci.Checked = true;
+                string n = string.Format("({0}:{1}:{2})", setting.YM2612Type.SoundLocation, setting.YM2612Type.BusID, setting.YM2612Type.SoundChip);
+                if (cmbYM2612Scci.Items.Count > 0)
+                {
+                    foreach (string i in cmbYM2612Scci.Items)
+                    {
+                        if (i.IndexOf(n) < 0) continue;
+                        cmbYM2612Scci.SelectedItem = i;
+                        break;
+                    }
+                }
+            }
+
+            if (!setting.SN76489Type.UseScci)
+            {
+                rbSN76489Emu.Checked = true;
+            }
+            else
+            {
+                rbSN76489Scci.Checked = true;
+                string n = string.Format("({0}:{1}:{2})", setting.SN76489Type.SoundLocation, setting.SN76489Type.BusID, setting.SN76489Type.SoundChip);
+                if (cmbSN76489Scci.Items.Count > 0)
+                {
+                    foreach (string i in cmbSN76489Scci.Items)
+                    {
+                        if (i.IndexOf(n) < 0) continue;
+                        cmbSN76489Scci.SelectedItem = i;
+                        break;
+                    }
+                }
+            }
+
             cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
 
             cbFM1.Checked = setting.other.UseChannel[0];
@@ -232,6 +301,30 @@ namespace MDPlayer
 
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
+
+            setting.YM2612Type = new Setting.ChipType();
+            setting.YM2612Type.UseScci = rbYM2612Scci.Checked;
+            if (rbYM2612Scci.Checked)
+            {
+                string n = cmbYM2612Scci.SelectedItem.ToString();
+                n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                string[] ns = n.Split(':');
+                setting.YM2612Type.SoundLocation = int.Parse(ns[0]);
+                setting.YM2612Type.BusID = int.Parse(ns[1]);
+                setting.YM2612Type.SoundChip = int.Parse(ns[2]);
+            }
+
+            setting.SN76489Type = new Setting.ChipType();
+            setting.SN76489Type.UseScci = rbSN76489Scci.Checked;
+            if (rbSN76489Scci.Checked)
+            {
+                string n = cmbSN76489Scci.SelectedItem.ToString();
+                n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                string[] ns = n.Split(':');
+                setting.SN76489Type.SoundLocation = int.Parse(ns[0]);
+                setting.SN76489Type.BusID = int.Parse(ns[1]);
+                setting.SN76489Type.SoundChip = int.Parse(ns[2]);
+            }
 
             setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
             setting.other.UseChannel[0] = cbFM1.Checked;

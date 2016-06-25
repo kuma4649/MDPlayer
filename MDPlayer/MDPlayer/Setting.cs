@@ -24,6 +24,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM2612Type = new ChipType();
+        public ChipType YM2612Type
+        {
+            get
+            {
+                return _YM2612Type;
+            }
+
+            set
+            {
+                _YM2612Type = value;
+            }
+        }
+
+        private ChipType _SN76489Type = new ChipType();
+        public ChipType SN76489Type
+        {
+            get
+            {
+                return _SN76489Type;
+            }
+
+            set
+            {
+                _SN76489Type = value;
+            }
+        }
+
         private Other _other = new Other();
         public Other other
         {
@@ -157,6 +185,77 @@ namespace MDPlayer
         }
 
         [Serializable]
+        public class ChipType
+        {
+            private bool _UseScci = false;
+            public bool UseScci
+            {
+                get
+                {
+                    return _UseScci;
+                }
+
+                set
+                {
+                    _UseScci = value;
+                }
+            }
+
+            private int _SoundLocation = -1;
+            public int SoundLocation
+            {
+                get
+                {
+                    return _SoundLocation;
+                }
+
+                set
+                {
+                    _SoundLocation = value;
+                }
+            }
+
+            private int _BusID = -1;
+            public int BusID
+            {
+                get
+                {
+                    return _BusID;
+                }
+
+                set
+                {
+                    _BusID = value;
+                }
+            }
+
+            private int _SoundChip = -1;
+            public int SoundChip
+            {
+                get
+                {
+                    return _SoundChip;
+                }
+
+                set
+                {
+                    _SoundChip = value;
+                }
+            }
+
+            public ChipType Copy()
+            {
+                ChipType ct = new ChipType();
+                ct.UseScci = this.UseScci;
+                ct.SoundLocation = this.SoundLocation;
+                ct.BusID = this.BusID;
+                ct.SoundChip = this.SoundChip;
+
+                return ct;
+            }
+        }
+
+        [Serializable]
         public class Other
         {
 
@@ -220,6 +319,8 @@ namespace MDPlayer
         {
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
+            setting.YM2612Type = this.YM2612Type.Copy();
+            setting.SN76489Type = this.SN76489Type.Copy();
             setting.other = this.other.Copy();
 
             return setting;
@@ -277,30 +378,5 @@ namespace MDPlayer
             }
         }
 
-        public Other Other1
-        {
-            get
-            {
-                return Other2;
-            }
-
-            set
-            {
-                Other2 = value;
-            }
-        }
-
-        public Other Other2
-        {
-            get
-            {
-                return _other;
-            }
-
-            set
-            {
-                _other = value;
-            }
-        }
     }
 }
