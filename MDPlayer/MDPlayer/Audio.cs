@@ -476,6 +476,7 @@ namespace MDPlayer
                 Stop();
                 naudioWrap.Stop();
                 nscci.Dispose();
+                nscci = null;
             }
             catch
             {
