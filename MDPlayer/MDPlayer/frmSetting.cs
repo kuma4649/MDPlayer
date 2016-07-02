@@ -237,6 +237,11 @@ namespace MDPlayer
                     }
                 }
             }
+            cbYM2612UseWait.Checked = setting.YM2612Type.UseWait;
+            cbYM2612UseWaitBoost.Checked = setting.YM2612Type.UseWaitBoost;
+            cbOnlyPCMEmulation.Checked = setting.YM2612Type.OnlyPCMEmulation;
+            tbYM2612EmuDelay.Text = setting.YM2612Type.LatencyForEmulation.ToString();
+            tbYM2612ScciDelay.Text = setting.YM2612Type.LatencyForScci.ToString();
 
             if (!setting.SN76489Type.UseScci)
             {
@@ -256,6 +261,10 @@ namespace MDPlayer
                     }
                 }
             }
+            cbSN76489UseWait.Checked = setting.SN76489Type.UseWait;
+            cbSN76489UseWaitBoost.Checked = setting.SN76489Type.UseWaitBoost;
+            tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
+            tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
 
             cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
 
@@ -269,6 +278,8 @@ namespace MDPlayer
             cbPSG2.Checked = setting.other.UseChannel[7];
             cbPSG3.Checked = setting.other.UseChannel[8];
 
+            tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
+            tbLatencySCCI.Text = setting.LatencySCCI.ToString();
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -288,6 +299,8 @@ namespace MDPlayer
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            int i = 0;
+
             setting.outputDevice.DeviceType = 0;
             if (rbWaveOut.Checked) setting.outputDevice.DeviceType = 0;
             if (rbDirectSoundOut.Checked) setting.outputDevice.DeviceType = 1;
@@ -313,6 +326,19 @@ namespace MDPlayer
                 setting.YM2612Type.BusID = int.Parse(ns[1]);
                 setting.YM2612Type.SoundChip = int.Parse(ns[2]);
             }
+            setting.YM2612Type.UseWait = cbYM2612UseWait.Checked;
+            setting.YM2612Type.UseWaitBoost=cbYM2612UseWaitBoost.Checked;
+            setting.YM2612Type.OnlyPCMEmulation=cbOnlyPCMEmulation.Checked;
+            setting.YM2612Type.LatencyForEmulation = 0;
+            if (int.TryParse(tbYM2612EmuDelay.Text, out i))
+            {
+                setting.YM2612Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            }
+            setting.YM2612Type.LatencyForScci = 0;
+            if (int.TryParse(tbYM2612ScciDelay.Text, out i))
+            {
+                setting.YM2612Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
+            }
 
             setting.SN76489Type = new Setting.ChipType();
             setting.SN76489Type.UseScci = rbSN76489Scci.Checked;
@@ -324,6 +350,18 @@ namespace MDPlayer
                 setting.SN76489Type.SoundLocation = int.Parse(ns[0]);
                 setting.SN76489Type.BusID = int.Parse(ns[1]);
                 setting.SN76489Type.SoundChip = int.Parse(ns[2]);
+            }
+            setting.SN76489Type.UseWait = cbSN76489UseWait.Checked;
+            setting.SN76489Type.UseWaitBoost = cbSN76489UseWaitBoost.Checked;
+            setting.SN76489Type.LatencyForEmulation = 0;
+            if (int.TryParse(tbSN76489EmuDelay.Text, out i))
+            {
+                setting.SN76489Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            }
+            setting.SN76489Type.LatencyForScci = 0;
+            if (int.TryParse(tbSN76489ScciDelay.Text, out i))
+            {
+                setting.SN76489Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
             }
 
             setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
@@ -338,6 +376,16 @@ namespace MDPlayer
             setting.other.UseChannel[8] = cbPSG3.Checked;
 
             setting.other.UseMIDIKeyboard = cbUseMIDIKeyboard.Checked;
+
+            if (int.TryParse(tbLatencyEmu.Text, out i))
+            {
+                setting.LatencyEmulation = Math.Max(Math.Min(i, 999), 0);
+            }
+            if (int.TryParse(tbLatencySCCI.Text, out i))
+            {
+                setting.LatencySCCI = Math.Max(Math.Min(i, 999), 0);
+            }
+
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -454,6 +502,16 @@ namespace MDPlayer
             lblLatency.Enabled = false;
             lblLatencyUnit.Enabled = false;
             cmbLatency.Enabled = false;
+        }
+
+        private void cbYM2612UseWait_CheckedChanged(object sender, EventArgs e)
+        {
+            cbYM2612UseWaitBoost.Enabled = cbYM2612UseWait.Checked;
+        }
+
+        private void cbSN76489UseWait_CheckedChanged(object sender, EventArgs e)
+        {
+            //cbSN76489UseWaitBoost.Enabled = cbSN76489UseWait.Checked;
         }
     }
 }

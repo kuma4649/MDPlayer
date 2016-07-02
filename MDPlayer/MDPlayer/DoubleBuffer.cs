@@ -53,7 +53,7 @@ namespace MDPlayer
                 }
                 try
                 {
-                    pbScreen.Paint -= new System.Windows.Forms.PaintEventHandler(p);
+                    if(pbScreen!= null) pbScreen.Paint -= new System.Windows.Forms.PaintEventHandler(p);
                 }
                 catch { }
                 pbScreen = null;
@@ -86,6 +86,7 @@ namespace MDPlayer
             public void Refresh(Action<object, PaintEventArgs> p)
             {
                 Action act;
+                if (pbScreen == null) return;
                 pbScreen.Invoke(act = () =>
                 {
                     try

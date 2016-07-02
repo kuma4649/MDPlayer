@@ -26,19 +26,21 @@ namespace MDPlayer
 
         public void update()
         {
-            lblTitle.Text = Audio.GD3.TrackName;
-            lblTitleJ.Text = Audio.GD3.TrackNameJ;
-            lblGame.Text = Audio.GD3.GameName;
-            lblGameJ.Text = Audio.GD3.GameNameJ;
-            lblSystem.Text = Audio.GD3.SystemName;
-            lblSystemJ.Text = Audio.GD3.SystemNameJ;
-            lblComposer.Text = Audio.GD3.Composer;
-            lblComposerJ.Text = Audio.GD3.ComposerJ;
-            lblRelease.Text = Audio.GD3.Converted;
-            lblVGMBy.Text = Audio.GD3.VGMBy;
-            lblNotes.Text = Audio.GD3.Notes;
-            lblVersion.Text = Audio.vgmVersion;
-            lblUsedChips.Text = Audio.vgmUsedChips;
+            if (Audio.vgmVirtual == null) return;
+
+            lblTitle.Text = Audio.vgmVirtual.GD3.TrackName;
+            lblTitleJ.Text = Audio.vgmVirtual.GD3.TrackNameJ;
+            lblGame.Text = Audio.vgmVirtual.GD3.GameName;
+            lblGameJ.Text = Audio.vgmVirtual.GD3.GameNameJ;
+            lblSystem.Text = Audio.vgmVirtual.GD3.SystemName;
+            lblSystemJ.Text = Audio.vgmVirtual.GD3.SystemNameJ;
+            lblComposer.Text = Audio.vgmVirtual.GD3.Composer;
+            lblComposerJ.Text = Audio.vgmVirtual.GD3.ComposerJ;
+            lblRelease.Text = Audio.vgmVirtual.GD3.Converted;
+            lblVGMBy.Text = Audio.vgmVirtual.GD3.VGMBy;
+            lblNotes.Text = Audio.vgmVirtual.GD3.Notes;
+            lblVersion.Text = Audio.vgmVirtual.Version;
+            lblUsedChips.Text = Audio.vgmVirtual.UsedChips;
         }
 
         protected override bool ShowWithoutActivation

@@ -52,6 +52,34 @@ namespace MDPlayer
             }
         }
 
+        private int _LatencyEmulation = 0;
+        public int LatencyEmulation
+        {
+            get
+            {
+                return _LatencyEmulation;
+            }
+
+            set
+            {
+                _LatencyEmulation = value;
+            }
+        }
+
+        private int _LatencySCCI = 0;
+        public int LatencySCCI
+        {
+            get
+            {
+                return _LatencySCCI;
+            }
+
+            set
+            {
+                _LatencySCCI = value;
+            }
+        }
+
         private Other _other = new Other();
         public Other other
         {
@@ -243,6 +271,77 @@ namespace MDPlayer
                 }
             }
 
+            private bool _UseWait = true;
+            public bool UseWait
+            {
+                get
+                {
+                    return _UseWait;
+                }
+
+                set
+                {
+                    _UseWait = value;
+                }
+            }
+
+            private bool _UseWaitBoost = false;
+            public bool UseWaitBoost
+            {
+                get
+                {
+                    return _UseWaitBoost;
+                }
+
+                set
+                {
+                    _UseWaitBoost = value;
+                }
+            }
+
+            private bool _OnlyPCMEmulation = false;
+            public bool OnlyPCMEmulation
+            {
+                get
+                {
+                    return _OnlyPCMEmulation;
+                }
+
+                set
+                {
+                    _OnlyPCMEmulation = value;
+                }
+            }
+
+            private int _LatencyForEmulation = 0;
+            public int LatencyForEmulation
+            {
+                get
+                {
+                    return _LatencyForEmulation;
+                }
+
+                set
+                {
+                    _LatencyForEmulation = value;
+                }
+            }
+
+            private int _LatencyForScci = 0;
+            public int LatencyForScci
+            {
+                get
+                {
+                    return _LatencyForScci;
+                }
+
+                set
+                {
+                    _LatencyForScci = value;
+                }
+            }
+
+
             public ChipType Copy()
             {
                 ChipType ct = new ChipType();
@@ -250,6 +349,11 @@ namespace MDPlayer
                 ct.SoundLocation = this.SoundLocation;
                 ct.BusID = this.BusID;
                 ct.SoundChip = this.SoundChip;
+                ct.UseWait = this.UseWait;
+                ct.UseWaitBoost = this.UseWaitBoost;
+                ct.OnlyPCMEmulation = this.OnlyPCMEmulation;
+                ct.LatencyForEmulation = this.LatencyForEmulation;
+                ct.LatencyForScci = this.LatencyForScci;
 
                 return ct;
             }
@@ -322,6 +426,8 @@ namespace MDPlayer
             setting.YM2612Type = this.YM2612Type.Copy();
             setting.SN76489Type = this.SN76489Type.Copy();
             setting.other = this.other.Copy();
+            setting.LatencyEmulation = this.LatencyEmulation;
+            setting.LatencySCCI = this.LatencySCCI;
 
             return setting;
         }
