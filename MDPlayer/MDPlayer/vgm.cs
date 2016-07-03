@@ -46,6 +46,9 @@ namespace MDPlayer
         public long LoopCounter = 0;
         public bool Stopped = false;
         public GD3 GD3 = new GD3();
+        public double vgmSpeed = 1;
+        public long vgmFrameCounter;
+        public dacControl dacControl = new dacControl();
 
 
         private byte[] vgmBuf = null;
@@ -58,9 +61,7 @@ namespace MDPlayer
         private uint vgmAdr;
         private int vgmWait;
         private uint vgmCurLoop = 0;
-        private double vgmSpeed=1;
         private double vgmSpeedCounter;
-        private long vgmFrameCounter;
         private long vgmLoopOffset = 0;
         private uint vgmEof;
         private bool vgmAnalyze;
@@ -70,7 +71,6 @@ namespace MDPlayer
 
         private const int PCM_BANK_COUNT = 0x40;
         private VGM_PCM_BANK[] PCMBank = new VGM_PCM_BANK[PCM_BANK_COUNT];
-        public dacControl dacControl = new dacControl();
         private PCMBANK_TBL PCMTbl = new PCMBANK_TBL();
         private byte DacCtrlUsed;
         private byte[] DacCtrlUsg = new byte[0xFF];
@@ -184,10 +184,13 @@ namespace MDPlayer
             //Send wait
             if (model == enmModel.RealModel)
             {
-                if ((useChip & enmUseChip.YM2612Ch6) == enmUseChip.YM2612Ch6)
-                    chipRegister.setYM2612SyncWait(vgmWait);
-                if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
-                    chipRegister.setSN76489SyncWait(vgmWait);
+                if (vgmSpeed == 1) //等速の場合のみウェイトをかける
+                {
+                    if ((useChip & enmUseChip.YM2612Ch6) == enmUseChip.YM2612Ch6)
+                        chipRegister.setYM2612SyncWait(vgmWait);
+                    if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
+                        chipRegister.setSN76489SyncWait(vgmWait);
+                }
             }
 
             oneFrameVGMStream();
@@ -553,7 +556,7 @@ namespace MDPlayer
                     switch (bType)
                     {
                         case 0xc1:
-                            chipRegister.writeRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9);
+                            chipRegister.writeRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
                             break;
                     }
 
@@ -576,7 +579,7 @@ namespace MDPlayer
             uint? pcmAdr = GetPCMAddressFromPCMBank(bType, bReadOffset);
             if (pcmAdr != null && bType == 0x02)
             {
-                chipRegister.writeRF5C164PCMData(0, bWriteOffset, bSize, PCMBank[bType].Data, (uint)pcmAdr);
+                chipRegister.writeRF5C164PCMData(0, bWriteOffset, bSize, PCMBank[bType].Data, (uint)pcmAdr, model);
             }
 
             vgmAdr += 12;
@@ -727,14 +730,14 @@ namespace MDPlayer
 
         private void vcRf5c164()
         {
-            chipRegister.writeRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            chipRegister.writeRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
         private void vcRf5c164MemoryWrite()
         {
             uint offset = getLE16(vgmAdr + 1);
-            chipRegister.writeRF5C164MemW(0, offset, vgmBuf[vgmAdr + 3]);
+            chipRegister.writeRF5C164MemW(0, offset, vgmBuf[vgmAdr + 3], model);
             vgmAdr += 4;
         }
 
@@ -742,7 +745,7 @@ namespace MDPlayer
         {
             byte cmd = (byte)((vgmBuf[vgmAdr + 1] & 0xf0) >> 4);
             uint data = (uint)((vgmBuf[vgmAdr + 1] & 0xf) * 0x100 + vgmBuf[vgmAdr + 2]);
-            chipRegister.writePWM(0, cmd, data);
+            chipRegister.writePWM(0, cmd, data, model);
             vgmAdr += 3;
         }
 
@@ -1183,8 +1186,12 @@ namespace MDPlayer
             Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
             uint SN76489clock = getLE32(0x0c);
-            if (SN76489clock != 0) chips.Add("SN76489");
-            SN76489ClockValue = SN76489clock;
+            SN76489ClockValue = defaultSN76489ClockValue;
+            if (SN76489clock != 0)
+            {
+                chips.Add("SN76489");
+                SN76489ClockValue = SN76489clock;
+            }
 
             uint YM2413clock = getLE32(0x10);
             if (YM2413clock != 0) chips.Add("YM2413");
@@ -1205,8 +1212,12 @@ namespace MDPlayer
             LoopCounter = getLE32(0x20);
 
             uint YM2612clock = getLE32(0x2c);
-            if (YM2612clock != 0) chips.Add("YM2612");
-            YM2612ClockValue = YM2612clock;
+            YM2612ClockValue = defaultYM2612ClockValue;
+            if (YM2612clock != 0)
+            {
+                chips.Add("YM2612");
+                YM2612ClockValue = YM2612clock;
+            }
 
             uint YM2151clock = getLE32(0x30);
             if (YM2151clock != 0) chips.Add("YM2151");
@@ -1260,12 +1271,20 @@ namespace MDPlayer
                 if (YMZ280Bclock != 0) chips.Add("YMZ280B");
 
                 uint RF5C164clock = getLE32(0x6c);
-                if (RF5C164clock != 0) chips.Add("RF5C164");
-                RF5C164ClockValue = RF5C164clock;
+                RF5C164ClockValue = defaultRF5C164ClockValue;
+                if (RF5C164clock != 0)
+                {
+                    chips.Add("RF5C164");
+                    RF5C164ClockValue = RF5C164clock;
+                }
 
                 uint PWMclock = getLE32(0x70);
-                if (PWMclock != 0) chips.Add("PWM");
-                PWMClockValue = PWMclock;
+                PWMClockValue = defaultPWMClockValue;
+                if (PWMclock != 0)
+                {
+                    chips.Add("PWM");
+                    PWMClockValue = PWMclock;
+                }
 
                 uint AY8910clock = getLE32(0x74);
                 if (AY8910clock != 0) chips.Add("AY8910");

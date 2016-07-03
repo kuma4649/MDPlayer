@@ -321,7 +321,7 @@ namespace MDPlayer
 
             if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
             {
-                fileOpenAndPlay();
+                fileOpen();
                 return;
             }
 
@@ -561,6 +561,9 @@ namespace MDPlayer
 
             screen.Refresh();
 
+            Audio.updateVol();
+
+
         }
 
         protected override bool ShowWithoutActivation
@@ -696,15 +699,6 @@ namespace MDPlayer
             Audio.Slow();
         }
 
-        private void fileOpenAndPlay()
-        {
-            fileOpen();
-            if (srcBuf != null)
-            {
-                play();
-            }
-        }
-
         private void fileOpen()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -723,6 +717,11 @@ namespace MDPlayer
 
                 srcBuf = getAllBytes(ofd.FileName);
                 Audio.SetVGMBuffer(srcBuf);
+
+                if (srcBuf != null)
+                {
+                    play();
+                }
 
             }
             catch

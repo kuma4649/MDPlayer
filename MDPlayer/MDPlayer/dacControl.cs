@@ -18,7 +18,9 @@ namespace MDPlayer
 
         private const int MAX_CHIPS = 0xFF;
         private dac_control[] DACData = new dac_control[MAX_CHIPS];
-        public MDSound.MDSound mds = null;
+        public ChipRegister chipRegister = null;
+        public vgm.enmModel model = vgm.enmModel.VirtualModel;
+        //public MDSound.MDSound mds = null;
         public NSoundChip scYM2612 = null;
         public NSoundChip scSN76489 = null;
 
@@ -428,14 +430,13 @@ namespace MDPlayer
             switch (ChipType)
             {
                 case 0x02:  // YM2612
-                    if (scYM2612 == null) mds.WriteYM2612(Port, Offset, Data);
-                    else scYM2612.setRegister(Offset + Port * 0x100, Data);
+                    chipRegister.setYM2612Register(Port, Offset, Data, model);
                     break;
                 case 0x10:
-                    mds.WriteRF5C164(ChipID, Offset, Data);
+                    chipRegister.writeRF5C164(ChipID, Offset, Data, model);
                     break;
                 case 0x11:  // PWM
-                    mds.WritePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)));
+                    chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)), model);
                     break;
             }
         }

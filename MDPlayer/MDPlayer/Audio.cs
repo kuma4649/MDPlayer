@@ -83,9 +83,7 @@ namespace MDPlayer
         public static void Init(Setting setting)
         {
             vgmVirtual = new vgm();
-            vgmVirtual.dacControl.mds = mds;
             vgmReal = new vgm();
-            vgmReal.dacControl.mds = mds;
 
             naudioWrap = new NAudioWrap((int)SamplingRate, naudioCb);
             naudioWrap.PlaybackStopped += NaudioWrap_PlaybackStopped;
@@ -117,6 +115,12 @@ namespace MDPlayer
             }
 
             chipRegister = new ChipRegister(mds, scYM2612, scSN76489, setting.YM2612Type, setting.SN76489Type);
+
+            vgmVirtual.dacControl.chipRegister = chipRegister;
+            vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
+
+            vgmReal.dacControl.chipRegister = chipRegister;
+            vgmReal.dacControl.model = vgm.enmModel.VirtualModel;
 
             Paused = false;
             Stopped = true;
@@ -230,12 +234,16 @@ namespace MDPlayer
 
         public static void FF()
         {
-                vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
+            vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
+            vgmVirtual.vgmSpeed = vgmSpeed;
+            vgmReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Slow()
         {
-                vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
+            vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
+            vgmVirtual.vgmSpeed = vgmSpeed;
+            vgmReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Pause()
@@ -347,12 +355,17 @@ namespace MDPlayer
 
         public static int[][] GetFMVolume()
         {
-            return mds.ReadFMVolume();
+            return chipRegister.GetFMVolume();
+        }
+
+        public static void updateVol()
+        {
+            chipRegister.updateVol();
         }
 
         public static int[] GetFMCh3SlotVolume()
         {
-            return mds.ReadFMCh3SlotVolume();
+            return chipRegister.GetFMCh3SlotVolume();
         }
 
         public static int[][] GetPSGVolume()
@@ -462,17 +475,15 @@ namespace MDPlayer
             while (!trdClosed)
             {
                 Thread.Sleep(0);
-                if (Stopped || Paused) continue;
 
                 double el1 = sw.ElapsedTicks / swFreq;
                 if (el1 - o < step) continue;
 
-                o = el1 - ((el1 - o) - step);
+                o += step;
+                //while (el1 - o >= step) o += step;
 
-                if (scYM2612 != null)
-                {
-                    vgmReal.oneFrameVGM();
-                }
+                if (Stopped || Paused) continue;
+                vgmReal.oneFrameVGM();
             }
             trdStopped = true;
         }

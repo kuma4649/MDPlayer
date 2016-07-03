@@ -18,6 +18,8 @@ namespace MDPlayer
 
         public int[][] fmRegister = null;
         public int[] fmKeyOn = null;
+        public int[][] fmVol = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
+        public int[] fmCh3SlotVol = new int[4];
         public int[] psgRegister = null;
 
         private int LatchedRegister;
@@ -34,8 +36,12 @@ namespace MDPlayer
             this.ctSN76489 = ctSN76489;
 
             fmRegister = new int[2][] { new int[0x100], new int[0x100] };
+            for (int i = 0; i < 0x100; i++)
+            {
+                fmRegister[0][i] = 0; fmRegister[1][i] = 0;
+            }
             fmKeyOn = new int[6] { 0, 0, 0, 0, 0, 0 };
-            psgRegister = new int[0x8];
+            psgRegister = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
 
         }
 
@@ -47,7 +53,37 @@ namespace MDPlayer
             if (dPort == 0 && dAddr == 0x28)
             {
                 int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                if (ch >= 0 && ch < 6) fmKeyOn[ch] = dData & 0xf0;
+                if (ch >= 0 && ch < 6)
+                {
+                    if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
+                    {
+                        if (ch != 5 || (fmRegister[0][0x2b] & 0x80) == 0)
+                        {
+                            fmKeyOn[ch] = dData & 0xf0;
+                            int p = (ch > 2) ? 1 : 0;
+                            int c = (ch > 2) ? (ch - 3) : ch;
+                            fmVol[ch][0] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVol[ch][1] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                        }
+                    }
+                    else
+                    {
+                        fmKeyOn[2] = dData & 0xf0;
+                        if ((dData & 0x10) > 0) fmCh3SlotVol[0] = (int)(256 * 6 * ((127 - (fmRegister[0][0x40 + 2] & 0x7f)) / 127.0));
+                        if ((dData & 0x20) > 0) fmCh3SlotVol[2] = (int)(256 * 6 * ((127 - (fmRegister[0][0x44 + 2] & 0x7f)) / 127.0));
+                        if ((dData & 0x40) > 0) fmCh3SlotVol[1] = (int)(256 * 6 * ((127 - (fmRegister[0][0x48 + 2] & 0x7f)) / 127.0));
+                        if ((dData & 0x80) > 0) fmCh3SlotVol[3] = (int)(256 * 6 * ((127 - (fmRegister[0][0x4c + 2] & 0x7f)) / 127.0));
+                    }
+                }
+            }
+
+            if ((fmRegister[0][0x2b] & 0x80) > 0)
+            {
+                if (fmRegister[0][0x2a] > 0)
+                {
+                    fmVol[5][0] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
+                    fmVol[5][1] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                }
             }
 
             if (model == vgm.enmModel.VirtualModel)
@@ -61,6 +97,10 @@ namespace MDPlayer
                             mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
+                        {
+                            mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
+                        }
+                        else if (dPort == 1 && dAddr == 0xb6)
                         {
                             mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
                         }
@@ -130,24 +170,65 @@ namespace MDPlayer
             }
         }
 
-        public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr)
+        public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, vgm.enmModel model)
         {
-            mds.WriteRF5C164PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteRF5C164PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
         }
 
-        public void writeRF5C164(byte chipid, byte adr, byte data)
+        public void writeRF5C164(byte chipid, byte adr, byte data, vgm.enmModel model)
         {
-            mds.WriteRF5C164(chipid, adr, data);
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteRF5C164(chipid, adr, data);
         }
 
-        public void writeRF5C164MemW(byte chipid, uint offset, byte data)
+        public void writeRF5C164MemW(byte chipid, uint offset, byte data, vgm.enmModel model)
         {
-            mds.WriteRF5C164MemW(chipid, offset, data);
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteRF5C164MemW(chipid, offset, data);
         }
 
-        public void writePWM(byte chipid, byte adr, uint data)
+        public void writePWM(byte chipid, byte adr, uint data, vgm.enmModel model)
         {
-            mds.WritePWM(chipid, adr, data);
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WritePWM(chipid, adr, data);
+        }
+
+        private int volF = 1;
+        public void updateVol()
+        {
+            volF--;
+            if (volF > 0) return;
+
+            volF = 1;
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (fmVol[i][0] > 0) { fmVol[i][0] -= 50; if (fmVol[i][0] < 0) fmVol[i][0] = 0; }
+                if (fmVol[i][1] > 0) { fmVol[i][1] -= 50; if (fmVol[i][1] < 0) fmVol[i][1] = 0; }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if (fmCh3SlotVol[i] > 0) { fmCh3SlotVol[i] -= 50; if (fmCh3SlotVol[i] < 0) fmCh3SlotVol[i] = 0; }
+            }
+        }
+
+        public int[][] GetFMVolume()
+        {
+            //if (ctYM2612.UseScci)
+            //{
+                return fmVol;
+            //}
+            //return mds.ReadFMVolume();
+        }
+
+        public int[] GetFMCh3SlotVolume()
+        {
+            //if (ctYM2612.UseScci)
+            //{
+                return fmCh3SlotVol;
+            //}
+            //return mds.ReadFMCh3SlotVolume();
         }
 
 

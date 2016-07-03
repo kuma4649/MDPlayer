@@ -63,6 +63,7 @@ namespace MDPlayer
 
             private void drawScreen()
             {
+                if (bmpPlane == null) return;
 
                 BitmapData bdPlane = bmpPlane.LockBits(new Rectangle(0, 0, bmpPlane.Width, bmpPlane.Height), ImageLockMode.WriteOnly, bmpPlane.PixelFormat);
                 unsafe
