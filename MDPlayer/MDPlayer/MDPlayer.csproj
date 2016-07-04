@@ -143,6 +143,7 @@
     </Compile>
     <None Include="lib\scci.ini" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Data.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

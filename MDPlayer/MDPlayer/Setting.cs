@@ -94,6 +94,21 @@ namespace MDPlayer
             }
         }
 
+        private Balance _balance = new Balance();
+        public Balance balance
+        {
+            get
+            {
+                return _balance;
+            }
+
+            set
+            {
+                _balance = value;
+            }
+        }
+
+
 
         [Serializable]
         public class OutputDevice
@@ -419,6 +434,78 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class Balance
+        {
+
+            private int _YM2612Volume = 170;
+            public int YM2612Volume
+            {
+                get
+                {
+                    return _YM2612Volume;
+                }
+
+                set
+                {
+                    _YM2612Volume = value;
+                }
+            }
+
+            private int _SN76489Volume = 100;
+            public int SN76489Volume
+            {
+                get
+                {
+                    return _SN76489Volume;
+                }
+
+                set
+                {
+                    _SN76489Volume = value;
+                }
+            }
+
+            private int _RF5C164Volume = 90;
+            public int RF5C164Volume
+            {
+                get
+                {
+                    return _RF5C164Volume;
+                }
+
+                set
+                {
+                    _RF5C164Volume = value;
+                }
+            }
+
+            private int _PWMVolume = 100;
+            public int PWMVolume
+            {
+                get
+                {
+                    return _PWMVolume;
+                }
+
+                set
+                {
+                    _PWMVolume = value;
+                }
+            }
+
+            public Balance Copy()
+            {
+                Balance Balance = new Balance();
+                Balance.YM2612Volume = this.YM2612Volume;
+                Balance.SN76489Volume = this.SN76489Volume;
+                Balance.RF5C164Volume = this.RF5C164Volume;
+                Balance.PWMVolume = this.PWMVolume;
+
+                return Balance;
+            }
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -426,6 +513,7 @@ namespace MDPlayer
             setting.YM2612Type = this.YM2612Type.Copy();
             setting.SN76489Type = this.SN76489Type.Copy();
             setting.other = this.other.Copy();
+            setting.balance = this.balance.Copy();
             setting.LatencyEmulation = this.LatencyEmulation;
             setting.LatencySCCI = this.LatencySCCI;
 

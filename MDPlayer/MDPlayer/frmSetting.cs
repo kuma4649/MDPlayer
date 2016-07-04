@@ -24,6 +24,11 @@ namespace MDPlayer
             this.setting = setting.Copy();
 
             InitializeComponent();
+            bs1.DataSource = new Data();
+            bs2.DataSource = new Data();
+            bs3.DataSource = new Data();
+            bs4.DataSource = new Data();
+
             Init();
         }
 
@@ -280,6 +285,12 @@ namespace MDPlayer
 
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
+
+            ((Data)(bs1.DataSource)).Value = setting.balance.YM2612Volume;
+            ((Data)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
+            ((Data)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
+            ((Data)(bs4.DataSource)).Value = setting.balance.PWMVolume;
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -385,6 +396,11 @@ namespace MDPlayer
             {
                 setting.LatencySCCI = Math.Max(Math.Min(i, 999), 0);
             }
+
+            setting.balance.YM2612Volume = trkYM2612.Value;
+            setting.balance.SN76489Volume = trkSN76489.Value;
+            setting.balance.RF5C164Volume = trkRF5C164.Value;
+            setting.balance.PWMVolume = trkPWM.Value;
 
 
             this.DialogResult = DialogResult.OK;
@@ -512,6 +528,115 @@ namespace MDPlayer
         private void cbSN76489UseWait_CheckedChanged(object sender, EventArgs e)
         {
             //cbSN76489UseWaitBoost.Enabled = cbSN76489UseWait.Checked;
+        }
+
+        private void btnYM2612_Click(object sender, EventArgs e)
+        {
+            trkYM2612.Value = 100;
+        }
+
+        private void btnSN76489_Click(object sender, EventArgs e)
+        {
+            trkSN76489.Value = 100;
+        }
+
+        private void btnRF5C164_Click(object sender, EventArgs e)
+        {
+            trkRF5C164.Value = 100;
+        }
+
+        private void btnPWM_Click(object sender, EventArgs e)
+        {
+            trkPWM.Value = 100;
+        }
+
+        private void tbPWM_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbPWM.Text, out v))
+            {
+                tbPWM.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbPWM.Text = "100";
+            }
+        }
+
+        private void tbRF5C164_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbRF5C164.Text, out v))
+            {
+                tbRF5C164.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbRF5C164.Text = "100";
+            }
+        }
+
+        private void tbSN76489_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbSN76489.Text, out v))
+            {
+                tbSN76489.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbSN76489.Text = "100";
+            }
+        }
+
+        private void tbYM2612_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbYM2612.Text, out v))
+            {
+                tbYM2612.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbYM2612.Text = "100";
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// NumericUpDown とTrackBar にバインドされるデータ
+    /// </summary>
+    public class Data : INotifyPropertyChanged
+    {
+        /// <summary>
+        /// INotifyPropertyChanged から継承したイベントデリゲート
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// イベント通知
+        /// </summary>
+        /// <param name="info"></param>
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        int _value;
+        public int Value
+        {
+            get { return _value; }
+            set
+            {
+                if (value != _value)
+                {
+                    _value = value;
+                    // このプロパティ名を渡してイベント通知
+                    NotifyPropertyChanged("Value");
+                }
+            }
         }
     }
 }

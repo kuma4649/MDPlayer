@@ -96,6 +96,7 @@ namespace MDPlayer
                 , (vgm.defaultRF5C164ClockValue & 0x80000000) + (uint)((vgm.defaultRF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                 , (uint)(vgm.defaultPWMClockValue * (SamplingRate / (23011361.0 / 384)))
             );
+            mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
 
             nscci = new NScci.NScci();
 
@@ -219,6 +220,7 @@ namespace MDPlayer
                     , (vgmVirtual.RF5C164ClockValue & 0x80000000) + (uint)((vgmVirtual.RF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                     , (uint)(vgmVirtual.PWMClockValue * (SamplingRate / (23011361.0 / 384)))
                     );
+                mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
 
                 Paused = false;
                 Stopped = false;
@@ -534,6 +536,7 @@ namespace MDPlayer
                         , (vgm.defaultRF5C164ClockValue & 0x80000000) + (uint)((vgm.defaultRF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                         , (uint)(vgm.defaultPWMClockValue * (SamplingRate / (23011361.0 / 384)))
                     );
+                    mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
                     Stopped = true;
                 }
 
