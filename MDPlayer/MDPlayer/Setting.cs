@@ -80,6 +80,34 @@ namespace MDPlayer
             }
         }
 
+        private bool _HiyorimiMode = true;
+        public bool HiyorimiMode
+        {
+            get
+            {
+                return _HiyorimiMode;
+            }
+
+            set
+            {
+                _HiyorimiMode = value;
+            }
+        }
+
+        private bool _Debug_DispFrameCounter = false;
+        public bool Debug_DispFrameCounter
+        {
+            get
+            {
+                return _Debug_DispFrameCounter;
+            }
+
+            set
+            {
+                _Debug_DispFrameCounter = value;
+            }
+        }
+
         private Other _other = new Other();
         public Other other
         {
@@ -516,6 +544,8 @@ namespace MDPlayer
             setting.balance = this.balance.Copy();
             setting.LatencyEmulation = this.LatencyEmulation;
             setting.LatencySCCI = this.LatencySCCI;
+            setting.Debug_DispFrameCounter = this.Debug_DispFrameCounter;
+            setting.HiyorimiMode = this.HiyorimiMode;
 
             return setting;
         }

@@ -56,6 +56,8 @@
             this.lblLatency = new System.Windows.Forms.Label();
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbDispFrameCounter = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -92,19 +94,15 @@
             this.btnYM2612 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.trkYM2612 = new System.Windows.Forms.TrackBar();
-            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
             this.label17 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.trkRF5C164 = new System.Windows.Forms.TrackBar();
-            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
             this.label15 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.trkSN76489 = new System.Windows.Forms.TrackBar();
-            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
             this.label16 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.trkPWM = new System.Windows.Forms.TrackBar();
-            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
             this.label14 = new System.Windows.Forms.Label();
             this.tbPWM = new System.Windows.Forms.TextBox();
             this.tbRF5C164 = new System.Windows.Forms.TextBox();
@@ -133,6 +131,11 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
+            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -140,6 +143,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -147,22 +151,22 @@
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs1)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkRF5C164)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs3)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs2)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.gbMIDIKeyboard.SuspendLayout();
             this.gbUseChannel.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -483,8 +487,29 @@
             this.tabPage4.Text = "音源";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cbDispFrameCounter);
+            this.groupBox5.Location = new System.Drawing.Point(3, 231);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(263, 37);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Debug Mode";
+            // 
+            // cbDispFrameCounter
+            // 
+            this.cbDispFrameCounter.AutoSize = true;
+            this.cbDispFrameCounter.Location = new System.Drawing.Point(6, 17);
+            this.cbDispFrameCounter.Name = "cbDispFrameCounter";
+            this.cbDispFrameCounter.Size = new System.Drawing.Size(120, 16);
+            this.cbDispFrameCounter.TabIndex = 2;
+            this.cbDispFrameCounter.Text = "FrameCounter表示";
+            this.cbDispFrameCounter.UseVisualStyleBackColor = true;
+            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cbHiyorimiMode);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label11);
@@ -493,7 +518,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Location = new System.Drawing.Point(3, 214);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(170, 74);
+            this.groupBox3.Size = new System.Drawing.Size(368, 74);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "遅延演奏";
@@ -780,6 +805,7 @@
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.Color.White;
+            this.tabPage5.Controls.Add(this.groupBox5);
             this.tabPage5.Controls.Add(this.groupBox4);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -876,10 +902,6 @@
             this.trkYM2612.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trkYM2612.Value = 100;
             // 
-            // bs1
-            // 
-            this.bs1.DataSource = typeof(MDPlayer.Data);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -913,10 +935,6 @@
             this.trkRF5C164.TickFrequency = 10;
             this.trkRF5C164.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trkRF5C164.Value = 100;
-            // 
-            // bs3
-            // 
-            this.bs3.DataSource = typeof(MDPlayer.Data);
             // 
             // label15
             // 
@@ -952,10 +970,6 @@
             this.trkSN76489.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trkSN76489.Value = 100;
             // 
-            // bs2
-            // 
-            this.bs2.DataSource = typeof(MDPlayer.Data);
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -989,10 +1003,6 @@
             this.trkPWM.TickFrequency = 10;
             this.trkPWM.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trkPWM.Value = 100;
-            // 
-            // bs4
-            // 
-            this.bs4.DataSource = typeof(MDPlayer.Data);
             // 
             // label14
             // 
@@ -1322,6 +1332,32 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // cbHiyorimiMode
+            // 
+            this.cbHiyorimiMode.AutoSize = true;
+            this.cbHiyorimiMode.Location = new System.Drawing.Point(170, 42);
+            this.cbHiyorimiMode.Name = "cbHiyorimiMode";
+            this.cbHiyorimiMode.Size = new System.Drawing.Size(88, 16);
+            this.cbHiyorimiMode.TabIndex = 7;
+            this.cbHiyorimiMode.Text = "日和見モード";
+            this.cbHiyorimiMode.UseVisualStyleBackColor = true;
+            // 
+            // bs1
+            // 
+            this.bs1.DataSource = typeof(MDPlayer.Data);
+            // 
+            // bs3
+            // 
+            this.bs3.DataSource = typeof(MDPlayer.Data);
+            // 
+            // bs2
+            // 
+            this.bs2.DataSource = typeof(MDPlayer.Data);
+            // 
+            // bs4
+            // 
+            this.bs4.DataSource = typeof(MDPlayer.Data);
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1351,6 +1387,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1363,19 +1401,15 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkRF5C164)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs3)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.gbMIDIKeyboard.ResumeLayout(false);
@@ -1386,6 +1420,10 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1496,5 +1534,8 @@
         private System.Windows.Forms.BindingSource bs3;
         private System.Windows.Forms.BindingSource bs2;
         private System.Windows.Forms.BindingSource bs4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox cbDispFrameCounter;
+        private System.Windows.Forms.CheckBox cbHiyorimiMode;
     }
 }

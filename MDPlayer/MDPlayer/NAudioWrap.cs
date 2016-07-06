@@ -244,5 +244,12 @@ namespace MDPlayer
 
             return notNull ? (PlaybackState?)PlaybackState.Stopped : null;
         }
+
+        public int getAsioLatency()
+        {
+            if (asioOut == null) return 0;
+
+            return asioOut.PlaybackLatency;
+        }
     }
 }

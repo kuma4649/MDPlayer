@@ -90,7 +90,7 @@ namespace MDPlayer
             vgmWait = 0;
             vgmAnalyze = true;
             Counter = 0;
-            vgmFrameCounter = 0;
+            vgmFrameCounter = -latency;
             vgmCurLoop = 0;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
@@ -119,13 +119,13 @@ namespace MDPlayer
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
-                    if (latency == 0)
+                    if (vgmFrameCounter > -1)
                     {
                         oneFrameVGMMain();
                     }
                     else
                     {
-                        latency--;
+                        vgmFrameCounter++;
                     }
                 }
             }

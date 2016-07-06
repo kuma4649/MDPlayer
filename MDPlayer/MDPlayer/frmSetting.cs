@@ -291,6 +291,9 @@ namespace MDPlayer
             ((Data)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
             ((Data)(bs4.DataSource)).Value = setting.balance.PWMVolume;
 
+            cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
+            cbHiyorimiMode.Checked = setting.HiyorimiMode;
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -401,6 +404,9 @@ namespace MDPlayer
             setting.balance.SN76489Volume = trkSN76489.Value;
             setting.balance.RF5C164Volume = trkRF5C164.Value;
             setting.balance.PWMVolume = trkPWM.Value;
+
+            setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
+            setting.HiyorimiMode = cbHiyorimiMode.Checked;
 
 
             this.DialogResult = DialogResult.OK;

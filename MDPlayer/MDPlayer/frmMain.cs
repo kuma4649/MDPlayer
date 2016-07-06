@@ -559,6 +559,17 @@ namespace MDPlayer
                 screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask);
             }
 
+            if (setting.Debug_DispFrameCounter)
+            {
+                long v = Audio.getVirtualFrameCounter();
+                if (v != -1) screen.drawFont8(0, 0, 0, string.Format("EMU        : {0:D12} ", v));
+                long r = Audio.getRealFrameCounter();
+                if (r != -1) screen.drawFont8(0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
+                long d = r - v;
+                if (r != -1 && v != -1) screen.drawFont8(0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
+
+            }
+
             screen.Refresh();
 
             Audio.updateVol();

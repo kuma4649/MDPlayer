@@ -141,6 +141,14 @@ namespace MDPlayer
             return getChipList((int)enmScciChipType.SN76489);
         }
 
+        public static int getLatency()
+        {
+            if (setting.outputDevice.DeviceType != 3)
+            {
+                return (int)SamplingRate * setting.outputDevice.Latency / 1000;
+            }
+            return naudioWrap.getAsioLatency();
+        }
 
         public static void SetVGMBuffer(byte[] srcBuf)
         {
@@ -485,7 +493,29 @@ namespace MDPlayer
                 //while (el1 - o >= step) o += step;
 
                 if (Stopped || Paused) continue;
-                vgmReal.oneFrameVGM();
+
+                if (setting.HiyorimiMode)
+                {
+                    long v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
+                    long d = Math.Abs(SamplingRate * (uint)setting.LatencyEmulation / 1000 - SamplingRate * (uint)setting.LatencySCCI / 1000);
+                    long l = getLatency() / 4;
+
+                    if (v >= -l + d && v <= l + d) vgmReal.oneFrameVGM(); //x1
+                    else if (v > l + d)
+                    {
+                        //x0
+                    }
+                    else
+                    {
+                        //x2
+                        vgmReal.oneFrameVGM();
+                        vgmReal.oneFrameVGM();
+                    }
+                }
+                else
+                {
+                    vgmReal.oneFrameVGM();
+                }
             }
             trdStopped = true;
         }
@@ -549,6 +579,18 @@ namespace MDPlayer
                 Stopped = true;
             }
             return -1;
+        }
+
+        public static long getVirtualFrameCounter()
+        {
+            if (vgmVirtual == null) return -1;
+            return vgmVirtual.vgmFrameCounter;
+        }
+
+        public static long getRealFrameCounter()
+        {
+            if (vgmReal == null) return -1;
+            return vgmReal.vgmFrameCounter;
         }
 
 
