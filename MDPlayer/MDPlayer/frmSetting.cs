@@ -291,6 +291,11 @@ namespace MDPlayer
             ((Data)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
             ((Data)(bs4.DataSource)).Value = setting.balance.PWMVolume;
 
+            trkYM2612.Value = setting.balance.YM2612Volume;
+            trkSN76489.Value = setting.balance.SN76489Volume;
+            trkRF5C164.Value = setting.balance.RF5C164Volume;
+            trkPWM.Value = setting.balance.PWMVolume;
+
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
 
