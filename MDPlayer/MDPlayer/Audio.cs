@@ -215,6 +215,7 @@ namespace MDPlayer
                 vgmFadeout = false;
                 vgmFadeoutCounter = 1.0;
                 vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
 
                 trdClosed = false;
                 trdMain = new Thread(new ThreadStart(ThreadFunction));

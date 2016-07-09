@@ -156,7 +156,7 @@ namespace MDPlayer
                 }
             }
 
-            private int _Latency = 0;
+            private int _Latency = 300;
             public int Latency
             {
                 get

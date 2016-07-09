@@ -49,40 +49,43 @@ namespace MDPlayer
         {
             if (ctYM2612 == null) return;
 
-            fmRegister[dPort][dAddr] = dData;
-            if (dPort == 0 && dAddr == 0x28)
+            if ((model == vgm.enmModel.RealModel && ctYM2612.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612.UseScci))
             {
-                int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                if (ch >= 0 && ch < 6)
+                fmRegister[dPort][dAddr] = dData;
+                if (dPort == 0 && dAddr == 0x28)
                 {
-                    if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
+                    int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
+                    if (ch >= 0 && ch < 6)
                     {
-                        if (ch != 5 || (fmRegister[0][0x2b] & 0x80) == 0)
+                        if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOn[ch] = dData & 0xf0;
-                            int p = (ch > 2) ? 1 : 0;
-                            int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVol[ch][0] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
-                            fmVol[ch][1] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                            if (ch != 5 || (fmRegister[0][0x2b] & 0x80) == 0)
+                            {
+                                fmKeyOn[ch] = dData & 0xf0;
+                                int p = (ch > 2) ? 1 : 0;
+                                int c = (ch > 2) ? (ch - 3) : ch;
+                                fmVol[ch][0] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                                fmVol[ch][1] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                            }
+                        }
+                        else
+                        {
+                            fmKeyOn[2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVol[0] = (int)(256 * 6 * ((127 - (fmRegister[0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVol[2] = (int)(256 * 6 * ((127 - (fmRegister[0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVol[1] = (int)(256 * 6 * ((127 - (fmRegister[0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVol[3] = (int)(256 * 6 * ((127 - (fmRegister[0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
-                    else
-                    {
-                        fmKeyOn[2] = dData & 0xf0;
-                        if ((dData & 0x10) > 0) fmCh3SlotVol[0] = (int)(256 * 6 * ((127 - (fmRegister[0][0x40 + 2] & 0x7f)) / 127.0));
-                        if ((dData & 0x20) > 0) fmCh3SlotVol[2] = (int)(256 * 6 * ((127 - (fmRegister[0][0x44 + 2] & 0x7f)) / 127.0));
-                        if ((dData & 0x40) > 0) fmCh3SlotVol[1] = (int)(256 * 6 * ((127 - (fmRegister[0][0x48 + 2] & 0x7f)) / 127.0));
-                        if ((dData & 0x80) > 0) fmCh3SlotVol[3] = (int)(256 * 6 * ((127 - (fmRegister[0][0x4c + 2] & 0x7f)) / 127.0));
-                    }
                 }
-            }
 
-            if ((fmRegister[0][0x2b] & 0x80) > 0)
-            {
-                if (fmRegister[0][0x2a] > 0)
+                if ((fmRegister[0][0x2b] & 0x80) > 0)
                 {
-                    fmVol[5][0] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                    fmVol[5][1] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                    if (fmRegister[0][0x2a] > 0)
+                    {
+                        fmVol[5][0] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
+                        fmVol[5][1] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                    }
                 }
             }
 

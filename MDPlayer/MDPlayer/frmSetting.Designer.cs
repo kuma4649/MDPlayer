@@ -1344,19 +1344,19 @@
             // 
             // bs1
             // 
-            this.bs1.DataSource = typeof(MDPlayer.Data);
+            this.bs1.DataSource = typeof(MDPlayer.BindData);
             // 
             // bs3
             // 
-            this.bs3.DataSource = typeof(MDPlayer.Data);
+            this.bs3.DataSource = typeof(MDPlayer.BindData);
             // 
             // bs2
             // 
-            this.bs2.DataSource = typeof(MDPlayer.Data);
+            this.bs2.DataSource = typeof(MDPlayer.BindData);
             // 
             // bs4
             // 
-            this.bs4.DataSource = typeof(MDPlayer.Data);
+            this.bs4.DataSource = typeof(MDPlayer.BindData);
             // 
             // frmSetting
             // 

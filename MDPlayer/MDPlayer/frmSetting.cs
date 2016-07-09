@@ -24,15 +24,16 @@ namespace MDPlayer
             this.setting = setting.Copy();
 
             InitializeComponent();
-            bs1.DataSource = new Data();
-            bs2.DataSource = new Data();
-            bs3.DataSource = new Data();
-            bs4.DataSource = new Data();
+            bs1.DataSource = new BindData();
+            bs2.DataSource = new BindData();
+            bs3.DataSource = new BindData();
+            bs4.DataSource = new BindData();
 
             Init();
         }
 
-        public void Init() {
+        public void Init()
+        {
 
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("バージョン {0}", AssemblyVersion);
@@ -67,7 +68,7 @@ namespace MDPlayer
                 cmbWaveOutDevice.Items.Add(WaveOut.GetCapabilities(i).ProductName);
             }
 
-            foreach(DirectSoundDeviceInfo d in DirectSoundOut.Devices)
+            foreach (DirectSoundDeviceInfo d in DirectSoundOut.Devices)
             {
                 cmbDirectSoundDevice.Items.Add(d.Description);
             }
@@ -215,9 +216,9 @@ namespace MDPlayer
             rbShare.Checked = setting.outputDevice.WasapiShareMode;
             rbExclusive.Checked = !setting.outputDevice.WasapiShareMode;
 
-                lblLatency.Enabled = !rbAsioOut.Checked;
-                lblLatencyUnit.Enabled = !rbAsioOut.Checked;
-                cmbLatency.Enabled = !rbAsioOut.Checked;
+            lblLatency.Enabled = !rbAsioOut.Checked;
+            lblLatencyUnit.Enabled = !rbAsioOut.Checked;
+            cmbLatency.Enabled = !rbAsioOut.Checked;
 
             if (cmbLatency.Items.Contains(setting.outputDevice.Latency.ToString()))
             {
@@ -242,6 +243,7 @@ namespace MDPlayer
                     }
                 }
             }
+
             cbYM2612UseWait.Checked = setting.YM2612Type.UseWait;
             cbYM2612UseWaitBoost.Checked = setting.YM2612Type.UseWaitBoost;
             cbOnlyPCMEmulation.Checked = setting.YM2612Type.OnlyPCMEmulation;
@@ -266,6 +268,7 @@ namespace MDPlayer
                     }
                 }
             }
+
             cbSN76489UseWait.Checked = setting.SN76489Type.UseWait;
             cbSN76489UseWaitBoost.Checked = setting.SN76489Type.UseWaitBoost;
             tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
@@ -286,10 +289,10 @@ namespace MDPlayer
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
 
-            ((Data)(bs1.DataSource)).Value = setting.balance.YM2612Volume;
-            ((Data)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
-            ((Data)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
-            ((Data)(bs4.DataSource)).Value = setting.balance.PWMVolume;
+            ((BindData)(bs1.DataSource)).Value = setting.balance.YM2612Volume;
+            ((BindData)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
+            ((BindData)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
+            ((BindData)(bs4.DataSource)).Value = setting.balance.PWMVolume;
 
             trkYM2612.Value = setting.balance.YM2612Volume;
             trkSN76489.Value = setting.balance.SN76489Volume;
@@ -326,10 +329,10 @@ namespace MDPlayer
             if (rbWasapiOut.Checked) setting.outputDevice.DeviceType = 2;
             if (rbAsioOut.Checked) setting.outputDevice.DeviceType = 3;
 
-            setting.outputDevice.WaveOutDeviceName = cmbWaveOutDevice.SelectedItem.ToString();
-            setting.outputDevice.DirectSoundDeviceName = cmbDirectSoundDevice.SelectedItem.ToString();
-            setting.outputDevice.WasapiDeviceName = cmbWasapiDevice.SelectedItem.ToString();
-            setting.outputDevice.AsioDeviceName = cmbAsioDevice.SelectedItem.ToString();
+            setting.outputDevice.WaveOutDeviceName = cmbWaveOutDevice.SelectedItem != null ? cmbWaveOutDevice.SelectedItem.ToString() : "";
+            setting.outputDevice.DirectSoundDeviceName = cmbDirectSoundDevice.SelectedItem != null ? cmbDirectSoundDevice.SelectedItem.ToString() : "";
+            setting.outputDevice.WasapiDeviceName = cmbWasapiDevice.SelectedItem != null ? cmbWasapiDevice.SelectedItem.ToString() : "";
+            setting.outputDevice.AsioDeviceName = cmbAsioDevice.SelectedItem != null ? cmbAsioDevice.SelectedItem.ToString() : "";
 
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
@@ -615,19 +618,10 @@ namespace MDPlayer
     }
 
 
-    /// <summary>
-    /// NumericUpDown とTrackBar にバインドされるデータ
-    /// </summary>
-    public class Data : INotifyPropertyChanged
+    public class BindData : INotifyPropertyChanged
     {
-        /// <summary>
-        /// INotifyPropertyChanged から継承したイベントデリゲート
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// イベント通知
-        /// </summary>
-        /// <param name="info"></param>
+
         private void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
@@ -635,7 +629,9 @@ namespace MDPlayer
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
         int _value;
+
         public int Value
         {
             get { return _value; }
@@ -644,10 +640,11 @@ namespace MDPlayer
                 if (value != _value)
                 {
                     _value = value;
-                    // このプロパティ名を渡してイベント通知
                     NotifyPropertyChanged("Value");
                 }
             }
         }
     }
+
+
 }
