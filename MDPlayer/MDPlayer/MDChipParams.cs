@@ -27,12 +27,14 @@ namespace MDPlayer
             {
 
                 public int pan = -1;
+                public int pantp = -1;
                 public int note = -1;
                 public int volumeL = -1;
                 public int volumeR = -1;
                 public int freq = -1;
                 public int pcmMode = -1;
                 public bool mask = false;
+                public int tp = -1;
 
                 public int[] inst = new int[48];
 

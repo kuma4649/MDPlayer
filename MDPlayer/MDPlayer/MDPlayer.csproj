@@ -107,6 +107,12 @@
     <Compile Include="frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPlayList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlayList.Designer.cs">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlayList.resx">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>

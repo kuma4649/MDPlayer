@@ -17,12 +17,15 @@ namespace MDPlayer
 
         private frmInfo frmInfo = null;
         private frmMegaCD frmMCD = null;
+        private frmPlayList frmPlayList = null;
 
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[10];
-        private int[] newButton = new int[10];
+        private int[] oldButton = new int[14];
+        private int[] newButton = new int[14];
+        private int[] oldButtonMode = new int[14];
+        private int[] newButtonMode = new int[14];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -99,6 +102,11 @@ namespace MDPlayer
             pbRf5c164Screen.Height = 72;
 
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
+            screen.setting = setting;
+            screen.screenInit();
+            oldParam = new MDChipParams();
+            newParam = new MDChipParams();
+
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
 
@@ -111,6 +119,10 @@ namespace MDPlayer
             if (screen != null) screen.Dispose();
 
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
+            screen.setting = setting;
+            screen.screenInit();
+            oldParam = new MDChipParams();
+            newParam = new MDChipParams();
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
@@ -165,7 +177,7 @@ namespace MDPlayer
 
             for (int n = 0; n < newButton.Length; n++)
             {
-                if (e.Location.X >= 320 - (11 - n) * 16 && e.Location.X < 320 - (10 - n) * 16) newButton[n] = 1;
+                if (e.Location.X >= 320 - (15 - n) * 16 && e.Location.X < 320 - (14 - n) * 16) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -173,16 +185,8 @@ namespace MDPlayer
 
         private void pbScreen_MouseLeave(object sender, EventArgs e)
         {
-            newButton[0] = 0;
-            newButton[1] = 0;
-            newButton[2] = 0;
-            newButton[3] = 0;
-            newButton[4] = 0;
-            newButton[5] = 0;
-            newButton[6] = 0;
-            newButton[7] = 0;
-            newButton[8] = 0;
-            newButton[9] = 0;
+            for (int i = 0; i < newButton.Length; i++)
+                newButton[i] = 0;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -277,51 +281,75 @@ namespace MDPlayer
 
             // ボタンの判定
 
-            if (e.Location.X >= 320 - 11 * 16 && e.Location.X < 320 - 10 * 16)
+            if (e.Location.X >= 320 - 15 * 16 && e.Location.X < 320 - 14 * 16)
             {
                 openSetting();
                 return;
             }
 
-            if (e.Location.X >= 320 - 10 * 16 && e.Location.X < 320 - 9 * 16)
+            if (e.Location.X >= 320 - 14 * 16 && e.Location.X < 320 - 13 * 16)
             {
                 stop();
                 return;
             }
 
-            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
+            if (e.Location.X >= 320 - 13 * 16 && e.Location.X < 320 - 12 * 16)
             {
                 pause();
                 return;
             }
 
-            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
+            if (e.Location.X >= 320 - 12 * 16 && e.Location.X < 320 - 11 * 16)
             {
                 fadeout();
                 return;
             }
 
-            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16)
+            if (e.Location.X >= 320 - 11 * 16 && e.Location.X < 320 - 10 * 16)
+            {
+                prev();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 10 * 16 && e.Location.X < 320 - 9 * 16)
             {
                 slow();
                 return;
             }
 
-            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16)
+            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
             {
                 play();
                 return;
             }
 
-            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
+            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
             {
                 ff();
                 return;
             }
 
-            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
+            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16)
+            {
+                next();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16)
+            {
+                playMode();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
             {
                 fileOpen();
+                return;
+            }
+
+            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
+            {
+                playList();
                 return;
             }
 
@@ -539,24 +567,32 @@ namespace MDPlayer
             // 描画
             screen.drawParams(oldParam, newParam);
 
-            screen.drawButtons(oldButton, newButton);
+            screen.drawButtons(oldButton, newButton, oldButtonMode, newButtonMode);
 
             screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
-            screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode, ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask);
+            int tp = setting.YM2612Type.UseScci ? 1 : 0;
+            int tp6 = tp;
+            if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation)
+            {
+                tp6 = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;
+            }
+            screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode
+                , ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask
+                , ref oldParam.ym2612.channels[5].tp, tp6);
             for (int ch = 0; ch < 5; ch++)
             {
-                screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask);
+                screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask,tp);
             }
             for (int ch = 6; ch < 10; ch++)
             {
-                screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask);
+                screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask,0);
             }
             for (int ch = 0; ch < 3; ch++)
             {
-                screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask);
+                screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask,tp);
             }
 
             if (setting.Debug_DispFrameCounter)
@@ -638,11 +674,17 @@ namespace MDPlayer
             frmSetting frm = new frmSetting(setting);
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                setting = frm.setting;
-                setting.Save();
 
                 StopMIDIInMonitoring();
                 Audio.Close();
+
+                setting = frm.setting;
+                setting.Save();
+
+                screen.setting = setting;
+                screen.screenInit();
+                oldParam = new MDChipParams();
+                newParam = new MDChipParams();
 
                 Audio.Init(setting);
                 StartMIDIInMonitoring();
@@ -667,6 +709,10 @@ namespace MDPlayer
             Audio.Fadeout();
         }
 
+        private void prev()
+        {
+        }
+
         private void play()
         {
             if (srcBuf == null)
@@ -688,6 +734,10 @@ namespace MDPlayer
             {
                 newParam.sn76489.channels[ch].mask = false;
             }
+            screen.screenInit();
+            oldParam = new MDChipParams();
+            newParam = new MDChipParams();
+
             if (!Audio.Play(setting))
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -705,9 +755,20 @@ namespace MDPlayer
             Audio.FF();
         }
 
+        private void next()
+        {
+        }
+
         private void slow()
         {
             Audio.Slow();
+        }
+
+        private void playMode()
+        {
+            newButtonMode[9]++;
+            if (newButtonMode[9] > 3) newButtonMode[9] = 0;
+
         }
 
         private void fileOpen()
@@ -742,14 +803,44 @@ namespace MDPlayer
             }
         }
 
+        private void playList()
+        {
+            if (frmPlayList != null && !frmPlayList.isClosed)
+            {
+                frmPlayList.Close();
+                frmPlayList.Dispose();
+                frmPlayList = null;
+                return;
+            }
+            if (frmPlayList != null)
+            {
+                frmPlayList.Close();
+                frmPlayList.Dispose();
+                frmPlayList = null;
+            }
+
+            frmPlayList = new frmPlayList();
+            frmPlayList.x = this.Location.X + 328;
+            frmPlayList.y = this.Location.Y + 264;
+            frmPlayList.Show();
+            frmPlayList.Update();
+        }
+
         private void openInfo()
         {
-            if (frmInfo != null)// && frmInfo.isClosed)
+            if (frmInfo != null && !frmInfo.isClosed)
             {
                 frmInfo.Close();
                 frmInfo.Dispose();
                 frmInfo = null;
                 return;
+            }
+
+            if (frmInfo != null)
+            {
+                frmInfo.Close();
+                frmInfo.Dispose();
+                frmInfo = null;
             }
 
             frmInfo = new frmInfo(this);
