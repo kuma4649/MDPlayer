@@ -49,6 +49,7 @@ namespace MDPlayer
         public double vgmSpeed = 1;
         public long vgmFrameCounter;
         public dacControl dacControl = new dacControl();
+        public uint vgmCurLoop = 0;
 
 
         private byte[] vgmBuf = null;
@@ -60,7 +61,6 @@ namespace MDPlayer
 
         private uint vgmAdr;
         private int vgmWait;
-        private uint vgmCurLoop = 0;
         private double vgmSpeedCounter;
         private long vgmLoopOffset = 0;
         private uint vgmEof;

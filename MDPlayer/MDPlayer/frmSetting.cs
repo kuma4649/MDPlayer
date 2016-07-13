@@ -231,16 +231,23 @@ namespace MDPlayer
             }
             else
             {
-                rbYM2612Scci.Checked = true;
-                string n = string.Format("({0}:{1}:{2})", setting.YM2612Type.SoundLocation, setting.YM2612Type.BusID, setting.YM2612Type.SoundChip);
-                if (cmbYM2612Scci.Items.Count > 0)
+                if (cmbYM2612Scci.Enabled)
                 {
-                    foreach (string i in cmbYM2612Scci.Items)
+                    rbYM2612Scci.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2612Type.SoundLocation, setting.YM2612Type.BusID, setting.YM2612Type.SoundChip);
+                    if (cmbYM2612Scci.Items.Count > 0)
                     {
-                        if (i.IndexOf(n) < 0) continue;
-                        cmbYM2612Scci.SelectedItem = i;
-                        break;
+                        foreach (string i in cmbYM2612Scci.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            cmbYM2612Scci.SelectedItem = i;
+                            break;
+                        }
                     }
+                }
+                else
+                {
+                    rbYM2612Emu.Checked = true;
                 }
             }
 
@@ -256,16 +263,23 @@ namespace MDPlayer
             }
             else
             {
-                rbSN76489Scci.Checked = true;
-                string n = string.Format("({0}:{1}:{2})", setting.SN76489Type.SoundLocation, setting.SN76489Type.BusID, setting.SN76489Type.SoundChip);
-                if (cmbSN76489Scci.Items.Count > 0)
+                if (cmbSN76489Scci.Enabled)
                 {
-                    foreach (string i in cmbSN76489Scci.Items)
+                    rbSN76489Scci.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.SN76489Type.SoundLocation, setting.SN76489Type.BusID, setting.SN76489Type.SoundChip);
+                    if (cmbSN76489Scci.Items.Count > 0)
                     {
-                        if (i.IndexOf(n) < 0) continue;
-                        cmbSN76489Scci.SelectedItem = i;
-                        break;
+                        foreach (string i in cmbSN76489Scci.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            cmbSN76489Scci.SelectedItem = i;
+                            break;
+                        }
                     }
+                }
+                else
+                {
+                    rbSN76489Emu.Checked = true;
                 }
             }
 
@@ -341,12 +355,15 @@ namespace MDPlayer
             setting.YM2612Type.UseScci = rbYM2612Scci.Checked;
             if (rbYM2612Scci.Checked)
             {
-                string n = cmbYM2612Scci.SelectedItem.ToString();
-                n = n.Substring(0, n.IndexOf(")")).Substring(1);
-                string[] ns = n.Split(':');
-                setting.YM2612Type.SoundLocation = int.Parse(ns[0]);
-                setting.YM2612Type.BusID = int.Parse(ns[1]);
-                setting.YM2612Type.SoundChip = int.Parse(ns[2]);
+                if (cmbYM2612Scci.SelectedItem != null)
+                {
+                    string n = cmbYM2612Scci.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2612Type.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2612Type.BusID = int.Parse(ns[1]);
+                    setting.YM2612Type.SoundChip = int.Parse(ns[2]);
+                }
             }
             setting.YM2612Type.UseWait = cbYM2612UseWait.Checked;
             setting.YM2612Type.UseWaitBoost=cbYM2612UseWaitBoost.Checked;

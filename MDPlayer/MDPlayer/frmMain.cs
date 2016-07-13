@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NAudio.Midi;
+using System.Collections.Generic;
 
 namespace MDPlayer
 {
@@ -110,6 +111,14 @@ namespace MDPlayer
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
 
+            frmPlayList = new frmPlayList();
+            frmPlayList.frmMain = this;
+            frmPlayList.Show();
+            frmPlayList.Visible = false;
+            frmPlayList.Opacity = 1.0;
+            frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            frmPlayList.Refresh();
+
         }
 
         private void frmMain_Resize(object sender, EventArgs e)
@@ -152,6 +161,8 @@ namespace MDPlayer
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            frmPlayList.Stop();
+            frmPlayList.Save();
             StopMIDIInMonitoring();
             Audio.Close();
             isRunning = false;
@@ -289,6 +300,7 @@ namespace MDPlayer
 
             if (e.Location.X >= 320 - 14 * 16 && e.Location.X < 320 - 13 * 16)
             {
+                frmPlayList.Stop();
                 stop();
                 return;
             }
@@ -302,6 +314,7 @@ namespace MDPlayer
             if (e.Location.X >= 320 - 12 * 16 && e.Location.X < 320 - 11 * 16)
             {
                 fadeout();
+                frmPlayList.Stop();
                 return;
             }
 
@@ -343,13 +356,26 @@ namespace MDPlayer
 
             if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
             {
-                fileOpen();
+                string fn = fileOpen();
+
+                if (fn != null)
+                {
+                    frmPlayList.Stop();
+
+                    frmPlayList.AddList(fn);
+
+                    loadAndPlay(fn);
+                    frmPlayList.setStart(-1);
+
+                    frmPlayList.Play();
+                }
+
                 return;
             }
 
             if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
             {
-                playList();
+                dispPlayList();
                 return;
             }
 
@@ -403,8 +429,21 @@ namespace MDPlayer
 
                 nextFrame += period;
 
+                if (frmPlayList.isPlaying())
+                {
+                    if (Audio.GetVgmCurLoopCounter() > 1 || Audio.GetVGMStopped())
+                    {
+                        fadeout();
+                    }
+                    if (Audio.Stopped && frmPlayList.isPlaying())
+                    {
+                        next();
+                    }
+                }
+
                 if (Audio.fatalError)
                 {
+                    frmPlayList.Stop();
                     try { Audio.Stop(); } catch { }
                     try { Audio.Close(); } catch { }
                     Audio.fatalError = false;
@@ -676,6 +715,7 @@ namespace MDPlayer
             {
 
                 StopMIDIInMonitoring();
+                frmPlayList.Stop();
                 Audio.Close();
 
                 setting = frm.setting;
@@ -694,7 +734,7 @@ namespace MDPlayer
 
         private void stop()
         {
-
+            frmPlayList.Stop();
             Audio.Stop();
 
         }
@@ -711,14 +751,36 @@ namespace MDPlayer
 
         private void prev()
         {
+            frmPlayList.prevPlay();
         }
 
         private void play()
         {
-            if (srcBuf == null)
-            {
-                fileOpen();
+            string fn = null;
+
+            frmPlayList.Stop();
+
+            //if (srcBuf == null && frmPlayList.getMusicCount() < 1)
+                if (frmPlayList.getMusicCount() < 1)
+                {
+                    fn = fileOpen();
+                if (fn == null) return;
+                frmPlayList.AddList(fn);
+                fn = frmPlayList.setStart(-1); //last
             }
+            else
+            {
+                fn = frmPlayList.setStart(-2);//first 
+            }
+
+            loadAndPlay(fn);
+            frmPlayList.Play();
+
+        }
+
+        private void playdata()
+        {
+
             if (srcBuf == null)
             {
                 return;
@@ -757,6 +819,7 @@ namespace MDPlayer
 
         private void next()
         {
+            frmPlayList.nextPlay();
         }
 
         private void slow()
@@ -771,7 +834,7 @@ namespace MDPlayer
 
         }
 
-        private void fileOpen()
+        private string fileOpen()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
@@ -781,49 +844,30 @@ namespace MDPlayer
 
             if (ofd.ShowDialog() != DialogResult.OK)
             {
-                return;
+                return null;
             }
 
-            try
-            {
+//            try
+//            {
 
-                srcBuf = getAllBytes(ofd.FileName);
-                Audio.SetVGMBuffer(srcBuf);
+//                srcBuf = getAllBytes(ofd.FileName);
+//                Audio.SetVGMBuffer(srcBuf);
+                return ofd.FileName;
+//            }
+//            catch
+//            {
+//                srcBuf = null;
+//                MessageBox.Show("ファイルの読み込みに失敗しました。");
+//            }
+//            return null;
 
-                if (srcBuf != null)
-                {
-                    play();
-                }
-
-            }
-            catch
-            {
-                srcBuf = null;
-                MessageBox.Show("ファイルの読み込みに失敗しました。");
-            }
         }
 
-        private void playList()
+        private void dispPlayList()
         {
-            if (frmPlayList != null && !frmPlayList.isClosed)
-            {
-                frmPlayList.Close();
-                frmPlayList.Dispose();
-                frmPlayList = null;
-                return;
-            }
-            if (frmPlayList != null)
-            {
-                frmPlayList.Close();
-                frmPlayList.Dispose();
-                frmPlayList = null;
-            }
-
-            frmPlayList = new frmPlayList();
-            frmPlayList.x = this.Location.X + 328;
-            frmPlayList.y = this.Location.Y + 264;
-            frmPlayList.Show();
-            frmPlayList.Update();
+            frmPlayList.Visible = !frmPlayList.Visible;
+            frmPlayList.TopMost = true;
+            frmPlayList.TopMost = false;
         }
 
         private void openInfo()
@@ -897,9 +941,14 @@ namespace MDPlayer
                 try
                 {
 
-                    srcBuf = getAllBytes(filename);
-                    Audio.SetVGMBuffer(srcBuf);
-                    play();
+                    frmPlayList.Stop();
+
+                    frmPlayList.AddList(filename);
+
+                    loadAndPlay(filename);
+                    frmPlayList.setStart(-1);
+
+                    frmPlayList.Play();
 
                 }
                 catch
@@ -909,7 +958,7 @@ namespace MDPlayer
             }
         }
 
-        private byte[] getAllBytes(string filename)
+        public byte[] getAllBytes(string filename)
         {
 
             if (!filename.ToLower().EndsWith(".vgz"))
@@ -1155,7 +1204,26 @@ namespace MDPlayer
             }
         }
 
+        public void loadAndPlay(string fn)
+        {
+            try
+            {
 
+                srcBuf = getAllBytes(fn);
+                Audio.SetVGMBuffer(srcBuf);
+
+                if (srcBuf != null)
+                {
+                    this.Invoke((Action)playdata);
+                }
+
+            }
+            catch
+            {
+                srcBuf = null;
+                MessageBox.Show("ファイルの読み込みに失敗しました。");
+            }
+        }
 
     }
 }

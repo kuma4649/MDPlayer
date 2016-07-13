@@ -71,12 +71,49 @@ namespace MDPlayer
         private static double vgmFadeoutCounterV;
 
         private static bool Paused = false;
-        private static bool Stopped = false;
+        public static bool Stopped = false;
 
         private static Setting setting = null;
 
         public static vgm vgmVirtual = null;
         public static vgm vgmReal = null;
+
+
+        public static PlayList.music getMusic(string file,byte[] buf)
+        {
+            PlayList.music music = new PlayList.music();
+
+            music.fileName = file;
+            music.title = "unknown";
+            music.game = "unknown";
+
+            if (buf.Length < 0x40) return music;
+
+            if (getLE32(buf, 0x00) != MDPlayer.vgm.FCC_VGM) return music;
+
+            uint version = getLE32(buf, 0x08);
+            string Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
+
+            uint vgmGd3 = getLE32(buf, 0x14);
+            GD3 gd3 = new GD3();
+            if (vgmGd3 != 0)
+            {
+                uint vgmGd3Id = getLE32(buf, vgmGd3 + 0x14);
+                if (vgmGd3Id != MDPlayer.vgm.FCC_GD3) return music;
+                gd3.getGD3Info(buf, vgmGd3);
+            }
+
+            uint TotalCounter = getLE32(buf, 0x18);
+            uint vgmLoopOffset = getLE32(buf, 0x1c);
+            uint LoopCounter = getLE32(buf, 0x20);
+
+            music.title = gd3.TrackNameJ;
+            if (music.title == null || music.title == "") music.title = gd3.TrackName;
+            music.game = gd3.GameNameJ;
+            if (music.game == null || music.game == "") music.game = gd3.GameName;
+
+            return music;
+        }
 
 
 
@@ -85,7 +122,7 @@ namespace MDPlayer
             vgmVirtual = new vgm();
             vgmReal = new vgm();
 
-            naudioWrap = new NAudioWrap((int)SamplingRate, naudioCb);
+            naudioWrap = new NAudioWrap((int)SamplingRate, trdVgmVirtualFunction);
             naudioWrap.PlaybackStopped += NaudioWrap_PlaybackStopped;
 
             Audio.setting = setting.Copy();
@@ -218,7 +255,7 @@ namespace MDPlayer
                 vgmSpeed = 1;
 
                 trdClosed = false;
-                trdMain = new Thread(new ThreadStart(ThreadFunction));
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
                 trdMain.Priority = ThreadPriority.Highest;
                 trdMain.IsBackground = true;
                 trdMain.Start();
@@ -306,7 +343,9 @@ namespace MDPlayer
                 }
                 trdClosed = true;
                 while (!trdStopped) { Thread.Sleep(1); };
-                if(scYM2612!=null) scYM2612.init();
+                while (!Stopped) { Thread.Sleep(1); };
+                //if (scYM2612 != null) scYM2612.init();
+                if (nscci != null) nscci.reset();
             }
             catch
             {
@@ -409,6 +448,31 @@ namespace MDPlayer
             mds.resetPSGMask(1 << ch);
         }
 
+        public static uint GetVgmCurLoopCounter()
+        {
+            uint cnt = 0;
+
+            if (vgmVirtual != null)
+            {
+                cnt = vgmVirtual.vgmCurLoop;
+            }
+            if (vgmReal != null)
+            {
+                cnt = Math.Min(vgmReal.vgmCurLoop, cnt);
+            }
+
+            return cnt;
+        }
+
+        public static bool GetVGMStopped()
+        {
+            bool v = vgmVirtual.Stopped;
+            bool r = vgmReal.Stopped;
+
+            return v && r;
+        }
+
+
 
         private static NScci.NSoundChip getChip(int SoundLocation, int BusID, int SoundChip)
         {
@@ -477,7 +541,7 @@ namespace MDPlayer
             }
         }
 
-        private static void ThreadFunction()
+        private static void trdVgmRealFunction()
         {
             double o = sw.ElapsedTicks / swFreq;
             double step = 1 / (double)SamplingRate;
@@ -521,7 +585,7 @@ namespace MDPlayer
             trdStopped = true;
         }
 
-        internal static int naudioCb(short[] buffer, int offset, int sampleCount)
+        internal static int trdVgmVirtualFunction(short[] buffer, int offset, int sampleCount)
         {
             try
             {
@@ -615,6 +679,14 @@ namespace MDPlayer
         {
             UInt32 dat;
             dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100 + (UInt32)vgmBuf[adr + 2] * 0x10000 + (UInt32)vgmBuf[adr + 3] * 0x1000000;
+
+            return dat;
+        }
+
+        private static UInt32 getLE32(byte[] buf,UInt32 adr)
+        {
+            UInt32 dat;
+            dat = (UInt32)buf[adr] + (UInt32)buf[adr + 1] * 0x100 + (UInt32)buf[adr + 2] * 0x10000 + (UInt32)buf[adr + 3] * 0x1000000;
 
             return dat;
         }
