@@ -356,18 +356,31 @@ namespace MDPlayer
 
             if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
             {
-                string fn = fileOpen();
+                string[] fn = fileOpen(true);
 
                 if (fn != null)
                 {
-                    frmPlayList.Stop();
+                    if (fn.Length == 1)
+                    {
+                        frmPlayList.Stop();
 
-                    frmPlayList.AddList(fn);
+                        frmPlayList.AddList(fn[0]);
 
-                    loadAndPlay(fn);
-                    frmPlayList.setStart(-1);
+                        loadAndPlay(fn[0]);
+                        frmPlayList.setStart(-1);
 
-                    frmPlayList.Play();
+                        frmPlayList.Play();
+                    }
+                    else
+                    {
+                        frmPlayList.Stop();
+
+                        try
+                        {
+                            foreach (string f in fn) frmPlayList.AddList(f);
+                        }
+                        catch { }
+                    }
                 }
 
                 return;
@@ -756,24 +769,25 @@ namespace MDPlayer
 
         private void play()
         {
-            string fn = null;
+            string[] fn = null;
 
             frmPlayList.Stop();
 
             //if (srcBuf == null && frmPlayList.getMusicCount() < 1)
-                if (frmPlayList.getMusicCount() < 1)
-                {
-                    fn = fileOpen();
+            if (frmPlayList.getMusicCount() < 1)
+            {
+                fn = fileOpen(false);
                 if (fn == null) return;
-                frmPlayList.AddList(fn);
-                fn = frmPlayList.setStart(-1); //last
+                frmPlayList.AddList(fn[0]);
+                fn[0] = frmPlayList.setStart(-1); //last
             }
             else
             {
-                fn = frmPlayList.setStart(-2);//first 
+                fn = new string[1] { "" };
+                fn[0] = frmPlayList.setStart(-2);//first 
             }
 
-            loadAndPlay(fn);
+            loadAndPlay(fn[0]);
             frmPlayList.Play();
 
         }
@@ -834,32 +848,21 @@ namespace MDPlayer
 
         }
 
-        private string fileOpen()
+        private string[] fileOpen(bool flg)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
-            ofd.Title = "ファイルを選択してください";
+            ofd.Title = "VGM/VGZファイルを選択してください";
             ofd.RestoreDirectory = true;
             ofd.CheckPathExists = true;
+            ofd.Multiselect = flg;
 
             if (ofd.ShowDialog() != DialogResult.OK)
             {
                 return null;
             }
 
-//            try
-//            {
-
-//                srcBuf = getAllBytes(ofd.FileName);
-//                Audio.SetVGMBuffer(srcBuf);
-                return ofd.FileName;
-//            }
-//            catch
-//            {
-//                srcBuf = null;
-//                MessageBox.Show("ファイルの読み込みに失敗しました。");
-//            }
-//            return null;
+            return ofd.FileNames;
 
         }
 

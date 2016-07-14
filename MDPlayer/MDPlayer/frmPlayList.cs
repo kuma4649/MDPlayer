@@ -256,5 +256,169 @@ namespace MDPlayer
             oldPlayIndex = -1;
 
         }
+
+        private void tsbOpenPlayList_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "XMLファイル(*.xml)|*.xml";
+            ofd.Title = "プレイリストファイルを選択";
+            ofd.RestoreDirectory = true;
+            ofd.CheckPathExists = true;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            try
+            {
+
+                PlayList pl=PlayList.Load(ofd.FileName);
+
+                playing = false;
+                playList = pl;
+                playIndex = -1;
+                oldPlayIndex = -1;
+
+                Refresh();
+
+            }
+            catch
+            {
+                MessageBox.Show("ファイルの読み込みに失敗しました。");
+            }
+        }
+
+        private void tsbSavePlayList_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "XMLファイル(*.xml)|*.xml";
+            sfd.Title = "プレイリストファイルを保存";
+            sfd.RestoreDirectory = true;
+            sfd.CheckPathExists = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            try
+            {
+                playList.Save(sfd.FileName);
+            }
+            catch
+            {
+                MessageBox.Show("ファイルの保存に失敗しました。");
+            }
+        }
+
+        private void tsbAddMusic_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
+            ofd.Title = "VGM/VGZファイルを選択してください";
+            ofd.RestoreDirectory = true;
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = true;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            Stop();
+
+            try
+            {
+                foreach (string fn in ofd.FileNames) AddList(fn);
+            }
+            catch { }
+
+            //Play();
+        }
+
+        private void tsbUp_Click(object sender, EventArgs e)
+        {
+            if (dgvList.SelectedRows.Count < 1 || dgvList.SelectedRows[0].Index < 1)
+            {
+                return;
+            }
+
+            int ind = dgvList.SelectedRows[0].Index;
+            PlayList.music mus = playList.lstMusic[ind-1];
+            DataGridViewRow row = dgvList.Rows[ind - 1];
+
+            if (ind == playIndex) playIndex--;
+            else if (ind == playIndex + 1) playIndex++;
+
+            if (ind == oldPlayIndex) oldPlayIndex--;
+            else if (ind == oldPlayIndex + 1) oldPlayIndex++;
+
+            playList.lstMusic.RemoveAt(ind-1);
+            dgvList.Rows.RemoveAt(ind-1);
+
+            playList.lstMusic.Insert(ind, mus);
+            dgvList.Rows.Insert(ind, row);
+
+        }
+
+        private void tsbDown_Click(object sender, EventArgs e)
+        {
+            if (dgvList.SelectedRows.Count != 1 || dgvList.SelectedRows[0].Index >= dgvList.Rows.Count - 1)
+            {
+                return;
+            }
+
+            int ind = dgvList.SelectedRows[0].Index;
+            PlayList.music mus = playList.lstMusic[ind + 1];
+            DataGridViewRow row = dgvList.Rows[ind + 1];
+
+            if (ind == playIndex) playIndex++;
+            else if (ind == playIndex - 1) playIndex--;
+
+            if (ind == oldPlayIndex) oldPlayIndex++;
+            else if (ind == oldPlayIndex - 1) oldPlayIndex--;
+
+            playList.lstMusic.RemoveAt(ind + 1);
+            dgvList.Rows.RemoveAt(ind + 1);
+
+            playList.lstMusic.Insert(ind, mus);
+            dgvList.Rows.Insert(ind, row);
+
+        }
+
+        private void tsbAddFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            fbd.Description = "フォルダーを指定してください。";
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            Stop();
+
+            try
+            {
+                string[] files = System.IO.Directory.GetFiles(fbd.SelectedPath, "*", System.IO.SearchOption.TopDirectoryOnly);
+                foreach (string fn in files)
+                {
+                    string ext1 = System.IO.Path.GetExtension(fn).ToUpper();
+                    if (ext1 == ".VGM" || ext1 == ".VGZ")
+                    {
+                        AddList(fn);
+                    }
+                }
+            }
+            catch { }
+
+            Play();
+
+        }
+
     }
 }

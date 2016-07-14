@@ -47,6 +47,8 @@ namespace MDPlayer
             this.cmsPlayList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlayThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelThis = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiDelAllMusic = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbOpenPlayList = new System.Windows.Forms.ToolStripButton();
@@ -56,8 +58,7 @@ namespace MDPlayer
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbUp = new System.Windows.Forms.ToolStripButton();
             this.tsbDown = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiDelAllMusic = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbAddFolder = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.cmsPlayList.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -120,7 +121,7 @@ namespace MDPlayer
             this.dgvList.ShowCellToolTips = false;
             this.dgvList.ShowEditingIcon = false;
             this.dgvList.ShowRowErrors = false;
-            this.dgvList.Size = new System.Drawing.Size(585, 270);
+            this.dgvList.Size = new System.Drawing.Size(585, 245);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
             this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
@@ -186,21 +187,33 @@ namespace MDPlayer
             this.toolStripSeparator3,
             this.tsmiDelAllMusic});
             this.cmsPlayList.Name = "cmsPlayList";
-            this.cmsPlayList.Size = new System.Drawing.Size(153, 98);
+            this.cmsPlayList.Size = new System.Drawing.Size(151, 76);
             // 
             // tsmiPlayThis
             // 
             this.tsmiPlayThis.Name = "tsmiPlayThis";
-            this.tsmiPlayThis.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPlayThis.Size = new System.Drawing.Size(150, 22);
             this.tsmiPlayThis.Text = "この曲を再生";
             this.tsmiPlayThis.Click += new System.EventHandler(this.tsmiPlayThis_Click);
             // 
             // tsmiDelThis
             // 
             this.tsmiDelThis.Name = "tsmiDelThis";
-            this.tsmiDelThis.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelThis.Size = new System.Drawing.Size(150, 22);
             this.tsmiDelThis.Text = "この曲を除去";
             this.tsmiDelThis.Click += new System.EventHandler(this.tsmiDelThis_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
+            // 
+            // tsmiDelAllMusic
+            // 
+            this.tsmiDelAllMusic.Name = "tsmiDelAllMusic";
+            this.tsmiDelAllMusic.Size = new System.Drawing.Size(150, 22);
+            this.tsmiDelAllMusic.Text = "全ての曲を除去";
+            this.tsmiDelAllMusic.Click += new System.EventHandler(this.tsmiDelAllMusic_Click);
             // 
             // toolStripContainer1
             // 
@@ -209,7 +222,7 @@ namespace MDPlayer
             // 
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dgvList);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(585, 270);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(585, 245);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -230,14 +243,14 @@ namespace MDPlayer
             this.tsbSavePlayList,
             this.toolStripSeparator1,
             this.tsbAddMusic,
+            this.tsbAddFolder,
             this.toolStripSeparator2,
             this.tsbUp,
             this.tsbDown});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(161, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(184, 25);
             this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Visible = false;
             // 
             // tsbOpenPlayList
             // 
@@ -247,6 +260,7 @@ namespace MDPlayer
             this.tsbOpenPlayList.Name = "tsbOpenPlayList";
             this.tsbOpenPlayList.Size = new System.Drawing.Size(23, 22);
             this.tsbOpenPlayList.Text = "プレイリストファイルを開く";
+            this.tsbOpenPlayList.Click += new System.EventHandler(this.tsbOpenPlayList_Click);
             // 
             // tsbSavePlayList
             // 
@@ -256,6 +270,7 @@ namespace MDPlayer
             this.tsbSavePlayList.Name = "tsbSavePlayList";
             this.tsbSavePlayList.Size = new System.Drawing.Size(23, 22);
             this.tsbSavePlayList.Text = "プレイリストファイルを保存";
+            this.tsbSavePlayList.Click += new System.EventHandler(this.tsbSavePlayList_Click);
             // 
             // toolStripSeparator1
             // 
@@ -270,6 +285,7 @@ namespace MDPlayer
             this.tsbAddMusic.Name = "tsbAddMusic";
             this.tsbAddMusic.Size = new System.Drawing.Size(23, 22);
             this.tsbAddMusic.Text = "曲を追加";
+            this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
             // 
             // toolStripSeparator2
             // 
@@ -284,6 +300,7 @@ namespace MDPlayer
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Size = new System.Drawing.Size(23, 22);
             this.tsbUp.Text = "上の曲と入れ替える";
+            this.tsbUp.Click += new System.EventHandler(this.tsbUp_Click);
             // 
             // tsbDown
             // 
@@ -293,18 +310,17 @@ namespace MDPlayer
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Size = new System.Drawing.Size(23, 22);
             this.tsbDown.Text = "下の曲と入れ替える";
+            this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
             // 
-            // toolStripSeparator3
+            // tsbAddFolder
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
-            // 
-            // tsmiDelAllMusic
-            // 
-            this.tsmiDelAllMusic.Name = "tsmiDelAllMusic";
-            this.tsmiDelAllMusic.Size = new System.Drawing.Size(152, 22);
-            this.tsmiDelAllMusic.Text = "全ての曲を除去";
-            this.tsmiDelAllMusic.Click += new System.EventHandler(this.tsmiDelAllMusic_Click);
+            this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddFolder.Image")));
+            this.tsbAddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAddFolder.Name = "tsbAddFolder";
+            this.tsbAddFolder.Size = new System.Drawing.Size(23, 22);
+            this.tsbAddFolder.Text = "フォルダー内の曲を追加";
+            this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
             // 
             // frmPlayList
             // 
@@ -358,5 +374,6 @@ namespace MDPlayer
         private System.Windows.Forms.DataGridViewTextBoxColumn clmSpacer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelAllMusic;
+        private System.Windows.Forms.ToolStripButton tsbAddFolder;
     }
 }
