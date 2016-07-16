@@ -23,6 +23,8 @@ namespace MDPlayer
         private int playIndex = -1;
         private int oldPlayIndex = -1;
 
+        private Random rand = new System.Random();
+
 
         public frmPlayList()
         {
@@ -93,14 +95,7 @@ namespace MDPlayer
             dgvList.Rows.Clear();
             foreach (PlayList.music music in playList.lstMusic)
             {
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(dgvList);
-                row.Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
-                row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
-                row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
-                row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
-                row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
-                row.Cells[dgvList.Columns["clmRemark"].Index].Value = music.remark;
+                DataGridViewRow row = makeRow(music);
 
                 dgvList.Rows.Add(row);
             }
@@ -110,18 +105,32 @@ namespace MDPlayer
         {
             PlayList.music music = Audio.getMusic(file, frmMain.getAllBytes(file));
 
+            DataGridViewRow row = makeRow(music);
+
+            dgvList.Rows.Add(row);
+            playList.lstMusic.Add(music);
+            //updatePlayingIndex(dgvList.Rows.Count - 1);
+        }
+
+        private DataGridViewRow makeRow(PlayList.music music)
+        {
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(dgvList);
             row.Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
             row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
             row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
             row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
+            row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
             row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
-            row.Cells[dgvList.Columns["clmRemark"].Index].Value = music.remark;
+            row.Cells[dgvList.Columns["clmGameJ"].Index].Value = music.gameJ;
+            //row.Cells[dgvList.Columns["clmRemark"].Index].Value = music.remark;
+            row.Cells[dgvList.Columns["clmComposer"].Index].Value = music.composer;
+            row.Cells[dgvList.Columns["clmComposerJ"].Index].Value = music.composerJ;
+            row.Cells[dgvList.Columns["clmConverted"].Index].Value = music.converted;
+            row.Cells[dgvList.Columns["clmNotes"].Index].Value = music.notes;
+            row.Cells[dgvList.Columns["clmDuration"].Index].Value = music.duration;
 
-            dgvList.Rows.Add(row);
-            playList.lstMusic.Add(music);
-            //updatePlayingIndex(dgvList.Rows.Count - 1);
+            return row;
         }
 
         private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
@@ -163,6 +172,14 @@ namespace MDPlayer
 
             if (e.Button == MouseButtons.Right)
             {
+                if (dgvList.SelectedRows.Count > 1)
+                {
+                    tsmiDelThis.Text = "選択した曲を除去";
+                }
+                else
+                {
+                    tsmiDelThis.Text = "この曲を除去";
+                }
                 cmsPlayList.Show();
                 Point p = Control.MousePosition;
                 cmsPlayList.Top = p.Y;
@@ -174,16 +191,26 @@ namespace MDPlayer
         {
             if (dgvList.SelectedRows.Count < 1) return;
 
-            if (oldPlayIndex >= dgvList.SelectedRows[0].Index)
+            List<int> sel = new List<int>();
+            foreach (DataGridViewRow r in dgvList.SelectedRows)
             {
-                oldPlayIndex--;
+                sel.Add(r.Index);
             }
-            if (playIndex >= dgvList.SelectedRows[0].Index)
+            sel.Sort();
+
+            for (int i = sel.Count - 1; i >= 0; i--)
             {
-                playIndex--;
+                if (oldPlayIndex >= dgvList.SelectedRows[i].Index)
+                {
+                    oldPlayIndex--;
+                }
+                if (playIndex >= dgvList.SelectedRows[i].Index)
+                {
+                    playIndex--;
+                }
+                playList.lstMusic.RemoveAt(dgvList.SelectedRows[i].Index);
+                dgvList.Rows.RemoveAt(dgvList.SelectedRows[i].Index);
             }
-            playList.lstMusic.RemoveAt(dgvList.SelectedRows[0].Index);
-            dgvList.Rows.RemoveAt(dgvList.SelectedRows[0].Index);
         }
 
         public void nextPlay()
@@ -195,6 +222,39 @@ namespace MDPlayer
             playing = false;
 
             pi++;
+
+            string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+            frmMain.loadAndPlay(fn);
+            updatePlayingIndex(pi);
+            playing = true;
+        }
+
+        public void nextPlayMode(int mode)
+        {
+            if (!playing) return;
+
+            int pi = playIndex;
+            playing = false;
+
+            switch (mode)
+            {
+                case 0:// 通常
+                    if (dgvList.Rows.Count <= playIndex + 1) return;
+                    pi++;
+                    break;
+                case 1:// ランダム
+                    pi = rand.Next(dgvList.Rows.Count);
+                    break;
+                case 2:// 全曲ループ
+                    pi++;
+                    if (pi >= dgvList.Rows.Count)
+                    {
+                        pi = 0;
+                    }
+                    break;
+                case 3:// １曲ループ
+                    break;
+            }
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
             frmMain.loadAndPlay(fn);
@@ -420,5 +480,14 @@ namespace MDPlayer
 
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            dgvList.Columns["clmTitle"].Visible = !tsbJapanese.Checked;
+            dgvList.Columns["clmTitleJ"].Visible = tsbJapanese.Checked;
+            dgvList.Columns["clmGame"].Visible = !tsbJapanese.Checked;
+            dgvList.Columns["clmGameJ"].Visible = tsbJapanese.Checked;
+            dgvList.Columns["clmComposer"].Visible = !tsbJapanese.Checked;
+            dgvList.Columns["clmComposerJ"].Visible = tsbJapanese.Checked;
+        }
     }
 }

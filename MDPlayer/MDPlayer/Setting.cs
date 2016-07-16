@@ -405,6 +405,33 @@ namespace MDPlayer
         [Serializable]
         public class Other
         {
+            private bool _UseLoopTimes = true;
+            public bool UseLoopTimes
+            {
+                get
+                {
+                    return _UseLoopTimes;
+                }
+
+                set
+                {
+                    _UseLoopTimes = value;
+                }
+            }
+
+            private int _LoopTimes = 2;
+            public int LoopTimes
+            {
+                get
+                {
+                    return _LoopTimes;
+                }
+
+                set
+                {
+                    _LoopTimes = value;
+                }
+            }
 
             private bool _UseMIDIKeyboard = false;
             public bool UseMIDIKeyboard
@@ -451,6 +478,8 @@ namespace MDPlayer
             public Other Copy()
             {
                 Other other = new Other();
+                other.UseLoopTimes = this.UseLoopTimes;
+                other.LoopTimes = this.LoopTimes;
                 other.MidiInDeviceName = this.MidiInDeviceName;
                 other.UseMIDIKeyboard = this.UseMIDIKeyboard;
                 for (int i = 0; i < other.UseChannel.Length; i++)

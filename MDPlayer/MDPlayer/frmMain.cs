@@ -444,13 +444,13 @@ namespace MDPlayer
 
                 if (frmPlayList.isPlaying())
                 {
-                    if (Audio.GetVgmCurLoopCounter() > 1 || Audio.GetVGMStopped())
+                    if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1) || Audio.GetVGMStopped())
                     {
                         fadeout();
                     }
                     if (Audio.Stopped && frmPlayList.isPlaying())
                     {
-                        next();
+                        nextPlayMode();
                     }
                 }
 
@@ -834,6 +834,11 @@ namespace MDPlayer
         private void next()
         {
             frmPlayList.nextPlay();
+        }
+
+        private void nextPlayMode()
+        {
+            frmPlayList.nextPlayMode(newButtonMode[9]);
         }
 
         private void slow()

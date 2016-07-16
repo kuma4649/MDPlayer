@@ -316,6 +316,9 @@ namespace MDPlayer
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
 
+            cbUseLoopTimes.Checked = setting.other.UseLoopTimes;
+            gbLoopTimes.Enabled = cbUseLoopTimes.Checked;
+            tbLoopTimes.Text = setting.other.LoopTimes.ToString();
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -423,6 +426,12 @@ namespace MDPlayer
             if (int.TryParse(tbLatencySCCI.Text, out i))
             {
                 setting.LatencySCCI = Math.Max(Math.Min(i, 999), 0);
+            }
+
+            setting.other.UseLoopTimes = cbUseLoopTimes.Checked;
+            if (int.TryParse(tbLoopTimes.Text, out i))
+            {
+                setting.other.LoopTimes = Math.Max(Math.Min(i, 999), 1);
             }
 
             setting.balance.YM2612Volume = trkYM2612.Value;
@@ -631,6 +640,11 @@ namespace MDPlayer
             {
                 tbYM2612.Text = "100";
             }
+        }
+
+        private void cbUseLoopTimes_CheckedChanged(object sender, EventArgs e)
+        {
+            gbLoopTimes.Enabled = cbUseLoopTimes.Checked;
         }
     }
 

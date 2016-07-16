@@ -940,6 +940,13 @@ namespace MDPlayer
 
         public void screenInit()
         {
+            for (int x = 0; x < 3; x++)
+            {
+                drawFont4Int2(4 * 30 + x * 4 * 11, 0, 0, 3, 0);
+                drawFont4Int2(4 * 34 + x * 4 * 11, 0, 0, 2, 0);
+                drawFont4Int2(4 * 37 + x * 4 * 11, 0, 0, 2, 0);
+            }
+
             for (int y = 0; y < 13; y++)
             {
                 drawFont8(296, y*8+8, 1, "   ");

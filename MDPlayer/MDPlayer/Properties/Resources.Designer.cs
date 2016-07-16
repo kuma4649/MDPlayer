@@ -61,6 +61,26 @@ namespace MDPlayer.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap addFolderPL {
+            get {
+                object obj = ResourceManager.GetObject("addFolderPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap addPL {
+            get {
+                object obj = ResourceManager.GetObject("addPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   MDPlayer
         ///VGMPlayer(メガドライブ 音源チップエミュレーション専用)
         ///
@@ -96,9 +116,39 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap downPL {
+            get {
+                object obj = ResourceManager.GetObject("downPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap font {
             get {
                 object obj = ResourceManager.GetObject("font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap japPL {
+            get {
+                object obj = ResourceManager.GetObject("japPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap openPL {
+            get {
+                object obj = ResourceManager.GetObject("openPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -129,6 +179,26 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap planeC {
             get {
                 object obj = ResourceManager.GetObject("planeC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap savePL {
+            get {
+                object obj = ResourceManager.GetObject("savePL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap upPL {
+            get {
+                object obj = ResourceManager.GetObject("upPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -33,16 +33,22 @@ namespace MDPlayer
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayList));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvList = new System.Windows.Forms.DataGridView();
             this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsPlayList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlayThis = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,10 +61,12 @@ namespace MDPlayer
             this.tsbSavePlayList = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAddMusic = new System.Windows.Forms.ToolStripButton();
+            this.tsbAddFolder = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbUp = new System.Windows.Forms.ToolStripButton();
             this.tsbDown = new System.Windows.Forms.ToolStripButton();
-            this.tsbAddFolder = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbJapanese = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.cmsPlayList.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -90,28 +98,33 @@ namespace MDPlayer
             this.clmFileName,
             this.clmPlayingNow,
             this.clmTitle,
+            this.clmTitleJ,
             this.clmGame,
-            this.clmRemark,
+            this.clmGameJ,
+            this.clmComposer,
+            this.clmComposerJ,
+            this.clmConverted,
+            this.clmNotes,
+            this.clmDuration,
             this.clmSpacer});
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
-            this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
             this.dgvList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvList.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvList.RowHeadersVisible = false;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvList.RowTemplate.ContextMenuStrip = this.cmsPlayList;
             this.dgvList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvList.RowTemplate.Height = 10;
@@ -157,6 +170,13 @@ namespace MDPlayer
             this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.clmTitle.Width = 200;
             // 
+            // clmTitleJ
+            // 
+            this.clmTitleJ.HeaderText = "タイトル";
+            this.clmTitleJ.Name = "clmTitleJ";
+            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmTitleJ.Visible = false;
+            // 
             // clmGame
             // 
             this.clmGame.HeaderText = "Game";
@@ -165,11 +185,45 @@ namespace MDPlayer
             this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.clmGame.Width = 200;
             // 
-            // clmRemark
+            // clmGameJ
             // 
-            this.clmRemark.HeaderText = "Remark";
-            this.clmRemark.Name = "clmRemark";
-            this.clmRemark.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGameJ.HeaderText = "ゲーム";
+            this.clmGameJ.Name = "clmGameJ";
+            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGameJ.Visible = false;
+            // 
+            // clmComposer
+            // 
+            this.clmComposer.HeaderText = "Composer";
+            this.clmComposer.Name = "clmComposer";
+            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmComposerJ
+            // 
+            this.clmComposerJ.HeaderText = "作曲者";
+            this.clmComposerJ.Name = "clmComposerJ";
+            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmComposerJ.Visible = false;
+            // 
+            // clmConverted
+            // 
+            this.clmConverted.HeaderText = "Converted";
+            this.clmConverted.Name = "clmConverted";
+            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmNotes
+            // 
+            this.clmNotes.HeaderText = "Notes";
+            this.clmNotes.Name = "clmNotes";
+            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmDuration
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmDuration.HeaderText = "Duration";
+            this.clmDuration.Name = "clmDuration";
+            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmSpacer
             // 
@@ -246,17 +300,21 @@ namespace MDPlayer
             this.tsbAddFolder,
             this.toolStripSeparator2,
             this.tsbUp,
-            this.tsbDown});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
+            this.tsbDown,
+            this.toolStripSeparator4,
+            this.tsbJapanese});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(184, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(585, 25);
+            this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 1;
             // 
             // tsbOpenPlayList
             // 
             this.tsbOpenPlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbOpenPlayList.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpenPlayList.Image")));
-            this.tsbOpenPlayList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOpenPlayList.Image = global::MDPlayer.Properties.Resources.openPL;
+            this.tsbOpenPlayList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbOpenPlayList.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbOpenPlayList.Name = "tsbOpenPlayList";
             this.tsbOpenPlayList.Size = new System.Drawing.Size(23, 22);
             this.tsbOpenPlayList.Text = "プレイリストファイルを開く";
@@ -265,8 +323,9 @@ namespace MDPlayer
             // tsbSavePlayList
             // 
             this.tsbSavePlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSavePlayList.Image = ((System.Drawing.Image)(resources.GetObject("tsbSavePlayList.Image")));
-            this.tsbSavePlayList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSavePlayList.Image = global::MDPlayer.Properties.Resources.savePL;
+            this.tsbSavePlayList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbSavePlayList.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbSavePlayList.Name = "tsbSavePlayList";
             this.tsbSavePlayList.Size = new System.Drawing.Size(23, 22);
             this.tsbSavePlayList.Text = "プレイリストファイルを保存";
@@ -280,12 +339,24 @@ namespace MDPlayer
             // tsbAddMusic
             // 
             this.tsbAddMusic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddMusic.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddMusic.Image")));
-            this.tsbAddMusic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAddMusic.Image = global::MDPlayer.Properties.Resources.addPL;
+            this.tsbAddMusic.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbAddMusic.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddMusic.Name = "tsbAddMusic";
             this.tsbAddMusic.Size = new System.Drawing.Size(23, 22);
             this.tsbAddMusic.Text = "曲を追加";
             this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
+            // 
+            // tsbAddFolder
+            // 
+            this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAddFolder.Image = global::MDPlayer.Properties.Resources.addFolderPL;
+            this.tsbAddFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbAddFolder.ImageTransparentColor = System.Drawing.Color.Black;
+            this.tsbAddFolder.Name = "tsbAddFolder";
+            this.tsbAddFolder.Size = new System.Drawing.Size(23, 22);
+            this.tsbAddFolder.Text = "フォルダー内の曲を追加";
+            this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
             // 
             // toolStripSeparator2
             // 
@@ -295,8 +366,9 @@ namespace MDPlayer
             // tsbUp
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUp.Image = ((System.Drawing.Image)(resources.GetObject("tsbUp.Image")));
-            this.tsbUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbUp.Image = global::MDPlayer.Properties.Resources.upPL;
+            this.tsbUp.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbUp.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Size = new System.Drawing.Size(23, 22);
             this.tsbUp.Text = "上の曲と入れ替える";
@@ -305,22 +377,29 @@ namespace MDPlayer
             // tsbDown
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDown.Image = ((System.Drawing.Image)(resources.GetObject("tsbDown.Image")));
-            this.tsbDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDown.Image = global::MDPlayer.Properties.Resources.downPL;
+            this.tsbDown.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbDown.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Size = new System.Drawing.Size(23, 22);
             this.tsbDown.Text = "下の曲と入れ替える";
             this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
             // 
-            // tsbAddFolder
+            // toolStripSeparator4
             // 
-            this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddFolder.Image")));
-            this.tsbAddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAddFolder.Name = "tsbAddFolder";
-            this.tsbAddFolder.Size = new System.Drawing.Size(23, 22);
-            this.tsbAddFolder.Text = "フォルダー内の曲を追加";
-            this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbJapanese
+            // 
+            this.tsbJapanese.CheckOnClick = true;
+            this.tsbJapanese.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbJapanese.Image = global::MDPlayer.Properties.Resources.japPL;
+            this.tsbJapanese.ImageTransparentColor = System.Drawing.Color.Black;
+            this.tsbJapanese.Name = "tsbJapanese";
+            this.tsbJapanese.Size = new System.Drawing.Size(23, 22);
+            this.tsbJapanese.Text = "日本語";
+            this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // frmPlayList
             // 
@@ -365,15 +444,23 @@ namespace MDPlayer
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbUp;
         private System.Windows.Forms.ToolStripButton tsbDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelAllMusic;
+        private System.Windows.Forms.ToolStripButton tsbAddFolder;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmPlayingNow;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTitleJ;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmGame;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmRemark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmGameJ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmComposer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmComposerJ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmConverted;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNotes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDuration;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmSpacer;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem tsmiDelAllMusic;
-        private System.Windows.Forms.ToolStripButton tsbAddFolder;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton tsbJapanese;
     }
 }

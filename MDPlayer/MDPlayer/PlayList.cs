@@ -14,9 +14,21 @@ namespace MDPlayer
         {
             public string playingNow;
             public string fileName;
+
             public string title;
             public string game;
+            public string system;
+            public string composer;
+            public string titleJ;
+            public string gameJ;
+            public string systemJ;
+            public string composerJ;
+
+            public string converted;
+            public string notes;
+            public string vgmby;
             public string remark;
+            public string duration;
         }
 
         private List<music> _lstMusic = new List<music>();

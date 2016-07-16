@@ -179,7 +179,14 @@
     <Content Include="lib\NScci.dll" />
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
+    <Content Include="Resources\addFolderPL.png" />
+    <Content Include="Resources\addPL.png" />
+    <Content Include="Resources\downPL.png" />
+    <Content Include="Resources\japPL.png" />
+    <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\savePL.png" />
+    <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />
     <Content Include="Resources\フェーリ.png" />
     <Content Include="Resources\フェーリ128.ico" />

@@ -107,10 +107,23 @@ namespace MDPlayer
             uint vgmLoopOffset = getLE32(buf, 0x1c);
             uint LoopCounter = getLE32(buf, 0x20);
 
-            music.title = gd3.TrackNameJ;
-            if (music.title == null || music.title == "") music.title = gd3.TrackName;
-            music.game = gd3.GameNameJ;
-            if (music.game == null || music.game == "") music.game = gd3.GameName;
+            music.title = gd3.TrackName;
+            music.titleJ = gd3.TrackNameJ;
+            music.game = gd3.GameName;
+            music.gameJ = gd3.GameNameJ;
+            music.composer = gd3.Composer;
+            music.composerJ = gd3.ComposerJ;
+
+            music.converted = gd3.Converted;
+            music.notes = gd3.Notes;
+
+            double sec = (double)TotalCounter / (double)SamplingRate;
+            int TCminutes = (int)(sec / 60);
+            sec -= TCminutes * 60;
+            int TCsecond = (int)sec;
+            sec -= TCsecond;
+            int TCmillisecond = (int)(sec * 100.0);
+            music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
 
             return music;
         }

@@ -169,4 +169,25 @@ YM2612 , SN76489 , RF5C164 , PWM
   <data name="フェーリAndMD2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\フェーリAndMD2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="addFolderPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addFolderPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="downPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\downPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="japPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\japPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="openPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="savePL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\savePL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="upPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\upPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
