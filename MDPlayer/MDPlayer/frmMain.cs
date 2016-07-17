@@ -31,6 +31,8 @@ namespace MDPlayer
         private bool isRunning = false;
         private bool stopped = false;
 
+        private bool IsInitialOpenFolder = true;
+
         private int[] FmFNum = new int[] {
             0x289/8, 0x2af/8, 0x2d8/8, 0x303/8, 0x331/8, 0x362/8, 0x395/8, 0x3cc/8, 0x405/8, 0x443/8, 0x484/8,0x4c8/8,
             0x289/4, 0x2af/4, 0x2d8/4, 0x303/4, 0x331/4, 0x362/4, 0x395/4, 0x3cc/4, 0x405/4, 0x443/4, 0x484/4,0x4c8/4,
@@ -69,7 +71,7 @@ namespace MDPlayer
         private static int SamplingRate = 44100;
         private byte[] srcBuf;
 
-        private Setting setting = Setting.Load();
+        public Setting setting = Setting.Load();
 
         private MidiIn midiin = null;
 
@@ -742,6 +744,8 @@ namespace MDPlayer
                 Audio.Init(setting);
                 StartMIDIInMonitoring();
 
+                IsInitialOpenFolder = true;
+
             }
         }
 
@@ -858,7 +862,14 @@ namespace MDPlayer
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
             ofd.Title = "VGM/VGZファイルを選択してください";
-            ofd.RestoreDirectory = true;
+            if (setting.other.DefaultDataPath != "" && Directory.Exists(setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = setting.other.DefaultDataPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
             ofd.CheckPathExists = true;
             ofd.Multiselect = flg;
 
@@ -866,6 +877,8 @@ namespace MDPlayer
             {
                 return null;
             }
+
+            IsInitialOpenFolder = false;
 
             return ofd.FileNames;
 
@@ -1099,6 +1112,8 @@ namespace MDPlayer
 
         public void getInstCh(int ch)
         {
+            if (!setting.other.UseGetInst) return;
+
             int p = (ch > 2) ? 1 : 0;
             int c = (ch > 2) ? ch - 3 : ch;
             int[][] fmRegister = Audio.GetFMRegister();

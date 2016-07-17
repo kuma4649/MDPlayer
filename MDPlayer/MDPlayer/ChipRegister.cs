@@ -16,6 +16,9 @@ namespace MDPlayer
         private Setting.ChipType ctYM2612 = null;
         private Setting.ChipType ctSN76489 = null;
 
+        private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
+        private int[] opN = new int[] { 0, 2, 1, 3 };
+
         public int[][] fmRegister = null;
         public int[] fmKeyOn = null;
         public int[][] fmVol = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
@@ -45,17 +48,36 @@ namespace MDPlayer
 
         }
 
+        private int nowYM2612FadeoutVol = 0;
+
+        public void setFadeoutVol(int v)
+        {
+            nowYM2612FadeoutVol = v;
+            for (int p = 0; p < 2; p++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    setYM2612Register(p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
+                }
+            }
+        }
+
         public void setYM2612Register(int dPort, int dAddr, int dData,vgm.enmModel model)
         {
             if (ctYM2612 == null) return;
 
+            fmRegister[dPort][dAddr] = dData;
+
             if ((model == vgm.enmModel.RealModel && ctYM2612.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612.UseScci))
             {
-                fmRegister[dPort][dAddr] = dData;
+                //fmRegister[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
                 {
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                    if (ch >= 0 && ch < 6)
+                    if (ch >= 0 && ch < 6 && (dData & 0xf0)>0)
                     {
                         if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
                         {
@@ -86,6 +108,19 @@ namespace MDPlayer
                         fmVol[5][0] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
                         fmVol[5][1] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
                     }
+                }
+            }
+
+
+            if ((dAddr & 0xf0) == 0x40)//TL
+            {
+                int ch = (dAddr & 0x3);
+                int al = fmRegister[dPort][0xb0 + ch] & 0x07;//AL
+                int slot = (dAddr & 0xc) >> 2;
+
+                if ((algM[al] & (1 << slot)) > 0)
+                {
+                    dData = Math.Min(dData + nowYM2612FadeoutVol, 127);
                 }
             }
 

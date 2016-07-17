@@ -50,12 +50,12 @@
             this.gbDirectSound = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbDirectSoundDevice = new System.Windows.Forms.ComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tcSetting = new System.Windows.Forms.TabControl();
+            this.tpOutput = new System.Windows.Forms.TabPage();
             this.lblLatencyUnit = new System.Windows.Forms.Label();
             this.lblLatency = new System.Windows.Forms.Label();
             this.cmbLatency = new System.Windows.Forms.ComboBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -85,7 +85,7 @@
             this.cmbYM2612Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2612Scci = new System.Windows.Forms.RadioButton();
             this.rbYM2612Emu = new System.Windows.Forms.RadioButton();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tpBalance = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbDispFrameCounter = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -113,11 +113,15 @@
             this.tbRF5C164 = new System.Windows.Forms.TextBox();
             this.tbSN76489 = new System.Windows.Forms.TextBox();
             this.tbYM2612 = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
-            this.gbLoopTimes = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.tpOther = new System.Windows.Forms.TabPage();
+            this.lblLoopTimes = new System.Windows.Forms.Label();
+            this.btnDataPath = new System.Windows.Forms.Button();
             this.tbLoopTimes = new System.Windows.Forms.TextBox();
+            this.tbDataPath = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.btnOpenSettingFolder = new System.Windows.Forms.Button();
+            this.cbUseGetInst = new System.Windows.Forms.CheckBox();
+            this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
             this.cbUseMIDIKeyboard = new System.Windows.Forms.CheckBox();
             this.gbMIDIKeyboard = new System.Windows.Forms.GroupBox();
             this.gbUseChannel = new System.Windows.Forms.GroupBox();
@@ -132,7 +136,7 @@
             this.cbPSG1 = new System.Windows.Forms.CheckBox();
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpAbout = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
@@ -144,13 +148,13 @@
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
             this.gbDirectSound.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tcSetting.SuspendLayout();
+            this.tpOutput.SuspendLayout();
+            this.tpModule.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tpBalance.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -165,11 +169,10 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.gbLoopTimes.SuspendLayout();
+            this.tpOther.SuspendLayout();
             this.gbMIDIKeyboard.SuspendLayout();
             this.gbUseChannel.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -410,39 +413,39 @@
             this.cmbDirectSoundDevice.Size = new System.Drawing.Size(275, 20);
             this.cmbDirectSoundDevice.TabIndex = 2;
             // 
-            // tabControl1
+            // tcSetting
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(1, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(382, 317);
-            this.tabControl1.TabIndex = 3;
+            this.tcSetting.Controls.Add(this.tpOutput);
+            this.tcSetting.Controls.Add(this.tpModule);
+            this.tcSetting.Controls.Add(this.tpBalance);
+            this.tcSetting.Controls.Add(this.tpOther);
+            this.tcSetting.Controls.Add(this.tpAbout);
+            this.tcSetting.Location = new System.Drawing.Point(1, 3);
+            this.tcSetting.Name = "tcSetting";
+            this.tcSetting.SelectedIndex = 0;
+            this.tcSetting.Size = new System.Drawing.Size(382, 317);
+            this.tcSetting.TabIndex = 3;
             // 
-            // tabPage1
+            // tpOutput
             // 
-            this.tabPage1.Controls.Add(this.lblLatencyUnit);
-            this.tabPage1.Controls.Add(this.lblLatency);
-            this.tabPage1.Controls.Add(this.cmbLatency);
-            this.tabPage1.Controls.Add(this.rbDirectSoundOut);
-            this.tabPage1.Controls.Add(this.rbWaveOut);
-            this.tabPage1.Controls.Add(this.rbAsioOut);
-            this.tabPage1.Controls.Add(this.gbWaveOut);
-            this.tabPage1.Controls.Add(this.rbWasapiOut);
-            this.tabPage1.Controls.Add(this.gbAsioOut);
-            this.tabPage1.Controls.Add(this.gbDirectSound);
-            this.tabPage1.Controls.Add(this.gbWasapiOut);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(374, 291);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "出力";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpOutput.Controls.Add(this.lblLatencyUnit);
+            this.tpOutput.Controls.Add(this.lblLatency);
+            this.tpOutput.Controls.Add(this.cmbLatency);
+            this.tpOutput.Controls.Add(this.rbDirectSoundOut);
+            this.tpOutput.Controls.Add(this.rbWaveOut);
+            this.tpOutput.Controls.Add(this.rbAsioOut);
+            this.tpOutput.Controls.Add(this.gbWaveOut);
+            this.tpOutput.Controls.Add(this.rbWasapiOut);
+            this.tpOutput.Controls.Add(this.gbAsioOut);
+            this.tpOutput.Controls.Add(this.gbDirectSound);
+            this.tpOutput.Controls.Add(this.gbWasapiOut);
+            this.tpOutput.Location = new System.Drawing.Point(4, 22);
+            this.tpOutput.Name = "tpOutput";
+            this.tpOutput.Padding = new System.Windows.Forms.Padding(3);
+            this.tpOutput.Size = new System.Drawing.Size(374, 291);
+            this.tpOutput.TabIndex = 0;
+            this.tpOutput.Text = "出力";
+            this.tpOutput.UseVisualStyleBackColor = true;
             // 
             // lblLatencyUnit
             // 
@@ -480,17 +483,17 @@
             this.cmbLatency.Size = new System.Drawing.Size(121, 20);
             this.cmbLatency.TabIndex = 8;
             // 
-            // tabPage4
+            // tpModule
             // 
-            this.tabPage4.Controls.Add(this.groupBox3);
-            this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.Controls.Add(this.groupBox1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(374, 291);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "音源";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tpModule.Controls.Add(this.groupBox3);
+            this.tpModule.Controls.Add(this.groupBox2);
+            this.tpModule.Controls.Add(this.groupBox1);
+            this.tpModule.Location = new System.Drawing.Point(4, 22);
+            this.tpModule.Name = "tpModule";
+            this.tpModule.Size = new System.Drawing.Size(374, 291);
+            this.tpModule.TabIndex = 3;
+            this.tpModule.Text = "音源";
+            this.tpModule.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -511,7 +514,7 @@
             // cbHiyorimiMode
             // 
             this.cbHiyorimiMode.AutoSize = true;
-            this.cbHiyorimiMode.Location = new System.Drawing.Point(170, 42);
+            this.cbHiyorimiMode.Location = new System.Drawing.Point(176, 42);
             this.cbHiyorimiMode.Name = "cbHiyorimiMode";
             this.cbHiyorimiMode.Size = new System.Drawing.Size(88, 16);
             this.cbHiyorimiMode.TabIndex = 7;
@@ -797,16 +800,16 @@
             this.rbYM2612Emu.Text = "エミュレーション";
             this.rbYM2612Emu.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tpBalance
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.White;
-            this.tabPage5.Controls.Add(this.groupBox5);
-            this.tabPage5.Controls.Add(this.groupBox4);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(374, 291);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "バランス";
+            this.tpBalance.BackColor = System.Drawing.Color.White;
+            this.tpBalance.Controls.Add(this.groupBox5);
+            this.tpBalance.Controls.Add(this.groupBox4);
+            this.tpBalance.Location = new System.Drawing.Point(4, 22);
+            this.tpBalance.Name = "tpBalance";
+            this.tpBalance.Size = new System.Drawing.Size(374, 291);
+            this.tpBalance.TabIndex = 4;
+            this.tpBalance.Text = "バランス";
             // 
             // groupBox5
             // 
@@ -1093,61 +1096,103 @@
             this.tbYM2612.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbYM2612.TextChanged += new System.EventHandler(this.tbYM2612_TextChanged);
             // 
-            // tabPage3
+            // tpOther
             // 
-            this.tabPage3.Controls.Add(this.cbUseLoopTimes);
-            this.tabPage3.Controls.Add(this.gbLoopTimes);
-            this.tabPage3.Controls.Add(this.cbUseMIDIKeyboard);
-            this.tabPage3.Controls.Add(this.gbMIDIKeyboard);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(374, 291);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Other";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpOther.Controls.Add(this.lblLoopTimes);
+            this.tpOther.Controls.Add(this.btnDataPath);
+            this.tpOther.Controls.Add(this.tbLoopTimes);
+            this.tpOther.Controls.Add(this.tbDataPath);
+            this.tpOther.Controls.Add(this.label19);
+            this.tpOther.Controls.Add(this.btnOpenSettingFolder);
+            this.tpOther.Controls.Add(this.cbUseGetInst);
+            this.tpOther.Controls.Add(this.cbUseLoopTimes);
+            this.tpOther.Controls.Add(this.cbUseMIDIKeyboard);
+            this.tpOther.Controls.Add(this.gbMIDIKeyboard);
+            this.tpOther.Location = new System.Drawing.Point(4, 22);
+            this.tpOther.Name = "tpOther";
+            this.tpOther.Size = new System.Drawing.Size(374, 291);
+            this.tpOther.TabIndex = 2;
+            this.tpOther.Text = "Other";
+            this.tpOther.UseVisualStyleBackColor = true;
+            // 
+            // lblLoopTimes
+            // 
+            this.lblLoopTimes.AutoSize = true;
+            this.lblLoopTimes.Location = new System.Drawing.Point(342, 125);
+            this.lblLoopTimes.Name = "lblLoopTimes";
+            this.lblLoopTimes.Size = new System.Drawing.Size(17, 12);
+            this.lblLoopTimes.TabIndex = 1;
+            this.lblLoopTimes.Text = "回";
+            // 
+            // btnDataPath
+            // 
+            this.btnDataPath.Location = new System.Drawing.Point(342, 167);
+            this.btnDataPath.Name = "btnDataPath";
+            this.btnDataPath.Size = new System.Drawing.Size(23, 23);
+            this.btnDataPath.TabIndex = 16;
+            this.btnDataPath.Text = "...";
+            this.btnDataPath.UseVisualStyleBackColor = true;
+            this.btnDataPath.Click += new System.EventHandler(this.btnDataPath_Click);
+            // 
+            // tbLoopTimes
+            // 
+            this.tbLoopTimes.Location = new System.Drawing.Point(284, 122);
+            this.tbLoopTimes.Name = "tbLoopTimes";
+            this.tbLoopTimes.Size = new System.Drawing.Size(52, 19);
+            this.tbLoopTimes.TabIndex = 0;
+            // 
+            // tbDataPath
+            // 
+            this.tbDataPath.Location = new System.Drawing.Point(75, 169);
+            this.tbDataPath.Name = "tbDataPath";
+            this.tbDataPath.Size = new System.Drawing.Size(261, 19);
+            this.tbDataPath.TabIndex = 15;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 172);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(56, 12);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "データPath";
+            // 
+            // btnOpenSettingFolder
+            // 
+            this.btnOpenSettingFolder.Location = new System.Drawing.Point(7, 265);
+            this.btnOpenSettingFolder.Name = "btnOpenSettingFolder";
+            this.btnOpenSettingFolder.Size = new System.Drawing.Size(125, 23);
+            this.btnOpenSettingFolder.TabIndex = 13;
+            this.btnOpenSettingFolder.Text = "設定フォルダーを開く";
+            this.btnOpenSettingFolder.UseVisualStyleBackColor = true;
+            this.btnOpenSettingFolder.Click += new System.EventHandler(this.btnOpenSettingFolder_Click);
+            // 
+            // cbUseGetInst
+            // 
+            this.cbUseGetInst.AutoSize = true;
+            this.cbUseGetInst.Location = new System.Drawing.Point(9, 147);
+            this.cbUseGetInst.Name = "cbUseGetInst";
+            this.cbUseGetInst.Size = new System.Drawing.Size(286, 16);
+            this.cbUseGetInst.TabIndex = 12;
+            this.cbUseGetInst.Text = "音色欄をクリック時、その音色をクリップボードにコピーする";
+            this.cbUseGetInst.UseVisualStyleBackColor = true;
             // 
             // cbUseLoopTimes
             // 
             this.cbUseLoopTimes.AutoSize = true;
-            this.cbUseLoopTimes.Location = new System.Drawing.Point(9, 3);
+            this.cbUseLoopTimes.Location = new System.Drawing.Point(9, 124);
             this.cbUseLoopTimes.Name = "cbUseLoopTimes";
-            this.cbUseLoopTimes.Size = new System.Drawing.Size(269, 16);
+            this.cbUseLoopTimes.Size = new System.Drawing.Size(216, 16);
             this.cbUseLoopTimes.TabIndex = 0;
-            this.cbUseLoopTimes.Text = "無限ループする曲の場合、指定の回数だけ繰り返す";
+            this.cbUseLoopTimes.Text = "無限ループ時、指定の回数だけ繰り返す";
             this.cbUseLoopTimes.UseVisualStyleBackColor = true;
             this.cbUseLoopTimes.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
-            // 
-            // gbLoopTimes
-            // 
-            this.gbLoopTimes.Controls.Add(this.label18);
-            this.gbLoopTimes.Controls.Add(this.tbLoopTimes);
-            this.gbLoopTimes.Location = new System.Drawing.Point(3, 7);
-            this.gbLoopTimes.Name = "gbLoopTimes";
-            this.gbLoopTimes.Size = new System.Drawing.Size(368, 45);
-            this.gbLoopTimes.TabIndex = 11;
-            this.gbLoopTimes.TabStop = false;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(112, 21);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(17, 12);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "回";
-            // 
-            // tbLoopTimes
-            // 
-            this.tbLoopTimes.Location = new System.Drawing.Point(6, 18);
-            this.tbLoopTimes.Name = "tbLoopTimes";
-            this.tbLoopTimes.Size = new System.Drawing.Size(100, 19);
-            this.tbLoopTimes.TabIndex = 0;
             // 
             // cbUseMIDIKeyboard
             // 
             this.cbUseMIDIKeyboard.AutoSize = true;
             this.cbUseMIDIKeyboard.Enabled = false;
-            this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(9, 54);
+            this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(9, 4);
             this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
             this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(122, 16);
             this.cbUseMIDIKeyboard.TabIndex = 10;
@@ -1161,7 +1206,7 @@
             this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
             this.gbMIDIKeyboard.Controls.Add(this.label5);
             this.gbMIDIKeyboard.Enabled = false;
-            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 58);
+            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 8);
             this.gbMIDIKeyboard.Name = "gbMIDIKeyboard";
             this.gbMIDIKeyboard.Size = new System.Drawing.Size(368, 110);
             this.gbMIDIKeyboard.TabIndex = 0;
@@ -1293,16 +1338,16 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "MIDI IN";
             // 
-            // tabPage2
+            // tpAbout
             // 
-            this.tabPage2.Controls.Add(this.tableLayoutPanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(374, 291);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "About";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpAbout.Controls.Add(this.tableLayoutPanel);
+            this.tpAbout.Location = new System.Drawing.Point(4, 22);
+            this.tpAbout.Name = "tpAbout";
+            this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAbout.Size = new System.Drawing.Size(374, 291);
+            this.tpAbout.TabIndex = 1;
+            this.tpAbout.Text = "About";
+            this.tpAbout.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel
             // 
@@ -1408,7 +1453,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(384, 361);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tcSetting);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -1427,17 +1472,17 @@
             this.gbWasapiOut.PerformLayout();
             this.gbDirectSound.ResumeLayout(false);
             this.gbDirectSound.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            this.tcSetting.ResumeLayout(false);
+            this.tpOutput.ResumeLayout(false);
+            this.tpOutput.PerformLayout();
+            this.tpModule.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
+            this.tpBalance.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1458,15 +1503,13 @@
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.gbLoopTimes.ResumeLayout(false);
-            this.gbLoopTimes.PerformLayout();
+            this.tpOther.ResumeLayout(false);
+            this.tpOther.PerformLayout();
             this.gbMIDIKeyboard.ResumeLayout(false);
             this.gbMIDIKeyboard.PerformLayout();
             this.gbUseChannel.ResumeLayout(false);
             this.gbUseChannel.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tpAbout.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
@@ -1495,9 +1538,9 @@
         private System.Windows.Forms.ComboBox cmbWasapiDevice;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbDirectSoundDevice;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tcSetting;
+        private System.Windows.Forms.TabPage tpOutput;
+        private System.Windows.Forms.TabPage tpAbout;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Label labelProductName;
@@ -1505,7 +1548,7 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelCompanyName;
         private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpOther;
         private System.Windows.Forms.GroupBox gbMIDIKeyboard;
         private System.Windows.Forms.GroupBox gbUseChannel;
         private System.Windows.Forms.CheckBox cbFM1;
@@ -1525,7 +1568,7 @@
         private System.Windows.Forms.Label lblLatencyUnit;
         private System.Windows.Forms.Label lblLatency;
         private System.Windows.Forms.ComboBox cmbLatency;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tpModule;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbYM2612Scci;
         private System.Windows.Forms.RadioButton rbYM2612Scci;
@@ -1554,7 +1597,7 @@
         private System.Windows.Forms.TextBox tbLatencyEmu;
         private System.Windows.Forms.TextBox tbLatencySCCI;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tpBalance;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbYM2612;
         private System.Windows.Forms.Panel panel1;
@@ -1584,8 +1627,12 @@
         private System.Windows.Forms.CheckBox cbDispFrameCounter;
         private System.Windows.Forms.CheckBox cbHiyorimiMode;
         private System.Windows.Forms.CheckBox cbUseLoopTimes;
-        private System.Windows.Forms.GroupBox gbLoopTimes;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblLoopTimes;
         private System.Windows.Forms.TextBox tbLoopTimes;
+        private System.Windows.Forms.Button btnOpenSettingFolder;
+        private System.Windows.Forms.CheckBox cbUseGetInst;
+        private System.Windows.Forms.Button btnDataPath;
+        private System.Windows.Forms.TextBox tbDataPath;
+        private System.Windows.Forms.Label label19;
     }
 }

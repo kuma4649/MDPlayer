@@ -69,6 +69,8 @@ namespace MDPlayer
         private static bool vgmFadeout;
         private static double vgmFadeoutCounter;
         private static double vgmFadeoutCounterV;
+        private static int vgmRealFadeoutVol = 0;
+        private static int vgmRealFadeoutVolWait = 4;
 
         private static bool Paused = false;
         public static bool Stopped = false;
@@ -113,6 +115,7 @@ namespace MDPlayer
             music.gameJ = gd3.GameNameJ;
             music.composer = gd3.Composer;
             music.composerJ = gd3.ComposerJ;
+            music.vgmby = gd3.VGMBy;
 
             music.converted = gd3.Converted;
             music.notes = gd3.Notes;
@@ -266,6 +269,9 @@ namespace MDPlayer
                 vgmFadeoutCounter = 1.0;
                 vgmFadeoutCounterV = 0.00001;
                 vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVol(0);
 
                 trdClosed = false;
                 trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
@@ -571,6 +577,17 @@ namespace MDPlayer
                 //while (el1 - o >= step) o += step;
 
                 if (Stopped || Paused) continue;
+
+                if (vgmFadeout)
+                {
+                    vgmRealFadeoutVolWait--;
+                    if (vgmRealFadeoutVolWait == 0)
+                    {
+                        chipRegister.setFadeoutVol(vgmRealFadeoutVol++);
+                        vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
+                        vgmRealFadeoutVolWait = 600 - vgmRealFadeoutVol * 2;
+                    }
+                }
 
                 if (setting.HiyorimiMode)
                 {

@@ -317,8 +317,11 @@ namespace MDPlayer
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
 
             cbUseLoopTimes.Checked = setting.other.UseLoopTimes;
-            gbLoopTimes.Enabled = cbUseLoopTimes.Checked;
+            tbLoopTimes.Enabled = cbUseLoopTimes.Checked;
+            lblLoopTimes.Enabled = cbUseLoopTimes.Checked;
             tbLoopTimes.Text = setting.other.LoopTimes.ToString();
+            cbUseGetInst.Checked = setting.other.UseGetInst;
+            tbDataPath.Text = setting.other.DefaultDataPath;
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -433,6 +436,9 @@ namespace MDPlayer
             {
                 setting.other.LoopTimes = Math.Max(Math.Min(i, 999), 1);
             }
+
+            setting.other.UseGetInst = cbUseGetInst.Checked;
+            setting.other.DefaultDataPath = tbDataPath.Text;
 
             setting.balance.YM2612Volume = trkYM2612.Value;
             setting.balance.SN76489Volume = trkSN76489.Value;
@@ -644,7 +650,31 @@ namespace MDPlayer
 
         private void cbUseLoopTimes_CheckedChanged(object sender, EventArgs e)
         {
-            gbLoopTimes.Enabled = cbUseLoopTimes.Checked;
+            tbLoopTimes.Enabled = cbUseLoopTimes.Checked;
+            lblLoopTimes.Enabled = cbUseLoopTimes.Checked;
+        }
+
+        private void btnOpenSettingFolder_Click(object sender, EventArgs e)
+        {
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
+            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+            System.Diagnostics.Process.Start(fullPath);
+        }
+
+        private void btnDataPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "フォルダーを指定してください。";
+            
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbDataPath.Text = fbd.SelectedPath;
+
         }
     }
 

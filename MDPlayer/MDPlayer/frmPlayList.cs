@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace MDPlayer
         private int oldPlayIndex = -1;
 
         private Random rand = new System.Random();
+        private bool IsInitialOpenFolder = true;
 
 
         public frmPlayList()
@@ -129,6 +131,7 @@ namespace MDPlayer
             row.Cells[dgvList.Columns["clmConverted"].Index].Value = music.converted;
             row.Cells[dgvList.Columns["clmNotes"].Index].Value = music.notes;
             row.Cells[dgvList.Columns["clmDuration"].Index].Value = music.duration;
+            row.Cells[dgvList.Columns["clmVGMby"].Index].Value = music.vgmby;
 
             return row;
         }
@@ -322,13 +325,22 @@ namespace MDPlayer
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "XMLファイル(*.xml)|*.xml";
             ofd.Title = "プレイリストファイルを選択";
-            ofd.RestoreDirectory = true;
+            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
             ofd.CheckPathExists = true;
 
             if (ofd.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
+
+            IsInitialOpenFolder = false;
 
             try
             {
@@ -355,13 +367,21 @@ namespace MDPlayer
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "XMLファイル(*.xml)|*.xml";
             sfd.Title = "プレイリストファイルを保存";
-            sfd.RestoreDirectory = true;
+            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                sfd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
+            }
+            else
+            {
+                sfd.RestoreDirectory = true;
+            }
             sfd.CheckPathExists = true;
 
             if (sfd.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
+            IsInitialOpenFolder = false;
 
             try
             {
@@ -379,7 +399,14 @@ namespace MDPlayer
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
             ofd.Title = "VGM/VGZファイルを選択してください";
-            ofd.RestoreDirectory = true;
+            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
             ofd.CheckPathExists = true;
             ofd.Multiselect = true;
 
@@ -387,6 +414,8 @@ namespace MDPlayer
             {
                 return;
             }
+
+            IsInitialOpenFolder = false;
 
             Stop();
 
@@ -454,6 +483,10 @@ namespace MDPlayer
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
             fbd.Description = "フォルダーを指定してください。";
+            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath))
+            {
+                fbd.SelectedPath = frmMain.setting.other.DefaultDataPath;
+            }
 
             if (fbd.ShowDialog(this) != DialogResult.OK)
             {

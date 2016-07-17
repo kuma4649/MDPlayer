@@ -475,6 +475,36 @@ namespace MDPlayer
                 }
             }
 
+            private bool _UseGetInst = true;
+            public bool UseGetInst
+            {
+                get
+                {
+                    return _UseGetInst;
+                }
+
+                set
+                {
+                    _UseGetInst = value;
+                }
+            }
+
+            private string _DefaultDataPath = "";
+            public string DefaultDataPath
+            {
+                get
+                {
+                    return _DefaultDataPath;
+                }
+
+                set
+                {
+                    _DefaultDataPath = value;
+                }
+            }
+
+
+
             public Other Copy()
             {
                 Other other = new Other();
@@ -486,6 +516,8 @@ namespace MDPlayer
                 {
                     other.UseChannel[i] = this.UseChannel[i];
                 }
+                other.UseGetInst = this.UseGetInst;
+                other.DefaultDataPath = this.DefaultDataPath;
 
                 return other;
             }
