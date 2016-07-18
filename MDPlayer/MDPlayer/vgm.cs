@@ -905,6 +905,9 @@ namespace MDPlayer
 
                     if (CmpSubType == 0x02)
                     {
+                        //Bank.DataSize = 0x00;
+                        //return false;
+
                         Ent1B = 0;// (UINT8*)PCMTbl.Entries; // Big Endian note: Those are stored in LE and converted when reading.
                         Ent2B = 0;// (UINT16*)PCMTbl.Entries;
                         if (PCMTbl.EntryCount == 0)
@@ -944,6 +947,7 @@ namespace MDPlayer
                             BitMask = (byte)((1 << BitReadVal) - 1);
 
                             InShift += BitReadVal;
+                            //InValB = (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
                             InValB = (byte)((vgmBuf[InPos] << InShift >> 8) & BitMask);
                             if (InShift >= 8)
                             {
@@ -975,7 +979,7 @@ namespace MDPlayer
                                         //#ifndef BIG_ENDIAN
                                         //					OutVal = Ent2B[InVal];
                                         //#else
-                                        OutVal = (uint)(PCMTbl.Entries[Ent2B + InVal] + PCMTbl.Entries[Ent2B + InVal + 1] * 0x100);// ReadLE16((UINT8*)&Ent2B[InVal]);
+                                        OutVal = (uint)(PCMTbl.Entries[Ent2B + InVal*2] + PCMTbl.Entries[Ent2B + InVal*2 + 1] * 0x100);// ReadLE16((UINT8*)&Ent2B[InVal]);
                                                                                                                                    //#endif
                                         break;
                                 }

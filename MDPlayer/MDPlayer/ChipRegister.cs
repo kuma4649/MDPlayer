@@ -28,6 +28,10 @@ namespace MDPlayer
         private int LatchedRegister;
         private int NoiseFreq;
 
+        private int nowYM2612FadeoutVol = 0;
+        private bool[] maskFMCh = new bool[6] { false, false, false, false, false, false };
+
+
         public ChipRegister(MDSound.MDSound mds, NScci.NSoundChip scYM2612, NScci.NSoundChip scSN76489, Setting.ChipType ctYM2612, Setting.ChipType ctSN76489)
         {
 
@@ -48,8 +52,6 @@ namespace MDPlayer
 
         }
 
-        private int nowYM2612FadeoutVol = 0;
-
         public void setFadeoutVol(int v)
         {
             nowYM2612FadeoutVol = v;
@@ -63,6 +65,19 @@ namespace MDPlayer
                     setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
+        }
+
+        public void setMask(int ch,bool mask)
+        {
+            maskFMCh[ch] = mask;
+
+            int c = (ch < 3) ? ch : (ch - 3);
+            int p = (ch < 3) ? 0 : 1;
+
+            setYM2612Register(p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2612Register(p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2612Register(p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
         }
 
         public void setYM2612Register(int dPort, int dAddr, int dData,vgm.enmModel model)
@@ -120,7 +135,11 @@ namespace MDPlayer
 
                 if ((algM[al] & (1 << slot)) > 0)
                 {
-                    dData = Math.Min(dData + nowYM2612FadeoutVol, 127);
+                    if (ch != 3)
+                    {
+                        dData = Math.Min(dData + nowYM2612FadeoutVol, 127);
+                        dData = maskFMCh[dPort * 3 + ch] ? 127 : dData;
+                    }
                 }
             }
 

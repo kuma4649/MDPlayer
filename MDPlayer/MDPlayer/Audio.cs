@@ -450,6 +450,7 @@ namespace MDPlayer
         public static void setFMMask(int ch)
         {
             mds.setFMMask(1 << ch);
+            chipRegister.setMask(ch, true);
         }
 
         public static void setPSGMask(int ch)
@@ -460,6 +461,7 @@ namespace MDPlayer
         public static void resetFMMask(int ch)
         {
             mds.resetFMMask(1 << ch);
+            chipRegister.setMask(ch, false);
         }
 
         public static void resetPSGMask(int ch)
