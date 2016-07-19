@@ -132,6 +132,7 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = fmRegister[dPort][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
+                dData &= 0x7f;
 
                 if ((algM[al] & (1 << slot)) > 0)
                 {

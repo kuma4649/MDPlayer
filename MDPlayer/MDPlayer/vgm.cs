@@ -247,16 +247,9 @@ namespace MDPlayer
             vgmCmdTbl[0x4c] = vcDummy2Ope;
             vgmCmdTbl[0x4d] = vcDummy2Ope;
             vgmCmdTbl[0x4e] = vcDummy2Ope;
-            if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
-            {
+
                 vgmCmdTbl[0x4f] = vcGGPSGPort06;
                 vgmCmdTbl[0x50] = vcPSG;
-            }
-            else
-            {
-                vgmCmdTbl[0x4f] = vcDummy1Ope;
-                vgmCmdTbl[0x50] = vcDummy1Ope;
-            }
 
             vgmCmdTbl[0x51] = vcDummy2Ope;
             vgmCmdTbl[0x52] = vcYM2612Port0;
