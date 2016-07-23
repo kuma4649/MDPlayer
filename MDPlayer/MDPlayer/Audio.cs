@@ -11,7 +11,9 @@ namespace MDPlayer
 
         public enum enmScciChipType : int
         {
-            YM2612 = 5
+            YM2608 = 1
+            , YM2151 = 2
+            , YM2612 = 5
             , SN76489 = 7
         }
 
@@ -52,6 +54,8 @@ namespace MDPlayer
         private static NScci.NScci nscci;
         private static NSoundChip scYM2612 = null;
         private static NSoundChip scSN76489 = null;
+        private static NSoundChip scYM2151 = null;
+        private static NSoundChip scYM2608 = null;
 
         private static ChipRegister chipRegister = null;
 
@@ -160,6 +164,7 @@ namespace MDPlayer
                 vgmVirtual.dacControl.scYM2612 = scYM2612;
                 vgmReal.dacControl.scYM2612 = scYM2612;
             }
+
             scSN76489 = getChip(Audio.setting.SN76489Type.SoundLocation, Audio.setting.SN76489Type.BusID, Audio.setting.SN76489Type.SoundChip);
             if (scSN76489 != null)
             {
@@ -168,7 +173,23 @@ namespace MDPlayer
                 vgmReal.dacControl.scSN76489 = scSN76489;
             }
 
-            chipRegister = new ChipRegister(mds, scYM2612, scSN76489, setting.YM2612Type, setting.SN76489Type);
+            scYM2608 = getChip(Audio.setting.YM2608Type.SoundLocation, Audio.setting.YM2608Type.BusID, Audio.setting.YM2608Type.SoundChip);
+            if (scYM2608 != null)
+            {
+                scYM2608.init();
+                vgmVirtual.dacControl.scYM2608 = scYM2608;
+                vgmReal.dacControl.scYM2608 = scYM2608;
+            }
+
+            scYM2151 = getChip(Audio.setting.YM2151Type.SoundLocation, Audio.setting.YM2151Type.BusID, Audio.setting.YM2151Type.SoundChip);
+            if (scYM2151 != null)
+            {
+                scYM2151.init();
+                vgmVirtual.dacControl.scYM2151 = scYM2151;
+                vgmReal.dacControl.scYM2151 = scYM2151;
+            }
+
+            chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type);
 
             vgmVirtual.dacControl.chipRegister = chipRegister;
             vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
@@ -187,6 +208,16 @@ namespace MDPlayer
         public static List<NScci.NSoundChip> getYM2612ChipList()
         {
             return getChipList((int)enmScciChipType.YM2612);
+        }
+
+        public static List<NScci.NSoundChip> getYM2608ChipList()
+        {
+            return getChipList((int)enmScciChipType.YM2608);
+        }
+
+        public static List<NScci.NSoundChip> getYM2151ChipList()
+        {
+            return getChipList((int)enmScciChipType.YM2151);
         }
 
         public static List<NScci.NSoundChip> getSN76489ChipList()

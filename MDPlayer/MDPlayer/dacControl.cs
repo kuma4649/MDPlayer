@@ -23,6 +23,8 @@ namespace MDPlayer
         //public MDSound.MDSound mds = null;
         public NSoundChip scYM2612 = null;
         public NSoundChip scSN76489 = null;
+        public NSoundChip scYM2151 = null;
+        public NSoundChip scYM2608 = null;
 
         public void sendCommand(dac_control chip)
         {

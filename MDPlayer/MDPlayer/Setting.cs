@@ -52,6 +52,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM2608Type = new ChipType();
+        public ChipType YM2608Type
+        {
+            get
+            {
+                return _YM2608Type;
+            }
+
+            set
+            {
+                _YM2608Type = value;
+            }
+        }
+
+        private ChipType _YM2151Type = new ChipType();
+        public ChipType YM2151Type
+        {
+            get
+            {
+                return _YM2151Type;
+            }
+
+            set
+            {
+                _YM2151Type = value;
+            }
+        }
+
         private int _LatencyEmulation = 0;
         public int LatencyEmulation
         {
@@ -601,6 +629,8 @@ namespace MDPlayer
             setting.outputDevice = this.outputDevice.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();
             setting.SN76489Type = this.SN76489Type.Copy();
+            setting.YM2608Type = this.YM2608Type.Copy();
+            setting.YM2151Type = this.YM2151Type.Copy();
             setting.other = this.other.Copy();
             setting.balance = this.balance.Copy();
             setting.LatencyEmulation = this.LatencyEmulation;

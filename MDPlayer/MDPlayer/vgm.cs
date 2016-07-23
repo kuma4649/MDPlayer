@@ -154,7 +154,7 @@ namespace MDPlayer
 
             while (vgmWait <= 0)
             {
-                if (vgmAdr == vgmBuf.Length || vgmAdr == vgmEof)
+                if (vgmAdr >= vgmBuf.Length || vgmAdr >= vgmEof)
                 {
                     if (LoopCounter != 0)
                     {
@@ -255,10 +255,10 @@ namespace MDPlayer
             vgmCmdTbl[0x52] = vcYM2612Port0;
             vgmCmdTbl[0x53] = vcYM2612Port1;
 
-            vgmCmdTbl[0x54] = vcDummy2Ope;
+            vgmCmdTbl[0x54] = vcYM2151;
             vgmCmdTbl[0x55] = vcDummy2Ope;
-            vgmCmdTbl[0x56] = vcDummy2Ope;
-            vgmCmdTbl[0x57] = vcDummy2Ope;
+            vgmCmdTbl[0x56] = vcYM2608Port0;
+            vgmCmdTbl[0x57] = vcYM2608Port1;
 
             vgmCmdTbl[0x58] = vcDummy2Ope;
             vgmCmdTbl[0x59] = vcDummy2Ope;
@@ -491,6 +491,24 @@ namespace MDPlayer
         private void vcYM2612Port1()
         {
             chipRegister.setYM2612Register(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2608Port0()
+        {
+            chipRegister.setYM2608Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2608Port1()
+        {
+            chipRegister.setYM2608Register(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2151()
+        {
+            chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 

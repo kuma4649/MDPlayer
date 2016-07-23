@@ -132,6 +132,42 @@ namespace MDPlayer
                 cmbSN76489Scci.Enabled = false;
             }
 
+            List<NScci.NSoundChip> lstYM2608 = Audio.getYM2608ChipList();
+            if (lstYM2608.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstYM2608)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    cmbYM2608Scci.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                cmbYM2608Scci.SelectedIndex = 0;
+                rbYM2608Scci.Enabled = true;
+                cmbYM2608Scci.Enabled = true;
+            }
+            else
+            {
+                rbYM2608Scci.Enabled = false;
+                cmbYM2608Scci.Enabled = false;
+            }
+
+            List<NScci.NSoundChip> lstYM2151 = Audio.getYM2151ChipList();
+            if (lstYM2151.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstYM2151)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    cmbYM2151Scci.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                cmbYM2151Scci.SelectedIndex = 0;
+                rbYM2151Scci.Enabled = true;
+                cmbYM2151Scci.Enabled = true;
+            }
+            else
+            {
+                rbYM2151Scci.Enabled = false;
+                cmbYM2151Scci.Enabled = false;
+            }
+
             //設定内容をコントロールへ適用
 
             switch (setting.outputDevice.DeviceType)
@@ -288,6 +324,68 @@ namespace MDPlayer
             tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
             tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
 
+            if (!setting.YM2608Type.UseScci)
+            {
+                //rbYM2608Emu.Checked = true;
+            }
+            else
+            {
+                if (cmbYM2608Scci.Enabled)
+                {
+                    rbYM2608Scci.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2608Type.SoundLocation, setting.YM2608Type.BusID, setting.YM2608Type.SoundChip);
+                    if (cmbYM2608Scci.Items.Count > 0)
+                    {
+                        foreach (string i in cmbYM2608Scci.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            cmbYM2608Scci.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    //rbYM2608Emu.Checked = true;
+                }
+            }
+
+            cbYM2608UseWait.Checked = setting.YM2608Type.UseWait;
+            //cbYM2608UseWaitBoost.Checked = setting.YM2608Type.UseWaitBoost;
+            //tbYM2608EmuDelay.Text = setting.YM2608Type.LatencyForEmulation.ToString();
+            //tbYM2608ScciDelay.Text = setting.YM2608Type.LatencyForScci.ToString();
+
+            if (!setting.YM2151Type.UseScci)
+            {
+                //rbYM2151Emu.Checked = true;
+            }
+            else
+            {
+                if (cmbYM2151Scci.Enabled)
+                {
+                    rbYM2151Scci.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2151Type.SoundLocation, setting.YM2151Type.BusID, setting.YM2151Type.SoundChip);
+                    if (cmbYM2151Scci.Items.Count > 0)
+                    {
+                        foreach (string i in cmbYM2151Scci.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            cmbYM2151Scci.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    //rbYM2151Emu.Checked = true;
+                }
+            }
+
+            cbYM2151UseWait.Checked = setting.YM2151Type.UseWait;
+            //cbYM2151UseWaitBoost.Checked = setting.YM2151Type.UseWaitBoost;
+            //tbYM2151EmuDelay.Text = setting.YM2151Type.LatencyForEmulation.ToString();
+            //tbYM2151ScciDelay.Text = setting.YM2151Type.LatencyForScci.ToString();
+
             cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
 
             cbFM1.Checked = setting.other.UseChannel[0];
@@ -408,6 +506,62 @@ namespace MDPlayer
             {
                 setting.SN76489Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
             }
+
+            setting.YM2608Type = new Setting.ChipType();
+            setting.YM2608Type.UseScci = rbYM2608Scci.Checked;
+            if (rbYM2608Scci.Checked)
+            {
+                if (cmbYM2608Scci.SelectedItem != null)
+                {
+                    string n = cmbYM2608Scci.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2608Type.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2608Type.BusID = int.Parse(ns[1]);
+                    setting.YM2608Type.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2608Type.UseWait = cbYM2608UseWait.Checked;
+            //setting.YM2608Type.UseWaitBoost = cbYM2608UseWaitBoost.Checked;
+            setting.YM2608Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
+            setting.YM2608Type.LatencyForEmulation = 0;
+            //if (int.TryParse(tbYM2608EmuDelay.Text, out i))
+            //{
+            //    setting.YM2608Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            //}
+            //setting.YM2608Type.LatencyForScci = 0;
+            //if (int.TryParse(tbYM2608ScciDelay.Text, out i))
+            //{
+            //    setting.YM2608Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
+            //}
+
+            setting.YM2151Type = new Setting.ChipType();
+            setting.YM2151Type.UseScci = rbYM2151Scci.Checked;
+            if (rbYM2151Scci.Checked)
+            {
+                if (cmbYM2151Scci.SelectedItem != null)
+                {
+                    string n = cmbYM2151Scci.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2151Type.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2151Type.BusID = int.Parse(ns[1]);
+                    setting.YM2151Type.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2151Type.UseWait = cbYM2151UseWait.Checked;
+            //setting.YM2151Type.UseWaitBoost = cbYM2151UseWaitBoost.Checked;
+            setting.YM2151Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
+            setting.YM2151Type.LatencyForEmulation = 0;
+            //if (int.TryParse(tbYM2151EmuDelay.Text, out i))
+            //{
+            //    setting.YM2151Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            //}
+            //setting.YM2151Type.LatencyForScci = 0;
+            //if (int.TryParse(tbYM2151ScciDelay.Text, out i))
+            //{
+            //    setting.YM2151Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
+            //}
 
             setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
             setting.other.UseChannel[0] = cbFM1.Checked;
