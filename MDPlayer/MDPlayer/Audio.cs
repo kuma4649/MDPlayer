@@ -84,6 +84,8 @@ namespace MDPlayer
         public static vgm vgmVirtual = null;
         public static vgm vgmReal = null;
 
+        private static bool oneTimeReset = false;
+
 
         public static PlayList.music getMusic(string file,byte[] buf)
         {
@@ -200,6 +202,7 @@ namespace MDPlayer
             Paused = false;
             Stopped = true;
             fatalError = false;
+            oneTimeReset = false;
 
             naudioWrap.Start(Audio.setting);
 
@@ -320,6 +323,7 @@ namespace MDPlayer
 
                 Paused = false;
                 Stopped = false;
+                oneTimeReset = false;
 
                 return true;
             }
@@ -524,6 +528,15 @@ namespace MDPlayer
             return v && r;
         }
 
+        public static bool GetIsDataBlock(vgm.enmModel model)
+        {
+            return (model == vgm.enmModel.VirtualModel) ? vgmVirtual.isDataBlock : vgmReal.isDataBlock;
+        }
+
+        public static bool GetIsPcmRAMWrite(vgm.enmModel model)
+        {
+            return (model == vgm.enmModel.VirtualModel) ? vgmVirtual.isPcmRAMWrite : vgmReal.isPcmRAMWrite;
+        }
 
 
         private static NScci.NSoundChip getChip(int SoundLocation, int BusID, int SoundChip)
@@ -609,7 +622,16 @@ namespace MDPlayer
                 o += step;
                 //while (el1 - o >= step) o += step;
 
-                if (Stopped || Paused) continue;
+                if (Stopped || Paused)
+                {
+                    if (nscci != null && !oneTimeReset)
+                    {
+                        nscci.reset();
+                        oneTimeReset = true;
+                    }
+                    continue;
+                }
+                if (vgmVirtual.isDataBlock) { continue;}
 
                 if (vgmFadeout)
                 {
@@ -660,6 +682,7 @@ namespace MDPlayer
                     return mds.Update2(buffer, offset, sampleCount, null);
 
                 }
+                if (vgmReal.isDataBlock) { return mds.Update2(buffer, offset, sampleCount, null); }
 
                 int cnt;
                 cnt = mds.Update2(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);

@@ -50,6 +50,8 @@ namespace MDPlayer
         public long vgmFrameCounter;
         public dacControl dacControl = new dacControl();
         public uint vgmCurLoop = 0;
+        public bool isDataBlock = false;
+        public bool isPcmRAMWrite = false;
 
 
         private byte[] vgmBuf = null;
@@ -107,6 +109,8 @@ namespace MDPlayer
             setCommands();
 
             Stopped = false;
+            isDataBlock = false;
+            isPcmRAMWrite = false;
 
             return true;
         }
@@ -172,6 +176,7 @@ namespace MDPlayer
                 byte cmd = vgmBuf[vgmAdr];
                 if (vgmCmdTbl[cmd] != null)
                 {
+                    //if (model == enmModel.RealModel) Console.WriteLine("{0:X05} : {1:X02} ", vgmAdr, vgmBuf[vgmAdr]);
                     vgmCmdTbl[cmd]();
                 }
                 else
@@ -449,25 +454,25 @@ namespace MDPlayer
 
         private void vcDummy1Ope()
         {
-            //Console.Write("({0}:{1})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
+            //Console.Write("({0:X02}:{1:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
             vgmAdr += 2;
         }
 
         private void vcDummy2Ope()
         {
-            //Console.Write("({0}:{1}:{2})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            //Console.Write("({0:X02}:{1:X02}:{2:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private void vcDummy3Ope()
         {
-            //Console.Write("({0}:{1}:{2}:{3})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
+            //Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
             vgmAdr += 4;
         }
 
         private void vcDummy4Ope()
         {
-            //Console.Write("({0}:{1}:{2}:{3}:{4})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
+            //Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02}:{4:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
             vgmAdr += 5;
         }
 
@@ -542,9 +547,17 @@ namespace MDPlayer
 
         private void vcDataBlock()
         {
+
+            isDataBlock = true;
+
             uint bAdr = vgmAdr + 7;
             byte bType = vgmBuf[vgmAdr + 2];
             uint bLen = getLE32(vgmAdr + 3);
+            if ((bLen & 0x80000000)>0)
+            {
+                bLen &= 0x7fffffff;
+                //CurrentChip 1
+            }
 
             switch (bType & 0xc0)
             {
@@ -586,7 +599,7 @@ namespace MDPlayer
                             chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
                             chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
-                            chipRegister.sendDataYM2608();
+                            chipRegister.sendDataYM2608(model);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -616,11 +629,17 @@ namespace MDPlayer
                     break;
             }
 
+            isDataBlock = false;
+
         }
 
         private void vcPCMRamWrite()
         {
-            byte bType = vgmBuf[vgmAdr + 2];
+
+            isPcmRAMWrite = true;
+
+            byte bType = (byte)(vgmBuf[vgmAdr + 2] & 0x7f);
+            //CurrentChip = (vgmBuf[vgmAdr + 2] & 0x80)>>7;
             uint bReadOffset = getLE24(vgmAdr + 3);
             uint bWriteOffset = getLE24(vgmAdr + 6);
             uint bSize = getLE24(vgmAdr + 9);
@@ -632,6 +651,9 @@ namespace MDPlayer
             }
 
             vgmAdr += 12;
+
+            isPcmRAMWrite = false;
+
         }
 
         private void vcWaitN1Samples()

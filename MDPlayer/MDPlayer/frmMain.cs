@@ -660,6 +660,11 @@ namespace MDPlayer
 
             }
 
+            screen.drawFont4(0, 208, 1, Audio.GetIsDataBlock(vgm.enmModel.VirtualModel) ? "VD" : "  ");
+            screen.drawFont4(12, 208, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.VirtualModel) ? "VP" : "  ");
+            screen.drawFont4(0, 216, 1, Audio.GetIsDataBlock(vgm.enmModel.RealModel) ? "RD" : "  ");
+            screen.drawFont4(12, 216, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.RealModel) ? "RP" : "  ");
+
             screen.Refresh();
 
             Audio.updateVol();

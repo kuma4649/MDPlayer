@@ -118,6 +118,7 @@ namespace MDPlayer
             setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
         }
 
+
         public void setYM2612Register(int dPort, int dAddr, int dData,vgm.enmModel model)
         {
             if (ctYM2612 == null) return;
@@ -241,6 +242,7 @@ namespace MDPlayer
             }
         }
 
+
         public void setSN76489Register(int dData,vgm.enmModel model)
         {
             if (ctSN76489 == null) return;
@@ -271,6 +273,7 @@ namespace MDPlayer
                 scSN76489.setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
             }
         }
+
 
         public void setYM2608Register(int dPort, int dAddr, int dData, vgm.enmModel model)
         {
@@ -360,11 +363,14 @@ namespace MDPlayer
             }
         }
 
-        public void sendDataYM2608()
+        public void sendDataYM2608(vgm.enmModel model)
         {
+            if (model == vgm.enmModel.VirtualModel) return;
+
             if (scYM2608 != null && ctYM2608.UseWait)
             {
                 scYM2608.parentSoundInterface.parentNScci.sendData();
+                while (!scYM2608.parentSoundInterface.parentNScci.isBufferEmpty()) { }
             }
         }
 
@@ -476,11 +482,13 @@ namespace MDPlayer
                 mds.WriteRF5C164MemW(chipid, offset, data);
         }
 
+
         public void writePWM(byte chipid, byte adr, uint data, vgm.enmModel model)
         {
             if (model == vgm.enmModel.VirtualModel)
                 mds.WritePWM(chipid, adr, data);
         }
+
 
         private int volF = 1;
         public void updateVol()
