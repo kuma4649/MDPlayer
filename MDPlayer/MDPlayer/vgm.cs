@@ -478,7 +478,7 @@ namespace MDPlayer
 
         private void vcPSG()
         {
-            chipRegister.setSN76489Register(vgmBuf[vgmAdr + 1]);
+            chipRegister.setSN76489Register(vgmBuf[vgmAdr + 1],model);
             vgmAdr += 2;
         }
 
@@ -551,6 +551,44 @@ namespace MDPlayer
                 case 0x00:
                 case 0x40:
                     AddPCMData(bType, bLen, bAdr);
+                    vgmAdr += (uint)bLen + 7;
+                    break;
+                case 0x80:
+                    uint romSize = getLE32(vgmAdr + 7);
+                    uint startAddress = getLE32(vgmAdr + 11);
+                    switch (bType)
+                    {
+                        case 0x81:
+                            // YM2608
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x20, model);
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x21, model);
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
+
+                            chipRegister.setYM2608Register(0x1, 0x10, 0x00, model);
+                            chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x61, model);
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x68, model);
+                            chipRegister.setYM2608Register(0x1, 0x01, 0x00, model);
+
+                            chipRegister.setYM2608Register(0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+                            chipRegister.setYM2608Register(0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            chipRegister.setYM2608Register(0x1, 0x04, 0xff, model);
+                            chipRegister.setYM2608Register(0x1, 0x05, 0xff, model);
+                            chipRegister.setYM2608Register(0x1, 0x0c, 0xff, model);
+                            chipRegister.setYM2608Register(0x1, 0x0d, 0xff, model);
+
+                            // データ転送
+                            for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            {
+                                chipRegister.setYM2608Register(0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                            }
+                            chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
+                            chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+
+                            chipRegister.sendDataYM2608();
+                            break;
+                    }
                     vgmAdr += (uint)bLen + 7;
                     break;
                 case 0xc0:

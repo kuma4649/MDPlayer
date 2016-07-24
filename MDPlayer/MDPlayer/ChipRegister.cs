@@ -241,20 +241,26 @@ namespace MDPlayer
             }
         }
 
-        public void setSN76489Register(int dData)
+        public void setSN76489Register(int dData,vgm.enmModel model)
         {
             if (ctSN76489 == null) return;
 
             SN76489_Write(dData);
 
-            if (ctSN76489.UseScci)
+            if (model == vgm.enmModel.RealModel)
             {
-                if (scSN76489 == null) return;
-                scSN76489.setRegister(0, dData);
+                if (ctSN76489.UseScci)
+                {
+                    if (scSN76489 == null) return;
+                    scSN76489.setRegister(0, dData);
+                }
             }
             else
             {
-                mds.WriteSN76489((byte)dData);
+                if (!ctSN76489.UseScci)
+                {
+                    mds.WriteSN76489((byte)dData);
+                }
             }
         }
 
@@ -351,6 +357,14 @@ namespace MDPlayer
             if (scYM2608 != null && ctYM2608.UseWait)
             {
                 scYM2608.setRegister(-1, (int)(wait * (ctYM2608.UseWaitBoost ? 2.0 : 1.0)));
+            }
+        }
+
+        public void sendDataYM2608()
+        {
+            if (scYM2608 != null && ctYM2608.UseWait)
+            {
+                scYM2608.parentSoundInterface.parentNScci.sendData();
             }
         }
 
