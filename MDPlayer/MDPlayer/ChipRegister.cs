@@ -24,7 +24,7 @@ namespace MDPlayer
         public int[][] fmVol = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
         public int[] fmCh3SlotVol = new int[4];
         private int nowYM2612FadeoutVol = 0;
-        private bool[] maskFMCh = new bool[6] { false, false, false, false, false, false };
+        private bool[] maskFMChYM2612 = new bool[6] { false, false, false, false, false, false };
 
         private NScci.NSoundChip scYM2608 = null;
         private Setting.ChipType ctYM2608 = null;
@@ -37,14 +37,14 @@ namespace MDPlayer
 
         private NScci.NSoundChip scYM2151 = null;
         private Setting.ChipType ctYM2151 = null;
-        public int[][] fmRegisterYM2151 = null;
+        public int[] fmRegisterYM2151 = null;
         public int[] fmKeyOnYM2151 = null;
-        public int[][] fmVolYM2151 = new int[11][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmCh3SlotVolYM2151 = new int[4];
+        public int[][] fmVolYM2151 = new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2]};
         private int nowYM2151FadeoutVol = 0;
         private bool[] maskFMChYM2151 = new bool[8] { false, false, false, false, false, false, false, false };
 
         public int[] psgRegister = null;
+        public int nowSN76489FadeoutVol = 0;
 
         private int LatchedRegister;
         private int NoiseFreq;
@@ -79,10 +79,10 @@ namespace MDPlayer
             }
             fmKeyOnYM2608 = new int[6] { 0, 0, 0, 0, 0, 0 };
 
-            fmRegisterYM2151 = new int[2][] { new int[0x100], new int[0x100] };
+            fmRegisterYM2151 = new int[0x100];
             for (int i = 0; i < 0x100; i++)
             {
-                fmRegisterYM2151[0][i] = 0; fmRegisterYM2151[1][i] = 0;
+                fmRegisterYM2151[i] = 0;
             }
             fmKeyOnYM2151 = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -90,7 +90,8 @@ namespace MDPlayer
 
         }
 
-        public void setFadeoutVol(int v)
+
+        public void setFadeoutVolYM2612(int v)
         {
             nowYM2612FadeoutVol = v;
             for (int p = 0; p < 2; p++)
@@ -105,9 +106,9 @@ namespace MDPlayer
             }
         }
 
-        public void setMask(int ch,bool mask)
+        public void setMaskYM2612(int ch,bool mask)
         {
-            maskFMCh[ch] = mask;
+            maskFMChYM2612[ch] = mask;
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
@@ -117,7 +118,6 @@ namespace MDPlayer
             setYM2612Register(p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
             setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
         }
-
 
         public void setYM2612Register(int dPort, int dAddr, int dData,vgm.enmModel model)
         {
@@ -178,7 +178,7 @@ namespace MDPlayer
                     if (ch != 3)
                     {
                         dData = Math.Min(dData + nowYM2612FadeoutVol, 127);
-                        dData = maskFMCh[dPort * 3 + ch] ? 127 : dData;
+                        dData = maskFMChYM2612[dPort * 3 + ch] ? 127 : dData;
                     }
                 }
             }
@@ -243,38 +243,6 @@ namespace MDPlayer
         }
 
 
-        public void setSN76489Register(int dData,vgm.enmModel model)
-        {
-            if (ctSN76489 == null) return;
-
-            SN76489_Write(dData);
-
-            if (model == vgm.enmModel.RealModel)
-            {
-                if (ctSN76489.UseScci)
-                {
-                    if (scSN76489 == null) return;
-                    scSN76489.setRegister(0, dData);
-                }
-            }
-            else
-            {
-                if (!ctSN76489.UseScci)
-                {
-                    mds.WriteSN76489((byte)dData);
-                }
-            }
-        }
-
-        public void setSN76489SyncWait(int wait)
-        {
-            if (scSN76489 != null && ctSN76489.UseWait)
-            {
-                scSN76489.setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
-            }
-        }
-
-
         public void setYM2608Register(int dPort, int dAddr, int dData, vgm.enmModel model)
         {
             if (ctYM2608 == null) return;
@@ -291,14 +259,11 @@ namespace MDPlayer
                     {
                         if (ch != 2 || (fmRegisterYM2608[0][0x27] & 0xc0) != 0x40)
                         {
-                            if (ch != 5 || (fmRegisterYM2608[0][0x2b] & 0x80) == 0)
-                            {
-                                fmKeyOnYM2608[ch] = dData & 0xf0;
-                                int p = (ch > 2) ? 1 : 0;
-                                int c = (ch > 2) ? (ch - 3) : ch;
-                                fmVolYM2608[ch][0] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
-                                fmVolYM2608[ch][1] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
-                            }
+                            fmKeyOnYM2608[ch] = dData & 0xf0;
+                            int p = (ch > 2) ? 1 : 0;
+                            int c = (ch > 2) ? (ch - 3) : ch;
+                            fmVolYM2608[ch][0] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2608[ch][1] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
                         }
                         else
                         {
@@ -339,6 +304,27 @@ namespace MDPlayer
                 }
             }
 
+            //ssg level
+            if (dPort == 0 && (dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
+            {
+                int d = nowYM2608FadeoutVol >> 3;
+                dData = Math.Max(dData - d, 0);
+            }
+
+            //rhythm level
+            if (dPort == 0 && dAddr == 0x11)
+            {
+                int d = nowYM2608FadeoutVol >> 1;
+                dData = Math.Max(dData - d, 0);
+            }
+
+            //adpcm level
+            if (dPort == 1 && dAddr == 0x0b)
+            {
+                int d = nowYM2608FadeoutVol * 2;
+                dData = Math.Max(dData - d, 0);
+            }
+
             if (model == vgm.enmModel.VirtualModel)
             {
                 if (!ctYM2608.UseScci)
@@ -374,83 +360,94 @@ namespace MDPlayer
             }
         }
 
+        public void setFadeoutVolYM2608(int v)
+        {
+            nowYM2608FadeoutVol = v;
+            for (int p = 0; p < 2; p++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    setYM2608Register(p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+                }
+            }
+
+            //ssg
+            setYM2608Register(0, 0x08, fmRegisterYM2608[0][0x08], vgm.enmModel.RealModel);
+            setYM2608Register(0, 0x09, fmRegisterYM2608[0][0x09], vgm.enmModel.RealModel);
+            setYM2608Register(0, 0x0a, fmRegisterYM2608[0][0x0a], vgm.enmModel.RealModel);
+
+            //rhythm
+            setYM2608Register(0, 0x11, fmRegisterYM2608[0][0x11], vgm.enmModel.RealModel);
+
+            //adpcm
+            setYM2608Register(1, 0x0b, fmRegisterYM2608[1][0x0b], vgm.enmModel.RealModel);
+        }
+
+        public void setMaskYM2608(int ch, bool mask)
+        {
+            maskFMChYM2608[ch] = mask;
+
+            int c = (ch < 3) ? ch : (ch - 3);
+            int p = (ch < 3) ? 0 : 1;
+
+            setYM2608Register(p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2608Register(p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2608Register(p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2608Register(p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+        }
+
 
         public void setYM2151Register(int dPort, int dAddr, int dData, vgm.enmModel model)
         {
             if (ctYM2151 == null) return;
 
-            fmRegisterYM2151[dPort][dAddr] = dData;
+            fmRegisterYM2151[dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2151.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151.UseScci))
             {
-                //fmRegisterYM2151[dPort][dAddr] = dData;
-                if (dPort == 0 && dAddr == 0x28)
+                if (dAddr == 0x08) //Key-On/Off
                 {
-                    int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                    if (ch >= 0 && ch < 6 && (dData & 0xf0) > 0)
+                    int ch = dData & 0x7;
+                    if (ch >= 0 && ch < 8 && (dData & 0x78) > 0)
                     {
-                        if (ch != 2 || (fmRegisterYM2151[0][0x27] & 0xc0) != 0x40)
-                        {
-                            if (ch != 5 || (fmRegisterYM2151[0][0x2b] & 0x80) == 0)
-                            {
-                                fmKeyOnYM2151[ch] = dData & 0xf0;
-                                int p = (ch > 2) ? 1 : 0;
-                                int c = (ch > 2) ? (ch - 3) : ch;
-                                fmVolYM2151[ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[p][0x4c + c] & 0x7f)) / 127.0));
-                                fmVolYM2151[ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[p][0x4c + c] & 0x7f)) / 127.0));
-                            }
-                        }
-                        else
-                        {
-                            fmKeyOnYM2151[2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2151[0] = (int)(256 * 6 * ((127 - (fmRegisterYM2151[0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2151[2] = (int)(256 * 6 * ((127 - (fmRegisterYM2151[0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2151[1] = (int)(256 * 6 * ((127 - (fmRegisterYM2151[0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2151[3] = (int)(256 * 6 * ((127 - (fmRegisterYM2151[0][0x4c + 2] & 0x7f)) / 127.0));
-                        }
-                    }
-                }
-
-                if ((fmRegisterYM2151[0][0x2b] & 0x80) > 0)
-                {
-                    if (fmRegisterYM2151[0][0x2a] > 0)
-                    {
-                        fmVolYM2151[5][0] = fmRegisterYM2151[0][0x2a] * 10 * ((fmRegisterYM2151[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                        fmVolYM2151[5][1] = fmRegisterYM2151[0][0x2a] * 10 * ((fmRegisterYM2151[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                        fmKeyOnYM2151[ch] = dData & 0x78;
+                        //0x2x Pan/FL/CON
+                        fmVolYM2151[ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
+                        fmVolYM2151[ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
                     }
                 }
             }
 
 
-            //if ((dAddr & 0xf0) == 0x40)//TL
-            //{
-            //    int ch = (dAddr & 0x3);
-            //    int al = fmRegisterYM2151[dPort][0xb0 + ch] & 0x07;//AL
-            //    int slot = (dAddr & 0xc) >> 2;
-            //    dData &= 0x7f;
+            if ((dAddr & 0xf0) == 0x60 || (dAddr & 0xf0) == 0x70)//TL
+            {
+                int ch = (dAddr & 0x7);
+                int al = fmRegisterYM2151[0x20 + ch] & 0x07;//AL
+                int slot = (((dAddr & 0xf0) == 0x60) ? 0 : 2) + (((dAddr & 0x8) > 0) ? 1 : 0);
+                dData &= 0x7f;
 
-            //    if ((algM[al] & (1 << slot)) > 0)
-            //    {
-            //        if (ch != 3)
-            //        {
-            //            dData = Math.Min(dData + nowYM2151FadeoutVol, 127);
-            //            dData = maskFMChYM2151[dPort * 3 + ch] ? 127 : dData;
-            //        }
-            //    }
-            //}
+                if ((algM[al] & (1 << slot)) > 0)
+                {
+                    dData = Math.Min(dData + nowYM2151FadeoutVol, 127);
+                    dData = maskFMChYM2151[ch] ? 127 : dData;
+                }
+            }
 
             if (model == vgm.enmModel.VirtualModel)
             {
                 if (!ctYM2151.UseScci)
                 {
-                    //mds.WriteYM2151((byte)dPort, (byte)dAddr, (byte)dData);
+                    //mds.WriteYM2151((byte)dAddr, (byte)dData);
                 }
             }
             else
             {
                 if (scYM2151 == null) return;
 
-                scYM2151.setRegister(dPort * 0x100 + dAddr, dData);
+                scYM2151.setRegister(dAddr, dData);
             }
 
         }
@@ -461,6 +458,132 @@ namespace MDPlayer
             {
                 scYM2151.setRegister(-1, (int)(wait * (ctYM2151.UseWaitBoost ? 2.0 : 1.0)));
             }
+        }
+
+        public void setFadeoutVolYM2151(int v)
+        {
+            nowYM2151FadeoutVol = v;
+            for (int c = 0; c < 8; c++)
+            {
+                setYM2151Register(0, 0x60 + c, fmRegisterYM2151[0x60 + c], vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x68 + c, fmRegisterYM2151[0x68 + c], vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x70 + c, fmRegisterYM2151[0x70 + c], vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x78 + c, fmRegisterYM2151[0x78 + c], vgm.enmModel.RealModel);
+            }
+        }
+
+        public void setMaskYM2151(int ch, bool mask)
+        {
+            maskFMChYM2151[ch] = mask;
+
+            setYM2151Register(0, 0x60 + ch, fmRegisterYM2151[0x60 + ch], vgm.enmModel.RealModel);
+            setYM2151Register(0, 0x68 + ch, fmRegisterYM2151[0x68 + ch], vgm.enmModel.RealModel);
+            setYM2151Register(0, 0x70 + ch, fmRegisterYM2151[0x70 + ch], vgm.enmModel.RealModel);
+            setYM2151Register(0, 0x78 + ch, fmRegisterYM2151[0x78 + ch], vgm.enmModel.RealModel);
+        }
+
+
+        public void setSN76489Register(int dData, vgm.enmModel model)
+        {
+            if (ctSN76489 == null) return;
+
+            SN76489_Write(dData);
+
+            if ((dData & 0x90) ==0x90)
+            {
+                int v = dData & 0xf;
+                v = v + nowSN76489FadeoutVol;
+                v = Math.Min(v, 15);
+                dData = (dData & 0xf0) | v;
+            }
+
+            if (model == vgm.enmModel.RealModel)
+            {
+                if (ctSN76489.UseScci)
+                {
+                    if (scSN76489 == null) return;
+                    scSN76489.setRegister(0, dData);
+                }
+            }
+            else
+            {
+                if (!ctSN76489.UseScci)
+                {
+                    mds.WriteSN76489((byte)dData);
+                }
+            }
+        }
+
+        public void setSN76489SyncWait(int wait)
+        {
+            if (scSN76489 != null && ctSN76489.UseWait)
+            {
+                scSN76489.setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
+            }
+        }
+
+        public void setFadeoutVolSN76489(int v)
+        {
+            nowSN76489FadeoutVol = (v & 0x78) >> 3;
+            for (int c = 0; c < 4; c++)
+            {
+                
+                setSN76489Register(0x90 + (c << 5) + psgRegister[1+(c<<1)], vgm.enmModel.RealModel);
+            }
+        }
+
+        public void resetChips()
+        {
+
+            for (int p = 0; p < 2; p++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    setYM2612Register(p, 0x40 + c, 127, vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x44 + c, 127, vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x48 + c, 127, vgm.enmModel.RealModel);
+                    setYM2612Register(p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                }
+            }
+
+
+            for (int c = 0; c < 4; c++)
+            {
+                setSN76489Register(0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
+            }
+
+            for (int p = 0; p < 2; p++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    setYM2608Register(p, 0x40 + c, 127, vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x44 + c, 127, vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x48 + c, 127, vgm.enmModel.RealModel);
+                    setYM2608Register(p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                }
+            }
+
+            //ssg
+            setYM2608Register(0, 0x08, 0, vgm.enmModel.RealModel);
+            setYM2608Register(0, 0x09, 0, vgm.enmModel.RealModel);
+            setYM2608Register(0, 0x0a, 0, vgm.enmModel.RealModel);
+
+            //rhythm
+            setYM2608Register(0, 0x11, 0, vgm.enmModel.RealModel);
+
+            //adpcm
+            setYM2608Register(1, 0x0b, 0, vgm.enmModel.RealModel);
+
+
+            for (int c = 0; c < 8; c++)
+            {
+                setYM2151Register(0, 0x60 + c, 127, vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x68 + c, 127, vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x70 + c, 127, vgm.enmModel.RealModel);
+                setYM2151Register(0, 0x78 + c, 127, vgm.enmModel.RealModel);
+            }
+
+
         }
 
 
@@ -489,6 +612,17 @@ namespace MDPlayer
                 mds.WritePWM(chipid, adr, data);
         }
 
+        public void writeC140(byte chipid, uint adr, byte data, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteC140(chipid, adr, data);
+        }
+
+        public void writeC140PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength,byte[] romdata,uint SrcStartAdr, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
 
         private int volF = 1;
         public void updateVol()

@@ -47,7 +47,8 @@ namespace MDPlayer
             , vgm.defaultYM2612ClockValue
             , vgm.defaultSN76489ClockValue
             , vgm.defaultRF5C164ClockValue
-            , vgm.defaultPWMClockValue);
+            , vgm.defaultPWMClockValue
+            , vgm.defaultC140ClockValue, vgm.defaultC140Type);
 
         private static NAudioWrap naudioWrap;
 
@@ -154,8 +155,11 @@ namespace MDPlayer
                 , vgm.defaultSN76489ClockValue
                 , (vgm.defaultRF5C164ClockValue & 0x80000000) + (uint)((vgm.defaultRF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                 , (uint)(vgm.defaultPWMClockValue * (SamplingRate / (23011361.0 / 384)))
+                //, (uint)(vgm.defaultC140ClockValue * (SamplingRate / (21390.0 / 384)))
+                , vgm.defaultC140ClockValue
+                , vgm.defaultC140Type
             );
-            mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
+            mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume, 40);
 
             nscci = new NScci.NScci();
 
@@ -305,7 +309,11 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmRealFadeoutVol = 0;
                 vgmRealFadeoutVolWait = 4;
-                chipRegister.setFadeoutVol(0);
+                chipRegister.setFadeoutVolYM2608(0);
+                chipRegister.setFadeoutVolYM2151(0);
+                chipRegister.setFadeoutVolYM2612(0);
+                chipRegister.setFadeoutVolSN76489(0);
+                chipRegister.resetChips();
 
                 trdClosed = false;
                 trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
@@ -318,8 +326,11 @@ namespace MDPlayer
                     , vgmVirtual.SN76489ClockValue
                     , (vgmVirtual.RF5C164ClockValue & 0x80000000) + (uint)((vgmVirtual.RF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                     , (uint)(vgmVirtual.PWMClockValue * (SamplingRate / (23011361.0 / 384)))
+                    //, (uint)(vgmVirtual.C140ClockValue * (SamplingRate / (21390.0 / 384)) / 4.0)
+                    , (uint)(vgmVirtual.C140ClockValue)
+                    , vgmVirtual.C140Type
                     );
-                mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
+                mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume,40);
 
                 Paused = false;
                 Stopped = false;
@@ -327,7 +338,7 @@ namespace MDPlayer
 
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
@@ -485,7 +496,7 @@ namespace MDPlayer
         public static void setFMMask(int ch)
         {
             mds.setFMMask(1 << ch);
-            chipRegister.setMask(ch, true);
+            chipRegister.setMaskYM2612(ch, true);
         }
 
         public static void setPSGMask(int ch)
@@ -496,7 +507,7 @@ namespace MDPlayer
         public static void resetFMMask(int ch)
         {
             mds.resetFMMask(1 << ch);
-            chipRegister.setMask(ch, false);
+            chipRegister.setMaskYM2612(ch, false);
         }
 
         public static void resetPSGMask(int ch)
@@ -638,7 +649,11 @@ namespace MDPlayer
                     vgmRealFadeoutVolWait--;
                     if (vgmRealFadeoutVolWait == 0)
                     {
-                        chipRegister.setFadeoutVol(vgmRealFadeoutVol++);
+                        chipRegister.setFadeoutVolYM2151(vgmRealFadeoutVol);
+                        chipRegister.setFadeoutVolYM2608(vgmRealFadeoutVol);
+                        chipRegister.setFadeoutVolYM2612(vgmRealFadeoutVol);
+                        chipRegister.setFadeoutVolSN76489(vgmRealFadeoutVol++);
+
                         vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
                         vgmRealFadeoutVolWait = 600 - vgmRealFadeoutVol * 2;
                     }
@@ -716,8 +731,11 @@ namespace MDPlayer
                         , vgm.defaultSN76489ClockValue
                         , (vgm.defaultRF5C164ClockValue & 0x80000000) + (uint)((vgm.defaultRF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                         , (uint)(vgm.defaultPWMClockValue * (SamplingRate / (23011361.0 / 384)))
+                        //, (uint)(vgm.defaultC140ClockValue * (SamplingRate / (21390.0 / 384)))
+                        , (uint)(vgm.defaultC140ClockValue)
+                        , vgm.defaultC140Type
                     );
-                    mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume);
+                    mds.setVolume(setting.balance.YM2612Volume, setting.balance.SN76489Volume, setting.balance.RF5C164Volume, setting.balance.PWMVolume,40);
                     Stopped = true;
                 }
 

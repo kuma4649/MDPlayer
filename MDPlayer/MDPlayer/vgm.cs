@@ -34,11 +34,16 @@ namespace MDPlayer
         public const uint defaultYM2612ClockValue = 7670454;
         public const uint defaultRF5C164ClockValue = 12500000;
         public const uint defaultPWMClockValue = 23011361;
+        public const uint defaultC140ClockValue = 21390;
+        public const MDSound.c140.C140_TYPE defaultC140Type = MDSound.c140.C140_TYPE.ASIC219;
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
         public uint RF5C164ClockValue = 12500000;
         public uint PWMClockValue = 23011361;
+        public uint C140ClockValue = 21390;
+        public MDSound.c140.C140_TYPE C140Type= MDSound.c140.C140_TYPE.ASIC219;
+
         public string Version = "";
         public string UsedChips = "";
         public long TotalCounter = 0;
@@ -400,7 +405,7 @@ namespace MDPlayer
             vgmCmdTbl[0xd1] = vcDummy3Ope;
             vgmCmdTbl[0xd2] = vcDummy3Ope;
             vgmCmdTbl[0xd3] = vcDummy3Ope;
-            vgmCmdTbl[0xd4] = vcDummy3Ope;
+            vgmCmdTbl[0xd4] = vcC140;
             vgmCmdTbl[0xd5] = vcDummy3Ope;
             vgmCmdTbl[0xd6] = vcDummy3Ope;
             vgmCmdTbl[0xd7] = vcDummy3Ope;
@@ -568,11 +573,13 @@ namespace MDPlayer
                     break;
                 case 0x80:
                     uint romSize = getLE32(vgmAdr + 7);
-                    uint startAddress = getLE32(vgmAdr + 11);
+                    uint startAddress = getLE32(vgmAdr + 0x0B);
                     switch (bType)
                     {
                         case 0x81:
+
                             // YM2608
+
                             chipRegister.setYM2608Register(0x1, 0x00, 0x20, model);
                             chipRegister.setYM2608Register(0x1, 0x00, 0x21, model);
                             chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
@@ -600,6 +607,13 @@ namespace MDPlayer
                             chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
                             chipRegister.sendDataYM2608(model);
+                            break;
+
+                        case 0x8d:
+
+                            // C140
+
+                            chipRegister.writeC140PCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -820,6 +834,13 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcC140()
+        {
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) *0x100+ (vgmBuf[vgmAdr + 2] & 0xff));
+            byte data = vgmBuf[vgmAdr + 3];
+            chipRegister.writeC140(0, adr, data, model);
+            vgmAdr += 4;
+        }
 
         private UInt32 getLE16(UInt32 adr)
         {
@@ -1363,6 +1384,34 @@ namespace MDPlayer
 
                 uint AY8910clock = getLE32(0x74);
                 if (AY8910clock != 0) chips.Add("AY8910");
+
+            }
+            if (version >= 0x0161)
+            {
+
+                uint C140clock = getLE32(0xa8);
+                C140ClockValue = defaultC140ClockValue;
+                if (C140clock != 0)
+                {
+                    chips.Add("C140");
+                    C140ClockValue = C140clock;
+                    switch (vgmBuf[0x96])
+                    {
+                        case 0x00:
+                            C140Type =MDSound.c140.C140_TYPE.SYSTEM2;
+                            break;
+                        case 0x01:
+                            C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
+                            break;
+                        case 0x02:
+                            C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
+                            break;
+                        case 0x03:
+                        default:
+                            C140Type = MDSound.c140.C140_TYPE.ASIC219;
+                            break;
+                    }
+                }
 
             }
 
