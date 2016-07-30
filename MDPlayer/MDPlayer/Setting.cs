@@ -611,6 +611,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _C140Volume = 40;
+            public int C140Volume
+            {
+                get
+                {
+                    return _C140Volume;
+                }
+
+                set
+                {
+                    _C140Volume = value;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -618,6 +632,7 @@ namespace MDPlayer
                 Balance.SN76489Volume = this.SN76489Volume;
                 Balance.RF5C164Volume = this.RF5C164Volume;
                 Balance.PWMVolume = this.PWMVolume;
+                Balance.C140Volume = this.C140Volume;
 
                 return Balance;
             }

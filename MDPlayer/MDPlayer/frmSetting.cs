@@ -28,6 +28,7 @@ namespace MDPlayer
             bs2.DataSource = new BindData();
             bs3.DataSource = new BindData();
             bs4.DataSource = new BindData();
+            bs5.DataSource = new BindData();
 
             Init();
         }
@@ -405,11 +406,13 @@ namespace MDPlayer
             ((BindData)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
             ((BindData)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
             ((BindData)(bs4.DataSource)).Value = setting.balance.PWMVolume;
+            ((BindData)(bs5.DataSource)).Value = setting.balance.C140Volume;
 
             trkYM2612.Value = setting.balance.YM2612Volume;
             trkSN76489.Value = setting.balance.SN76489Volume;
             trkRF5C164.Value = setting.balance.RF5C164Volume;
             trkPWM.Value = setting.balance.PWMVolume;
+            trkC140.Value = setting.balance.C140Volume;
 
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
@@ -598,6 +601,7 @@ namespace MDPlayer
             setting.balance.SN76489Volume = trkSN76489.Value;
             setting.balance.RF5C164Volume = trkRF5C164.Value;
             setting.balance.PWMVolume = trkPWM.Value;
+            setting.balance.C140Volume = trkC140.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -828,6 +832,25 @@ namespace MDPlayer
             }
 
             tbDataPath.Text = fbd.SelectedPath;
+
+        }
+
+        private void btnC140_Click(object sender, EventArgs e)
+        {
+            trkC140.Value = 100;
+        }
+
+        private void tbC140_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbC140.Text, out v))
+            {
+                tbC140.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbC140.Text = "100";
+            }
 
         }
     }

@@ -132,28 +132,12 @@
             this.cbPSG1 = new System.Windows.Forms.CheckBox();
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tpAbout = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.labelProductName = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.labelCopyright = new System.Windows.Forms.Label();
-            this.labelCompanyName = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.tpOmake = new System.Windows.Forms.TabPage();
-            this.gbYM2151 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.cbYM2151UseWait = new System.Windows.Forms.CheckBox();
-            this.cmbYM2151Scci = new System.Windows.Forms.ComboBox();
-            this.rbYM2151Scci = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
+            this.btnC140 = new System.Windows.Forms.Button();
+            this.tbC140 = new System.Windows.Forms.TextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.trkC140 = new System.Windows.Forms.TrackBar();
+            this.label23 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -163,6 +147,48 @@
             this.cmbYM2608Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2608Scci = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.gbYM2151 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cbYM2151UseWait = new System.Windows.Forms.CheckBox();
+            this.cmbYM2151Scci = new System.Windows.Forms.ComboBox();
+            this.rbYM2151Scci = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.tpAbout = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.labelProductName = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
+            this.labelCopyright = new System.Windows.Forms.Label();
+            this.labelCompanyName = new System.Windows.Forms.Label();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label24 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.label25 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.label26 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.trackBar4 = new System.Windows.Forms.TrackBar();
+            this.label27 = new System.Windows.Forms.Label();
+            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs5 = new System.Windows.Forms.BindingSource(this.components);
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -187,16 +213,27 @@
             this.tpOther.SuspendLayout();
             this.gbMIDIKeyboard.SuspendLayout();
             this.gbUseChannel.SuspendLayout();
+            this.tpOmake.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkC140)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            this.gbYM2151.SuspendLayout();
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.tpOmake.SuspendLayout();
-            this.gbYM2151.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
-            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs5)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -1345,6 +1382,288 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "MIDI IN";
             // 
+            // tpOmake
+            // 
+            this.tpOmake.Controls.Add(this.button4);
+            this.tpOmake.Controls.Add(this.button3);
+            this.tpOmake.Controls.Add(this.textBox8);
+            this.tpOmake.Controls.Add(this.button2);
+            this.tpOmake.Controls.Add(this.panel9);
+            this.tpOmake.Controls.Add(this.label27);
+            this.tpOmake.Controls.Add(this.textBox7);
+            this.tpOmake.Controls.Add(this.button1);
+            this.tpOmake.Controls.Add(this.panel8);
+            this.tpOmake.Controls.Add(this.label26);
+            this.tpOmake.Controls.Add(this.textBox6);
+            this.tpOmake.Controls.Add(this.textBox5);
+            this.tpOmake.Controls.Add(this.panel7);
+            this.tpOmake.Controls.Add(this.label25);
+            this.tpOmake.Controls.Add(this.panel6);
+            this.tpOmake.Controls.Add(this.label24);
+            this.tpOmake.Controls.Add(this.btnC140);
+            this.tpOmake.Controls.Add(this.tbC140);
+            this.tpOmake.Controls.Add(this.panel5);
+            this.tpOmake.Controls.Add(this.label23);
+            this.tpOmake.Controls.Add(this.groupBox6);
+            this.tpOmake.Controls.Add(this.gbYM2151);
+            this.tpOmake.Location = new System.Drawing.Point(4, 22);
+            this.tpOmake.Name = "tpOmake";
+            this.tpOmake.Size = new System.Drawing.Size(374, 291);
+            this.tpOmake.TabIndex = 5;
+            this.tpOmake.Text = "おまけ";
+            this.tpOmake.UseVisualStyleBackColor = true;
+            // 
+            // btnC140
+            // 
+            this.btnC140.Location = new System.Drawing.Point(349, 269);
+            this.btnC140.Name = "btnC140";
+            this.btnC140.Size = new System.Drawing.Size(19, 19);
+            this.btnC140.TabIndex = 11;
+            this.btnC140.Text = "%";
+            this.btnC140.UseVisualStyleBackColor = true;
+            this.btnC140.Click += new System.EventHandler(this.btnC140_Click);
+            // 
+            // tbC140
+            // 
+            this.tbC140.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs5, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbC140.Location = new System.Drawing.Point(322, 269);
+            this.tbC140.MaxLength = 3;
+            this.tbC140.Name = "tbC140";
+            this.tbC140.Size = new System.Drawing.Size(27, 19);
+            this.tbC140.TabIndex = 10;
+            this.tbC140.Text = "200";
+            this.tbC140.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbC140.TextChanged += new System.EventHandler(this.tbC140_TextChanged);
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.trkC140);
+            this.panel5.Location = new System.Drawing.Point(322, 197);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(45, 70);
+            this.panel5.TabIndex = 9;
+            // 
+            // trkC140
+            // 
+            this.trkC140.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs5, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkC140.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkC140.LargeChange = 10;
+            this.trkC140.Location = new System.Drawing.Point(0, 0);
+            this.trkC140.Maximum = 200;
+            this.trkC140.Name = "trkC140";
+            this.trkC140.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkC140.Size = new System.Drawing.Size(43, 68);
+            this.trkC140.TabIndex = 0;
+            this.trkC140.TickFrequency = 10;
+            this.trkC140.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkC140.Value = 100;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label23.Location = new System.Drawing.Point(327, 182);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(35, 12);
+            this.label23.TabIndex = 7;
+            this.label23.Text = "C140";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label21);
+            this.groupBox6.Controls.Add(this.label22);
+            this.groupBox6.Controls.Add(this.textBox3);
+            this.groupBox6.Controls.Add(this.textBox4);
+            this.groupBox6.Controls.Add(this.cbYM2608UseWait);
+            this.groupBox6.Controls.Add(this.cmbYM2608Scci);
+            this.groupBox6.Controls.Add(this.rbYM2608Scci);
+            this.groupBox6.Controls.Add(this.radioButton3);
+            this.groupBox6.Location = new System.Drawing.Point(3, 94);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(368, 85);
+            this.groupBox6.TabIndex = 6;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "YM2608";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(320, 17);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(20, 12);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "ms";
+            this.label21.Visible = false;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(235, 17);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(20, 12);
+            this.label22.TabIndex = 5;
+            this.label22.Text = "ms";
+            this.label22.Visible = false;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(261, 14);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(53, 19);
+            this.textBox3.TabIndex = 4;
+            this.textBox3.Visible = false;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(176, 14);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(53, 19);
+            this.textBox4.TabIndex = 4;
+            this.textBox4.Visible = false;
+            // 
+            // cbYM2608UseWait
+            // 
+            this.cbYM2608UseWait.AutoSize = true;
+            this.cbYM2608UseWait.Location = new System.Drawing.Point(61, 65);
+            this.cbYM2608UseWait.Name = "cbYM2608UseWait";
+            this.cbYM2608UseWait.Size = new System.Drawing.Size(109, 16);
+            this.cbYM2608UseWait.TabIndex = 3;
+            this.cbYM2608UseWait.Text = "Waitシグナル発信";
+            this.cbYM2608UseWait.UseVisualStyleBackColor = true;
+            // 
+            // cmbYM2608Scci
+            // 
+            this.cmbYM2608Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2608Scci.FormattingEnabled = true;
+            this.cmbYM2608Scci.Location = new System.Drawing.Point(61, 39);
+            this.cmbYM2608Scci.Name = "cmbYM2608Scci";
+            this.cmbYM2608Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbYM2608Scci.TabIndex = 2;
+            // 
+            // rbYM2608Scci
+            // 
+            this.rbYM2608Scci.AutoSize = true;
+            this.rbYM2608Scci.Checked = true;
+            this.rbYM2608Scci.Location = new System.Drawing.Point(6, 40);
+            this.rbYM2608Scci.Name = "rbYM2608Scci";
+            this.rbYM2608Scci.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2608Scci.TabIndex = 1;
+            this.rbYM2608Scci.TabStop = true;
+            this.rbYM2608Scci.Text = "SCCI";
+            this.rbYM2608Scci.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Enabled = false;
+            this.radioButton3.Location = new System.Drawing.Point(6, 18);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(91, 16);
+            this.radioButton3.TabIndex = 0;
+            this.radioButton3.Text = "エミュレーション";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // gbYM2151
+            // 
+            this.gbYM2151.Controls.Add(this.label18);
+            this.gbYM2151.Controls.Add(this.label20);
+            this.gbYM2151.Controls.Add(this.textBox1);
+            this.gbYM2151.Controls.Add(this.textBox2);
+            this.gbYM2151.Controls.Add(this.cbYM2151UseWait);
+            this.gbYM2151.Controls.Add(this.cmbYM2151Scci);
+            this.gbYM2151.Controls.Add(this.rbYM2151Scci);
+            this.gbYM2151.Controls.Add(this.radioButton2);
+            this.gbYM2151.Location = new System.Drawing.Point(3, 3);
+            this.gbYM2151.Name = "gbYM2151";
+            this.gbYM2151.Size = new System.Drawing.Size(368, 85);
+            this.gbYM2151.TabIndex = 1;
+            this.gbYM2151.TabStop = false;
+            this.gbYM2151.Text = "YM2151";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(320, 17);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(20, 12);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "ms";
+            this.label18.Visible = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(235, 17);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 12);
+            this.label20.TabIndex = 5;
+            this.label20.Text = "ms";
+            this.label20.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(261, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(53, 19);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(176, 14);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(53, 19);
+            this.textBox2.TabIndex = 4;
+            this.textBox2.Visible = false;
+            // 
+            // cbYM2151UseWait
+            // 
+            this.cbYM2151UseWait.AutoSize = true;
+            this.cbYM2151UseWait.Location = new System.Drawing.Point(61, 65);
+            this.cbYM2151UseWait.Name = "cbYM2151UseWait";
+            this.cbYM2151UseWait.Size = new System.Drawing.Size(109, 16);
+            this.cbYM2151UseWait.TabIndex = 3;
+            this.cbYM2151UseWait.Text = "Waitシグナル発信";
+            this.cbYM2151UseWait.UseVisualStyleBackColor = true;
+            // 
+            // cmbYM2151Scci
+            // 
+            this.cmbYM2151Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2151Scci.FormattingEnabled = true;
+            this.cmbYM2151Scci.Location = new System.Drawing.Point(61, 39);
+            this.cmbYM2151Scci.Name = "cmbYM2151Scci";
+            this.cmbYM2151Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbYM2151Scci.TabIndex = 2;
+            // 
+            // rbYM2151Scci
+            // 
+            this.rbYM2151Scci.AutoSize = true;
+            this.rbYM2151Scci.Checked = true;
+            this.rbYM2151Scci.Location = new System.Drawing.Point(6, 40);
+            this.rbYM2151Scci.Name = "rbYM2151Scci";
+            this.rbYM2151Scci.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2151Scci.TabIndex = 1;
+            this.rbYM2151Scci.TabStop = true;
+            this.rbYM2151Scci.Text = "SCCI";
+            this.rbYM2151Scci.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Enabled = false;
+            this.radioButton2.Location = new System.Drawing.Point(6, 18);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(91, 16);
+            this.radioButton2.TabIndex = 0;
+            this.radioButton2.Text = "エミュレーション";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // tpAbout
             // 
             this.tpAbout.Controls.Add(this.tableLayoutPanel);
@@ -1454,113 +1773,233 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // tpOmake
+            // button1
             // 
-            this.tpOmake.Controls.Add(this.groupBox6);
-            this.tpOmake.Controls.Add(this.gbYM2151);
-            this.tpOmake.Location = new System.Drawing.Point(4, 22);
-            this.tpOmake.Name = "tpOmake";
-            this.tpOmake.Size = new System.Drawing.Size(374, 291);
-            this.tpOmake.TabIndex = 5;
-            this.tpOmake.Text = "おまけ";
-            this.tpOmake.UseVisualStyleBackColor = true;
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(34, 269);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(19, 19);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "%";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // gbYM2151
+            // textBox5
             // 
-            this.gbYM2151.Controls.Add(this.label18);
-            this.gbYM2151.Controls.Add(this.label20);
-            this.gbYM2151.Controls.Add(this.textBox1);
-            this.gbYM2151.Controls.Add(this.textBox2);
-            this.gbYM2151.Controls.Add(this.cbYM2151UseWait);
-            this.gbYM2151.Controls.Add(this.cmbYM2151Scci);
-            this.gbYM2151.Controls.Add(this.rbYM2151Scci);
-            this.gbYM2151.Controls.Add(this.radioButton2);
-            this.gbYM2151.Location = new System.Drawing.Point(3, 3);
-            this.gbYM2151.Name = "gbYM2151";
-            this.gbYM2151.Size = new System.Drawing.Size(368, 85);
-            this.gbYM2151.TabIndex = 1;
-            this.gbYM2151.TabStop = false;
-            this.gbYM2151.Text = "YM2151";
+            this.textBox5.Enabled = false;
+            this.textBox5.Location = new System.Drawing.Point(7, 269);
+            this.textBox5.MaxLength = 3;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(27, 19);
+            this.textBox5.TabIndex = 14;
+            this.textBox5.Text = "200";
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label18
+            // panel6
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(320, 17);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(20, 12);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "ms";
-            this.label18.Visible = false;
+            this.panel6.BackColor = System.Drawing.Color.White;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.trackBar1);
+            this.panel6.Enabled = false;
+            this.panel6.Location = new System.Drawing.Point(7, 197);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(45, 70);
+            this.panel6.TabIndex = 13;
             // 
-            // label20
+            // trackBar1
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(235, 17);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(20, 12);
-            this.label20.TabIndex = 5;
-            this.label20.Text = "ms";
-            this.label20.Visible = false;
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar1.LargeChange = 10;
+            this.trackBar1.Location = new System.Drawing.Point(0, 0);
+            this.trackBar1.Maximum = 200;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(43, 68);
+            this.trackBar1.TabIndex = 0;
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Value = 100;
             // 
-            // textBox1
+            // label24
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(261, 14);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(53, 19);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Visible = false;
+            this.label24.AutoSize = true;
+            this.label24.Enabled = false;
+            this.label24.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label24.Location = new System.Drawing.Point(5, 182);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(51, 12);
+            this.label24.TabIndex = 12;
+            this.label24.Text = "YM2151";
             // 
-            // textBox2
+            // button2
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(176, 14);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(53, 19);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.Visible = false;
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(114, 269);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(19, 19);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "%";
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // cbYM2151UseWait
+            // textBox6
             // 
-            this.cbYM2151UseWait.AutoSize = true;
-            this.cbYM2151UseWait.Location = new System.Drawing.Point(61, 65);
-            this.cbYM2151UseWait.Name = "cbYM2151UseWait";
-            this.cbYM2151UseWait.Size = new System.Drawing.Size(109, 16);
-            this.cbYM2151UseWait.TabIndex = 3;
-            this.cbYM2151UseWait.Text = "Waitシグナル発信";
-            this.cbYM2151UseWait.UseVisualStyleBackColor = true;
+            this.textBox6.Enabled = false;
+            this.textBox6.Location = new System.Drawing.Point(87, 269);
+            this.textBox6.MaxLength = 3;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(27, 19);
+            this.textBox6.TabIndex = 18;
+            this.textBox6.Text = "200";
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // cmbYM2151Scci
+            // panel7
             // 
-            this.cmbYM2151Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2151Scci.FormattingEnabled = true;
-            this.cmbYM2151Scci.Location = new System.Drawing.Point(61, 39);
-            this.cmbYM2151Scci.Name = "cmbYM2151Scci";
-            this.cmbYM2151Scci.Size = new System.Drawing.Size(301, 20);
-            this.cmbYM2151Scci.TabIndex = 2;
+            this.panel7.BackColor = System.Drawing.Color.White;
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.trackBar2);
+            this.panel7.Enabled = false;
+            this.panel7.Location = new System.Drawing.Point(87, 197);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(45, 70);
+            this.panel7.TabIndex = 17;
             // 
-            // rbYM2151Scci
+            // trackBar2
             // 
-            this.rbYM2151Scci.AutoSize = true;
-            this.rbYM2151Scci.Checked = true;
-            this.rbYM2151Scci.Location = new System.Drawing.Point(6, 40);
-            this.rbYM2151Scci.Name = "rbYM2151Scci";
-            this.rbYM2151Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2151Scci.TabIndex = 1;
-            this.rbYM2151Scci.TabStop = true;
-            this.rbYM2151Scci.Text = "SCCI";
-            this.rbYM2151Scci.UseVisualStyleBackColor = true;
+            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar2.LargeChange = 10;
+            this.trackBar2.Location = new System.Drawing.Point(0, 0);
+            this.trackBar2.Maximum = 200;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar2.Size = new System.Drawing.Size(43, 68);
+            this.trackBar2.TabIndex = 0;
+            this.trackBar2.TickFrequency = 10;
+            this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar2.Value = 100;
             // 
-            // radioButton2
+            // label25
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(6, 18);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(91, 16);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.Text = "エミュレーション";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.label25.AutoSize = true;
+            this.label25.Enabled = false;
+            this.label25.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label25.Location = new System.Drawing.Point(85, 182);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(51, 12);
+            this.label25.TabIndex = 16;
+            this.label25.Text = "YM2608";
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(192, 269);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(19, 19);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "%";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Enabled = false;
+            this.textBox7.Location = new System.Drawing.Point(165, 269);
+            this.textBox7.MaxLength = 3;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(27, 19);
+            this.textBox7.TabIndex = 18;
+            this.textBox7.Text = "200";
+            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.White;
+            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.trackBar3);
+            this.panel8.Enabled = false;
+            this.panel8.Location = new System.Drawing.Point(165, 197);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(45, 70);
+            this.panel8.TabIndex = 17;
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar3.LargeChange = 10;
+            this.trackBar3.Location = new System.Drawing.Point(0, 0);
+            this.trackBar3.Maximum = 200;
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar3.Size = new System.Drawing.Size(43, 68);
+            this.trackBar3.TabIndex = 0;
+            this.trackBar3.TickFrequency = 10;
+            this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar3.Value = 100;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Enabled = false;
+            this.label26.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label26.Location = new System.Drawing.Point(157, 182);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(64, 12);
+            this.label26.TabIndex = 16;
+            this.label26.Text = "OKIM6258";
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(270, 269);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(19, 19);
+            this.button4.TabIndex = 19;
+            this.button4.Text = "%";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Enabled = false;
+            this.textBox8.Location = new System.Drawing.Point(243, 269);
+            this.textBox8.MaxLength = 3;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(27, 19);
+            this.textBox8.TabIndex = 18;
+            this.textBox8.Text = "200";
+            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.White;
+            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.trackBar4);
+            this.panel9.Enabled = false;
+            this.panel9.Location = new System.Drawing.Point(243, 197);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(45, 70);
+            this.panel9.TabIndex = 17;
+            // 
+            // trackBar4
+            // 
+            this.trackBar4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar4.LargeChange = 10;
+            this.trackBar4.Location = new System.Drawing.Point(0, 0);
+            this.trackBar4.Maximum = 200;
+            this.trackBar4.Name = "trackBar4";
+            this.trackBar4.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar4.Size = new System.Drawing.Size(43, 68);
+            this.trackBar4.TabIndex = 0;
+            this.trackBar4.TickFrequency = 10;
+            this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar4.Value = 100;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Enabled = false;
+            this.label27.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label27.Location = new System.Drawing.Point(235, 182);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(64, 12);
+            this.label27.TabIndex = 16;
+            this.label27.Text = "OKIM6295";
             // 
             // bs1
             // 
@@ -1578,102 +2017,9 @@
             // 
             this.bs4.DataSource = typeof(MDPlayer.BindData);
             // 
-            // groupBox6
+            // bs5
             // 
-            this.groupBox6.Controls.Add(this.label21);
-            this.groupBox6.Controls.Add(this.label22);
-            this.groupBox6.Controls.Add(this.textBox3);
-            this.groupBox6.Controls.Add(this.textBox4);
-            this.groupBox6.Controls.Add(this.cbYM2608UseWait);
-            this.groupBox6.Controls.Add(this.cmbYM2608Scci);
-            this.groupBox6.Controls.Add(this.rbYM2608Scci);
-            this.groupBox6.Controls.Add(this.radioButton3);
-            this.groupBox6.Location = new System.Drawing.Point(3, 94);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(368, 85);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "YM2608";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(320, 17);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(20, 12);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "ms";
-            this.label21.Visible = false;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(235, 17);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(20, 12);
-            this.label22.TabIndex = 5;
-            this.label22.Text = "ms";
-            this.label22.Visible = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(261, 14);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(53, 19);
-            this.textBox3.TabIndex = 4;
-            this.textBox3.Visible = false;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(176, 14);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(53, 19);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Visible = false;
-            // 
-            // cbYM2608UseWait
-            // 
-            this.cbYM2608UseWait.AutoSize = true;
-            this.cbYM2608UseWait.Location = new System.Drawing.Point(61, 65);
-            this.cbYM2608UseWait.Name = "cbYM2608UseWait";
-            this.cbYM2608UseWait.Size = new System.Drawing.Size(109, 16);
-            this.cbYM2608UseWait.TabIndex = 3;
-            this.cbYM2608UseWait.Text = "Waitシグナル発信";
-            this.cbYM2608UseWait.UseVisualStyleBackColor = true;
-            // 
-            // cmbYM2608Scci
-            // 
-            this.cmbYM2608Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2608Scci.FormattingEnabled = true;
-            this.cmbYM2608Scci.Location = new System.Drawing.Point(61, 39);
-            this.cmbYM2608Scci.Name = "cmbYM2608Scci";
-            this.cmbYM2608Scci.Size = new System.Drawing.Size(301, 20);
-            this.cmbYM2608Scci.TabIndex = 2;
-            // 
-            // rbYM2608Scci
-            // 
-            this.rbYM2608Scci.AutoSize = true;
-            this.rbYM2608Scci.Checked = true;
-            this.rbYM2608Scci.Location = new System.Drawing.Point(6, 40);
-            this.rbYM2608Scci.Name = "rbYM2608Scci";
-            this.rbYM2608Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2608Scci.TabIndex = 1;
-            this.rbYM2608Scci.TabStop = true;
-            this.rbYM2608Scci.Text = "SCCI";
-            this.rbYM2608Scci.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Enabled = false;
-            this.radioButton3.Location = new System.Drawing.Point(6, 18);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(91, 16);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.Text = "エミュレーション";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.bs5.DataSource = typeof(MDPlayer.BindData);
             // 
             // frmSetting
             // 
@@ -1733,19 +2079,36 @@
             this.gbMIDIKeyboard.PerformLayout();
             this.gbUseChannel.ResumeLayout(false);
             this.gbUseChannel.PerformLayout();
+            this.tpOmake.ResumeLayout(false);
+            this.tpOmake.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkC140)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.gbYM2151.ResumeLayout(false);
+            this.gbYM2151.PerformLayout();
             this.tpAbout.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.tpOmake.ResumeLayout(false);
-            this.gbYM2151.ResumeLayout(false);
-            this.gbYM2151.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1886,5 +2249,31 @@
         private System.Windows.Forms.ComboBox cmbYM2608Scci;
         private System.Windows.Forms.RadioButton rbYM2608Scci;
         private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.Button btnC140;
+        private System.Windows.Forms.TextBox tbC140;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TrackBar trkC140;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.BindingSource bs5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.TrackBar trackBar4;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.TrackBar trackBar3;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label24;
     }
 }
