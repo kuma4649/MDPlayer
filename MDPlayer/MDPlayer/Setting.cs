@@ -625,6 +625,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _OKIM6258Volume = 40;
+            public int OKIM6258Volume
+            {
+                get
+                {
+                    return _OKIM6258Volume;
+                }
+
+                set
+                {
+                    _OKIM6258Volume = value;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -633,6 +647,7 @@ namespace MDPlayer
                 Balance.RF5C164Volume = this.RF5C164Volume;
                 Balance.PWMVolume = this.PWMVolume;
                 Balance.C140Volume = this.C140Volume;
+                Balance.OKIM6258Volume = this.OKIM6258Volume;
 
                 return Balance;
             }

@@ -1,9 +1,4 @@
 ﻿using NScci;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer
 {
@@ -170,7 +165,8 @@ namespace MDPlayer
             uint NewPos;
             int RealDataStp;
 
-            if ((chip.Running & 0x80) > 0)   // disabled
+            //System.Console.WriteLine("DAC update ChipID{0} samples{1} chip.Running{2} ", ChipID, samples, chip.Running);
+            if ((chip.Running & 0x80) != 0)   // disabled
                 return;
             if ((chip.Running & 0x01) == 0)    // stopped
                 return;
@@ -196,6 +192,7 @@ namespace MDPlayer
             chip.Step += samples;
             // Formula: Step * Freq / SampleRate
             NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, 44100);// DAC_SMPL_RATE);
+            //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, 44100);
             sendCommand(chip);
 
             while (chip.RemainCmds > 0 && chip.Pos < NewPos)
@@ -350,6 +347,7 @@ namespace MDPlayer
 
         public void set_frequency(byte ChipID, uint Frequency)
         {
+            //System.Console.WriteLine("ChipID{0} Frequency{1}", ChipID, Frequency);
             dac_control chip = DACData[ChipID];
 
             if ((chip.Running & 0x80) > 0)
@@ -439,6 +437,10 @@ namespace MDPlayer
                     break;
                 case 0x11:  // PWM
                     chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)), model);
+                    break;
+                case 0x17:  // OKIM6258
+                    if(model== vgm.enmModel.VirtualModel) //System.Console.Write("[DAC]");
+                    chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
                     break;
             }
         }

@@ -36,6 +36,7 @@ namespace MDPlayer
         public const uint defaultPWMClockValue = 23011361;
         public const uint defaultC140ClockValue = 21390;
         public const MDSound.c140.C140_TYPE defaultC140Type = MDSound.c140.C140_TYPE.ASIC219;
+        public const uint defaultOKIM6258ClockValue = 4000000;
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
@@ -43,6 +44,8 @@ namespace MDPlayer
         public uint PWMClockValue = 23011361;
         public uint C140ClockValue = 21390;
         public MDSound.c140.C140_TYPE C140Type= MDSound.c140.C140_TYPE.ASIC219;
+        public uint OKIM6258ClockValue = 4000000;
+        public byte OKIM6258Type = 0;
 
         public string Version = "";
         public string UsedChips = "";
@@ -148,7 +151,7 @@ namespace MDPlayer
         {
             if (vgmWait > 0)
             {
-                oneFrameVGMStream();
+                if (model == enmModel.VirtualModel) oneFrameVGMStream();
                 vgmWait--;
                 Counter++;
                 vgmFrameCounter++;
@@ -187,7 +190,7 @@ namespace MDPlayer
                 else
                 {
                     //わからんコマンド
-                    Console.WriteLine("{0:X}", vgmBuf[vgmAdr++]);
+                    //Console.WriteLine("{0:X}", vgmBuf[vgmAdr++]);
                 }
             }
 
@@ -203,7 +206,8 @@ namespace MDPlayer
                 }
             }
 
-            oneFrameVGMStream();
+            if (model == enmModel.VirtualModel) oneFrameVGMStream();
+
             vgmWait--;
             Counter++;
             vgmFrameCounter++;
@@ -324,12 +328,12 @@ namespace MDPlayer
             vgmCmdTbl[0x8e] = vcWaitNSamplesAndSendYM26120x2a;
             vgmCmdTbl[0x8f] = vcWaitNSamplesAndSendYM26120x2a;
 
-            vgmCmdTbl[0x90] = vcSetupStreamControl;
-            vgmCmdTbl[0x91] = vcSetStreamData;
-            vgmCmdTbl[0x92] = vcSetStreamFrequency;
-            vgmCmdTbl[0x93] = vcStartStream;
-            vgmCmdTbl[0x94] = vcStopStream;
-            vgmCmdTbl[0x95] = vcStartStreamFastCall;
+                vgmCmdTbl[0x90] = vcSetupStreamControl;
+                vgmCmdTbl[0x91] = vcSetStreamData;
+                vgmCmdTbl[0x92] = vcSetStreamFrequency;
+                vgmCmdTbl[0x93] = vcStartStream;
+                vgmCmdTbl[0x94] = vcStopStream;
+                vgmCmdTbl[0x95] = vcStartStreamFastCall;
 
             vgmCmdTbl[0xa0] = vcDummy2Ope;
             vgmCmdTbl[0xa1] = vcDummy2Ope;
@@ -373,7 +377,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb4] = vcDummy2Ope;
             vgmCmdTbl[0xb5] = vcDummy2Ope;
             vgmCmdTbl[0xb6] = vcDummy2Ope;
-            vgmCmdTbl[0xb7] = vcDummy2Ope;
+            vgmCmdTbl[0xb7] = vcOKIM6258;
 
             vgmCmdTbl[0xb8] = vcDummy2Ope;
             vgmCmdTbl[0xb9] = vcDummy2Ope;
@@ -519,6 +523,12 @@ namespace MDPlayer
         private void vcYM2151()
         {
             chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcOKIM6258()
+        {
+            chipRegister.writeOKIM6258(0, (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
             vgmAdr += 3;
         }
 
@@ -689,6 +699,12 @@ namespace MDPlayer
 
         private void vcSetupStreamControl()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 5;
+                return;
+            }
+
             byte si = vgmBuf[vgmAdr + 1];
             if (si == 0xff)
             {
@@ -712,6 +728,12 @@ namespace MDPlayer
 
         private void vcSetStreamData()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 5;
+                return;
+            }
+
             byte si = vgmBuf[vgmAdr + 1];
             if (si == 0xff)
             {
@@ -732,6 +754,12 @@ namespace MDPlayer
 
         private void vcSetStreamFrequency()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 6;
+                return;
+            }
+
             byte si = vgmBuf[vgmAdr + 1];
             if (si == 0xFF || !DacCtrl[si].Enable)
             {
@@ -746,6 +774,12 @@ namespace MDPlayer
 
         private void vcStartStream()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 8;
+                return;
+            }
+
             byte si = vgmBuf[vgmAdr + 1];
             if (si == 0xFF || !DacCtrl[si].Enable || PCMBank[DacCtrl[si].Bank].BankCount == 0)
             {
@@ -763,6 +797,12 @@ namespace MDPlayer
 
         private void vcStopStream()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 2;
+                return;
+            }
+
             byte si = vgmBuf[vgmAdr + 1];
             if (!DacCtrl[si].Enable)
             {
@@ -784,6 +824,12 @@ namespace MDPlayer
 
         private void vcStartStreamFastCall()
         {
+            if (model != enmModel.VirtualModel)
+            {
+                vgmAdr += 5;
+                return;
+            }
+
             byte CurChip = vgmBuf[vgmAdr + 1];
             if (CurChip == 0xFF || !DacCtrl[CurChip].Enable ||
                 PCMBank[DacCtrl[CurChip].Bank].BankCount == 0)
@@ -903,7 +949,12 @@ namespace MDPlayer
             else
                 BankSize = getLE32(Adr + 1);// ReadLE32(&Data[0x01]);
 
-            TempPCM.Data = new byte[TempPCM.DataSize + BankSize];// realloc(TempPCM->Data, TempPCM->DataSize + BankSize);
+            byte[] newData = new byte[TempPCM.DataSize + BankSize];
+            if (TempPCM.Data != null && TempPCM.Data.Length > 0)
+                Array.Copy(TempPCM.Data, newData, TempPCM.Data.Length);
+            TempPCM.Data = newData;
+
+            //TempPCM.Data = new byte[TempPCM.DataSize + BankSize];// realloc(TempPCM->Data, TempPCM->DataSize + BankSize);
             TempBnk = TempPCM.Bank[(int)CurBnk];
             TempBnk.DataStart = TempPCM.DataSize;
             TempBnk.Data = new byte[BankSize];
@@ -1214,7 +1265,7 @@ namespace MDPlayer
 
             if (DataSize < 0x06 + TblSize)
             {
-                Console.Write("Warning! Bad PCM Table Length!\n");
+                //Console.Write("Warning! Bad PCM Table Length!\n");
                 //printf("Warning! Bad PCM Table Length!\n");
             }
 
@@ -1282,7 +1333,7 @@ namespace MDPlayer
             Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
             uint SN76489clock = getLE32(0x0c);
-            SN76489ClockValue = defaultSN76489ClockValue;
+            SN76489ClockValue = 0;// defaultSN76489ClockValue;
             if (SN76489clock != 0)
             {
                 chips.Add("SN76489");
@@ -1308,7 +1359,7 @@ namespace MDPlayer
             LoopCounter = getLE32(0x20);
 
             uint YM2612clock = getLE32(0x2c);
-            YM2612ClockValue = defaultYM2612ClockValue;
+            YM2612ClockValue = 0;// defaultYM2612ClockValue;
             if (YM2612clock != 0)
             {
                 chips.Add("YM2612");
@@ -1367,7 +1418,7 @@ namespace MDPlayer
                 if (YMZ280Bclock != 0) chips.Add("YMZ280B");
 
                 uint RF5C164clock = getLE32(0x6c);
-                RF5C164ClockValue = defaultRF5C164ClockValue;
+                RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
                 if (RF5C164clock != 0)
                 {
                     chips.Add("RF5C164");
@@ -1375,7 +1426,7 @@ namespace MDPlayer
                 }
 
                 uint PWMclock = getLE32(0x70);
-                PWMClockValue = defaultPWMClockValue;
+                PWMClockValue = 0;// defaultPWMClockValue;
                 if (PWMclock != 0)
                 {
                     chips.Add("PWM");
@@ -1388,9 +1439,17 @@ namespace MDPlayer
             }
             if (version >= 0x0161)
             {
+                uint OKIM6258clock = getLE32(0x90);
+                OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
+                if (OKIM6258clock != 0)
+                {
+                    chips.Add("OKIM6258");
+                    OKIM6258ClockValue = OKIM6258clock;
+                    OKIM6258Type = vgmBuf[0x94];
+                }
 
                 uint C140clock = getLE32(0xa8);
-                C140ClockValue = defaultC140ClockValue;
+                C140ClockValue = 0;// defaultC140ClockValue;
                 if (C140clock != 0)
                 {
                     chips.Add("C140");

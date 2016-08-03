@@ -73,7 +73,7 @@ namespace MDPlayer
 
         public Setting setting = Setting.Load();
 
-        private MidiIn midiin = null;
+        //private MidiIn midiin = null;
 
 
         public frmMain()
@@ -568,7 +568,7 @@ namespace MDPlayer
                     newParam.sn76489.channels[ch].note = -1;
                 }
 
-                newParam.sn76489.channels[ch].volume = Math.Min(Math.Max((psgVol[ch][0] + psgVol[ch][1]) / 2 / 100, 0), 19);
+                newParam.sn76489.channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
             }
 
             MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register();
@@ -642,7 +642,7 @@ namespace MDPlayer
             }
             for (int ch = 6; ch < 10; ch++)
             {
-                screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask,0);
+                screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask, setting.SN76489Type.UseScci ? 1 : 0);
             }
             for (int ch = 0; ch < 3; ch++)
             {
@@ -826,6 +826,12 @@ namespace MDPlayer
             if (!Audio.Play(setting))
             {
                 MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    frmPlayList.Stop();
+                    Audio.Stop();
+                }
+                catch { }
                 return;
             }
 
@@ -1227,8 +1233,8 @@ namespace MDPlayer
         {
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
             {
-                Console.WriteLine(String.Format("Time {0} Message 0x{1:X8} Event {2}",
-                    e.Timestamp, e.RawMessage, e.MidiEvent));
+                //Console.WriteLine(String.Format("Time {0} Message 0x{1:X8} Event {2}",
+                //    e.Timestamp, e.RawMessage, e.MidiEvent));
             }
         }
 

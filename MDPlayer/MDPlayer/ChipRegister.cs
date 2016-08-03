@@ -44,6 +44,7 @@ namespace MDPlayer
         private bool[] maskFMChYM2151 = new bool[8] { false, false, false, false, false, false, false, false };
 
         public int[] psgRegister = null;
+        public int[][] psgVol = new int[4][] { new int[2], new int[2], new int[2], new int[2] };
         public int nowSN76489FadeoutVol = 0;
 
         private int LatchedRegister;
@@ -489,8 +490,11 @@ namespace MDPlayer
 
             SN76489_Write(dData);
 
-            if ((dData & 0x90) ==0x90)
+            if ((dData & 0x90) == 0x90)
             {
+                psgVol[(dData & 0x60) >> 5][0] = 15-(dData & 0xf);
+                psgVol[(dData & 0x60) >> 5][1] = 15-(dData & 0xf);
+
                 int v = dData & 0xf;
                 v = v + nowSN76489FadeoutVol;
                 v = Math.Min(v, 15);
@@ -624,6 +628,12 @@ namespace MDPlayer
                 mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
+        public void writeOKIM6258(byte ChipID,byte Port,byte Data,vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+                mds.WriteOKIM(ChipID, Port, Data);
+        }
+
         private int volF = 1;
         public void updateVol()
         {
@@ -661,6 +671,12 @@ namespace MDPlayer
             //return mds.ReadFMCh3SlotVolume();
         }
 
+        public int[][] GetPSGVolume()
+        {
+
+            return psgVol;
+
+        }
 
         private void SN76489_Write(int data)
         {

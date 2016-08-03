@@ -151,37 +151,92 @@ namespace MDPlayer
 
             Audio.setting = setting.Copy();
 
-            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[5];
+            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[6];
 
             chips[0] = new MDSound.MDSound.Chip();
             chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
             chips[0].ID = 0;
-            chips[0].ClockValue = vgm.defaultSN76489ClockValue;
-            chips[0].OptionValues = null;
+            MDSound.sn76489 sn76489 = new MDSound.sn76489();
+            chips[0].Instrument = sn76489;
+            chips[0].Update = sn76489.Update;
+            chips[0].Start = sn76489.Start;
+            chips[0].Stop = sn76489.Stop;
+            chips[0].Reset = sn76489.Reset;
+            chips[0].SamplingRate = SamplingRate;
+            chips[0].Volume = 100;
+            chips[0].Clock = vgm.defaultSN76489ClockValue;
+            chips[0].Option = null;
 
             chips[1] = new MDSound.MDSound.Chip();
             chips[1].type = MDSound.MDSound.enmInstrumentType.YM2612;
             chips[1].ID = 0;
-            chips[1].ClockValue = vgm.defaultYM2612ClockValue;
-            chips[1].OptionValues = null;
+            MDSound.ym2612 ym2612 = new MDSound.ym2612();
+            chips[1].Instrument = ym2612;
+            chips[1].Update = ym2612.Update;
+            chips[1].Start = ym2612.Start;
+            chips[1].Stop = ym2612.Stop;
+            chips[1].Reset = ym2612.Reset;
+            chips[1].SamplingRate = SamplingRate;
+            chips[1].Volume = 100;
+            chips[1].Clock = vgm.defaultYM2612ClockValue;
+            chips[1].Option = null;
 
             chips[2] = new MDSound.MDSound.Chip();
             chips[2].type = MDSound.MDSound.enmInstrumentType.RF5C164;
             chips[2].ID = 0;
-            chips[2].ClockValue = vgm.defaultRF5C164ClockValue;
-            chips[2].OptionValues = null;
+            MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();
+            chips[2].Instrument = rf5c164;
+            chips[2].Update = rf5c164.Update;
+            chips[2].Start = rf5c164.Start;
+            chips[2].Stop = rf5c164.Stop;
+            chips[2].Reset = rf5c164.Reset;
+            chips[2].SamplingRate = SamplingRate;
+            chips[2].Volume = 100;
+            chips[2].Clock = vgm.defaultRF5C164ClockValue;
+            chips[2].Option = null;
 
             chips[3] = new MDSound.MDSound.Chip();
             chips[3].type = MDSound.MDSound.enmInstrumentType.PWM;
             chips[3].ID = 0;
-            chips[3].ClockValue = vgm.defaultPWMClockValue;
-            chips[3].OptionValues = null;
+            MDSound.pwm pwm = new MDSound.pwm();
+            chips[3].Instrument = pwm;
+            chips[3].Update = pwm.Update;
+            chips[3].Start = pwm.Start;
+            chips[3].Stop = pwm.Stop;
+            chips[3].Reset = pwm.Reset;
+            chips[3].SamplingRate = SamplingRate;
+            chips[3].Volume = 100;
+            chips[3].Clock = vgm.defaultPWMClockValue;
+            chips[3].Option = null;
 
             chips[4] = new MDSound.MDSound.Chip();
             chips[4].type = MDSound.MDSound.enmInstrumentType.C140;
             chips[4].ID = 0;
-            chips[4].ClockValue = vgm.defaultC140ClockValue;
-            chips[4].OptionValues = new object[1] { vgm.defaultC140Type };
+            MDSound.c140 c140 = new MDSound.c140();
+            chips[4].Instrument = c140;
+            chips[4].Update = c140.Update;
+            chips[4].Start = c140.Start;
+            chips[4].Stop = c140.Stop;
+            chips[4].Reset = c140.Reset;
+            chips[4].SamplingRate = SamplingRate;
+            chips[4].Volume = 100;
+            chips[4].Clock = vgm.defaultC140ClockValue;
+            chips[4].Option = new object[1] { vgm.defaultC140Type };
+
+            chips[5] = new MDSound.MDSound.Chip();
+            chips[5].type = MDSound.MDSound.enmInstrumentType.OKIM6258;
+            chips[5].ID = 0;
+            MDSound.okim6258 okim6258 = new MDSound.okim6258();
+            chips[5].Instrument = okim6258;
+            chips[5].Update = okim6258.Update;
+            chips[5].Start = okim6258.Start;
+            chips[5].Stop = okim6258.Stop;
+            chips[5].Reset = okim6258.Reset;
+            chips[5].SamplingRate = SamplingRate;
+            chips[5].Volume = 100;
+            chips[5].Clock = vgm.defaultOKIM6258ClockValue;
+            chips[5].Option = new object[1] { (int)0 };
+
 
             if (mds == null)
                 mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
@@ -197,6 +252,7 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.RF5C164, 0, setting.balance.RF5C164Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.PWM, 0, setting.balance.PWMVolume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, 100);
 
             nscci = new NScci.NScci();
 
@@ -238,7 +294,7 @@ namespace MDPlayer
             vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
 
             vgmReal.dacControl.chipRegister = chipRegister;
-            vgmReal.dacControl.model = vgm.enmModel.VirtualModel;
+            vgmReal.dacControl.model = vgm.enmModel.RealModel;
 
             Paused = false;
             Stopped = true;
@@ -356,44 +412,125 @@ namespace MDPlayer
                 trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
                 trdMain.Priority = ThreadPriority.Highest;
                 trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
                 trdMain.Start();
 
-                MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[5];
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
-                chips[0] = new MDSound.MDSound.Chip();
-                chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
-                chips[0].ID = 0;
-                chips[0].ClockValue = vgmVirtual.SN76489ClockValue;
-                chips[0].OptionValues = null;
+                MDSound.MDSound.Chip chip;
 
-                chips[1] = new MDSound.MDSound.Chip();
-                chips[1].type = MDSound.MDSound.enmInstrumentType.YM2612;
-                chips[1].ID = 0;
-                chips[1].ClockValue = vgmVirtual.YM2612ClockValue;
-                chips[1].OptionValues = null;
+                if (vgmVirtual.SN76489ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                    chip.ID = 0;
+                    MDSound.sn76489 sn76489 = new MDSound.sn76489();
+                    chip.Instrument = sn76489;
+                    chip.Update = sn76489.Update;
+                    chip.Start = sn76489.Start;
+                    chip.Stop = sn76489.Stop;
+                    chip.Reset = sn76489.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.SN76489Volume;
+                    chip.Clock = vgmVirtual.SN76489ClockValue;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                }
 
-                chips[2] = new MDSound.MDSound.Chip();
-                chips[2].type = MDSound.MDSound.enmInstrumentType.RF5C164;
-                chips[2].ID = 0;
-                chips[2].ClockValue = vgmVirtual.RF5C164ClockValue;
-                chips[2].OptionValues = null;
+                if (vgmVirtual.YM2612ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
+                    chip.ID = 0;
+                    MDSound.ym2612 ym2612 = new MDSound.ym2612();
+                    chip.Instrument = ym2612;
+                    chip.Update = ym2612.Update;
+                    chip.Start = ym2612.Start;
+                    chip.Stop = ym2612.Stop;
+                    chip.Reset = ym2612.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.YM2612Volume;
+                    chip.Clock = vgmVirtual.YM2612ClockValue;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                }
 
-                chips[3] = new MDSound.MDSound.Chip();
-                chips[3].type = MDSound.MDSound.enmInstrumentType.PWM;
-                chips[3].ID = 0;
-                chips[3].ClockValue = vgmVirtual.PWMClockValue;
-                chips[3].OptionValues = null;
+                if (vgmVirtual.RF5C164ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.RF5C164;
+                    chip.ID = 0;
+                    MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();
+                    chip.Instrument = rf5c164;
+                    chip.Update = rf5c164.Update;
+                    chip.Start = rf5c164.Start;
+                    chip.Stop = rf5c164.Stop;
+                    chip.Reset = rf5c164.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.RF5C164Volume;
+                    chip.Clock = vgmVirtual.RF5C164ClockValue;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                }
 
-                chips[4] = new MDSound.MDSound.Chip();
-                chips[4].type = MDSound.MDSound.enmInstrumentType.C140;
-                chips[4].ID = 0;
-                chips[4].ClockValue = vgmVirtual.C140ClockValue;
-                chips[4].OptionValues = new object[1] { vgmVirtual.C140Type };
+                if (vgmVirtual.PWMClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.PWM;
+                    chip.ID = 0;
+                    MDSound.pwm pwm = new MDSound.pwm();
+                    chip.Instrument = pwm;
+                    chip.Update = pwm.Update;
+                    chip.Start = pwm.Start;
+                    chip.Stop = pwm.Stop;
+                    chip.Reset = pwm.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.PWMVolume;
+                    chip.Clock = vgmVirtual.PWMClockValue;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                }
+
+                if (vgmVirtual.C140ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.C140;
+                    chip.ID = 0;
+                    MDSound.c140 c140 = new MDSound.c140();
+                    chip.Instrument = c140;
+                    chip.Update = c140.Update;
+                    chip.Start = c140.Start;
+                    chip.Stop = c140.Stop;
+                    chip.Reset = c140.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.C140Volume;
+                    chip.Clock = vgmVirtual.C140ClockValue;
+                    chip.Option = new object[1] { vgmVirtual.C140Type };
+                    lstChips.Add(chip);
+                }
+
+                if (vgmVirtual.OKIM6258ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.OKIM6258;
+                    chip.ID = 0;
+                    MDSound.okim6258 okim6258 = new MDSound.okim6258();
+                    chip.Instrument = okim6258;
+                    chip.Update = okim6258.Update;
+                    chip.Start = okim6258.Start;
+                    chip.Stop = okim6258.Stop;
+                    chip.Reset = okim6258.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.OKIM6258Volume;
+                    chip.Clock = vgmVirtual.OKIM6258ClockValue;
+                    chip.Option = new object[1] { (int)vgmVirtual.OKIM6258Type };
+                    lstChips.Add(chip);
+                }
 
                 if (mds == null)
-                    mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
+                    mds = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init(SamplingRate, samplingBuffer, chips);
+                    mds.Init(SamplingRate, samplingBuffer, lstChips.ToArray());
 
                 //, (vgmVirtual.RF5C164ClockValue & 0x80000000) + (uint)((vgmVirtual.RF5C164ClockValue & 0x7fffffff) * (SamplingRate / (12500000.0 / 384)))
                 //, (uint)(vgmVirtual.PWMClockValue * (SamplingRate / (23011361.0 / 384)))
@@ -480,8 +617,19 @@ namespace MDPlayer
                     }
                 }
                 trdClosed = true;
-                while (!trdStopped) { Thread.Sleep(1); };
-                while (!Stopped) { Thread.Sleep(1); };
+
+                int timeout = 5000;
+                while (!trdStopped)
+                {
+                    Thread.Sleep(1);
+                    timeout--;
+                    if (timeout < 1) break;
+                };
+                while (!Stopped) {
+                    Thread.Sleep(1);
+                    timeout--;
+                    if (timeout < 1) break;
+                };
                 //if (scYM2612 != null) scYM2612.init();
                 if (nscci != null) nscci.reset();
             }
@@ -558,7 +706,7 @@ namespace MDPlayer
 
         public static int[][] GetPSGVolume()
         {
-            return mds.ReadPSGVolume();
+            return chipRegister.GetPSGVolume();
         }
 
         public static int[][] GetRf5c164Volume()
@@ -767,13 +915,13 @@ namespace MDPlayer
                 if (Stopped || Paused)
                 {
 
-                    return mds.Update2(buffer, offset, sampleCount, null);
+                    return mds.Update(buffer, offset, sampleCount, null);
 
                 }
-                if (vgmReal.isDataBlock) { return mds.Update2(buffer, offset, sampleCount, null); }
+                if (vgmReal.isDataBlock) { return mds.Update(buffer, offset, sampleCount, null); }
 
                 int cnt;
-                cnt = mds.Update2(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
+                cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
 
                 if (vgmFadeout)
                 {
@@ -799,37 +947,91 @@ namespace MDPlayer
 
                 if (vgmFadeoutCounter == 0.0)
                 {
-                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[5];
+                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[6];
 
                     chips[0] = new MDSound.MDSound.Chip();
                     chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
                     chips[0].ID = 0;
-                    chips[0].ClockValue = vgm.defaultSN76489ClockValue;
-                    chips[0].OptionValues = null;
+                    MDSound.sn76489 sn76489 = new MDSound.sn76489();
+                    chips[0].Instrument = sn76489;
+                    chips[0].Update = sn76489.Update;
+                    chips[0].Start = sn76489.Start;
+                    chips[0].Stop = sn76489.Stop;
+                    chips[0].Reset = sn76489.Reset;
+                    chips[0].SamplingRate = SamplingRate;
+                    chips[0].Volume = 100;
+                    chips[0].Clock = vgm.defaultSN76489ClockValue;
+                    chips[0].Option = null;
 
                     chips[1] = new MDSound.MDSound.Chip();
                     chips[1].type = MDSound.MDSound.enmInstrumentType.YM2612;
                     chips[1].ID = 0;
-                    chips[1].ClockValue = vgm.defaultYM2612ClockValue;
-                    chips[1].OptionValues = null;
+                    MDSound.ym2612 ym2612 = new MDSound.ym2612();
+                    chips[1].Instrument = ym2612;
+                    chips[1].Update = ym2612.Update;
+                    chips[1].Start = ym2612.Start;
+                    chips[1].Stop = ym2612.Stop;
+                    chips[1].Reset = ym2612.Reset;
+                    chips[1].SamplingRate = SamplingRate;
+                    chips[1].Volume = 100;
+                    chips[1].Clock = vgm.defaultYM2612ClockValue;
+                    chips[1].Option = null;
 
                     chips[2] = new MDSound.MDSound.Chip();
                     chips[2].type = MDSound.MDSound.enmInstrumentType.RF5C164;
                     chips[2].ID = 0;
-                    chips[2].ClockValue = vgm.defaultRF5C164ClockValue;
-                    chips[2].OptionValues = null;
+                    MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();
+                    chips[2].Instrument = rf5c164;
+                    chips[2].Update = rf5c164.Update;
+                    chips[2].Start = rf5c164.Start;
+                    chips[2].Stop = rf5c164.Stop;
+                    chips[2].Reset = rf5c164.Reset;
+                    chips[2].SamplingRate = SamplingRate;
+                    chips[2].Volume = 100;
+                    chips[2].Clock = vgm.defaultRF5C164ClockValue;
+                    chips[2].Option = null;
 
                     chips[3] = new MDSound.MDSound.Chip();
                     chips[3].type = MDSound.MDSound.enmInstrumentType.PWM;
                     chips[3].ID = 0;
-                    chips[3].ClockValue = vgm.defaultPWMClockValue;
-                    chips[3].OptionValues = null;
+                    MDSound.pwm pwm = new MDSound.pwm();
+                    chips[3].Instrument = pwm;
+                    chips[3].Update = pwm.Update;
+                    chips[3].Start = pwm.Start;
+                    chips[3].Stop = pwm.Stop;
+                    chips[3].Reset = pwm.Reset;
+                    chips[3].SamplingRate = SamplingRate;
+                    chips[3].Volume = 100;
+                    chips[3].Clock = vgm.defaultPWMClockValue;
+                    chips[3].Option = null;
 
                     chips[4] = new MDSound.MDSound.Chip();
                     chips[4].type = MDSound.MDSound.enmInstrumentType.C140;
                     chips[4].ID = 0;
-                    chips[4].ClockValue = vgm.defaultC140ClockValue;
-                    chips[4].OptionValues = new object[1] { vgm.defaultC140Type };
+                    MDSound.c140 c140 = new MDSound.c140();
+                    chips[4].Instrument = c140;
+                    chips[4].Update = c140.Update;
+                    chips[4].Start = c140.Start;
+                    chips[4].Stop = c140.Stop;
+                    chips[4].Reset = c140.Reset;
+                    chips[4].SamplingRate = SamplingRate;
+                    chips[4].Volume = 100;
+                    chips[4].Clock = vgm.defaultC140ClockValue;
+                    chips[4].Option = new object[1] { vgm.defaultC140Type };
+
+                    chips[5] = new MDSound.MDSound.Chip();
+                    chips[5].type = MDSound.MDSound.enmInstrumentType.OKIM6258;
+                    chips[5].ID = 0;
+                    MDSound.okim6258 okim6258 = new MDSound.okim6258();
+                    chips[5].Instrument = okim6258;
+                    chips[5].Update = okim6258.Update;
+                    chips[5].Start = okim6258.Start;
+                    chips[5].Stop = okim6258.Stop;
+                    chips[5].Reset = okim6258.Reset;
+                    chips[5].SamplingRate = SamplingRate;
+                    chips[5].Volume = 100;
+                    chips[5].Clock = vgm.defaultOKIM6258ClockValue;
+                    chips[5].Option = new object[1] { (int)0 };
 
                     if (mds == null)
                         mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
@@ -845,6 +1047,7 @@ namespace MDPlayer
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.RF5C164, 0, setting.balance.RF5C164Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.PWM, 0, setting.balance.PWMVolume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, 100);
 
                     Stopped = true;
                 }
@@ -852,7 +1055,7 @@ namespace MDPlayer
                 return cnt;
 
             }
-            catch
+            catch(Exception ex)
             {
                 fatalError = true;
                 Stopped = true;

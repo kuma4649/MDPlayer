@@ -119,6 +119,12 @@
     <Compile Include="frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmYM2608.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmYM2608.Designer.cs">
+      <DependentUpon>frmYM2608.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDChipParams.cs" />
     <Compile Include="NAudioWrap.cs" />
     <Compile Include="PlayList.cs" />
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmYM2608.resx">
+      <DependentUpon>frmYM2608.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -186,6 +195,8 @@
     <Content Include="Resources\japPL.png" />
     <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\planeD.png" />
+    <Content Include="Resources\planeF.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />

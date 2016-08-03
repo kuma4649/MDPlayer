@@ -905,11 +905,13 @@ namespace MDPlayer
             for (int c = 0; c < 4; c++)
             {
 
+                int tp = setting.SN76489Type.UseScci ? 1 : 0;
+
                 MDChipParams.SN76489.Channel osc = oldParam.sn76489.channels[c];
                 MDChipParams.SN76489.Channel nsc = newParam.sn76489.channels[c];
 
-                drawVolume(c + 6, 0, ref osc.volume, nsc.volume, 0);
-                drawKb(c + 6, ref osc.note, nsc.note, 0);
+                drawVolume(c + 6, 0, ref osc.volume, nsc.volume, tp);
+                drawKb(c + 6, ref osc.note, nsc.note, tp);
 
             }
 
