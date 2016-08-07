@@ -88,6 +88,12 @@
     <Compile Include="Audio.cs" />
     <Compile Include="ChipRegister.cs" />
     <Compile Include="dacControl.cs" />
+    <Compile Include="frmC140.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmC140.Designer.cs">
+      <DependentUpon>frmC140.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     <Compile Include="frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmYM2151.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmYM2151.Designer.cs">
+      <DependentUpon>frmYM2151.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmYM2608.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +144,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="vgm.cs" />
+    <EmbeddedResource Include="frmC140.resx">
+      <DependentUpon>frmC140.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInfo.resx">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmYM2151.resx">
+      <DependentUpon>frmYM2151.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmYM2608.resx">
       <DependentUpon>frmYM2608.cs</DependentUpon>
@@ -196,6 +214,7 @@
     <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeB.png" />
     <Content Include="Resources\planeD.png" />
+    <Content Include="Resources\planeE.png" />
     <Content Include="Resources\planeF.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\upPL.png" />

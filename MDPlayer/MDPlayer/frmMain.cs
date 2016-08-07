@@ -18,6 +18,9 @@ namespace MDPlayer
 
         private frmInfo frmInfo = null;
         private frmMegaCD frmMCD = null;
+        private frmC140 frmC140 = null;
+        private frmYM2608 frmYM2608 = null;
+        private frmYM2151 frmYM2151 = null;
         private frmPlayList frmPlayList = null;
 
         private MDChipParams oldParam = new MDChipParams();
@@ -98,6 +101,9 @@ namespace MDPlayer
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            if (setting.location.PMain != System.Drawing.Point.Empty)
+                this.Location = setting.location.PMain;
+
             // DoubleBufferオブジェクトの作成
 
             pbRf5c164Screen = new PictureBox();
@@ -175,6 +181,20 @@ namespace MDPlayer
             }
             // 解放
             screen.Dispose();
+
+            setting.location.PMain = this.Location;
+            if (frmInfo != null && !frmInfo.isClosed) setting.location.PInfo = frmInfo.Location;
+            if (frmPlayList != null && !frmPlayList.isClosed)
+            {
+                setting.location.PPlayList = frmPlayList.Location;
+                setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
+            }
+            if (frmMCD != null && !frmMCD.isClosed) setting.location.PRf5c164 = frmMCD.Location;
+            if (frmC140 != null && !frmC140.isClosed) setting.location.PC140 = frmC140.Location;
+            if (frmYM2151 != null && !frmYM2151.isClosed) setting.location.PYm2151 = frmYM2151.Location;
+            if (frmYM2608 != null && !frmYM2608.isClosed) setting.location.PYm2608 = frmYM2608.Location;
+
+            setting.Save();
         }
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
@@ -406,6 +426,12 @@ namespace MDPlayer
                 return;
             }
 
+            if (e.Location.X >= 320 - 1 * 16 && e.Location.X < 320 - 0 * 16)
+            {
+                showContextMenu();
+                return;
+            }
+
         }
 
         private void screenMainLoop()
@@ -429,8 +455,12 @@ namespace MDPlayer
                 }
 
                 screenChangeParams();
+
                 if (frmMCD != null && !frmMCD.isClosed) frmMCD.screenChangeParams();
                 else frmMCD = null;
+
+                if (frmC140 != null && !frmC140.isClosed) frmC140.screenChangeParams();
+                else frmC140 = null;
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
@@ -439,8 +469,15 @@ namespace MDPlayer
                 }
 
                 screenDrawParams();
+
                 if (frmMCD != null && !frmMCD.isClosed) frmMCD.screenDrawParams();
                 else frmMCD = null;
+
+                if (frmC140 != null && !frmC140.isClosed) frmC140.screenDrawParams();
+                else frmC140 = null;
+
+                if (frmYM2608 != null && !frmYM2608.isClosed) frmYM2608.screenDrawParams();
+                else frmYM2608 = null;
 
                 nextFrame += period;
 
@@ -590,6 +627,27 @@ namespace MDPlayer
                 newParam.rf5c164.channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
             }
 
+            MDSound.c140.c140_state c140State = Audio.GetC140Register();
+            for (int ch = 0; ch < 24; ch++)
+            {
+                int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
+                int l = c140State.REG[ch * 16 + 1];
+                int r = c140State.REG[ch * 16 + 0];
+                int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
+
+                if (c140State.voi[ch].key == 0) frequency = 0;
+                if (frequency == 0)
+                {
+                    l = 0;
+                    r = 0;
+                }
+
+                newParam.c140.channels[ch].note = frequency == 0 ? -1 : searchC140Note(frequency);
+                newParam.c140.channels[ch].pan = ((l>>2) & 0xf) | (((r>>2) & 0xf) << 4);
+                newParam.c140.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
+                newParam.c140.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
+            }
+
             long w = Audio.GetCounter();
             double sec = (double)w / (double)SamplingRate;
             newParam.Cminutes = (int)(sec / 60);
@@ -719,6 +777,22 @@ namespace MDPlayer
             for (int i = 0; i < 12 * 8; i++)
             {
                 double a = Math.Abs(freq - (0x0800 * pcmMTbl[i % 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
+        private int searchC140Note(int freq)
+        {
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(freq - ((0x0800<<2) * pcmMTbl[i % 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -897,6 +971,16 @@ namespace MDPlayer
 
         private void dispPlayList()
         {
+            frmPlayList.setting = setting;
+            if (setting.location.PPlayList != System.Drawing.Point.Empty)
+            {
+                frmPlayList.Location = setting.location.PPlayList;
+            }
+            if (setting.location.PPlayListWH != System.Drawing.Point.Empty)
+            {
+                frmPlayList.Width = setting.location.PPlayListWH.X;
+                frmPlayList.Height = setting.location.PPlayListWH.Y;
+            }
             frmPlayList.Visible = !frmPlayList.Visible;
             frmPlayList.TopMost = true;
             frmPlayList.TopMost = false;
@@ -920,8 +1004,17 @@ namespace MDPlayer
             }
 
             frmInfo = new frmInfo(this);
-            frmInfo.x = this.Location.X + 328;
-            frmInfo.y = this.Location.Y;
+            if (setting.location.PInfo == System.Drawing.Point.Empty)
+            {
+                frmInfo.x = this.Location.X + 328;
+                frmInfo.y = this.Location.Y;
+            }
+            else
+            {
+                frmInfo.x = setting.location.PInfo.X;
+                frmInfo.y = setting.location.PInfo.Y;
+            }
+            frmInfo.setting = setting;
             frmInfo.Show();
             frmInfo.update();
         }
@@ -950,12 +1043,31 @@ namespace MDPlayer
             }
 
             frmMCD = new frmMegaCD(this);
-            frmMCD.x = this.Location.X;
-            frmMCD.y = this.Location.Y + 264;
+            if (setting.location.PRf5c164 == System.Drawing.Point.Empty)
+            {
+                frmMCD.x = this.Location.X;
+                frmMCD.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmMCD.x = setting.location.PRf5c164.X;
+                frmMCD.y = setting.location.PRf5c164.Y;
+            }
+
             screen.AddRf5c164(frmMCD.pbScreen, Properties.Resources.planeC);
             frmMCD.Show();
             frmMCD.update();
         }
+
+        private void showContextMenu()
+        {
+            cmsOpenOtherPanel.Show();
+            System.Drawing.Point p = Control.MousePosition;
+            cmsOpenOtherPanel.Top = p.Y;
+            cmsOpenOtherPanel.Left = p.X;
+        }
+
+
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
         {
@@ -1259,5 +1371,127 @@ namespace MDPlayer
             }
         }
 
+        private void tsmiC140_Click(object sender, EventArgs e)
+        {
+            if (frmC140 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveC140();
+                }
+                catch { }
+                try
+                {
+                    frmC140.Close();
+                }
+                catch { }
+                try
+                {
+                    frmC140.Dispose();
+                }
+                catch { }
+                frmC140 = null;
+                return;
+            }
+
+            frmC140 = new frmC140(this);
+            screen.AddC140(frmC140.pbScreen, Properties.Resources.planeF);
+
+            if (setting.location.PC140 == System.Drawing.Point.Empty)
+            {
+                frmC140.x = this.Location.X;
+                frmC140.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmC140.x = setting.location.PC140.X;
+                frmC140.y = setting.location.PC140.Y;
+            }
+
+            frmC140.Show();
+            frmC140.update();
+        }
+
+        private void tsmiOPNA_Click(object sender, EventArgs e)
+        {
+            if (frmYM2608 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveYM2608();
+                }
+                catch { }
+                try
+                {
+                    frmYM2608.Close();
+                }
+                catch { }
+                try
+                {
+                    frmYM2608.Dispose();
+                }
+                catch { }
+                frmYM2608 = null;
+                return;
+            }
+
+            frmYM2608 = new frmYM2608(this);
+
+            if (setting.location.PYm2608 == System.Drawing.Point.Empty)
+            {
+                frmYM2608.x = this.Location.X;
+                frmYM2608.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmYM2608.x = setting.location.PYm2608.X;
+                frmYM2608.y = setting.location.PYm2608.Y;
+            }
+
+            screen.AddYM2608(frmYM2608.pbScreen, Properties.Resources.planeD);
+            frmYM2608.Show();
+            frmYM2608.update();
+        }
+
+        private void tsmiOPM_Click(object sender, EventArgs e)
+        {
+            if (frmYM2151 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveYM2151();
+                }
+                catch { }
+                try
+                {
+                    frmYM2151.Close();
+                }
+                catch { }
+                try
+                {
+                    frmYM2151.Dispose();
+                }
+                catch { }
+                frmYM2151 = null;
+                return;
+            }
+
+            frmYM2151 = new frmYM2151(this);
+
+            if (setting.location.PYm2151 == System.Drawing.Point.Empty)
+            {
+                frmYM2151.x = this.Location.X;
+                frmYM2151.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmYM2151.x = setting.location.PYm2151.X;
+                frmYM2151.y = setting.location.PYm2151.Y;
+            }
+
+            screen.AddYM2151(frmYM2151.pbScreen, Properties.Resources.planeE);
+            frmYM2151.Show();
+            frmYM2151.update();
+        }
     }
 }

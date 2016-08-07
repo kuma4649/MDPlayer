@@ -28,9 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pbScreen = new System.Windows.Forms.PictureBox();
+            this.cmsOpenOtherPanel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiC140 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOPNA = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOPM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
+            this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbScreen
@@ -47,6 +53,36 @@
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             this.pbScreen.MouseLeave += new System.EventHandler(this.pbScreen_MouseLeave);
             this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseMove);
+            // 
+            // cmsOpenOtherPanel
+            // 
+            this.cmsOpenOtherPanel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiC140,
+            this.tsmiOPNA,
+            this.tsmiOPM});
+            this.cmsOpenOtherPanel.Name = "cmsOpenOtherPanel";
+            this.cmsOpenOtherPanel.Size = new System.Drawing.Size(153, 92);
+            // 
+            // tsmiC140
+            // 
+            this.tsmiC140.Name = "tsmiC140";
+            this.tsmiC140.Size = new System.Drawing.Size(152, 22);
+            this.tsmiC140.Text = "C140";
+            this.tsmiC140.Click += new System.EventHandler(this.tsmiC140_Click);
+            // 
+            // tsmiOPNA
+            // 
+            this.tsmiOPNA.Name = "tsmiOPNA";
+            this.tsmiOPNA.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOPNA.Text = "OPNA";
+            this.tsmiOPNA.Click += new System.EventHandler(this.tsmiOPNA_Click);
+            // 
+            // tsmiOPM
+            // 
+            this.tsmiOPM.Name = "tsmiOPM";
+            this.tsmiOPM.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOPM.Text = "OPM";
+            this.tsmiOPM.Click += new System.EventHandler(this.tsmiOPM_Click);
             // 
             // frmMain
             // 
@@ -66,6 +102,7 @@
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
+            this.cmsOpenOtherPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -73,6 +110,10 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbScreen;
+        private System.Windows.Forms.ContextMenuStrip cmsOpenOtherPanel;
+        private System.Windows.Forms.ToolStripMenuItem tsmiC140;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOPNA;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOPM;
     }
 }
 

@@ -16,6 +16,7 @@ namespace MDPlayer
         public int x = -1;
         public int y = -1;
         public frmMain parent = null;
+        public Setting setting = null;
 
         public frmInfo(frmMain frm)
         {
@@ -54,6 +55,7 @@ namespace MDPlayer
         private void frmInfo_FormClosed(object sender, FormClosedEventArgs e)
         {
             isClosed = true;
+            setting.location.PInfo = this.Location;
         }
 
         private void frmInfo_Load(object sender, EventArgs e)

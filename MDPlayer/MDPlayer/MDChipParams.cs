@@ -86,5 +86,22 @@ namespace MDPlayer
         }
         public RF5C164 rf5c164 = new RF5C164();
 
+        public class C140
+        {
+            public class Channel
+            {
+
+                public int pan = -1;
+                public int note = -1;
+                public int volumeL = -1;
+                public int volumeR = -1;
+                public int freq = -1;
+                public bool mask = false;
+
+            }
+            public Channel[] channels = new Channel[24] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+        }
+        public C140 c140 = new C140();
+
     }
 }

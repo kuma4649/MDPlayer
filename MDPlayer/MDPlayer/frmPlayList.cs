@@ -17,6 +17,7 @@ namespace MDPlayer
         public int x = -1;
         public int y = -1;
         public frmMain frmMain = null;
+        public Setting setting = null;
 
         private PlayList playList = null;
 
@@ -139,6 +140,8 @@ namespace MDPlayer
         private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
         {
             isClosed = true;
+            setting.location.PPlayList = this.Location;
+            setting.location.PPlayListWH = new Point(this.Width, this.Height);
             this.Visible = false;
             e.Cancel = true;
         }

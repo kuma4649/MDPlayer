@@ -1,6 +1,6 @@
 ﻿namespace MDPlayer
 {
-    partial class frmYM2608
+    partial class frmYM2151
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmYM2608));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmYM2151));
             this.pbScreen = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.SuspendLayout();
@@ -36,14 +36,14 @@
             // pbScreen
             // 
             this.pbScreen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeD;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeE;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 216);
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
             // 
-            // frmYM2608
+            // frmYM2151
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -52,11 +52,11 @@
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmYM2608";
-            this.Text = "OPNA";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmYM2608_FormClosed);
-            this.Load += new System.EventHandler(this.frmYM2608_Load);
-            this.Resize += new System.EventHandler(this.frmYM2608_Resize);
+            this.Name = "frmYM2151";
+            this.Text = "OPM";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmYM2151_FormClosed);
+            this.Load += new System.EventHandler(this.frmYM2151_Load);
+            this.Resize += new System.EventHandler(this.frmYM2151_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
             this.ResumeLayout(false);
 

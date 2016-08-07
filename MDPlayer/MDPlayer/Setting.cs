@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -164,6 +165,19 @@ namespace MDPlayer
             }
         }
 
+        private Location _location = new Location();
+        public Location location
+        {
+            get
+            {
+                return _location;
+            }
+
+            set
+            {
+                _location = value;
+            }
+        }
 
 
         [Serializable]
@@ -653,6 +667,137 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class Location
+        {
+            private Point _PMain = Point.Empty;
+            public Point PMain
+            {
+                get
+                {
+                    return _PMain;
+                }
+
+                set
+                {
+                    _PMain = value;
+                }
+            }
+
+            private Point _PInfo = Point.Empty;
+            public Point PInfo
+            {
+                get
+                {
+                    return _PInfo;
+                }
+
+                set
+                {
+                    _PInfo = value;
+                }
+            }
+
+            private Point _PPlayList = Point.Empty;
+            public Point PPlayList
+            {
+                get
+                {
+                    return _PPlayList;
+                }
+
+                set
+                {
+                    _PPlayList = value;
+                }
+            }
+
+            private Point _PPlayListWH = Point.Empty;
+            public Point PPlayListWH
+            {
+                get
+                {
+                    return _PPlayListWH;
+                }
+
+                set
+                {
+                    _PPlayListWH = value;
+                }
+            }
+
+            private Point _PRf5c164 = Point.Empty;
+            public Point PRf5c164
+            {
+                get
+                {
+                    return _PRf5c164;
+                }
+
+                set
+                {
+                    _PRf5c164 = value;
+                }
+            }
+
+            private Point _PC140 = Point.Empty;
+            public Point PC140
+            {
+                get
+                {
+                    return _PC140;
+                }
+
+                set
+                {
+                    _PC140 = value;
+                }
+            }
+
+            private Point _PYm2151 = Point.Empty;
+            public Point PYm2151
+            {
+                get
+                {
+                    return _PYm2151;
+                }
+
+                set
+                {
+                    _PYm2151 = value;
+                }
+            }
+
+            private Point _PYm2608 = Point.Empty;
+            public Point PYm2608
+            {
+                get
+                {
+                    return _PYm2608;
+                }
+
+                set
+                {
+                    _PYm2608 = value;
+                }
+            }
+
+            public Location Copy()
+            {
+                Location Location = new Location();
+                Location.PMain = this.PMain;
+                Location.PInfo = this.PInfo;
+                Location.PPlayList = this.PPlayList;
+                Location.PPlayListWH = this.PPlayListWH;
+                Location.PRf5c164 = this.PRf5c164;
+                Location.PC140 = this.PC140;
+                Location.PYm2151 = this.PYm2151;
+                Location.PYm2608 = this.PYm2608;
+
+                return Location;
+            }
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -667,6 +812,7 @@ namespace MDPlayer
             setting.LatencySCCI = this.LatencySCCI;
             setting.Debug_DispFrameCounter = this.Debug_DispFrameCounter;
             setting.HiyorimiMode = this.HiyorimiMode;
+            setting.location = this.location.Copy();
 
             return setting;
         }

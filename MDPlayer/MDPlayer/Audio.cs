@@ -550,6 +550,7 @@ namespace MDPlayer
             }
             catch(Exception ex)
             {
+                System.Console.WriteLine("ex.Message:\r\n{0}\r\nex.StackTrace:\r\n{1}",ex.Message, ex.StackTrace);
                 return false;
             }
 
@@ -682,6 +683,11 @@ namespace MDPlayer
         public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register()
         {
             return mds.ReadRf5c164Register();
+        }
+
+        public static MDSound.c140.c140_state GetC140Register()
+        {
+            return mds.ReadC140Register(0);
         }
 
         public static int[] GetFMKeyOn()
@@ -1057,6 +1063,7 @@ namespace MDPlayer
             }
             catch(Exception ex)
             {
+                System.Console.WriteLine("ex.Message:\r\n{0}\r\nex.StackTrace:\r\n{1}", ex.Message, ex.StackTrace);
                 fatalError = true;
                 Stopped = true;
             }

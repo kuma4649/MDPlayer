@@ -1,17 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MDPlayer
 {
-    public partial class frmMegaCD : Form
+    public partial class frmC140 : Form
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
         public frmMain parent = null;
 
-        public frmMegaCD(frmMain frm)
+        public frmC140(frmMain frm)
         {
             parent = frm;
             InitializeComponent();
@@ -31,20 +37,20 @@ namespace MDPlayer
             }
         }
 
-        private void frmMegaCD_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmC140_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PRf5c164 = Location;
+            parent.setting.location.PC140 = Location;
             isClosed = true;
         }
 
-        private void frmMegaCD_Load(object sender, EventArgs e)
+        private void frmC140_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
-
         }
 
-        private void frmMegaCD_Resize(object sender, EventArgs e)
+        private void frmC140_Resize(object sender, EventArgs e)
         {
+
         }
 
         protected override void WndProc(ref Message m)
@@ -66,7 +72,6 @@ namespace MDPlayer
         public void screenDrawParams()
         {
         }
-
 
     }
 }
