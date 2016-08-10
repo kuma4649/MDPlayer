@@ -639,7 +639,7 @@ namespace MDPlayer
                 }
             }
 
-            private int _OKIM6258Volume = 40;
+            private int _OKIM6258Volume = 100;
             public int OKIM6258Volume
             {
                 get

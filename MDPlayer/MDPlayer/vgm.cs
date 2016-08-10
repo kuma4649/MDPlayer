@@ -504,7 +504,9 @@ namespace MDPlayer
 
         private void vcYM2612Port1()
         {
-            chipRegister.setYM2612Register(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            int adr = vgmBuf[vgmAdr + 1];
+            int dat = vgmBuf[vgmAdr + 2];
+            chipRegister.setYM2612Register(1, adr, dat, model);
             vgmAdr += 3;
         }
 
@@ -516,7 +518,22 @@ namespace MDPlayer
 
         private void vcYM2608Port1()
         {
-            chipRegister.setYM2608Register(1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            int adr = vgmBuf[vgmAdr + 1];
+            int dat = vgmBuf[vgmAdr + 2];
+            if (adr >= 0x00 && adr <= 0x10 && model== enmModel.RealModel)
+            {
+                Console.WriteLine("{0:X2}:{1:X2}", adr, dat);
+            }
+            if (adr == 0x01)
+            {
+                //dat &= 0xfd;
+                //dat |= 1;
+            }
+            if (adr == 0x00 && (dat & 0x20) != 0)
+            {
+                //dat &= 0xdf;
+            }
+            chipRegister.setYM2608Register(1, adr, dat, model);
             vgmAdr += 3;
         }
 
@@ -568,7 +585,7 @@ namespace MDPlayer
             uint bAdr = vgmAdr + 7;
             byte bType = vgmBuf[vgmAdr + 2];
             uint bLen = getLE32(vgmAdr + 3);
-            if ((bLen & 0x80000000)>0)
+            if ((bLen & 0x80000000)!=0)
             {
                 bLen &= 0x7fffffff;
                 //CurrentChip 1
@@ -615,6 +632,28 @@ namespace MDPlayer
                             }
                             chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
                             chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+
+                            //chipRegister.setYM2608Register(0x1, 0x10, 0x13, model);
+                            //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+                            //chipRegister.setYM2608Register(0x1, 0x00, 0x60, model);
+                            //chipRegister.setYM2608Register(0x1, 0x01, 0x00, model);
+
+                            //chipRegister.setYM2608Register(0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+                            //chipRegister.setYM2608Register(0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            //chipRegister.setYM2608Register(0x1, 0x04, (int)(((startAddress + bLen - 8) >> 2) & 0xff), model);
+                            //chipRegister.setYM2608Register(0x1, 0x05, (int)(((startAddress + bLen - 8) >> 10) & 0xff), model);
+                            //chipRegister.setYM2608Register(0x1, 0x0c, 0xff, model);
+                            //chipRegister.setYM2608Register(0x1, 0x0d, 0xff, model);
+
+                            //for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            //{
+                            //    chipRegister.setYM2608Register(0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                            //    chipRegister.setYM2608Register(0x1, 0x10, 0x1b, model);
+                            //    chipRegister.setYM2608Register(0x1, 0x10, 0x13, model);
+                            //}
+
+                            //chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
+                            //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
                             chipRegister.sendDataYM2608(model);
                             break;
