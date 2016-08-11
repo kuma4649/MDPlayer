@@ -1234,46 +1234,55 @@ namespace MDPlayer
 
             }
 
-            for (int c = 0; c < 8; c++)
+            if (rf5c164Screen != null)
             {
+                for (int c = 0; c < 8; c++)
+                {
 
-                MDChipParams.RF5C164.Channel orc = oldParam.rf5c164.channels[c];
-                MDChipParams.RF5C164.Channel nrc = newParam.rf5c164.channels[c];
+                    MDChipParams.RF5C164.Channel orc = oldParam.rf5c164.channels[c];
+                    MDChipParams.RF5C164.Channel nrc = newParam.rf5c164.channels[c];
 
-                drawVolumeToRf5c164(c, 1, ref orc.volumeL, nrc.volumeL);
-                drawVolumeToRf5c164(c, 2, ref orc.volumeR, nrc.volumeR);
-                drawKbToRf5c164(c, ref orc.note, nrc.note);
-                drawPanToRf5c164(c, ref orc.pan, nrc.pan);
+                    drawVolumeToRf5c164(c, 1, ref orc.volumeL, nrc.volumeL);
+                    drawVolumeToRf5c164(c, 2, ref orc.volumeR, nrc.volumeR);
+                    drawKbToRf5c164(c, ref orc.note, nrc.note);
+                    drawPanToRf5c164(c, ref orc.pan, nrc.pan);
 
+                }
             }
 
-            for (int c = 0; c < 24; c++)
+            if (c140Screen != null)
             {
+                for (int c = 0; c < 24; c++)
+                {
 
-                MDChipParams.C140.Channel orc = oldParam.c140.channels[c];
-                MDChipParams.C140.Channel nrc = newParam.c140.channels[c];
+                    MDChipParams.C140.Channel orc = oldParam.c140.channels[c];
+                    MDChipParams.C140.Channel nrc = newParam.c140.channels[c];
 
-                drawVolumeToC140(c, 1, ref orc.volumeL, nrc.volumeL);
-                drawVolumeToC140(c, 2, ref orc.volumeR, nrc.volumeR);
-                drawKbToC140(c, ref orc.note, nrc.note);
-                drawPanToC140(c, ref orc.pan, nrc.pan);
+                    drawVolumeToC140(c, 1, ref orc.volumeL, nrc.volumeL);
+                    drawVolumeToC140(c, 2, ref orc.volumeR, nrc.volumeR);
+                    drawKbToC140(c, ref orc.note, nrc.note);
+                    drawPanToC140(c, ref orc.pan, nrc.pan);
 
+                }
             }
 
-            for (int c = 0; c < 8; c++)
+            if (ym2151Screen != null)
             {
-                MDChipParams.YM2151.Channel oyc = oldParam.ym2151.channels[c];
-                MDChipParams.YM2151.Channel nyc = newParam.ym2151.channels[c];
+                for (int c = 0; c < 8; c++)
+                {
+                    MDChipParams.YM2151.Channel oyc = oldParam.ym2151.channels[c];
+                    MDChipParams.YM2151.Channel nyc = newParam.ym2151.channels[c];
 
-                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+                    int tp = setting.YM2151Type.UseScci ? 1 : 0;
 
-                drawInstYM2151(ym2151Screen, c, oyc.inst, nyc.inst);
+                    drawInstYM2151(ym2151Screen, c, oyc.inst, nyc.inst);
 
-                drawPanYM2151(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                drawKbYM2151(c, ref oyc.note, nyc.note, tp);
+                    drawPanYM2151(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    drawKbYM2151(c, ref oyc.note, nyc.note, tp);
 
-                drawVolumeYM2151(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                drawVolumeYM2151(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    drawVolumeYM2151(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawVolumeYM2151(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                }
             }
 
         }
