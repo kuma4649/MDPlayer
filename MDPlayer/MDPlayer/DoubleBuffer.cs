@@ -617,6 +617,8 @@ namespace MDPlayer
 
         public void drawFont4Int(FrameBuffer screen, int x, int y, int t, int k, int num)
         {
+            if (screen == null) return;
+
             int n;
             if (k == 3)
             {
