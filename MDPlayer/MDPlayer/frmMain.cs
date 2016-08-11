@@ -112,7 +112,7 @@ namespace MDPlayer
 
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
             screen.setting = setting;
-            screen.screenInit();
+            screen.screenInit(); 
             oldParam = new MDChipParams();
             newParam = new MDChipParams();
 
