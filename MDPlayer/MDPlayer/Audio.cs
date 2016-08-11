@@ -922,7 +922,7 @@ namespace MDPlayer
 
                 if (vgmFadeout)
                 {
-                    vgmRealFadeoutVolWait--;
+                    if (vgmRealFadeoutVol != 1000) vgmRealFadeoutVolWait--;
                     if (vgmRealFadeoutVolWait == 0)
                     {
                         chipRegister.setFadeoutVolYM2151(vgmRealFadeoutVol);
@@ -931,7 +931,15 @@ namespace MDPlayer
                         chipRegister.setFadeoutVolSN76489(vgmRealFadeoutVol++);
 
                         vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
-                        vgmRealFadeoutVolWait = 600 - vgmRealFadeoutVol * 2;
+                        if (vgmRealFadeoutVol == 127)
+                        {
+                            if (nscci != null) nscci.reset();
+                            vgmRealFadeoutVolWait = 1000;
+                        }
+                        else
+                        {
+                            vgmRealFadeoutVolWait = 700 - vgmRealFadeoutVol * 2;
+                        }
                     }
                 }
 

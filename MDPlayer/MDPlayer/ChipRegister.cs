@@ -414,12 +414,19 @@ namespace MDPlayer
                 if (dAddr == 0x08) //Key-On/Off
                 {
                     int ch = dData & 0x7;
-                    if (ch >= 0 && ch < 8 && (dData & 0x78) > 0)
+                    if (ch >= 0 && ch < 8)
                     {
-                        fmKeyOnYM2151[ch] = dData & 0x78;
-                        //0x2x Pan/FL/CON
-                        fmVolYM2151[ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
-                        fmVolYM2151[ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
+                        if ((dData & 0x78) > 0)
+                        {
+                            fmKeyOnYM2151[ch] = dData & 0x78;
+                            //0x2x Pan/FL/CON
+                            fmVolYM2151[ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
+                            fmVolYM2151[ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
+                        }
+                        else
+                        {
+                            fmKeyOnYM2151[ch] = 0;
+                        }
                     }
                 }
             }

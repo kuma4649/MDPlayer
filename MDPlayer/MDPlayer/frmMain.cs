@@ -145,7 +145,7 @@ namespace MDPlayer
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
             screen.setting = setting;
             screen.screenInit();
-            oldParam = new MDChipParams();
+            //oldParam = new MDChipParams();
             newParam = new MDChipParams();
         }
 
@@ -887,7 +887,7 @@ namespace MDPlayer
 
                 screen.setting = setting;
                 screen.screenInit();
-                oldParam = new MDChipParams();
+                //oldParam = new MDChipParams();
                 newParam = new MDChipParams();
 
                 Audio.Init(setting);
@@ -964,7 +964,7 @@ namespace MDPlayer
                 newParam.sn76489.channels[ch].mask = false;
             }
             screen.screenInit();
-            oldParam = new MDChipParams();
+            //oldParam = new MDChipParams();
             newParam = new MDChipParams();
 
             if (!Audio.Play(setting))
