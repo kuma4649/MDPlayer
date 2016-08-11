@@ -30,6 +30,7 @@ namespace MDPlayer
             bs4.DataSource = new BindData();
             bs5.DataSource = new BindData();
             bs6.DataSource = new BindData();
+            bs7.DataSource = new BindData();
 
             Init();
         }
@@ -409,12 +410,14 @@ namespace MDPlayer
             ((BindData)(bs4.DataSource)).Value = setting.balance.PWMVolume;
             ((BindData)(bs5.DataSource)).Value = setting.balance.C140Volume;
             ((BindData)(bs6.DataSource)).Value = setting.balance.OKIM6258Volume;
+            ((BindData)(bs7.DataSource)).Value = setting.balance.OKIM6295Volume;
 
             trkYM2612.Value = setting.balance.YM2612Volume;
             trkSN76489.Value = setting.balance.SN76489Volume;
             trkRF5C164.Value = setting.balance.RF5C164Volume;
             trkPWM.Value = setting.balance.PWMVolume;
             trkOKIM6258.Value = setting.balance.OKIM6258Volume;
+            trkOKIM6295.Value = setting.balance.OKIM6295Volume;
             trkC140.Value = setting.balance.C140Volume;
 
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
@@ -606,6 +609,7 @@ namespace MDPlayer
             setting.balance.PWMVolume = trkPWM.Value;
             setting.balance.C140Volume = trkC140.Value;
             setting.balance.OKIM6258Volume = trkOKIM6258.Value;
+            setting.balance.OKIM6295Volume = trkOKIM6295.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;

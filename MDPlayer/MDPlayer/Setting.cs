@@ -653,6 +653,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _OKIM6295Volume = 100;
+            public int OKIM6295Volume
+            {
+                get
+                {
+                    return _OKIM6295Volume;
+                }
+
+                set
+                {
+                    _OKIM6295Volume = value;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -662,6 +676,7 @@ namespace MDPlayer
                 Balance.PWMVolume = this.PWMVolume;
                 Balance.C140Volume = this.C140Volume;
                 Balance.OKIM6258Volume = this.OKIM6258Volume;
+                Balance.OKIM6295Volume = this.OKIM6295Volume;
 
                 return Balance;
             }
@@ -698,6 +713,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _OInfo = false;
+            public bool OInfo
+            {
+                get
+                {
+                    return _OInfo;
+                }
+
+                set
+                {
+                    _OInfo = value;
+                }
+            }
+
             private Point _PPlayList = Point.Empty;
             public Point PPlayList
             {
@@ -709,6 +738,20 @@ namespace MDPlayer
                 set
                 {
                     _PPlayList = value;
+                }
+            }
+
+            private bool _OPlayList = false;
+            public bool OPlayList
+            {
+                get
+                {
+                    return _OPlayList;
+                }
+
+                set
+                {
+                    _OPlayList = value;
                 }
             }
 
@@ -740,6 +783,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _ORf5c164 = false;
+            public bool ORf5c164
+            {
+                get
+                {
+                    return _ORf5c164;
+                }
+
+                set
+                {
+                    _ORf5c164 = value;
+                }
+            }
+
             private Point _PC140 = Point.Empty;
             public Point PC140
             {
@@ -751,6 +808,20 @@ namespace MDPlayer
                 set
                 {
                     _PC140 = value;
+                }
+            }
+
+            private bool _OC140 = false;
+            public bool OC140
+            {
+                get
+                {
+                    return _OC140;
+                }
+
+                set
+                {
+                    _OC140 = value;
                 }
             }
 
@@ -768,6 +839,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _OYm2151 = false;
+            public bool OYm2151
+            {
+                get
+                {
+                    return _OYm2151;
+                }
+
+                set
+                {
+                    _OYm2151 = value;
+                }
+            }
+
             private Point _PYm2608 = Point.Empty;
             public Point PYm2608
             {
@@ -782,17 +867,37 @@ namespace MDPlayer
                 }
             }
 
+            private bool _OYm2608 = false;
+            public bool OYm2608
+            {
+                get
+                {
+                    return _OYm2608;
+                }
+
+                set
+                {
+                    _OYm2608 = value;
+                }
+            }
+
             public Location Copy()
             {
                 Location Location = new Location();
                 Location.PMain = this.PMain;
                 Location.PInfo = this.PInfo;
+                Location.OInfo = this.OInfo;
                 Location.PPlayList = this.PPlayList;
+                Location.OPlayList = this.OPlayList;
                 Location.PPlayListWH = this.PPlayListWH;
                 Location.PRf5c164 = this.PRf5c164;
+                Location.ORf5c164 = this.ORf5c164;
                 Location.PC140 = this.PC140;
+                Location.OC140 = this.OC140;
                 Location.PYm2151 = this.PYm2151;
+                Location.OYm2151 = this.OYm2151;
                 Location.PYm2608 = this.PYm2608;
+                Location.OYm2608 = this.OYm2608;
 
                 return Location;
             }

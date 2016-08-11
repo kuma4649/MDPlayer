@@ -37,6 +37,7 @@ namespace MDPlayer
         public const uint defaultC140ClockValue = 21390;
         public const MDSound.c140.C140_TYPE defaultC140Type = MDSound.c140.C140_TYPE.ASIC219;
         public const uint defaultOKIM6258ClockValue = 4000000;
+        public const uint defaultOKIM6295ClockValue = 4000000;
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
@@ -46,6 +47,9 @@ namespace MDPlayer
         public MDSound.c140.C140_TYPE C140Type= MDSound.c140.C140_TYPE.ASIC219;
         public uint OKIM6258ClockValue = 4000000;
         public byte OKIM6258Type = 0;
+        public uint OKIM6295ClockValue = 4000000;
+
+        public int YM2151Hosei = 0;
 
         public string Version = "";
         public string UsedChips = "";
@@ -379,7 +383,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb6] = vcDummy2Ope;
             vgmCmdTbl[0xb7] = vcOKIM6258;
 
-            vgmCmdTbl[0xb8] = vcDummy2Ope;
+            vgmCmdTbl[0xb8] = vcOKIM6295;
             vgmCmdTbl[0xb9] = vcDummy2Ope;
             vgmCmdTbl[0xba] = vcDummy2Ope;
             vgmCmdTbl[0xbb] = vcDummy2Ope;
@@ -539,13 +543,19 @@ namespace MDPlayer
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei);
             vgmAdr += 3;
         }
 
         private void vcOKIM6258()
         {
             chipRegister.writeOKIM6258(0, (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
+            vgmAdr += 3;
+        }
+
+        private void vcOKIM6295()
+        {
+            chipRegister.writeOKIM6295(0, (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
             vgmAdr += 3;
         }
 
@@ -656,6 +666,11 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
                             chipRegister.sendDataYM2608(model);
+                            break;
+
+                        case 0x8b:
+                            // OKIM6295
+                            chipRegister.writeOKIM6295PCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             break;
 
                         case 0x8d:
@@ -1407,6 +1422,18 @@ namespace MDPlayer
 
             uint YM2151clock = getLE32(0x30);
             if (YM2151clock != 0) chips.Add("YM2151");
+            YM2151Hosei = 0;
+            if (model == enmModel.RealModel)
+            {
+                if (YM2151clock == 4000000 && (chipRegister.getYM2151Clock() & 0xffff00) == 0x369e00)
+                {
+                    YM2151Hosei = +2;
+                }
+                if ((YM2151clock & 0xffff00) == 0x369e00 && (chipRegister.getYM2151Clock() & 0xffff00) == 0x3d0900)
+                {
+                    YM2151Hosei = -2;
+                }
+            }
 
             vgmDataOffset = getLE32(0x34);
             if (vgmDataOffset == 0)
@@ -1509,6 +1536,14 @@ namespace MDPlayer
                             C140Type = MDSound.c140.C140_TYPE.ASIC219;
                             break;
                     }
+                }
+
+                uint OKIM6295clock = getLE32(0x98);
+                OKIM6295ClockValue = 0;//defaultOKIM6295ClockValue;
+                if (OKIM6295clock != 0)
+                {
+                    chips.Add("OKIM6295");
+                    OKIM6295ClockValue = OKIM6295clock;
                 }
 
             }

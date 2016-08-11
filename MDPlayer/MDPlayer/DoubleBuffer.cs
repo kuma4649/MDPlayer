@@ -220,6 +220,8 @@ namespace MDPlayer
             if (mainScreen != null) mainScreen.Remove(this.Paint);
             if (rf5c164Screen != null) rf5c164Screen.Remove(this.Paint);
             if (c140Screen != null) c140Screen.Remove(this.Paint);
+            if (ym2151Screen != null) ym2151Screen.Remove(this.Paint);
+            if (ym2608Screen != null) ym2608Screen.Remove(this.Paint);
 
         }
 
@@ -270,6 +272,32 @@ namespace MDPlayer
                         c140Screen = null;
                     }
                 }
+
+                if (ym2151Screen != null)
+                {
+                    try
+                    {
+                        ym2151Screen.Refresh(this.Paint);
+                    }
+                    catch
+                    {
+                        RemoveYM2151();
+                        ym2151Screen = null;
+                    }
+                }
+
+                if (ym2608Screen != null)
+                {
+                    try
+                    {
+                        ym2608Screen.Refresh(this.Paint);
+                    }
+                    catch
+                    {
+                        RemoveYM2608();
+                        ym2608Screen = null;
+                    }
+                }
             }
             catch { }
         }
@@ -291,6 +319,11 @@ namespace MDPlayer
             mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * t, 96 + 16 * tp, 2, 8 - (t / 4) * 4);
         }
 
+        private void drawVolumePYM2151(int x, int y, int t, int tp)
+        {
+            ym2151Screen.drawByteArray(x, y, fontBuf, 128, 2 * t, 96 + 16 * tp, 2, 8 - (t / 4) * 4);
+        }
+
         private void drawVolumePToOtherScreen(FrameBuffer screen, int x, int y, int t)
         {
             if (screen != null)
@@ -299,7 +332,7 @@ namespace MDPlayer
             }
         }
 
-        private void drawKbn(int x, int y, int t,int tp)
+        private void drawKbn(int x, int y, int t, int tp)
         {
             switch (t)
             {
@@ -326,6 +359,42 @@ namespace MDPlayer
                     break;
                 case 7:
                     mainScreen.drawByteArray(x, y, fontBuf, 128, 44 + 16, 104 + 16 * tp, 4, 8);
+                    break;
+            }
+        }
+
+        private void drawKbnYM2151(int x, int y, int t, int tp)
+        {
+            if (ym2151Screen == null)
+            {
+                return;
+            }
+
+            switch (t)
+            {
+                case 0:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 32, 104 + 16 * tp, 4, 8);
+                    break;
+                case 1:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 36, 104 + 16 * tp, 3, 8);
+                    break;
+                case 2:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 40, 104 + 16 * tp, 4, 8);
+                    break;
+                case 3:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 44, 104 + 16 * tp, 4, 8);
+                    break;
+                case 4:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 32 + 16, 104 + 16 * tp, 4, 8);
+                    break;
+                case 5:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 36 + 16, 104 + 16 * tp, 3, 8);
+                    break;
+                case 6:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 40 + 16, 104 + 16 * tp, 4, 8);
+                    break;
+                case 7:
+                    ym2151Screen.drawByteArray(x, y, fontBuf, 128, 44 + 16, 104 + 16 * tp, 4, 8);
                     break;
             }
         }
@@ -366,9 +435,14 @@ namespace MDPlayer
             }
         }
 
-        private void drawPanP(int x, int y, int t,int tp)
+        private void drawPanP(int x, int y, int t, int tp)
         {
-            mainScreen.drawByteArray(x, y, fontBuf, 128, 8 * t + 16 , 96 + 16 * tp, 8, 8);
+            mainScreen.drawByteArray(x, y, fontBuf, 128, 8 * t + 16, 96 + 16 * tp, 8, 8);
+        }
+
+        private void drawPanPYM2151(int x, int y, int t, int tp)
+        {
+            ym2151Screen.drawByteArray(x, y, fontBuf, 128, 8 * t + 16, 96 + 16 * tp, 8, 8);
         }
 
         private void drawPanPToOtherScreen(FrameBuffer screen, int x, int y, int t)
@@ -497,6 +571,14 @@ namespace MDPlayer
             }
         }
 
+        public void drawChPYM2151(int x, int y, int ch, bool mask, int tp)
+        {
+            if (ym2151Screen == null) return;
+
+            ym2151Screen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8ToOtherScreen(ym2151Screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
 
         public void drawFont4(int x, int y, int t, string msg)
         {
@@ -533,7 +615,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawFont4Int(int x, int y, int t, int k, int num)
+        public void drawFont4Int(FrameBuffer screen, int x, int y, int t, int k, int num)
         {
             int n;
             if (k == 3)
@@ -544,12 +626,12 @@ namespace MDPlayer
                 n = (n > 9) ? 0 : n;
                 if (n != 0)
                 {
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+                    screen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
                     if (n != 0) { f = true; }
                 }
                 else
                 {
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
+                    screen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
                 }
 
                 n = num / 10;
@@ -557,17 +639,17 @@ namespace MDPlayer
                 x += 4;
                 if (n != 0 || f)
                 {
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+                    screen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
                     if (n != 0) { f = true; }
                 }
                 else
                 {
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
+                    screen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
                 }
 
                 n = num / 1;
                 x += 4;
-                mainScreen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+                screen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
                 return;
             }
 
@@ -576,16 +658,16 @@ namespace MDPlayer
             n = (n > 9) ? 0 : n;
             if (n != 0)
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+                screen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
             }
             else
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
+                screen.drawByteArray(x, y, fontBuf, 128, 0, 64 + t * 16, 4, 8);
             }
 
             n = num / 1;
             x += 4;
-            mainScreen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
+            screen.drawByteArray(x, y, fontBuf, 128, n * 4 + 64, 64 + t * 16, 4, 8);
         }
 
         public void drawFont4Int2(int x, int y, int t, int k, int num)
@@ -694,6 +776,30 @@ namespace MDPlayer
             for (int i = 0; i <= nv; i++)
             {
                 drawVolumeP(256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
+        public void drawVolumeYM2151(int y, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+            y = (y + 1) * 8;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                drawVolumePYM2151(256 + i * 2, y + sy, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                drawVolumePYM2151(256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -811,6 +917,19 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public void drawPanYM2151(int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanPYM2151(24, 8 + c * 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
         public void drawButton(int c, ref int ot, int nt,ref int om,int nm)
         {
             if (ot == nt && om==nm)
@@ -854,6 +973,41 @@ namespace MDPlayer
             else
             {
                 drawFont8(296, y, 1, "   ");
+            }
+
+            ot = nt;
+        }
+
+        public void drawKbYM2151(int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0)
+            {
+                kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = kbl[(ot % 12) * 2 + 1];
+                drawKbnYM2151(32 + kx, y, kt, tp);
+            }
+
+            if (nt >= 0)
+            {
+                kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbnYM2151(32 + kx, y, kt, tp);
+                drawFont8ToOtherScreen(ym2151Screen,296, y, 1, kbn[nt % 12]);
+                if (nt / 12 < 8)
+                {
+                    drawFont8ToOtherScreen(ym2151Screen, 312, y, 1, kbo[nt / 12]);
+                }
+            }
+            else
+            {
+                drawFont8ToOtherScreen(ym2151Screen, 296, y, 1, "   ");
             }
 
             ot = nt;
@@ -929,7 +1083,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public void drawInst(int c, int[] oi, int[] ni)
+        public void drawInst(FrameBuffer screen, int c, int[] oi, int[] ni)
         {
             int x = (c % 3) * 8 * 13 + 8;
             int y = (c / 3) * 8 * 6 + 8 * 16;
@@ -940,7 +1094,7 @@ namespace MDPlayer
                 {
                     if (oi[i + j * 11] != ni[i + j * 11])
                     {
-                        drawFont4Int(x + i * 8 + (i > 5 ? 4 : 0), y + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        drawFont4Int(screen, x + i * 8 + (i > 5 ? 4 : 0), y + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
                         oi[i + j * 11] = ni[i + j * 11];
                     }
                 }
@@ -948,22 +1102,61 @@ namespace MDPlayer
 
             if (oi[44] != ni[44])
             {
-                drawFont4Int(x + 8 * 4, y - 16, 0, 2, ni[44]);
+                drawFont4Int(screen, x + 8 * 4, y - 16, 0, 2, ni[44]);
                 oi[44] = ni[44];
             }
             if (oi[45] != ni[45])
             {
-                drawFont4Int(x + 8 * 6, y - 16, 0, 2, ni[45]);
+                drawFont4Int(screen, x + 8 * 6, y - 16, 0, 2, ni[45]);
                 oi[45] = ni[45];
             }
             if (oi[46] != ni[46])
             {
-                drawFont4Int(x + 8 * 8 + 4, y - 16, 0, 2, ni[46]);
+                drawFont4Int(screen, x + 8 * 8 + 4, y - 16, 0, 2, ni[46]);
                 oi[46] = ni[46];
             }
             if (oi[47] != ni[47])
             {
-                drawFont4Int(x + 8 * 11, y - 16, 0, 2, ni[47]);
+                drawFont4Int(screen, x + 8 * 11, y - 16, 0, 2, ni[47]);
+                oi[47] = ni[47];
+            }
+        }
+
+        public void drawInstYM2151(FrameBuffer screen, int c, int[] oi, int[] ni)
+        {
+            int x = (c % 3) * 8 * 13 + 8;
+            int y = (c / 3) * 8 * 6 + 8 * 11;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    if (oi[i + j * 11] != ni[i + j * 11])
+                    {
+                        drawFont4Int(screen, x + i * 8 + (i > 5 ? 4 : 0), y + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        oi[i + j * 11] = ni[i + j * 11];
+                    }
+                }
+            }
+
+            if (oi[44] != ni[44])
+            {
+                drawFont4Int(screen, x + 8 * 4, y - 16, 0, 2, ni[44]);
+                oi[44] = ni[44];
+            }
+            if (oi[45] != ni[45])
+            {
+                drawFont4Int(screen, x + 8 * 6, y - 16, 0, 2, ni[45]);
+                oi[45] = ni[45];
+            }
+            if (oi[46] != ni[46])
+            {
+                drawFont4Int(screen, x + 8 * 8 + 4, y - 16, 0, 2, ni[46]);
+                oi[46] = ni[46];
+            }
+            if (oi[47] != ni[47])
+            {
+                drawFont4Int(screen, x + 8 * 11, y - 16, 0, 2, ni[47]);
                 oi[47] = ni[47];
             }
         }
@@ -1004,7 +1197,7 @@ namespace MDPlayer
                     drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
                     drawPan(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                     drawKb(c, ref oyc.note, nyc.note, tp);
-                    drawInst(c, oyc.inst, nyc.inst);
+                    drawInst(mainScreen, c, oyc.inst, nyc.inst);
                 }
                 else if (c == 5)
                 {
@@ -1016,7 +1209,7 @@ namespace MDPlayer
                     drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp6);
                     drawPan(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6);
                     drawKb(c, ref oyc.note, nyc.note, tp);
-                    drawInst(c, oyc.inst, nyc.inst);
+                    drawInst(mainScreen, c, oyc.inst, nyc.inst);
                 }
                 else
                 {
@@ -1063,6 +1256,22 @@ namespace MDPlayer
                 drawKbToC140(c, ref orc.note, nrc.note);
                 drawPanToC140(c, ref orc.pan, nrc.pan);
 
+            }
+
+            for (int c = 0; c < 8; c++)
+            {
+                MDChipParams.YM2151.Channel oyc = oldParam.ym2151.channels[c];
+                MDChipParams.YM2151.Channel nyc = newParam.ym2151.channels[c];
+
+                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+
+                drawInstYM2151(ym2151Screen, c, oyc.inst, nyc.inst);
+
+                drawPanYM2151(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                drawKbYM2151(c, ref oyc.note, nyc.note, tp);
+
+                drawVolumeYM2151(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                drawVolumeYM2151(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
             }
 
         }
@@ -1148,6 +1357,18 @@ namespace MDPlayer
                 }
                 drawFont8ToOtherScreen(c140Screen, 296, ch * 8 + 8, 1, "   ");
                 drawPanPToOtherScreen(c140Screen, 24, ch * 8 + 8, 0);
+            }
+
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbnYM2151(32 + kx, ch * 8 + 8, kt, setting.YM2151Type.UseScci ? 1 : 0);
+                }
+
+                drawChPYM2151(0, ch * 8 + 8, ch, false, setting.YM2151Type.UseScci ? 1 : 0);
             }
         }
 

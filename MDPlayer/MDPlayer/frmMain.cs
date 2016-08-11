@@ -122,10 +122,17 @@ namespace MDPlayer
             frmPlayList = new frmPlayList();
             frmPlayList.frmMain = this;
             frmPlayList.Show();
-            frmPlayList.Visible = false;
+            frmPlayList.Visible =false;
             frmPlayList.Opacity = 1.0;
             frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
+
+            if (setting.location.OPlayList) dispPlayList();
+            if (setting.location.ORf5c164) openMegaCD();
+            if (setting.location.OInfo) openInfo();
+            if (setting.location.OC140) tsmiC140_Click(null, null);
+            if (setting.location.OYm2151) tsmiOPM_Click(null, null);
+            if (setting.location.OYm2608) tsmiOPNA_Click(null, null);
 
         }
 
@@ -182,17 +189,45 @@ namespace MDPlayer
             // 解放
             screen.Dispose();
 
+            setting.location.OInfo = false;
+            setting.location.OPlayList = false;
+            setting.location.ORf5c164 = false;
+            setting.location.OC140 = false;
+            setting.location.OYm2151 = false;
+            setting.location.OYm2608 = false;
+
             setting.location.PMain = this.Location;
-            if (frmInfo != null && !frmInfo.isClosed) setting.location.PInfo = frmInfo.Location;
+            if (frmInfo != null && !frmInfo.isClosed)
+            {
+                setting.location.PInfo = frmInfo.Location;
+                setting.location.OInfo = true;
+            }
             if (frmPlayList != null && !frmPlayList.isClosed)
             {
                 setting.location.PPlayList = frmPlayList.Location;
                 setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
+                setting.location.OPlayList = true;
             }
-            if (frmMCD != null && !frmMCD.isClosed) setting.location.PRf5c164 = frmMCD.Location;
-            if (frmC140 != null && !frmC140.isClosed) setting.location.PC140 = frmC140.Location;
-            if (frmYM2151 != null && !frmYM2151.isClosed) setting.location.PYm2151 = frmYM2151.Location;
-            if (frmYM2608 != null && !frmYM2608.isClosed) setting.location.PYm2608 = frmYM2608.Location;
+            if (frmMCD != null && !frmMCD.isClosed)
+            {
+                setting.location.PRf5c164 = frmMCD.Location;
+                setting.location.ORf5c164 = true;
+            }
+            if (frmC140 != null && !frmC140.isClosed)
+            {
+                setting.location.PC140 = frmC140.Location;
+                setting.location.OC140 = true;
+            }
+            if (frmYM2151 != null && !frmYM2151.isClosed)
+            {
+                setting.location.PYm2151 = frmYM2151.Location;
+                setting.location.OYm2151 = true;
+            }
+            if (frmYM2608 != null && !frmYM2608.isClosed)
+            {
+                setting.location.PYm2608 = frmYM2608.Location;
+                setting.location.OYm2608 = true;
+            }
 
             setting.Save();
         }
@@ -513,6 +548,9 @@ namespace MDPlayer
             int[] fmCh3SlotVol = Audio.GetFMCh3SlotVolume();
             int[] fmKey = Audio.GetFMKeyOn();
             int[][] psgVol = Audio.GetPSGVolume();
+            int[] ym2151Register = Audio.GetYM2151Register();
+            int[] fmKeyYM2151 = Audio.GetYM2151KeyOn();
+            int[][] fmYM2151Vol = Audio.GetYM2151Volume();
 
             bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
 
@@ -646,6 +684,38 @@ namespace MDPlayer
                 newParam.c140.channels[ch].pan = ((l>>2) & 0xf) | (((r>>2) & 0xf) << 4);
                 newParam.c140.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
                 newParam.c140.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
+            }
+
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    newParam.ym2151.channels[ch].inst[i * 11 + 0] = ym2151Register[0x80 + ops + ch] & 0x1f; //AR
+                    newParam.ym2151.channels[ch].inst[i * 11 + 1] = ym2151Register[0xa0 + ops + ch] & 0x1f; //DR
+                    newParam.ym2151.channels[ch].inst[i * 11 + 2] = ym2151Register[0xc0 + ops + ch] & 0x1f; //SR
+                    newParam.ym2151.channels[ch].inst[i * 11 + 3] = ym2151Register[0xe0 + ops + ch] & 0x0f; //RR
+                    newParam.ym2151.channels[ch].inst[i * 11 + 4] = (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4;//SL
+                    newParam.ym2151.channels[ch].inst[i * 11 + 5] = ym2151Register[0x60 + ops + ch] & 0x7f;//TL
+                    newParam.ym2151.channels[ch].inst[i * 11 + 6] = (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6;//KS
+                    newParam.ym2151.channels[ch].inst[i * 11 + 7] = ym2151Register[0x40 + ops + ch] & 0x0f;//ML
+                    newParam.ym2151.channels[ch].inst[i * 11 + 8] = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;//DT
+                    newParam.ym2151.channels[ch].inst[i * 11 + 9] = (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6;//DT2
+                    newParam.ym2151.channels[ch].inst[i * 11 + 10] = (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7;//AM
+                }
+                newParam.ym2151.channels[ch].inst[44] = ym2151Register[0x20 + ch] & 0x07;//AL
+                newParam.ym2151.channels[ch].inst[45] = (ym2151Register[0x20 + ch] & 0x38) >> 3;//FB
+                newParam.ym2151.channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
+                newParam.ym2151.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70)>>4;//PMS
+
+                newParam.ym2151.channels[ch].pan = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
+                int note= (ym2151Register[0x28 + ch] & 0x0f);
+                note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
+                int oct = (ym2151Register[0x28 + ch] & 0x70) >> 4;
+                newParam.ym2151.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note) : -1;
+
+                newParam.ym2151.channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
+                newParam.ym2151.channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
             }
 
             long w = Audio.GetCounter();

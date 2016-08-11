@@ -103,5 +103,36 @@ namespace MDPlayer
         }
         public C140 c140 = new C140();
 
+        public class YM2151
+        {
+
+            public class Channel
+            {
+
+                public int pan = -1;
+                public int pantp = -1;
+                public int note = -1;
+                public int volumeL = -1;
+                public int volumeR = -1;
+                public int freq = -1;
+                public int pcmMode = -1;
+                public bool mask = false;
+                public int tp = -1;
+
+                public int[] inst = new int[48];
+
+                public Channel()
+                {
+                    for (int i = 0; i < inst.Length; i++)
+                    {
+                        inst[i] = -1;
+                    }
+                }
+            }
+            public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()};
+
+        }
+        public YM2151 ym2151 = new YM2151();
+
     }
 }

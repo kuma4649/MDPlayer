@@ -151,7 +151,7 @@ namespace MDPlayer
 
             Audio.setting = setting.Copy();
 
-            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[6];
+            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[7];
 
             chips[0] = new MDSound.MDSound.Chip();
             chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
@@ -237,6 +237,19 @@ namespace MDPlayer
             chips[5].Clock = vgm.defaultOKIM6258ClockValue;
             chips[5].Option = new object[1] { (int)0 };
 
+            chips[6] = new MDSound.MDSound.Chip();
+            chips[6].type = MDSound.MDSound.enmInstrumentType.OKIM6295;
+            chips[6].ID = 0;
+            MDSound.okim6295 okim6295 = new MDSound.okim6295();
+            chips[6].Instrument = okim6295;
+            chips[6].Update = okim6295.Update;
+            chips[6].Start = okim6295.Start;
+            chips[6].Stop = okim6295.Stop;
+            chips[6].Reset = okim6295.Reset;
+            chips[6].SamplingRate = SamplingRate;
+            chips[6].Volume = 100;
+            chips[6].Clock = vgm.defaultOKIM6295ClockValue;
+            chips[6].Option = null;
 
             if (mds == null)
                 mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
@@ -252,7 +265,8 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.RF5C164, 0, setting.balance.RF5C164Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.PWM, 0, setting.balance.PWMVolume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
-            mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, 100);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
 
             nscci = new NScci.NScci();
 
@@ -527,6 +541,24 @@ namespace MDPlayer
                     lstChips.Add(chip);
                 }
 
+                if (vgmVirtual.OKIM6295ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.OKIM6295;
+                    chip.ID = 0;
+                    MDSound.okim6295 okim6295 = new MDSound.okim6295();
+                    chip.Instrument = okim6295;
+                    chip.Update = okim6295.Update;
+                    chip.Start = okim6295.Start;
+                    chip.Stop = okim6295.Stop;
+                    chip.Reset = okim6295.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.OKIM6295Volume;
+                    chip.Clock = vgmVirtual.OKIM6295ClockValue;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                }
+
                 if (mds == null)
                     mds = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
                 else
@@ -541,6 +573,8 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.RF5C164, 0, setting.balance.RF5C164Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.PWM, 0, setting.balance.PWMVolume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
 
                 Paused = false;
                 Stopped = false;
@@ -675,6 +709,11 @@ namespace MDPlayer
             return chipRegister.fmRegister;
         }
 
+        public static int[] GetYM2151Register()
+        {
+            return chipRegister.fmRegisterYM2151;
+        }
+
         public static int[] GetPSGRegister()
         {
             return chipRegister.psgRegister;
@@ -695,9 +734,19 @@ namespace MDPlayer
             return chipRegister.fmKeyOn;
         }
 
+        public static int[] GetYM2151KeyOn()
+        {
+            return chipRegister.fmKeyOnYM2151;
+        }
+
         public static int[][] GetFMVolume()
         {
             return chipRegister.GetFMVolume();
+        }
+
+        public static int[][] GetYM2151Volume()
+        {
+            return chipRegister.GetYM2151Volume();
         }
 
         public static void updateVol()
@@ -953,7 +1002,7 @@ namespace MDPlayer
 
                 if (vgmFadeoutCounter == 0.0)
                 {
-                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[6];
+                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[7];
 
                     chips[0] = new MDSound.MDSound.Chip();
                     chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
@@ -1039,6 +1088,20 @@ namespace MDPlayer
                     chips[5].Clock = vgm.defaultOKIM6258ClockValue;
                     chips[5].Option = new object[1] { (int)0 };
 
+                    chips[6] = new MDSound.MDSound.Chip();
+                    chips[6].type = MDSound.MDSound.enmInstrumentType.OKIM6295;
+                    chips[6].ID = 0;
+                    MDSound.okim6295 okim6295 = new MDSound.okim6295();
+                    chips[6].Instrument = okim6295;
+                    chips[6].Update = okim6295.Update;
+                    chips[6].Start = okim6295.Start;
+                    chips[6].Stop = okim6295.Stop;
+                    chips[6].Reset = okim6295.Reset;
+                    chips[6].SamplingRate = SamplingRate;
+                    chips[6].Volume = 100;
+                    chips[6].Clock = vgm.defaultOKIM6295ClockValue;
+                    chips[6].Option = null;
+
                     if (mds == null)
                         mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
                     else
@@ -1053,7 +1116,8 @@ namespace MDPlayer
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.RF5C164, 0, setting.balance.RF5C164Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.PWM, 0, setting.balance.PWMVolume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
-                    mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, 100);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
 
                     Stopped = true;
                 }
