@@ -503,9 +503,16 @@ namespace MDPlayer
                         int note = dData & 0xf;
                         note = (note < 3) ? note : ((note < 7) ? (note - 1) : ((note < 11) ? (note - 2) : (note - 3)));
                         note += hosei;
-                        oct += (note / 12);
-                        note %= 12;
-                        note = Math.Abs(note);
+                        if (note < 0)
+                        {
+                            oct += (note / 12) - 1;
+                            note = (note % 12) + 12;
+                        }
+                        else
+                        {
+                            oct += (note / 12);
+                            note %= 12;
+                        }
 
                         note = (note < 3) ? note : ((note < 6) ? (note + 1) : ((note < 9) ? (note + 2) : (note + 3)));
                         scYM2151.setRegister(dAddr, (oct << 4) | note);
