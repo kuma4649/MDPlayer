@@ -55,20 +55,15 @@ namespace MDPlayer
             0x00d,0x00d,0x00c,0x00b,0x00b,0x00a,0x009,0x008,0x007,0x006,0x005,0x004  // 7
         };
 
-        private float[] pcmMTbl = new float[]
-        {
-            1.0f
-            ,1.05947557526183f
-            ,1.122467701246082f
-            ,1.189205718217262f
-            ,1.259918966439875f
-            ,1.334836786178427f
-            ,1.414226741074841f
-            ,1.498318171393624f
-            ,1.587416864154117f
-            ,1.681828606375659f
-            ,1.781820961700176f
-            ,1.887776163901842f
+        private float[] freqTbl = new float[] {
+            261.6255653005986f/8.0f , 277.1826309768721f/8.0f , 293.6647679174076f/8.0f , 311.12698372208087f/8.0f , 329.6275569128699f/8.0f , 349.2282314330039f/8.0f , 369.9944227116344f/8.0f , 391.99543598174927f/8.0f , 415.3046975799451f/8.0f , 440f/8.0f , 466.1637615180899f/8.0f,493.8833012561241f/8.0f,
+            261.6255653005986f/4.0f , 277.1826309768721f/4.0f , 293.6647679174076f/4.0f , 311.12698372208087f/4.0f , 329.6275569128699f/4.0f , 349.2282314330039f/4.0f , 369.9944227116344f/4.0f , 391.99543598174927f/4.0f , 415.3046975799451f/4.0f , 440f/4.0f , 466.1637615180899f/4.0f,493.8833012561241f/4.0f,
+            261.6255653005986f/2.0f , 277.1826309768721f/2.0f , 293.6647679174076f/2.0f , 311.12698372208087f/2.0f , 329.6275569128699f/2.0f , 349.2282314330039f/2.0f , 369.9944227116344f/2.0f , 391.99543598174927f/2.0f , 415.3046975799451f/2.0f , 440f/2.0f , 466.1637615180899f/2.0f,493.8833012561241f/2.0f,
+            261.6255653005986f , 277.1826309768721f , 293.6647679174076f , 311.12698372208087f , 329.6275569128699f , 349.2282314330039f , 369.9944227116344f , 391.99543598174927f , 415.3046975799451f , 440f , 466.1637615180899f,493.8833012561241f,
+            261.6255653005986f*2.0f , 277.1826309768721f*2.0f , 293.6647679174076f*2.0f , 311.12698372208087f*2.0f , 329.6275569128699f*2.0f , 349.2282314330039f*2.0f , 369.9944227116344f*2.0f , 391.99543598174927f*2.0f , 415.3046975799451f*2.0f , 440f*2.0f , 466.1637615180899f*2.0f,493.8833012561241f*2.0f,
+            261.6255653005986f*4.0f , 277.1826309768721f*4.0f , 293.6647679174076f*4.0f , 311.12698372208087f*4.0f , 329.6275569128699f*4.0f , 349.2282314330039f*4.0f , 369.9944227116344f*4.0f , 391.99543598174927f*4.0f , 415.3046975799451f*4.0f , 440f*4.0f , 466.1637615180899f*4.0f,493.8833012561241f*4.0f,
+            261.6255653005986f*8.0f , 277.1826309768721f*8.0f , 293.6647679174076f*8.0f , 311.12698372208087f*8.0f , 329.6275569128699f*8.0f , 349.2282314330039f*8.0f , 369.9944227116344f*8.0f , 391.99543598174927f*8.0f , 415.3046975799451f*8.0f , 440f*8.0f , 466.1637615180899f*8.0f,493.8833012561241f*8.0f,
+            261.6255653005986f*16.0f , 277.1826309768721f*16.0f , 293.6647679174076f*16.0f , 311.12698372208087f*16.0f , 329.6275569128699f*16.0f , 349.2282314330039f*16.0f , 369.9944227116344f*16.0f , 391.99543598174927f*16.0f , 415.3046975799451f*16.0f , 440f*16.0f , 466.1637615180899f*16.0f,493.8833012561241f*16.0f
         };
 
         private static int SamplingRate = 44100;
@@ -547,10 +542,19 @@ namespace MDPlayer
             int[][] fmVol = Audio.GetFMVolume();
             int[] fmCh3SlotVol = Audio.GetFMCh3SlotVolume();
             int[] fmKey = Audio.GetFMKeyOn();
+
             int[][] psgVol = Audio.GetPSGVolume();
+
             int[] ym2151Register = Audio.GetYM2151Register();
             int[] fmKeyYM2151 = Audio.GetYM2151KeyOn();
             int[][] fmYM2151Vol = Audio.GetYM2151Volume();
+
+            int[][] ym2608Register = Audio.GetYM2608Register();
+            int[] fmKeyYM2608 = Audio.GetYM2608KeyOn();
+            int[][] ym2608Vol = Audio.GetYM2608Volume();
+            int[] ym2608Ch3SlotVol = Audio.GetYM2608Ch3SlotVolume();
+            int[][] ym2608Rhythm = Audio.GetYM2608RhythmVolume();
+            int[] ym2608AdpcmVol = Audio.GetYM2608AdpcmVolume();
 
             bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
 
@@ -680,8 +684,8 @@ namespace MDPlayer
                     r = 0;
                 }
 
-                newParam.c140.channels[ch].note = frequency == 0 ? -1 : searchC140Note(frequency);
-                newParam.c140.channels[ch].pan = ((l>>2) & 0xf) | (((r>>2) & 0xf) << 4);
+                newParam.c140.channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
+                newParam.c140.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
                 newParam.c140.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
                 newParam.c140.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
             }
@@ -706,17 +710,139 @@ namespace MDPlayer
                 newParam.ym2151.channels[ch].inst[44] = ym2151Register[0x20 + ch] & 0x07;//AL
                 newParam.ym2151.channels[ch].inst[45] = (ym2151Register[0x20 + ch] & 0x38) >> 3;//FB
                 newParam.ym2151.channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
-                newParam.ym2151.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70)>>4;//PMS
+                newParam.ym2151.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70) >> 4;//PMS
 
                 newParam.ym2151.channels[ch].pan = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
-                int note= (ym2151Register[0x28 + ch] & 0x0f);
+                int note = (ym2151Register[0x28 + ch] & 0x0f);
                 note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
                 int oct = (ym2151Register[0x28 + ch] & 0x70) >> 4;
-                newParam.ym2151.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note) : -1;
+                newParam.ym2151.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei+1) : -1;
 
                 newParam.ym2151.channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
                 newParam.ym2151.channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
             }
+
+            isFmEx = (ym2608Register[0][0x27] & 0x40) > 0;
+            for (int ch = 0; ch < 6; ch++)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.ym2608.channels[ch].inst[i * 11 + 0] = ym2608Register[p][0x50 + ops + c] & 0x1f; //AR
+                    newParam.ym2608.channels[ch].inst[i * 11 + 1] = ym2608Register[p][0x60 + ops + c] & 0x1f; //DR
+                    newParam.ym2608.channels[ch].inst[i * 11 + 2] = ym2608Register[p][0x70 + ops + c] & 0x1f; //SR
+                    newParam.ym2608.channels[ch].inst[i * 11 + 3] = ym2608Register[p][0x80 + ops + c] & 0x0f; //RR
+                    newParam.ym2608.channels[ch].inst[i * 11 + 4] = (ym2608Register[p][0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.ym2608.channels[ch].inst[i * 11 + 5] = ym2608Register[p][0x40 + ops + c] & 0x7f;//TL
+                    newParam.ym2608.channels[ch].inst[i * 11 + 6] = (ym2608Register[p][0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.ym2608.channels[ch].inst[i * 11 + 7] = ym2608Register[p][0x30 + ops + c] & 0x0f;//ML
+                    newParam.ym2608.channels[ch].inst[i * 11 + 8] = (ym2608Register[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.ym2608.channels[ch].inst[i * 11 + 9] = (ym2608Register[p][0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.ym2608.channels[ch].inst[i * 11 + 10] = ym2608Register[p][0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.ym2608.channels[ch].inst[44] = ym2608Register[p][0xb0 + c] & 0x07;//AL
+                newParam.ym2608.channels[ch].inst[45] = (ym2608Register[p][0xb0 + c] & 0x38) >> 3;//FB
+                newParam.ym2608.channels[ch].inst[46] = (ym2608Register[p][0xb4 + c] & 0x38) >> 3;//AMS
+                newParam.ym2608.channels[ch].inst[47] = ym2608Register[p][0xb4 + c] & 0x03;//FMS
+
+                newParam.ym2608.channels[ch].pan = (ym2608Register[p][0xb4 + c] & 0xc0) >> 6;
+
+                int freq = 0;
+                int octav = 0;
+                int n = -1;
+                if (ch != 2 || !isFmEx)
+                {
+                    freq = ym2608Register[p][0xa0 + c] + (ym2608Register[p][0xa4 + c] & 0x07) * 0x100;
+                    octav = (ym2608Register[p][0xa4 + c] & 0x38) >> 3;
+
+                    if (fmKeyYM2608[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
+                    newParam.ym2608.channels[ch].volumeL = Math.Min(Math.Max(ym2608Vol[ch][0] / 80, 0), 19);
+                    newParam.ym2608.channels[ch].volumeR = Math.Min(Math.Max(ym2608Vol[ch][1] / 80, 0), 19);
+                }
+                else
+                {
+                    freq = ym2608Register[0][0xa9] + (ym2608Register[0][0xad] & 0x07) * 0x100;
+                    octav = (ym2608Register[0][0xad] & 0x38) >> 3;
+
+                    if ((fmKeyYM2608[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
+                    newParam.ym2608.channels[2].volumeL = Math.Min(Math.Max(ym2608Ch3SlotVol[0] / 80, 0), 19);
+                    newParam.ym2608.channels[2].volumeR = Math.Min(Math.Max(ym2608Ch3SlotVol[0] / 80, 0), 19);
+                }
+                newParam.ym2608.channels[ch].note = n;
+
+
+            }
+
+            for (int ch = 6; ch < 9; ch++) //FM EX
+            {
+                int[] exReg = new int[3] { 2, 0, -6 };
+                int c = exReg[ch - 6];
+
+                newParam.ym2608.channels[ch].pan = 0;
+
+                if (isFmEx)
+                {
+                    int freq = ym2608Register[0][0xa8 + c] + (ym2608Register[0][0xac + c] & 0x07) * 0x100;
+                    int octav = (ym2608Register[0][0xac + c] & 0x38) >> 3;
+                    int n = -1;
+                    if ((fmKeyYM2608[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    newParam.ym2608.channels[ch].note = n;
+                    newParam.ym2608.channels[ch].volumeL = Math.Min(Math.Max(ym2608Ch3SlotVol[ch - 5] / 80, 0), 19);
+                }
+                else
+                {
+                    newParam.ym2608.channels[ch].note = -1;
+                    newParam.ym2608.channels[ch].volumeL = 0;
+                }
+            }
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.ym2608.channels[ch + 9];
+
+                bool t = (ym2608Register[0][0x07] & (0x1 << ch)) == 0;
+                bool n = (ym2608Register[0][0x07] & (0x8 << ch)) == 0;
+
+                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
+                if (!t && !n && channel.volume > 0)
+                {
+                    channel.volume--;
+                }
+
+                if (channel.volume == 0)
+                {
+                    channel.note = -1;
+                }
+                else
+                {
+                    int ft = ym2608Register[0][0x00 + ch * 2];
+                    int ct = ym2608Register[0][0x01 + ch * 2];
+                    int tp = (ct << 8) | ft;
+                    if (tp == 0) tp = 1;
+                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    channel.note = searchSSGNote(ftone);
+                }
+
+            }
+
+            //ADPCM
+            newParam.ym2608.channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6;
+            newParam.ym2608.channels[12].volumeL = Math.Min(Math.Max(ym2608AdpcmVol[0] / 80, 0), 19);
+            newParam.ym2608.channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 80, 0), 19);
+            int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
+            float frq = (float)(delta / 9447.0f);
+            newParam.ym2608.channels[12].note = searchYM2608Adpcm(frq) + 1;
+
+            for (int ch = 13; ch < 19; ch++) //RHYTHM
+            {
+                newParam.ym2608.channels[ch].pan = (ym2608Register[0][0x18 + ch - 13] & 0xc0) >> 6;
+                newParam.ym2608.channels[ch].volumeL = Math.Min(Math.Max(ym2608Rhythm[ch - 13][0] / 80, 0), 19);
+                newParam.ym2608.channels[ch].volumeR = Math.Min(Math.Max(ym2608Rhythm[ch - 13][1] / 80, 0), 19);
+            }
+
+
 
             long w = Audio.GetCounter();
             double sec = (double)w / (double)SamplingRate;
@@ -780,18 +906,18 @@ namespace MDPlayer
             if (setting.Debug_DispFrameCounter)
             {
                 long v = Audio.getVirtualFrameCounter();
-                if (v != -1) screen.drawFont8(0, 0, 0, string.Format("EMU        : {0:D12} ", v));
+                if (v != -1) screen.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
                 long r = Audio.getRealFrameCounter();
-                if (r != -1) screen.drawFont8(0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
+                if (r != -1) screen.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
                 long d = r - v;
-                if (r != -1 && v != -1) screen.drawFont8(0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
+                if (r != -1 && v != -1) screen.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
 
             }
 
-            screen.drawFont4(0, 208, 1, Audio.GetIsDataBlock(vgm.enmModel.VirtualModel) ? "VD" : "  ");
-            screen.drawFont4(12, 208, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.VirtualModel) ? "VP" : "  ");
-            screen.drawFont4(0, 216, 1, Audio.GetIsDataBlock(vgm.enmModel.RealModel) ? "RD" : "  ");
-            screen.drawFont4(12, 216, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.RealModel) ? "RP" : "  ");
+            screen.drawFont4(screen.mainScreen, 0, 208, 1, Audio.GetIsDataBlock(vgm.enmModel.VirtualModel) ? "VD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 208, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.VirtualModel) ? "VP" : "  ");
+            screen.drawFont4(screen.mainScreen, 0, 216, 1, Audio.GetIsDataBlock(vgm.enmModel.RealModel) ? "RD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 216, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.RealModel) ? "RP" : "  ");
 
             screen.Refresh();
 
@@ -810,16 +936,18 @@ namespace MDPlayer
 
         private int searchFMNote(int freq)
         {
-            int m = int.MaxValue;
+            //int m = int.MaxValue;
             int n = 0;
             for (int i = 0; i < 12 * 5; i++)
             {
-                int a = Math.Abs(freq - FmFNum[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
+                if (freq < FmFNum[i]) break;
+                n = i;
+                //int a = Math.Abs(freq - FmFNum[i]);
+                //if (m > a)
+                //{
+                //    m = a;
+                //    n = i;
+                //}
             }
             return n - 12 * 3;
         }
@@ -840,13 +968,24 @@ namespace MDPlayer
             return n;
         }
 
+        private int searchSSGNote(float freq)
+        {
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                if (freq < freqTbl[i]) break;
+                n = i;
+            }
+            return n;
+        }
+
         private int searchRf5c164Note(uint freq)
         {
             double m = double.MaxValue;
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - (0x0800 * pcmMTbl[i % 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - (0x0800 * Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -862,13 +1001,26 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - ((0x0800<<2) * pcmMTbl[i % 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - ((0x0800<<2) * Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
                     n = i;
                 }
             }
+            return n;
+        }
+
+        private int searchYM2608Adpcm(float freq)
+        {
+            int n = 0;
+
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                if (freq < Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
+                n = i;
+            }
+
             return n;
         }
 

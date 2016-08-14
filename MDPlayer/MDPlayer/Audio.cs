@@ -714,6 +714,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2151;
         }
 
+        public static int[][] GetYM2608Register()
+        {
+            return chipRegister.fmRegisterYM2608;
+        }
+
         public static int[] GetPSGRegister()
         {
             return chipRegister.psgRegister;
@@ -739,6 +744,11 @@ namespace MDPlayer
             return chipRegister.fmKeyOnYM2151;
         }
 
+        public static int[] GetYM2608KeyOn()
+        {
+            return chipRegister.fmKeyOnYM2608;
+        }
+
         public static int[][] GetFMVolume()
         {
             return chipRegister.GetFMVolume();
@@ -749,6 +759,21 @@ namespace MDPlayer
             return chipRegister.GetYM2151Volume();
         }
 
+        public static int[][] GetYM2608Volume()
+        {
+            return chipRegister.GetYM2608Volume();
+        }
+
+        public static int[][] GetYM2608RhythmVolume()
+        {
+            return chipRegister.GetYM2608RhythmVolume();
+        }
+
+        public static int[] GetYM2608AdpcmVolume()
+        {
+            return chipRegister.GetYM2608AdpcmVolume();
+        }
+
         public static void updateVol()
         {
             chipRegister.updateVol();
@@ -757,6 +782,11 @@ namespace MDPlayer
         public static int[] GetFMCh3SlotVolume()
         {
             return chipRegister.GetFMCh3SlotVolume();
+        }
+
+        public static int[] GetYM2608Ch3SlotVolume()
+        {
+            return chipRegister.GetYM2608Ch3SlotVolume();
         }
 
         public static int[][] GetPSGVolume()

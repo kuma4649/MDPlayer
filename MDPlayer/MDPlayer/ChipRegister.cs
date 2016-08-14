@@ -34,6 +34,9 @@ namespace MDPlayer
         public int[] fmKeyOnYM2608 = null;
         public int[][] fmVolYM2608 = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
         public int[] fmCh3SlotVolYM2608 = new int[4];
+        public int[][] fmVolYM2608Rhythm = new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
+        public int[] fmVolYM2608Adpcm = new int[2];
+        public int fmVolYM2608AdpcmPan = 0;
         private int nowYM2608FadeoutVol = 0;
         private bool[] maskFMChYM2608 = new bool[6] { false, false, false, false, false, false };
 
@@ -73,6 +76,12 @@ namespace MDPlayer
             {
                 fmRegister[0][i] = 0; fmRegister[1][i] = 0;
             }
+            fmRegister[0][0xb4] = 0xc0;
+            fmRegister[0][0xb5] = 0xc0;
+            fmRegister[0][0xb6] = 0xc0;
+            fmRegister[1][0xb4] = 0xc0;
+            fmRegister[1][0xb5] = 0xc0;
+            fmRegister[1][0xb6] = 0xc0;
             fmKeyOn = new int[6] { 0, 0, 0, 0, 0, 0 };
 
             fmRegisterYM2608 = new int[2][] { new int[0x100], new int[0x100] };
@@ -80,6 +89,12 @@ namespace MDPlayer
             {
                 fmRegisterYM2608[0][i] = 0; fmRegisterYM2608[1][i] = 0;
             }
+            fmRegisterYM2608[0][0xb4] = 0xc0;
+            fmRegisterYM2608[0][0xb5] = 0xc0;
+            fmRegisterYM2608[0][0xb6] = 0xc0;
+            fmRegisterYM2608[1][0xb4] = 0xc0;
+            fmRegisterYM2608[1][0xb5] = 0xc0;
+            fmRegisterYM2608[1][0xb6] = 0xc0;
             fmKeyOnYM2608 = new int[6] { 0, 0, 0, 0, 0, 0 };
 
             fmRegisterYM2151 = new int[0x100];
@@ -258,7 +273,7 @@ namespace MDPlayer
                 if (dPort == 0 && dAddr == 0x28)
                 {
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                    if (ch >= 0 && ch < 6 && (dData & 0xf0) > 0)
+                    if (ch >= 0 && ch < 6)// && (dData & 0xf0) > 0)
                     {
                         if (ch != 2 || (fmRegisterYM2608[0][0x27] & 0xc0) != 0x40)
                         {
@@ -279,14 +294,33 @@ namespace MDPlayer
                     }
                 }
 
-                if ((fmRegisterYM2608[0][0x2b] & 0x80) > 0)
+                if (dPort == 1 && dAddr == 0x01)
                 {
-                    if (fmRegisterYM2608[0][0x2a] > 0)
+                    fmVolYM2608AdpcmPan = (dData & 0xc0) >> 6;
+                    if (fmVolYM2608AdpcmPan > 0)
                     {
-                        fmVolYM2608[5][0] = fmRegisterYM2608[0][0x2a] * 10 * ((fmRegisterYM2608[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                        fmVolYM2608[5][1] = fmRegisterYM2608[0][0x2a] * 10 * ((fmRegisterYM2608[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                        fmVolYM2608Adpcm[0] = (int)((256 * 6.0 * fmRegisterYM2608[1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan & 0x02) > 0 ? 1 : 0));
+                        fmVolYM2608Adpcm[1] = (int)((256 * 6.0 * fmRegisterYM2608[1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan & 0x01) > 0 ? 1 : 0));
+//                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2608[1][0x09]);
+//                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2608[1][0x0A]);
                     }
                 }
+
+                if (dPort == 0 && dAddr == 0x10)
+                {
+                    int tl = fmRegisterYM2608[0][0x11] & 0x3f;
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if ((dData & (0x1<< i)) > 0)
+                        {
+                            int il = fmRegisterYM2608[0][0x18+i] & 0x1f;
+                            int pan = (fmRegisterYM2608[0][0x18 + i] & 0xc0) >> 6;
+                            fmVolYM2608Rhythm[i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
+                            fmVolYM2608Rhythm[i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                        }
+                    }
+                }
+
             }
 
 
@@ -463,36 +497,17 @@ namespace MDPlayer
                     {
                         scYM2151.setRegister(dAddr, dData);
                     }
-                    else if (hosei > 0)
-                    {
-                        int oct = (dData & 0x70) >> 4;
-                        int note = dData & 0xf;
-                        if (note > 12)
-                        {
-                            oct++;
-                            if (oct > 7)
-                            {
-                                oct = 7;
-                                note = 12;
-                            }
-                        }
-                        note = noteTbl[note];
-                        scYM2151.setRegister(dAddr, (oct << 4) | note);
-                    }
                     else
                     {
                         int oct = (dData & 0x70) >> 4;
                         int note = dData & 0xf;
-                        if (note < 2)
-                        {
-                            oct--;
-                            if (oct < 0)
-                            {
-                                oct = 0;
-                                note = 2;
-                            }
-                        }
-                        note = noteTbl2[note];
+                        note = (note < 3) ? note : ((note < 7) ? (note - 1) : ((note < 11) ? (note - 2) : (note - 3)));
+                        note += hosei;
+                        oct += (note / 12);
+                        note %= 12;
+                        note = Math.Abs(note);
+
+                        note = (note < 3) ? note : ((note < 6) ? (note + 1) : ((note < 9) ? (note + 2) : (note + 3)));
                         scYM2151.setRegister(dAddr, (oct << 4) | note);
                     }
                 }
@@ -729,6 +744,23 @@ namespace MDPlayer
                 if (fmVolYM2151[i][0] > 0) { fmVolYM2151[i][0] -= 50; if (fmVolYM2151[i][0] < 0) fmVolYM2151[i][0] = 0; }
                 if (fmVolYM2151[i][1] > 0) { fmVolYM2151[i][1] -= 50; if (fmVolYM2151[i][1] < 0) fmVolYM2151[i][1] = 0; }
             }
+            for (int i = 0; i < 9; i++)
+            {
+                if (fmVolYM2608[i][0] > 0) { fmVolYM2608[i][0] -= 50; if (fmVolYM2608[i][0] < 0) fmVolYM2608[i][0] = 0; }
+                if (fmVolYM2608[i][1] > 0) { fmVolYM2608[i][1] -= 50; if (fmVolYM2608[i][1] < 0) fmVolYM2608[i][1] = 0; }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if (fmCh3SlotVolYM2608[i] > 0) { fmCh3SlotVolYM2608[i] -= 50; if (fmCh3SlotVolYM2608[i] < 0) fmCh3SlotVolYM2608[i] = 0; }
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                if (fmVolYM2608Rhythm[i][0] > 0) { fmVolYM2608Rhythm[i][0] -= 50; if (fmVolYM2608Rhythm[i][0] < 0) fmVolYM2608Rhythm[i][0] = 0; }
+                if (fmVolYM2608Rhythm[i][1] > 0) { fmVolYM2608Rhythm[i][1] -= 50; if (fmVolYM2608Rhythm[i][1] < 0) fmVolYM2608Rhythm[i][1] = 0; }
+            }
+
+            if (fmVolYM2608Adpcm[0] > 0) { fmVolYM2608Adpcm[0] -= 50; if (fmVolYM2608Adpcm[0] < 0) fmVolYM2608Adpcm[0] = 0; }
+            if (fmVolYM2608Adpcm[1] > 0) { fmVolYM2608Adpcm[1] -= 50; if (fmVolYM2608Adpcm[1] < 0) fmVolYM2608Adpcm[1] = 0; }
         }
 
         public int[][] GetFMVolume()
@@ -742,20 +774,40 @@ namespace MDPlayer
 
         public int[][] GetYM2151Volume()
         {
-            //if (ctYM2612.UseScci)
-            //{
             return fmVolYM2151;
-            //}
-            //return mds.ReadFMVolume();
+        }
+
+        public int[][] GetYM2608Volume()
+        {
+            return fmVolYM2608;
         }
 
         public int[] GetFMCh3SlotVolume()
         {
             //if (ctYM2612.UseScci)
             //{
-                return fmCh3SlotVol;
+            return fmCh3SlotVol;
             //}
             //return mds.ReadFMCh3SlotVolume();
+        }
+
+        public int[] GetYM2608Ch3SlotVolume()
+        {
+            //if (ctYM2612.UseScci)
+            //{
+            return fmCh3SlotVolYM2608;
+            //}
+            //return mds.ReadFMCh3SlotVolume();
+        }
+
+        public int[][] GetYM2608RhythmVolume()
+        {
+            return fmVolYM2608Rhythm;
+        }
+
+        public int[] GetYM2608AdpcmVolume()
+        {
+            return fmVolYM2608Adpcm;
         }
 
         public int[][] GetPSGVolume()
