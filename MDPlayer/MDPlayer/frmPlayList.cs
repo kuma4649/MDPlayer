@@ -49,6 +49,11 @@ namespace MDPlayer
             return playList.lstMusic.Count;
         }
 
+        public PlayList getPlayList()
+        {
+            return playList;
+        }
+
         public string setStart(int n)
         {
             updatePlayingIndex(n);

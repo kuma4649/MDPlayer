@@ -36,36 +36,6 @@ namespace MDPlayer
 
         private bool IsInitialOpenFolder = true;
 
-        private int[] FmFNum = new int[] {
-            0x289/8, 0x2af/8, 0x2d8/8, 0x303/8, 0x331/8, 0x362/8, 0x395/8, 0x3cc/8, 0x405/8, 0x443/8, 0x484/8,0x4c8/8,
-            0x289/4, 0x2af/4, 0x2d8/4, 0x303/4, 0x331/4, 0x362/4, 0x395/4, 0x3cc/4, 0x405/4, 0x443/4, 0x484/4,0x4c8/4,
-            0x289/2, 0x2af/2, 0x2d8/2, 0x303/2, 0x331/2, 0x362/2, 0x395/2, 0x3cc/2, 0x405/2, 0x443/2, 0x484/2,0x4c8/2,
-            0x289, 0x2af, 0x2d8, 0x303, 0x331, 0x362, 0x395, 0x3cc, 0x405, 0x443, 0x484, 0x4c8,
-            0x289*2, 0x2af*2, 0x2d8*2, 0x303*2, 0x331*2, 0x362*2, 0x395*2, 0x3cc*2, 0x405*2, 0x443*2, 0x484*2,0x4c8*2
-        };
-
-        private int[] PsgFNum = new int[] {
-            0x6ae,0x64e,0x5f4,0x59e,0x54e,0x502,0x4ba,0x476,0x436,0x3f8,0x3c0,0x38a, // 0
-            0x357,0x327,0x2fa,0x2cf,0x2a7,0x281,0x25d,0x23b,0x21b,0x1fc,0x1e0,0x1c5, // 1
-            0x1ac,0x194,0x17d,0x168,0x153,0x140,0x12e,0x11d,0x10d,0x0fe,0x0f0,0x0e3, // 2
-            0x0d6,0x0ca,0x0be,0x0b4,0x0aa,0x0a0,0x097,0x08f,0x087,0x07f,0x078,0x071, // 3
-            0x06b,0x065,0x05f,0x05a,0x055,0x050,0x04c,0x047,0x043,0x040,0x03c,0x039, // 4
-            0x035,0x032,0x030,0x02d,0x02a,0x028,0x026,0x024,0x022,0x020,0x01e,0x01c, // 5
-            0x01b,0x019,0x018,0x016,0x015,0x014,0x013,0x012,0x011,0x010,0x00f,0x00e, // 6
-            0x00d,0x00d,0x00c,0x00b,0x00b,0x00a,0x009,0x008,0x007,0x006,0x005,0x004  // 7
-        };
-
-        private float[] freqTbl = new float[] {
-            261.6255653005986f/8.0f , 277.1826309768721f/8.0f , 293.6647679174076f/8.0f , 311.12698372208087f/8.0f , 329.6275569128699f/8.0f , 349.2282314330039f/8.0f , 369.9944227116344f/8.0f , 391.99543598174927f/8.0f , 415.3046975799451f/8.0f , 440f/8.0f , 466.1637615180899f/8.0f,493.8833012561241f/8.0f,
-            261.6255653005986f/4.0f , 277.1826309768721f/4.0f , 293.6647679174076f/4.0f , 311.12698372208087f/4.0f , 329.6275569128699f/4.0f , 349.2282314330039f/4.0f , 369.9944227116344f/4.0f , 391.99543598174927f/4.0f , 415.3046975799451f/4.0f , 440f/4.0f , 466.1637615180899f/4.0f,493.8833012561241f/4.0f,
-            261.6255653005986f/2.0f , 277.1826309768721f/2.0f , 293.6647679174076f/2.0f , 311.12698372208087f/2.0f , 329.6275569128699f/2.0f , 349.2282314330039f/2.0f , 369.9944227116344f/2.0f , 391.99543598174927f/2.0f , 415.3046975799451f/2.0f , 440f/2.0f , 466.1637615180899f/2.0f,493.8833012561241f/2.0f,
-            261.6255653005986f , 277.1826309768721f , 293.6647679174076f , 311.12698372208087f , 329.6275569128699f , 349.2282314330039f , 369.9944227116344f , 391.99543598174927f , 415.3046975799451f , 440f , 466.1637615180899f,493.8833012561241f,
-            261.6255653005986f*2.0f , 277.1826309768721f*2.0f , 293.6647679174076f*2.0f , 311.12698372208087f*2.0f , 329.6275569128699f*2.0f , 349.2282314330039f*2.0f , 369.9944227116344f*2.0f , 391.99543598174927f*2.0f , 415.3046975799451f*2.0f , 440f*2.0f , 466.1637615180899f*2.0f,493.8833012561241f*2.0f,
-            261.6255653005986f*4.0f , 277.1826309768721f*4.0f , 293.6647679174076f*4.0f , 311.12698372208087f*4.0f , 329.6275569128699f*4.0f , 349.2282314330039f*4.0f , 369.9944227116344f*4.0f , 391.99543598174927f*4.0f , 415.3046975799451f*4.0f , 440f*4.0f , 466.1637615180899f*4.0f,493.8833012561241f*4.0f,
-            261.6255653005986f*8.0f , 277.1826309768721f*8.0f , 293.6647679174076f*8.0f , 311.12698372208087f*8.0f , 329.6275569128699f*8.0f , 349.2282314330039f*8.0f , 369.9944227116344f*8.0f , 391.99543598174927f*8.0f , 415.3046975799451f*8.0f , 440f*8.0f , 466.1637615180899f*8.0f,493.8833012561241f*8.0f,
-            261.6255653005986f*16.0f , 277.1826309768721f*16.0f , 293.6647679174076f*16.0f , 311.12698372208087f*16.0f , 329.6275569128699f*16.0f , 349.2282314330039f*16.0f , 369.9944227116344f*16.0f , 391.99543598174927f*16.0f , 415.3046975799451f*16.0f , 440f*16.0f , 466.1637615180899f*16.0f,493.8833012561241f*16.0f
-        };
-
         private static int SamplingRate = 44100;
         private byte[] srcBuf;
 
@@ -93,6 +63,7 @@ namespace MDPlayer
             Audio.Init(setting);
             StartMIDIInMonitoring();
         }
+
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -158,9 +129,24 @@ namespace MDPlayer
             try
             {
 
-                srcBuf = getAllBytes(args[1]);
-                Audio.SetVGMBuffer(srcBuf);
-                play();
+                frmPlayList.Stop();
+
+                PlayList pl = frmPlayList.getPlayList();
+                if (pl.lstMusic.Count<1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != args[1])
+                {
+                    frmPlayList.AddList(args[1]);
+                }
+
+                if (!loadAndPlay(args[1]))
+                {
+                    frmPlayList.Stop();
+                    Audio.Stop();
+                    return;
+                }
+
+                frmPlayList.setStart(-1);
+
+                frmPlayList.Play();
 
             }
             catch
@@ -463,6 +449,172 @@ namespace MDPlayer
             }
 
         }
+
+        private void tsmiC140_Click(object sender, EventArgs e)
+        {
+            if (frmC140 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveC140();
+                }
+                catch { }
+                try
+                {
+                    frmC140.Close();
+                }
+                catch { }
+                try
+                {
+                    frmC140.Dispose();
+                }
+                catch { }
+                frmC140 = null;
+                return;
+            }
+
+            frmC140 = new frmC140(this);
+            screen.AddC140(frmC140.pbScreen, Properties.Resources.planeF);
+
+            if (setting.location.PC140 == System.Drawing.Point.Empty)
+            {
+                frmC140.x = this.Location.X;
+                frmC140.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmC140.x = setting.location.PC140.X;
+                frmC140.y = setting.location.PC140.Y;
+            }
+
+            frmC140.Show();
+            frmC140.update();
+        }
+
+        private void tsmiOPNA_Click(object sender, EventArgs e)
+        {
+            if (frmYM2608 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveYM2608();
+                }
+                catch { }
+                try
+                {
+                    frmYM2608.Close();
+                }
+                catch { }
+                try
+                {
+                    frmYM2608.Dispose();
+                }
+                catch { }
+                frmYM2608 = null;
+                return;
+            }
+
+            frmYM2608 = new frmYM2608(this);
+
+            if (setting.location.PYm2608 == System.Drawing.Point.Empty)
+            {
+                frmYM2608.x = this.Location.X;
+                frmYM2608.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmYM2608.x = setting.location.PYm2608.X;
+                frmYM2608.y = setting.location.PYm2608.Y;
+            }
+
+            screen.AddYM2608(frmYM2608.pbScreen, Properties.Resources.planeD);
+            frmYM2608.Show();
+            frmYM2608.update();
+        }
+
+        private void tsmiOPM_Click(object sender, EventArgs e)
+        {
+            if (frmYM2151 != null)// && frmInfo.isClosed)
+            {
+                try
+                {
+                    screen.RemoveYM2151();
+                }
+                catch { }
+                try
+                {
+                    frmYM2151.Close();
+                }
+                catch { }
+                try
+                {
+                    frmYM2151.Dispose();
+                }
+                catch { }
+                frmYM2151 = null;
+                return;
+            }
+
+            frmYM2151 = new frmYM2151(this);
+
+            if (setting.location.PYm2151 == System.Drawing.Point.Empty)
+            {
+                frmYM2151.x = this.Location.X;
+                frmYM2151.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmYM2151.x = setting.location.PYm2151.X;
+                frmYM2151.y = setting.location.PYm2151.Y;
+            }
+
+            screen.AddYM2151(frmYM2151.pbScreen, Properties.Resources.planeE);
+            frmYM2151.Show();
+            frmYM2151.update();
+        }
+
+        private void pbScreen_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+
+        }
+
+        private void pbScreen_DragDrop(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+
+                try
+                {
+
+                    frmPlayList.Stop();
+
+                    frmPlayList.AddList(filename);
+
+                    loadAndPlay(filename);
+                    frmPlayList.setStart(-1);
+
+                    frmPlayList.Play();
+
+                }
+                catch
+                {
+                    MessageBox.Show("ファイルの読み込みに失敗しました。");
+                }
+            }
+        }
+
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+
 
         private void screenMainLoop()
         {
@@ -926,21 +1078,13 @@ namespace MDPlayer
 
         }
 
-        protected override bool ShowWithoutActivation
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         private int searchFMNote(int freq)
         {
             //int m = int.MaxValue;
             int n = 0;
             for (int i = 0; i < 12 * 5; i++)
             {
-                if (freq < FmFNum[i]) break;
+                if (freq < Tables.FmFNum[i]) break;
                 n = i;
                 //int a = Math.Abs(freq - FmFNum[i]);
                 //if (m > a)
@@ -958,7 +1102,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                int a = Math.Abs(freq - PsgFNum[i]);
+                int a = Math.Abs(freq - Tables.PsgFNum[i]);
                 if (m > a)
                 {
                     m = a;
@@ -973,7 +1117,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                if (freq < freqTbl[i]) break;
+                if (freq < Tables.freqTbl[i]) break;
                 n = i;
             }
             return n;
@@ -985,7 +1129,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - (0x0800 * Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - (0x0800 * Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -1001,7 +1145,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - ((0x0800<<2) * Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - ((0x0800<<2) * Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -1017,12 +1161,14 @@ namespace MDPlayer
 
             for (int i = 0; i < 12 * 8; i++)
             {
-                if (freq < Tables.pcmMTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
+                if (freq < Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
                 n = i;
             }
 
             return n;
         }
+
+
 
         private void openSetting()
         {
@@ -1121,14 +1267,15 @@ namespace MDPlayer
 
             if (!Audio.Play(setting))
             {
-                MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 try
                 {
                     frmPlayList.Stop();
                     Audio.Stop();
                 }
                 catch { }
-                return;
+                throw new Exception();
+                //return;
             }
 
             if (frmInfo != null)
@@ -1291,39 +1438,6 @@ namespace MDPlayer
 
 
 
-        private void pbScreen_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
-
-        }
-
-        private void pbScreen_DragDrop(object sender, DragEventArgs e)
-        {
-
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-
-                try
-                {
-
-                    frmPlayList.Stop();
-
-                    frmPlayList.AddList(filename);
-
-                    loadAndPlay(filename);
-                    frmPlayList.setStart(-1);
-
-                    frmPlayList.Play();
-
-                }
-                catch
-                {
-                    MessageBox.Show("ファイルの読み込みに失敗しました。");
-                }
-            }
-        }
-
         public byte[] getAllBytes(string filename)
         {
 
@@ -1358,6 +1472,44 @@ namespace MDPlayer
 
             return outStream.ToArray();
         }
+
+        public void getInstCh(int ch)
+        {
+            if (!setting.other.UseGetInst) return;
+
+            int p = (ch > 2) ? 1 : 0;
+            int c = (ch > 2) ? ch - 3 : ch;
+            int[][] fmRegister = Audio.GetFMRegister();
+
+            string n = "AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
+
+            for (int i = 0; i < 4; i++)
+            {
+                int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
+                    , fmRegister[p][0x50 + ops + c] & 0x1f //AR
+                    , fmRegister[p][0x60 + ops + c] & 0x1f //DR
+                    , fmRegister[p][0x70 + ops + c] & 0x1f //SR
+                    , fmRegister[p][0x80 + ops + c] & 0x0f //RR
+                    , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
+                    , fmRegister[p][0x40 + ops + c] & 0x7f//TL
+                    , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
+                    , fmRegister[p][0x30 + ops + c] & 0x0f//ML
+                    , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
+                    , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
+                    , fmRegister[p][0x90 + ops + c] & 0x0f//SG
+                );
+            }
+            n += "ALG FB\r\n";
+            n += string.Format("{0:D3},{1:D3}\r\n"
+                , fmRegister[p][0xb0 + c] & 0x07//AL
+                , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
+            );
+
+            Clipboard.SetText(n);
+        }
+
+
 
         //SendMessageで送る構造体（Unicode文字列送信に最適化したパターン）
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -1394,10 +1546,25 @@ namespace MDPlayer
                 string sParam = ReceiveString(m);
                 try
                 {
-                    stop();
-                    srcBuf = getAllBytes(sParam);
-                    Audio.SetVGMBuffer(srcBuf);
-                    play();
+
+                    frmPlayList.Stop();
+
+                    PlayList pl = frmPlayList.getPlayList();
+                    if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != sParam)
+                    {
+                        frmPlayList.AddList(sParam);
+                    }
+
+                    if (!loadAndPlay(sParam))
+                    {
+                        frmPlayList.Stop();
+                        Audio.Stop();
+                        return;
+                    }
+
+                    frmPlayList.setStart(-1);
+
+                    frmPlayList.Play();
 
                 }
                 catch
@@ -1455,41 +1622,7 @@ namespace MDPlayer
             return null;
         }
 
-        public void getInstCh(int ch)
-        {
-            if (!setting.other.UseGetInst) return;
 
-            int p = (ch > 2) ? 1 : 0;
-            int c = (ch > 2) ? ch - 3 : ch;
-            int[][] fmRegister = Audio.GetFMRegister();
-
-            string n = "AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
-
-            for (int i = 0; i < 4; i++)
-            {
-                int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
-                    , fmRegister[p][0x50 + ops + c] & 0x1f //AR
-                    , fmRegister[p][0x60 + ops + c] & 0x1f //DR
-                    , fmRegister[p][0x70 + ops + c] & 0x1f //SR
-                    , fmRegister[p][0x80 + ops + c] & 0x0f //RR
-                    , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
-                    , fmRegister[p][0x40 + ops + c] & 0x7f//TL
-                    , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
-                    , fmRegister[p][0x30 + ops + c] & 0x0f//ML
-                    , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
-                    , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
-                    , fmRegister[p][0x90 + ops + c] & 0x0f//SG
-                );
-            }
-            n += "ALG FB\r\n";
-            n += string.Format("{0:D3},{1:D3}\r\n"
-                , fmRegister[p][0xb0 + c] & 0x07//AL
-                , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
-            );
-
-            Clipboard.SetText(n);
-        }
 
         private void StartMIDIInMonitoring()
         {
@@ -1572,7 +1705,7 @@ namespace MDPlayer
             }
         }
 
-        public void loadAndPlay(string fn)
+        public bool loadAndPlay(string fn)
         {
             try
             {
@@ -1589,131 +1722,12 @@ namespace MDPlayer
             catch
             {
                 srcBuf = null;
-                MessageBox.Show("ファイルの読み込みに失敗しました。");
+                MessageBox.Show("ファイルの読み込みに失敗しました。", "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
+
+            return true;
         }
 
-        private void tsmiC140_Click(object sender, EventArgs e)
-        {
-            if (frmC140 != null)// && frmInfo.isClosed)
-            {
-                try
-                {
-                    screen.RemoveC140();
-                }
-                catch { }
-                try
-                {
-                    frmC140.Close();
-                }
-                catch { }
-                try
-                {
-                    frmC140.Dispose();
-                }
-                catch { }
-                frmC140 = null;
-                return;
-            }
-
-            frmC140 = new frmC140(this);
-            screen.AddC140(frmC140.pbScreen, Properties.Resources.planeF);
-
-            if (setting.location.PC140 == System.Drawing.Point.Empty)
-            {
-                frmC140.x = this.Location.X;
-                frmC140.y = this.Location.Y + 264;
-            }
-            else
-            {
-                frmC140.x = setting.location.PC140.X;
-                frmC140.y = setting.location.PC140.Y;
-            }
-
-            frmC140.Show();
-            frmC140.update();
-        }
-
-        private void tsmiOPNA_Click(object sender, EventArgs e)
-        {
-            if (frmYM2608 != null)// && frmInfo.isClosed)
-            {
-                try
-                {
-                    screen.RemoveYM2608();
-                }
-                catch { }
-                try
-                {
-                    frmYM2608.Close();
-                }
-                catch { }
-                try
-                {
-                    frmYM2608.Dispose();
-                }
-                catch { }
-                frmYM2608 = null;
-                return;
-            }
-
-            frmYM2608 = new frmYM2608(this);
-
-            if (setting.location.PYm2608 == System.Drawing.Point.Empty)
-            {
-                frmYM2608.x = this.Location.X;
-                frmYM2608.y = this.Location.Y + 264;
-            }
-            else
-            {
-                frmYM2608.x = setting.location.PYm2608.X;
-                frmYM2608.y = setting.location.PYm2608.Y;
-            }
-
-            screen.AddYM2608(frmYM2608.pbScreen, Properties.Resources.planeD);
-            frmYM2608.Show();
-            frmYM2608.update();
-        }
-
-        private void tsmiOPM_Click(object sender, EventArgs e)
-        {
-            if (frmYM2151 != null)// && frmInfo.isClosed)
-            {
-                try
-                {
-                    screen.RemoveYM2151();
-                }
-                catch { }
-                try
-                {
-                    frmYM2151.Close();
-                }
-                catch { }
-                try
-                {
-                    frmYM2151.Dispose();
-                }
-                catch { }
-                frmYM2151 = null;
-                return;
-            }
-
-            frmYM2151 = new frmYM2151(this);
-
-            if (setting.location.PYm2151 == System.Drawing.Point.Empty)
-            {
-                frmYM2151.x = this.Location.X;
-                frmYM2151.y = this.Location.Y + 264;
-            }
-            else
-            {
-                frmYM2151.x = setting.location.PYm2151.X;
-                frmYM2151.y = setting.location.PYm2151.Y;
-            }
-
-            screen.AddYM2151(frmYM2151.pbScreen, Properties.Resources.planeE);
-            frmYM2151.Show();
-            frmYM2151.update();
-        }
     }
 }

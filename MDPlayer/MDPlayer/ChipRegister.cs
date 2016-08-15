@@ -155,7 +155,7 @@ namespace MDPlayer
                 if (dPort == 0 && dAddr == 0x28)
                 {
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
-                    if (ch >= 0 && ch < 6 && (dData & 0xf0)>0)
+                    if (ch >= 0 && ch < 6)// && (dData & 0xf0)>0)
                     {
                         if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
                         {

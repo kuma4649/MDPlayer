@@ -1454,9 +1454,9 @@ namespace MDPlayer
                 float delta = (float)YM2151clock / chipRegister.getYM2151Clock();
                 float d;
                 float oldD = float.MaxValue;
-                for (int i = 0; i < Tables.pcmMTbl.Length; i++)
+                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
                 {
-                    d = Math.Abs(delta - Tables.pcmMTbl[i]);
+                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
                     if (d > oldD) break;
                     oldD = d;
                     YM2151Hosei = i;
