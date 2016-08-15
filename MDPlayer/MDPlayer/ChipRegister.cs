@@ -71,6 +71,12 @@ namespace MDPlayer
             this.ctYM2151 = ctYM2151;
             this.ctSN76489 = ctSN76489;
 
+            initChipRegister();
+        }
+
+        public void initChipRegister()
+        {
+
             fmRegister = new int[2][] { new int[0x100], new int[0x100] };
             for (int i = 0; i < 0x100; i++)
             {
@@ -561,6 +567,17 @@ namespace MDPlayer
             setYM2151Register(0, 0x68 + ch, fmRegisterYM2151[0x68 + ch], vgm.enmModel.RealModel, 0);
             setYM2151Register(0, 0x70 + ch, fmRegisterYM2151[0x70 + ch], vgm.enmModel.RealModel, 0);
             setYM2151Register(0, 0x78 + ch, fmRegisterYM2151[0x78 + ch], vgm.enmModel.RealModel, 0);
+        }
+
+        public void sendDataYM2151(vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel) return;
+
+            if (scYM2151 != null && ctYM2151.UseWait)
+            {
+                scYM2151.parentSoundInterface.parentNScci.sendData();
+                while (!scYM2151.parentSoundInterface.parentNScci.isBufferEmpty()) { }
+            }
         }
 
 

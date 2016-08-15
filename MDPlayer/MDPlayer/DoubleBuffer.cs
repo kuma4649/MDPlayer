@@ -1226,14 +1226,16 @@ namespace MDPlayer
                 else if (c == 5)
                 {
                     int tp6 = tp;
+                    int tp6v = tp;
                     if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        tp6 = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;
+                        tp6v = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
+                        //tp6 = 0;
                     }
-                    drawVolume(c, 1, ref oyc.volumeL, nyc.volumeL, tp6);
-                    drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp6);
+                    drawVolume(c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                    drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
                     drawPan(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6);
-                    drawKb(c, ref oyc.note, nyc.note, tp);
+                    drawKb(c, ref oyc.note, nyc.note, tp6);
                     drawInst(mainScreen, 1, 16, c, oyc.inst, nyc.inst);
                 }
                 else
@@ -1384,6 +1386,7 @@ namespace MDPlayer
 
             for (int y = 0; y < 13; y++)
             {
+
                 //note
                 drawFont8(mainScreen, 296, y * 8 + 8, 1, "   ");
 
@@ -1399,13 +1402,28 @@ namespace MDPlayer
                     else if (y == 5)
                     {
                         int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-                        if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+                        //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
                         drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, tp6);
                     }
                     else
                     {
                         drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.SN76489Type.UseScci ? 1 : 0);
                     }
+                }
+
+                int d = 99;
+                if (y < 6 || y > 9)
+                {
+                    drawVolume(y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
+                    if (y < 6)
+                    {
+                        d = 99;
+                        drawPan(y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
+                    }
+                }
+                else
+                {
+                    drawVolume(y, 0, ref d, 0, setting.SN76489Type.UseScci ? 1 : 0);
                 }
 
                 if (y < 5)
@@ -1415,7 +1433,7 @@ namespace MDPlayer
                 else if (y == 5)
                 {
                     int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-                    if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+                    //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
                     drawCh6P(0, y * 8 + 8, 0, false, tp6);
                 }
                 else if (y < 10)
@@ -1427,6 +1445,7 @@ namespace MDPlayer
 
             }
 
+            //RF5C164
             for (int ch = 0; ch < 8; ch++)
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
@@ -1439,6 +1458,7 @@ namespace MDPlayer
                 drawPanType2P(rf5c164Screen, 24, ch * 8 + 8, 0);
             }
 
+            //C140
             for (int ch = 0; ch < 24; ch++)
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
@@ -1451,18 +1471,27 @@ namespace MDPlayer
                 drawPanType2P(c140Screen, 24, ch * 8 + 8, 0);
             }
 
+            //YM2151
             for (int ch = 0; ch < 8; ch++)
             {
+                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+
+                drawFont8(ym2151Screen, 296, ch * 8 + 8, 1, "   ");
+
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
                     int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                     int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(ym2151Screen, 32 + kx, ch * 8 + 8, kt, setting.YM2151Type.UseScci ? 1 : 0);
+                    drawKbn(ym2151Screen, 32 + kx, ch * 8 + 8, kt, tp);
                 }
 
-                drawChPYM2151(0, ch * 8 + 8, ch, false, setting.YM2151Type.UseScci ? 1 : 0);
+                drawChPYM2151(0, ch * 8 + 8, ch, false, tp);
+                drawPanP(ym2151Screen, 24, ch * 8 + 8, 3, tp);
+                int d = 99;
+                drawVolumeYM2151(ch, 0, ref d, 0, tp);
             }
 
+            //YM2608
             for (int y = 0; y < 6 + 3 + 3 + 1; y++)
             {
                 int tp = setting.YM2608Type.UseScci ? 1 : 0;

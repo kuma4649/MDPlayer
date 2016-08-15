@@ -303,6 +303,7 @@ namespace MDPlayer
             }
 
             chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type);
+            chipRegister.initChipRegister();
 
             vgmVirtual.dacControl.chipRegister = chipRegister;
             vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
@@ -575,6 +576,8 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
+
+                chipRegister.initChipRegister();
 
                 Paused = false;
                 Stopped = false;
