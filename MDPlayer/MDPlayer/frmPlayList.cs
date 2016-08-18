@@ -530,5 +530,38 @@ namespace MDPlayer
             dgvList.Columns["clmComposer"].Visible = !tsbJapanese.Checked;
             dgvList.Columns["clmComposerJ"].Visible = tsbJapanese.Checked;
         }
+
+        private void frmPlayList_KeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("keycode{0} {1} {2}", e.KeyCode, e.KeyData, e.KeyValue);
+
+            switch (e.KeyValue)
+            {
+                case 32: //Space
+                case 13: //Enter
+                    if (dgvList.SelectedRows.Count == 0)
+                    {
+                        return;
+                    }
+
+                    int index = dgvList.SelectedRows[0].Index;
+
+                    e.Handled = true;
+
+                    playing = false;
+
+                    string fn = (string)dgvList.SelectedRows[0].Cells["clmFileName"].Value;
+                    frmMain.loadAndPlay(fn);
+                    updatePlayingIndex(index);
+
+                    playing = true;
+                    break;
+                case 46: //Delete
+                    e.Handled = true;
+                    tsmiDelThis_Click(null, null);
+                    break;
+            }
+
+        }
     }
 }
