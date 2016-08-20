@@ -745,6 +745,24 @@ namespace MDPlayer
                 mds.WriteOKIM6295PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
+        public void writeSEGAPCM(byte ChipID, int Offset, byte Data, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                mds.WriteSEGAPCM(ChipID, Offset, Data);
+                //System.Console.WriteLine("ChipID={0} Offset={1:X} Data={2:X} ", ChipID, Offset, Data);
+            }
+        }
+
+        public void writeSEGAPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                mds.WriteSEGAPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+            }
+        }
+
+
 
         private int volF = 1;
         public void updateVol()

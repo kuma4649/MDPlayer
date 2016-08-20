@@ -140,6 +140,7 @@
             this.btnOKIM6295 = new System.Windows.Forms.Button();
             this.btnOKIM6258 = new System.Windows.Forms.Button();
             this.tbOKIM6295 = new System.Windows.Forms.TextBox();
+            this.bs7 = new System.Windows.Forms.BindingSource(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.trkOKIM6295 = new System.Windows.Forms.TrackBar();
@@ -158,11 +159,16 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label24 = new System.Windows.Forms.Label();
+            this.btnSEAPCM = new System.Windows.Forms.Button();
             this.btnC140 = new System.Windows.Forms.Button();
+            this.tbSEGAPCM = new System.Windows.Forms.TextBox();
             this.tbC140 = new System.Windows.Forms.TextBox();
             this.bs5 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.trkSEGAPCM = new System.Windows.Forms.TrackBar();
             this.panel5 = new System.Windows.Forms.Panel();
             this.trkC140 = new System.Windows.Forms.TrackBar();
+            this.label28 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -190,7 +196,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.bs7 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs8 = new System.Windows.Forms.BindingSource(this.components);
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -220,6 +226,7 @@
             this.gbMIDIKeyboard.SuspendLayout();
             this.gbUseChannel.SuspendLayout();
             this.tpOmake.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs7)).BeginInit();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6295)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs6)).BeginInit();
@@ -230,6 +237,8 @@
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs5)).BeginInit();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSEGAPCM)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkC140)).BeginInit();
             this.groupBox6.SuspendLayout();
@@ -237,7 +246,7 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs8)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -1420,9 +1429,13 @@
             this.tpOmake.Controls.Add(this.label25);
             this.tpOmake.Controls.Add(this.panel6);
             this.tpOmake.Controls.Add(this.label24);
+            this.tpOmake.Controls.Add(this.btnSEAPCM);
             this.tpOmake.Controls.Add(this.btnC140);
+            this.tpOmake.Controls.Add(this.tbSEGAPCM);
             this.tpOmake.Controls.Add(this.tbC140);
+            this.tpOmake.Controls.Add(this.panel10);
             this.tpOmake.Controls.Add(this.panel5);
+            this.tpOmake.Controls.Add(this.label28);
             this.tpOmake.Controls.Add(this.label23);
             this.tpOmake.Controls.Add(this.groupBox6);
             this.tpOmake.Controls.Add(this.gbYM2151);
@@ -1435,7 +1448,7 @@
             // 
             // btnOKIM6295
             // 
-            this.btnOKIM6295.Location = new System.Drawing.Point(270, 269);
+            this.btnOKIM6295.Location = new System.Drawing.Point(218, 269);
             this.btnOKIM6295.Name = "btnOKIM6295";
             this.btnOKIM6295.Size = new System.Drawing.Size(19, 19);
             this.btnOKIM6295.TabIndex = 19;
@@ -1444,7 +1457,7 @@
             // 
             // btnOKIM6258
             // 
-            this.btnOKIM6258.Location = new System.Drawing.Point(192, 269);
+            this.btnOKIM6258.Location = new System.Drawing.Point(157, 269);
             this.btnOKIM6258.Name = "btnOKIM6258";
             this.btnOKIM6258.Size = new System.Drawing.Size(19, 19);
             this.btnOKIM6258.TabIndex = 19;
@@ -1454,7 +1467,7 @@
             // tbOKIM6295
             // 
             this.tbOKIM6295.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs7, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6295.Location = new System.Drawing.Point(243, 269);
+            this.tbOKIM6295.Location = new System.Drawing.Point(191, 269);
             this.tbOKIM6295.MaxLength = 3;
             this.tbOKIM6295.Name = "tbOKIM6295";
             this.tbOKIM6295.Size = new System.Drawing.Size(27, 19);
@@ -1462,10 +1475,14 @@
             this.tbOKIM6295.Text = "200";
             this.tbOKIM6295.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // bs7
+            // 
+            this.bs7.DataSource = typeof(MDPlayer.BindData);
+            // 
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(114, 269);
+            this.button2.Location = new System.Drawing.Point(97, 269);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(19, 19);
             this.button2.TabIndex = 19;
@@ -1477,7 +1494,7 @@
             this.panel9.BackColor = System.Drawing.Color.White;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.trkOKIM6295);
-            this.panel9.Location = new System.Drawing.Point(243, 197);
+            this.panel9.Location = new System.Drawing.Point(191, 197);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(45, 70);
             this.panel9.TabIndex = 17;
@@ -1501,7 +1518,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label27.Location = new System.Drawing.Point(235, 182);
+            this.label27.Location = new System.Drawing.Point(183, 182);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(64, 12);
             this.label27.TabIndex = 16;
@@ -1510,7 +1527,7 @@
             // tbOKIM6258
             // 
             this.tbOKIM6258.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs6, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6258.Location = new System.Drawing.Point(165, 269);
+            this.tbOKIM6258.Location = new System.Drawing.Point(130, 269);
             this.tbOKIM6258.MaxLength = 3;
             this.tbOKIM6258.Name = "tbOKIM6258";
             this.tbOKIM6258.Size = new System.Drawing.Size(27, 19);
@@ -1525,7 +1542,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(34, 269);
+            this.button1.Location = new System.Drawing.Point(37, 269);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(19, 19);
             this.button1.TabIndex = 15;
@@ -1537,7 +1554,7 @@
             this.panel8.BackColor = System.Drawing.Color.White;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.trkOKIM6258);
-            this.panel8.Location = new System.Drawing.Point(165, 197);
+            this.panel8.Location = new System.Drawing.Point(130, 197);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(45, 70);
             this.panel8.TabIndex = 17;
@@ -1561,7 +1578,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label26.Location = new System.Drawing.Point(157, 182);
+            this.label26.Location = new System.Drawing.Point(122, 182);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(64, 12);
             this.label26.TabIndex = 16;
@@ -1570,7 +1587,7 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(87, 269);
+            this.textBox6.Location = new System.Drawing.Point(70, 269);
             this.textBox6.MaxLength = 3;
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(27, 19);
@@ -1581,7 +1598,7 @@
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(7, 269);
+            this.textBox5.Location = new System.Drawing.Point(10, 269);
             this.textBox5.MaxLength = 3;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(27, 19);
@@ -1595,7 +1612,7 @@
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Controls.Add(this.trackBar2);
             this.panel7.Enabled = false;
-            this.panel7.Location = new System.Drawing.Point(87, 197);
+            this.panel7.Location = new System.Drawing.Point(70, 197);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(45, 70);
             this.panel7.TabIndex = 17;
@@ -1619,7 +1636,7 @@
             this.label25.AutoSize = true;
             this.label25.Enabled = false;
             this.label25.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label25.Location = new System.Drawing.Point(85, 182);
+            this.label25.Location = new System.Drawing.Point(68, 182);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(51, 12);
             this.label25.TabIndex = 16;
@@ -1631,7 +1648,7 @@
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.trackBar1);
             this.panel6.Enabled = false;
-            this.panel6.Location = new System.Drawing.Point(7, 197);
+            this.panel6.Location = new System.Drawing.Point(10, 197);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(45, 70);
             this.panel6.TabIndex = 13;
@@ -1655,15 +1672,25 @@
             this.label24.AutoSize = true;
             this.label24.Enabled = false;
             this.label24.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label24.Location = new System.Drawing.Point(5, 182);
+            this.label24.Location = new System.Drawing.Point(8, 182);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(51, 12);
             this.label24.TabIndex = 12;
             this.label24.Text = "YM2151";
             // 
+            // btnSEAPCM
+            // 
+            this.btnSEAPCM.Location = new System.Drawing.Point(340, 269);
+            this.btnSEAPCM.Name = "btnSEAPCM";
+            this.btnSEAPCM.Size = new System.Drawing.Size(19, 19);
+            this.btnSEAPCM.TabIndex = 11;
+            this.btnSEAPCM.Text = "%";
+            this.btnSEAPCM.UseVisualStyleBackColor = true;
+            this.btnSEAPCM.Click += new System.EventHandler(this.btnSEAPCM_Click);
+            // 
             // btnC140
             // 
-            this.btnC140.Location = new System.Drawing.Point(349, 269);
+            this.btnC140.Location = new System.Drawing.Point(279, 269);
             this.btnC140.Name = "btnC140";
             this.btnC140.Size = new System.Drawing.Size(19, 19);
             this.btnC140.TabIndex = 11;
@@ -1671,10 +1698,22 @@
             this.btnC140.UseVisualStyleBackColor = true;
             this.btnC140.Click += new System.EventHandler(this.btnC140_Click);
             // 
+            // tbSEGAPCM
+            // 
+            this.tbSEGAPCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs8, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbSEGAPCM.Location = new System.Drawing.Point(313, 269);
+            this.tbSEGAPCM.MaxLength = 3;
+            this.tbSEGAPCM.Name = "tbSEGAPCM";
+            this.tbSEGAPCM.Size = new System.Drawing.Size(27, 19);
+            this.tbSEGAPCM.TabIndex = 10;
+            this.tbSEGAPCM.Text = "200";
+            this.tbSEGAPCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbSEGAPCM.TextChanged += new System.EventHandler(this.tbSEGAPCM_TextChanged);
+            // 
             // tbC140
             // 
             this.tbC140.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs5, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbC140.Location = new System.Drawing.Point(322, 269);
+            this.tbC140.Location = new System.Drawing.Point(252, 269);
             this.tbC140.MaxLength = 3;
             this.tbC140.Name = "tbC140";
             this.tbC140.Size = new System.Drawing.Size(27, 19);
@@ -1687,12 +1726,37 @@
             // 
             this.bs5.DataSource = typeof(MDPlayer.BindData);
             // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.White;
+            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel10.Controls.Add(this.trkSEGAPCM);
+            this.panel10.Location = new System.Drawing.Point(313, 197);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(45, 70);
+            this.panel10.TabIndex = 9;
+            // 
+            // trkSEGAPCM
+            // 
+            this.trkSEGAPCM.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs8, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkSEGAPCM.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkSEGAPCM.LargeChange = 10;
+            this.trkSEGAPCM.Location = new System.Drawing.Point(0, 0);
+            this.trkSEGAPCM.Maximum = 200;
+            this.trkSEGAPCM.Name = "trkSEGAPCM";
+            this.trkSEGAPCM.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkSEGAPCM.Size = new System.Drawing.Size(43, 68);
+            this.trkSEGAPCM.TabIndex = 0;
+            this.trkSEGAPCM.TickFrequency = 10;
+            this.trkSEGAPCM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkSEGAPCM.Value = 100;
+            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.trkC140);
-            this.panel5.Location = new System.Drawing.Point(322, 197);
+            this.panel5.Location = new System.Drawing.Point(252, 197);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(45, 70);
             this.panel5.TabIndex = 9;
@@ -1712,11 +1776,21 @@
             this.trkC140.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trkC140.Value = 100;
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label28.Location = new System.Drawing.Point(303, 182);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(66, 12);
+            this.label28.TabIndex = 7;
+            this.label28.Text = "SEGAPCM";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label23.Location = new System.Drawing.Point(327, 182);
+            this.label23.Location = new System.Drawing.Point(257, 182);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(35, 12);
             this.label23.TabIndex = 7;
@@ -2025,9 +2099,9 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // bs7
+            // bs8
             // 
-            this.bs7.DataSource = typeof(MDPlayer.BindData);
+            this.bs8.DataSource = typeof(MDPlayer.BindData);
             // 
             // frmSetting
             // 
@@ -2093,6 +2167,7 @@
             this.gbUseChannel.PerformLayout();
             this.tpOmake.ResumeLayout(false);
             this.tpOmake.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs7)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6295)).EndInit();
@@ -2107,6 +2182,9 @@
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs5)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSEGAPCM)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkC140)).EndInit();
@@ -2118,7 +2196,7 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2287,5 +2365,11 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.BindingSource bs6;
         private System.Windows.Forms.BindingSource bs7;
+        private System.Windows.Forms.Button btnSEAPCM;
+        private System.Windows.Forms.TextBox tbSEGAPCM;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.TrackBar trkSEGAPCM;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.BindingSource bs8;
     }
 }

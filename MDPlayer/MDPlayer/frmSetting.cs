@@ -31,6 +31,7 @@ namespace MDPlayer
             bs5.DataSource = new BindData();
             bs6.DataSource = new BindData();
             bs7.DataSource = new BindData();
+            bs8.DataSource = new BindData();
 
             Init();
         }
@@ -411,6 +412,7 @@ namespace MDPlayer
             ((BindData)(bs5.DataSource)).Value = setting.balance.C140Volume;
             ((BindData)(bs6.DataSource)).Value = setting.balance.OKIM6258Volume;
             ((BindData)(bs7.DataSource)).Value = setting.balance.OKIM6295Volume;
+            ((BindData)(bs8.DataSource)).Value = setting.balance.SEGAPCMVolume;
 
             trkYM2612.Value = setting.balance.YM2612Volume;
             trkSN76489.Value = setting.balance.SN76489Volume;
@@ -610,6 +612,7 @@ namespace MDPlayer
             setting.balance.C140Volume = trkC140.Value;
             setting.balance.OKIM6258Volume = trkOKIM6258.Value;
             setting.balance.OKIM6295Volume = trkOKIM6295.Value;
+            setting.balance.SEGAPCMVolume = trkSEGAPCM.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -858,6 +861,25 @@ namespace MDPlayer
             else
             {
                 tbC140.Text = "100";
+            }
+
+        }
+
+        private void btnSEAPCM_Click(object sender, EventArgs e)
+        {
+            trkSEGAPCM.Value = 100;
+        }
+
+        private void tbSEGAPCM_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbSEGAPCM.Text, out v))
+            {
+                tbSEGAPCM.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbSEGAPCM.Text = "100";
             }
 
         }

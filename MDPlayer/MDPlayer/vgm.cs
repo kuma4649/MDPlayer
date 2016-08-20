@@ -38,6 +38,7 @@ namespace MDPlayer
         public const MDSound.c140.C140_TYPE defaultC140Type = MDSound.c140.C140_TYPE.ASIC219;
         public const uint defaultOKIM6258ClockValue = 4000000;
         public const uint defaultOKIM6295ClockValue = 4000000;
+        public const uint defaultSEGAPCMClockValue = 4000000;
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
@@ -48,6 +49,8 @@ namespace MDPlayer
         public uint OKIM6258ClockValue = 4000000;
         public byte OKIM6258Type = 0;
         public uint OKIM6295ClockValue = 4000000;
+        public uint SEGAPCMClockValue = 4000000;
+        public int SEGAPCMInterface=0;
 
         public int YM2151Hosei = 0;
 
@@ -417,7 +420,7 @@ namespace MDPlayer
             vgmCmdTbl[0xbe] = vcDummy2Ope;
             vgmCmdTbl[0xbf] = vcDummy2Ope;
 
-            vgmCmdTbl[0xc0] = vcDummy3Ope;
+            vgmCmdTbl[0xc0] = vcSEGAPCM;
             vgmCmdTbl[0xc1] = vcDummy3Ope;
             vgmCmdTbl[0xc3] = vcDummy3Ope;
             vgmCmdTbl[0xc4] = vcDummy3Ope;
@@ -584,6 +587,13 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcSEGAPCM()
+        {
+            //Console.WriteLine("{0:X4} {1:X4}", vgmBuf[vgmAdr + 0x01], vgmBuf[vgmAdr + 0x02]);
+            chipRegister.writeSEGAPCM(0, (int)((vgmBuf[vgmAdr + 0x01] & 0xFF) | ((vgmBuf[vgmAdr + 0x02] & 0xFF) << 8)), vgmBuf[vgmAdr + 0x03], model);
+            vgmAdr += 4;
+        }
+
         private void vcWaitNSamples()
         {
             vgmWait += (int)getLE16(vgmAdr + 1);
@@ -638,6 +648,10 @@ namespace MDPlayer
                     uint startAddress = getLE32(vgmAdr + 0x0B);
                     switch (bType)
                     {
+                        case 0x80:
+                            //SEGA PCM
+                            chipRegister.writeSEGAPCMPCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            break;
                         case 0x81:
 
                             // YM2608
@@ -1479,7 +1493,13 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x38)
                 {
                     uint SegaPCMclock = getLE32(0x38);
-                    if (SegaPCMclock != 0) chips.Add("Sega PCM");
+                    int SPCMInterface = (int)getLE32(0x3c);
+                    if (SegaPCMclock != 0 && SPCMInterface != 0)
+                    {
+                        chips.Add("Sega PCM");
+                        SEGAPCMClockValue = SegaPCMclock;
+                        SEGAPCMInterface = SPCMInterface;
+                    }
                 }
 
                 if (vgmDataOffset > 0x40)

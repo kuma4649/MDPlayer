@@ -151,7 +151,7 @@ namespace MDPlayer
 
             Audio.setting = setting.Copy();
 
-            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[7];
+            MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[8];
 
             chips[0] = new MDSound.MDSound.Chip();
             chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
@@ -251,6 +251,20 @@ namespace MDPlayer
             chips[6].Clock = vgm.defaultOKIM6295ClockValue;
             chips[6].Option = null;
 
+            chips[7] = new MDSound.MDSound.Chip();
+            chips[7].type = MDSound.MDSound.enmInstrumentType.SEGAPCM;
+            chips[7].ID = 0;
+            MDSound.segapcm segapcm = new MDSound.segapcm();
+            chips[7].Instrument = segapcm;
+            chips[7].Update = segapcm.Update;
+            chips[7].Start = segapcm.Start;
+            chips[7].Stop = segapcm.Stop;
+            chips[7].Reset = segapcm.Reset;
+            chips[7].SamplingRate = SamplingRate;
+            chips[7].Volume = 100;
+            chips[7].Clock = vgm.defaultSEGAPCMClockValue;
+            chips[7].Option = new object[1] { (int)0 };
+
             if (mds == null)
                 mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
             else
@@ -267,6 +281,7 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
 
             nscci = new NScci.NScci();
 
@@ -560,6 +575,24 @@ namespace MDPlayer
                     lstChips.Add(chip);
                 }
 
+                if (vgmVirtual.SEGAPCMClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.SEGAPCM;
+                    chip.ID = 0;
+                    MDSound.segapcm segapcm = new MDSound.segapcm();
+                    chip.Instrument = segapcm;
+                    chip.Update = segapcm.Update;
+                    chip.Start = segapcm.Start;
+                    chip.Stop = segapcm.Stop;
+                    chip.Reset = segapcm.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.SEGAPCMVolume;
+                    chip.Clock = vgmVirtual.SEGAPCMClockValue;
+                    chip.Option = new object[1] { vgmVirtual.SEGAPCMInterface };
+                    lstChips.Add(chip);
+                }
+
                 if (mds == null)
                     mds = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
                 else
@@ -576,6 +609,7 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
 
                 chipRegister.initChipRegister();
 
@@ -1043,7 +1077,7 @@ namespace MDPlayer
 
                 if (vgmFadeoutCounter == 0.0)
                 {
-                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[7];
+                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[8];
 
                     chips[0] = new MDSound.MDSound.Chip();
                     chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
@@ -1143,6 +1177,20 @@ namespace MDPlayer
                     chips[6].Clock = vgm.defaultOKIM6295ClockValue;
                     chips[6].Option = null;
 
+                    chips[7] = new MDSound.MDSound.Chip();
+                    chips[7].type = MDSound.MDSound.enmInstrumentType.SEGAPCM;
+                    chips[7].ID = 0;
+                    MDSound.segapcm segapcm = new MDSound.segapcm();
+                    chips[7].Instrument = segapcm;
+                    chips[7].Update = segapcm.Update;
+                    chips[7].Start = segapcm.Start;
+                    chips[7].Stop = segapcm.Stop;
+                    chips[7].Reset = segapcm.Reset;
+                    chips[7].SamplingRate = SamplingRate;
+                    chips[7].Volume = 100;
+                    chips[7].Clock = vgm.defaultSEGAPCMClockValue;
+                    chips[7].Option = new object[1] { (int)0 };
+
                     if (mds == null)
                         mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
                     else
@@ -1159,6 +1207,7 @@ namespace MDPlayer
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.C140, 0, setting.balance.C140Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
 
                     Stopped = true;
                 }

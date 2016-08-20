@@ -667,6 +667,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _SEGAPCMVolume = 100;
+            public int SEGAPCMVolume
+            {
+                get
+                {
+                    return _SEGAPCMVolume;
+                }
+
+                set
+                {
+                    _SEGAPCMVolume = value;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -677,6 +691,7 @@ namespace MDPlayer
                 Balance.C140Volume = this.C140Volume;
                 Balance.OKIM6258Volume = this.OKIM6258Volume;
                 Balance.OKIM6295Volume = this.OKIM6295Volume;
+                Balance.SEGAPCMVolume = this.SEGAPCMVolume;
 
                 return Balance;
             }
