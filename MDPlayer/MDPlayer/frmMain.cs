@@ -1451,17 +1451,17 @@ namespace MDPlayer
         }
 
 
+        public const int FCC_VGM = 0x206D6756;	// "Vgm "
 
         public byte[] getAllBytes(string filename)
         {
+            byte[] buf= System.IO.File.ReadAllBytes(filename);
+            uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
+            if (vgm == FCC_VGM) return buf;
 
-            if (!filename.ToLower().EndsWith(".vgz"))
-            {
-                return System.IO.File.ReadAllBytes(filename);
-            }
 
             int num;
-            byte[] buf = new byte[1024]; // 1Kbytesずつ処理する
+            buf = new byte[1024]; // 1Kbytesずつ処理する
 
             FileStream inStream // 入力ストリーム
               = new FileStream(filename, FileMode.Open, FileAccess.Read);
