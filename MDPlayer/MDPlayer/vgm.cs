@@ -51,6 +51,8 @@ namespace MDPlayer
         public uint OKIM6295ClockValue = 4000000;
         public uint SEGAPCMClockValue = 4000000;
         public int SEGAPCMInterface=0;
+        public uint YM2151ClockValue;
+        public uint YM2608ClockValue;
 
         public int YM2151Hosei = 0;
 
@@ -230,10 +232,10 @@ namespace MDPlayer
                 {
                     if ((useChip & enmUseChip.YM2612Ch6) == enmUseChip.YM2612Ch6)
                         chipRegister.setYM2612SyncWait(vgmWait);
-                    if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
-                        chipRegister.setSN76489SyncWait(vgmWait);
-                    chipRegister.setYM2608SyncWait(vgmWait);
-                    chipRegister.setYM2151SyncWait(vgmWait);
+                    //if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
+                    //    chipRegister.setSN76489SyncWait(vgmWait);
+                    //chipRegister.setYM2608SyncWait(vgmWait);
+                    //chipRegister.setYM2151SyncWait(vgmWait);
                 }
             }
 
@@ -1411,6 +1413,17 @@ namespace MDPlayer
             chips = new List<string>();
             UsedChips = "";
 
+            SN76489ClockValue = 0;// defaultSN76489ClockValue;
+            YM2612ClockValue = 0;// defaultYM2612ClockValue;
+            YM2151ClockValue = 0;
+            SEGAPCMClockValue = 0;
+            YM2608ClockValue = 0;
+            RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
+            PWMClockValue = 0;// defaultPWMClockValue;
+            OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
+            C140ClockValue = 0;// defaultC140ClockValue;
+            OKIM6295ClockValue = 0;//defaultOKIM6295ClockValue;
+
             //ヘッダーを読み込めるサイズをもっているかチェック
             if (vgmBuf.Length < 0x40) return false;
 
@@ -1427,7 +1440,6 @@ namespace MDPlayer
             Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
             uint SN76489clock = getLE32(0x0c);
-            SN76489ClockValue = 0;// defaultSN76489ClockValue;
             if (SN76489clock != 0)
             {
                 chips.Add("SN76489");
@@ -1453,7 +1465,6 @@ namespace MDPlayer
             LoopCounter = getLE32(0x20);
 
             uint YM2612clock = getLE32(0x2c);
-            YM2612ClockValue = 0;// defaultYM2612ClockValue;
             if (YM2612clock != 0)
             {
                 chips.Add("YM2612");
@@ -1461,7 +1472,11 @@ namespace MDPlayer
             }
 
             uint YM2151clock = getLE32(0x30);
-            if (YM2151clock != 0) chips.Add("YM2151");
+            if (YM2151clock != 0)
+            {
+                chips.Add("YM2151");
+                YM2151ClockValue = YM2151clock;
+            }
             YM2151Hosei = 0;
             if (model == enmModel.RealModel)
             {
@@ -1520,7 +1535,7 @@ namespace MDPlayer
                     if (YM2608clock != 0)
                     {
                         chips.Add("YM2608");
-                        //System.Console.WriteLine("YM2608Clock:{0}", YM2608clock);
+                        YM2608ClockValue = YM2608clock;
                     }
                 }
 
@@ -1575,7 +1590,6 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x6c)
                 {
                     uint RF5C164clock = getLE32(0x6c);
-                    RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
                     if (RF5C164clock != 0)
                     {
                         chips.Add("RF5C164");
@@ -1587,7 +1601,6 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x70)
                 {
                     uint PWMclock = getLE32(0x70);
-                    PWMClockValue = 0;// defaultPWMClockValue;
                     if (PWMclock != 0)
                     {
                         chips.Add("PWM");
@@ -1606,7 +1619,6 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x90)
                 {
                     uint OKIM6258clock = getLE32(0x90);
-                    OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
                     if (OKIM6258clock != 0)
                     {
                         chips.Add("OKIM6258");
@@ -1619,7 +1631,6 @@ namespace MDPlayer
                 {
 
                     uint C140clock = getLE32(0xa8);
-                    C140ClockValue = 0;// defaultC140ClockValue;
                     if (C140clock != 0)
                     {
                         chips.Add("C140");
@@ -1646,7 +1657,6 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x98)
                 {
                     uint OKIM6295clock = getLE32(0x98);
-                    OKIM6295ClockValue = 0;//defaultOKIM6295ClockValue;
                     if (OKIM6295clock != 0)
                     {
                         chips.Add("OKIM6295");

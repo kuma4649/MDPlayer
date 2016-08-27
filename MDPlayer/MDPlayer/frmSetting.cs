@@ -323,8 +323,6 @@ namespace MDPlayer
                 }
             }
 
-            cbSN76489UseWait.Checked = setting.SN76489Type.UseWait;
-            cbSN76489UseWaitBoost.Checked = setting.SN76489Type.UseWaitBoost;
             tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
             tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
 
@@ -354,11 +352,6 @@ namespace MDPlayer
                 }
             }
 
-            cbYM2608UseWait.Checked = setting.YM2608Type.UseWait;
-            //cbYM2608UseWaitBoost.Checked = setting.YM2608Type.UseWaitBoost;
-            //tbYM2608EmuDelay.Text = setting.YM2608Type.LatencyForEmulation.ToString();
-            //tbYM2608ScciDelay.Text = setting.YM2608Type.LatencyForScci.ToString();
-
             if (!setting.YM2151Type.UseScci)
             {
                 //rbYM2151Emu.Checked = true;
@@ -384,11 +377,6 @@ namespace MDPlayer
                     //rbYM2151Emu.Checked = true;
                 }
             }
-
-            cbYM2151UseWait.Checked = setting.YM2151Type.UseWait;
-            //cbYM2151UseWaitBoost.Checked = setting.YM2151Type.UseWaitBoost;
-            //tbYM2151EmuDelay.Text = setting.YM2151Type.LatencyForEmulation.ToString();
-            //tbYM2151ScciDelay.Text = setting.YM2151Type.LatencyForScci.ToString();
 
             cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
 
@@ -505,8 +493,6 @@ namespace MDPlayer
                 setting.SN76489Type.BusID = int.Parse(ns[1]);
                 setting.SN76489Type.SoundChip = int.Parse(ns[2]);
             }
-            setting.SN76489Type.UseWait = cbSN76489UseWait.Checked;
-            setting.SN76489Type.UseWaitBoost = cbSN76489UseWaitBoost.Checked;
             setting.SN76489Type.LatencyForEmulation = 0;
             if (int.TryParse(tbSN76489EmuDelay.Text, out i))
             {
@@ -532,7 +518,6 @@ namespace MDPlayer
                     setting.YM2608Type.SoundChip = int.Parse(ns[2]);
                 }
             }
-            setting.YM2608Type.UseWait = cbYM2608UseWait.Checked;
             //setting.YM2608Type.UseWaitBoost = cbYM2608UseWaitBoost.Checked;
             setting.YM2608Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
             setting.YM2608Type.LatencyForEmulation = 0;
@@ -560,7 +545,6 @@ namespace MDPlayer
                     setting.YM2151Type.SoundChip = int.Parse(ns[2]);
                 }
             }
-            setting.YM2151Type.UseWait = cbYM2151UseWait.Checked;
             //setting.YM2151Type.UseWaitBoost = cbYM2151UseWaitBoost.Checked;
             setting.YM2151Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
             setting.YM2151Type.LatencyForEmulation = 0;
@@ -882,6 +866,16 @@ namespace MDPlayer
                 tbSEGAPCM.Text = "100";
             }
 
+        }
+
+        private void btnOKIM6258_Click(object sender, EventArgs e)
+        {
+            trkOKIM6258.Value = 100;
+        }
+
+        private void btnOKIM6295_Click(object sender, EventArgs e)
+        {
+            trkOKIM6295.Value = 100;
         }
     }
 

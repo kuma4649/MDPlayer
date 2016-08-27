@@ -87,6 +87,9 @@ namespace MDPlayer
         public static vgm vgmReal = null;
 
         private static bool oneTimeReset = false;
+        private static int hiyorimiEven = 0;
+        private static bool hiyorimiNecessary = false;
+
 
 
         public static PlayList.music getMusic(string file,byte[] buf)
@@ -449,6 +452,9 @@ namespace MDPlayer
 
                 MDSound.MDSound.Chip chip;
 
+                hiyorimiNecessary = setting.HiyorimiMode;
+                int hiyorimiDeviceFlag = 0;
+
                 if (vgmVirtual.SN76489ClockValue != 0)
                 {
                     chip = new MDSound.MDSound.Chip();
@@ -464,6 +470,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.SN76489Volume;
                     chip.Clock = vgmVirtual.SN76489ClockValue;
                     chip.Option = null;
+
+                    hiyorimiDeviceFlag |= (setting.SN76489Type.UseScci) ? 0x1 : 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -482,6 +491,10 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.YM2612Volume;
                     chip.Clock = vgmVirtual.YM2612ClockValue;
                     chip.Option = null;
+
+                    hiyorimiDeviceFlag |= (setting.YM2612Type.UseScci) ? 0x1 : 0x2;
+                    hiyorimiDeviceFlag |= (setting.YM2612Type.UseScci && setting.YM2612Type.OnlyPCMEmulation) ? 0x2 : 0x0;
+
                     lstChips.Add(chip);
                 }
 
@@ -500,6 +513,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.RF5C164Volume;
                     chip.Clock = vgmVirtual.RF5C164ClockValue;
                     chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -518,6 +534,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.PWMVolume;
                     chip.Clock = vgmVirtual.PWMClockValue;
                     chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -536,6 +555,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.C140Volume;
                     chip.Clock = vgmVirtual.C140ClockValue;
                     chip.Option = new object[1] { vgmVirtual.C140Type };
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -554,6 +576,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.OKIM6258Volume;
                     chip.Clock = vgmVirtual.OKIM6258ClockValue;
                     chip.Option = new object[1] { (int)vgmVirtual.OKIM6258Type };
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -572,6 +597,9 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.OKIM6295Volume;
                     chip.Clock = vgmVirtual.OKIM6295ClockValue;
                     chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
 
@@ -590,8 +618,24 @@ namespace MDPlayer
                     chip.Volume = (uint)setting.balance.SEGAPCMVolume;
                     chip.Clock = vgmVirtual.SEGAPCMClockValue;
                     chip.Option = new object[1] { vgmVirtual.SEGAPCMInterface };
+
+                    hiyorimiDeviceFlag |= 0x2;
+
                     lstChips.Add(chip);
                 }
+
+                if (vgmVirtual.YM2608ClockValue != 0)
+                {
+                    hiyorimiDeviceFlag |= 0x1;
+                }
+
+                if (vgmVirtual.YM2151ClockValue != 0)
+                {
+                    hiyorimiDeviceFlag |= 0x1;
+                }
+
+                if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
 
                 if (mds == null)
                     mds = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
@@ -612,6 +656,8 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
 
                 chipRegister.initChipRegister();
+
+
 
                 Paused = false;
                 Stopped = false;
@@ -1010,22 +1056,42 @@ namespace MDPlayer
                     }
                 }
 
-                if (setting.HiyorimiMode)
+                if (hiyorimiNecessary)
                 {
                     long v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
-                    long d = Math.Abs(SamplingRate * (uint)setting.LatencyEmulation / 1000 - SamplingRate * (uint)setting.LatencySCCI / 1000);
+                    long d = SamplingRate * (setting.LatencySCCI - SamplingRate * setting.LatencyEmulation) / 1000;
                     long l = getLatency() / 4;
 
-                    if (v >= -l + d && v <= l + d) vgmReal.oneFrameVGM(); //x1
-                    else if (v > l + d)
+                    int m = 0;
+                    if (d >= 0)
                     {
-                        //x0
+                        if (v >= d - l && v <= d + l) m = 0;
+                        else m = (v + d > l) ? 1 : 2;
                     }
                     else
                     {
-                        //x2
-                        vgmReal.oneFrameVGM();
-                        vgmReal.oneFrameVGM();
+                        d = Math.Abs(SamplingRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
+                        if (v >= d - l && v <= d + l) m = 0; 
+                        else m = (v - d > l) ? 1 : 2;
+                    }
+
+                    switch (m)
+                    {
+                        case 0: //x1
+                            vgmReal.oneFrameVGM();
+                            break;
+                        case 1: //x1/2
+                            hiyorimiEven++;
+                            if (hiyorimiEven > 1)
+                            {
+                                vgmReal.oneFrameVGM();
+                                hiyorimiEven = 0;
+                            }
+                            break;
+                        case 2: //x2
+                            vgmReal.oneFrameVGM();
+                            vgmReal.oneFrameVGM();
+                            break;
                     }
                 }
                 else
