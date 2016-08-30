@@ -80,7 +80,7 @@ namespace MDPlayer
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInit(); 
+            screen.screenInit();
 
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
@@ -88,7 +88,7 @@ namespace MDPlayer
             frmPlayList = new frmPlayList();
             frmPlayList.frmMain = this;
             frmPlayList.Show();
-            frmPlayList.Visible =false;
+            frmPlayList.Visible = false;
             frmPlayList.Opacity = 1.0;
             frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
@@ -132,7 +132,7 @@ namespace MDPlayer
                 frmPlayList.Stop();
 
                 PlayList pl = frmPlayList.getPlayList();
-                if (pl.lstMusic.Count<1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != args[1])
+                if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != args[1])
                 {
                     frmPlayList.AddList(args[1]);
                 }
@@ -246,67 +246,26 @@ namespace MDPlayer
                 {
                     int ch = (e.Location.Y / 8) - 1;
                     if (ch < 0) return;
+
                     if (ch >= 0 && ch < 6)
                     {
-                        if (!newParam.ym2612.channels[ch].mask)
-                        {
-                            Audio.setFMMask(ch);
-
-                        }
-                        else
-                        {
-                            Audio.resetFMMask(ch);
-                        }
-                        newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
-                        if (ch == 2)
-                        {
-                            newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
-                            newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
-                            newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
-                        }
+                        SetChannelMask(vgm.enmUseChip.YM2612, ch);
                     }
                     else if (ch < 10)
                     {
-                        if (!newParam.sn76489.channels[ch - 6].mask)
-                        {
-                            Audio.setPSGMask(ch - 6);
-
-                        }
-                        else
-                        {
-                            Audio.resetPSGMask(ch - 6);
-                        }
-                        newParam.sn76489.channels[ch - 6].mask = !newParam.sn76489.channels[ch - 6].mask;
+                        SetChannelMask(vgm.enmUseChip.SN76489, ch - 6);
                     }
                     else if (ch < 13)
                     {
-                        if (!newParam.ym2612.channels[2].mask)
-                        {
-                            Audio.setFMMask(2);
-
-                        }
-                        else
-                        {
-                            Audio.resetFMMask(2);
-                        }
-                        newParam.ym2612.channels[2].mask = !newParam.ym2612.channels[2].mask;
-                        newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
-                        newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
-                        newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
+                        SetChannelMask(vgm.enmUseChip.YM2612, ch - 4);
                     }
+
                 }
                 else if (e.Button == MouseButtons.Right)
                 {
-                    for (int ch = 0; ch < 9; ch++)
-                    {
-                        newParam.ym2612.channels[ch].mask = false;
-                        if (ch < 6) Audio.resetFMMask(ch);
-                    }
-                    for (int ch = 0; ch < 4; ch++)
-                    {
-                        newParam.sn76489.channels[ch].mask = false;
-                        Audio.resetPSGMask(ch);
-                    }
+                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612, ch);
+                    for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, ch);
+                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
                 }
 
                 return;
@@ -868,7 +827,7 @@ namespace MDPlayer
                 int note = (ym2151Register[0x28 + ch] & 0x0f);
                 note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
                 int oct = (ym2151Register[0x28 + ch] & 0x70) >> 4;
-                newParam.ym2151.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei+1) : -1;
+                newParam.ym2151.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1) : -1;
 
                 newParam.ym2151.channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
                 newParam.ym2151.channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
@@ -1044,7 +1003,7 @@ namespace MDPlayer
                 , ref oldParam.ym2612.channels[5].tp, tp6);
             for (int ch = 0; ch < 5; ch++)
             {
-                screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask,tp);
+                screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask, tp);
             }
             for (int ch = 6; ch < 10; ch++)
             {
@@ -1052,7 +1011,7 @@ namespace MDPlayer
             }
             for (int ch = 0; ch < 3; ch++)
             {
-                screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask,tp);
+                screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask, tp);
             }
 
             if (setting.Debug_DispFrameCounter)
@@ -1136,7 +1095,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - (0x0800 * Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - (0x0800 * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -1152,7 +1111,7 @@ namespace MDPlayer
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - ((0x0800<<2) * Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -1169,7 +1128,7 @@ namespace MDPlayer
 
             for (int i = 0; i < 12 * 8; i++)
             {
-                if (freq < Tables.pcmMulTbl[i % 12+12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
+                if (freq < Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
                 n = i;
                 float a = Math.Abs(freq - (float)(Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
@@ -1267,14 +1226,16 @@ namespace MDPlayer
 
             stop();
 
-            for (int ch = 0; ch < 6; ch++)
+            for (int ch = 0; ch < 9; ch++)
             {
-                newParam.ym2612.channels[ch].mask = false;
+                ResetChannelMask(vgm.enmUseChip.YM2612, ch);
             }
             for (int ch = 0; ch < 4; ch++)
             {
-                newParam.sn76489.channels[ch].mask = false;
+                ResetChannelMask(vgm.enmUseChip.SN76489, ch);
             }
+            for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
+
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
             screen.screenInit();
@@ -1455,7 +1416,7 @@ namespace MDPlayer
 
         public byte[] getAllBytes(string filename)
         {
-            byte[] buf= System.IO.File.ReadAllBytes(filename);
+            byte[] buf = System.IO.File.ReadAllBytes(filename);
             uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
             if (vgm == FCC_VGM) return buf;
 
@@ -1741,6 +1702,93 @@ namespace MDPlayer
             }
 
             return true;
+        }
+
+
+        public void SetChannelMask(vgm.enmUseChip chip, int ch)
+        {
+            switch (chip)
+            {
+                case vgm.enmUseChip.YM2612:
+                    if (ch >= 0 && ch < 6)
+                    {
+                        if (!newParam.ym2612.channels[ch].mask)
+                        {
+                            Audio.setFMMask(ch);
+
+                        }
+                        else
+                        {
+                            Audio.resetFMMask(ch);
+                        }
+                        newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
+                        if (ch == 2)
+                        {
+                            newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
+                            newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
+                            newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
+                        }
+                    }
+                    else if (ch < 9)
+                    {
+                        if (!newParam.ym2612.channels[2].mask)
+                        {
+                            Audio.setFMMask(2);
+
+                        }
+                        else
+                        {
+                            Audio.resetFMMask(2);
+                        }
+                        newParam.ym2612.channels[2].mask = !newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[7].mask = newParam.ym2612.channels[2].mask;
+                        newParam.ym2612.channels[8].mask = newParam.ym2612.channels[2].mask;
+                    }
+                    break;
+                case vgm.enmUseChip.SN76489:
+                    if (!newParam.sn76489.channels[ch].mask)
+                    {
+                        Audio.setPSGMask(ch);
+
+                    }
+                    else
+                    {
+                        Audio.resetPSGMask(ch);
+                    }
+                    newParam.sn76489.channels[ch].mask = !newParam.sn76489.channels[ch].mask;
+                    break;
+                case vgm.enmUseChip.RF5C164:
+                    if (!newParam.rf5c164.channels[ch].mask)
+                    {
+                        Audio.setRF5C164Mask(ch);
+                    }
+                    else
+                    {
+                        Audio.resetRF5C164Mask(ch);
+                    }
+                    newParam.rf5c164.channels[ch].mask = !newParam.rf5c164.channels[ch].mask;
+                    break;
+            }
+        }
+
+        public void ResetChannelMask(vgm.enmUseChip chip, int ch)
+        {
+            switch (chip)
+            {
+                case vgm.enmUseChip.YM2612:
+                    newParam.ym2612.channels[ch].mask = false;
+                    if (ch < 6) Audio.resetFMMask(ch);
+                    break;
+                case vgm.enmUseChip.SN76489:
+                    newParam.sn76489.channels[ch].mask = false;
+                    Audio.resetPSGMask(ch);
+                    break;
+                case vgm.enmUseChip.RF5C164:
+                    newParam.rf5c164.channels[ch].mask = false;
+                    Audio.resetRF5C164Mask(ch);
+                    break;
+            }
         }
 
     }

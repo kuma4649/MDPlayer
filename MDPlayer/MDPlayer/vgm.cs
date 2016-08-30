@@ -22,6 +22,10 @@ namespace MDPlayer
             , YM2612Ch6 = 4
             , RF5C164 = 8
             , PWM = 16
+                , C140 = 32
+                , OKIM6258 = 64
+                , OKIM6295 = 128
+                , SEGAPCM = 256
         }
 
         private enmModel model = enmModel.VirtualModel;

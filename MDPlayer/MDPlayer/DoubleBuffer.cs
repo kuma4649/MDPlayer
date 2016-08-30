@@ -643,17 +643,17 @@ namespace MDPlayer
             if (ch < 5)
             {
                 mainScreen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x+16, y, mask ? 1 : 0,  (ch+1).ToString());
+                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
             }
             else if (ch < 10)
             {
                 mainScreen.drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch-5).ToString());
+                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch - 5).ToString());
             }
             else
             {
                 mainScreen.drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch-9).ToString());
+                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch - 9).ToString());
             }
         }
 
@@ -702,6 +702,12 @@ namespace MDPlayer
             {
                 ym2608Screen.drawByteArray(x, y, fontBuf, 128, 0, 136 - (mask ? 8 : 0) + 16 * tp, 24, 8);
             }
+        }
+
+        public void drawChPRF5C164(int x, int y, int ch, bool mask, int tp)
+        {
+            rf5c164Screen.drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(rf5c164Screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
         }
 
 
@@ -874,6 +880,18 @@ namespace MDPlayer
             ot = nt;
             om = nm;
             otp = ntp;
+        }
+
+        public void drawChRF5C164(int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPRF5C164(0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
         }
 
 
@@ -1271,6 +1289,7 @@ namespace MDPlayer
                     drawVolumeToRf5c164(c, 2, ref orc.volumeR, nrc.volumeR);
                     drawKbToRf5c164(c, ref orc.note, nrc.note);
                     drawPanToRf5c164(c, ref orc.pan, nrc.pan);
+                    drawChRF5C164(c, ref orc.mask, nrc.mask, 0);
 
                 }
             }

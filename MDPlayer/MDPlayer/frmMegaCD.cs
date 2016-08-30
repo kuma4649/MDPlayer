@@ -67,6 +67,27 @@ namespace MDPlayer
         {
         }
 
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int ch = (e.Location.Y / 8) - 1;
+            if (ch < 0) return;
 
+            if (e.Button == MouseButtons.Left)
+            {
+                parent.SetChannelMask(vgm.enmUseChip.RF5C164, ch);
+                return;
+            }
+
+            for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
+        }
+
+        private void pbScreen_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pbScreen_DragEnter(object sender, DragEventArgs e)
+        {
+        }
     }
 }

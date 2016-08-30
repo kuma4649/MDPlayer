@@ -893,6 +893,11 @@ namespace MDPlayer
             mds.setPSGMask(1 << ch);
         }
 
+        public static void setRF5C164Mask(int ch)
+        {
+            mds.setRf5c164Mask(ch);
+        }
+
         public static void resetFMMask(int ch)
         {
             mds.resetFMMask(1 << ch);
@@ -902,6 +907,11 @@ namespace MDPlayer
         public static void resetPSGMask(int ch)
         {
             mds.resetPSGMask(1 << ch);
+        }
+
+        public static void resetRF5C164Mask(int ch)
+        {
+            mds.resetRf5c164Mask(ch);
         }
 
         public static uint GetVgmCurLoopCounter()
