@@ -26,6 +26,8 @@ namespace MDPlayer
                 , OKIM6258 = 64
                 , OKIM6295 = 128
                 , SEGAPCM = 256
+                , YM2151 = 512
+                , YM2608 = 1024
         }
 
         private enmModel model = enmModel.VirtualModel;

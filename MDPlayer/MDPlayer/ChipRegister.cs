@@ -38,7 +38,7 @@ namespace MDPlayer
         public int[] fmVolYM2608Adpcm = new int[2];
         public int fmVolYM2608AdpcmPan = 0;
         private int nowYM2608FadeoutVol = 0;
-        private bool[] maskFMChYM2608 = new bool[6] { false, false, false, false, false, false };
+        private bool[] maskFMChYM2608 = new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
         private NScci.NSoundChip scYM2151 = null;
         private Setting.ChipType ctYM2151 = null;
@@ -189,6 +189,33 @@ namespace MDPlayer
                 }
             }
 
+            if ((dAddr & 0xfc) == 0xb0)//FB ALG
+            {
+                int ch = (dAddr & 0x3);
+                int al = dData & 0x07;//AL
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
+                    if ((algM[al] & (1 << slot)) > 0)
+                    {
+                        if (maskFMChYM2612[ch])
+                        {
+                            if (model == vgm.enmModel.VirtualModel)
+                            {
+                                if (!ctYM2612.UseScci)
+                                {
+                                    mds.WriteYM2612((byte)dPort, (byte)(0x40 + ch + slot * 4), (byte)127);
+                                }
+                            }
+                            else
+                            {
+                                scYM2612.setRegister(dPort * 0x100 + (0x40 + ch + slot * 4), 127);
+                            }
+                        }
+                    }
+                }
+            }
 
             if ((dAddr & 0xf0) == 0x40)//TL
             {
@@ -471,6 +498,33 @@ namespace MDPlayer
                 }
             }
 
+            if ((dAddr & 0xf8) == 0x20)
+            {
+                int al = dData & 0x07;//AL
+                int ch = (dAddr & 0x7);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
+                    if ((algM[al] & (1 << slot)) > 0)
+                    {
+                        if (maskFMChYM2151[ch])
+                        {
+                            if (model == vgm.enmModel.VirtualModel)
+                            {
+                                if (!ctYM2151.UseScci)
+                                {
+                                    //mds.WriteYM2151((byte)(0x60 + i * 8 + ch), (byte)127);
+                                }
+                            }
+                            else
+                            {
+                                scYM2151.setRegister(0x60 + i * 8 + ch, 127);
+                            }
+                        }
+                    }
+                }
+            }
 
             if ((dAddr & 0xf0) == 0x60 || (dAddr & 0xf0) == 0x70)//TL
             {

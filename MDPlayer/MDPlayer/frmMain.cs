@@ -80,7 +80,7 @@ namespace MDPlayer
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInit();
+            screen.screenInitAll();
 
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
@@ -112,7 +112,7 @@ namespace MDPlayer
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInit();
+            screen.screenInitAll();
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
@@ -265,7 +265,6 @@ namespace MDPlayer
                 {
                     for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612, ch);
                     for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, ch);
-                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
                 }
 
                 return;
@@ -281,7 +280,7 @@ namespace MDPlayer
                 int instCh = h * 3 + w;
 
                 //クリップボードに音色をコピーする
-                getInstCh(instCh);
+                getInstCh(vgm.enmUseChip.YM2612, instCh);
 
                 return;
             }
@@ -448,6 +447,7 @@ namespace MDPlayer
 
             frmC140.Show();
             frmC140.update();
+            screen.screenInitC140();
         }
 
         private void tsmiOPNA_Click(object sender, EventArgs e)
@@ -489,6 +489,7 @@ namespace MDPlayer
             screen.AddYM2608(frmYM2608.pbScreen, Properties.Resources.planeD);
             frmYM2608.Show();
             frmYM2608.update();
+            screen.screenInitYM2608();
         }
 
         private void tsmiOPM_Click(object sender, EventArgs e)
@@ -530,6 +531,7 @@ namespace MDPlayer
             screen.AddYM2151(frmYM2151.pbScreen, Properties.Resources.planeE);
             frmYM2151.Show();
             frmYM2151.update();
+            screen.screenInitYM2151();
         }
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
@@ -603,6 +605,12 @@ namespace MDPlayer
                 if (frmC140 != null && !frmC140.isClosed) frmC140.screenChangeParams();
                 else frmC140 = null;
 
+                if (frmYM2608 != null && !frmYM2608.isClosed) frmYM2608.screenChangeParams();
+                else frmYM2608 = null;
+
+                if (frmYM2151 != null && !frmYM2151.isClosed) frmYM2151.screenChangeParams();
+                else frmYM2151 = null;
+
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
                     nextFrame += period;
@@ -619,6 +627,9 @@ namespace MDPlayer
 
                 if (frmYM2608 != null && !frmYM2608.isClosed) frmYM2608.screenDrawParams();
                 else frmYM2608 = null;
+
+                if (frmYM2151 != null && !frmYM2151.isClosed) frmYM2151.screenDrawParams();
+                else frmYM2151 = null;
 
                 nextFrame += period;
 
@@ -1159,7 +1170,7 @@ namespace MDPlayer
                 screen.setting = setting;
                 //oldParam = new MDChipParams();
                 //newParam = new MDChipParams();
-                screen.screenInit();
+                screen.screenInitAll();
 
                 Audio.Init(setting);
                 StartMIDIInMonitoring();
@@ -1226,19 +1237,15 @@ namespace MDPlayer
 
             stop();
 
-            for (int ch = 0; ch < 9; ch++)
-            {
-                ResetChannelMask(vgm.enmUseChip.YM2612, ch);
-            }
-            for (int ch = 0; ch < 4; ch++)
-            {
-                ResetChannelMask(vgm.enmUseChip.SN76489, ch);
-            }
+            for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612, ch);
+            for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, ch);
             for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
+            for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.YM2151, ch);
+            for (int ch = 0; ch < 14; ch++) ResetChannelMask(vgm.enmUseChip.YM2608, ch);
 
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInit();
+            screen.screenInitAll();
 
             if (!Audio.Play(setting))
             {
@@ -1401,6 +1408,7 @@ namespace MDPlayer
             screen.AddRf5c164(frmMCD.pbScreen, Properties.Resources.planeC);
             frmMCD.Show();
             frmMCD.update();
+            screen.screenInitRF5C164();
         }
 
         private void showContextMenu()
@@ -1448,38 +1456,71 @@ namespace MDPlayer
             return outStream.ToArray();
         }
 
-        public void getInstCh(int ch)
+        public void getInstCh(vgm.enmUseChip chip, int ch)
         {
             if (!setting.other.UseGetInst) return;
 
-            int p = (ch > 2) ? 1 : 0;
-            int c = (ch > 2) ? ch - 3 : ch;
-            int[][] fmRegister = Audio.GetFMRegister();
+            string n = "";
 
-            string n = "AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
-
-            for (int i = 0; i < 4; i++)
+            if (chip == vgm.enmUseChip.YM2612 || chip== vgm.enmUseChip.YM2608)
             {
-                int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
-                    , fmRegister[p][0x50 + ops + c] & 0x1f //AR
-                    , fmRegister[p][0x60 + ops + c] & 0x1f //DR
-                    , fmRegister[p][0x70 + ops + c] & 0x1f //SR
-                    , fmRegister[p][0x80 + ops + c] & 0x0f //RR
-                    , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
-                    , fmRegister[p][0x40 + ops + c] & 0x7f//TL
-                    , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
-                    , fmRegister[p][0x30 + ops + c] & 0x0f//ML
-                    , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
-                    , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
-                    , fmRegister[p][0x90 + ops + c] & 0x0f//SG
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister() : Audio.GetYM2608Register();
+
+                n = "AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
+                        , fmRegister[p][0x50 + ops + c] & 0x1f //AR
+                        , fmRegister[p][0x60 + ops + c] & 0x1f //DR
+                        , fmRegister[p][0x70 + ops + c] & 0x1f //SR
+                        , fmRegister[p][0x80 + ops + c] & 0x0f //RR
+                        , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
+                        , fmRegister[p][0x40 + ops + c] & 0x7f//TL
+                        , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
+                        , fmRegister[p][0x30 + ops + c] & 0x0f//ML
+                        , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
+                        , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
+                        , fmRegister[p][0x90 + ops + c] & 0x0f//SG
+                    );
+                }
+                n += "ALG FB\r\n";
+                n += string.Format("{0:D3},{1:D3}\r\n"
+                    , fmRegister[p][0xb0 + c] & 0x07//AL
+                    , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            n += "ALG FB\r\n";
-            n += string.Format("{0:D3},{1:D3}\r\n"
-                , fmRegister[p][0xb0 + c] & 0x07//AL
-                , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
-            );
+            else if (chip == vgm.enmUseChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register();
+                n = "AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AM\r\n";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    n += string.Format("{0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}\r\n"
+                        , ym2151Register[0x80 + ops + ch] & 0x1f //AR
+                        , ym2151Register[0xa0 + ops + ch] & 0x1f //DR
+                        , ym2151Register[0xc0 + ops + ch] & 0x1f //SR
+                        , ym2151Register[0xe0 + ops + ch] & 0x0f //RR
+                        , (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4 //SL
+                        , ym2151Register[0x60 + ops + ch] & 0x7f //TL
+                        , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
+                        , ym2151Register[0x40 + ops + ch] & 0x0f //ML
+                        , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT
+                        , (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6 //DT2
+                        , (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7 //AM
+                    );
+                }
+                n += "ALG FB\r\n";
+                n += string.Format("{0:D3},{1:D3}\r\n"
+                    , ym2151Register[0x20 + ch] & 0x07 //AL
+                    , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
+                );
+            }
 
             Clipboard.SetText(n);
         }
@@ -1769,6 +1810,17 @@ namespace MDPlayer
                     }
                     newParam.rf5c164.channels[ch].mask = !newParam.rf5c164.channels[ch].mask;
                     break;
+                case vgm.enmUseChip.YM2151:
+                    if (!newParam.ym2151.channels[ch].mask)
+                    {
+                        Audio.setYM2151Mask(ch);
+                    }
+                    else
+                    {
+                        Audio.resetYM2151Mask(ch);
+                    }
+                    newParam.ym2151.channels[ch].mask = !newParam.ym2151.channels[ch].mask;
+                    break;
             }
         }
 
@@ -1788,6 +1840,15 @@ namespace MDPlayer
                     newParam.rf5c164.channels[ch].mask = false;
                     Audio.resetRF5C164Mask(ch);
                     break;
+                case vgm.enmUseChip.YM2151:
+                    newParam.ym2151.channels[ch].mask = false;
+                    Audio.resetYM2151Mask(ch);
+                    break;
+                case vgm.enmUseChip.YM2608:
+                    newParam.ym2608.channels[ch].mask = false;
+                    Audio.resetYM2608Mask(ch);
+                    break;
+
             }
         }
 

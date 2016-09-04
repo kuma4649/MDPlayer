@@ -706,6 +706,8 @@ namespace MDPlayer
 
         public void drawChPRF5C164(int x, int y, int ch, bool mask, int tp)
         {
+            if (rf5c164Screen == null) return;
+
             rf5c164Screen.drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
             drawFont8(rf5c164Screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
         }
@@ -891,6 +893,30 @@ namespace MDPlayer
             }
 
             drawChPRF5C164(0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public void drawChYM2151(int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPYM2151(0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public void drawChYM2608(int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPYM2608(0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
@@ -1326,6 +1352,8 @@ namespace MDPlayer
 
                     drawVolumeYM2151(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                     drawVolumeYM2151(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+
+                    drawChYM2151(c, ref oyc.mask, nyc.mask, tp);
                 }
             }
 
@@ -1353,6 +1381,8 @@ namespace MDPlayer
                         drawKbYM2608(c + 3, ref oyc.note, nyc.note, tp);
                     }
 
+                    drawChYM2608(c, ref oyc.mask, nyc.mask, tp);
+
                 }
 
                 for (int c = 0; c < 3; c++)
@@ -1362,6 +1392,8 @@ namespace MDPlayer
 
                     drawVolumeYM2608(c + 6, 0, ref oyc.volume, nyc.volume, tp);
                     drawKbYM2608(c + 6, ref oyc.note, nyc.note, tp);
+
+                    drawChYM2608(c+6, ref oyc.mask, nyc.mask, 0);
                 }
 
                 drawVolumeYM2608(12, 1, ref oldParam.ym2608.channels[12].volumeL, newParam.ym2608.channels[12].volumeL, tp);
@@ -1394,7 +1426,127 @@ namespace MDPlayer
         }
 
 
-        public void screenInit()
+        public void screenInitAll()
+        {
+
+            screenInitYM2612();
+
+            screenInitRF5C164();
+
+            screenInitC140();
+
+            screenInitYM2151();
+
+            screenInitYM2608();
+
+        }
+
+        public void screenInitYM2608()
+        {
+            //YM2608
+            for (int y = 0; y < 6 + 3 + 3 + 1; y++)
+            {
+                int tp = setting.YM2608Type.UseScci ? 1 : 0;
+
+                drawFont8(ym2608Screen, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(ym2608Screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                if (y < 13)
+                {
+                    drawChPYM2608(0, y * 8 + 8, y, false, tp);
+                }
+
+                if (y < 6 || y == 12)
+                {
+                    drawPanP(ym2608Screen, 24, y * 8 + 8, 3, tp);
+                }
+
+                int d = 99;
+                if (y > 5 && y < 9)
+                {
+                    drawVolumeYM2608(y, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    drawVolumeYM2608(y, 1, ref d, 0, tp);
+                    d = 99;
+                    drawVolumeYM2608(y, 2, ref d, 0, tp);
+                }
+            }
+
+            for (int y = 0; y < 6; y++)
+            {
+                int tp = setting.YM2608Type.UseScci ? 1 : 0;
+                int d = 99;
+                drawPanYM2608Rhythm(y, ref d, 3, ref d, tp);
+                d = 99;
+                drawVolumeYM2608Rhythm(y, 1, ref d, 0, tp);
+                d = 99;
+                drawVolumeYM2608Rhythm(y, 2, ref d, 0, tp);
+            }
+        }
+
+        public void screenInitYM2151()
+        {
+            //YM2151
+            for (int ch = 0; ch < 8; ch++)
+            {
+                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+
+                drawFont8(ym2151Screen, 296, ch * 8 + 8, 1, "   ");
+
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(ym2151Screen, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+
+                drawChPYM2151(0, ch * 8 + 8, ch, false, tp);
+                drawPanP(ym2151Screen, 24, ch * 8 + 8, 3, tp);
+                int d = 99;
+                drawVolumeYM2151(ch, 0, ref d, 0, tp);
+            }
+        }
+
+        public void screenInitC140()
+        {
+            //C140
+            for (int ch = 0; ch < 24; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(c140Screen, 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(c140Screen, 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(c140Screen, 24, ch * 8 + 8, 0);
+            }
+        }
+
+        public void screenInitRF5C164()
+        {
+            //RF5C164
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(rf5c164Screen, 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(rf5c164Screen, 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(rf5c164Screen, 24, ch * 8 + 8, 0);
+            }
+        }
+
+        public void screenInitYM2612()
         {
             for (int x = 0; x < 3; x++)
             {
@@ -1458,107 +1610,14 @@ namespace MDPlayer
                 else if (y < 10)
                 {
                     drawChP(0, y * 8 + 8, y, false, setting.SN76489Type.UseScci ? 1 : 0);
-                }else{
+                }
+                else
+                {
                     drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
                 }
 
             }
-
-            //RF5C164
-            for (int ch = 0; ch < 8; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(rf5c164Screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(rf5c164Screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(rf5c164Screen, 24, ch * 8 + 8, 0);
-            }
-
-            //C140
-            for (int ch = 0; ch < 24; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(c140Screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(c140Screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(c140Screen, 24, ch * 8 + 8, 0);
-            }
-
-            //YM2151
-            for (int ch = 0; ch < 8; ch++)
-            {
-                int tp = setting.YM2151Type.UseScci ? 1 : 0;
-
-                drawFont8(ym2151Screen, 296, ch * 8 + 8, 1, "   ");
-
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(ym2151Screen, 32 + kx, ch * 8 + 8, kt, tp);
-                }
-
-                drawChPYM2151(0, ch * 8 + 8, ch, false, tp);
-                drawPanP(ym2151Screen, 24, ch * 8 + 8, 3, tp);
-                int d = 99;
-                drawVolumeYM2151(ch, 0, ref d, 0, tp);
-            }
-
-            //YM2608
-            for (int y = 0; y < 6 + 3 + 3 + 1; y++)
-            {
-                int tp = setting.YM2608Type.UseScci ? 1 : 0;
-
-                drawFont8(ym2608Screen, 296, y * 8 + 8, 1, "   ");
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
-                    drawKbn(ym2608Screen, 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                if (y < 13)
-                {
-                    drawChPYM2608(0, y * 8 + 8, y, false, tp);
-                }
-
-                if (y < 6 || y == 12)
-                {
-                    drawPanP(ym2608Screen, 24, y * 8 + 8, 3, tp);
-                }
-
-                int d = 99;
-                if (y > 5 && y < 9)
-                {
-                    drawVolumeYM2608(y, 0, ref d, 0, tp);
-                }
-                else
-                {
-                    drawVolumeYM2608(y, 1, ref d, 0, tp);
-                    d = 99;
-                    drawVolumeYM2608(y, 2, ref d, 0, tp);
-                }
-            }
-
-            for (int y = 0; y < 6; y++)
-            {
-                int tp = setting.YM2608Type.UseScci ? 1 : 0;
-                int d = 99;
-                drawPanYM2608Rhythm(y, ref d, 3, ref d, tp);
-                d = 99;
-                drawVolumeYM2608Rhythm(y, 1, ref d, 0, tp);
-                d = 99;
-                drawVolumeYM2608Rhythm(y, 2, ref d, 0, tp);
-            }
-
         }
-
 
     }
 }

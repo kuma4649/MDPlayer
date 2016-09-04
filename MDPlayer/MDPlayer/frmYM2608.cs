@@ -73,5 +73,35 @@ namespace MDPlayer
         {
         }
 
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int ch = (e.Location.Y / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch < 14)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    parent.SetChannelMask(vgm.enmUseChip.YM2608, ch);
+                    return;
+                }
+
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2608, ch);
+                return;
+
+            }
+
+            // 音色表示欄の判定
+
+            int h = (e.Location.Y - 15 * 8) / (6 * 8);
+            int w = Math.Min(e.Location.X / (13 * 8), 2);
+            int instCh = h * 3 + w;
+
+            if (instCh < 6)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(vgm.enmUseChip.YM2608, instCh);
+            }
+        }
     }
 }

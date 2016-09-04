@@ -898,6 +898,18 @@ namespace MDPlayer
             mds.setRf5c164Mask(ch);
         }
 
+        public static void setYM2151Mask(int ch)
+        {
+            //mds.setYM2151Mask(ch);
+            chipRegister.setMaskYM2151(ch, true);
+        }
+
+        public static void setYM2608Mask(int ch)
+        {
+            //mds.setYM2608Mask(ch);
+            chipRegister.setMaskYM2608(ch, true);
+        }
+
         public static void resetFMMask(int ch)
         {
             mds.resetFMMask(1 << ch);
@@ -912,6 +924,18 @@ namespace MDPlayer
         public static void resetRF5C164Mask(int ch)
         {
             mds.resetRf5c164Mask(ch);
+        }
+
+        public static void resetYM2151Mask(int ch)
+        {
+            //mds.resetYM2151Mask(ch);
+            chipRegister.setMaskYM2151(ch, false);
+        }
+
+        public static void resetYM2608Mask(int ch)
+        {
+            //mds.resetYM2608Mask(ch);
+            chipRegister.setMaskYM2608(ch, false);
         }
 
         public static uint GetVgmCurLoopCounter()
