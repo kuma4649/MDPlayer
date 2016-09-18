@@ -545,6 +545,30 @@ namespace MDPlayer
                 }
             }
 
+            public enum enmInstFormat : int
+            {
+                FMP7 = 0,
+                MDX = 1,
+                TFI = 2,
+                MUSICLALF = 3,
+                MUSICLALF2 = 4,
+                MML2VGM = 5,
+                NRTDRV = 6
+            }
+
+            private enmInstFormat _InstFormat= enmInstFormat.MML2VGM;
+            public enmInstFormat InstFormat
+            {
+                get
+                {
+                    return _InstFormat;
+                }
+
+                set
+                {
+                    _InstFormat = value;
+                }
+            }
 
 
             public Other Copy()
@@ -560,6 +584,7 @@ namespace MDPlayer
                 }
                 other.UseGetInst = this.UseGetInst;
                 other.DefaultDataPath = this.DefaultDataPath;
+                other.InstFormat = this.InstFormat;
 
                 return other;
             }

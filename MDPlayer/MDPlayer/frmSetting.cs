@@ -418,7 +418,10 @@ namespace MDPlayer
             lblLoopTimes.Enabled = cbUseLoopTimes.Checked;
             tbLoopTimes.Text = setting.other.LoopTimes.ToString();
             cbUseGetInst.Checked = setting.other.UseGetInst;
+            cbUseGetInst_CheckedChanged(null, null);
             tbDataPath.Text = setting.other.DefaultDataPath;
+            cmbInstFormat.SelectedIndex=(int)setting.other.InstFormat;
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -588,6 +591,7 @@ namespace MDPlayer
 
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
+            setting.other.InstFormat = (Setting.Other.enmInstFormat)cmbInstFormat.SelectedIndex;
 
             setting.balance.YM2612Volume = trkYM2612.Value;
             setting.balance.SN76489Volume = trkSN76489.Value;
@@ -876,6 +880,12 @@ namespace MDPlayer
         private void btnOKIM6295_Click(object sender, EventArgs e)
         {
             trkOKIM6295.Value = 100;
+        }
+
+        private void cbUseGetInst_CheckedChanged(object sender, EventArgs e)
+        {
+            lblInstFormat.Enabled = cbUseGetInst.Checked;
+            cmbInstFormat.Enabled = cbUseGetInst.Checked;
         }
     }
 

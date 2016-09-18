@@ -112,6 +112,8 @@
             this.tbSN76489 = new System.Windows.Forms.TextBox();
             this.tbYM2612 = new System.Windows.Forms.TextBox();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.cmbInstFormat = new System.Windows.Forms.ComboBox();
+            this.lblInstFormat = new System.Windows.Forms.Label();
             this.lblLoopTimes = new System.Windows.Forms.Label();
             this.btnDataPath = new System.Windows.Forms.Button();
             this.tbLoopTimes = new System.Windows.Forms.TextBox();
@@ -1142,6 +1144,8 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.cmbInstFormat);
+            this.tpOther.Controls.Add(this.lblInstFormat);
             this.tpOther.Controls.Add(this.lblLoopTimes);
             this.tpOther.Controls.Add(this.btnDataPath);
             this.tpOther.Controls.Add(this.tbLoopTimes);
@@ -1159,6 +1163,32 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
+            // cmbInstFormat
+            // 
+            this.cmbInstFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbInstFormat.FormattingEnabled = true;
+            this.cmbInstFormat.Items.AddRange(new object[] {
+            "FMP7",
+            "MDX",
+            ".TFI(ファイル出力)",
+            "MUSIC LALF #1",
+            "MUSIC LALF #2",
+            "MML2VGM",
+            "NRTDRV"});
+            this.cmbInstFormat.Location = new System.Drawing.Point(96, 163);
+            this.cmbInstFormat.Name = "cmbInstFormat";
+            this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
+            this.cmbInstFormat.TabIndex = 18;
+            // 
+            // lblInstFormat
+            // 
+            this.lblInstFormat.AutoSize = true;
+            this.lblInstFormat.Location = new System.Drawing.Point(35, 166);
+            this.lblInstFormat.Name = "lblInstFormat";
+            this.lblInstFormat.Size = new System.Drawing.Size(55, 12);
+            this.lblInstFormat.TabIndex = 17;
+            this.lblInstFormat.Text = "フォーマット";
+            // 
             // lblLoopTimes
             // 
             this.lblLoopTimes.AutoSize = true;
@@ -1170,7 +1200,7 @@
             // 
             // btnDataPath
             // 
-            this.btnDataPath.Location = new System.Drawing.Point(342, 167);
+            this.btnDataPath.Location = new System.Drawing.Point(342, 195);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
             this.btnDataPath.TabIndex = 16;
@@ -1187,7 +1217,7 @@
             // 
             // tbDataPath
             // 
-            this.tbDataPath.Location = new System.Drawing.Point(75, 169);
+            this.tbDataPath.Location = new System.Drawing.Point(75, 197);
             this.tbDataPath.Name = "tbDataPath";
             this.tbDataPath.Size = new System.Drawing.Size(261, 19);
             this.tbDataPath.TabIndex = 15;
@@ -1195,7 +1225,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 172);
+            this.label19.Location = new System.Drawing.Point(7, 200);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 12);
             this.label19.TabIndex = 14;
@@ -1220,6 +1250,7 @@
             this.cbUseGetInst.TabIndex = 12;
             this.cbUseGetInst.Text = "音色欄をクリック時、その音色をクリップボードにコピーする";
             this.cbUseGetInst.UseVisualStyleBackColor = true;
+            this.cbUseGetInst.CheckedChanged += new System.EventHandler(this.cbUseGetInst_CheckedChanged);
             // 
             // cbUseLoopTimes
             // 
@@ -2318,5 +2349,7 @@
         private System.Windows.Forms.TrackBar trkSEGAPCM;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.BindingSource bs8;
+        private System.Windows.Forms.ComboBox cmbInstFormat;
+        private System.Windows.Forms.Label lblInstFormat;
     }
 }
