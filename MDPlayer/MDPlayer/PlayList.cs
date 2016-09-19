@@ -99,8 +99,9 @@ namespace MDPlayer
                     return pl;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 return new PlayList();
             }
         }

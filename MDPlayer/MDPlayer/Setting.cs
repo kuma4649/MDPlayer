@@ -991,8 +991,9 @@ namespace MDPlayer
                     return (Setting)serializer.Deserialize(sr);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 return new Setting();
             }
         }

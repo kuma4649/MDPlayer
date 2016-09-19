@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NScci;
 using System.Threading;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace MDPlayer
 {
@@ -146,13 +147,21 @@ namespace MDPlayer
 
         public static void Init(Setting setting)
         {
+           log.ForcedWrite("Audio:Init:STEP 00");
+
             vgmVirtual = new vgm();
             vgmReal = new vgm();
+
+            log.ForcedWrite("Audio:Init:STEP 01");
 
             naudioWrap = new NAudioWrap((int)SamplingRate, trdVgmVirtualFunction);
             naudioWrap.PlaybackStopped += NaudioWrap_PlaybackStopped;
 
+            log.ForcedWrite("Audio:Init:STEP 02");
+
             Audio.setting = setting.Copy();
+
+            log.ForcedWrite("Audio:Init:STEP 03");
 
             MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[8];
 
@@ -170,6 +179,8 @@ namespace MDPlayer
             chips[0].Clock = vgm.defaultSN76489ClockValue;
             chips[0].Option = null;
 
+            log.ForcedWrite("Audio:Init:STEP 04");
+
             chips[1] = new MDSound.MDSound.Chip();
             chips[1].type = MDSound.MDSound.enmInstrumentType.YM2612;
             chips[1].ID = 0;
@@ -183,6 +194,8 @@ namespace MDPlayer
             chips[1].Volume = 100;
             chips[1].Clock = vgm.defaultYM2612ClockValue;
             chips[1].Option = null;
+
+            log.ForcedWrite("Audio:Init:STEP 05");
 
             chips[2] = new MDSound.MDSound.Chip();
             chips[2].type = MDSound.MDSound.enmInstrumentType.RF5C164;
@@ -198,6 +211,8 @@ namespace MDPlayer
             chips[2].Clock = vgm.defaultRF5C164ClockValue;
             chips[2].Option = null;
 
+            log.ForcedWrite("Audio:Init:STEP 06");
+
             chips[3] = new MDSound.MDSound.Chip();
             chips[3].type = MDSound.MDSound.enmInstrumentType.PWM;
             chips[3].ID = 0;
@@ -211,6 +226,8 @@ namespace MDPlayer
             chips[3].Volume = 100;
             chips[3].Clock = vgm.defaultPWMClockValue;
             chips[3].Option = null;
+
+            log.ForcedWrite("Audio:Init:STEP 07");
 
             chips[4] = new MDSound.MDSound.Chip();
             chips[4].type = MDSound.MDSound.enmInstrumentType.C140;
@@ -226,6 +243,8 @@ namespace MDPlayer
             chips[4].Clock = vgm.defaultC140ClockValue;
             chips[4].Option = new object[1] { vgm.defaultC140Type };
 
+            log.ForcedWrite("Audio:Init:STEP 08");
+
             chips[5] = new MDSound.MDSound.Chip();
             chips[5].type = MDSound.MDSound.enmInstrumentType.OKIM6258;
             chips[5].ID = 0;
@@ -239,6 +258,8 @@ namespace MDPlayer
             chips[5].Volume = 100;
             chips[5].Clock = vgm.defaultOKIM6258ClockValue;
             chips[5].Option = new object[1] { (int)0 };
+
+            log.ForcedWrite("Audio:Init:STEP 09");
 
             chips[6] = new MDSound.MDSound.Chip();
             chips[6].type = MDSound.MDSound.enmInstrumentType.OKIM6295;
@@ -254,6 +275,8 @@ namespace MDPlayer
             chips[6].Clock = vgm.defaultOKIM6295ClockValue;
             chips[6].Option = null;
 
+            log.ForcedWrite("Audio:Init:STEP 10");
+
             chips[7] = new MDSound.MDSound.Chip();
             chips[7].type = MDSound.MDSound.enmInstrumentType.SEGAPCM;
             chips[7].ID = 0;
@@ -267,6 +290,8 @@ namespace MDPlayer
             chips[7].Volume = 100;
             chips[7].Clock = vgm.defaultSEGAPCMClockValue;
             chips[7].Option = new object[1] { (int)0 };
+
+            log.ForcedWrite("Audio:Init:STEP 11");
 
             if (mds == null)
                 mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
@@ -286,6 +311,8 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
 
+            log.ForcedWrite("Audio:Init:STEP 12");
+
             nscci = new NScci.NScci();
 
             scYM2612 = getChip(Audio.setting.YM2612Type.SoundLocation, Audio.setting.YM2612Type.BusID, Audio.setting.YM2612Type.SoundChip);
@@ -296,6 +323,8 @@ namespace MDPlayer
                 vgmReal.dacControl.scYM2612 = scYM2612;
             }
 
+            log.ForcedWrite("Audio:Init:STEP 13");
+
             scSN76489 = getChip(Audio.setting.SN76489Type.SoundLocation, Audio.setting.SN76489Type.BusID, Audio.setting.SN76489Type.SoundChip);
             if (scSN76489 != null)
             {
@@ -303,6 +332,8 @@ namespace MDPlayer
                 vgmVirtual.dacControl.scSN76489 = scSN76489;
                 vgmReal.dacControl.scSN76489 = scSN76489;
             }
+
+            log.ForcedWrite("Audio:Init:STEP 14");
 
             scYM2608 = getChip(Audio.setting.YM2608Type.SoundLocation, Audio.setting.YM2608Type.BusID, Audio.setting.YM2608Type.SoundChip);
             if (scYM2608 != null)
@@ -312,6 +343,8 @@ namespace MDPlayer
                 vgmReal.dacControl.scYM2608 = scYM2608;
             }
 
+            log.ForcedWrite("Audio:Init:STEP 15");
+
             scYM2151 = getChip(Audio.setting.YM2151Type.SoundLocation, Audio.setting.YM2151Type.BusID, Audio.setting.YM2151Type.SoundChip);
             if (scYM2151 != null)
             {
@@ -320,8 +353,12 @@ namespace MDPlayer
                 vgmReal.dacControl.scYM2151 = scYM2151;
             }
 
+            log.ForcedWrite("Audio:Init:STEP 16");
+
             chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type);
             chipRegister.initChipRegister();
+
+            log.ForcedWrite("Audio:Init:STEP 17");
 
             vgmVirtual.dacControl.chipRegister = chipRegister;
             vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
@@ -334,7 +371,11 @@ namespace MDPlayer
             fatalError = false;
             oneTimeReset = false;
 
+            log.ForcedWrite("Audio:Init:STEP 18");
+
             naudioWrap.Start(Audio.setting);
+
+            log.ForcedWrite("Audio:Init:STEP 19");
 
         }
 
@@ -667,7 +708,7 @@ namespace MDPlayer
             }
             catch(Exception ex)
             {
-                System.Console.WriteLine("ex.Message:\r\n{0}\r\nex.StackTrace:\r\n{1}",ex.Message, ex.StackTrace);
+                log.ForcedWrite(ex);
                 return false;
             }
 
@@ -694,8 +735,9 @@ namespace MDPlayer
             {
                     Paused = !Paused;
             }
-            catch
+            catch(Exception ex)
             {
+                log.ForcedWrite(ex);
             }
 
         }
@@ -751,8 +793,9 @@ namespace MDPlayer
                 //if (scYM2612 != null) scYM2612.init();
                 if (nscci != null) nscci.reset();
             }
-            catch
+            catch(Exception ex)
             {
+                log.ForcedWrite(ex);
             }
 
         }
@@ -766,8 +809,9 @@ namespace MDPlayer
                 nscci.Dispose();
                 nscci = null;
             }
-            catch
+            catch(Exception ex)
             {
+                log.ForcedWrite(ex);
             }
         }
 
@@ -1030,8 +1074,9 @@ namespace MDPlayer
                 {
                     naudioWrap.Stop();
                 }
-                catch
+                catch(Exception ex)
                 {
+                    log.ForcedWrite(ex);
                 }
             }
             else
@@ -1317,7 +1362,7 @@ namespace MDPlayer
             }
             catch(Exception ex)
             {
-                System.Console.WriteLine("ex.Message:\r\n{0}\r\nex.StackTrace:\r\n{1}", ex.Message, ex.StackTrace);
+                log.ForcedWrite(ex);
                 fatalError = true;
                 Stopped = true;
             }

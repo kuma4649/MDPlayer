@@ -129,8 +129,9 @@ namespace MDPlayer
                         break;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 waveOut = new WaveOut();
                 waveOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                 waveOut.Init(waveProvider);

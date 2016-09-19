@@ -156,8 +156,9 @@ namespace MDPlayer
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
 
             }
         }
@@ -1776,7 +1777,10 @@ namespace MDPlayer
                 //Notes
                 Notes = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
             }
-            catch { }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         private static byte[] getByteArray(byte[] buf, ref uint adr)

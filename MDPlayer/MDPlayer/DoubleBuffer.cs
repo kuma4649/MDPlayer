@@ -60,7 +60,10 @@ namespace MDPlayer
                 {
                     if (pbScreen != null) pbScreen.Paint -= new System.Windows.Forms.PaintEventHandler(p);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 pbScreen = null;
 
                 baPlaneBuffer = null;
@@ -99,8 +102,9 @@ namespace MDPlayer
                     {
                         drawScreen();
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         Remove(p);
                     }
                     if (bgPlane != null) bgPlane.Render();
@@ -146,7 +150,10 @@ namespace MDPlayer
 
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
             }
 
         }
@@ -240,8 +247,9 @@ namespace MDPlayer
                     {
                         mainScreen.Refresh(this.Paint);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         mainScreen.Remove(this.Paint);
                         mainScreen = null;
                     }
@@ -253,8 +261,9 @@ namespace MDPlayer
                     {
                         rf5c164Screen.Refresh(this.Paint);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         RemoveRf5c164();
                         rf5c164Screen = null;
                     }
@@ -266,8 +275,9 @@ namespace MDPlayer
                     {
                         c140Screen.Refresh(this.Paint);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         RemoveC140();
                         c140Screen = null;
                     }
@@ -279,8 +289,9 @@ namespace MDPlayer
                     {
                         ym2151Screen.Refresh(this.Paint);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         RemoveYM2151();
                         ym2151Screen = null;
                     }
@@ -292,14 +303,18 @@ namespace MDPlayer
                     {
                         ym2608Screen.Refresh(this.Paint);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        log.ForcedWrite(ex);
                         RemoveYM2608();
                         ym2608Screen = null;
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         private byte[] getByteArray(Image img)

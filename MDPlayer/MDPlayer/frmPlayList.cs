@@ -363,8 +363,9 @@ namespace MDPlayer
                 Refresh();
 
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの読み込みに失敗しました。");
             }
         }
@@ -395,8 +396,9 @@ namespace MDPlayer
             {
                 playList.Save(sfd.FileName);
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの保存に失敗しました。");
             }
         }
@@ -431,7 +433,10 @@ namespace MDPlayer
             {
                 foreach (string fn in ofd.FileNames) AddList(fn);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
 
             //Play();
         }
@@ -515,7 +520,10 @@ namespace MDPlayer
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
 
             Play();
 

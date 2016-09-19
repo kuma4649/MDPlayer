@@ -55,8 +55,10 @@ namespace MDPlayer
             }
 
             try { base.WndProc(ref m); }
-            catch
-            { }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         public void screenChangeParams()

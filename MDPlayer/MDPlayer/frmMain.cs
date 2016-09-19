@@ -46,8 +46,12 @@ namespace MDPlayer
 
         public frmMain()
         {
+            log.ForcedWrite("起動処理開始");
+            log.ForcedWrite("frmMain(コンストラクタ):STEP 00");
+
             InitializeComponent();
 
+            log.ForcedWrite("frmMain(コンストラクタ):STEP 01");
             //引数が指定されている場合のみプロセスチェックを行い、自分と同じアプリケーションが実行中ならばそちらに引数を渡し終了する
             if (Environment.GetCommandLineArgs().Length > 1)
             {
@@ -59,14 +63,35 @@ namespace MDPlayer
                 }
             }
 
+            log.ForcedWrite("frmMain(コンストラクタ):STEP 02");
+
             pbScreen.AllowDrop = true;
+
+            log.ForcedWrite("frmMain(コンストラクタ):STEP 03");
+            if (setting == null)
+            {
+                log.ForcedWrite("frmMain(コンストラクタ):setting is null");
+            }
+
+            log.ForcedWrite("起動時のAudio初期化処理開始");
+
             Audio.Init(setting);
+
+            log.ForcedWrite("起動時のAudio初期化処理完了");
+
             StartMIDIInMonitoring();
+
+            log.ForcedWrite("frmMain(コンストラクタ):STEP 04");
+
+            log.debug = setting.Debug_DispFrameCounter;
+
         }
 
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            log.ForcedWrite("frmMain_Load:STEP 05");
+
             if (setting.location.PMain != System.Drawing.Point.Empty)
                 this.Location = setting.location.PMain;
 
@@ -76,11 +101,15 @@ namespace MDPlayer
             pbRf5c164Screen.Width = 320;
             pbRf5c164Screen.Height = 72;
 
+            log.ForcedWrite("frmMain_Load:STEP 06");
+
             screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
             screen.screenInitAll();
+
+            log.ForcedWrite("frmMain_Load:STEP 07");
 
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
@@ -100,23 +129,13 @@ namespace MDPlayer
             if (setting.location.OYm2151) tsmiOPM_Click(null, null);
             if (setting.location.OYm2608) tsmiOPNA_Click(null, null);
 
-        }
-
-        private void frmMain_Resize(object sender, EventArgs e)
-        {
-            // リサイズ時は再確保
-
-            if (screen != null) screen.Dispose();
-
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
-            screen.setting = setting;
-            //oldParam = new MDChipParams();
-            //newParam = new MDChipParams();
-            screen.screenInitAll();
+            log.ForcedWrite("frmMain_Load:STEP 08");
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
+            log.ForcedWrite("frmMain_Shown:STEP 09");
+
             System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
             trd.Start();
             string[] args = Environment.GetCommandLineArgs();
@@ -125,6 +144,8 @@ namespace MDPlayer
             {
                 return;
             }
+
+            log.ForcedWrite("frmMain_Shown:STEP 10");
 
             try
             {
@@ -149,24 +170,54 @@ namespace MDPlayer
                 frmPlayList.Play();
 
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの読み込みに失敗しました。");
             }
+
+            log.ForcedWrite("frmMain_Shown:STEP 11");
+            log.ForcedWrite("起動処理完了");
+        }
+
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            // リサイズ時は再確保
+
+            if (screen != null) screen.Dispose();
+
+            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
+            screen.setting = setting;
+            //oldParam = new MDChipParams();
+            //newParam = new MDChipParams();
+            screen.screenInitAll();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            log.ForcedWrite("終了処理開始");
+            log.ForcedWrite("frmMain_FormClosing:STEP 00");
+
             frmPlayList.Stop();
             frmPlayList.Save();
+
+            log.ForcedWrite("frmMain_FormClosing:STEP 01");
+
             StopMIDIInMonitoring();
             Audio.Close();
+
+            log.ForcedWrite("frmMain_FormClosing:STEP 02");
+
             isRunning = false;
             while (!stopped)
             {
                 System.Threading.Thread.Sleep(1);
                 Application.DoEvents();
             }
+
+            log.ForcedWrite("frmMain_FormClosing:STEP 03");
+
             // 解放
             screen.Dispose();
 
@@ -176,6 +227,8 @@ namespace MDPlayer
             setting.location.OC140 = false;
             setting.location.OYm2151 = false;
             setting.location.OYm2608 = false;
+
+            log.ForcedWrite("frmMain_FormClosing:STEP 04");
 
             setting.location.PMain = this.Location;
             if (frmInfo != null && !frmInfo.isClosed)
@@ -210,7 +263,13 @@ namespace MDPlayer
                 setting.location.OYm2608 = true;
             }
 
+            log.ForcedWrite("frmMain_FormClosing:STEP 05");
+
             setting.Save();
+
+            log.ForcedWrite("frmMain_FormClosing:STEP 06");
+            log.ForcedWrite("終了処理完了");
+            
         }
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
@@ -375,7 +434,10 @@ namespace MDPlayer
                         {
                             foreach (string f in fn) frmPlayList.AddList(f);
                         }
-                        catch { }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                        }
                     }
                 }
 
@@ -416,17 +478,27 @@ namespace MDPlayer
                 {
                     screen.RemoveC140();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+
                 try
                 {
                     frmC140.Close();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 try
                 {
                     frmC140.Dispose();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 frmC140 = null;
                 return;
             }
@@ -458,17 +530,26 @@ namespace MDPlayer
                 {
                     screen.RemoveYM2608();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 try
                 {
                     frmYM2608.Close();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 try
                 {
                     frmYM2608.Dispose();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 frmYM2608 = null;
                 return;
             }
@@ -500,17 +581,26 @@ namespace MDPlayer
                 {
                     screen.RemoveYM2151();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 try
                 {
                     frmYM2151.Close();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 try
                 {
                     frmYM2151.Dispose();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 frmYM2151 = null;
                 return;
             }
@@ -560,8 +650,9 @@ namespace MDPlayer
                     frmPlayList.Play();
 
                 }
-                catch
+                catch (Exception ex)
                 {
+                    log.ForcedWrite(ex);
                     MessageBox.Show("ファイルの読み込みに失敗しました。");
                 }
             }
@@ -647,11 +738,25 @@ namespace MDPlayer
 
                 if (Audio.fatalError)
                 {
+                    log.ForcedWrite("AudioでFatalErrorが発生。再度Audio初期化処理開始");
+
                     frmPlayList.Stop();
-                    try { Audio.Stop(); } catch { }
-                    try { Audio.Close(); } catch { }
+                    try { Audio.Stop(); }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                    }
+
+                    try { Audio.Close(); }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                    }
+
                     Audio.fatalError = false;
                     Audio.Init(setting);
+
+                    log.ForcedWrite("Audio初期化処理完了");
                 }
             }
 
@@ -1172,7 +1277,13 @@ namespace MDPlayer
                 //newParam = new MDChipParams();
                 screen.screenInitAll();
 
+                log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
+
                 Audio.Init(setting);
+
+                log.ForcedWrite("Audio初期化処理完了");
+                log.debug = setting.Debug_DispFrameCounter;
+
                 StartMIDIInMonitoring();
 
                 IsInitialOpenFolder = true;
@@ -1255,8 +1366,11 @@ namespace MDPlayer
                     frmPlayList.Stop();
                     Audio.Stop();
                 }
-                catch { }
-                throw new Exception();
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+                    throw new Exception();
                 //return;
             }
 
@@ -1378,17 +1492,28 @@ namespace MDPlayer
                 {
                     screen.RemoveRf5c164();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+
                 try
                 {
                     frmMCD.Close();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+
+                }
                 try
                 {
                     frmMCD.Dispose();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
                 frmMCD = null;
                 return;
             }
@@ -1915,7 +2040,8 @@ namespace MDPlayer
 
                 for (int i = 0; i < 4; i++)
                 {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 4 : ((i == 2) ? 8 : 12));
+                    int ops = i * 4;
 
                     n[i * 10 + 2] = (byte)(fmRegister[p][0x30 + ops + c] & 0x0f);//ML
                     int dt = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
@@ -1942,7 +2068,8 @@ namespace MDPlayer
 
                 for (int i = 0; i < 4; i++)
                 {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 16 : 24));
+                    int ops = i * 8;
 
                     n[i * 10 + 2] = (byte)(ym2151Register[0x40 + ops + ch] & 0x0f);//ML
                     int dt = ((ym2151Register[0x40 + ops + ch] & 0x70) >> 4);//DT
@@ -1963,7 +2090,7 @@ namespace MDPlayer
 
             SaveFileDialog sfd = new SaveFileDialog();
 
-            sfd.FileName = "新しいファイル.tfi";
+            sfd.FileName = "音色ファイル.tfi";
             sfd.Filter = "TFIファイル(*.tfi)|*.tfi|すべてのファイル(*.*)|*.*";
             sfd.FilterIndex = 1;
             sfd.Title = "名前を付けて保存";
@@ -2044,8 +2171,9 @@ namespace MDPlayer
                     frmPlayList.Play();
 
                 }
-                catch
+                catch (Exception ex)
                 {
+                    log.ForcedWrite(ex);
                     //メッセージによる読み込み失敗の場合は何も表示しない
                     //                    MessageBox.Show("ファイルの読み込みに失敗しました。");
                 }
@@ -2070,7 +2198,11 @@ namespace MDPlayer
                 str = cds.lpData;
                 str = str.Substring(0, cds.cbData / 2);
             }
-            catch { str = null; }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+             str = null;
+            }
             return str;
         }
 
@@ -2196,8 +2328,9 @@ namespace MDPlayer
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 srcBuf = null;
                 MessageBox.Show("ファイルの読み込みに失敗しました。", "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

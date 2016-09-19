@@ -435,6 +435,7 @@ namespace MDPlayer
             }
             catch (Exception ex)
             {
+                log.ForcedWrite(ex);
                 MessageBox.Show(ex.Message);
             }
         }
