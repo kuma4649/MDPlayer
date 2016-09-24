@@ -667,12 +667,65 @@ namespace MDPlayer
 
                 if (vgmVirtual.YM2608ClockValue != 0)
                 {
-                    hiyorimiDeviceFlag |= 0x1;
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                    chip.ID = 0;
+                    MDSound.ym2608 ym2608 = new MDSound.ym2608();
+                    chip.Instrument = ym2608;
+                    chip.Update = ym2608.Update;
+                    chip.Start = ym2608.Start;
+                    chip.Stop = ym2608.Stop;
+                    chip.Reset = ym2608.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = 100;// (uint)setting.balance.YM2608Volume;
+                    chip.Clock = vgmVirtual.YM2608ClockValue;
+                    chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    lstChips.Add(chip);
                 }
 
                 if (vgmVirtual.YM2151ClockValue != 0)
                 {
-                    hiyorimiDeviceFlag |= 0x1;
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                    chip.ID = 0;
+                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                    chip.Instrument = ym2151;
+                    chip.Update = ym2151.Update;
+                    chip.Start = ym2151.Start;
+                    chip.Stop = ym2151.Stop;
+                    chip.Reset = ym2151.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = 100;// (uint)setting.balance.YM2151Volume;
+                    chip.Clock = vgmVirtual.YM2151ClockValue;
+                    chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    lstChips.Add(chip);
+                }
+
+                if (vgmVirtual.YM2203ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2203;
+                    chip.ID = 0;
+                    MDSound.ym2203 ym2203 = new MDSound.ym2203();
+                    chip.Instrument = ym2203;
+                    chip.Update = ym2203.Update;
+                    chip.Start = ym2203.Start;
+                    chip.Stop = ym2203.Stop;
+                    chip.Reset = ym2203.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = 100;// (uint)setting.balance.YM2203Volume;
+                    chip.Clock = vgmVirtual.YM2203ClockValue;
+                    chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    lstChips.Add(chip);
                 }
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;

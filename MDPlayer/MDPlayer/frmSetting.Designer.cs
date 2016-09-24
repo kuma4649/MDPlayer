@@ -178,7 +178,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.cmbYM2608Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2608Scci = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.rbYM2608Emu = new System.Windows.Forms.RadioButton();
             this.gbYM2151 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -186,7 +186,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.cmbYM2151Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2151Scci = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rbYM2151Emu = new System.Windows.Forms.RadioButton();
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
@@ -1812,7 +1812,7 @@
             this.groupBox6.Controls.Add(this.textBox4);
             this.groupBox6.Controls.Add(this.cmbYM2608Scci);
             this.groupBox6.Controls.Add(this.rbYM2608Scci);
-            this.groupBox6.Controls.Add(this.radioButton3);
+            this.groupBox6.Controls.Add(this.rbYM2608Emu);
             this.groupBox6.Location = new System.Drawing.Point(3, 76);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(368, 67);
@@ -1879,16 +1879,15 @@
             this.rbYM2608Scci.Text = "SCCI";
             this.rbYM2608Scci.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // rbYM2608Emu
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Enabled = false;
-            this.radioButton3.Location = new System.Drawing.Point(6, 18);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(91, 16);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.Text = "エミュレーション";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rbYM2608Emu.AutoSize = true;
+            this.rbYM2608Emu.Location = new System.Drawing.Point(6, 18);
+            this.rbYM2608Emu.Name = "rbYM2608Emu";
+            this.rbYM2608Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2608Emu.TabIndex = 0;
+            this.rbYM2608Emu.Text = "エミュレーション";
+            this.rbYM2608Emu.UseVisualStyleBackColor = true;
             // 
             // gbYM2151
             // 
@@ -1898,7 +1897,7 @@
             this.gbYM2151.Controls.Add(this.textBox2);
             this.gbYM2151.Controls.Add(this.cmbYM2151Scci);
             this.gbYM2151.Controls.Add(this.rbYM2151Scci);
-            this.gbYM2151.Controls.Add(this.radioButton2);
+            this.gbYM2151.Controls.Add(this.rbYM2151Emu);
             this.gbYM2151.Location = new System.Drawing.Point(3, 3);
             this.gbYM2151.Name = "gbYM2151";
             this.gbYM2151.Size = new System.Drawing.Size(368, 67);
@@ -1965,16 +1964,15 @@
             this.rbYM2151Scci.Text = "SCCI";
             this.rbYM2151Scci.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbYM2151Emu
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(6, 18);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(91, 16);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.Text = "エミュレーション";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbYM2151Emu.AutoSize = true;
+            this.rbYM2151Emu.Location = new System.Drawing.Point(6, 18);
+            this.rbYM2151Emu.Name = "rbYM2151Emu";
+            this.rbYM2151Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2151Emu.TabIndex = 0;
+            this.rbYM2151Emu.Text = "エミュレーション";
+            this.rbYM2151Emu.UseVisualStyleBackColor = true;
             // 
             // tpAbout
             // 
@@ -2306,7 +2304,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ComboBox cmbYM2151Scci;
         private System.Windows.Forms.RadioButton rbYM2151Scci;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton rbYM2151Emu;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
@@ -2314,7 +2312,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ComboBox cmbYM2608Scci;
         private System.Windows.Forms.RadioButton rbYM2608Scci;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton rbYM2608Emu;
         private System.Windows.Forms.Button btnC140;
         private System.Windows.Forms.TextBox tbC140;
         private System.Windows.Forms.Panel panel5;

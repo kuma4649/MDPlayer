@@ -293,6 +293,25 @@ namespace MDPlayer
             }
         }
 
+        public void setYM2203Register(int dAddr, int dData, vgm.enmModel model)
+        {
+            //if (ctYM2203 == null) return;
+
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                //if (!ctYM2203.UseScci)
+                //{
+                    mds.WriteYM2203(0, (byte)dAddr, (byte)dData);
+                //}
+            }
+            else
+            {
+                //if (scYM2203 == null) return;
+
+                //scYM2203.setRegister(dAddr, dData);
+            }
+
+        }
 
         public void setYM2608Register(int dPort, int dAddr, int dData, vgm.enmModel model)
         {
@@ -399,7 +418,7 @@ namespace MDPlayer
             {
                 if (!ctYM2608.UseScci)
                 {
-                    //mds.WriteYM2608((byte)dPort, (byte)dAddr, (byte)dData);
+                    mds.WriteYM2608(0, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -544,7 +563,7 @@ namespace MDPlayer
             {
                 if (!ctYM2151.UseScci)
                 {
-                    //mds.WriteYM2151((byte)dAddr, (byte)dData);
+                    mds.WriteYM2151(0,(byte)dAddr, (byte)dData);
                 }
             }
             else

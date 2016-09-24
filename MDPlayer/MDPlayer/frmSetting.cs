@@ -328,7 +328,7 @@ namespace MDPlayer
 
             if (!setting.YM2608Type.UseScci)
             {
-                //rbYM2608Emu.Checked = true;
+                rbYM2608Emu.Checked = true;
             }
             else
             {
@@ -348,13 +348,13 @@ namespace MDPlayer
                 }
                 else
                 {
-                    //rbYM2608Emu.Checked = true;
+                    rbYM2608Emu.Checked = true;
                 }
             }
 
             if (!setting.YM2151Type.UseScci)
             {
-                //rbYM2151Emu.Checked = true;
+                rbYM2151Emu.Checked = true;
             }
             else
             {
@@ -374,7 +374,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    //rbYM2151Emu.Checked = true;
+                    rbYM2151Emu.Checked = true;
                 }
             }
 

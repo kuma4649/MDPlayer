@@ -59,6 +59,7 @@ namespace MDPlayer
         public int SEGAPCMInterface=0;
         public uint YM2151ClockValue;
         public uint YM2608ClockValue;
+        public uint YM2203ClockValue;
 
         public int YM2151Hosei = 0;
 
@@ -311,7 +312,7 @@ namespace MDPlayer
             vgmCmdTbl[0x53] = vcYM2612Port1;
 
             vgmCmdTbl[0x54] = vcYM2151;
-            vgmCmdTbl[0x55] = vcDummy2Ope;
+            vgmCmdTbl[0x55] = vcYM2203;
             vgmCmdTbl[0x56] = vcYM2608Port0;
             vgmCmdTbl[0x57] = vcYM2608Port1;
 
@@ -548,6 +549,12 @@ namespace MDPlayer
             int adr = vgmBuf[vgmAdr + 1];
             int dat = vgmBuf[vgmAdr + 2];
             chipRegister.setYM2612Register(1, adr, dat, model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2203()
+        {
+            chipRegister.setYM2203Register(vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1425,6 +1432,7 @@ namespace MDPlayer
             YM2151ClockValue = 0;
             SEGAPCMClockValue = 0;
             YM2608ClockValue = 0;
+            YM2203ClockValue = 0;
             RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
             PWMClockValue = 0;// defaultPWMClockValue;
             OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
@@ -1533,7 +1541,11 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x44)
                 {
                     uint YM2203clock = getLE32(0x44);
-                    if (YM2203clock != 0) chips.Add("YM2203");
+                    if (YM2203clock != 0)
+                    {
+                        chips.Add("YM2203");
+                        YM2203ClockValue = YM2203clock;
+                    }
                 }
 
                 if (vgmDataOffset > 0x48)
