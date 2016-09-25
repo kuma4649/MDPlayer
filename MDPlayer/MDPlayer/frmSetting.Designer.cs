@@ -195,6 +195,9 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tbScreenFrameRate = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1144,6 +1147,9 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.label30);
+            this.tpOther.Controls.Add(this.tbScreenFrameRate);
+            this.tpOther.Controls.Add(this.label29);
             this.tpOther.Controls.Add(this.cmbInstFormat);
             this.tpOther.Controls.Add(this.lblInstFormat);
             this.tpOther.Controls.Add(this.lblLoopTimes);
@@ -1217,9 +1223,9 @@
             // 
             // tbDataPath
             // 
-            this.tbDataPath.Location = new System.Drawing.Point(75, 197);
+            this.tbDataPath.Location = new System.Drawing.Point(82, 197);
             this.tbDataPath.Name = "tbDataPath";
-            this.tbDataPath.Size = new System.Drawing.Size(261, 19);
+            this.tbDataPath.Size = new System.Drawing.Size(254, 19);
             this.tbDataPath.TabIndex = 15;
             // 
             // label19
@@ -2083,6 +2089,31 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(7, 230);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(69, 12);
+            this.label29.TabIndex = 19;
+            this.label29.Text = "フレームレート";
+            // 
+            // tbScreenFrameRate
+            // 
+            this.tbScreenFrameRate.Location = new System.Drawing.Point(82, 227);
+            this.tbScreenFrameRate.Name = "tbScreenFrameRate";
+            this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
+            this.tbScreenFrameRate.TabIndex = 20;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(138, 230);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(30, 12);
+            this.label30.TabIndex = 21;
+            this.label30.Text = "Hz/s";
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2349,5 +2380,8 @@
         private System.Windows.Forms.BindingSource bs8;
         private System.Windows.Forms.ComboBox cmbInstFormat;
         private System.Windows.Forms.Label lblInstFormat;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tbScreenFrameRate;
+        private System.Windows.Forms.Label label29;
     }
 }

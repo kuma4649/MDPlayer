@@ -304,8 +304,8 @@ namespace MDPlayer
             vgmCmdTbl[0x4d] = vcDummy2Ope;
             vgmCmdTbl[0x4e] = vcDummy2Ope;
 
-                vgmCmdTbl[0x4f] = vcGGPSGPort06;
-                vgmCmdTbl[0x50] = vcPSG;
+            vgmCmdTbl[0x4f] = vcGGPSGPort06;
+            vgmCmdTbl[0x50] = vcPSG;
 
             vgmCmdTbl[0x51] = vcDummy2Ope;
             vgmCmdTbl[0x52] = vcYM2612Port0;

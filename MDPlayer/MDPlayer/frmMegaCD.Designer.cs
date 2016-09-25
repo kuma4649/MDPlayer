@@ -36,7 +36,7 @@
             // pbScreen
             // 
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeC;
-            this.pbScreen.Location = new System.Drawing.Point(2, 2);
+            this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 72);
             this.pbScreen.TabIndex = 0;
@@ -50,12 +50,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(324, 76);
+            this.ClientSize = new System.Drawing.Size(320, 72);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(340, 115);
-            this.MinimumSize = new System.Drawing.Size(340, 115);
+            this.MaximumSize = new System.Drawing.Size(336, 111);
+            this.MinimumSize = new System.Drawing.Size(336, 111);
             this.Name = "frmMegaCD";
             this.Text = "MEGA-CD";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMegaCD_FormClosed);

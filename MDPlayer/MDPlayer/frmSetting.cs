@@ -421,6 +421,7 @@ namespace MDPlayer
             cbUseGetInst_CheckedChanged(null, null);
             tbDataPath.Text = setting.other.DefaultDataPath;
             cmbInstFormat.SelectedIndex=(int)setting.other.InstFormat;
+            tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
 
         }
 
@@ -593,6 +594,10 @@ namespace MDPlayer
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
             setting.other.InstFormat = (Setting.Other.enmInstFormat)cmbInstFormat.SelectedIndex;
+            if (int.TryParse(tbScreenFrameRate.Text, out i))
+            {
+                setting.other.ScreenFrameRate = Math.Max(Math.Min(i, 120), 10);
+            }
 
             setting.balance.YM2612Volume = trkYM2612.Value;
             setting.balance.SN76489Volume = trkSN76489.Value;

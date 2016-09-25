@@ -10,9 +10,13 @@ namespace MDPlayer
         public int x = -1;
         public int y = -1;
         public frmMain parent = null;
+        private int frameSizeW = 0;
+        private int frameSizeH = 0;
+        private int zoom = 1;
 
-        public frmMegaCD(frmMain frm)
+        public frmMegaCD(frmMain frm,int zoom)
         {
+            this.zoom = zoom;
             parent = frm;
             InitializeComponent();
 
@@ -40,6 +44,19 @@ namespace MDPlayer
         private void frmMegaCD_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
+
+            frameSizeW = this.Width - this.ClientSize.Width;
+            frameSizeH = this.Height - this.ClientSize.Height;
+
+            changeZoom();
+        }
+
+        public void changeZoom()
+        {
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeC.Width * zoom, frameSizeH + Properties.Resources.planeC.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeC.Width * zoom, frameSizeH + Properties.Resources.planeC.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeC.Width * zoom, frameSizeH + Properties.Resources.planeC.Height * zoom);
+            frmMegaCD_Resize(null, null);
 
         }
 

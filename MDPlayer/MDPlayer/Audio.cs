@@ -795,6 +795,14 @@ namespace MDPlayer
 
         }
 
+        public static bool isPaused
+        {
+            get
+            {
+                return Paused;
+            }
+        }
+
         public static void Fadeout()
         {
                 vgmFadeout = true;

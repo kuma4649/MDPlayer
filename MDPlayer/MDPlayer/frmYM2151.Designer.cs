@@ -35,7 +35,6 @@
             // 
             // pbScreen
             // 
-            this.pbScreen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeE;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";

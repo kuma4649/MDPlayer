@@ -26,10 +26,10 @@ namespace MDPlayer
         private MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[14];
-        private int[] newButton = new int[14];
-        private int[] oldButtonMode = new int[14];
-        private int[] newButtonMode = new int[14];
+        private int[] oldButton = new int[16];
+        private int[] newButton = new int[16];
+        private int[] oldButtonMode = new int[16];
+        private int[] newButtonMode = new int[16];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -40,6 +40,10 @@ namespace MDPlayer
         private byte[] srcBuf;
 
         public Setting setting = Setting.Load();
+
+        private int frameSizeW = 0;
+        private int frameSizeH = 0;
+
 
         //private MidiIn midiin = null;
 
@@ -103,7 +107,7 @@ namespace MDPlayer
 
             log.ForcedWrite("frmMain_Load:STEP 06");
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
+            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font, 1);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
@@ -130,6 +134,44 @@ namespace MDPlayer
             if (setting.location.OYm2608) tsmiOPNA_Click(null, null);
 
             log.ForcedWrite("frmMain_Load:STEP 08");
+
+            frameSizeW = this.Width - this.ClientSize.Width;
+            frameSizeH = this.Height - this.ClientSize.Height;
+
+            changeZoom();
+        }
+
+        private void changeZoom()
+        {
+            this.MaximumSize = new System.Drawing.Size(frameSizeW+Properties.Resources.plane.Width* setting.other.Zoom, frameSizeH+Properties.Resources.plane.Height* setting.other.Zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.plane.Width * setting.other.Zoom, frameSizeH + Properties.Resources.plane.Height * setting.other.Zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.plane.Width * setting.other.Zoom, frameSizeH + Properties.Resources.plane.Height * setting.other.Zoom);
+            frmMain_Resize(null, null);
+
+            if (frmMCD != null && !frmMCD.isClosed)
+            {
+                openMegaCD();
+                openMegaCD();
+            }
+
+            if (frmC140 != null && !frmC140.isClosed)
+            {
+                tsmiC140_Click(null, null);
+                tsmiC140_Click(null, null);
+            }
+
+            if (frmYM2608 != null && !frmYM2608.isClosed)
+            {
+                tsmiOPNA_Click(null, null);
+                tsmiOPNA_Click(null, null);
+            }
+
+            if (frmYM2151 != null && !frmYM2151.isClosed)
+            {
+                tsmiOPM_Click(null, null);
+                tsmiOPM_Click(null, null);
+            }
+
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
@@ -186,7 +228,7 @@ namespace MDPlayer
 
             if (screen != null) screen.Dispose();
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font);
+            screen = new DoubleBuffer(pbScreen, Properties.Resources.plane, Properties.Resources.font, setting.other.Zoom);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
@@ -274,7 +316,10 @@ namespace MDPlayer
 
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Location.Y < 208)
+            int px = e.Location.X / setting.other.Zoom;
+            int py = e.Location.Y / setting.other.Zoom;
+
+            if (py < 208)
             {
                 for (int n = 0; n < newButton.Length; n++)
                 {
@@ -285,7 +330,7 @@ namespace MDPlayer
 
             for (int n = 0; n < newButton.Length; n++)
             {
-                if (e.Location.X >= 320 - (15 - n) * 16 && e.Location.X < 320 - (14 - n) * 16) newButton[n] = 1;
+                if (px >= 320 - (16 - n) * 16 && px < 320 - (15 - n) * 16) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -299,11 +344,14 @@ namespace MDPlayer
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Location.Y < 14 * 8)
+            int px = e.Location.X / setting.other.Zoom;
+            int py = e.Location.Y / setting.other.Zoom;
+
+            if (py < 14 * 8)
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    int ch = (e.Location.Y / 8) - 1;
+                    int ch = (py / 8) - 1;
                     if (ch < 0) return;
 
                     if (ch >= 0 && ch < 6)
@@ -332,10 +380,10 @@ namespace MDPlayer
 
             // 音色表示欄の判定
 
-            if (e.Location.Y < 26 * 8)
+            if (py < 26 * 8)
             {
-                int h = (e.Location.Y - 14 * 8) / (6 * 8);
-                int w = Math.Min(e.Location.X / (13 * 8), 2);
+                int h = (py - 14 * 8) / (6 * 8);
+                int w = Math.Min(px / (13 * 8), 2);
                 int instCh = h * 3 + w;
 
                 //クリップボードに音色をコピーする
@@ -347,74 +395,79 @@ namespace MDPlayer
 
             // ボタンの判定
 
-            if (e.Location.X >= 320 - 15 * 16 && e.Location.X < 320 - 14 * 16)
+            if (px >= 320 - 16 * 16 && px < 320 - 15 * 16)
             {
                 openSetting();
                 return;
             }
 
-            if (e.Location.X >= 320 - 14 * 16 && e.Location.X < 320 - 13 * 16)
+            if (px >= 320 - 15 * 16 && px < 320 - 14 * 16)
             {
                 frmPlayList.Stop();
                 stop();
                 return;
             }
 
-            if (e.Location.X >= 320 - 13 * 16 && e.Location.X < 320 - 12 * 16)
+            if (px >= 320 - 14 * 16 && px < 320 - 13 * 16)
             {
                 pause();
                 return;
             }
 
-            if (e.Location.X >= 320 - 12 * 16 && e.Location.X < 320 - 11 * 16)
+            if (px >= 320 - 13 * 16 && px < 320 - 12 * 16)
             {
                 fadeout();
                 frmPlayList.Stop();
                 return;
             }
 
-            if (e.Location.X >= 320 - 11 * 16 && e.Location.X < 320 - 10 * 16)
+            if (px >= 320 - 12 * 16 && px < 320 - 11 * 16)
             {
                 prev();
                 return;
             }
 
-            if (e.Location.X >= 320 - 10 * 16 && e.Location.X < 320 - 9 * 16)
+            if (px >= 320 - 11 * 16 && px < 320 - 10 * 16)
             {
                 slow();
                 return;
             }
 
-            if (e.Location.X >= 320 - 9 * 16 && e.Location.X < 320 - 8 * 16)
+            if (px >= 320 - 10 * 16 && px < 320 - 9 * 16)
             {
                 play();
                 return;
             }
 
-            if (e.Location.X >= 320 - 8 * 16 && e.Location.X < 320 - 7 * 16)
+            if (px >= 320 - 9 * 16 && px < 320 - 8 * 16)
             {
                 ff();
                 return;
             }
 
-            if (e.Location.X >= 320 - 7 * 16 && e.Location.X < 320 - 6 * 16)
+            if (px >= 320 - 8 * 16 && px < 320 - 7 * 16)
             {
                 next();
                 return;
             }
 
-            if (e.Location.X >= 320 - 6 * 16 && e.Location.X < 320 - 5 * 16)
+            if (px >= 320 - 7 * 16 && px < 320 - 6 * 16)
             {
                 playMode();
                 return;
             }
 
-            if (e.Location.X >= 320 - 5 * 16 && e.Location.X < 320 - 4 * 16)
+            if (px >= 320 - 6 * 16 && px < 320 - 5 * 16)
             {
                 string[] fn = fileOpen(true);
 
                 if (fn != null)
                 {
+                    if (Audio.isPaused)
+                    {
+                        Audio.Pause();
+                    }
+
                     if (fn.Length == 1)
                     {
                         frmPlayList.Stop();
@@ -444,30 +497,36 @@ namespace MDPlayer
                 return;
             }
 
-            if (e.Location.X >= 320 - 4 * 16 && e.Location.X < 320 - 3 * 16)
+            if (px >= 320 - 5 * 16 && px < 320 - 4 * 16)
             {
                 dispPlayList();
                 return;
             }
 
-            if (e.Location.X >= 320 - 3 * 16 && e.Location.X < 320 - 2 * 16)
+            if (px >= 320 - 4 * 16 && px < 320 - 3 * 16)
             {
                 openInfo();
                 return;
             }
 
-            if (e.Location.X >= 320 - 2 * 16 && e.Location.X < 320 - 1 * 16)
+            if (px >= 320 - 3 * 16 && px < 320 - 2 * 16)
             {
                 openMegaCD();
                 return;
             }
 
-            if (e.Location.X >= 320 - 1 * 16 && e.Location.X < 320 - 0 * 16)
+            if (px >= 320 - 2 * 16 && px < 320 - 1 * 16)
             {
                 showContextMenu();
                 return;
             }
 
+            if (px >= 320 - 1 * 16 && px < 320 - 0 * 16)
+            {
+                setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
+                changeZoom();
+                return;
+            }
         }
 
         private void tsmiC140_Click(object sender, EventArgs e)
@@ -503,7 +562,7 @@ namespace MDPlayer
                 return;
             }
 
-            frmC140 = new frmC140(this);
+            frmC140 = new frmC140(this,setting.other.Zoom);
             screen.AddC140(frmC140.pbScreen, Properties.Resources.planeF);
 
             if (setting.location.PC140 == System.Drawing.Point.Empty)
@@ -554,7 +613,7 @@ namespace MDPlayer
                 return;
             }
 
-            frmYM2608 = new frmYM2608(this);
+            frmYM2608 = new frmYM2608(this,setting.other.Zoom);
 
             if (setting.location.PYm2608 == System.Drawing.Point.Empty)
             {
@@ -605,7 +664,7 @@ namespace MDPlayer
                 return;
             }
 
-            frmYM2151 = new frmYM2151(this);
+            frmYM2151 = new frmYM2151(this, setting.other.Zoom);
 
             if (setting.location.PYm2151 == System.Drawing.Point.Empty)
             {
@@ -671,12 +730,12 @@ namespace MDPlayer
         private void screenMainLoop()
         {
             double nextFrame = (double)System.Environment.TickCount;
-            float period = 1000f / 60f;
             isRunning = true;
             stopped = false;
 
             while (isRunning)
             {
+                float period = 1000f / (float)setting.other.ScreenFrameRate;
                 double tickCount = (double)System.Environment.TickCount;
 
                 if (tickCount < nextFrame)
@@ -1293,6 +1352,11 @@ namespace MDPlayer
 
         private void stop()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             frmPlayList.Stop();
             Audio.Stop();
 
@@ -1305,16 +1369,31 @@ namespace MDPlayer
 
         private void fadeout()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             Audio.Fadeout();
         }
 
         private void prev()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             frmPlayList.prevPlay();
         }
 
         private void play()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             string[] fn = null;
 
             frmPlayList.Stop();
@@ -1346,6 +1425,10 @@ namespace MDPlayer
                 return;
             }
 
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
             stop();
 
             for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612, ch);
@@ -1382,11 +1465,21 @@ namespace MDPlayer
 
         private void ff()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             Audio.FF();
         }
 
         private void next()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             frmPlayList.nextPlay();
         }
 
@@ -1397,6 +1490,11 @@ namespace MDPlayer
 
         private void slow()
         {
+            if (Audio.isPaused)
+            {
+                Audio.Pause();
+            }
+
             Audio.Slow();
         }
 
@@ -1518,7 +1616,7 @@ namespace MDPlayer
                 return;
             }
 
-            frmMCD = new frmMegaCD(this);
+            frmMCD = new frmMegaCD(this,setting.other.Zoom);
             if (setting.location.PRf5c164 == System.Drawing.Point.Empty)
             {
                 frmMCD.x = this.Location.X;
@@ -2318,6 +2416,10 @@ namespace MDPlayer
         {
             try
             {
+                if (Audio.isPaused)
+                {
+                    Audio.Pause();
+                }
 
                 srcBuf = getAllBytes(fn);
                 Audio.SetVGMBuffer(srcBuf);

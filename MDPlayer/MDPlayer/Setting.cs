@@ -570,6 +570,35 @@ namespace MDPlayer
                 }
             }
 
+            private int _Zoom = 1;
+            public int Zoom
+            {
+                get
+                {
+                    return _Zoom;
+                }
+
+                set
+                {
+                    _Zoom = value;
+                }
+            }
+
+            private int _ScreenFrameRate = 60;
+            public int ScreenFrameRate
+            {
+                get
+                {
+                    return _ScreenFrameRate;
+                }
+
+                set
+                {
+                    _ScreenFrameRate = value;
+                }
+            }
+
+
 
             public Other Copy()
             {
@@ -585,6 +614,8 @@ namespace MDPlayer
                 other.UseGetInst = this.UseGetInst;
                 other.DefaultDataPath = this.DefaultDataPath;
                 other.InstFormat = this.InstFormat;
+                other.Zoom = this.Zoom;
+                other.ScreenFrameRate = this.ScreenFrameRate;
 
                 return other;
             }

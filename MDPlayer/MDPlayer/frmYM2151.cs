@@ -16,10 +16,14 @@ namespace MDPlayer
         public int x = -1;
         public int y = -1;
         public frmMain parent = null;
+        private int frameSizeW = 0;
+        private int frameSizeH = 0;
+        private int zoom = 1;
 
-        public frmYM2151(frmMain frm)
+        public frmYM2151(frmMain frm, int zoom)
         {
             parent = frm;
+            this.zoom = zoom;
             InitializeComponent();
 
             update();
@@ -46,7 +50,20 @@ namespace MDPlayer
         private void frmYM2151_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
+            frameSizeW = this.Width - this.ClientSize.Width;
+            frameSizeH = this.Height - this.ClientSize.Height;
+
+            changeZoom();
         }
+
+        public void changeZoom()
+        {
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeE.Width * zoom, frameSizeH + Properties.Resources.planeE.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeE.Width * zoom, frameSizeH + Properties.Resources.planeE.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeE.Width * zoom, frameSizeH + Properties.Resources.planeE.Height * zoom);
+            frmYM2151_Resize(null, null);
+        }
+
 
         private void frmYM2151_Resize(object sender, EventArgs e)
         {

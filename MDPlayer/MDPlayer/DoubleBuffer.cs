@@ -27,21 +27,28 @@ namespace MDPlayer
             public Bitmap bmpPlane;
             public byte[] baPlaneBuffer;
             public BufferedGraphics bgPlane;
+            public int zoom = 1;
+            public Size imageSize = new Size(0,0);
 
-            public void Add(PictureBox pbScreen, Image initialImage, Action<object, PaintEventArgs> p)
+            public void Add(PictureBox pbScreen, Image initialImage, Action<object, PaintEventArgs> p,int zoom)
             {
+                this.zoom = zoom;
                 this.pbScreen = pbScreen;
                 System.Drawing.BufferedGraphicsContext currentContext;
                 currentContext = BufferedGraphicsManager.Current;
+                imageSize = new Size(initialImage.Size.Width, initialImage.Size.Height);
+
+                pbScreen.Size = new Size(imageSize.Width * zoom, imageSize.Height * zoom);
 
                 bgPlane = currentContext.Allocate(pbScreen.CreateGraphics(), pbScreen.DisplayRectangle);
                 pbScreen.Paint += new System.Windows.Forms.PaintEventHandler(p);
-                bmpPlane = new Bitmap(pbScreen.Width, pbScreen.Height, PixelFormat.Format32bppArgb);
+                bmpPlane = new Bitmap(imageSize.Width, imageSize.Height, PixelFormat.Format32bppArgb);
                 BitmapData bdPlane = bmpPlane.LockBits(new Rectangle(0, 0, bmpPlane.Width, bmpPlane.Height), ImageLockMode.ReadOnly, bmpPlane.PixelFormat);
                 baPlaneBuffer = new byte[bdPlane.Stride * bmpPlane.Height];
                 System.Runtime.InteropServices.Marshal.Copy(bdPlane.Scan0, baPlaneBuffer, 0, baPlaneBuffer.Length);
                 bmpPlane.UnlockBits(bdPlane);
-                bgPlane.Graphics.DrawImage(initialImage, 0, 0, new Rectangle(0, 0, initialImage.Width, initialImage.Height), GraphicsUnit.Pixel);
+                bgPlane.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                bgPlane.Graphics.DrawImage(initialImage, 0, 0, imageSize.Width*zoom, imageSize.Height*zoom);
             }
 
             public void Remove(Action<object, PaintEventArgs> p)
@@ -89,7 +96,8 @@ namespace MDPlayer
                 }
                 bmpPlane.UnlockBits(bdPlane);
 
-                bgPlane.Graphics.DrawImage(bmpPlane, 0, 0);
+                bgPlane.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                bgPlane.Graphics.DrawImage(bmpPlane, 0, 0, bmpPlane.Width*zoom , bmpPlane.Height*zoom);
             }
 
             public void Refresh(Action<object, PaintEventArgs> p)
@@ -158,12 +166,12 @@ namespace MDPlayer
 
         }
 
-        public DoubleBuffer(PictureBox pbMainScreen, Image initialImage, Image font)
+        public DoubleBuffer(PictureBox pbMainScreen, Image initialImage, Image font,int zoom)
         {
             this.Dispose();
 
             mainScreen = new FrameBuffer();
-            mainScreen.Add(pbMainScreen, initialImage, this.Paint);
+            mainScreen.Add(pbMainScreen, initialImage, this.Paint,zoom);
 
             fontBuf = getByteArray(font);
         }
@@ -171,28 +179,28 @@ namespace MDPlayer
         public void AddRf5c164(PictureBox pbRf5c164Screen, Image initialRf5c164Image)
         {
             rf5c164Screen = new FrameBuffer();
-            rf5c164Screen.Add(pbRf5c164Screen, initialRf5c164Image, this.Paint);
+            rf5c164Screen.Add(pbRf5c164Screen, initialRf5c164Image, this.Paint,setting.other.Zoom);
 
         }
 
         public void AddC140(PictureBox pbC140Screen, Image initialC140Image)
         {
             c140Screen = new FrameBuffer();
-            c140Screen.Add(pbC140Screen, initialC140Image, this.Paint);
+            c140Screen.Add(pbC140Screen, initialC140Image, this.Paint, setting.other.Zoom);
 
         }
 
         public void AddYM2608(PictureBox pbYM2608Screen, Image initialYM2608Image)
         {
             ym2608Screen = new FrameBuffer();
-            ym2608Screen.Add(pbYM2608Screen, initialYM2608Image, this.Paint);
+            ym2608Screen.Add(pbYM2608Screen, initialYM2608Image, this.Paint, setting.other.Zoom);
 
         }
 
         public void AddYM2151(PictureBox pbYM2151Screen, Image initialYM2151Image)
         {
             ym2151Screen = new FrameBuffer();
-            ym2151Screen.Add(pbYM2151Screen, initialYM2151Image, this.Paint);
+            ym2151Screen.Add(pbYM2151Screen, initialYM2151Image, this.Paint, setting.other.Zoom);
 
         }
 
@@ -575,74 +583,84 @@ namespace MDPlayer
             switch (t)
             {
                 case 0:
-                case 0 + 14:
+                case 0 + 16:
                     //setting
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (12 + (t / 16)), 16, 16);
                     break;
                 case 1:
-                case 1 + 14:
+                case 1 + 16:
                     //stop
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 2:
-                case 2 + 14:
+                case 2 + 16:
                     //pause
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 1 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 1 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 3:
-                case 3 + 14:
+                case 3 + 16:
                     //fadeout
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (12 + (t / 16)), 16, 16);
                     break;
                 case 4:
-                case 4 + 14:
+                case 4 + 16:
                     //PREV
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 6 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 6 * 16, 16 * (12 + (t / 16)), 16, 16);
                     break;
                 case 5:
-                case 5 + 14:
+                case 5 + 16:
                     //slow
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 6:
-                case 6 + 14:
+                case 6 + 16:
                     //play
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 3 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 3 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 7:
-                case 7 + 14:
+                case 7 + 16:
                     //fast
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 4 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 8:
-                case 8 + 14:
+                case 8 + 16:
                     //NEXT
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 7 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 7 * 16, 16 * (12 + (t / 16)), 16, 16);
                     break;
                 case 9:
-                case 9 + 14:
+                case 9 + 16:
                     //loopmode
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 1 * 16 + m * 16, 16 * (14 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 1 * 16 + m * 16, 16 * (14 + (t / 16)), 16, 16);
                     break;
                 case 10:
-                case 10 + 14:
+                case 10 + 16:
                     //folder
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (10 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (10 + (t / 16)), 16, 16);
                     break;
                 case 11:
-                case 11 + 14:
+                case 11 + 16:
                     //List
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (14 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (14 + (t / 16)), 16, 16);
                     break;
                 case 12:
-                case 12 + 14:
+                case 12 + 16:
                     //info
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 0 * 16, 16 * (12 + (t / 16)), 16, 16);
                     break;
                 case 13:
-                case 13 + 14:
+                case 13 + 16:
                     //megacd
-                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (12 + (t / 14)), 16, 16);
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 2 * 16, 16 * (12 + (t / 16)), 16, 16);
+                    break;
+                case 14:
+                case 14 + 16:
+                    //panel
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 5 * 16, 16 * (14 + (t / 16)), 16, 16);
+                    break;
+                case 15:
+                case 15 + 16:
+                    //zoom
+                    mainScreen.drawByteArray(x, y, fontBuf, 128, 6 * 16, 16 * (14 + (t / 16)), 16, 16);
                     break;
             }
         }
@@ -1019,9 +1037,9 @@ namespace MDPlayer
             {
                 return;
             }
-            drawFont8(mainScreen, 80 + c * 16, 208, 0, "  ");
-            drawFont8(mainScreen, 80 + c * 16, 216, 0, "  ");
-            drawButtonP(80 + c * 16, 208, nt * 14 + c, nm);
+            drawFont8(mainScreen, 64 + c * 16, 208, 0, "  ");
+            drawFont8(mainScreen, 64 + c * 16, 216, 0, "  ");
+            drawButtonP(64 + c * 16, 208, nt * 16 + c, nm);
             ot = nt;
             om = nm;
         }
@@ -1433,7 +1451,7 @@ namespace MDPlayer
         public void drawButtons(int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
         {
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 16; i++)
             {
                 drawButton(i, ref oldButton[i], newButton[i], ref oldButtonMode[i], newButtonMode[i]);
             }

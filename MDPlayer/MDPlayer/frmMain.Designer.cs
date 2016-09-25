@@ -43,7 +43,7 @@
             // 
             this.pbScreen.BackColor = System.Drawing.Color.Black;
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.plane;
-            this.pbScreen.Location = new System.Drawing.Point(2, 2);
+            this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 224);
             this.pbScreen.TabIndex = 0;
@@ -61,26 +61,26 @@
             this.tsmiOPNA,
             this.tsmiOPM});
             this.cmsOpenOtherPanel.Name = "cmsOpenOtherPanel";
-            this.cmsOpenOtherPanel.Size = new System.Drawing.Size(153, 92);
+            this.cmsOpenOtherPanel.Size = new System.Drawing.Size(108, 70);
             // 
             // tsmiC140
             // 
             this.tsmiC140.Name = "tsmiC140";
-            this.tsmiC140.Size = new System.Drawing.Size(152, 22);
+            this.tsmiC140.Size = new System.Drawing.Size(107, 22);
             this.tsmiC140.Text = "C140";
             this.tsmiC140.Click += new System.EventHandler(this.tsmiC140_Click);
             // 
             // tsmiOPNA
             // 
             this.tsmiOPNA.Name = "tsmiOPNA";
-            this.tsmiOPNA.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOPNA.Size = new System.Drawing.Size(107, 22);
             this.tsmiOPNA.Text = "OPNA";
             this.tsmiOPNA.Click += new System.EventHandler(this.tsmiOPNA_Click);
             // 
             // tsmiOPM
             // 
             this.tsmiOPM.Name = "tsmiOPM";
-            this.tsmiOPM.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOPM.Size = new System.Drawing.Size(107, 22);
             this.tsmiOPM.Text = "OPM";
             this.tsmiOPM.Click += new System.EventHandler(this.tsmiOPM_Click);
             // 
@@ -89,12 +89,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(324, 228);
+            this.ClientSize = new System.Drawing.Size(320, 224);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(340, 267);
-            this.MinimumSize = new System.Drawing.Size(340, 267);
+            this.MaximumSize = new System.Drawing.Size(336, 263);
+            this.MinimumSize = new System.Drawing.Size(336, 263);
             this.Name = "frmMain";
             this.Text = "MDPlayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
