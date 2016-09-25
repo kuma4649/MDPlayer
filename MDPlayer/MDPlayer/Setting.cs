@@ -737,6 +737,62 @@ namespace MDPlayer
                 }
             }
 
+            private int _YM2151Volume = 100;
+            public int YM2151Volume
+            {
+                get
+                {
+                    return _YM2151Volume;
+                }
+
+                set
+                {
+                    _YM2151Volume = value;
+                }
+            }
+
+            private int _YM2608Volume = 100;
+            public int YM2608Volume
+            {
+                get
+                {
+                    return _YM2608Volume;
+                }
+
+                set
+                {
+                    _YM2608Volume = value;
+                }
+            }
+
+            private int _YM2203Volume = 100;
+            public int YM2203Volume
+            {
+                get
+                {
+                    return _YM2203Volume;
+                }
+
+                set
+                {
+                    _YM2203Volume = value;
+                }
+            }
+
+            private int _YM2610Volume = 100;
+            public int YM2610Volume
+            {
+                get
+                {
+                    return _YM2610Volume;
+                }
+
+                set
+                {
+                    _YM2610Volume = value;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -748,6 +804,10 @@ namespace MDPlayer
                 Balance.OKIM6258Volume = this.OKIM6258Volume;
                 Balance.OKIM6295Volume = this.OKIM6295Volume;
                 Balance.SEGAPCMVolume = this.SEGAPCMVolume;
+                Balance.YM2151Volume = this.YM2151Volume;
+                Balance.YM2608Volume = this.YM2608Volume;
+                Balance.YM2203Volume = this.YM2203Volume;
+                Balance.YM2610Volume = this.YM2610Volume;
 
                 return Balance;
             }

@@ -88,7 +88,9 @@ namespace MDPlayer
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch = (e.Location.Y / 8) - 1;
+            int py = e.Location.Y / zoom;
+
+            int ch = (py / 8) - 1;
             if (ch < 0) return;
 
             if (e.Button == MouseButtons.Left)

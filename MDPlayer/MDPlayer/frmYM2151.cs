@@ -94,7 +94,10 @@ namespace MDPlayer
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch = (e.Location.Y / 8) - 1;
+            int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
+
+            int ch = (py / 8) - 1;
             if (ch < 0) return;
 
             if (ch < 8)
@@ -112,8 +115,8 @@ namespace MDPlayer
 
             // 音色表示欄の判定
 
-            int h = (e.Location.Y - 9 * 8) / (6 * 8);
-            int w = Math.Min(e.Location.X / (13 * 8), 2);
+            int h = (py - 9 * 8) / (6 * 8);
+            int w = Math.Min(px / (13 * 8), 2);
             int instCh = h * 3 + w;
 
             if (instCh < 8)

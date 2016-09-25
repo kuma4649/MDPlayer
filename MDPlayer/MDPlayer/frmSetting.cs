@@ -32,6 +32,10 @@ namespace MDPlayer
             bs6.DataSource = new BindData();
             bs7.DataSource = new BindData();
             bs8.DataSource = new BindData();
+            bs9.DataSource = new BindData();
+            bs10.DataSource = new BindData();
+            bs11.DataSource = new BindData();
+            bs12.DataSource = new BindData();
 
             Init();
         }
@@ -401,6 +405,10 @@ namespace MDPlayer
             ((BindData)(bs6.DataSource)).Value = setting.balance.OKIM6258Volume;
             ((BindData)(bs7.DataSource)).Value = setting.balance.OKIM6295Volume;
             ((BindData)(bs8.DataSource)).Value = setting.balance.SEGAPCMVolume;
+            ((BindData)(bs9.DataSource)).Value = setting.balance.YM2151Volume;
+            ((BindData)(bs10.DataSource)).Value = setting.balance.YM2608Volume;
+            ((BindData)(bs11.DataSource)).Value = setting.balance.YM2203Volume;
+            ((BindData)(bs12.DataSource)).Value = setting.balance.YM2610Volume;
 
             trkYM2612.Value = setting.balance.YM2612Volume;
             trkSN76489.Value = setting.balance.SN76489Volume;
@@ -607,6 +615,10 @@ namespace MDPlayer
             setting.balance.OKIM6258Volume = trkOKIM6258.Value;
             setting.balance.OKIM6295Volume = trkOKIM6295.Value;
             setting.balance.SEGAPCMVolume = trkSEGAPCM.Value;
+            setting.balance.YM2151Volume = trkYM2151.Value;
+            setting.balance.YM2608Volume = trkYM2608.Value;
+            setting.balance.YM2203Volume = trkYM2203.Value;
+            setting.balance.YM2610Volume = trkYM2610.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -892,6 +904,86 @@ namespace MDPlayer
         {
             lblInstFormat.Enabled = cbUseGetInst.Checked;
             cmbInstFormat.Enabled = cbUseGetInst.Checked;
+        }
+
+        private void tbYM2151_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbYM2151.Text, out v))
+            {
+                tbYM2151.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbYM2151.Text = "100";
+            }
+
+        }
+
+        private void tbYM2608_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbYM2608.Text, out v))
+            {
+                tbYM2608.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbYM2608.Text = "100";
+            }
+
+        }
+
+        private void tbYM2203_TextChanged(object sender, EventArgs e)
+        {
+
+            int v = 0;
+            if (int.TryParse(tbYM2203.Text, out v))
+            {
+                tbYM2203.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbYM2203.Text = "100";
+            }
+        }
+
+        private void tbYM2610_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(tbYM2610.Text, out v))
+            {
+                tbYM2610.Text = Math.Max(Math.Min(v, 200), 0).ToString();
+            }
+            else
+            {
+                tbYM2610.Text = "100";
+            }
+
+        }
+
+        private void btnYM2151_Click(object sender, EventArgs e)
+        {
+            trkYM2151.Value = 100;
+
+        }
+
+        private void btnYM2608_Click(object sender, EventArgs e)
+        {
+            trkYM2608.Value = 100;
+
+        }
+
+        private void btnYM2203_Click(object sender, EventArgs e)
+        {
+            trkYM2203.Value = 100;
+
+        }
+
+        private void btnYM2610_Click(object sender, EventArgs e)
+        {
+            trkYM2610.Value = 100;
+
         }
     }
 

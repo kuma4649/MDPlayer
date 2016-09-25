@@ -310,6 +310,10 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
+            //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
             log.ForcedWrite("Audio:Init:STEP 12");
 
@@ -677,7 +681,7 @@ namespace MDPlayer
                     chip.Stop = ym2608.Stop;
                     chip.Reset = ym2608.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = 100;// (uint)setting.balance.YM2608Volume;
+                    chip.Volume = (uint)setting.balance.YM2608Volume;
                     chip.Clock = vgmVirtual.YM2608ClockValue;
                     chip.Option = null;
 
@@ -698,7 +702,7 @@ namespace MDPlayer
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = 100;// (uint)setting.balance.YM2151Volume;
+                    chip.Volume = (uint)setting.balance.YM2151Volume;
                     chip.Clock = vgmVirtual.YM2151ClockValue;
                     chip.Option = null;
 
@@ -719,7 +723,7 @@ namespace MDPlayer
                     chip.Stop = ym2203.Stop;
                     chip.Reset = ym2203.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = 100;// (uint)setting.balance.YM2203Volume;
+                    chip.Volume = (uint)setting.balance.YM2203Volume;
                     chip.Clock = vgmVirtual.YM2203ClockValue;
                     chip.Option = null;
 
@@ -748,6 +752,10 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
+                //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
                 chipRegister.initChipRegister();
 
@@ -1414,6 +1422,10 @@ namespace MDPlayer
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6258, 0, setting.balance.OKIM6258Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.OKIM6295, 0, setting.balance.OKIM6295Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.SEGAPCM, 0, setting.balance.SEGAPCMVolume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
+                    //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
                     Stopped = true;
                 }

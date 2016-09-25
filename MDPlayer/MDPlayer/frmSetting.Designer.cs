@@ -112,6 +112,9 @@
             this.tbSN76489 = new System.Windows.Forms.TextBox();
             this.tbYM2612 = new System.Windows.Forms.TextBox();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tbScreenFrameRate = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
             this.lblInstFormat = new System.Windows.Forms.Label();
             this.lblLoopTimes = new System.Windows.Forms.Label();
@@ -137,27 +140,41 @@
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tpOmake = new System.Windows.Forms.TabPage();
+            this.btnYM2610 = new System.Windows.Forms.Button();
+            this.tbYM2610 = new System.Windows.Forms.TextBox();
+            this.bs12 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.trkYM2610 = new System.Windows.Forms.TrackBar();
+            this.label20 = new System.Windows.Forms.Label();
+            this.btnYM2203 = new System.Windows.Forms.Button();
+            this.tbYM2203 = new System.Windows.Forms.TextBox();
+            this.bs11 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.trkYM2203 = new System.Windows.Forms.TrackBar();
+            this.label18 = new System.Windows.Forms.Label();
             this.btnOKIM6295 = new System.Windows.Forms.Button();
             this.btnOKIM6258 = new System.Windows.Forms.Button();
             this.tbOKIM6295 = new System.Windows.Forms.TextBox();
             this.bs7 = new System.Windows.Forms.BindingSource(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnYM2608 = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.trkOKIM6295 = new System.Windows.Forms.TrackBar();
             this.label27 = new System.Windows.Forms.Label();
             this.tbOKIM6258 = new System.Windows.Forms.TextBox();
             this.bs6 = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnYM2151 = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.trkOKIM6258 = new System.Windows.Forms.TrackBar();
             this.label26 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.tbYM2608 = new System.Windows.Forms.TextBox();
+            this.bs10 = new System.Windows.Forms.BindingSource(this.components);
+            this.tbYM2151 = new System.Windows.Forms.TextBox();
+            this.bs9 = new System.Windows.Forms.BindingSource(this.components);
             this.panel7 = new System.Windows.Forms.Panel();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trkYM2608 = new System.Windows.Forms.TrackBar();
             this.label25 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trkYM2151 = new System.Windows.Forms.TrackBar();
             this.label24 = new System.Windows.Forms.Label();
             this.btnSEAPCM = new System.Windows.Forms.Button();
             this.btnC140 = new System.Windows.Forms.Button();
@@ -172,18 +189,10 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.cmbYM2608Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2608Scci = new System.Windows.Forms.RadioButton();
             this.rbYM2608Emu = new System.Windows.Forms.RadioButton();
             this.gbYM2151 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.cmbYM2151Scci = new System.Windows.Forms.ComboBox();
             this.rbYM2151Scci = new System.Windows.Forms.RadioButton();
             this.rbYM2151Emu = new System.Windows.Forms.RadioButton();
@@ -195,9 +204,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.tbScreenFrameRate = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -227,16 +233,24 @@
             this.gbMIDIKeyboard.SuspendLayout();
             this.gbUseChannel.SuspendLayout();
             this.tpOmake.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs12)).BeginInit();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs11)).BeginInit();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs7)).BeginInit();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6295)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs6)).BeginInit();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6258)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs9)).BeginInit();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).BeginInit();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2151)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs5)).BeginInit();
             this.panel10.SuspendLayout();
@@ -1169,6 +1183,31 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(138, 230);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(30, 12);
+            this.label30.TabIndex = 21;
+            this.label30.Text = "Hz/s";
+            // 
+            // tbScreenFrameRate
+            // 
+            this.tbScreenFrameRate.Location = new System.Drawing.Point(82, 227);
+            this.tbScreenFrameRate.Name = "tbScreenFrameRate";
+            this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
+            this.tbScreenFrameRate.TabIndex = 20;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(7, 230);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(69, 12);
+            this.label29.TabIndex = 19;
+            this.label29.Text = "フレームレート";
+            // 
             // cmbInstFormat
             // 
             this.cmbInstFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1421,18 +1460,26 @@
             // 
             // tpOmake
             // 
+            this.tpOmake.Controls.Add(this.btnYM2610);
+            this.tpOmake.Controls.Add(this.tbYM2610);
+            this.tpOmake.Controls.Add(this.panel12);
+            this.tpOmake.Controls.Add(this.label20);
+            this.tpOmake.Controls.Add(this.btnYM2203);
+            this.tpOmake.Controls.Add(this.tbYM2203);
+            this.tpOmake.Controls.Add(this.panel11);
+            this.tpOmake.Controls.Add(this.label18);
             this.tpOmake.Controls.Add(this.btnOKIM6295);
             this.tpOmake.Controls.Add(this.btnOKIM6258);
             this.tpOmake.Controls.Add(this.tbOKIM6295);
-            this.tpOmake.Controls.Add(this.button2);
+            this.tpOmake.Controls.Add(this.btnYM2608);
             this.tpOmake.Controls.Add(this.panel9);
             this.tpOmake.Controls.Add(this.label27);
             this.tpOmake.Controls.Add(this.tbOKIM6258);
-            this.tpOmake.Controls.Add(this.button1);
+            this.tpOmake.Controls.Add(this.btnYM2151);
             this.tpOmake.Controls.Add(this.panel8);
             this.tpOmake.Controls.Add(this.label26);
-            this.tpOmake.Controls.Add(this.textBox6);
-            this.tpOmake.Controls.Add(this.textBox5);
+            this.tpOmake.Controls.Add(this.tbYM2608);
+            this.tpOmake.Controls.Add(this.tbYM2151);
             this.tpOmake.Controls.Add(this.panel7);
             this.tpOmake.Controls.Add(this.label25);
             this.tpOmake.Controls.Add(this.panel6);
@@ -1454,9 +1501,135 @@
             this.tpOmake.Text = "おまけ";
             this.tpOmake.UseVisualStyleBackColor = true;
             // 
+            // btnYM2610
+            // 
+            this.btnYM2610.Location = new System.Drawing.Point(345, 271);
+            this.btnYM2610.Name = "btnYM2610";
+            this.btnYM2610.Size = new System.Drawing.Size(19, 19);
+            this.btnYM2610.TabIndex = 27;
+            this.btnYM2610.Text = "%";
+            this.btnYM2610.UseVisualStyleBackColor = true;
+            this.btnYM2610.Visible = false;
+            this.btnYM2610.Click += new System.EventHandler(this.btnYM2610_Click);
+            // 
+            // tbYM2610
+            // 
+            this.tbYM2610.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs12, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2610.Location = new System.Drawing.Point(318, 271);
+            this.tbYM2610.MaxLength = 3;
+            this.tbYM2610.Name = "tbYM2610";
+            this.tbYM2610.Size = new System.Drawing.Size(27, 19);
+            this.tbYM2610.TabIndex = 26;
+            this.tbYM2610.Text = "200";
+            this.tbYM2610.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2610.Visible = false;
+            this.tbYM2610.TextChanged += new System.EventHandler(this.tbYM2610_TextChanged);
+            // 
+            // bs12
+            // 
+            this.bs12.DataSource = typeof(MDPlayer.BindData);
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.White;
+            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.trkYM2610);
+            this.panel12.Location = new System.Drawing.Point(318, 164);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(45, 106);
+            this.panel12.TabIndex = 25;
+            this.panel12.Visible = false;
+            // 
+            // trkYM2610
+            // 
+            this.trkYM2610.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs12, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2610.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2610.LargeChange = 10;
+            this.trkYM2610.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2610.Maximum = 200;
+            this.trkYM2610.Name = "trkYM2610";
+            this.trkYM2610.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2610.Size = new System.Drawing.Size(43, 104);
+            this.trkYM2610.TabIndex = 0;
+            this.trkYM2610.TickFrequency = 10;
+            this.trkYM2610.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkYM2610.Value = 100;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label20.Location = new System.Drawing.Point(316, 149);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(51, 12);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "YM2610";
+            this.label20.Visible = false;
+            // 
+            // btnYM2203
+            // 
+            this.btnYM2203.Location = new System.Drawing.Point(345, 126);
+            this.btnYM2203.Name = "btnYM2203";
+            this.btnYM2203.Size = new System.Drawing.Size(19, 19);
+            this.btnYM2203.TabIndex = 23;
+            this.btnYM2203.Text = "%";
+            this.btnYM2203.UseVisualStyleBackColor = true;
+            this.btnYM2203.Click += new System.EventHandler(this.btnYM2203_Click);
+            // 
+            // tbYM2203
+            // 
+            this.tbYM2203.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs11, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2203.Location = new System.Drawing.Point(318, 126);
+            this.tbYM2203.MaxLength = 3;
+            this.tbYM2203.Name = "tbYM2203";
+            this.tbYM2203.Size = new System.Drawing.Size(27, 19);
+            this.tbYM2203.TabIndex = 22;
+            this.tbYM2203.Text = "200";
+            this.tbYM2203.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2203.TextChanged += new System.EventHandler(this.tbYM2203_TextChanged);
+            // 
+            // bs11
+            // 
+            this.bs11.DataSource = typeof(MDPlayer.BindData);
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.White;
+            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel11.Controls.Add(this.trkYM2203);
+            this.panel11.Location = new System.Drawing.Point(318, 19);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(45, 106);
+            this.panel11.TabIndex = 21;
+            // 
+            // trkYM2203
+            // 
+            this.trkYM2203.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs11, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2203.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2203.LargeChange = 10;
+            this.trkYM2203.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2203.Maximum = 200;
+            this.trkYM2203.Name = "trkYM2203";
+            this.trkYM2203.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2203.Size = new System.Drawing.Size(43, 104);
+            this.trkYM2203.TabIndex = 0;
+            this.trkYM2203.TickFrequency = 10;
+            this.trkYM2203.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkYM2203.Value = 100;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label18.Location = new System.Drawing.Point(316, 4);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(51, 12);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "YM2203";
+            // 
             // btnOKIM6295
             // 
-            this.btnOKIM6295.Location = new System.Drawing.Point(218, 269);
+            this.btnOKIM6295.Location = new System.Drawing.Point(109, 271);
             this.btnOKIM6295.Name = "btnOKIM6295";
             this.btnOKIM6295.Size = new System.Drawing.Size(19, 19);
             this.btnOKIM6295.TabIndex = 19;
@@ -1466,7 +1639,7 @@
             // 
             // btnOKIM6258
             // 
-            this.btnOKIM6258.Location = new System.Drawing.Point(157, 269);
+            this.btnOKIM6258.Location = new System.Drawing.Point(48, 271);
             this.btnOKIM6258.Name = "btnOKIM6258";
             this.btnOKIM6258.Size = new System.Drawing.Size(19, 19);
             this.btnOKIM6258.TabIndex = 19;
@@ -1477,7 +1650,7 @@
             // tbOKIM6295
             // 
             this.tbOKIM6295.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs7, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6295.Location = new System.Drawing.Point(191, 269);
+            this.tbOKIM6295.Location = new System.Drawing.Point(82, 271);
             this.tbOKIM6295.MaxLength = 3;
             this.tbOKIM6295.Name = "tbOKIM6295";
             this.tbOKIM6295.Size = new System.Drawing.Size(27, 19);
@@ -1489,24 +1662,24 @@
             // 
             this.bs7.DataSource = typeof(MDPlayer.BindData);
             // 
-            // button2
+            // btnYM2608
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(97, 269);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(19, 19);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "%";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnYM2608.Location = new System.Drawing.Point(288, 126);
+            this.btnYM2608.Name = "btnYM2608";
+            this.btnYM2608.Size = new System.Drawing.Size(19, 19);
+            this.btnYM2608.TabIndex = 19;
+            this.btnYM2608.Text = "%";
+            this.btnYM2608.UseVisualStyleBackColor = true;
+            this.btnYM2608.Click += new System.EventHandler(this.btnYM2608_Click);
             // 
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.White;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.trkOKIM6295);
-            this.panel9.Location = new System.Drawing.Point(191, 160);
+            this.panel9.Location = new System.Drawing.Point(82, 164);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(45, 107);
+            this.panel9.Size = new System.Drawing.Size(45, 106);
             this.panel9.TabIndex = 17;
             // 
             // trkOKIM6295
@@ -1518,7 +1691,7 @@
             this.trkOKIM6295.Maximum = 200;
             this.trkOKIM6295.Name = "trkOKIM6295";
             this.trkOKIM6295.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkOKIM6295.Size = new System.Drawing.Size(43, 105);
+            this.trkOKIM6295.Size = new System.Drawing.Size(43, 104);
             this.trkOKIM6295.TabIndex = 0;
             this.trkOKIM6295.TickFrequency = 10;
             this.trkOKIM6295.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1528,7 +1701,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label27.Location = new System.Drawing.Point(183, 145);
+            this.label27.Location = new System.Drawing.Point(74, 149);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(64, 12);
             this.label27.TabIndex = 16;
@@ -1537,7 +1710,7 @@
             // tbOKIM6258
             // 
             this.tbOKIM6258.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs6, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6258.Location = new System.Drawing.Point(130, 269);
+            this.tbOKIM6258.Location = new System.Drawing.Point(21, 271);
             this.tbOKIM6258.MaxLength = 3;
             this.tbOKIM6258.Name = "tbOKIM6258";
             this.tbOKIM6258.Size = new System.Drawing.Size(27, 19);
@@ -1549,24 +1722,24 @@
             // 
             this.bs6.DataSource = typeof(MDPlayer.BindData);
             // 
-            // button1
+            // btnYM2151
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(37, 269);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(19, 19);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "%";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnYM2151.Location = new System.Drawing.Point(231, 126);
+            this.btnYM2151.Name = "btnYM2151";
+            this.btnYM2151.Size = new System.Drawing.Size(19, 19);
+            this.btnYM2151.TabIndex = 15;
+            this.btnYM2151.Text = "%";
+            this.btnYM2151.UseVisualStyleBackColor = true;
+            this.btnYM2151.Click += new System.EventHandler(this.btnYM2151_Click);
             // 
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.White;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.trkOKIM6258);
-            this.panel8.Location = new System.Drawing.Point(130, 160);
+            this.panel8.Location = new System.Drawing.Point(21, 164);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(45, 107);
+            this.panel8.Size = new System.Drawing.Size(45, 106);
             this.panel8.TabIndex = 17;
             // 
             // trkOKIM6258
@@ -1578,7 +1751,7 @@
             this.trkOKIM6258.Maximum = 200;
             this.trkOKIM6258.Name = "trkOKIM6258";
             this.trkOKIM6258.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkOKIM6258.Size = new System.Drawing.Size(43, 105);
+            this.trkOKIM6258.Size = new System.Drawing.Size(43, 104);
             this.trkOKIM6258.TabIndex = 0;
             this.trkOKIM6258.TickFrequency = 10;
             this.trkOKIM6258.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1588,65 +1761,74 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label26.Location = new System.Drawing.Point(122, 145);
+            this.label26.Location = new System.Drawing.Point(13, 149);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(64, 12);
             this.label26.TabIndex = 16;
             this.label26.Text = "OKIM6258";
             // 
-            // textBox6
+            // tbYM2608
             // 
-            this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(70, 269);
-            this.textBox6.MaxLength = 3;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(27, 19);
-            this.textBox6.TabIndex = 18;
-            this.textBox6.Text = "200";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2608.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs10, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2608.Location = new System.Drawing.Point(261, 126);
+            this.tbYM2608.MaxLength = 3;
+            this.tbYM2608.Name = "tbYM2608";
+            this.tbYM2608.Size = new System.Drawing.Size(27, 19);
+            this.tbYM2608.TabIndex = 18;
+            this.tbYM2608.Text = "200";
+            this.tbYM2608.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2608.TextChanged += new System.EventHandler(this.tbYM2608_TextChanged);
             // 
-            // textBox5
+            // bs10
             // 
-            this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(10, 269);
-            this.textBox5.MaxLength = 3;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(27, 19);
-            this.textBox5.TabIndex = 14;
-            this.textBox5.Text = "200";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.bs10.DataSource = typeof(MDPlayer.BindData);
+            // 
+            // tbYM2151
+            // 
+            this.tbYM2151.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs9, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2151.Location = new System.Drawing.Point(204, 126);
+            this.tbYM2151.MaxLength = 3;
+            this.tbYM2151.Name = "tbYM2151";
+            this.tbYM2151.Size = new System.Drawing.Size(27, 19);
+            this.tbYM2151.TabIndex = 14;
+            this.tbYM2151.Text = "200";
+            this.tbYM2151.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2151.TextChanged += new System.EventHandler(this.tbYM2151_TextChanged);
+            // 
+            // bs9
+            // 
+            this.bs9.DataSource = typeof(MDPlayer.BindData);
             // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.White;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.trackBar2);
-            this.panel7.Enabled = false;
-            this.panel7.Location = new System.Drawing.Point(70, 160);
+            this.panel7.Controls.Add(this.trkYM2608);
+            this.panel7.Location = new System.Drawing.Point(261, 19);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(45, 107);
+            this.panel7.Size = new System.Drawing.Size(45, 106);
             this.panel7.TabIndex = 17;
             // 
-            // trackBar2
+            // trkYM2608
             // 
-            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar2.LargeChange = 10;
-            this.trackBar2.Location = new System.Drawing.Point(0, 0);
-            this.trackBar2.Maximum = 200;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar2.Size = new System.Drawing.Size(43, 105);
-            this.trackBar2.TabIndex = 0;
-            this.trackBar2.TickFrequency = 10;
-            this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar2.Value = 100;
+            this.trkYM2608.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs10, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2608.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2608.LargeChange = 10;
+            this.trkYM2608.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2608.Maximum = 200;
+            this.trkYM2608.Name = "trkYM2608";
+            this.trkYM2608.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2608.Size = new System.Drawing.Size(43, 104);
+            this.trkYM2608.TabIndex = 0;
+            this.trkYM2608.TickFrequency = 10;
+            this.trkYM2608.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkYM2608.Value = 100;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Enabled = false;
             this.label25.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label25.Location = new System.Drawing.Point(68, 145);
+            this.label25.Location = new System.Drawing.Point(259, 4);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(51, 12);
             this.label25.TabIndex = 16;
@@ -1656,33 +1838,32 @@
             // 
             this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.trackBar1);
-            this.panel6.Enabled = false;
-            this.panel6.Location = new System.Drawing.Point(10, 160);
+            this.panel6.Controls.Add(this.trkYM2151);
+            this.panel6.Location = new System.Drawing.Point(204, 19);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(45, 107);
+            this.panel6.Size = new System.Drawing.Size(45, 106);
             this.panel6.TabIndex = 13;
             // 
-            // trackBar1
+            // trkYM2151
             // 
-            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar1.LargeChange = 10;
-            this.trackBar1.Location = new System.Drawing.Point(0, 0);
-            this.trackBar1.Maximum = 200;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(43, 105);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Value = 100;
+            this.trkYM2151.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bs9, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2151.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2151.LargeChange = 10;
+            this.trkYM2151.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2151.Maximum = 200;
+            this.trkYM2151.Name = "trkYM2151";
+            this.trkYM2151.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2151.Size = new System.Drawing.Size(43, 104);
+            this.trkYM2151.TabIndex = 0;
+            this.trkYM2151.TickFrequency = 10;
+            this.trkYM2151.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trkYM2151.Value = 100;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Enabled = false;
             this.label24.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label24.Location = new System.Drawing.Point(8, 145);
+            this.label24.Location = new System.Drawing.Point(202, 4);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(51, 12);
             this.label24.TabIndex = 12;
@@ -1690,7 +1871,7 @@
             // 
             // btnSEAPCM
             // 
-            this.btnSEAPCM.Location = new System.Drawing.Point(340, 269);
+            this.btnSEAPCM.Location = new System.Drawing.Point(231, 271);
             this.btnSEAPCM.Name = "btnSEAPCM";
             this.btnSEAPCM.Size = new System.Drawing.Size(19, 19);
             this.btnSEAPCM.TabIndex = 11;
@@ -1700,7 +1881,7 @@
             // 
             // btnC140
             // 
-            this.btnC140.Location = new System.Drawing.Point(279, 269);
+            this.btnC140.Location = new System.Drawing.Point(170, 271);
             this.btnC140.Name = "btnC140";
             this.btnC140.Size = new System.Drawing.Size(19, 19);
             this.btnC140.TabIndex = 11;
@@ -1711,7 +1892,7 @@
             // tbSEGAPCM
             // 
             this.tbSEGAPCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs8, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbSEGAPCM.Location = new System.Drawing.Point(313, 269);
+            this.tbSEGAPCM.Location = new System.Drawing.Point(204, 271);
             this.tbSEGAPCM.MaxLength = 3;
             this.tbSEGAPCM.Name = "tbSEGAPCM";
             this.tbSEGAPCM.Size = new System.Drawing.Size(27, 19);
@@ -1727,7 +1908,7 @@
             // tbC140
             // 
             this.tbC140.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bs5, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbC140.Location = new System.Drawing.Point(252, 269);
+            this.tbC140.Location = new System.Drawing.Point(143, 271);
             this.tbC140.MaxLength = 3;
             this.tbC140.Name = "tbC140";
             this.tbC140.Size = new System.Drawing.Size(27, 19);
@@ -1745,9 +1926,9 @@
             this.panel10.BackColor = System.Drawing.Color.White;
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.trkSEGAPCM);
-            this.panel10.Location = new System.Drawing.Point(313, 160);
+            this.panel10.Location = new System.Drawing.Point(204, 164);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(45, 107);
+            this.panel10.Size = new System.Drawing.Size(45, 106);
             this.panel10.TabIndex = 9;
             // 
             // trkSEGAPCM
@@ -1759,7 +1940,7 @@
             this.trkSEGAPCM.Maximum = 200;
             this.trkSEGAPCM.Name = "trkSEGAPCM";
             this.trkSEGAPCM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkSEGAPCM.Size = new System.Drawing.Size(43, 105);
+            this.trkSEGAPCM.Size = new System.Drawing.Size(43, 104);
             this.trkSEGAPCM.TabIndex = 0;
             this.trkSEGAPCM.TickFrequency = 10;
             this.trkSEGAPCM.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1770,9 +1951,9 @@
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.trkC140);
-            this.panel5.Location = new System.Drawing.Point(252, 160);
+            this.panel5.Location = new System.Drawing.Point(143, 164);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(45, 107);
+            this.panel5.Size = new System.Drawing.Size(45, 106);
             this.panel5.TabIndex = 9;
             // 
             // trkC140
@@ -1784,7 +1965,7 @@
             this.trkC140.Maximum = 200;
             this.trkC140.Name = "trkC140";
             this.trkC140.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkC140.Size = new System.Drawing.Size(43, 105);
+            this.trkC140.Size = new System.Drawing.Size(43, 104);
             this.trkC140.TabIndex = 0;
             this.trkC140.TickFrequency = 10;
             this.trkC140.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1794,7 +1975,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label28.Location = new System.Drawing.Point(303, 145);
+            this.label28.Location = new System.Drawing.Point(194, 149);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(66, 12);
             this.label28.TabIndex = 7;
@@ -1804,7 +1985,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label23.Location = new System.Drawing.Point(257, 145);
+            this.label23.Location = new System.Drawing.Point(148, 149);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(35, 12);
             this.label23.TabIndex = 7;
@@ -1812,57 +1993,15 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label21);
-            this.groupBox6.Controls.Add(this.label22);
-            this.groupBox6.Controls.Add(this.textBox3);
-            this.groupBox6.Controls.Add(this.textBox4);
             this.groupBox6.Controls.Add(this.cmbYM2608Scci);
             this.groupBox6.Controls.Add(this.rbYM2608Scci);
             this.groupBox6.Controls.Add(this.rbYM2608Emu);
             this.groupBox6.Location = new System.Drawing.Point(3, 76);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(368, 67);
+            this.groupBox6.Size = new System.Drawing.Size(191, 67);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "YM2608";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(320, 17);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(20, 12);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "ms";
-            this.label21.Visible = false;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(235, 17);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(20, 12);
-            this.label22.TabIndex = 5;
-            this.label22.Text = "ms";
-            this.label22.Visible = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(261, 14);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(53, 19);
-            this.textBox3.TabIndex = 4;
-            this.textBox3.Visible = false;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(176, 14);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(53, 19);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Visible = false;
             // 
             // cmbYM2608Scci
             // 
@@ -1870,7 +2009,7 @@
             this.cmbYM2608Scci.FormattingEnabled = true;
             this.cmbYM2608Scci.Location = new System.Drawing.Point(61, 39);
             this.cmbYM2608Scci.Name = "cmbYM2608Scci";
-            this.cmbYM2608Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbYM2608Scci.Size = new System.Drawing.Size(122, 20);
             this.cmbYM2608Scci.TabIndex = 2;
             // 
             // rbYM2608Scci
@@ -1897,57 +2036,15 @@
             // 
             // gbYM2151
             // 
-            this.gbYM2151.Controls.Add(this.label18);
-            this.gbYM2151.Controls.Add(this.label20);
-            this.gbYM2151.Controls.Add(this.textBox1);
-            this.gbYM2151.Controls.Add(this.textBox2);
             this.gbYM2151.Controls.Add(this.cmbYM2151Scci);
             this.gbYM2151.Controls.Add(this.rbYM2151Scci);
             this.gbYM2151.Controls.Add(this.rbYM2151Emu);
             this.gbYM2151.Location = new System.Drawing.Point(3, 3);
             this.gbYM2151.Name = "gbYM2151";
-            this.gbYM2151.Size = new System.Drawing.Size(368, 67);
+            this.gbYM2151.Size = new System.Drawing.Size(191, 67);
             this.gbYM2151.TabIndex = 1;
             this.gbYM2151.TabStop = false;
             this.gbYM2151.Text = "YM2151";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(320, 17);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(20, 12);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "ms";
-            this.label18.Visible = false;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(235, 17);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(20, 12);
-            this.label20.TabIndex = 5;
-            this.label20.Text = "ms";
-            this.label20.Visible = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(261, 14);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(53, 19);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Visible = false;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(176, 14);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(53, 19);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.Visible = false;
             // 
             // cmbYM2151Scci
             // 
@@ -1955,7 +2052,7 @@
             this.cmbYM2151Scci.FormattingEnabled = true;
             this.cmbYM2151Scci.Location = new System.Drawing.Point(61, 39);
             this.cmbYM2151Scci.Name = "cmbYM2151Scci";
-            this.cmbYM2151Scci.Size = new System.Drawing.Size(301, 20);
+            this.cmbYM2151Scci.Size = new System.Drawing.Size(122, 20);
             this.cmbYM2151Scci.TabIndex = 2;
             // 
             // rbYM2151Scci
@@ -2089,31 +2186,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(7, 230);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(69, 12);
-            this.label29.TabIndex = 19;
-            this.label29.Text = "フレームレート";
-            // 
-            // tbScreenFrameRate
-            // 
-            this.tbScreenFrameRate.Location = new System.Drawing.Point(82, 227);
-            this.tbScreenFrameRate.Name = "tbScreenFrameRate";
-            this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
-            this.tbScreenFrameRate.TabIndex = 20;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(138, 230);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(30, 12);
-            this.label30.TabIndex = 21;
-            this.label30.Text = "Hz/s";
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2178,6 +2250,14 @@
             this.gbUseChannel.PerformLayout();
             this.tpOmake.ResumeLayout(false);
             this.tpOmake.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bs12)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs11)).EndInit();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs7)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
@@ -2186,12 +2266,14 @@
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6258)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs9)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2151)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs5)).EndInit();
             this.panel10.ResumeLayout(false);
@@ -2329,18 +2411,10 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TabPage tpOmake;
         private System.Windows.Forms.GroupBox gbYM2151;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ComboBox cmbYM2151Scci;
         private System.Windows.Forms.RadioButton rbYM2151Scci;
         private System.Windows.Forms.RadioButton rbYM2151Emu;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ComboBox cmbYM2608Scci;
         private System.Windows.Forms.RadioButton rbYM2608Scci;
         private System.Windows.Forms.RadioButton rbYM2608Emu;
@@ -2353,22 +2427,22 @@
         private System.Windows.Forms.Button btnOKIM6295;
         private System.Windows.Forms.Button btnOKIM6258;
         private System.Windows.Forms.TextBox tbOKIM6295;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnYM2608;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.TrackBar trkOKIM6295;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox tbOKIM6258;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnYM2151;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.TrackBar trkOKIM6258;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox tbYM2608;
+        private System.Windows.Forms.TextBox tbYM2151;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar trkYM2608;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trkYM2151;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.BindingSource bs6;
         private System.Windows.Forms.BindingSource bs7;
@@ -2383,5 +2457,19 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox tbScreenFrameRate;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button btnYM2203;
+        private System.Windows.Forms.TextBox tbYM2203;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.TrackBar trkYM2203;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnYM2610;
+        private System.Windows.Forms.TextBox tbYM2610;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.TrackBar trkYM2610;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.BindingSource bs9;
+        private System.Windows.Forms.BindingSource bs10;
+        private System.Windows.Forms.BindingSource bs11;
+        private System.Windows.Forms.BindingSource bs12;
     }
 }
