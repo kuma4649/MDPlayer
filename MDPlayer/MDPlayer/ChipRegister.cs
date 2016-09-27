@@ -430,6 +430,36 @@ namespace MDPlayer
 
         }
 
+        public void setYM2610Register(int dPort,int dAddr, int dData, vgm.enmModel model)
+        {
+
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                mds.WriteYM2610(0, (byte)dPort, (byte)dAddr, (byte)dData);
+            }
+            else
+            {
+            }
+
+        }
+
+        public void WriteYM2610_SetAdpcmA(byte[] ym2610AdpcmA, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                mds.WriteYM2610_SetAdpcmA(0, ym2610AdpcmA);
+            }
+        }
+
+        public void WriteYM2610_SetAdpcmB(byte[] ym2610AdpcmB, vgm.enmModel model)
+        {
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                mds.WriteYM2610_SetAdpcmB(0, ym2610AdpcmB);
+            }
+        }
+
+
         public void setYM2608SyncWait(int wait)
         {
             if (scYM2608 != null && ctYM2608.UseWait)

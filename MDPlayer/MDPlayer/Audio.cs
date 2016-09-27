@@ -313,7 +313,7 @@ namespace MDPlayer
             mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
             mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
-            //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
+            mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
             log.ForcedWrite("Audio:Init:STEP 12");
 
@@ -732,6 +732,27 @@ namespace MDPlayer
                     lstChips.Add(chip);
                 }
 
+                if (vgmVirtual.YM2610ClockValue != 0)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2610;
+                    chip.ID = 0;
+                    MDSound.ym2610 ym2610 = new MDSound.ym2610();
+                    chip.Instrument = ym2610;
+                    chip.Update = ym2610.Update;
+                    chip.Start = ym2610.Start;
+                    chip.Stop = ym2610.Stop;
+                    chip.Reset = ym2610.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = (uint)setting.balance.YM2610Volume;
+                    chip.Clock = vgmVirtual.YM2610ClockValue & 0x7fffffff;
+                    chip.Option = null;
+
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    lstChips.Add(chip);
+                }
+
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
 
@@ -755,7 +776,7 @@ namespace MDPlayer
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
                 mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
-                //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
+                mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
                 chipRegister.initChipRegister();
 
@@ -1425,7 +1446,7 @@ namespace MDPlayer
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2151, 0, setting.balance.YM2151Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2608, 0, setting.balance.YM2608Volume);
                     mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2203, 0, setting.balance.YM2203Volume);
-                    //mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
+                    mds.setVolume(MDSound.MDSound.enmInstrumentType.YM2610, 0, setting.balance.YM2610Volume);
 
                     Stopped = true;
                 }

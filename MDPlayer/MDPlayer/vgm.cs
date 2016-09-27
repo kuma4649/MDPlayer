@@ -60,6 +60,7 @@ namespace MDPlayer
         public uint YM2151ClockValue;
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
+        public uint YM2610ClockValue;
 
         public int YM2151Hosei = 0;
 
@@ -102,6 +103,9 @@ namespace MDPlayer
         private byte[] DacCtrlUsg = new byte[0xFF];
         private DACCTRL_DATA[] DacCtrl = new DACCTRL_DATA[0xFF];
 
+        private byte[] ym2610AdpcmA = null;
+        private byte[] ym2610AdpcmB = null;
+
         public bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip,uint latency)
         {
             this.vgmBuf = vgmBuf;
@@ -109,6 +113,9 @@ namespace MDPlayer
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+
+            ym2610AdpcmA = null;
+            ym2610AdpcmB = null;
 
             if (!getInformationHeader()) return false;
 
@@ -316,8 +323,8 @@ namespace MDPlayer
             vgmCmdTbl[0x56] = vcYM2608Port0;
             vgmCmdTbl[0x57] = vcYM2608Port1;
 
-            vgmCmdTbl[0x58] = vcDummy2Ope;
-            vgmCmdTbl[0x59] = vcDummy2Ope;
+            vgmCmdTbl[0x58] = vcYM2610Port0;
+            vgmCmdTbl[0x59] = vcYM2610Port1;
             vgmCmdTbl[0x5a] = vcDummy2Ope;
             vgmCmdTbl[0x5b] = vcDummy2Ope;
             vgmCmdTbl[0x5c] = vcDummy2Ope;
@@ -585,6 +592,20 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcYM2610Port0()
+        {
+            chipRegister.setYM2610Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2610Port1()
+        {
+            int adr = vgmBuf[vgmAdr + 1];
+            int dat = vgmBuf[vgmAdr + 2];
+            chipRegister.setYM2610Register(1, adr, dat, model);
+            vgmAdr += 3;
+        }
+
         private void vcYM2151()
         {
             chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei);
@@ -721,6 +742,23 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
                             chipRegister.sendDataYM2608(model);
+                            break;
+
+                        case 0x82:
+                            if (ym2610AdpcmA == null || ym2610AdpcmA.Length != romSize) ym2610AdpcmA = new byte[romSize];
+                            for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            {
+                                ym2610AdpcmA[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                            }
+                            chipRegister.WriteYM2610_SetAdpcmA(ym2610AdpcmA,model);
+                            break;
+                        case 0x83:
+                            if (ym2610AdpcmB == null || ym2610AdpcmB.Length != romSize) ym2610AdpcmB = new byte[romSize];
+                            for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            {
+                                ym2610AdpcmB[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                            }
+                            chipRegister.WriteYM2610_SetAdpcmB(ym2610AdpcmB,model);
                             break;
 
                         case 0x8b:
@@ -1561,7 +1599,11 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x4c)
                 {
                     uint YM2610Bclock = getLE32(0x4c);
-                    if (YM2610Bclock != 0) chips.Add("YM2610/B");
+                    if (YM2610Bclock != 0)
+                    {
+                        chips.Add("YM2610/B");
+                        YM2610ClockValue = YM2610Bclock;
+                    }
                 }
 
                 if (vgmDataOffset > 0x50)

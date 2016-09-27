@@ -1509,7 +1509,6 @@
             this.btnYM2610.TabIndex = 27;
             this.btnYM2610.Text = "%";
             this.btnYM2610.UseVisualStyleBackColor = true;
-            this.btnYM2610.Visible = false;
             this.btnYM2610.Click += new System.EventHandler(this.btnYM2610_Click);
             // 
             // tbYM2610
@@ -1522,7 +1521,6 @@
             this.tbYM2610.TabIndex = 26;
             this.tbYM2610.Text = "200";
             this.tbYM2610.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbYM2610.Visible = false;
             this.tbYM2610.TextChanged += new System.EventHandler(this.tbYM2610_TextChanged);
             // 
             // bs12
@@ -1538,7 +1536,6 @@
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(45, 106);
             this.panel12.TabIndex = 25;
-            this.panel12.Visible = false;
             // 
             // trkYM2610
             // 
@@ -1564,7 +1561,6 @@
             this.label20.Size = new System.Drawing.Size(51, 12);
             this.label20.TabIndex = 24;
             this.label20.Text = "YM2610";
-            this.label20.Visible = false;
             // 
             // btnYM2203
             // 
