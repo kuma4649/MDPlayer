@@ -32,25 +32,11 @@ namespace MDPlayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmVGMby = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsPlayList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlayThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelThis = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +54,21 @@ namespace MDPlayer
             this.tsbDown = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbJapanese = new System.Windows.Forms.ToolStripButton();
+            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmZipFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmVGMby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.cmsPlayList.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -84,18 +85,19 @@ namespace MDPlayer
             this.dgvList.BackgroundColor = System.Drawing.Color.Black;
             this.dgvList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvList.ColumnHeadersHeight = 20;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmKey,
+            this.clmZipFileName,
             this.clmFileName,
             this.clmPlayingNow,
             this.clmTitle,
@@ -114,19 +116,19 @@ namespace MDPlayer
             this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.Name = "dgvList";
             this.dgvList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvList.RowTemplate.ContextMenuStrip = this.cmsPlayList;
             this.dgvList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvList.RowTemplate.Height = 10;
@@ -140,106 +142,6 @@ namespace MDPlayer
             this.dgvList.TabIndex = 0;
             this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
             this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
-            // 
-            // clmKey
-            // 
-            this.clmKey.HeaderText = "Key";
-            this.clmKey.Name = "clmKey";
-            this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmKey.Visible = false;
-            // 
-            // clmFileName
-            // 
-            this.clmFileName.HeaderText = "FileName";
-            this.clmFileName.Name = "clmFileName";
-            this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmFileName.Visible = false;
-            // 
-            // clmPlayingNow
-            // 
-            this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.clmPlayingNow.HeaderText = " ";
-            this.clmPlayingNow.Name = "clmPlayingNow";
-            this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmPlayingNow.Width = 25;
-            // 
-            // clmTitle
-            // 
-            this.clmTitle.HeaderText = "Title";
-            this.clmTitle.Name = "clmTitle";
-            this.clmTitle.ReadOnly = true;
-            this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitle.Width = 200;
-            // 
-            // clmTitleJ
-            // 
-            this.clmTitleJ.HeaderText = "タイトル";
-            this.clmTitleJ.Name = "clmTitleJ";
-            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitleJ.Visible = false;
-            // 
-            // clmGame
-            // 
-            this.clmGame.HeaderText = "Game";
-            this.clmGame.Name = "clmGame";
-            this.clmGame.ReadOnly = true;
-            this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGame.Width = 200;
-            // 
-            // clmGameJ
-            // 
-            this.clmGameJ.HeaderText = "ゲーム";
-            this.clmGameJ.Name = "clmGameJ";
-            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGameJ.Visible = false;
-            // 
-            // clmComposer
-            // 
-            this.clmComposer.HeaderText = "Composer";
-            this.clmComposer.Name = "clmComposer";
-            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmComposerJ
-            // 
-            this.clmComposerJ.HeaderText = "作曲者";
-            this.clmComposerJ.Name = "clmComposerJ";
-            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmComposerJ.Visible = false;
-            // 
-            // clmVGMby
-            // 
-            this.clmVGMby.HeaderText = "VGMby";
-            this.clmVGMby.Name = "clmVGMby";
-            this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmConverted
-            // 
-            this.clmConverted.HeaderText = "Release";
-            this.clmConverted.Name = "clmConverted";
-            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmNotes
-            // 
-            this.clmNotes.HeaderText = "Notes";
-            this.clmNotes.Name = "clmNotes";
-            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmDuration
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle10;
-            this.clmDuration.HeaderText = "Duration";
-            this.clmDuration.Name = "clmDuration";
-            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmSpacer
-            // 
-            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmSpacer.HeaderText = "";
-            this.clmSpacer.Name = "clmSpacer";
-            this.clmSpacer.ReadOnly = true;
-            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cmsPlayList
             // 
@@ -409,6 +311,112 @@ namespace MDPlayer
             this.tsbJapanese.Text = "日本語";
             this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // clmKey
+            // 
+            this.clmKey.HeaderText = "Key";
+            this.clmKey.Name = "clmKey";
+            this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmKey.Visible = false;
+            // 
+            // clmZipFileName
+            // 
+            this.clmZipFileName.HeaderText = "ZipFileName";
+            this.clmZipFileName.Name = "clmZipFileName";
+            this.clmZipFileName.Visible = false;
+            // 
+            // clmFileName
+            // 
+            this.clmFileName.HeaderText = "FileName";
+            this.clmFileName.Name = "clmFileName";
+            this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmFileName.Visible = false;
+            // 
+            // clmPlayingNow
+            // 
+            this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.clmPlayingNow.HeaderText = " ";
+            this.clmPlayingNow.Name = "clmPlayingNow";
+            this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmPlayingNow.Width = 25;
+            // 
+            // clmTitle
+            // 
+            this.clmTitle.HeaderText = "Title";
+            this.clmTitle.Name = "clmTitle";
+            this.clmTitle.ReadOnly = true;
+            this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmTitle.Width = 200;
+            // 
+            // clmTitleJ
+            // 
+            this.clmTitleJ.HeaderText = "タイトル";
+            this.clmTitleJ.Name = "clmTitleJ";
+            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmTitleJ.Visible = false;
+            // 
+            // clmGame
+            // 
+            this.clmGame.HeaderText = "Game";
+            this.clmGame.Name = "clmGame";
+            this.clmGame.ReadOnly = true;
+            this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGame.Width = 200;
+            // 
+            // clmGameJ
+            // 
+            this.clmGameJ.HeaderText = "ゲーム";
+            this.clmGameJ.Name = "clmGameJ";
+            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGameJ.Visible = false;
+            // 
+            // clmComposer
+            // 
+            this.clmComposer.HeaderText = "Composer";
+            this.clmComposer.Name = "clmComposer";
+            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmComposerJ
+            // 
+            this.clmComposerJ.HeaderText = "作曲者";
+            this.clmComposerJ.Name = "clmComposerJ";
+            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmComposerJ.Visible = false;
+            // 
+            // clmVGMby
+            // 
+            this.clmVGMby.HeaderText = "VGMby";
+            this.clmVGMby.Name = "clmVGMby";
+            this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmConverted
+            // 
+            this.clmConverted.HeaderText = "Release";
+            this.clmConverted.Name = "clmConverted";
+            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmNotes
+            // 
+            this.clmNotes.HeaderText = "Notes";
+            this.clmNotes.Name = "clmNotes";
+            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmDuration
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmDuration.HeaderText = "Duration";
+            this.clmDuration.Name = "clmDuration";
+            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmSpacer
+            // 
+            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmSpacer.HeaderText = "";
+            this.clmSpacer.Name = "clmSpacer";
+            this.clmSpacer.ReadOnly = true;
+            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // frmPlayList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -460,6 +468,7 @@ namespace MDPlayer
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton tsbJapanese;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmZipFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmPlayingNow;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTitle;

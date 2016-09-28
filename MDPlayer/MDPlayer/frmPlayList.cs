@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,8 +110,66 @@ namespace MDPlayer
             }
         }
 
+        public const int FCC_VGM = 0x206D6756;	// "Vgm "
+
         public void AddList(string file)
         {
+            if (file.ToLower().LastIndexOf(".zip") != -1)
+            {
+                using (ZipArchive archive = ZipFile.OpenRead(file))
+                {
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
+                        {
+                            Console.WriteLine(entry.FullName);
+                            byte[] buf;
+                            using (BinaryReader reader = new BinaryReader(entry.Open()))
+                            {
+                                buf = reader.ReadBytes((int)entry.Length);
+                            }
+
+                            uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
+                            if (vgm != FCC_VGM)
+                            {
+                                int num;
+                                buf = new byte[1024]; // 1Kbytesずつ処理する
+
+                                Stream inStream // 入力ストリーム
+                                  = entry.Open();
+
+                                GZipStream decompStream // 解凍ストリーム
+                                  = new GZipStream(
+                                    inStream, // 入力元となるストリームを指定
+                                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                                MemoryStream outStream // 出力ストリーム
+                                  = new MemoryStream();
+
+                                using (inStream)
+                                using (outStream)
+                                using (decompStream)
+                                {
+                                    while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                                    {
+                                        outStream.Write(buf, 0, num);
+                                    }
+                                }
+
+                                buf = outStream.ToArray();
+                            }
+
+                            PlayList.music zipmusic = Audio.getMusic(entry.FullName, buf, file);
+                            DataGridViewRow ziprow = makeRow(zipmusic);
+
+                            dgvList.Rows.Add(ziprow);
+                            playList.lstMusic.Add(zipmusic);
+                        }
+                    }
+                }
+                return;
+            }
+
             PlayList.music music = Audio.getMusic(file, frmMain.getAllBytes(file));
 
             DataGridViewRow row = makeRow(music);
@@ -127,6 +186,7 @@ namespace MDPlayer
             row.Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
             row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
             row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
+            row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.zipFileName;
             row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
             row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
             row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
@@ -235,7 +295,8 @@ namespace MDPlayer
             pi++;
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
-            frmMain.loadAndPlay(fn);
+            string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            frmMain.loadAndPlay(fn, zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -268,7 +329,8 @@ namespace MDPlayer
             }
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
-            frmMain.loadAndPlay(fn);
+            string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            frmMain.loadAndPlay(fn,zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -283,7 +345,8 @@ namespace MDPlayer
             pi--;
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
-            frmMain.loadAndPlay(fn);
+            string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            frmMain.loadAndPlay(fn, zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -295,7 +358,8 @@ namespace MDPlayer
             playing = false;
 
             string fn = (string)dgvList.Rows[e.RowIndex].Cells["clmFileName"].Value;
-            frmMain.loadAndPlay(fn);
+            string zfn = (string)dgvList.Rows[e.RowIndex].Cells["clmZipFileName"].Value;
+            frmMain.loadAndPlay(fn,zfn);
             updatePlayingIndex(e.RowIndex);
 
             playing = true;
@@ -308,7 +372,8 @@ namespace MDPlayer
             playing = false;
 
             string fn = (string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmFileName"].Value;
-            frmMain.loadAndPlay(fn);
+            string zfn = (string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmZipFileName"].Value;
+            frmMain.loadAndPlay(fn,zfn);
             updatePlayingIndex(dgvList.SelectedRows[0].Index);
 
             playing = true;
@@ -407,7 +472,7 @@ namespace MDPlayer
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip";
             ofd.Title = "VGM/VGZファイルを選択してください";
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
@@ -559,7 +624,8 @@ namespace MDPlayer
                     playing = false;
 
                     string fn = (string)dgvList.SelectedRows[0].Cells["clmFileName"].Value;
-                    frmMain.loadAndPlay(fn);
+                    string zfn = (string)dgvList.SelectedRows[0].Cells["clmZipFileName"].Value;
+                    frmMain.loadAndPlay(fn,zfn);
                     updatePlayingIndex(index);
 
                     playing = true;

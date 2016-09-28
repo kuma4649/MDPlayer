@@ -93,11 +93,12 @@ namespace MDPlayer
 
 
 
-        public static PlayList.music getMusic(string file,byte[] buf)
+        public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
         {
             PlayList.music music = new PlayList.music();
 
             music.fileName = file;
+            music.zipFileName = zipFile;
             music.title = "unknown";
             music.game = "unknown";
 

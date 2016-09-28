@@ -200,7 +200,7 @@ namespace MDPlayer
                     frmPlayList.AddList(args[1]);
                 }
 
-                if (!loadAndPlay(args[1]))
+                if (!loadAndPlay(args[1],""))
                 {
                     frmPlayList.Stop();
                     Audio.Stop();
@@ -474,7 +474,7 @@ namespace MDPlayer
 
                         frmPlayList.AddList(fn[0]);
 
-                        loadAndPlay(fn[0]);
+                        loadAndPlay(fn[0],"");
                         frmPlayList.setStart(-1);
 
                         frmPlayList.Play();
@@ -2412,7 +2412,7 @@ namespace MDPlayer
             }
         }
 
-        public bool loadAndPlay(string fn)
+        public bool loadAndPlay(string fn,string zfn=null)
         {
             try
             {
@@ -2421,7 +2421,57 @@ namespace MDPlayer
                     Audio.Pause();
                 }
 
-                srcBuf = getAllBytes(fn);
+                if (zfn == null || zfn == "")
+                {
+                    srcBuf = getAllBytes(fn);
+                }
+                else
+                {
+                    using (ZipArchive archive = ZipFile.OpenRead(zfn))
+                    {
+                        ZipArchiveEntry entry = archive.GetEntry(fn);
+                        if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
+                        {
+                            Console.WriteLine(entry.FullName);
+                            using (BinaryReader reader = new BinaryReader(entry.Open()))
+                            {
+                                srcBuf = reader.ReadBytes((int)entry.Length);
+                            }
+
+                            uint vgm = (UInt32)srcBuf[0] + (UInt32)srcBuf[1] * 0x100 + (UInt32)srcBuf[2] * 0x10000 + (UInt32)srcBuf[3] * 0x1000000;
+                            if (vgm != FCC_VGM)
+                            {
+                                int num;
+                                srcBuf = new byte[1024]; // 1Kbytesずつ処理する
+
+                                Stream inStream // 入力ストリーム
+                                  = entry.Open();
+
+                                GZipStream decompStream // 解凍ストリーム
+                                  = new GZipStream(
+                                    inStream, // 入力元となるストリームを指定
+                                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                                MemoryStream outStream // 出力ストリーム
+                                  = new MemoryStream();
+
+                                using (inStream)
+                                using (outStream)
+                                using (decompStream)
+                                {
+                                    while ((num = decompStream.Read(srcBuf, 0, srcBuf.Length)) > 0)
+                                    {
+                                        outStream.Write(srcBuf, 0, num);
+                                    }
+                                }
+
+                                srcBuf = outStream.ToArray();
+                            }
+
+                        }
+                    }
+                }
+
                 Audio.SetVGMBuffer(srcBuf);
 
                 if (srcBuf != null)

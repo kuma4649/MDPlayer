@@ -14,6 +14,7 @@ namespace MDPlayer
         {
             public string playingNow;
             public string fileName;
+            public string zipFileName;
 
             public string title;
             public string game;
