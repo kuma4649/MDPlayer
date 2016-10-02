@@ -25,6 +25,8 @@ namespace MDPlayer
         {
             public PictureBox pbScreen;
             public Bitmap bmpPlane;
+            public int bmpPlaneW = 0;
+            public int bmpPlaneH = 0;
             public byte[] baPlaneBuffer;
             public BufferedGraphics bgPlane;
             public int zoom = 1;
@@ -43,6 +45,8 @@ namespace MDPlayer
                 bgPlane = currentContext.Allocate(pbScreen.CreateGraphics(), pbScreen.DisplayRectangle);
                 pbScreen.Paint += new System.Windows.Forms.PaintEventHandler(p);
                 bmpPlane = new Bitmap(imageSize.Width, imageSize.Height, PixelFormat.Format32bppArgb);
+                bmpPlaneW = imageSize.Width;
+                bmpPlaneH = imageSize.Height;
                 BitmapData bdPlane = bmpPlane.LockBits(new Rectangle(0, 0, bmpPlane.Width, bmpPlane.Height), ImageLockMode.ReadOnly, bmpPlane.PixelFormat);
                 baPlaneBuffer = new byte[bdPlane.Stride * bmpPlane.Height];
                 System.Runtime.InteropServices.Marshal.Copy(bdPlane.Scan0, baPlaneBuffer, 0, baPlaneBuffer.Length);
@@ -103,20 +107,30 @@ namespace MDPlayer
             public void Refresh(Action<object, PaintEventArgs> p)
             {
                 Action act;
+
                 if (pbScreen == null) return;
-                pbScreen.Invoke(act = () =>
+                if (pbScreen.IsDisposed) return;
+
+                try
                 {
-                    try
+                    pbScreen.Invoke(act = () =>
                     {
-                        drawScreen();
-                    }
-                    catch(Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                        Remove(p);
-                    }
-                    if (bgPlane != null) bgPlane.Render();
-                });
+                        try
+                        {
+                            drawScreen();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            Remove(p);
+                        }
+                        if (bgPlane != null) bgPlane.Render();
+                    });
+                }
+                catch (ObjectDisposedException )
+                {
+                    ;//握りつぶす
+                }
             }
 
             public void drawByteArray(int x, int y, byte[] src, int srcWidth, int imgX, int imgY, int imgWidth, int imgHeight)
@@ -130,7 +144,7 @@ namespace MDPlayer
                 {
                     int adr1;
                     int adr2;
-                    int wid = bmpPlane.Width * 4;
+                    int wid = bmpPlaneW * 4;
                     adr1 = wid * y + x * 4;
                     adr2 = srcWidth * 4 * imgY + imgX * 4;
                     for (int i = 0; i < imgHeight; i++)
@@ -206,21 +220,25 @@ namespace MDPlayer
 
         public void RemoveRf5c164()
         {
+            if (rf5c164Screen == null) return;
             rf5c164Screen.Remove(this.Paint);
         }
 
         public void RemoveC140()
         {
+            if (c140Screen == null) return;
             c140Screen.Remove(this.Paint);
         }
 
         public void RemoveYM2608()
         {
+            if (ym2608Screen == null) return;
             ym2608Screen.Remove(this.Paint);
         }
 
         public void RemoveYM2151()
         {
+            if (ym2151Screen == null) return;
             ym2151Screen.Remove(this.Paint);
         }
 

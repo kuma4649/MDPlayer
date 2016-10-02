@@ -62,6 +62,12 @@ namespace MDPlayer
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
 
+        public bool YM2612DualChipFlag;
+        public bool YM2151DualChipFlag;
+        public bool YM2203DualChipFlag;
+        public bool YM2608DualChipFlag;
+        public bool YM2610DualChipFlag;
+
         public int YM2151Hosei = 0;
 
         public string Version = "";
@@ -386,15 +392,15 @@ namespace MDPlayer
 
             vgmCmdTbl[0xa0] = vcDummy2Ope;
             vgmCmdTbl[0xa1] = vcDummy2Ope;
-            vgmCmdTbl[0xa2] = vcDummy2Ope;
-            vgmCmdTbl[0xa3] = vcDummy2Ope;
-            vgmCmdTbl[0xa4] = vcDummy2Ope;
-            vgmCmdTbl[0xa5] = vcDummy2Ope;
-            vgmCmdTbl[0xa6] = vcDummy2Ope;
-            vgmCmdTbl[0xa7] = vcDummy2Ope;
+            vgmCmdTbl[0xa2] = vcYM2612Port0;
+            vgmCmdTbl[0xa3] = vcYM2612Port1;
+            vgmCmdTbl[0xa4] = vcYM2151;
+            vgmCmdTbl[0xa5] = vcYM2203; 
+            vgmCmdTbl[0xa6] = vcYM2608Port0;
+            vgmCmdTbl[0xa7] = vcYM2608Port1;
 
-            vgmCmdTbl[0xa8] = vcDummy2Ope;
-            vgmCmdTbl[0xa9] = vcDummy2Ope;
+            vgmCmdTbl[0xa8] = vcYM2610Port0;
+            vgmCmdTbl[0xa9] = vcYM2610Port1;
             vgmCmdTbl[0xaa] = vcDummy2Ope;
             vgmCmdTbl[0xab] = vcDummy2Ope;
             vgmCmdTbl[0xac] = vcDummy2Ope;
@@ -547,7 +553,7 @@ namespace MDPlayer
 
         private void vcYM2612Port0()
         {
-            chipRegister.setYM2612Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -555,19 +561,19 @@ namespace MDPlayer
         {
             int adr = vgmBuf[vgmAdr + 1];
             int dat = vgmBuf[vgmAdr + 2];
-            chipRegister.setYM2612Register(1, adr, dat, model);
+            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
             vgmAdr += 3;
         }
 
         private void vcYM2203()
         {
-            chipRegister.setYM2203Register(vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2203Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
         private void vcYM2608Port0()
         {
-            chipRegister.setYM2608Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2608Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -588,13 +594,13 @@ namespace MDPlayer
             //{
             //    //dat &= 0xdf;
             //}
-            chipRegister.setYM2608Register(1, adr, dat, model);
+            chipRegister.setYM2608Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
             vgmAdr += 3;
         }
 
         private void vcYM2610Port0()
         {
-            chipRegister.setYM2610Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2610Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -602,13 +608,13 @@ namespace MDPlayer
         {
             int adr = vgmBuf[vgmAdr + 1];
             int dat = vgmBuf[vgmAdr + 2];
-            chipRegister.setYM2610Register(1, adr, dat, model);
+            chipRegister.setYM2610Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
             vgmAdr += 3;
         }
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei);
+            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei);
             vgmAdr += 3;
         }
 
@@ -693,31 +699,31 @@ namespace MDPlayer
 
                             // YM2608
 
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x20, model);
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x21, model);
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
+                            chipRegister.setYM2608Register(0,0x1, 0x00, 0x20, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x21, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
 
-                            chipRegister.setYM2608Register(0x1, 0x10, 0x00, model);
-                            chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x00, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
 
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x61, model);
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x68, model);
-                            chipRegister.setYM2608Register(0x1, 0x01, 0x00, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x61, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x68, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x01, 0x00, model);
 
-                            chipRegister.setYM2608Register(0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
-                            chipRegister.setYM2608Register(0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
-                            chipRegister.setYM2608Register(0x1, 0x04, 0xff, model);
-                            chipRegister.setYM2608Register(0x1, 0x05, 0xff, model);
-                            chipRegister.setYM2608Register(0x1, 0x0c, 0xff, model);
-                            chipRegister.setYM2608Register(0x1, 0x0d, 0xff, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x04, 0xff, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x05, 0xff, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x0c, 0xff, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x0d, 0xff, model);
 
                             // データ転送
                             for (int cnt = 0; cnt < bLen - 8; cnt++)
                             {
-                                chipRegister.setYM2608Register(0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                                chipRegister.setYM2608Register(0, 0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
                             }
-                            chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
-                            chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
+                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
 
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x13, model);
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
@@ -750,7 +756,7 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmA[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmA(ym2610AdpcmA,model);
+                            chipRegister.WriteYM2610_SetAdpcmA(0,ym2610AdpcmA,model);
                             break;
                         case 0x83:
                             if (ym2610AdpcmB == null || ym2610AdpcmB.Length != romSize) ym2610AdpcmB = new byte[romSize];
@@ -758,7 +764,7 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmB[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmB(ym2610AdpcmB,model);
+                            chipRegister.WriteYM2610_SetAdpcmB(0,ym2610AdpcmB,model);
                             break;
 
                         case 0x8b:
@@ -839,7 +845,7 @@ namespace MDPlayer
 
             vgmWait += (int)(vgmBuf[vgmAdr] - 0x80);
 
-            chipRegister.setYM2612Register(0, 0x2a, dat, model);
+            chipRegister.setYM2612Register(0, 0, 0x2a, dat, model);
 
             vgmAdr++;
         }
@@ -1520,20 +1526,24 @@ namespace MDPlayer
             uint YM2612clock = getLE32(0x2c);
             if (YM2612clock != 0)
             {
-                chips.Add("YM2612");
-                YM2612ClockValue = YM2612clock;
+                YM2612ClockValue = YM2612clock & 0x3fffffff;
+                YM2612DualChipFlag = (YM2612clock & 0x40000000) != 0;
+                if (YM2612DualChipFlag) chips.Add("YM2612x2");
+                else chips.Add("YM2612");
             }
 
             uint YM2151clock = getLE32(0x30);
             if (YM2151clock != 0)
             {
-                chips.Add("YM2151");
-                YM2151ClockValue = YM2151clock;
+                YM2151ClockValue = YM2151clock & 0x3fffffff;
+                YM2151DualChipFlag = (YM2151clock & 0x40000000) != 0;
+                if (YM2151DualChipFlag) chips.Add("YM2151x2");
+                else chips.Add("YM2151");
             }
             YM2151Hosei = 0;
             if (model == enmModel.RealModel)
             {
-                float delta = (float)YM2151clock / chipRegister.getYM2151Clock();
+                float delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock();
                 float d;
                 float oldD = float.MaxValue;
                 for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
@@ -1581,8 +1591,10 @@ namespace MDPlayer
                     uint YM2203clock = getLE32(0x44);
                     if (YM2203clock != 0)
                     {
-                        chips.Add("YM2203");
-                        YM2203ClockValue = YM2203clock;
+                        YM2203ClockValue = YM2203clock & 0x3fffffff;
+                        YM2203DualChipFlag = (YM2203clock & 0x40000000)!=0;
+                        if (YM2203DualChipFlag) chips.Add("YM2203x2");
+                        else chips.Add("YM2203");
                     }
                 }
 
@@ -1591,8 +1603,10 @@ namespace MDPlayer
                     uint YM2608clock = getLE32(0x48);
                     if (YM2608clock != 0)
                     {
-                        chips.Add("YM2608");
-                        YM2608ClockValue = YM2608clock;
+                        YM2608ClockValue = YM2608clock & 0x3fffffff;
+                        YM2608DualChipFlag = (YM2608clock & 0x40000000) != 0;
+                        if (YM2608DualChipFlag) chips.Add("YM2608x2");
+                        else chips.Add("YM2608");
                     }
                 }
 
@@ -1601,8 +1615,10 @@ namespace MDPlayer
                     uint YM2610Bclock = getLE32(0x4c);
                     if (YM2610Bclock != 0)
                     {
-                        chips.Add("YM2610/B");
-                        YM2610ClockValue = YM2610Bclock;
+                        YM2610ClockValue = YM2610Bclock & 0x3fffffff;
+                        YM2610DualChipFlag = (YM2610Bclock & 0x40000000) != 0;
+                        if (YM2610DualChipFlag) chips.Add("YM2610/Bx2");
+                        else chips.Add("YM2610/B");
                     }
                 }
 

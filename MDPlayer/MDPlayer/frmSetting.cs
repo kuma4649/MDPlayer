@@ -108,7 +108,7 @@ namespace MDPlayer
                 cmbMIDIIN.SelectedIndex = 0;
             }
 
-            List<NScci.NSoundChip> lstYM2612 = Audio.getYM2612ChipList();
+            List<NScci.NSoundChip> lstYM2612 = Audio.getChipList(Audio.enmScciChipType.YM2612);
             if (lstYM2612.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2612)
@@ -124,7 +124,7 @@ namespace MDPlayer
                 cmbYM2612Scci.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstSN76489 = Audio.getSN76489ChipList();
+            List<NScci.NSoundChip> lstSN76489 = Audio.getChipList(Audio.enmScciChipType.SN76489);
             if (lstSN76489.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstSN76489)
@@ -140,7 +140,7 @@ namespace MDPlayer
                 cmbSN76489Scci.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2608 = Audio.getYM2608ChipList();
+            List<NScci.NSoundChip> lstYM2608 = Audio.getChipList(Audio.enmScciChipType.YM2608);
             if (lstYM2608.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2608)
@@ -158,7 +158,7 @@ namespace MDPlayer
                 cmbYM2608Scci.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2151 = Audio.getYM2151ChipList();
+            List<NScci.NSoundChip> lstYM2151 = Audio.getChipList(Audio.enmScciChipType.YM2151);
             if (lstYM2151.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2151)

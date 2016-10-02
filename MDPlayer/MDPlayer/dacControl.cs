@@ -15,11 +15,7 @@ namespace MDPlayer
         private dac_control[] DACData = new dac_control[MAX_CHIPS];
         public ChipRegister chipRegister = null;
         public vgm.enmModel model = vgm.enmModel.VirtualModel;
-        //public MDSound.MDSound mds = null;
-        public NSoundChip scYM2612 = null;
-        public NSoundChip scSN76489 = null;
-        public NSoundChip scYM2151 = null;
-        public NSoundChip scYM2608 = null;
+
 
         public void sendCommand(dac_control chip)
         {
@@ -430,7 +426,7 @@ namespace MDPlayer
             switch (ChipType)
             {
                 case 0x02:  // YM2612
-                    chipRegister.setYM2612Register(Port, Offset, Data, model);
+                    chipRegister.setYM2612Register(ChipID,Port, Offset, Data, model);
                     break;
                 case 0x10:
                     chipRegister.writeRF5C164(ChipID, Offset, Data, model);

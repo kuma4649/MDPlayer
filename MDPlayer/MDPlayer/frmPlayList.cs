@@ -55,13 +55,14 @@ namespace MDPlayer
             return playList;
         }
 
-        public string setStart(int n)
+        public Tuple<string,string> setStart(int n)
         {
             updatePlayingIndex(n);
 
             string fn = playList.lstMusic[playIndex].fileName;
+            string zfn = playList.lstMusic[playIndex].zipFileName;
 
-            return fn;
+            return new Tuple<string, string>(fn, zfn);
         }
 
         public void Play()
@@ -120,45 +121,10 @@ namespace MDPlayer
                 {
                     foreach (ZipArchiveEntry entry in archive.Entries)
                     {
-                        if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
+                        byte[] buf = frmMain.getBytesFromZipFile(entry);
+
+                        if (buf != null)
                         {
-                            Console.WriteLine(entry.FullName);
-                            byte[] buf;
-                            using (BinaryReader reader = new BinaryReader(entry.Open()))
-                            {
-                                buf = reader.ReadBytes((int)entry.Length);
-                            }
-
-                            uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
-                            if (vgm != FCC_VGM)
-                            {
-                                int num;
-                                buf = new byte[1024]; // 1Kbytesずつ処理する
-
-                                Stream inStream // 入力ストリーム
-                                  = entry.Open();
-
-                                GZipStream decompStream // 解凍ストリーム
-                                  = new GZipStream(
-                                    inStream, // 入力元となるストリームを指定
-                                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                                MemoryStream outStream // 出力ストリーム
-                                  = new MemoryStream();
-
-                                using (inStream)
-                                using (outStream)
-                                using (decompStream)
-                                {
-                                    while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                                    {
-                                        outStream.Write(buf, 0, num);
-                                    }
-                                }
-
-                                buf = outStream.ToArray();
-                            }
-
                             PlayList.music zipmusic = Audio.getMusic(entry.FullName, buf, file);
                             DataGridViewRow ziprow = makeRow(zipmusic);
 

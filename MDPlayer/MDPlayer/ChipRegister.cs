@@ -115,35 +115,35 @@ namespace MDPlayer
         }
 
 
-        public void setFadeoutVolYM2612(int v)
+        public void setFadeoutVolYM2612(int chipID,int v)
         {
             nowYM2612FadeoutVol = v;
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2612Register(p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID,p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
         }
 
-        public void setMaskYM2612(int ch,bool mask)
+        public void setMaskYM2612(int chipID, int ch,bool mask)
         {
             maskFMChYM2612[ch] = mask;
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2612Register(p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
-            setYM2612Register(p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
-            setYM2612Register(p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
-            setYM2612Register(p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
         }
 
-        public void setYM2612Register(int dPort, int dAddr, int dData,vgm.enmModel model)
+        public void setYM2612Register(int chipID,int dPort, int dAddr, int dData,vgm.enmModel model)
         {
             if (ctYM2612 == null) return;
 
@@ -205,7 +205,7 @@ namespace MDPlayer
                             {
                                 if (!ctYM2612.UseScci)
                                 {
-                                    mds.WriteYM2612((byte)dPort, (byte)(0x40 + ch + slot * 4), (byte)127);
+                                    mds.WriteYM2612((byte)chipID,(byte)dPort, (byte)(0x40 + ch + slot * 4), (byte)127);
                                 }
                             }
                             else
@@ -242,21 +242,21 @@ namespace MDPlayer
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
-                            mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
-                            mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
-                            mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
+                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }
                 else
                 {
-                    mds.WriteYM2612((byte)dPort, (byte)dAddr, (byte)dData);
+                    mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -293,7 +293,7 @@ namespace MDPlayer
             }
         }
 
-        public void setYM2203Register(int dAddr, int dData, vgm.enmModel model)
+        public void setYM2203Register(int chipID, int dAddr, int dData, vgm.enmModel model)
         {
             //if (ctYM2203 == null) return;
 
@@ -301,7 +301,7 @@ namespace MDPlayer
             {
                 //if (!ctYM2203.UseScci)
                 //{
-                    mds.WriteYM2203(0, (byte)dAddr, (byte)dData);
+                mds.WriteYM2203((byte)chipID, (byte)dAddr, (byte)dData);
                 //}
             }
             else
@@ -313,7 +313,7 @@ namespace MDPlayer
 
         }
 
-        public void setYM2608Register(int dPort, int dAddr, int dData, vgm.enmModel model)
+        public void setYM2608Register(int chipID,int dPort, int dAddr, int dData, vgm.enmModel model)
         {
             if (ctYM2608 == null) return;
 
@@ -418,7 +418,7 @@ namespace MDPlayer
             {
                 if (!ctYM2608.UseScci)
                 {
-                    mds.WriteYM2608(0, (byte)dPort, (byte)dAddr, (byte)dData);
+                    mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -430,12 +430,12 @@ namespace MDPlayer
 
         }
 
-        public void setYM2610Register(int dPort,int dAddr, int dData, vgm.enmModel model)
+        public void setYM2610Register(int chipID,int dPort,int dAddr, int dData, vgm.enmModel model)
         {
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                mds.WriteYM2610(0, (byte)dPort, (byte)dAddr, (byte)dData);
+                mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
             }
             else
             {
@@ -443,19 +443,19 @@ namespace MDPlayer
 
         }
 
-        public void WriteYM2610_SetAdpcmA(byte[] ym2610AdpcmA, vgm.enmModel model)
+        public void WriteYM2610_SetAdpcmA(int chipID,byte[] ym2610AdpcmA, vgm.enmModel model)
         {
             if (model == vgm.enmModel.VirtualModel)
             {
-                mds.WriteYM2610_SetAdpcmA(0, ym2610AdpcmA);
+                mds.WriteYM2610_SetAdpcmA((byte)chipID, ym2610AdpcmA);
             }
         }
 
-        public void WriteYM2610_SetAdpcmB(byte[] ym2610AdpcmB, vgm.enmModel model)
+        public void WriteYM2610_SetAdpcmB(int chipID, byte[] ym2610AdpcmB, vgm.enmModel model)
         {
             if (model == vgm.enmModel.VirtualModel)
             {
-                mds.WriteYM2610_SetAdpcmB(0, ym2610AdpcmB);
+                mds.WriteYM2610_SetAdpcmB((byte)chipID,  ym2610AdpcmB);
             }
         }
 
@@ -479,47 +479,47 @@ namespace MDPlayer
             }
         }
 
-        public void setFadeoutVolYM2608(int v)
+        public void setFadeoutVolYM2608(int chipID,int v)
         {
             nowYM2608FadeoutVol = v;
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2608Register(p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID,p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
 
             //ssg
-            setYM2608Register(0, 0x08, fmRegisterYM2608[0][0x08], vgm.enmModel.RealModel);
-            setYM2608Register(0, 0x09, fmRegisterYM2608[0][0x09], vgm.enmModel.RealModel);
-            setYM2608Register(0, 0x0a, fmRegisterYM2608[0][0x0a], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x08, fmRegisterYM2608[0][0x08], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x09, fmRegisterYM2608[0][0x09], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x0a, fmRegisterYM2608[0][0x0a], vgm.enmModel.RealModel);
 
             //rhythm
-            setYM2608Register(0, 0x11, fmRegisterYM2608[0][0x11], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x11, fmRegisterYM2608[0][0x11], vgm.enmModel.RealModel);
 
             //adpcm
-            setYM2608Register(1, 0x0b, fmRegisterYM2608[1][0x0b], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 1, 0x0b, fmRegisterYM2608[1][0x0b], vgm.enmModel.RealModel);
         }
 
-        public void setMaskYM2608(int ch, bool mask)
+        public void setMaskYM2608(int chipID,int ch, bool mask)
         {
             maskFMChYM2608[ch] = mask;
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2608Register(p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
-            setYM2608Register(p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
-            setYM2608Register(p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
-            setYM2608Register(p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
         }
 
 
-        public void setYM2151Register(int dPort, int dAddr, int dData, vgm.enmModel model,int hosei)
+        public void setYM2151Register(int chipID,int dPort, int dAddr, int dData, vgm.enmModel model,int hosei)
         {
             if (ctYM2151 == null) return;
 
@@ -593,7 +593,7 @@ namespace MDPlayer
             {
                 if (!ctYM2151.UseScci)
                 {
-                    mds.WriteYM2151(0,(byte)dAddr, (byte)dData);
+                    mds.WriteYM2151((byte)chipID,(byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -650,26 +650,26 @@ namespace MDPlayer
             }
         }
 
-        public void setFadeoutVolYM2151(int v)
+        public void setFadeoutVolYM2151(int chipID,int v)
         {
             nowYM2151FadeoutVol = v;
             for (int c = 0; c < 8; c++)
             {
-                setYM2151Register(0, 0x60 + c, fmRegisterYM2151[0x60 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register(0, 0x68 + c, fmRegisterYM2151[0x68 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register(0, 0x70 + c, fmRegisterYM2151[0x70 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register(0, 0x78 + c, fmRegisterYM2151[0x78 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID,0, 0x60 + c, fmRegisterYM2151[0x60 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x68 + c, fmRegisterYM2151[0x68 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x70 + c, fmRegisterYM2151[0x70 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x78 + c, fmRegisterYM2151[0x78 + c], vgm.enmModel.RealModel,0);
             }
         }
 
-        public void setMaskYM2151(int ch, bool mask)
+        public void setMaskYM2151(int chipID,int ch, bool mask)
         {
             maskFMChYM2151[ch] = mask;
 
-            setYM2151Register(0, 0x60 + ch, fmRegisterYM2151[0x60 + ch], vgm.enmModel.RealModel,0);
-            setYM2151Register(0, 0x68 + ch, fmRegisterYM2151[0x68 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register(0, 0x70 + ch, fmRegisterYM2151[0x70 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register(0, 0x78 + ch, fmRegisterYM2151[0x78 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[0x60 + ch], vgm.enmModel.RealModel,0);
+            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[0x68 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[0x70 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[0x78 + ch], vgm.enmModel.RealModel, 0);
         }
 
         public void sendDataYM2151(vgm.enmModel model)
@@ -738,55 +738,56 @@ namespace MDPlayer
 
         public void resetChips()
         {
-
-            for (int p = 0; p < 2; p++)
+            for (int chipID = 0; chipID < 2; chipID++)
             {
-                for (int c = 0; c < 3; c++)
+                for (int p = 0; p < 2; p++)
                 {
-                    setYM2612Register(p, 0x40 + c, 127, vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x44 + c, 127, vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x48 + c, 127, vgm.enmModel.RealModel);
-                    setYM2612Register(p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2612Register((byte)chipID,p, 0x40 + c, 127, vgm.enmModel.RealModel);
+                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
+                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
+                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                    }
+                }
+
+
+                for (int c = 0; c < 4; c++)
+                {
+                    setSN76489Register(0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
+                }
+
+                for (int p = 0; p < 2; p++)
+                {
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2608Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                    }
+                }
+
+                //ssg
+                setYM2608Register((byte)chipID, 0, 0x08, 0, vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x09, 0, vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x0a, 0, vgm.enmModel.RealModel);
+
+                //rhythm
+                setYM2608Register((byte)chipID, 0, 0x11, 0, vgm.enmModel.RealModel);
+
+                //adpcm
+                setYM2608Register((byte)chipID, 1, 0x0b, 0, vgm.enmModel.RealModel);
+
+
+                for (int c = 0; c < 8; c++)
+                {
+                    setYM2151Register((byte)chipID, 0, 0x60 + c, 127, vgm.enmModel.RealModel, 0);
+                    setYM2151Register((byte)chipID, 0, 0x68 + c, 127, vgm.enmModel.RealModel, 0);
+                    setYM2151Register((byte)chipID, 0, 0x70 + c, 127, vgm.enmModel.RealModel, 0);
+                    setYM2151Register((byte)chipID, 0, 0x78 + c, 127, vgm.enmModel.RealModel, 0);
                 }
             }
-
-
-            for (int c = 0; c < 4; c++)
-            {
-                setSN76489Register(0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
-            }
-
-            for (int p = 0; p < 2; p++)
-            {
-                for (int c = 0; c < 3; c++)
-                {
-                    setYM2608Register(p, 0x40 + c, 127, vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x44 + c, 127, vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x48 + c, 127, vgm.enmModel.RealModel);
-                    setYM2608Register(p, 0x4c + c, 127, vgm.enmModel.RealModel);
-                }
-            }
-
-            //ssg
-            setYM2608Register(0, 0x08, 0, vgm.enmModel.RealModel);
-            setYM2608Register(0, 0x09, 0, vgm.enmModel.RealModel);
-            setYM2608Register(0, 0x0a, 0, vgm.enmModel.RealModel);
-
-            //rhythm
-            setYM2608Register(0, 0x11, 0, vgm.enmModel.RealModel);
-
-            //adpcm
-            setYM2608Register(1, 0x0b, 0, vgm.enmModel.RealModel);
-
-
-            for (int c = 0; c < 8; c++)
-            {
-                setYM2151Register(0, 0x60 + c, 127, vgm.enmModel.RealModel, 0);
-                setYM2151Register(0, 0x68 + c, 127, vgm.enmModel.RealModel, 0);
-                setYM2151Register(0, 0x70 + c, 127, vgm.enmModel.RealModel, 0);
-                setYM2151Register(0, 0x78 + c, 127, vgm.enmModel.RealModel, 0);
-            }
-
 
         }
 

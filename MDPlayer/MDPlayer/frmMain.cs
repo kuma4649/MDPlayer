@@ -703,11 +703,13 @@ namespace MDPlayer
 
                     frmPlayList.AddList(filename);
 
-                    loadAndPlay(filename);
-                    frmPlayList.setStart(-1);
+                    if (filename.ToLower().LastIndexOf(".zip") == -1)
+                    {
+                        loadAndPlay(filename);
+                        frmPlayList.setStart(-1);
 
-                    frmPlayList.Play();
-
+                        frmPlayList.Play();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -922,58 +924,67 @@ namespace MDPlayer
             newParam.ym2612.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
 
             int[] psgRegister = Audio.GetPSGRegister();
-            for (int ch = 0; ch < 4; ch++)
+            if (psgRegister != null)
             {
-                if (psgRegister[ch * 2 + 1] != 15)
+                for (int ch = 0; ch < 4; ch++)
                 {
-                    newParam.sn76489.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
-                }
-                else
-                {
-                    newParam.sn76489.channels[ch].note = -1;
-                }
+                    if (psgRegister[ch * 2 + 1] != 15)
+                    {
+                        newParam.sn76489.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                    }
+                    else
+                    {
+                        newParam.sn76489.channels[ch].note = -1;
+                    }
 
-                newParam.sn76489.channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
+                    newParam.sn76489.channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
+                }
             }
 
             MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register();
-            int[][] rf5c164Vol = Audio.GetRf5c164Volume();
-            for (int ch = 0; ch < 8; ch++)
+            if (rf5c164Register != null)
             {
-                if (rf5c164Register.Channel[ch].Enable != 0)
+                int[][] rf5c164Vol = Audio.GetRf5c164Volume();
+                for (int ch = 0; ch < 8; ch++)
                 {
-                    newParam.rf5c164.channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
-                    newParam.rf5c164.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
-                    newParam.rf5c164.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                    if (rf5c164Register.Channel[ch].Enable != 0)
+                    {
+                        newParam.rf5c164.channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
+                        newParam.rf5c164.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
+                        newParam.rf5c164.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                    }
+                    else
+                    {
+                        newParam.rf5c164.channels[ch].note = -1;
+                        newParam.rf5c164.channels[ch].volumeL = 0;
+                        newParam.rf5c164.channels[ch].volumeR = 0;
+                    }
+                    newParam.rf5c164.channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
                 }
-                else
-                {
-                    newParam.rf5c164.channels[ch].note = -1;
-                    newParam.rf5c164.channels[ch].volumeL = 0;
-                    newParam.rf5c164.channels[ch].volumeR = 0;
-                }
-                newParam.rf5c164.channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
             }
 
             MDSound.c140.c140_state c140State = Audio.GetC140Register();
-            for (int ch = 0; ch < 24; ch++)
+            if (c140State != null)
             {
-                int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
-                int l = c140State.REG[ch * 16 + 1];
-                int r = c140State.REG[ch * 16 + 0];
-                int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
-
-                if (c140State.voi[ch].key == 0) frequency = 0;
-                if (frequency == 0)
+                for (int ch = 0; ch < 24; ch++)
                 {
-                    l = 0;
-                    r = 0;
-                }
+                    int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
+                    int l = c140State.REG[ch * 16 + 1];
+                    int r = c140State.REG[ch * 16 + 0];
+                    int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
 
-                newParam.c140.channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
-                newParam.c140.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
-                newParam.c140.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
-                newParam.c140.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
+                    if (c140State.voi[ch].key == 0) frequency = 0;
+                    if (frequency == 0)
+                    {
+                        l = 0;
+                        r = 0;
+                    }
+
+                    newParam.c140.channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
+                    newParam.c140.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
+                    newParam.c140.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
+                    newParam.c140.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
+                }
             }
 
             for (int ch = 0; ch < 8; ch++)
@@ -998,7 +1009,8 @@ namespace MDPlayer
                 newParam.ym2151.channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
                 newParam.ym2151.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70) >> 4;//PMS
 
-                newParam.ym2151.channels[ch].pan = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
+                int p = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
+                newParam.ym2151.channels[ch].pan = p == 1 ? 2 : (p == 2 ? 1 : p);
                 int note = (ym2151Register[0x28 + ch] & 0x0f);
                 note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
                 int oct = (ym2151Register[0x28 + ch] & 0x70) >> 4;
@@ -1395,6 +1407,7 @@ namespace MDPlayer
             }
 
             string[] fn = null;
+            Tuple<string, string> playFn = null;
 
             frmPlayList.Stop();
 
@@ -1404,15 +1417,15 @@ namespace MDPlayer
                 fn = fileOpen(false);
                 if (fn == null) return;
                 frmPlayList.AddList(fn[0]);
-                fn[0] = frmPlayList.setStart(-1); //last
+                playFn = frmPlayList.setStart(-1); //last
             }
             else
             {
                 fn = new string[1] { "" };
-                fn[0] = frmPlayList.setStart(-2);//first 
+                playFn = frmPlayList.setStart(-2);//first 
             }
 
-            loadAndPlay(fn[0]);
+            loadAndPlay(playFn.Item1, playFn.Item2);
             frmPlayList.Play();
 
         }
@@ -2430,45 +2443,7 @@ namespace MDPlayer
                     using (ZipArchive archive = ZipFile.OpenRead(zfn))
                     {
                         ZipArchiveEntry entry = archive.GetEntry(fn);
-                        if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
-                        {
-                            Console.WriteLine(entry.FullName);
-                            using (BinaryReader reader = new BinaryReader(entry.Open()))
-                            {
-                                srcBuf = reader.ReadBytes((int)entry.Length);
-                            }
-
-                            uint vgm = (UInt32)srcBuf[0] + (UInt32)srcBuf[1] * 0x100 + (UInt32)srcBuf[2] * 0x10000 + (UInt32)srcBuf[3] * 0x1000000;
-                            if (vgm != FCC_VGM)
-                            {
-                                int num;
-                                srcBuf = new byte[1024]; // 1Kbytesずつ処理する
-
-                                Stream inStream // 入力ストリーム
-                                  = entry.Open();
-
-                                GZipStream decompStream // 解凍ストリーム
-                                  = new GZipStream(
-                                    inStream, // 入力元となるストリームを指定
-                                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                                MemoryStream outStream // 出力ストリーム
-                                  = new MemoryStream();
-
-                                using (inStream)
-                                using (outStream)
-                                using (decompStream)
-                                {
-                                    while ((num = decompStream.Read(srcBuf, 0, srcBuf.Length)) > 0)
-                                    {
-                                        outStream.Write(srcBuf, 0, num);
-                                    }
-                                }
-
-                                srcBuf = outStream.ToArray();
-                            }
-
-                        }
+                        srcBuf = getBytesFromZipFile(entry);
                     }
                 }
 
@@ -2491,6 +2466,52 @@ namespace MDPlayer
             return true;
         }
 
+        public byte[] getBytesFromZipFile(ZipArchiveEntry entry)
+        {
+            byte[] buf=null;
+
+            if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine(entry.FullName);
+                using (BinaryReader reader = new BinaryReader(entry.Open()))
+                {
+                    buf = reader.ReadBytes((int)entry.Length);
+                }
+
+                uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
+                if (vgm != FCC_VGM)
+                {
+                    int num;
+                    buf = new byte[1024]; // 1Kbytesずつ処理する
+
+                    Stream inStream // 入力ストリーム
+                      = entry.Open();
+
+                    GZipStream decompStream // 解凍ストリーム
+                      = new GZipStream(
+                        inStream, // 入力元となるストリームを指定
+                        CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                    MemoryStream outStream // 出力ストリーム
+                      = new MemoryStream();
+
+                    using (inStream)
+                    using (outStream)
+                    using (decompStream)
+                    {
+                        while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                        {
+                            outStream.Write(buf, 0, num);
+                        }
+                    }
+
+                    buf = outStream.ToArray();
+                }
+
+            }
+
+            return buf;
+        }
 
         public void SetChannelMask(vgm.enmUseChip chip, int ch)
         {
@@ -2501,12 +2522,12 @@ namespace MDPlayer
                     {
                         if (!newParam.ym2612.channels[ch].mask)
                         {
-                            Audio.setFMMask(ch);
+                            Audio.setFMMask(0,ch);
 
                         }
                         else
                         {
-                            Audio.resetFMMask(ch);
+                            Audio.resetFMMask(0,ch);
                         }
                         newParam.ym2612.channels[ch].mask = !newParam.ym2612.channels[ch].mask;
                         if (ch == 2)
@@ -2520,12 +2541,12 @@ namespace MDPlayer
                     {
                         if (!newParam.ym2612.channels[2].mask)
                         {
-                            Audio.setFMMask(2);
+                            Audio.setFMMask(0,2);
 
                         }
                         else
                         {
-                            Audio.resetFMMask(2);
+                            Audio.resetFMMask(0,2);
                         }
                         newParam.ym2612.channels[2].mask = !newParam.ym2612.channels[2].mask;
                         newParam.ym2612.channels[6].mask = newParam.ym2612.channels[2].mask;
@@ -2559,11 +2580,11 @@ namespace MDPlayer
                 case vgm.enmUseChip.YM2151:
                     if (!newParam.ym2151.channels[ch].mask)
                     {
-                        Audio.setYM2151Mask(ch);
+                        Audio.setYM2151Mask(0,ch);
                     }
                     else
                     {
-                        Audio.resetYM2151Mask(ch);
+                        Audio.resetYM2151Mask(0,ch);
                     }
                     newParam.ym2151.channels[ch].mask = !newParam.ym2151.channels[ch].mask;
                     break;
@@ -2576,7 +2597,7 @@ namespace MDPlayer
             {
                 case vgm.enmUseChip.YM2612:
                     newParam.ym2612.channels[ch].mask = false;
-                    if (ch < 6) Audio.resetFMMask(ch);
+                    if (ch < 6) Audio.resetFMMask(0,ch);
                     break;
                 case vgm.enmUseChip.SN76489:
                     newParam.sn76489.channels[ch].mask = false;
@@ -2588,11 +2609,11 @@ namespace MDPlayer
                     break;
                 case vgm.enmUseChip.YM2151:
                     newParam.ym2151.channels[ch].mask = false;
-                    Audio.resetYM2151Mask(ch);
+                    Audio.resetYM2151Mask(0,ch);
                     break;
                 case vgm.enmUseChip.YM2608:
                     newParam.ym2608.channels[ch].mask = false;
-                    Audio.resetYM2608Mask(ch);
+                    Audio.resetYM2608Mask(0,ch);
                     break;
 
             }
