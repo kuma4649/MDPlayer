@@ -117,11 +117,29 @@
     <Compile Include="frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOKIM6258.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOKIM6258.Designer.cs">
+      <DependentUpon>frmOKIM6258.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOKIM6295.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOKIM6295.Designer.cs">
+      <DependentUpon>frmOKIM6295.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPlayList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPlayList.Designer.cs">
       <DependentUpon>frmPlayList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSegaPCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSegaPCM.Designer.cs">
+      <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSetting.cs">
       <SubType>Form</SubType>
@@ -129,17 +147,41 @@
     <Compile Include="frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSN76489.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSN76489.Designer.cs">
+      <DependentUpon>frmSN76489.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmYM2151.Designer.cs">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmYM2203.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmYM2203.Designer.cs">
+      <DependentUpon>frmYM2203.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmYM2608.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmYM2608.Designer.cs">
       <DependentUpon>frmYM2608.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmYM2610.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmYM2610.Designer.cs">
+      <DependentUpon>frmYM2610.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmYM2612.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmYM2612.Designer.cs">
+      <DependentUpon>frmYM2612.cs</DependentUpon>
     </Compile>
     <Compile Include="log.cs" />
     <Compile Include="MDChipParams.cs" />
@@ -162,17 +204,38 @@
     <EmbeddedResource Include="frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOKIM6258.resx">
+      <DependentUpon>frmOKIM6258.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOKIM6295.resx">
+      <DependentUpon>frmOKIM6295.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPlayList.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSegaPCM.resx">
+      <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSN76489.resx">
+      <DependentUpon>frmSN76489.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmYM2203.resx">
+      <DependentUpon>frmYM2203.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmYM2608.resx">
       <DependentUpon>frmYM2608.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmYM2610.resx">
+      <DependentUpon>frmYM2610.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmYM2612.resx">
+      <DependentUpon>frmYM2612.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -219,9 +282,17 @@
     <Content Include="Resources\japPL.png" />
     <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\planeControl.png" />
     <Content Include="Resources\planeD.png" />
     <Content Include="Resources\planeE.png" />
     <Content Include="Resources\planeF.png" />
+    <Content Include="Resources\planeMSM6258.png" />
+    <Content Include="Resources\planeMSM6295.png" />
+    <Content Include="Resources\planeSEGAPCM.png" />
+    <Content Include="Resources\planeSN76489.png" />
+    <Content Include="Resources\planeYM2203.png" />
+    <Content Include="Resources\planeYM2610.png" />
+    <Content Include="Resources\planeYM2612.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />

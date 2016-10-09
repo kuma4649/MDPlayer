@@ -81,6 +81,20 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM2203Type = new ChipType();
+        public ChipType YM2203Type
+        {
+            get
+            {
+                return _YM2203Type;
+            }
+
+            set
+            {
+                _YM2203Type = value;
+            }
+        }
+
         private int _LatencyEmulation = 0;
         public int LatencyEmulation
         {
@@ -900,135 +914,347 @@ namespace MDPlayer
                 }
             }
 
-            private Point _PRf5c164 = Point.Empty;
-            public Point PRf5c164
+            private Point[] _PosRf5c164 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosRf5c164
             {
                 get
                 {
-                    return _PRf5c164;
+                    return _PosRf5c164;
                 }
 
                 set
                 {
-                    _PRf5c164 = value;
+                    _PosRf5c164 = value;
                 }
             }
 
-            private bool _ORf5c164 = false;
-            public bool ORf5c164
+            private bool[] _OpenRf5c164 = new bool[2] { false, false };
+            public bool[] OpenRf5c164
             {
                 get
                 {
-                    return _ORf5c164;
+                    return _OpenRf5c164;
                 }
 
                 set
                 {
-                    _ORf5c164 = value;
+                    _OpenRf5c164 = value;
                 }
             }
 
-            private Point _PC140 = Point.Empty;
-            public Point PC140
+            private Point[] _PosC140 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosC140
             {
                 get
                 {
-                    return _PC140;
+                    return _PosC140;
                 }
 
                 set
                 {
-                    _PC140 = value;
+                    _PosC140 = value;
                 }
             }
 
-            private bool _OC140 = false;
-            public bool OC140
+            private bool[] _OpenC140 = new bool[2] { false, false };
+            public bool[] OpenC140
             {
                 get
                 {
-                    return _OC140;
+                    return _OpenC140;
                 }
 
                 set
                 {
-                    _OC140 = value;
+                    _OpenC140 = value;
                 }
             }
 
-            private Point _PYm2151 = Point.Empty;
-            public Point PYm2151
+            private Point[] _PosYm2151 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2151
             {
                 get
                 {
-                    return _PYm2151;
+                    return _PosYm2151;
                 }
 
                 set
                 {
-                    _PYm2151 = value;
+                    _PosYm2151 = value;
                 }
             }
 
-            private bool _OYm2151 = false;
-            public bool OYm2151
+            private bool[] _OpenYm2151 = new bool[2] { false, false };
+            public bool[] OpenYm2151
             {
                 get
                 {
-                    return _OYm2151;
+                    return _OpenYm2151;
                 }
 
                 set
                 {
-                    _OYm2151 = value;
+                    _OpenYm2151 = value;
                 }
             }
 
-            private Point _PYm2608 = Point.Empty;
-            public Point PYm2608
+            private Point[] _PosYm2608 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2608
             {
                 get
                 {
-                    return _PYm2608;
+                    return _PosYm2608;
                 }
 
                 set
                 {
-                    _PYm2608 = value;
+                    _PosYm2608 = value;
                 }
             }
 
-            private bool _OYm2608 = false;
-            public bool OYm2608
+            private bool[] _OpenYm2608 = new bool[2] { false, false };
+            public bool[] OpenYm2608
             {
                 get
                 {
-                    return _OYm2608;
+                    return _OpenYm2608;
                 }
 
                 set
                 {
-                    _OYm2608 = value;
+                    _OpenYm2608 = value;
                 }
             }
+
+            private Point[] _PosYm2203 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2203
+            {
+                get
+                {
+                    return _PosYm2203;
+                }
+
+                set
+                {
+                    _PosYm2203 = value;
+                }
+            }
+
+            private bool[] _OpenYm2203 = new bool[2] { false, false };
+            public bool[] OpenYm2203
+            {
+                get
+                {
+                    return _OpenYm2203;
+                }
+
+                set
+                {
+                    _OpenYm2203 = value;
+                }
+            }
+
+            private Point[] _PosYm2610 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2610
+            {
+                get
+                {
+                    return _PosYm2610;
+                }
+
+                set
+                {
+                    _PosYm2610 = value;
+                }
+            }
+
+            private bool[] _OpenYm2610 = new bool[2] { false, false };
+            public bool[] OpenYm2610
+            {
+                get
+                {
+                    return _OpenYm2610;
+                }
+
+                set
+                {
+                    _OpenYm2610 = value;
+                }
+            }
+
+            private Point[] _PosYm2612 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2612
+            {
+                get
+                {
+                    return _PosYm2612;
+                }
+
+                set
+                {
+                    _PosYm2612 = value;
+                }
+            }
+
+            private bool[] _OpenYm2612 = new bool[2] { false, false };
+            public bool[] OpenYm2612
+            {
+                get
+                {
+                    return _OpenYm2612;
+                }
+
+                set
+                {
+                    _OpenYm2612 = value;
+                }
+            }
+
+            private Point[] _PosOKIM6258 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosOKIM6258
+            {
+                get
+                {
+                    return _PosOKIM6258;
+                }
+
+                set
+                {
+                    _PosOKIM6258 = value;
+                }
+            }
+
+            private bool[] _OpenOKIM6258 = new bool[2] { false, false };
+            public bool[] OpenOKIM6258
+            {
+                get
+                {
+                    return _OpenOKIM6258;
+                }
+
+                set
+                {
+                    _OpenOKIM6258 = value;
+                }
+            }
+
+            private Point[] _PosOKIM6295 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosOKIM6295
+            {
+                get
+                {
+                    return _PosOKIM6295;
+                }
+
+                set
+                {
+                    _PosOKIM6295 = value;
+                }
+            }
+
+            private bool[] _OpenOKIM6295 = new bool[2] { false, false };
+            public bool[] OpenOKIM6295
+            {
+                get
+                {
+                    return _OpenOKIM6295;
+                }
+
+                set
+                {
+                    _OpenOKIM6295 = value;
+                }
+            }
+
+            private Point[] _PosSN76489 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosSN76489
+            {
+                get
+                {
+                    return _PosSN76489;
+                }
+
+                set
+                {
+                    _PosSN76489 = value;
+                }
+            }
+
+            private bool[] _OpenSN76489 = new bool[2] { false, false };
+            public bool[] OpenSN76489
+            {
+                get
+                {
+                    return _OpenSN76489;
+                }
+
+                set
+                {
+                    _OpenSN76489 = value;
+                }
+            }
+
+            private Point[] _PosSegaPCM = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosSegaPCM
+            {
+                get
+                {
+                    return _PosSegaPCM;
+                }
+
+                set
+                {
+                    _PosSegaPCM = value;
+                }
+            }
+
+            private bool[] _OpenSegaPCM = new bool[2] { false, false };
+            public bool[] OpenSegaPCM
+            {
+                get
+                {
+                    return _OpenSegaPCM;
+                }
+
+                set
+                {
+                    _OpenSegaPCM = value;
+                }
+            }
+
 
             public Location Copy()
             {
                 Location Location = new Location();
+
                 Location.PMain = this.PMain;
                 Location.PInfo = this.PInfo;
                 Location.OInfo = this.OInfo;
                 Location.PPlayList = this.PPlayList;
                 Location.OPlayList = this.OPlayList;
                 Location.PPlayListWH = this.PPlayListWH;
-                Location.PRf5c164 = this.PRf5c164;
-                Location.ORf5c164 = this.ORf5c164;
-                Location.PC140 = this.PC140;
-                Location.OC140 = this.OC140;
-                Location.PYm2151 = this.PYm2151;
-                Location.OYm2151 = this.OYm2151;
-                Location.PYm2608 = this.PYm2608;
-                Location.OYm2608 = this.OYm2608;
+                Location.PosRf5c164 = this.PosRf5c164;
+                Location.OpenRf5c164 = this.OpenRf5c164;
+                Location.PosC140 = this.PosC140;
+                Location.OpenC140 = this.OpenC140;
+                Location.PosYm2151 = this.PosYm2151;
+                Location.OpenYm2151 = this.OpenYm2151;
+                Location.PosYm2608 = this.PosYm2608;
+                Location.OpenYm2608 = this.OpenYm2608;
+                Location.PosYm2203 = this.PosYm2203;
+                Location.OpenYm2203 = this.OpenYm2203;
+                Location.PosYm2610 = this.PosYm2610;
+                Location.OpenYm2610 = this.OpenYm2610;
+                Location.PosYm2612 = this.PosYm2612;
+                Location.OpenYm2612 = this.OpenYm2612;
+                Location.PosOKIM6258 = this.PosOKIM6258;
+                Location.OpenOKIM6258 = this.OpenOKIM6258;
+                Location.PosOKIM6295 = this.PosOKIM6295;
+                Location.OpenOKIM6295 = this.OpenOKIM6295;
+                Location.PosSN76489 = this.PosSN76489;
+                Location.OpenSN76489 = this.OpenSN76489;
+                Location.PosSegaPCM = this.PosSegaPCM;
+                Location.OpenSegaPCM = this.OpenSegaPCM;
 
                 return Location;
             }

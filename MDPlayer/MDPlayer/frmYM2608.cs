@@ -18,11 +18,13 @@ namespace MDPlayer
         public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
+        private int chipID = 0;
         private int zoom = 1;
 
-        public frmYM2608(frmMain frm, int zoom)
+        public frmYM2608(frmMain frm,int chipID, int zoom)
         {
             parent = frm;
+            this.chipID = chipID;
             this.zoom = zoom;
             InitializeComponent();
 
@@ -43,7 +45,7 @@ namespace MDPlayer
 
         private void frmYM2608_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PYm2608 = Location;
+            parent.setting.location.PosYm2608[chipID] = Location;
             isClosed = true;
         }
 

@@ -12,10 +12,12 @@ namespace MDPlayer
         public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
+        private int chipID = 0;
         private int zoom = 1;
 
-        public frmMegaCD(frmMain frm,int zoom)
+        public frmMegaCD(frmMain frm,int chipID,int zoom)
         {
+            this.chipID = chipID;
             this.zoom = zoom;
             parent = frm;
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace MDPlayer
 
         private void frmMegaCD_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PRf5c164 = Location;
+            parent.setting.location.PosRf5c164[chipID] = Location;
             isClosed = true;
         }
 

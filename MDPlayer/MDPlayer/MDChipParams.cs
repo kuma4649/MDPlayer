@@ -20,6 +20,32 @@ namespace MDPlayer
         public int LCsecond = 0;
         public int LCmillisecond = 0;
 
+        public int ChipPriOPN = 0;
+        public int ChipPriOPN2 = 0;
+        public int ChipPriOPNA = 0;
+        public int ChipPriOPNB = 0;
+        public int ChipPriOPM = 0;
+        public int ChipPriDCSG = 0;
+        public int ChipPriRF5C = 0;
+        public int ChipPriPWM = 0;
+        public int ChipPriOKI5 = 0;
+        public int ChipPriOKI9 = 0;
+        public int ChipPriC140 = 0;
+        public int ChipPriSPCM = 0;
+        public int ChipSecOPN = 0;
+        public int ChipSecOPN2 = 0;
+        public int ChipSecOPNA = 0;
+        public int ChipSecOPNB = 0;
+        public int ChipSecOPM = 0;
+        public int ChipSecDCSG = 0;
+        public int ChipSecRF5C = 0;
+        public int ChipSecPWM = 0;
+        public int ChipSecOKI5 = 0;
+        public int ChipSecOKI9 = 0;
+        public int ChipSecC140 = 0;
+        public int ChipSecSPCM = 0;
+
+
         public class Channel
         {
 
@@ -44,6 +70,14 @@ namespace MDPlayer
                 }
             }
         }
+
+        public class YM2203
+        {
+
+            public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+
+        }
+        public YM2203[] ym2203 = new YM2203[] { new YM2203(), new YM2203() };
 
         public class YM2612
         {

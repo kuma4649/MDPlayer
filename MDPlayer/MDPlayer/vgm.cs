@@ -22,12 +22,12 @@ namespace MDPlayer
             , YM2612Ch6 = 4
             , RF5C164 = 8
             , PWM = 16
-                , C140 = 32
-                , OKIM6258 = 64
-                , OKIM6295 = 128
-                , SEGAPCM = 256
-                , YM2151 = 512
-                , YM2608 = 1024
+            , C140 = 32
+            , OKIM6258 = 64
+            , OKIM6295 = 128
+            , SEGAPCM = 256
+            , YM2151 = 512
+            , YM2608 = 1024
         }
 
         private enmModel model = enmModel.VirtualModel;
@@ -67,6 +67,7 @@ namespace MDPlayer
         public bool YM2203DualChipFlag;
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
+        public bool OKIM6295DualChipFlag;
 
         public int YM2151Hosei = 0;
 
@@ -242,7 +243,7 @@ namespace MDPlayer
             if (model == enmModel.RealModel && isDataBlock)
             {
                 isDataBlock = false;
-                Console.WriteLine("{0} countnum:{1}", model, countNum);
+                //Console.WriteLine("{0} countnum:{1}", model, countNum);
                 countNum = 0;
             }
 
@@ -626,7 +627,7 @@ namespace MDPlayer
 
         private void vcOKIM6295()
         {
-            chipRegister.writeOKIM6295(0, (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
+            chipRegister.writeOKIM6295((byte)((vgmBuf[vgmAdr + 0x01] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
             vgmAdr += 3;
         }
 
@@ -673,10 +674,11 @@ namespace MDPlayer
             uint bAdr = vgmAdr + 7;
             byte bType = vgmBuf[vgmAdr + 2];
             uint bLen = getLE32(vgmAdr + 3);
+            byte chipID = 0;
             if ((bLen & 0x80000000)!=0)
             {
                 bLen &= 0x7fffffff;
-                //CurrentChip 1
+                chipID = 1;
             }
 
             switch (bType & 0xc0)
@@ -693,37 +695,37 @@ namespace MDPlayer
                     {
                         case 0x80:
                             //SEGA PCM
-                            chipRegister.writeSEGAPCMPCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            chipRegister.writeSEGAPCMPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             break;
                         case 0x81:
 
                             // YM2608
 
-                            chipRegister.setYM2608Register(0,0x1, 0x00, 0x20, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x21, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x20, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x21, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x00, model);
 
-                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x00, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x10, 0x00, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x10, 0x80, model);
 
-                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x61, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x68, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x01, 0x00, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x61, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x68, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x01, 0x00, model);
 
-                            chipRegister.setYM2608Register(0, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x04, 0xff, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x05, 0xff, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x0c, 0xff, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x0d, 0xff, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x04, 0xff, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x05, 0xff, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x0c, 0xff, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x0d, 0xff, model);
 
                             // データ転送
                             for (int cnt = 0; cnt < bLen - 8; cnt++)
                             {
-                                chipRegister.setYM2608Register(0, 0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                                chipRegister.setYM2608Register(chipID, 0x1, 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
                             }
-                            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
-                            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x00, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x10, 0x80, model);
 
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x13, model);
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
@@ -756,7 +758,7 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmA[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmA(0,ym2610AdpcmA,model);
+                            chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA,model);
                             break;
                         case 0x83:
                             if (ym2610AdpcmB == null || ym2610AdpcmB.Length != romSize) ym2610AdpcmB = new byte[romSize];
@@ -764,19 +766,19 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmB[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmB(0,ym2610AdpcmB,model);
+                            chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB,model);
                             break;
 
                         case 0x8b:
                             // OKIM6295
-                            chipRegister.writeOKIM6295PCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            chipRegister.writeOKIM6295PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             break;
 
                         case 0x8d:
 
                             // C140
 
-                            chipRegister.writeC140PCMData(0, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            chipRegister.writeC140PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -795,7 +797,7 @@ namespace MDPlayer
                     switch (bType)
                     {
                         case 0xc1:
-                            chipRegister.writeRF5C164PCMData(0, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                            chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
                             break;
                     }
 
@@ -1139,8 +1141,7 @@ namespace MDPlayer
                     TempPCM.Data[i + TempBnk.DataStart] = TempBnk.Data[i];
                 }
             }
-            if (BankSize != TempBnk.DataSize)
-                Console.Write("Error reading Data Block! Data Size conflict!\n");
+            //if (BankSize != TempBnk.DataSize) Console.Write("Error reading Data Block! Data Size conflict!\n");
             TempPCM.DataSize += BankSize;
 
             // realloc may've moved the Bank block, so refresh all DAC Streams
@@ -1475,8 +1476,9 @@ namespace MDPlayer
             YM2612ClockValue = 0;// defaultYM2612ClockValue;
             YM2151ClockValue = 0;
             SEGAPCMClockValue = 0;
-            YM2608ClockValue = 0;
             YM2203ClockValue = 0;
+            YM2608ClockValue = 0;
+            YM2610ClockValue = 0;
             RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
             PWMClockValue = 0;// defaultPWMClockValue;
             OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
@@ -1735,9 +1737,19 @@ namespace MDPlayer
                 {
                     uint OKIM6295clock = getLE32(0x98);
                     if (OKIM6295clock != 0)
+
                     {
-                        chips.Add("OKIM6295");
-                        OKIM6295ClockValue = OKIM6295clock;
+                        OKIM6295DualChipFlag = (OKIM6295clock & 0x40000000) != 0;
+                        if (OKIM6295DualChipFlag)
+                        {
+                            OKIM6295ClockValue = OKIM6295clock & 0x3fffffff;
+                            chips.Add("OKIM6295x2");
+                        }
+                        else
+                        {
+                            OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
+                            chips.Add("OKIM6295");
+                        }
                     }
                 }
 

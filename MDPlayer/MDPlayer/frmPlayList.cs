@@ -572,7 +572,7 @@ namespace MDPlayer
 
         private void frmPlayList_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("keycode{0} {1} {2}", e.KeyCode, e.KeyData, e.KeyValue);
+            //Console.WriteLine("keycode{0} {1} {2}", e.KeyCode, e.KeyData, e.KeyValue);
 
             switch (e.KeyValue)
             {

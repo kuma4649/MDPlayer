@@ -186,6 +186,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeControl {
+            get {
+                object obj = ResourceManager.GetObject("planeControl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeD {
             get {
                 object obj = ResourceManager.GetObject("planeD", resourceCulture);
@@ -209,6 +219,76 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap planeF {
             get {
                 object obj = ResourceManager.GetObject("planeF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeMSM6258 {
+            get {
+                object obj = ResourceManager.GetObject("planeMSM6258", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeMSM6295 {
+            get {
+                object obj = ResourceManager.GetObject("planeMSM6295", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeSEGAPCM {
+            get {
+                object obj = ResourceManager.GetObject("planeSEGAPCM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeSN76489 {
+            get {
+                object obj = ResourceManager.GetObject("planeSN76489", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeYM2203 {
+            get {
+                object obj = ResourceManager.GetObject("planeYM2203", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeYM2610 {
+            get {
+                object obj = ResourceManager.GetObject("planeYM2610", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeYM2612 {
+            get {
+                object obj = ResourceManager.GetObject("planeYM2612", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

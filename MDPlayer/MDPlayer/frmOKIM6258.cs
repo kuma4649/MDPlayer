@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MDPlayer
 {
-    public partial class frmC140 : Form
+    public partial class frmOKIM6258 : Form
     {
         public bool isClosed = false;
         public int x = -1;
@@ -21,7 +21,7 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmC140(frmMain frm,int chipID,int zoom)
+        public frmOKIM6258(frmMain frm, int chipID, int zoom)
         {
             parent = frm;
             this.chipID = chipID;
@@ -43,13 +43,13 @@ namespace MDPlayer
             }
         }
 
-        private void frmC140_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmOKIM6258_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosC140[chipID] = Location;
+            parent.setting.location.PosOKIM6258[chipID] = Location;
             isClosed = true;
         }
 
-        private void frmC140_Load(object sender, EventArgs e)
+        private void frmOKIM6258_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
 
@@ -61,14 +61,14 @@ namespace MDPlayer
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
-            frmC140_Resize(null, null);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
+            frmOKIM6258_Resize(null, null);
 
         }
 
-        private void frmC140_Resize(object sender, EventArgs e)
+        private void frmOKIM6258_Resize(object sender, EventArgs e)
         {
 
         }
@@ -94,6 +94,5 @@ namespace MDPlayer
         public void screenDrawParams()
         {
         }
-
     }
 }

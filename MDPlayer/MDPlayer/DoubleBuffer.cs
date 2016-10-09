@@ -9,10 +9,17 @@ namespace MDPlayer
     {
 
         public FrameBuffer mainScreen = null;
-        public FrameBuffer rf5c164Screen = null;
-        public FrameBuffer c140Screen = null;
-        public FrameBuffer ym2608Screen = null;
-        public FrameBuffer ym2151Screen = null;
+        public FrameBuffer[] rf5c164Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] c140Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2608Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2151Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2203Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2610Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2612Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] OKIM6258Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] OKIM6295Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] SN76489Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] SegaPCMScreen = new FrameBuffer[2] { null, null };
 
         private byte[] fontBuf;
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
@@ -190,56 +197,140 @@ namespace MDPlayer
             fontBuf = getByteArray(font);
         }
 
-        public void AddRf5c164(PictureBox pbRf5c164Screen, Image initialRf5c164Image)
+        public void AddRf5c164(int chipID, PictureBox pbRf5c164Screen, Image initialRf5c164Image)
         {
-            rf5c164Screen = new FrameBuffer();
-            rf5c164Screen.Add(pbRf5c164Screen, initialRf5c164Image, this.Paint,setting.other.Zoom);
+            rf5c164Screen[chipID] = new FrameBuffer();
+            rf5c164Screen[chipID].Add(pbRf5c164Screen, initialRf5c164Image, this.Paint,setting.other.Zoom);
 
         }
 
-        public void AddC140(PictureBox pbC140Screen, Image initialC140Image)
+        public void AddC140(int chipID, PictureBox pbC140Screen, Image initialC140Image)
         {
-            c140Screen = new FrameBuffer();
-            c140Screen.Add(pbC140Screen, initialC140Image, this.Paint, setting.other.Zoom);
+            c140Screen[chipID] = new FrameBuffer();
+            c140Screen[chipID].Add(pbC140Screen, initialC140Image, this.Paint, setting.other.Zoom);
 
         }
 
-        public void AddYM2608(PictureBox pbYM2608Screen, Image initialYM2608Image)
+        public void AddYM2608(int chipID,PictureBox pbYM2608Screen, Image initialYM2608Image)
         {
-            ym2608Screen = new FrameBuffer();
-            ym2608Screen.Add(pbYM2608Screen, initialYM2608Image, this.Paint, setting.other.Zoom);
+            ym2608Screen[chipID] = new FrameBuffer();
+            ym2608Screen[chipID].Add(pbYM2608Screen, initialYM2608Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddYM2151(int chipID, PictureBox pbYM2151Screen, Image initialYM2151Image)
+        {
+            ym2151Screen[chipID] = new FrameBuffer();
+            ym2151Screen[chipID].Add(pbYM2151Screen, initialYM2151Image, this.Paint, setting.other.Zoom);
 
         }
 
-        public void AddYM2151(PictureBox pbYM2151Screen, Image initialYM2151Image)
+        public void AddYM2203(int chipID, PictureBox pbYM2203Screen, Image initialYM2203Image)
         {
-            ym2151Screen = new FrameBuffer();
-            ym2151Screen.Add(pbYM2151Screen, initialYM2151Image, this.Paint, setting.other.Zoom);
-
+            ym2203Screen[chipID] = new FrameBuffer();
+            ym2203Screen[chipID].Add(pbYM2203Screen, initialYM2203Image, this.Paint, setting.other.Zoom);
         }
 
-        public void RemoveRf5c164()
+        public void AddYM2610(int chipID, PictureBox pbYM2610Screen, Image initialYM2610Image)
+        {
+            ym2610Screen[chipID] = new FrameBuffer();
+            ym2610Screen[chipID].Add(pbYM2610Screen, initialYM2610Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddYM2612(int chipID, PictureBox pbYM2612Screen, Image initialYM2612Image)
+        {
+            ym2612Screen[chipID] = new FrameBuffer();
+            ym2612Screen[chipID].Add(pbYM2612Screen, initialYM2612Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddOKIM6258(int chipID, PictureBox pbOKIM6258Screen, Image initialOKIM6258Image)
+        {
+            OKIM6258Screen[chipID] = new FrameBuffer();
+            OKIM6258Screen[chipID].Add(pbOKIM6258Screen, initialOKIM6258Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddOKIM6295(int chipID, PictureBox pbOKIM6295Screen, Image initialOKIM6295Image)
+        {
+            OKIM6295Screen[chipID] = new FrameBuffer();
+            OKIM6295Screen[chipID].Add(pbOKIM6295Screen, initialOKIM6295Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddSN76489(int chipID, PictureBox pbSN76489Screen, Image initialSN76489Image)
+        {
+            SN76489Screen[chipID] = new FrameBuffer();
+            SN76489Screen[chipID].Add(pbSN76489Screen, initialSN76489Image, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddSegaPCM(int chipID, PictureBox pbSegaPCMScreen, Image initialSegaPCMImage)
+        {
+            SegaPCMScreen[chipID] = new FrameBuffer();
+            SegaPCMScreen[chipID].Add(pbSegaPCMScreen, initialSegaPCMImage, this.Paint, setting.other.Zoom);
+        }
+
+
+        public void RemoveRf5c164(int chipID)
         {
             if (rf5c164Screen == null) return;
-            rf5c164Screen.Remove(this.Paint);
+            rf5c164Screen[chipID].Remove(this.Paint);
         }
 
-        public void RemoveC140()
+        public void RemoveC140(int chipID)
         {
-            if (c140Screen == null) return;
-            c140Screen.Remove(this.Paint);
+            if (c140Screen[chipID] == null) return;
+            c140Screen[chipID].Remove(this.Paint);
         }
 
-        public void RemoveYM2608()
+        public void RemoveYM2608(int chipID)
         {
-            if (ym2608Screen == null) return;
-            ym2608Screen.Remove(this.Paint);
+            if (ym2608Screen[chipID] == null) return;
+            ym2608Screen[chipID].Remove(this.Paint);
         }
 
-        public void RemoveYM2151()
+        public void RemoveYM2151(int chipID)
         {
-            if (ym2151Screen == null) return;
-            ym2151Screen.Remove(this.Paint);
+            if (ym2151Screen[chipID] == null) return;
+            ym2151Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveYM2203(int chipID)
+        {
+            if (ym2203Screen[chipID] == null) return;
+            ym2203Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveYM2610(int chipID)
+        {
+            if (ym2610Screen[chipID] == null) return;
+            ym2610Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveYM2612(int chipID)
+        {
+            if (ym2612Screen[chipID] == null) return;
+            ym2612Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveOKIM6258(int chipID)
+        {
+            if (OKIM6258Screen[chipID] == null) return;
+            OKIM6258Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveOKIM6295(int chipID)
+        {
+            if (OKIM6295Screen[chipID] == null) return;
+            OKIM6295Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveSN76489(int chipID)
+        {
+            if (SN76489Screen[chipID] == null) return;
+            SN76489Screen[chipID].Remove(this.Paint);
+        }
+
+        public void RemoveSegaPCM(int chipID)
+        {
+            if (SegaPCMScreen[chipID] == null) return;
+            SegaPCMScreen[chipID].Remove(this.Paint);
         }
 
         ~DoubleBuffer()
@@ -251,11 +342,20 @@ namespace MDPlayer
         {
 
             if (mainScreen != null) mainScreen.Remove(this.Paint);
-            if (rf5c164Screen != null) rf5c164Screen.Remove(this.Paint);
-            if (c140Screen != null) c140Screen.Remove(this.Paint);
-            if (ym2151Screen != null) ym2151Screen.Remove(this.Paint);
-            if (ym2608Screen != null) ym2608Screen.Remove(this.Paint);
-
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                if (rf5c164Screen[chipID] != null) rf5c164Screen[chipID].Remove(this.Paint);
+                if (c140Screen[chipID] != null) c140Screen[chipID].Remove(this.Paint);
+                if (ym2151Screen[chipID] != null) ym2151Screen[chipID].Remove(this.Paint);
+                if (ym2608Screen[chipID] != null) ym2608Screen[chipID].Remove(this.Paint);
+                if (ym2203Screen[chipID] != null) ym2203Screen[chipID].Remove(this.Paint);
+                if (ym2610Screen[chipID] != null) ym2610Screen[chipID].Remove(this.Paint);
+                if (ym2612Screen[chipID] != null) ym2612Screen[chipID].Remove(this.Paint);
+                if (OKIM6258Screen[chipID] != null) OKIM6258Screen[chipID].Remove(this.Paint);
+                if (OKIM6295Screen[chipID] != null) OKIM6295Screen[chipID].Remove(this.Paint);
+                if (SN76489Screen[chipID] != null) SN76489Screen[chipID].Remove(this.Paint);
+                if (SegaPCMScreen[chipID] != null) SegaPCMScreen[chipID].Remove(this.Paint);
+            }
         }
 
         private void Paint(object sender, PaintEventArgs e)
@@ -281,60 +381,162 @@ namespace MDPlayer
                     }
                 }
 
-                if (rf5c164Screen != null)
+                for (int chipID = 0; chipID < 2; chipID++)
                 {
-                    try
+                    if (rf5c164Screen[chipID] != null)
                     {
-                        rf5c164Screen.Refresh(this.Paint);
+                        try
+                        {
+                            rf5c164Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveRf5c164(chipID);
+                            rf5c164Screen = null;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                        RemoveRf5c164();
-                        rf5c164Screen = null;
-                    }
-                }
 
-                if (c140Screen != null)
-                {
-                    try
+                    if (c140Screen[chipID] != null)
                     {
-                        c140Screen.Refresh(this.Paint);
+                        try
+                        {
+                            c140Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveC140(chipID);
+                            c140Screen = null;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                        RemoveC140();
-                        c140Screen = null;
-                    }
-                }
 
-                if (ym2151Screen != null)
-                {
-                    try
+                    if (ym2151Screen[chipID] != null)
                     {
-                        ym2151Screen.Refresh(this.Paint);
+                        try
+                        {
+                            ym2151Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2151(chipID);
+                            ym2151Screen = null;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                        RemoveYM2151();
-                        ym2151Screen = null;
-                    }
-                }
 
-                if (ym2608Screen != null)
-                {
-                    try
+                    if (ym2608Screen[chipID] != null)
                     {
-                        ym2608Screen.Refresh(this.Paint);
+                        try
+                        {
+                            ym2608Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2608(chipID);
+                            ym2608Screen = null;
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (ym2203Screen[chipID] != null)
                     {
-                        log.ForcedWrite(ex);
-                        RemoveYM2608();
-                        ym2608Screen = null;
+                        try
+                        {
+                            ym2203Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2203(chipID);
+                            ym2203Screen = null;
+                        }
                     }
+
+                    if (ym2610Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            ym2610Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2610(chipID);
+                            ym2610Screen = null;
+                        }
+                    }
+
+                    if (ym2612Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            ym2612Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2612(chipID);
+                            ym2612Screen = null;
+                        }
+                    }
+
+                    if (OKIM6258Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            OKIM6258Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveOKIM6258(chipID);
+                            OKIM6258Screen = null;
+                        }
+                    }
+
+                    if (OKIM6295Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            OKIM6295Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveOKIM6295(chipID);
+                            OKIM6295Screen = null;
+                        }
+                    }
+
+                    if (SN76489Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            SN76489Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveSN76489(chipID);
+                            SN76489Screen = null;
+                        }
+                    }
+
+                    if (SegaPCMScreen[chipID] != null)
+                    {
+                        try
+                        {
+                            SegaPCMScreen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveSegaPCM(chipID);
+                            SegaPCMScreen = null;
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -426,6 +628,41 @@ namespace MDPlayer
 
             n = num / 1;
             num -= n * 1;
+            x += 8;
+            screen.drawByteArray(x, y, fontBuf, 128, n * 8, 8 + t * 32, 8, 8);
+        }
+
+        public void drawFont8Int2(FrameBuffer screen, int x, int y, int t, int k, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            if (k == 3)
+            {
+                n = num / 100;
+                num -= n * 100;
+
+                n = (n > 9) ? 0 : n;
+                if (n == 0) screen.drawByteArray(x, y, fontBuf, 128, 0, 0 + t * 32, 8, 8);
+                else screen.drawByteArray(x, y, fontBuf, 128, 0, 8 + t * 32, 8, 8);
+
+                n = num / 10;
+                num -= n * 10;
+                x += 8;
+                screen.drawByteArray(x, y, fontBuf, 128, n * 8, 8 + t * 32, 8, 8);
+
+                n = num / 1;
+                x += 8;
+                screen.drawByteArray(x, y, fontBuf, 128, n * 8 , 8 + t * 32, 8, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, fontBuf, 128, n * 8, 8 + t * 32, 8, 8);
+
+            n = num / 1;
             x += 8;
             screen.drawByteArray(x, y, fontBuf, 128, n * 8, 8 + t * 32, 8, 8);
         }
@@ -539,7 +776,6 @@ namespace MDPlayer
             screen.drawByteArray(x, y, fontBuf, 128, 2 * t, 96 + 16 * tp, 2, 8 - (t / 4) * 4);
         }
 
-
         private void drawKbn(FrameBuffer screen, int x, int y, int t, int tp)
         {
             if (screen == null)
@@ -576,7 +812,6 @@ namespace MDPlayer
             }
         }
 
-
         private void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)
         {
             if (screen == null) return;
@@ -595,6 +830,20 @@ namespace MDPlayer
             screen.drawByteArray(x + 4, y, fontBuf, 128, p == 0 ? 0 : (p / 4 * 4 + 4), 104, 4, 8);
         }
 
+        private void drawChipNameP(FrameBuffer screen, int x, int y, int t, int c)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            screen.drawByteArray(x, y, fontBuf, 128
+                , 0 + (t % 4) * 8 * 2 + (c % 2) * 8 * 8
+                , 32 * 8 + (t / 4) * 8 * 1 + (c / 2) * 8 * 4
+                , 8 * 2
+                , 8);
+
+        }
 
         public void drawButtonP(int x, int y, int t, int m)
         {
@@ -683,7 +932,6 @@ namespace MDPlayer
             }
         }
 
-
         public void drawChP(int x, int y, int ch, bool mask, int tp)
         {
             if (ch == 5)
@@ -722,49 +970,49 @@ namespace MDPlayer
             }
         }
 
-        public void drawChPYM2151(int x, int y, int ch, bool mask, int tp)
+        public void drawChPYM2151(int chipID, int x, int y, int ch, bool mask, int tp)
         {
-            if (ym2151Screen == null) return;
+            if (ym2151Screen[chipID] == null) return;
 
-            ym2151Screen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-            drawFont8(ym2151Screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            ym2151Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(ym2151Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
-        public void drawChPYM2608(int x, int y, int ch, bool mask, int tp)
+        public void drawChPYM2608(int chipID,int x, int y, int ch, bool mask, int tp)
         {
-            if (ym2608Screen == null) return;
+            if (ym2608Screen[chipID] == null) return;
 
             if (ch < 6)
             {
-                ym2608Screen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(ym2608Screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+                ym2608Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2608Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
             }
             else if (ch < 9)
             {
-                ym2608Screen.drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(ym2608Screen, x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+                ym2608Screen[chipID].drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2608Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
             }
             else if (ch < 12)
             {
-                ym2608Screen.drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(ym2608Screen, x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
+                ym2608Screen[chipID].drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2608Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
             }
             else
             {
-                ym2608Screen.drawByteArray(x, y, fontBuf, 128, 0, 136 - (mask ? 8 : 0) + 16 * tp, 24, 8);
+                ym2608Screen[chipID].drawByteArray(x, y, fontBuf, 128, 0, 136 - (mask ? 8 : 0) + 16 * tp, 24, 8);
             }
         }
 
-        public void drawChPRF5C164(int x, int y, int ch, bool mask, int tp)
+        public void drawChPRF5C164(int chipID, int x, int y, int ch, bool mask, int tp)
         {
             if (rf5c164Screen == null) return;
 
-            rf5c164Screen.drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-            drawFont8(rf5c164Screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
+            rf5c164Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(rf5c164Screen[chipID], x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
         }
 
 
-        public void drawVolume(int y, int c, ref int ov, int nv, int tp)
+        public void drawVolume(FrameBuffer screen,int y, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
 
@@ -776,19 +1024,19 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                drawVolumeP(mainScreen, 256 + i * 2, y + sy, (1 + t), tp);
+                drawVolumeP(screen, 256 + i * 2, y + sy, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                drawVolumeP(mainScreen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+                drawVolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
 
         }
 
-        public void drawVolumeYM2151(int y, int c, ref int ov, int nv, int tp)
+        public void drawVolumeYM2608(int chipID,int y, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
 
@@ -800,43 +1048,19 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                drawVolumeP(ym2151Screen, 256 + i * 2, y + sy, (1 + t), tp);
+                drawVolumeP(ym2608Screen[chipID], 256 + i * 2, y + sy, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                drawVolumeP(ym2151Screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+                drawVolumeP(ym2608Screen[chipID], 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
 
         }
 
-        public void drawVolumeYM2608(int y, int c, ref int ov, int nv, int tp)
-        {
-            if (ov == nv) return;
-
-            int t = 0;
-            int sy = 0;
-            if (c == 1 || c == 2) { t = 4; }
-            if (c == 2) { sy = 4; }
-            y = (y + 1) * 8;
-
-            for (int i = 0; i <= 19; i++)
-            {
-                drawVolumeP(ym2608Screen, 256 + i * 2, y + sy, (1 + t), tp);
-            }
-
-            for (int i = 0; i <= nv; i++)
-            {
-                drawVolumeP(ym2608Screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
-            }
-
-            ov = nv;
-
-        }
-
-        public void drawVolumeYM2608Rhythm(int x, int c, ref int ov, int nv, int tp)
+        public void drawVolumeYM2608Rhythm(int chipID,int x, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
 
@@ -848,19 +1072,19 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                drawVolumeP(ym2608Screen, x + i * 2, sy+8*14, (1 + t), tp);
+                drawVolumeP(ym2608Screen[chipID], x + i * 2, sy+8*14, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                drawVolumeP(ym2608Screen, x+ i * 2, sy+8*14, i > 17 ? (2 + t) : (0 + t), tp);
+                drawVolumeP(ym2608Screen[chipID], x+ i * 2, sy+8*14, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
 
         }
 
-        public void drawVolumeToRf5c164(int y, int c, ref int ov, int nv)
+        public void drawVolumeToC140(int chipID,int y, int c, ref int ov, int nv)
         {
             if (ov == nv) return;
 
@@ -872,42 +1096,17 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                drawVolumeP(rf5c164Screen, 256 + i * 2, y + sy, (1 + t), 0);
+                drawVolumeP(c140Screen[chipID], 256 + i * 2, y + sy, (1 + t), 0);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                drawVolumeP(rf5c164Screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
+                drawVolumeP(c140Screen[chipID], 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
             }
 
             ov = nv;
 
         }
-
-        public void drawVolumeToC140(int y, int c, ref int ov, int nv)
-        {
-            if (ov == nv) return;
-
-            int t = 0;
-            int sy = 0;
-            if (c == 1 || c == 2) { t = 4; }
-            if (c == 2) { sy = 4; }
-            y = (y + 1) * 8;
-
-            for (int i = 0; i <= 19; i++)
-            {
-                drawVolumeP(c140Screen, 256 + i * 2, y + sy, (1 + t), 0);
-            }
-
-            for (int i = 0; i <= nv; i++)
-            {
-                drawVolumeP(c140Screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
-            }
-
-            ov = nv;
-
-        }
-
 
         public void drawCh(int ch, ref bool om, bool nm, int tp)
         {
@@ -935,7 +1134,7 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public void drawChRF5C164(int ch, ref bool om, bool nm, int tp)
+        public void drawChRF5C164(int chipID, int ch, ref bool om, bool nm, int tp)
         {
 
             if (om == nm)
@@ -943,11 +1142,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawChPRF5C164(0, 8 + ch * 8, ch, nm, tp);
+            drawChPRF5C164(chipID,0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
-        public void drawChYM2151(int ch, ref bool om, bool nm, int tp)
+        public void drawChYM2151(int chipID,int ch, ref bool om, bool nm, int tp)
         {
 
             if (om == nm)
@@ -955,11 +1154,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawChPYM2151(0, 8 + ch * 8, ch, nm, tp);
+            drawChPYM2151(chipID, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
-        public void drawChYM2608(int ch, ref bool om, bool nm, int tp)
+        public void drawChYM2608(int chipID,int ch, ref bool om, bool nm, int tp)
         {
 
             if (om == nm)
@@ -967,12 +1166,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawChPYM2608(0, 8 + ch * 8, ch, nm, tp);
+            drawChPYM2608(chipID,0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
-
-        public void drawPan(int c, ref int ot, int nt, ref int otp, int ntp)
+        public void drawPan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -980,12 +1178,12 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(mainScreen, 24, 8 + c * 8, nt, ntp);
+            drawPanP(screen, 24, 8 + c * 8, nt, ntp);
             ot = nt;
             otp = ntp;
         }
 
-        public void drawPanToRf5c164(int c, ref int ot, int nt)
+        public void drawPanType2(FrameBuffer screen, int c, ref int ot, int nt)
         {
 
             if (ot == nt)
@@ -993,11 +1191,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanType2P(rf5c164Screen, 24, 8 + c * 8, nt);
+            drawPanType2P(screen, 24, 8 + c * 8, nt);
             ot = nt;
         }
 
-        public void drawPanToC140(int c, ref int ot, int nt)
+        public void drawPanToC140(int chipID, int c, ref int ot, int nt)
         {
 
             if (ot == nt)
@@ -1005,11 +1203,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanType2P(c140Screen, 24, 8 + c * 8, nt);
+            drawPanType2P(c140Screen[chipID], 24, 8 + c * 8, nt);
             ot = nt;
         }
 
-        public void drawPanYM2151(int c, ref int ot, int nt, ref int otp, int ntp)
+        public void drawPanYM2151(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1017,12 +1215,12 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(ym2151Screen, 24, 8 + c * 8, nt, ntp);
+            drawPanP(ym2151Screen[chipID], 24, 8 + c * 8, nt, ntp);
             ot = nt;
             otp = ntp;
         }
 
-        public void drawPanYM2608(int c, ref int ot, int nt, ref int otp, int ntp)
+        public void drawPanYM2608(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1030,12 +1228,12 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(ym2608Screen, 24, 8 + c * 8, nt, ntp);
+            drawPanP(ym2608Screen[chipID], 24, 8 + c * 8, nt, ntp);
             ot = nt;
             otp = ntp;
         }
 
-        public void drawPanYM2608Rhythm(int c, ref int ot, int nt, ref int otp, int ntp)
+        public void drawPanYM2608Rhythm(int chipID,int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1043,11 +1241,10 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(ym2608Screen, c * 4 * 13 + 8, 8 * 14, nt, ntp);
+            drawPanP(ym2608Screen[chipID], c * 4 * 13 + 8, 8 * 14, nt, ntp);
             ot = nt;
             otp = ntp;
         }
-
 
         public void drawButton(int c, ref int ot, int nt, ref int om, int nm)
         {
@@ -1055,15 +1252,17 @@ namespace MDPlayer
             {
                 return;
             }
-            drawFont8(mainScreen, 64 + c * 16, 208, 0, "  ");
-            drawFont8(mainScreen, 64 + c * 16, 216, 0, "  ");
-            drawButtonP(64 + c * 16, 208, nt * 16 + c, nm);
+            //drawFont8(mainScreen, 64 + c * 16, 208, 0, "  ");
+            //drawFont8(mainScreen, 64 + c * 16, 216, 0, "  ");
+            //drawButtonP(64 + c * 16, 208, nt * 16 + c, nm);
+            drawFont8(mainScreen, 24 + c * 16, 24, 0, "  ");
+            drawFont8(mainScreen, 24 + c * 16, 32, 0, "  ");
+            drawButtonP(24 + c * 16, 24, nt * 16 + c, nm);
             ot = nt;
             om = nm;
         }
 
-
-        public void drawKb(int y, ref int ot, int nt, int tp)
+        public void drawKb(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
 
@@ -1076,29 +1275,64 @@ namespace MDPlayer
             {
                 kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = kbl[(ot % 12) * 2 + 1];
-                drawKbn(mainScreen, 32 + kx, y, kt, tp);
+                drawKbn(screen, 32 + kx, y, kt, tp);
             }
 
             if (nt >= 0)
             {
                 kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(mainScreen, 32 + kx, y, kt, tp);
-                drawFont8(mainScreen, 296, y, 1, kbn[nt % 12]);
+                drawKbn(screen, 32 + kx, y, kt, tp);
+                drawFont8(screen, 296, y, 1, kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(mainScreen, 312, y, 1, kbo[nt / 12]);
+                    drawFont8(screen, 312, y, 1, kbo[nt / 12]);
                 }
             }
             else
             {
-                drawFont8(mainScreen, 296, y, 1, "   ");
+                drawFont8(screen, 296, y, 1, "   ");
             }
 
             ot = nt;
         }
 
-        public void drawKbYM2151(int y, ref int ot, int nt, int tp)
+        //public void drawKbToRf5c164(int chipID, int y, ref int ot, int nt)
+        //{
+        //    if (ot == nt) return;
+
+        //    int kx = 0;
+        //    int kt = 0;
+
+        //    y = (y + 1) * 8;
+
+        //    if (ot >= 0)
+        //    {
+        //        kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+        //        kt = kbl[(ot % 12) * 2 + 1];
+        //        drawKbn(rf5c164Screen[chipID], 32 + kx, y, kt, 0);
+        //    }
+
+        //    if (nt >= 0)
+        //    {
+        //        kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
+        //        kt = kbl[(nt % 12) * 2 + 1] + 4;
+        //        drawKbn(rf5c164Screen[chipID], 32 + kx, y, kt, 0);
+        //        drawFont8(rf5c164Screen[chipID], 296, y, 1, kbn[nt % 12]);
+        //        if (nt / 12 < 8)
+        //        {
+        //            drawFont8(rf5c164Screen[chipID], 312, y, 1, kbo[nt / 12]);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        drawFont8(rf5c164Screen[chipID], 296, y, 1, "   ");
+        //    }
+
+        //    ot = nt;
+        //}
+
+        public void drawKbToC140(int chipID, int y, ref int ot, int nt)
         {
             if (ot == nt) return;
 
@@ -1111,29 +1345,29 @@ namespace MDPlayer
             {
                 kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = kbl[(ot % 12) * 2 + 1];
-                drawKbn(ym2151Screen, 32 + kx, y, kt, tp);
+                drawKbn(c140Screen[chipID], 32 + kx, y, kt, 0);
             }
 
             if (nt >= 0)
             {
                 kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(ym2151Screen, 32 + kx, y, kt, tp);
-                drawFont8(ym2151Screen, 296, y, 1, kbn[nt % 12]);
+                drawKbn(c140Screen[chipID], 32 + kx, y, kt, 0);
+                drawFont8(c140Screen[chipID], 296, y, 1, kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(ym2151Screen, 312, y, 1, kbo[nt / 12]);
+                    drawFont8(c140Screen[chipID], 312, y, 1, kbo[nt / 12]);
                 }
             }
             else
             {
-                drawFont8(ym2151Screen, 296, y, 1, "   ");
+                drawFont8(c140Screen[chipID], 296, y, 1, "   ");
             }
 
             ot = nt;
         }
 
-        public void drawKbToRf5c164(int y, ref int ot, int nt)
+        public void drawKbYM2608(int chipID,int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
 
@@ -1146,96 +1380,35 @@ namespace MDPlayer
             {
                 kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = kbl[(ot % 12) * 2 + 1];
-                drawKbn(rf5c164Screen, 32 + kx, y, kt, 0);
+                drawKbn(ym2608Screen[chipID], 32 + kx, y, kt, tp);
             }
 
             if (nt >= 0)
             {
                 kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(rf5c164Screen, 32 + kx, y, kt, 0);
-                drawFont8(rf5c164Screen, 296, y, 1, kbn[nt % 12]);
+                drawKbn(ym2608Screen[chipID], 32 + kx, y, kt, tp);
+                drawFont8(ym2608Screen[chipID], 296, y, 1, kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(rf5c164Screen, 312, y, 1, kbo[nt / 12]);
+                    drawFont8(ym2608Screen[chipID], 312, y, 1, kbo[nt / 12]);
                 }
             }
             else
             {
-                drawFont8(rf5c164Screen, 296, y, 1, "   ");
+                drawFont8(ym2608Screen[chipID], 296, y, 1, "   ");
             }
 
             ot = nt;
         }
 
-        public void drawKbToC140(int y, ref int ot, int nt)
+        public void drawChipName(int x, int y, int t, ref int oc, int nc)
         {
-            if (ot == nt) return;
+            if (oc == nc) return;
 
-            int kx = 0;
-            int kt = 0;
+            drawChipNameP(mainScreen, x, y, t, nc);
 
-            y = (y + 1) * 8;
-
-            if (ot >= 0)
-            {
-                kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                kt = kbl[(ot % 12) * 2 + 1];
-                drawKbn(c140Screen, 32 + kx, y, kt, 0);
-            }
-
-            if (nt >= 0)
-            {
-                kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
-                kt = kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(c140Screen, 32 + kx, y, kt, 0);
-                drawFont8(c140Screen, 296, y, 1, kbn[nt % 12]);
-                if (nt / 12 < 8)
-                {
-                    drawFont8(c140Screen, 312, y, 1, kbo[nt / 12]);
-                }
-            }
-            else
-            {
-                drawFont8(c140Screen, 296, y, 1, "   ");
-            }
-
-            ot = nt;
-        }
-
-        public void drawKbYM2608(int y, ref int ot, int nt, int tp)
-        {
-            if (ot == nt) return;
-
-            int kx = 0;
-            int kt = 0;
-
-            y = (y + 1) * 8;
-
-            if (ot >= 0)
-            {
-                kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                kt = kbl[(ot % 12) * 2 + 1];
-                drawKbn(ym2608Screen, 32 + kx, y, kt, tp);
-            }
-
-            if (nt >= 0)
-            {
-                kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
-                kt = kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(ym2608Screen, 32 + kx, y, kt, tp);
-                drawFont8(ym2608Screen, 296, y, 1, kbn[nt % 12]);
-                if (nt / 12 < 8)
-                {
-                    drawFont8(ym2608Screen, 312, y, 1, kbo[nt / 12]);
-                }
-            }
-            else
-            {
-                drawFont8(ym2608Screen, 296, y, 1, "   ");
-            }
-
-            ot = nt;
+            oc = nc;
         }
 
 
@@ -1283,17 +1456,20 @@ namespace MDPlayer
         {
             if (ot1 != nt1)
             {
-                drawFont4Int2(mainScreen, 4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
+                //drawFont4Int2(mainScreen, 4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
+                drawFont8Int2(mainScreen, 8 * 1 + c * 8 * 11, 16, 0, 3, nt1);
                 ot1 = nt1;
             }
             if (ot2 != nt2)
             {
-                drawFont4Int2(mainScreen, 4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
+                drawFont8Int2(mainScreen, 8 * 5 + c * 8 * 11,16, 0, 2, nt2);
+                //drawFont4Int2(mainScreen, 4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
                 ot2 = nt2;
             }
             if (ot3 != nt3)
             {
-                drawFont4Int2(mainScreen, 4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
+                drawFont8Int2(mainScreen, 8 * 8 + c * 8 * 11, 16, 0, 2, nt3);
+                //drawFont4Int2(mainScreen, 4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
                 ot3 = nt3;
             }
         }
@@ -1302,6 +1478,191 @@ namespace MDPlayer
         public void drawParams(MDChipParams oldParam, MDChipParams newParam)
         {
 
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                if (ym2612Screen[chipID] != null) drawParamsToYM2612(oldParam, newParam, chipID);
+
+                if (SN76489Screen[chipID] != null) drawParamsToSN76489(oldParam, newParam, chipID);
+
+                if (rf5c164Screen[chipID] != null) drawParamsToRF5C164(oldParam, newParam, chipID);
+
+                if (c140Screen[chipID] != null) drawParamsToC140(oldParam, newParam, chipID);
+
+                if (ym2151Screen[chipID] != null) drawParamsToYM2151(oldParam, newParam, chipID);
+
+                if (ym2608Screen[chipID] != null) drawParamsToYM2608(oldParam, newParam, chipID);
+
+                if (ym2203Screen[chipID] != null) drawParamsToYM2203(oldParam, newParam, chipID);
+            }
+
+        }
+
+        private void drawParamsToYM2203(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            int tp = setting.YM2203Type.UseScci ? 1 : 0;
+
+            for (int c = 0; c < 6; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.ym2203[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2203[chipID].channels[c];
+
+                if (c < 3)
+                {
+                    drawVolume(ym2203Screen[chipID], c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawKb(ym2203Screen[chipID], c, ref oyc.note, nyc.note, tp);
+                    drawInst(ym2203Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
+                }
+                else
+                {
+                    drawVolume(ym2203Screen[chipID], c+3, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawKb(ym2203Screen[chipID], c+3, ref oyc.note, nyc.note, tp);
+                }
+
+                //drawChYM2203(chipID, c, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            for (int c = 0; c < 3; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.ym2203[chipID].channels[c + 6];
+                MDChipParams.Channel nyc = newParam.ym2203[chipID].channels[c + 6];
+
+                drawVolume(ym2203Screen[chipID], c + 3, 0, ref oyc.volume, nyc.volume, tp);
+                drawKb(ym2203Screen[chipID], c + 3, ref oyc.note, nyc.note, tp);
+
+                //drawChYM2203(chipID, c + 6, ref oyc.mask, nyc.mask, 0);
+            }
+
+        }
+
+        private void drawParamsToYM2608(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            int tp = setting.YM2608Type.UseScci ? 1 : 0;
+
+            for (int c = 0; c < 9; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.ym2608.channels[c];
+                MDChipParams.Channel nyc = newParam.ym2608.channels[c];
+
+                if (c < 6)
+                {
+                    drawVolumeYM2608(chipID, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawVolumeYM2608(chipID, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    drawPanYM2608(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    drawKbYM2608(chipID, c, ref oyc.note, nyc.note, tp);
+                    drawInst(ym2608Screen[chipID], 1, 17, c, oyc.inst, nyc.inst);
+                }
+                else
+                {
+                    drawVolumeYM2608(chipID, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawKbYM2608(chipID, c + 3, ref oyc.note, nyc.note, tp);
+                }
+
+                drawChYM2608(chipID, c, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            for (int c = 0; c < 3; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 9];
+                MDChipParams.Channel nyc = newParam.ym2608.channels[c + 9];
+
+                drawVolumeYM2608(chipID, c + 6, 0, ref oyc.volume, nyc.volume, tp);
+                drawKbYM2608(chipID, c + 6, ref oyc.note, nyc.note, tp);
+
+                drawChYM2608(chipID, c + 6, ref oyc.mask, nyc.mask, 0);
+            }
+
+            drawVolumeYM2608(chipID, 12, 1, ref oldParam.ym2608.channels[12].volumeL, newParam.ym2608.channels[12].volumeL, tp);
+            drawVolumeYM2608(chipID, 12, 2, ref oldParam.ym2608.channels[12].volumeR, newParam.ym2608.channels[12].volumeR, tp);
+            drawPanYM2608(chipID, 12, ref oldParam.ym2608.channels[12].pan, newParam.ym2608.channels[12].pan, ref oldParam.ym2608.channels[12].pantp, tp);
+            drawKbYM2608(chipID, 12, ref oldParam.ym2608.channels[12].note, newParam.ym2608.channels[12].note, tp);
+
+            for (int c = 0; c < 6; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 13];
+                MDChipParams.Channel nyc = newParam.ym2608.channels[c + 13];
+
+                drawVolumeYM2608Rhythm(chipID, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                drawVolumeYM2608Rhythm(chipID, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                drawPanYM2608Rhythm(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+
+            }
+        }
+
+        private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 8; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.ym2151.channels[c];
+                MDChipParams.Channel nyc = newParam.ym2151.channels[c];
+
+                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+
+                drawInst(ym2151Screen[chipID], 1, 11, c, oyc.inst, nyc.inst);
+
+                drawPanYM2151(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                drawKb(ym2151Screen[chipID], c, ref oyc.note, nyc.note, tp);
+
+                drawVolume(ym2151Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                drawVolume(ym2151Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+
+                drawChYM2151(chipID, c, ref oyc.mask, nyc.mask, tp);
+            }
+        }
+
+        private void drawParamsToC140(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 24; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.c140.channels[c];
+                MDChipParams.Channel nrc = newParam.c140.channels[c];
+
+                drawVolumeToC140(chipID, c, 1, ref orc.volumeL, nrc.volumeL);
+                drawVolumeToC140(chipID, c, 2, ref orc.volumeR, nrc.volumeR);
+                drawKbToC140(chipID, c, ref orc.note, nrc.note);
+                drawPanToC140(chipID, c, ref orc.pan, nrc.pan);
+
+            }
+        }
+
+        private void drawParamsToRF5C164(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 8; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.rf5c164.channels[c];
+                MDChipParams.Channel nrc = newParam.rf5c164.channels[c];
+
+                drawVolume(rf5c164Screen[chipID], c, 1, ref orc.volumeL, nrc.volumeL, 0);
+                drawVolume(rf5c164Screen[chipID], c, 2, ref orc.volumeR, nrc.volumeR, 0);
+                drawKb(rf5c164Screen[chipID], c, ref orc.note, nrc.note, 0);
+                drawPanType2(rf5c164Screen[chipID], c, ref orc.pan, nrc.pan);
+                drawChRF5C164(chipID, c, ref orc.mask, nrc.mask, 0);
+
+            }
+        }
+
+        private void drawParamsToSN76489(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 4; c++)
+            {
+
+                int tp = setting.SN76489Type.UseScci ? 1 : 0;
+
+                MDChipParams.Channel osc = oldParam.sn76489.channels[c];
+                MDChipParams.Channel nsc = newParam.sn76489.channels[c];
+
+                drawVolume(SN76489Screen[chipID], c, 0, ref osc.volume, nsc.volume, tp);
+                drawKb(SN76489Screen[chipID], c, ref osc.note, nsc.note, tp);
+            }
+        }
+
+        private void drawParamsToYM2612(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
             for (int c = 0; c < 9; c++)
             {
 
@@ -1312,11 +1673,11 @@ namespace MDPlayer
 
                 if (c < 5)
                 {
-                    drawVolume(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    drawPan(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    drawKb(c, ref oyc.note, nyc.note, tp);
-                    drawInst(mainScreen, 1, 16, c, oyc.inst, nyc.inst);
+                    drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawVolume(ym2612Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    drawPan(ym2612Screen[chipID], c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp);
+                    drawInst(ym2612Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
                 }
                 else if (c == 5)
                 {
@@ -1325,145 +1686,21 @@ namespace MDPlayer
                     if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation)
                     {
                         tp6v = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
-                        //tp6 = 0;
+                                                                                //tp6 = 0;
                     }
-                    drawVolume(c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
-                    drawVolume(c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
-                    drawPan(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6);
-                    drawKb(c, ref oyc.note, nyc.note, tp6);
-                    drawInst(mainScreen, 1, 16, c, oyc.inst, nyc.inst);
+                    drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                    drawVolume(ym2612Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                    drawPan(ym2612Screen[chipID], c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6);
+                    drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp6);
+                    drawInst(ym2612Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
                 }
                 else
                 {
-                    drawVolume(c + 4, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    drawKb(c + 4, ref oyc.note, nyc.note, tp);
+                    drawVolume(ym2612Screen[chipID], c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp);
                 }
 
             }
-
-            for (int c = 0; c < 4; c++)
-            {
-
-                int tp = setting.SN76489Type.UseScci ? 1 : 0;
-
-                MDChipParams.Channel osc = oldParam.sn76489.channels[c];
-                MDChipParams.Channel nsc = newParam.sn76489.channels[c];
-
-                drawVolume(c + 6, 0, ref osc.volume, nsc.volume, tp);
-                drawKb(c + 6, ref osc.note, nsc.note, tp);
-
-            }
-
-            if (rf5c164Screen != null)
-            {
-                for (int c = 0; c < 8; c++)
-                {
-
-                    MDChipParams.Channel orc = oldParam.rf5c164.channels[c];
-                    MDChipParams.Channel nrc = newParam.rf5c164.channels[c];
-
-                    drawVolumeToRf5c164(c, 1, ref orc.volumeL, nrc.volumeL);
-                    drawVolumeToRf5c164(c, 2, ref orc.volumeR, nrc.volumeR);
-                    drawKbToRf5c164(c, ref orc.note, nrc.note);
-                    drawPanToRf5c164(c, ref orc.pan, nrc.pan);
-                    drawChRF5C164(c, ref orc.mask, nrc.mask, 0);
-
-                }
-            }
-
-            if (c140Screen != null)
-            {
-                for (int c = 0; c < 24; c++)
-                {
-
-                    MDChipParams.Channel orc = oldParam.c140.channels[c];
-                    MDChipParams.Channel nrc = newParam.c140.channels[c];
-
-                    drawVolumeToC140(c, 1, ref orc.volumeL, nrc.volumeL);
-                    drawVolumeToC140(c, 2, ref orc.volumeR, nrc.volumeR);
-                    drawKbToC140(c, ref orc.note, nrc.note);
-                    drawPanToC140(c, ref orc.pan, nrc.pan);
-
-                }
-            }
-
-            if (ym2151Screen != null)
-            {
-                for (int c = 0; c < 8; c++)
-                {
-                    MDChipParams.Channel oyc = oldParam.ym2151.channels[c];
-                    MDChipParams.Channel nyc = newParam.ym2151.channels[c];
-
-                    int tp = setting.YM2151Type.UseScci ? 1 : 0;
-
-                    drawInst(ym2151Screen, 1, 11, c, oyc.inst, nyc.inst);
-
-                    drawPanYM2151(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    drawKbYM2151(c, ref oyc.note, nyc.note, tp);
-
-                    drawVolumeYM2151(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    drawVolumeYM2151(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-
-                    drawChYM2151(c, ref oyc.mask, nyc.mask, tp);
-                }
-            }
-
-            if (ym2608Screen != null)
-            {
-                int tp = setting.YM2608Type.UseScci ? 1 : 0;
-
-                for (int c = 0; c < 9; c++)
-                {
-
-                    MDChipParams.Channel oyc = oldParam.ym2608.channels[c];
-                    MDChipParams.Channel nyc = newParam.ym2608.channels[c];
-
-                    if (c < 6)
-                    {
-                        drawVolumeYM2608(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                        drawVolumeYM2608(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                        drawPanYM2608(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                        drawKbYM2608(c, ref oyc.note, nyc.note, tp);
-                        drawInst(ym2608Screen, 1, 17, c, oyc.inst, nyc.inst);
-                    }
-                    else
-                    {
-                        drawVolumeYM2608(c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                        drawKbYM2608(c + 3, ref oyc.note, nyc.note, tp);
-                    }
-
-                    drawChYM2608(c, ref oyc.mask, nyc.mask, tp);
-
-                }
-
-                for (int c = 0; c < 3; c++)
-                {
-                    MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 9];
-                    MDChipParams.Channel nyc = newParam.ym2608.channels[c + 9];
-
-                    drawVolumeYM2608(c + 6, 0, ref oyc.volume, nyc.volume, tp);
-                    drawKbYM2608(c + 6, ref oyc.note, nyc.note, tp);
-
-                    drawChYM2608(c+6, ref oyc.mask, nyc.mask, 0);
-                }
-
-                drawVolumeYM2608(12, 1, ref oldParam.ym2608.channels[12].volumeL, newParam.ym2608.channels[12].volumeL, tp);
-                drawVolumeYM2608(12, 2, ref oldParam.ym2608.channels[12].volumeR, newParam.ym2608.channels[12].volumeR, tp);
-                drawPanYM2608(12, ref oldParam.ym2608.channels[12].pan, newParam.ym2608.channels[12].pan, ref oldParam.ym2608.channels[12].pantp, tp);
-                drawKbYM2608(12, ref oldParam.ym2608.channels[12].note, newParam.ym2608.channels[12].note, tp);
-
-                for (int c = 0; c < 6; c++)
-                {
-                    MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 13];
-                    MDChipParams.Channel nyc = newParam.ym2608.channels[c + 13];
-
-                    drawVolumeYM2608Rhythm(c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    drawVolumeYM2608Rhythm(c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    drawPanYM2608Rhythm(c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-
-                }
-            }
-
         }
 
         public void drawButtons(int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
@@ -1480,53 +1717,70 @@ namespace MDPlayer
         public void screenInitAll()
         {
 
-            screenInitYM2612();
 
-            screenInitRF5C164();
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                screenInitRF5C164(chipID);
 
-            screenInitC140();
+                screenInitC140(chipID);
 
-            screenInitYM2151();
+                screenInitYM2151(chipID);
 
-            screenInitYM2608();
+                screenInitYM2203(chipID);
+
+                screenInitYM2608(chipID);
+
+                screenInitYM2610(chipID);
+
+                screenInitYM2612(chipID);
+
+                screenInitOKIM6258(chipID);
+
+                screenInitOKIM6295(chipID);
+
+                screenInitSN76489(chipID);
+
+                screenInitSegaPCM(chipID);
+
+            }
 
         }
 
-        public void screenInitYM2608()
+        public void screenInitYM2608(int chipID)
         {
             //YM2608
             for (int y = 0; y < 6 + 3 + 3 + 1; y++)
             {
                 int tp = setting.YM2608Type.UseScci ? 1 : 0;
 
-                drawFont8(ym2608Screen, 296, y * 8 + 8, 1, "   ");
+                drawFont8(ym2608Screen[chipID], 296, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
                     int kx = kbl[(i % 12) * 2] + i / 12 * 28;
                     int kt = kbl[(i % 12) * 2 + 1];
-                    drawKbn(ym2608Screen, 32 + kx, y * 8 + 8, kt, tp);
+                    drawKbn(ym2608Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
                 }
 
                 if (y < 13)
                 {
-                    drawChPYM2608(0, y * 8 + 8, y, false, tp);
+                    drawChPYM2608(chipID, 0, y * 8 + 8, y, false, tp);
                 }
 
                 if (y < 6 || y == 12)
                 {
-                    drawPanP(ym2608Screen, 24, y * 8 + 8, 3, tp);
+                    drawPanP(ym2608Screen[chipID], 24, y * 8 + 8, 3, tp);
                 }
 
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    drawVolumeYM2608(y, 0, ref d, 0, tp);
+                    drawVolumeYM2608(chipID, y, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    drawVolumeYM2608(y, 1, ref d, 0, tp);
+                    drawVolumeYM2608(chipID, y, 1, ref d, 0, tp);
                     d = 99;
-                    drawVolumeYM2608(y, 2, ref d, 0, tp);
+                    drawVolumeYM2608(chipID, y, 2, ref d, 0, tp);
                 }
             }
 
@@ -1534,38 +1788,40 @@ namespace MDPlayer
             {
                 int tp = setting.YM2608Type.UseScci ? 1 : 0;
                 int d = 99;
-                drawPanYM2608Rhythm(y, ref d, 3, ref d, tp);
+                drawPanYM2608Rhythm(chipID, y, ref d, 3, ref d, tp);
                 d = 99;
-                drawVolumeYM2608Rhythm(y, 1, ref d, 0, tp);
+                drawVolumeYM2608Rhythm(chipID, y, 1, ref d, 0, tp);
                 d = 99;
-                drawVolumeYM2608Rhythm(y, 2, ref d, 0, tp);
+                drawVolumeYM2608Rhythm(chipID, y, 2, ref d, 0, tp);
             }
         }
 
-        public void screenInitYM2151()
+        public void screenInitYM2151(int chipID)
         {
             //YM2151
             for (int ch = 0; ch < 8; ch++)
             {
                 int tp = setting.YM2151Type.UseScci ? 1 : 0;
 
-                drawFont8(ym2151Screen, 296, ch * 8 + 8, 1, "   ");
+                drawFont8(ym2151Screen[chipID], 296, ch * 8 + 8, 1, "   ");
 
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
                     int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                     int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(ym2151Screen, 32 + kx, ch * 8 + 8, kt, tp);
+                    drawKbn(ym2151Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
                 }
 
-                drawChPYM2151(0, ch * 8 + 8, ch, false, tp);
-                drawPanP(ym2151Screen, 24, ch * 8 + 8, 3, tp);
+                drawChPYM2151(chipID,0, ch * 8 + 8, ch, false, tp);
+                drawPanP(ym2151Screen[chipID], 24, ch * 8 + 8, 3, tp);
                 int d = 99;
-                drawVolumeYM2151(ch, 0, ref d, 0, tp);
+                drawVolume(ym2151Screen[chipID], ch, 1, ref d, 0, tp);
+                d = 99;
+                drawVolume(ym2151Screen[chipID], ch, 2, ref d, 0, tp);
             }
         }
 
-        public void screenInitC140()
+        public void screenInitC140(int chipID)
         {
             //C140
             for (int ch = 0; ch < 24; ch++)
@@ -1574,14 +1830,14 @@ namespace MDPlayer
                 {
                     int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                     int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(c140Screen, 32 + kx, ch * 8 + 8, kt, 0);
+                    drawKbn(c140Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
                 }
-                drawFont8(c140Screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(c140Screen, 24, ch * 8 + 8, 0);
+                drawFont8(c140Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(c140Screen[chipID], 24, ch * 8 + 8, 0);
             }
         }
 
-        public void screenInitRF5C164()
+        public void screenInitRF5C164(int chipID)
         {
             //RF5C164
             for (int ch = 0; ch < 8; ch++)
@@ -1590,84 +1846,130 @@ namespace MDPlayer
                 {
                     int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
                     int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(rf5c164Screen, 32 + kx, ch * 8 + 8, kt, 0);
+                    drawKbn(rf5c164Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
                 }
-                drawFont8(rf5c164Screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(rf5c164Screen, 24, ch * 8 + 8, 0);
+                drawFont8(rf5c164Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(rf5c164Screen[chipID], 24, ch * 8 + 8, 0);
             }
         }
 
-        public void screenInitYM2612()
+        public void screenInitYM2612(int chipID)
         {
-            for (int x = 0; x < 3; x++)
+            //for (int x = 0; x < 3; x++)
+            //{
+            //    drawFont4Int2(mainScreen, 4 * 30 + x * 4 * 11, 0, 0, 3, 0);
+            //    drawFont4Int2(mainScreen, 4 * 34 + x * 4 * 11, 0, 0, 2, 0);
+            //    drawFont4Int2(mainScreen, 4 * 37 + x * 4 * 11, 0, 0, 2, 0);
+            //}
+
+            //for (int y = 0; y < 13; y++)
+            //{
+
+            //    //note
+            //    drawFont8(mainScreen, 296, y * 8 + 8, 1, "   ");
+
+            //    //keyboard
+            //    for (int i = 0; i < 96; i++)
+            //    {
+            //        int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+            //        int kt = kbl[(i % 12) * 2 + 1];
+            //        if (y < 5 || y > 9)
+            //        {
+            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.YM2612Type.UseScci ? 1 : 0);
+            //        }
+            //        else if (y == 5)
+            //        {
+            //            int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
+            //            //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, tp6);
+            //        }
+            //        else
+            //        {
+            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.SN76489Type.UseScci ? 1 : 0);
+            //        }
+            //    }
+
+            //    int d = 99;
+            //    if (y < 6 || y > 9)
+            //    {
+            //        drawVolume(y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
+            //        if (y < 6)
+            //        {
+            //            d = 99;
+            //            drawPan(y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        drawVolume(y, 0, ref d, 0, setting.SN76489Type.UseScci ? 1 : 0);
+            //    }
+
+            //    if (y < 5)
+            //    {
+            //        drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
+            //    }
+            //    else if (y == 5)
+            //    {
+            //        int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
+            //        //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+            //        drawCh6P(0, y * 8 + 8, 0, false, tp6);
+            //    }
+            //    else if (y < 10)
+            //    {
+            //        drawChP(0, y * 8 + 8, y, false, setting.SN76489Type.UseScci ? 1 : 0);
+            //    }
+            //    else
+            //    {
+            //        drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
+            //    }
+
+            //}
+        }
+
+        public void screenInitYM2610(int chipID)
+        {
+        }
+
+        public void screenInitYM2203(int chipID)
+        {
+            //YM2203
+            for (int y = 0; y < 3 + 3 + 3; y++)
             {
-                drawFont4Int2(mainScreen, 4 * 30 + x * 4 * 11, 0, 0, 3, 0);
-                drawFont4Int2(mainScreen, 4 * 34 + x * 4 * 11, 0, 0, 2, 0);
-                drawFont4Int2(mainScreen, 4 * 37 + x * 4 * 11, 0, 0, 2, 0);
-            }
+                int tp = setting.YM2203Type.UseScci ? 1 : 0;
 
-            for (int y = 0; y < 13; y++)
-            {
-
-                //note
-                drawFont8(mainScreen, 296, y * 8 + 8, 1, "   ");
-
-                //keyboard
+                drawFont8(ym2203Screen[chipID], 296, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
                     int kx = kbl[(i % 12) * 2] + i / 12 * 28;
                     int kt = kbl[(i % 12) * 2 + 1];
-                    if (y < 5 || y > 9)
-                    {
-                        drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.YM2612Type.UseScci ? 1 : 0);
-                    }
-                    else if (y == 5)
-                    {
-                        int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-                        //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
-                        drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, tp6);
-                    }
-                    else
-                    {
-                        drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.SN76489Type.UseScci ? 1 : 0);
-                    }
+                    drawKbn(ym2203Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
                 }
+
+                //if (y < 13)
+                //{
+                //drawChPYM2608(chipID, 0, y * 8 + 8, y, false, tp);
+                //}
 
                 int d = 99;
-                if (y < 6 || y > 9)
-                {
-                    drawVolume(y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
-                    if (y < 6)
-                    {
-                        d = 99;
-                        drawPan(y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
-                    }
-                }
-                else
-                {
-                    drawVolume(y, 0, ref d, 0, setting.SN76489Type.UseScci ? 1 : 0);
-                }
-
-                if (y < 5)
-                {
-                    drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
-                }
-                else if (y == 5)
-                {
-                    int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-                    //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
-                    drawCh6P(0, y * 8 + 8, 0, false, tp6);
-                }
-                else if (y < 10)
-                {
-                    drawChP(0, y * 8 + 8, y, false, setting.SN76489Type.UseScci ? 1 : 0);
-                }
-                else
-                {
-                    drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
-                }
-
+                drawVolume(ym2203Screen[chipID], y, 0, ref d, 0, tp);
             }
+
+        }
+
+        public void screenInitOKIM6258(int chipID)
+        {
+        }
+
+        public void screenInitOKIM6295(int chipID)
+        {
+        }
+
+        public void screenInitSN76489(int chipID)
+        {
+        }
+
+        public void screenInitSegaPCM(int chipID)
+        {
         }
 
     }
