@@ -52,6 +52,7 @@ namespace MDPlayer
         private static NSoundChip scYM2151 = null;
         private static NSoundChip scYM2608 = null;
         private static NSoundChip scYM2203 = null;
+        private static NSoundChip scYM2610 = null;
 
         private static ChipRegister chipRegister = null;
 
@@ -218,8 +219,10 @@ namespace MDPlayer
             if (scYM2151 != null) scYM2151.init();
             scYM2203 = getChip(Audio.setting.YM2203Type);
             if (scYM2203 != null) scYM2203.init();
+            scYM2610 = getChip(Audio.setting.YM2610Type);
+            if (scYM2610 != null) scYM2610.init();
 
-            chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type, setting.YM2203Type);
+            chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type, setting.YM2203Type, setting.YM2610Type);
             chipRegister.initChipRegister();
 
             log.ForcedWrite("Audio:Init:STEP 06");
@@ -924,6 +927,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2608;
         }
 
+        public static int[][] GetYM2610Register()
+        {
+            return chipRegister.fmRegisterYM2610;
+        }
+
         public static int[] GetPSGRegister()
         {
             return chipRegister.psgRegister;
@@ -952,6 +960,11 @@ namespace MDPlayer
         public static int[] GetYM2608KeyOn()
         {
             return chipRegister.fmKeyOnYM2608;
+        }
+
+        public static int[] GetYM2610KeyOn()
+        {
+            return chipRegister.fmKeyOnYM2610;
         }
 
         public static int[] GetYM2203KeyOn()
@@ -984,6 +997,21 @@ namespace MDPlayer
             return chipRegister.GetYM2608AdpcmVolume();
         }
 
+        public static int[][] GetYM2610Volume()
+        {
+            return chipRegister.GetYM2610Volume();
+        }
+
+        public static int[][] GetYM2610RhythmVolume()
+        {
+            return chipRegister.GetYM2610RhythmVolume();
+        }
+
+        public static int[] GetYM2610AdpcmVolume()
+        {
+            return chipRegister.GetYM2610AdpcmVolume();
+        }
+
         public static int[] GetYM2203Volume()
         {
             return chipRegister.GetYM2203Volume();
@@ -1002,6 +1030,11 @@ namespace MDPlayer
         public static int[] GetYM2608Ch3SlotVolume()
         {
             return chipRegister.GetYM2608Ch3SlotVolume();
+        }
+
+        public static int[] GetYM2610Ch3SlotVolume()
+        {
+            return chipRegister.GetYM2610Ch3SlotVolume();
         }
 
         public static int[] GetYM2203Ch3SlotVolume()

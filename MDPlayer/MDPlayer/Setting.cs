@@ -95,6 +95,20 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM2610Type = new ChipType();
+        public ChipType YM2610Type
+        {
+            get
+            {
+                return _YM2610Type;
+            }
+
+            set
+            {
+                _YM2610Type = value;
+            }
+        }
+
         private int _LatencyEmulation = 0;
         public int LatencyEmulation
         {

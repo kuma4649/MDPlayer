@@ -128,5 +128,17 @@ namespace MDPlayer
         }
         public YM2608 ym2608 = new YM2608();
 
+        public class YM2610
+        {
+
+            public Channel[] channels = new Channel[19] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 0
+                ,new Channel(), new Channel(), new Channel() //SSG 9
+                ,new Channel() //ADPCM 12
+                ,new Channel(), new Channel(), new Channel(),new Channel(), new Channel(), new Channel() //RHYTHM 13
+            };
+
+        }
+        public YM2610 ym2610 = new YM2610();
     }
 }

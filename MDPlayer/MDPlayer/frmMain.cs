@@ -1717,6 +1717,13 @@ namespace MDPlayer
             int[][] ym2608Rhythm = Audio.GetYM2608RhythmVolume();
             int[] ym2608AdpcmVol = Audio.GetYM2608AdpcmVolume();
 
+            int[][] YM2610Register = Audio.GetYM2610Register();
+            int[] fmKeyYM2610 = Audio.GetYM2610KeyOn();
+            int[][] YM2610Vol = Audio.GetYM2610Volume();
+            int[] YM2610Ch3SlotVol = Audio.GetYM2610Ch3SlotVolume();
+            int[][] YM2610Rhythm = Audio.GetYM2610RhythmVolume();
+            int[] YM2610AdpcmVol = Audio.GetYM2610AdpcmVolume();
+
             int[] ym2203Register = Audio.GetYM2203Register();
             int[] fmKeyYM2203 = Audio.GetYM2203KeyOn();
             int[] ym2203Vol = Audio.GetYM2203Volume();
@@ -2017,6 +2024,128 @@ namespace MDPlayer
                 newParam.ym2608.channels[ch].pan = (ym2608Register[0][0x18 + ch - 13] & 0xc0) >> 6;
                 newParam.ym2608.channels[ch].volumeL = Math.Min(Math.Max(ym2608Rhythm[ch - 13][0] / 80, 0), 19);
                 newParam.ym2608.channels[ch].volumeR = Math.Min(Math.Max(ym2608Rhythm[ch - 13][1] / 80, 0), 19);
+            }
+
+
+
+            isFmEx = (YM2610Register[0][0x27] & 0x40) > 0;
+            for (int ch = 0; ch < 6; ch++)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.ym2610.channels[ch].inst[i * 11 + 0] = YM2610Register[p][0x50 + ops + c] & 0x1f; //AR
+                    newParam.ym2610.channels[ch].inst[i * 11 + 1] = YM2610Register[p][0x60 + ops + c] & 0x1f; //DR
+                    newParam.ym2610.channels[ch].inst[i * 11 + 2] = YM2610Register[p][0x70 + ops + c] & 0x1f; //SR
+                    newParam.ym2610.channels[ch].inst[i * 11 + 3] = YM2610Register[p][0x80 + ops + c] & 0x0f; //RR
+                    newParam.ym2610.channels[ch].inst[i * 11 + 4] = (YM2610Register[p][0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.ym2610.channels[ch].inst[i * 11 + 5] = YM2610Register[p][0x40 + ops + c] & 0x7f;//TL
+                    newParam.ym2610.channels[ch].inst[i * 11 + 6] = (YM2610Register[p][0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.ym2610.channels[ch].inst[i * 11 + 7] = YM2610Register[p][0x30 + ops + c] & 0x0f;//ML
+                    newParam.ym2610.channels[ch].inst[i * 11 + 8] = (YM2610Register[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.ym2610.channels[ch].inst[i * 11 + 9] = (YM2610Register[p][0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.ym2610.channels[ch].inst[i * 11 + 10] = YM2610Register[p][0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.ym2610.channels[ch].inst[44] = YM2610Register[p][0xb0 + c] & 0x07;//AL
+                newParam.ym2610.channels[ch].inst[45] = (YM2610Register[p][0xb0 + c] & 0x38) >> 3;//FB
+                newParam.ym2610.channels[ch].inst[46] = (YM2610Register[p][0xb4 + c] & 0x38) >> 3;//AMS
+                newParam.ym2610.channels[ch].inst[47] = YM2610Register[p][0xb4 + c] & 0x03;//FMS
+
+                newParam.ym2610.channels[ch].pan = (YM2610Register[p][0xb4 + c] & 0xc0) >> 6;
+
+                int freq = 0;
+                int octav = 0;
+                int n = -1;
+                if (ch != 2 || !isFmEx)
+                {
+                    freq = YM2610Register[p][0xa0 + c] + (YM2610Register[p][0xa4 + c] & 0x07) * 0x100;
+                    octav = (YM2610Register[p][0xa4 + c] & 0x38) >> 3;
+
+                    if (fmKeyYM2610[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
+                    newParam.ym2610.channels[ch].volumeL = Math.Min(Math.Max(YM2610Vol[ch][0] / 80, 0), 19);
+                    newParam.ym2610.channels[ch].volumeR = Math.Min(Math.Max(YM2610Vol[ch][1] / 80, 0), 19);
+                }
+                else
+                {
+                    freq = YM2610Register[0][0xa9] + (YM2610Register[0][0xad] & 0x07) * 0x100;
+                    octav = (YM2610Register[0][0xad] & 0x38) >> 3;
+
+                    if ((fmKeyYM2610[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
+                    newParam.ym2610.channels[2].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
+                    newParam.ym2610.channels[2].volumeR = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
+                }
+                newParam.ym2610.channels[ch].note = n;
+
+
+            }
+
+            for (int ch = 6; ch < 9; ch++) //FM EX
+            {
+                int[] exReg = new int[3] { 2, 0, -6 };
+                int c = exReg[ch - 6];
+
+                newParam.ym2610.channels[ch].pan = 0;
+
+                if (isFmEx)
+                {
+                    int freq = YM2610Register[0][0xa8 + c] + (YM2610Register[0][0xac + c] & 0x07) * 0x100;
+                    int octav = (YM2610Register[0][0xac + c] & 0x38) >> 3;
+                    int n = -1;
+                    if ((fmKeyYM2610[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    newParam.ym2610.channels[ch].note = n;
+                    newParam.ym2610.channels[ch].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[ch - 5] / 80, 0), 19);
+                }
+                else
+                {
+                    newParam.ym2610.channels[ch].note = -1;
+                    newParam.ym2610.channels[ch].volumeL = 0;
+                }
+            }
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.ym2610.channels[ch + 9];
+
+                bool t = (YM2610Register[0][0x07] & (0x1 << ch)) == 0;
+                bool n = (YM2610Register[0][0x07] & (0x8 << ch)) == 0;
+
+                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
+                if (!t && !n && channel.volume > 0)
+                {
+                    channel.volume--;
+                }
+
+                if (channel.volume == 0)
+                {
+                    channel.note = -1;
+                }
+                else
+                {
+                    int ft = YM2610Register[0][0x00 + ch * 2];
+                    int ct = YM2610Register[0][0x01 + ch * 2];
+                    int tp = (ct << 8) | ft;
+                    if (tp == 0) tp = 1;
+                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    channel.note = searchSSGNote(ftone);
+                }
+
+            }
+
+            //ADPCM B
+            newParam.ym2610.channels[12].pan = (YM2610Register[0][0x11] & 0xc0) >> 6;
+            newParam.ym2610.channels[12].volumeL = Math.Min(Math.Max(YM2610AdpcmVol[0] / 80, 0), 19);
+            newParam.ym2610.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
+            delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
+            frq = (float)(delta / 9447.0f);
+            newParam.ym2610.channels[12].note = searchYM2608Adpcm(frq) + 1;
+
+            for (int ch = 13; ch < 19; ch++) //ADPCM A
+            {
+                newParam.ym2610.channels[ch].pan = (YM2610Register[1][0x08 + ch - 13] & 0xc0) >> 6;
+                newParam.ym2610.channels[ch].volumeL = Math.Min(Math.Max(YM2610Rhythm[ch - 13][0] / 80, 0), 19);
+                newParam.ym2610.channels[ch].volumeR = Math.Min(Math.Max(YM2610Rhythm[ch - 13][1] / 80, 0), 19);
             }
 
 

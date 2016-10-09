@@ -21,6 +21,8 @@ namespace MDPlayer
         private Setting.ChipType ctYM2151 = null;
         private NScci.NSoundChip scYM2203 = null;
         private Setting.ChipType ctYM2203 = null;
+        private NScci.NSoundChip scYM2610 = null;
+        private Setting.ChipType ctYM2610 = null;
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -69,6 +71,16 @@ namespace MDPlayer
         private int nowYM2608FadeoutVol = 0;
         private bool[] maskFMChYM2608 = new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
+        public int[][] fmRegisterYM2610 = null;
+        public int[] fmKeyOnYM2610 = null;
+        public int[][] fmVolYM2610 = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
+        public int[] fmCh3SlotVolYM2610 = new int[4];
+        public int[][] fmVolYM2610Rhythm = new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
+        public int[] fmVolYM2610Adpcm = new int[2];
+        public int fmVolYM2610AdpcmPan = 0;
+        private int nowYM2610FadeoutVol = 0;
+        private bool[] maskFMChYM2610 = new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+
         public int[] fmRegisterYM2151 = null;
         public int[] fmKeyOnYM2151 = null;
         public int[][] fmVolYM2151 = new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2]};
@@ -96,11 +108,13 @@ namespace MDPlayer
             , NScci.NSoundChip scYM2608
             , NScci.NSoundChip scYM2151
             , NScci.NSoundChip scYM2203
+            , NScci.NSoundChip scYM2610
             , Setting.ChipType ctYM2612
             , Setting.ChipType ctSN76489
             , Setting.ChipType ctYM2608
             , Setting.ChipType ctYM2151
             , Setting.ChipType ctYM2203
+            , Setting.ChipType ctYM2610
             )
         {
 
@@ -110,12 +124,14 @@ namespace MDPlayer
             this.scYM2151 = scYM2151;
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
+            this.scYM2610 = scYM2610;
 
             this.ctYM2612 = ctYM2612;
             this.ctYM2608 = ctYM2608;
             this.ctYM2151 = ctYM2151;
             this.ctSN76489 = ctSN76489;
             this.ctYM2203 = ctYM2203;
+            this.ctYM2610 = ctYM2610;
 
             initChipRegister();
         }
@@ -148,6 +164,19 @@ namespace MDPlayer
             fmRegisterYM2608[1][0xb5] = 0xc0;
             fmRegisterYM2608[1][0xb6] = 0xc0;
             fmKeyOnYM2608 = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+            fmRegisterYM2610 = new int[2][] { new int[0x100], new int[0x100] };
+            for (int i = 0; i < 0x100; i++)
+            {
+                fmRegisterYM2610[0][i] = 0; fmRegisterYM2610[1][i] = 0;
+            }
+            fmRegisterYM2610[0][0xb4] = 0xc0;
+            fmRegisterYM2610[0][0xb5] = 0xc0;
+            fmRegisterYM2610[0][0xb6] = 0xc0;
+            fmRegisterYM2610[1][0xb4] = 0xc0;
+            fmRegisterYM2610[1][0xb5] = 0xc0;
+            fmRegisterYM2610[1][0xb6] = 0xc0;
+            fmKeyOnYM2610 = new int[6] { 0, 0, 0, 0, 0, 0 };
 
             fmRegisterYM2151 = new int[0x100];
             for (int i = 0; i < 0x100; i++)
@@ -547,16 +576,131 @@ namespace MDPlayer
 
         public void setYM2610Register(int chipID,int dPort,int dAddr, int dData, vgm.enmModel model)
         {
+            if (ctYM2610 == null) return;
 
             if (chipID == 0) ChipPriOPNB = 2;
             else ChipSecOPNB = 2;
 
+            fmRegisterYM2610[dPort][dAddr] = dData;
+
+            if ((model == vgm.enmModel.RealModel && ctYM2610.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610.UseScci))
+            {
+                //fmRegisterYM2610[dPort][dAddr] = dData;
+                if (dPort == 0 && dAddr == 0x28)
+                {
+                    int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
+                    if (ch >= 0 && ch < 6)// && (dData & 0xf0) > 0)
+                    {
+                        if (ch != 2 || (fmRegisterYM2610[0][0x27] & 0xc0) != 0x40)
+                        {
+                            fmKeyOnYM2610[ch] = dData & 0xf0;
+                            int p = (ch > 2) ? 1 : 0;
+                            int c = (ch > 2) ? (ch - 3) : ch;
+                            fmVolYM2610[ch][0] = (int)(256 * 6 * ((fmRegisterYM2610[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2610[ch][1] = (int)(256 * 6 * ((fmRegisterYM2610[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[p][0x4c + c] & 0x7f)) / 127.0));
+                        }
+                        else
+                        {
+                            fmKeyOnYM2610[2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[0] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[3] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x4c + 2] & 0x7f)) / 127.0));
+                        }
+                    }
+                }
+
+                // ADPCM B KEYON
+                if (dPort == 0 && dAddr == 0x10)
+                {
+                    if ((dData & 0x80) != 0)
+                    {
+                        int p = (fmRegisterYM2610[0][0x11] & 0xc0) >> 6;
+                        p = p == 0 ? 3 : p;
+                        if(fmVolYM2610AdpcmPan!= p)
+                        fmVolYM2610AdpcmPan = p;
+                        
+                        //if (fmVolYM2610AdpcmPan > 0)
+                        //{
+                            fmVolYM2610Adpcm[0] = (int)((256 * 6.0 * fmRegisterYM2610[0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan & 0x02) > 0 ? 1 : 0));
+                            fmVolYM2610Adpcm[1] = (int)((256 * 6.0 * fmRegisterYM2610[0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan & 0x01) > 0 ? 1 : 0));
+                            //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2610[1][0x09]);
+                            //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2610[1][0x0A]);
+                        //}
+                    }
+                }
+
+                // ADPCM A KEYON
+                if (dPort == 1 && dAddr == 0x00)
+                {
+                    if((dData & 0x80)==0){
+                        int tl = fmRegisterYM2610[1][0x01] & 0x3f;
+                        for (int i = 0; i < 6; i++)
+                        {
+                            if ((dData & (0x1 << i)) > 0)
+                            {
+                                int il = fmRegisterYM2610[1][0x08 + i] & 0x1f;
+                                int pan = (fmRegisterYM2610[1][0x08 + i] & 0xc0) >> 6;
+                                fmVolYM2610Rhythm[i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
+                                fmVolYM2610Rhythm[i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+            if ((dAddr & 0xf0) == 0x40)//TL
+            {
+                int ch = (dAddr & 0x3);
+                int al = fmRegisterYM2610[dPort][0xb0 + ch] & 0x07;//AL
+                int slot = (dAddr & 0xc) >> 2;
+                dData &= 0x7f;
+
+                if ((algM[al] & (1 << slot)) > 0)
+                {
+                    if (ch != 3)
+                    {
+                        dData = Math.Min(dData + nowYM2610FadeoutVol, 127);
+                        dData = maskFMChYM2610[dPort * 3 + ch] ? 127 : dData;
+                    }
+                }
+            }
+
+            //ssg level
+            if (dPort == 0 && (dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
+            {
+                int d = nowYM2610FadeoutVol >> 3;
+                dData = Math.Max(dData - d, 0);
+            }
+
+            //rhythm level
+            if (dPort == 0 && dAddr == 0x11)
+            {
+                int d = nowYM2610FadeoutVol >> 1;
+                dData = Math.Max(dData - d, 0);
+            }
+
+            //adpcm level
+            if (dPort == 1 && dAddr == 0x0b)
+            {
+                int d = nowYM2610FadeoutVol * 2;
+                dData = Math.Max(dData - d, 0);
+            }
+
             if (model == vgm.enmModel.VirtualModel)
             {
-                mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                if (!ctYM2610.UseScci)
+                {
+                    mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
             }
             else
             {
+                if (scYM2610 == null) return;
+
+                scYM2610.setRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -576,6 +720,33 @@ namespace MDPlayer
                 mds.WriteYM2610_SetAdpcmB((byte)chipID,  ym2610AdpcmB);
             }
         }
+
+        public void setFadeoutVolYM2610(int chipID, int v)
+        {
+            nowYM2610FadeoutVol = v;
+            for (int p = 0; p < 2; p++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[p][0x4c + c], vgm.enmModel.RealModel);
+                }
+            }
+
+            //ssg
+            setYM2610Register((byte)chipID, 0, 0x08, fmRegisterYM2610[0][0x08], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x09, fmRegisterYM2610[0][0x09], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x0a, fmRegisterYM2610[0][0x0a], vgm.enmModel.RealModel);
+
+            //rhythm
+            setYM2610Register((byte)chipID, 0, 0x11, fmRegisterYM2610[0][0x11], vgm.enmModel.RealModel);
+
+            //adpcm
+            setYM2610Register((byte)chipID, 1, 0x0b, fmRegisterYM2610[1][0x0b], vgm.enmModel.RealModel);
+        }
+
 
 
         public void setYM2608SyncWait(int wait)
@@ -903,6 +1074,29 @@ namespace MDPlayer
                 setYM2608Register((byte)chipID, 1, 0x0b, 0, vgm.enmModel.RealModel);
 
 
+                for (int p = 0; p < 2; p++)
+                {
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2610Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                    }
+                }
+
+                //ssg
+                setYM2610Register((byte)chipID, 0, 0x08, 0, vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x09, 0, vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x0a, 0, vgm.enmModel.RealModel);
+
+                //rhythm
+                setYM2610Register((byte)chipID, 0, 0x11, 0, vgm.enmModel.RealModel);
+
+                //adpcm
+                setYM2610Register((byte)chipID, 1, 0x0b, 0, vgm.enmModel.RealModel);
+
+
                 for (int c = 0; c < 8; c++)
                 {
                     setYM2151Register((byte)chipID, 0, 0x60 + c, 127, vgm.enmModel.RealModel, 0);
@@ -1064,6 +1258,24 @@ namespace MDPlayer
             if (fmVolYM2608Adpcm[0] > 0) { fmVolYM2608Adpcm[0] -= 50; if (fmVolYM2608Adpcm[0] < 0) fmVolYM2608Adpcm[0] = 0; }
             if (fmVolYM2608Adpcm[1] > 0) { fmVolYM2608Adpcm[1] -= 50; if (fmVolYM2608Adpcm[1] < 0) fmVolYM2608Adpcm[1] = 0; }
 
+            for (int i = 0; i < 9; i++)
+            {
+                if (fmVolYM2610[i][0] > 0) { fmVolYM2610[i][0] -= 50; if (fmVolYM2610[i][0] < 0) fmVolYM2610[i][0] = 0; }
+                if (fmVolYM2610[i][1] > 0) { fmVolYM2610[i][1] -= 50; if (fmVolYM2610[i][1] < 0) fmVolYM2610[i][1] = 0; }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if (fmCh3SlotVolYM2610[i] > 0) { fmCh3SlotVolYM2610[i] -= 50; if (fmCh3SlotVolYM2610[i] < 0) fmCh3SlotVolYM2610[i] = 0; }
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                if (fmVolYM2610Rhythm[i][0] > 0) { fmVolYM2610Rhythm[i][0] -= 50; if (fmVolYM2610Rhythm[i][0] < 0) fmVolYM2610Rhythm[i][0] = 0; }
+                if (fmVolYM2610Rhythm[i][1] > 0) { fmVolYM2610Rhythm[i][1] -= 50; if (fmVolYM2610Rhythm[i][1] < 0) fmVolYM2610Rhythm[i][1] = 0; }
+            }
+
+            if (fmVolYM2610Adpcm[0] > 0) { fmVolYM2610Adpcm[0] -= 50; if (fmVolYM2610Adpcm[0] < 0) fmVolYM2610Adpcm[0] = 0; }
+            if (fmVolYM2610Adpcm[1] > 0) { fmVolYM2610Adpcm[1] -= 50; if (fmVolYM2610Adpcm[1] < 0) fmVolYM2610Adpcm[1] = 0; }
+
             for (int i = 0; i < 6; i++)
             {
                 if (fmVolYM2203[i] > 0) { fmVolYM2203[i] -= 50; if (fmVolYM2203[i] < 0) fmVolYM2203[i] = 0; }
@@ -1093,6 +1305,11 @@ namespace MDPlayer
             return fmVolYM2608;
         }
 
+        public int[][] GetYM2610Volume()
+        {
+            return fmVolYM2610;
+        }
+
         public int[] GetYM2203Volume()
         {
             return fmVolYM2203;
@@ -1116,6 +1333,15 @@ namespace MDPlayer
             //return mds.ReadFMCh3SlotVolume();
         }
 
+        public int[] GetYM2610Ch3SlotVolume()
+        {
+            //if (ctYM2612.UseScci)
+            //{
+            return fmCh3SlotVolYM2610;
+            //}
+            //return mds.ReadFMCh3SlotVolume();
+        }
+
         public int[] GetYM2203Ch3SlotVolume()
         {
             //if (ctYM2612.UseScci)
@@ -1133,6 +1359,16 @@ namespace MDPlayer
         public int[] GetYM2608AdpcmVolume()
         {
             return fmVolYM2608Adpcm;
+        }
+
+        public int[][] GetYM2610RhythmVolume()
+        {
+            return fmVolYM2610Rhythm;
+        }
+
+        public int[] GetYM2610AdpcmVolume()
+        {
+            return fmVolYM2610Adpcm;
         }
 
         public int[][] GetPSGVolume()
