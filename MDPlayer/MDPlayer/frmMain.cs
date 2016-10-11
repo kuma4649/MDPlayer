@@ -1872,6 +1872,39 @@ namespace MDPlayer
                 }
             }
 
+            MDSound.segapcm.segapcm_state segapcmState = Audio.GetSegaPCMRegister();
+            if (segapcmState != null)
+            {
+                for (int ch = 0; ch < 16; ch++)
+                {
+                    int l = segapcmState.ram[ch * 8 + 2] & 0x7f;
+                    int r = segapcmState.ram[ch * 8 + 3] & 0x7f;
+                    int dt = segapcmState.ram[ch * 8 + 7];
+                    double ml = dt / 256.0;
+
+                    int ptrRom = segapcmState.ptrRom + ((segapcmState.ram[ch * 8 + 0x86] & segapcmState.bankmask) << segapcmState.bankshift);
+                    uint addr = (uint)((segapcmState.ram[ch * 8 + 0x85] << 16) | (segapcmState.ram[ch * 8 + 0x84] << 8) | segapcmState.low[ch]);
+                    int vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
+                    byte end = (byte)(segapcmState.ram[ch * 8 + 6] + 1);
+                    if ((segapcmState.ram[ch * 8 + 0x86] & 1) != 0) vdt = 0;
+                    if ((addr >> 16) == end)
+                    {
+                        if ((segapcmState.ram[ch * 8 + 0x86] & 2) == 0)
+                         ml = 0;
+                    }
+
+                    newParam.segaPcm.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 8, 0), 19);
+                    newParam.segaPcm.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 8, 0), 19);
+                    if (newParam.segaPcm.channels[ch].volumeL == 0 && newParam.segaPcm.channels[ch].volumeR == 0)
+                    {
+                        ml = 0;
+                    }
+                    newParam.segaPcm.channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (searchSegaPCMNote(ml) + 1);
+                    newParam.segaPcm.channels[ch].pan = (r >> 3) * 0x10 + (l >> 3);
+                }
+            }
+
+
             for (int ch = 0; ch < 8; ch++)
             {
                 for (int i = 0; i < 4; i++)
@@ -2138,8 +2171,8 @@ namespace MDPlayer
             newParam.ym2610.channels[12].volumeL = Math.Min(Math.Max(YM2610AdpcmVol[0] / 80, 0), 19);
             newParam.ym2610.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
             delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
-            frq = (float)(delta / 9447.0f);
-            newParam.ym2610.channels[12].note = searchYM2608Adpcm(frq) + 1;
+            frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
+            newParam.ym2610.channels[12].note = searchYM2608Adpcm(frq);
 
             for (int ch = 13; ch < 19; ch++) //ADPCM A
             {
@@ -2439,6 +2472,22 @@ namespace MDPlayer
             for (int i = 0; i < 12 * 8; i++)
             {
                 double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
+        private int searchSegaPCMNote(double ml)
+        {
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(ml - (Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;

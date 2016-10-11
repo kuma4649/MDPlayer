@@ -947,6 +947,11 @@ namespace MDPlayer
             return mds.ReadC140Register(0);
         }
 
+        public static MDSound.segapcm.segapcm_state GetSegaPCMRegister()
+        {
+            return mds.ReadSegaPCMStatus(0);
+        }
+
         public static int[] GetFMKeyOn()
         {
             return chipRegister.fmKeyOn;

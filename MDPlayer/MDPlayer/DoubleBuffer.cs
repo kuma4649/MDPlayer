@@ -1525,6 +1525,8 @@ namespace MDPlayer
 
                 if (c140Screen[chipID] != null) drawParamsToC140(oldParam, newParam, chipID);
 
+                if (SegaPCMScreen[chipID] != null) drawParamsToSegaPCM(oldParam, newParam, chipID);
+
                 if (ym2151Screen[chipID] != null) drawParamsToYM2151(oldParam, newParam, chipID);
 
                 if (ym2608Screen[chipID] != null) drawParamsToYM2608(oldParam, newParam, chipID);
@@ -1720,6 +1722,22 @@ namespace MDPlayer
                 drawVolumeToC140(chipID, c, 2, ref orc.volumeR, nrc.volumeR);
                 drawKbToC140(chipID, c, ref orc.note, nrc.note);
                 drawPanToC140(chipID, c, ref orc.pan, nrc.pan);
+
+            }
+        }
+
+        private void drawParamsToSegaPCM(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 16; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.segaPcm.channels[c];
+                MDChipParams.Channel nrc = newParam.segaPcm.channels[c];
+
+                drawVolume(SegaPCMScreen[chipID], c, 1, ref orc.volumeL, nrc.volumeL,0);
+                drawVolume(SegaPCMScreen[chipID], c, 2, ref orc.volumeR, nrc.volumeR,0);
+                drawKb(SegaPCMScreen[chipID], c, ref orc.note, nrc.note, 0);
+                drawPanType2(SegaPCMScreen[chipID], c, ref orc.pan, nrc.pan);
 
             }
         }

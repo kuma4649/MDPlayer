@@ -1284,6 +1284,7 @@ namespace MDPlayer
             {
                 if (fmCh3SlotVolYM2203[i] > 0) { fmCh3SlotVolYM2203[i] -= 50; if (fmCh3SlotVolYM2203[i] < 0) fmCh3SlotVolYM2203[i] = 0; }
             }
+
         }
 
         public int[][] GetFMVolume()

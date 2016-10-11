@@ -107,6 +107,12 @@ namespace MDPlayer
         }
         public C140 c140 = new C140();
 
+        public class SegaPcm
+        {
+            public Channel[] channels = new Channel[16] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+        }
+        public SegaPcm segaPcm = new SegaPcm();
+
         public class YM2151
         {
 
