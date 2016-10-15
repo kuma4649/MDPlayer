@@ -269,7 +269,7 @@ namespace MDPlayer
 
         public void RemoveRf5c164(int chipID)
         {
-            if (rf5c164Screen == null) return;
+            if (rf5c164Screen[chipID] == null) return;
             rf5c164Screen[chipID].Remove(this.Paint);
         }
 
@@ -1584,8 +1584,8 @@ namespace MDPlayer
             for (int c = 0; c < 9; c++)
             {
 
-                MDChipParams.Channel oyc = oldParam.ym2608.channels[c];
-                MDChipParams.Channel nyc = newParam.ym2608.channels[c];
+                MDChipParams.Channel oyc = oldParam.ym2608[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2608[chipID].channels[c];
 
                 if (c < 6)
                 {
@@ -1607,8 +1607,8 @@ namespace MDPlayer
 
             for (int c = 0; c < 3; c++)
             {
-                MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 9];
-                MDChipParams.Channel nyc = newParam.ym2608.channels[c + 9];
+                MDChipParams.Channel oyc = oldParam.ym2608[chipID].channels[c + 9];
+                MDChipParams.Channel nyc = newParam.ym2608[chipID].channels[c + 9];
 
                 drawVolumeYM2608(chipID, c + 6, 0, ref oyc.volume, nyc.volume, tp);
                 drawKbYM2608(chipID, c + 6, ref oyc.note, nyc.note, tp);
@@ -1616,15 +1616,15 @@ namespace MDPlayer
                 drawChYM2608(chipID, c + 6, ref oyc.mask, nyc.mask, 0);
             }
 
-            drawVolumeYM2608(chipID, 12, 1, ref oldParam.ym2608.channels[12].volumeL, newParam.ym2608.channels[12].volumeL, tp);
-            drawVolumeYM2608(chipID, 12, 2, ref oldParam.ym2608.channels[12].volumeR, newParam.ym2608.channels[12].volumeR, tp);
-            drawPanYM2608(chipID, 12, ref oldParam.ym2608.channels[12].pan, newParam.ym2608.channels[12].pan, ref oldParam.ym2608.channels[12].pantp, tp);
-            drawKbYM2608(chipID, 12, ref oldParam.ym2608.channels[12].note, newParam.ym2608.channels[12].note, tp);
+            drawVolumeYM2608(chipID, 12, 1, ref oldParam.ym2608[chipID].channels[12].volumeL, newParam.ym2608[chipID].channels[12].volumeL, tp);
+            drawVolumeYM2608(chipID, 12, 2, ref oldParam.ym2608[chipID].channels[12].volumeR, newParam.ym2608[chipID].channels[12].volumeR, tp);
+            drawPanYM2608(chipID, 12, ref oldParam.ym2608[chipID].channels[12].pan, newParam.ym2608[chipID].channels[12].pan, ref oldParam.ym2608[chipID].channels[12].pantp, tp);
+            drawKbYM2608(chipID, 12, ref oldParam.ym2608[chipID].channels[12].note, newParam.ym2608[chipID].channels[12].note, tp);
 
             for (int c = 0; c < 6; c++)
             {
-                MDChipParams.Channel oyc = oldParam.ym2608.channels[c + 13];
-                MDChipParams.Channel nyc = newParam.ym2608.channels[c + 13];
+                MDChipParams.Channel oyc = oldParam.ym2608[chipID].channels[c + 13];
+                MDChipParams.Channel nyc = newParam.ym2608[chipID].channels[c + 13];
 
                 drawVolumeYM2608Rhythm(chipID, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 drawVolumeYM2608Rhythm(chipID, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
@@ -1640,8 +1640,8 @@ namespace MDPlayer
             for (int c = 0; c < 9; c++)
             {
 
-                MDChipParams.Channel oyc = oldParam.ym2610.channels[c];
-                MDChipParams.Channel nyc = newParam.ym2610.channels[c];
+                MDChipParams.Channel oyc = oldParam.ym2610[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2610[chipID].channels[c];
 
                 if (c < 6)
                 {
@@ -1663,8 +1663,8 @@ namespace MDPlayer
 
             for (int c = 0; c < 3; c++)
             {
-                MDChipParams.Channel oyc = oldParam.ym2610.channels[c + 9];
-                MDChipParams.Channel nyc = newParam.ym2610.channels[c + 9];
+                MDChipParams.Channel oyc = oldParam.ym2610[chipID].channels[c + 9];
+                MDChipParams.Channel nyc = newParam.ym2610[chipID].channels[c + 9];
 
                 drawVolume(ym2610Screen[chipID], c + 6, 0, ref oyc.volume, nyc.volume, tp);
                 drawKb(ym2610Screen[chipID], c + 6, ref oyc.note, nyc.note, tp);
@@ -1672,15 +1672,15 @@ namespace MDPlayer
                 //drawCh(ym2610Screen[chipID], c + 6, ref oyc.mask, nyc.mask, 0);
             }
 
-            drawVolume(ym2610Screen[chipID], 13, 1, ref oldParam.ym2610.channels[12].volumeL, newParam.ym2610.channels[12].volumeL, tp);
-            drawVolume(ym2610Screen[chipID], 13, 2, ref oldParam.ym2610.channels[12].volumeR, newParam.ym2610.channels[12].volumeR, tp);
-            drawPan(ym2610Screen[chipID], 13, ref oldParam.ym2610.channels[12].pan, newParam.ym2610.channels[12].pan, ref oldParam.ym2610.channels[12].pantp, tp);
-            drawKb(ym2610Screen[chipID], 13, ref oldParam.ym2610.channels[12].note, newParam.ym2610.channels[12].note, tp);
+            drawVolume(ym2610Screen[chipID], 13, 1, ref oldParam.ym2610[chipID].channels[12].volumeL, newParam.ym2610[chipID].channels[12].volumeL, tp);
+            drawVolume(ym2610Screen[chipID], 13, 2, ref oldParam.ym2610[chipID].channels[12].volumeR, newParam.ym2610[chipID].channels[12].volumeR, tp);
+            drawPan(ym2610Screen[chipID], 13, ref oldParam.ym2610[chipID].channels[12].pan, newParam.ym2610[chipID].channels[12].pan, ref oldParam.ym2610[chipID].channels[12].pantp, tp);
+            drawKb(ym2610Screen[chipID], 13, ref oldParam.ym2610[chipID].channels[12].note, newParam.ym2610[chipID].channels[12].note, tp);
 
             for (int c = 0; c < 6; c++)
             {
-                MDChipParams.Channel oyc = oldParam.ym2610.channels[c + 13];
-                MDChipParams.Channel nyc = newParam.ym2610.channels[c + 13];
+                MDChipParams.Channel oyc = oldParam.ym2610[chipID].channels[c + 13];
+                MDChipParams.Channel nyc = newParam.ym2610[chipID].channels[c + 13];
 
                 drawVolumeYM2610Rhythm(chipID, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 drawVolumeYM2610Rhythm(chipID, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
@@ -1693,8 +1693,8 @@ namespace MDPlayer
         {
             for (int c = 0; c < 8; c++)
             {
-                MDChipParams.Channel oyc = oldParam.ym2151.channels[c];
-                MDChipParams.Channel nyc = newParam.ym2151.channels[c];
+                MDChipParams.Channel oyc = oldParam.ym2151[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2151[chipID].channels[c];
 
                 int tp = setting.YM2151Type.UseScci ? 1 : 0;
 
@@ -1715,8 +1715,8 @@ namespace MDPlayer
             for (int c = 0; c < 24; c++)
             {
 
-                MDChipParams.Channel orc = oldParam.c140.channels[c];
-                MDChipParams.Channel nrc = newParam.c140.channels[c];
+                MDChipParams.Channel orc = oldParam.c140[chipID].channels[c];
+                MDChipParams.Channel nrc = newParam.c140[chipID].channels[c];
 
                 drawVolumeToC140(chipID, c, 1, ref orc.volumeL, nrc.volumeL);
                 drawVolumeToC140(chipID, c, 2, ref orc.volumeR, nrc.volumeR);
@@ -1731,8 +1731,8 @@ namespace MDPlayer
             for (int c = 0; c < 16; c++)
             {
 
-                MDChipParams.Channel orc = oldParam.segaPcm.channels[c];
-                MDChipParams.Channel nrc = newParam.segaPcm.channels[c];
+                MDChipParams.Channel orc = oldParam.segaPcm[chipID].channels[c];
+                MDChipParams.Channel nrc = newParam.segaPcm[chipID].channels[c];
 
                 drawVolume(SegaPCMScreen[chipID], c, 1, ref orc.volumeL, nrc.volumeL,0);
                 drawVolume(SegaPCMScreen[chipID], c, 2, ref orc.volumeR, nrc.volumeR,0);
@@ -1747,8 +1747,8 @@ namespace MDPlayer
             for (int c = 0; c < 8; c++)
             {
 
-                MDChipParams.Channel orc = oldParam.rf5c164.channels[c];
-                MDChipParams.Channel nrc = newParam.rf5c164.channels[c];
+                MDChipParams.Channel orc = oldParam.rf5c164[chipID].channels[c];
+                MDChipParams.Channel nrc = newParam.rf5c164[chipID].channels[c];
 
                 drawVolume(rf5c164Screen[chipID], c, 1, ref orc.volumeL, nrc.volumeL, 0);
                 drawVolume(rf5c164Screen[chipID], c, 2, ref orc.volumeR, nrc.volumeR, 0);
@@ -1766,8 +1766,8 @@ namespace MDPlayer
 
                 int tp = setting.SN76489Type.UseScci ? 1 : 0;
 
-                MDChipParams.Channel osc = oldParam.sn76489.channels[c];
-                MDChipParams.Channel nsc = newParam.sn76489.channels[c];
+                MDChipParams.Channel osc = oldParam.sn76489[chipID].channels[c];
+                MDChipParams.Channel nsc = newParam.sn76489[chipID].channels[c];
 
                 drawVolume(SN76489Screen[chipID], c, 0, ref osc.volume, nsc.volume, tp);
                 drawKb(SN76489Screen[chipID], c, ref osc.note, nsc.note, tp);
@@ -1779,8 +1779,8 @@ namespace MDPlayer
             for (int c = 0; c < 9; c++)
             {
 
-                MDChipParams.Channel oyc = oldParam.ym2612.channels[c];
-                MDChipParams.Channel nyc = newParam.ym2612.channels[c];
+                MDChipParams.Channel oyc = oldParam.ym2612[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2612[chipID].channels[c];
 
                 int tp = setting.YM2612Type.UseScci ? 1 : 0;
 
@@ -1798,7 +1798,7 @@ namespace MDPlayer
                     int tp6v = tp;
                     if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        tp6v = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
+                        tp6v = newParam.ym2612[chipID].channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
                                                                                 //tp6 = 0;
                     }
                     drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);

@@ -548,7 +548,7 @@ namespace MDPlayer
 
         private void vcPSG()
         {
-            chipRegister.setSN76489Register(vgmBuf[vgmAdr + 1],model);
+            chipRegister.setSN76489Register(0,vgmBuf[vgmAdr + 1],model);
             vgmAdr += 2;
         }
 

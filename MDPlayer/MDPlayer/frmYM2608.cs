@@ -106,11 +106,11 @@ namespace MDPlayer
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(vgm.enmUseChip.YM2608, ch);
+                    parent.SetChannelMask(vgm.enmUseChip.YM2608,chipID, ch);
                     return;
                 }
 
-                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2608, ch);
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2608, chipID, ch);
                 return;
 
             }
@@ -124,7 +124,7 @@ namespace MDPlayer
             if (instCh < 6)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(vgm.enmUseChip.YM2608, instCh);
+                parent.getInstCh(vgm.enmUseChip.YM2608, instCh, chipID);
             }
         }
     }

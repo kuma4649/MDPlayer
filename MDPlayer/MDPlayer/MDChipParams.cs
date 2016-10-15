@@ -85,7 +85,7 @@ namespace MDPlayer
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
         }
-        public YM2612 ym2612 = new YM2612();
+        public YM2612[] ym2612 = new YM2612[] { new YM2612(), new YM2612() };
 
         public class SN76489
         {
@@ -93,25 +93,25 @@ namespace MDPlayer
             public Channel[] channels = new Channel[4] { new Channel(), new Channel(), new Channel(), new Channel() };
 
         }
-        public SN76489 sn76489 = new SN76489();
+        public SN76489[] sn76489 = new SN76489[] { new SN76489(), new SN76489() };
 
         public class RF5C164
         {
             public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
-        public RF5C164 rf5c164 = new RF5C164();
+        public RF5C164[] rf5c164 = new RF5C164[] { new RF5C164(), new RF5C164() };
 
         public class C140
         {
             public Channel[] channels = new Channel[24] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
-        public C140 c140 = new C140();
+        public C140[] c140 = new C140[] { new C140(), new C140() };
 
         public class SegaPcm
         {
             public Channel[] channels = new Channel[16] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
-        public SegaPcm segaPcm = new SegaPcm();
+        public SegaPcm[] segaPcm = new SegaPcm[] { new SegaPcm(), new SegaPcm() };
 
         public class YM2151
         {
@@ -119,7 +119,7 @@ namespace MDPlayer
             public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()};
 
         }
-        public YM2151 ym2151 = new YM2151();
+        public YM2151[] ym2151 = new YM2151[] { new YM2151(), new YM2151() };
 
         public class YM2608
         {
@@ -132,7 +132,7 @@ namespace MDPlayer
             };
 
         }
-        public YM2608 ym2608 = new YM2608();
+        public YM2608[] ym2608 = new YM2608[] { new YM2608(), new YM2608() };
 
         public class YM2610
         {
@@ -145,6 +145,6 @@ namespace MDPlayer
             };
 
         }
-        public YM2610 ym2610 = new YM2610();
+        public YM2610[] ym2610 = new YM2610[] { new YM2610(), new YM2610() };
     }
 }

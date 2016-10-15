@@ -164,37 +164,53 @@ namespace MDPlayer
         {
             if (waveOut != null)
             {
-                //waveOut.Pause();
-                waveOut.Stop();
-                while (waveOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
-                waveOut.Dispose();
+                try
+                {
+                    //waveOut.Pause();
+                    waveOut.Stop();
+                    while (waveOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
+                    waveOut.Dispose();
+                }
+                catch { }
                 waveOut = null;
             }
 
             if (wasapiOut != null)
             {
-                //wasapiOut.Pause();
-                wasapiOut.Stop();
-                while (wasapiOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
-                wasapiOut.Dispose();
+                try
+                {
+                    //wasapiOut.Pause();
+                    wasapiOut.Stop();
+                    while (wasapiOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
+                    wasapiOut.Dispose();
+                }
+                catch { }
                 wasapiOut = null;
             }
 
             if (dsOut != null)
             {
-                //dsOut.Pause();
-                dsOut.Stop();
-                while (dsOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
-                dsOut.Dispose();
+                try
+                {
+                    //dsOut.Pause();
+                    dsOut.Stop();
+                    while (dsOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
+                    dsOut.Dispose();
+                }
+                catch { }
                 dsOut = null;
             }
 
             if (asioOut != null)
             {
-                //asioOut.Pause();
-                asioOut.Stop();
-                while (asioOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
-                asioOut.Dispose();
+                try
+                {
+                    //asioOut.Pause();
+                    asioOut.Stop();
+                    while (asioOut.PlaybackState != PlaybackState.Stopped) { System.Threading.Thread.Sleep(1); }
+                    asioOut.Dispose();
+                }
+                catch { }
                 asioOut = null;
             }
 

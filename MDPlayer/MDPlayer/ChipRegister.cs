@@ -54,51 +54,85 @@ namespace MDPlayer
         public int ChipSecC140 = 0;
         public int ChipSecSPCM = 0;
 
-        public int[][] fmRegister = null;
-        public int[] fmKeyOn = null;
-        public int[][] fmVol = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmCh3SlotVol = new int[4];
-        private int nowYM2612FadeoutVol = 0;
-        private bool[] maskFMChYM2612 = new bool[6] { false, false, false, false, false, false };
+        public int[][] fmRegisterYM2151 = new int[][] { null, null };
+        public int[][] fmKeyOnYM2151 = new int[][] { null, null };
+        public int[][][] fmVolYM2151 = new int[][][] {
+            new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            , new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        private int[] nowYM2151FadeoutVol = new int[] { 0, 0 };
+        private bool[][] maskFMChYM2151 = new bool[][] {
+            new bool[8] { false, false, false, false, false, false, false, false }
+            ,new bool[8] { false, false, false, false, false, false, false, false }
+        };
 
-        public int[][] fmRegisterYM2608 = null;
-        public int[] fmKeyOnYM2608 = null;
-        public int[][] fmVolYM2608 = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmCh3SlotVolYM2608 = new int[4];
-        public int[][] fmVolYM2608Rhythm = new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmVolYM2608Adpcm = new int[2];
-        public int fmVolYM2608AdpcmPan = 0;
-        private int nowYM2608FadeoutVol = 0;
-        private bool[] maskFMChYM2608 = new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+        public int[][] fmRegisterYM2203 = new int[][] { null, null };
+        public int[][] fmKeyOnYM2203 = new int[][] { null, null };
+        public int[][] fmCh3SlotVolYM2203 = new int[][] { new int[4], new int[4] };
+        private int[] nowYM2203FadeoutVol = new int[] { 0, 0 };
+        public int[][] fmVolYM2203 = new int[][] { new int[9], new int[9] };
+        private bool[][] maskFMChYM2203 = new bool[][] {
+            new bool[9] { false, false, false, false, false, false, false, false , false }
+            ,new bool[9] { false, false, false, false, false, false, false, false , false }
+        };
 
-        public int[][] fmRegisterYM2610 = null;
-        public int[] fmKeyOnYM2610 = null;
-        public int[][] fmVolYM2610 = new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmCh3SlotVolYM2610 = new int[4];
-        public int[][] fmVolYM2610Rhythm = new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] };
-        public int[] fmVolYM2610Adpcm = new int[2];
-        public int fmVolYM2610AdpcmPan = 0;
-        private int nowYM2610FadeoutVol = 0;
-        private bool[] maskFMChYM2610 = new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+        public int[][][] fmRegisterYM2612 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+        public int[][] fmKeyOnYM2612 = new int[][] { null, null };
+        public int[][][] fmVolYM2612 = new int[][][] {
+            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][] fmCh3SlotVolYM2612 = new int[][] { new int[4], new int[4] };
+        private int[] nowYM2612FadeoutVol = new int[] { 0, 0 };
+        private bool[][] maskFMChYM2612 = new bool[][] { new bool[6] { false, false, false, false, false, false }, new bool[6] { false, false, false, false, false, false } };
 
-        public int[] fmRegisterYM2151 = null;
-        public int[] fmKeyOnYM2151 = null;
-        public int[][] fmVolYM2151 = new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2]};
-        private int nowYM2151FadeoutVol = 0;
-        private bool[] maskFMChYM2151 = new bool[8] { false, false, false, false, false, false, false, false };
+        public int[][][] fmRegisterYM2608 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+        public int[][] fmKeyOnYM2608 = new int[][] { null, null };
+        public int[][][] fmVolYM2608 = new int[][][] {
+            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][] fmCh3SlotVolYM2608 = new int[][] { new int[4], new int[4] };
+        public int[][][] fmVolYM2608Rhythm = new int[][][] {
+            new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            , new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][] fmVolYM2608Adpcm = new int[][] { new int[2], new int[2] };
+        public int[] fmVolYM2608AdpcmPan = new int[] { 0, 0 };
+        private int[] nowYM2608FadeoutVol = new int[] { 0, 0 };
+        private bool[][] maskFMChYM2608 = new bool[][] {
+            new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+            , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+        };
 
-        public int[] psgRegister = null;
-        public int[][] psgVol = new int[4][] { new int[2], new int[2], new int[2], new int[2] };
-        public int nowSN76489FadeoutVol = 0;
+        public int[][][] fmRegisterYM2610 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+        public int[][] fmKeyOnYM2610 = new int[][] { null, null };
+        public int[][][] fmVolYM2610 = new int[][][] {
+            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][] fmCh3SlotVolYM2610 = new int[][] { new int[4], new int[4] };
+        public int[][][] fmVolYM2610Rhythm = new int[][][] {
+            new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+            , new int[6][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][] fmVolYM2610Adpcm = new int[][] { new int[2], new int[2] };
+        public int[] fmVolYM2610AdpcmPan = new int[] { 0, 0 };
+        private int[] nowYM2610FadeoutVol = new int[] { 0, 0 };
+        private bool[][] maskFMChYM2610 = new bool[][] {
+            new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+            , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
+        };
 
-        public int[] fmRegisterYM2203 = null;
-        public int[] fmKeyOnYM2203 = null;
-        public int[] fmCh3SlotVolYM2203 = new int[4];
-        private int nowYM2203FadeoutVol = 0;
-        public int[] fmVolYM2203 = new int[9];
+        public int[][] psgRegister =new int[][] { null, null };
+        public int[][][] psgVol = new int[][][] {
+            new int[4][] { new int[2], new int[2], new int[2], new int[2] }
+            ,new int[4][] { new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[] nowSN76489FadeoutVol = new int[] { 0, 0 };
 
-        private int LatchedRegister;
-        private int NoiseFreq;
+        private int[] LatchedRegister=new int[] { 0, 0 };
+        private int[] NoiseFreq=new int[] { 0, 0 };
 
 
 
@@ -138,91 +172,97 @@ namespace MDPlayer
 
         public void initChipRegister()
         {
-
-            fmRegister = new int[2][] { new int[0x100], new int[0x100] };
-            for (int i = 0; i < 0x100; i++)
+            for (int chipID = 0; chipID < 2; chipID++)
             {
-                fmRegister[0][i] = 0; fmRegister[1][i] = 0;
+
+                fmRegisterYM2612[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2612[chipID][0][i] = 0;
+                    fmRegisterYM2612[chipID][1][i] = 0;
+                }
+                fmRegisterYM2612[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2612[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2612[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2612[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2608[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2608[chipID][0][i] = 0;
+                    fmRegisterYM2608[chipID][1][i] = 0;
+                }
+                fmRegisterYM2608[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2608[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2608[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2608[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2610[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2610[chipID][0][i] = 0;
+                    fmRegisterYM2610[chipID][1][i] = 0;
+                }
+                fmRegisterYM2610[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2610[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2610[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2610[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2151[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2151[chipID][i] = 0;
+                }
+                fmKeyOnYM2151[chipID] = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2203[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2203[chipID][i] = 0;
+                }
+                fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                psgRegister[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
+
             }
-            fmRegister[0][0xb4] = 0xc0;
-            fmRegister[0][0xb5] = 0xc0;
-            fmRegister[0][0xb6] = 0xc0;
-            fmRegister[1][0xb4] = 0xc0;
-            fmRegister[1][0xb5] = 0xc0;
-            fmRegister[1][0xb6] = 0xc0;
-            fmKeyOn = new int[6] { 0, 0, 0, 0, 0, 0 };
-
-            fmRegisterYM2608 = new int[2][] { new int[0x100], new int[0x100] };
-            for (int i = 0; i < 0x100; i++)
-            {
-                fmRegisterYM2608[0][i] = 0; fmRegisterYM2608[1][i] = 0;
-            }
-            fmRegisterYM2608[0][0xb4] = 0xc0;
-            fmRegisterYM2608[0][0xb5] = 0xc0;
-            fmRegisterYM2608[0][0xb6] = 0xc0;
-            fmRegisterYM2608[1][0xb4] = 0xc0;
-            fmRegisterYM2608[1][0xb5] = 0xc0;
-            fmRegisterYM2608[1][0xb6] = 0xc0;
-            fmKeyOnYM2608 = new int[6] { 0, 0, 0, 0, 0, 0 };
-
-            fmRegisterYM2610 = new int[2][] { new int[0x100], new int[0x100] };
-            for (int i = 0; i < 0x100; i++)
-            {
-                fmRegisterYM2610[0][i] = 0; fmRegisterYM2610[1][i] = 0;
-            }
-            fmRegisterYM2610[0][0xb4] = 0xc0;
-            fmRegisterYM2610[0][0xb5] = 0xc0;
-            fmRegisterYM2610[0][0xb6] = 0xc0;
-            fmRegisterYM2610[1][0xb4] = 0xc0;
-            fmRegisterYM2610[1][0xb5] = 0xc0;
-            fmRegisterYM2610[1][0xb6] = 0xc0;
-            fmKeyOnYM2610 = new int[6] { 0, 0, 0, 0, 0, 0 };
-
-            fmRegisterYM2151 = new int[0x100];
-            for (int i = 0; i < 0x100; i++)
-            {
-                fmRegisterYM2151[i] = 0;
-            }
-            fmKeyOnYM2151 = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-            fmRegisterYM2203 = new int[0x100];
-            for (int i = 0; i < 0x100; i++)
-            {
-                fmRegisterYM2203[i] = 0;
-            }
-            fmKeyOnYM2203 = new int[6] { 0, 0, 0, 0, 0, 0 };
-
-            psgRegister = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
-
         }
 
 
         public void setFadeoutVolYM2612(int chipID,int v)
         {
-            nowYM2612FadeoutVol = v;
+            nowYM2612FadeoutVol[chipID] = v;
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2612Register((byte)chipID,p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID,p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
         }
 
         public void setMaskYM2612(int chipID, int ch,bool mask)
         {
-            maskFMChYM2612[ch] = mask;
+            maskFMChYM2612[chipID][ch] = mask;
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegister[p][0x40 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegister[p][0x44 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegister[p][0x48 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegister[p][0x4c + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel);
         }
 
         public void setYM2612Register(int chipID,int dPort, int dAddr, int dData,vgm.enmModel model)
@@ -232,7 +272,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPN2 = 2;
             else ChipSecOPN2 = 2;
 
-            fmRegister[dPort][dAddr] = dData;
+            fmRegisterYM2612[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2612.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612.UseScci))
             {
@@ -242,34 +282,34 @@ namespace MDPlayer
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
                     if (ch >= 0 && ch < 6)// && (dData & 0xf0)>0)
                     {
-                        if (ch != 2 || (fmRegister[0][0x27] & 0xc0) != 0x40)
+                        if (ch != 2 || (fmRegisterYM2612[chipID][0][0x27] & 0xc0) != 0x40)
                         {
-                            if (ch != 5 || (fmRegister[0][0x2b] & 0x80) == 0)
+                            if (ch != 5 || (fmRegisterYM2612[chipID][0][0x2b] & 0x80) == 0)
                             {
-                                fmKeyOn[ch] = dData & 0xf0;
+                                fmKeyOnYM2612[chipID][ch] = dData & 0xf0;
                                 int p = (ch > 2) ? 1 : 0;
                                 int c = (ch > 2) ? (ch - 3) : ch;
-                                fmVol[ch][0] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
-                                fmVol[ch][1] = (int)(256 * 6 * ((fmRegister[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegister[p][0x4c + c] & 0x7f)) / 127.0));
+                                fmVolYM2612[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2612[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2612[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                                fmVolYM2612[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2612[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2612[chipID][p][0x4c + c] & 0x7f)) / 127.0));
                             }
                         }
                         else
                         {
-                            fmKeyOn[2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVol[0] = (int)(256 * 6 * ((127 - (fmRegister[0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVol[2] = (int)(256 * 6 * ((127 - (fmRegister[0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVol[1] = (int)(256 * 6 * ((127 - (fmRegister[0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVol[3] = (int)(256 * 6 * ((127 - (fmRegister[0][0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2612[chipID][2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
                 }
 
-                if ((fmRegister[0][0x2b] & 0x80) > 0)
+                if ((fmRegisterYM2612[chipID][0][0x2b] & 0x80) > 0)
                 {
-                    if (fmRegister[0][0x2a] > 0)
+                    if (fmRegisterYM2612[chipID][0][0x2a] > 0)
                     {
-                        fmVol[5][0] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                        fmVol[5][1] = fmRegister[0][0x2a] * 10 * ((fmRegister[1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                        fmVolYM2612[chipID][5][0] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
+                        fmVolYM2612[chipID][5][1] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
                     }
                 }
             }
@@ -284,7 +324,7 @@ namespace MDPlayer
                     int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
                     if ((algM[al] & (1 << slot)) > 0)
                     {
-                        if (maskFMChYM2612[ch])
+                        if (maskFMChYM2612[chipID][ch])
                         {
                             if (model == vgm.enmModel.VirtualModel)
                             {
@@ -305,7 +345,7 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
-                int al = fmRegister[dPort][0xb0 + ch] & 0x07;//AL
+                int al = fmRegisterYM2612[chipID][dPort][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
@@ -313,8 +353,8 @@ namespace MDPlayer
                 {
                     if (ch != 3)
                     {
-                        dData = Math.Min(dData + nowYM2612FadeoutVol, 127);
-                        dData = maskFMChYM2612[dPort * 3 + ch] ? 127 : dData;
+                        dData = Math.Min(dData + nowYM2612FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2612[chipID][dPort * 3 + ch] ? 127 : dData;
                     }
                 }
             }
@@ -385,7 +425,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPN = 2;
             else ChipSecOPN = 2;
 
-            fmRegisterYM2203[dAddr] = dData;
+            fmRegisterYM2203[chipID][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2203.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2203.UseScci))
             {
@@ -394,20 +434,20 @@ namespace MDPlayer
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
                     if (ch >= 0 && ch < 6)
                     {
-                        if (ch != 2 || (fmRegisterYM2203[0x27] & 0xc0) != 0x40)
+                        if (ch != 2 || (fmRegisterYM2203[chipID][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2203[ch] = dData & 0xf0;
+                            fmKeyOnYM2203[chipID][ch] = dData & 0xf0;
                             int p = (ch > 2) ? 1 : 0;
                             int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVolYM2203[ch] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2203[chipID][ch] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x4c + c] & 0x7f)) / 127.0));
                         }
                         else
                         {
-                            fmKeyOnYM2203[2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2203[0] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[2] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[1] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2203[3] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2203[chipID][2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2203[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2203[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
                 }
@@ -418,7 +458,7 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
-                int al = fmRegisterYM2203[0xb0 + ch] & 0x07;//AL
+                int al = fmRegisterYM2203[chipID][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
@@ -426,8 +466,8 @@ namespace MDPlayer
                 {
                     if (ch != 3)
                     {
-                        dData = Math.Min(dData + nowYM2203FadeoutVol, 127);
-                        dData = maskFMChYM2608[ch] ? 127 : dData;
+                        dData = Math.Min(dData + nowYM2203FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2203[chipID][ch] ? 127 : dData;
                     }
                 }
             }
@@ -435,7 +475,7 @@ namespace MDPlayer
             //ssg level
             if ((dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
             {
-                int d = nowYM2203FadeoutVol >> 3;
+                int d = nowYM2203FadeoutVol[chipID] >> 3;
                 dData = Math.Max(dData - d, 0);
             }
 
@@ -461,7 +501,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPNA = 2;
             else ChipSecOPNA = 2;
 
-            fmRegisterYM2608[dPort][dAddr] = dData;
+            fmRegisterYM2608[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2608.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608.UseScci))
             {
@@ -471,32 +511,32 @@ namespace MDPlayer
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
                     if (ch >= 0 && ch < 6)// && (dData & 0xf0) > 0)
                     {
-                        if (ch != 2 || (fmRegisterYM2608[0][0x27] & 0xc0) != 0x40)
+                        if (ch != 2 || (fmRegisterYM2608[chipID][0][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2608[ch] = dData & 0xf0;
+                            fmKeyOnYM2608[chipID][ch] = dData & 0xf0;
                             int p = (ch > 2) ? 1 : 0;
                             int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVolYM2608[ch][0] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
-                            fmVolYM2608[ch][1] = (int)(256 * 6 * ((fmRegisterYM2608[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2608[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2608[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2608[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2608[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[chipID][p][0x4c + c] & 0x7f)) / 127.0));
                         }
                         else
                         {
-                            fmKeyOnYM2608[2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2608[0] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[2] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[1] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2608[3] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[0][0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2608[chipID][2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2608[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2608[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
                 }
 
                 if (dPort == 1 && dAddr == 0x01)
                 {
-                    fmVolYM2608AdpcmPan = (dData & 0xc0) >> 6;
-                    if (fmVolYM2608AdpcmPan > 0)
+                    fmVolYM2608AdpcmPan[chipID] = (dData & 0xc0) >> 6;
+                    if (fmVolYM2608AdpcmPan[chipID] > 0)
                     {
-                        fmVolYM2608Adpcm[0] = (int)((256 * 6.0 * fmRegisterYM2608[1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan & 0x02) > 0 ? 1 : 0));
-                        fmVolYM2608Adpcm[1] = (int)((256 * 6.0 * fmRegisterYM2608[1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan & 0x01) > 0 ? 1 : 0));
+                        fmVolYM2608Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
+                        fmVolYM2608Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b]/64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
 //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2608[1][0x09]);
 //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2608[1][0x0A]);
                     }
@@ -504,15 +544,15 @@ namespace MDPlayer
 
                 if (dPort == 0 && dAddr == 0x10)
                 {
-                    int tl = fmRegisterYM2608[0][0x11] & 0x3f;
+                    int tl = fmRegisterYM2608[chipID][0][0x11] & 0x3f;
                     for (int i = 0; i < 6; i++)
                     {
                         if ((dData & (0x1<< i)) > 0)
                         {
-                            int il = fmRegisterYM2608[0][0x18+i] & 0x1f;
-                            int pan = (fmRegisterYM2608[0][0x18 + i] & 0xc0) >> 6;
-                            fmVolYM2608Rhythm[i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
-                            fmVolYM2608Rhythm[i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                            int il = fmRegisterYM2608[chipID][0][0x18+i] & 0x1f;
+                            int pan = (fmRegisterYM2608[chipID][0][0x18 + i] & 0xc0) >> 6;
+                            fmVolYM2608Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
+                            fmVolYM2608Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
                         }
                     }
                 }
@@ -523,7 +563,7 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
-                int al = fmRegisterYM2608[dPort][0xb0 + ch] & 0x07;//AL
+                int al = fmRegisterYM2608[chipID][dPort][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
@@ -531,8 +571,8 @@ namespace MDPlayer
                 {
                     if (ch != 3)
                     {
-                        dData = Math.Min(dData + nowYM2608FadeoutVol, 127);
-                        dData = maskFMChYM2608[dPort * 3 + ch] ? 127 : dData;
+                        dData = Math.Min(dData + nowYM2608FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2608[chipID][dPort * 3 + ch] ? 127 : dData;
                     }
                 }
             }
@@ -540,21 +580,21 @@ namespace MDPlayer
             //ssg level
             if (dPort == 0 && (dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
             {
-                int d = nowYM2608FadeoutVol >> 3;
+                int d = nowYM2608FadeoutVol[chipID] >> 3;
                 dData = Math.Max(dData - d, 0);
             }
 
             //rhythm level
             if (dPort == 0 && dAddr == 0x11)
             {
-                int d = nowYM2608FadeoutVol >> 1;
+                int d = nowYM2608FadeoutVol[chipID] >> 1;
                 dData = Math.Max(dData - d, 0);
             }
 
             //adpcm level
             if (dPort == 1 && dAddr == 0x0b)
             {
-                int d = nowYM2608FadeoutVol * 2;
+                int d = nowYM2608FadeoutVol[chipID] * 2;
                 dData = Math.Max(dData - d, 0);
             }
 
@@ -581,7 +621,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPNB = 2;
             else ChipSecOPNB = 2;
 
-            fmRegisterYM2610[dPort][dAddr] = dData;
+            fmRegisterYM2610[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2610.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610.UseScci))
             {
@@ -591,21 +631,21 @@ namespace MDPlayer
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
                     if (ch >= 0 && ch < 6)// && (dData & 0xf0) > 0)
                     {
-                        if (ch != 2 || (fmRegisterYM2610[0][0x27] & 0xc0) != 0x40)
+                        if (ch != 2 || (fmRegisterYM2610[chipID][0][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2610[ch] = dData & 0xf0;
+                            fmKeyOnYM2610[chipID][ch] = dData & 0xf0;
                             int p = (ch > 2) ? 1 : 0;
                             int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVolYM2610[ch][0] = (int)(256 * 6 * ((fmRegisterYM2610[p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[p][0x4c + c] & 0x7f)) / 127.0));
-                            fmVolYM2610[ch][1] = (int)(256 * 6 * ((fmRegisterYM2610[p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2610[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2610[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                            fmVolYM2610[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2610[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[chipID][p][0x4c + c] & 0x7f)) / 127.0));
                         }
                         else
                         {
-                            fmKeyOnYM2610[2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[0] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[3] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[0][0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2610[chipID][2] = dData & 0xf0;
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
                 }
@@ -615,15 +655,15 @@ namespace MDPlayer
                 {
                     if ((dData & 0x80) != 0)
                     {
-                        int p = (fmRegisterYM2610[0][0x11] & 0xc0) >> 6;
+                        int p = (fmRegisterYM2610[chipID][0][0x11] & 0xc0) >> 6;
                         p = p == 0 ? 3 : p;
-                        if(fmVolYM2610AdpcmPan!= p)
-                        fmVolYM2610AdpcmPan = p;
+                        if(fmVolYM2610AdpcmPan[chipID] != p)
+                        fmVolYM2610AdpcmPan[chipID] = p;
                         
                         //if (fmVolYM2610AdpcmPan > 0)
                         //{
-                            fmVolYM2610Adpcm[0] = (int)((256 * 6.0 * fmRegisterYM2610[0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan & 0x02) > 0 ? 1 : 0));
-                            fmVolYM2610Adpcm[1] = (int)((256 * 6.0 * fmRegisterYM2610[0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan & 0x01) > 0 ? 1 : 0));
+                            fmVolYM2610Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2610[chipID][0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
+                            fmVolYM2610Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2610[chipID][0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
                             //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2610[1][0x09]);
                             //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2610[1][0x0A]);
                         //}
@@ -634,15 +674,15 @@ namespace MDPlayer
                 if (dPort == 1 && dAddr == 0x00)
                 {
                     if((dData & 0x80)==0){
-                        int tl = fmRegisterYM2610[1][0x01] & 0x3f;
+                        int tl = fmRegisterYM2610[chipID][1][0x01] & 0x3f;
                         for (int i = 0; i < 6; i++)
                         {
                             if ((dData & (0x1 << i)) > 0)
                             {
-                                int il = fmRegisterYM2610[1][0x08 + i] & 0x1f;
-                                int pan = (fmRegisterYM2610[1][0x08 + i] & 0xc0) >> 6;
-                                fmVolYM2610Rhythm[i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
-                                fmVolYM2610Rhythm[i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                                int il = fmRegisterYM2610[chipID][1][0x08 + i] & 0x1f;
+                                int pan = (fmRegisterYM2610[chipID][1][0x08 + i] & 0xc0) >> 6;
+                                fmVolYM2610Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
+                                fmVolYM2610Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
                             }
                         }
                     }
@@ -654,7 +694,7 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
-                int al = fmRegisterYM2610[dPort][0xb0 + ch] & 0x07;//AL
+                int al = fmRegisterYM2610[chipID][dPort][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
@@ -662,8 +702,8 @@ namespace MDPlayer
                 {
                     if (ch != 3)
                     {
-                        dData = Math.Min(dData + nowYM2610FadeoutVol, 127);
-                        dData = maskFMChYM2610[dPort * 3 + ch] ? 127 : dData;
+                        dData = Math.Min(dData + nowYM2610FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2610[chipID][dPort * 3 + ch] ? 127 : dData;
                     }
                 }
             }
@@ -671,21 +711,21 @@ namespace MDPlayer
             //ssg level
             if (dPort == 0 && (dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
             {
-                int d = nowYM2610FadeoutVol >> 3;
+                int d = nowYM2610FadeoutVol[chipID] >> 3;
                 dData = Math.Max(dData - d, 0);
             }
 
             //rhythm level
             if (dPort == 0 && dAddr == 0x11)
             {
-                int d = nowYM2610FadeoutVol >> 1;
+                int d = nowYM2610FadeoutVol[chipID] >> 1;
                 dData = Math.Max(dData - d, 0);
             }
 
             //adpcm level
             if (dPort == 1 && dAddr == 0x0b)
             {
-                int d = nowYM2610FadeoutVol * 2;
+                int d = nowYM2610FadeoutVol[chipID] * 2;
                 dData = Math.Max(dData - d, 0);
             }
 
@@ -723,28 +763,28 @@ namespace MDPlayer
 
         public void setFadeoutVolYM2610(int chipID, int v)
         {
-            nowYM2610FadeoutVol = v;
+            nowYM2610FadeoutVol[chipID] = v;
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
 
             //ssg
-            setYM2610Register((byte)chipID, 0, 0x08, fmRegisterYM2610[0][0x08], vgm.enmModel.RealModel);
-            setYM2610Register((byte)chipID, 0, 0x09, fmRegisterYM2610[0][0x09], vgm.enmModel.RealModel);
-            setYM2610Register((byte)chipID, 0, 0x0a, fmRegisterYM2610[0][0x0a], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x08, fmRegisterYM2610[chipID][0][0x08], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x09, fmRegisterYM2610[chipID][0][0x09], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x0a, fmRegisterYM2610[chipID][0][0x0a], vgm.enmModel.RealModel);
 
             //rhythm
-            setYM2610Register((byte)chipID, 0, 0x11, fmRegisterYM2610[0][0x11], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x11, fmRegisterYM2610[chipID][0][0x11], vgm.enmModel.RealModel);
 
             //adpcm
-            setYM2610Register((byte)chipID, 1, 0x0b, fmRegisterYM2610[1][0x0b], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 1, 0x0b, fmRegisterYM2610[chipID][1][0x0b], vgm.enmModel.RealModel);
         }
 
 
@@ -770,41 +810,41 @@ namespace MDPlayer
 
         public void setFadeoutVolYM2608(int chipID,int v)
         {
-            nowYM2608FadeoutVol = v;
+            nowYM2608FadeoutVol[chipID] = v;
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2608Register((byte)chipID,p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID,p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], vgm.enmModel.RealModel);
                 }
             }
 
             //ssg
-            setYM2608Register((byte)chipID, 0, 0x08, fmRegisterYM2608[0][0x08], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, 0, 0x09, fmRegisterYM2608[0][0x09], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, 0, 0x0a, fmRegisterYM2608[0][0x0a], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x08, fmRegisterYM2608[chipID][0][0x08], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x09, fmRegisterYM2608[chipID][0][0x09], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x0a, fmRegisterYM2608[chipID][0][0x0a], vgm.enmModel.RealModel);
 
             //rhythm
-            setYM2608Register((byte)chipID, 0, 0x11, fmRegisterYM2608[0][0x11], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x11, fmRegisterYM2608[chipID][0][0x11], vgm.enmModel.RealModel);
 
             //adpcm
-            setYM2608Register((byte)chipID, 1, 0x0b, fmRegisterYM2608[1][0x0b], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 1, 0x0b, fmRegisterYM2608[chipID][1][0x0b], vgm.enmModel.RealModel);
         }
 
         public void setMaskYM2608(int chipID,int ch, bool mask)
         {
-            maskFMChYM2608[ch] = mask;
+            maskFMChYM2608[chipID][ch] = mask;
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[p][0x40 + c], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[p][0x44 + c], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[p][0x48 + c], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[p][0x4c + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], vgm.enmModel.RealModel);
         }
 
 
@@ -815,7 +855,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPM = 2;
             else ChipSecOPM = 2;
 
-            fmRegisterYM2151[dAddr] = dData;
+            fmRegisterYM2151[chipID][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2151.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151.UseScci))
             {
@@ -826,14 +866,14 @@ namespace MDPlayer
                     {
                         if ((dData & 0x78) > 0)
                         {
-                            fmKeyOnYM2151[ch] = dData & 0x78;
+                            fmKeyOnYM2151[chipID][ch] = dData & 0x78;
                             //0x2x Pan/FL/CON
-                            fmVolYM2151[ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
-                            fmVolYM2151[ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[0x78 + ch] & 0x7f)) / 127.0));
+                            fmVolYM2151[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[chipID][0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[chipID][0x78 + ch] & 0x7f)) / 127.0));
+                            fmVolYM2151[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[chipID][0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[chipID][0x78 + ch] & 0x7f)) / 127.0));
                         }
                         else
                         {
-                            fmKeyOnYM2151[ch] = 0;
+                            fmKeyOnYM2151[chipID][ch] = 0;
                         }
                     }
                 }
@@ -849,7 +889,7 @@ namespace MDPlayer
                     int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
                     if ((algM[al] & (1 << slot)) > 0)
                     {
-                        if (maskFMChYM2151[ch])
+                        if (maskFMChYM2151[chipID][ch])
                         {
                             if (model == vgm.enmModel.VirtualModel)
                             {
@@ -870,14 +910,14 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x60 || (dAddr & 0xf0) == 0x70)//TL
             {
                 int ch = (dAddr & 0x7);
-                int al = fmRegisterYM2151[0x20 + ch] & 0x07;//AL
+                int al = fmRegisterYM2151[chipID][0x20 + ch] & 0x07;//AL
                 int slot = (((dAddr & 0xf0) == 0x60) ? 0 : 2) + (((dAddr & 0x8) > 0) ? 1 : 0);
                 dData &= 0x7f;
 
                 if ((algM[al] & (1 << slot)) > 0)
                 {
-                    dData = Math.Min(dData + nowYM2151FadeoutVol, 127);
-                    dData = maskFMChYM2151[ch] ? 127 : dData;
+                    dData = Math.Min(dData + nowYM2151FadeoutVol[chipID], 127);
+                    dData = maskFMChYM2151[chipID][ch] ? 127 : dData;
                 }
             }
 
@@ -944,24 +984,24 @@ namespace MDPlayer
 
         public void setFadeoutVolYM2151(int chipID,int v)
         {
-            nowYM2151FadeoutVol = v;
+            nowYM2151FadeoutVol[chipID] = v;
             for (int c = 0; c < 8; c++)
             {
-                setYM2151Register((byte)chipID,0, 0x60 + c, fmRegisterYM2151[0x60 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register((byte)chipID, 0, 0x68 + c, fmRegisterYM2151[0x68 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register((byte)chipID, 0, 0x70 + c, fmRegisterYM2151[0x70 + c], vgm.enmModel.RealModel,0);
-                setYM2151Register((byte)chipID, 0, 0x78 + c, fmRegisterYM2151[0x78 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID,0, 0x60 + c, fmRegisterYM2151[chipID][0x60 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x68 + c, fmRegisterYM2151[chipID][0x68 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x70 + c, fmRegisterYM2151[chipID][0x70 + c], vgm.enmModel.RealModel,0);
+                setYM2151Register((byte)chipID, 0, 0x78 + c, fmRegisterYM2151[chipID][0x78 + c], vgm.enmModel.RealModel,0);
             }
         }
 
         public void setMaskYM2151(int chipID,int ch, bool mask)
         {
-            maskFMChYM2151[ch] = mask;
+            maskFMChYM2151[chipID][ch] = mask;
 
-            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[0x60 + ch], vgm.enmModel.RealModel,0);
-            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[0x68 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[0x70 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[0x78 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], vgm.enmModel.RealModel,0);
+            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], vgm.enmModel.RealModel, 0);
         }
 
         public void sendDataYM2151(vgm.enmModel model)
@@ -976,21 +1016,21 @@ namespace MDPlayer
         }
 
 
-        public void setSN76489Register(int dData, vgm.enmModel model)
+        public void setSN76489Register(int chipID,int dData, vgm.enmModel model)
         {
             if (ctSN76489 == null) return;
 
             ChipPriDCSG = 2;
-            
-            SN76489_Write(dData);
+
+            SN76489_Write(chipID, dData);
 
             if ((dData & 0x90) == 0x90)
             {
-                psgVol[(dData & 0x60) >> 5][0] = 15-(dData & 0xf);
-                psgVol[(dData & 0x60) >> 5][1] = 15-(dData & 0xf);
+                psgVol[chipID][(dData & 0x60) >> 5][0] = 15-(dData & 0xf);
+                psgVol[chipID][(dData & 0x60) >> 5][1] = 15-(dData & 0xf);
 
                 int v = dData & 0xf;
-                v = v + nowSN76489FadeoutVol;
+                v = v + nowSN76489FadeoutVol[chipID];
                 v = Math.Min(v, 15);
                 dData = (dData & 0xf0) | v;
             }
@@ -1020,13 +1060,13 @@ namespace MDPlayer
             }
         }
 
-        public void setFadeoutVolSN76489(int v)
+        public void setFadeoutVolSN76489(int chipID,int v)
         {
-            nowSN76489FadeoutVol = (v & 0x78) >> 3;
+            nowSN76489FadeoutVol[chipID] = (v & 0x78) >> 3;
             for (int c = 0; c < 4; c++)
             {
                 
-                setSN76489Register(0x90 + (c << 5) + psgRegister[1+(c<<1)], vgm.enmModel.RealModel);
+                setSN76489Register(chipID,0x90 + (c << 5) + psgRegister[chipID][1+(c<<1)], vgm.enmModel.RealModel);
             }
         }
 
@@ -1048,7 +1088,7 @@ namespace MDPlayer
 
                 for (int c = 0; c < 4; c++)
                 {
-                    setSN76489Register(0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
+                    setSN76489Register(chipID,0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
                 }
 
                 for (int p = 0; p < 2; p++)
@@ -1226,191 +1266,194 @@ namespace MDPlayer
 
             volF = 1;
 
-            for (int i = 0; i < 9; i++)
+            for (int chipID = 0; chipID < 2; chipID++)
             {
-                if (fmVol[i][0] > 0) { fmVol[i][0] -= 50; if (fmVol[i][0] < 0) fmVol[i][0] = 0; }
-                if (fmVol[i][1] > 0) { fmVol[i][1] -= 50; if (fmVol[i][1] < 0) fmVol[i][1] = 0; }
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                if (fmCh3SlotVol[i] > 0) { fmCh3SlotVol[i] -= 50; if (fmCh3SlotVol[i] < 0) fmCh3SlotVol[i] = 0; }
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                if (fmVolYM2151[i][0] > 0) { fmVolYM2151[i][0] -= 50; if (fmVolYM2151[i][0] < 0) fmVolYM2151[i][0] = 0; }
-                if (fmVolYM2151[i][1] > 0) { fmVolYM2151[i][1] -= 50; if (fmVolYM2151[i][1] < 0) fmVolYM2151[i][1] = 0; }
-            }
-            for (int i = 0; i < 9; i++)
-            {
-                if (fmVolYM2608[i][0] > 0) { fmVolYM2608[i][0] -= 50; if (fmVolYM2608[i][0] < 0) fmVolYM2608[i][0] = 0; }
-                if (fmVolYM2608[i][1] > 0) { fmVolYM2608[i][1] -= 50; if (fmVolYM2608[i][1] < 0) fmVolYM2608[i][1] = 0; }
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                if (fmCh3SlotVolYM2608[i] > 0) { fmCh3SlotVolYM2608[i] -= 50; if (fmCh3SlotVolYM2608[i] < 0) fmCh3SlotVolYM2608[i] = 0; }
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                if (fmVolYM2608Rhythm[i][0] > 0) { fmVolYM2608Rhythm[i][0] -= 50; if (fmVolYM2608Rhythm[i][0] < 0) fmVolYM2608Rhythm[i][0] = 0; }
-                if (fmVolYM2608Rhythm[i][1] > 0) { fmVolYM2608Rhythm[i][1] -= 50; if (fmVolYM2608Rhythm[i][1] < 0) fmVolYM2608Rhythm[i][1] = 0; }
-            }
+                for (int i = 0; i < 9; i++)
+                {
+                    if (fmVolYM2612[chipID][i][0] > 0) { fmVolYM2612[chipID][i][0] -= 50; if (fmVolYM2612[chipID][i][0] < 0) fmVolYM2612[chipID][i][0] = 0; }
+                    if (fmVolYM2612[chipID][i][1] > 0) { fmVolYM2612[chipID][i][1] -= 50; if (fmVolYM2612[chipID][i][1] < 0) fmVolYM2612[chipID][i][1] = 0; }
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    if (fmCh3SlotVolYM2612[chipID][i] > 0) { fmCh3SlotVolYM2612[chipID][i] -= 50; if (fmCh3SlotVolYM2612[chipID][i] < 0) fmCh3SlotVolYM2612[chipID][i] = 0; }
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    if (fmVolYM2151[chipID][i][0] > 0) { fmVolYM2151[chipID][i][0] -= 50; if (fmVolYM2151[chipID][i][0] < 0) fmVolYM2151[chipID][i][0] = 0; }
+                    if (fmVolYM2151[chipID][i][1] > 0) { fmVolYM2151[chipID][i][1] -= 50; if (fmVolYM2151[chipID][i][1] < 0) fmVolYM2151[chipID][i][1] = 0; }
+                }
+                for (int i = 0; i < 9; i++)
+                {
+                    if (fmVolYM2608[chipID][i][0] > 0) { fmVolYM2608[chipID][i][0] -= 50; if (fmVolYM2608[chipID][i][0] < 0) fmVolYM2608[chipID][i][0] = 0; }
+                    if (fmVolYM2608[chipID][i][1] > 0) { fmVolYM2608[chipID][i][1] -= 50; if (fmVolYM2608[chipID][i][1] < 0) fmVolYM2608[chipID][i][1] = 0; }
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    if (fmCh3SlotVolYM2608[chipID][i] > 0) { fmCh3SlotVolYM2608[chipID][i] -= 50; if (fmCh3SlotVolYM2608[chipID][i] < 0) fmCh3SlotVolYM2608[chipID][i] = 0; }
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    if (fmVolYM2608Rhythm[chipID][i][0] > 0) { fmVolYM2608Rhythm[chipID][i][0] -= 50; if (fmVolYM2608Rhythm[chipID][i][0] < 0) fmVolYM2608Rhythm[chipID][i][0] = 0; }
+                    if (fmVolYM2608Rhythm[chipID][i][1] > 0) { fmVolYM2608Rhythm[chipID][i][1] -= 50; if (fmVolYM2608Rhythm[chipID][i][1] < 0) fmVolYM2608Rhythm[chipID][i][1] = 0; }
+                }
 
-            if (fmVolYM2608Adpcm[0] > 0) { fmVolYM2608Adpcm[0] -= 50; if (fmVolYM2608Adpcm[0] < 0) fmVolYM2608Adpcm[0] = 0; }
-            if (fmVolYM2608Adpcm[1] > 0) { fmVolYM2608Adpcm[1] -= 50; if (fmVolYM2608Adpcm[1] < 0) fmVolYM2608Adpcm[1] = 0; }
+                if (fmVolYM2608Adpcm[chipID][0] > 0) { fmVolYM2608Adpcm[chipID][0] -= 50; if (fmVolYM2608Adpcm[chipID][0] < 0) fmVolYM2608Adpcm[chipID][0] = 0; }
+                if (fmVolYM2608Adpcm[chipID][1] > 0) { fmVolYM2608Adpcm[chipID][1] -= 50; if (fmVolYM2608Adpcm[chipID][1] < 0) fmVolYM2608Adpcm[chipID][1] = 0; }
 
-            for (int i = 0; i < 9; i++)
-            {
-                if (fmVolYM2610[i][0] > 0) { fmVolYM2610[i][0] -= 50; if (fmVolYM2610[i][0] < 0) fmVolYM2610[i][0] = 0; }
-                if (fmVolYM2610[i][1] > 0) { fmVolYM2610[i][1] -= 50; if (fmVolYM2610[i][1] < 0) fmVolYM2610[i][1] = 0; }
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                if (fmCh3SlotVolYM2610[i] > 0) { fmCh3SlotVolYM2610[i] -= 50; if (fmCh3SlotVolYM2610[i] < 0) fmCh3SlotVolYM2610[i] = 0; }
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                if (fmVolYM2610Rhythm[i][0] > 0) { fmVolYM2610Rhythm[i][0] -= 50; if (fmVolYM2610Rhythm[i][0] < 0) fmVolYM2610Rhythm[i][0] = 0; }
-                if (fmVolYM2610Rhythm[i][1] > 0) { fmVolYM2610Rhythm[i][1] -= 50; if (fmVolYM2610Rhythm[i][1] < 0) fmVolYM2610Rhythm[i][1] = 0; }
-            }
+                for (int i = 0; i < 9; i++)
+                {
+                    if (fmVolYM2610[chipID][i][0] > 0) { fmVolYM2610[chipID][i][0] -= 50; if (fmVolYM2610[chipID][i][0] < 0) fmVolYM2610[chipID][i][0] = 0; }
+                    if (fmVolYM2610[chipID][i][1] > 0) { fmVolYM2610[chipID][i][1] -= 50; if (fmVolYM2610[chipID][i][1] < 0) fmVolYM2610[chipID][i][1] = 0; }
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    if (fmCh3SlotVolYM2610[chipID][i] > 0) { fmCh3SlotVolYM2610[chipID][i] -= 50; if (fmCh3SlotVolYM2610[chipID][i] < 0) fmCh3SlotVolYM2610[chipID][i] = 0; }
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    if (fmVolYM2610Rhythm[chipID][i][0] > 0) { fmVolYM2610Rhythm[chipID][i][0] -= 50; if (fmVolYM2610Rhythm[chipID][i][0] < 0) fmVolYM2610Rhythm[chipID][i][0] = 0; }
+                    if (fmVolYM2610Rhythm[chipID][i][1] > 0) { fmVolYM2610Rhythm[chipID][i][1] -= 50; if (fmVolYM2610Rhythm[chipID][i][1] < 0) fmVolYM2610Rhythm[chipID][i][1] = 0; }
+                }
 
-            if (fmVolYM2610Adpcm[0] > 0) { fmVolYM2610Adpcm[0] -= 50; if (fmVolYM2610Adpcm[0] < 0) fmVolYM2610Adpcm[0] = 0; }
-            if (fmVolYM2610Adpcm[1] > 0) { fmVolYM2610Adpcm[1] -= 50; if (fmVolYM2610Adpcm[1] < 0) fmVolYM2610Adpcm[1] = 0; }
+                if (fmVolYM2610Adpcm[chipID][0] > 0) { fmVolYM2610Adpcm[chipID][0] -= 50; if (fmVolYM2610Adpcm[chipID][0] < 0) fmVolYM2610Adpcm[chipID][0] = 0; }
+                if (fmVolYM2610Adpcm[chipID][1] > 0) { fmVolYM2610Adpcm[chipID][1] -= 50; if (fmVolYM2610Adpcm[chipID][1] < 0) fmVolYM2610Adpcm[chipID][1] = 0; }
 
-            for (int i = 0; i < 6; i++)
-            {
-                if (fmVolYM2203[i] > 0) { fmVolYM2203[i] -= 50; if (fmVolYM2203[i] < 0) fmVolYM2203[i] = 0; }
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                if (fmCh3SlotVolYM2203[i] > 0) { fmCh3SlotVolYM2203[i] -= 50; if (fmCh3SlotVolYM2203[i] < 0) fmCh3SlotVolYM2203[i] = 0; }
+                for (int i = 0; i < 6; i++)
+                {
+                    if (fmVolYM2203[chipID][i] > 0) { fmVolYM2203[chipID][i] -= 50; if (fmVolYM2203[chipID][i] < 0) fmVolYM2203[chipID][i] = 0; }
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    if (fmCh3SlotVolYM2203[chipID][i] > 0) { fmCh3SlotVolYM2203[chipID][i] -= 50; if (fmCh3SlotVolYM2203[chipID][i] < 0) fmCh3SlotVolYM2203[chipID][i] = 0; }
+                }
             }
 
         }
 
-        public int[][] GetFMVolume()
+        public int[][] GetFMVolume(int chipID)
         {
             //if (ctYM2612.UseScci)
             //{
-            return fmVol;
+            return fmVolYM2612[chipID];
             //}
             //return mds.ReadFMVolume();
         }
 
-        public int[][] GetYM2151Volume()
+        public int[][] GetYM2151Volume(int chipID)
         {
-            return fmVolYM2151;
+            return fmVolYM2151[chipID];
         }
 
-        public int[][] GetYM2608Volume()
+        public int[][] GetYM2608Volume(int chipID)
         {
-            return fmVolYM2608;
+            return fmVolYM2608[chipID];
         }
 
-        public int[][] GetYM2610Volume()
+        public int[][] GetYM2610Volume(int chipID)
         {
-            return fmVolYM2610;
+            return fmVolYM2610[chipID];
         }
 
-        public int[] GetYM2203Volume()
+        public int[] GetYM2203Volume(int chipID)
         {
-            return fmVolYM2203;
+            return fmVolYM2203[chipID];
         }
 
-        public int[] GetFMCh3SlotVolume()
+        public int[] GetFMCh3SlotVolume(int chipID)
         {
             //if (ctYM2612.UseScci)
             //{
-            return fmCh3SlotVol;
+            return fmCh3SlotVolYM2612[chipID];
             //}
             //return mds.ReadFMCh3SlotVolume();
         }
 
-        public int[] GetYM2608Ch3SlotVolume()
+        public int[] GetYM2608Ch3SlotVolume(int chipID)
         {
             //if (ctYM2612.UseScci)
             //{
-            return fmCh3SlotVolYM2608;
+            return fmCh3SlotVolYM2608[chipID];
             //}
             //return mds.ReadFMCh3SlotVolume();
         }
 
-        public int[] GetYM2610Ch3SlotVolume()
+        public int[] GetYM2610Ch3SlotVolume(int chipID)
         {
             //if (ctYM2612.UseScci)
             //{
-            return fmCh3SlotVolYM2610;
+            return fmCh3SlotVolYM2610[chipID];
+        //}
+        //return mds.ReadFMCh3SlotVolume();
+    }
+
+        public int[] GetYM2203Ch3SlotVolume(int chipID)
+        {
+            //if (ctYM2612.UseScci)
+            //{
+            return fmCh3SlotVolYM2203[chipID];
             //}
             //return mds.ReadFMCh3SlotVolume();
         }
 
-        public int[] GetYM2203Ch3SlotVolume()
+        public int[][] GetYM2608RhythmVolume(int chipID)
         {
-            //if (ctYM2612.UseScci)
-            //{
-            return fmCh3SlotVolYM2203;
-            //}
-            //return mds.ReadFMCh3SlotVolume();
+            return fmVolYM2608Rhythm[chipID];
         }
 
-        public int[][] GetYM2608RhythmVolume()
+        public int[] GetYM2608AdpcmVolume(int chipID)
         {
-            return fmVolYM2608Rhythm;
+            return fmVolYM2608Adpcm[chipID];
         }
 
-        public int[] GetYM2608AdpcmVolume()
+        public int[][] GetYM2610RhythmVolume(int chipID)
         {
-            return fmVolYM2608Adpcm;
+            return fmVolYM2610Rhythm[chipID];
         }
 
-        public int[][] GetYM2610RhythmVolume()
+        public int[] GetYM2610AdpcmVolume(int chipID)
         {
-            return fmVolYM2610Rhythm;
+            return fmVolYM2610Adpcm[chipID];
         }
 
-        public int[] GetYM2610AdpcmVolume()
-        {
-            return fmVolYM2610Adpcm;
-        }
-
-        public int[][] GetPSGVolume()
+        public int[][] GetPSGVolume(int chipID)
         {
 
-            return psgVol;
+            return psgVol[chipID];
 
         }
 
-        private void SN76489_Write(int data)
+        private void SN76489_Write(int chipID,int data)
         {
             if ((data & 0x80) > 0)
             {
                 /* Latch/data byte  %1 cc t dddd */
-                LatchedRegister = (data >> 4) & 0x07;
-                psgRegister[LatchedRegister] =
-                    (psgRegister[LatchedRegister] & 0x3f0) /* zero low 4 bits */
+                LatchedRegister[chipID] = (data >> 4) & 0x07;
+                psgRegister[chipID][LatchedRegister[chipID]] =
+                    (psgRegister[chipID][LatchedRegister[chipID]] & 0x3f0) /* zero low 4 bits */
                     | (data & 0xf);                            /* and replace with data */
             }
             else
             {
                 /* Data byte        %0 - dddddd */
-                if ((LatchedRegister % 2) == 0 && (LatchedRegister < 5))
+                if ((LatchedRegister[chipID] % 2) == 0 && (LatchedRegister[chipID] < 5))
                     /* Tone register */
-                    psgRegister[LatchedRegister] =
-                        (psgRegister[LatchedRegister] & 0x00f) /* zero high 6 bits */
+                    psgRegister[chipID][LatchedRegister[chipID]] =
+                        (psgRegister[chipID][LatchedRegister[chipID]] & 0x00f) /* zero high 6 bits */
                         | ((data & 0x3f) << 4);                 /* and replace with data */
                 else
                     /* Other register */
-                    psgRegister[LatchedRegister] = data & 0x0f; /* Replace with data */
+                    psgRegister[chipID][LatchedRegister[chipID]] = data & 0x0f; /* Replace with data */
             }
-            switch (LatchedRegister)
+            switch (LatchedRegister[chipID])
             {
                 case 0:
                 case 2:
                 case 4: /* Tone channels */
-                    if (psgRegister[LatchedRegister] == 0)
-                        psgRegister[LatchedRegister] = 1; /* Zero frequency changed to 1 to avoid div/0 */
+                    if (psgRegister[chipID][LatchedRegister[chipID]] == 0)
+                        psgRegister[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
                     break;
                 case 6: /* Noise */
-                    NoiseFreq = 0x10 << (psgRegister[6] & 0x3); /* set noise signal generator frequency */
+                    NoiseFreq[chipID] = 0x10 << (psgRegister[chipID][6] & 0x3); /* set noise signal generator frequency */
                     break;
             }
         }

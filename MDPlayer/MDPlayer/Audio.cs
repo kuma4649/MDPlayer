@@ -352,7 +352,8 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolYM2151(1, 0);
                 chipRegister.setFadeoutVolYM2612(0, 0);
                 chipRegister.setFadeoutVolYM2612(1, 0);
-                chipRegister.setFadeoutVolSN76489(0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
                 trdClosed = false;
@@ -907,119 +908,119 @@ namespace MDPlayer
             return chips;
         }
 
-        public static int[][] GetFMRegister()
+        public static int[][] GetFMRegister(int chipID)
         {
-            return chipRegister.fmRegister;
+            return chipRegister.fmRegisterYM2612[chipID];
         }
 
-        public static int[] GetYM2151Register()
+        public static int[] GetYM2151Register(int chipID)
         {
-            return chipRegister.fmRegisterYM2151;
+            return chipRegister.fmRegisterYM2151[chipID];
         }
 
-        public static int[] GetYM2203Register()
+        public static int[] GetYM2203Register(int chipID)
         {
-            return chipRegister.fmRegisterYM2203;
+            return chipRegister.fmRegisterYM2203[chipID];
         }
 
-        public static int[][] GetYM2608Register()
+        public static int[][] GetYM2608Register(int chipID)
         {
-            return chipRegister.fmRegisterYM2608;
+            return chipRegister.fmRegisterYM2608[chipID];
         }
 
-        public static int[][] GetYM2610Register()
+        public static int[][] GetYM2610Register(int chipID)
         {
-            return chipRegister.fmRegisterYM2610;
+            return chipRegister.fmRegisterYM2610[chipID];
         }
 
-        public static int[] GetPSGRegister()
+        public static int[] GetPSGRegister(int chipID)
         {
-            return chipRegister.psgRegister;
+            return chipRegister.psgRegister[chipID];
         }
 
-        public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register()
+        public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
         {
-            return mds.ReadRf5c164Register();
+            return mds.ReadRf5c164Register(chipID);
         }
 
-        public static MDSound.c140.c140_state GetC140Register()
+        public static MDSound.c140.c140_state GetC140Register(int chipID)
         {
-            return mds.ReadC140Register(0);
+            return mds.ReadC140Register(chipID);
         }
 
-        public static MDSound.segapcm.segapcm_state GetSegaPCMRegister()
+        public static MDSound.segapcm.segapcm_state GetSegaPCMRegister(int chipID)
         {
-            return mds.ReadSegaPCMStatus(0);
+            return mds.ReadSegaPCMStatus(chipID);
         }
 
-        public static int[] GetFMKeyOn()
+        public static int[] GetFMKeyOn(int chipID)
         {
-            return chipRegister.fmKeyOn;
+            return chipRegister.fmKeyOnYM2612[chipID];
         }
 
-        public static int[] GetYM2151KeyOn()
+        public static int[] GetYM2151KeyOn(int chipID)
         {
-            return chipRegister.fmKeyOnYM2151;
+            return chipRegister.fmKeyOnYM2151[chipID];
         }
 
-        public static int[] GetYM2608KeyOn()
+        public static int[] GetYM2608KeyOn(int chipID)
         {
-            return chipRegister.fmKeyOnYM2608;
+            return chipRegister.fmKeyOnYM2608[chipID];
         }
 
-        public static int[] GetYM2610KeyOn()
+        public static int[] GetYM2610KeyOn(int chipID)
         {
-            return chipRegister.fmKeyOnYM2610;
+            return chipRegister.fmKeyOnYM2610[chipID];
         }
 
-        public static int[] GetYM2203KeyOn()
+        public static int[] GetYM2203KeyOn(int chipID)
         {
-            return chipRegister.fmKeyOnYM2203;
+            return chipRegister.fmKeyOnYM2203[chipID];
         }
 
-        public static int[][] GetFMVolume()
+        public static int[][] GetFMVolume(int chipID)
         {
-            return chipRegister.GetFMVolume();
+            return chipRegister.GetFMVolume(chipID);
         }
 
-        public static int[][] GetYM2151Volume()
+        public static int[][] GetYM2151Volume(int chipID)
         {
-            return chipRegister.GetYM2151Volume();
+            return chipRegister.GetYM2151Volume(chipID);
         }
 
-        public static int[][] GetYM2608Volume()
+        public static int[][] GetYM2608Volume(int chipID)
         {
-            return chipRegister.GetYM2608Volume();
+            return chipRegister.GetYM2608Volume(chipID);
         }
 
-        public static int[][] GetYM2608RhythmVolume()
+        public static int[][] GetYM2608RhythmVolume(int chipID)
         {
-            return chipRegister.GetYM2608RhythmVolume();
+            return chipRegister.GetYM2608RhythmVolume(chipID);
         }
 
-        public static int[] GetYM2608AdpcmVolume()
+        public static int[] GetYM2608AdpcmVolume(int chipID)
         {
-            return chipRegister.GetYM2608AdpcmVolume();
+            return chipRegister.GetYM2608AdpcmVolume(chipID);
         }
 
-        public static int[][] GetYM2610Volume()
+        public static int[][] GetYM2610Volume(int chipID)
         {
-            return chipRegister.GetYM2610Volume();
+            return chipRegister.GetYM2610Volume(chipID);
         }
 
-        public static int[][] GetYM2610RhythmVolume()
+        public static int[][] GetYM2610RhythmVolume(int chipID)
         {
-            return chipRegister.GetYM2610RhythmVolume();
+            return chipRegister.GetYM2610RhythmVolume(chipID);
         }
 
-        public static int[] GetYM2610AdpcmVolume()
+        public static int[] GetYM2610AdpcmVolume(int chipID)
         {
-            return chipRegister.GetYM2610AdpcmVolume();
+            return chipRegister.GetYM2610AdpcmVolume(chipID);
         }
 
-        public static int[] GetYM2203Volume()
+        public static int[] GetYM2203Volume(int chipID)
         {
-            return chipRegister.GetYM2203Volume();
+            return chipRegister.GetYM2203Volume(chipID);
         }
 
         public static void updateVol()
@@ -1027,50 +1028,50 @@ namespace MDPlayer
             chipRegister.updateVol();
         }
 
-        public static int[] GetFMCh3SlotVolume()
+        public static int[] GetFMCh3SlotVolume(int chipID)
         {
-            return chipRegister.GetFMCh3SlotVolume();
+            return chipRegister.GetFMCh3SlotVolume(chipID);
         }
 
-        public static int[] GetYM2608Ch3SlotVolume()
+        public static int[] GetYM2608Ch3SlotVolume(int chipID)
         {
-            return chipRegister.GetYM2608Ch3SlotVolume();
+            return chipRegister.GetYM2608Ch3SlotVolume(chipID);
         }
 
-        public static int[] GetYM2610Ch3SlotVolume()
+        public static int[] GetYM2610Ch3SlotVolume(int chipID)
         {
-            return chipRegister.GetYM2610Ch3SlotVolume();
+            return chipRegister.GetYM2610Ch3SlotVolume(chipID);
         }
 
-        public static int[] GetYM2203Ch3SlotVolume()
+        public static int[] GetYM2203Ch3SlotVolume(int chipID)
         {
-            return chipRegister.GetYM2203Ch3SlotVolume();
+            return chipRegister.GetYM2203Ch3SlotVolume(chipID);
         }
 
-        public static int[][] GetPSGVolume()
+        public static int[][] GetPSGVolume(int chipID)
         {
-            return chipRegister.GetPSGVolume();
+            return chipRegister.GetPSGVolume(chipID);
         }
 
-        public static int[][] GetRf5c164Volume()
+        public static int[][] GetRf5c164Volume(int chipID)
         {
-            return mds.ReadRf5c164Volume();
+            return mds.ReadRf5c164Volume(chipID);
         }
 
         public static void setFMMask(int chipID,int ch)
         {
-            mds.setYM2612Mask(1 << ch);
+            mds.setYM2612Mask(chipID,1 << ch);
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
-        public static void setPSGMask(int ch)
+        public static void setPSGMask(int chipID, int ch)
         {
-            mds.setSN76489Mask(1 << ch);
+            mds.setSN76489Mask(chipID,1 << ch);
         }
 
-        public static void setRF5C164Mask(int ch)
+        public static void setRF5C164Mask(int chipID, int ch)
         {
-            mds.setRf5c164Mask(ch);
+            mds.setRf5c164Mask(chipID,ch);
         }
 
         public static void setYM2151Mask(int chipID,int ch)
@@ -1087,30 +1088,50 @@ namespace MDPlayer
 
         public static void resetFMMask(int chipID,int ch)
         {
-            mds.resetYM2612Mask(1 << ch);
-            chipRegister.setMaskYM2612(chipID,ch, false);
+            try
+            {
+                mds.resetYM2612Mask(chipID, 1 << ch);
+                chipRegister.setMaskYM2612(chipID, ch, false);
+            }
+            catch { }
         }
 
-        public static void resetPSGMask(int ch)
+        public static void resetPSGMask(int chipID, int ch)
         {
-            mds.resetSN76489Mask(1 << ch);
+            try
+            {
+                mds.resetSN76489Mask(chipID, 1 << ch);
+            }
+            catch { }
         }
 
-        public static void resetRF5C164Mask(int ch)
+        public static void resetRF5C164Mask(int chipID,int ch)
         {
-            mds.resetRf5c164Mask(ch);
+            try
+            {
+                mds.resetRf5c164Mask(chipID, ch);
+            }
+            catch { }
         }
 
         public static void resetYM2151Mask(int chipID,int ch)
         {
-            //mds.resetYM2151Mask(ch);
-            chipRegister.setMaskYM2151(chipID,ch, false);
+            try
+            {
+                //mds.resetYM2151Mask(ch);
+                chipRegister.setMaskYM2151(chipID, ch, false);
+            }
+            catch { }
         }
 
         public static void resetYM2608Mask(int chipID,int ch)
         {
-            //mds.resetYM2608Mask(ch);
-            chipRegister.setMaskYM2608(chipID, ch, false);
+            try
+            {
+                //mds.resetYM2608Mask(ch);
+                chipRegister.setMaskYM2608(chipID, ch, false);
+            }
+            catch { }
         }
 
         public static uint GetVgmCurLoopCounter()
@@ -1189,7 +1210,11 @@ namespace MDPlayer
             }
             else
             {
-                Stop();
+                try
+                {
+                    Stop();
+                }
+                catch { }
             }
         }
 
@@ -1199,92 +1224,105 @@ namespace MDPlayer
             double step = 1 / (double)SamplingRate;
 
             trdStopped = false;
-            while (!trdClosed)
+            try
             {
-                Thread.Sleep(0);
-
-                double el1 = sw.ElapsedTicks / swFreq;
-                if (el1 - o < step) continue;
-
-                o += step;
-                //while (el1 - o >= step) o += step;
-
-                if (Stopped || Paused)
+                while (!trdClosed)
                 {
-                    if (nscci != null && !oneTimeReset)
-                    {
-                        nscci.reset();
-                        oneTimeReset = true;
-                    }
-                    continue;
-                }
-                if (vgmVirtual.isDataBlock) { continue;}
+                    Thread.Sleep(0);
 
-                if (vgmFadeout)
-                {
-                    if (vgmRealFadeoutVol != 1000) vgmRealFadeoutVolWait--;
-                    if (vgmRealFadeoutVolWait == 0)
-                    {
-                        chipRegister.setFadeoutVolYM2151(0,vgmRealFadeoutVol);
-                        chipRegister.setFadeoutVolYM2608(0,vgmRealFadeoutVol);
-                        chipRegister.setFadeoutVolYM2612(0,vgmRealFadeoutVol);
-                        chipRegister.setFadeoutVolSN76489(vgmRealFadeoutVol++);
+                    double el1 = sw.ElapsedTicks / swFreq;
+                    if (el1 - o < step) continue;
 
-                        vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
-                        if (vgmRealFadeoutVol == 127)
+                    o += step;
+                    //while (el1 - o >= step) o += step;
+
+                    if (Stopped || Paused)
+                    {
+                        if (nscci != null && !oneTimeReset)
                         {
-                            if (nscci != null) nscci.reset();
-                            vgmRealFadeoutVolWait = 1000;
+                            nscci.reset();
+                            oneTimeReset = true;
+                        }
+                        continue;
+                    }
+                    if (vgmVirtual.isDataBlock) { continue; }
+
+                    if (vgmFadeout)
+                    {
+                        if (vgmRealFadeoutVol != 1000) vgmRealFadeoutVolWait--;
+                        if (vgmRealFadeoutVolWait == 0)
+                        {
+                            chipRegister.setFadeoutVolYM2151(0, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolSN76489(0, vgmRealFadeoutVol);
+
+                            chipRegister.setFadeoutVolYM2151(1, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolSN76489(1, vgmRealFadeoutVol);
+
+                            vgmRealFadeoutVol++;
+
+                            vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
+                            if (vgmRealFadeoutVol == 127)
+                            {
+                                if (nscci != null) nscci.reset();
+                                vgmRealFadeoutVolWait = 1000;
+                            }
+                            else
+                            {
+                                vgmRealFadeoutVolWait = 700 - vgmRealFadeoutVol * 2;
+                            }
+                        }
+                    }
+
+                    if (hiyorimiNecessary)
+                    {
+                        long v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
+                        long d = SamplingRate * (setting.LatencySCCI - SamplingRate * setting.LatencyEmulation) / 1000;
+                        long l = getLatency() / 4;
+
+                        int m = 0;
+                        if (d >= 0)
+                        {
+                            if (v >= d - l && v <= d + l) m = 0;
+                            else m = (v + d > l) ? 1 : 2;
                         }
                         else
                         {
-                            vgmRealFadeoutVolWait = 700 - vgmRealFadeoutVol * 2;
+                            d = Math.Abs(SamplingRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
+                            if (v >= d - l && v <= d + l) m = 0;
+                            else m = (v - d > l) ? 1 : 2;
                         }
-                    }
-                }
 
-                if (hiyorimiNecessary)
-                {
-                    long v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
-                    long d = SamplingRate * (setting.LatencySCCI - SamplingRate * setting.LatencyEmulation) / 1000;
-                    long l = getLatency() / 4;
-
-                    int m = 0;
-                    if (d >= 0)
-                    {
-                        if (v >= d - l && v <= d + l) m = 0;
-                        else m = (v + d > l) ? 1 : 2;
+                        switch (m)
+                        {
+                            case 0: //x1
+                                vgmReal.oneFrameVGM();
+                                break;
+                            case 1: //x1/2
+                                hiyorimiEven++;
+                                if (hiyorimiEven > 1)
+                                {
+                                    vgmReal.oneFrameVGM();
+                                    hiyorimiEven = 0;
+                                }
+                                break;
+                            case 2: //x2
+                                vgmReal.oneFrameVGM();
+                                vgmReal.oneFrameVGM();
+                                break;
+                        }
                     }
                     else
                     {
-                        d = Math.Abs(SamplingRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
-                        if (v >= d - l && v <= d + l) m = 0; 
-                        else m = (v - d > l) ? 1 : 2;
-                    }
-
-                    switch (m)
-                    {
-                        case 0: //x1
-                            vgmReal.oneFrameVGM();
-                            break;
-                        case 1: //x1/2
-                            hiyorimiEven++;
-                            if (hiyorimiEven > 1)
-                            {
-                                vgmReal.oneFrameVGM();
-                                hiyorimiEven = 0;
-                            }
-                            break;
-                        case 2: //x2
-                            vgmReal.oneFrameVGM();
-                            vgmReal.oneFrameVGM();
-                            break;
+                        vgmReal.oneFrameVGM();
                     }
                 }
-                else
-                {
-                    vgmReal.oneFrameVGM();
-                }
+            }
+            catch
+            {
             }
             trdStopped = true;
         }

@@ -97,11 +97,11 @@ namespace MDPlayer
 
             if (e.Button == MouseButtons.Left)
             {
-                parent.SetChannelMask(vgm.enmUseChip.RF5C164, ch);
+                parent.SetChannelMask(vgm.enmUseChip.RF5C164, chipID, ch);
                 return;
             }
 
-            for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(vgm.enmUseChip.RF5C164, ch);
+            for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(vgm.enmUseChip.RF5C164, chipID, ch);
         }
 
         private void pbScreen_DragDrop(object sender, DragEventArgs e)
