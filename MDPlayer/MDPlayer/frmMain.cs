@@ -1710,7 +1710,7 @@ namespace MDPlayer
                 screenChangeParamsFromYM2151(chipID);
                 screenChangeParamsFromYM2608(chipID);
                 screenChangeParamsFromYM2610(chipID);
-                screenChangeParamsFrom2203(chipID);
+                screenChangeParamsFromYM2203(chipID);
             }
 
             long w = Audio.GetCounter();
@@ -1739,7 +1739,7 @@ namespace MDPlayer
 
         }
 
-        private void screenChangeParamsFrom2203(int chipID)
+        private void screenChangeParamsFromYM2203(int chipID)
         {
             bool isFmEx;
             int[] ym2203Register = Audio.GetYM2203Register(chipID);
@@ -1824,7 +1824,7 @@ namespace MDPlayer
 
             for (int ch = 0; ch < 3; ch++) //SSG
             {
-                MDChipParams.Channel channel = newParam.ym2203[0].channels[ch + 6];
+                MDChipParams.Channel channel = newParam.ym2203[chipID].channels[ch + 6];
 
                 bool t = (ym2203Register[0x07] & (0x1 << ch)) == 0;
                 bool n = (ym2203Register[0x07] & (0x8 << ch)) == 0;
@@ -2171,7 +2171,11 @@ namespace MDPlayer
 
                     int ptrRom = segapcmState.ptrRom + ((segapcmState.ram[ch * 8 + 0x86] & segapcmState.bankmask) << segapcmState.bankshift);
                     uint addr = (uint)((segapcmState.ram[ch * 8 + 0x85] << 16) | (segapcmState.ram[ch * 8 + 0x84] << 8) | segapcmState.low[ch]);
-                    int vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
+                    int vdt=0;
+                    if (ptrRom + ((addr >> 8) & segapcmState.rgnmask) < segapcmState.rom.Length)
+                    {
+                        vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
+                    }
                     byte end = (byte)(segapcmState.ram[ch * 8 + 6] + 1);
                     if ((segapcmState.ram[ch * 8 + 0x86] & 1) != 0) vdt = 0;
                     if ((addr >> 16) == end)
