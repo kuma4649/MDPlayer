@@ -932,7 +932,7 @@ namespace MDPlayer
             }
         }
 
-        public void drawChP(int x, int y, int ch, bool mask, int tp)
+        public void drawChP(int chipID,int x, int y, int ch, bool mask, int tp)
         {
             if (ch == 5)
             {
@@ -941,32 +941,27 @@ namespace MDPlayer
 
             if (ch < 5)
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
             }
             else if (ch < 10)
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch - 5).ToString());
-            }
-            else
-            {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, (ch - 9).ToString());
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, mask ? 1 : 0, (ch - 5).ToString());
             }
         }
 
-        public void drawCh6P(int x, int y, int m, bool mask, int tp)
+        public void drawCh6P(int chipID, int x, int y, int m, bool mask, int tp)
         {
             if (m == 0)
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, mask ? 1 : 0, "6");
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, mask ? 1 : 0, "6");
             }
             else
             {
-                mainScreen.drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-                drawFont8(mainScreen, x + 16, y, 0, " ");
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, 0, " ");
             }
         }
 
@@ -978,7 +973,7 @@ namespace MDPlayer
             drawFont8(ym2151Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
-        public void drawChPYM2608(int chipID,int x, int y, int ch, bool mask, int tp)
+        public void drawChPYM2608(int chipID, int x, int y, int ch, bool mask, int tp)
         {
             if (ym2608Screen[chipID] == null) return;
 
@@ -1003,6 +998,39 @@ namespace MDPlayer
             }
         }
 
+        public void drawChPYM2203(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (ym2203Screen[chipID] == null) return;
+
+            if (ch < 3)
+            {
+                ym2203Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2203Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 6)
+            {
+                ym2203Screen[chipID].drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2203Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch - 3).ToString());
+            }
+            else if (ch < 9)
+            {
+                ym2203Screen[chipID].drawByteArray(x, y, fontBuf, 128, 112, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2203Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+            else
+            {
+                ym2203Screen[chipID].drawByteArray(x, y, fontBuf, 128, 0, 136 - (mask ? 8 : 0) + 16 * tp, 24, 8);
+            }
+        }
+
+        public void drawChPSN76489(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (SN76489Screen[chipID] == null) return;
+
+            SN76489Screen[chipID].drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(SN76489Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+        
         public void drawChPRF5C164(int chipID, int x, int y, int ch, bool mask, int tp)
         {
             if (rf5c164Screen == null) return;
@@ -1132,7 +1160,7 @@ namespace MDPlayer
 
         }
 
-        public void drawCh(int ch, ref bool om, bool nm, int tp)
+        public void drawCh(int chipID,int ch, ref bool om, bool nm, int tp)
         {
 
             if (om == nm)
@@ -1140,11 +1168,11 @@ namespace MDPlayer
                 return;
             }
 
-            drawChP(0, 8 + ch * 8, ch, nm, tp);
+            drawChP(chipID,0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
-        public void drawCh6(ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        public void drawCh6(int chipID, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
         {
 
             if (ot == nt && om == nm && otp == ntp)
@@ -1152,7 +1180,7 @@ namespace MDPlayer
                 return;
             }
 
-            drawCh6P(0, 48, nt, nm, ntp);
+            drawCh6P(chipID,0, 48, nt, nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
@@ -1182,7 +1210,7 @@ namespace MDPlayer
             om = nm;
         }
 
-        public void drawChYM2608(int chipID,int ch, ref bool om, bool nm, int tp)
+        public void drawChYM2608(int chipID, int ch, ref bool om, bool nm, int tp)
         {
 
             if (om == nm)
@@ -1190,10 +1218,34 @@ namespace MDPlayer
                 return;
             }
 
-            drawChPYM2608(chipID,0, 8 + ch * 8, ch, nm, tp);
+            drawChPYM2608(chipID, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
+        public void drawChYM2203(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPYM2203(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public void drawChSN76489(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPSN76489(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+        
         public void drawPan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
@@ -1560,7 +1612,7 @@ namespace MDPlayer
                     drawKb(ym2203Screen[chipID], c+3, ref oyc.note, nyc.note, tp);
                 }
 
-                //drawChYM2203(chipID, c, ref oyc.mask, nyc.mask, tp);
+                drawChYM2203(chipID, c, ref oyc.mask, nyc.mask, tp);
 
             }
 
@@ -1572,7 +1624,7 @@ namespace MDPlayer
                 drawVolume(ym2203Screen[chipID], c + 3, 0, ref oyc.volume, nyc.volume, tp);
                 drawKb(ym2203Screen[chipID], c + 3, ref oyc.note, nyc.note, tp);
 
-                //drawChYM2203(chipID, c + 6, ref oyc.mask, nyc.mask, 0);
+                drawChYM2203(chipID, c + 6, ref oyc.mask, nyc.mask, tp);
             }
 
         }
@@ -1771,6 +1823,7 @@ namespace MDPlayer
 
                 drawVolume(SN76489Screen[chipID], c, 0, ref osc.volume, nsc.volume, tp);
                 drawKb(SN76489Screen[chipID], c, ref osc.note, nsc.note, tp);
+                drawChSN76489(chipID, c , ref osc.mask, nsc.mask, tp);
             }
         }
 
@@ -1791,6 +1844,7 @@ namespace MDPlayer
                     drawPan(ym2612Screen[chipID], c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                     drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp);
                     drawInst(ym2612Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
+                    drawCh(chipID, c, ref oyc.mask, nyc.mask, tp);
                 }
                 else if (c == 5)
                 {
@@ -1806,12 +1860,15 @@ namespace MDPlayer
                     drawPan(ym2612Screen[chipID], c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6);
                     drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp6);
                     drawInst(ym2612Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
+                    drawCh6(chipID, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6);
                 }
                 else
                 {
                     drawVolume(ym2612Screen[chipID], c, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp);
+                    drawCh(chipID, c, ref oyc.mask, nyc.mask, tp);
                 }
+
 
             }
         }

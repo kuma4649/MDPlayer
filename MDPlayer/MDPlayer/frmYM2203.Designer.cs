@@ -41,6 +41,7 @@
             this.pbScreen.Size = new System.Drawing.Size(320, 128);
             this.pbScreen.TabIndex = 1;
             this.pbScreen.TabStop = false;
+            this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             // 
             // frmYM2203
             // 

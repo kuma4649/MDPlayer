@@ -346,6 +346,8 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmRealFadeoutVol = 0;
                 vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
                 chipRegister.setFadeoutVolYM2608(0, 0);
                 chipRegister.setFadeoutVolYM2608(1, 0);
                 chipRegister.setFadeoutVolYM2151(0, 0);
@@ -1058,13 +1060,19 @@ namespace MDPlayer
             return mds.ReadRf5c164Volume(chipID);
         }
 
-        public static void setFMMask(int chipID,int ch)
+        public static void setYM2612Mask(int chipID,int ch)
         {
-            mds.setYM2612Mask(chipID,1 << ch);
+            //mds.setYM2612Mask(chipID,1 << ch);
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
-        public static void setPSGMask(int chipID, int ch)
+        public static void setYM2203Mask(int chipID, int ch)
+        {
+            //mds.setYM2203Mask(chipID, 1 << ch);
+            chipRegister.setMaskYM2203(chipID, ch, true);
+        }
+
+        public static void setSN76489Mask(int chipID, int ch)
         {
             mds.setSN76489Mask(chipID,1 << ch);
         }
@@ -1086,17 +1094,27 @@ namespace MDPlayer
             chipRegister.setMaskYM2608(chipID,ch, true);
         }
 
-        public static void resetFMMask(int chipID,int ch)
+        public static void resetYM2612Mask(int chipID,int ch)
         {
             try
             {
-                mds.resetYM2612Mask(chipID, 1 << ch);
+                //mds.resetYM2612Mask(chipID, 1 << ch);
                 chipRegister.setMaskYM2612(chipID, ch, false);
             }
             catch { }
         }
 
-        public static void resetPSGMask(int chipID, int ch)
+        public static void resetYM2203Mask(int chipID, int ch)
+        {
+            try
+            {
+                //mds.resetYM2203Mask(chipID, 1 << ch);
+                chipRegister.setMaskYM2203(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetSN76489Mask(int chipID, int ch)
         {
             try
             {
@@ -1253,11 +1271,13 @@ namespace MDPlayer
                         if (vgmRealFadeoutVolWait == 0)
                         {
                             chipRegister.setFadeoutVolYM2151(0, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2203(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolSN76489(0, vgmRealFadeoutVol);
 
                             chipRegister.setFadeoutVolYM2151(1, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2203(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolSN76489(1, vgmRealFadeoutVol);
