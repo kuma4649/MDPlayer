@@ -94,5 +94,28 @@ namespace MDPlayer
         public void screenDrawParams()
         {
         }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            //int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
+
+            int ch = (py / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch < 16)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    parent.SetChannelMask(vgm.enmUseChip.SEGAPCM, chipID, ch);
+                    return;
+                }
+
+                for (ch = 0; ch < 16; ch++) parent.ResetChannelMask(vgm.enmUseChip.SEGAPCM, chipID, ch);
+                return;
+
+            }
+
+        }
     }
 }

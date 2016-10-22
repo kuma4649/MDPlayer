@@ -1088,6 +1088,24 @@ namespace MDPlayer
             drawFont8(rf5c164Screen[chipID], x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
         }
 
+        public void drawChPC140(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (c140Screen[chipID] == null) return;
+
+            c140Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            if (ch < 9) drawFont8(c140Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            else drawFont4(c140Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        public void drawChPSegaPCM(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (SegaPCMScreen[chipID] == null) return;
+
+            SegaPCMScreen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            if (ch < 9) drawFont8(SegaPCMScreen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            else drawFont4(SegaPCMScreen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
 
         public void drawVolume(FrameBuffer screen,int y, int c, ref int ov, int nv, int tp)
         {
@@ -1330,7 +1348,31 @@ namespace MDPlayer
             drawChPSN76489(chipID, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
-        
+
+        public void drawChC140(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPC140(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public void drawChSegaPCM(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPSegaPCM(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
         public void drawPan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
@@ -1829,6 +1871,7 @@ namespace MDPlayer
                 drawKbToC140(chipID, c, ref orc.note, nrc.note);
                 drawPanToC140(chipID, c, ref orc.pan, nrc.pan);
 
+                drawChC140(chipID, c, ref orc.mask, nrc.mask, 0);
             }
         }
 
@@ -1845,6 +1888,7 @@ namespace MDPlayer
                 drawKb(SegaPCMScreen[chipID], c, ref orc.note, nrc.note, 0);
                 drawPanType2(SegaPCMScreen[chipID], c, ref orc.pan, nrc.pan);
 
+                drawChSegaPCM(chipID, c, ref orc.mask, nrc.mask, 0);
             }
         }
 
@@ -2058,6 +2102,7 @@ namespace MDPlayer
                 }
                 drawFont8(c140Screen[chipID], 296, ch * 8 + 8, 1, "   ");
                 drawPanType2P(c140Screen[chipID], 24, ch * 8 + 8, 0);
+                drawChPC140(chipID, 0, 8 + ch * 8, ch, false, 0);
             }
         }
 
@@ -2240,6 +2285,18 @@ namespace MDPlayer
 
         public void screenInitSegaPCM(int chipID)
         {
+            for (int ch = 0; ch < 16; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(SegaPCMScreen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(SegaPCMScreen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(SegaPCMScreen[chipID], 24, ch * 8 + 8, 0);
+                drawChPSegaPCM(chipID, 0, 8 + ch * 8, ch, false, 0);
+            }
         }
 
     }

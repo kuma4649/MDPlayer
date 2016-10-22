@@ -2395,28 +2395,6 @@ namespace MDPlayer
             screen.drawChipName(51 * 4, 1 * 8, 10, ref oldParam.ChipSecC140, chips[128 + 10]);
             screen.drawChipName(56 * 4, 1 * 8, 11, ref oldParam.ChipSecSPCM, chips[128 + 11]);
 
-            //int tp = setting.YM2612Type.UseScci ? 1 : 0;
-            //int tp6 = tp;
-            //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation)
-            //{
-            //    tp6 = newParam.ym2612.channels[5].pcmMode == 0 ? 1 : 0;
-            //}
-            //screen.drawCh6(ref oldParam.ym2612.channels[5].pcmMode, newParam.ym2612.channels[5].pcmMode
-            //    , ref oldParam.ym2612.channels[5].mask, newParam.ym2612.channels[5].mask
-            //    , ref oldParam.ym2612.channels[5].tp, tp6);
-            //for (int ch = 0; ch < 5; ch++)
-            //{
-            //    screen.drawCh(ch, ref oldParam.ym2612.channels[ch].mask, newParam.ym2612.channels[ch].mask, tp);
-            //}
-            //for (int ch = 6; ch < 10; ch++)
-            //{
-            //    screen.drawCh(ch, ref oldParam.sn76489.channels[ch - 6].mask, newParam.sn76489.channels[ch - 6].mask, setting.SN76489Type.UseScci ? 1 : 0);
-            //}
-            //for (int ch = 0; ch < 3; ch++)
-            //{
-            //    screen.drawCh(ch + 10, ref oldParam.ym2612.channels[ch + 6].mask, newParam.ym2612.channels[ch + 6].mask, tp);
-            //}
-
             if (setting.Debug_DispFrameCounter)
             {
                 long v = Audio.getVirtualFrameCounter();
@@ -2685,6 +2663,8 @@ namespace MDPlayer
                 for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612,chipID, ch);
                 for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, chipID, ch);
                 for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, chipID, ch);
+                for (int ch = 0; ch < 24; ch++) ResetChannelMask(vgm.enmUseChip.C140, chipID, ch);
+                for (int ch = 0; ch < 16; ch++) ResetChannelMask(vgm.enmUseChip.SEGAPCM, chipID, ch);
             }
 
             //oldParam = new MDChipParams();
@@ -3819,6 +3799,28 @@ namespace MDPlayer
                     }
                     newParam.ym2151[chipID].channels[ch].mask = !newParam.ym2151[chipID].channels[ch].mask;
                     break;
+                case vgm.enmUseChip.C140:
+                    if (!newParam.c140[chipID].channels[ch].mask)
+                    {
+                        Audio.setC140Mask(chipID, ch);
+                    }
+                    else
+                    {
+                        Audio.resetC140Mask(chipID, ch);
+                    }
+                    newParam.c140[chipID].channels[ch].mask = !newParam.c140[chipID].channels[ch].mask;
+                    break;
+                case vgm.enmUseChip.SEGAPCM:
+                    if (!newParam.segaPcm[chipID].channels[ch].mask)
+                    {
+                        Audio.setSegaPCMMask(chipID, ch);
+                    }
+                    else
+                    {
+                        Audio.resetSegaPCMMask(chipID, ch);
+                    }
+                    newParam.segaPcm[chipID].channels[ch].mask = !newParam.segaPcm[chipID].channels[ch].mask;
+                    break;
             }
         }
 
@@ -3858,7 +3860,21 @@ namespace MDPlayer
                     break;
                 case vgm.enmUseChip.YM2612:
                     newParam.ym2612[chipID].channels[ch].mask = false;
+                    if (ch == 2)
+                    {
+                        newParam.ym2612[chipID].channels[6].mask = false;
+                        newParam.ym2612[chipID].channels[7].mask = false;
+                        newParam.ym2612[chipID].channels[8].mask = false;
+                    }
                     if (ch < 6) Audio.resetYM2612Mask(chipID, ch);
+                    break;
+                case vgm.enmUseChip.C140:
+                    newParam.c140[chipID].channels[ch].mask = false;
+                    if (ch < 24) Audio.resetC140Mask(chipID, ch);
+                    break;
+                case vgm.enmUseChip.SEGAPCM:
+                    newParam.segaPcm[chipID].channels[ch].mask = false;
+                    if (ch < 16) Audio.resetSegaPCMMask(chipID, ch);
                     break;
 
             }

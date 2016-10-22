@@ -112,12 +112,13 @@ namespace MDPlayer
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(vgm.enmUseChip.YM2612, chipID, ch);
+                    if (ch < 6) parent.SetChannelMask(vgm.enmUseChip.YM2612, chipID, ch);
+                    else parent.SetChannelMask(vgm.enmUseChip.YM2612, chipID, 2);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 9; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2612, chipID, ch);
+                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2612, chipID, ch);
                 return;
             }
 

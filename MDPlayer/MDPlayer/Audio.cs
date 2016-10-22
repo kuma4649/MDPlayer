@@ -1100,6 +1100,16 @@ namespace MDPlayer
             chipRegister.setMaskYM2610(chipID, ch, true);
         }
 
+        public static void setC140Mask(int chipID, int ch)
+        {
+            mds.setC140Mask(chipID, 1 << ch);
+        }
+
+        public static void setSegaPCMMask(int chipID, int ch)
+        {
+            mds.setSegaPcmMask(chipID, 1 << ch);
+        }
+
         public static void resetYM2612Mask(int chipID,int ch)
         {
             try
@@ -1166,6 +1176,17 @@ namespace MDPlayer
             }
             catch { }
         }
+
+        public static void resetC140Mask(int chipID, int ch)
+        {
+            mds.resetC140Mask(chipID,1<<ch);
+        }
+
+        public static void resetSegaPCMMask(int chipID, int ch)
+        {
+            mds.resetSegaPcmMask(chipID, 1 << ch);
+        }
+
 
         public static uint GetVgmCurLoopCounter()
         {

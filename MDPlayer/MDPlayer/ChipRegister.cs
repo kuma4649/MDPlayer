@@ -302,15 +302,10 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x60 || (dAddr & 0xf0) == 0x70)//TL
             {
                 int ch = (dAddr & 0x7);
-                int al = fmRegisterYM2151[chipID][0x20 + ch] & 0x07;//AL
-                int slot = (((dAddr & 0xf0) == 0x60) ? 0 : 2) + (((dAddr & 0x8) > 0) ? 1 : 0);
                 dData &= 0x7f;
 
-                if ((algM[al] & (1 << slot)) > 0)
-                {
-                    dData = Math.Min(dData + nowYM2151FadeoutVol[chipID], 127);
-                    dData = maskFMChYM2151[chipID][ch] ? 127 : dData;
-                }
+                dData = Math.Min(dData + nowYM2151FadeoutVol[chipID], 127);
+                dData = maskFMChYM2151[chipID][ch] ? 127 : dData;
             }
 
             if (model == vgm.enmModel.VirtualModel)
@@ -916,6 +911,11 @@ namespace MDPlayer
         public void setMaskYM2151(int chipID, int ch, bool mask)
         {
             maskFMChYM2151[chipID][ch] = mask;
+
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], vgm.enmModel.VirtualModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], vgm.enmModel.VirtualModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], vgm.enmModel.VirtualModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], vgm.enmModel.VirtualModel, 0);
 
             setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], vgm.enmModel.RealModel, 0);
             setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], vgm.enmModel.RealModel, 0);
