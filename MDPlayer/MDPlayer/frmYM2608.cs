@@ -100,19 +100,19 @@ namespace MDPlayer
             int py = e.Location.Y / zoom;
 
             int ch = (py / 8) - 1;
+
             if (ch < 0) return;
 
             if (ch < 14)
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(vgm.enmUseChip.YM2608,chipID, ch);
+                    parent.SetChannelMask(vgm.enmUseChip.YM2608, chipID, ch);
                     return;
                 }
 
                 for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2608, chipID, ch);
                 return;
-
             }
 
             // 音色表示欄の判定

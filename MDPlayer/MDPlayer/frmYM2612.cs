@@ -98,6 +98,7 @@ namespace MDPlayer
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;
+            int px = e.Location.X / zoom;
 
             //上部のラベル行の場合は何もしない
             if (py < 1 * 8) return;
@@ -122,8 +123,6 @@ namespace MDPlayer
 
             //音色で右クリックした場合は何もしない
             if (e.Button == MouseButtons.Right) return;
-
-            int px = e.Location.X / zoom;
 
             // 音色表示欄の判定
             int h = (py - 10 * 8) / (6 * 8);

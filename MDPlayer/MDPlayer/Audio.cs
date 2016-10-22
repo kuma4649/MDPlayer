@@ -982,7 +982,7 @@ namespace MDPlayer
 
         public static int[][] GetFMVolume(int chipID)
         {
-            return chipRegister.GetFMVolume(chipID);
+            return chipRegister.GetYM2612Volume(chipID);
         }
 
         public static int[][] GetYM2151Volume(int chipID)
@@ -1032,7 +1032,7 @@ namespace MDPlayer
 
         public static int[] GetFMCh3SlotVolume(int chipID)
         {
-            return chipRegister.GetFMCh3SlotVolume(chipID);
+            return chipRegister.GetYM2612Ch3SlotVolume(chipID);
         }
 
         public static int[] GetYM2608Ch3SlotVolume(int chipID)
@@ -1091,7 +1091,13 @@ namespace MDPlayer
         public static void setYM2608Mask(int chipID, int ch)
         {
             //mds.setYM2608Mask(ch);
-            chipRegister.setMaskYM2608(chipID,ch, true);
+            chipRegister.setMaskYM2608(chipID, ch, true);
+        }
+
+        public static void setYM2610Mask(int chipID, int ch)
+        {
+            //mds.setYM2610Mask(ch);
+            chipRegister.setMaskYM2610(chipID, ch, true);
         }
 
         public static void resetYM2612Mask(int chipID,int ch)
@@ -1148,6 +1154,15 @@ namespace MDPlayer
             {
                 //mds.resetYM2608Mask(ch);
                 chipRegister.setMaskYM2608(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYM2610Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYM2610(chipID, ch, false);
             }
             catch { }
         }
