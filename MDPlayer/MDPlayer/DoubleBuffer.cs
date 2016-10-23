@@ -2124,75 +2124,58 @@ namespace MDPlayer
 
         public void screenInitYM2612(int chipID)
         {
-            //for (int x = 0; x < 3; x++)
-            //{
-            //    drawFont4Int2(mainScreen, 4 * 30 + x * 4 * 11, 0, 0, 3, 0);
-            //    drawFont4Int2(mainScreen, 4 * 34 + x * 4 * 11, 0, 0, 2, 0);
-            //    drawFont4Int2(mainScreen, 4 * 37 + x * 4 * 11, 0, 0, 2, 0);
-            //}
+            if (ym2612Screen[chipID] == null) return;
 
-            //for (int y = 0; y < 13; y++)
-            //{
+            for (int y = 0; y < 9; y++)
+            {
 
-            //    //note
-            //    drawFont8(mainScreen, 296, y * 8 + 8, 1, "   ");
+                //note
+                drawFont8(ym2612Screen[chipID], 296, y * 8 + 8, 1, "   ");
 
-            //    //keyboard
-            //    for (int i = 0; i < 96; i++)
-            //    {
-            //        int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-            //        int kt = kbl[(i % 12) * 2 + 1];
-            //        if (y < 5 || y > 9)
-            //        {
-            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.YM2612Type.UseScci ? 1 : 0);
-            //        }
-            //        else if (y == 5)
-            //        {
-            //            int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-            //            //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
-            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, tp6);
-            //        }
-            //        else
-            //        {
-            //            drawKbn(mainScreen, 32 + kx, y * 8 + 8, kt, setting.SN76489Type.UseScci ? 1 : 0);
-            //        }
-            //    }
+                //keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    if (y != 5)
+                    {
+                        drawKbn(ym2612Screen[chipID], 32 + kx, y * 8 + 8, kt, setting.YM2612Type.UseScci ? 1 : 0);
+                    }
+                    else
+                    {
+                        int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
+                        //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+                        drawKbn(ym2612Screen[chipID], 32 + kx, y * 8 + 8, kt, tp6);
+                    }
+                }
 
-            //    int d = 99;
-            //    if (y < 6 || y > 9)
-            //    {
-            //        drawVolume(y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
-            //        if (y < 6)
-            //        {
-            //            d = 99;
-            //            drawPan(y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        drawVolume(y, 0, ref d, 0, setting.SN76489Type.UseScci ? 1 : 0);
-            //    }
+                int d = 99;
+                if (y < 6 || y > 9)
+                {
+                    drawVolume(ym2612Screen[chipID], y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
+                    if (y < 6)
+                    {
+                        d = 99;
+                        drawPan(ym2612Screen[chipID], y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
+                    }
+                }
 
-            //    if (y < 5)
-            //    {
-            //        drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
-            //    }
-            //    else if (y == 5)
-            //    {
-            //        int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
-            //        //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
-            //        drawCh6P(0, y * 8 + 8, 0, false, tp6);
-            //    }
-            //    else if (y < 10)
-            //    {
-            //        drawChP(0, y * 8 + 8, y, false, setting.SN76489Type.UseScci ? 1 : 0);
-            //    }
-            //    else
-            //    {
-            //        drawChP(0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
-            //    }
+                if (y < 5)
+                {
+                    drawChPYM2612(chipID, 0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
+                }
+                else if (y == 5)
+                {
+                    int tp6 = setting.YM2612Type.UseScci ? 1 : 0;
+                    //if (tp6 == 1 && setting.YM2612Type.OnlyPCMEmulation) tp6 = 0;
+                    drawCh6PYM2612(chipID, 0, y * 8 + 8, 0, false, tp6);
+                }
+                else
+                {
+                    drawChPYM2612(chipID, 0, y * 8 + 8, y, false, setting.YM2612Type.UseScci ? 1 : 0);
+                }
 
-            //}
+            }
         }
 
         public void screenInitYM2610(int chipID)
@@ -2281,6 +2264,19 @@ namespace MDPlayer
 
         public void screenInitSN76489(int chipID)
         {
+            int tp = setting.SN76489Type.UseScci ? 1 : 0;
+
+            for (int ch = 0; ch < 4; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(SN76489Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
+                }
+                drawFont8(SN76489Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawChPSN76489(chipID, 0, ch * 8 + 8, ch, false, tp);
+            }
         }
 
         public void screenInitSegaPCM(int chipID)

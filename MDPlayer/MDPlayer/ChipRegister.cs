@@ -318,6 +318,7 @@ namespace MDPlayer
             else
             {
                 if (scYM2151 == null) return;
+                if (chipID != 0) return;
 
                 if (dAddr >= 0x28 && dAddr <= 0x2f)
                 {
@@ -438,6 +439,7 @@ namespace MDPlayer
             else
             {
                 if (scYM2203 == null) return;
+                if (chipID != 0) return;
 
                 scYM2203.setRegister(dAddr, dData);
             }
@@ -454,7 +456,6 @@ namespace MDPlayer
 
             if ((model == vgm.enmModel.RealModel && ctYM2608.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608.UseScci))
             {
-                //fmRegisterYM2608[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
                 {
                     int ch = (dData & 0x3) + ((dData & 0x4) > 0 ? 3 : 0);
@@ -486,8 +487,6 @@ namespace MDPlayer
                     {
                         fmVolYM2608Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
                         fmVolYM2608Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2608[chipID][1][0x0b] / 64.0) * ((fmVolYM2608AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
-                        //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2608[1][0x09]);
-                        //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2608[1][0x0A]);
                     }
                 }
 
@@ -516,14 +515,14 @@ namespace MDPlayer
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
-                //if ((algM[al] & (1 << slot)) > 0)
-                //{
+                if ((algM[al] & (1 << slot)) > 0)
+                {
                     if (ch != 3)
                     {
                         dData = Math.Min(dData + nowYM2608FadeoutVol[chipID], 127);
                         dData = maskFMChYM2608[chipID][dPort * 3 + ch] ? 127 : dData;
                     }
-                //}
+                }
             }
 
             if ((dAddr & 0xf0) == 0xb0)//AL
@@ -596,6 +595,7 @@ namespace MDPlayer
             {
                 if (scYM2608 == null) return;
 
+                if(chipID==0)
                 scYM2608.setRegister(dPort * 0x100 + dAddr, dData);
             }
 
@@ -766,7 +766,7 @@ namespace MDPlayer
             else
             {
                 if (scYM2610 == null) return;
-
+                if (chipID != 0) return;
                 scYM2610.setRegister(dPort * 0x100 + dAddr, dData);
             }
 
@@ -884,6 +884,7 @@ namespace MDPlayer
             else
             {
                 if (scYM2612 == null) return;
+                if (chipID != 0) return;
 
                 if (ctYM2612.OnlyPCMEmulation)
                 {
@@ -1082,7 +1083,9 @@ namespace MDPlayer
 
         public void setFadeoutVolYM2608(int chipID, int v)
         {
+
             nowYM2608FadeoutVol[chipID] = v;
+
             for (int p = 0; p < 2; p++)
             {
                 for (int c = 0; c < 3; c++)
@@ -1245,6 +1248,7 @@ namespace MDPlayer
                 if (ctSN76489.UseScci)
                 {
                     if (scSN76489 == null) return;
+                    if (chipID != 0) return;
                     scSN76489.setRegister(0, dData);
                 }
             }
