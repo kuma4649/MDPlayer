@@ -72,6 +72,7 @@ namespace MDPlayer
                 {
                     SendString(prc.MainWindowHandle, Environment.GetCommandLineArgs()[1]);
                     this.Close();
+                    return;
                 }
             }
 

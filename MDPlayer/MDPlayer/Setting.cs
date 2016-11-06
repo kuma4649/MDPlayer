@@ -849,6 +849,10 @@ namespace MDPlayer
             {
                 get
                 {
+                    if (_PMain.X < 0 || _PMain.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
                     return _PMain;
                 }
 
@@ -863,6 +867,10 @@ namespace MDPlayer
             {
                 get
                 {
+                    if (_PInfo.X < 0 || _PInfo.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
                     return _PInfo;
                 }
 
@@ -891,6 +899,10 @@ namespace MDPlayer
             {
                 get
                 {
+                    if (_PPlayList.X < 0 || _PPlayList.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
                     return _PPlayList;
                 }
 
@@ -919,6 +931,10 @@ namespace MDPlayer
             {
                 get
                 {
+                    if (_PPlayListWH.X < 0 || _PPlayListWH.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
                     return _PPlayListWH;
                 }
 
