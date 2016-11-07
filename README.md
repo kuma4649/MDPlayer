@@ -39,6 +39,7 @@ VGMPlayer(メガドライブ 音源チップエミュレーション専用)
   ・恐らく、WindowsVista(32bit)以降のOS。64ビット環境では未検証。  
   XPでは動作しません。  
   ・.NET Framework4.5/4.5.2をインストールしている必要あり。  
+  ・Visual Studio 2012 更新プログラム 4 の Visual C++ 再頒布可能パッケージ をインストールしている必要あり。  
   ・Microsoft Visual C++ 2015 Redistributable(x86) - 14.0.23026をインストールしている必要あり。  
   ・音声を再生できるオーディオデバイスが必須。  
   ・もしあれば、SPFM Light＋YM2612＋YM2608＋YM2151  
