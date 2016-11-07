@@ -789,7 +789,7 @@ namespace MDPlayer
             //if (px >= 320 - 3 * 16 && px < 320 - 2 * 16)
             if (px >= 13 * 16 + 24 && px < 14 * 16 + 24)
             {
-                OpenMegaCD(0);
+                OpenFormMegaCD(0);
                 return;
             }
 
@@ -843,7 +843,7 @@ namespace MDPlayer
 
         private void tsmiPRF5C164_Click(object sender, EventArgs e)
         {
-            OpenMegaCD(0);
+            OpenFormMegaCD(0);
         }
 
         private void tsmiPPWM_Click(object sender, EventArgs e)
@@ -863,7 +863,7 @@ namespace MDPlayer
 
         private void tsmiPC140_Click(object sender, EventArgs e)
         {
-            OpenFromC140(0);
+            OpenFormC140(0);
         }
 
         private void tsmiPSegaPCM_Click(object sender, EventArgs e)
@@ -903,7 +903,7 @@ namespace MDPlayer
 
         private void tsmiSRF5C164_Click(object sender, EventArgs e)
         {
-            OpenMegaCD(1);
+            OpenFormMegaCD(1);
         }
 
         private void tsmiSPWM_Click(object sender, EventArgs e)
@@ -923,7 +923,7 @@ namespace MDPlayer
 
         private void tsmiSC140_Click(object sender, EventArgs e)
         {
-            OpenFromC140(1);
+            OpenFormC140(1);
         }
 
         private void tsmiSSegaPCM_Click(object sender, EventArgs e)
@@ -932,38 +932,17 @@ namespace MDPlayer
         }
 
 
-        private void OpenMegaCD(int chipID)
+        private void OpenFormMegaCD(int chipID, bool force = false)
         {
             if (frmMCD[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveRf5c164(chipID);
+                    CloseFormMegaCD(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-
-                try
-                {
-                    frmMCD[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-
-                }
-                try
-                {
-                    frmMCD[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmMCD[chipID] = null;
-                return;
+                else
+                    return;
             }
 
             frmMCD[chipID] = new frmMegaCD(this, chipID, setting.other.Zoom);
@@ -985,36 +964,50 @@ namespace MDPlayer
             screen.screenInitRF5C164(chipID);
         }
 
-        private void OpenFormYM2608(int chipID)
+        private void CloseFormMegaCD(int chipID)
+        {
+            if (frmMCD[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveRf5c164(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
+            try
+            {
+                frmMCD[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+
+            }
+            try
+            {
+                frmMCD[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmMCD[chipID] = null;
+        }
+
+        private void OpenFormYM2608(int chipID,bool force=false)
         {
             if (frmYM2608[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveYM2608(chipID);
+                    CloseFormYM2608(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2608[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2608[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmYM2608[chipID] = null;
-                return;
+                else
+                    return;
             }
 
             frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom);
@@ -1037,36 +1030,48 @@ namespace MDPlayer
             screen.screenInitYM2608(chipID);
         }
 
-        private void OpenFormYM2151(int chipID)
+        private void CloseFormYM2608(int chipID)
+        {
+            if (frmYM2608[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveYM2608(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2608[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2608[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2608[chipID] = null;
+            return;
+        }
+
+        private void OpenFormYM2151(int chipID, bool force = false)
         {
             if (frmYM2151[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveYM2151(chipID);
+                    CloseFormYM2151(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2151[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2151[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmYM2151[chipID] = null;
-                return;
+                else return;
             }
 
             frmYM2151[chipID] = new frmYM2151(this, chipID, setting.other.Zoom);
@@ -1089,37 +1094,47 @@ namespace MDPlayer
             screen.screenInitYM2151(chipID);
         }
 
-        private void OpenFromC140(int chipID)
+        private void CloseFormYM2151(int chipID)
+        {
+            if (frmYM2151[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveYM2151(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2151[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2151[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2151[chipID] = null;
+        }
+
+        private void OpenFormC140(int chipID, bool force = false)
         {
             if (frmC140[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveC140(chipID);
+                    CloseFormC140(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-
-                try
-                {
-                    frmC140[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmC140[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmC140[chipID] = null;
-                return;
+                else return;
             }
 
             frmC140[chipID] = new frmC140(this, chipID, setting.other.Zoom);
@@ -1142,36 +1157,48 @@ namespace MDPlayer
             screen.screenInitC140(chipID);
         }
 
-        private void OpenFormYM2203(int chipID)
+        private void CloseFormC140(int chipID)
+        {
+            if (frmC140[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveC140(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
+            try
+            {
+                frmC140[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmC140[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmC140[chipID] = null;
+        }
+
+        private void OpenFormYM2203(int chipID, bool force = false)
         {
             if (frmYM2203[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveYM2203(chipID);
+                    CloseFormYM2203(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2203[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2203[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmYM2203[chipID] = null;
-                return;
+                else return;
             }
 
             frmYM2203[chipID] = new frmYM2203(this, chipID, setting.other.Zoom);
@@ -1194,36 +1221,47 @@ namespace MDPlayer
             screen.screenInitYM2203(chipID);
         }
 
-        private void OpenFormYM2610(int chipID)
+        private void CloseFormYM2203(int chipID)
+        {
+            if (frmYM2203[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveYM2203(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2203[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2203[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2203[chipID] = null;
+        }
+
+        private void OpenFormYM2610(int chipID, bool force = false)
         {
             if (frmYM2610[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveYM2610(chipID);
+                    CloseFormYM2610(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2610[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2610[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmYM2610[chipID] = null;
-                return;
+                else return;
             }
 
             frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom);
@@ -1246,36 +1284,47 @@ namespace MDPlayer
             screen.screenInitYM2610(chipID);
         }
 
-        private void OpenFormYM2612(int chipID)
+        private void CloseFormYM2610(int chipID)
+        {
+            if (frmYM2610[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveYM2610(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2610[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2610[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2610[chipID] = null;
+        }
+
+        private void OpenFormYM2612(int chipID, bool force = false)
         {
             if (frmYM2612[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveYM2612(chipID);
+                    CloseFormYM2612(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2612[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmYM2612[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmYM2612[chipID] = null;
-                return;
+                else return;
             }
 
             frmYM2612[chipID] = new frmYM2612(this, chipID, setting.other.Zoom);
@@ -1298,36 +1347,46 @@ namespace MDPlayer
             screen.screenInitYM2612(chipID);
         }
 
-        private void OpenFormOKIM6258(int chipID)
+        private void CloseFormYM2612(int chipID)
+        {
+            if (frmYM2612[chipID] == null) return;
+            try
+            {
+                screen.RemoveYM2612(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2612[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2612[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2612[chipID] = null;
+        }
+
+        private void OpenFormOKIM6258(int chipID, bool force = false)
         {
             if (frmOKIM6258[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveOKIM6258(chipID);
+                    CloseFormOKIM6258(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmOKIM6258[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmOKIM6258[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmOKIM6258[chipID] = null;
-                return;
+                else return;
             }
 
             frmOKIM6258[chipID] = new frmOKIM6258(this, chipID, setting.other.Zoom);
@@ -1350,36 +1409,47 @@ namespace MDPlayer
             screen.screenInitOKIM6258(chipID);
         }
 
-        private void OpenFormOKIM6295(int chipID)
+        private void CloseFormOKIM6258(int chipID)
+        {
+            if (frmOKIM6258[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveOKIM6258(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmOKIM6258[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmOKIM6258[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmOKIM6258[chipID] = null;
+        }
+
+        private void OpenFormOKIM6295(int chipID, bool force = false)
         {
             if (frmOKIM6295[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveOKIM6295(chipID);
+                    CloseFormOKIM6295(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmOKIM6295[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmOKIM6295[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmOKIM6295[chipID] = null;
-                return;
+                else return;
             }
 
             frmOKIM6295[chipID] = new frmOKIM6295(this, chipID, setting.other.Zoom);
@@ -1402,36 +1472,47 @@ namespace MDPlayer
             screen.screenInitOKIM6295(chipID);
         }
 
-        private void OpenFormSN76489(int chipID)
+        private void CloseFormOKIM6295(int chipID)
+        {
+            if (frmOKIM6295[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveOKIM6295(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmOKIM6295[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmOKIM6295[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmOKIM6295[chipID] = null;
+        }
+
+        private void OpenFormSN76489(int chipID, bool force = false)
         {
             if (frmSN76489[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveSN76489(chipID);
+                    CloseFormSN76489(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmSN76489[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmSN76489[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmSN76489[chipID] = null;
-                return;
+                else return;
             }
 
             frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom);
@@ -1454,36 +1535,47 @@ namespace MDPlayer
             screen.screenInitSN76489(chipID);
         }
 
-        private void OpenFormSegaPCM(int chipID)
+        private void CloseFormSN76489(int chipID)
+        {
+            if (frmSN76489[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveSN76489(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmSN76489[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmSN76489[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmSN76489[chipID] = null;
+        }
+
+        private void OpenFormSegaPCM(int chipID, bool force = false)
         {
             if (frmSegaPCM[chipID] != null)// && frmInfo.isClosed)
             {
-                try
+                if (!force)
                 {
-                    screen.RemoveSegaPCM(chipID);
+                    CloseFormSegaPCM(chipID);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmSegaPCM[chipID].Close();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                try
-                {
-                    frmSegaPCM[chipID].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                frmSegaPCM[chipID] = null;
-                return;
+                else return;
             }
 
             frmSegaPCM[chipID] = new frmSegaPCM(this, chipID, setting.other.Zoom);
@@ -1506,6 +1598,36 @@ namespace MDPlayer
             screen.screenInitSegaPCM(chipID);
         }
 
+        private void CloseFormSegaPCM(int chipID)
+        {
+            if (frmSegaPCM[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveSegaPCM(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmSegaPCM[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmSegaPCM[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmSegaPCM[chipID] = null;
+        }
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
         {
@@ -2691,6 +2813,124 @@ namespace MDPlayer
             if (frmInfo != null)
             {
                 frmInfo.update();
+            }
+
+            if (setting.other.AutoOpen)
+            {
+                uint c;
+
+                c = Audio.vgmVirtual.YM2151ClockValue;
+                if (c != 0)
+                {
+                    OpenFormYM2151(0, true);
+                    if (Audio.vgmVirtual.YM2151DualChipFlag) OpenFormYM2151(1, true);
+                }
+                else
+                {
+                    CloseFormYM2151(0);
+                    CloseFormYM2151(1);
+                }
+
+                c = Audio.vgmVirtual.YM2203ClockValue;
+                if (c != 0)
+                {
+                    OpenFormYM2203(0, true);
+                    if (Audio.vgmVirtual.YM2203DualChipFlag) OpenFormYM2203(1, true);
+                }
+                else
+                {
+                    CloseFormYM2203(0);
+                    CloseFormYM2203(1);
+                }
+
+                c = Audio.vgmVirtual.YM2608ClockValue;
+                if (c != 0)
+                {
+                    OpenFormYM2608(0, true);
+                    if (Audio.vgmVirtual.YM2608DualChipFlag) OpenFormYM2608(1, true);
+                }
+                else
+                {
+                    CloseFormYM2608(0);
+                    CloseFormYM2608(1);
+                }
+
+                c = Audio.vgmVirtual.YM2610ClockValue;
+                if (c != 0)
+                {
+                    OpenFormYM2610(0, true);
+                    if (Audio.vgmVirtual.YM2610DualChipFlag) OpenFormYM2610(1, true);
+                }
+                else
+                {
+                    CloseFormYM2610(0);
+                    CloseFormYM2610(1);
+                }
+
+                c = Audio.vgmVirtual.YM2612ClockValue;
+                if (c != 0)
+                {
+                    OpenFormYM2612(0, true);
+                    if (Audio.vgmVirtual.YM2612DualChipFlag) OpenFormYM2612(1, true);
+                }
+                else
+                {
+                    CloseFormYM2612(0);
+                    CloseFormYM2612(1);
+                }
+
+                c = Audio.vgmVirtual.SN76489ClockValue;
+                if (c != 0) OpenFormSN76489(0, true);
+                else
+                {
+                    CloseFormSN76489(0);
+                    CloseFormSN76489(1);
+                }
+
+                c = Audio.vgmVirtual.RF5C164ClockValue;
+                if (c != 0) OpenFormMegaCD(0, true);
+                else
+                {
+                    CloseFormMegaCD(0);
+                    CloseFormMegaCD(1);
+                }
+
+                c = Audio.vgmVirtual.OKIM6258ClockValue;
+                if (c != 0) OpenFormOKIM6258(0, true);
+                else
+                {
+                    CloseFormOKIM6258(0);
+                    CloseFormOKIM6258(1);
+                }
+
+                c = Audio.vgmVirtual.OKIM6295ClockValue;
+                if (c != 0)
+                {
+                    OpenFormOKIM6295(0, true);
+                    if (Audio.vgmVirtual.OKIM6295DualChipFlag) OpenFormOKIM6295(1, true);
+                }
+                else
+                {
+                    CloseFormOKIM6295(0);
+                    CloseFormOKIM6295(1);
+                }
+
+                c = Audio.vgmVirtual.C140ClockValue;
+                if (c != 0) OpenFormC140(0, true);
+                else
+                {
+                    CloseFormC140(0);
+                    CloseFormC140(1);
+                }
+
+                c = Audio.vgmVirtual.SEGAPCMClockValue;
+                if (c != 0) OpenFormSegaPCM(0, true);
+                else
+                {
+                    CloseFormSegaPCM(0);
+                    CloseFormSegaPCM(1);
+                }
+
             }
         }
 

@@ -626,6 +626,19 @@ namespace MDPlayer
                 }
             }
 
+            private bool _AutoOpen = false;
+            public bool AutoOpen
+            {
+                get
+                {
+                    return _AutoOpen;
+                }
+
+                set
+                {
+                    _AutoOpen = value;
+                }
+            }
 
 
             public Other Copy()
@@ -644,6 +657,7 @@ namespace MDPlayer
                 other.InstFormat = this.InstFormat;
                 other.Zoom = this.Zoom;
                 other.ScreenFrameRate = this.ScreenFrameRate;
+                other.AutoOpen = this.AutoOpen;
 
                 return other;
             }

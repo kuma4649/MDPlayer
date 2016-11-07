@@ -204,6 +204,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1173,6 +1174,7 @@
             this.tpOther.Controls.Add(this.label19);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
             this.tpOther.Controls.Add(this.cbUseGetInst);
+            this.tpOther.Controls.Add(this.cbAutoOpen);
             this.tpOther.Controls.Add(this.cbUseLoopTimes);
             this.tpOther.Controls.Add(this.cbUseMIDIKeyboard);
             this.tpOther.Controls.Add(this.gbMIDIKeyboard);
@@ -1186,7 +1188,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(138, 230);
+            this.label30.Location = new System.Drawing.Point(138, 270);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(30, 12);
             this.label30.TabIndex = 21;
@@ -1194,7 +1196,7 @@
             // 
             // tbScreenFrameRate
             // 
-            this.tbScreenFrameRate.Location = new System.Drawing.Point(82, 227);
+            this.tbScreenFrameRate.Location = new System.Drawing.Point(82, 267);
             this.tbScreenFrameRate.Name = "tbScreenFrameRate";
             this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
             this.tbScreenFrameRate.TabIndex = 20;
@@ -1202,7 +1204,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(7, 230);
+            this.label29.Location = new System.Drawing.Point(7, 270);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(69, 12);
             this.label29.TabIndex = 19;
@@ -1245,7 +1247,7 @@
             // 
             // btnDataPath
             // 
-            this.btnDataPath.Location = new System.Drawing.Point(342, 195);
+            this.btnDataPath.Location = new System.Drawing.Point(342, 238);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
             this.btnDataPath.TabIndex = 16;
@@ -1262,7 +1264,7 @@
             // 
             // tbDataPath
             // 
-            this.tbDataPath.Location = new System.Drawing.Point(82, 197);
+            this.tbDataPath.Location = new System.Drawing.Point(82, 240);
             this.tbDataPath.Name = "tbDataPath";
             this.tbDataPath.Size = new System.Drawing.Size(254, 19);
             this.tbDataPath.TabIndex = 15;
@@ -1270,7 +1272,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 200);
+            this.label19.Location = new System.Drawing.Point(7, 243);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 12);
             this.label19.TabIndex = 14;
@@ -1278,7 +1280,7 @@
             // 
             // btnOpenSettingFolder
             // 
-            this.btnOpenSettingFolder.Location = new System.Drawing.Point(7, 265);
+            this.btnOpenSettingFolder.Location = new System.Drawing.Point(242, 265);
             this.btnOpenSettingFolder.Name = "btnOpenSettingFolder";
             this.btnOpenSettingFolder.Size = new System.Drawing.Size(125, 23);
             this.btnOpenSettingFolder.TabIndex = 13;
@@ -2182,6 +2184,17 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // cbAutoOpen
+            // 
+            this.cbAutoOpen.AutoSize = true;
+            this.cbAutoOpen.Location = new System.Drawing.Point(9, 189);
+            this.cbAutoOpen.Name = "cbAutoOpen";
+            this.cbAutoOpen.Size = new System.Drawing.Size(167, 16);
+            this.cbAutoOpen.TabIndex = 0;
+            this.cbAutoOpen.Text = "使用音源の画面を自動で開く";
+            this.cbAutoOpen.UseVisualStyleBackColor = true;
+            this.cbAutoOpen.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2467,5 +2480,6 @@
         private System.Windows.Forms.BindingSource bs10;
         private System.Windows.Forms.BindingSource bs11;
         private System.Windows.Forms.BindingSource bs12;
+        private System.Windows.Forms.CheckBox cbAutoOpen;
     }
 }

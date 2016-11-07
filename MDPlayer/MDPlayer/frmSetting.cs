@@ -430,6 +430,7 @@ namespace MDPlayer
             tbDataPath.Text = setting.other.DefaultDataPath;
             cmbInstFormat.SelectedIndex=(int)setting.other.InstFormat;
             tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
+            cbAutoOpen.Checked = setting.other.AutoOpen;
 
         }
 
@@ -606,6 +607,7 @@ namespace MDPlayer
             {
                 setting.other.ScreenFrameRate = Math.Max(Math.Min(i, 120), 10);
             }
+            setting.other.AutoOpen = cbAutoOpen.Checked;
 
             setting.balance.YM2612Volume = trkYM2612.Value;
             setting.balance.SN76489Volume = trkSN76489.Value;
