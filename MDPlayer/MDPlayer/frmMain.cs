@@ -2836,6 +2836,7 @@ namespace MDPlayer
                 {
                     OpenFormYM2203(0, true);
                     if (Audio.vgmVirtual.YM2203DualChipFlag) OpenFormYM2203(1, true);
+                    else CloseFormYM2203(1);
                 }
                 else
                 {
@@ -2848,6 +2849,7 @@ namespace MDPlayer
                 {
                     OpenFormYM2608(0, true);
                     if (Audio.vgmVirtual.YM2608DualChipFlag) OpenFormYM2608(1, true);
+                    else CloseFormYM2608(1);
                 }
                 else
                 {
@@ -2860,6 +2862,7 @@ namespace MDPlayer
                 {
                     OpenFormYM2610(0, true);
                     if (Audio.vgmVirtual.YM2610DualChipFlag) OpenFormYM2610(1, true);
+                    else CloseFormYM2610(1);
                 }
                 else
                 {
@@ -2872,6 +2875,7 @@ namespace MDPlayer
                 {
                     OpenFormYM2612(0, true);
                     if (Audio.vgmVirtual.YM2612DualChipFlag) OpenFormYM2612(1, true);
+                    else CloseFormYM2612(1);
                 }
                 else
                 {
@@ -2908,6 +2912,7 @@ namespace MDPlayer
                 {
                     OpenFormOKIM6295(0, true);
                     if (Audio.vgmVirtual.OKIM6295DualChipFlag) OpenFormOKIM6295(1, true);
+                    else CloseFormOKIM6295(1);
                 }
                 else
                 {
