@@ -2150,14 +2150,15 @@ namespace MDPlayer
                 }
 
                 int d = 99;
-                if (y < 6 || y > 9)
+                if (y != 5)
                 {
                     drawVolume(ym2612Screen[chipID], y, 0, ref d, 0, setting.YM2612Type.UseScci ? 1 : 0);
-                    if (y < 6)
-                    {
-                        d = 99;
-                        drawPan(ym2612Screen[chipID], y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
-                    }
+                }
+
+                if (y < 6)
+                {
+                    d = 99;
+                    drawPan(ym2612Screen[chipID], y, ref d, 0, ref d, setting.YM2612Type.UseScci ? 1 : 0);
                 }
 
                 if (y < 5)
@@ -2276,6 +2277,9 @@ namespace MDPlayer
                 }
                 drawFont8(SN76489Screen[chipID], 296, ch * 8 + 8, 1, "   ");
                 drawChPSN76489(chipID, 0, ch * 8 + 8, ch, false, tp);
+
+                int d = 99;
+                drawVolume(SN76489Screen[chipID], ch, 0, ref d, 0, setting.SN76489Type.UseScci ? 1 : 0);
             }
         }
 

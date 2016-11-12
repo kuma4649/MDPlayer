@@ -124,12 +124,16 @@ namespace MDPlayer
             , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
         };
 
-        public int[][] psgRegister = new int[][] { null, null };
-        public int[][][] psgVol = new int[][][] {
+        public int[][] sn76489Register = new int[][] { null, null };
+        public int[][][] sn76489Vol = new int[][][] {
             new int[4][] { new int[2], new int[2], new int[2], new int[2] }
             ,new int[4][] { new int[2], new int[2], new int[2], new int[2] }
         };
         public int[] nowSN76489FadeoutVol = new int[] { 0, 0 };
+        public bool[][] maskChSN76489 = new bool[][] {
+            new bool[4] {false,false,false,false }
+            ,new bool[4] {false,false,false,false }
+        };
 
         private int[] LatchedRegister = new int[] { 0, 0 };
         private int[] NoiseFreq = new int[] { 0, 0 };
@@ -234,7 +238,7 @@ namespace MDPlayer
                 }
                 fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 
-                psgRegister[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
+                sn76489Register[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
 
             }
         }
@@ -908,6 +912,10 @@ namespace MDPlayer
 
         }
 
+        internal void setMaskSN76489(int chipID, int ch, bool mask)
+        {
+            maskChSN76489[chipID][ch] = mask;
+        }
 
         public void setMaskYM2151(int chipID, int ch, bool mask)
         {
@@ -1234,11 +1242,12 @@ namespace MDPlayer
 
             if ((dData & 0x90) == 0x90)
             {
-                psgVol[chipID][(dData & 0x60) >> 5][0] = 15 - (dData & 0xf);
-                psgVol[chipID][(dData & 0x60) >> 5][1] = 15 - (dData & 0xf);
+                sn76489Vol[chipID][(dData & 0x60) >> 5][0] = 15 - (dData & 0xf);
+                sn76489Vol[chipID][(dData & 0x60) >> 5][1] = 15 - (dData & 0xf);
 
                 int v = dData & 0xf;
                 v = v + nowSN76489FadeoutVol[chipID];
+                v += maskChSN76489[chipID][(dData & 0x60) >> 5] ? 15 : 0;
                 v = Math.Min(v, 15);
                 dData = (dData & 0xf0) | v;
             }
@@ -1275,7 +1284,7 @@ namespace MDPlayer
             for (int c = 0; c < 4; c++)
             {
 
-                setSN76489Register(chipID, 0x90 + (c << 5) + psgRegister[chipID][1 + (c << 1)], vgm.enmModel.RealModel);
+                setSN76489Register(chipID, 0x90 + (c << 5) + sn76489Register[chipID][1 + (c << 1)], vgm.enmModel.RealModel);
             }
         }
 
@@ -1630,7 +1639,7 @@ namespace MDPlayer
         public int[][] GetPSGVolume(int chipID)
         {
 
-            return psgVol[chipID];
+            return sn76489Vol[chipID];
 
         }
 
@@ -1641,8 +1650,8 @@ namespace MDPlayer
             {
                 /* Latch/data byte  %1 cc t dddd */
                 LatchedRegister[chipID] = (data >> 4) & 0x07;
-                psgRegister[chipID][LatchedRegister[chipID]] =
-                    (psgRegister[chipID][LatchedRegister[chipID]] & 0x3f0) /* zero low 4 bits */
+                sn76489Register[chipID][LatchedRegister[chipID]] =
+                    (sn76489Register[chipID][LatchedRegister[chipID]] & 0x3f0) /* zero low 4 bits */
                     | (data & 0xf);                            /* and replace with data */
             }
             else
@@ -1650,23 +1659,23 @@ namespace MDPlayer
                 /* Data byte        %0 - dddddd */
                 if ((LatchedRegister[chipID] % 2) == 0 && (LatchedRegister[chipID] < 5))
                     /* Tone register */
-                    psgRegister[chipID][LatchedRegister[chipID]] =
-                        (psgRegister[chipID][LatchedRegister[chipID]] & 0x00f) /* zero high 6 bits */
+                    sn76489Register[chipID][LatchedRegister[chipID]] =
+                        (sn76489Register[chipID][LatchedRegister[chipID]] & 0x00f) /* zero high 6 bits */
                         | ((data & 0x3f) << 4);                 /* and replace with data */
                 else
                     /* Other register */
-                    psgRegister[chipID][LatchedRegister[chipID]] = data & 0x0f; /* Replace with data */
+                    sn76489Register[chipID][LatchedRegister[chipID]] = data & 0x0f; /* Replace with data */
             }
             switch (LatchedRegister[chipID])
             {
                 case 0:
                 case 2:
                 case 4: /* Tone channels */
-                    if (psgRegister[chipID][LatchedRegister[chipID]] == 0)
-                        psgRegister[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
+                    if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
+                        sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
                     break;
                 case 6: /* Noise */
-                    NoiseFreq[chipID] = 0x10 << (psgRegister[chipID][6] & 0x3); /* set noise signal generator frequency */
+                    NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
                     break;
             }
         }

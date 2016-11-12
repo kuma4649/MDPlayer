@@ -937,7 +937,7 @@ namespace MDPlayer
 
         public static int[] GetPSGRegister(int chipID)
         {
-            return chipRegister.psgRegister[chipID];
+            return chipRegister.sn76489Register[chipID];
         }
 
         public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
@@ -1074,7 +1074,8 @@ namespace MDPlayer
 
         public static void setSN76489Mask(int chipID, int ch)
         {
-            mds.setSN76489Mask(chipID,1 << ch);
+            //mds.setSN76489Mask(chipID,1 << ch);
+            chipRegister.setMaskSN76489(chipID, ch, true);
         }
 
         public static void setRF5C164Mask(int chipID, int ch)
@@ -1134,7 +1135,8 @@ namespace MDPlayer
         {
             try
             {
-                mds.resetSN76489Mask(chipID, 1 << ch);
+                //mds.resetSN76489Mask(chipID, 1 << ch);
+                chipRegister.setMaskSN76489(chipID, ch, false);
             }
             catch { }
         }

@@ -298,8 +298,8 @@ namespace MDPlayer
             cbYM2612UseWait.Checked = setting.YM2612Type.UseWait;
             cbYM2612UseWaitBoost.Checked = setting.YM2612Type.UseWaitBoost;
             cbOnlyPCMEmulation.Checked = setting.YM2612Type.OnlyPCMEmulation;
-            tbYM2612EmuDelay.Text = setting.YM2612Type.LatencyForEmulation.ToString();
-            tbYM2612ScciDelay.Text = setting.YM2612Type.LatencyForScci.ToString();
+            //tbYM2612EmuDelay.Text = setting.YM2612Type.LatencyForEmulation.ToString();
+            //tbYM2612ScciDelay.Text = setting.YM2612Type.LatencyForScci.ToString();
 
             if (!setting.SN76489Type.UseScci)
             {
@@ -327,8 +327,8 @@ namespace MDPlayer
                 }
             }
 
-            tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
-            tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
+            //tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
+            //tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
 
             if (!setting.YM2608Type.UseScci)
             {
@@ -486,15 +486,15 @@ namespace MDPlayer
             setting.YM2612Type.UseWaitBoost=cbYM2612UseWaitBoost.Checked;
             setting.YM2612Type.OnlyPCMEmulation=cbOnlyPCMEmulation.Checked;
             setting.YM2612Type.LatencyForEmulation = 0;
-            if (int.TryParse(tbYM2612EmuDelay.Text, out i))
-            {
-                setting.YM2612Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
-            }
-            setting.YM2612Type.LatencyForScci = 0;
-            if (int.TryParse(tbYM2612ScciDelay.Text, out i))
-            {
-                setting.YM2612Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            }
+            //if (int.TryParse(tbYM2612EmuDelay.Text, out i))
+            //{
+            //    setting.YM2612Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            //}
+            //setting.YM2612Type.LatencyForScci = 0;
+            //if (int.TryParse(tbYM2612ScciDelay.Text, out i))
+            //{
+            //    setting.YM2612Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
+            //}
 
             setting.SN76489Type = new Setting.ChipType();
             setting.SN76489Type.UseScci = rbSN76489Scci.Checked;
@@ -507,16 +507,16 @@ namespace MDPlayer
                 setting.SN76489Type.BusID = int.Parse(ns[1]);
                 setting.SN76489Type.SoundChip = int.Parse(ns[2]);
             }
-            setting.SN76489Type.LatencyForEmulation = 0;
-            if (int.TryParse(tbSN76489EmuDelay.Text, out i))
-            {
-                setting.SN76489Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
-            }
-            setting.SN76489Type.LatencyForScci = 0;
-            if (int.TryParse(tbSN76489ScciDelay.Text, out i))
-            {
-                setting.SN76489Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            }
+            //setting.SN76489Type.LatencyForEmulation = 0;
+            //if (int.TryParse(tbSN76489EmuDelay.Text, out i))
+            //{
+            //    setting.SN76489Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            //}
+            //setting.SN76489Type.LatencyForScci = 0;
+            //if (int.TryParse(tbSN76489ScciDelay.Text, out i))
+            //{
+            //    setting.SN76489Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
+            //}
 
             setting.YM2608Type = new Setting.ChipType();
             setting.YM2608Type.UseScci = rbYM2608Scci.Checked;
