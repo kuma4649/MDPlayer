@@ -33,9 +33,13 @@ namespace MDPlayer
             bsYM2608.DataSource = new BindData();
             bsYM2608FM.DataSource = new BindData();
             bsYM2608PSG.DataSource = new BindData();
+            bsYM2608Rhythm.DataSource = new BindData();
+            bsYM2608Adpcm.DataSource = new BindData();
             bsYM2610.DataSource = new BindData();
             bsYM2610FM.DataSource = new BindData();
             bsYM2610PSG.DataSource = new BindData();
+            bsYM2610AdpcmA.DataSource = new BindData();
+            bsYM2610AdpcmB.DataSource = new BindData();
             bsYM2612.DataSource = new BindData();
             bsSN76489.DataSource = new BindData();
             bsRF5C164.DataSource = new BindData();
@@ -56,9 +60,13 @@ namespace MDPlayer
             ((BindData)(bsYM2608.DataSource)).Value = balance.YM2608Volume;
             ((BindData)(bsYM2608FM.DataSource)).Value = balance.YM2608FMVolume;
             ((BindData)(bsYM2608PSG.DataSource)).Value = balance.YM2608PSGVolume;
+            ((BindData)(bsYM2608Rhythm.DataSource)).Value = balance.YM2608RhythmVolume;
+            ((BindData)(bsYM2608Adpcm.DataSource)).Value = balance.YM2608AdpcmVolume;
             ((BindData)(bsYM2610.DataSource)).Value = balance.YM2610Volume;
             ((BindData)(bsYM2610FM.DataSource)).Value = balance.YM2610FMVolume;
             ((BindData)(bsYM2610PSG.DataSource)).Value = balance.YM2610PSGVolume;
+            ((BindData)(bsYM2610AdpcmA.DataSource)).Value = balance.YM2610AdpcmAVolume;
+            ((BindData)(bsYM2610AdpcmB.DataSource)).Value = balance.YM2610AdpcmBVolume;
             ((BindData)(bsYM2612.DataSource)).Value = balance.YM2612Volume;
             ((BindData)(bsSN76489.DataSource)).Value = balance.SN76489Volume;
             ((BindData)(bsRF5C164.DataSource)).Value = balance.RF5C164Volume;
@@ -113,9 +121,13 @@ namespace MDPlayer
             balance.YM2608Volume = trkYM2608.Value;
             balance.YM2608FMVolume = trkYM2608FM.Value;
             balance.YM2608PSGVolume = trkYM2608PSG.Value;
+            balance.YM2608RhythmVolume = trkYM2608Rhythm.Value;
+            balance.YM2608AdpcmVolume = trkYM2608Adpcm.Value;
             balance.YM2610Volume = trkYM2610.Value;
             balance.YM2610FMVolume = trkYM2610FM.Value;
             balance.YM2610PSGVolume = trkYM2610PSG.Value;
+            balance.YM2610AdpcmAVolume = trkYM2610AdpcmA.Value;
+            balance.YM2610AdpcmBVolume = trkYM2610AdpcmB.Value;
             balance.YM2612Volume = trkYM2612.Value;
             balance.SN76489Volume = trkSN76489.Value;
             balance.RF5C164Volume = trkRF5C164.Value;
@@ -192,7 +204,22 @@ namespace MDPlayer
             balance.YM2608PSGVolume = trkYM2608PSG.Value;
             int v = trkYM2608PSG.Value;
             Audio.SetYM2608PSGVolume(v);
+        }
 
+        private void bsYM2608Rhythm_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.YM2608RhythmVolume = trkYM2608Rhythm.Value;
+            int v = trkYM2608Rhythm.Value;
+            Audio.SetYM2608RhythmVolume(v);
+        }
+
+        private void bsYM2608Adpcm_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.YM2608AdpcmVolume = trkYM2608Adpcm.Value;
+            int v = trkYM2608Adpcm.Value;
+            Audio.SetYM2608AdpcmVolume(v);
         }
 
         private void bsYM2610_CurrentItemChanged(object sender, EventArgs e)
@@ -218,6 +245,22 @@ namespace MDPlayer
             int v = trkYM2610PSG.Value;
             Audio.SetYM2610PSGVolume(v);
 
+        }
+
+        private void bsYM2610AdpcmA_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.YM2610AdpcmAVolume = trkYM2610AdpcmA.Value;
+            int v = trkYM2610AdpcmA.Value;
+            Audio.SetYM2610AdpcmAVolume(v);
+        }
+
+        private void bsYM2610AdpcmB_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.YM2610AdpcmBVolume = trkYM2610AdpcmB.Value;
+            int v = trkYM2610AdpcmB.Value;
+            Audio.SetYM2610AdpcmBVolume(v);
         }
 
         private void bsYM2612_CurrentItemChanged(object sender, EventArgs e)
@@ -324,6 +367,18 @@ namespace MDPlayer
             if (int.TryParse(tbYM2608PSG.Text, out n)) trkYM2608PSG.Value = Math.Max(Math.Min(n, 20), -192);
         }
 
+        private void tbYM2608Rhythm_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbYM2608Rhythm.Text, out n)) trkYM2608Rhythm.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+        private void tbYM2608Adpcm_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbYM2608Adpcm.Text, out n)) trkYM2608Adpcm.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
         private void tbYM2610_TextChanged(object sender, EventArgs e)
         {
             int n;
@@ -340,6 +395,18 @@ namespace MDPlayer
         {
             int n;
             if (int.TryParse(tbYM2610PSG.Text, out n)) trkYM2610PSG.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+        private void tbYM2610AdpcmA_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbYM2610AdpcmA.Text, out n)) trkYM2610AdpcmA.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+        private void tbYM2610AdpcmB_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbYM2610AdpcmB.Text, out n)) trkYM2610AdpcmB.Value = Math.Max(Math.Min(n, 20), -192);
         }
 
         private void tbYM2612_TextChanged(object sender, EventArgs e)
@@ -430,6 +497,16 @@ namespace MDPlayer
             trkYM2608PSG.Value = 0;
         }
 
+        private void btnYM2608Rhythm_Click(object sender, EventArgs e)
+        {
+            trkYM2608Rhythm.Value = 0;
+        }
+
+        private void bynYM2608Adpcm_Click(object sender, EventArgs e)
+        {
+            trkYM2608Adpcm.Value = 0;
+        }
+
         private void btnYM2610_Click(object sender, EventArgs e)
         {
             trkYM2610.Value = 0;
@@ -443,6 +520,16 @@ namespace MDPlayer
         private void btnYM2610PSG_Click(object sender, EventArgs e)
         {
             trkYM2610PSG.Value = 0;
+        }
+
+        private void btnYM2610AdpcmA_Click(object sender, EventArgs e)
+        {
+            trkYM2610AdpcmA.Value = 0;
+        }
+
+        private void btnYM2610AdpcmB_Click(object sender, EventArgs e)
+        {
+            trkYM2610AdpcmB.Value = 0;
         }
 
         private void btnYM2612_Click(object sender, EventArgs e)

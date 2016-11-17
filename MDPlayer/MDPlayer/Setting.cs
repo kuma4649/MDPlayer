@@ -875,6 +875,38 @@ namespace MDPlayer
                 }
             }
 
+            private int _YM2608RhythmVolume = 0;
+            public int YM2608RhythmVolume
+            {
+                get
+                {
+                    if (_YM2608RhythmVolume > 20 || _YM2608RhythmVolume < -192) _YM2608RhythmVolume = 0;
+                    return _YM2608RhythmVolume;
+                }
+
+                set
+                {
+                    _YM2608RhythmVolume = value;
+                    if (_YM2608RhythmVolume > 20 || _YM2608RhythmVolume < -192) _YM2608RhythmVolume = 0;
+                }
+            }
+
+            private int _YM2608AdpcmVolume = 0;
+            public int YM2608AdpcmVolume
+            {
+                get
+                {
+                    if (_YM2608AdpcmVolume > 20 || _YM2608AdpcmVolume < -192) _YM2608AdpcmVolume = 0;
+                    return _YM2608AdpcmVolume;
+                }
+
+                set
+                {
+                    _YM2608AdpcmVolume = value;
+                    if (_YM2608AdpcmVolume > 20 || _YM2608AdpcmVolume < -192) _YM2608AdpcmVolume = 0;
+                }
+            }
+
             private int _YM2203Volume = 0;
             public int YM2203Volume
             {
@@ -971,6 +1003,39 @@ namespace MDPlayer
                 }
             }
 
+            private int _YM2610AdpcmAVolume = 0;
+            public int YM2610AdpcmAVolume
+            {
+                get
+                {
+                    if (_YM2610AdpcmAVolume > 20 || _YM2610AdpcmAVolume < -192) _YM2610AdpcmAVolume = 0;
+                    return _YM2610AdpcmAVolume;
+                }
+
+                set
+                {
+                    _YM2610AdpcmAVolume = value;
+                    if (_YM2610AdpcmAVolume > 20 || _YM2610AdpcmAVolume < -192) _YM2610AdpcmAVolume = 0;
+                }
+            }
+
+            private int _YM2610AdpcmBVolume = 0;
+            public int YM2610AdpcmBVolume
+            {
+                get
+                {
+                    if (_YM2610AdpcmBVolume > 20 || _YM2610AdpcmBVolume < -192) _YM2610AdpcmBVolume = 0;
+                    return _YM2610AdpcmBVolume;
+                }
+
+                set
+                {
+                    _YM2610AdpcmBVolume = value;
+                    if (_YM2610AdpcmBVolume > 20 || _YM2610AdpcmBVolume < -192) _YM2610AdpcmBVolume = 0;
+                }
+            }
+
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -987,12 +1052,16 @@ namespace MDPlayer
                 Balance.YM2608Volume = this.YM2608Volume;
                 Balance.YM2608FMVolume = this.YM2608FMVolume;
                 Balance.YM2608PSGVolume = this.YM2608PSGVolume;
+                Balance.YM2608RhythmVolume = this.YM2608RhythmVolume;
+                Balance.YM2608AdpcmVolume = this.YM2608AdpcmVolume;
                 Balance.YM2203Volume = this.YM2203Volume;
                 Balance.YM2203FMVolume = this.YM2203FMVolume;
                 Balance.YM2203PSGVolume = this.YM2203PSGVolume;
                 Balance.YM2610Volume = this.YM2610Volume;
                 Balance.YM2610FMVolume = this.YM2610FMVolume;
                 Balance.YM2610PSGVolume = this.YM2610PSGVolume;
+                Balance.YM2610AdpcmAVolume = this.YM2610AdpcmAVolume;
+                Balance.YM2610AdpcmBVolume = this.YM2610AdpcmBVolume;
 
                 return Balance;
             }

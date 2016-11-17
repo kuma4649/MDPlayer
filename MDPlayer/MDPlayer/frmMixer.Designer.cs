@@ -126,6 +126,26 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbYM2203 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbYM2608Rhythm = new System.Windows.Forms.TextBox();
+            this.btnYM2608Rhythm = new System.Windows.Forms.Button();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.trkYM2608Rhythm = new System.Windows.Forms.TrackBar();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbYM2608Adpcm = new System.Windows.Forms.TextBox();
+            this.bynYM2608Adpcm = new System.Windows.Forms.Button();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.trkYM2608Adpcm = new System.Windows.Forms.TrackBar();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbYM2610AdpcmA = new System.Windows.Forms.TextBox();
+            this.btnYM2610AdpcmA = new System.Windows.Forms.Button();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.trkYM2610AdpcmA = new System.Windows.Forms.TrackBar();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbYM2610AdpcmB = new System.Windows.Forms.TextBox();
+            this.btnYM2610AdpcmB = new System.Windows.Forms.Button();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.trkYM2610AdpcmB = new System.Windows.Forms.TrackBar();
             this.bsMaster = new System.Windows.Forms.BindingSource(this.components);
             this.bsSegaPCM = new System.Windows.Forms.BindingSource(this.components);
             this.bsOKIM6258 = new System.Windows.Forms.BindingSource(this.components);
@@ -135,7 +155,11 @@
             this.bsRF5C164 = new System.Windows.Forms.BindingSource(this.components);
             this.bsSN76489 = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2612 = new System.Windows.Forms.BindingSource(this.components);
+            this.bsYM2610AdpcmB = new System.Windows.Forms.BindingSource(this.components);
+            this.bsYM2610AdpcmA = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2610PSG = new System.Windows.Forms.BindingSource(this.components);
+            this.bsYM2608Adpcm = new System.Windows.Forms.BindingSource(this.components);
+            this.bsYM2608Rhythm = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2608PSG = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2203PSG = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2610FM = new System.Windows.Forms.BindingSource(this.components);
@@ -187,6 +211,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).BeginInit();
+            this.panel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).BeginInit();
+            this.panel21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).BeginInit();
+            this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).BeginInit();
+            this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).BeginInit();
@@ -196,7 +228,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).BeginInit();
@@ -314,21 +350,35 @@
             this.splitContainer1.Panel2.Controls.Add(this.tbSN76489);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2612);
             this.splitContainer1.Panel2.Controls.Add(this.label12);
+            this.splitContainer1.Panel2.Controls.Add(this.panel23);
+            this.splitContainer1.Panel2.Controls.Add(this.panel22);
             this.splitContainer1.Panel2.Controls.Add(this.panel9);
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2612);
+            this.splitContainer1.Panel2.Controls.Add(this.panel21);
+            this.splitContainer1.Panel2.Controls.Add(this.panel20);
+            this.splitContainer1.Panel2.Controls.Add(this.btnYM2610AdpcmB);
             this.splitContainer1.Panel2.Controls.Add(this.panel5);
+            this.splitContainer1.Panel2.Controls.Add(this.btnYM2610AdpcmA);
             this.splitContainer1.Panel2.Controls.Add(this.label11);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2610PSG);
+            this.splitContainer1.Panel2.Controls.Add(this.bynYM2608Adpcm);
             this.splitContainer1.Panel2.Controls.Add(this.panel4);
+            this.splitContainer1.Panel2.Controls.Add(this.btnYM2608Rhythm);
+            this.splitContainer1.Panel2.Controls.Add(this.tbYM2610AdpcmB);
             this.splitContainer1.Panel2.Controls.Add(this.panel10);
+            this.splitContainer1.Panel2.Controls.Add(this.tbYM2610AdpcmA);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2608PSG);
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2610PSG);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2203PSG);
+            this.splitContainer1.Panel2.Controls.Add(this.label22);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2610FM);
+            this.splitContainer1.Panel2.Controls.Add(this.label21);
             this.splitContainer1.Panel2.Controls.Add(this.panel7);
             this.splitContainer1.Panel2.Controls.Add(this.label8);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
+            this.splitContainer1.Panel2.Controls.Add(this.tbYM2608Adpcm);
             this.splitContainer1.Panel2.Controls.Add(this.panel11);
+            this.splitContainer1.Panel2.Controls.Add(this.tbYM2608Rhythm);
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2610FM);
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2608PSG);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2610);
@@ -336,7 +386,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.label9);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2608FM);
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2610);
+            this.splitContainer1.Panel2.Controls.Add(this.label20);
             this.splitContainer1.Panel2.Controls.Add(this.btnYM2203FM);
+            this.splitContainer1.Panel2.Controls.Add(this.label19);
             this.splitContainer1.Panel2.Controls.Add(this.label10);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
@@ -357,7 +409,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.tbYM2151);
             this.splitContainer1.Panel2.Controls.Add(this.label24);
             this.splitContainer1.Panel2.Layout += new System.Windows.Forms.LayoutEventHandler(this.splitContainer1_Panel2_Layout);
-            this.splitContainer1.Size = new System.Drawing.Size(1144, 281);
+            this.splitContainer1.Size = new System.Drawing.Size(1381, 281);
             this.splitContainer1.SplitterDistance = 70;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 21;
@@ -427,7 +479,7 @@
             this.panel17.BackColor = System.Drawing.Color.White;
             this.panel17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel17.Controls.Add(this.trkSegaPCM);
-            this.panel17.Location = new System.Drawing.Point(1013, 34);
+            this.panel17.Location = new System.Drawing.Point(1245, 34);
             this.panel17.Name = "panel17";
             this.panel17.Size = new System.Drawing.Size(46, 200);
             this.panel17.TabIndex = 73;
@@ -453,7 +505,7 @@
             this.panel16.BackColor = System.Drawing.Color.White;
             this.panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel16.Controls.Add(this.trkOKIM6258);
-            this.panel16.Location = new System.Drawing.Point(833, 34);
+            this.panel16.Location = new System.Drawing.Point(1065, 34);
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(46, 200);
             this.panel16.TabIndex = 61;
@@ -476,7 +528,7 @@
             // 
             // btnSegaPCM
             // 
-            this.btnSegaPCM.Location = new System.Drawing.Point(1042, 240);
+            this.btnSegaPCM.Location = new System.Drawing.Point(1274, 240);
             this.btnSegaPCM.Name = "btnSegaPCM";
             this.btnSegaPCM.Size = new System.Drawing.Size(17, 17);
             this.btnSegaPCM.TabIndex = 75;
@@ -486,7 +538,7 @@
             // 
             // btnOKIM6258
             // 
-            this.btnOKIM6258.Location = new System.Drawing.Point(862, 240);
+            this.btnOKIM6258.Location = new System.Drawing.Point(1094, 240);
             this.btnOKIM6258.Name = "btnOKIM6258";
             this.btnOKIM6258.Size = new System.Drawing.Size(17, 17);
             this.btnOKIM6258.TabIndex = 63;
@@ -499,7 +551,7 @@
             this.panel18.BackColor = System.Drawing.Color.White;
             this.panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel18.Controls.Add(this.trkC140);
-            this.panel18.Location = new System.Drawing.Point(953, 34);
+            this.panel18.Location = new System.Drawing.Point(1185, 34);
             this.panel18.Name = "panel18";
             this.panel18.Size = new System.Drawing.Size(46, 200);
             this.panel18.TabIndex = 69;
@@ -525,7 +577,7 @@
             this.panel15.BackColor = System.Drawing.Color.White;
             this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel15.Controls.Add(this.trkPWM);
-            this.panel15.Location = new System.Drawing.Point(773, 34);
+            this.panel15.Location = new System.Drawing.Point(1005, 34);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(46, 200);
             this.panel15.TabIndex = 57;
@@ -549,7 +601,7 @@
             // tbSegaPCM
             // 
             this.tbSegaPCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsSegaPCM, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbSegaPCM.Location = new System.Drawing.Point(1013, 239);
+            this.tbSegaPCM.Location = new System.Drawing.Point(1245, 239);
             this.tbSegaPCM.MaxLength = 4;
             this.tbSegaPCM.Name = "tbSegaPCM";
             this.tbSegaPCM.Size = new System.Drawing.Size(29, 19);
@@ -561,7 +613,7 @@
             // tbOKIM6258
             // 
             this.tbOKIM6258.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsOKIM6258, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6258.Location = new System.Drawing.Point(833, 239);
+            this.tbOKIM6258.Location = new System.Drawing.Point(1065, 239);
             this.tbOKIM6258.MaxLength = 4;
             this.tbOKIM6258.Name = "tbOKIM6258";
             this.tbOKIM6258.Size = new System.Drawing.Size(29, 19);
@@ -572,7 +624,7 @@
             // 
             // btnC140
             // 
-            this.btnC140.Location = new System.Drawing.Point(982, 240);
+            this.btnC140.Location = new System.Drawing.Point(1214, 240);
             this.btnC140.Name = "btnC140";
             this.btnC140.Size = new System.Drawing.Size(17, 17);
             this.btnC140.TabIndex = 71;
@@ -582,7 +634,7 @@
             // 
             // btnPWM
             // 
-            this.btnPWM.Location = new System.Drawing.Point(802, 240);
+            this.btnPWM.Location = new System.Drawing.Point(1034, 240);
             this.btnPWM.Name = "btnPWM";
             this.btnPWM.Size = new System.Drawing.Size(17, 17);
             this.btnPWM.TabIndex = 59;
@@ -594,7 +646,7 @@
             // 
             this.label16.AutoEllipsis = true;
             this.label16.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label16.Location = new System.Drawing.Point(1010, 7);
+            this.label16.Location = new System.Drawing.Point(1242, 7);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(52, 25);
             this.label16.TabIndex = 72;
@@ -605,7 +657,7 @@
             // 
             this.label15.AutoEllipsis = true;
             this.label15.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label15.Location = new System.Drawing.Point(830, 7);
+            this.label15.Location = new System.Drawing.Point(1062, 7);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(52, 25);
             this.label15.TabIndex = 60;
@@ -617,7 +669,7 @@
             this.panel19.BackColor = System.Drawing.Color.White;
             this.panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel19.Controls.Add(this.trkOKIM6295);
-            this.panel19.Location = new System.Drawing.Point(892, 34);
+            this.panel19.Location = new System.Drawing.Point(1124, 34);
             this.panel19.Name = "panel19";
             this.panel19.Size = new System.Drawing.Size(46, 200);
             this.panel19.TabIndex = 65;
@@ -641,7 +693,7 @@
             // tbC140
             // 
             this.tbC140.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsC140, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbC140.Location = new System.Drawing.Point(953, 239);
+            this.tbC140.Location = new System.Drawing.Point(1185, 239);
             this.tbC140.MaxLength = 4;
             this.tbC140.Name = "tbC140";
             this.tbC140.Size = new System.Drawing.Size(29, 19);
@@ -655,7 +707,7 @@
             this.panel14.BackColor = System.Drawing.Color.White;
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel14.Controls.Add(this.trkRF5C164);
-            this.panel14.Location = new System.Drawing.Point(712, 34);
+            this.panel14.Location = new System.Drawing.Point(944, 34);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(46, 200);
             this.panel14.TabIndex = 53;
@@ -678,7 +730,7 @@
             // 
             // btnOKIM6295
             // 
-            this.btnOKIM6295.Location = new System.Drawing.Point(921, 240);
+            this.btnOKIM6295.Location = new System.Drawing.Point(1153, 240);
             this.btnOKIM6295.Name = "btnOKIM6295";
             this.btnOKIM6295.Size = new System.Drawing.Size(17, 17);
             this.btnOKIM6295.TabIndex = 67;
@@ -689,7 +741,7 @@
             // tbPWM
             // 
             this.tbPWM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsPWM, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbPWM.Location = new System.Drawing.Point(773, 239);
+            this.tbPWM.Location = new System.Drawing.Point(1005, 239);
             this.tbPWM.MaxLength = 4;
             this.tbPWM.Name = "tbPWM";
             this.tbPWM.Size = new System.Drawing.Size(29, 19);
@@ -702,7 +754,7 @@
             // 
             this.label17.AutoEllipsis = true;
             this.label17.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label17.Location = new System.Drawing.Point(950, 7);
+            this.label17.Location = new System.Drawing.Point(1182, 7);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(52, 25);
             this.label17.TabIndex = 68;
@@ -711,7 +763,7 @@
             // 
             // btnRF5C164
             // 
-            this.btnRF5C164.Location = new System.Drawing.Point(741, 240);
+            this.btnRF5C164.Location = new System.Drawing.Point(973, 240);
             this.btnRF5C164.Name = "btnRF5C164";
             this.btnRF5C164.Size = new System.Drawing.Size(17, 17);
             this.btnRF5C164.TabIndex = 55;
@@ -722,7 +774,7 @@
             // tbOKIM6295
             // 
             this.tbOKIM6295.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsOKIM6295, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbOKIM6295.Location = new System.Drawing.Point(892, 239);
+            this.tbOKIM6295.Location = new System.Drawing.Point(1124, 239);
             this.tbOKIM6295.MaxLength = 4;
             this.tbOKIM6295.Name = "tbOKIM6295";
             this.tbOKIM6295.Size = new System.Drawing.Size(29, 19);
@@ -735,7 +787,7 @@
             // 
             this.label14.AutoEllipsis = true;
             this.label14.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label14.Location = new System.Drawing.Point(770, 7);
+            this.label14.Location = new System.Drawing.Point(1002, 7);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 25);
             this.label14.TabIndex = 56;
@@ -746,7 +798,7 @@
             // 
             this.label18.AutoEllipsis = true;
             this.label18.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label18.Location = new System.Drawing.Point(889, 7);
+            this.label18.Location = new System.Drawing.Point(1121, 7);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(52, 25);
             this.label18.TabIndex = 64;
@@ -758,7 +810,7 @@
             this.panel13.BackColor = System.Drawing.Color.White;
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel13.Controls.Add(this.trkSN76489);
-            this.panel13.Location = new System.Drawing.Point(651, 34);
+            this.panel13.Location = new System.Drawing.Point(883, 34);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(46, 200);
             this.panel13.TabIndex = 49;
@@ -782,7 +834,7 @@
             // tbRF5C164
             // 
             this.tbRF5C164.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsRF5C164, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbRF5C164.Location = new System.Drawing.Point(712, 239);
+            this.tbRF5C164.Location = new System.Drawing.Point(944, 239);
             this.tbRF5C164.MaxLength = 4;
             this.tbRF5C164.Name = "tbRF5C164";
             this.tbRF5C164.Size = new System.Drawing.Size(29, 19);
@@ -793,7 +845,7 @@
             // 
             // btnSN76489
             // 
-            this.btnSN76489.Location = new System.Drawing.Point(680, 240);
+            this.btnSN76489.Location = new System.Drawing.Point(912, 240);
             this.btnSN76489.Name = "btnSN76489";
             this.btnSN76489.Size = new System.Drawing.Size(17, 17);
             this.btnSN76489.TabIndex = 51;
@@ -805,7 +857,7 @@
             // 
             this.label13.AutoEllipsis = true;
             this.label13.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label13.Location = new System.Drawing.Point(709, 7);
+            this.label13.Location = new System.Drawing.Point(941, 7);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(52, 25);
             this.label13.TabIndex = 52;
@@ -817,7 +869,7 @@
             this.panel12.BackColor = System.Drawing.Color.White;
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel12.Controls.Add(this.trkYM2612);
-            this.panel12.Location = new System.Drawing.Point(591, 34);
+            this.panel12.Location = new System.Drawing.Point(823, 34);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(46, 200);
             this.panel12.TabIndex = 45;
@@ -841,7 +893,7 @@
             // tbSN76489
             // 
             this.tbSN76489.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsSN76489, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbSN76489.Location = new System.Drawing.Point(651, 239);
+            this.tbSN76489.Location = new System.Drawing.Point(883, 239);
             this.tbSN76489.MaxLength = 4;
             this.tbSN76489.Name = "tbSN76489";
             this.tbSN76489.Size = new System.Drawing.Size(29, 19);
@@ -852,7 +904,7 @@
             // 
             // btnYM2612
             // 
-            this.btnYM2612.Location = new System.Drawing.Point(620, 240);
+            this.btnYM2612.Location = new System.Drawing.Point(852, 240);
             this.btnYM2612.Name = "btnYM2612";
             this.btnYM2612.Size = new System.Drawing.Size(17, 17);
             this.btnYM2612.TabIndex = 47;
@@ -864,7 +916,7 @@
             // 
             this.label12.AutoEllipsis = true;
             this.label12.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label12.Location = new System.Drawing.Point(648, 7);
+            this.label12.Location = new System.Drawing.Point(880, 7);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(52, 25);
             this.label12.TabIndex = 48;
@@ -876,7 +928,7 @@
             this.panel9.BackColor = System.Drawing.Color.White;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.trkYM2610PSG);
-            this.panel9.Location = new System.Drawing.Point(532, 34);
+            this.panel9.Location = new System.Drawing.Point(649, 34);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(46, 200);
             this.panel9.TabIndex = 46;
@@ -900,7 +952,7 @@
             // tbYM2612
             // 
             this.tbYM2612.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2612, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbYM2612.Location = new System.Drawing.Point(591, 239);
+            this.tbYM2612.Location = new System.Drawing.Point(823, 239);
             this.tbYM2612.MaxLength = 4;
             this.tbYM2612.Name = "tbYM2612";
             this.tbYM2612.Size = new System.Drawing.Size(29, 19);
@@ -939,7 +991,7 @@
             // 
             this.label11.AutoEllipsis = true;
             this.label11.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label11.Location = new System.Drawing.Point(588, 7);
+            this.label11.Location = new System.Drawing.Point(825, 7);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(52, 25);
             this.label11.TabIndex = 44;
@@ -948,7 +1000,7 @@
             // 
             // btnYM2610PSG
             // 
-            this.btnYM2610PSG.Location = new System.Drawing.Point(561, 240);
+            this.btnYM2610PSG.Location = new System.Drawing.Point(678, 240);
             this.btnYM2610PSG.Name = "btnYM2610PSG";
             this.btnYM2610PSG.Size = new System.Drawing.Size(17, 17);
             this.btnYM2610PSG.TabIndex = 50;
@@ -987,7 +1039,7 @@
             this.panel10.BackColor = System.Drawing.Color.White;
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.trkYM2610FM);
-            this.panel10.Location = new System.Drawing.Point(474, 34);
+            this.panel10.Location = new System.Drawing.Point(591, 34);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(46, 200);
             this.panel10.TabIndex = 47;
@@ -1021,7 +1073,7 @@
             // tbYM2610PSG
             // 
             this.tbYM2610PSG.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2610PSG, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbYM2610PSG.Location = new System.Drawing.Point(532, 239);
+            this.tbYM2610PSG.Location = new System.Drawing.Point(649, 239);
             this.tbYM2610PSG.MaxLength = 4;
             this.tbYM2610PSG.Name = "tbYM2610PSG";
             this.tbYM2610PSG.Size = new System.Drawing.Size(29, 19);
@@ -1042,7 +1094,7 @@
             // 
             // btnYM2610FM
             // 
-            this.btnYM2610FM.Location = new System.Drawing.Point(503, 240);
+            this.btnYM2610FM.Location = new System.Drawing.Point(620, 240);
             this.btnYM2610FM.Name = "btnYM2610FM";
             this.btnYM2610FM.Size = new System.Drawing.Size(17, 17);
             this.btnYM2610FM.TabIndex = 51;
@@ -1080,7 +1132,7 @@
             // 
             this.label8.AutoEllipsis = true;
             this.label8.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label8.Location = new System.Drawing.Point(529, 7);
+            this.label8.Location = new System.Drawing.Point(644, 7);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(52, 25);
             this.label8.TabIndex = 44;
@@ -1118,7 +1170,7 @@
             this.panel11.BackColor = System.Drawing.Color.White;
             this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel11.Controls.Add(this.trkYM2610);
-            this.panel11.Location = new System.Drawing.Point(416, 34);
+            this.panel11.Location = new System.Drawing.Point(533, 34);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(46, 200);
             this.panel11.TabIndex = 41;
@@ -1142,7 +1194,7 @@
             // tbYM2610FM
             // 
             this.tbYM2610FM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2610FM, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbYM2610FM.Location = new System.Drawing.Point(474, 239);
+            this.tbYM2610FM.Location = new System.Drawing.Point(591, 239);
             this.tbYM2610FM.MaxLength = 4;
             this.tbYM2610FM.Name = "tbYM2610FM";
             this.tbYM2610FM.Size = new System.Drawing.Size(29, 19);
@@ -1165,7 +1217,7 @@
             // 
             // btnYM2610
             // 
-            this.btnYM2610.Location = new System.Drawing.Point(445, 240);
+            this.btnYM2610.Location = new System.Drawing.Point(562, 240);
             this.btnYM2610.Name = "btnYM2610";
             this.btnYM2610.Size = new System.Drawing.Size(17, 17);
             this.btnYM2610.TabIndex = 43;
@@ -1189,7 +1241,7 @@
             // 
             this.label9.AutoEllipsis = true;
             this.label9.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label9.Location = new System.Drawing.Point(471, 7);
+            this.label9.Location = new System.Drawing.Point(588, 7);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 25);
             this.label9.TabIndex = 45;
@@ -1209,7 +1261,7 @@
             // tbYM2610
             // 
             this.tbYM2610.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2610, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbYM2610.Location = new System.Drawing.Point(416, 239);
+            this.tbYM2610.Location = new System.Drawing.Point(533, 239);
             this.tbYM2610.MaxLength = 4;
             this.tbYM2610.Name = "tbYM2610";
             this.tbYM2610.Size = new System.Drawing.Size(29, 19);
@@ -1232,7 +1284,7 @@
             // 
             this.label10.AutoEllipsis = true;
             this.label10.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label10.Location = new System.Drawing.Point(413, 7);
+            this.label10.Location = new System.Drawing.Point(530, 7);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 25);
             this.label10.TabIndex = 40;
@@ -1425,6 +1477,242 @@
             this.label2.Text = "YM2203";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label19
+            // 
+            this.label19.AutoEllipsis = true;
+            this.label19.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label19.Location = new System.Drawing.Point(410, 7);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(60, 25);
+            this.label19.TabIndex = 32;
+            this.label19.Text = "YM2608 (Rhythm)";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbYM2608Rhythm
+            // 
+            this.tbYM2608Rhythm.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2608Rhythm, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2608Rhythm.Location = new System.Drawing.Point(417, 239);
+            this.tbYM2608Rhythm.MaxLength = 4;
+            this.tbYM2608Rhythm.Name = "tbYM2608Rhythm";
+            this.tbYM2608Rhythm.Size = new System.Drawing.Size(29, 19);
+            this.tbYM2608Rhythm.TabIndex = 36;
+            this.tbYM2608Rhythm.Text = "0";
+            this.tbYM2608Rhythm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2608Rhythm.TextChanged += new System.EventHandler(this.tbYM2608Rhythm_TextChanged);
+            // 
+            // btnYM2608Rhythm
+            // 
+            this.btnYM2608Rhythm.Location = new System.Drawing.Point(446, 240);
+            this.btnYM2608Rhythm.Name = "btnYM2608Rhythm";
+            this.btnYM2608Rhythm.Size = new System.Drawing.Size(17, 17);
+            this.btnYM2608Rhythm.TabIndex = 38;
+            this.btnYM2608Rhythm.Text = "R";
+            this.btnYM2608Rhythm.UseVisualStyleBackColor = true;
+            this.btnYM2608Rhythm.Click += new System.EventHandler(this.btnYM2608Rhythm_Click);
+            // 
+            // panel20
+            // 
+            this.panel20.BackColor = System.Drawing.Color.White;
+            this.panel20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel20.Controls.Add(this.trkYM2608Rhythm);
+            this.panel20.Location = new System.Drawing.Point(417, 34);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(46, 200);
+            this.panel20.TabIndex = 34;
+            // 
+            // trkYM2608Rhythm
+            // 
+            this.trkYM2608Rhythm.BackColor = System.Drawing.Color.White;
+            this.trkYM2608Rhythm.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2608Rhythm, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2608Rhythm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2608Rhythm.LargeChange = 10;
+            this.trkYM2608Rhythm.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2608Rhythm.Maximum = 20;
+            this.trkYM2608Rhythm.Minimum = -192;
+            this.trkYM2608Rhythm.Name = "trkYM2608Rhythm";
+            this.trkYM2608Rhythm.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2608Rhythm.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608Rhythm.TabIndex = 0;
+            this.trkYM2608Rhythm.TickFrequency = 10;
+            this.trkYM2608Rhythm.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // label20
+            // 
+            this.label20.AutoEllipsis = true;
+            this.label20.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label20.Location = new System.Drawing.Point(467, 7);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(62, 25);
+            this.label20.TabIndex = 32;
+            this.label20.Text = "YM2608 (ADPCM)";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbYM2608Adpcm
+            // 
+            this.tbYM2608Adpcm.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2608Adpcm, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2608Adpcm.Location = new System.Drawing.Point(475, 239);
+            this.tbYM2608Adpcm.MaxLength = 4;
+            this.tbYM2608Adpcm.Name = "tbYM2608Adpcm";
+            this.tbYM2608Adpcm.Size = new System.Drawing.Size(29, 19);
+            this.tbYM2608Adpcm.TabIndex = 36;
+            this.tbYM2608Adpcm.Text = "0";
+            this.tbYM2608Adpcm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2608Adpcm.TextChanged += new System.EventHandler(this.tbYM2608Adpcm_TextChanged);
+            // 
+            // bynYM2608Adpcm
+            // 
+            this.bynYM2608Adpcm.Location = new System.Drawing.Point(504, 240);
+            this.bynYM2608Adpcm.Name = "bynYM2608Adpcm";
+            this.bynYM2608Adpcm.Size = new System.Drawing.Size(17, 17);
+            this.bynYM2608Adpcm.TabIndex = 38;
+            this.bynYM2608Adpcm.Text = "R";
+            this.bynYM2608Adpcm.UseVisualStyleBackColor = true;
+            this.bynYM2608Adpcm.Click += new System.EventHandler(this.bynYM2608Adpcm_Click);
+            // 
+            // panel21
+            // 
+            this.panel21.BackColor = System.Drawing.Color.White;
+            this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel21.Controls.Add(this.trkYM2608Adpcm);
+            this.panel21.Location = new System.Drawing.Point(475, 34);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(46, 200);
+            this.panel21.TabIndex = 34;
+            // 
+            // trkYM2608Adpcm
+            // 
+            this.trkYM2608Adpcm.BackColor = System.Drawing.Color.White;
+            this.trkYM2608Adpcm.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2608Adpcm, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2608Adpcm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2608Adpcm.LargeChange = 10;
+            this.trkYM2608Adpcm.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2608Adpcm.Maximum = 20;
+            this.trkYM2608Adpcm.Minimum = -192;
+            this.trkYM2608Adpcm.Name = "trkYM2608Adpcm";
+            this.trkYM2608Adpcm.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2608Adpcm.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608Adpcm.TabIndex = 0;
+            this.trkYM2608Adpcm.TickFrequency = 10;
+            this.trkYM2608Adpcm.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // label21
+            // 
+            this.label21.AutoEllipsis = true;
+            this.label21.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label21.Location = new System.Drawing.Point(693, 7);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(66, 25);
+            this.label21.TabIndex = 44;
+            this.label21.Text = "YM2610 (ADPCM A)";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbYM2610AdpcmA
+            // 
+            this.tbYM2610AdpcmA.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2610AdpcmA, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2610AdpcmA.Location = new System.Drawing.Point(707, 239);
+            this.tbYM2610AdpcmA.MaxLength = 4;
+            this.tbYM2610AdpcmA.Name = "tbYM2610AdpcmA";
+            this.tbYM2610AdpcmA.Size = new System.Drawing.Size(29, 19);
+            this.tbYM2610AdpcmA.TabIndex = 48;
+            this.tbYM2610AdpcmA.Text = "0";
+            this.tbYM2610AdpcmA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2610AdpcmA.TextChanged += new System.EventHandler(this.tbYM2610AdpcmA_TextChanged);
+            // 
+            // btnYM2610AdpcmA
+            // 
+            this.btnYM2610AdpcmA.Location = new System.Drawing.Point(736, 240);
+            this.btnYM2610AdpcmA.Name = "btnYM2610AdpcmA";
+            this.btnYM2610AdpcmA.Size = new System.Drawing.Size(17, 17);
+            this.btnYM2610AdpcmA.TabIndex = 50;
+            this.btnYM2610AdpcmA.Text = "R";
+            this.btnYM2610AdpcmA.UseVisualStyleBackColor = true;
+            this.btnYM2610AdpcmA.Click += new System.EventHandler(this.btnYM2610AdpcmA_Click);
+            // 
+            // panel22
+            // 
+            this.panel22.BackColor = System.Drawing.Color.White;
+            this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel22.Controls.Add(this.trkYM2610AdpcmA);
+            this.panel22.Location = new System.Drawing.Point(707, 34);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(46, 200);
+            this.panel22.TabIndex = 46;
+            // 
+            // trkYM2610AdpcmA
+            // 
+            this.trkYM2610AdpcmA.BackColor = System.Drawing.Color.White;
+            this.trkYM2610AdpcmA.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2610AdpcmA, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2610AdpcmA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2610AdpcmA.LargeChange = 10;
+            this.trkYM2610AdpcmA.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2610AdpcmA.Maximum = 20;
+            this.trkYM2610AdpcmA.Minimum = -192;
+            this.trkYM2610AdpcmA.Name = "trkYM2610AdpcmA";
+            this.trkYM2610AdpcmA.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2610AdpcmA.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610AdpcmA.TabIndex = 0;
+            this.trkYM2610AdpcmA.TickFrequency = 10;
+            this.trkYM2610AdpcmA.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // label22
+            // 
+            this.label22.AutoEllipsis = true;
+            this.label22.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label22.Location = new System.Drawing.Point(756, 7);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 25);
+            this.label22.TabIndex = 44;
+            this.label22.Text = "YM2610 (ADPCM B)";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbYM2610AdpcmB
+            // 
+            this.tbYM2610AdpcmB.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2610AdpcmB, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2610AdpcmB.Location = new System.Drawing.Point(765, 239);
+            this.tbYM2610AdpcmB.MaxLength = 4;
+            this.tbYM2610AdpcmB.Name = "tbYM2610AdpcmB";
+            this.tbYM2610AdpcmB.Size = new System.Drawing.Size(29, 19);
+            this.tbYM2610AdpcmB.TabIndex = 48;
+            this.tbYM2610AdpcmB.Text = "0";
+            this.tbYM2610AdpcmB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2610AdpcmB.TextChanged += new System.EventHandler(this.tbYM2610AdpcmB_TextChanged);
+            // 
+            // btnYM2610AdpcmB
+            // 
+            this.btnYM2610AdpcmB.Location = new System.Drawing.Point(794, 240);
+            this.btnYM2610AdpcmB.Name = "btnYM2610AdpcmB";
+            this.btnYM2610AdpcmB.Size = new System.Drawing.Size(17, 17);
+            this.btnYM2610AdpcmB.TabIndex = 50;
+            this.btnYM2610AdpcmB.Text = "R";
+            this.btnYM2610AdpcmB.UseVisualStyleBackColor = true;
+            this.btnYM2610AdpcmB.Click += new System.EventHandler(this.btnYM2610AdpcmB_Click);
+            // 
+            // panel23
+            // 
+            this.panel23.BackColor = System.Drawing.Color.White;
+            this.panel23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel23.Controls.Add(this.trkYM2610AdpcmB);
+            this.panel23.Location = new System.Drawing.Point(765, 34);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(46, 200);
+            this.panel23.TabIndex = 46;
+            // 
+            // trkYM2610AdpcmB
+            // 
+            this.trkYM2610AdpcmB.BackColor = System.Drawing.Color.White;
+            this.trkYM2610AdpcmB.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2610AdpcmB, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2610AdpcmB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2610AdpcmB.LargeChange = 10;
+            this.trkYM2610AdpcmB.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2610AdpcmB.Maximum = 20;
+            this.trkYM2610AdpcmB.Minimum = -192;
+            this.trkYM2610AdpcmB.Name = "trkYM2610AdpcmB";
+            this.trkYM2610AdpcmB.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2610AdpcmB.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610AdpcmB.TabIndex = 0;
+            this.trkYM2610AdpcmB.TickFrequency = 10;
+            this.trkYM2610AdpcmB.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
             // bsMaster
             // 
             this.bsMaster.DataSource = typeof(MDPlayer.BindData);
@@ -1470,10 +1758,30 @@
             this.bsYM2612.DataSource = typeof(MDPlayer.BindData);
             this.bsYM2612.CurrentItemChanged += new System.EventHandler(this.bsYM2612_CurrentItemChanged);
             // 
+            // bsYM2610AdpcmB
+            // 
+            this.bsYM2610AdpcmB.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610AdpcmB.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmB_CurrentItemChanged);
+            // 
+            // bsYM2610AdpcmA
+            // 
+            this.bsYM2610AdpcmA.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610AdpcmA.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmA_CurrentItemChanged);
+            // 
             // bsYM2610PSG
             // 
             this.bsYM2610PSG.DataSource = typeof(MDPlayer.BindData);
             this.bsYM2610PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2610PSG_CurrentItemChanged);
+            // 
+            // bsYM2608Adpcm
+            // 
+            this.bsYM2608Adpcm.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608Adpcm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Adpcm_CurrentItemChanged);
+            // 
+            // bsYM2608Rhythm
+            // 
+            this.bsYM2608Rhythm.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608Rhythm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Rhythm_CurrentItemChanged);
             // 
             // bsYM2608PSG
             // 
@@ -1524,11 +1832,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 281);
+            this.ClientSize = new System.Drawing.Size(1381, 281);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1160, 320);
+            this.MaximumSize = new System.Drawing.Size(1397, 320);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(200, 320);
             this.Name = "frmMixer";
@@ -1601,6 +1909,18 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).EndInit();
+            this.panel20.ResumeLayout(false);
+            this.panel20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).EndInit();
+            this.panel21.ResumeLayout(false);
+            this.panel21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).EndInit();
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).EndInit();
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).EndInit();
@@ -1610,7 +1930,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).EndInit();
@@ -1741,5 +2065,29 @@
         private System.Windows.Forms.BindingSource bsOKIM6295;
         private System.Windows.Forms.BindingSource bsC140;
         private System.Windows.Forms.BindingSource bsSegaPCM;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.TrackBar trkYM2610AdpcmB;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.TrackBar trkYM2610AdpcmA;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.TrackBar trkYM2608Adpcm;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.TrackBar trkYM2608Rhythm;
+        private System.Windows.Forms.Button btnYM2610AdpcmB;
+        private System.Windows.Forms.Button btnYM2610AdpcmA;
+        private System.Windows.Forms.Button bynYM2608Adpcm;
+        private System.Windows.Forms.Button btnYM2608Rhythm;
+        private System.Windows.Forms.TextBox tbYM2610AdpcmB;
+        private System.Windows.Forms.TextBox tbYM2610AdpcmA;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox tbYM2608Adpcm;
+        private System.Windows.Forms.TextBox tbYM2608Rhythm;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.BindingSource bsYM2608Rhythm;
+        private System.Windows.Forms.BindingSource bsYM2608Adpcm;
+        private System.Windows.Forms.BindingSource bsYM2610AdpcmA;
+        private System.Windows.Forms.BindingSource bsYM2610AdpcmB;
     }
 }

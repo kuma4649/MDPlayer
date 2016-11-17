@@ -718,9 +718,13 @@ namespace MDPlayer
 
                 SetYM2608FMVolume(setting.balance.YM2608FMVolume);
                 SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
 
                 SetYM2610FMVolume(setting.balance.YM2610FMVolume);
                 SetYM2610PSGVolume(setting.balance.YM2610PSGVolume);
+                SetYM2610AdpcmAVolume(setting.balance.YM2610AdpcmAVolume);
+                SetYM2610AdpcmBVolume(setting.balance.YM2610AdpcmBVolume);
 
 
                 Paused = false;
@@ -1636,6 +1640,16 @@ namespace MDPlayer
             mds.SetVolumeYM2608PSG(volume);
         }
 
+        public static void SetYM2608RhythmVolume(int volume)
+        {
+            mds.SetVolumeYM2608Rhythm(volume);
+        }
+
+        public static void SetYM2608AdpcmVolume(int volume)
+        {
+            mds.SetVolumeYM2608Adpcm(volume);
+        }
+
         public static void SetYM2610Volume(int volume)
         {
             mds.SetVolumeYM2610(volume);
@@ -1649,6 +1663,16 @@ namespace MDPlayer
         public static void SetYM2610PSGVolume(int volume)
         {
             mds.SetVolumeYM2610PSG(volume);
+        }
+
+        public static void SetYM2610AdpcmAVolume(int volume)
+        {
+            mds.SetVolumeYM2610AdpcmA(volume);
+        }
+
+        public static void SetYM2610AdpcmBVolume(int volume)
+        {
+            mds.SetVolumeYM2610AdpcmB(volume);
         }
 
         public static void SetYM2612Volume(int volume)
