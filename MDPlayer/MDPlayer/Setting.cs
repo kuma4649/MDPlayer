@@ -667,177 +667,314 @@ namespace MDPlayer
         public class Balance
         {
 
-            private int _YM2612Volume = 170;
+            private int _MasterVolume = 0;
+            public int MasterVolume
+            {
+                get
+                {
+                    if (_MasterVolume > 20 || _MasterVolume < -192) _MasterVolume = 0;
+                    return _MasterVolume;
+                }
+
+                set
+                {
+                    _MasterVolume = value;
+                    if (_MasterVolume > 20 || _MasterVolume < -192) _MasterVolume = 0;
+                }
+            }
+
+            private int _YM2612Volume = 0;
             public int YM2612Volume
             {
                 get
                 {
+                    if (_YM2612Volume > 20 || _YM2612Volume < -192) _YM2612Volume = 0;
                     return _YM2612Volume;
                 }
 
                 set
                 {
                     _YM2612Volume = value;
+                    if (_YM2612Volume > 20 || _YM2612Volume < -192) _YM2612Volume = 0;
                 }
             }
 
-            private int _SN76489Volume = 100;
+            private int _SN76489Volume = 0;
             public int SN76489Volume
             {
                 get
                 {
+                    if (_SN76489Volume > 20 || _SN76489Volume < -192) _SN76489Volume = 0;
                     return _SN76489Volume;
                 }
 
                 set
                 {
                     _SN76489Volume = value;
+                    if (_SN76489Volume > 20 || _SN76489Volume < -192) _SN76489Volume = 0;
                 }
             }
 
-            private int _RF5C164Volume = 90;
+            private int _RF5C164Volume = 0;
             public int RF5C164Volume
             {
                 get
                 {
+                    if (_RF5C164Volume > 20 || _RF5C164Volume < -192) _RF5C164Volume = 0;
                     return _RF5C164Volume;
                 }
 
                 set
                 {
                     _RF5C164Volume = value;
+                    if (_RF5C164Volume > 20 || _RF5C164Volume < -192) _RF5C164Volume = 0;
                 }
             }
 
-            private int _PWMVolume = 100;
+            private int _PWMVolume = 0;
             public int PWMVolume
             {
                 get
                 {
+                    if (_PWMVolume > 20 || _PWMVolume < -192) _PWMVolume = 0;
                     return _PWMVolume;
                 }
 
                 set
                 {
                     _PWMVolume = value;
+                    if (_PWMVolume > 20 || _PWMVolume < -192) _PWMVolume = 0;
                 }
             }
 
-            private int _C140Volume = 40;
+            private int _C140Volume = 0;
             public int C140Volume
             {
                 get
                 {
+                    if (_C140Volume > 20 || _C140Volume < -192) _C140Volume = 0;
                     return _C140Volume;
                 }
 
                 set
                 {
                     _C140Volume = value;
+                    if (_C140Volume > 20 || _C140Volume < -192) _C140Volume = 0;
                 }
             }
 
-            private int _OKIM6258Volume = 100;
+            private int _OKIM6258Volume = 0;
             public int OKIM6258Volume
             {
                 get
                 {
+                    if (_OKIM6258Volume > 20 || _OKIM6258Volume < -192) _OKIM6258Volume = 0;
                     return _OKIM6258Volume;
                 }
 
                 set
                 {
                     _OKIM6258Volume = value;
+                    if (_OKIM6258Volume > 20 || _OKIM6258Volume < -192) _OKIM6258Volume = 0;
                 }
             }
 
-            private int _OKIM6295Volume = 100;
+            private int _OKIM6295Volume = 0;
             public int OKIM6295Volume
             {
                 get
                 {
+                    if (_OKIM6295Volume > 20 || _OKIM6295Volume < -192) _OKIM6295Volume = 0;
                     return _OKIM6295Volume;
                 }
 
                 set
                 {
                     _OKIM6295Volume = value;
+                    if (_OKIM6295Volume > 20 || _OKIM6295Volume < -192) _OKIM6295Volume = 0;
                 }
             }
 
-            private int _SEGAPCMVolume = 100;
+            private int _SEGAPCMVolume = 0;
             public int SEGAPCMVolume
             {
                 get
                 {
+                    if (_SEGAPCMVolume > 20 || _SEGAPCMVolume < -192) _SEGAPCMVolume = 0;
                     return _SEGAPCMVolume;
                 }
 
                 set
                 {
                     _SEGAPCMVolume = value;
+                    if (_SEGAPCMVolume > 20 || _SEGAPCMVolume < -192) _SEGAPCMVolume = 0;
                 }
             }
 
-            private int _YM2151Volume = 100;
+            private int _YM2151Volume = 0;
             public int YM2151Volume
             {
                 get
                 {
+                    if (_YM2151Volume > 20 || _YM2151Volume < -192) _YM2151Volume = 0;
                     return _YM2151Volume;
                 }
 
                 set
                 {
                     _YM2151Volume = value;
+                    if (_YM2151Volume > 20 || _YM2151Volume < -192) _YM2151Volume = 0;
                 }
             }
 
-            private int _YM2608Volume = 100;
+            private int _YM2608Volume = 0;
             public int YM2608Volume
             {
                 get
                 {
+                    if (_YM2608Volume > 20 || _YM2608Volume < -192) _YM2608Volume = 0;
                     return _YM2608Volume;
                 }
 
                 set
                 {
                     _YM2608Volume = value;
+                    if (_YM2608Volume > 20 || _YM2608Volume < -192) _YM2608Volume = 0;
                 }
             }
 
-            private int _YM2203Volume = 100;
+            private int _YM2608FMVolume = 0;
+            public int YM2608FMVolume
+            {
+                get
+                {
+                    if (_YM2608FMVolume > 20 || _YM2608FMVolume < -192) _YM2608FMVolume = 0;
+                    return _YM2608FMVolume;
+                }
+
+                set
+                {
+                    _YM2608FMVolume = value;
+                    if (_YM2608FMVolume > 20 || _YM2608FMVolume < -192) _YM2608FMVolume = 0;
+                }
+            }
+
+            private int _YM2608PSGVolume = 0;
+            public int YM2608PSGVolume
+            {
+                get
+                {
+                    if (_YM2608PSGVolume > 20 || _YM2608PSGVolume < -192) _YM2608PSGVolume = 0;
+                    return _YM2608PSGVolume;
+                }
+
+                set
+                {
+                    _YM2608PSGVolume = value;
+                    if (_YM2608PSGVolume > 20 || _YM2608PSGVolume < -192) _YM2608PSGVolume = 0;
+                }
+            }
+
+            private int _YM2203Volume = 0;
             public int YM2203Volume
             {
                 get
                 {
+                    if (_YM2203Volume > 20 || _YM2203Volume < -192) _YM2203Volume = 0;
                     return _YM2203Volume;
                 }
 
                 set
                 {
                     _YM2203Volume = value;
+                    if (_YM2203Volume > 20 || _YM2203Volume < -192) _YM2203Volume = 0;
                 }
             }
 
-            private int _YM2610Volume = 100;
+            private int _YM2203FMVolume = 0;
+            public int YM2203FMVolume
+            {
+                get
+                {
+                    if (_YM2203FMVolume > 20 || _YM2203FMVolume < -192) _YM2203FMVolume = 0;
+                    return _YM2203FMVolume;
+                }
+
+                set
+                {
+                    _YM2203FMVolume = value;
+                    if (_YM2203FMVolume > 20 || _YM2203FMVolume < -192) _YM2203FMVolume = 0;
+                }
+            }
+
+            private int _YM2203PSGVolume = 0;
+            public int YM2203PSGVolume
+            {
+                get
+                {
+                    if (_YM2203PSGVolume > 20 || _YM2203PSGVolume < -192) _YM2203PSGVolume = 0;
+                    return _YM2203PSGVolume;
+                }
+
+                set
+                {
+                    _YM2203PSGVolume = value;
+                    if (_YM2203PSGVolume > 20 || _YM2203PSGVolume < -192) _YM2203PSGVolume = 0;
+                }
+            }
+
+            private int _YM2610Volume = 0;
             public int YM2610Volume
             {
                 get
                 {
+                    if (_YM2610Volume > 20 || _YM2610Volume < -192) _YM2610Volume = 0;
                     return _YM2610Volume;
                 }
 
                 set
                 {
                     _YM2610Volume = value;
+                    if (_YM2610Volume > 20 || _YM2610Volume < -192) _YM2610Volume = 0;
+                }
+            }
+
+            private int _YM2610FMVolume = 0;
+            public int YM2610FMVolume
+            {
+                get
+                {
+                    if (_YM2610FMVolume > 20 || _YM2610FMVolume < -192) _YM2610FMVolume = 0;
+                    return _YM2610FMVolume;
+                }
+
+                set
+                {
+                    _YM2610FMVolume = value;
+                    if (_YM2610FMVolume > 20 || _YM2610FMVolume < -192) _YM2610FMVolume = 0;
+                }
+            }
+
+            private int _YM2610PSGVolume = 0;
+            public int YM2610PSGVolume
+            {
+                get
+                {
+                    if (_YM2610PSGVolume > 20 || _YM2610PSGVolume < -192) _YM2610PSGVolume = 0;
+                    return _YM2610PSGVolume;
+                }
+
+                set
+                {
+                    _YM2610PSGVolume = value;
+                    if (_YM2610PSGVolume > 20 || _YM2610PSGVolume < -192) _YM2610PSGVolume = 0;
                 }
             }
 
             public Balance Copy()
             {
                 Balance Balance = new Balance();
+                Balance.MasterVolume = this.MasterVolume;
                 Balance.YM2612Volume = this.YM2612Volume;
                 Balance.SN76489Volume = this.SN76489Volume;
                 Balance.RF5C164Volume = this.RF5C164Volume;
@@ -848,8 +985,14 @@ namespace MDPlayer
                 Balance.SEGAPCMVolume = this.SEGAPCMVolume;
                 Balance.YM2151Volume = this.YM2151Volume;
                 Balance.YM2608Volume = this.YM2608Volume;
+                Balance.YM2608FMVolume = this.YM2608FMVolume;
+                Balance.YM2608PSGVolume = this.YM2608PSGVolume;
                 Balance.YM2203Volume = this.YM2203Volume;
+                Balance.YM2203FMVolume = this.YM2203FMVolume;
+                Balance.YM2203PSGVolume = this.YM2203PSGVolume;
                 Balance.YM2610Volume = this.YM2610Volume;
+                Balance.YM2610FMVolume = this.YM2610FMVolume;
+                Balance.YM2610PSGVolume = this.YM2610PSGVolume;
 
                 return Balance;
             }
@@ -955,6 +1098,56 @@ namespace MDPlayer
                 set
                 {
                     _PPlayListWH = value;
+                }
+            }
+
+            private Point _PMixer = Point.Empty;
+            public Point PMixer
+            {
+                get
+                {
+                    if (_PMixer.X < 0 || _PMixer.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
+                    return _PMixer;
+                }
+
+                set
+                {
+                    _PMixer = value;
+                }
+            }
+
+            private bool _OMixer = false;
+            public bool OMixer
+            {
+                get
+                {
+                    return _OMixer;
+                }
+
+                set
+                {
+                    _OMixer = value;
+                }
+            }
+
+            private Point _PMixerWH = Point.Empty;
+            public Point PMixerWH
+            {
+                get
+                {
+                    if (_PMixerWH.X < 0 || _PMixerWH.Y < 0)
+                    {
+                        return new Point(0, 0);
+                    }
+                    return _PMixerWH;
+                }
+
+                set
+                {
+                    _PMixerWH = value;
                 }
             }
 
@@ -1277,6 +1470,9 @@ namespace MDPlayer
                 Location.PPlayList = this.PPlayList;
                 Location.OPlayList = this.OPlayList;
                 Location.PPlayListWH = this.PPlayListWH;
+                Location.PMixer = this.PMixer;
+                Location.OMixer = this.OMixer;
+                Location.PMixerWH = this.PMixerWH;
                 Location.PosRf5c164 = this.PosRf5c164;
                 Location.OpenRf5c164 = this.OpenRf5c164;
                 Location.PosC140 = this.PosC140;

@@ -110,6 +110,7 @@ namespace MDPlayer
         public static int ChipSecC140 = 0;
         public static int ChipSecSPCM = 0;
 
+        private static int MasterVolume = 0;
 
 
         public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
@@ -397,6 +398,8 @@ namespace MDPlayer
                 ChipSecC140 = 0;
                 ChipSecSPCM = 0;
 
+                MasterVolume = setting.balance.MasterVolume;
+
                 if (vgmVirtual.SN76489ClockValue != 0)
                 {
                     chip = new MDSound.MDSound.Chip();
@@ -409,7 +412,7 @@ namespace MDPlayer
                     chip.Stop = sn76489.Stop;
                     chip.Reset = sn76489.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.SN76489Volume;
+                    chip.Volume = setting.balance.SN76489Volume;
                     chip.Clock = vgmVirtual.SN76489ClockValue;
                     chip.Option = null;
                     ChipPriDCSG = 1;
@@ -434,7 +437,7 @@ namespace MDPlayer
                         chip.Stop = ym2612.Stop;
                         chip.Reset = ym2612.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.YM2612Volume;
+                        chip.Volume = setting.balance.YM2612Volume;
                         chip.Clock = vgmVirtual.YM2612ClockValue;
                         chip.Option = null;
 
@@ -460,7 +463,7 @@ namespace MDPlayer
                     chip.Stop = rf5c164.Stop;
                     chip.Reset = rf5c164.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.RF5C164Volume;
+                    chip.Volume = setting.balance.RF5C164Volume;
                     chip.Clock = vgmVirtual.RF5C164ClockValue;
                     chip.Option = null;
 
@@ -483,7 +486,7 @@ namespace MDPlayer
                     chip.Stop = pwm.Stop;
                     chip.Reset = pwm.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.PWMVolume;
+                    chip.Volume = setting.balance.PWMVolume;
                     chip.Clock = vgmVirtual.PWMClockValue;
                     chip.Option = null;
 
@@ -506,7 +509,7 @@ namespace MDPlayer
                     chip.Stop = c140.Stop;
                     chip.Reset = c140.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.C140Volume;
+                    chip.Volume = setting.balance.C140Volume;
                     chip.Clock = vgmVirtual.C140ClockValue;
                     chip.Option = new object[1] { vgmVirtual.C140Type };
 
@@ -529,7 +532,7 @@ namespace MDPlayer
                     chip.Stop = okim6258.Stop;
                     chip.Reset = okim6258.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.OKIM6258Volume;
+                    chip.Volume = setting.balance.OKIM6258Volume;
                     chip.Clock = vgmVirtual.OKIM6258ClockValue;
                     //chip.Option = new object[1] { (int)vgmVirtual.OKIM6258Type };
                     chip.Option = new object[1] { 6 };
@@ -555,7 +558,7 @@ namespace MDPlayer
                         chip.Stop = okim6295.Stop;
                         chip.Reset = okim6295.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.OKIM6295Volume;
+                        chip.Volume = setting.balance.OKIM6295Volume;
                         chip.Clock = vgmVirtual.OKIM6295ClockValue;
                         chip.Option = null;
 
@@ -580,7 +583,7 @@ namespace MDPlayer
                     chip.Stop = segapcm.Stop;
                     chip.Reset = segapcm.Reset;
                     chip.SamplingRate = SamplingRate;
-                    chip.Volume = (uint)setting.balance.SEGAPCMVolume;
+                    chip.Volume = setting.balance.SEGAPCMVolume;
                     chip.Clock = vgmVirtual.SEGAPCMClockValue;
                     chip.Option = new object[1] { vgmVirtual.SEGAPCMInterface };
 
@@ -605,7 +608,7 @@ namespace MDPlayer
                         chip.Stop = ym2608.Stop;
                         chip.Reset = ym2608.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.YM2608Volume;
+                        chip.Volume = setting.balance.YM2608Volume;
                         chip.Clock = vgmVirtual.YM2608ClockValue;
                         chip.Option = null;
 
@@ -632,7 +635,7 @@ namespace MDPlayer
                         chip.Stop = ym2151.Stop;
                         chip.Reset = ym2151.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.YM2151Volume;
+                        chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = vgmVirtual.YM2151ClockValue;
                         chip.Option = null;
 
@@ -659,7 +662,7 @@ namespace MDPlayer
                         chip.Stop = ym2203.Stop;
                         chip.Reset = ym2203.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.YM2203Volume;
+                        chip.Volume = setting.balance.YM2203Volume;
                         chip.Clock = vgmVirtual.YM2203ClockValue;
                         chip.Option = null;
 
@@ -669,6 +672,7 @@ namespace MDPlayer
                         else ChipSecOPN = 1;
 
                         lstChips.Add(chip);
+
                     }
                 }
 
@@ -686,7 +690,7 @@ namespace MDPlayer
                         chip.Stop = ym2610.Stop;
                         chip.Reset = ym2610.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = (uint)setting.balance.YM2610Volume;
+                        chip.Volume = setting.balance.YM2610Volume;
                         chip.Clock = vgmVirtual.YM2610ClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -709,6 +713,14 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
+                SetYM2203FMVolume(setting.balance.YM2203FMVolume);
+                SetYM2203PSGVolume(setting.balance.YM2203PSGVolume);
+
+                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
+
+                SetYM2610FMVolume(setting.balance.YM2610FMVolume);
+                SetYM2610PSGVolume(setting.balance.YM2610PSGVolume);
 
 
                 Paused = false;
@@ -1402,6 +1414,12 @@ namespace MDPlayer
                 int cnt;
                 cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
 
+                for (i = 0; i < sampleCount; i++)
+                {
+                    int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
+                    buffer[offset + i] = (short)((Limit(buffer[offset + i], 0x7fff, -0x8000) * mul) >> 14);
+                }
+
                 if (vgmFadeout)
                 {
 
@@ -1438,7 +1456,7 @@ namespace MDPlayer
                     chips[0].Stop = sn76489.Stop;
                     chips[0].Reset = sn76489.Reset;
                     chips[0].SamplingRate = SamplingRate;
-                    chips[0].Volume = 100;
+                    chips[0].Volume = 0;
                     chips[0].Clock = vgm.defaultSN76489ClockValue;
                     chips[0].Option = null;
 
@@ -1452,7 +1470,7 @@ namespace MDPlayer
                     chips[1].Stop = ym2612.Stop;
                     chips[1].Reset = ym2612.Reset;
                     chips[1].SamplingRate = SamplingRate;
-                    chips[1].Volume = 100;
+                    chips[1].Volume = 0;
                     chips[1].Clock = vgm.defaultYM2612ClockValue;
                     chips[1].Option = null;
 
@@ -1466,7 +1484,7 @@ namespace MDPlayer
                     chips[2].Stop = rf5c164.Stop;
                     chips[2].Reset = rf5c164.Reset;
                     chips[2].SamplingRate = SamplingRate;
-                    chips[2].Volume = 100;
+                    chips[2].Volume = 0;
                     chips[2].Clock = vgm.defaultRF5C164ClockValue;
                     chips[2].Option = null;
 
@@ -1480,7 +1498,7 @@ namespace MDPlayer
                     chips[3].Stop = pwm.Stop;
                     chips[3].Reset = pwm.Reset;
                     chips[3].SamplingRate = SamplingRate;
-                    chips[3].Volume = 100;
+                    chips[3].Volume = 0;
                     chips[3].Clock = vgm.defaultPWMClockValue;
                     chips[3].Option = null;
 
@@ -1508,7 +1526,7 @@ namespace MDPlayer
                     chips[5].Stop = okim6258.Stop;
                     chips[5].Reset = okim6258.Reset;
                     chips[5].SamplingRate = SamplingRate;
-                    chips[5].Volume = 100;
+                    chips[5].Volume = 0;
                     chips[5].Clock = vgm.defaultOKIM6258ClockValue;
                     chips[5].Option = new object[1] { (int)0 };
 
@@ -1522,7 +1540,7 @@ namespace MDPlayer
                     chips[6].Stop = okim6295.Stop;
                     chips[6].Reset = okim6295.Reset;
                     chips[6].SamplingRate = SamplingRate;
-                    chips[6].Volume = 100;
+                    chips[6].Volume = 0;
                     chips[6].Clock = vgm.defaultOKIM6295ClockValue;
                     chips[6].Option = null;
 
@@ -1536,7 +1554,7 @@ namespace MDPlayer
                     chips[7].Stop = segapcm.Stop;
                     chips[7].Reset = segapcm.Reset;
                     chips[7].SamplingRate = SamplingRate;
-                    chips[7].Volume = 100;
+                    chips[7].Volume = 0;
                     chips[7].Clock = vgm.defaultSEGAPCMClockValue;
                     chips[7].Option = new object[1] { (int)0 };
 
@@ -1560,6 +1578,11 @@ namespace MDPlayer
             return -1;
         }
 
+        public static int Limit(int v, int max, int min)
+        {
+            return v > max ? max : (v < min ? min : v);
+        }
+
         public static long getVirtualFrameCounter()
         {
             if (vgmVirtual == null) return -1;
@@ -1570,6 +1593,102 @@ namespace MDPlayer
         {
             if (vgmReal == null) return -1;
             return vgmReal.vgmFrameCounter;
+        }
+
+
+        public static void SetMasterVolume(int volume)
+        {
+            MasterVolume = volume;
+        }
+
+        public static void SetYM2151Volume(int volume)
+        {
+            mds.SetVolumeYM2151(volume);
+        }
+
+        public static void SetYM2203Volume(int volume)
+        {
+            mds.SetVolumeYM2203(volume);
+        }
+
+        public static void SetYM2203FMVolume(int volume)
+        {
+            mds.SetVolumeYM2203FM(volume);
+        }
+
+        public static void SetYM2203PSGVolume(int volume)
+        {
+            mds.SetVolumeYM2203PSG(volume);
+        }
+
+        public static void SetYM2608Volume(int volume)
+        {
+            mds.SetVolumeYM2608(volume);
+        }
+
+        public static void SetYM2608FMVolume(int volume)
+        {
+            mds.SetVolumeYM2608FM(volume);
+        }
+
+        public static void SetYM2608PSGVolume(int volume)
+        {
+            mds.SetVolumeYM2608PSG(volume);
+        }
+
+        public static void SetYM2610Volume(int volume)
+        {
+            mds.SetVolumeYM2610(volume);
+        }
+
+        public static void SetYM2610FMVolume(int volume)
+        {
+            mds.SetVolumeYM2610FM(volume);
+        }
+
+        public static void SetYM2610PSGVolume(int volume)
+        {
+            mds.SetVolumeYM2610PSG(volume);
+        }
+
+        public static void SetYM2612Volume(int volume)
+        {
+            mds.SetVolumeYM2612(volume);
+        }
+
+        public static void SetSN76489Volume(int volume)
+        {
+            mds.SetVolumeSN76489(volume);
+        }
+
+        public static void SetRF5C164Volume(int volume)
+        {
+            mds.SetVolumeRF5C164(volume);
+        }
+
+        public static void SetPWMVolume(int volume)
+        {
+            mds.SetVolumePWM(volume);
+        }
+
+        public static void SetOKIM6258Volume(int volume)
+        {
+            mds.SetVolumeOKIM6258(volume);
+        }
+
+        public static void SetOKIM6295Volume(int volume)
+        {
+            mds.SetVolumeOKIM6295(volume);
+        }
+
+        public static void SetC140Volume(int volume)
+        {
+            mds.SetVolumeC140(volume);
+        }
+
+        public static void SetSegaPCMVolume(int volume)
+        {
+            mds.SetVolumeSegaPCM(volume);
         }
 
 

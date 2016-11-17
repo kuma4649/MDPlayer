@@ -18,6 +18,7 @@ namespace MDPlayer
 
         private frmInfo frmInfo = null;
         private frmPlayList frmPlayList = null;
+        private frmMixer frmMixer = null;
 
         private frmMegaCD[] frmMCD = new frmMegaCD[2] { null, null };
         private frmC140[] frmC140 = new frmC140[2] { null, null };
@@ -135,6 +136,14 @@ namespace MDPlayer
             frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
 
+            frmMixer = new frmMixer(setting);
+            frmMixer.frmMain = this;
+            frmMixer.Show();
+            frmMixer.Visible = false;
+            frmMixer.Opacity = 1.0;
+            frmMixer.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            frmMixer.Refresh();
+
             if (setting.location.OPlayList) dispPlayList();
             if (setting.location.OInfo) openInfo();
             if (setting.location.OpenRf5c164[0]) tsmiPRF5C164_Click(null, null);
@@ -166,6 +175,7 @@ namespace MDPlayer
             frameSizeH = this.Height - this.ClientSize.Height;
 
             changeZoom();
+
         }
 
         private void changeZoom()
@@ -401,6 +411,7 @@ namespace MDPlayer
 
             setting.location.OInfo = false;
             setting.location.OPlayList = false;
+            setting.location.OMixer = false;
             for (int chipID = 0; chipID < 2; chipID++)
             {
                 setting.location.OpenRf5c164[chipID] = false;
@@ -429,6 +440,12 @@ namespace MDPlayer
                 setting.location.PPlayList = frmPlayList.Location;
                 setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
                 setting.location.OPlayList = true;
+            }
+            if (frmMixer != null && !frmMixer.isClosed)
+            {
+                setting.location.PMixer = frmMixer.Location;
+                setting.location.PMixerWH = new System.Drawing.Point(frmMixer.Width, frmMixer.Height);
+                setting.location.OMixer = true;
             }
             for (int chipID = 0; chipID < 2; chipID++)
             {
@@ -490,6 +507,12 @@ namespace MDPlayer
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 05");
+
+            try
+            {
+                frmMixer.Close();
+            }
+            catch { }
 
             setting.Save();
 
@@ -789,7 +812,8 @@ namespace MDPlayer
             //if (px >= 320 - 3 * 16 && px < 320 - 2 * 16)
             if (px >= 13 * 16 + 24 && px < 14 * 16 + 24)
             {
-                OpenFormMegaCD(0);
+                //OpenFormMegaCD(0);
+                dispMixer();
                 return;
             }
 
@@ -3023,6 +3047,38 @@ namespace MDPlayer
             frmPlayList.Visible = !frmPlayList.Visible;
             frmPlayList.TopMost = true;
             frmPlayList.TopMost = false;
+        }
+
+        private void dispMixer()
+        {
+            frmMixer.setting = setting;
+            if (!frmMixer.Visible)
+            {
+                if (setting.location.PMixer != System.Drawing.Point.Empty)
+                {
+                    frmMixer.Location = setting.location.PMixer;
+                }
+                if (setting.location.PMixerWH != System.Drawing.Point.Empty)
+                {
+                    frmMixer.Width = setting.location.PMixerWH.X;
+                    frmMixer.Height = setting.location.PMixerWH.Y;
+                }
+            }
+            else
+            {
+                if (setting.location.PMixer != System.Drawing.Point.Empty)
+                {
+                    setting.location.PMixer = frmMixer.Location;
+                }
+                if (setting.location.PMixerWH != System.Drawing.Point.Empty)
+                {
+                    setting.location.PMixerWH=new System.Drawing.Point(frmMixer.Width, frmMixer.Height);
+                }
+            }
+
+            frmMixer.Visible = !frmMixer.Visible;
+            frmMixer.TopMost = true;
+            frmMixer.TopMost = false;
         }
 
         private void openInfo()

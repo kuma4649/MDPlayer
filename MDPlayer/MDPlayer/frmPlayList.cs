@@ -91,13 +91,22 @@ namespace MDPlayer
             }
         }
 
+        private void frmPlayList_Shown(object sender, EventArgs e)
+        {
+        }
+
         private void frmPlayList_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
         }
 
-        private void frmPlayList_Shown(object sender, EventArgs e)
+        private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
         {
+            isClosed = true;
+            setting.location.PPlayList = this.Location;
+            setting.location.PPlayListWH = new Point(this.Width, this.Height);
+            this.Visible = false;
+            e.Cancel = true;
         }
 
         public new void Refresh()
@@ -166,15 +175,6 @@ namespace MDPlayer
             row.Cells[dgvList.Columns["clmVGMby"].Index].Value = music.vgmby;
 
             return row;
-        }
-
-        private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            isClosed = true;
-            setting.location.PPlayList = this.Location;
-            setting.location.PPlayListWH = new Point(this.Width, this.Height);
-            this.Visible = false;
-            e.Cancel = true;
         }
 
         public void updatePlayingIndex(int newPlayingIndex)

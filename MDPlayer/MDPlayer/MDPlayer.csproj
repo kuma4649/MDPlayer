@@ -117,6 +117,12 @@
     <Compile Include="frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMixer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMixer.Designer.cs">
+      <DependentUpon>frmMixer.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOKIM6258.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMixer.resx">
+      <DependentUpon>frmMixer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOKIM6258.resx">
       <DependentUpon>frmOKIM6258.cs</DependentUpon>

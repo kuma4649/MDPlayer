@@ -24,18 +24,18 @@ namespace MDPlayer
             this.setting = setting.Copy();
 
             InitializeComponent();
-            bs1.DataSource = new BindData();
-            bs2.DataSource = new BindData();
-            bs3.DataSource = new BindData();
-            bs4.DataSource = new BindData();
-            bs5.DataSource = new BindData();
-            bs6.DataSource = new BindData();
-            bs7.DataSource = new BindData();
-            bs8.DataSource = new BindData();
-            bs9.DataSource = new BindData();
-            bs10.DataSource = new BindData();
-            bs11.DataSource = new BindData();
-            bs12.DataSource = new BindData();
+            //bs1.DataSource = new BindData();
+            //bs2.DataSource = new BindData();
+            //bs3.DataSource = new BindData();
+            //bs4.DataSource = new BindData();
+            //bs5.DataSource = new BindData();
+            //bs6.DataSource = new BindData();
+            //bs7.DataSource = new BindData();
+            //bs8.DataSource = new BindData();
+            //bs9.DataSource = new BindData();
+            //bs10.DataSource = new BindData();
+            //bs11.DataSource = new BindData();
+            //bs12.DataSource = new BindData();
 
             Init();
         }
@@ -397,26 +397,26 @@ namespace MDPlayer
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
 
-            ((BindData)(bs1.DataSource)).Value = setting.balance.YM2612Volume;
-            ((BindData)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
-            ((BindData)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
-            ((BindData)(bs4.DataSource)).Value = setting.balance.PWMVolume;
-            ((BindData)(bs5.DataSource)).Value = setting.balance.C140Volume;
-            ((BindData)(bs6.DataSource)).Value = setting.balance.OKIM6258Volume;
-            ((BindData)(bs7.DataSource)).Value = setting.balance.OKIM6295Volume;
-            ((BindData)(bs8.DataSource)).Value = setting.balance.SEGAPCMVolume;
-            ((BindData)(bs9.DataSource)).Value = setting.balance.YM2151Volume;
-            ((BindData)(bs10.DataSource)).Value = setting.balance.YM2608Volume;
-            ((BindData)(bs11.DataSource)).Value = setting.balance.YM2203Volume;
-            ((BindData)(bs12.DataSource)).Value = setting.balance.YM2610Volume;
+            //((BindData)(bs1.DataSource)).Value = setting.balance.YM2612Volume;
+            //((BindData)(bs2.DataSource)).Value = setting.balance.SN76489Volume;
+            //((BindData)(bs3.DataSource)).Value = setting.balance.RF5C164Volume;
+            //((BindData)(bs4.DataSource)).Value = setting.balance.PWMVolume;
+            //((BindData)(bs5.DataSource)).Value = setting.balance.C140Volume;
+            //((BindData)(bs6.DataSource)).Value = setting.balance.OKIM6258Volume;
+            //((BindData)(bs7.DataSource)).Value = setting.balance.OKIM6295Volume;
+            //((BindData)(bs8.DataSource)).Value = setting.balance.SEGAPCMVolume;
+            //((BindData)(bs9.DataSource)).Value = setting.balance.YM2151Volume;
+            //((BindData)(bs10.DataSource)).Value = setting.balance.YM2608Volume;
+            //((BindData)(bs11.DataSource)).Value = setting.balance.YM2203Volume;
+            //((BindData)(bs12.DataSource)).Value = setting.balance.YM2610Volume;
 
-            trkYM2612.Value = setting.balance.YM2612Volume;
-            trkSN76489.Value = setting.balance.SN76489Volume;
-            trkRF5C164.Value = setting.balance.RF5C164Volume;
-            trkPWM.Value = setting.balance.PWMVolume;
-            trkOKIM6258.Value = setting.balance.OKIM6258Volume;
-            trkOKIM6295.Value = setting.balance.OKIM6295Volume;
-            trkC140.Value = setting.balance.C140Volume;
+            //trkYM2612.Value = setting.balance.YM2612Volume;
+            //trkSN76489.Value = setting.balance.SN76489Volume;
+            //trkRF5C164.Value = setting.balance.RF5C164Volume;
+            //trkPWM.Value = setting.balance.PWMVolume;
+            //trkOKIM6258.Value = setting.balance.OKIM6258Volume;
+            //trkOKIM6295.Value = setting.balance.OKIM6295Volume;
+            //trkC140.Value = setting.balance.C140Volume;
 
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
@@ -609,18 +609,18 @@ namespace MDPlayer
             }
             setting.other.AutoOpen = cbAutoOpen.Checked;
 
-            setting.balance.YM2612Volume = trkYM2612.Value;
-            setting.balance.SN76489Volume = trkSN76489.Value;
-            setting.balance.RF5C164Volume = trkRF5C164.Value;
-            setting.balance.PWMVolume = trkPWM.Value;
-            setting.balance.C140Volume = trkC140.Value;
-            setting.balance.OKIM6258Volume = trkOKIM6258.Value;
-            setting.balance.OKIM6295Volume = trkOKIM6295.Value;
-            setting.balance.SEGAPCMVolume = trkSEGAPCM.Value;
-            setting.balance.YM2151Volume = trkYM2151.Value;
-            setting.balance.YM2608Volume = trkYM2608.Value;
-            setting.balance.YM2203Volume = trkYM2203.Value;
-            setting.balance.YM2610Volume = trkYM2610.Value;
+            //setting.balance.YM2612Volume = trkYM2612.Value;
+            //setting.balance.SN76489Volume = trkSN76489.Value;
+            //setting.balance.RF5C164Volume = trkRF5C164.Value;
+            //setting.balance.PWMVolume = trkPWM.Value;
+            //setting.balance.C140Volume = trkC140.Value;
+            //setting.balance.OKIM6258Volume = trkOKIM6258.Value;
+            //setting.balance.OKIM6295Volume = trkOKIM6295.Value;
+            //setting.balance.SEGAPCMVolume = trkSEGAPCM.Value;
+            //setting.balance.YM2151Volume = trkYM2151.Value;
+            //setting.balance.YM2608Volume = trkYM2608.Value;
+            //setting.balance.YM2203Volume = trkYM2203.Value;
+            //setting.balance.YM2610Volume = trkYM2610.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -753,78 +753,6 @@ namespace MDPlayer
             //cbSN76489UseWaitBoost.Enabled = cbSN76489UseWait.Checked;
         }
 
-        private void btnYM2612_Click(object sender, EventArgs e)
-        {
-            trkYM2612.Value = 100;
-        }
-
-        private void btnSN76489_Click(object sender, EventArgs e)
-        {
-            trkSN76489.Value = 100;
-        }
-
-        private void btnRF5C164_Click(object sender, EventArgs e)
-        {
-            trkRF5C164.Value = 100;
-        }
-
-        private void btnPWM_Click(object sender, EventArgs e)
-        {
-            trkPWM.Value = 100;
-        }
-
-        private void tbPWM_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbPWM.Text, out v))
-            {
-                tbPWM.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbPWM.Text = "100";
-            }
-        }
-
-        private void tbRF5C164_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbRF5C164.Text, out v))
-            {
-                tbRF5C164.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbRF5C164.Text = "100";
-            }
-        }
-
-        private void tbSN76489_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbSN76489.Text, out v))
-            {
-                tbSN76489.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbSN76489.Text = "100";
-            }
-        }
-
-        private void tbYM2612_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbYM2612.Text, out v))
-            {
-                tbYM2612.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbYM2612.Text = "100";
-            }
-        }
-
         private void cbUseLoopTimes_CheckedChanged(object sender, EventArgs e)
         {
             tbLoopTimes.Enabled = cbUseLoopTimes.Checked;
@@ -854,139 +782,12 @@ namespace MDPlayer
 
         }
 
-        private void btnC140_Click(object sender, EventArgs e)
-        {
-            trkC140.Value = 100;
-        }
-
-        private void tbC140_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbC140.Text, out v))
-            {
-                tbC140.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbC140.Text = "100";
-            }
-
-        }
-
-        private void btnSEAPCM_Click(object sender, EventArgs e)
-        {
-            trkSEGAPCM.Value = 100;
-        }
-
-        private void tbSEGAPCM_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbSEGAPCM.Text, out v))
-            {
-                tbSEGAPCM.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbSEGAPCM.Text = "100";
-            }
-
-        }
-
-        private void btnOKIM6258_Click(object sender, EventArgs e)
-        {
-            trkOKIM6258.Value = 100;
-        }
-
-        private void btnOKIM6295_Click(object sender, EventArgs e)
-        {
-            trkOKIM6295.Value = 100;
-        }
-
         private void cbUseGetInst_CheckedChanged(object sender, EventArgs e)
         {
             lblInstFormat.Enabled = cbUseGetInst.Checked;
             cmbInstFormat.Enabled = cbUseGetInst.Checked;
         }
 
-        private void tbYM2151_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbYM2151.Text, out v))
-            {
-                tbYM2151.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbYM2151.Text = "100";
-            }
-
-        }
-
-        private void tbYM2608_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbYM2608.Text, out v))
-            {
-                tbYM2608.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbYM2608.Text = "100";
-            }
-
-        }
-
-        private void tbYM2203_TextChanged(object sender, EventArgs e)
-        {
-
-            int v = 0;
-            if (int.TryParse(tbYM2203.Text, out v))
-            {
-                tbYM2203.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbYM2203.Text = "100";
-            }
-        }
-
-        private void tbYM2610_TextChanged(object sender, EventArgs e)
-        {
-            int v = 0;
-            if (int.TryParse(tbYM2610.Text, out v))
-            {
-                tbYM2610.Text = Math.Max(Math.Min(v, 200), 0).ToString();
-            }
-            else
-            {
-                tbYM2610.Text = "100";
-            }
-
-        }
-
-        private void btnYM2151_Click(object sender, EventArgs e)
-        {
-            trkYM2151.Value = 100;
-
-        }
-
-        private void btnYM2608_Click(object sender, EventArgs e)
-        {
-            trkYM2608.Value = 100;
-
-        }
-
-        private void btnYM2203_Click(object sender, EventArgs e)
-        {
-            trkYM2203.Value = 100;
-
-        }
-
-        private void btnYM2610_Click(object sender, EventArgs e)
-        {
-            trkYM2610.Value = 100;
-
-        }
     }
 
 
