@@ -56,6 +56,7 @@
             this.lblLatency = new System.Windows.Forms.Label();
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -64,45 +65,6 @@
             this.tbLatencyEmu = new System.Windows.Forms.TextBox();
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmbSN76489Scci = new System.Windows.Forms.ComboBox();
-            this.rbSN76489Scci = new System.Windows.Forms.RadioButton();
-            this.rbSN76489Emu = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbOnlyPCMEmulation = new System.Windows.Forms.CheckBox();
-            this.cbYM2612UseWaitBoost = new System.Windows.Forms.CheckBox();
-            this.cbYM2612UseWait = new System.Windows.Forms.CheckBox();
-            this.cmbYM2612Scci = new System.Windows.Forms.ComboBox();
-            this.rbYM2612Scci = new System.Windows.Forms.RadioButton();
-            this.rbYM2612Emu = new System.Windows.Forms.RadioButton();
-            this.gbYM2610B = new System.Windows.Forms.GroupBox();
-            this.cmbYM2610BScci = new System.Windows.Forms.ComboBox();
-            this.rbYM2610BScci = new System.Windows.Forms.RadioButton();
-            this.rbYM2610BEmu = new System.Windows.Forms.RadioButton();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.cmbYM2608Scci = new System.Windows.Forms.ComboBox();
-            this.rbYM2608Scci = new System.Windows.Forms.RadioButton();
-            this.rbYM2608Emu = new System.Windows.Forms.RadioButton();
-            this.gbYM2203 = new System.Windows.Forms.GroupBox();
-            this.cmbYM2203Scci = new System.Windows.Forms.ComboBox();
-            this.rbYM2203Scci = new System.Windows.Forms.RadioButton();
-            this.rbYM2203Emu = new System.Windows.Forms.RadioButton();
-            this.gbYM2151 = new System.Windows.Forms.GroupBox();
-            this.cmbYM2151Scci = new System.Windows.Forms.ComboBox();
-            this.rbYM2151Scci = new System.Windows.Forms.RadioButton();
-            this.rbYM2151Emu = new System.Windows.Forms.RadioButton();
-            this.bs9 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs5 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs8 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs12 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs7 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs6 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs10 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs11 = new System.Windows.Forms.BindingSource(this.components);
-            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
             this.tpOther = new System.Windows.Forms.TabPage();
             this.label30 = new System.Windows.Forms.Label();
             this.tbScreenFrameRate = new System.Windows.Forms.TextBox();
@@ -143,6 +105,19 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.bs9 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs5 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs8 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs12 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs7 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs3 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs6 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs10 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs11 = new System.Windows.Forms.BindingSource(this.components);
+            this.bs4 = new System.Windows.Forms.BindingSource(this.components);
+            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -150,13 +125,16 @@
             this.tcSetting.SuspendLayout();
             this.tpOutput.SuspendLayout();
             this.tpModule.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.gbYM2610B.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.gbYM2203.SuspendLayout();
-            this.gbYM2151.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tpOther.SuspendLayout();
+            this.tpOmake.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.gbMIDIKeyboard.SuspendLayout();
+            this.gbUseChannel.SuspendLayout();
+            this.tpAbout.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs8)).BeginInit();
@@ -169,14 +147,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bs10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
-            this.tpOther.SuspendLayout();
-            this.tpOmake.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.gbMIDIKeyboard.SuspendLayout();
-            this.gbUseChannel.SuspendLayout();
-            this.tpAbout.SuspendLayout();
-            this.tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -487,19 +457,24 @@
             // 
             // tpModule
             // 
-            this.tpModule.Controls.Add(this.groupBox3);
-            this.tpModule.Controls.Add(this.groupBox2);
             this.tpModule.Controls.Add(this.groupBox1);
-            this.tpModule.Controls.Add(this.gbYM2610B);
-            this.tpModule.Controls.Add(this.groupBox6);
-            this.tpModule.Controls.Add(this.gbYM2203);
-            this.tpModule.Controls.Add(this.gbYM2151);
+            this.tpModule.Controls.Add(this.groupBox3);
             this.tpModule.Location = new System.Drawing.Point(4, 22);
             this.tpModule.Name = "tpModule";
             this.tpModule.Size = new System.Drawing.Size(374, 291);
             this.tpModule.TabIndex = 3;
             this.tpModule.Text = "音源";
             this.tpModule.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ucSI);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(364, 200);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "音源の割り当て";
             // 
             // groupBox3
             // 
@@ -576,348 +551,6 @@
             this.label10.Size = new System.Drawing.Size(20, 12);
             this.label10.TabIndex = 2;
             this.label10.Text = "ms";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cmbSN76489Scci);
-            this.groupBox2.Controls.Add(this.rbSN76489Scci);
-            this.groupBox2.Controls.Add(this.rbSN76489Emu);
-            this.groupBox2.Location = new System.Drawing.Point(190, 209);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(181, 63);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "SN76489";
-            // 
-            // cmbSN76489Scci
-            // 
-            this.cmbSN76489Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSN76489Scci.FormattingEnabled = true;
-            this.cmbSN76489Scci.Location = new System.Drawing.Point(61, 35);
-            this.cmbSN76489Scci.Name = "cmbSN76489Scci";
-            this.cmbSN76489Scci.Size = new System.Drawing.Size(114, 20);
-            this.cmbSN76489Scci.TabIndex = 2;
-            // 
-            // rbSN76489Scci
-            // 
-            this.rbSN76489Scci.AutoSize = true;
-            this.rbSN76489Scci.Location = new System.Drawing.Point(6, 36);
-            this.rbSN76489Scci.Name = "rbSN76489Scci";
-            this.rbSN76489Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbSN76489Scci.TabIndex = 1;
-            this.rbSN76489Scci.Text = "SCCI";
-            this.rbSN76489Scci.UseVisualStyleBackColor = true;
-            // 
-            // rbSN76489Emu
-            // 
-            this.rbSN76489Emu.AutoSize = true;
-            this.rbSN76489Emu.Checked = true;
-            this.rbSN76489Emu.Location = new System.Drawing.Point(6, 15);
-            this.rbSN76489Emu.Name = "rbSN76489Emu";
-            this.rbSN76489Emu.Size = new System.Drawing.Size(91, 16);
-            this.rbSN76489Emu.TabIndex = 0;
-            this.rbSN76489Emu.TabStop = true;
-            this.rbSN76489Emu.Text = "エミュレーション";
-            this.rbSN76489Emu.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.cbOnlyPCMEmulation);
-            this.groupBox1.Controls.Add(this.cbYM2612UseWaitBoost);
-            this.groupBox1.Controls.Add(this.cbYM2612UseWait);
-            this.groupBox1.Controls.Add(this.cmbYM2612Scci);
-            this.groupBox1.Controls.Add(this.rbYM2612Scci);
-            this.groupBox1.Controls.Add(this.rbYM2612Emu);
-            this.groupBox1.Location = new System.Drawing.Point(190, 72);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(181, 131);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "YM2612";
-            // 
-            // cbOnlyPCMEmulation
-            // 
-            this.cbOnlyPCMEmulation.AutoSize = true;
-            this.cbOnlyPCMEmulation.Location = new System.Drawing.Point(8, 109);
-            this.cbOnlyPCMEmulation.Name = "cbOnlyPCMEmulation";
-            this.cbOnlyPCMEmulation.Size = new System.Drawing.Size(154, 16);
-            this.cbOnlyPCMEmulation.TabIndex = 5;
-            this.cbOnlyPCMEmulation.Text = "PCMだけエミュレーションする";
-            this.cbOnlyPCMEmulation.UseVisualStyleBackColor = true;
-            // 
-            // cbYM2612UseWaitBoost
-            // 
-            this.cbYM2612UseWaitBoost.AutoSize = true;
-            this.cbYM2612UseWaitBoost.Location = new System.Drawing.Point(13, 85);
-            this.cbYM2612UseWaitBoost.Name = "cbYM2612UseWaitBoost";
-            this.cbYM2612UseWaitBoost.Size = new System.Drawing.Size(104, 16);
-            this.cbYM2612UseWaitBoost.TabIndex = 4;
-            this.cbYM2612UseWaitBoost.Text = "そのWait値を2倍";
-            this.cbYM2612UseWaitBoost.UseVisualStyleBackColor = true;
-            // 
-            // cbYM2612UseWait
-            // 
-            this.cbYM2612UseWait.AutoSize = true;
-            this.cbYM2612UseWait.Location = new System.Drawing.Point(8, 64);
-            this.cbYM2612UseWait.Name = "cbYM2612UseWait";
-            this.cbYM2612UseWait.Size = new System.Drawing.Size(109, 16);
-            this.cbYM2612UseWait.TabIndex = 3;
-            this.cbYM2612UseWait.Text = "Waitシグナル発信";
-            this.cbYM2612UseWait.UseVisualStyleBackColor = true;
-            this.cbYM2612UseWait.CheckedChanged += new System.EventHandler(this.cbYM2612UseWait_CheckedChanged);
-            // 
-            // cmbYM2612Scci
-            // 
-            this.cmbYM2612Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2612Scci.FormattingEnabled = true;
-            this.cmbYM2612Scci.Location = new System.Drawing.Point(61, 35);
-            this.cmbYM2612Scci.Name = "cmbYM2612Scci";
-            this.cmbYM2612Scci.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2612Scci.TabIndex = 2;
-            // 
-            // rbYM2612Scci
-            // 
-            this.rbYM2612Scci.AutoSize = true;
-            this.rbYM2612Scci.Location = new System.Drawing.Point(6, 36);
-            this.rbYM2612Scci.Name = "rbYM2612Scci";
-            this.rbYM2612Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2612Scci.TabIndex = 1;
-            this.rbYM2612Scci.Text = "SCCI";
-            this.rbYM2612Scci.UseVisualStyleBackColor = true;
-            // 
-            // rbYM2612Emu
-            // 
-            this.rbYM2612Emu.AutoSize = true;
-            this.rbYM2612Emu.Checked = true;
-            this.rbYM2612Emu.Location = new System.Drawing.Point(6, 15);
-            this.rbYM2612Emu.Name = "rbYM2612Emu";
-            this.rbYM2612Emu.Size = new System.Drawing.Size(91, 16);
-            this.rbYM2612Emu.TabIndex = 0;
-            this.rbYM2612Emu.TabStop = true;
-            this.rbYM2612Emu.Text = "エミュレーション";
-            this.rbYM2612Emu.UseVisualStyleBackColor = true;
-            // 
-            // gbYM2610B
-            // 
-            this.gbYM2610B.Controls.Add(this.cmbYM2610BScci);
-            this.gbYM2610B.Controls.Add(this.rbYM2610BScci);
-            this.gbYM2610B.Controls.Add(this.rbYM2610BEmu);
-            this.gbYM2610B.Enabled = false;
-            this.gbYM2610B.Location = new System.Drawing.Point(3, 140);
-            this.gbYM2610B.Name = "gbYM2610B";
-            this.gbYM2610B.Size = new System.Drawing.Size(181, 63);
-            this.gbYM2610B.TabIndex = 3;
-            this.gbYM2610B.TabStop = false;
-            this.gbYM2610B.Text = "YM2610/B";
-            // 
-            // cmbYM2610BScci
-            // 
-            this.cmbYM2610BScci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2610BScci.FormattingEnabled = true;
-            this.cmbYM2610BScci.Location = new System.Drawing.Point(61, 35);
-            this.cmbYM2610BScci.Name = "cmbYM2610BScci";
-            this.cmbYM2610BScci.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2610BScci.TabIndex = 2;
-            // 
-            // rbYM2610BScci
-            // 
-            this.rbYM2610BScci.AutoSize = true;
-            this.rbYM2610BScci.Checked = true;
-            this.rbYM2610BScci.Location = new System.Drawing.Point(6, 36);
-            this.rbYM2610BScci.Name = "rbYM2610BScci";
-            this.rbYM2610BScci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2610BScci.TabIndex = 1;
-            this.rbYM2610BScci.TabStop = true;
-            this.rbYM2610BScci.Text = "SCCI";
-            this.rbYM2610BScci.UseVisualStyleBackColor = true;
-            // 
-            // rbYM2610BEmu
-            // 
-            this.rbYM2610BEmu.AutoSize = true;
-            this.rbYM2610BEmu.Location = new System.Drawing.Point(6, 15);
-            this.rbYM2610BEmu.Name = "rbYM2610BEmu";
-            this.rbYM2610BEmu.Size = new System.Drawing.Size(91, 16);
-            this.rbYM2610BEmu.TabIndex = 0;
-            this.rbYM2610BEmu.Text = "エミュレーション";
-            this.rbYM2610BEmu.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.cmbYM2608Scci);
-            this.groupBox6.Controls.Add(this.rbYM2608Scci);
-            this.groupBox6.Controls.Add(this.rbYM2608Emu);
-            this.groupBox6.Location = new System.Drawing.Point(3, 72);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(181, 63);
-            this.groupBox6.TabIndex = 2;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "YM2608";
-            // 
-            // cmbYM2608Scci
-            // 
-            this.cmbYM2608Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2608Scci.FormattingEnabled = true;
-            this.cmbYM2608Scci.Location = new System.Drawing.Point(61, 35);
-            this.cmbYM2608Scci.Name = "cmbYM2608Scci";
-            this.cmbYM2608Scci.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2608Scci.TabIndex = 2;
-            // 
-            // rbYM2608Scci
-            // 
-            this.rbYM2608Scci.AutoSize = true;
-            this.rbYM2608Scci.Checked = true;
-            this.rbYM2608Scci.Location = new System.Drawing.Point(6, 36);
-            this.rbYM2608Scci.Name = "rbYM2608Scci";
-            this.rbYM2608Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2608Scci.TabIndex = 1;
-            this.rbYM2608Scci.TabStop = true;
-            this.rbYM2608Scci.Text = "SCCI";
-            this.rbYM2608Scci.UseVisualStyleBackColor = true;
-            // 
-            // rbYM2608Emu
-            // 
-            this.rbYM2608Emu.AutoSize = true;
-            this.rbYM2608Emu.Location = new System.Drawing.Point(6, 15);
-            this.rbYM2608Emu.Name = "rbYM2608Emu";
-            this.rbYM2608Emu.Size = new System.Drawing.Size(91, 16);
-            this.rbYM2608Emu.TabIndex = 0;
-            this.rbYM2608Emu.Text = "エミュレーション";
-            this.rbYM2608Emu.UseVisualStyleBackColor = true;
-            // 
-            // gbYM2203
-            // 
-            this.gbYM2203.Controls.Add(this.cmbYM2203Scci);
-            this.gbYM2203.Controls.Add(this.rbYM2203Scci);
-            this.gbYM2203.Controls.Add(this.rbYM2203Emu);
-            this.gbYM2203.Enabled = false;
-            this.gbYM2203.Location = new System.Drawing.Point(190, 3);
-            this.gbYM2203.Name = "gbYM2203";
-            this.gbYM2203.Size = new System.Drawing.Size(181, 63);
-            this.gbYM2203.TabIndex = 1;
-            this.gbYM2203.TabStop = false;
-            this.gbYM2203.Text = "YM2203";
-            // 
-            // cmbYM2203Scci
-            // 
-            this.cmbYM2203Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2203Scci.FormattingEnabled = true;
-            this.cmbYM2203Scci.Location = new System.Drawing.Point(61, 35);
-            this.cmbYM2203Scci.Name = "cmbYM2203Scci";
-            this.cmbYM2203Scci.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2203Scci.TabIndex = 2;
-            // 
-            // rbYM2203Scci
-            // 
-            this.rbYM2203Scci.AutoSize = true;
-            this.rbYM2203Scci.Checked = true;
-            this.rbYM2203Scci.Location = new System.Drawing.Point(6, 36);
-            this.rbYM2203Scci.Name = "rbYM2203Scci";
-            this.rbYM2203Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2203Scci.TabIndex = 1;
-            this.rbYM2203Scci.TabStop = true;
-            this.rbYM2203Scci.Text = "SCCI";
-            this.rbYM2203Scci.UseVisualStyleBackColor = true;
-            // 
-            // rbYM2203Emu
-            // 
-            this.rbYM2203Emu.AutoSize = true;
-            this.rbYM2203Emu.Location = new System.Drawing.Point(6, 15);
-            this.rbYM2203Emu.Name = "rbYM2203Emu";
-            this.rbYM2203Emu.Size = new System.Drawing.Size(91, 16);
-            this.rbYM2203Emu.TabIndex = 0;
-            this.rbYM2203Emu.Text = "エミュレーション";
-            this.rbYM2203Emu.UseVisualStyleBackColor = true;
-            // 
-            // gbYM2151
-            // 
-            this.gbYM2151.Controls.Add(this.cmbYM2151Scci);
-            this.gbYM2151.Controls.Add(this.rbYM2151Scci);
-            this.gbYM2151.Controls.Add(this.rbYM2151Emu);
-            this.gbYM2151.Location = new System.Drawing.Point(3, 3);
-            this.gbYM2151.Name = "gbYM2151";
-            this.gbYM2151.Size = new System.Drawing.Size(181, 63);
-            this.gbYM2151.TabIndex = 0;
-            this.gbYM2151.TabStop = false;
-            this.gbYM2151.Text = "YM2151";
-            // 
-            // cmbYM2151Scci
-            // 
-            this.cmbYM2151Scci.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2151Scci.FormattingEnabled = true;
-            this.cmbYM2151Scci.Location = new System.Drawing.Point(61, 35);
-            this.cmbYM2151Scci.Name = "cmbYM2151Scci";
-            this.cmbYM2151Scci.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2151Scci.TabIndex = 2;
-            // 
-            // rbYM2151Scci
-            // 
-            this.rbYM2151Scci.AutoSize = true;
-            this.rbYM2151Scci.Checked = true;
-            this.rbYM2151Scci.Location = new System.Drawing.Point(6, 36);
-            this.rbYM2151Scci.Name = "rbYM2151Scci";
-            this.rbYM2151Scci.Size = new System.Drawing.Size(49, 16);
-            this.rbYM2151Scci.TabIndex = 1;
-            this.rbYM2151Scci.TabStop = true;
-            this.rbYM2151Scci.Text = "SCCI";
-            this.rbYM2151Scci.UseVisualStyleBackColor = true;
-            // 
-            // rbYM2151Emu
-            // 
-            this.rbYM2151Emu.AutoSize = true;
-            this.rbYM2151Emu.Location = new System.Drawing.Point(6, 15);
-            this.rbYM2151Emu.Name = "rbYM2151Emu";
-            this.rbYM2151Emu.Size = new System.Drawing.Size(91, 16);
-            this.rbYM2151Emu.TabIndex = 0;
-            this.rbYM2151Emu.Text = "エミュレーション";
-            this.rbYM2151Emu.UseVisualStyleBackColor = true;
-            // 
-            // bs9
-            // 
-            this.bs9.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs5
-            // 
-            this.bs5.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs8
-            // 
-            this.bs8.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs12
-            // 
-            this.bs12.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs1
-            // 
-            this.bs1.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs7
-            // 
-            this.bs7.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs3
-            // 
-            this.bs3.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs6
-            // 
-            this.bs6.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs2
-            // 
-            this.bs2.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs10
-            // 
-            this.bs10.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs11
-            // 
-            this.bs11.DataSource = typeof(MDPlayer.BindData);
-            // 
-            // bs4
-            // 
-            this.bs4.DataSource = typeof(MDPlayer.BindData);
             // 
             // tpOther
             // 
@@ -1369,6 +1002,15 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(358, 182);
+            this.ucSI.TabIndex = 7;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1398,32 +1040,9 @@
             this.tpOutput.ResumeLayout(false);
             this.tpOutput.PerformLayout();
             this.tpModule.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gbYM2610B.ResumeLayout(false);
-            this.gbYM2610B.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.gbYM2203.ResumeLayout(false);
-            this.gbYM2203.PerformLayout();
-            this.gbYM2151.ResumeLayout(false);
-            this.gbYM2151.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bs9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
             this.tpOmake.ResumeLayout(false);
@@ -1438,6 +1057,18 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1494,17 +1125,6 @@
         private System.Windows.Forms.Label lblLatency;
         private System.Windows.Forms.ComboBox cmbLatency;
         private System.Windows.Forms.TabPage tpModule;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmbYM2612Scci;
-        private System.Windows.Forms.RadioButton rbYM2612Scci;
-        private System.Windows.Forms.RadioButton rbYM2612Emu;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox cmbSN76489Scci;
-        private System.Windows.Forms.RadioButton rbSN76489Scci;
-        private System.Windows.Forms.RadioButton rbSN76489Emu;
-        private System.Windows.Forms.CheckBox cbOnlyPCMEmulation;
-        private System.Windows.Forms.CheckBox cbYM2612UseWait;
-        private System.Windows.Forms.CheckBox cbYM2612UseWaitBoost;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
@@ -1528,14 +1148,6 @@
         private System.Windows.Forms.TextBox tbDataPath;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TabPage tpOmake;
-        private System.Windows.Forms.GroupBox gbYM2151;
-        private System.Windows.Forms.ComboBox cmbYM2151Scci;
-        private System.Windows.Forms.RadioButton rbYM2151Scci;
-        private System.Windows.Forms.RadioButton rbYM2151Emu;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.ComboBox cmbYM2608Scci;
-        private System.Windows.Forms.RadioButton rbYM2608Scci;
-        private System.Windows.Forms.RadioButton rbYM2608Emu;
         private System.Windows.Forms.BindingSource bs5;
         private System.Windows.Forms.BindingSource bs6;
         private System.Windows.Forms.BindingSource bs7;
@@ -1550,13 +1162,7 @@
         private System.Windows.Forms.BindingSource bs11;
         private System.Windows.Forms.BindingSource bs12;
         private System.Windows.Forms.CheckBox cbAutoOpen;
-        private System.Windows.Forms.GroupBox gbYM2610B;
-        private System.Windows.Forms.ComboBox cmbYM2610BScci;
-        private System.Windows.Forms.RadioButton rbYM2610BScci;
-        private System.Windows.Forms.RadioButton rbYM2610BEmu;
-        private System.Windows.Forms.GroupBox gbYM2203;
-        private System.Windows.Forms.ComboBox cmbYM2203Scci;
-        private System.Windows.Forms.RadioButton rbYM2203Scci;
-        private System.Windows.Forms.RadioButton rbYM2203Emu;
+        private ucSettingInstruments ucSI;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

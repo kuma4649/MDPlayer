@@ -11,17 +11,17 @@ namespace MDPlayer
 
         private MDSound.MDSound mds = null;
 
-        private NScci.NSoundChip scSN76489 = null;
+        private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctSN76489 = null;
-        private NScci.NSoundChip scYM2612 = null;
+        private NScci.NSoundChip[] scYM2612 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctYM2612 = null;
-        private NScci.NSoundChip scYM2608 = null;
+        private NScci.NSoundChip[] scYM2608 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctYM2608 = null;
-        private NScci.NSoundChip scYM2151 = null;
+        private NScci.NSoundChip[] scYM2151 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctYM2151 = null;
-        private NScci.NSoundChip scYM2203 = null;
+        private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctYM2203 = null;
-        private NScci.NSoundChip scYM2610 = null;
+        private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType ctYM2610 = null;
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
@@ -142,12 +142,12 @@ namespace MDPlayer
 
 
         public ChipRegister(MDSound.MDSound mds
-            , NScci.NSoundChip scYM2612
-            , NScci.NSoundChip scSN76489
-            , NScci.NSoundChip scYM2608
-            , NScci.NSoundChip scYM2151
-            , NScci.NSoundChip scYM2203
-            , NScci.NSoundChip scYM2610
+            , NScci.NSoundChip[] scYM2612
+            , NScci.NSoundChip[] scSN76489
+            , NScci.NSoundChip[] scYM2608
+            , NScci.NSoundChip[] scYM2151
+            , NScci.NSoundChip[] scYM2203
+            , NScci.NSoundChip[] scYM2610
             , Setting.ChipType ctYM2612
             , Setting.ChipType ctSN76489
             , Setting.ChipType ctYM2608
@@ -289,14 +289,14 @@ namespace MDPlayer
                         {
                             if (model == vgm.enmModel.VirtualModel)
                             {
-                                if (!ctYM2151.UseScci)
+                                if (!ctYM2151.UseScci && ctYM2151.UseEmu)
                                 {
                                     mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                 }
                             }
                             else
                             {
-                                if (scYM2151 != null) scYM2151.setRegister(0x60 + i * 8 + ch, 127);
+                                if (scYM2151 != null) scYM2151[chipID].setRegister(0x60 + i * 8 + ch, 127);
                             }
                         }
                     }
@@ -314,7 +314,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2151.UseScci)
+                if (!ctYM2151.UseScci && ctYM2151.UseEmu)
                 {
                     mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -328,7 +328,7 @@ namespace MDPlayer
                 {
                     if (hosei == 0)
                     {
-                        scYM2151.setRegister(dAddr, dData);
+                        scYM2151[chipID].setRegister(dAddr, dData);
                     }
                     else
                     {
@@ -348,12 +348,14 @@ namespace MDPlayer
                         }
 
                         note = (note < 3) ? note : ((note < 6) ? (note + 1) : ((note < 9) ? (note + 2) : (note + 3)));
-                        scYM2151.setRegister(dAddr, (oct << 4) | note);
+                        if (scYM2151[chipID] != null)
+                            scYM2151[chipID].setRegister(dAddr, (oct << 4) | note);
                     }
                 }
                 else
                 {
-                    scYM2151.setRegister(dAddr, dData);
+                    if (scYM2151[chipID] != null)
+                        scYM2151[chipID].setRegister(dAddr, dData);
                 }
             }
 
@@ -442,10 +444,9 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2203 == null) return;
-                if (chipID != 0) return;
+                if (scYM2203[chipID] == null) return;
 
-                scYM2203.setRegister(dAddr, dData);
+                scYM2203[chipID].setRegister(dAddr, dData);
             }
         }
 
@@ -590,17 +591,16 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2608.UseScci)
+                if (!ctYM2608.UseScci && ctYM2608.UseEmu)
                 {
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
             {
-                if (scYM2608 == null) return;
+                if (scYM2608[chipID] == null) return;
 
-                if(chipID==0)
-                scYM2608.setRegister(dPort * 0x100 + dAddr, dData);
+                scYM2608[chipID].setRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -769,9 +769,8 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2610 == null) return;
-                if (chipID != 0) return;
-                scYM2610.setRegister(dPort * 0x100 + dAddr, dData);
+                if (scYM2610[chipID] == null) return;
+                scYM2610[chipID].setRegister(dPort * 0x100 + dAddr, dData);
             }
 
         }
@@ -868,45 +867,48 @@ namespace MDPlayer
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612.UseEmu)
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612.UseEmu)
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612.UseEmu)
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }
                 else
                 {
-                    mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612.UseEmu)
+                        mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
             {
-                if (scYM2612 == null) return;
-                if (chipID != 0) return;
+                if (scYM2612[chipID] == null) return;
 
                 if (ctYM2612.OnlyPCMEmulation)
                 {
                     if (dPort == 0 && dAddr == 0x2b)
                     {
-                        scYM2612.setRegister(dPort * 0x100 + dAddr, dData);
+                        scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
                     }
                     else if (dPort == 0 && dAddr == 0x2a)
                     {
                     }
                     else
                     {
-                        scYM2612.setRegister(dPort * 0x100 + dAddr, dData);
+                        scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
                     }
                 }
                 else
                 {
-                    scYM2612.setRegister(dPort * 0x100 + dAddr, dData);
+                    scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
                 }
             }
 
@@ -1159,50 +1161,50 @@ namespace MDPlayer
         }
 
 
-        public void setYM2151SyncWait(int wait)
+        public void setYM2151SyncWait(byte chipID,int wait)
         {
-            if (scYM2151 != null && ctYM2151.UseWait)
+            if (scYM2151[chipID] != null && ctYM2151.UseWait)
             {
-                scYM2151.setRegister(-1, (int)(wait * (ctYM2151.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151.UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
-        public void setYM2608SyncWait(int wait)
+        public void setYM2608SyncWait(byte chipID,int wait)
         {
-            if (scYM2608 != null && ctYM2608.UseWait)
+            if (scYM2608[chipID] != null && ctYM2608.UseWait)
             {
-                scYM2608.setRegister(-1, (int)(wait * (ctYM2608.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608.UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
-        public void setYM2612SyncWait(int wait)
+        public void setYM2612SyncWait(byte chipID,int wait)
         {
-            if (scYM2612 != null && ctYM2612.UseWait)
+            if (scYM2612[chipID] != null && ctYM2612.UseWait)
             {
-                scYM2612.setRegister(-1, (int)(wait * (ctYM2612.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612.UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
 
-        public void sendDataYM2151(vgm.enmModel model)
+        public void sendDataYM2151(byte chipID,vgm.enmModel model)
         {
             if (model == vgm.enmModel.VirtualModel) return;
 
-            if (scYM2151 != null && ctYM2151.UseWait)
+            if (scYM2151[chipID] != null && ctYM2151.UseWait)
             {
-                scYM2151.parentSoundInterface.parentNScci.sendData();
-                while (!scYM2151.parentSoundInterface.parentNScci.isBufferEmpty()) { }
+                scYM2151[chipID].parentSoundInterface.parentNScci.sendData();
+                while (!scYM2151[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
             }
         }
 
-        public void sendDataYM2608(vgm.enmModel model)
+        public void sendDataYM2608(byte chipID,vgm.enmModel model)
         {
             if (model == vgm.enmModel.VirtualModel) return;
 
-            if (scYM2608 != null && ctYM2608.UseWait)
+            if (scYM2608[chipID] != null && ctYM2608.UseWait)
             {
-                scYM2608.parentSoundInterface.parentNScci.sendData();
-                while (!scYM2608.parentSoundInterface.parentNScci.isBufferEmpty()) { }
+                scYM2608[chipID].parentSoundInterface.parentNScci.sendData();
+                while (!scYM2608[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
             }
         }
 
@@ -1224,11 +1226,11 @@ namespace MDPlayer
         }
 
 
-        public int getYM2151Clock()
+        public int getYM2151Clock(byte chipID)
         {
-            if (scYM2151 == null) return -1;
+            if (scYM2151[chipID] == null) return -1;
 
-            return scYM2151.getSoundChipInfo().getdClock();
+            return scYM2151[chipID].getSoundChipInfo().getdClock();
         }
 
 
@@ -1256,29 +1258,28 @@ namespace MDPlayer
             {
                 if (ctSN76489.UseScci)
                 {
-                    if (scSN76489 == null) return;
-                    if (chipID != 0) return;
-                    scSN76489.setRegister(0, dData);
+                    if (scSN76489[chipID] == null) return;
+                    scSN76489[chipID].setRegister(0, dData);
                 }
             }
             else
             {
-                if (!ctSN76489.UseScci)
+                if (!ctSN76489.UseScci&& ctSN76489.UseEmu)
                 {
                     mds.WriteSN76489((byte)dData);
                 }
             }
         }
 
-        public void setSN76489SyncWait(int wait)
+        public void setSN76489SyncWait(byte chipID,int wait)
         {
             if (scSN76489 != null && ctSN76489.UseWait)
             {
-                scSN76489.setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
+                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
-        public void setFadeoutVolSN76489(int chipID, int v)
+        public void setFadeoutVolSN76489(byte chipID, int v)
         {
             nowSN76489FadeoutVol[chipID] = (v & 0x78) >> 3;
             for (int c = 0; c < 4; c++)

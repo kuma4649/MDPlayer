@@ -234,10 +234,15 @@ namespace MDPlayer
                     if (model == enmModel.RealModel && countNum%100==0)
                     {
                         isDataBlock = true;
-                        chipRegister.sendDataYM2608(model);
-                        chipRegister.setYM2608SyncWait(1);
-                        chipRegister.sendDataYM2151(model);
-                        chipRegister.setYM2151SyncWait(1);
+                        chipRegister.sendDataYM2608(0,model);
+                        chipRegister.setYM2608SyncWait(0,1);
+                        chipRegister.sendDataYM2151(0,model);
+                        chipRegister.setYM2151SyncWait(0,1);
+
+                        chipRegister.sendDataYM2608(1, model);
+                        chipRegister.setYM2608SyncWait(1, 1);
+                        chipRegister.sendDataYM2151(1, model);
+                        chipRegister.setYM2151SyncWait(1, 1);
                     }
                 }
             }
@@ -255,7 +260,7 @@ namespace MDPlayer
                 if (vgmSpeed == 1) //等速の場合のみウェイトをかける
                 {
                     if ((useChip & enmUseChip.YM2612Ch6) == enmUseChip.YM2612Ch6)
-                        chipRegister.setYM2612SyncWait(vgmWait);
+                        chipRegister.setYM2612SyncWait(0, vgmWait);
                     //if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
                     //    chipRegister.setSN76489SyncWait(vgmWait);
                     //chipRegister.setYM2608SyncWait(vgmWait);
@@ -562,9 +567,7 @@ namespace MDPlayer
 
         private void vcYM2612Port1()
         {
-            int adr = vgmBuf[vgmAdr + 1];
-            int dat = vgmBuf[vgmAdr + 2];
-            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
+            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -751,7 +754,7 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
-                            chipRegister.sendDataYM2608(model);
+                            chipRegister.sendDataYM2608(chipID, model);
                             break;
 
                         case 0x82:
@@ -1547,7 +1550,7 @@ namespace MDPlayer
             YM2151Hosei = 0;
             if (model == enmModel.RealModel)
             {
-                float delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock();
+                float delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock(0);
                 float d;
                 float oldD = float.MaxValue;
                 for (int i = 0; i < Tables.pcmMulTbl.Length; i++)

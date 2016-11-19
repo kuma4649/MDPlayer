@@ -603,5 +603,44 @@ namespace MDPlayer
             }
 
         }
+
+        private void frmPlayList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void frmPlayList_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
+
+                foreach (string fn in filename)
+                {
+                    try
+                    {
+
+                        Stop();
+
+                        AddList(fn);
+
+                        if (fn.ToLower().LastIndexOf(".zip") == -1)
+                        {
+                            frmMain.loadAndPlay(fn);
+                            setStart(-1);
+
+                            Play();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                        MessageBox.Show("ファイルの読み込みに失敗しました。");
+                    }
+                }
+            }
+        }
+
+
     }
 }

@@ -47,12 +47,12 @@ namespace MDPlayer
         private static NAudioWrap naudioWrap;
 
         private static NScci.NScci nscci;
-        private static NSoundChip scYM2612 = null;
-        private static NSoundChip scSN76489 = null;
-        private static NSoundChip scYM2151 = null;
-        private static NSoundChip scYM2608 = null;
-        private static NSoundChip scYM2203 = null;
-        private static NSoundChip scYM2610 = null;
+        private static NSoundChip[] scYM2612 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scSN76489 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2151 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2608 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -210,18 +210,31 @@ namespace MDPlayer
             log.ForcedWrite("Audio:Init:STEP 05");
 
             nscci = new NScci.NScci();
-            scYM2612 = getChip(Audio.setting.YM2612Type);
-            if (scYM2612 != null) scYM2612.init();
-            scSN76489 = getChip(Audio.setting.SN76489Type);
-            if (scSN76489 != null) scSN76489.init();
-            scYM2608 = getChip(Audio.setting.YM2608Type);
-            if (scYM2608 != null) scYM2608.init();
-            scYM2151 = getChip(Audio.setting.YM2151Type);
-            if (scYM2151 != null) scYM2151.init();
-            scYM2203 = getChip(Audio.setting.YM2203Type);
-            if (scYM2203 != null) scYM2203.init();
-            scYM2610 = getChip(Audio.setting.YM2610Type);
-            if (scYM2610 != null) scYM2610.init();
+            scYM2612[0] = getChip(Audio.setting.YM2612Type);
+            if (scYM2612[0] != null) scYM2612[0].init();
+            scSN76489[0] = getChip(Audio.setting.SN76489Type);
+            if (scSN76489[0] != null) scSN76489[0].init();
+            scYM2608[0] = getChip(Audio.setting.YM2608Type);
+            if (scYM2608[0] != null) scYM2608[0].init();
+            scYM2151[0] = getChip(Audio.setting.YM2151Type);
+            if (scYM2151[0] != null) scYM2151[0].init();
+            scYM2203[0] = getChip(Audio.setting.YM2203Type);
+            if (scYM2203[0] != null) scYM2203[0].init();
+            scYM2610[0] = getChip(Audio.setting.YM2610Type);
+            if (scYM2610[0] != null) scYM2610[0].init();
+
+            scYM2612[1] = getChip(Audio.setting.YM2612SType);
+            if (scYM2612[1] != null) scYM2612[1].init();
+            scSN76489[1] = getChip(Audio.setting.SN76489SType);
+            if (scSN76489[1] != null) scSN76489[1].init();
+            scYM2608[1] = getChip(Audio.setting.YM2608SType);
+            if (scYM2608[1] != null) scYM2608[1].init();
+            scYM2151[1] = getChip(Audio.setting.YM2151SType);
+            if (scYM2151[1] != null) scYM2151[1].init();
+            scYM2203[1] = getChip(Audio.setting.YM2203SType);
+            if (scYM2203[1] != null) scYM2203[1].init();
+            scYM2610[1] = getChip(Audio.setting.YM2610SType);
+            if (scYM2610[1] != null) scYM2610[1].init();
 
             chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type, setting.YM2203Type, setting.YM2610Type);
             chipRegister.initChipRegister();

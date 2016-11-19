@@ -197,6 +197,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Tables.cs" />
+    <Compile Include="ucSettingInstruments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSettingInstruments.Designer.cs">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </Compile>
     <Compile Include="vgm.cs" />
     <EmbeddedResource Include="frmC140.resx">
       <DependentUpon>frmC140.cs</DependentUpon>
@@ -256,6 +262,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ucSettingInstruments.resx">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="lib\scci.ini" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BindData.datasource" />
