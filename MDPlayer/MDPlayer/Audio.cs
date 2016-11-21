@@ -15,6 +15,8 @@ namespace MDPlayer
         {
             YM2608 = 1
             , YM2151 = 2
+            , YM2610 = 3
+            , YM2203 = 4
             , YM2612 = 5
             , SN76489 = 7
         }
@@ -236,7 +238,16 @@ namespace MDPlayer
             scYM2610[1] = getChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
 
-            chipRegister = new ChipRegister(mds, scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, setting.YM2612Type, setting.SN76489Type, setting.YM2608Type, setting.YM2151Type, setting.YM2203Type, setting.YM2610Type);
+            chipRegister = new ChipRegister(
+                mds
+                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610
+                , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
+                , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
+                , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
+                , new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType }
+                , new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
+                , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
+                );
             chipRegister.initChipRegister();
 
             log.ForcedWrite("Audio:Init:STEP 06");

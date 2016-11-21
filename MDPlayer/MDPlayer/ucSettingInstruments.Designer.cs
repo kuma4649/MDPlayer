@@ -167,7 +167,6 @@
             this.groupBox2.Controls.Add(this.rbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_Silent);
             this.groupBox2.Controls.Add(this.rbYM2151S_Emu);
-            this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(3, 47);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(331, 38);
@@ -253,7 +252,6 @@
             this.groupBox3.Controls.Add(this.rbYM2203P_SCCI);
             this.groupBox3.Controls.Add(this.rbYM2203P_Silent);
             this.groupBox3.Controls.Add(this.rbYM2203P_Emu);
-            this.groupBox3.Enabled = false;
             this.groupBox3.Location = new System.Drawing.Point(3, 91);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(331, 38);
@@ -277,7 +275,6 @@
             this.groupBox4.Controls.Add(this.rbYM2203S_SCCI);
             this.groupBox4.Controls.Add(this.rbYM2203S_Silent);
             this.groupBox4.Controls.Add(this.rbYM2203S_Emu);
-            this.groupBox4.Enabled = false;
             this.groupBox4.Location = new System.Drawing.Point(3, 135);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(331, 38);
@@ -386,7 +383,6 @@
             this.groupBox6.Controls.Add(this.rbYM2608S_SCCI);
             this.groupBox6.Controls.Add(this.rbYM2608S_Silent);
             this.groupBox6.Controls.Add(this.rbYM2608S_Emu);
-            this.groupBox6.Enabled = false;
             this.groupBox6.Location = new System.Drawing.Point(3, 223);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(331, 38);
@@ -472,7 +468,6 @@
             this.groupBox7.Controls.Add(this.rbYM2610BP_SCCI);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Silent);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Emu);
-            this.groupBox7.Enabled = false;
             this.groupBox7.Location = new System.Drawing.Point(3, 267);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(331, 38);
@@ -496,7 +491,6 @@
             this.groupBox8.Controls.Add(this.rbYM2610BS_SCCI);
             this.groupBox8.Controls.Add(this.rbYM2610BS_Silent);
             this.groupBox8.Controls.Add(this.rbYM2610BS_Emu);
-            this.groupBox8.Enabled = false;
             this.groupBox8.Location = new System.Drawing.Point(3, 311);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(331, 38);
@@ -636,7 +630,6 @@
             this.groupBox10.Controls.Add(this.cmbYM2612S_SCCI);
             this.groupBox10.Controls.Add(this.rbYM2612S_SCCI);
             this.groupBox10.Controls.Add(this.rbYM2612S_Emu);
-            this.groupBox10.Enabled = false;
             this.groupBox10.Location = new System.Drawing.Point(3, 401);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(331, 40);
@@ -745,7 +738,6 @@
             this.groupBox12.Controls.Add(this.rbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_Silent);
             this.groupBox12.Controls.Add(this.rbSN76489S_Emu);
-            this.groupBox12.Enabled = false;
             this.groupBox12.Location = new System.Drawing.Point(3, 558);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(331, 40);

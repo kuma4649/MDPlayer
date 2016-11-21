@@ -160,6 +160,30 @@ namespace MDPlayer
                 ucSI.cmbYM2608S_SCCI.Enabled = false;
             }
 
+            List<NScci.NSoundChip> lstYM2610 = Audio.getChipList(Audio.enmScciChipType.YM2610);
+            if (lstYM2610.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstYM2610)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    ucSI.cmbYM2610BP_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2610BS_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                ucSI.cmbYM2610BP_SCCI.SelectedIndex = 0;
+                ucSI.rbYM2610BP_SCCI.Enabled = true;
+                ucSI.cmbYM2610BP_SCCI.Enabled = true;
+                ucSI.cmbYM2610BS_SCCI.SelectedIndex = 0;
+                ucSI.rbYM2610BS_SCCI.Enabled = true;
+                ucSI.cmbYM2610BS_SCCI.Enabled = true;
+            }
+            else
+            {
+                ucSI.rbYM2610BP_SCCI.Enabled = false;
+                ucSI.cmbYM2610BP_SCCI.Enabled = false;
+                ucSI.rbYM2610BS_SCCI.Enabled = false;
+                ucSI.cmbYM2610BS_SCCI.Enabled = false;
+            }
+
             List<NScci.NSoundChip> lstYM2151 = Audio.getChipList(Audio.enmScciChipType.YM2151);
             if (lstYM2151.Count > 0)
             {
@@ -182,6 +206,30 @@ namespace MDPlayer
                 ucSI.cmbYM2151P_SCCI.Enabled = false;
                 ucSI.rbYM2151S_SCCI.Enabled = false;
                 ucSI.cmbYM2151S_SCCI.Enabled = false;
+            }
+
+            List<NScci.NSoundChip> lstYM2203 = Audio.getChipList(Audio.enmScciChipType.YM2203);
+            if (lstYM2203.Count > 0)
+            {
+                foreach (NScci.NSoundChip sc in lstYM2203)
+                {
+                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    ucSI.cmbYM2203P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2203S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                }
+                ucSI.cmbYM2203P_SCCI.SelectedIndex = 0; 
+                ucSI.rbYM2203P_SCCI.Enabled = true;
+                ucSI.cmbYM2203P_SCCI.Enabled = true;
+                ucSI.cmbYM2203S_SCCI.SelectedIndex = 0;
+                ucSI.rbYM2203S_SCCI.Enabled = true;
+                ucSI.cmbYM2203S_SCCI.Enabled = true;
+            }
+            else
+            {
+                ucSI.rbYM2203P_SCCI.Enabled = false;
+                ucSI.cmbYM2203P_SCCI.Enabled = false;
+                ucSI.rbYM2203S_SCCI.Enabled = false;
+                ucSI.cmbYM2203S_SCCI.Enabled = false;
             }
 
             //設定内容をコントロールへ適用
@@ -306,6 +354,93 @@ namespace MDPlayer
                 }
             }
 
+            if (!setting.YM2612SType.UseScci)
+            {
+                if (setting.YM2612SType.UseEmu)
+                    ucSI.rbYM2612S_Emu.Checked = true;
+                else
+                    ucSI.rbYM2612S_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2612S_SCCI.Enabled)
+                {
+                    ucSI.rbYM2612S_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2612SType.SoundLocation, setting.YM2612SType.BusID, setting.YM2612SType.SoundChip);
+                    if (ucSI.cmbYM2612S_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2612S_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2612S_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2612S_Emu.Checked = true;
+                }
+            }
+
+            if (!setting.YM2610Type.UseScci)
+            {
+                if (setting.YM2610Type.UseEmu)
+                    ucSI.rbYM2610BP_Emu.Checked = true;
+                else
+                    ucSI.rbYM2610BP_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2610BP_SCCI.Enabled)
+                {
+                    ucSI.rbYM2610BP_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2610Type.SoundLocation, setting.YM2610Type.BusID, setting.YM2610Type.SoundChip);
+                    if (ucSI.cmbYM2610BP_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2610BP_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2610BP_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2610BP_Emu.Checked = true;
+                }
+            }
+
+            if (!setting.YM2610SType.UseScci)
+            {
+                if (setting.YM2610SType.UseEmu)
+                    ucSI.rbYM2610BS_Emu.Checked = true;
+                else
+                    ucSI.rbYM2610BS_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2610BS_SCCI.Enabled)
+                {
+                    ucSI.rbYM2610BS_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2610SType.SoundLocation, setting.YM2610SType.BusID, setting.YM2610SType.SoundChip);
+                    if (ucSI.cmbYM2610BS_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2610BS_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2610BS_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2610BS_Emu.Checked = true;
+                }
+            }
+
             ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
             ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
             ucSI.cbEmulationPCMOnly.Checked = setting.YM2612Type.OnlyPCMEmulation;
@@ -342,6 +477,35 @@ namespace MDPlayer
                 }
             }
 
+            if (!setting.SN76489SType.UseScci)
+            {
+                if (setting.SN76489SType.UseEmu)
+                    ucSI.rbSN76489S_Emu.Checked = true;
+                else
+                    ucSI.rbSN76489S_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbSN76489S_SCCI.Enabled)
+                {
+                    ucSI.rbSN76489S_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.SN76489SType.SoundLocation, setting.SN76489SType.BusID, setting.SN76489SType.SoundChip);
+                    if (ucSI.cmbSN76489S_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbSN76489S_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbSN76489S_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbSN76489S_Emu.Checked = true;
+                }
+            }
+
             //tbSN76489EmuDelay.Text = setting.SN76489Type.LatencyForEmulation.ToString();
             //tbSN76489ScciDelay.Text = setting.SN76489Type.LatencyForScci.ToString();
 
@@ -374,6 +538,35 @@ namespace MDPlayer
                 }
             }
 
+            if (!setting.YM2608SType.UseScci)
+            {
+                if (setting.YM2608SType.UseEmu)
+                    ucSI.rbYM2608S_Emu.Checked = true;
+                else
+                    ucSI.rbYM2608S_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2608S_SCCI.Enabled)
+                {
+                    ucSI.rbYM2608S_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2608SType.SoundLocation, setting.YM2608SType.BusID, setting.YM2608SType.SoundChip);
+                    if (ucSI.cmbYM2608S_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2608S_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2608S_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2608S_Emu.Checked = true;
+                }
+            }
+
             if (!setting.YM2151Type.UseScci)
             {
                 if (setting.YM2151Type.UseEmu)
@@ -400,6 +593,93 @@ namespace MDPlayer
                 else
                 {
                     ucSI.rbYM2151P_Emu.Checked = true;
+                }
+            }
+
+            if (!setting.YM2151SType.UseScci)
+            {
+                if (setting.YM2151SType.UseEmu)
+                    ucSI.rbYM2151S_Emu.Checked = true;
+                else
+                    ucSI.rbYM2151S_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2151S_SCCI.Enabled)
+                {
+                    ucSI.rbYM2151S_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2151SType.SoundLocation, setting.YM2151SType.BusID, setting.YM2151SType.SoundChip);
+                    if (ucSI.cmbYM2151S_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2151S_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2151S_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2151S_Emu.Checked = true;
+                }
+            }
+
+            if (!setting.YM2203Type.UseScci)
+            {
+                if (setting.YM2203Type.UseEmu)
+                    ucSI.rbYM2203P_Emu.Checked = true;
+                else
+                    ucSI.rbYM2203P_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2203P_SCCI.Enabled)
+                {
+                    ucSI.rbYM2203P_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2203Type.SoundLocation, setting.YM2203Type.BusID, setting.YM2203Type.SoundChip);
+                    if (ucSI.cmbYM2203P_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2203P_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2203P_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2203P_Emu.Checked = true;
+                }
+            }
+
+            if (!setting.YM2203SType.UseScci)
+            {
+                if (setting.YM2203SType.UseEmu)
+                    ucSI.rbYM2203S_Emu.Checked = true;
+                else
+                    ucSI.rbYM2203S_Silent.Checked = true;
+            }
+            else
+            {
+                if (ucSI.cmbYM2203S_SCCI.Enabled)
+                {
+                    ucSI.rbYM2203S_SCCI.Checked = true;
+                    string n = string.Format("({0}:{1}:{2})", setting.YM2203SType.SoundLocation, setting.YM2203SType.BusID, setting.YM2203SType.SoundChip);
+                    if (ucSI.cmbYM2203S_SCCI.Items.Count > 0)
+                    {
+                        foreach (string i in ucSI.cmbYM2203S_SCCI.Items)
+                        {
+                            if (i.IndexOf(n) < 0) continue;
+                            ucSI.cmbYM2203S_SCCI.SelectedItem = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ucSI.rbYM2203S_Emu.Checked = true;
                 }
             }
 
@@ -484,9 +764,27 @@ namespace MDPlayer
             }
             setting.YM2612Type.UseEmu = ucSI.rbYM2612P_Emu.Checked;
 
+            setting.YM2612SType = new Setting.ChipType();
+            setting.YM2612SType.UseScci = ucSI.rbYM2612S_SCCI.Checked;
+            if (ucSI.rbYM2612S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2612S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2612S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2612SType.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2612SType.BusID = int.Parse(ns[1]);
+                    setting.YM2612SType.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2612SType.UseEmu = ucSI.rbYM2612S_Emu.Checked;
+
+
             setting.YM2612Type.UseWait = ucSI.cbSendWait.Checked;
             setting.YM2612Type.UseWaitBoost = ucSI.cbTwice.Checked;
             setting.YM2612Type.OnlyPCMEmulation = ucSI.cbEmulationPCMOnly.Checked;
+
 
             //setting.YM2612Type.LatencyForEmulation = 0;
             //if (int.TryParse(tbYM2612EmuDelay.Text, out i))
@@ -511,6 +809,19 @@ namespace MDPlayer
                 setting.SN76489Type.SoundChip = int.Parse(ns[2]);
             }
             setting.SN76489Type.UseEmu = ucSI.rbSN76489P_Emu.Checked;
+
+            setting.SN76489SType = new Setting.ChipType();
+            setting.SN76489SType.UseScci = ucSI.rbSN76489S_SCCI.Checked;
+            if (ucSI.rbSN76489S_SCCI.Checked)
+            {
+                string n = ucSI.cmbSN76489S_SCCI.SelectedItem.ToString();
+                n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                string[] ns = n.Split(':');
+                setting.SN76489SType.SoundLocation = int.Parse(ns[0]);
+                setting.SN76489SType.BusID = int.Parse(ns[1]);
+                setting.SN76489SType.SoundChip = int.Parse(ns[2]);
+            }
+            setting.SN76489SType.UseEmu = ucSI.rbSN76489S_Emu.Checked;
 
             //setting.SN76489Type.LatencyForEmulation = 0;
             //if (int.TryParse(tbSN76489EmuDelay.Text, out i))
@@ -538,6 +849,54 @@ namespace MDPlayer
                 }
             }
             setting.YM2608Type.UseEmu = ucSI.rbYM2608P_Emu.Checked;
+
+            setting.YM2608SType = new Setting.ChipType();
+            setting.YM2608SType.UseScci = ucSI.rbYM2608S_SCCI.Checked;
+            if (ucSI.rbYM2608S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2608S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2608S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2608SType.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2608SType.BusID = int.Parse(ns[1]);
+                    setting.YM2608SType.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2608SType.UseEmu = ucSI.rbYM2608S_Emu.Checked;
+
+            setting.YM2610Type = new Setting.ChipType();
+            setting.YM2610Type.UseScci = ucSI.rbYM2610BP_SCCI.Checked;
+            if (ucSI.rbYM2610BP_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2610BP_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2610BP_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2610Type.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2610Type.BusID = int.Parse(ns[1]);
+                    setting.YM2610Type.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2610Type.UseEmu = ucSI.rbYM2610BP_Emu.Checked;
+
+            setting.YM2610SType = new Setting.ChipType();
+            setting.YM2610SType.UseScci = ucSI.rbYM2610BS_SCCI.Checked;
+            if (ucSI.rbYM2610BS_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2610BS_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2610BS_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2610SType.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2610SType.BusID = int.Parse(ns[1]);
+                    setting.YM2610SType.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2610SType.UseEmu = ucSI.rbYM2610BS_Emu.Checked;
 
             //setting.YM2608Type.UseWaitBoost = cbYM2608UseWaitBoost.Checked;
             //setting.YM2608Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
@@ -568,18 +927,54 @@ namespace MDPlayer
             }
             setting.YM2151Type.UseEmu = ucSI.rbYM2151P_Emu.Checked;
 
-            ////setting.YM2151Type.UseWaitBoost = cbYM2151UseWaitBoost.Checked;
-            //setting.YM2151Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
-            //setting.YM2151Type.LatencyForEmulation = 0;
-            ////if (int.TryParse(tbYM2151EmuDelay.Text, out i))
-            ////{
-            ////    setting.YM2151Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
-            ////}
-            ////setting.YM2151Type.LatencyForScci = 0;
-            ////if (int.TryParse(tbYM2151ScciDelay.Text, out i))
-            ////{
-            ////    setting.YM2151Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            ////}
+            setting.YM2151SType = new Setting.ChipType();
+            setting.YM2151SType.UseScci = ucSI.rbYM2151S_SCCI.Checked;
+            if (ucSI.rbYM2151S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2151S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2151S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2151SType.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2151SType.BusID = int.Parse(ns[1]);
+                    setting.YM2151SType.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2151SType.UseEmu = ucSI.rbYM2151S_Emu.Checked;
+
+            setting.YM2203Type = new Setting.ChipType();
+            setting.YM2203Type.UseScci = ucSI.rbYM2203P_SCCI.Checked;
+            if (ucSI.rbYM2203P_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2203P_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2203P_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2203Type.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2203Type.BusID = int.Parse(ns[1]);
+                    setting.YM2203Type.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2203Type.UseEmu = ucSI.rbYM2203P_Emu.Checked;
+
+            setting.YM2203SType = new Setting.ChipType();
+            setting.YM2203SType.UseScci = ucSI.rbYM2203S_SCCI.Checked;
+            if (ucSI.rbYM2203S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2203S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2203S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2203SType.SoundLocation = int.Parse(ns[0]);
+                    setting.YM2203SType.BusID = int.Parse(ns[1]);
+                    setting.YM2203SType.SoundChip = int.Parse(ns[2]);
+                }
+            }
+            setting.YM2203SType.UseEmu = ucSI.rbYM2203S_Emu.Checked;
+
 
             setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
             setting.other.UseChannel[0] = cbFM1.Checked;

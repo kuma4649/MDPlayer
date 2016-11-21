@@ -12,17 +12,17 @@ namespace MDPlayer
         private MDSound.MDSound mds = null;
 
         private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctSN76489 = null;
+        private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2612 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctYM2612 = null;
+        private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2608 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctYM2608 = null;
+        private Setting.ChipType[] ctYM2608 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2151 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctYM2151 = null;
+        private Setting.ChipType[] ctYM2151 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctYM2203 = null;
+        private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType ctYM2610 = null;
+        private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -148,12 +148,12 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2151
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
-            , Setting.ChipType ctYM2612
-            , Setting.ChipType ctSN76489
-            , Setting.ChipType ctYM2608
-            , Setting.ChipType ctYM2151
-            , Setting.ChipType ctYM2203
-            , Setting.ChipType ctYM2610
+            , Setting.ChipType[] ctYM2612
+            , Setting.ChipType[] ctSN76489
+            , Setting.ChipType[] ctYM2608
+            , Setting.ChipType[] ctYM2151
+            , Setting.ChipType[] ctYM2203
+            , Setting.ChipType[] ctYM2610
             )
         {
 
@@ -253,7 +253,7 @@ namespace MDPlayer
 
             fmRegisterYM2151[chipID][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2151.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151.UseScci))
+            if ((model == vgm.enmModel.RealModel && ctYM2151[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151[chipID].UseScci))
             {
                 if (dAddr == 0x08) //Key-On/Off
                 {
@@ -289,7 +289,7 @@ namespace MDPlayer
                         {
                             if (model == vgm.enmModel.VirtualModel)
                             {
-                                if (!ctYM2151.UseScci && ctYM2151.UseEmu)
+                                if (!ctYM2151[chipID].UseScci && ctYM2151[chipID].UseEmu)
                                 {
                                     mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                 }
@@ -314,7 +314,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2151.UseScci && ctYM2151.UseEmu)
+                if (!ctYM2151[chipID].UseScci && ctYM2151[chipID].UseEmu)
                 {
                     mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -370,7 +370,7 @@ namespace MDPlayer
 
             fmRegisterYM2203[chipID][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2203.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2203.UseScci))
+            if ((model == vgm.enmModel.RealModel && ctYM2203[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2203[chipID].UseScci))
             {
                 if (dAddr == 0x28)
                 {
@@ -437,7 +437,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2203.UseScci)
+                if (!ctYM2203[chipID].UseScci)
                 {
                     mds.WriteYM2203((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -459,7 +459,7 @@ namespace MDPlayer
 
             fmRegisterYM2608[chipID][dPort][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2608.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608.UseScci))
+            if ((model == vgm.enmModel.RealModel && ctYM2608[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608[chipID].UseScci))
             {
                 if (dPort == 0 && dAddr == 0x28)
                 {
@@ -591,7 +591,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2608.UseScci && ctYM2608.UseEmu)
+                if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
                 {
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -614,7 +614,7 @@ namespace MDPlayer
 
             fmRegisterYM2610[chipID][dPort][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2610.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610.UseScci))
+            if ((model == vgm.enmModel.RealModel && ctYM2610[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610[chipID].UseScci))
             {
                 //fmRegisterYM2610[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -762,7 +762,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (!ctYM2610.UseScci)
+                if (!ctYM2610[chipID].UseScci)
                 {
                     mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -784,7 +784,7 @@ namespace MDPlayer
 
             fmRegisterYM2612[chipID][dPort][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2612.UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612.UseScci))
+            if ((model == vgm.enmModel.RealModel && ctYM2612[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612[chipID].UseScci))
             {
                 //fmRegister[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -861,9 +861,9 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.VirtualModel)
             {
-                if (ctYM2612.UseScci)
+                if (ctYM2612[chipID].UseScci)
                 {
-                    if (ctYM2612.OnlyPCMEmulation)
+                    if (ctYM2612[chipID].OnlyPCMEmulation)
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
@@ -884,7 +884,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    if (ctYM2612.UseEmu)
+                    if (ctYM2612[chipID].UseEmu)
                         mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
@@ -892,7 +892,7 @@ namespace MDPlayer
             {
                 if (scYM2612[chipID] == null) return;
 
-                if (ctYM2612.OnlyPCMEmulation)
+                if (ctYM2612[chipID].OnlyPCMEmulation)
                 {
                     if (dPort == 0 && dAddr == 0x2b)
                     {
@@ -1163,25 +1163,25 @@ namespace MDPlayer
 
         public void setYM2151SyncWait(byte chipID,int wait)
         {
-            if (scYM2151[chipID] != null && ctYM2151.UseWait)
+            if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
             {
-                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151[chipID].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
         public void setYM2608SyncWait(byte chipID,int wait)
         {
-            if (scYM2608[chipID] != null && ctYM2608.UseWait)
+            if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
             {
-                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608[chipID].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
         public void setYM2612SyncWait(byte chipID,int wait)
         {
-            if (scYM2612[chipID] != null && ctYM2612.UseWait)
+            if (scYM2612[chipID] != null && ctYM2612[chipID].UseWait)
             {
-                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612.UseWaitBoost ? 2.0 : 1.0)));
+                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612[chipID].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -1190,7 +1190,7 @@ namespace MDPlayer
         {
             if (model == vgm.enmModel.VirtualModel) return;
 
-            if (scYM2151[chipID] != null && ctYM2151.UseWait)
+            if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
             {
                 scYM2151[chipID].parentSoundInterface.parentNScci.sendData();
                 while (!scYM2151[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
@@ -1201,7 +1201,7 @@ namespace MDPlayer
         {
             if (model == vgm.enmModel.VirtualModel) return;
 
-            if (scYM2608[chipID] != null && ctYM2608.UseWait)
+            if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
             {
                 scYM2608[chipID].parentSoundInterface.parentNScci.sendData();
                 while (!scYM2608[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
@@ -1256,7 +1256,7 @@ namespace MDPlayer
 
             if (model == vgm.enmModel.RealModel)
             {
-                if (ctSN76489.UseScci)
+                if (ctSN76489[chipID].UseScci)
                 {
                     if (scSN76489[chipID] == null) return;
                     scSN76489[chipID].setRegister(0, dData);
@@ -1264,7 +1264,7 @@ namespace MDPlayer
             }
             else
             {
-                if (!ctSN76489.UseScci&& ctSN76489.UseEmu)
+                if (!ctSN76489[chipID].UseScci&& ctSN76489[chipID].UseEmu)
                 {
                     mds.WriteSN76489((byte)dData);
                 }
@@ -1273,9 +1273,9 @@ namespace MDPlayer
 
         public void setSN76489SyncWait(byte chipID,int wait)
         {
-            if (scSN76489 != null && ctSN76489.UseWait)
+            if (scSN76489 != null && ctSN76489[chipID].UseWait)
             {
-                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489.UseWaitBoost ? 2.0 : 1.0)));
+                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489[chipID].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
