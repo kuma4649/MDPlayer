@@ -452,6 +452,7 @@ namespace MDPlayer
 
                     for (int i = 0; i < (vgmVirtual.YM2612DualChipFlag ? 2 : 1); i++)
                     {
+                        //MDSound.ym2612 ym2612 = new MDSound.ym2612();
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
                         chip.ID = (byte)i;

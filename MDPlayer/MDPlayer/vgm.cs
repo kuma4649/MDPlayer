@@ -219,13 +219,13 @@ namespace MDPlayer
                 //Console.WriteLine("[{0}]: Adr:{1:X} Dat:{2:X}",model, vgmAdr , vgmBuf[vgmAdr]);
                 if (vgmCmdTbl[cmd] != null)
                 {
-                    //if (model == enmModel.RealModel) Console.WriteLine("{0:X05} : {1:X02} ", vgmAdr, vgmBuf[vgmAdr]);
+                    //if (model == enmModel.VirtualModel) Console.WriteLine("{0:X05} : {1:X02} ", vgmAdr, vgmBuf[vgmAdr]);
                     vgmCmdTbl[cmd]();
                 }
                 else
                 {
                     //わからんコマンド
-                    //Console.WriteLine("[{0}]:unknown command: Adr:{1:X} Dat:{2:X}",model, vgmAdr , vgmBuf[vgmAdr]);
+                    Console.WriteLine("[{0}]:unknown command: Adr:{1:X} Dat:{2:X}",model, vgmAdr , vgmBuf[vgmAdr]);
                     vgmAdr++;
                 }
                 countNum++;
