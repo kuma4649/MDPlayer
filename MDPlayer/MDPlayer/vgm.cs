@@ -70,6 +70,7 @@ namespace MDPlayer
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
         public bool OKIM6295DualChipFlag;
+        public bool SN76489DualChipFlag;
 
         public int YM2151Hosei = 0;
 
@@ -290,7 +291,7 @@ namespace MDPlayer
 
             for (int i = 0; i < vgmCmdTbl.Length; i++) vgmCmdTbl[i] = null;
 
-            vgmCmdTbl[0x30] = vcDummy1Ope;
+            vgmCmdTbl[0x30] = vcPSG;
             vgmCmdTbl[0x31] = vcDummy1Ope;
             vgmCmdTbl[0x32] = vcDummy1Ope;
             vgmCmdTbl[0x33] = vcDummy1Ope;
@@ -306,7 +307,7 @@ namespace MDPlayer
             vgmCmdTbl[0x3c] = vcDummy1Ope;
             vgmCmdTbl[0x3d] = vcDummy1Ope;
             vgmCmdTbl[0x3e] = vcDummy1Ope;
-            vgmCmdTbl[0x3f] = vcDummy1Ope;
+            vgmCmdTbl[0x3f] = vcGGPSGPort06;
 
             vgmCmdTbl[0x40] = vcDummy2Ope;
             vgmCmdTbl[0x41] = vcDummy2Ope;
@@ -526,25 +527,25 @@ namespace MDPlayer
 
         private void vcDummy1Ope()
         {
-            //Console.Write("({0:X02}:{1:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
+            Console.Write("({0:X02}:{1:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
             vgmAdr += 2;
         }
 
         private void vcDummy2Ope()
         {
-            //Console.Write("({0:X02}:{1:X02}:{2:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            Console.Write("({0:X02}:{1:X02}:{2:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private void vcDummy3Ope()
         {
-            //Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
+            Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
             vgmAdr += 4;
         }
 
         private void vcDummy4Ope()
         {
-            //Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02}:{4:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
+            Console.WriteLine("unknown command:Adr:{0:X}({1:X02}:{2:X02}:{3:X02}:{4:X02}:{5:X02})",vgmAdr, vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
             vgmAdr += 5;
         }
 
@@ -555,7 +556,7 @@ namespace MDPlayer
 
         private void vcPSG()
         {
-            chipRegister.setSN76489Register(0,vgmBuf[vgmAdr + 1],model);
+            chipRegister.setSN76489Register(vgmBuf[vgmAdr] == 0x50 ? 0 : 1, vgmBuf[vgmAdr + 1],model);
             vgmAdr += 2;
         }
 
@@ -1508,8 +1509,10 @@ namespace MDPlayer
             uint SN76489clock = getLE32(0x0c);
             if (SN76489clock != 0)
             {
-                chips.Add("SN76489");
-                SN76489ClockValue = SN76489clock;
+                SN76489ClockValue = SN76489clock & 0x3fffffff;
+                SN76489DualChipFlag = (SN76489clock & 0x40000000) != 0;
+                if (SN76489DualChipFlag) chips.Add("SN76489x2");
+                else chips.Add("SN76489");
             }
 
             uint YM2413clock = getLE32(0x10);

@@ -426,24 +426,29 @@ namespace MDPlayer
 
                 if (vgmVirtual.SN76489ClockValue != 0)
                 {
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
-                    chip.ID = 0;
                     MDSound.sn76489 sn76489 = new MDSound.sn76489();
-                    chip.Instrument = sn76489;
-                    chip.Update = sn76489.Update;
-                    chip.Start = sn76489.Start;
-                    chip.Stop = sn76489.Stop;
-                    chip.Reset = sn76489.Reset;
-                    chip.SamplingRate = SamplingRate;
-                    chip.Volume = setting.balance.SN76489Volume;
-                    chip.Clock = vgmVirtual.SN76489ClockValue;
-                    chip.Option = null;
-                    ChipPriDCSG = 1;
 
-                    hiyorimiDeviceFlag |= (setting.SN76489Type.UseScci) ? 0x1 : 0x2;
+                    for (int i = 0; i < (vgmVirtual.SN76489DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                        chip.ID = (byte)i;
+                        chip.Instrument = sn76489;
+                        chip.Update = sn76489.Update;
+                        chip.Start = sn76489.Start;
+                        chip.Stop = sn76489.Stop;
+                        chip.Reset = sn76489.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.SN76489Volume;
+                        chip.Clock = vgmVirtual.SN76489ClockValue;
+                        chip.Option = null;
+                        if (i == 0) ChipPriDCSG = 1;
+                        else ChipSecDCSG = 1;
 
-                    lstChips.Add(chip);
+                        hiyorimiDeviceFlag |= (setting.SN76489Type.UseScci) ? 0x1 : 0x2;
+
+                        lstChips.Add(chip);
+                    }
                 }
 
                 if (vgmVirtual.YM2612ClockValue != 0)

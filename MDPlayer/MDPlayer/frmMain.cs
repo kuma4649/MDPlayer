@@ -2908,7 +2908,12 @@ namespace MDPlayer
                 }
 
                 c = Audio.vgmVirtual.SN76489ClockValue;
-                if (c != 0) OpenFormSN76489(0, true);
+                if (c != 0)
+                {
+                    OpenFormSN76489(0, true);
+                    if (Audio.vgmVirtual.SN76489DualChipFlag) OpenFormSN76489(1, true);
+                    else CloseFormSN76489(1);
+                }
                 else
                 {
                     CloseFormSN76489(0);

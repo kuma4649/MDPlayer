@@ -1238,7 +1238,8 @@ namespace MDPlayer
         {
             if (ctSN76489 == null) return;
 
-            ChipPriDCSG = 2;
+            if (chipID == 0) ChipPriDCSG = 2;
+            else ChipSecDCSG = 2;
 
             SN76489_Write(chipID, dData);
 
@@ -1266,7 +1267,7 @@ namespace MDPlayer
             {
                 if (!ctSN76489[chipID].UseScci&& ctSN76489[chipID].UseEmu)
                 {
-                    mds.WriteSN76489((byte)dData);
+                    mds.WriteSN76489((byte)chipID, (byte)dData);
                 }
             }
         }
