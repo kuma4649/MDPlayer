@@ -2921,7 +2921,12 @@ namespace MDPlayer
                 }
 
                 c = Audio.vgmVirtual.RF5C164ClockValue;
-                if (c != 0) OpenFormMegaCD(0, true);
+                if (c != 0)
+                {
+                    OpenFormMegaCD(0, true);
+                    if (Audio.vgmVirtual.RF5C164DualChipFlag) OpenFormMegaCD(1, true);
+                    else CloseFormMegaCD(1);
+                }
                 else
                 {
                     CloseFormMegaCD(0);

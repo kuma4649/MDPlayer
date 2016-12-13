@@ -71,6 +71,7 @@ namespace MDPlayer
         public bool YM2610DualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
+        public bool RF5C164DualChipFlag;
 
         public int YM2151Hosei = 0;
 
@@ -1023,7 +1024,9 @@ namespace MDPlayer
 
         private void vcRf5c164()
         {
-            chipRegister.writeRF5C164(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            byte cmd = (byte)(vgmBuf[vgmAdr + 1] & 0x7f);
+            chipRegister.writeRF5C164(id, cmd, vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1679,8 +1682,10 @@ namespace MDPlayer
                     uint RF5C164clock = getLE32(0x6c);
                     if (RF5C164clock != 0)
                     {
-                        chips.Add("RF5C164");
-                        RF5C164ClockValue = RF5C164clock;
+                        RF5C164ClockValue = RF5C164clock & 0x3fffffff;
+                        RF5C164DualChipFlag = (RF5C164clock & 0x40000000) != 0;
+                        if (RF5C164DualChipFlag) chips.Add("RF5C164x2");
+                        else chips.Add("RF5C164");
                     }
                 }
 

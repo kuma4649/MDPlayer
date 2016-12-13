@@ -483,25 +483,30 @@ namespace MDPlayer
 
                 if (vgmVirtual.RF5C164ClockValue != 0)
                 {
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.RF5C164;
-                    chip.ID = 0;
                     MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();
-                    chip.Instrument = rf5c164;
-                    chip.Update = rf5c164.Update;
-                    chip.Start = rf5c164.Start;
-                    chip.Stop = rf5c164.Stop;
-                    chip.Reset = rf5c164.Reset;
-                    chip.SamplingRate = SamplingRate;
-                    chip.Volume = setting.balance.RF5C164Volume;
-                    chip.Clock = vgmVirtual.RF5C164ClockValue;
-                    chip.Option = null;
 
-                    hiyorimiDeviceFlag |= 0x2;
+                    for (int i = 0; i < (vgmVirtual.RF5C164DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.RF5C164;
+                        chip.ID = (byte)i;
+                        chip.Instrument = rf5c164;
+                        chip.Update = rf5c164.Update;
+                        chip.Start = rf5c164.Start;
+                        chip.Stop = rf5c164.Stop;
+                        chip.Reset = rf5c164.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.RF5C164Volume;
+                        chip.Clock = vgmVirtual.RF5C164ClockValue;
+                        chip.Option = null;
 
-                    ChipPriRF5C = 1;
+                        hiyorimiDeviceFlag |= 0x2;
 
-                    lstChips.Add(chip);
+                        if (i == 0) ChipPriRF5C = 1;
+                        else ChipSecRF5C = 1;
+
+                        lstChips.Add(chip);
+                    }
                 }
 
                 if (vgmVirtual.PWMClockValue != 0)
