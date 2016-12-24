@@ -711,6 +711,9 @@ namespace MDPlayer
             cmbInstFormat.SelectedIndex=(int)setting.other.InstFormat;
             tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
             cbAutoOpen.Checked = setting.other.AutoOpen;
+            cbDumpSwitch.Checked = setting.other.DumpSwitch;
+            gbDump.Enabled = cbDumpSwitch.Checked;
+            tbDumpPath.Text = setting.other.DumpPath;
 
         }
 
@@ -1012,6 +1015,8 @@ namespace MDPlayer
                 setting.other.ScreenFrameRate = Math.Max(Math.Min(i, 120), 10);
             }
             setting.other.AutoOpen = cbAutoOpen.Checked;
+            setting.other.DumpSwitch = cbDumpSwitch.Checked;
+            setting.other.DumpPath = tbDumpPath.Text;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -1169,6 +1174,33 @@ namespace MDPlayer
             cmbInstFormat.Enabled = cbUseGetInst.Checked;
         }
 
+        private void cbDumpSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            gbDump.Enabled = cbDumpSwitch.Checked;
+        }
+
+        private void btnDumpPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "フォルダーを指定してください。";
+
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbDumpPath.Text = fbd.SelectedPath;
+
+        }
+
+        private void btnResetPosition_Click(object sender, EventArgs e)
+        {
+            DialogResult res= MessageBox.Show("表示位置を全てリセットします。よろしいですか。(現在開いているウィンドウの位置はリセットできません。)", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.No) return;
+
+            setting.location = new Setting.Location();
+        }
     }
 
 

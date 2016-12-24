@@ -741,6 +741,34 @@ namespace MDPlayer
                 }
             }
 
+            private bool _DumpSwitch = false;
+            public bool DumpSwitch
+            {
+                get
+                {
+                    return _DumpSwitch;
+                }
+
+                set
+                {
+                    _DumpSwitch = value;
+                }
+            }
+
+            private string _DumpPath = "";
+            public string DumpPath
+            {
+                get
+                {
+                    return _DumpPath;
+                }
+
+                set
+                {
+                    _DumpPath = value;
+                }
+            }
+
 
             public Other Copy()
             {
@@ -759,6 +787,8 @@ namespace MDPlayer
                 other.Zoom = this.Zoom;
                 other.ScreenFrameRate = this.ScreenFrameRate;
                 other.AutoOpen = this.AutoOpen;
+                other.DumpSwitch = this.DumpSwitch;
+                other.DumpPath = this.DumpPath;
 
                 return other;
             }

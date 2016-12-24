@@ -89,6 +89,7 @@ namespace MDPlayer
         public bool isDataBlock = false;
         public bool isPcmRAMWrite = false;
 
+        public Setting setting = null;
 
         private byte[] vgmBuf = null;
         private ChipRegister chipRegister = null;
@@ -124,6 +125,8 @@ namespace MDPlayer
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+
+            dumpCounter = 0;
 
             ym2610AdpcmA = null;
             ym2610AdpcmB = null;
@@ -703,6 +706,7 @@ namespace MDPlayer
                         case 0x80:
                             //SEGA PCM
                             chipRegister.writeSEGAPCMPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpDataForSegaPCM(model, "SEGAPCM_PCMData", vgmAdr + 15, bLen - 8);
                             break;
                         case 0x81:
 
@@ -757,6 +761,7 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
                             chipRegister.sendDataYM2608(chipID, model);
+                            dumpData(model, "YM2608_ADPCM", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x82:
@@ -766,6 +771,7 @@ namespace MDPlayer
                                 ym2610AdpcmA[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
                             chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA,model);
+                            dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             break;
                         case 0x83:
                             if (ym2610AdpcmB == null || ym2610AdpcmB.Length != romSize) ym2610AdpcmB = new byte[romSize];
@@ -774,11 +780,13 @@ namespace MDPlayer
                                 ym2610AdpcmB[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
                             chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB,model);
+                            dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x8b:
                             // OKIM6295
                             chipRegister.writeOKIM6295PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "OKIM6295_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x8d:
@@ -786,6 +794,7 @@ namespace MDPlayer
                             // C140
 
                             chipRegister.writeC140PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "C140_PCMData", vgmAdr + 15, bLen - 8);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -805,6 +814,7 @@ namespace MDPlayer
                     {
                         case 0xc1:
                             chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                            dumpData(model, "RF5C164_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
                             break;
                     }
 
@@ -818,6 +828,95 @@ namespace MDPlayer
             isDataBlock = false;
 
         }
+
+        private int dumpCounter = 0;
+        private void dumpData(enmModel model,string chipName, uint adr, uint len)
+        {
+            if (model == enmModel.RealModel) return;
+            if (setting == null) return;
+            if (!setting.other.DumpSwitch) return;
+
+            try
+            {
+
+                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName));
+                using (System.IO.FileStream fs = new System.IO.FileStream(fn, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write))
+                {
+                    using (System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs))
+                    {
+                        bw.Write(vgmBuf, (int)adr, (int)len);
+                    }
+                }
+            }
+            catch
+            {
+                //エラーは無視
+            }
+
+        }
+
+        private void dumpDataForSegaPCM(enmModel model, string chipName, uint adr, uint len)
+        {
+            if (model == enmModel.RealModel) return;
+            if (setting == null) return;
+            if (!setting.other.DumpSwitch) return;
+
+            try
+            {
+                string dFn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.wav", dumpCounter++, chipName, GD3.TrackName));
+                List<byte> des = new List<byte>();
+
+                // 'RIFF'
+                des.Add((byte)'R'); des.Add((byte)'I'); des.Add((byte)'F'); des.Add((byte)'F');
+                // サイズ
+                //int fsize = src.Length + 36;
+                int fsize = (int)len + 36;
+                des.Add((byte)((fsize & 0xff) >> 0));
+                des.Add((byte)((fsize & 0xff00) >> 8));
+                des.Add((byte)((fsize & 0xff0000) >> 16));
+                des.Add((byte)((fsize & 0xff000000) >> 24));
+                // 'WAVE'
+                des.Add((byte)'W'); des.Add((byte)'A'); des.Add((byte)'V'); des.Add((byte)'E');
+                // 'fmt '
+                des.Add((byte)'f'); des.Add((byte)'m'); des.Add((byte)'t'); des.Add((byte)' ');
+                // サイズ(16)
+                des.Add(0x10); des.Add(0); des.Add(0); des.Add(0);
+                // フォーマット(1)
+                des.Add(0x01); des.Add(0x00);
+                // チャンネル数(mono)
+                des.Add(0x01); des.Add(0x00);
+                //サンプリング周波数(16KHz)
+                des.Add(0x80); des.Add(0x3e); des.Add(0); des.Add(0);
+                //平均データ割合(16K)
+                des.Add(0x80); des.Add(0x3e); des.Add(0); des.Add(0);
+                //ブロックサイズ(1)
+                des.Add(0x01); des.Add(0x00);
+                //ビット数(8bit)
+                des.Add(0x08); des.Add(0x00);
+
+                // 'data'
+                des.Add((byte)'d'); des.Add((byte)'a'); des.Add((byte)'t'); des.Add((byte)'a');
+                // サイズ(データサイズ)
+                des.Add((byte)((len & 0xff) >> 0));
+                des.Add((byte)((len & 0xff00) >> 8));
+                des.Add((byte)((len & 0xff0000) >> 16));
+                des.Add((byte)((len & 0xff000000) >> 24));
+
+                for (int i = 0; i < len; i++)
+                {
+                    des.Add(vgmBuf[adr + i]);
+                }
+
+                //出力
+                System.IO.File.WriteAllBytes(dFn, des.ToArray());
+
+            }
+            catch
+            {
+            }
+        }
+
+
 
         private void vcPCMRamWrite()
         {

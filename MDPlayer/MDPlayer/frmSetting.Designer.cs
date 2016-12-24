@@ -57,6 +57,7 @@
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -66,18 +67,25 @@
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.cbUseGetInst = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmbInstFormat = new System.Windows.Forms.ComboBox();
+            this.lblInstFormat = new System.Windows.Forms.Label();
+            this.cbDumpSwitch = new System.Windows.Forms.CheckBox();
+            this.gbDump = new System.Windows.Forms.GroupBox();
+            this.btnDumpPath = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbDumpPath = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.tbScreenFrameRate = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.cmbInstFormat = new System.Windows.Forms.ComboBox();
-            this.lblInstFormat = new System.Windows.Forms.Label();
             this.lblLoopTimes = new System.Windows.Forms.Label();
             this.btnDataPath = new System.Windows.Forms.Button();
             this.tbLoopTimes = new System.Windows.Forms.TextBox();
             this.tbDataPath = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.btnResetPosition = new System.Windows.Forms.Button();
             this.btnOpenSettingFolder = new System.Windows.Forms.Button();
-            this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
             this.tpOmake = new System.Windows.Forms.TabPage();
@@ -117,7 +125,6 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
-            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -128,6 +135,8 @@
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tpOther.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.gbDump.SuspendLayout();
             this.tpOmake.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.gbMIDIKeyboard.SuspendLayout();
@@ -476,6 +485,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
             // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(358, 182);
+            this.ucSI.TabIndex = 7;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
@@ -554,18 +572,20 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.cbUseGetInst);
+            this.tpOther.Controls.Add(this.groupBox4);
+            this.tpOther.Controls.Add(this.cbDumpSwitch);
+            this.tpOther.Controls.Add(this.gbDump);
             this.tpOther.Controls.Add(this.label30);
             this.tpOther.Controls.Add(this.tbScreenFrameRate);
             this.tpOther.Controls.Add(this.label29);
-            this.tpOther.Controls.Add(this.cmbInstFormat);
-            this.tpOther.Controls.Add(this.lblInstFormat);
             this.tpOther.Controls.Add(this.lblLoopTimes);
             this.tpOther.Controls.Add(this.btnDataPath);
             this.tpOther.Controls.Add(this.tbLoopTimes);
             this.tpOther.Controls.Add(this.tbDataPath);
             this.tpOther.Controls.Add(this.label19);
+            this.tpOther.Controls.Add(this.btnResetPosition);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
-            this.tpOther.Controls.Add(this.cbUseGetInst);
             this.tpOther.Controls.Add(this.cbAutoOpen);
             this.tpOther.Controls.Add(this.cbUseLoopTimes);
             this.tpOther.Location = new System.Drawing.Point(4, 22);
@@ -575,30 +595,26 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
-            // label30
+            // cbUseGetInst
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(136, 143);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(30, 12);
-            this.label30.TabIndex = 21;
-            this.label30.Text = "Hz/s";
+            this.cbUseGetInst.AutoSize = true;
+            this.cbUseGetInst.Location = new System.Drawing.Point(14, 31);
+            this.cbUseGetInst.Name = "cbUseGetInst";
+            this.cbUseGetInst.Size = new System.Drawing.Size(286, 16);
+            this.cbUseGetInst.TabIndex = 12;
+            this.cbUseGetInst.Text = "音色欄をクリック時、その音色をクリップボードにコピーする";
+            this.cbUseGetInst.UseVisualStyleBackColor = true;
+            this.cbUseGetInst.CheckedChanged += new System.EventHandler(this.cbUseGetInst_CheckedChanged);
             // 
-            // tbScreenFrameRate
+            // groupBox4
             // 
-            this.tbScreenFrameRate.Location = new System.Drawing.Point(80, 140);
-            this.tbScreenFrameRate.Name = "tbScreenFrameRate";
-            this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
-            this.tbScreenFrameRate.TabIndex = 20;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(5, 143);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(69, 12);
-            this.label29.TabIndex = 19;
-            this.label29.Text = "フレームレート";
+            this.groupBox4.Controls.Add(this.cmbInstFormat);
+            this.groupBox4.Controls.Add(this.lblInstFormat);
+            this.groupBox4.Location = new System.Drawing.Point(7, 31);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(358, 45);
+            this.groupBox4.TabIndex = 23;
+            this.groupBox4.TabStop = false;
             // 
             // cmbInstFormat
             // 
@@ -612,7 +628,7 @@
             "MUSIC LALF #2",
             "MML2VGM",
             "NRTDRV"});
-            this.cmbInstFormat.Location = new System.Drawing.Point(236, 52);
+            this.cmbInstFormat.Location = new System.Drawing.Point(223, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
             this.cmbInstFormat.TabIndex = 18;
@@ -620,11 +636,84 @@
             // lblInstFormat
             // 
             this.lblInstFormat.AutoSize = true;
-            this.lblInstFormat.Location = new System.Drawing.Point(175, 55);
+            this.lblInstFormat.Location = new System.Drawing.Point(162, 22);
             this.lblInstFormat.Name = "lblInstFormat";
             this.lblInstFormat.Size = new System.Drawing.Size(55, 12);
             this.lblInstFormat.TabIndex = 17;
             this.lblInstFormat.Text = "フォーマット";
+            // 
+            // cbDumpSwitch
+            // 
+            this.cbDumpSwitch.AutoSize = true;
+            this.cbDumpSwitch.Location = new System.Drawing.Point(14, 104);
+            this.cbDumpSwitch.Name = "cbDumpSwitch";
+            this.cbDumpSwitch.Size = new System.Drawing.Size(220, 16);
+            this.cbDumpSwitch.TabIndex = 0;
+            this.cbDumpSwitch.Text = "DataBlock処理時にその内容をダンプする";
+            this.cbDumpSwitch.UseVisualStyleBackColor = true;
+            this.cbDumpSwitch.CheckedChanged += new System.EventHandler(this.cbDumpSwitch_CheckedChanged);
+            // 
+            // gbDump
+            // 
+            this.gbDump.Controls.Add(this.btnDumpPath);
+            this.gbDump.Controls.Add(this.label6);
+            this.gbDump.Controls.Add(this.tbDumpPath);
+            this.gbDump.Location = new System.Drawing.Point(7, 106);
+            this.gbDump.Name = "gbDump";
+            this.gbDump.Size = new System.Drawing.Size(358, 45);
+            this.gbDump.TabIndex = 22;
+            this.gbDump.TabStop = false;
+            // 
+            // btnDumpPath
+            // 
+            this.btnDumpPath.Location = new System.Drawing.Point(329, 16);
+            this.btnDumpPath.Name = "btnDumpPath";
+            this.btnDumpPath.Size = new System.Drawing.Size(23, 23);
+            this.btnDumpPath.TabIndex = 16;
+            this.btnDumpPath.Text = "...";
+            this.btnDumpPath.UseVisualStyleBackColor = true;
+            this.btnDumpPath.Click += new System.EventHandler(this.btnDumpPath_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 12);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "出力Path";
+            // 
+            // tbDumpPath
+            // 
+            this.tbDumpPath.Location = new System.Drawing.Point(73, 18);
+            this.tbDumpPath.Name = "tbDumpPath";
+            this.tbDumpPath.Size = new System.Drawing.Size(250, 19);
+            this.tbDumpPath.TabIndex = 15;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(136, 187);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(30, 12);
+            this.label30.TabIndex = 21;
+            this.label30.Text = "Hz/s";
+            // 
+            // tbScreenFrameRate
+            // 
+            this.tbScreenFrameRate.Location = new System.Drawing.Point(80, 184);
+            this.tbScreenFrameRate.Name = "tbScreenFrameRate";
+            this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
+            this.tbScreenFrameRate.TabIndex = 20;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(5, 187);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(69, 12);
+            this.label29.TabIndex = 19;
+            this.label29.Text = "フレームレート";
             // 
             // lblLoopTimes
             // 
@@ -637,7 +726,7 @@
             // 
             // btnDataPath
             // 
-            this.btnDataPath.Location = new System.Drawing.Point(342, 113);
+            this.btnDataPath.Location = new System.Drawing.Point(336, 157);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
             this.btnDataPath.TabIndex = 16;
@@ -654,19 +743,29 @@
             // 
             // tbDataPath
             // 
-            this.tbDataPath.Location = new System.Drawing.Point(80, 115);
+            this.tbDataPath.Location = new System.Drawing.Point(80, 159);
             this.tbDataPath.Name = "tbDataPath";
-            this.tbDataPath.Size = new System.Drawing.Size(256, 19);
+            this.tbDataPath.Size = new System.Drawing.Size(250, 19);
             this.tbDataPath.TabIndex = 15;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(5, 118);
+            this.label19.Location = new System.Drawing.Point(5, 162);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 12);
             this.label19.TabIndex = 14;
             this.label19.Text = "データPath";
+            // 
+            // btnResetPosition
+            // 
+            this.btnResetPosition.Location = new System.Drawing.Point(94, 265);
+            this.btnResetPosition.Name = "btnResetPosition";
+            this.btnResetPosition.Size = new System.Drawing.Size(142, 23);
+            this.btnResetPosition.TabIndex = 13;
+            this.btnResetPosition.Text = "ウィンドウ位置をリセット";
+            this.btnResetPosition.UseVisualStyleBackColor = true;
+            this.btnResetPosition.Click += new System.EventHandler(this.btnResetPosition_Click);
             // 
             // btnOpenSettingFolder
             // 
@@ -677,17 +776,6 @@
             this.btnOpenSettingFolder.Text = "設定フォルダーを開く";
             this.btnOpenSettingFolder.UseVisualStyleBackColor = true;
             this.btnOpenSettingFolder.Click += new System.EventHandler(this.btnOpenSettingFolder_Click);
-            // 
-            // cbUseGetInst
-            // 
-            this.cbUseGetInst.AutoSize = true;
-            this.cbUseGetInst.Location = new System.Drawing.Point(7, 30);
-            this.cbUseGetInst.Name = "cbUseGetInst";
-            this.cbUseGetInst.Size = new System.Drawing.Size(286, 16);
-            this.cbUseGetInst.TabIndex = 12;
-            this.cbUseGetInst.Text = "音色欄をクリック時、その音色をクリップボードにコピーする";
-            this.cbUseGetInst.UseVisualStyleBackColor = true;
-            this.cbUseGetInst.CheckedChanged += new System.EventHandler(this.cbUseGetInst_CheckedChanged);
             // 
             // cbAutoOpen
             // 
@@ -1002,15 +1090,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(358, 182);
-            this.ucSI.TabIndex = 7;
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1045,6 +1124,10 @@
             this.groupBox3.PerformLayout();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.gbDump.ResumeLayout(false);
+            this.gbDump.PerformLayout();
             this.tpOmake.ResumeLayout(false);
             this.tpOmake.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1164,5 +1247,12 @@
         private System.Windows.Forms.CheckBox cbAutoOpen;
         private ucSettingInstruments ucSI;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox cbDumpSwitch;
+        private System.Windows.Forms.GroupBox gbDump;
+        private System.Windows.Forms.Button btnDumpPath;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbDumpPath;
+        private System.Windows.Forms.Button btnResetPosition;
     }
 }

@@ -183,6 +183,8 @@ namespace MDPlayer
             log.ForcedWrite("Audio:Init:STEP 02");
 
             Audio.setting = setting.Copy();
+            vgmVirtual.setting = setting;
+            vgmReal.setting = setting;
 
             log.ForcedWrite("Audio:Init:STEP 03");
 
