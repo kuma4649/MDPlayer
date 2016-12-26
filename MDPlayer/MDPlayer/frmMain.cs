@@ -2122,7 +2122,12 @@ namespace MDPlayer
             newParam.ym2610[chipID].channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
             delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
             frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
-            newParam.ym2610[chipID].channels[12].note = searchYM2608Adpcm(frq);
+            newParam.ym2610[chipID].channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? searchYM2608Adpcm(frq) : -1;
+            if ((YM2610Register[0][0x11] & 0xc0) == 0)
+            {
+                newParam.ym2610[chipID].channels[12].note = -1;
+            }
+
 
             for (int ch = 13; ch < 19; ch++) //ADPCM A
             {
@@ -2248,12 +2253,16 @@ namespace MDPlayer
             }
 
             //ADPCM
-            newParam.ym2608[chipID].channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6;
+            newParam.ym2608[chipID].channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6; // ((ym2608Register[1][0x01] & 0xc0) >> 6) != 0 ? ((ym2608Register[1][0x01] & 0xc0) >> 6) : newParam.ym2608[chipID].channels[12].pan;
             newParam.ym2608[chipID].channels[12].volumeL = Math.Min(Math.Max(ym2608AdpcmVol[0] / 80, 0), 19);
             newParam.ym2608[chipID].channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 80, 0), 19);
             int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
             float frq = (float)(delta / 9447.0f);
-            newParam.ym2608[chipID].channels[12].note = searchYM2608Adpcm(frq) + 1;
+            newParam.ym2608[chipID].channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? searchYM2608Adpcm(frq) : -1;
+            if ((ym2608Register[1][0x01] & 0xc0) == 0)
+            {
+                newParam.ym2608[chipID].channels[12].note = -1;
+            }
 
             for (int ch = 13; ch < 19; ch++) //RHYTHM
             {
@@ -2672,9 +2681,9 @@ namespace MDPlayer
 
             for (int i = 0; i < 12 * 8; i++)
             {
-                if (freq < Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))) break;
+                if (freq < Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))) break;
                 n = i;
-                float a = Math.Abs(freq - (float)(Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                float a = Math.Abs(freq - (float)(Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))));
                 if (m > a)
                 {
                     m = a;
@@ -2682,7 +2691,7 @@ namespace MDPlayer
                 }
             }
 
-            return n;
+            return n+1;
         }
 
 

@@ -839,7 +839,7 @@ namespace MDPlayer
             try
             {
 
-                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName));
+                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName.Replace("*","").Replace("?","").Replace(" ","").Replace("\"","")));
                 using (System.IO.FileStream fs = new System.IO.FileStream(fn, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write))
                 {
                     using (System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs))
@@ -863,7 +863,7 @@ namespace MDPlayer
 
             try
             {
-                string dFn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.wav", dumpCounter++, chipName, GD3.TrackName));
+                string dFn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.wav", dumpCounter++, chipName, GD3.TrackName.Replace("*", "").Replace("?", "").Replace(" ", "").Replace("\"", "")));
                 List<byte> des = new List<byte>();
 
                 // 'RIFF'
