@@ -115,8 +115,8 @@ namespace MDPlayer
         private byte[] DacCtrlUsg = new byte[0xFF];
         private DACCTRL_DATA[] DacCtrl = new DACCTRL_DATA[0xFF];
 
-        private byte[] ym2610AdpcmA = null;
-        private byte[] ym2610AdpcmB = null;
+        private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
+        private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
         public bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip,uint latency)
         {
@@ -128,8 +128,8 @@ namespace MDPlayer
 
             dumpCounter = 0;
 
-            ym2610AdpcmA = null;
-            ym2610AdpcmB = null;
+            ym2610AdpcmA = new byte[2][] { null, null };
+            ym2610AdpcmB = new byte[2][] { null, null };
 
             if (!getInformationHeader()) return false;
 
@@ -765,21 +765,21 @@ namespace MDPlayer
                             break;
 
                         case 0x82:
-                            if (ym2610AdpcmA == null || ym2610AdpcmA.Length != romSize) ym2610AdpcmA = new byte[romSize];
+                            if (ym2610AdpcmA[chipID] == null || ym2610AdpcmA[chipID].Length != romSize) ym2610AdpcmA[chipID] = new byte[romSize];
                             for (int cnt = 0; cnt < bLen - 8; cnt++)
                             {
-                                ym2610AdpcmA[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                ym2610AdpcmA[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA,model);
+                            chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
                             dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             break;
                         case 0x83:
-                            if (ym2610AdpcmB == null || ym2610AdpcmB.Length != romSize) ym2610AdpcmB = new byte[romSize];
+                            if (ym2610AdpcmB[chipID] == null || ym2610AdpcmB[chipID].Length != romSize) ym2610AdpcmB[chipID] = new byte[romSize];
                             for (int cnt = 0; cnt < bLen - 8; cnt++)
                             {
-                                ym2610AdpcmB[startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                ym2610AdpcmB[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB,model);
+                            chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
                             dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             break;
 
