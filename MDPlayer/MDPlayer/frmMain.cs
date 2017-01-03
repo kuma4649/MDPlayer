@@ -32,7 +32,7 @@ namespace MDPlayer
         private frmSN76489[] frmSN76489 = new frmSN76489[2] { null, null };
         private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
 
-        private MDChipParams oldParam = new MDChipParams();
+        public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
         private int[] oldButton = new int[16];
@@ -355,6 +355,7 @@ namespace MDPlayer
 
                 frmPlayList.setStart(-1);
 
+                oldParam = new MDChipParams();
                 frmPlayList.Play();
 
             }
@@ -774,6 +775,7 @@ namespace MDPlayer
 
                         loadAndPlay(fn[0],"");
                         frmPlayList.setStart(-1);
+                        oldParam = new MDChipParams();
 
                         frmPlayList.Play();
                     }
@@ -1677,6 +1679,7 @@ namespace MDPlayer
                     {
                         loadAndPlay(filename);
                         frmPlayList.setStart(-1);
+                        oldParam = new MDChipParams();
 
                         frmPlayList.Play();
                     }
@@ -2792,6 +2795,7 @@ namespace MDPlayer
                 playFn = frmPlayList.setStart(-2);//first 
             }
 
+            oldParam = new MDChipParams();
             loadAndPlay(playFn.Item1, playFn.Item2);
             frmPlayList.Play();
 
@@ -3773,6 +3777,7 @@ namespace MDPlayer
                     }
 
                     frmPlayList.setStart(-1);
+                    oldParam = new MDChipParams();
 
                     frmPlayList.Play();
 

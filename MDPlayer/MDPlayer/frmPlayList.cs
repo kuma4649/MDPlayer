@@ -556,6 +556,8 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
             }
 
+            frmMain.oldParam = new MDChipParams();
+
             Play();
 
         }
@@ -628,7 +630,7 @@ namespace MDPlayer
                         {
                             frmMain.loadAndPlay(fn);
                             setStart(-1);
-
+                            frmMain.oldParam = new MDChipParams();
                             Play();
                         }
                     }

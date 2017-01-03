@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MDPlayer
 {
-    class MDChipParams
+    public class MDChipParams
     {
         public int Cminutes = 0;
         public int Csecond = 0;
