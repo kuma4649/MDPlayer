@@ -1652,21 +1652,23 @@ namespace MDPlayer
                 if (YM2151DualChipFlag) chips.Add("YM2151x2");
                 else chips.Add("YM2151");
             }
+
             YM2151Hosei = 0;
+            float delta = (float)YM2151ClockValue / 3579545;
             if (model == enmModel.RealModel)
             {
-                float delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock(0);
-                float d;
-                float oldD = float.MaxValue;
-                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
-                {
-                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
-                    if (d > oldD) break;
-                    oldD = d;
-                    YM2151Hosei = i;
-                }
-                YM2151Hosei -= 12;
+                delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock(0);
             }
+            float d;
+            float oldD = float.MaxValue;
+            for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
+            {
+                d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                if (d > oldD) break;
+                oldD = d;
+                YM2151Hosei = i;
+            }
+            YM2151Hosei -= 12;
 
             vgmDataOffset = getLE32(0x34);
             if (vgmDataOffset == 0)
