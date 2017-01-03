@@ -251,7 +251,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPM = 2;
             else ChipSecOPM = 2;
 
-            fmRegisterYM2151[chipID][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2151[chipID][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2151[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151[chipID].UseScci))
             {
@@ -368,7 +368,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPN = 2;
             else ChipSecOPN = 2;
 
-            fmRegisterYM2203[chipID][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2203[chipID][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2203[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2203[chipID].UseScci))
             {
@@ -457,7 +457,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPNA = 2;
             else ChipSecOPNA = 2;
 
-            fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2608[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2608[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608[chipID].UseScci))
             {
@@ -612,7 +612,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPNB = 2;
             else ChipSecOPNB = 2;
 
-            fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2610[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2610[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610[chipID].UseScci))
             {
@@ -782,7 +782,7 @@ namespace MDPlayer
             if (chipID == 0) ChipPriOPN2 = 2;
             else ChipSecOPN2 = 2;
 
-            fmRegisterYM2612[chipID][dPort][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2612[chipID][dPort][dAddr] = dData;
 
             if ((model == vgm.enmModel.RealModel && ctYM2612[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612[chipID].UseScci))
             {
