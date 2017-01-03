@@ -3012,7 +3012,14 @@ namespace MDPlayer
         {
             if (Audio.isPaused)
             {
+                Audio.StepPlay(4000);
                 Audio.Pause();
+                return;
+            }
+
+            if (Audio.isStopped)
+            {
+                play();
             }
 
             Audio.Slow();

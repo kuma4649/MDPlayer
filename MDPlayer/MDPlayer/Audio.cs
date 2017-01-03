@@ -77,6 +77,7 @@ namespace MDPlayer
 
         private static bool Paused = false;
         public static bool Stopped = false;
+        private static int StepCounter = 0;
 
         private static Setting setting = null;
 
@@ -792,6 +793,13 @@ namespace MDPlayer
             vgmReal.vgmSpeed = vgmSpeed;
         }
 
+        public static void ResetSlow()
+        {
+            vgmSpeed = 1;
+            vgmVirtual.vgmSpeed = vgmSpeed;
+            vgmReal.vgmSpeed = vgmSpeed;
+        }
+
         public static void Pause()
         {
 
@@ -812,6 +820,19 @@ namespace MDPlayer
             {
                 return Paused;
             }
+        }
+
+        public static bool isStopped
+        {
+            get
+            {
+                return Stopped;
+            }
+        }
+
+        public static void StepPlay(int Step)
+        {
+            StepCounter = Step;
         }
 
         public static void Fadeout()
@@ -1446,11 +1467,21 @@ namespace MDPlayer
 
                 if (Stopped || Paused)
                 {
-
                     return mds.Update(buffer, offset, sampleCount, null);
 
                 }
                 if (vgmReal.isDataBlock) { return mds.Update(buffer, offset, sampleCount, null); }
+
+                if (StepCounter > 0)
+                {
+                    StepCounter -= sampleCount;
+                    if (StepCounter <= 0)
+                    {
+                        Paused = true;
+                        StepCounter = 0;
+                        return mds.Update(buffer, offset, sampleCount, null);
+                    }
+                }
 
                 int cnt;
                 cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
