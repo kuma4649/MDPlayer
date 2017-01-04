@@ -718,6 +718,7 @@ namespace MDPlayer
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
             tbMIDIOutputPath.Text = setting.midiExport.ExportPath;
+            cbMIDIUseVOPM.Checked = setting.midiExport.UseVOPMex;
 
         }
 
@@ -1027,6 +1028,7 @@ namespace MDPlayer
 
             setting.midiExport.UseMIDIExport=cbUseMIDIExport.Checked;
             setting.midiExport.ExportPath = tbMIDIOutputPath.Text;
+            setting.midiExport.UseVOPMex = cbMIDIUseVOPM.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -1745,12 +1745,28 @@ namespace MDPlayer
                 }
             }
 
+            private bool _UseVOPMex = false;
+            public bool UseVOPMex
+            {
+                get
+                {
+                    return _UseVOPMex;
+                }
+
+                set
+                {
+                    _UseVOPMex = value;
+                }
+            }
+
+
             public MidiExport Copy()
             {
                 MidiExport MidiExport = new MidiExport();
 
                 MidiExport.UseMIDIExport = this.UseMIDIExport;
                 MidiExport.ExportPath = this.ExportPath;
+                MidiExport.UseVOPMex = this.UseVOPMex;
 
                 return MidiExport;
             }

@@ -57,7 +57,6 @@
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -146,6 +145,7 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
+            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -510,15 +510,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
             // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(358, 182);
-            this.ucSI.TabIndex = 7;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
@@ -634,7 +625,6 @@
             // cbMIDIUseVOPM
             // 
             this.cbMIDIUseVOPM.AutoSize = true;
-            this.cbMIDIUseVOPM.Enabled = false;
             this.cbMIDIUseVOPM.Location = new System.Drawing.Point(21, 44);
             this.cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
             this.cbMIDIUseVOPM.Size = new System.Drawing.Size(196, 16);
@@ -1342,6 +1332,15 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(358, 182);
+            this.ucSI.TabIndex = 7;
             // 
             // frmSetting
             // 

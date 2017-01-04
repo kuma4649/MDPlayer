@@ -1750,10 +1750,191 @@ namespace MDPlayer
                 {
                     midiData.Add((byte)(0x90 | ch));
                     midiData.Add(code);
-                    midiData.Add(vel);
+                    if (setting.midiExport.UseVOPMex)
+                    {
+                        midiData.Add(127);
+                    }
+                    else
+                    {
+                        midiData.Add(vel);
+                    }
 
                     midiData_OldCode[ch] = code;
                 }
+
+                return;
+            }
+
+            ////
+            //VOPMex向け
+            ////
+            if (!setting.midiExport.UseVOPMex) return;
+
+            //DT/ML
+            if ((dAddr & 0xf0) == 0x30)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // DT
+                midiData.Add((byte)(24 + op));
+                midiData.Add((byte)((dData & 0x70) >> 4));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //ML
+                midiData.Add((byte)(20 + op));
+                midiData.Add((byte)((dData & 0x0f) >> 0));
+
+                return;
+            }
+
+            //TL
+            if ((dAddr & 0xf0) == 0x40)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // TL
+                midiData.Add((byte)(16 + op));
+                midiData.Add((byte)((dData & 0x7f) >> 0));
+
+                return;
+            }
+
+            //KS/AR
+            if ((dAddr & 0xf0) == 0x50)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // KS
+                midiData.Add((byte)(39 + op));
+                midiData.Add((byte)((dData & 0xc0) >> 6));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //AR
+                midiData.Add((byte)(43 + op));
+                midiData.Add((byte)((dData & 0x1f) >> 0));
+
+                return;
+            }
+
+            //AMS/DR
+            if ((dAddr & 0xf0) == 0x60)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // AMS
+                midiData.Add((byte)(70 + op));
+                midiData.Add((byte)((dData & 0x80) >> 7));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //DR
+                midiData.Add((byte)(47 + op));
+                midiData.Add((byte)((dData & 0x1f) >> 0));
+
+                return;
+            }
+
+            //SR
+            if ((dAddr & 0xf0) == 0x70)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); //SR
+                midiData.Add((byte)(51 + op));
+                midiData.Add((byte)((dData & 0x1f) >> 0));
+
+                return;
+            }
+
+            //DL/RR
+            if ((dAddr & 0xf0) == 0x80)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+                int op = (dAddr & 0xc) >> 2;
+                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // DL
+                midiData.Add((byte)(55 + op));
+                midiData.Add((byte)((dData & 0xf0) >> 4));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //RR
+                midiData.Add((byte)(59 + op));
+                midiData.Add((byte)((dData & 0x0f) >> 0));
+
+                return;
+            }
+
+            //FB/ALG
+            if (dAddr >= 0xB0 && dAddr < 0xB4)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // FB
+                midiData.Add((byte)(15));
+                midiData.Add((byte)((dData & 0x38) >> 3));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //ALG
+                midiData.Add((byte)(14));
+                midiData.Add((byte)((dData & 0x07) >> 0));
+
+                return;
+            }
+
+            //PAN/AMS/FMS
+            if (dAddr >= 0xB4 && dAddr < 0xB8)
+            {
+                int ch = (dAddr & 0x3) + dPort * 3;
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                midiData.Add((byte)(0xb0 | ch)); // PAN
+                midiData.Add((byte)(10));
+                int pan = (dData & 0xc0) >> 6;
+                midiData.Add((byte)(pan == 0 ? 64 : ((pan == 1) ? 127 : ((pan == 2) ? 1 : 64))));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //AMS
+                midiData.Add((byte)(76));
+                midiData.Add((byte)((dData & 0x38) >> 3));
+
+                midiData.Add(0);//Delta 0
+
+                midiData.Add((byte)(0xb0 | ch)); //FMS
+                midiData.Add((byte)(75));
+                midiData.Add((byte)((dData & 0x03) >> 0));
+
+                return;
             }
 
         }
@@ -1764,6 +1945,27 @@ namespace MDPlayer
             if (setting.midiExport.ExportPath == "") return;
             if (midiData == null) return;
             if (midiData.Count < 23) return;
+
+            outMIDIData_SetDelta(midiData_OldFrameCounter);
+            bool flg = false;
+
+            for (int ch = 0; ch < 6; ch++)
+            {
+                if (midiData_OldCode[ch] >= 0)
+                {
+                    if (flg)
+                    {
+                        midiData.Add(0x00);//Delta 0
+                    }
+
+                    midiData.Add((byte)(0x80 | ch));
+                    midiData.Add((byte)midiData_OldCode[ch]);
+                    midiData.Add(0x00);
+
+                    midiData_OldCode[ch] = -1;
+                    flg = true;
+                }
+            }
 
             try
             {
@@ -1865,6 +2067,28 @@ namespace MDPlayer
             midiData.Add(0xa1);
             midiData.Add(0x20);
 
+            //VOPMex向け
+
+            for (int i = 0; i < 16; i++)
+            {
+                //音色コントロールの動作を変更(全MIDIチャンネル)
+                midiData.Add(0x00); //Delta 0
+                midiData.Add((byte)(0xb0+i)); // CC 98 127
+                midiData.Add(121);
+                midiData.Add(127);
+                midiData.Add(0x00); //Delta 0
+                midiData.Add((byte)(0xb0 + i)); // CC 98 127
+                midiData.Add(98);
+                midiData.Add(127);
+                midiData.Add(0x00); //Delta 0
+                midiData.Add((byte)(0xb0 + i)); // CC 99 126
+                midiData.Add(99);
+                midiData.Add(126);
+                midiData.Add(0x00); //Delta 0
+                midiData.Add((byte)(0xb0 + i)); // CC 6 127
+                midiData.Add(6);
+                midiData.Add(127);
+            }
         }
 
     }
