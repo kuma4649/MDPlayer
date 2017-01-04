@@ -715,6 +715,10 @@ namespace MDPlayer
             gbDump.Enabled = cbDumpSwitch.Checked;
             tbDumpPath.Text = setting.other.DumpPath;
 
+            cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
+            gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
+            tbMIDIOutputPath.Text = setting.midiExport.ExportPath;
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1021,6 +1025,8 @@ namespace MDPlayer
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
 
+            setting.midiExport.UseMIDIExport=cbUseMIDIExport.Checked;
+            setting.midiExport.ExportPath = tbMIDIOutputPath.Text;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -1200,6 +1206,25 @@ namespace MDPlayer
             if (res == DialogResult.No) return;
 
             setting.location = new Setting.Location();
+        }
+
+        private void cbUseMIDIExport_CheckedChanged(object sender, EventArgs e)
+        {
+            gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
+        }
+
+        private void btnMIDIOutputPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "フォルダーを指定してください。";
+
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbMIDIOutputPath.Text = fbd.SelectedPath;
         }
     }
 

@@ -66,6 +66,27 @@
             this.tbLatencyEmu = new System.Windows.Forms.TextBox();
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.tabMIDIExp = new System.Windows.Forms.TabPage();
+            this.cbUseMIDIExport = new System.Windows.Forms.CheckBox();
+            this.gbMIDIExport = new System.Windows.Forms.GroupBox();
+            this.cbMIDIUseVOPM = new System.Windows.Forms.CheckBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cbMIDIYM2612 = new System.Windows.Forms.CheckBox();
+            this.cbMIDISN76489Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2612Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDISN76489 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2151 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2610BSec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2151Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2610B = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2203 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2608Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2203Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2608 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIPlayless = new System.Windows.Forms.CheckBox();
+            this.btnMIDIOutputPath = new System.Windows.Forms.Button();
+            this.lblOutputPath = new System.Windows.Forms.Label();
+            this.tbMIDIOutputPath = new System.Windows.Forms.TextBox();
             this.tpOther = new System.Windows.Forms.TabPage();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -134,6 +155,9 @@
             this.tpModule.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabMIDIExp.SuspendLayout();
+            this.gbMIDIExport.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.tpOther.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.gbDump.SuspendLayout();
@@ -398,6 +422,7 @@
             // 
             this.tcSetting.Controls.Add(this.tpOutput);
             this.tcSetting.Controls.Add(this.tpModule);
+            this.tcSetting.Controls.Add(this.tabMIDIExp);
             this.tcSetting.Controls.Add(this.tpOther);
             this.tcSetting.Controls.Add(this.tpOmake);
             this.tcSetting.Controls.Add(this.tpAbout);
@@ -569,6 +594,234 @@
             this.label10.Size = new System.Drawing.Size(20, 12);
             this.label10.TabIndex = 2;
             this.label10.Text = "ms";
+            // 
+            // tabMIDIExp
+            // 
+            this.tabMIDIExp.Controls.Add(this.cbUseMIDIExport);
+            this.tabMIDIExp.Controls.Add(this.gbMIDIExport);
+            this.tabMIDIExp.Location = new System.Drawing.Point(4, 22);
+            this.tabMIDIExp.Name = "tabMIDIExp";
+            this.tabMIDIExp.Size = new System.Drawing.Size(374, 291);
+            this.tabMIDIExp.TabIndex = 6;
+            this.tabMIDIExp.Text = "MIDIExport";
+            this.tabMIDIExp.UseVisualStyleBackColor = true;
+            // 
+            // cbUseMIDIExport
+            // 
+            this.cbUseMIDIExport.AutoSize = true;
+            this.cbUseMIDIExport.Location = new System.Drawing.Point(15, 3);
+            this.cbUseMIDIExport.Name = "cbUseMIDIExport";
+            this.cbUseMIDIExport.Size = new System.Drawing.Size(177, 16);
+            this.cbUseMIDIExport.TabIndex = 1;
+            this.cbUseMIDIExport.Text = "演奏時MIDIファイルをexportする";
+            this.cbUseMIDIExport.UseVisualStyleBackColor = true;
+            this.cbUseMIDIExport.CheckedChanged += new System.EventHandler(this.cbUseMIDIExport_CheckedChanged);
+            // 
+            // gbMIDIExport
+            // 
+            this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
+            this.gbMIDIExport.Controls.Add(this.groupBox6);
+            this.gbMIDIExport.Controls.Add(this.cbMIDIPlayless);
+            this.gbMIDIExport.Controls.Add(this.btnMIDIOutputPath);
+            this.gbMIDIExport.Controls.Add(this.lblOutputPath);
+            this.gbMIDIExport.Controls.Add(this.tbMIDIOutputPath);
+            this.gbMIDIExport.Location = new System.Drawing.Point(7, 3);
+            this.gbMIDIExport.Name = "gbMIDIExport";
+            this.gbMIDIExport.Size = new System.Drawing.Size(360, 285);
+            this.gbMIDIExport.TabIndex = 0;
+            this.gbMIDIExport.TabStop = false;
+            // 
+            // cbMIDIUseVOPM
+            // 
+            this.cbMIDIUseVOPM.AutoSize = true;
+            this.cbMIDIUseVOPM.Enabled = false;
+            this.cbMIDIUseVOPM.Location = new System.Drawing.Point(21, 44);
+            this.cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
+            this.cbMIDIUseVOPM.Size = new System.Drawing.Size(196, 16);
+            this.cbMIDIUseVOPM.TabIndex = 23;
+            this.cbMIDIUseVOPM.Text = "VOPMex向けコントロールを出力する";
+            this.cbMIDIUseVOPM.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.cbMIDIYM2612);
+            this.groupBox6.Controls.Add(this.cbMIDISN76489Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2612Sec);
+            this.groupBox6.Controls.Add(this.cbMIDISN76489);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2151);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2610BSec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2151Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2610B);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2203);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2608);
+            this.groupBox6.Enabled = false;
+            this.groupBox6.Location = new System.Drawing.Point(21, 91);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(188, 152);
+            this.groupBox6.TabIndex = 22;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "出力対象音源";
+            // 
+            // cbMIDIYM2612
+            // 
+            this.cbMIDIYM2612.AutoSize = true;
+            this.cbMIDIYM2612.Checked = true;
+            this.cbMIDIYM2612.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMIDIYM2612.Location = new System.Drawing.Point(6, 18);
+            this.cbMIDIYM2612.Name = "cbMIDIYM2612";
+            this.cbMIDIYM2612.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2612.TabIndex = 21;
+            this.cbMIDIYM2612.Text = "YM2612";
+            this.cbMIDIYM2612.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDISN76489Sec
+            // 
+            this.cbMIDISN76489Sec.AutoSize = true;
+            this.cbMIDISN76489Sec.Location = new System.Drawing.Point(84, 128);
+            this.cbMIDISN76489Sec.Name = "cbMIDISN76489Sec";
+            this.cbMIDISN76489Sec.Size = new System.Drawing.Size(96, 16);
+            this.cbMIDISN76489Sec.TabIndex = 21;
+            this.cbMIDISN76489Sec.Text = "SN76489(Sec)";
+            this.cbMIDISN76489Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2612Sec
+            // 
+            this.cbMIDIYM2612Sec.AutoSize = true;
+            this.cbMIDIYM2612Sec.Location = new System.Drawing.Point(84, 18);
+            this.cbMIDIYM2612Sec.Name = "cbMIDIYM2612Sec";
+            this.cbMIDIYM2612Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2612Sec.TabIndex = 21;
+            this.cbMIDIYM2612Sec.Text = "YM2612(Sec)";
+            this.cbMIDIYM2612Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDISN76489
+            // 
+            this.cbMIDISN76489.AutoSize = true;
+            this.cbMIDISN76489.Location = new System.Drawing.Point(6, 128);
+            this.cbMIDISN76489.Name = "cbMIDISN76489";
+            this.cbMIDISN76489.Size = new System.Drawing.Size(69, 16);
+            this.cbMIDISN76489.TabIndex = 21;
+            this.cbMIDISN76489.Text = "SN76489";
+            this.cbMIDISN76489.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2151
+            // 
+            this.cbMIDIYM2151.AutoSize = true;
+            this.cbMIDIYM2151.Location = new System.Drawing.Point(6, 40);
+            this.cbMIDIYM2151.Name = "cbMIDIYM2151";
+            this.cbMIDIYM2151.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2151.TabIndex = 21;
+            this.cbMIDIYM2151.Text = "YM2151";
+            this.cbMIDIYM2151.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2610BSec
+            // 
+            this.cbMIDIYM2610BSec.AutoSize = true;
+            this.cbMIDIYM2610BSec.Location = new System.Drawing.Point(84, 106);
+            this.cbMIDIYM2610BSec.Name = "cbMIDIYM2610BSec";
+            this.cbMIDIYM2610BSec.Size = new System.Drawing.Size(99, 16);
+            this.cbMIDIYM2610BSec.TabIndex = 21;
+            this.cbMIDIYM2610BSec.Text = "YM2610B(Sec)";
+            this.cbMIDIYM2610BSec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2151Sec
+            // 
+            this.cbMIDIYM2151Sec.AutoSize = true;
+            this.cbMIDIYM2151Sec.Location = new System.Drawing.Point(84, 40);
+            this.cbMIDIYM2151Sec.Name = "cbMIDIYM2151Sec";
+            this.cbMIDIYM2151Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2151Sec.TabIndex = 21;
+            this.cbMIDIYM2151Sec.Text = "YM2151(Sec)";
+            this.cbMIDIYM2151Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2610B
+            // 
+            this.cbMIDIYM2610B.AutoSize = true;
+            this.cbMIDIYM2610B.Location = new System.Drawing.Point(6, 106);
+            this.cbMIDIYM2610B.Name = "cbMIDIYM2610B";
+            this.cbMIDIYM2610B.Size = new System.Drawing.Size(72, 16);
+            this.cbMIDIYM2610B.TabIndex = 21;
+            this.cbMIDIYM2610B.Text = "YM2610B";
+            this.cbMIDIYM2610B.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2203
+            // 
+            this.cbMIDIYM2203.AutoSize = true;
+            this.cbMIDIYM2203.Location = new System.Drawing.Point(6, 62);
+            this.cbMIDIYM2203.Name = "cbMIDIYM2203";
+            this.cbMIDIYM2203.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2203.TabIndex = 21;
+            this.cbMIDIYM2203.Text = "YM2203";
+            this.cbMIDIYM2203.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2608Sec
+            // 
+            this.cbMIDIYM2608Sec.AutoSize = true;
+            this.cbMIDIYM2608Sec.Location = new System.Drawing.Point(84, 84);
+            this.cbMIDIYM2608Sec.Name = "cbMIDIYM2608Sec";
+            this.cbMIDIYM2608Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2608Sec.TabIndex = 21;
+            this.cbMIDIYM2608Sec.Text = "YM2608(Sec)";
+            this.cbMIDIYM2608Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2203Sec
+            // 
+            this.cbMIDIYM2203Sec.AutoSize = true;
+            this.cbMIDIYM2203Sec.Location = new System.Drawing.Point(84, 62);
+            this.cbMIDIYM2203Sec.Name = "cbMIDIYM2203Sec";
+            this.cbMIDIYM2203Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2203Sec.TabIndex = 21;
+            this.cbMIDIYM2203Sec.Text = "YM2203(Sec)";
+            this.cbMIDIYM2203Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2608
+            // 
+            this.cbMIDIYM2608.AutoSize = true;
+            this.cbMIDIYM2608.Location = new System.Drawing.Point(6, 84);
+            this.cbMIDIYM2608.Name = "cbMIDIYM2608";
+            this.cbMIDIYM2608.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2608.TabIndex = 21;
+            this.cbMIDIYM2608.Text = "YM2608";
+            this.cbMIDIYM2608.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIPlayless
+            // 
+            this.cbMIDIPlayless.AutoSize = true;
+            this.cbMIDIPlayless.Enabled = false;
+            this.cbMIDIPlayless.Location = new System.Drawing.Point(21, 22);
+            this.cbMIDIPlayless.Name = "cbMIDIPlayless";
+            this.cbMIDIPlayless.Size = new System.Drawing.Size(141, 16);
+            this.cbMIDIPlayless.TabIndex = 20;
+            this.cbMIDIPlayless.Text = "演奏を行わずに出力する";
+            this.cbMIDIPlayless.UseVisualStyleBackColor = true;
+            // 
+            // btnMIDIOutputPath
+            // 
+            this.btnMIDIOutputPath.Location = new System.Drawing.Point(332, 64);
+            this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
+            this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
+            this.btnMIDIOutputPath.TabIndex = 19;
+            this.btnMIDIOutputPath.Text = "...";
+            this.btnMIDIOutputPath.UseVisualStyleBackColor = true;
+            this.btnMIDIOutputPath.Click += new System.EventHandler(this.btnMIDIOutputPath_Click);
+            // 
+            // lblOutputPath
+            // 
+            this.lblOutputPath.AutoSize = true;
+            this.lblOutputPath.Location = new System.Drawing.Point(20, 69);
+            this.lblOutputPath.Name = "lblOutputPath";
+            this.lblOutputPath.Size = new System.Drawing.Size(52, 12);
+            this.lblOutputPath.TabIndex = 17;
+            this.lblOutputPath.Text = "出力Path";
+            // 
+            // tbMIDIOutputPath
+            // 
+            this.tbMIDIOutputPath.Location = new System.Drawing.Point(78, 66);
+            this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
+            this.tbMIDIOutputPath.Size = new System.Drawing.Size(248, 19);
+            this.tbMIDIOutputPath.TabIndex = 18;
             // 
             // tpOther
             // 
@@ -1122,6 +1375,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabMIDIExp.ResumeLayout(false);
+            this.tabMIDIExp.PerformLayout();
+            this.gbMIDIExport.ResumeLayout(false);
+            this.gbMIDIExport.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1254,5 +1513,26 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbDumpPath;
         private System.Windows.Forms.Button btnResetPosition;
+        private System.Windows.Forms.TabPage tabMIDIExp;
+        private System.Windows.Forms.CheckBox cbUseMIDIExport;
+        private System.Windows.Forms.GroupBox gbMIDIExport;
+        private System.Windows.Forms.CheckBox cbMIDIUseVOPM;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox cbMIDIYM2612;
+        private System.Windows.Forms.CheckBox cbMIDISN76489Sec;
+        private System.Windows.Forms.CheckBox cbMIDIYM2612Sec;
+        private System.Windows.Forms.CheckBox cbMIDISN76489;
+        private System.Windows.Forms.CheckBox cbMIDIYM2151;
+        private System.Windows.Forms.CheckBox cbMIDIYM2610BSec;
+        private System.Windows.Forms.CheckBox cbMIDIYM2151Sec;
+        private System.Windows.Forms.CheckBox cbMIDIYM2610B;
+        private System.Windows.Forms.CheckBox cbMIDIYM2203;
+        private System.Windows.Forms.CheckBox cbMIDIYM2608Sec;
+        private System.Windows.Forms.CheckBox cbMIDIYM2203Sec;
+        private System.Windows.Forms.CheckBox cbMIDIYM2608;
+        private System.Windows.Forms.CheckBox cbMIDIPlayless;
+        private System.Windows.Forms.Button btnMIDIOutputPath;
+        private System.Windows.Forms.Label lblOutputPath;
+        private System.Windows.Forms.TextBox tbMIDIOutputPath;
     }
 }

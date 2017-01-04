@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace MDPlayer
 {
     public class ChipRegister
     {
 
+        private Setting setting = null;
         private MDSound.MDSound mds = null;
 
         private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
@@ -141,7 +140,8 @@ namespace MDPlayer
         private int volF = 1;
 
 
-        public ChipRegister(MDSound.MDSound mds
+        public ChipRegister(Setting setting
+            , MDSound.MDSound mds
             , NScci.NSoundChip[] scYM2612
             , NScci.NSoundChip[] scSN76489
             , NScci.NSoundChip[] scYM2608
@@ -156,7 +156,7 @@ namespace MDPlayer
             , Setting.ChipType[] ctYM2610
             )
         {
-
+            this.setting = setting;
             this.mds = mds;
 
             this.scYM2612 = scYM2612;
@@ -775,14 +775,18 @@ namespace MDPlayer
 
         }
 
-        public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model)
+        public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model,long vgmFrameCounter)
         {
             if (ctYM2612 == null) return;
 
             if (chipID == 0) ChipPriOPN2 = 2;
             else ChipSecOPN2 = 2;
 
-            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2612[chipID][dPort][dAddr] = dData;
+            if (model == vgm.enmModel.VirtualModel)
+            {
+                fmRegisterYM2612[chipID][dPort][dAddr] = dData;
+                outMIDIData(enmChip.YM2612, chipID, dPort, dAddr, dData, vgmFrameCounter);
+            }
 
             if ((model == vgm.enmModel.RealModel && ctYM2612[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612[chipID].UseScci))
             {
@@ -848,7 +852,7 @@ namespace MDPlayer
                         int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
                         if ((algM[al] & (1 << slot)) > 0)
                         {
-                            setYM2612Register(chipID, dPort, 0x40 + ch + slot * 4, fmRegisterYM2612[chipID][dPort][0x40 + ch], model);
+                            setYM2612Register(chipID, dPort, 0x40 + ch + slot * 4, fmRegisterYM2612[chipID][dPort][0x40 + ch], model,vgmFrameCounter);
                         }
                     }
                 }
@@ -1055,15 +1059,15 @@ namespace MDPlayer
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.VirtualModel);
-            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.VirtualModel);
-            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.VirtualModel);
-            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.VirtualModel);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.VirtualModel, -1);
 
-            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel, -1);
         }
 
 
@@ -1152,10 +1156,10 @@ namespace MDPlayer
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel, -1);
                 }
             }
         }
@@ -1298,10 +1302,10 @@ namespace MDPlayer
                 {
                     for (int c = 0; c < 3; c++)
                     {
-                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel);
-                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
-                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
-                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel,-1);
+                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel, -1);
                     }
                 }
 
@@ -1368,6 +1372,10 @@ namespace MDPlayer
 
         }
 
+        internal void SetFileName(string fn)
+        {
+            PlayingFileName = fn;
+        }
 
         public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, vgm.enmModel model)
         {
@@ -1680,6 +1688,183 @@ namespace MDPlayer
                     NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
                     break;
             }
+        }
+
+
+
+        public enum enmChip
+        {
+            YM2612
+        }
+
+        private List<byte> midiData = null;
+        private long midiData_OldFrameCounter = 0L;
+        private int[] midiData_OldCode = null;
+
+        private string PlayingFileName = "";
+
+        public void outMIDIData(enmChip chip, int chipID, int dPort, int dAddr, int dData, long vgmFrameCounter)
+        {
+            if (!setting.midiExport.UseMIDIExport) return;
+            if (setting.midiExport.ExportPath == "") return;
+            if (vgmFrameCounter < 0) return;
+            if (chip != enmChip.YM2612) return;
+            if (chipID != 0) return;
+
+            if (midiData == null)
+            {
+                outMIDIData_MakeHeader();
+            }
+
+            if (dPort == 0 && dAddr == 0x28)
+            {
+                byte ch = (byte)(dData & 0x7);
+                ch = (byte)(ch > 2 ? ch - 1 : ch);
+                byte cmd = (byte)((dData & 0xf0) != 0 ? 0x90 : 0x80);
+
+                int p = ch > 2 ? 1 : 0;
+                int vch = ch > 2 ? (ch - 3) : ch;
+                int freq = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x07) * 0x100;
+                if (freq == 0) return;
+                int octav = (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x38) >> 3;
+                int note = searchFMNote(freq);
+                byte code = (byte)(octav * 12 + note);
+
+                byte vel = (byte)(127 - fmRegisterYM2612[chipID][p][0x4c + vch]);
+
+                if (midiData_OldCode[ch] < 0 && cmd == 0x80) return;
+
+                outMIDIData_SetDelta(vgmFrameCounter);
+
+                if (midiData_OldCode[ch] >= 0 || cmd == 0x80)
+                {
+                    midiData.Add((byte)(0x80 | ch));
+                    midiData.Add((byte)midiData_OldCode[ch]);
+                    midiData.Add(0x00);
+
+                    midiData_OldCode[ch] = -1;
+                    if (cmd != 0x80) midiData.Add(0);//NextDeltaTime
+                }
+
+                if (cmd == 0x90)
+                {
+                    midiData.Add((byte)(0x90 | ch));
+                    midiData.Add(code);
+                    midiData.Add(vel);
+
+                    midiData_OldCode[ch] = code;
+                }
+            }
+
+        }
+
+        public void outMIDIData_Close()
+        {
+            if (!setting.midiExport.UseMIDIExport) return;
+            if (setting.midiExport.ExportPath == "") return;
+            if (midiData == null) return;
+            if (midiData.Count < 23) return;
+
+            try
+            {
+                midiData[0x12] = (byte)(((midiData.Count - 22) & 0xff000000) >> 24);
+                midiData[0x13] = (byte)(((midiData.Count - 22) & 0x00ff0000) >> 16);
+                midiData[0x14] = (byte)(((midiData.Count - 22) & 0x0000ff00) >> 8);
+                midiData[0x15] = (byte)(((midiData.Count - 22) & 0x000000ff) >> 0);
+                string fn = PlayingFileName == "" ? "Temp.mid" : PlayingFileName;
+                File.WriteAllBytes(Path.Combine(setting.midiExport.ExportPath, Path.ChangeExtension(Path.GetFileName(fn), ".mid")), midiData.ToArray());
+            }
+            catch
+            {
+            }
+
+            midiData = null;
+        }
+
+        private int searchFMNote(int freq)
+        {
+            int m = int.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 5; i++)
+            {
+                int a = Math.Abs(freq - Tables.FmFNum[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n - 12 * 3;
+        }
+
+        private void outMIDIData_SetDelta(long NewFrameCounter)
+        {
+
+            long sub = NewFrameCounter - midiData_OldFrameCounter;
+            long step = (long)(sub / 44100.0 * 960.0);
+            midiData_OldFrameCounter += (long)(step * 44100.0 / 960.0);
+
+            //byte[] a = new byte[4];
+            //a[0] = (byte)((step & 0x0fe00000) >> 21);
+            //a[1] = (byte)((step & 0x001fc000) >> 14);
+            //a[2] = (byte)((step & 0x00003f80) >>  7);
+            //a[3] = (byte)((step & 0x0000007f) >>  0);
+            bool flg = true;
+            for (int i = 0; i < 4; i++)
+            {
+                byte d = (byte)((step & (0x0fe00000 >> (7 * i))) >> (21 - 7 * i));
+                if (flg && d == 0 && i < 3) continue;
+                flg = false;
+                d |= (byte)((i != 3) ? 0x80 : 0x00);
+                midiData.Add(d);
+            }
+
+        }
+
+        private void outMIDIData_MakeHeader()
+        {
+            midiData_OldCode = new int[] { -1, -1, -1, -1, -1, -1 };
+            midiData = new List<byte>();
+            midiData_OldFrameCounter = 0L;
+
+            midiData.Add(0x4d); //チャンクタイプ'MThd'
+            midiData.Add(0x54);
+            midiData.Add(0x68);
+            midiData.Add(0x64);
+
+            midiData.Add(0x00); //データ長
+            midiData.Add(0x00);
+            midiData.Add(0x00);
+            midiData.Add(0x06);
+
+            midiData.Add(0x00); //フォーマット
+            midiData.Add(0x00);
+
+            midiData.Add(0x00); //トラック数
+            midiData.Add(0x01);
+
+            midiData.Add(0x01); //分解能
+            midiData.Add(0xe0);
+
+            midiData.Add(0x4d); //チャンクタイプ'MTrk'
+            midiData.Add(0x54);
+            midiData.Add(0x72);
+            midiData.Add(0x6b);
+
+            midiData.Add(0x00); //データ長 この時点では不明のためとりあえず0
+            midiData.Add(0x00);
+            midiData.Add(0x00);
+            midiData.Add(0x00);
+
+            midiData.Add(0x00); //Delta 0
+
+            midiData.Add(0xff); //メタイベント　テンポ設定 BPM = 120
+            midiData.Add(0x51);
+            midiData.Add(0x03);
+            midiData.Add(0x07);
+            midiData.Add(0xa1);
+            midiData.Add(0x20);
+
         }
 
     }

@@ -130,7 +130,8 @@ namespace MDPlayer
                 {
                     foreach (ZipArchiveEntry entry in archive.Entries)
                     {
-                        byte[] buf = frmMain.getBytesFromZipFile(entry);
+                        string dummy;
+                        byte[] buf = frmMain.getBytesFromZipFile(entry,out dummy);
 
                         if (buf != null)
                         {

@@ -426,7 +426,7 @@ namespace MDPlayer
             switch (ChipType)
             {
                 case 0x02:  // YM2612
-                    chipRegister.setYM2612Register(ChipID,Port, Offset, Data, model);
+                    chipRegister.setYM2612Register(ChipID,Port, Offset, Data, model,-1);
                     break;
                 case 0x10:
                     chipRegister.writeRF5C164(ChipID, Offset, Data, model);

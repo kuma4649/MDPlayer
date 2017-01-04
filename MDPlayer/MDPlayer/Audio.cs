@@ -114,6 +114,8 @@ namespace MDPlayer
         public static int ChipSecSPCM = 0;
 
         private static int MasterVolume = 0;
+        static int[] chips = new int[256];
+        private static string PlayingFileName;
 
 
         public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
@@ -242,7 +244,8 @@ namespace MDPlayer
             if (scYM2610[1] != null) scYM2610[1].init();
 
             chipRegister = new ChipRegister(
-                mds
+                setting
+                , mds
                 , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610
                 , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
                 , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
@@ -306,10 +309,12 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(byte[] srcBuf)
+        public static void SetVGMBuffer(byte[] srcBuf,string playingFileName)
         {
             Stop();
             vgmBuf = srcBuf;
+            PlayingFileName = playingFileName;
+            chipRegister.SetFileName(playingFileName);
         }
 
         public static bool Play(Setting setting)
@@ -885,8 +890,10 @@ namespace MDPlayer
                 };
                 //if (scYM2612 != null) scYM2612.init();
                 if (nscci != null) nscci.reset();
+                //chipRegister.outMIDIData_Close();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.ForcedWrite(ex);
             }
@@ -924,7 +931,6 @@ namespace MDPlayer
             return vgmVirtual.LoopCounter;
         }
 
-        static int[] chips = new int[256];
         public static int[] GetChipStatus()
         {
             chips[0] = chipRegister.ChipPriOPN;
@@ -1636,6 +1642,9 @@ namespace MDPlayer
                         mds.Init(SamplingRate, samplingBuffer, chips);
 
                     Stopped = true;
+
+                    chipRegister.outMIDIData_Close();
+
                 }
 
                 return cnt;
@@ -1816,6 +1825,14 @@ namespace MDPlayer
             return dat;
         }
 
+        //public static void SetFileName(string fn)
+        //{
+        //    PlayingFileName = fn;
+        //    if (chipRegister != null)
+        //    {
+        //        chipRegister.SetFileName(fn);
+        //    }
+        //}
     }
 
 

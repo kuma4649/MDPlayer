@@ -3934,6 +3934,7 @@ namespace MDPlayer
                     Audio.Pause();
                 }
 
+                string outMIDIFn = fn;
                 if (zfn == null || zfn == "")
                 {
                     srcBuf = getAllBytes(fn);
@@ -3943,11 +3944,13 @@ namespace MDPlayer
                     using (ZipArchive archive = ZipFile.OpenRead(zfn))
                     {
                         ZipArchiveEntry entry = archive.GetEntry(fn);
-                        srcBuf = getBytesFromZipFile(entry);
+                        string arcFn = "";
+                        srcBuf = getBytesFromZipFile(entry,out arcFn);
+                        if (arcFn != "") outMIDIFn = arcFn;
                     }
                 }
 
-                Audio.SetVGMBuffer(srcBuf);
+                Audio.SetVGMBuffer(srcBuf, outMIDIFn);
 
                 if (srcBuf != null)
                 {
@@ -3966,13 +3969,14 @@ namespace MDPlayer
             return true;
         }
 
-        public byte[] getBytesFromZipFile(ZipArchiveEntry entry)
+        public byte[] getBytesFromZipFile(ZipArchiveEntry entry,out string arcFn)
         {
             byte[] buf=null;
-
+            arcFn = "";
             if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
             {
                 //Console.WriteLine(entry.FullName);
+                arcFn = entry.FullName;
                 using (BinaryReader reader = new BinaryReader(entry.Open()))
                 {
                     buf = reader.ReadBytes((int)entry.Length);

@@ -293,6 +293,19 @@ namespace MDPlayer
             }
         }
 
+        private MidiExport _midiExport = new MidiExport();
+        public MidiExport midiExport
+        {
+            get
+            {
+                return _midiExport;
+            }
+
+            set
+            {
+                _midiExport = value;
+            }
+        }
 
         [Serializable]
         public class OutputDevice
@@ -1700,6 +1713,50 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class MidiExport
+        {
+
+            private bool _UseMIDIExport = false;
+            public bool UseMIDIExport
+            {
+                get
+                {
+                    return _UseMIDIExport;
+                }
+
+                set
+                {
+                    _UseMIDIExport = value;
+                }
+            }
+
+            private string _ExportPath = "";
+            public string ExportPath
+            {
+                get
+                {
+                    return _ExportPath;
+                }
+
+                set
+                {
+                    _ExportPath = value;
+                }
+            }
+
+            public MidiExport Copy()
+            {
+                MidiExport MidiExport = new MidiExport();
+
+                MidiExport.UseMIDIExport = this.UseMIDIExport;
+                MidiExport.ExportPath = this.ExportPath;
+
+                return MidiExport;
+            }
+
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -1726,6 +1783,7 @@ namespace MDPlayer
             setting.Debug_DispFrameCounter = this.Debug_DispFrameCounter;
             setting.HiyorimiMode = this.HiyorimiMode;
             setting.location = this.location.Copy();
+            setting.midiExport = this.midiExport.Copy();
 
             return setting;
         }

@@ -566,13 +566,13 @@ namespace MDPlayer
 
         private void vcYM2612Port0()
         {
-            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, vgmFrameCounter);
             vgmAdr += 3;
         }
 
         private void vcYM2612Port1()
         {
-            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2612Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, vgmFrameCounter);
             vgmAdr += 3;
         }
 
@@ -953,7 +953,7 @@ namespace MDPlayer
 
             vgmWait += (int)(vgmBuf[vgmAdr] - 0x80);
 
-            chipRegister.setYM2612Register(0, 0, 0x2a, dat, model);
+            chipRegister.setYM2612Register(0, 0, 0x2a, dat, model, vgmFrameCounter);
 
             vgmAdr++;
         }
