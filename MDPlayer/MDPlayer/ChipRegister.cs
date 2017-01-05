@@ -1700,6 +1700,7 @@ namespace MDPlayer
         private List<byte> midiData = null;
         private long midiData_OldFrameCounter = 0L;
         private int[] midiData_OldCode = null;
+        private int[] midiData_OldFreq = null;
 
         private string PlayingFileName = "";
 
@@ -1724,9 +1725,10 @@ namespace MDPlayer
 
                 int p = ch > 2 ? 1 : 0;
                 int vch = ch > 2 ? (ch - 3) : ch;
-                int freq = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x07) * 0x100;
+                midiData_OldFreq[ch] = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x3f) * 0x100;
+                int freq = midiData_OldFreq[ch] & 0x7ff;
                 if (freq == 0) return;
-                int octav = (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x38) >> 3;
+                int octav = (midiData_OldFreq[ch] & 0x3800) >> 11;
                 int note = searchFMNote(freq);
                 byte code = (byte)(octav * 12 + note);
 
@@ -1760,6 +1762,56 @@ namespace MDPlayer
                     }
 
                     midiData_OldCode[ch] = code;
+                }
+
+                return;
+            }
+
+            if (dAddr >= 0xa0 && dAddr < 0xa8)
+            {
+                byte ch = (byte)((dAddr & 0x3) + dPort * 3);
+                int freq = midiData_OldFreq[ch];
+                int vch = ch > 2 ? (ch - 3) : ch;
+                if (freq == -1) return;
+                if (dAddr < 0xa4)
+                {
+                    freq = (freq & 0x3f00) | dData;
+                }
+                else
+                {
+                    freq = (freq & 0xff) | ((dData & 0x3f) << 8);
+                }
+
+                if (freq != midiData_OldFreq[ch])
+                {
+                    int freq2nd = freq & 0x07ff;
+                    if (freq2nd == 0) return;
+                    int octav = (freq & 0x3800) >> 11;
+                    int note = searchFMNote(freq2nd);
+                    byte code = (byte)(octav * 12 + note);
+                    if (midiData_OldCode[ch]!=-1 && midiData_OldCode[ch] != code)
+                    {
+                        outMIDIData_SetDelta(vgmFrameCounter);
+                        midiData.Add((byte)(0x80 | ch));
+                        midiData.Add((byte)midiData_OldCode[ch]);
+                        midiData.Add(0x00);
+
+                        midiData.Add(0);//delta0
+                        midiData.Add((byte)(0x90 | ch));
+                        midiData.Add(code);
+                        if (setting.midiExport.UseVOPMex)
+                        {
+                            midiData.Add(127);
+                        }
+                        else
+                        {
+                            byte vel = (byte)(127 - fmRegisterYM2612[chipID][dPort][0x4c + vch]);
+                            midiData.Add(vel);
+                        }
+
+                        midiData_OldFreq[ch] = freq;
+                        midiData_OldCode[ch] = code;
+                    }
                 }
 
                 return;
@@ -1967,6 +2019,13 @@ namespace MDPlayer
                 }
             }
 
+            midiData.Add(0x00); //Delta 0
+
+            midiData.Add(0xff); //メタイベント
+            midiData.Add(0x2f);
+            midiData.Add(0x00);
+
+
             try
             {
                 midiData[0x12] = (byte)(((midiData.Count - 22) & 0xff000000) >> 24);
@@ -2026,6 +2085,8 @@ namespace MDPlayer
         private void outMIDIData_MakeHeader()
         {
             midiData_OldCode = new int[] { -1, -1, -1, -1, -1, -1 };
+            midiData_OldFreq = new int[] { -1, -1, -1, -1, -1, -1 };
+
             midiData = new List<byte>();
             midiData_OldFrameCounter = 0L;
 
@@ -2057,6 +2118,22 @@ namespace MDPlayer
             midiData.Add(0x00);
             midiData.Add(0x00);
             midiData.Add(0x00);
+
+            midiData.Add(0x00); //Delta 0
+
+            midiData.Add(0xff); //メタイベント
+            midiData.Add(0x03);
+            midiData.Add(0x00);
+
+            midiData.Add(0x00); //Delta 0
+
+            midiData.Add(0xff); //メタイベント　拍子 4/4(固定)
+            midiData.Add(0x58);
+            midiData.Add(0x04);
+            midiData.Add(0x04);
+            midiData.Add(0x02);
+            midiData.Add(0x18);
+            midiData.Add(0x08);
 
             midiData.Add(0x00); //Delta 0
 
