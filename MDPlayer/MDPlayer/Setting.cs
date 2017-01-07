@@ -687,17 +687,6 @@ namespace MDPlayer
                 }
             }
 
-            public enum enmInstFormat : int
-            {
-                FMP7 = 0,
-                MDX = 1,
-                TFI = 2,
-                MUSICLALF = 3,
-                MUSICLALF2 = 4,
-                MML2VGM = 5,
-                NRTDRV = 6
-            }
-
             private enmInstFormat _InstFormat= enmInstFormat.MML2VGM;
             public enmInstFormat InstFormat
             {
@@ -1731,6 +1720,34 @@ namespace MDPlayer
                 }
             }
 
+            private bool _UseYM2151Export = false;
+            public bool UseYM2151Export
+            {
+                get
+                {
+                    return _UseYM2151Export;
+                }
+
+                set
+                {
+                    _UseYM2151Export = value;
+                }
+            }
+
+            private bool _UseYM2612Export = true;
+            public bool UseYM2612Export
+            {
+                get
+                {
+                    return _UseYM2612Export;
+                }
+
+                set
+                {
+                    _UseYM2612Export = value;
+                }
+            }
+
             private string _ExportPath = "";
             public string ExportPath
             {
@@ -1765,6 +1782,8 @@ namespace MDPlayer
                 MidiExport MidiExport = new MidiExport();
 
                 MidiExport.UseMIDIExport = this.UseMIDIExport;
+                MidiExport.UseYM2151Export = this.UseYM2151Export;
+                MidiExport.UseYM2612Export = this.UseYM2612Export;
                 MidiExport.ExportPath = this.ExportPath;
                 MidiExport.UseVOPMex = this.UseVOPMex;
 

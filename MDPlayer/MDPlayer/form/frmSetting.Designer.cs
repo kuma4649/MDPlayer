@@ -57,6 +57,7 @@
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -145,7 +146,6 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
-            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -510,6 +510,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
             // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(358, 182);
+            this.ucSI.TabIndex = 7;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
@@ -646,7 +655,6 @@
             this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
             this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
             this.groupBox6.Controls.Add(this.cbMIDIYM2608);
-            this.groupBox6.Enabled = false;
             this.groupBox6.Location = new System.Drawing.Point(21, 91);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(188, 152);
@@ -669,6 +677,7 @@
             // cbMIDISN76489Sec
             // 
             this.cbMIDISN76489Sec.AutoSize = true;
+            this.cbMIDISN76489Sec.Enabled = false;
             this.cbMIDISN76489Sec.Location = new System.Drawing.Point(84, 128);
             this.cbMIDISN76489Sec.Name = "cbMIDISN76489Sec";
             this.cbMIDISN76489Sec.Size = new System.Drawing.Size(96, 16);
@@ -679,6 +688,7 @@
             // cbMIDIYM2612Sec
             // 
             this.cbMIDIYM2612Sec.AutoSize = true;
+            this.cbMIDIYM2612Sec.Enabled = false;
             this.cbMIDIYM2612Sec.Location = new System.Drawing.Point(84, 18);
             this.cbMIDIYM2612Sec.Name = "cbMIDIYM2612Sec";
             this.cbMIDIYM2612Sec.Size = new System.Drawing.Size(91, 16);
@@ -689,6 +699,7 @@
             // cbMIDISN76489
             // 
             this.cbMIDISN76489.AutoSize = true;
+            this.cbMIDISN76489.Enabled = false;
             this.cbMIDISN76489.Location = new System.Drawing.Point(6, 128);
             this.cbMIDISN76489.Name = "cbMIDISN76489";
             this.cbMIDISN76489.Size = new System.Drawing.Size(69, 16);
@@ -709,6 +720,7 @@
             // cbMIDIYM2610BSec
             // 
             this.cbMIDIYM2610BSec.AutoSize = true;
+            this.cbMIDIYM2610BSec.Enabled = false;
             this.cbMIDIYM2610BSec.Location = new System.Drawing.Point(84, 106);
             this.cbMIDIYM2610BSec.Name = "cbMIDIYM2610BSec";
             this.cbMIDIYM2610BSec.Size = new System.Drawing.Size(99, 16);
@@ -719,6 +731,7 @@
             // cbMIDIYM2151Sec
             // 
             this.cbMIDIYM2151Sec.AutoSize = true;
+            this.cbMIDIYM2151Sec.Enabled = false;
             this.cbMIDIYM2151Sec.Location = new System.Drawing.Point(84, 40);
             this.cbMIDIYM2151Sec.Name = "cbMIDIYM2151Sec";
             this.cbMIDIYM2151Sec.Size = new System.Drawing.Size(91, 16);
@@ -729,6 +742,7 @@
             // cbMIDIYM2610B
             // 
             this.cbMIDIYM2610B.AutoSize = true;
+            this.cbMIDIYM2610B.Enabled = false;
             this.cbMIDIYM2610B.Location = new System.Drawing.Point(6, 106);
             this.cbMIDIYM2610B.Name = "cbMIDIYM2610B";
             this.cbMIDIYM2610B.Size = new System.Drawing.Size(72, 16);
@@ -739,6 +753,7 @@
             // cbMIDIYM2203
             // 
             this.cbMIDIYM2203.AutoSize = true;
+            this.cbMIDIYM2203.Enabled = false;
             this.cbMIDIYM2203.Location = new System.Drawing.Point(6, 62);
             this.cbMIDIYM2203.Name = "cbMIDIYM2203";
             this.cbMIDIYM2203.Size = new System.Drawing.Size(64, 16);
@@ -749,6 +764,7 @@
             // cbMIDIYM2608Sec
             // 
             this.cbMIDIYM2608Sec.AutoSize = true;
+            this.cbMIDIYM2608Sec.Enabled = false;
             this.cbMIDIYM2608Sec.Location = new System.Drawing.Point(84, 84);
             this.cbMIDIYM2608Sec.Name = "cbMIDIYM2608Sec";
             this.cbMIDIYM2608Sec.Size = new System.Drawing.Size(91, 16);
@@ -759,6 +775,7 @@
             // cbMIDIYM2203Sec
             // 
             this.cbMIDIYM2203Sec.AutoSize = true;
+            this.cbMIDIYM2203Sec.Enabled = false;
             this.cbMIDIYM2203Sec.Location = new System.Drawing.Point(84, 62);
             this.cbMIDIYM2203Sec.Name = "cbMIDIYM2203Sec";
             this.cbMIDIYM2203Sec.Size = new System.Drawing.Size(91, 16);
@@ -769,6 +786,7 @@
             // cbMIDIYM2608
             // 
             this.cbMIDIYM2608.AutoSize = true;
+            this.cbMIDIYM2608.Enabled = false;
             this.cbMIDIYM2608.Location = new System.Drawing.Point(6, 84);
             this.cbMIDIYM2608.Name = "cbMIDIYM2608";
             this.cbMIDIYM2608.Size = new System.Drawing.Size(64, 16);
@@ -1332,15 +1350,6 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(358, 182);
-            this.ucSI.TabIndex = 7;
             // 
             // frmSetting
             // 

@@ -96,7 +96,7 @@ namespace MDPlayer
                 cmbMIDIIN.SelectedIndex = 0;
             }
 
-            List<NScci.NSoundChip> lstYM2612 = Audio.getChipList(Audio.enmScciChipType.YM2612);
+            List<NScci.NSoundChip> lstYM2612 = Audio.getChipList(enmScciChipType.YM2612);
             if (lstYM2612.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2612)
@@ -116,7 +116,7 @@ namespace MDPlayer
                 ucSI.cmbYM2612S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstSN76489 = Audio.getChipList(Audio.enmScciChipType.SN76489);
+            List<NScci.NSoundChip> lstSN76489 = Audio.getChipList(enmScciChipType.SN76489);
             if (lstSN76489.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstSN76489)
@@ -136,7 +136,7 @@ namespace MDPlayer
                 ucSI.cmbSN76489S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2608 = Audio.getChipList(Audio.enmScciChipType.YM2608);
+            List<NScci.NSoundChip> lstYM2608 = Audio.getChipList(enmScciChipType.YM2608);
             if (lstYM2608.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2608)
@@ -160,7 +160,7 @@ namespace MDPlayer
                 ucSI.cmbYM2608S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2610 = Audio.getChipList(Audio.enmScciChipType.YM2610);
+            List<NScci.NSoundChip> lstYM2610 = Audio.getChipList(enmScciChipType.YM2610);
             if (lstYM2610.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2610)
@@ -184,7 +184,7 @@ namespace MDPlayer
                 ucSI.cmbYM2610BS_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2151 = Audio.getChipList(Audio.enmScciChipType.YM2151);
+            List<NScci.NSoundChip> lstYM2151 = Audio.getChipList(enmScciChipType.YM2151);
             if (lstYM2151.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2151)
@@ -208,7 +208,7 @@ namespace MDPlayer
                 ucSI.cmbYM2151S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2203 = Audio.getChipList(Audio.enmScciChipType.YM2203);
+            List<NScci.NSoundChip> lstYM2203 = Audio.getChipList(enmScciChipType.YM2203);
             if (lstYM2203.Count > 0)
             {
                 foreach (NScci.NSoundChip sc in lstYM2203)
@@ -719,6 +719,8 @@ namespace MDPlayer
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
             tbMIDIOutputPath.Text = setting.midiExport.ExportPath;
             cbMIDIUseVOPM.Checked = setting.midiExport.UseVOPMex;
+            cbMIDIYM2151.Checked = setting.midiExport.UseYM2151Export;
+            cbMIDIYM2612.Checked = setting.midiExport.UseYM2612Export;
 
         }
 
@@ -1014,7 +1016,7 @@ namespace MDPlayer
 
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
-            setting.other.InstFormat = (Setting.Other.enmInstFormat)cmbInstFormat.SelectedIndex;
+            setting.other.InstFormat = (enmInstFormat)cmbInstFormat.SelectedIndex;
             if (int.TryParse(tbScreenFrameRate.Text, out i))
             {
                 setting.other.ScreenFrameRate = Math.Max(Math.Min(i, 120), 10);
@@ -1029,6 +1031,8 @@ namespace MDPlayer
             setting.midiExport.UseMIDIExport=cbUseMIDIExport.Checked;
             setting.midiExport.ExportPath = tbMIDIOutputPath.Text;
             setting.midiExport.UseVOPMex = cbMIDIUseVOPM.Checked;
+            setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
+            setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

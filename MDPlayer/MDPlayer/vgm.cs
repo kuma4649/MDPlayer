@@ -1,37 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer
 {
     public class vgm
     {
-        public enum enmModel
-        {
-            VirtualModel
-            , RealModel
-        }
-
-        public enum enmUseChip : int
-        {
-            Unuse = 0
-            , SN76489 = 1
-            , YM2612 = 2 //without Ch6
-            , YM2612Ch6 = 4
-            , RF5C164 = 8
-            , PWM = 16
-            , C140 = 32
-            , OKIM6258 = 64
-            , OKIM6295 = 128
-            , SEGAPCM = 256
-            , YM2151 = 512
-            , YM2608 = 1024
-            , YM2203 = 2048
-            , YM2610 = 4096
-        }
-
         private enmModel model = enmModel.VirtualModel;
         private enmUseChip useChip = enmUseChip.Unuse; 
 
@@ -531,25 +505,25 @@ namespace MDPlayer
 
         private void vcDummy1Ope()
         {
-            Console.Write("({0:X02}:{1:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
+            //Console.Write("({0:X02}:{1:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1]);
             vgmAdr += 2;
         }
 
         private void vcDummy2Ope()
         {
-            Console.Write("({0:X02}:{1:X02}:{2:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
+            //Console.Write("({0:X02}:{1:X02}:{2:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2]);
             vgmAdr += 3;
         }
 
         private void vcDummy3Ope()
         {
-            Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
+            //Console.Write("({0:X02}:{1:X02}:{2:X02}:{3:X02})", vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3]);
             vgmAdr += 4;
         }
 
         private void vcDummy4Ope()
         {
-            Console.WriteLine("unknown command:Adr:{0:X}({1:X02}:{2:X02}:{3:X02}:{4:X02}:{5:X02})",vgmAdr, vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
+            //Console.WriteLine("unknown command:Adr:{0:X}({1:X02}:{2:X02}:{3:X02}:{4:X02}:{5:X02})",vgmAdr, vgmBuf[vgmAdr], vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], vgmBuf[vgmAdr + 4]);
             vgmAdr += 5;
         }
 
@@ -625,7 +599,7 @@ namespace MDPlayer
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei);
+            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei, vgmFrameCounter);
             vgmAdr += 3;
         }
 
@@ -1664,9 +1638,9 @@ namespace MDPlayer
             for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
             {
                 d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                YM2151Hosei = i;
                 if (d > oldD) break;
                 oldD = d;
-                YM2151Hosei = i;
             }
             YM2151Hosei -= 12;
 

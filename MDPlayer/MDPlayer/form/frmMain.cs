@@ -565,22 +565,22 @@ namespace MDPlayer
 
             //        if (ch >= 0 && ch < 6)
             //        {
-            //            SetChannelMask(vgm.enmUseChip.YM2612, ch);
+            //            SetChannelMask(enmUseChip.YM2612, ch);
             //        }
             //        else if (ch < 10)
             //        {
-            //            SetChannelMask(vgm.enmUseChip.SN76489, ch - 6);
+            //            SetChannelMask(enmUseChip.SN76489, ch - 6);
             //        }
             //        else if (ch < 13)
             //        {
-            //            SetChannelMask(vgm.enmUseChip.YM2612, ch - 4);
+            //            SetChannelMask(enmUseChip.YM2612, ch - 4);
             //        }
 
             //    }
             //    else if (e.Button == MouseButtons.Right)
             //    {
-            //        for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612, ch);
-            //        for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, ch);
+            //        for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, ch);
+            //        for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, ch);
             //    }
 
             //    return;
@@ -596,7 +596,7 @@ namespace MDPlayer
             //    int instCh = h * 3 + w;
 
             //    //クリップボードに音色をコピーする
-            //    getInstCh(vgm.enmUseChip.YM2612, instCh);
+            //    getInstCh(enmUseChip.YM2612, instCh);
 
             //    return;
             //}
@@ -2310,7 +2310,7 @@ namespace MDPlayer
                 note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
-                newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note+Audio.vgmVirtual.YM2151Hosei+1) : -1;//4
+                newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmVirtual.YM2151Hosei) : -1;//4
 
                 newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
                 newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
@@ -2566,10 +2566,10 @@ namespace MDPlayer
 
             }
 
-            screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(vgm.enmModel.VirtualModel) ? "VD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.VirtualModel) ? "VP" : "  ");
-            screen.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(vgm.enmModel.RealModel) ? "RD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(vgm.enmModel.RealModel) ? "RP" : "  ");
+            screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
+            screen.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
 
             screen.Refresh();
 
@@ -2817,15 +2817,15 @@ namespace MDPlayer
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.YM2151, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2203, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(vgm.enmUseChip.YM2608, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(vgm.enmUseChip.YM2610, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(vgm.enmUseChip.YM2612,chipID, ch);
-                for (int ch = 0; ch < 4; ch++) ResetChannelMask(vgm.enmUseChip.SN76489, chipID, ch);
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(vgm.enmUseChip.RF5C164, chipID, ch);
-                for (int ch = 0; ch < 24; ch++) ResetChannelMask(vgm.enmUseChip.C140, chipID, ch);
-                for (int ch = 0; ch < 16; ch++) ResetChannelMask(vgm.enmUseChip.SEGAPCM, chipID, ch);
+                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612,chipID, ch);
+                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
+                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
+                for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
+                for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
             }
 
             //oldParam = new MDChipParams();
@@ -3190,45 +3190,45 @@ namespace MDPlayer
             return outStream.ToArray();
         }
 
-        public void getInstCh(vgm.enmUseChip chip, int ch, int chipID)
+        public void getInstCh(enmUseChip chip, int ch, int chipID)
         {
             if (!setting.other.UseGetInst) return;
 
             switch (setting.other.InstFormat) {
-                case Setting.Other.enmInstFormat.FMP7:
+                case enmInstFormat.FMP7:
                     getInstChForFMP7(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.MDX:
+                case enmInstFormat.MDX:
                     getInstChForMDX(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.MML2VGM:
+                case enmInstFormat.MML2VGM:
                     getInstChForMML2VGM(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.MUSICLALF:
+                case enmInstFormat.MUSICLALF:
                     getInstChForMUSICLALF(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.MUSICLALF2:
+                case enmInstFormat.MUSICLALF2:
                     getInstChForMUSICLALF2(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.TFI:
+                case enmInstFormat.TFI:
                     getInstChForTFI(chip, ch, chipID);
                     break;
-                case Setting.Other.enmInstFormat.NRTDRV:
+                case enmInstFormat.NRTDRV:
                     getInstChForNRTDRV(chip, ch, chipID);
                     break;
             }
         }
 
-        private void getInstChForFMP7(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForFMP7(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip==vgm.enmUseChip.YM2203 || chip==vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip==enmUseChip.YM2203 || chip==enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@ FA xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM\r\n";
 
@@ -3254,7 +3254,7 @@ namespace MDPlayer
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
                 n = "'@ FC xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AM\r\n";
@@ -3287,16 +3287,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForMDX(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForMDX(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@xx = {\r\n/* AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME\r\n";
 
@@ -3323,7 +3323,7 @@ namespace MDPlayer
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -3356,16 +3356,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForMML2VGM(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForMML2VGM(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
 
@@ -3392,7 +3392,7 @@ namespace MDPlayer
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
                 n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
@@ -3424,16 +3424,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForMUSICLALF(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForMUSICLALF(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = string.Format("@xx:{{\r\n  {0:D3} {1:D3}\r\n"
                     , fmRegister[p][0xb0 + c] & 0x07//AL
@@ -3457,7 +3457,7 @@ namespace MDPlayer
                 }
                 n += "}\r\n";
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -3487,16 +3487,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForMUSICLALF2(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForMUSICLALF2(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "@%xxx\r\n";
 
@@ -3513,7 +3513,7 @@ namespace MDPlayer
                     , fmRegister[p][0xb0 + c] //FB/AL
                     );
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -3564,16 +3564,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForNRTDRV(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForNRTDRV(enmUseChip chip, int ch,int chipID)
         {
 
             string n = "";
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "@ xxxx {\r\n";
                 n += string.Format("000,{0:D3},{1:D3},015\r\n"
@@ -3600,7 +3600,7 @@ namespace MDPlayer
                 }
                 n += "}\r\n";
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -3633,16 +3633,16 @@ namespace MDPlayer
             Clipboard.SetText(n);
         }
 
-        private void getInstChForTFI(vgm.enmUseChip chip, int ch,int chipID)
+        private void getInstChForTFI(enmUseChip chip, int ch,int chipID)
         {
 
             byte[] n = new byte[42];
 
-            if (chip == vgm.enmUseChip.YM2612 || chip == vgm.enmUseChip.YM2608 || chip == vgm.enmUseChip.YM2203 || chip == vgm.enmUseChip.YM2610)
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == vgm.enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == vgm.enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == vgm.enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n[0] = (byte)(fmRegister[p][0xb0 + c] & 0x07);//AL
                 n[1] = (byte)((fmRegister[p][0xb0 + c] & 0x38) >> 3);//FB
@@ -3669,7 +3669,7 @@ namespace MDPlayer
                 }
 
             }
-            else if (chip == vgm.enmUseChip.YM2151)
+            else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4017,11 +4017,11 @@ namespace MDPlayer
             return buf;
         }
 
-        public void SetChannelMask(vgm.enmUseChip chip, int chipID, int ch)
+        public void SetChannelMask(enmUseChip chip, int chipID, int ch)
         {
             switch (chip)
             {
-                case vgm.enmUseChip.YM2203:
+                case enmUseChip.YM2203:
                     if (ch >= 0 && ch < 9)
                     {
                         if (!newParam.ym2203[chipID].channels[ch].mask)
@@ -4041,7 +4041,7 @@ namespace MDPlayer
                         }
                     }
                     break;
-                case vgm.enmUseChip.YM2608:
+                case enmUseChip.YM2608:
                     if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym2608[chipID].channels[ch].mask)
@@ -4061,7 +4061,7 @@ namespace MDPlayer
                         }
                     }
                     break;
-                case vgm.enmUseChip.YM2610:
+                case enmUseChip.YM2610:
                     if (ch >= 0 && ch < 14)
                     {
                         int c = ch;
@@ -4084,7 +4084,7 @@ namespace MDPlayer
                         }
                     }
                     break;
-                case vgm.enmUseChip.YM2612:
+                case enmUseChip.YM2612:
                     if (ch >= 0 && ch < 9)
                     {
                         if (!newParam.ym2612[chipID].channels[ch].mask)
@@ -4104,7 +4104,7 @@ namespace MDPlayer
                         }
                     }
                     break;
-                case vgm.enmUseChip.SN76489:
+                case enmUseChip.SN76489:
                     if (!newParam.sn76489[chipID].channels[ch].mask)
                     {
                         Audio.setSN76489Mask(chipID, ch);
@@ -4115,7 +4115,7 @@ namespace MDPlayer
                     }
                     newParam.sn76489[chipID].channels[ch].mask = !newParam.sn76489[chipID].channels[ch].mask;
                     break;
-                case vgm.enmUseChip.RF5C164:
+                case enmUseChip.RF5C164:
                     if (!newParam.rf5c164[chipID].channels[ch].mask)
                     {
                         Audio.setRF5C164Mask(chipID, ch);
@@ -4126,7 +4126,7 @@ namespace MDPlayer
                     }
                     newParam.rf5c164[chipID].channels[ch].mask = !newParam.rf5c164[chipID].channels[ch].mask;
                     break;
-                case vgm.enmUseChip.YM2151:
+                case enmUseChip.YM2151:
                     if (!newParam.ym2151[chipID].channels[ch].mask)
                     {
                         Audio.setYM2151Mask(chipID, ch);
@@ -4137,7 +4137,7 @@ namespace MDPlayer
                     }
                     newParam.ym2151[chipID].channels[ch].mask = !newParam.ym2151[chipID].channels[ch].mask;
                     break;
-                case vgm.enmUseChip.C140:
+                case enmUseChip.C140:
                     if (!newParam.c140[chipID].channels[ch].mask)
                     {
                         Audio.setC140Mask(chipID, ch);
@@ -4148,7 +4148,7 @@ namespace MDPlayer
                     }
                     newParam.c140[chipID].channels[ch].mask = !newParam.c140[chipID].channels[ch].mask;
                     break;
-                case vgm.enmUseChip.SEGAPCM:
+                case enmUseChip.SEGAPCM:
                     if (!newParam.segaPcm[chipID].channels[ch].mask)
                     {
                         Audio.setSegaPCMMask(chipID, ch);
@@ -4162,31 +4162,31 @@ namespace MDPlayer
             }
         }
 
-        public void ResetChannelMask(vgm.enmUseChip chip,int chipID, int ch)
+        public void ResetChannelMask(enmUseChip chip,int chipID, int ch)
         {
             switch (chip)
             {
-                case vgm.enmUseChip.SN76489:
+                case enmUseChip.SN76489:
                     newParam.sn76489[chipID].channels[ch].mask = false;
                     Audio.resetSN76489Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.RF5C164:
+                case enmUseChip.RF5C164:
                     newParam.rf5c164[chipID].channels[ch].mask = false;
                     Audio.resetRF5C164Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.YM2151:
+                case enmUseChip.YM2151:
                     newParam.ym2151[chipID].channels[ch].mask = false;
                     Audio.resetYM2151Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.YM2203:
+                case enmUseChip.YM2203:
                     newParam.ym2203[chipID].channels[ch].mask = false;
                     Audio.resetYM2203Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.YM2608:
+                case enmUseChip.YM2608:
                     newParam.ym2608[chipID].channels[ch].mask = false;
                     Audio.resetYM2608Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.YM2610:
+                case enmUseChip.YM2610:
                     if(ch<12)
                     newParam.ym2610[chipID].channels[ch].mask = false;
                     else if(ch==12)
@@ -4196,7 +4196,7 @@ namespace MDPlayer
 
                     Audio.resetYM2610Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.YM2612:
+                case enmUseChip.YM2612:
                     newParam.ym2612[chipID].channels[ch].mask = false;
                     if (ch == 2)
                     {
@@ -4206,11 +4206,11 @@ namespace MDPlayer
                     }
                     if (ch < 6) Audio.resetYM2612Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.C140:
+                case enmUseChip.C140:
                     newParam.c140[chipID].channels[ch].mask = false;
                     if (ch < 24) Audio.resetC140Mask(chipID, ch);
                     break;
-                case vgm.enmUseChip.SEGAPCM:
+                case enmUseChip.SEGAPCM:
                     newParam.segaPcm[chipID].channels[ch].mask = false;
                     if (ch < 16) Audio.resetSegaPCMMask(chipID, ch);
                     break;

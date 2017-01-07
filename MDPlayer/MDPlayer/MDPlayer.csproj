@@ -91,165 +91,167 @@
   <ItemGroup>
     <Compile Include="Audio.cs" />
     <Compile Include="ChipRegister.cs" />
+    <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
-    <Compile Include="frmC140.cs">
+    <Compile Include="form\frmC140.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmC140.Designer.cs">
+    <Compile Include="form\frmC140.Designer.cs">
       <DependentUpon>frmC140.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmInfo.cs">
+    <Compile Include="form\frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInfo.Designer.cs">
+    <Compile Include="form\frmInfo.Designer.cs">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="form\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="form\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="DoubleBuffer.cs" />
-    <Compile Include="frmMegaCD.cs">
+    <Compile Include="form\frmMegaCD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMegaCD.Designer.cs">
+    <Compile Include="form\frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMixer.cs">
+    <Compile Include="form\frmMixer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMixer.Designer.cs">
+    <Compile Include="form\frmMixer.Designer.cs">
       <DependentUpon>frmMixer.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmOKIM6258.cs">
+    <Compile Include="form\frmOKIM6258.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOKIM6258.Designer.cs">
+    <Compile Include="form\frmOKIM6258.Designer.cs">
       <DependentUpon>frmOKIM6258.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmOKIM6295.cs">
+    <Compile Include="form\frmOKIM6295.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOKIM6295.Designer.cs">
+    <Compile Include="form\frmOKIM6295.Designer.cs">
       <DependentUpon>frmOKIM6295.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPlayList.cs">
+    <Compile Include="form\frmPlayList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPlayList.Designer.cs">
+    <Compile Include="form\frmPlayList.Designer.cs">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSegaPCM.cs">
+    <Compile Include="form\frmSegaPCM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSegaPCM.Designer.cs">
+    <Compile Include="form\frmSegaPCM.Designer.cs">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSetting.cs">
+    <Compile Include="form\frmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSetting.Designer.cs">
+    <Compile Include="form\frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSN76489.cs">
+    <Compile Include="form\frmSN76489.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSN76489.Designer.cs">
+    <Compile Include="form\frmSN76489.Designer.cs">
       <DependentUpon>frmSN76489.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmYM2151.cs">
+    <Compile Include="form\frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmYM2151.Designer.cs">
+    <Compile Include="form\frmYM2151.Designer.cs">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmYM2203.cs">
+    <Compile Include="form\frmYM2203.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmYM2203.Designer.cs">
+    <Compile Include="form\frmYM2203.Designer.cs">
       <DependentUpon>frmYM2203.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmYM2608.cs">
+    <Compile Include="form\frmYM2608.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmYM2608.Designer.cs">
+    <Compile Include="form\frmYM2608.Designer.cs">
       <DependentUpon>frmYM2608.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmYM2610.cs">
+    <Compile Include="form\frmYM2610.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmYM2610.Designer.cs">
+    <Compile Include="form\frmYM2610.Designer.cs">
       <DependentUpon>frmYM2610.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmYM2612.cs">
+    <Compile Include="form\frmYM2612.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmYM2612.Designer.cs">
+    <Compile Include="form\frmYM2612.Designer.cs">
       <DependentUpon>frmYM2612.cs</DependentUpon>
     </Compile>
     <Compile Include="log.cs" />
     <Compile Include="MDChipParams.cs" />
+    <Compile Include="MIDIExport.cs" />
     <Compile Include="NAudioWrap.cs" />
     <Compile Include="PlayList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Tables.cs" />
-    <Compile Include="ucSettingInstruments.cs">
+    <Compile Include="form\ucSettingInstruments.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ucSettingInstruments.Designer.cs">
+    <Compile Include="form\ucSettingInstruments.Designer.cs">
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </Compile>
     <Compile Include="vgm.cs" />
-    <EmbeddedResource Include="frmC140.resx">
+    <EmbeddedResource Include="form\frmC140.resx">
       <DependentUpon>frmC140.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInfo.resx">
+    <EmbeddedResource Include="form\frmInfo.resx">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="form\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMegaCD.resx">
+    <EmbeddedResource Include="form\frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMixer.resx">
+    <EmbeddedResource Include="form\frmMixer.resx">
       <DependentUpon>frmMixer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOKIM6258.resx">
+    <EmbeddedResource Include="form\frmOKIM6258.resx">
       <DependentUpon>frmOKIM6258.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOKIM6295.resx">
+    <EmbeddedResource Include="form\frmOKIM6295.resx">
       <DependentUpon>frmOKIM6295.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPlayList.resx">
+    <EmbeddedResource Include="form\frmPlayList.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSegaPCM.resx">
+    <EmbeddedResource Include="form\frmSegaPCM.resx">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSetting.resx">
+    <EmbeddedResource Include="form\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSN76489.resx">
+    <EmbeddedResource Include="form\frmSN76489.resx">
       <DependentUpon>frmSN76489.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmYM2151.resx">
+    <EmbeddedResource Include="form\frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmYM2203.resx">
+    <EmbeddedResource Include="form\frmYM2203.resx">
       <DependentUpon>frmYM2203.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmYM2608.resx">
+    <EmbeddedResource Include="form\frmYM2608.resx">
       <DependentUpon>frmYM2608.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmYM2610.resx">
+    <EmbeddedResource Include="form\frmYM2610.resx">
       <DependentUpon>frmYM2610.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmYM2612.resx">
+    <EmbeddedResource Include="form\frmYM2612.resx">
       <DependentUpon>frmYM2612.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -262,7 +264,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ucSettingInstruments.resx">
+    <EmbeddedResource Include="form\ucSettingInstruments.resx">
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="lib\scci.ini" />
@@ -323,6 +325,7 @@
     <Content Include="フェーリ.ico" />
     <None Include="Resources\planeC.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"</PostBuildEvent>

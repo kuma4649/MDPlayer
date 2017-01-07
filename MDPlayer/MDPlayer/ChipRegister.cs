@@ -138,7 +138,7 @@ namespace MDPlayer
         private int[] NoiseFreq = new int[] { 0, 0 };
 
         private int volF = 1;
-
+        private MIDIExport midiExport = null;
 
         public ChipRegister(Setting setting
             , MDSound.MDSound mds
@@ -174,6 +174,10 @@ namespace MDPlayer
             this.ctYM2610 = ctYM2610;
 
             initChipRegister();
+
+            midiExport = new MIDIExport(setting);
+            midiExport.fmRegisterYM2612 = fmRegisterYM2612;
+            midiExport.fmRegisterYM2151 = fmRegisterYM2151;
         }
 
 
@@ -243,17 +247,25 @@ namespace MDPlayer
             }
         }
 
+        public void Close()
+        {
+            midiExport.Close();
+        }
 
-        public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model, int hosei)
+        public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei,long vgmFrameCounter)
         {
             if (ctYM2151 == null) return;
 
             if (chipID == 0) ChipPriOPM = 2;
             else ChipSecOPM = 2;
 
-            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2151[chipID][dAddr] = dData;
+            if (model == enmModel.VirtualModel)
+            {
+                fmRegisterYM2151[chipID][dAddr] = dData;
+                midiExport.outMIDIData(enmUseChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+            }
 
-            if ((model == vgm.enmModel.RealModel && ctYM2151[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2151[chipID].UseScci))
+            if ((model == enmModel.RealModel && ctYM2151[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2151[chipID].UseScci))
             {
                 if (dAddr == 0x08) //Key-On/Off
                 {
@@ -287,7 +299,7 @@ namespace MDPlayer
                     {
                         if (maskFMChYM2151[chipID][ch])
                         {
-                            if (model == vgm.enmModel.VirtualModel)
+                            if (model == enmModel.VirtualModel)
                             {
                                 if (!ctYM2151[chipID].UseScci && ctYM2151[chipID].UseEmu)
                                 {
@@ -296,7 +308,7 @@ namespace MDPlayer
                             }
                             else
                             {
-                                if (scYM2151 != null) scYM2151[chipID].setRegister(0x60 + i * 8 + ch, 127);
+                                if (scYM2151 != null && scYM2151[chipID] != null) scYM2151[chipID].setRegister(0x60 + i * 8 + ch, 127);
                             }
                         }
                     }
@@ -312,7 +324,7 @@ namespace MDPlayer
                 dData = maskFMChYM2151[chipID][ch] ? 127 : dData;
             }
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 if (!ctYM2151[chipID].UseScci && ctYM2151[chipID].UseEmu)
                 {
@@ -335,7 +347,7 @@ namespace MDPlayer
                         int oct = (dData & 0x70) >> 4;
                         int note = dData & 0xf;
                         note = (note < 3) ? note : ((note < 7) ? (note - 1) : ((note < 11) ? (note - 2) : (note - 3)));
-                        note += hosei;
+                        note += hosei-1;
                         if (note < 0)
                         {
                             oct += (note / 12) - 1;
@@ -361,16 +373,16 @@ namespace MDPlayer
 
         }
 
-        public void setYM2203Register(int chipID, int dAddr, int dData, vgm.enmModel model)
+        public void setYM2203Register(int chipID, int dAddr, int dData, enmModel model)
         {
             if (ctYM2203 == null) return;
 
             if (chipID == 0) ChipPriOPN = 2;
             else ChipSecOPN = 2;
 
-            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2203[chipID][dAddr] = dData;
+            if (model == enmModel.VirtualModel) fmRegisterYM2203[chipID][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2203[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2203[chipID].UseScci))
+            if ((model == enmModel.RealModel && ctYM2203[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2203[chipID].UseScci))
             {
                 if (dAddr == 0x28)
                 {
@@ -435,7 +447,7 @@ namespace MDPlayer
                 dData = maskFMChYM2203[chipID][dAddr - 0x08 + 3] ? 0 : dData;
             }
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 if (!ctYM2203[chipID].UseScci)
                 {
@@ -450,16 +462,16 @@ namespace MDPlayer
             }
         }
 
-        public void setYM2608Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model)
+        public void setYM2608Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
             if (ctYM2608 == null) return;
 
             if (chipID == 0) ChipPriOPNA = 2;
             else ChipSecOPNA = 2;
 
-            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+            if (model == enmModel.VirtualModel) fmRegisterYM2608[chipID][dPort][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2608[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2608[chipID].UseScci))
+            if ((model == enmModel.RealModel && ctYM2608[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2608[chipID].UseScci))
             {
                 if (dPort == 0 && dAddr == 0x28)
                 {
@@ -589,7 +601,7 @@ namespace MDPlayer
                 }
             }
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
                 {
@@ -605,16 +617,16 @@ namespace MDPlayer
 
         }
 
-        public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model)
+        public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
             if (ctYM2610 == null) return;
 
             if (chipID == 0) ChipPriOPNB = 2;
             else ChipSecOPNB = 2;
 
-            if (model == vgm.enmModel.VirtualModel) fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+            if (model == enmModel.VirtualModel) fmRegisterYM2610[chipID][dPort][dAddr] = dData;
 
-            if ((model == vgm.enmModel.RealModel && ctYM2610[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2610[chipID].UseScci))
+            if ((model == enmModel.RealModel && ctYM2610[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2610[chipID].UseScci))
             {
                 //fmRegisterYM2610[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -760,7 +772,7 @@ namespace MDPlayer
                 }
             }
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 if (!ctYM2610[chipID].UseScci)
                 {
@@ -775,20 +787,20 @@ namespace MDPlayer
 
         }
 
-        public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, vgm.enmModel model, long vgmFrameCounter)
+        public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, enmModel model, long vgmFrameCounter)
         {
             if (ctYM2612 == null) return;
 
             if (chipID == 0) ChipPriOPN2 = 2;
             else ChipSecOPN2 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 fmRegisterYM2612[chipID][dPort][dAddr] = dData;
-                outMIDIData(enmChip.YM2612, chipID, dPort, dAddr, dData, vgmFrameCounter);
+                midiExport.outMIDIData(enmUseChip.YM2612, chipID, dPort, dAddr, dData, 0, vgmFrameCounter);
             }
 
-            if ((model == vgm.enmModel.RealModel && ctYM2612[chipID].UseScci) || (model == vgm.enmModel.VirtualModel && !ctYM2612[chipID].UseScci))
+            if ((model == enmModel.RealModel && ctYM2612[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2612[chipID].UseScci))
             {
                 //fmRegister[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -863,7 +875,7 @@ namespace MDPlayer
                 if (maskFMChYM2612[chipID][5]) dData = 0x00;
             }
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 if (ctYM2612[chipID].UseScci)
                 {
@@ -927,15 +939,15 @@ namespace MDPlayer
         {
             maskFMChYM2151[chipID][ch] = mask;
 
-            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], vgm.enmModel.VirtualModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], vgm.enmModel.VirtualModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], vgm.enmModel.VirtualModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], vgm.enmModel.VirtualModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], enmModel.VirtualModel, 0,-1);
+            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], enmModel.VirtualModel, 0, -1);
+            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], enmModel.VirtualModel, 0, -1);
+            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], enmModel.VirtualModel, 0, -1);
 
-            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], vgm.enmModel.RealModel, 0);
-            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], vgm.enmModel.RealModel, 0);
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], enmModel.RealModel, 0, -1);
+            setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], enmModel.RealModel, 0, -1);
+            setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], enmModel.RealModel, 0, -1);
+            setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], enmModel.RealModel, 0, -1);
         }
 
         public void setMaskYM2203(int chipID, int ch, bool mask)
@@ -945,20 +957,20 @@ namespace MDPlayer
             int c = ch;
             if (ch < 3)
             {
-                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], vgm.enmModel.VirtualModel);
-                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], vgm.enmModel.VirtualModel);
-                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], vgm.enmModel.VirtualModel);
-                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], vgm.enmModel.VirtualModel);
+                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], enmModel.VirtualModel);
+                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], enmModel.VirtualModel);
+                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], enmModel.VirtualModel);
+                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], enmModel.VirtualModel);
 
-                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], vgm.enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], enmModel.RealModel);
             }
             else
             {
-                setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], vgm.enmModel.VirtualModel);
-                setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], vgm.enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], enmModel.VirtualModel);
+                setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], enmModel.RealModel);
             }
         }
 
@@ -978,32 +990,32 @@ namespace MDPlayer
 
             if (ch < 6)
             {
-                setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], vgm.enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], enmModel.VirtualModel);
 
-                setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], enmModel.RealModel);
+                setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], enmModel.RealModel);
+                setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], enmModel.RealModel);
+                setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], enmModel.RealModel);
             }
             else if (ch < 9)
             {
-                setYM2608Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2608[chipID][0][0x08 + ch - 6], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2608[chipID][0][0x08 + ch - 6], vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2608[chipID][0][0x08 + ch - 6], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2608[chipID][0][0x08 + ch - 6], enmModel.RealModel);
             }
             else if (ch < 12)
             {
-                setYM2608Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2608[chipID][0][0x40 + 2], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2608[chipID][0][0x44 + 2], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2608[chipID][0][0x48 + 2], vgm.enmModel.VirtualModel);
-                setYM2608Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2608[chipID][0][0x4c + 2], vgm.enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2608[chipID][0][0x40 + 2], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2608[chipID][0][0x44 + 2], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2608[chipID][0][0x48 + 2], enmModel.VirtualModel);
+                setYM2608Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2608[chipID][0][0x4c + 2], enmModel.VirtualModel);
 
-                setYM2608Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2608[chipID][0][0x40 + 2], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2608[chipID][0][0x44 + 2], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2608[chipID][0][0x48 + 2], vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2608[chipID][0][0x4c + 2], vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2608[chipID][0][0x40 + 2], enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2608[chipID][0][0x44 + 2], enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2608[chipID][0][0x48 + 2], enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2608[chipID][0][0x4c + 2], enmModel.RealModel);
             }
         }
 
@@ -1023,32 +1035,32 @@ namespace MDPlayer
 
             if (ch < 6)
             {
-                setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], vgm.enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], enmModel.VirtualModel);
 
-                setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], enmModel.RealModel);
+                setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], enmModel.RealModel);
+                setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], enmModel.RealModel);
+                setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], enmModel.RealModel);
             }
             else if (ch < 9)
             {
-                setYM2610Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2610[chipID][0][0x08 + ch - 6], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2610[chipID][0][0x08 + ch - 6], vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2610[chipID][0][0x08 + ch - 6], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, 0, 0x08 + ch - 6, fmRegisterYM2610[chipID][0][0x08 + ch - 6], enmModel.RealModel);
             }
             else if (ch < 12)
             {
-                setYM2610Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2610[chipID][0][0x40 + 2], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2610[chipID][0][0x44 + 2], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2610[chipID][0][0x48 + 2], vgm.enmModel.VirtualModel);
-                setYM2610Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2610[chipID][0][0x4c + 2], vgm.enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2610[chipID][0][0x40 + 2], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2610[chipID][0][0x44 + 2], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2610[chipID][0][0x48 + 2], enmModel.VirtualModel);
+                setYM2610Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2610[chipID][0][0x4c + 2], enmModel.VirtualModel);
 
-                setYM2610Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2610[chipID][0][0x40 + 2], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2610[chipID][0][0x44 + 2], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2610[chipID][0][0x48 + 2], vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2610[chipID][0][0x4c + 2], vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x40 + 2, fmRegisterYM2610[chipID][0][0x40 + 2], enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2610[chipID][0][0x44 + 2], enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2610[chipID][0][0x48 + 2], enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2610[chipID][0][0x4c + 2], enmModel.RealModel);
             }
         }
 
@@ -1059,15 +1071,15 @@ namespace MDPlayer
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
 
-            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.VirtualModel, -1);
-            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.VirtualModel, -1);
-            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.VirtualModel, -1);
-            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], enmModel.VirtualModel, -1);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], enmModel.VirtualModel, -1);
 
-            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel, -1);
-            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel, -1);
-            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel, -1);
-            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], enmModel.RealModel, -1);
+            setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], enmModel.RealModel, -1);
         }
 
 
@@ -1076,10 +1088,10 @@ namespace MDPlayer
             nowYM2151FadeoutVol[chipID] = v;
             for (int c = 0; c < 8; c++)
             {
-                setYM2151Register((byte)chipID, 0, 0x60 + c, fmRegisterYM2151[chipID][0x60 + c], vgm.enmModel.RealModel, 0);
-                setYM2151Register((byte)chipID, 0, 0x68 + c, fmRegisterYM2151[chipID][0x68 + c], vgm.enmModel.RealModel, 0);
-                setYM2151Register((byte)chipID, 0, 0x70 + c, fmRegisterYM2151[chipID][0x70 + c], vgm.enmModel.RealModel, 0);
-                setYM2151Register((byte)chipID, 0, 0x78 + c, fmRegisterYM2151[chipID][0x78 + c], vgm.enmModel.RealModel, 0);
+                setYM2151Register((byte)chipID, 0, 0x60 + c, fmRegisterYM2151[chipID][0x60 + c], enmModel.RealModel, 0, -1);
+                setYM2151Register((byte)chipID, 0, 0x68 + c, fmRegisterYM2151[chipID][0x68 + c], enmModel.RealModel, 0, -1);
+                setYM2151Register((byte)chipID, 0, 0x70 + c, fmRegisterYM2151[chipID][0x70 + c], enmModel.RealModel, 0, -1);
+                setYM2151Register((byte)chipID, 0, 0x78 + c, fmRegisterYM2151[chipID][0x78 + c], enmModel.RealModel, 0, -1);
             }
         }
 
@@ -1088,10 +1100,10 @@ namespace MDPlayer
             nowYM2203FadeoutVol[chipID] = v;
             for (int c = 0; c < 3; c++)
             {
-                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], vgm.enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], vgm.enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], enmModel.RealModel);
+                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], enmModel.RealModel);
             }
         }
 
@@ -1104,23 +1116,23 @@ namespace MDPlayer
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x40 + c, fmRegisterYM2608[chipID][p][0x40 + c], enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x44 + c, fmRegisterYM2608[chipID][p][0x44 + c], enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x48 + c, fmRegisterYM2608[chipID][p][0x48 + c], enmModel.RealModel);
+                    setYM2608Register((byte)chipID, p, 0x4c + c, fmRegisterYM2608[chipID][p][0x4c + c], enmModel.RealModel);
                 }
             }
 
             //ssg
-            setYM2608Register((byte)chipID, 0, 0x08, fmRegisterYM2608[chipID][0][0x08], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, 0, 0x09, fmRegisterYM2608[chipID][0][0x09], vgm.enmModel.RealModel);
-            setYM2608Register((byte)chipID, 0, 0x0a, fmRegisterYM2608[chipID][0][0x0a], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x08, fmRegisterYM2608[chipID][0][0x08], enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x09, fmRegisterYM2608[chipID][0][0x09], enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x0a, fmRegisterYM2608[chipID][0][0x0a], enmModel.RealModel);
 
             //rhythm
-            setYM2608Register((byte)chipID, 0, 0x11, fmRegisterYM2608[chipID][0][0x11], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 0, 0x11, fmRegisterYM2608[chipID][0][0x11], enmModel.RealModel);
 
             //adpcm
-            setYM2608Register((byte)chipID, 1, 0x0b, fmRegisterYM2608[chipID][1][0x0b], vgm.enmModel.RealModel);
+            setYM2608Register((byte)chipID, 1, 0x0b, fmRegisterYM2608[chipID][1][0x0b], enmModel.RealModel);
         }
 
         public void setFadeoutVolYM2610(int chipID, int v)
@@ -1130,23 +1142,23 @@ namespace MDPlayer
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], vgm.enmModel.RealModel);
-                    setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], vgm.enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x40 + c, fmRegisterYM2610[chipID][p][0x40 + c], enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x44 + c, fmRegisterYM2610[chipID][p][0x44 + c], enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x48 + c, fmRegisterYM2610[chipID][p][0x48 + c], enmModel.RealModel);
+                    setYM2610Register((byte)chipID, p, 0x4c + c, fmRegisterYM2610[chipID][p][0x4c + c], enmModel.RealModel);
                 }
             }
 
             //ssg
-            setYM2610Register((byte)chipID, 0, 0x08, fmRegisterYM2610[chipID][0][0x08], vgm.enmModel.RealModel);
-            setYM2610Register((byte)chipID, 0, 0x09, fmRegisterYM2610[chipID][0][0x09], vgm.enmModel.RealModel);
-            setYM2610Register((byte)chipID, 0, 0x0a, fmRegisterYM2610[chipID][0][0x0a], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x08, fmRegisterYM2610[chipID][0][0x08], enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x09, fmRegisterYM2610[chipID][0][0x09], enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x0a, fmRegisterYM2610[chipID][0][0x0a], enmModel.RealModel);
 
             //rhythm
-            setYM2610Register((byte)chipID, 0, 0x11, fmRegisterYM2610[chipID][0][0x11], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 0, 0x11, fmRegisterYM2610[chipID][0][0x11], enmModel.RealModel);
 
             //adpcm
-            setYM2610Register((byte)chipID, 1, 0x0b, fmRegisterYM2610[chipID][1][0x0b], vgm.enmModel.RealModel);
+            setYM2610Register((byte)chipID, 1, 0x0b, fmRegisterYM2610[chipID][1][0x0b], enmModel.RealModel);
         }
 
         public void setFadeoutVolYM2612(int chipID, int v)
@@ -1156,10 +1168,10 @@ namespace MDPlayer
             {
                 for (int c = 0; c < 3; c++)
                 {
-                    setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], vgm.enmModel.RealModel, -1);
-                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], vgm.enmModel.RealModel, -1);
-                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], vgm.enmModel.RealModel, -1);
-                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], vgm.enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x40 + c, fmRegisterYM2612[chipID][p][0x40 + c], enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], enmModel.RealModel, -1);
+                    setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], enmModel.RealModel, -1);
                 }
             }
         }
@@ -1190,9 +1202,9 @@ namespace MDPlayer
         }
 
 
-        public void sendDataYM2151(byte chipID, vgm.enmModel model)
+        public void sendDataYM2151(byte chipID, enmModel model)
         {
-            if (model == vgm.enmModel.VirtualModel) return;
+            if (model == enmModel.VirtualModel) return;
 
             if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
             {
@@ -1201,9 +1213,9 @@ namespace MDPlayer
             }
         }
 
-        public void sendDataYM2608(byte chipID, vgm.enmModel model)
+        public void sendDataYM2608(byte chipID, enmModel model)
         {
-            if (model == vgm.enmModel.VirtualModel) return;
+            if (model == enmModel.VirtualModel) return;
 
             if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
             {
@@ -1213,17 +1225,17 @@ namespace MDPlayer
         }
 
 
-        public void WriteYM2610_SetAdpcmA(int chipID, byte[] ym2610AdpcmA, vgm.enmModel model)
+        public void WriteYM2610_SetAdpcmA(int chipID, byte[] ym2610AdpcmA, enmModel model)
         {
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 mds.WriteYM2610_SetAdpcmA((byte)chipID, ym2610AdpcmA);
             }
         }
 
-        public void WriteYM2610_SetAdpcmB(int chipID, byte[] ym2610AdpcmB, vgm.enmModel model)
+        public void WriteYM2610_SetAdpcmB(int chipID, byte[] ym2610AdpcmB, enmModel model)
         {
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 mds.WriteYM2610_SetAdpcmB((byte)chipID, ym2610AdpcmB);
             }
@@ -1238,7 +1250,7 @@ namespace MDPlayer
         }
 
 
-        public void setSN76489Register(int chipID, int dData, vgm.enmModel model)
+        public void setSN76489Register(int chipID, int dData, enmModel model)
         {
             if (ctSN76489 == null) return;
 
@@ -1259,7 +1271,7 @@ namespace MDPlayer
                 dData = (dData & 0xf0) | v;
             }
 
-            if (model == vgm.enmModel.RealModel)
+            if (model == enmModel.RealModel)
             {
                 if (ctSN76489[chipID].UseScci)
                 {
@@ -1290,7 +1302,7 @@ namespace MDPlayer
             for (int c = 0; c < 4; c++)
             {
 
-                setSN76489Register(chipID, 0x90 + (c << 5) + sn76489Register[chipID][1 + (c << 1)], vgm.enmModel.RealModel);
+                setSN76489Register(chipID, 0x90 + (c << 5) + sn76489Register[chipID][1 + (c << 1)], enmModel.RealModel);
             }
         }
 
@@ -1302,71 +1314,71 @@ namespace MDPlayer
                 {
                     for (int c = 0; c < 3; c++)
                     {
-                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel, -1);
                     }
                 }
 
 
                 for (int c = 0; c < 4; c++)
                 {
-                    setSN76489Register(chipID, 0x90 + (c << 5) + 0xf, vgm.enmModel.RealModel);
+                    setSN76489Register(chipID, 0x90 + (c << 5) + 0xf, enmModel.RealModel);
                 }
 
                 for (int p = 0; p < 2; p++)
                 {
                     for (int c = 0; c < 3; c++)
                     {
-                        setYM2608Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
                     }
                 }
 
                 //ssg
-                setYM2608Register((byte)chipID, 0, 0x08, 0, vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x09, 0, vgm.enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x0a, 0, vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
 
                 //rhythm
-                setYM2608Register((byte)chipID, 0, 0x11, 0, vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
 
                 //adpcm
-                setYM2608Register((byte)chipID, 1, 0x0b, 0, vgm.enmModel.RealModel);
+                setYM2608Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
 
 
                 for (int p = 0; p < 2; p++)
                 {
                     for (int c = 0; c < 3; c++)
                     {
-                        setYM2610Register((byte)chipID, p, 0x40 + c, 127, vgm.enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x44 + c, 127, vgm.enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x48 + c, 127, vgm.enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x4c + c, 127, vgm.enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
                     }
                 }
 
                 //ssg
-                setYM2610Register((byte)chipID, 0, 0x08, 0, vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x09, 0, vgm.enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x0a, 0, vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
 
                 //rhythm
-                setYM2610Register((byte)chipID, 0, 0x11, 0, vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
 
                 //adpcm
-                setYM2610Register((byte)chipID, 1, 0x0b, 0, vgm.enmModel.RealModel);
+                setYM2610Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
 
 
                 for (int c = 0; c < 8; c++)
                 {
-                    setYM2151Register((byte)chipID, 0, 0x60 + c, 127, vgm.enmModel.RealModel, 0);
-                    setYM2151Register((byte)chipID, 0, 0x68 + c, 127, vgm.enmModel.RealModel, 0);
-                    setYM2151Register((byte)chipID, 0, 0x70 + c, 127, vgm.enmModel.RealModel, 0);
-                    setYM2151Register((byte)chipID, 0, 0x78 + c, 127, vgm.enmModel.RealModel, 0);
+                    setYM2151Register((byte)chipID, 0, 0x60 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x68 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x70 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x78 + c, 127, enmModel.RealModel, 0, -1);
                 }
             }
 
@@ -1374,111 +1386,111 @@ namespace MDPlayer
 
         internal void SetFileName(string fn)
         {
-            PlayingFileName = fn;
+            midiExport.PlayingFileName = fn;
         }
 
-        public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, vgm.enmModel model)
+        public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
         {
             if (chipid == 0) ChipPriRF5C = 2;
             else ChipSecRF5C = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
         }
 
-        public void writeRF5C164(byte chipid, byte adr, byte data, vgm.enmModel model)
+        public void writeRF5C164(byte chipid, byte adr, byte data, enmModel model)
         {
             if (chipid == 0) ChipPriRF5C = 2;
             else ChipSecRF5C = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164(chipid, adr, data);
         }
 
-        public void writeRF5C164MemW(byte chipid, uint offset, byte data, vgm.enmModel model)
+        public void writeRF5C164MemW(byte chipid, uint offset, byte data, enmModel model)
         {
             if (chipid == 0) ChipPriRF5C = 2;
             else ChipSecRF5C = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164MemW(chipid, offset, data);
         }
 
-        public void writePWM(byte chipid, byte adr, uint data, vgm.enmModel model)
+        public void writePWM(byte chipid, byte adr, uint data, enmModel model)
         {
             if (chipid == 0) ChipPriPWM = 2;
             else ChipSecPWM = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WritePWM(chipid, adr, data);
         }
 
-        public void writeC140(byte chipid, uint adr, byte data, vgm.enmModel model)
+        public void writeC140(byte chipid, uint adr, byte data, enmModel model)
         {
             if (chipid == 0) ChipPriC140 = 2;
             else ChipSecC140 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteC140(chipid, adr, data);
         }
 
-        public void writeC140PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, vgm.enmModel model)
+        public void writeC140PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
             if (chipid == 0) ChipPriC140 = 2;
             else ChipSecC140 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
-        public void writeOKIM6258(byte ChipID, byte Port, byte Data, vgm.enmModel model)
+        public void writeOKIM6258(byte ChipID, byte Port, byte Data, enmModel model)
         {
             if (ChipID == 0) ChipPriOKI5 = 2;
             else ChipSecOKI5 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteOKIM6258(ChipID, Port, Data);
         }
 
-        public void writeOKIM6295(byte ChipID, byte Port, byte Data, vgm.enmModel model)
+        public void writeOKIM6295(byte ChipID, byte Port, byte Data, enmModel model)
         {
             if (ChipID == 0) ChipPriOKI9 = 2;
             else ChipSecOKI9 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 mds.WriteOKIM6295(ChipID, Port, Data);
                 //System.Console.WriteLine("ChipID={0} Port={1:X} Data={2:X} ",ChipID,Port,Data);
             }
         }
 
-        public void writeOKIM6295PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, vgm.enmModel model)
+        public void writeOKIM6295PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
             if (chipid == 0) ChipPriOKI9 = 2;
             else ChipSecOKI9 = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
                 mds.WriteOKIM6295PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
-        public void writeSEGAPCM(byte ChipID, int Offset, byte Data, vgm.enmModel model)
+        public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)
         {
             if (ChipID == 0) ChipPriSPCM = 2;
             else ChipSecSPCM = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 mds.WriteSEGAPCM(ChipID, Offset, Data);
                 //System.Console.WriteLine("ChipID={0} Offset={1:X} Data={2:X} ", ChipID, Offset, Data);
             }
         }
 
-        public void writeSEGAPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, vgm.enmModel model)
+        public void writeSEGAPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
             if (chipid == 0) ChipPriSPCM = 2;
             else ChipSecSPCM = 2;
 
-            if (model == vgm.enmModel.VirtualModel)
+            if (model == enmModel.VirtualModel)
             {
                 mds.WriteSEGAPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
             }
@@ -1691,530 +1703,6 @@ namespace MDPlayer
         }
 
 
-
-        public enum enmChip
-        {
-            YM2612
-        }
-
-        private List<byte>[] midiData = null;
-        private long[] midiData_OldFrameCounter = null;
-        private int[] midiData_OldCode = null;
-        private int[] midiData_OldFreq = null;
-
-        private string PlayingFileName = "";
-
-        public void outMIDIData(enmChip chip, int chipID, int dPort, int dAddr, int dData, long vgmFrameCounter)
-        {
-            if (!setting.midiExport.UseMIDIExport) return;
-            if (setting.midiExport.ExportPath == "") return;
-            if (vgmFrameCounter < 0) return;
-            if (chip != enmChip.YM2612) return;
-            if (chipID != 0) return;
-
-            if (midiData == null)
-            {
-                outMIDIData_MakeHeader();
-            }
-
-            if (dPort == 0 && dAddr == 0x28)
-            {
-                byte ch = (byte)(dData & 0x7);
-                ch = (byte)(ch > 2 ? ch - 1 : ch);
-                byte cmd = (byte)((dData & 0xf0) != 0 ? 0x90 : 0x80);
-
-                int p = ch > 2 ? 1 : 0;
-                int vch = ch > 2 ? (ch - 3) : ch;
-                midiData_OldFreq[ch+1] = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x3f) * 0x100;
-                int freq = midiData_OldFreq[ch+1] & 0x7ff;
-                if (freq == 0) return;
-                int octav = (midiData_OldFreq[ch+1] & 0x3800) >> 11;
-                int note = searchFMNote(freq);
-                byte code = (byte)(octav * 12 + note);
-
-                byte vel = (byte)(127 - fmRegisterYM2612[chipID][p][0x4c + vch]);
-
-                if (midiData_OldCode[ch+1] < 0 && cmd == 0x80) return;
-
-                outMIDIData_SetDelta(ch, vgmFrameCounter);
-
-                if (midiData_OldCode[ch+1] >= 0 || cmd == 0x80)
-                {
-                    midiData[ch + 1].Add((byte)(0x80 | ch));
-                    midiData[ch + 1].Add((byte)midiData_OldCode[ch+1]);
-                    midiData[ch + 1].Add(0x00);
-
-                    midiData_OldCode[ch+1] = -1;
-                    if (cmd != 0x80) midiData[ch + 1].Add(0);//NextDeltaTime
-                }
-
-                if (cmd == 0x90)
-                {
-                    midiData[ch + 1].Add((byte)(0x90 | ch));
-                    midiData[ch + 1].Add(code);
-                    if (setting.midiExport.UseVOPMex)
-                    {
-                        midiData[ch + 1].Add(127);
-                    }
-                    else
-                    {
-                        midiData[ch + 1].Add(vel);
-                    }
-
-                    midiData_OldCode[ch + 1] = code;
-                }
-
-                return;
-            }
-
-            if (dAddr >= 0xa0 && dAddr < 0xa8)
-            {
-                byte ch = (byte)((dAddr & 0x3) + dPort * 3);
-                int freq = midiData_OldFreq[ch+1];
-                int vch = ch > 2 ? (ch - 3) : ch;
-                if (freq == -1) return;
-                if (dAddr < 0xa4)
-                {
-                    freq = (freq & 0x3f00) | dData;
-                }
-                else
-                {
-                    freq = (freq & 0xff) | ((dData & 0x3f) << 8);
-                }
-
-                if (freq != midiData_OldFreq[ch+1])
-                {
-                    int freq2nd = freq & 0x07ff;
-                    if (freq2nd == 0) return;
-                    int octav = (freq & 0x3800) >> 11;
-                    int note = searchFMNote(freq2nd);
-                    byte code = (byte)(octav * 12 + note);
-                    if (midiData_OldCode[ch+1] != -1 && midiData_OldCode[ch+1] != code)
-                    {
-                        outMIDIData_SetDelta(ch,vgmFrameCounter);
-                        midiData[ch + 1].Add((byte)(0x80 | ch));
-                        midiData[ch + 1].Add((byte)midiData_OldCode[ch+1]);
-                        midiData[ch + 1].Add(0x00);
-
-                        midiData[ch + 1].Add(0);//delta0
-                        midiData[ch + 1].Add((byte)(0x90 | ch));
-                        midiData[ch + 1].Add(code);
-                        if (setting.midiExport.UseVOPMex)
-                        {
-                            midiData[ch + 1].Add(127);
-                        }
-                        else
-                        {
-                            byte vel = (byte)(127 - fmRegisterYM2612[chipID][dPort][0x4c + vch]);
-                            midiData[ch + 1].Add(vel);
-                        }
-
-                        midiData_OldFreq[ch+1] = freq;
-                        midiData_OldCode[ch+1] = code;
-                    }
-                }
-
-                return;
-            }
-
-            ////
-            //VOPMex向け
-            ////
-            if (!setting.midiExport.UseVOPMex) return;
-
-            //DT/ML
-            if ((dAddr & 0xf0) == 0x30)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // DT
-                midiData[ch + 1].Add((byte)(24 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x70) >> 4));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //ML
-                midiData[ch + 1].Add((byte)(20 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x0f) >> 0));
-
-                return;
-            }
-
-            //TL
-            if ((dAddr & 0xf0) == 0x40)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // TL
-                midiData[ch + 1].Add((byte)(16 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x7f) >> 0));
-
-                return;
-            }
-
-            //KS/AR
-            if ((dAddr & 0xf0) == 0x50)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // KS
-                midiData[ch + 1].Add((byte)(39 + op));
-                midiData[ch + 1].Add((byte)((dData & 0xc0) >> 6));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //AR
-                midiData[ch + 1].Add((byte)(43 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x1f) >> 0));
-
-                return;
-            }
-
-            //AMS/DR
-            if ((dAddr & 0xf0) == 0x60)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // AMS
-                midiData[ch + 1].Add((byte)(70 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x80) >> 7));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //DR
-                midiData[ch + 1].Add((byte)(47 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x1f) >> 0));
-
-                return;
-            }
-
-            //SR
-            if ((dAddr & 0xf0) == 0x70)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //SR
-                midiData[ch + 1].Add((byte)(51 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x1f) >> 0));
-
-                return;
-            }
-
-            //DL/RR
-            if ((dAddr & 0xf0) == 0x80)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // DL
-                midiData[ch + 1].Add((byte)(55 + op));
-                midiData[ch + 1].Add((byte)((dData & 0xf0) >> 4));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //RR
-                midiData[ch + 1].Add((byte)(59 + op));
-                midiData[ch + 1].Add((byte)((dData & 0x0f) >> 0));
-
-                return;
-            }
-
-            //FB/ALG
-            if (dAddr >= 0xB0 && dAddr < 0xB4)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // FB
-                midiData[ch + 1].Add((byte)(15));
-                midiData[ch + 1].Add((byte)((dData & 0x38) >> 3));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //ALG
-                midiData[ch + 1].Add((byte)(14));
-                midiData[ch + 1].Add((byte)((dData & 0x07) >> 0));
-
-                return;
-            }
-
-            //PAN/AMS/FMS
-            if (dAddr >= 0xB4 && dAddr < 0xB8)
-            {
-                int ch = (dAddr & 0x3) + dPort * 3;
-
-                outMIDIData_SetDelta(ch,vgmFrameCounter);
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); // PAN
-                midiData[ch + 1].Add((byte)(10));
-                int pan = (dData & 0xc0) >> 6;
-                midiData[ch + 1].Add((byte)(pan == 0 ? 64 : ((pan == 1) ? 127 : ((pan == 2) ? 1 : 64))));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //AMS
-                midiData[ch + 1].Add((byte)(76));
-                midiData[ch + 1].Add((byte)((dData & 0x38) >> 3));
-
-                midiData[ch + 1].Add(0);//Delta 0
-
-                midiData[ch + 1].Add((byte)(0xb0 | ch)); //FMS
-                midiData[ch + 1].Add((byte)(75));
-                midiData[ch + 1].Add((byte)((dData & 0x03) >> 0));
-
-                return;
-            }
-
-        }
-
-        public void outMIDIData_Close()
-        {
-            if (!setting.midiExport.UseMIDIExport) return;
-            if (setting.midiExport.ExportPath == "") return;
-            if (midiData == null) return;
-            //if (midiData.Count < 23) return;
-
-
-            for (int ch = 1; ch < 1+6; ch++)
-            {
-                outMIDIData_SetDelta(ch - 1, midiData_OldFrameCounter[ch]);
-
-                if (midiData_OldCode[ch] >= 0)
-                {
-
-                    midiData[ch].Add((byte)(0x80 | (ch-1)));
-                    midiData[ch].Add((byte)midiData_OldCode[ch]);
-                    midiData[ch].Add(0x00);
-
-                    midiData_OldCode[ch] = -1;
-                    midiData[ch].Add(0x00);//Delta 0
-                }
-
-                midiData[ch].Add(0xff); //メタイベント
-                midiData[ch].Add(0x2f);
-                midiData[ch].Add(0x00);
-
-                int MTrkLengthAdr = 0x04;
-                midiData[ch][MTrkLengthAdr + 0] = (byte)(((midiData[ch].Count - (MTrkLengthAdr + 4)) & 0xff000000) >> 24);
-                midiData[ch][MTrkLengthAdr + 1] = (byte)(((midiData[ch].Count - (MTrkLengthAdr + 4)) & 0x00ff0000) >> 16);
-                midiData[ch][MTrkLengthAdr + 2] = (byte)(((midiData[ch].Count - (MTrkLengthAdr + 4)) & 0x0000ff00) >> 8);
-                midiData[ch][MTrkLengthAdr + 3] = (byte)(((midiData[ch].Count - (MTrkLengthAdr + 4)) & 0x000000ff) >> 0);
-            }
-
-
-            try
-            {
-                string fn = PlayingFileName == "" ? "Temp.mid" : PlayingFileName;
-                List<byte> buf = new List<byte>();
-                for (int i = 0; i < 1 + 6; i++)
-                {
-                    foreach (byte d in midiData[i]) buf.Add(d);
-                }
-                File.WriteAllBytes(Path.Combine(setting.midiExport.ExportPath, Path.ChangeExtension(Path.GetFileName(fn), ".mid")), buf.ToArray());
-            }
-            catch
-            {
-            }
-
-            midiData = null;
-        }
-
-        private int searchFMNote(int freq)
-        {
-            int m = int.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 5; i++)
-            {
-                int a = Math.Abs(freq - Tables.FmFNum[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n - 12 * 3;
-        }
-
-        private void outMIDIData_SetDelta(int ch,long NewFrameCounter)
-        {
-
-            long sub = NewFrameCounter - midiData_OldFrameCounter[ch + 1];
-            long step = (long)(sub / 44100.0 * 960.0);
-            midiData_OldFrameCounter[ch + 1] += (long)(step * 44100.0 / 960.0);
-
-            //byte[] a = new byte[4];
-            //a[0] = (byte)((step & 0x0fe00000) >> 21);
-            //a[1] = (byte)((step & 0x001fc000) >> 14);
-            //a[2] = (byte)((step & 0x00003f80) >>  7);
-            //a[3] = (byte)((step & 0x0000007f) >>  0);
-            bool flg = true;
-            for (int i = 0; i < 4; i++)
-            {
-                byte d = (byte)((step & (0x0fe00000 >> (7 * i))) >> (21 - 7 * i));
-                if (flg && d == 0 && i < 3) continue;
-                flg = false;
-                d |= (byte)((i != 3) ? 0x80 : 0x00);
-                midiData[ch + 1].Add(d);
-            }
-
-        }
-
-        private void outMIDIData_MakeHeader()
-        {
-            int maxTrk = 1 + 6;
-
-            midiData_OldCode = new int[maxTrk];
-            midiData_OldFreq = new int[maxTrk];
-            midiData = new List<byte>[maxTrk];
-            midiData_OldFrameCounter = new long[maxTrk];
-
-            for (int i = 0; i < maxTrk; i++)
-            {
-                midiData_OldCode[i] = -1;
-                midiData_OldFreq[i] = -1;
-                midiData[i] = new List<byte>();
-                midiData_OldFrameCounter[i] = 0L;
-            }
-
-            midiData[0].Add(0x4d); //チャンクタイプ'MThd'
-            midiData[0].Add(0x54);
-            midiData[0].Add(0x68);
-            midiData[0].Add(0x64);
-
-            midiData[0].Add(0x00); //データ長
-            midiData[0].Add(0x00);
-            midiData[0].Add(0x00);
-            midiData[0].Add(0x06);
-
-            midiData[0].Add(0x00); //フォーマット
-            midiData[0].Add(0x01);
-
-            midiData[0].Add(0x00); //トラック数
-            midiData[0].Add(0x07);
-
-            midiData[0].Add(0x01); //分解能
-            midiData[0].Add(0xe0);
-
-            // Conductor Track
-
-            midiData[0].Add(0x4d); //チャンクタイプ'MTrk'
-            midiData[0].Add(0x54);
-            midiData[0].Add(0x72);
-            midiData[0].Add(0x6b);
-
-            midiData[0].Add(0x00); //データ長 0x17
-            midiData[0].Add(0x00);
-            midiData[0].Add(0x00);
-            midiData[0].Add(0x17);
-
-            midiData[0].Add(0x00); //Delta 0
-
-            midiData[0].Add(0xff); //メタイベント
-            midiData[0].Add(0x03);
-            midiData[0].Add(0x00);
-
-            midiData[0].Add(0x00); //Delta 0
-
-            midiData[0].Add(0xff); //メタイベント　拍子 4/4(固定)
-            midiData[0].Add(0x58);
-            midiData[0].Add(0x04);
-            midiData[0].Add(0x04);
-            midiData[0].Add(0x02);
-            midiData[0].Add(0x18);
-            midiData[0].Add(0x08);
-
-            midiData[0].Add(0x00); //Delta 0
-
-            midiData[0].Add(0xff); //メタイベント　テンポ設定 BPM = 120
-            midiData[0].Add(0x51);
-            midiData[0].Add(0x03);
-            midiData[0].Add(0x07);
-            midiData[0].Add(0xa1);
-            midiData[0].Add(0x20);
-
-            midiData[0].Add(0x00); //Delta 0
-
-            midiData[0].Add(0xff); //メタイベント　終端
-            midiData[0].Add(0x2f);
-            midiData[0].Add(0x00);
-
-            // 実 Track
-
-            for (int i = 1; i < maxTrk; i++)
-            {
-                midiData[i].Add(0x4d); //チャンクタイプ'MTrk'
-                midiData[i].Add(0x54);
-                midiData[i].Add(0x72);
-                midiData[i].Add(0x6b);
-
-                midiData[i].Add(0x00); //データ長 この時点では不明のためとりあえず0
-                midiData[i].Add(0x00);
-                midiData[i].Add(0x00);
-                midiData[i].Add(0x00);
-
-                midiData[i].Add(0x00); //delta0
-                midiData[i].Add(0xff); // メタイベント　トラック名
-                midiData[i].Add(0x03);
-                midiData[i].Add(0x00);
-
-                midiData[i].Add(0x00); //delta0
-                midiData[i].Add(0xff); // メタイベントポート指定
-                midiData[i].Add(0x21);
-                midiData[i].Add(0x01);
-                midiData[i].Add(0x00); //Port1
-
-            }
-
-
-            if (!setting.midiExport.UseVOPMex) return;
-
-            //VOPMex向け
-
-            for (int i = 1; i < maxTrk; i++)
-            {
-                //音色コントロールの動作を変更(全MIDIチャンネル)
-                midiData[i].Add(0x00); //Delta 0
-                midiData[i].Add((byte)(0xb0 + (i - 1))); // CC 98 127
-                midiData[i].Add(121);
-                midiData[i].Add(127);
-                midiData[i].Add(0x00); //Delta 0
-                midiData[i].Add((byte)(0xb0 + (i - 1))); // CC 98 127
-                midiData[i].Add(98);
-                midiData[i].Add(127);
-                midiData[i].Add(0x00); //Delta 0
-                midiData[i].Add((byte)(0xb0 + (i - 1))); // CC 99 126
-                midiData[i].Add(99);
-                midiData[i].Add(126);
-                midiData[i].Add(0x00); //Delta 0
-                midiData[i].Add((byte)(0xb0 + (i - 1))); // CC 6 127
-                midiData[i].Add(6);
-                midiData[i].Add(127);
-            }
-        }
 
     }
 }

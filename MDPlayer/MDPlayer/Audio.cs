@@ -11,16 +11,6 @@ namespace MDPlayer
     public class Audio
     {
 
-        public enum enmScciChipType : int
-        {
-            YM2608 = 1
-            , YM2151 = 2
-            , YM2610 = 3
-            , YM2203 = 4
-            , YM2612 = 5
-            , SN76489 = 7
-        }
-
         private static object lockObj = new object();
         private static bool _fatalError = false;
         public static bool fatalError
@@ -259,10 +249,10 @@ namespace MDPlayer
             log.ForcedWrite("Audio:Init:STEP 06");
 
             vgmVirtual.dacControl.chipRegister = chipRegister;
-            vgmVirtual.dacControl.model = vgm.enmModel.VirtualModel;
+            vgmVirtual.dacControl.model = enmModel.VirtualModel;
 
             vgmReal.dacControl.chipRegister = chipRegister;
-            vgmReal.dacControl.model = vgm.enmModel.RealModel;
+            vgmReal.dacControl.model = enmModel.RealModel;
 
             Paused = false;
             Stopped = true;
@@ -327,47 +317,47 @@ namespace MDPlayer
 
                 Stop();
 
-                vgm.enmUseChip usechip = vgm.enmUseChip.Unuse;
+                enmUseChip usechip = enmUseChip.Unuse;
                 if (setting.YM2612Type.UseScci)
                 {
                     if (setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        usechip |= vgm.enmUseChip.YM2612Ch6;
+                        usechip |= enmUseChip.YM2612Ch6;
                     }
                 }
                 else
                 {
-                    usechip |= vgm.enmUseChip.YM2612;
-                    usechip |= vgm.enmUseChip.YM2612Ch6;
+                    usechip |= enmUseChip.YM2612;
+                    usechip |= enmUseChip.YM2612Ch6;
                 }
                 if (!setting.SN76489Type.UseScci)
                 {
-                    usechip |= vgm.enmUseChip.SN76489;
+                    usechip |= enmUseChip.SN76489;
                 }
-                usechip |= vgm.enmUseChip.RF5C164;
-                usechip |= vgm.enmUseChip.PWM;
+                usechip |= enmUseChip.RF5C164;
+                usechip |= enmUseChip.PWM;
 
                 if (!vgmVirtual.init(vgmBuf
                     , chipRegister
-                    , vgm.enmModel.VirtualModel
+                    , enmModel.VirtualModel
                     , usechip
                     , SamplingRate * (uint)setting.LatencyEmulation / 1000
                     ))
                     return false;
 
-                usechip = vgm.enmUseChip.Unuse;
+                usechip = enmUseChip.Unuse;
                 if (setting.YM2612Type.UseScci)
                 {
-                    usechip |= vgm.enmUseChip.YM2612;
+                    usechip |= enmUseChip.YM2612;
                     if (!setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        usechip |= vgm.enmUseChip.YM2612Ch6;
+                        usechip |= enmUseChip.YM2612Ch6;
                     }
                 }
 
                 if (!vgmReal.init(vgmBuf
                     , chipRegister
-                    , vgm.enmModel.RealModel
+                    , enmModel.RealModel
                     , usechip
                     , SamplingRate * (uint)setting.LatencySCCI / 1000
                     ))
@@ -1294,14 +1284,14 @@ namespace MDPlayer
             return v && r;
         }
 
-        public static bool GetIsDataBlock(vgm.enmModel model)
+        public static bool GetIsDataBlock(enmModel model)
         {
-            return (model == vgm.enmModel.VirtualModel) ? vgmVirtual.isDataBlock : vgmReal.isDataBlock;
+            return (model == enmModel.VirtualModel) ? vgmVirtual.isDataBlock : vgmReal.isDataBlock;
         }
 
-        public static bool GetIsPcmRAMWrite(vgm.enmModel model)
+        public static bool GetIsPcmRAMWrite(enmModel model)
         {
-            return (model == vgm.enmModel.VirtualModel) ? vgmVirtual.isPcmRAMWrite : vgmReal.isPcmRAMWrite;
+            return (model == enmModel.VirtualModel) ? vgmVirtual.isPcmRAMWrite : vgmReal.isPcmRAMWrite;
         }
 
 
@@ -1643,7 +1633,7 @@ namespace MDPlayer
 
                     Stopped = true;
 
-                    chipRegister.outMIDIData_Close();
+                    chipRegister.Close();
 
                 }
 

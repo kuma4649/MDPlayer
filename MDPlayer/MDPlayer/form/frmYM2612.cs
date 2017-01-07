@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MDPlayer
 {
-    public partial class frmYM2610 : Form
+    public partial class frmYM2612 : Form
     {
         public bool isClosed = false;
         public int x = -1;
@@ -21,7 +21,7 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmYM2610(frmMain frm, int chipID, int zoom)
+        public frmYM2612(frmMain frm, int chipID, int zoom)
         {
             parent = frm;
             this.chipID = chipID;
@@ -43,13 +43,13 @@ namespace MDPlayer
             }
         }
 
-        private void frmYM2610_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmYM2612_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosYm2610[chipID] = Location;
+            parent.setting.location.PosYm2612[chipID] = Location;
             isClosed = true;
         }
 
-        private void frmYM2610_Load(object sender, EventArgs e)
+        private void frmYM2612_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
 
@@ -61,14 +61,14 @@ namespace MDPlayer
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2610.Width * zoom, frameSizeH + Properties.Resources.planeYM2610.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2610.Width * zoom, frameSizeH + Properties.Resources.planeYM2610.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2610.Width * zoom, frameSizeH + Properties.Resources.planeYM2610.Height * zoom);
-            frmYM2610_Resize(null, null);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2612.Width * zoom, frameSizeH + Properties.Resources.planeYM2612.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2612.Width * zoom, frameSizeH + Properties.Resources.planeYM2612.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2612.Width * zoom, frameSizeH + Properties.Resources.planeYM2612.Height * zoom);
+            frmYM2612_Resize(null, null);
 
         }
 
-        private void frmYM2610_Resize(object sender, EventArgs e)
+        private void frmYM2612_Resize(object sender, EventArgs e)
         {
 
         }
@@ -97,36 +97,45 @@ namespace MDPlayer
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
+            int px = e.Location.X / zoom;
 
-            int ch = (py / 8) - 1;
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
 
-            if (ch < 0) return;
-
-            if (ch < 14)
+            //鍵盤
+            if (py < 10 * 8)
             {
+                int ch = (py / 8) - 1;
+                if (ch < 0) return;
+
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(vgm.enmUseChip.YM2610, chipID, ch);
+                    //マスク
+                    if (ch < 6) parent.SetChannelMask(enmUseChip.YM2612, chipID, ch);
+                    else parent.SetChannelMask(enmUseChip.YM2612, chipID, 2);
                     return;
                 }
 
-                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(vgm.enmUseChip.YM2610, chipID, ch);
+                //マスク解除
+                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(enmUseChip.YM2612, chipID, ch);
                 return;
             }
 
-            // 音色表示欄の判定
+            //音色で右クリックした場合は何もしない
+            if (e.Button == MouseButtons.Right) return;
 
-            int h = (py - 15 * 8) / (6 * 8);
+            // 音色表示欄の判定
+            int h = (py - 10 * 8) / (6 * 8);
             int w = Math.Min(px / (13 * 8), 2);
             int instCh = h * 3 + w;
 
-            if (instCh < 6)
+            if (instCh < 3)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(vgm.enmUseChip.YM2610, instCh, chipID);
+                parent.getInstCh(enmUseChip.YM2612, instCh, chipID);
             }
+
         }
     }
 }
