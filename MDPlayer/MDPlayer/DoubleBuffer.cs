@@ -1525,7 +1525,7 @@ namespace MDPlayer
             }
 
             int x = 4 * 59;
-            int y = 8 * 25;
+            int y = 8 * 26;
             drawFont4Int(ym2151Screen[chipID], x, y, 0, 3, namd);
 
             oamd = namd;
@@ -1539,7 +1539,7 @@ namespace MDPlayer
             }
 
             int x = 4 * 59;
-            int y = 8 * 26;
+            int y = 8 * 25;
             drawFont4Int(ym2151Screen[chipID], x, y, 0, 3, npmd);
 
             opmd = npmd;
