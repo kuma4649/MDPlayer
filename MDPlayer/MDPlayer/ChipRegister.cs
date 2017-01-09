@@ -64,6 +64,8 @@ namespace MDPlayer
             new bool[8] { false, false, false, false, false, false, false, false }
             ,new bool[8] { false, false, false, false, false, false, false, false }
         };
+        public int[] fmAMDYM2151 = new int[] { -1, -1 };
+        public int[] fmPMDYM2151 = new int[] { -1, -1 };
 
         public int[][] fmRegisterYM2203 = new int[][] { null, null };
         public int[][] fmKeyOnYM2203 = new int[][] { null, null };
@@ -284,6 +286,19 @@ namespace MDPlayer
                             fmKeyOnYM2151[chipID][ch] = 0;
                         }
                     }
+                }
+            }
+
+            //AMD/PMD
+            if (dAddr == 0x19)
+            {
+                if ((dData & 0x80) != 0)
+                {
+                    fmPMDYM2151[chipID] = dData & 0x7f;
+                }
+                else
+                {
+                    fmAMDYM2151[chipID] = dData & 0x7f;
                 }
             }
 

@@ -59,6 +59,7 @@ namespace MDPlayer
             public int pcmMode = -1;
             public bool mask = false;
             public int tp = -1;
+            public int kf = -1;//OPM only
 
             public int[] inst = new int[48];
 
@@ -115,7 +116,13 @@ namespace MDPlayer
 
         public class YM2151
         {
-
+            public int ne = -1;
+            public int nfrq = -1;
+            public int lfrq = -1;
+            public int pmd = -1;
+            public int amd = -1;
+            public int waveform = -1;
+            public int lfosync = -1;
             public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()};
 
         }

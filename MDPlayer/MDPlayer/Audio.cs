@@ -1035,6 +1035,16 @@ namespace MDPlayer
             return chipRegister.fmKeyOnYM2151[chipID];
         }
 
+        public static int GetYM2151PMD(int chipID)
+        {
+            return chipRegister.fmPMDYM2151[chipID];
+        }
+
+        public static int GetYM2151AMD(int chipID)
+        {
+            return chipRegister.fmAMDYM2151[chipID];
+        }
+
         public static int[] GetYM2608KeyOn(int chipID)
         {
             return chipRegister.fmKeyOnYM2608[chipID];

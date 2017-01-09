@@ -1462,6 +1462,118 @@ namespace MDPlayer
             otp = ntp;
         }
 
+        public void drawKfYM2151(int chipID, int ch, ref int ok, int nk)
+        {
+            if (ok == nk)
+            {
+                return;
+            }
+
+            int x = (ch % 4) * 4 * 3+4*67;
+            int y = (ch / 4) * 8+8*22;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 2, nk);
+            ok = nk;
+        }
+
+        public void drawNeYM2151(int chipID, ref int one, int nne)
+        {
+            if (one == nne)
+            {
+                return;
+            }
+
+            int x = 4 * 60;
+            int y = 8 * 22;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 1, nne);
+
+            one = nne;
+        }
+
+        public void drawNfrqYM2151(int chipID, ref int onfrq, int nnfrq)
+        {
+            if (onfrq == nnfrq)
+            {
+                return;
+            }
+
+            int x = 4 * 60;
+            int y = 8 * 23;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 2, nnfrq);
+
+            onfrq = nnfrq;
+        }
+
+        public void drawLfrqYM2151(int chipID, ref int olfrq, int nlfrq)
+        {
+            if (olfrq == nlfrq)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 24;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 3, nlfrq);
+
+            olfrq = nlfrq;
+        }
+
+        public void drawAmdYM2151(int chipID, ref int oamd, int namd)
+        {
+            if (oamd == namd)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 25;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 3, namd);
+
+            oamd = namd;
+        }
+
+        public void drawPmdYM2151(int chipID, ref int opmd, int npmd)
+        {
+            if (opmd == npmd)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 26;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 3, npmd);
+
+            opmd = npmd;
+        }
+
+        public void drawWaveFormYM2151(int chipID, ref int owaveform, int nwaveform)
+        {
+            if (owaveform == nwaveform)
+            {
+                return;
+            }
+
+            int x = 4 * 68;
+            int y = 8 * 24;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 1, nwaveform);
+
+            owaveform = nwaveform;
+        }
+
+        public void drawLfoSyncYM2151(int chipID, ref int olfosync, int nlfosync)
+        {
+            if (olfosync == nlfosync)
+            {
+                return;
+            }
+
+            int x = 4 * 68;
+            int y = 8 * 25;
+            drawFont4Int(ym2151Screen[chipID], x, y, 0, 1, nlfosync);
+
+            olfosync = nlfosync;
+        }
+
+
         public void drawButton(int c, ref int ot, int nt, ref int om, int nm)
         {
             if (ot == nt && om == nm)
@@ -1855,7 +1967,18 @@ namespace MDPlayer
                 drawVolume(ym2151Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp);
 
                 drawChYM2151(chipID, c, ref oyc.mask, nyc.mask, tp);
+
+                drawKfYM2151(chipID, c, ref oyc.kf, nyc.kf);
             }
+
+            drawNeYM2151(chipID, ref oldParam.ym2151[chipID].ne, newParam.ym2151[chipID].ne);
+            drawNfrqYM2151(chipID, ref oldParam.ym2151[chipID].nfrq, newParam.ym2151[chipID].nfrq);
+            drawLfrqYM2151(chipID, ref oldParam.ym2151[chipID].lfrq, newParam.ym2151[chipID].lfrq);
+            drawAmdYM2151(chipID, ref oldParam.ym2151[chipID].amd, newParam.ym2151[chipID].amd);
+            drawPmdYM2151(chipID, ref oldParam.ym2151[chipID].pmd, newParam.ym2151[chipID].pmd);
+            drawWaveFormYM2151(chipID, ref oldParam.ym2151[chipID].waveform, newParam.ym2151[chipID].waveform);
+            drawLfoSyncYM2151(chipID, ref oldParam.ym2151[chipID].lfosync, newParam.ym2151[chipID].lfosync);
+
         }
 
         private void drawParamsToC140(MDChipParams oldParam, MDChipParams newParam, int chipID)

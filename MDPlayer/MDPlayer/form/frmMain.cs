@@ -2314,7 +2314,18 @@ namespace MDPlayer
 
                 newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
                 newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
+
+                newParam.ym2151[chipID].channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
+
             }
+            newParam.ym2151[chipID].ne = ((ym2151Register[0x0f] & 0x80) >> 7);
+            newParam.ym2151[chipID].nfrq = ((ym2151Register[0x0f] & 0x1f) >> 0);
+            newParam.ym2151[chipID].lfrq = ((ym2151Register[0x18] & 0xff) >> 0);
+            newParam.ym2151[chipID].pmd = Audio.GetYM2151PMD(chipID);
+            newParam.ym2151[chipID].amd = Audio.GetYM2151AMD(chipID);
+            newParam.ym2151[chipID].waveform = ((ym2151Register[0x1b] & 0x3) >> 0);
+            newParam.ym2151[chipID].lfosync = ((ym2151Register[0x01] & 0x02) >> 1);
+
         }
 
         private void screenChangeParamsFromSegaPCM(int chipID)
@@ -3367,7 +3378,7 @@ namespace MDPlayer
                 int c = (ch > 2) ? ch - 3 : ch;
                 int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
-                n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
+                n = "'@ N xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -3395,7 +3406,7 @@ namespace MDPlayer
             else if (chip == enmUseChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
-                n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
+                n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME\r\n";
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -3409,9 +3420,9 @@ namespace MDPlayer
                         , ym2151Register[0x60 + ops + ch] & 0x7f //TL
                         , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
                         , ym2151Register[0x40 + ops + ch] & 0x0f //ML
-                        , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT
+                        , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT1
+                        , (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6 //DT2
                         , (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7 //AM
-                        , 0
                     );
                 }
                 n += "   ALG FB\r\n";
