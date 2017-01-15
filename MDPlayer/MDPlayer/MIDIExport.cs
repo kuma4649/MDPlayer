@@ -556,167 +556,191 @@ namespace MDPlayer
             //DT/ML
             if ((dAddr & 0xf0) == 0x30)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // DT
-                midi2612.data[ch].Add((byte)(24 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x70) >> 4));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // DT
+                    midi2612.data[ch].Add((byte)(24 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x70) >> 4));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //ML
-                midi2612.data[ch].Add((byte)(20 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x0f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //ML
+                    midi2612.data[ch].Add((byte)(20 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x0f) >> 0));
+                }
                 return;
             }
 
             //TL
             if ((dAddr & 0xf0) == 0x40)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // TL
-                midi2612.data[ch].Add((byte)(16 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x7f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // TL
+                    midi2612.data[ch].Add((byte)(16 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x7f) >> 0));
+                }
                 return;
             }
 
             //KS/AR
             if ((dAddr & 0xf0) == 0x50)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // KS
-                midi2612.data[ch].Add((byte)(39 + op));
-                midi2612.data[ch].Add((byte)((dData & 0xc0) >> 6));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // KS
+                    midi2612.data[ch].Add((byte)(39 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0xc0) >> 6));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //AR
-                midi2612.data[ch].Add((byte)(43 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //AR
+                    midi2612.data[ch].Add((byte)(43 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
+                }
                 return;
             }
 
             //AMS/DR
             if ((dAddr & 0xf0) == 0x60)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // AMS
-                midi2612.data[ch].Add((byte)(70 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x80) >> 7));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // AMS
+                    midi2612.data[ch].Add((byte)(70 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x80) >> 7));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //DR
-                midi2612.data[ch].Add((byte)(47 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //DR
+                    midi2612.data[ch].Add((byte)(47 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
+                }
                 return;
             }
 
             //SR
             if ((dAddr & 0xf0) == 0x70)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //SR
-                midi2612.data[ch].Add((byte)(51 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //SR
+                    midi2612.data[ch].Add((byte)(51 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x1f) >> 0));
+                }
                 return;
             }
 
             //DL/RR
             if ((dAddr & 0xf0) == 0x80)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
-                int op = (dAddr & 0xc) >> 2;
-                op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
+                    int op = (dAddr & 0xc) >> 2;
+                    op = (op == 1) ? 2 : ((op == 2) ? 1 : op);
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // DL
-                midi2612.data[ch].Add((byte)(55 + op));
-                midi2612.data[ch].Add((byte)((dData & 0xf0) >> 4));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // DL
+                    midi2612.data[ch].Add((byte)(55 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0xf0) >> 4));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //RR
-                midi2612.data[ch].Add((byte)(59 + op));
-                midi2612.data[ch].Add((byte)((dData & 0x0f) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //RR
+                    midi2612.data[ch].Add((byte)(59 + op));
+                    midi2612.data[ch].Add((byte)((dData & 0x0f) >> 0));
+                }
                 return;
             }
 
             //FB/ALG
             if (dAddr >= 0xB0 && dAddr < 0xB4)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // FB
-                midi2612.data[ch].Add((byte)(15));
-                midi2612.data[ch].Add((byte)((dData & 0x38) >> 3));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // FB
+                    midi2612.data[ch].Add((byte)(15));
+                    midi2612.data[ch].Add((byte)((dData & 0x38) >> 3));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //ALG
-                midi2612.data[ch].Add((byte)(14));
-                midi2612.data[ch].Add((byte)((dData & 0x07) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //ALG
+                    midi2612.data[ch].Add((byte)(14));
+                    midi2612.data[ch].Add((byte)((dData & 0x07) >> 0));
+                }
                 return;
             }
 
             //PAN/AMS/FMS
-            if (dAddr >= 0xB4 && dAddr < 0xB8)
+            if (dAddr >= 0xB4 && dAddr < 0xB7)
             {
-                int ch = (dAddr & 0x3) + dPort * 3;
+                int ch = (dAddr & 0x3);
+                if (ch != 3)
+                {
+                    ch += dPort * 3;
 
-                SetDelta(ch, midi2612, vgmFrameCounter);
+                    SetDelta(ch, midi2612, vgmFrameCounter);
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); // PAN
-                midi2612.data[ch].Add((byte)(10));
-                int pan = (dData & 0xc0) >> 6;
-                midi2612.data[ch].Add((byte)(pan == 0 ? 64 : ((pan == 1) ? 127 : ((pan == 2) ? 1 : 64))));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); // PAN
+                    midi2612.data[ch].Add((byte)(10));
+                    int pan = (dData & 0xc0) >> 6;
+                    midi2612.data[ch].Add((byte)(pan == 0 ? 64 : ((pan == 1) ? 127 : ((pan == 2) ? 1 : 64))));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //AMS
-                midi2612.data[ch].Add((byte)(76));
-                midi2612.data[ch].Add((byte)((dData & 0x38) >> 3));
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //AMS
+                    midi2612.data[ch].Add((byte)(76));
+                    midi2612.data[ch].Add((byte)((dData & 0x38) >> 3));
 
-                midi2612.data[ch].Add(0);//Delta 0
+                    midi2612.data[ch].Add(0);//Delta 0
 
-                midi2612.data[ch].Add((byte)(0xb0 | ch)); //FMS
-                midi2612.data[ch].Add((byte)(75));
-                midi2612.data[ch].Add((byte)((dData & 0x03) >> 0));
-
+                    midi2612.data[ch].Add((byte)(0xb0 | ch)); //FMS
+                    midi2612.data[ch].Add((byte)(75));
+                    midi2612.data[ch].Add((byte)((dData & 0x03) >> 0));
+                }
                 return;
             }
 
@@ -748,6 +772,7 @@ namespace MDPlayer
 
         private void SetDelta(int ch,midiChip chip, long NewFrameCounter)
         {
+            if (ch >= chip.oldFrameCounter.Length) return;
 
             long sub = NewFrameCounter - chip.oldFrameCounter[ch];
             long step = (long)(sub / 44100.0 * 960.0);
@@ -881,30 +906,34 @@ namespace MDPlayer
             for (int i = 0; i < midi2151.maxTrk; i++)
             {
                 //音色コントロールの動作を変更(全MIDIチャンネル)
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 121 127
                 midi2151.data[i].Add(121);
                 midi2151.data[i].Add(127);
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 126 127
                 midi2151.data[i].Add(126);
                 midi2151.data[i].Add(127);
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 123 127
                 midi2151.data[i].Add(123);
                 midi2151.data[i].Add(127);
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 98 127
                 midi2151.data[i].Add(98);
                 midi2151.data[i].Add(127);
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 99 126
                 midi2151.data[i].Add(99);
                 midi2151.data[i].Add(126);
-                midi2151.data[i].Add(0x00); //Delta 0
+                midi2151.data[i].Add(0x50); //Delta 0
                 midi2151.data[i].Add((byte)(0xb0 + i)); // CC 6 127
                 midi2151.data[i].Add(6);
                 midi2151.data[i].Add(127);
+                midi2151.data[i].Add(0x50); //Delta 0
+                midi2151.data[i].Add((byte)(0xb0 + i)); // CC 93 120
+                midi2151.data[i].Add(93);
+                midi2151.data[i].Add(120);
             }
         }
 
@@ -958,30 +987,34 @@ namespace MDPlayer
             for (int i = 0; i < midi2612.maxTrk; i++)
             {
                 //音色コントロールの動作を変更(全MIDIチャンネル)
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 121 127
                 midi2612.data[i].Add(121);
                 midi2612.data[i].Add(127);
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 126 127
                 midi2612.data[i].Add(126);
                 midi2612.data[i].Add(127);
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 123 127
                 midi2612.data[i].Add(123);
                 midi2612.data[i].Add(127);
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 98 127
                 midi2612.data[i].Add(98);
                 midi2612.data[i].Add(127);
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 99 126
                 midi2612.data[i].Add(99);
                 midi2612.data[i].Add(126);
-                midi2612.data[i].Add(0x00); //Delta 0
+                midi2612.data[i].Add(0x50); //Delta 0
                 midi2612.data[i].Add((byte)(0xb0 + i)); // CC 6 127
                 midi2612.data[i].Add(6);
                 midi2612.data[i].Add(127);
+                midi2612.data[i].Add(0x50); //Delta 0
+                midi2612.data[i].Add((byte)(0xb0 + i)); // CC 93 120
+                midi2612.data[i].Add(93);
+                midi2612.data[i].Add(120);
             }
         }
 
