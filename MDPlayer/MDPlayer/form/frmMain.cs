@@ -2361,7 +2361,7 @@ namespace MDPlayer
                     {
                         ml = 0;
                     }
-                    newParam.segaPcm[chipID].channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (searchSegaPCMNote(ml) + 1);
+                    newParam.segaPcm[chipID].channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (searchSegaPCMNote(ml));
                     newParam.segaPcm[chipID].channels[ch].pan = (r >> 3) * 0x10 + (l >> 3);
                 }
             }
