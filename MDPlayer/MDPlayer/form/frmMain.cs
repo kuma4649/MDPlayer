@@ -2868,132 +2868,38 @@ namespace MDPlayer
             {
                 uint c;
 
-                c = Audio.vgmVirtual.YM2151ClockValue;
-                if (c != 0)
-                {
-                    OpenFormYM2151(0, true);
-                    if (Audio.vgmVirtual.YM2151DualChipFlag) OpenFormYM2151(1, true);
-                }
-                else
-                {
-                    CloseFormYM2151(0);
-                    CloseFormYM2151(1);
-                }
+                if (Audio.ChipPriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
+                if (Audio.ChipSecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);
 
-                c = Audio.vgmVirtual.YM2203ClockValue;
-                if (c != 0)
-                {
-                    OpenFormYM2203(0, true);
-                    if (Audio.vgmVirtual.YM2203DualChipFlag) OpenFormYM2203(1, true);
-                    else CloseFormYM2203(1);
-                }
-                else
-                {
-                    CloseFormYM2203(0);
-                    CloseFormYM2203(1);
-                }
+                if (Audio.ChipPriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
+                if (Audio.ChipSecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
 
-                c = Audio.vgmVirtual.YM2608ClockValue;
-                if (c != 0)
-                {
-                    OpenFormYM2608(0, true);
-                    if (Audio.vgmVirtual.YM2608DualChipFlag) OpenFormYM2608(1, true);
-                    else CloseFormYM2608(1);
-                }
-                else
-                {
-                    CloseFormYM2608(0);
-                    CloseFormYM2608(1);
-                }
+                if (Audio.ChipPriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
+                if (Audio.ChipSecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
 
-                c = Audio.vgmVirtual.YM2610ClockValue;
-                if (c != 0)
-                {
-                    OpenFormYM2610(0, true);
-                    if (Audio.vgmVirtual.YM2610DualChipFlag) OpenFormYM2610(1, true);
-                    else CloseFormYM2610(1);
-                }
-                else
-                {
-                    CloseFormYM2610(0);
-                    CloseFormYM2610(1);
-                }
+                if (Audio.ChipPriOPNB != 0) OpenFormYM2610(0, true); else CloseFormYM2610(0);
+                if (Audio.ChipSecOPNB != 0) OpenFormYM2610(1, true); else CloseFormYM2610(1);
 
-                c = Audio.vgmVirtual.YM2612ClockValue;
-                if (c != 0)
-                {
-                    OpenFormYM2612(0, true);
-                    if (Audio.vgmVirtual.YM2612DualChipFlag) OpenFormYM2612(1, true);
-                    else CloseFormYM2612(1);
-                }
-                else
-                {
-                    CloseFormYM2612(0);
-                    CloseFormYM2612(1);
-                }
+                if (Audio.ChipPriOPN2 != 0) OpenFormYM2612(0, true); else CloseFormYM2612(0);
+                if (Audio.ChipSecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
 
-                c = Audio.vgmVirtual.SN76489ClockValue;
-                if (c != 0)
-                {
-                    OpenFormSN76489(0, true);
-                    if (Audio.vgmVirtual.SN76489DualChipFlag) OpenFormSN76489(1, true);
-                    else CloseFormSN76489(1);
-                }
-                else
-                {
-                    CloseFormSN76489(0);
-                    CloseFormSN76489(1);
-                }
+                if (Audio.ChipPriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
+                if (Audio.ChipSecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
 
-                c = Audio.vgmVirtual.RF5C164ClockValue;
-                if (c != 0)
-                {
-                    OpenFormMegaCD(0, true);
-                    if (Audio.vgmVirtual.RF5C164DualChipFlag) OpenFormMegaCD(1, true);
-                    else CloseFormMegaCD(1);
-                }
-                else
-                {
-                    CloseFormMegaCD(0);
-                    CloseFormMegaCD(1);
-                }
+                if (Audio.ChipPriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
+                if (Audio.ChipSecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
 
-                c = Audio.vgmVirtual.OKIM6258ClockValue;
-                if (c != 0) OpenFormOKIM6258(0, true);
-                else
-                {
-                    CloseFormOKIM6258(0);
-                    CloseFormOKIM6258(1);
-                }
+                if (Audio.ChipPriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
+                if (Audio.ChipSecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
 
-                c = Audio.vgmVirtual.OKIM6295ClockValue;
-                if (c != 0)
-                {
-                    OpenFormOKIM6295(0, true);
-                    if (Audio.vgmVirtual.OKIM6295DualChipFlag) OpenFormOKIM6295(1, true);
-                    else CloseFormOKIM6295(1);
-                }
-                else
-                {
-                    CloseFormOKIM6295(0);
-                    CloseFormOKIM6295(1);
-                }
+                if (Audio.ChipPriOKI9 != 0) OpenFormOKIM6295(0, true); else CloseFormOKIM6295(0);
+                if (Audio.ChipSecOKI9 != 0) OpenFormOKIM6295(1, true); else CloseFormOKIM6295(1);
 
-                c = Audio.vgmVirtual.C140ClockValue;
-                if (c != 0) OpenFormC140(0, true);
-                else
-                {
-                    CloseFormC140(0);
-                    CloseFormC140(1);
-                }
+                if (Audio.ChipPriC140 != 0) OpenFormC140(0, true); else CloseFormC140(0);
+                if (Audio.ChipSecC140 != 0) OpenFormC140(1, true); else CloseFormC140(1);
 
-                c = Audio.vgmVirtual.SEGAPCMClockValue;
-                if (c != 0) OpenFormSegaPCM(0, true);
-                else
-                {
-                    CloseFormSegaPCM(0);
-                    CloseFormSegaPCM(1);
-                }
+                if (Audio.ChipPriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
+                if (Audio.ChipSecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
 
             }
         }
@@ -3050,8 +2956,8 @@ namespace MDPlayer
         private string[] fileOpen(bool flg)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz";
-            ofd.Title = "VGM/VGZファイルを選択してください";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
             if (setting.other.DefaultDataPath != "" && Directory.Exists(setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 ofd.InitialDirectory = setting.other.DefaultDataPath;
@@ -3167,12 +3073,29 @@ namespace MDPlayer
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
 
-        public byte[] getAllBytes(string filename)
+        public byte[] getAllBytes(string filename,out enmFileFormat format)
         {
-            byte[] buf = System.IO.File.ReadAllBytes(filename);
-            uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
-            if (vgm == FCC_VGM) return buf;
+            format = enmFileFormat.unknown;
 
+            //先ずは丸ごと読み込む
+            byte[] buf = System.IO.File.ReadAllBytes(filename);
+
+
+            //.NRDファイルの場合は拡張子判定
+            if (filename.ToLower().LastIndexOf(".nrd") != -1)
+            {
+                format = enmFileFormat.NRTDRV;
+                return buf;
+            }
+
+
+            //.VGMの場合はヘッダの確認とGzipで解凍後のファイルのヘッダの確認
+            uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
+            if (vgm == FCC_VGM)
+            {
+                format = enmFileFormat.VGM;
+                return buf;
+            }
 
             int num;
             buf = new byte[1024]; // 1Kbytesずつ処理する
@@ -3198,6 +3121,7 @@ namespace MDPlayer
                 }
             }
 
+            format = enmFileFormat.VGM;
             return outStream.ToArray();
         }
 
@@ -3946,9 +3870,11 @@ namespace MDPlayer
                 }
 
                 string outMIDIFn = fn;
+                enmFileFormat format= enmFileFormat.unknown;
+
                 if (zfn == null || zfn == "")
                 {
-                    srcBuf = getAllBytes(fn);
+                    srcBuf = getAllBytes(fn,out format);
                 }
                 else
                 {
@@ -3958,10 +3884,11 @@ namespace MDPlayer
                         string arcFn = "";
                         srcBuf = getBytesFromZipFile(entry,out arcFn);
                         if (arcFn != "") outMIDIFn = arcFn;
+                        format = enmFileFormat.VGM;
                     }
                 }
 
-                Audio.SetVGMBuffer(srcBuf, outMIDIFn);
+                Audio.SetVGMBuffer(format,srcBuf, outMIDIFn);
 
                 if (srcBuf != null)
                 {

@@ -55,5 +55,12 @@ namespace MDPlayer
         NRTDRV = 6
     }
 
+    public enum enmFileFormat : int
+    {
+        unknown = 0,
+        VGM = 1,
+        NRTDRV = 2
+    }
+
 
 }

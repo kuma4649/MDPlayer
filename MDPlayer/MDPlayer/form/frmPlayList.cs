@@ -146,7 +146,8 @@ namespace MDPlayer
                 return;
             }
 
-            PlayList.music music = Audio.getMusic(file, frmMain.getAllBytes(file));
+            enmFileFormat dmyFileFormat;
+            PlayList.music music = Audio.getMusic(file, frmMain.getAllBytes(file, out dmyFileFormat));
 
             DataGridViewRow row = makeRow(music);
 
@@ -439,8 +440,8 @@ namespace MDPlayer
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip";
-            ofd.Title = "VGM/VGZファイルを選択してください";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 ofd.InitialDirectory = frmMain.setting.other.DefaultDataPath;

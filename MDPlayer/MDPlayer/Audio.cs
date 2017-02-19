@@ -106,60 +106,100 @@ namespace MDPlayer
         private static int MasterVolume = 0;
         static int[] chips = new int[256];
         private static string PlayingFileName;
+        private static enmFileFormat PlayingFileFormat;
+
+        public static NRTDRV nrtdrv = new NRTDRV();
 
 
         public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
         {
             PlayList.music music = new PlayList.music();
 
+            music.format = enmFileFormat.unknown;
             music.fileName = file;
             music.zipFileName = zipFile;
             music.title = "unknown";
             music.game = "unknown";
 
-            if (buf.Length < 0x40) return music;
-
-            if (getLE32(buf, 0x00) != vgm.FCC_VGM) return music;
-
-            uint version = getLE32(buf, 0x08);
-            string Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
-
-            uint vgmGd3 = getLE32(buf, 0x14);
-            GD3 gd3 = new GD3();
-            if (vgmGd3 != 0)
+            if (file.ToLower().LastIndexOf(".nrd") != -1)
             {
-                uint vgmGd3Id = getLE32(buf, vgmGd3 + 0x14);
-                if (vgmGd3Id != vgm.FCC_GD3) return music;
-                gd3.getGD3Info(buf, vgmGd3);
+                music.format = enmFileFormat.NRTDRV;
+                int index = 42;
+                music.title = getNRDString(buf, ref index);
+                music.titleJ = getNRDString(buf, ref index);
+                music.composer = getNRDString(buf, ref index);
+                music.composerJ = music.composer;
+                music.vgmby = getNRDString(buf, ref index);
+                music.notes = getNRDString(buf, ref index);
             }
+            else
+            {
+                if (buf.Length < 0x40) return music;
+                if (getLE32(buf, 0x00) != vgm.FCC_VGM) return music;
 
-            uint TotalCounter = getLE32(buf, 0x18);
-            uint vgmLoopOffset = getLE32(buf, 0x1c);
-            uint LoopCounter = getLE32(buf, 0x20);
+                music.format = enmFileFormat.VGM;
+                uint version = getLE32(buf, 0x08);
+                string Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
-            music.title = gd3.TrackName;
-            music.titleJ = gd3.TrackNameJ;
-            music.game = gd3.GameName;
-            music.gameJ = gd3.GameNameJ;
-            music.composer = gd3.Composer;
-            music.composerJ = gd3.ComposerJ;
-            music.vgmby = gd3.VGMBy;
+                uint vgmGd3 = getLE32(buf, 0x14);
+                GD3 gd3 = new GD3();
+                if (vgmGd3 != 0)
+                {
+                    uint vgmGd3Id = getLE32(buf, vgmGd3 + 0x14);
+                    if (vgmGd3Id != vgm.FCC_GD3) return music;
+                    gd3.getGD3Info(buf, vgmGd3);
+                }
 
-            music.converted = gd3.Converted;
-            music.notes = gd3.Notes;
+                uint TotalCounter = getLE32(buf, 0x18);
+                uint vgmLoopOffset = getLE32(buf, 0x1c);
+                uint LoopCounter = getLE32(buf, 0x20);
 
-            double sec = (double)TotalCounter / (double)SamplingRate;
-            int TCminutes = (int)(sec / 60);
-            sec -= TCminutes * 60;
-            int TCsecond = (int)sec;
-            sec -= TCsecond;
-            int TCmillisecond = (int)(sec * 100.0);
-            music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
+                music.title = gd3.TrackName;
+                music.titleJ = gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+                double sec = (double)TotalCounter / (double)SamplingRate;
+                int TCminutes = (int)(sec / 60);
+                sec -= TCminutes * 60;
+                int TCsecond = (int)sec;
+                sec -= TCsecond;
+                int TCmillisecond = (int)(sec * 100.0);
+                music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
+            }
 
             return music;
         }
 
+        private static string getNRDString(byte[] buf, ref int index)
+        {
+            if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
 
+            try
+            {
+                List<byte> lst = new List<byte>();
+                for (; buf[index] != 0; index++)
+                {
+                    lst.Add(buf[index]);
+                }
+
+                string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
+                index++;
+
+                return n;
+            }
+            catch(Exception e)
+            {
+                log.ForcedWrite(e);
+            }
+            return "";
+        }
 
         public static void Init(Setting setting)
         {
@@ -299,16 +339,142 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(byte[] srcBuf,string playingFileName)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf,string playingFileName)
         {
             Stop();
+            PlayingFileFormat = format;
             vgmBuf = srcBuf;
             PlayingFileName = playingFileName;
             chipRegister.SetFileName(playingFileName);
         }
 
+        public static bool nPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+
+                //trdClosed = false;
+                //trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                //trdMain.Priority = ThreadPriority.Highest;
+                //trdMain.IsBackground = true;
+                //trdMain.Name = "trdVgmReal";
+                //trdMain.Start();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+                int hiyorimiDeviceFlag = 0;
+
+                ChipPriOPN = 0;
+                ChipPriOPN2 = 0;
+                ChipPriOPNA = 0;
+                ChipPriOPNB = 0;
+                ChipPriOPM = 0;
+                ChipPriDCSG = 0;
+                ChipPriRF5C = 0;
+                ChipPriPWM = 0;
+                ChipPriOKI5 = 0;
+                ChipPriOKI9 = 0;
+                ChipPriC140 = 0;
+                ChipPriSPCM = 0;
+                ChipSecOPN = 0;
+                ChipSecOPN2 = 0;
+                ChipSecOPNA = 0;
+                ChipSecOPNB = 0;
+                ChipSecOPM = 0;
+                ChipSecDCSG = 0;
+                ChipSecRF5C = 0;
+                ChipSecPWM = 0;
+                ChipSecOKI5 = 0;
+                ChipSecOKI9 = 0;
+                ChipSecC140 = 0;
+                ChipSecSPCM = 0;
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                    for (int i = 0; i < 2; i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ym2151;
+                        chip.Update = ym2151.Update;
+                        chip.Start = ym2151.Start;
+                        chip.Stop = ym2151.Stop;
+                        chip.Reset = ym2151.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.YM2151Volume;
+                        chip.Clock = 4000000;
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) ChipPriOPM = 1;
+                        else ChipSecOPM = 1;
+
+                        lstChips.Add(chip);
+                    }
+
+                if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init(SamplingRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister();
+
+                SetYM2151Volume(setting.balance.YM2151Volume);
+
+                nrtdrv.setChipRegister(chipRegister);
+                nrtdrv.Init();
+                nrtdrv.Load(vgmBuf);
+                nrtdrv.Call(0);//
+                nrtdrv.Call(1);//MPLAY
+                //nrtdrv.Call(5);//MTEST
+
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
         public static bool Play(Setting setting)
         {
+
+            if (PlayingFileFormat == enmFileFormat.NRTDRV)
+            {
+                return nPlay(setting);
+            }
 
             try
             {
@@ -1489,8 +1655,18 @@ namespace MDPlayer
                     }
                 }
 
-                int cnt;
-                cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
+
+                int cnt=0;
+                switch (PlayingFileFormat)
+                {
+                    case enmFileFormat.VGM:
+                        cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameVGM);
+                        break;
+                    case enmFileFormat.NRTDRV:
+                        cnt = mds.Update(buffer, offset, sampleCount, nrtdrv.oneFrameNRTDRV);
+                        break;
+                }
+
 
                 for (i = 0; i < sampleCount; i++)
                 {
@@ -1825,14 +2001,6 @@ namespace MDPlayer
             return dat;
         }
 
-        //public static void SetFileName(string fn)
-        //{
-        //    PlayingFileName = fn;
-        //    if (chipRegister != null)
-        //    {
-        //        chipRegister.SetFileName(fn);
-        //    }
-        //}
     }
 
 

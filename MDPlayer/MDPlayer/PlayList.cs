@@ -12,6 +12,7 @@ namespace MDPlayer
     {
         public class music
         {
+            public enmFileFormat format;
             public string playingNow;
             public string fileName;
             public string zipFileName;
