@@ -2866,7 +2866,6 @@ namespace MDPlayer
 
             if (setting.other.AutoOpen)
             {
-                uint c;
 
                 if (Audio.ChipPriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
                 if (Audio.ChipSecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);

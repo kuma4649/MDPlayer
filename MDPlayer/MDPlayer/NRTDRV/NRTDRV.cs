@@ -146,10 +146,14 @@ namespace MDPlayer
         private float CTC0DownCounter = 0.0f;
         private float CTC0DownCounterMAX = 0.0f;
         private bool CTC0Paluse = false;
+        private float CTC1DownCounter = 0.0f;
+        private float CTC1DownCounterMAX = 0.0f;
+        //private bool CTC1Paluse = false;
         private float CTC3DownCounter = 0.0f;
         private float CTC3DownCounterMAX = 0.0f;
         //private bool CTC3Paluse = false;
         private float CTCStep = 4000000.0f / 44100.0f;
+        private float CTC1Step = 2000000.0f / 44100.0f;
 
         public void oneFrameNRTDRV()
         {
@@ -157,6 +161,7 @@ namespace MDPlayer
             {
 
                 CTC0DownCounterMAX = work.ctc0timeconstant * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC1DownCounterMAX = work.ctc1timeconstant * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
                 CTC3DownCounterMAX = work.ctc3timeconstant * ((work.ctc3 & 0x40) == 0 ? ((work.ctc3 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
                 CTC0Paluse = false;
                 //CTC3Paluse = false;
@@ -181,6 +186,29 @@ namespace MDPlayer
                         //Parse();
                     }
                     CTC0DownCounter += CTC0DownCounterMAX;
+                }
+
+
+                //ctc1
+                if ((work.ctc1 & 0x40) == 0)
+                {
+                    //Timer Mode
+                    CTC1DownCounter -= CTC1Step;
+                }
+                else
+                {
+                    //CounterMode 無し
+                    ;
+                }
+
+                if (CTC1DownCounter <= 0.0f)
+                {
+                    //CTC1Paluse = true;
+                    if ((work.ctc1 & 0x80) != 0)
+                    {
+                        int2();
+                    }
+                    CTC1DownCounter += CTC1DownCounterMAX;
                 }
 
 
@@ -696,7 +724,7 @@ namespace MDPlayer
                     if (wch.KeyoffFlg != 0)
                     {
                         wch.KeyoffFlg = 0;
-                        wch.NoteNumber = 0;
+                        wch.workForPlayer = 0;
                         wopm(8, e);//Key off
                     }
 
@@ -1444,7 +1472,7 @@ namespace MDPlayer
             wopm(d, a);
 
             wch.LegartDelayFlg = 0;
-            wch.NoteNumber = 0;
+            wch.workForPlayer = 0;
 
             return 0;
         }
@@ -1605,7 +1633,7 @@ namespace MDPlayer
             byte a = (byte)(cmdno & 0x7f);
             byte ks = (byte)(wch.Transpose);
             a += ks;
-            wch.NoteNumber = a;
+            wch.workForPlayer = a;
 
             a = ram[wch.ptrData];
 
@@ -1635,13 +1663,13 @@ namespace MDPlayer
             }
             else
             {
-                a = (byte)((a * bc) / 0x100);
+                a = (byte)(((8-a) * bc) / 0x100);
             }
             a += wch.Q;
             a++;
             wch.gatetime = a;
 
-            byte b = wch.NoteNumber;
+            byte b = wch.workForPlayer;
             byte d = (byte)(0x30 + e);
             uint ia = wch.Detune;
             if (ia >= 128)
@@ -1886,6 +1914,119 @@ namespace MDPlayer
         }
 
         private void pmain()
+        {
+        }
+
+        private void int2()
+        {
+            work.COUNT--;
+
+            //OPM1
+            if ((work.ctcflg & 0x1) != 0)
+            {
+                work.OPMIO = 0x701;
+                efx(work.OPM1Chs);
+            }
+            //OPM2
+            if ((work.ctcflg & 0x2) != 0)
+            {
+                work.OPMIO = 0x709;
+                efx(work.OPM2Chs);
+            }
+            //PSG
+            work.OPMIO = 0;
+            efxp(work.PSGChs);
+
+        }
+
+        private void efx(Ch[] chs)
+        {
+            for (byte e = 0; e < 8; e++)
+            {
+                Ch wch = chs[e];
+
+                if (wch.PortaFlg != 0) EPOR(wch,e);
+
+                //if (wch.softPMStep != 0) EPM();
+
+                //if (wch.softAMStep != 0) EAM();
+            }
+        }
+
+        private void EPOR(Ch wch, byte e)
+        {
+            if (wch.PortaStartFlg == 0) return;
+
+            byte l = wch.KF;
+            byte h = wch.NoteNumber;
+            byte b = (byte)(wch.PortaTone >> 8);
+            byte c = (byte)(wch.PortaTone & 0xff);
+            byte a = h;
+
+            bool neg = true;
+
+            if (a == b)
+            {
+                a = l;
+                if (a == c)
+                {
+                    wch.PortaStartFlg = 0;
+                    return;
+                }
+                else if (a < c) neg = false;
+            }
+            else if (a < b) neg = false;
+
+            //
+            if (neg)
+            {
+                //減算処理
+                int p = wch.PortaFlg * 4;
+                int hl = (h * 0x100) + l - p;
+                if (hl < 0)
+                {
+                    h = b;
+                    l = c;
+                }
+                else
+                {
+                    a = (byte)((hl >> 8) - b);
+                    if (((hl & 0xff) - c) < 0)
+                    {
+                        a--;
+                    }
+                    h = (byte)(hl >> 8);
+                    l = (byte)(hl & 0xff);
+                }
+            }
+            else
+            {
+                //加算処理
+                int p = wch.PortaFlg * 4;
+                int hl = (h * 0x100) + l + p;
+
+                a = (byte)((hl >> 8) - b);
+                if (((hl & 0xff) - c) < 0)
+                {
+                    a--;
+                    h = (byte)(hl >> 8);
+                    l = (byte)(hl & 0xff);
+                }
+                else
+                {
+                    h = b;
+                    l = c;
+                }
+            }
+
+            wch.KF = l;
+            wch.NoteNumber = h;
+            wopm((byte)(0x30 + e), l);
+            wopm((byte)(0x28 + e), KTABLE[h]);
+
+        }
+
+        private void efxp(Ch[] chs)
         {
         }
 
