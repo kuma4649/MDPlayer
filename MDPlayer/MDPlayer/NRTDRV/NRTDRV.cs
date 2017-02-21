@@ -153,16 +153,16 @@ namespace MDPlayer
         private float CTC3DownCounterMAX = 0.0f;
         //private bool CTC3Paluse = false;
         private float CTCStep = 4000000.0f / 44100.0f;
-        private float CTC1Step = 2000000.0f / 44100.0f;
+        private float CTC1Step = 4000000.0f / 44100.0f;
 
         public void oneFrameNRTDRV()
         {
             try
             {
 
-                CTC0DownCounterMAX = work.ctc0timeconstant * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
-                CTC1DownCounterMAX = work.ctc1timeconstant * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
-                CTC3DownCounterMAX = work.ctc3timeconstant * ((work.ctc3 & 0x40) == 0 ? ((work.ctc3 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC0DownCounterMAX = (work.ctc0timeconstant == 0 ? 0x100 : work.ctc0timeconstant) * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC1DownCounterMAX = (work.ctc1timeconstant == 0 ? 0x100 : work.ctc1timeconstant) * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC3DownCounterMAX = (work.ctc3timeconstant == 0 ? 0x100 : work.ctc3timeconstant) * ((work.ctc3 & 0x40) == 0 ? ((work.ctc3 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
                 CTC0Paluse = false;
                 //CTC3Paluse = false;
 
@@ -1440,7 +1440,7 @@ namespace MDPlayer
             work.PENVF_VOL0 = false;
             work.FFFLG = 0;
 
-            wch.ptrData++; //CCRET
+            wch.ptrData+=2; //CCRET
 
             return 0;
         }
@@ -2004,15 +2004,17 @@ namespace MDPlayer
                 //加算処理
                 int p = wch.PortaFlg * 4;
                 int hl = (h * 0x100) + l + p;
+                h = (byte)(hl >> 8);
+                l = (byte)(hl & 0xff);
 
-                a = (byte)((hl >> 8) - b);
-                if (((hl & 0xff) - c) < 0)
-                {
-                    a--;
-                    h = (byte)(hl >> 8);
-                    l = (byte)(hl & 0xff);
-                }
-                else
+                //a = (byte)((hl >> 8) - b);
+                //if (((hl & 0xff) - c) < 0)
+                //{
+                //    a--;
+                //    h = (byte)(hl >> 8);
+                //    l = (byte)(hl & 0xff);
+                //}
+                if (hl > b * 0x100 + c)
                 {
                     h = b;
                     l = c;
@@ -2023,6 +2025,7 @@ namespace MDPlayer
             wch.NoteNumber = h;
             wopm((byte)(0x30 + e), l);
             wopm((byte)(0x28 + e), KTABLE[h]);
+            Console.WriteLine($"opmout reg{l:X2} dat{ KTABLE[h]:X2}");
 
         }
 
