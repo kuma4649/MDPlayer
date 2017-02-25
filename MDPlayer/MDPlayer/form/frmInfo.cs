@@ -27,21 +27,36 @@ namespace MDPlayer
 
         public void update()
         {
-            if (Audio.vgmVirtual == null) return;
+            lblTitle.Text = "";
+            lblTitleJ.Text = "";
+            lblGame.Text = "";
+            lblGameJ.Text = "";
+            lblSystem.Text = "";
+            lblSystemJ.Text = "";
+            lblComposer.Text = "";
+            lblComposerJ.Text = "";
+            lblRelease.Text = "";
+            lblVGMBy.Text = "";
+            lblNotes.Text = "";
+            lblVersion.Text = "";
+            lblUsedChips.Text = "";
 
-            lblTitle.Text = Audio.vgmVirtual.GD3.TrackName;
-            lblTitleJ.Text = Audio.vgmVirtual.GD3.TrackNameJ;
-            lblGame.Text = Audio.vgmVirtual.GD3.GameName;
-            lblGameJ.Text = Audio.vgmVirtual.GD3.GameNameJ;
-            lblSystem.Text = Audio.vgmVirtual.GD3.SystemName;
-            lblSystemJ.Text = Audio.vgmVirtual.GD3.SystemNameJ;
-            lblComposer.Text = Audio.vgmVirtual.GD3.Composer;
-            lblComposerJ.Text = Audio.vgmVirtual.GD3.ComposerJ;
-            lblRelease.Text = Audio.vgmVirtual.GD3.Converted;
-            lblVGMBy.Text = Audio.vgmVirtual.GD3.VGMBy;
-            lblNotes.Text = Audio.vgmVirtual.GD3.Notes;
-            lblVersion.Text = Audio.vgmVirtual.Version;
-            lblUsedChips.Text = Audio.vgmVirtual.UsedChips;
+            GD3 gd3 = Audio.GetGD3();
+            if (gd3 == null) return;
+
+            lblTitle.Text = gd3.TrackName;
+            lblTitleJ.Text = gd3.TrackNameJ;
+            lblGame.Text = gd3.GameName;
+            lblGameJ.Text = gd3.GameNameJ;
+            lblSystem.Text = gd3.SystemName;
+            lblSystemJ.Text = gd3.SystemNameJ;
+            lblComposer.Text = gd3.Composer;
+            lblComposerJ.Text = gd3.ComposerJ;
+            lblRelease.Text = gd3.Converted;
+            lblVGMBy.Text = gd3.VGMBy;
+            lblNotes.Text = gd3.Notes;
+            lblVersion.Text = gd3.Version;
+            lblUsedChips.Text = gd3.UsedChips;
         }
 
         protected override bool ShowWithoutActivation

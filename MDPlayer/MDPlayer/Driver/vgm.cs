@@ -4,10 +4,8 @@ using System.Text;
 
 namespace MDPlayer
 {
-    public class vgm
+    public class vgm : baseDriver
     {
-        private enmModel model = enmModel.VirtualModel;
-        private enmUseChip useChip = enmUseChip.Unuse; 
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
         public const int FCC_GD3 = 0x20336447;  // "Gd3 "
@@ -49,24 +47,12 @@ namespace MDPlayer
 
         public int YM2151Hosei = 0;
 
-        public string Version = "";
-        public string UsedChips = "";
-        public long TotalCounter = 0;
-        public long Counter = 0;
-        public long LoopCounter = 0;
-        public bool Stopped = false;
-        public GD3 GD3 = new GD3();
-        public double vgmSpeed = 1;
-        public long vgmFrameCounter;
         public dacControl dacControl = new dacControl();
-        public uint vgmCurLoop = 0;
         public bool isDataBlock = false;
         public bool isPcmRAMWrite = false;
 
-        public Setting setting = null;
+        //public Setting setting = null;
 
-        private byte[] vgmBuf = null;
-        private ChipRegister chipRegister = null;
 
         private Action[] vgmCmdTbl = new Action[0x100];
 
@@ -78,7 +64,6 @@ namespace MDPlayer
         private long vgmLoopOffset = 0;
         private uint vgmEof;
         private bool vgmAnalyze;
-        private uint latency = 1000;
 
         private long vgmDataOffset = 0;
 
@@ -92,7 +77,7 @@ namespace MDPlayer
         private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
         private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
-        public bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip,uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip,uint latency)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -134,7 +119,7 @@ namespace MDPlayer
             return true;
         }
 
-        public void oneFrameVGM()
+        public override void oneFrameProc()
         {
             try
             {
@@ -1599,7 +1584,7 @@ namespace MDPlayer
             {
                 uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
                 if (vgmGd3Id != FCC_GD3) return false;
-                GD3.getGD3Info(vgmBuf, vgmGd3);
+                GD3=getGD3Info(vgmBuf, vgmGd3);
             }
 
             TotalCounter = getLE32(0x18);
@@ -1855,7 +1840,73 @@ namespace MDPlayer
             return true;
         }
 
+        public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
+        {
+            GD3 GD3 = new GD3();
 
+            uint adr = vgmGd3 + 12 + 0x14;
+
+            GD3.TrackName = "";
+            GD3.TrackNameJ = "";
+            GD3.GameName = "";
+            GD3.GameNameJ = "";
+            GD3.SystemName = "";
+            GD3.SystemNameJ = "";
+            GD3.Composer = "";
+            GD3.ComposerJ = "";
+            GD3.Converted = "";
+            GD3.Notes = "";
+            GD3.VGMBy = "";
+            GD3.Version = "";
+            GD3.UsedChips = "";
+
+            try
+            {
+                //trackName
+                GD3.TrackName = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //trackNameJ
+                GD3.TrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //gameName
+                GD3.GameName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //gameNameJ
+                GD3.GameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //systemName
+                GD3.SystemName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //systemNameJ
+                GD3.SystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //Composer
+                GD3.Composer = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //ComposerJ
+                GD3.ComposerJ = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //Converted
+                GD3.Converted = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //VGMBy
+                GD3.VGMBy = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+                //Notes
+                GD3.Notes = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
+            return GD3;
+        }
+
+        private static byte[] getByteArray(byte[] buf, ref uint adr)
+        {
+            List<byte> ary = new List<byte>();
+            while (buf[adr] != 0 || buf[adr + 1] != 0)
+            {
+                ary.Add(buf[adr]);
+                adr++;
+                ary.Add(buf[adr]);
+                adr++;
+            }
+            adr += 2;
+
+            return ary.ToArray();
+        }
 
     }
 
@@ -1905,68 +1956,8 @@ namespace MDPlayer
         public string Converted = "";
         public string Notes = "";
         public string VGMBy = "";
-
-        public void getGD3Info(byte[] buf, uint vgmGd3)
-        {
-            uint adr = vgmGd3 + 12 + 0x14;
-
-            TrackName = "";
-            TrackNameJ = "";
-            GameName = "";
-            GameNameJ = "";
-            SystemName = "";
-            SystemNameJ = "";
-            Composer = "";
-            ComposerJ = "";
-            Converted = "";
-            Notes = "";
-            VGMBy = "";
-
-            try
-            {
-                //trackName
-                TrackName = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //trackNameJ
-                TrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //gameName
-                GameName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //gameNameJ
-                GameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //systemName
-                SystemName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //systemNameJ
-                SystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Composer
-                Composer = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //ComposerJ
-                ComposerJ = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Converted
-                Converted = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //VGMBy
-                VGMBy = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Notes
-                Notes = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
-        private static byte[] getByteArray(byte[] buf, ref uint adr)
-        {
-            List<byte> ary = new List<byte>();
-            while (buf[adr] != 0 || buf[adr + 1] != 0)
-            {
-                ary.Add(buf[adr]);
-                adr++;
-                ary.Add(buf[adr]);
-                adr++;
-            }
-            adr += 2;
-
-            return ary.ToArray();
-        }
+        public string Version = "";
+        public string UsedChips = "";
 
     }
 

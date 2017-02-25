@@ -7,11 +7,10 @@ using System.IO;
 
 namespace MDPlayer
 {
-    public class NRTDRV
+    public class NRTDRV : baseDriver
     {
 
         private byte[] ram;
-        private ChipRegister chipReg;
         private Work work = new Work();
 
         private byte[] KTABLE = new byte[] {
@@ -80,13 +79,29 @@ namespace MDPlayer
             ,214,0                  //+2
         };
 
-        public void Init()
+        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip useChip, uint latency)
         {
+
+            this.vgmBuf = nrdFileData;
+            this.chipRegister = chipRegister;
+            this.model = model;
+            this.useChip = useChip;
+            this.latency = latency;
+
+            GD3 = getGD3Info(nrdFileData, 42);
+            Counter = 0;
+            TotalCounter = 0;
+            LoopCounter = 0;
+            vgmCurLoop = 0;
+            Stopped = false;
+            vgmFrameCounter = 0;
 
             try
             {
                 ram = new byte[65536];
                 Array.Clear(ram, 0, ram.Length);
+
+                Array.Copy(vgmBuf, 0, ram, 0x4000, Math.Min(vgmBuf.Length, 0xfeff - 0x4000));
             }
             catch (Exception ex)
             {
@@ -96,25 +111,20 @@ namespace MDPlayer
             //Driverの初期化
             Call(0);
 
+            return true;
         }
 
-        public void Load(byte[] nrdFileData)
+        public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
+            GD3 gd3 = new GD3();
+            gd3.TrackName = getNRDString(buf, ref vgmGd3);
+            gd3.TrackNameJ = getNRDString(buf, ref vgmGd3);
+            gd3.Composer = getNRDString(buf, ref vgmGd3);
+            gd3.ComposerJ = gd3.Composer;
+            gd3.VGMBy = getNRDString(buf, ref vgmGd3);
+            gd3.Notes = getNRDString(buf, ref vgmGd3);
 
-            try
-            {
-                Array.Copy(nrdFileData, 0, ram, 0x4000, Math.Min(nrdFileData.Length, 0xfeff - 0x4000));
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("ファイルの読み込みに失敗しました。", ex);
-            }
-
-        }
-
-        public void setChipRegister(ChipRegister chipReg)
-        {
-            this.chipReg = chipReg;
+            return gd3;
         }
 
         public void Call(int cmdNo)
@@ -155,7 +165,7 @@ namespace MDPlayer
         private float CTCStep = 4000000.0f / 44100.0f;
         private float CTC1Step = 4000000.0f / 44100.0f;
 
-        public void oneFrameNRTDRV()
+        public override void oneFrameProc()
         {
             try
             {
@@ -240,6 +250,30 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
 
             }
+        }
+
+        private static string getNRDString(byte[] buf, ref uint index)
+        {
+            if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
+
+            try
+            {
+                List<byte> lst = new List<byte>();
+                for (; buf[index] != 0; index++)
+                {
+                    lst.Add(buf[index]);
+                }
+
+                string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
+                index++;
+
+                return n;
+            }
+            catch (Exception e)
+            {
+                log.ForcedWrite(e);
+            }
+            return "";
         }
 
         private void drvini()
@@ -522,7 +556,7 @@ namespace MDPlayer
                 //仮想レジスタに書き込み
                 work.OPM1vreg[d] = a;
                 //実レジスタに書き込み
-                chipReg.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
                 //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
             }
             else
@@ -530,7 +564,7 @@ namespace MDPlayer
                 //仮想レジスタに書き込み
                 work.OPM2vreg[d] = a;
                 //実レジスタに書き込み
-                chipReg.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
                 //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
             }
         }
@@ -1255,7 +1289,7 @@ namespace MDPlayer
                 {
                     //ウエイト
                 }
-                chipReg.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
             }
             else
             {
@@ -1265,7 +1299,7 @@ namespace MDPlayer
                 {
                     //ウエイト
                 }
-                chipReg.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
             }
         }
 
@@ -1947,11 +1981,12 @@ namespace MDPlayer
 
                 if (wch.PortaFlg != 0) EPOR(wch,e);
 
-                //if (wch.softPMStep != 0) EPM();
+                if (wch.softPMStep != 0) EPM(wch,e);
 
-                //if (wch.softAMStep != 0) EAM();
+                if (wch.softAMStep != 0) EAM(wch,e);
             }
         }
+
 
         private void EPOR(Ch wch, byte e)
         {
@@ -2025,9 +2060,222 @@ namespace MDPlayer
             wch.NoteNumber = h;
             wopm((byte)(0x30 + e), l);
             wopm((byte)(0x28 + e), KTABLE[h]);
-            Console.WriteLine($"opmout reg{l:X2} dat{ KTABLE[h]:X2}");
+            //Console.WriteLine($"opmout reg{l:X2} dat{ KTABLE[h]:X2}");
 
         }
+
+
+        private void EPM(Ch wch, byte e)
+        {
+            if (wch.PortaStartFlg != 0) return;
+
+            //Console.WriteLine($"softPMProcCount[{wch.softPMProcCount:d}]");
+            //Console.WriteLine($"softPMStep[{wch.softPMStep:d}]");
+            //Console.WriteLine($"softPMStepCount[{wch.softPMStepCount:d}]");
+            //Console.WriteLine($"softPMPitch[{wch.softPMPitch:d}]");
+            //Console.WriteLine($"KF[{wch.KF:d}]");
+            //Console.WriteLine($"NoteNumber[{wch.NoteNumber:d}]");
+
+            if (wch.softPMDelayCount - 1 != 0)
+            {
+                wch.softPMDelayCount--;
+                return;
+            }
+
+            //EPM1:
+            byte l = wch.KF;
+            byte h = wch.NoteNumber;
+
+            byte a = wch.softPMStepCount;
+            a--;
+            if (a != 0)
+            {
+                wch.softPMStepCount = a;
+                a = wch.softPMProcCount;
+                if (a >= 8) return;
+                if (a >= 4) EPMH1(wch, a, h, e);
+                else if (a == 0 || a == 3)
+                {
+                    EPMM(wch, a, h, l, e);
+                }
+                else
+                {
+                    EPMP(wch, a, h, l, e);
+                }
+                return;
+            }
+            //EPMS:
+            a = wch.softPMStep;
+            wch.softPMStepCount = a;
+
+            a = wch.softPMProcCount;
+            if (a -8<0)
+            {
+                //EPMS0:
+                if (a >= 4)
+                {
+                    //EPMH:
+                    a++;
+                    if (a >= 8) a = 4;
+                    wch.softPMProcCount = a;
+                    EPMH1(wch, a, h, e);
+                    return;
+                }
+                a++;
+                a &= 3;
+                wch.softPMProcCount = a;
+                //EPMS1:
+                if (a == 0 || a >= 3)
+                {
+                    EPMM(wch, a, h, l, e);
+                }
+                else
+                {
+                    EPMP(wch, a, h, l, e);
+                }
+                return;
+            }
+            //EPMQ:
+            a++;
+            if (a == 10 || a > 12)
+            {
+                a--;
+                a--;
+            }
+            //EPMQ1:
+            wch.softPMProcCount = a;
+            if (a == 8 || a >= 11)
+            {
+                EPMP(wch, a, h, l, e);
+            }
+            else
+            {
+                EPMM(wch, a, h, l, e);
+            }
+
+        }
+
+        private void EPMH1(Ch wch, byte a, byte h, byte e)
+        {
+            byte b = wch.softPMPitch;
+            byte c = 0;
+
+            if (a == 4 || a == 7)
+            {
+                if (h - b >= 0)
+                {
+                    c = (byte)(h - b);
+                }
+            }
+            else
+            {
+                c = 97;
+                if (h + b <= 97)
+                {
+                    c = (byte)(h + b);
+                }
+            }
+
+            //EPM2H:
+            wch.NoteNumber = c;
+            wopm((byte)(0x28 + e), KTABLE[c]);
+
+        }
+
+        private void EPMM(Ch wch, byte a, byte h, byte l, byte e)
+        {
+            ushort p = (ushort)(wch.softPMPitch * 4);
+            ushort hl = (ushort)(h * 0x100 + l);
+            if (hl - p < 0)
+            {
+                hl = 0;
+            }
+            else hl = (ushort)(hl - p);
+            h = (byte)(hl >> 8);
+            l = (byte)(hl & 0xff);
+
+            wch.KF = l;
+            wch.NoteNumber = h;
+
+            wopm((byte)(0x30 + e), l);
+            wopm((byte)(0x28 + e), KTABLE[h]);
+        }
+
+        private void EPMP(Ch wch, byte a, byte h, byte l, byte e)
+        {
+            ushort p = (ushort)(wch.softPMPitch * 4);
+            ushort hl = (ushort)(h * 0x100 + l);
+            if ((byte)((hl + p) >> 8) >= 120)
+            {
+                hl = 0x77fc;
+            }
+            else hl = (ushort)(hl + p);
+            h = (byte)(hl >> 8);
+            l = (byte)(hl & 0xff);
+
+            wch.KF = l;
+            wch.NoteNumber = h;
+
+            wopm((byte)(0x30 + e), l);
+            wopm((byte)(0x28 + e), KTABLE[h]);
+        }
+
+
+        private void EAM(Ch wch, byte e)
+        {
+
+            //Console.WriteLine($"softPMProcCount[{wch.softPMProcCount:d}]");
+            //Console.WriteLine($"softPMStep[{wch.softPMStep:d}]");
+            //Console.WriteLine($"softPMStepCount[{wch.softPMStepCount:d}]");
+            //Console.WriteLine($"softPMPitch[{wch.softPMPitch:d}]");
+
+            if (wch.softAMDelayCount - 1 != 0)
+            {
+                wch.softAMDelayCount--;
+                return;
+            }
+
+            //EAM1:
+            wch.softAMStepCount--;
+            if (wch.softAMStepCount == 0)
+            {
+                //EAMS:
+                wch.softAMStepCount = wch.softAMStep;
+                wch.softAMProcCount ^= 1;
+            }
+
+            //EAML:
+            for (int b = 0; b < 4; b++)
+            {
+                if ((byte)(wch.softAMSelOP & (1 << b)) == 0) continue;
+
+                switch (b)
+                {
+                    case 0:
+                        if (wch.softAMProcCount == 0) wch.OP1TLs += wch.softAMDepth;
+                        else wch.OP1TLs -= wch.softAMDepth;
+                        wopm((byte)(0x60 + e), wch.OP1TLs);
+                        break;
+                    case 1:
+                        if (wch.softAMProcCount == 0) wch.OP2TLs += wch.softAMDepth;
+                        else wch.OP2TLs -= wch.softAMDepth;
+                        wopm((byte)(0x70 + e), wch.OP2TLs);
+                        break;
+                    case 2:
+                        if (wch.softAMProcCount == 0) wch.OP3TLs += wch.softAMDepth;
+                        else wch.OP3TLs -= wch.softAMDepth;
+                        wopm((byte)(0x68 + e), wch.OP3TLs);
+                        break;
+                    case 3:
+                        if (wch.softAMProcCount == 0) wch.OP4TLs += wch.softAMDepth;
+                        else wch.OP4TLs -= wch.softAMDepth;
+                        wopm((byte)(0x78 + e), wch.OP4TLs);
+                        break;
+                }
+            }
+
+        }
+
 
         private void efxp(Ch[] chs)
         {
