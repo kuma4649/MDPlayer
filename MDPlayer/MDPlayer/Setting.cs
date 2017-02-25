@@ -26,6 +26,34 @@ namespace MDPlayer
         }
 
 
+        private ChipType _AY8910Type = new ChipType();
+        public ChipType AY8910Type
+        {
+            get
+            {
+                return _AY8910Type;
+            }
+
+            set
+            {
+                _AY8910Type = value;
+            }
+        }
+
+        private ChipType _AY8910SType = new ChipType();
+        public ChipType AY8910SType
+        {
+            get
+            {
+                return _AY8910SType;
+            }
+
+            set
+            {
+                _AY8910SType = value;
+            }
+        }
+
         private ChipType _YM2151Type = new ChipType();
         public ChipType YM2151Type
         {
@@ -941,6 +969,22 @@ namespace MDPlayer
                 {
                     _SEGAPCMVolume = value;
                     if (_SEGAPCMVolume > 20 || _SEGAPCMVolume < -192) _SEGAPCMVolume = 0;
+                }
+            }
+
+            private int _AY8910Volume = 0;
+            public int AY8910Volume
+            {
+                get
+                {
+                    if (_AY8910Volume > 20 || _AY8910Volume < -192) _AY8910Volume = 0;
+                    return _AY8910Volume;
+                }
+
+                set
+                {
+                    _AY8910Volume = value;
+                    if (_AY8910Volume > 20 || _AY8910Volume < -192) _AY8910Volume = 0;
                 }
             }
 

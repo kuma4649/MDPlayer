@@ -45,6 +45,7 @@ namespace MDPlayer
         private static NSoundChip[] scYM2608 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -90,6 +91,7 @@ namespace MDPlayer
         public static int ChipPriOKI9 = 0;
         public static int ChipPriC140 = 0;
         public static int ChipPriSPCM = 0;
+        public static int ChipPriPSG = 0;
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
         public static int ChipSecOPNA = 0;
@@ -102,6 +104,7 @@ namespace MDPlayer
         public static int ChipSecOKI9 = 0;
         public static int ChipSecC140 = 0;
         public static int ChipSecSPCM = 0;
+        public static int ChipSecPSG = 0;
 
         private static int MasterVolume = 0;
         static int[] chips = new int[256];
@@ -271,6 +274,8 @@ namespace MDPlayer
             if (scYM2203[0] != null) scYM2203[0].init();
             scYM2610[0] = getChip(Audio.setting.YM2610Type);
             if (scYM2610[0] != null) scYM2610[0].init();
+            scAY8910[0] = getChip(Audio.setting.AY8910Type);
+            if (scAY8910[0] != null) scAY8910[0].init();
 
             scYM2612[1] = getChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
@@ -284,17 +289,20 @@ namespace MDPlayer
             if (scYM2203[1] != null) scYM2203[1].init();
             scYM2610[1] = getChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
+            scAY8910[1] = getChip(Audio.setting.AY8910SType);
+            if (scAY8910[1] != null) scAY8910[1].init();
 
             chipRegister = new ChipRegister(
                 setting
                 , mds
-                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610
+                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910
                 , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
                 , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
                 , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
                 , new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType }
                 , new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
                 , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
+                , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
                 );
             chipRegister.initChipRegister();
 
@@ -407,6 +415,7 @@ namespace MDPlayer
                 ChipPriOKI9 = 0;
                 ChipPriC140 = 0;
                 ChipPriSPCM = 0;
+                ChipPriPSG = 0;
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -419,6 +428,7 @@ namespace MDPlayer
                 ChipSecOKI9 = 0;
                 ChipSecC140 = 0;
                 ChipSecSPCM = 0;
+                ChipSecPSG = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -583,6 +593,7 @@ namespace MDPlayer
                 ChipPriOKI9 = 0;
                 ChipPriC140 = 0;
                 ChipPriSPCM = 0;
+                ChipPriPSG = 0;
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -907,6 +918,33 @@ namespace MDPlayer
 
                         if (i == 0) ChipPriOPNB = 1;
                         else ChipSecOPNB = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
+                if (((vgm)vgmVirtual).AY8910ClockValue != 0)
+                {
+                    MDSound.ay8910 ay8910 = new MDSound.ay8910();
+                    for (int i = 0; i < (((vgm)vgmVirtual).AY8910DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ay8910;
+                        chip.Update = ay8910.Update;
+                        chip.Start = ay8910.Start;
+                        chip.Stop = ay8910.Stop;
+                        chip.Reset = ay8910.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.AY8910Volume;
+                        chip.Clock = (((vgm)vgmVirtual).AY8910ClockValue & 0x7fffffff) / 2;
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) ChipPriPSG = 1;
+                        else ChipSecPSG = 1;
 
                         lstChips.Add(chip);
                     }

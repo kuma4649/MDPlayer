@@ -22,6 +22,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -40,6 +42,7 @@ namespace MDPlayer
         public int ChipPriOKI9 = 0;
         public int ChipPriC140 = 0;
         public int ChipPriSPCM = 0;
+        public int ChipPriPSG = 0;
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
         public int ChipSecOPNA = 0;
@@ -52,6 +55,7 @@ namespace MDPlayer
         public int ChipSecOKI9 = 0;
         public int ChipSecC140 = 0;
         public int ChipSecSPCM = 0;
+        public int ChipSecPSG = 0;
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -136,6 +140,15 @@ namespace MDPlayer
             ,new bool[4] {false,false,false,false }
         };
 
+        public int[][] psgRegisterAY8910 = new int[][] { null, null };
+        public int[][] psgKeyOnAY8910 = new int[][] { null, null };
+        private int[] nowAY8910FadeoutVol = new int[] { 0, 0 };
+        public int[][] psgVolAY8910 = new int[][] { new int[3], new int[3] };
+        private bool[][] maskPSGChAY8910 = new bool[][] {
+            new bool[3] { false, false, false }
+            ,new bool[3] { false, false, false }
+        };
+
         private int[] LatchedRegister = new int[] { 0, 0 };
         private int[] NoiseFreq = new int[] { 0, 0 };
 
@@ -150,12 +163,14 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2151
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
+            , NScci.NSoundChip[] scAY8910
             , Setting.ChipType[] ctYM2612
             , Setting.ChipType[] ctSN76489
             , Setting.ChipType[] ctYM2608
             , Setting.ChipType[] ctYM2151
             , Setting.ChipType[] ctYM2203
             , Setting.ChipType[] ctYM2610
+            , Setting.ChipType[] ctAY8910
             )
         {
             this.setting = setting;
@@ -167,6 +182,7 @@ namespace MDPlayer
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
             this.scYM2610 = scYM2610;
+            this.scAY8910 = scAY8910;
 
             this.ctYM2612 = ctYM2612;
             this.ctYM2608 = ctYM2608;
@@ -174,6 +190,7 @@ namespace MDPlayer
             this.ctSN76489 = ctSN76489;
             this.ctYM2203 = ctYM2203;
             this.ctYM2610 = ctYM2610;
+            this.ctAY8910 = ctAY8910;
 
             initChipRegister();
 
@@ -245,6 +262,13 @@ namespace MDPlayer
                 fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 
                 sn76489Register[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
+
+                psgRegisterAY8910[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    psgRegisterAY8910[chipID][i] = 0;
+                }
+                psgKeyOnAY8910[chipID] = new int[3] { 0, 0, 0 };
 
             }
         }
@@ -386,6 +410,38 @@ namespace MDPlayer
                 }
             }
 
+        }
+
+        public void setAY8910Register(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (ctAY8910 == null) return;
+
+            if (chipID == 0) ChipPriPSG = 2;
+            else ChipSecPSG = 2;
+
+            if (model == enmModel.VirtualModel) psgRegisterAY8910[chipID][dAddr] = dData;
+
+            //psg level
+            if ((dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
+            {
+                int d = nowAY8910FadeoutVol[chipID] >> 3;
+                dData = Math.Max(dData - d, 0);
+                dData = maskPSGChAY8910[chipID][dAddr - 0x08] ? 0 : dData;
+            }
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctAY8910[chipID].UseScci)
+                {
+                    mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scAY8910[chipID] == null) return;
+
+                //scAY8910[chipID].setRegister(dAddr, dData);
+            }
         }
 
         public void setYM2203Register(int chipID, int dAddr, int dData, enmModel model)

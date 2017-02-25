@@ -19,6 +19,8 @@ namespace MDPlayer
         public const uint defaultOKIM6258ClockValue = 4000000;
         public const uint defaultOKIM6295ClockValue = 4000000;
         public const uint defaultSEGAPCMClockValue = 4000000;
+        public const uint defaultAY8910ClockValue = 1789750;
+
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
@@ -35,6 +37,7 @@ namespace MDPlayer
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
+        public uint AY8910ClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -44,6 +47,7 @@ namespace MDPlayer
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
         public bool RF5C164DualChipFlag;
+        public bool AY8910DualChipFlag;
 
         public int YM2151Hosei = 0;
 
@@ -362,7 +366,7 @@ namespace MDPlayer
                 vgmCmdTbl[0x94] = vcStopStream;
                 vgmCmdTbl[0x95] = vcStartStreamFastCall;
 
-            vgmCmdTbl[0xa0] = vcDummy2Ope;
+            vgmCmdTbl[0xa0] = vcAY8910;
             vgmCmdTbl[0xa1] = vcDummy2Ope;
             vgmCmdTbl[0xa2] = vcYM2612Port0;
             vgmCmdTbl[0xa3] = vcYM2612Port1;
@@ -521,6 +525,13 @@ namespace MDPlayer
         {
             chipRegister.setSN76489Register(vgmBuf[vgmAdr] == 0x50 ? 0 : 1, vgmBuf[vgmAdr + 1],model);
             vgmAdr += 2;
+        }
+
+        private void vcAY8910()
+        {
+            chipRegister.setAY8910Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
         }
 
         private void vcYM2612Port0()
@@ -1551,6 +1562,7 @@ namespace MDPlayer
             OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
             C140ClockValue = 0;// defaultC140ClockValue;
             OKIM6295ClockValue = 0;//defaultOKIM6295ClockValue;
+            AY8910ClockValue = 0;
 
             //ヘッダーを読み込めるサイズをもっているかチェック
             if (vgmBuf.Length < 0x40) return false;
@@ -1763,7 +1775,13 @@ namespace MDPlayer
                 if (vgmDataOffset > 0x74)
                 {
                     uint AY8910clock = getLE32(0x74);
-                    if (AY8910clock != 0) chips.Add("AY8910");
+                    if (AY8910clock != 0)
+                    {
+                        AY8910ClockValue = AY8910clock & 0x3fffffff;
+                        AY8910DualChipFlag = (AY8910clock & 0x40000000) != 0;
+                        if (AY8910DualChipFlag) chips.Add("AY8910x2");
+                        else chips.Add("AY8910");
+                    }
                 }
             }
             if (version >= 0x0161)
