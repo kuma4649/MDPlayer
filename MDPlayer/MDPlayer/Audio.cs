@@ -126,6 +126,7 @@ namespace MDPlayer
 
             if (file.ToLower().LastIndexOf(".nrd") != -1)
             {
+
                 music.format = enmFileFormat.NRTDRV;
                 uint index = 42;
                 GD3 gd3 = nrtdrv.getGD3Info(buf, index);
@@ -140,12 +141,6 @@ namespace MDPlayer
                 music.converted = gd3.Converted;
                 music.notes = gd3.Notes;
 
-                //music.title = getNRDString(buf, ref index);
-                //music.titleJ = getNRDString(buf, ref index);
-                //music.composer = getNRDString(buf, ref index);
-                //music.composerJ = music.composer;
-                //music.vgmby = getNRDString(buf, ref index);
-                //music.notes = getNRDString(buf, ref index);
             }
             else
             {
@@ -380,6 +375,7 @@ namespace MDPlayer
 
                 chipRegister.setFadeoutVolYM2151(0, 0);
                 chipRegister.setFadeoutVolYM2151(1, 0);
+                
                 chipRegister.resetChips();
 
                 vgmFadeout = false;
@@ -432,29 +428,48 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
-                    for (int i = 0; i < 2; i++)
-                    {
-                        chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
-                        chip.ID = (byte)i;
-                        chip.Instrument = ym2151;
-                        chip.Update = ym2151.Update;
-                        chip.Start = ym2151.Start;
-                        chip.Stop = ym2151.Stop;
-                        chip.Reset = ym2151.Reset;
-                        chip.SamplingRate = SamplingRate;
-                        chip.Volume = setting.balance.YM2151Volume;
-                        chip.Clock = 4000000;
-                        chip.Option = null;
+                MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                for (int i = 0; i < 2; i++)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                    chip.ID = (byte)i;
+                    chip.Instrument = ym2151;
+                    chip.Update = ym2151.Update;
+                    chip.Start = ym2151.Start;
+                    chip.Stop = ym2151.Stop;
+                    chip.Reset = ym2151.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = null;
 
-                        hiyorimiDeviceFlag |= 0x2;
+                    hiyorimiDeviceFlag |= 0x2;
 
-                        if (i == 0) ChipPriOPM = 1;
-                        else ChipSecOPM = 1;
+                    if (i == 0) ChipPriOPM = 1;
+                    else ChipSecOPM = 1;
 
-                        lstChips.Add(chip);
-                    }
+                    lstChips.Add(chip);
+                }
+
+                MDSound.ay8910 ay8910 = new MDSound.ay8910();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                    chip.ID = (byte)0;
+                    chip.Instrument = ay8910;
+                    chip.Update = ay8910.Update;
+                    chip.Start = ay8910.Start;
+                    chip.Stop = ay8910.Stop;
+                    chip.Reset = ay8910.Reset;
+                    chip.SamplingRate = SamplingRate;
+                    chip.Volume = setting.balance.AY8910Volume;
+                    chip.Clock = 2000000/2;
+                    chip.Option = null;
+
+                hiyorimiDeviceFlag |= 0x1;
+                ChipPriPSG = 1;
+
+                lstChips.Add(chip);
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -467,8 +482,9 @@ namespace MDPlayer
                 chipRegister.initChipRegister();
 
                 SetYM2151Volume(setting.balance.YM2151Volume);
+                SetAY8910Volume(setting.balance.AY8910Volume);
 
-                nrtdrv.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2151, 0);
+                nrtdrv.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
                 nrtdrv.Call(0);//
                 nrtdrv.Call(1);//MPLAY
                 //nrtdrv.Call(5);//MTEST
@@ -1910,6 +1926,11 @@ namespace MDPlayer
         public static void SetMasterVolume(int volume)
         {
             MasterVolume = volume;
+        }
+
+        public static void SetAY8910Volume(int volume)
+        {
+            //mds.setVolumeAY8910(volume);
         }
 
         public static void SetYM2151Volume(int volume)

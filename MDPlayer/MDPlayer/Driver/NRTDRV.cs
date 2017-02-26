@@ -41,6 +41,23 @@ namespace MDPlayer
             ,  15,  14,  13,  12,  11,  10,   9,   8,   7,   6,   5,   4	//o9
         };
 
+        private byte[] PMTBL = new byte[] {
+             0x3f,0x09 //Ch.1/P0
+            ,0x3e,0x08 //Ch.1/P1
+            ,0x37,0x01 //Ch.1/P2
+            ,0x36,0x00 //Ch.1/P3
+
+            ,0x3f,0x12 //Ch.2/P0
+            ,0x3d,0x10 //Ch.2/P1
+            ,0x2f,0x02 //Ch.2/P2
+            ,0x2d,0x00 //Ch.2/P3
+
+            ,0x3f,0x24 //Ch.3/P0
+            ,0x3b,0x20 //Ch.3/P1
+            ,0x1f,0x04 //Ch.3/P2
+            ,0x1b,0x00 //Ch.3/P3
+        };
+
         private byte[] TTONE = new byte[] {
             162,1,0                 //+3
             , 75,0 ,74,0 ,74,0 ,74,0    //+8
@@ -414,7 +431,7 @@ namespace MDPlayer
             {
                 ushort de = (ushort)(ram[hl] + ram[hl + 1] * 0x100);
                 hl += 2;
-                wChs[b].ptrData = de;
+                wChs[b].ptrData = (ushort)(de + work.bgmadr);
                 wreset(wChs[b]);
                 wChs[b].PSGToneStartAdr = 0;
                 wChs[b].PSGToneAdr = 0;
@@ -573,6 +590,7 @@ namespace MDPlayer
         {
             //Out(0x1c00, d);//PSG register
             //Out(0x1b00, a);//PSG data
+            chipRegister.setAY8910Register(0, d, a, enmModel.VirtualModel);
         }
 
         private class Work
@@ -708,44 +726,49 @@ namespace MDPlayer
                 work.OPMIO = 0x701;
                 mmain(work.OPM1Chs);
             }
+
             //OPM2
             if ((work.ctcflg & 0x2) != 0)
             {
                 work.OPMIO = 0x709;
                 mmain(work.OPM2Chs);
             }
+
             //PSG
             work.OPMIO = 0;
-            pmain();
+            pmain(work.PSGChs);
 
             //FadeOut
-            if ((work.PLYFLG & 0x2) != 0)
-            {
-                work.FCOUNT++;
-                if (work.FSPEED < work.FCOUNT)
-                {
-                    work.FCOUNT = 0;
+            if ((work.PLYFLG & 0x2) == 0) return;
 
-                    work.MVOL++;
-                    if (work.MVOL > 127)
-                    {
-                        work.PLYFLG &= 0xc0;
-                        work.PLYFLG |= 0x4;
-                        foreach (Ch wch in work.OPM1Chs)
-                        {
-                            wch.TrackStopFlg = 0xff;
-                        }
-                        foreach (Ch wch in work.OPM2Chs)
-                        {
-                            wch.TrackStopFlg = 0xff;
-                        }
-                        foreach (Ch wch in work.PSGChs)
-                        {
-                            wch.TrackStopFlg = 0xff;
-                        }
-                    }
-                }
+            work.FCOUNT++;
+
+            if (work.FSPEED >= work.FCOUNT) return;
+
+            work.FCOUNT = 0;
+
+            work.MVOL++;
+
+            if (work.MVOL <= 127) return;
+
+            work.PLYFLG &= 0xc0;
+            work.PLYFLG |= 0x4;
+
+            foreach (Ch wch in work.OPM1Chs)
+            {
+                wch.TrackStopFlg = 0xff;
             }
+
+            foreach (Ch wch in work.OPM2Chs)
+            {
+                wch.TrackStopFlg = 0xff;
+            }
+
+            foreach (Ch wch in work.PSGChs)
+            {
+                wch.TrackStopFlg = 0xff;
+            }
+
         }
 
         private void mmain(Ch[] chs)
@@ -1947,9 +1970,548 @@ namespace MDPlayer
             wopm(d, a);
         }
 
-        private void pmain()
+
+
+        private void pmain(Ch[] chs)
         {
+            for (byte e = 0; e < 3; e++)
+            {
+                Ch wch = chs[e];
+
+                if (wch.KeyoffFlg == 2)
+                {
+                    PSGRR(wch);
+                }
+                else if (wch.KeyoffFlg != 0)
+                {
+                    RRST(wch, e);
+                }
+
+                //PMAIN2:
+                byte a = wch.TrackStopFlg;
+                if (a == 0)
+                {
+                    //PMAIN3:
+                    byte c = wch.Counter;
+                    if (c == 0)
+                    {
+                        if (wch.isCountNext == 0)
+                        {
+                            PCOM(wch, e);
+                            goto PMAINL;
+                        }
+                        a = ram[wch.ptrData];
+                        wch.ptrData++;
+                        if (a != 255)
+                        {
+                            if (a == 0)
+                            {
+                                PCOM(wch, e);
+                                goto PMAINL;
+                            }
+                            wch.isCountNext = 0;
+                        }
+                        wch.Counter = a;
+                    }
+                    //PMAIN1:
+                    wch.Counter--;
+
+                    if (wch.Counter- wch.gatetime < 0)
+                    {
+                        if (wch.LegartFlg == 0)
+                        {
+                            if (wch.isCountNext == 0)
+                            {
+                                if (wch.KeyoffFlg == 0)
+                                    wch.KeyoffFlg = 1;
+                            }
+                        }
+                    }
+
+                }
+
+                PMAINL:
+                if (wch.PSGToneAdr != 0)
+                {
+                    PENV(wch, e);
+                }
+
+            }
         }
+
+        private void PSGRR(Ch wch)
+        {
+
+            wch.PSGRRCounter--;
+            if (wch.PSGRRCounter >= 0) return;
+
+            wch.PSGRRCounter = wch.PSGRR;
+            wch.PSGRRVolOffset++;
+            if (wch.PSGRRVolOffset < 16) return;
+
+            wch.PSGToneAdr = 0;
+            wch.KeyoffFlg = 0;
+            wch.workForPlayer = 0;
+
+        }
+
+        private void RRST(Ch wch, byte e)
+        {
+            byte a = wch.PSGHardEnvelopeType;
+            if (a - 16 < 0)
+            {
+                //RRST1:
+                wch.PSGToneAdr = 0;
+                wch.KeyoffFlg = 0;
+                wch.workForPlayer = 0;
+                wpsg((byte)(8 + e), 0);
+                return;
+            }
+
+            wch.PSGRRVolOffset = wch.PSGRRLevel;
+            wch.KeyoffFlg = 2;
+        }
+
+        private void PCOM(Ch wch, byte e)
+        {
+            while (true)
+            {
+                byte cmdno = ram[wch.ptrData];
+                wch.ptrData++;
+
+                if ((cmdno & 0x80) != 0)
+                {
+                    PKEYON(wch, e, cmdno);
+                    return;
+                }
+                else if (cmdno == 127)
+                {
+                    //トラック終端
+                    trkend(wch);
+                    //return;
+                }
+                else if (cmdno < 38)
+                {
+                    if (PCOM0(wch, e, cmdno) == 1) return;
+                }
+                else
+                {
+                    wch.TrackStopFlg = 255;
+                    return;
+                }
+            }
+        }
+
+        private int PCOM0(Ch wch, byte e, byte cmdno)
+        {
+            int r = 0;
+            switch (cmdno)
+            {
+                case 0: r = REST(wch, e); break;
+                case 1: r = PZCOM(wch, e); break;
+                case 2: r = REST(wch, e); break;
+                case 3: r = REST(wch, e); break;
+                case 4: r = REST(wch, e); break;
+                case 5: r = STYPE(wch, e); break;
+                case 6: r = REST(wch, e); break;
+                case 7: r = REST(wch, e); break;
+                case 8: r = REST(wch, e); break;
+                case 9: r = REST(wch, e); break;
+                case 10: r = REST(wch, e); break;
+                case 11: r = FFSET(wch, e); break;
+                case 12: r = YCOMP(wch, e); break;
+                case 13: r = RRSET(wch, e); break;
+                case 14: r = PVSET(wch, e); break;
+                case 15: r = DETUNE(wch, e); break;
+                case 16: r = MMACRO(wch, e); break;
+                case 17: r = LEGON(wch, e); break;
+                case 18: r = LEGOFF(wch, e); break;
+                case 19: r = PVOL(wch, e); break;
+                case 20: r = PMODE(wch, e); break;
+                case 21: r = RSTART(wch, e); break;
+                case 22: r = REND(wch, e); break;
+                case 23: r = RQUIT(wch, e); break;
+                case 24: r = PYCOM(wch, e); break;
+                case 25: r = QUANT1(wch, e); break;
+                case 26: r = QUANT2(wch, e); break;
+                case 27: r = NFREQ(wch, e); break;
+                case 28: r = KSHIFT(wch, e); break;
+                case 29: r = PORTA(wch, e); break;
+                case 30: r = TEMPO(wch, e); break;
+                case 31: r = SPM(wch, e); break;
+                case 32: r = SHAPE(wch, e); break;
+                case 33: r = PKKOFF(wch, e); break;
+                case 34: r = REPLAY(wch, e); break;
+                case 35: r = GLIDE(wch, e); break;
+                case 36: r = PERIOD(wch, e); break;
+                case 37: r = FADEC(wch, e); break;
+            }
+
+            return r;
+        }
+
+        private void PENV(Ch wch, byte e)
+        {
+            ushort hl = wch.PSGToneAdr;
+            byte a = 0;
+            byte c = 0;
+            while (true)
+            {
+                a = ram[hl];
+                hl++;
+                ushort bc;
+                if (a == 255)
+                {
+                    bc = ram[hl];
+                    hl -= bc;
+                    a = ram[hl];
+                }
+                //PENV1:
+                if (a - 16 < 0)
+                {
+                    break;
+                }
+                if (a - 48 < 0)
+                {
+                    wpsg(6, (byte)(a - 16));
+                    continue;
+                }
+                a -= 48;
+                a *= 2;
+                bc = a;
+
+                a = work.PFLG;
+                c = PMTBL[e * 8 + bc];
+                a &= c;
+                c = PMTBL[e * 8 + bc + 1];
+                a |= c;
+                work.PFLG = a;
+                wpsg(7, a);
+            }
+            //PENV4:
+            wch.PSGToneAdr = hl;
+            a ^= 15;
+            c = a;
+            byte d = (byte)(8 + e);
+            byte b = work.MVOL;
+            //PENVF2:
+            if ((wch.LFOFlags & 0x80) == 0)
+            {
+                a = wch.Volume;
+                if (a - b < 0)
+                {
+                    a = 0;
+                }
+                else
+                {
+                    a -= b;
+                    a = (byte)(a >> 3);
+                    b = wch.PSGRRVolOffset;
+                    if (a - b < 0)
+                    {
+                        a = 0;
+                    }
+                    else
+                    {
+                        a -= b;
+                        if (a - c < 0)
+                        {
+                            a = 0;
+                        }
+                        else
+                        {
+                            a -= c;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                a = 0;
+            }
+            //PENV5:
+            wpsg(d, a);
+            return;
+        }
+
+        private void PKEYON(Ch wch, byte e, byte cmdno)
+        {
+            byte a = (byte)(cmdno & 0x7f);
+            byte ks = (byte)(wch.Transpose);
+            a += ks;
+            wch.workForPlayer = a;
+
+            a = ram[wch.ptrData];
+
+            if (a == 255) wch.isCountNext = a;
+            else wch.isCountNext = 0;
+
+            a--;
+            wch.Counter = a;
+
+            if (a == 0)
+            {
+                if (wch.LegartFlg == 0)
+                {
+                    wch.KeyoffFlg = 1;
+                }
+            }
+            else
+            {
+                wch.KeyoffFlg = 0;
+            }
+
+            wch.ptrData++;
+
+            ushort bc = (ushort)(a * 0x100);
+            bc = (ushort)(bc / 8);
+
+            a = wch.q;
+            if (a == 8)
+            {
+                a = 0;
+            }
+            else
+            {
+                a = (byte)(((8 - a) * bc) / 0x100);
+            }
+            a += wch.Q;
+            a++;
+            wch.gatetime = a;
+
+            bc = wch.workForPlayer;
+            byte d = (byte)(e << 1);
+
+            byte b = 0;
+            byte c = (byte)(PTABLE[bc]);
+            a = wch.Detune;
+            a = (byte)(~a+1);
+            if (a-129 < 0)
+            {
+                if (a + c <= 255)
+                {
+                    a += c;
+                }
+                else
+                {
+                    a += c;
+                    b++;
+                }
+            }
+            else
+            {
+                if (a + c > 255)
+                {
+                    a += c;
+                }
+                else
+                {
+                    a += c;
+                    b--;
+                }
+            }
+            //PKON5
+            c = a;
+            a = (byte)(PTABLE[bc] >> 8);
+            b += a;
+
+            a = wch.GlideFlg;
+            if (a != 0)
+            {
+                wch.PortaFlg = a;
+                wch.PortaTone = (ushort)(b * 0x100 + c);
+                wch.PortaStartFlg = a;
+
+                ushort hl = (ushort)(b * 0x100 + c);
+                bc = wch.Glide;
+                hl += bc;
+                b = (byte)(hl / 0x100);
+                c = (byte)(hl & 0xff);
+                goto PKON8;
+            }
+            else
+            {
+                //PKON11:
+                a = wch.PortaFlg;
+                if (a != 0)
+                {
+                    wch.PortaStartFlg = a;
+                    wch.PortaTone = (ushort)(b * 0x100 + c);
+                    goto PKON9;
+                }
+            }
+            PKON8:
+            wch.PSGTone = (ushort)(b * 0x100 + c);
+            wpsg(d, c);
+            d++;
+            wpsg(d, b);
+
+            PKON9:
+            a = wch.LegartDelayFlg;
+            c = a;
+            wch.LegartDelayFlg = wch.LegartFlg;
+            if (a != 0)
+            {
+                if (wch.PSGToneAdr != 0)
+                {
+                    goto PKONE;
+                }
+            }
+            //PKON10
+            a = wch.PSGHardEnvelopeType;
+            if (a - 16 < 0)
+            {
+                wpsg(13, a);
+                d = (byte)(8 + e);
+                a = wch.LFOFlags;
+                if ((a & 0x80) == 0)
+                {
+                    a = 16;
+                }
+                else
+                {
+                    a = 0;
+                }
+                wpsg(d, a);
+                goto PKONE;
+            }
+            //PKSENV:
+            a = wch.LFOFlags;
+            if ((a & 0x80) != 0)
+            {
+                d = 8;
+                d += e;
+                a = 0;
+                wpsg(d, a);
+            }
+            //PKSENV02
+            wch.PSGRRVolOffset = a;
+            wch.PSGToneAdr = wch.PSGToneStartAdr;
+
+            PKONE:
+            a = wch.softPMType;
+            if ((a & 0x80) != 0)
+            {
+                wch.softPMProcCount = (byte)(((a & 0x7f) * 2) ^ 2);
+                wch.softPMStepCount = wch.softPMStep;
+
+                if (c != 0)
+                {
+                    b = 1;
+                }
+                else
+                {
+                    b = wch.softPMDelay;
+                }
+                wch.softPMDelayCount = b;
+            }
+
+        }
+
+        private int PZCOM(Ch wch, byte e)
+        {
+            byte a = ram[wch.ptrData];
+            work.ZCOUNT = a;
+            wch.ptrData++;
+
+            do
+            {
+                byte d = ram[wch.ptrData];
+                wch.ptrData++;
+                a = ram[wch.ptrData];
+                wch.ptrData++;
+                wpsg(d, a);
+                a = work.ZCOUNT;
+                a--;
+                work.ZCOUNT = a;
+            } while (a != 0);
+
+            return 0;
+        }
+
+        private int RRSET(Ch wch, byte e)
+        {
+            wch.PSGRR = ram[wch.ptrData];
+            wch.ptrData++;
+            wch.PSGRRLevel = ram[wch.ptrData];
+
+            wch.ptrData++;//CCRET
+            return 0;
+        }
+
+        private int PVSET(Ch wch, byte e)
+        {
+            ushort bc = (ushort)(ram[wch.ptrData] + ram[wch.ptrData + 1] * 0x100);
+            wch.ptrData += 2;
+            wch.PSGToneStartAdr = (ushort)(work.bgmadr + bc);
+            wch.PSGHardEnvelopeType = 16;
+
+            return 0;
+        }
+
+        private int PVOL(Ch wch, byte e)
+        {
+            wch.Volume = ram[wch.ptrData];
+
+            wch.ptrData++;//CCRET
+            return 0;
+        }
+
+        private int PMODE(Ch wch, byte e)
+        {
+            byte a = ram[wch.ptrData];
+            a += a;
+            ushort bc = a;
+            ushort hl = e;
+            hl = (ushort)(hl * 8);
+            hl += bc;
+            a=work.PFLG;
+            a &= PMTBL[hl];
+            a |= PMTBL[hl + 1];
+            work.PFLG = a;
+
+            wpsg(7, a);
+
+            wch.ptrData++;//CCRET
+            return 0;
+        }
+
+        private int NFREQ(Ch wch, byte e)
+        {
+            wpsg(6, ram[wch.ptrData]);
+
+            wch.ptrData++;//CCRET
+            return 0;
+        }
+
+        private int SHAPE(Ch wch, byte e)
+        {
+            wch.PSGHardEnvelopeType = ram[wch.ptrData];
+            wch.PSGToneAdr = 0;
+
+            wch.ptrData++;//CCRET
+            return 0;
+        }
+
+        private int PKKOFF(Ch wch, byte e)
+        {
+            wch.PSGToneAdr = 0;
+            wch.LegartDelayFlg = 0;
+            wch.workForPlayer = 0;
+            wpsg((byte)(8 + e), 0);
+            return 0;
+        }
+
+        private int PERIOD(Ch wch, byte e)
+        {
+            wpsg(11, ram[wch.ptrData]);
+            wpsg(12, ram[wch.ptrData+1]);
+
+            wch.ptrData += 2;//CCRET
+            return 0;
+        }
+
+
 
         private void int2()
         {

@@ -2985,6 +2985,7 @@ namespace MDPlayer
             if (setting.location.PPlayList != System.Drawing.Point.Empty)
             {
                 frmPlayList.Location = setting.location.PPlayList;
+
             }
             if (setting.location.PPlayListWH != System.Drawing.Point.Empty)
             {
@@ -3024,6 +3025,16 @@ namespace MDPlayer
             }
 
             frmMixer.Visible = !frmMixer.Visible;
+
+            Screen s = Screen.FromControl(frmMixer);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmMixer.Location.X > w - 100 || frmMixer.Location.Y > h - 100)
+            {
+                frmMixer.Location = new System.Drawing.Point(0,0);
+            }
+
             frmMixer.TopMost = true;
             frmMixer.TopMost = false;
         }
