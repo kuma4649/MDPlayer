@@ -2841,7 +2841,241 @@ namespace MDPlayer
 
         private void efxp(Ch[] chs)
         {
+            for (byte e = 0; e < 3; e++)
+            {
+                Ch wch = chs[e];
+
+                if (wch.PortaFlg != 0) EPOP(wch, e);
+
+                if (wch.softPMStep != 0) PEPM(wch, e);
+
+            }
         }
+
+        private void EPOP(Ch wch, byte e)
+        {
+            if (wch.PortaStartFlg == 0) return;
+
+            byte l = (byte)wch.PSGTone;
+            byte h = (byte)(wch.PSGTone >> 8);
+            byte b = (byte)(wch.PortaTone >> 8);
+            byte c = (byte)(wch.PortaTone & 0xff);
+            byte a = h;
+
+            bool neg = true;
+
+            if (wch.PSGTone < wch.PortaTone) neg = false;
+
+            //
+            if (neg)
+            {
+                //減算処理
+                int p = wch.PortaFlg;
+                int hl = (h * 0x100) + l - p;
+                h = (byte)(hl >> 8);
+                l = (byte)(hl & 0xff);
+
+                if (hl < b * 0x100 + c)
+                {
+                    h = b;
+                    l = c;
+                }
+            }
+            else
+            {
+                //加算処理
+                int p = wch.PortaFlg;
+                int hl = (h * 0x100) + l + p;
+                h = (byte)(hl >> 8);
+                l = (byte)(hl & 0xff);
+
+                if (hl > b * 0x100 + c)
+                {
+                    h = b;
+                    l = c;
+                }
+            }
+
+            wch.PSGTone = (ushort)((h * 0x100) + l);
+
+            wpsg((byte)(e * 2), l);
+            wpsg((byte)(e * 2+1), h);
+
+        }
+
+        private void PEPM(Ch wch, byte e)
+        {
+            if (wch.PortaStartFlg != 0) return;
+
+            //Console.WriteLine($"softPMProcCount[{wch.softPMProcCount:d}]");
+            //Console.WriteLine($"softPMStep[{wch.softPMStep:d}]");
+            //Console.WriteLine($"softPMStepCount[{wch.softPMStepCount:d}]");
+            //Console.WriteLine($"softPMPitch[{wch.softPMPitch:d}]");
+            //Console.WriteLine($"KF[{wch.KF:d}]");
+            //Console.WriteLine($"NoteNumber[{wch.NoteNumber:d}]");
+
+            if (wch.softPMDelayCount - 1 != 0)
+            {
+                wch.softPMDelayCount--;
+                return;
+            }
+
+            //PEPM1:
+            byte l = (byte)(wch.PSGTone);
+            byte h = (byte)(wch.PSGTone >> 8);
+
+            byte a = wch.softPMStepCount;
+            a--;
+            if (a != 0)
+            {
+                wch.softPMStepCount = a;
+                a = wch.softPMProcCount;
+                if (a >= 8) return;
+                if (a >= 4) PEPMH1(wch, a, h, l, e);
+                //PEPMS1
+                else if (a == 0 || a == 3)
+                {
+                    PEPMM(wch, a, h, l, e);
+                }
+                else
+                {
+                    PEPMP(wch, a, h, l, e);
+                }
+                return;
+            }
+            //PEPMS:
+            a = wch.softPMStep;
+            wch.softPMStepCount = a;
+
+            a = wch.softPMProcCount;
+            if (a - 8 < 0)
+            {
+                //PEPMS0:
+                if (a >= 4)
+                {
+                    //PEPMH:
+                    a++;
+                    if (a >= 8) a = 4;
+                    wch.softPMProcCount = a;
+                    EPMH1(wch, a, h, e);
+                    return;
+                }
+                a++;
+                a &= 3;
+                wch.softPMProcCount = a;
+                //`EPMS1:
+                if (a == 0 || a >= 3)
+                {
+                    PEPMM(wch, a, h, l, e);
+                }
+                else
+                {
+                    PEPMP(wch, a, h, l, e);
+                }
+                return;
+            }
+            //PEPMQ:
+            a++;
+            if (a == 10 || a > 12)
+            {
+                //PEPMQ0
+                a--;
+                a--;
+            }
+            //PEPMQ1:
+            wch.softPMProcCount = a;
+            if (a == 8 || a >= 11)
+            {
+                PEPMP(wch, a, h, l, e);
+            }
+            else
+            {
+                PEPMM(wch, a, h, l, e);
+            }
+
+
+        }
+
+        private void PEPMH1(Ch wch, byte a, byte h,byte l, byte e)
+        {
+            byte b = e;
+            byte c = 0;
+            ushort hl = 0;
+
+            if (a == 4 || a == 7)
+            {
+                //PEPMMH
+                hl = (ushort)(wch.softPMPitch * 64);
+                int x = (h * 0x100 + l) - hl;
+
+                if (x < 0)
+                {
+                    hl = 0;
+                }
+                else
+                {
+                    hl = (ushort)x;
+                }
+            }
+            else
+            {
+                //PEPMPH
+                hl = (ushort)(wch.softPMPitch * 64);
+                int x = (h * 0x100 + l) + hl;
+
+                if ((ushort)(x>>8) >= 16)
+                {
+                    hl = 4095;
+                }
+                else
+                {
+                    hl = (ushort)x;
+                }
+            }
+
+            //PEPM2H:
+            wch.PSGTone = hl;
+            wpsg((byte)(e * 2), (byte)hl);
+            wpsg((byte)(e * 2 + 1), (byte)(hl >> 8));
+
+        }
+
+        private void PEPMM(Ch wch, byte a, byte h, byte l, byte e)
+        {
+            ushort p = (ushort)(wch.softPMPitch);
+            ushort hl = (ushort)(h * 0x100 + l);
+            if (hl - p < 0)
+            {
+                hl = 0;
+            }
+            else hl = (ushort)(hl - p);
+            h = (byte)(hl >> 8);
+            l = (byte)(hl & 0xff);
+
+            wch.PSGTone = (ushort)(h * 0x100 + l);
+
+            wpsg((byte)(e*2), l);
+            wpsg((byte)(e*2+1), h);
+        }
+
+        private void PEPMP(Ch wch, byte a, byte h, byte l, byte e)
+        {
+            ushort p = (ushort)(wch.softPMPitch );
+            ushort hl = (ushort)(h * 0x100 + l);
+            if ((byte)((hl + p) >> 8) >= 16)
+            {
+                hl = 4095;
+            }
+            else hl = (ushort)(hl + p);
+            h = (byte)(hl >> 8);
+            l = (byte)(hl & 0xff);
+
+            wch.PSGTone = (ushort)(h * 0x100 + l);
+
+            wpsg((byte)(e * 2), l);
+            wpsg((byte)(e * 2 + 1), h);
+        }
+
 
     }
 }
