@@ -10,6 +10,7 @@ namespace MDPlayer
     {
         public Setting setting = null;
         public double vgmSpeed = 1;
+        protected double vgmSpeedCounter;
         public long Counter = 0;
         public long TotalCounter = 0;
         public long LoopCounter = 0;

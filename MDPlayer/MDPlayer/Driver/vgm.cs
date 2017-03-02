@@ -64,7 +64,6 @@ namespace MDPlayer
 
         private uint vgmAdr;
         private int vgmWait;
-        private double vgmSpeedCounter;
         private long vgmLoopOffset = 0;
         private uint vgmEof;
         private bool vgmAnalyze;

@@ -1009,6 +1009,7 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
+            nrtdrv.vgmSpeed = vgmSpeed;
         }
 
         public static void Slow()
@@ -1016,6 +1017,7 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
+            nrtdrv.vgmSpeed = vgmSpeed;
         }
 
         public static void ResetSlow()
@@ -1023,6 +1025,7 @@ namespace MDPlayer
             vgmSpeed = 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
+            nrtdrv.vgmSpeed = vgmSpeed;
         }
 
         public static void Pause()
@@ -1138,7 +1141,14 @@ namespace MDPlayer
 
         public static long GetCounter()
         {
-            return vgmVirtual.Counter;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                return vgmVirtual.Counter;
+            }
+            else
+            {
+                return nrtdrv.Counter;
+            }
         }
 
         public static long GetTotalCounter()

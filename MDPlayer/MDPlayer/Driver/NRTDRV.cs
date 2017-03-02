@@ -186,6 +186,33 @@ namespace MDPlayer
         {
             try
             {
+                vgmSpeedCounter += vgmSpeed;
+                while (vgmSpeedCounter >= 1.0)
+                {
+                    vgmSpeedCounter -= 1.0;
+                    if (vgmFrameCounter > -1)
+                    {
+                        oneFrameMain();
+                    }
+                    else
+                    {
+                        vgmFrameCounter++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+
+            }
+        }
+
+        private void oneFrameMain()
+        {
+            try
+            {
+                Counter++;
+                vgmFrameCounter++;
 
                 CTC0DownCounterMAX = (work.ctc0timeconstant == 0 ? 0x100 : work.ctc0timeconstant) * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
                 CTC1DownCounterMAX = (work.ctc1timeconstant == 0 ? 0x100 : work.ctc1timeconstant) * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
