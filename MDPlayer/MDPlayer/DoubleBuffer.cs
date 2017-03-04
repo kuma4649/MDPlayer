@@ -1956,7 +1956,7 @@ namespace MDPlayer
                 MDChipParams.Channel oyc = oldParam.ym2151[chipID].channels[c];
                 MDChipParams.Channel nyc = newParam.ym2151[chipID].channels[c];
 
-                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
 
                 drawInst(ym2151Screen[chipID], 1, 11, c, oyc.inst, nyc.inst);
 
@@ -2194,7 +2194,7 @@ namespace MDPlayer
             //YM2151
             for (int ch = 0; ch < 8; ch++)
             {
-                int tp = setting.YM2151Type.UseScci ? 1 : 0;
+                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
 
                 drawFont8(ym2151Screen[chipID], 296, ch * 8 + 8, 1, "   ");
 

@@ -21,6 +21,8 @@ namespace MDPlayer
         public string Version = "";
         public string UsedChips = "";
 
+        public int[] YM2151Hosei = new int[2] { 0, 0 };
+
         protected byte[] vgmBuf = null;
         protected ChipRegister chipRegister = null;
         protected enmModel model = enmModel.VirtualModel;

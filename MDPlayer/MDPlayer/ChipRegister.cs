@@ -373,7 +373,6 @@ namespace MDPlayer
             else
             {
                 if (scYM2151 == null) return;
-                if (chipID != 0) return;
 
                 if (dAddr >= 0x28 && dAddr <= 0x2f)
                 {

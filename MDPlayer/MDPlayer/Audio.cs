@@ -74,6 +74,8 @@ namespace MDPlayer
 
         public static baseDriver vgmVirtual = null;
         public static baseDriver vgmReal = null;
+        public static baseDriver nrtVirtual = null;
+        public static baseDriver nrtReal = null;
 
         private static bool oneTimeReset = false;
         private static int hiyorimiEven = 0;
@@ -111,7 +113,6 @@ namespace MDPlayer
         private static string PlayingFileName;
         private static enmFileFormat PlayingFileFormat;
 
-        public static NRTDRV nrtdrv = new NRTDRV();
 
 
         public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
@@ -129,7 +130,7 @@ namespace MDPlayer
 
                 music.format = enmFileFormat.NRTDRV;
                 uint index = 42;
-                GD3 gd3 = nrtdrv.getGD3Info(buf, index);
+                GD3 gd3 = nrtVirtual.getGD3Info(buf, index);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -217,6 +218,8 @@ namespace MDPlayer
 
             vgmVirtual = new vgm();
             vgmReal = new vgm();
+            nrtVirtual = new NRTDRV();
+            nrtReal = new NRTDRV();
 
             log.ForcedWrite("Audio:Init:STEP 01");
 
@@ -228,6 +231,8 @@ namespace MDPlayer
             Audio.setting = setting.Copy();
             vgmVirtual.setting = setting;
             vgmReal.setting = setting;
+            nrtVirtual.setting = setting;
+            nrtReal.setting = setting;
 
             log.ForcedWrite("Audio:Init:STEP 03");
 
@@ -384,13 +389,24 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmRealFadeoutVol = 0;
                 vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
 
-                //trdClosed = false;
-                //trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                //trdMain.Priority = ThreadPriority.Highest;
-                //trdMain.IsBackground = true;
-                //trdMain.Name = "trdVgmReal";
-                //trdMain.Start();
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -484,11 +500,12 @@ namespace MDPlayer
                 SetYM2151Volume(setting.balance.YM2151Volume);
                 SetAY8910Volume(setting.balance.AY8910Volume);
 
-                nrtdrv.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
-                nrtdrv.Call(0);//
-                nrtdrv.Call(1);//MPLAY
-                //nrtdrv.Call(5);//MTEST
-
+                nrtVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
+                nrtReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
+                ((NRTDRV)nrtVirtual).Call(0);//
+                ((NRTDRV)nrtVirtual).Call(1);//MPLAY
+                ((NRTDRV)nrtReal).Call(0);//
+                ((NRTDRV)nrtReal).Call(1);//MPLAY
 
                 Paused = false;
                 Stopped = false;
@@ -1009,7 +1026,8 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
-            nrtdrv.vgmSpeed = vgmSpeed;
+            nrtVirtual.vgmSpeed = vgmSpeed;
+            nrtReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Slow()
@@ -1017,7 +1035,8 @@ namespace MDPlayer
             vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
-            nrtdrv.vgmSpeed = vgmSpeed;
+            nrtVirtual.vgmSpeed = vgmSpeed;
+            nrtReal.vgmSpeed = vgmSpeed;
         }
 
         public static void ResetSlow()
@@ -1025,7 +1044,8 @@ namespace MDPlayer
             vgmSpeed = 1;
             vgmVirtual.vgmSpeed = vgmSpeed;
             vgmReal.vgmSpeed = vgmSpeed;
-            nrtdrv.vgmSpeed = vgmSpeed;
+            nrtVirtual.vgmSpeed = vgmSpeed;
+            nrtReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Pause()
@@ -1147,18 +1167,32 @@ namespace MDPlayer
             }
             else
             {
-                return nrtdrv.Counter;
+                return nrtVirtual.Counter;
             }
         }
 
         public static long GetTotalCounter()
         {
-            return vgmVirtual.TotalCounter;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                return vgmVirtual.TotalCounter;
+            }
+            else
+            {
+                return nrtVirtual.TotalCounter;
+            }
         }
 
         public static long GetLoopCounter()
         {
-            return vgmVirtual.LoopCounter;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                return vgmVirtual.LoopCounter;
+            }
+            else
+            {
+                return nrtVirtual.LoopCounter;
+            }
         }
 
         public static int[] GetChipStatus()
@@ -1514,27 +1548,44 @@ namespace MDPlayer
         {
             uint cnt = 0;
 
-            if (vgmVirtual != null)
+            if (PlayingFileFormat == enmFileFormat.VGM)
             {
-                cnt = vgmVirtual.vgmCurLoop;
+                if (vgmVirtual != null)
+                {
+                    cnt = vgmVirtual.vgmCurLoop;
+                }
+                if (vgmReal != null)
+                {
+                    cnt = Math.Min(vgmReal.vgmCurLoop, cnt);
+                }
             }
-            if (vgmReal != null)
+            else
             {
-                cnt = Math.Min(vgmReal.vgmCurLoop, cnt);
+                if (nrtVirtual != null)
+                {
+                    cnt = nrtVirtual.vgmCurLoop;
+                }
+                if (nrtReal != null)
+                {
+                    cnt = Math.Min(nrtReal.vgmCurLoop, cnt);
+                }
             }
-
             return cnt;
         }
 
         public static bool GetVGMStopped()
         {
+            bool v;
+            bool r;
             switch (PlayingFileFormat)
             {
                 case enmFileFormat.NRTDRV:
-                    return nrtdrv.Stopped;
+                    v = nrtVirtual.Stopped;
+                    r = nrtReal.Stopped;
+                    return v && r;
                 case enmFileFormat.VGM:
-                    bool v = vgmVirtual.Stopped;
-                    bool r = vgmReal.Stopped;
+                    v = vgmVirtual.Stopped;
+                    r = vgmReal.Stopped;
                     return v && r;
             }
             return true;
@@ -1663,7 +1714,15 @@ namespace MDPlayer
 
                     if (hiyorimiNecessary)
                     {
-                        long v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
+                        long v;
+                        if (PlayingFileFormat == enmFileFormat.VGM)
+                        {
+                            v = vgmReal.vgmFrameCounter - vgmVirtual.vgmFrameCounter;
+                        }
+                        else
+                        {
+                            v = nrtReal.vgmFrameCounter - nrtVirtual.vgmFrameCounter;
+                        }
                         long d = SamplingRate * (setting.LatencySCCI - SamplingRate * setting.LatencyEmulation) / 1000;
                         long l = getLatency() / 4;
 
@@ -1680,28 +1739,55 @@ namespace MDPlayer
                             else m = (v - d > l) ? 1 : 2;
                         }
 
-                        switch (m)
+                        if (PlayingFileFormat == enmFileFormat.VGM)
                         {
-                            case 0: //x1
-                                vgmReal.oneFrameProc();
-                                break;
-                            case 1: //x1/2
-                                hiyorimiEven++;
-                                if (hiyorimiEven > 1)
-                                {
+                            switch (m)
+                            {
+                                case 0: //x1
                                     vgmReal.oneFrameProc();
-                                    hiyorimiEven = 0;
-                                }
-                                break;
-                            case 2: //x2
-                                vgmReal.oneFrameProc();
-                                vgmReal.oneFrameProc();
-                                break;
+                                    break;
+                                case 1: //x1/2
+                                    hiyorimiEven++;
+                                    if (hiyorimiEven > 1)
+                                    {
+                                        vgmReal.oneFrameProc();
+                                        hiyorimiEven = 0;
+                                    }
+                                    break;
+                                case 2: //x2
+                                    vgmReal.oneFrameProc();
+                                    vgmReal.oneFrameProc();
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (m)
+                            {
+                                case 0: //x1
+                                    nrtReal.oneFrameProc();
+                                    break;
+                                case 1: //x1/2
+                                    hiyorimiEven++;
+                                    if (hiyorimiEven > 1)
+                                    {
+                                        nrtReal.oneFrameProc();
+                                        hiyorimiEven = 0;
+                                    }
+                                    break;
+                                case 2: //x2
+                                    nrtReal.oneFrameProc();
+                                    nrtReal.oneFrameProc();
+                                    break;
+                            }
                         }
                     }
                     else
                     {
-                        vgmReal.oneFrameProc();
+                        if (PlayingFileFormat == enmFileFormat.VGM)
+                            vgmReal.oneFrameProc();
+                        else
+                            nrtReal.oneFrameProc();
                     }
                 }
             }
@@ -1743,7 +1829,7 @@ namespace MDPlayer
                         cnt = mds.Update(buffer, offset, sampleCount, vgmVirtual.oneFrameProc);
                         break;
                     case enmFileFormat.NRTDRV:
-                        cnt = mds.Update(buffer, offset, sampleCount, nrtdrv.oneFrameProc);
+                        cnt = mds.Update(buffer, offset, sampleCount, nrtVirtual.oneFrameProc);
                         break;
                 }
 
@@ -1922,14 +2008,30 @@ namespace MDPlayer
 
         public static long getVirtualFrameCounter()
         {
-            if (vgmVirtual == null) return -1;
-            return vgmVirtual.vgmFrameCounter;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                if (vgmVirtual == null) return -1;
+                return vgmVirtual.vgmFrameCounter;
+            }
+            else
+            {
+                if (nrtVirtual == null) return -1;
+                return nrtVirtual.vgmFrameCounter;
+            }
         }
 
         public static long getRealFrameCounter()
         {
-            if (vgmReal == null) return -1;
-            return vgmReal.vgmFrameCounter;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                if (nrtReal == null) return -1;
+                return nrtReal.vgmFrameCounter;
+            }
+            else
+            {
+                if (nrtReal == null) return -1;
+                return nrtReal.vgmFrameCounter;
+            }
         }
 
 
@@ -2058,7 +2160,7 @@ namespace MDPlayer
             switch (PlayingFileFormat)
             {
                 case enmFileFormat.NRTDRV:
-                    return nrtdrv.GD3;
+                    return nrtVirtual.GD3;
                 case enmFileFormat.VGM:
                     return vgmVirtual.GD3;
             }

@@ -112,6 +112,7 @@ namespace MDPlayer
             vgmCurLoop = 0;
             Stopped = false;
             vgmFrameCounter = 0;
+            vgmSpeed = 1;
 
             try
             {
@@ -125,8 +126,36 @@ namespace MDPlayer
                 throw new Exception("Driverの初期化に失敗しました。", ex);
             }
 
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                YM2151Hosei[chipID] = 0;
+                float delta = (float)4000000 / 3579545;
+                if (model == enmModel.RealModel)
+                {
+                    delta = (float)4000000 / chipRegister.getYM2151Clock((byte)chipID);
+                }
+                float d;
+                float oldD = float.MaxValue;
+                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
+                {
+                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                    YM2151Hosei[chipID] = i;
+                    if (d > oldD) break;
+                    oldD = d;
+                }
+                YM2151Hosei[chipID] -= 12;
+            }
+
             //Driverの初期化
             Call(0);
+
+            if (model == enmModel.RealModel)
+            {
+                chipRegister.sendDataYM2151(0, model);
+                chipRegister.setYM2151SyncWait(0, 1);
+                chipRegister.sendDataYM2151(1, model);
+                chipRegister.setYM2151SyncWait(1, 1);
+            }
 
             return true;
         }
@@ -360,6 +389,13 @@ namespace MDPlayer
             // 割り込みルーチン最後のEI 無効
 
             imain();
+            if (model == enmModel.RealModel)
+            {
+                chipRegister.sendDataYM2151(0, model);
+                chipRegister.setYM2151SyncWait(0, 1);
+                chipRegister.sendDataYM2151(1, model);
+                chipRegister.setYM2151SyncWait(1, 1);
+            }
 
             work.OPMKeyONEnable = true;
             work.PSGKeyONEnable = true;
@@ -595,29 +631,57 @@ namespace MDPlayer
 
         private void wopm(byte d, byte a)
         {
-            if (work.OPMIO == 0x701)
+            if (model == enmModel.VirtualModel)
             {
-                //仮想レジスタに書き込み
-                work.OPM1vreg[d] = a;
-                //実レジスタに書き込み
-                chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
-                //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
+                if (work.OPMIO == 0x701)
+                {
+                    //仮想レジスタに書き込み
+                    work.OPM1vreg[d] = a;
+                    //実レジスタに書き込み
+                    chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
+                    //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
+                }
+                else
+                {
+                    //仮想レジスタに書き込み
+                    work.OPM2vreg[d] = a;
+                    //実レジスタに書き込み
+                    chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
+                    //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
+                }
             }
             else
             {
-                //仮想レジスタに書き込み
-                work.OPM2vreg[d] = a;
-                //実レジスタに書き込み
-                chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
-                //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
+                if (work.OPMIO == 0x701)
+                {
+                    //仮想レジスタに書き込み
+                    work.OPM1vreg[d] = a;
+                    //実レジスタに書き込み
+                    chipRegister.setYM2151Register(0, 0, d, a, enmModel.RealModel, YM2151Hosei[0], 0);
+                    //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
+                }
+                else
+                {
+                    //仮想レジスタに書き込み
+                    work.OPM2vreg[d] = a;
+                    //実レジスタに書き込み
+                    chipRegister.setYM2151Register(1, 0, d, a, enmModel.RealModel, YM2151Hosei[1], 0);
+                    //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
+                }
             }
         }
 
         private void wpsg(byte d, byte a)
         {
-            //Out(0x1c00, d);//PSG register
-            //Out(0x1b00, a);//PSG data
-            chipRegister.setAY8910Register(0, d, a, enmModel.VirtualModel);
+            if (model == enmModel.VirtualModel)
+            {
+                //Out(0x1c00, d);//PSG register
+                //Out(0x1b00, a);//PSG data
+                chipRegister.setAY8910Register(0, d, a, enmModel.VirtualModel);
+            }
+            else
+            {
+            }
         }
 
         private class Work

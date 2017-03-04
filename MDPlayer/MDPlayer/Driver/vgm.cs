@@ -49,8 +49,6 @@ namespace MDPlayer
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
 
-        public int YM2151Hosei = 0;
-
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
         public bool isPcmRAMWrite = false;
@@ -594,7 +592,7 @@ namespace MDPlayer
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, YM2151Hosei, vgmFrameCounter);
+            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, (vgmBuf[vgmAdr] & 0x80) == 0 ? YM2151Hosei[0] : YM2151Hosei[1], vgmFrameCounter);
             vgmAdr += 3;
         }
 
@@ -1623,22 +1621,25 @@ namespace MDPlayer
                 else chips.Add("YM2151");
             }
 
-            YM2151Hosei = 0;
-            float delta = (float)YM2151ClockValue / 3579545;
-            if (model == enmModel.RealModel)
+            for (int chipID = 0; chipID < 2; chipID++)
             {
-                delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock(0);
+                YM2151Hosei[chipID] = 0;
+                float delta = (float)YM2151ClockValue / 3579545;
+                if (model == enmModel.RealModel)
+                {
+                    delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock((byte)chipID);
+                }
+                float d;
+                float oldD = float.MaxValue;
+                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
+                {
+                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                    YM2151Hosei[chipID] = i;
+                    if (d > oldD) break;
+                    oldD = d;
+                }
+                YM2151Hosei[chipID] -= 12;
             }
-            float d;
-            float oldD = float.MaxValue;
-            for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
-            {
-                d = Math.Abs(delta - Tables.pcmMulTbl[i]);
-                YM2151Hosei = i;
-                if (d > oldD) break;
-                oldD = d;
-            }
-            YM2151Hosei -= 12;
 
             vgmDataOffset = getLE32(0x34);
             if (vgmDataOffset == 0)
