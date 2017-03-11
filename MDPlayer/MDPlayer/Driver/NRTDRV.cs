@@ -3090,7 +3090,7 @@ namespace MDPlayer
         private void PEPMH1(Ch wch, byte a, byte h,byte l, byte e)
         {
             byte b = e;
-            byte c = 0;
+            //byte c = 0;
             ushort hl = 0;
 
             if (a == 4 || a == 7)

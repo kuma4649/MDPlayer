@@ -82,6 +82,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM2413Type = new ChipType();
+        public ChipType YM2413Type
+        {
+            get
+            {
+                return _YM2413Type;
+            }
+
+            set
+            {
+                _YM2413Type = value;
+            }
+        }
+
+        private ChipType _YM2413SType = new ChipType();
+        public ChipType YM2413SType
+        {
+            get
+            {
+                return _YM2413SType;
+            }
+
+            set
+            {
+                _YM2413SType = value;
+            }
+        }
+
         private ChipType _YM2608Type = new ChipType();
         public ChipType YM2608Type
         {
@@ -985,6 +1013,22 @@ namespace MDPlayer
                 {
                     _AY8910Volume = value;
                     if (_AY8910Volume > 20 || _AY8910Volume < -192) _AY8910Volume = 0;
+                }
+            }
+
+            private int _YM2413Volume = 0;
+            public int YM2413Volume
+            {
+                get
+                {
+                    if (_YM2413Volume > 20 || _YM2413Volume < -192) _YM2413Volume = 0;
+                    return _YM2413Volume;
+                }
+
+                set
+                {
+                    _YM2413Volume = value;
+                    if (_YM2413Volume > 20 || _YM2413Volume < -192) _YM2413Volume = 0;
                 }
             }
 

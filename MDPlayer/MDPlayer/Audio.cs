@@ -46,6 +46,7 @@ namespace MDPlayer
         private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -93,7 +94,10 @@ namespace MDPlayer
         public static int ChipPriOKI9 = 0;
         public static int ChipPriC140 = 0;
         public static int ChipPriSPCM = 0;
-        public static int ChipPriPSG = 0;
+        //public static int ChipPriPSG = 0;
+        public static int ChipPriAY10 = 0;
+        public static int ChipPriOPLL = 0;
+
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
         public static int ChipSecOPNA = 0;
@@ -106,7 +110,9 @@ namespace MDPlayer
         public static int ChipSecOKI9 = 0;
         public static int ChipSecC140 = 0;
         public static int ChipSecSPCM = 0;
-        public static int ChipSecPSG = 0;
+        //public static int ChipSecPSG = 0;
+        public static int ChipSecAY10 = 0;
+        public static int ChipSecOPLL = 0;
 
         private static int MasterVolume = 0;
         static int[] chips = new int[256];
@@ -276,6 +282,8 @@ namespace MDPlayer
             if (scYM2610[0] != null) scYM2610[0].init();
             scAY8910[0] = getChip(Audio.setting.AY8910Type);
             if (scAY8910[0] != null) scAY8910[0].init();
+            scYM2413[0] = getChip(Audio.setting.YM2413Type);
+            if (scYM2413[0] != null) scYM2413[0].init();
 
             scYM2612[1] = getChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
@@ -291,11 +299,13 @@ namespace MDPlayer
             if (scYM2610[1] != null) scYM2610[1].init();
             scAY8910[1] = getChip(Audio.setting.AY8910SType);
             if (scAY8910[1] != null) scAY8910[1].init();
+            scYM2413[1] = getChip(Audio.setting.YM2413SType);
+            if (scYM2413[1] != null) scYM2413[1].init();
 
             chipRegister = new ChipRegister(
                 setting
                 , mds
-                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910
+                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910, scYM2413
                 , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
                 , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
                 , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
@@ -303,6 +313,7 @@ namespace MDPlayer
                 , new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
                 , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
                 , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
+                , new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
                 );
             chipRegister.initChipRegister();
 
@@ -427,7 +438,9 @@ namespace MDPlayer
                 ChipPriOKI9 = 0;
                 ChipPriC140 = 0;
                 ChipPriSPCM = 0;
-                ChipPriPSG = 0;
+                ChipPriAY10 = 0;
+                ChipPriOPLL = 0;
+                //ChipPriPSG = 0;
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -440,7 +453,9 @@ namespace MDPlayer
                 ChipSecOKI9 = 0;
                 ChipSecC140 = 0;
                 ChipSecSPCM = 0;
-                ChipSecPSG = 0;
+                ChipSecAY10 = 0;
+                ChipSecOPLL = 0;
+                //ChipSecPSG = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -483,7 +498,7 @@ namespace MDPlayer
                     chip.Option = null;
 
                 hiyorimiDeviceFlag |= 0x1;
-                ChipPriPSG = 1;
+                ChipPriAY10 = 1;
 
                 lstChips.Add(chip);
 
@@ -626,7 +641,9 @@ namespace MDPlayer
                 ChipPriOKI9 = 0;
                 ChipPriC140 = 0;
                 ChipPriSPCM = 0;
-                ChipPriPSG = 0;
+                ChipPriAY10 = 0;
+                ChipPriOPLL = 0;
+                //ChipPriPSG = 0;
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -639,6 +656,8 @@ namespace MDPlayer
                 ChipSecOKI9 = 0;
                 ChipSecC140 = 0;
                 ChipSecSPCM = 0;
+                ChipSecAY10 = 0;
+                ChipSecOPLL = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -976,8 +995,35 @@ namespace MDPlayer
 
                         hiyorimiDeviceFlag |= 0x2;
 
-                        if (i == 0) ChipPriPSG = 1;
-                        else ChipSecPSG = 1;
+                        if (i == 0) ChipPriAY10 = 1;
+                        else ChipSecAY10 = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
+                if (((vgm)vgmVirtual).YM2413ClockValue != 0)
+                {
+                    MDSound.ym2413 ym2413 = new MDSound.ym2413();
+                    for (int i = 0; i < (((vgm)vgmVirtual).YM2413DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ym2413;
+                        chip.Update = ym2413.Update;
+                        chip.Start = ym2413.Start;
+                        chip.Stop = ym2413.Stop;
+                        chip.Reset = ym2413.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.YM2413Volume;
+                        chip.Clock = (((vgm)vgmVirtual).YM2413ClockValue & 0x7fffffff);
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) ChipPriOPLL = 1;
+                        else ChipSecOPLL = 1;
 
                         lstChips.Add(chip);
                     }
@@ -1224,7 +1270,13 @@ namespace MDPlayer
             chips[11] = chipRegister.ChipPriSPCM;
             chipRegister.ChipPriSPCM = ChipPriSPCM;
 
-            chips[128+0] = chipRegister.ChipSecOPN;
+            chips[12] = chipRegister.ChipPriAY10;
+            chipRegister.ChipPriAY10 = ChipPriAY10;
+            chips[13] = chipRegister.ChipPriOPLL;
+            chipRegister.ChipPriOPLL = ChipPriOPLL;
+
+
+            chips[128 + 0] = chipRegister.ChipSecOPN;
             chipRegister.ChipSecOPN = ChipSecOPN;
             chips[128 + 1] = chipRegister.ChipSecOPN2;
             chipRegister.ChipSecOPN2 = ChipSecOPN2;
@@ -1250,6 +1302,12 @@ namespace MDPlayer
             chipRegister.ChipSecC140 = ChipSecC140;
             chips[128 + 11] = chipRegister.ChipSecSPCM;
             chipRegister.ChipSecSPCM = ChipSecSPCM;
+
+            chips[128 + 12] = chipRegister.ChipSecAY10;
+            chipRegister.ChipSecAY10 = ChipSecAY10;
+            chips[128 + 13] = chipRegister.ChipSecOPLL;
+            chipRegister.ChipSecOPLL = ChipSecOPLL;
+
 
             return chips;
         }

@@ -2211,6 +2211,7 @@ namespace MDPlayer
                 drawVolume(ym2151Screen[chipID], ch, 1, ref d, 0, tp);
                 d = 99;
                 drawVolume(ym2151Screen[chipID], ch, 2, ref d, 0, tp);
+
             }
         }
 

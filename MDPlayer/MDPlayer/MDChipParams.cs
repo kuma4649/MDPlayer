@@ -32,6 +32,9 @@ namespace MDPlayer
         public int ChipPriOKI9 = 0;
         public int ChipPriC140 = 0;
         public int ChipPriSPCM = 0;
+        public int ChipPriAY10 = 0;
+        public int ChipPriOPLL = 0;
+
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
         public int ChipSecOPNA = 0;
@@ -44,6 +47,8 @@ namespace MDPlayer
         public int ChipSecOKI9 = 0;
         public int ChipSecC140 = 0;
         public int ChipSecSPCM = 0;
+        public int ChipSecAY10 = 0;
+        public int ChipSecOPLL = 0;
 
 
         public class Channel

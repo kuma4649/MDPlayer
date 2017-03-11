@@ -33,7 +33,6 @@
             this.pbScreen = new System.Windows.Forms.PictureBox();
             this.cmsOpenOtherPanel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.primaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPN = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPNA = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +45,7 @@
             this.tsmiPOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
+            this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPN = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNA = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +58,10 @@
             this.tsmiSOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPAY8910 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +92,8 @@
             // primaryToolStripMenuItem
             // 
             this.primaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiPAY8910,
+            this.tsmiPOPLL,
             this.tsmiPOPN,
             this.tsmiPOPN2,
             this.tsmiPOPNA,
@@ -103,25 +109,6 @@
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
             this.primaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.primaryToolStripMenuItem.Text = "Primary";
-            // 
-            // sencondryToolStripMenuItem
-            // 
-            this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSOPN,
-            this.tsmiSOPN2,
-            this.tsmiSOPNA,
-            this.tsmiSOPNB,
-            this.tsmiSOPM,
-            this.tsmiSDCSG,
-            this.tsmiSRF5C164,
-            this.tsmiSPWM,
-            this.tsmiSOKIM6258,
-            this.tsmiSOKIM6295,
-            this.tsmiSC140,
-            this.tsmiSSegaPCM});
-            this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
-            this.sencondryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sencondryToolStripMenuItem.Text = "Secondary";
             // 
             // tsmiPOPN
             // 
@@ -207,6 +194,27 @@
             this.tsmiPSegaPCM.Text = "SEGA PCM";
             this.tsmiPSegaPCM.Click += new System.EventHandler(this.tsmiPSegaPCM_Click);
             // 
+            // sencondryToolStripMenuItem
+            // 
+            this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSAY8910,
+            this.tsmiSOPLL,
+            this.tsmiSOPN,
+            this.tsmiSOPN2,
+            this.tsmiSOPNA,
+            this.tsmiSOPNB,
+            this.tsmiSOPM,
+            this.tsmiSDCSG,
+            this.tsmiSRF5C164,
+            this.tsmiSPWM,
+            this.tsmiSOKIM6258,
+            this.tsmiSOKIM6295,
+            this.tsmiSC140,
+            this.tsmiSSegaPCM});
+            this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
+            this.sencondryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sencondryToolStripMenuItem.Text = "Secondary";
+            // 
             // tsmiSOPN
             // 
             this.tsmiSOPN.Name = "tsmiSOPN";
@@ -291,6 +299,34 @@
             this.tsmiSSegaPCM.Text = "SEGA PCM";
             this.tsmiSSegaPCM.Click += new System.EventHandler(this.tsmiSSegaPCM_Click);
             // 
+            // tsmiPAY8910
+            // 
+            this.tsmiPAY8910.Name = "tsmiPAY8910";
+            this.tsmiPAY8910.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPAY8910.Text = "AY8910";
+            this.tsmiPAY8910.Click += new System.EventHandler(this.tsmiPAY8910_Click);
+            // 
+            // tsmiPOPLL
+            // 
+            this.tsmiPOPLL.Name = "tsmiPOPLL";
+            this.tsmiPOPLL.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPOPLL.Text = "OPLL";
+            this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
+            // 
+            // tsmiSAY8910
+            // 
+            this.tsmiSAY8910.Name = "tsmiSAY8910";
+            this.tsmiSAY8910.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSAY8910.Text = "AY8910";
+            this.tsmiSAY8910.Click += new System.EventHandler(this.tsmiSAY8910_Click);
+            // 
+            // tsmiSOPLL
+            // 
+            this.tsmiSOPLL.Name = "tsmiSOPLL";
+            this.tsmiSOPLL.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSOPLL.Text = "OPLL";
+            this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -343,6 +379,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSOKIM6295;
         private System.Windows.Forms.ToolStripMenuItem tsmiSC140;
         private System.Windows.Forms.ToolStripMenuItem tsmiSSegaPCM;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPAY8910;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPOPLL;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSAY8910;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSOPLL;
     }
 }
 

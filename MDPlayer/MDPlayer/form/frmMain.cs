@@ -606,71 +606,83 @@ namespace MDPlayer
             if (py < 16)
             {
                 if (px < 8 * 2) return;
-                if (px < 8 * 4)
+                if (px < 8 * 5 + 4)
+                {
+                    if (py < 8) tsmiPAY8910_Click(null, null);
+                    else tsmiSAY8910_Click(null, null);
+                    return;
+                }
+                if (px < 8 * 7)
+                {
+                    if (py < 8) tsmiPOPLL_Click(null, null);
+                    else tsmiSOPLL_Click(null, null);
+                    return;
+                }
+                if (px < 8 * 9)
                 {
                     if (py < 8) tsmiPOPN_Click(null, null);
                     else tsmiSOPN_Click(null, null);
                     return;
                 }
-                if (px < 8 * 6)
+                if (px < 8 * 11)
                 {
                     if (py < 8) tsmiPOPN2_Click(null, null);
                     else tsmiSOPN2_Click(null, null);
                     return;
                 }
-                if (px < 8 * 8+4)
+                if (px < 8 * 13 + 4)
                 {
                     if (py < 8) tsmiPOPNA_Click(null, null);
                     else tsmiSOPNA_Click(null, null);
                     return;
                 }
-                if (px < 8 * 11)
+                if (px < 8 * 16)
                 {
                     if (py < 8) tsmiPOPNB_Click(null, null);
                     else tsmiSOPNB_Click(null, null);
                     return;
                 }
-                if (px < 8 * 13+4)
+                if (px < 8 * 18 + 4)
                 {
                     if (py < 8) tsmiPOPM_Click(null, null);
                     else tsmiSOPM_Click(null, null);
                     return;
                 }
-                if (px < 8 * 15+4)
+                if (px < 8 * 20 + 4)
                 {
                     if (py < 8) tsmiPDCSG_Click(null, null);
                     else tsmiSDCSG_Click(null, null);
                     return;
                 }
-                if (px < 8 * 18)
+                if (px < 8 * 23)
                 {
                     if (py < 8) tsmiPRF5C164_Click(null, null);
                     else tsmiSRF5C164_Click(null, null);
                     return;
                 }
-                if (px < 8 * 20+4)
+                if (px < 8 * 25 + 4)
                 {
                     return;
                 }
-                if (px < 8 * 22 + 4)
+                if (px < 8 * 27 + 4)
                 {
                     if (py < 8) tsmiPOKIM6258_Click(null, null);
                     else tsmiSOKIM6258_Click(null, null);
                     return;
                 }
-                if (px < 8 * 25)
+                if (px < 8 * 30)
                 {
                     if (py < 8) tsmiPOKIM6295_Click(null, null);
                     else tsmiSOKIM6295_Click(null, null);
                     return;
                 }
-                if (px < 8 * 27 + 4)
+                if (px < 8 * 32 + 4)
                 {
                     if (py < 8) tsmiPC140_Click(null, null);
                     else tsmiSC140_Click(null, null);
                     return;
                 }
-                if (px < 8 * 30)
+                if (px < 8 * 35)
                 {
                     if (py < 8) tsmiPSegaPCM_Click(null, null);
                     else tsmiSSegaPCM_Click(null, null);
@@ -957,6 +969,25 @@ namespace MDPlayer
             OpenFormSegaPCM(1);
         }
 
+        private void tsmiPAY8910_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiPOPLL_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiSAY8910_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiSOPLL_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void OpenFormMegaCD(int chipID, bool force = false)
         {
@@ -988,6 +1019,7 @@ namespace MDPlayer
             frmMCD[chipID].update();
             frmMCD[chipID].Text = string.Format("RF5C164 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitRF5C164(chipID);
+            oldParam.rf5c164[chipID] = new MDChipParams.RF5C164();
         }
 
         private void CloseFormMegaCD(int chipID)
@@ -1054,6 +1086,7 @@ namespace MDPlayer
             frmYM2608[chipID].update();
             frmYM2608[chipID].Text = string.Format("YM2608 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitYM2608(chipID);
+            oldParam.ym2608[chipID] = new MDChipParams.YM2608();
         }
 
         private void CloseFormYM2608(int chipID)
@@ -1118,6 +1151,7 @@ namespace MDPlayer
             frmYM2151[chipID].update();
             frmYM2151[chipID].Text = string.Format("YM2151 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitYM2151(chipID);
+            oldParam.ym2151[chipID] = new MDChipParams.YM2151();
         }
 
         private void CloseFormYM2151(int chipID)
@@ -1181,6 +1215,7 @@ namespace MDPlayer
             frmC140[chipID].update();
             frmC140[chipID].Text = string.Format("C140 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitC140(chipID);
+            oldParam.c140[chipID] = new MDChipParams.C140();
         }
 
         private void CloseFormC140(int chipID)
@@ -1245,6 +1280,7 @@ namespace MDPlayer
             frmYM2203[chipID].update();
             frmYM2203[chipID].Text = string.Format("YM2203 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitYM2203(chipID);
+            oldParam.ym2203[chipID] = new MDChipParams.YM2203();
         }
 
         private void CloseFormYM2203(int chipID)
@@ -1308,6 +1344,7 @@ namespace MDPlayer
             frmYM2610[chipID].update();
             frmYM2610[chipID].Text = string.Format("YM2610 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitYM2610(chipID);
+            oldParam.ym2610[chipID] = new MDChipParams.YM2610();
         }
 
         private void CloseFormYM2610(int chipID)
@@ -1371,6 +1408,7 @@ namespace MDPlayer
             frmYM2612[chipID].update();
             frmYM2612[chipID].Text = string.Format("YM2612 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitYM2612(chipID);
+            oldParam.ym2612[chipID] = new MDChipParams.YM2612();
         }
 
         private void CloseFormYM2612(int chipID)
@@ -1559,6 +1597,7 @@ namespace MDPlayer
             frmSN76489[chipID].update();
             frmSN76489[chipID].Text = string.Format("SN76489 ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitSN76489(chipID);
+            oldParam.sn76489[chipID] = new MDChipParams.SN76489();
         }
 
         private void CloseFormSN76489(int chipID)
@@ -1622,6 +1661,7 @@ namespace MDPlayer
             frmSegaPCM[chipID].update();
             frmSegaPCM[chipID].Text = string.Format("SegaPCM ({0})", chipID == 0 ? "Primary" : "Secondary");
             screen.screenInitSegaPCM(chipID);
+            oldParam.segaPcm[chipID] = new MDChipParams.SegaPcm();
         }
 
         private void CloseFormSegaPCM(int chipID)
@@ -2540,31 +2580,35 @@ namespace MDPlayer
             screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
             int[] chips = Audio.GetChipStatus();
-            screen.drawChipName( 4 * 4, 0 * 8, 0, ref oldParam.ChipPriOPN,chips[0]);
-            screen.drawChipName( 8 * 4, 0 * 8, 1, ref oldParam.ChipPriOPN2, chips[1]);
-            screen.drawChipName(13 * 4, 0 * 8, 2, ref oldParam.ChipPriOPNA, chips[2]);
-            screen.drawChipName(18 * 4, 0 * 8, 3, ref oldParam.ChipPriOPNB, chips[3]);
-            screen.drawChipName(23 * 4, 0 * 8, 4, ref oldParam.ChipPriOPM, chips[4]);
-            screen.drawChipName(27 * 4, 0 * 8, 5, ref oldParam.ChipPriDCSG, chips[5]);
-            screen.drawChipName(32 * 4, 0 * 8, 6, ref oldParam.ChipPriRF5C, chips[6]);
-            screen.drawChipName(37 * 4, 0 * 8, 7, ref oldParam.ChipPriPWM, chips[7]);
-            screen.drawChipName(41 * 4, 0 * 8, 8, ref oldParam.ChipPriOKI5, chips[8]);
-            screen.drawChipName(46 * 4, 0 * 8, 9, ref oldParam.ChipPriOKI9, chips[9]);
-            screen.drawChipName(51 * 4, 0 * 8, 10, ref oldParam.ChipPriC140, chips[10]);
-            screen.drawChipName(56 * 4, 0 * 8, 11, ref oldParam.ChipPriSPCM, chips[11]);
+            screen.drawChipName(14 * 4, 0 * 8, 0, ref oldParam.ChipPriOPN,chips[0]);
+            screen.drawChipName(18 * 4, 0 * 8, 1, ref oldParam.ChipPriOPN2, chips[1]);
+            screen.drawChipName(23 * 4, 0 * 8, 2, ref oldParam.ChipPriOPNA, chips[2]);
+            screen.drawChipName(28 * 4, 0 * 8, 3, ref oldParam.ChipPriOPNB, chips[3]);
+            screen.drawChipName(33 * 4, 0 * 8, 4, ref oldParam.ChipPriOPM, chips[4]);
+            screen.drawChipName(37 * 4, 0 * 8, 5, ref oldParam.ChipPriDCSG, chips[5]);
+            screen.drawChipName(42 * 4, 0 * 8, 6, ref oldParam.ChipPriRF5C, chips[6]);
+            screen.drawChipName(47 * 4, 0 * 8, 7, ref oldParam.ChipPriPWM, chips[7]);
+            screen.drawChipName(51 * 4, 0 * 8, 8, ref oldParam.ChipPriOKI5, chips[8]);
+            screen.drawChipName(56 * 4, 0 * 8, 9, ref oldParam.ChipPriOKI9, chips[9]);
+            screen.drawChipName(61 * 4, 0 * 8, 10, ref oldParam.ChipPriC140, chips[10]);
+            screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.ChipPriSPCM, chips[11]);
+            screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.ChipPriAY10, chips[12]);
+            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
 
-            screen.drawChipName(4 * 4, 1 * 8, 0, ref oldParam.ChipSecOPN, chips[128 + 0]);
-            screen.drawChipName(8 * 4, 1 * 8, 1, ref oldParam.ChipSecOPN2, chips[128 + 1]);
-            screen.drawChipName(13 * 4, 1 * 8, 2, ref oldParam.ChipSecOPNA, chips[128 + 2]);
-            screen.drawChipName(18 * 4, 1 * 8, 3, ref oldParam.ChipSecOPNB, chips[128 + 3]);
-            screen.drawChipName(23 * 4, 1 * 8, 4, ref oldParam.ChipSecOPM, chips[128 + 4]);
-            screen.drawChipName(27 * 4, 1 * 8, 5, ref oldParam.ChipSecDCSG, chips[128 + 5]);
-            screen.drawChipName(32 * 4, 1 * 8, 6, ref oldParam.ChipSecRF5C, chips[128 + 6]);
-            screen.drawChipName(37 * 4, 1 * 8, 7, ref oldParam.ChipSecPWM, chips[128 + 7]);
-            screen.drawChipName(41 * 4, 1 * 8, 8, ref oldParam.ChipSecOKI5, chips[128 + 8]);
-            screen.drawChipName(46 * 4, 1 * 8, 9, ref oldParam.ChipSecOKI9, chips[128 + 9]);
-            screen.drawChipName(51 * 4, 1 * 8, 10, ref oldParam.ChipSecC140, chips[128 + 10]);
-            screen.drawChipName(56 * 4, 1 * 8, 11, ref oldParam.ChipSecSPCM, chips[128 + 11]);
+            screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.ChipSecOPN, chips[128 + 0]);
+            screen.drawChipName(18 * 4, 1 * 8, 1, ref oldParam.ChipSecOPN2, chips[128 + 1]);
+            screen.drawChipName(23 * 4, 1 * 8, 2, ref oldParam.ChipSecOPNA, chips[128 + 2]);
+            screen.drawChipName(28 * 4, 1 * 8, 3, ref oldParam.ChipSecOPNB, chips[128 + 3]);
+            screen.drawChipName(33 * 4, 1 * 8, 4, ref oldParam.ChipSecOPM, chips[128 + 4]);
+            screen.drawChipName(37 * 4, 1 * 8, 5, ref oldParam.ChipSecDCSG, chips[128 + 5]);
+            screen.drawChipName(42 * 4, 1 * 8, 6, ref oldParam.ChipSecRF5C, chips[128 + 6]);
+            screen.drawChipName(47 * 4, 1 * 8, 7, ref oldParam.ChipSecPWM, chips[128 + 7]);
+            screen.drawChipName(51 * 4, 1 * 8, 8, ref oldParam.ChipSecOKI5, chips[128 + 8]);
+            screen.drawChipName(56 * 4, 1 * 8, 9, ref oldParam.ChipSecOKI9, chips[128 + 9]);
+            screen.drawChipName(61 * 4, 1 * 8, 10, ref oldParam.ChipSecC140, chips[128 + 10]);
+            screen.drawChipName(66 * 4, 1 * 8, 11, ref oldParam.ChipSecSPCM, chips[128 + 11]);
+            screen.drawChipName(4 * 4, 1 * 8, 12, ref oldParam.ChipSecAY10, chips[128 + 12]);
+            screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.ChipSecOPLL, chips[128 + 13]);
 
             if (setting.Debug_DispFrameCounter)
             {
@@ -2807,6 +2851,10 @@ namespace MDPlayer
             }
 
             oldParam = new MDChipParams();
+            screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
+            screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+            screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+
             loadAndPlay(playFn.Item1, playFn.Item2);
             frmPlayList.Play();
 

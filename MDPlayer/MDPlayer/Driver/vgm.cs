@@ -38,6 +38,7 @@ namespace MDPlayer
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
         public uint AY8910ClockValue;
+        public uint YM2413ClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -48,6 +49,7 @@ namespace MDPlayer
         public bool SN76489DualChipFlag;
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
+        public bool YM2413DualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -293,7 +295,7 @@ namespace MDPlayer
             vgmCmdTbl[0x4f] = vcGGPSGPort06;
             vgmCmdTbl[0x50] = vcPSG;
 
-            vgmCmdTbl[0x51] = vcDummy2Ope;
+            vgmCmdTbl[0x51] = vcYM2413;
             vgmCmdTbl[0x52] = vcYM2612Port0;
             vgmCmdTbl[0x53] = vcYM2612Port1;
 
@@ -528,6 +530,12 @@ namespace MDPlayer
         {
             chipRegister.setAY8910Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM2413()
+        {
+            chipRegister.setYM2413Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1586,7 +1594,13 @@ namespace MDPlayer
             }
 
             uint YM2413clock = getLE32(0x10);
-            if (YM2413clock != 0) chips.Add("YM2413");
+            if (YM2413clock != 0)
+            {
+                YM2413ClockValue = YM2413clock & 0x3fffffff;
+                YM2413DualChipFlag = (YM2413clock & 0x40000000) != 0;
+                if (YM2413DualChipFlag) chips.Add("YM2413x2");
+                else chips.Add("YM2413");
+            }
 
             uint vgmGd3 = getLE32(0x14);
             if (vgmGd3 != 0)

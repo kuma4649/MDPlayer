@@ -24,6 +24,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scYM2413 = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -42,7 +44,9 @@ namespace MDPlayer
         public int ChipPriOKI9 = 0;
         public int ChipPriC140 = 0;
         public int ChipPriSPCM = 0;
-        public int ChipPriPSG = 0;
+        //public int ChipPriPSG = 0;
+        public int ChipPriAY10 = 0;
+        public int ChipPriOPLL = 0;
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
         public int ChipSecOPNA = 0;
@@ -55,7 +59,9 @@ namespace MDPlayer
         public int ChipSecOKI9 = 0;
         public int ChipSecC140 = 0;
         public int ChipSecSPCM = 0;
-        public int ChipSecPSG = 0;
+        //public int ChipSecPSG = 0;
+        public int ChipSecAY10 = 0;
+        public int ChipSecOPLL = 0;
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -80,6 +86,8 @@ namespace MDPlayer
             new bool[9] { false, false, false, false, false, false, false, false , false }
             ,new bool[9] { false, false, false, false, false, false, false, false , false }
         };
+
+        public int[][] fmRegisterYM2413 = new int[][] { null, null };
 
         public int[][][] fmRegisterYM2612 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2612 = new int[][] { null, null };
@@ -164,6 +172,7 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
             , NScci.NSoundChip[] scAY8910
+            , NScci.NSoundChip[] scYM2413
             , Setting.ChipType[] ctYM2612
             , Setting.ChipType[] ctSN76489
             , Setting.ChipType[] ctYM2608
@@ -171,6 +180,7 @@ namespace MDPlayer
             , Setting.ChipType[] ctYM2203
             , Setting.ChipType[] ctYM2610
             , Setting.ChipType[] ctAY8910
+            , Setting.ChipType[] ctYM2413
             )
         {
             this.setting = setting;
@@ -183,6 +193,7 @@ namespace MDPlayer
             this.scYM2203 = scYM2203;
             this.scYM2610 = scYM2610;
             this.scAY8910 = scAY8910;
+            this.scYM2413 = scYM2413;
 
             this.ctYM2612 = ctYM2612;
             this.ctYM2608 = ctYM2608;
@@ -191,6 +202,7 @@ namespace MDPlayer
             this.ctYM2203 = ctYM2203;
             this.ctYM2610 = ctYM2610;
             this.ctAY8910 = ctAY8910;
+            this.ctYM2413 = ctYM2413;
 
             initChipRegister();
 
@@ -262,6 +274,12 @@ namespace MDPlayer
                 fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 
                 sn76489Register[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
+
+                fmRegisterYM2413[chipID] = new int[0x39];
+                for (int i = 0; i < 0x39; i++)
+                {
+                    fmRegisterYM2413[chipID][i] = 0;
+                }
 
                 psgRegisterAY8910[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
@@ -415,8 +433,8 @@ namespace MDPlayer
         {
             if (ctAY8910 == null) return;
 
-            if (chipID == 0) ChipPriPSG = 2;
-            else ChipSecPSG = 2;
+            if (chipID == 0) ChipPriAY10 = 2;
+            else ChipSecAY10 = 2;
 
             if (model == enmModel.VirtualModel) psgRegisterAY8910[chipID][dAddr] = dData;
 
@@ -440,6 +458,30 @@ namespace MDPlayer
                 if (scAY8910[chipID] == null) return;
 
                 //scAY8910[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public void setYM2413Register(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (ctYM2413 == null) return;
+
+            if (chipID == 0) ChipPriOPLL = 2;
+            else ChipSecOPLL = 2;
+
+            if (model == enmModel.VirtualModel) fmRegisterYM2413[chipID][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYM2413[chipID].UseScci)
+                {
+                    mds.WriteYM2413((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM2413[chipID] == null) return;
+
+                //scYM2413[chipID].setRegister(dAddr, dData);
             }
         }
 
