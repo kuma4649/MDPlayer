@@ -1342,6 +1342,11 @@ namespace MDPlayer
             return chipRegister.sn76489Register[chipID];
         }
 
+        public static int[] GetAY8910Register(int chipID)
+        {
+            return chipRegister.psgRegisterAY8910[chipID];
+        }
+
         public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
         {
             return mds.ReadRf5c164Register(chipID);

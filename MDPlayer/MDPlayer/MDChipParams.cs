@@ -65,6 +65,8 @@ namespace MDPlayer
             public bool mask = false;
             public int tp = -1;
             public int kf = -1;//OPM only
+            public int tn = 0;//PSG only
+            public int tntp = -1;
 
             public int[] inst = new int[48];
 
@@ -118,6 +120,15 @@ namespace MDPlayer
             public Channel[] channels = new Channel[16] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
         public SegaPcm[] segaPcm = new SegaPcm[] { new SegaPcm(), new SegaPcm() };
+
+        public class AY8910
+        {
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
+            public Channel[] channels = new Channel[3] { new Channel(), new Channel(), new Channel() };
+        }
+        public AY8910[] ay8910 = new AY8910[] { new AY8910(), new AY8910() };
 
         public class YM2151
         {

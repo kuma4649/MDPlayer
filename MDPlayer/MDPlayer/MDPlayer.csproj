@@ -110,6 +110,12 @@
     <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
+    <Compile Include="form\frmAY8910.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmAY8910.Designer.cs">
+      <DependentUpon>frmAY8910.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmC140.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,12 @@
     <Compile Include="form\frmYM2203.Designer.cs">
       <DependentUpon>frmYM2203.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmYM2413.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmYM2413.Designer.cs">
+      <DependentUpon>frmYM2413.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM2608.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +236,9 @@
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </Compile>
     <Compile Include="Driver\vgm.cs" />
+    <EmbeddedResource Include="form\frmAY8910.resx">
+      <DependentUpon>frmAY8910.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmC140.resx">
       <DependentUpon>frmC140.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2203.resx">
       <DependentUpon>frmYM2203.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmYM2413.resx">
+      <DependentUpon>frmYM2413.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2608.resx">
       <DependentUpon>frmYM2608.cs</DependentUpon>
@@ -319,6 +337,7 @@
     <Content Include="Resources\downPL.png" />
     <Content Include="Resources\japPL.png" />
     <Content Include="Resources\openPL.png" />
+    <Content Include="Resources\planeAY8910.png" />
     <Content Include="Resources\planeB.png" />
     <Content Include="Resources\planeControl.png" />
     <Content Include="Resources\planeD.png" />

@@ -20,6 +20,7 @@ namespace MDPlayer
         public FrameBuffer[] OKIM6295Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] SN76489Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] SegaPCMScreen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] AY8910Screen = new FrameBuffer[2] { null, null };
 
         private byte[] fontBuf;
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
@@ -266,6 +267,13 @@ namespace MDPlayer
             SegaPCMScreen[chipID].Add(pbSegaPCMScreen, initialSegaPCMImage, this.Paint, setting.other.Zoom);
         }
 
+        public void AddAY8910(int chipID, PictureBox pbAY8910Screen, Image initialAY8910Image)
+        {
+            AY8910Screen[chipID] = new FrameBuffer();
+            AY8910Screen[chipID].Add(pbAY8910Screen, initialAY8910Image, this.Paint, setting.other.Zoom);
+        }
+
+
 
         public void RemoveRf5c164(int chipID)
         {
@@ -333,6 +341,13 @@ namespace MDPlayer
             SegaPCMScreen[chipID].Remove(this.Paint);
         }
 
+        public void RemoveAY8910(int chipID)
+        {
+            if (AY8910Screen[chipID] == null) return;
+            AY8910Screen[chipID].Remove(this.Paint);
+        }
+
+
         ~DoubleBuffer()
         {
             Dispose();
@@ -355,6 +370,7 @@ namespace MDPlayer
                 if (OKIM6295Screen[chipID] != null) OKIM6295Screen[chipID].Remove(this.Paint);
                 if (SN76489Screen[chipID] != null) SN76489Screen[chipID].Remove(this.Paint);
                 if (SegaPCMScreen[chipID] != null) SegaPCMScreen[chipID].Remove(this.Paint);
+                if (AY8910Screen[chipID] != null) AY8910Screen[chipID].Remove(this.Paint);
             }
         }
 
@@ -534,6 +550,20 @@ namespace MDPlayer
                             log.ForcedWrite(ex);
                             RemoveSegaPCM(chipID);
                             SegaPCMScreen = null;
+                        }
+                    }
+
+                    if (AY8910Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            AY8910Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveAY8910(chipID);
+                            AY8910Screen = null;
                         }
                     }
 
@@ -816,6 +846,18 @@ namespace MDPlayer
         {
             if (screen == null) return;
             screen.drawByteArray(x, y, fontBuf, 128, 8 * t + 16, 96 + 16 * tp, 8, 8);
+        }
+
+        private void drawTnP(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null) return;
+            screen.drawByteArray(x, y, fontBuf, 128, 8 * t + 24, 136 + 16 * tp, 8, 8);
+        }
+
+        private void drawEtypeP(FrameBuffer screen, int x, int y, int t)
+        {
+            if (screen == null) return;
+            screen.drawByteArray(x, y, fontBuf, 128, 8 * t + 8*8, 8 * 36, 8, 8);
         }
 
         private void drawPanType2P(FrameBuffer screen, int x, int y, int t)
@@ -1106,6 +1148,15 @@ namespace MDPlayer
             else drawFont4(SegaPCMScreen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
+        public void drawChPAY8910(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (AY8910Screen[chipID] == null) return;
+
+            AY8910Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            if (ch < 9) drawFont8(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            else drawFont4(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
 
         public void drawVolume(FrameBuffer screen,int y, int c, ref int ov, int nv, int tp)
         {
@@ -1349,6 +1400,18 @@ namespace MDPlayer
             om = nm;
         }
 
+        public void drawChAY8910(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPAY8910(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
         public void drawChC140(int chipID, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -1396,6 +1459,61 @@ namespace MDPlayer
 
             drawPanType2P(screen, 24, 8 + c * 8, nt);
             ot = nt;
+        }
+
+        public void drawTnAY8910(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawTnP(AY8910Screen[chipID], 24, 8 + c * 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public void drawNfrqAY8910(int chipID, ref int onfrq, int nnfrq)
+        {
+            if (onfrq == nnfrq)
+            {
+                return;
+            }
+
+            int x = 4 * 5;
+            int y = 8 * 4-1;
+            drawFont4Int(AY8910Screen[chipID], x, y, 0, 2, nnfrq);
+
+            onfrq = nnfrq;
+        }
+
+        public void drawEfrqAY8910(int chipID, ref int oefrq, int nefrq)
+        {
+            if (oefrq == nefrq)
+            {
+                return;
+            }
+
+            int x = 4 * 18;
+            int y = 8 * 4 - 1;
+            drawFont4(AY8910Screen[chipID], x, y, 0, string.Format("{0:D5}", nefrq));
+
+            oefrq = nefrq;
+        }
+
+        public void drawEtypeAY8910(int chipID, ref int oetype, int netype)
+        {
+            if (oetype == netype)
+            {
+                return;
+            }
+
+            int x = 4 * 33;
+            int y = 8 * 4;
+
+            drawEtypeP(AY8910Screen[chipID], x, y, netype);
+            oetype = netype;
         }
 
         public void drawPanToC140(int chipID, int c, ref int ot, int nt)
@@ -1790,6 +1908,8 @@ namespace MDPlayer
                 if (ym2610Screen[chipID] != null) drawParamsToYM2610(oldParam, newParam, chipID);
 
                 if (ym2203Screen[chipID] != null) drawParamsToYM2203(oldParam, newParam, chipID);
+
+                if (AY8910Screen[chipID] != null) drawParamsToAY8910(oldParam, newParam, chipID);
             }
 
         }
@@ -2096,6 +2216,31 @@ namespace MDPlayer
             }
         }
 
+        private void drawParamsToAY8910(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            int tp = setting.AY8910Type.UseScci ? 1 : 0;
+
+            for (int c = 0; c < 3; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.ay8910[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ay8910[chipID].channels[c];
+
+                drawVolume(AY8910Screen[chipID], c, 0, ref oyc.volume, nyc.volume, tp);
+                drawKb(AY8910Screen[chipID], c, ref oyc.note, nyc.note, tp);
+                drawTnAY8910(chipID, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+                //drawInst(AY8910Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
+
+                //drawChAY8910(chipID, c, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            drawNfrqAY8910(chipID, ref oldParam.ay8910[chipID].nfrq, newParam.ay8910[chipID].nfrq);
+            drawEfrqAY8910(chipID, ref oldParam.ay8910[chipID].efrq, newParam.ay8910[chipID].efrq);
+            drawEtypeAY8910(chipID, ref oldParam.ay8910[chipID].etype, newParam.ay8910[chipID].etype);
+
+        }
+
         public void drawButtons(int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
         {
 
@@ -2134,6 +2279,8 @@ namespace MDPlayer
                 screenInitSN76489(chipID);
 
                 screenInitSegaPCM(chipID);
+
+                screenInitAY8910(chipID);
 
             }
 
@@ -2428,6 +2575,22 @@ namespace MDPlayer
                 drawFont8(SegaPCMScreen[chipID], 296, ch * 8 + 8, 1, "   ");
                 drawPanType2P(SegaPCMScreen[chipID], 24, ch * 8 + 8, 0);
                 drawChPSegaPCM(chipID, 0, 8 + ch * 8, ch, false, 0);
+            }
+        }
+
+        public void screenInitAY8910(int chipID)
+        {
+            for (int ch = 0; ch < 3; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(AY8910Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(AY8910Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                //drawPanType2P(AY8910Screen[chipID], 24, ch * 8 + 8, 0);
+                //drawChPAY8910(chipID, 0, 8 + ch * 8, ch, false, 0);
             }
         }
 

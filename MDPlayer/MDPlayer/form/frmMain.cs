@@ -31,6 +31,7 @@ namespace MDPlayer
         private frmOKIM6295[] frmOKIM6295 = new frmOKIM6295[2] { null, null };
         private frmSN76489[] frmSN76489 = new frmSN76489[2] { null, null };
         private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
+        private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -157,6 +158,7 @@ namespace MDPlayer
             if (setting.location.OpenOKIM6295[0]) tsmiPOKIM6258_Click(null, null);
             if (setting.location.OpenSN76489[0]) tsmiPDCSG_Click(null, null);
             if (setting.location.OpenSegaPCM[0]) tsmiPSegaPCM_Click(null, null);
+            if (setting.location.OpenAY8910[0]) tsmiPAY8910_Click(null, null);
             if (setting.location.OpenRf5c164[1]) tsmiSRF5C164_Click(null, null);
             if (setting.location.OpenC140[1]) tsmiSC140_Click(null, null);
             if (setting.location.OpenYm2151[1]) tsmiSOPM_Click(null, null);
@@ -168,6 +170,7 @@ namespace MDPlayer
             if (setting.location.OpenOKIM6295[1]) tsmiSOKIM6258_Click(null, null);
             if (setting.location.OpenSN76489[1]) tsmiSDCSG_Click(null, null);
             if (setting.location.OpenSegaPCM[1]) tsmiSSegaPCM_Click(null, null);
+            if (setting.location.OpenAY8910[1]) tsmiSAY8910_Click(null, null);
 
             log.ForcedWrite("frmMain_Load:STEP 08");
 
@@ -251,6 +254,12 @@ namespace MDPlayer
                 tsmiPSegaPCM_Click(null, null);
             }
 
+            if (frmAY8910[0] != null && !frmAY8910[0].isClosed)
+            {
+                tsmiPAY8910_Click(null, null);
+                tsmiPAY8910_Click(null, null);
+            }
+
 
             if (frmMCD[1] != null && !frmMCD[1].isClosed)
             {
@@ -317,6 +326,13 @@ namespace MDPlayer
                 tsmiSSegaPCM_Click(null, null);
                 tsmiSSegaPCM_Click(null, null);
             }
+
+            if (frmAY8910[1] != null && !frmAY8910[1].isClosed)
+            {
+                tsmiSAY8910_Click(null, null);
+                tsmiSAY8910_Click(null, null);
+            }
+
 
         }
 
@@ -426,6 +442,7 @@ namespace MDPlayer
                 setting.location.OpenOKIM6295[chipID] = false;
                 setting.location.OpenSN76489[chipID] = false;
                 setting.location.OpenSegaPCM[chipID] = false;
+                setting.location.OpenAY8910[chipID] = false;
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
@@ -504,6 +521,11 @@ namespace MDPlayer
                 {
                     setting.location.PosSegaPCM[chipID] = frmSegaPCM[chipID].Location;
                     setting.location.OpenSegaPCM[chipID] = true;
+                }
+                if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
+                {
+                    setting.location.PosAY8910[chipID] = frmAY8910[chipID].Location;
+                    setting.location.OpenAY8910[chipID] = true;
                 }
             }
 
@@ -971,7 +993,7 @@ namespace MDPlayer
 
         private void tsmiPAY8910_Click(object sender, EventArgs e)
         {
-
+            OpenFormAY8910(0);
         }
 
         private void tsmiPOPLL_Click(object sender, EventArgs e)
@@ -981,7 +1003,7 @@ namespace MDPlayer
 
         private void tsmiSAY8910_Click(object sender, EventArgs e)
         {
-
+            OpenFormAY8910(1);
         }
 
         private void tsmiSOPLL_Click(object sender, EventArgs e)
@@ -1695,6 +1717,72 @@ namespace MDPlayer
             frmSegaPCM[chipID] = null;
         }
 
+        private void OpenFormAY8910(int chipID, bool force = false)
+        {
+            if (frmAY8910[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormAY8910(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmAY8910[chipID] = new frmAY8910(this, chipID, setting.other.Zoom);
+
+            if (setting.location.PosAY8910[chipID] == System.Drawing.Point.Empty)
+            {
+                frmAY8910[chipID].x = this.Location.X;
+                frmAY8910[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmAY8910[chipID].x = setting.location.PosAY8910[chipID].X;
+                frmAY8910[chipID].y = setting.location.PosAY8910[chipID].Y;
+            }
+
+            screen.AddAY8910(chipID, frmAY8910[chipID].pbScreen, Properties.Resources.planeAY8910);
+            frmAY8910[chipID].Show();
+            frmAY8910[chipID].update();
+            frmAY8910[chipID].Text = string.Format("AY8910 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            screen.screenInitAY8910(chipID);
+            oldParam.ay8910[chipID] = new MDChipParams.AY8910();
+        }
+
+        private void CloseFormAY8910(int chipID)
+        {
+            if (frmAY8910[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveAY8910(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmAY8910[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmAY8910[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmAY8910[chipID] = null;
+        }
+
+
+
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
@@ -1901,6 +1989,7 @@ namespace MDPlayer
                 screenChangeParamsFromYM2608(chipID);
                 screenChangeParamsFromYM2610(chipID);
                 screenChangeParamsFromYM2203(chipID);
+                screenChangeParamsFromAY8910(chipID);
             }
 
             long w = Audio.GetCounter();
@@ -2566,6 +2655,46 @@ namespace MDPlayer
             }
 
             newParam.ym2612[chipID].channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
+        }
+
+        private void screenChangeParamsFromAY8910(int chipID)
+        {
+            int[] AY8910Register = Audio.GetAY8910Register(chipID);
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.ay8910[chipID].channels[ch];
+
+                bool t = (AY8910Register[0x07] & (0x1 << ch)) == 0;
+                bool n = (AY8910Register[0x07] & (0x8 << ch)) == 0;
+
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
+                newParam.ay8910[chipID].nfrq = AY8910Register[0x06] & 0x1f;
+                newParam.ay8910[chipID].efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
+                newParam.ay8910[chipID].etype = (AY8910Register[0x0d] & 0x7)+2;
+
+                channel.volume = (int)(((t || n) ? 1 : 0) * (AY8910Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
+                if (!t && !n && channel.volume > 0)
+                {
+                    channel.volume--;
+                }
+
+                if (channel.volume == 0)
+                {
+                    channel.note = -1;
+                }
+                else
+                {
+                    int ft = AY8910Register[0x00 + ch * 2];
+                    int ct = AY8910Register[0x01 + ch * 2];
+                    int tp = (ct << 8) | ft;
+                    if (tp == 0) tp = 1;
+                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    channel.note = searchSSGNote(ftone);
+                }
+
+            }
+
         }
 
         private void screenDrawParams()

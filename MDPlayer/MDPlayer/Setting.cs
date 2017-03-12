@@ -1749,6 +1749,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosAY8910 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosAY8910
+            {
+                get
+                {
+                    return _PosAY8910;
+                }
+
+                set
+                {
+                    _PosAY8910 = value;
+                }
+            }
+
+            private bool[] _OpenAY8910 = new bool[2] { false, false };
+            public bool[] OpenAY8910
+            {
+                get
+                {
+                    return _OpenAY8910;
+                }
+
+                set
+                {
+                    _OpenAY8910 = value;
+                }
+            }
+
 
             public Location Copy()
             {
@@ -1785,6 +1813,8 @@ namespace MDPlayer
                 Location.OpenSN76489 = this.OpenSN76489;
                 Location.PosSegaPCM = this.PosSegaPCM;
                 Location.OpenSegaPCM = this.OpenSegaPCM;
+                Location.PosAY8910 = this.PosAY8910;
+                Location.OpenAY8910 = this.OpenAY8910;
 
                 return Location;
             }
