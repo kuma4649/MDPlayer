@@ -47,6 +47,7 @@ namespace MDPlayer
         private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -97,6 +98,7 @@ namespace MDPlayer
         //public static int ChipPriPSG = 0;
         public static int ChipPriAY10 = 0;
         public static int ChipPriOPLL = 0;
+        public static int ChipPriHuC = 0;
 
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
@@ -284,6 +286,8 @@ namespace MDPlayer
             if (scAY8910[0] != null) scAY8910[0].init();
             scYM2413[0] = getChip(Audio.setting.YM2413Type);
             if (scYM2413[0] != null) scYM2413[0].init();
+            scHuC6280[0] = getChip(Audio.setting.HuC6280Type);
+            if (scHuC6280[0] != null) scHuC6280[0].init();
 
             scYM2612[1] = getChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
@@ -305,7 +309,7 @@ namespace MDPlayer
             chipRegister = new ChipRegister(
                 setting
                 , mds
-                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910, scYM2413
+                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910, scYM2413 ,scHuC6280
                 , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
                 , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
                 , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
@@ -314,6 +318,7 @@ namespace MDPlayer
                 , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
                 , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
                 , new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
+                , new Setting.ChipType[] { setting.HuC6280Type, null }
                 );
             chipRegister.initChipRegister();
 
@@ -644,6 +649,8 @@ namespace MDPlayer
                 ChipPriAY10 = 0;
                 ChipPriOPLL = 0;
                 //ChipPriPSG = 0;
+                ChipPriHuC = 0;
+
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -1028,6 +1035,34 @@ namespace MDPlayer
                         lstChips.Add(chip);
                     }
                 }
+
+                if (((vgm)vgmVirtual).HuC6280ClockValue != 0)
+                {
+                    MDSound.Ootake_PSG huc6280 = new MDSound.Ootake_PSG();
+                    for (int i = 0; i < (((vgm)vgmVirtual).HuC6280DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.HuC6280;
+                        chip.ID = (byte)i;
+                        chip.Instrument = huc6280;
+                        chip.Update = huc6280.Update;
+                        chip.Start = huc6280.Start;
+                        chip.Stop = huc6280.Stop;
+                        chip.Reset = huc6280.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = setting.balance.HuC6280Volume;
+                        chip.Clock = (((vgm)vgmVirtual).HuC6280ClockValue & 0x7fffffff);
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) ChipPriHuC = 1;
+                        //else ChipSecHuC = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;

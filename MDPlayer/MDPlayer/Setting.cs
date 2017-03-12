@@ -96,6 +96,20 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _HuC6280Type = new ChipType();
+        public ChipType HuC6280Type
+        {
+            get
+            {
+                return _HuC6280Type;
+            }
+
+            set
+            {
+                _HuC6280Type = value;
+            }
+        }
+
         private ChipType _YM2413SType = new ChipType();
         public ChipType YM2413SType
         {
@@ -1029,6 +1043,22 @@ namespace MDPlayer
                 {
                     _YM2413Volume = value;
                     if (_YM2413Volume > 20 || _YM2413Volume < -192) _YM2413Volume = 0;
+                }
+            }
+
+            private int _HuC6280Volume = 0;
+            public int HuC6280Volume
+            {
+                get
+                {
+                    if (_HuC6280Volume > 20 || _HuC6280Volume < -192) _HuC6280Volume = 0;
+                    return _HuC6280Volume;
+                }
+
+                set
+                {
+                    _HuC6280Volume = value;
+                    if (_HuC6280Volume > 20 || _HuC6280Volume < -192) _HuC6280Volume = 0;
                 }
             }
 

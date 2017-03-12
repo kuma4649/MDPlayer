@@ -39,6 +39,7 @@ namespace MDPlayer
         public uint YM2610ClockValue;
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
+        public uint HuC6280ClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -50,6 +51,7 @@ namespace MDPlayer
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
         public bool YM2413DualChipFlag;
+        public bool HuC6280DualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -410,7 +412,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb7] = vcOKIM6258;
 
             vgmCmdTbl[0xb8] = vcOKIM6295;
-            vgmCmdTbl[0xb9] = vcDummy2Ope;
+            vgmCmdTbl[0xb9] = vcHuC6280;
             vgmCmdTbl[0xba] = vcDummy2Ope;
             vgmCmdTbl[0xbb] = vcDummy2Ope;
             vgmCmdTbl[0xbc] = vcDummy2Ope;
@@ -536,6 +538,12 @@ namespace MDPlayer
         private void vcYM2413()
         {
             chipRegister.setYM2413Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcHuC6280()
+        {
+            chipRegister.setHuC6280Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1835,6 +1843,17 @@ namespace MDPlayer
                                 C140Type = MDSound.c140.C140_TYPE.ASIC219;
                                 break;
                         }
+                    }
+                }
+
+                if (vgmDataOffset > 0xa4)
+                {
+
+                    uint HuC6280clock = getLE32(0xa4);
+                    if (HuC6280clock != 0)
+                    {
+                        chips.Add("HuC6280");
+                        HuC6280ClockValue = HuC6280clock;
                     }
                 }
 
