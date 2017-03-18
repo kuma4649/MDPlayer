@@ -32,6 +32,7 @@ namespace MDPlayer
         private frmSN76489[] frmSN76489 = new frmSN76489[2] { null, null };
         private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
         private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
+        private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -561,7 +562,7 @@ namespace MDPlayer
             for (int n = 0; n < newButton.Length; n++)
             {
                 //if (px >= 320 - (16 - n) * 16 && px < 320 - (15 - n) * 16) newButton[n] = 1;
-                if (px >= n * 16 + 24 && px < n * 16 + 16 + 24) newButton[n] = 1;
+                if (px >= n * 16 + 64 && px < n * 16 + 16 + 64) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -710,6 +711,12 @@ namespace MDPlayer
                     else tsmiSSegaPCM_Click(null, null);
                     return;
                 }
+                if (px < 8 * 37+4)
+                {
+                    if (py < 8) tsmiPHuC6280_Click(null, null);
+                    else tsmiSHuC6280_Click(null, null);
+                    return;
+                }
                 return;
             }
 
@@ -718,14 +725,14 @@ namespace MDPlayer
             // ボタンの判定
 
             //if (px >= 320 - 16 * 16 && px < 320 - 15 * 16)
-            if (px >= 0 * 16+24 && px < 1 * 16 + 24)
+            if (px >= 0 * 16+64 && px < 1 * 16 + 64)
             {
                 openSetting();
                 return;
             }
 
             //if (px >= 320 - 15 * 16 && px < 320 - 14 * 16)
-            if (px >= 1 * 16 + 24 && px < 2 * 16 + 24)
+            if (px >= 1 * 16 + 64 && px < 2 * 16 + 64)
             {
                     frmPlayList.Stop();
                 stop();
@@ -733,14 +740,14 @@ namespace MDPlayer
             }
 
             //if (px >= 320 - 14 * 16 && px < 320 - 13 * 16)
-            if (px >= 2 * 16 + 24 && px < 3 * 16 + 24)
+            if (px >= 2 * 16 + 64 && px < 3 * 16 + 64)
             {
                 pause();
                 return;
             }
 
             //if (px >= 320 - 13 * 16 && px < 320 - 12 * 16)
-            if (px >= 3 * 16 + 24 && px < 4 * 16 + 24)
+            if (px >= 3 * 16 + 64 && px < 4 * 16 + 64)
             {
                 fadeout();
                 frmPlayList.Stop();
@@ -748,49 +755,49 @@ namespace MDPlayer
             }
 
             //if (px >= 320 - 12 * 16 && px < 320 - 11 * 16)
-            if (px >= 4 * 16 + 24 && px < 5 * 16 + 24)
+            if (px >= 4 * 16 + 64 && px < 5 * 16 + 64)
             {
                 prev();
                 return;
             }
 
             //if (px >= 320 - 11 * 16 && px < 320 - 10 * 16)
-            if (px >= 5 * 16 + 24 && px < 6 * 16 + 24)
+            if (px >= 5 * 16 + 64 && px < 6 * 16 + 64)
             {
                 slow();
                 return;
             }
 
             //if (px >= 320 - 10 * 16 && px < 320 - 9 * 16)
-            if (px >= 6 * 16 + 24 && px < 7 * 16 + 24)
+            if (px >= 6 * 16 + 64 && px < 7 * 16 + 64)
             {
                 play();
                 return;
             }
 
             //if (px >= 320 - 9 * 16 && px < 320 - 8 * 16)
-            if (px >= 7 * 16 + 24 && px < 8 * 16 + 24)
+            if (px >= 7 * 16 + 64 && px < 8 * 16 + 64)
             {
                 ff();
                 return;
             }
 
             //if (px >= 320 - 8 * 16 && px < 320 - 7 * 16)
-            if (px >= 8 * 16 + 24 && px < 9 * 16 + 24)
+            if (px >= 8 * 16 + 64 && px < 9 * 16 + 64)
             {
                 next();
                 return;
             }
 
             //if (px >= 320 - 7 * 16 && px < 320 - 6 * 16)
-            if (px >= 9 * 16 + 24 && px < 10 * 16 + 24)
+            if (px >= 9 * 16 + 64 && px < 10 * 16 + 64)
             {
                 playMode();
                 return;
             }
 
             //if (px >= 320 - 6 * 16 && px < 320 - 5 * 16)
-            if (px >= 10 * 16 + 24 && px < 11 * 16 + 24)
+            if (px >= 10 * 16 + 64 && px < 11 * 16 + 64)
             {
                 string[] fn = fileOpen(true);
 
@@ -832,21 +839,21 @@ namespace MDPlayer
             }
 
             //if (px >= 320 - 5 * 16 && px < 320 - 4 * 16)
-            if (px >= 11 * 16 + 24 && px < 12 * 16 + 24)
+            if (px >= 11 * 16 + 64 && px < 12 * 16 + 64)
             {
                 dispPlayList();
                 return;
             }
 
             //if (px >= 320 - 4 * 16 && px < 320 - 3 * 16)
-            if (px >= 12 * 16 + 24 && px < 13 * 16 + 24)
+            if (px >= 12 * 16 + 64 && px < 13 * 16 + 64)
             {
                 openInfo();
                 return;
             }
 
             //if (px >= 320 - 3 * 16 && px < 320 - 2 * 16)
-            if (px >= 13 * 16 + 24 && px < 14 * 16 + 24)
+            if (px >= 13 * 16 + 64 && px < 14 * 16 + 64)
             {
                 //OpenFormMegaCD(0);
                 dispMixer();
@@ -854,14 +861,14 @@ namespace MDPlayer
             }
 
             //if (px >= 320 - 2 * 16 && px < 320 - 1 * 16)
-            if (px >= 14 * 16 + 24 && px < 15 * 16 + 24)
+            if (px >= 14 * 16 + 64 && px < 15 * 16 + 64)
             {
                 showContextMenu();
                 return;
             }
 
             //if (px >= 320 - 1 * 16 && px < 320 - 0 * 16)
-            if (px >= 15 * 16 + 24 && px < 16 * 16 + 24)
+            if (px >= 15 * 16 + 64 && px < 16 * 16 + 64)
             {
                 setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
                 changeZoom();
@@ -930,6 +937,13 @@ namespace MDPlayer
         {
             OpenFormSegaPCM(0);
         }
+
+        private void tsmiPHuC6280_Click(object sender, EventArgs e)
+        {
+            OpenFormHuC6280(0);
+        }
+
+
 
         private void tsmiSOPN_Click(object sender, EventArgs e)
         {
@@ -1010,6 +1024,12 @@ namespace MDPlayer
         {
 
         }
+
+        private void tsmiSHuC6280_Click(object sender, EventArgs e)
+        {
+            OpenFormHuC6280(1);
+        }
+
 
         private void OpenFormMegaCD(int chipID, bool force = false)
         {
@@ -1781,6 +1801,70 @@ namespace MDPlayer
             frmAY8910[chipID] = null;
         }
 
+        private void OpenFormHuC6280(int chipID, bool force = false)
+        {
+            if (frmHuC6280[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormHuC6280(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmHuC6280[chipID] = new frmHuC6280(this, chipID, setting.other.Zoom);
+
+            if (setting.location.PosHuC6280[chipID] == System.Drawing.Point.Empty)
+            {
+                frmHuC6280[chipID].x = this.Location.X;
+                frmHuC6280[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmHuC6280[chipID].x = setting.location.PosHuC6280[chipID].X;
+                frmHuC6280[chipID].y = setting.location.PosHuC6280[chipID].Y;
+            }
+
+            screen.AddHuC6280(chipID, frmHuC6280[chipID].pbScreen, Properties.Resources.planeHuC6280);
+            frmHuC6280[chipID].Show();
+            frmHuC6280[chipID].update();
+            frmHuC6280[chipID].Text = string.Format("HuC6280 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            screen.screenInitHuC6280(chipID);
+            oldParam.huc6280[chipID] = new MDChipParams.HuC6280();
+        }
+
+        private void CloseFormHuC6280(int chipID)
+        {
+            if (frmHuC6280[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveHuC6280(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmHuC6280[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmHuC6280[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmHuC6280[chipID] = null;
+        }
+
 
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
@@ -1887,6 +1971,12 @@ namespace MDPlayer
                     if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenChangeParams();
                     else frmSegaPCM[chipID] = null;
 
+                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) frmAY8910[chipID].screenChangeParams();
+                    else frmAY8910[chipID] = null;
+
+                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
+                    else frmHuC6280[chipID] = null;
+
                 }
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
@@ -1931,6 +2021,12 @@ namespace MDPlayer
 
                     if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenDrawParams();
                     else frmSegaPCM[chipID] = null;
+
+                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) frmAY8910[chipID].screenDrawParams();
+                    else frmAY8910[chipID] = null;
+
+                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenDrawParams();
+                    else frmHuC6280[chipID] = null;
 
                 }
 
@@ -1990,6 +2086,7 @@ namespace MDPlayer
                 screenChangeParamsFromYM2610(chipID);
                 screenChangeParamsFromYM2203(chipID);
                 screenChangeParamsFromAY8910(chipID);
+                screenChangeParamsFromHuC6280(chipID);
             }
 
             long w = Audio.GetCounter();
@@ -2673,7 +2770,9 @@ namespace MDPlayer
                 newParam.ay8910[chipID].efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
                 newParam.ay8910[chipID].etype = (AY8910Register[0x0d] & 0x7)+2;
 
-                channel.volume = (int)(((t || n) ? 1 : 0) * (AY8910Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
+                int v = (AY8910Register[0x08 + ch] & 0x1f);
+                v = v > 15 ? 15 : v;
+                channel.volume = (int)(((t || n) ? 1 : 0) * v * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
                 {
                     channel.volume--;
@@ -2693,6 +2792,43 @@ namespace MDPlayer
                     channel.note = searchSSGNote(ftone);
                 }
 
+            }
+
+        }
+
+        private void screenChangeParamsFromHuC6280(int chipID)
+        {
+
+            MDSound.Ootake_PSG.huc6280_state chip = Audio.GetHuC6280Register(chipID);
+            if (chip == null) return;
+
+            for (int ch = 0; ch < 6; ch++)
+            {
+                MDSound.Ootake_PSG.PSG psg = chip.Psg[ch];
+                if (psg == null) continue;
+                MDChipParams.Channel channel = newParam.huc6280[chipID].channels[ch];
+                channel.volumeL = (psg.outVolumeL >> 10);
+                channel.volumeR = (psg.outVolumeR >> 10);
+                channel.volumeL = Math.Min(channel.volumeL, 19);
+                channel.volumeR = Math.Min(channel.volumeR, 19);
+
+                channel.pan = (int)((psg.volumeL & 0xf) | ((psg.volumeR & 0xf) << 4));
+
+                channel.inst = psg.wave;
+
+                channel.dda = psg.bDDA;
+
+                int tp = (int)psg.frq;
+                if (tp == 0) tp = 1;
+
+                float ftone = 3579545.0f / 32.0f / (float)tp;
+                channel.note = searchSSGNote(ftone);
+                if (channel.volumeL == 0 && channel.volumeR == 0) channel.note = -1;
+
+                if (ch < 4) continue;
+
+                channel.noise = psg.bNoiseOn;
+                channel.nfrq = (int)psg.noiseFrq;
             }
 
         }
@@ -2723,6 +2859,8 @@ namespace MDPlayer
             screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.ChipPriSPCM, chips[11]);
             screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.ChipPriAY10, chips[12]);
             screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
+            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
+            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipPriHuC8, chips[14]);
 
             screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.ChipSecOPN, chips[128 + 0]);
             screen.drawChipName(18 * 4, 1 * 8, 1, ref oldParam.ChipSecOPN2, chips[128 + 1]);
@@ -2738,6 +2876,7 @@ namespace MDPlayer
             screen.drawChipName(66 * 4, 1 * 8, 11, ref oldParam.ChipSecSPCM, chips[128 + 11]);
             screen.drawChipName(4 * 4, 1 * 8, 12, ref oldParam.ChipSecAY10, chips[128 + 12]);
             screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.ChipSecOPLL, chips[128 + 13]);
+            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipSecHuC8, chips[128+14]);
 
             if (setting.Debug_DispFrameCounter)
             {
@@ -3076,6 +3215,9 @@ namespace MDPlayer
 
                 if (Audio.ChipPriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
                 if (Audio.ChipSecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
+
+                if (Audio.ChipPriAY10 != 0) OpenFormAY8910(0, true); else CloseFormAY8910(0);
+                if (Audio.ChipSecAY10 != 0) OpenFormAY8910(1, true); else CloseFormAY8910(1);
 
             }
         }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MDPlayer
 {
-    public partial class frmAY8910 : Form
+    public partial class frmHuC6280 : Form
     {
         public bool isClosed = false;
         public int x = -1;
@@ -21,7 +21,7 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmAY8910(frmMain frm, int chipID, int zoom)
+        public frmHuC6280(frmMain frm, int chipID, int zoom)
         {
             parent = frm;
             this.chipID = chipID;
@@ -30,6 +30,7 @@ namespace MDPlayer
 
             update();
         }
+
         public void update()
         {
         }
@@ -42,13 +43,13 @@ namespace MDPlayer
             }
         }
 
-        private void frmAY8910_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmHuc6280_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosSN76489[chipID] = Location;
+            parent.setting.location.PosHuC6280[chipID] = Location;
             isClosed = true;
         }
 
-        private void frmAY8910_Load(object sender, EventArgs e)
+        private void frmHuc6280_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
 
@@ -60,14 +61,14 @@ namespace MDPlayer
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeAY8910.Width * zoom, frameSizeH + Properties.Resources.planeAY8910.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeAY8910.Width * zoom, frameSizeH + Properties.Resources.planeAY8910.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeAY8910.Width * zoom, frameSizeH + Properties.Resources.planeAY8910.Height * zoom);
-            frmAY8910_Resize(null, null);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeHuC6280.Width * zoom, frameSizeH + Properties.Resources.planeHuC6280.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeHuC6280.Width * zoom, frameSizeH + Properties.Resources.planeHuC6280.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeHuC6280.Width * zoom, frameSizeH + Properties.Resources.planeHuC6280.Height * zoom);
+            frmHuc6280_Resize(null, null);
 
         }
 
-        private void frmAY8910_Resize(object sender, EventArgs e)
+        private void frmHuc6280_Resize(object sender, EventArgs e)
         {
 
         }
@@ -110,15 +111,16 @@ namespace MDPlayer
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.AY8910, chipID, ch);
+                    parent.SetChannelMask(enmUseChip.HuC6280, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 4; ch++) parent.ResetChannelMask(enmUseChip.AY8910, chipID, ch);
+                for (ch = 0; ch < 4; ch++) parent.ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
                 return;
             }
 
         }
+
     }
 }

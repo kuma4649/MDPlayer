@@ -34,6 +34,7 @@ namespace MDPlayer
         public int ChipPriSPCM = 0;
         public int ChipPriAY10 = 0;
         public int ChipPriOPLL = 0;
+        public int ChipPriHuC8 = 0;
 
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
@@ -49,6 +50,7 @@ namespace MDPlayer
         public int ChipSecSPCM = 0;
         public int ChipSecAY10 = 0;
         public int ChipSecOPLL = 0;
+        public int ChipSecHuC8 = 0;
 
 
         public class Channel
@@ -67,6 +69,9 @@ namespace MDPlayer
             public int kf = -1;//OPM only
             public int tn = 0;//PSG only
             public int tntp = -1;
+            public bool dda = false;//HuC6280
+            public bool noise = false;//HuC6280
+            public int nfrq = -1;//HuC6280
 
             public int[] inst = new int[48];
 
@@ -169,5 +174,12 @@ namespace MDPlayer
 
         }
         public YM2610[] ym2610 = new YM2610[] { new YM2610(), new YM2610() };
+
+        public class HuC6280
+        {
+            public Channel[] channels = new Channel[6] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+        }
+        public HuC6280[] huc6280 = new HuC6280[] { new HuC6280(), new HuC6280() };
+
     }
 }

@@ -264,6 +264,21 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _HuC6280SType = new ChipType();
+        public ChipType HuC6280SType
+        {
+            get
+            {
+                return _HuC6280SType;
+            }
+
+            set
+            {
+                _HuC6280SType = value;
+            }
+        }
+
+
 
         private int _LatencyEmulation = 0;
         public int LatencyEmulation
@@ -1807,6 +1822,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosHuC6280 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosHuC6280
+            {
+                get
+                {
+                    return _PosHuC6280;
+                }
+
+                set
+                {
+                    _PosHuC6280 = value;
+                }
+            }
+
+            private bool[] _OpenHuC6280 = new bool[2] { false, false };
+            public bool[] OpenHuC6280
+            {
+                get
+                {
+                    return _OpenHuC6280;
+                }
+
+                set
+                {
+                    _OpenHuC6280 = value;
+                }
+            }
+
 
             public Location Copy()
             {
@@ -1845,6 +1888,8 @@ namespace MDPlayer
                 Location.OpenSegaPCM = this.OpenSegaPCM;
                 Location.PosAY8910 = this.PosAY8910;
                 Location.OpenAY8910 = this.OpenAY8910;
+                Location.PosHuC6280 = this.PosHuC6280;
+                Location.OpenHuC6280 = this.OpenHuC6280;
 
                 return Location;
             }

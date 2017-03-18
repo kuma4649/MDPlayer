@@ -65,6 +65,7 @@ namespace MDPlayer
         //public int ChipSecPSG = 0;
         public int ChipSecAY10 = 0;
         public int ChipSecOPLL = 0;
+        public int ChipSecHuC = 0;
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -159,8 +160,6 @@ namespace MDPlayer
             new bool[3] { false, false, false }
             ,new bool[3] { false, false, false }
         };
-
-        public int[][] psgRegisterHuC6280 = new int[][] { null, null };
 
         private int[] LatchedRegister = new int[] { 0, 0 };
         private int[] NoiseFreq = new int[] { 0, 0 };
@@ -297,11 +296,6 @@ namespace MDPlayer
                 }
                 psgKeyOnAY8910[chipID] = new int[3] { 0, 0, 0 };
 
-                psgRegisterHuC6280[chipID] = new int[0x100];
-                for (int i = 0; i < 0x100; i++)
-                {
-                    psgRegisterHuC6280[chipID][i] = 0;
-                }
             }
         }
 
@@ -504,9 +498,7 @@ namespace MDPlayer
             if (ctHuC6280 == null) return;
 
             if (chipID == 0) ChipPriHuC = 2;
-            //else ChipPriHuC = 2;
-
-            if (model == enmModel.VirtualModel) psgRegisterHuC6280[chipID][dAddr] = dData;
+            else ChipSecHuC = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -521,7 +513,6 @@ namespace MDPlayer
 
             }
         }
-
 
         public void setYM2203Register(int chipID, int dAddr, int dData, enmModel model)
         {

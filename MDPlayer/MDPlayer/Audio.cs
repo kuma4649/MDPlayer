@@ -115,6 +115,7 @@ namespace MDPlayer
         //public static int ChipSecPSG = 0;
         public static int ChipSecAY10 = 0;
         public static int ChipSecOPLL = 0;
+        public static int ChipSecHuC = 0;
 
         private static int MasterVolume = 0;
         static int[] chips = new int[256];
@@ -318,7 +319,7 @@ namespace MDPlayer
                 , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
                 , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
                 , new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
-                , new Setting.ChipType[] { setting.HuC6280Type, null }
+                , new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType }
                 );
             chipRegister.initChipRegister();
 
@@ -445,6 +446,7 @@ namespace MDPlayer
                 ChipPriSPCM = 0;
                 ChipPriAY10 = 0;
                 ChipPriOPLL = 0;
+                ChipPriHuC = 0;
                 //ChipPriPSG = 0;
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -460,6 +462,7 @@ namespace MDPlayer
                 ChipSecSPCM = 0;
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
+                ChipSecHuC = 0;
                 //ChipSecPSG = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
@@ -665,6 +668,7 @@ namespace MDPlayer
                 ChipSecSPCM = 0;
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
+                ChipSecHuC = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -1057,7 +1061,7 @@ namespace MDPlayer
                         hiyorimiDeviceFlag |= 0x2;
 
                         if (i == 0) ChipPriHuC = 1;
-                        //else ChipSecHuC = 1;
+                        else ChipSecHuC = 1;
 
                         lstChips.Add(chip);
                     }
@@ -1309,6 +1313,8 @@ namespace MDPlayer
             chipRegister.ChipPriAY10 = ChipPriAY10;
             chips[13] = chipRegister.ChipPriOPLL;
             chipRegister.ChipPriOPLL = ChipPriOPLL;
+            chips[14] = chipRegister.ChipPriHuC;
+            chipRegister.ChipPriHuC = ChipPriHuC;
 
 
             chips[128 + 0] = chipRegister.ChipSecOPN;
@@ -1342,6 +1348,8 @@ namespace MDPlayer
             chipRegister.ChipSecAY10 = ChipSecAY10;
             chips[128 + 13] = chipRegister.ChipSecOPLL;
             chipRegister.ChipSecOPLL = ChipSecOPLL;
+            chips[128 + 14] = chipRegister.ChipSecHuC;
+            chipRegister.ChipSecHuC = ChipSecHuC;
 
 
             return chips;
@@ -1380,6 +1388,11 @@ namespace MDPlayer
         public static int[] GetAY8910Register(int chipID)
         {
             return chipRegister.psgRegisterAY8910[chipID];
+        }
+
+        public static MDSound.Ootake_PSG.huc6280_state GetHuC6280Register(int chipID)
+        {
+            return mds.ReadHuC6280Status(chipID);
         }
 
         public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)

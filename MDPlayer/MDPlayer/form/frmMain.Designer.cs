@@ -33,6 +33,8 @@
             this.pbScreen = new System.Windows.Forms.PictureBox();
             this.cmsOpenOtherPanel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.primaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPAY8910 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPN = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPNA = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +48,8 @@
             this.tsmiPC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPN = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNA = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,10 +62,8 @@
             this.tsmiSOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPAY8910 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -105,10 +107,25 @@
             this.tsmiPOKIM6258,
             this.tsmiPOKIM6295,
             this.tsmiPC140,
-            this.tsmiPSegaPCM});
+            this.tsmiPSegaPCM,
+            this.tsmiPHuC6280});
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
             this.primaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.primaryToolStripMenuItem.Text = "Primary";
+            // 
+            // tsmiPAY8910
+            // 
+            this.tsmiPAY8910.Name = "tsmiPAY8910";
+            this.tsmiPAY8910.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPAY8910.Text = "AY8910";
+            this.tsmiPAY8910.Click += new System.EventHandler(this.tsmiPAY8910_Click);
+            // 
+            // tsmiPOPLL
+            // 
+            this.tsmiPOPLL.Name = "tsmiPOPLL";
+            this.tsmiPOPLL.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPOPLL.Text = "OPLL";
+            this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
             // 
             // tsmiPOPN
             // 
@@ -210,10 +227,25 @@
             this.tsmiSOKIM6258,
             this.tsmiSOKIM6295,
             this.tsmiSC140,
-            this.tsmiSSegaPCM});
+            this.tsmiSSegaPCM,
+            this.tsmiSHuC6280});
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
             this.sencondryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sencondryToolStripMenuItem.Text = "Secondary";
+            // 
+            // tsmiSAY8910
+            // 
+            this.tsmiSAY8910.Name = "tsmiSAY8910";
+            this.tsmiSAY8910.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSAY8910.Text = "AY8910";
+            this.tsmiSAY8910.Click += new System.EventHandler(this.tsmiSAY8910_Click);
+            // 
+            // tsmiSOPLL
+            // 
+            this.tsmiSOPLL.Name = "tsmiSOPLL";
+            this.tsmiSOPLL.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSOPLL.Text = "OPLL";
+            this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
             // 
             // tsmiSOPN
             // 
@@ -299,33 +331,19 @@
             this.tsmiSSegaPCM.Text = "SEGA PCM";
             this.tsmiSSegaPCM.Click += new System.EventHandler(this.tsmiSSegaPCM_Click);
             // 
-            // tsmiPAY8910
+            // tsmiPHuC6280
             // 
-            this.tsmiPAY8910.Name = "tsmiPAY8910";
-            this.tsmiPAY8910.Size = new System.Drawing.Size(152, 22);
-            this.tsmiPAY8910.Text = "AY8910";
-            this.tsmiPAY8910.Click += new System.EventHandler(this.tsmiPAY8910_Click);
+            this.tsmiPHuC6280.Name = "tsmiPHuC6280";
+            this.tsmiPHuC6280.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPHuC6280.Text = "HuC6280";
+            this.tsmiPHuC6280.Click += new System.EventHandler(this.tsmiPHuC6280_Click);
             // 
-            // tsmiPOPLL
+            // tsmiSHuC6280
             // 
-            this.tsmiPOPLL.Name = "tsmiPOPLL";
-            this.tsmiPOPLL.Size = new System.Drawing.Size(152, 22);
-            this.tsmiPOPLL.Text = "OPLL";
-            this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
-            // 
-            // tsmiSAY8910
-            // 
-            this.tsmiSAY8910.Name = "tsmiSAY8910";
-            this.tsmiSAY8910.Size = new System.Drawing.Size(152, 22);
-            this.tsmiSAY8910.Text = "AY8910";
-            this.tsmiSAY8910.Click += new System.EventHandler(this.tsmiSAY8910_Click);
-            // 
-            // tsmiSOPLL
-            // 
-            this.tsmiSOPLL.Name = "tsmiSOPLL";
-            this.tsmiSOPLL.Size = new System.Drawing.Size(152, 22);
-            this.tsmiSOPLL.Text = "OPLL";
-            this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
+            this.tsmiSHuC6280.Name = "tsmiSHuC6280";
+            this.tsmiSHuC6280.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSHuC6280.Text = "HuC6280";
+            this.tsmiSHuC6280.Click += new System.EventHandler(this.tsmiSHuC6280_Click);
             // 
             // frmMain
             // 
@@ -383,6 +401,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiPOPLL;
         private System.Windows.Forms.ToolStripMenuItem tsmiSAY8910;
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPLL;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPHuC6280;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSHuC6280;
     }
 }
 

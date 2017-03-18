@@ -122,6 +122,12 @@
     <Compile Include="form\frmC140.Designer.cs">
       <DependentUpon>frmC140.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmHuC6280.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmHuC6280.Designer.cs">
+      <DependentUpon>frmHuC6280.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     <EmbeddedResource Include="form\frmC140.resx">
       <DependentUpon>frmC140.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmHuC6280.resx">
+      <DependentUpon>frmHuC6280.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmInfo.resx">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -343,6 +352,7 @@
     <Content Include="Resources\planeD.png" />
     <Content Include="Resources\planeE.png" />
     <Content Include="Resources\planeF.png" />
+    <Content Include="Resources\planeHuC6280.png" />
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
