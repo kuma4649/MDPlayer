@@ -856,6 +856,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _FilterIndex = 0;
+            public int FilterIndex
+            {
+                get
+                {
+                    return _FilterIndex;
+                }
+
+                set
+                {
+                    _FilterIndex = value;
+                }
+            }
+
 
             public Other Copy()
             {
@@ -876,6 +890,7 @@ namespace MDPlayer
                 other.AutoOpen = this.AutoOpen;
                 other.DumpSwitch = this.DumpSwitch;
                 other.DumpPath = this.DumpPath;
+                other.FilterIndex = this.FilterIndex;
 
                 return other;
             }

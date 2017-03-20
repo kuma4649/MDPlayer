@@ -453,6 +453,8 @@ namespace MDPlayer
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
+            ofd.FilterIndex=setting.other.FilterIndex;
+
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 ofd.InitialDirectory = frmMain.setting.other.DefaultDataPath;
@@ -470,6 +472,7 @@ namespace MDPlayer
             }
 
             IsInitialOpenFolder = false;
+            setting.other.FilterIndex = ofd.FilterIndex;
 
             Stop();
 

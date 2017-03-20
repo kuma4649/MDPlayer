@@ -1179,9 +1179,8 @@ namespace MDPlayer
         {
             if (AY8910Screen[chipID] == null) return;
 
-            AY8910Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
-            if (ch < 9) drawFont8(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
-            else drawFont4(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            AY8910Screen[chipID].drawByteArray(x, y, fontBuf, 128, 96, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
 
@@ -2355,7 +2354,7 @@ namespace MDPlayer
                 drawTnAY8910(chipID, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
                 //drawInst(AY8910Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
 
-                //drawChAY8910(chipID, c, ref oyc.mask, nyc.mask, tp);
+                drawChAY8910(chipID, c, ref oyc.mask, nyc.mask, tp);
 
             }
 

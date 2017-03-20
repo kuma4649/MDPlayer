@@ -1576,6 +1576,12 @@ namespace MDPlayer
             mds.setSegaPcmMask(chipID, 1 << ch);
         }
 
+        public static void setAY8910Mask(int chipID, int ch)
+        {
+            mds.setAY8910Mask(chipID, 1<<ch);
+        }
+
+
         public static void resetYM2612Mask(int chipID,int ch)
         {
             try
@@ -1652,6 +1658,11 @@ namespace MDPlayer
         public static void resetSegaPCMMask(int chipID, int ch)
         {
             mds.resetSegaPcmMask(chipID, 1 << ch);
+        }
+
+        public static void resetAY8910Mask(int chipID, int ch)
+        {
+            mds.resetAY8910Mask(chipID, 1<<ch);
         }
 
 
