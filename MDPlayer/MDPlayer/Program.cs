@@ -27,9 +27,13 @@ namespace MDPlayer
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmMain());
             }
-            catch(Exception e)
+            catch (ObjectDisposedException ode)
             {
-                MessageBox.Show(string.Format("不明なエラーが発生しました。\nException Message:{0}", e.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ;//無視する
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(string.Format("不明なエラーが発生しました。\nException Message:\n{0}", e.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

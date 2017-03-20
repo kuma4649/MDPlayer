@@ -57,7 +57,7 @@ namespace MDPlayer
 
 
         //private MidiIn midiin = null;
-
+        private bool forcedExit = false;
 
         public frmMain()
         {
@@ -67,6 +67,7 @@ namespace MDPlayer
             InitializeComponent();
 
             log.ForcedWrite("frmMain(コンストラクタ):STEP 01");
+
             //引数が指定されている場合のみプロセスチェックを行い、自分と同じアプリケーションが実行中ならばそちらに引数を渡し終了する
             if (Environment.GetCommandLineArgs().Length > 1)
             {
@@ -74,7 +75,12 @@ namespace MDPlayer
                 if (prc != null)
                 {
                     SendString(prc.MainWindowHandle, Environment.GetCommandLineArgs()[1]);
-                    this.Close();
+                    forcedExit = true;
+                    try
+                    {
+                        this.Close();
+                    }
+                    catch { }
                     return;
                 }
             }
@@ -130,8 +136,7 @@ namespace MDPlayer
             pWidth = pbScreen.Width;
             pHeight = pbScreen.Height;
 
-            frmPlayList = new frmPlayList();
-            frmPlayList.frmMain = this;
+            frmPlayList = new frmPlayList(this);
             frmPlayList.Show();
             frmPlayList.Visible = false;
             frmPlayList.Opacity = 1.0;
@@ -401,6 +406,7 @@ namespace MDPlayer
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (forcedExit) return;
 
             log.ForcedWrite("終了処理開始");
             log.ForcedWrite("frmMain_FormClosing:STEP 00");

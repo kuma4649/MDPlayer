@@ -17,7 +17,7 @@ namespace MDPlayer
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain frmMain = null;
+        private frmMain frmMain = null;
         public Setting setting = null;
 
         private PlayList playList = null;
@@ -30,8 +30,9 @@ namespace MDPlayer
         private bool IsInitialOpenFolder = true;
 
 
-        public frmPlayList()
+        public frmPlayList(frmMain frm)
         {
+            frmMain = frm;
             InitializeComponent();
 
             playList = PlayList.Load(null);
@@ -89,6 +90,16 @@ namespace MDPlayer
             {
                 return true;
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (frmMain != null)
+            {
+                frmMain.windowsMessage(ref m);
+            }
+
+            base.WndProc(ref m);
         }
 
         private void frmPlayList_Shown(object sender, EventArgs e)
