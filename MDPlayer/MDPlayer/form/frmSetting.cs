@@ -96,14 +96,13 @@ namespace MDPlayer
                 cmbMIDIIN.SelectedIndex = 0;
             }
 
-            List<NScci.NSoundChip> lstYM2612 = Audio.getChipList(enmScciChipType.YM2612);
+            List<Setting.ChipType> lstYM2612 = Audio.getChipList(enmScciChipType.YM2612);
             if (lstYM2612.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstYM2612)
+                foreach (Setting.ChipType ct in lstYM2612)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbYM2612P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbYM2612S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2612P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbYM2612S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbYM2612P_SCCI.SelectedIndex = 0;
                 ucSI.cmbYM2612S_SCCI.SelectedIndex = 0;
@@ -116,14 +115,13 @@ namespace MDPlayer
                 ucSI.cmbYM2612S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstSN76489 = Audio.getChipList(enmScciChipType.SN76489);
+            List<Setting.ChipType> lstSN76489 = Audio.getChipList(enmScciChipType.SN76489);
             if (lstSN76489.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstSN76489)
+                foreach (Setting.ChipType ct in lstSN76489)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbSN76489P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbSN76489S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbSN76489P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbSN76489S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbSN76489P_SCCI.SelectedIndex = 0;
                 ucSI.cmbSN76489S_SCCI.SelectedIndex = 0;
@@ -136,14 +134,13 @@ namespace MDPlayer
                 ucSI.cmbSN76489S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2608 = Audio.getChipList(enmScciChipType.YM2608);
+            List<Setting.ChipType> lstYM2608 = Audio.getChipList(enmScciChipType.YM2608);
             if (lstYM2608.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstYM2608)
+                foreach (Setting.ChipType ct in lstYM2608)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbYM2608P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbYM2608S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2608P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbYM2608S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbYM2608P_SCCI.SelectedIndex = 0;
                 ucSI.rbYM2608P_SCCI.Enabled = true;
@@ -160,14 +157,13 @@ namespace MDPlayer
                 ucSI.cmbYM2608S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2610 = Audio.getChipList(enmScciChipType.YM2610);
+            List<Setting.ChipType> lstYM2610 = Audio.getChipList(enmScciChipType.YM2610);
             if (lstYM2610.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstYM2610)
+                foreach (Setting.ChipType ct in lstYM2610)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbYM2610BP_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbYM2610BS_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2610BP_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbYM2610BS_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbYM2610BP_SCCI.SelectedIndex = 0;
                 ucSI.rbYM2610BP_SCCI.Enabled = true;
@@ -184,14 +180,13 @@ namespace MDPlayer
                 ucSI.cmbYM2610BS_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2151 = Audio.getChipList(enmScciChipType.YM2151);
+            List<Setting.ChipType> lstYM2151 = Audio.getChipList(enmScciChipType.YM2151);
             if (lstYM2151.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstYM2151)
+                foreach (Setting.ChipType ct in lstYM2151)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbYM2151P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbYM2151S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2151P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbYM2151S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbYM2151P_SCCI.SelectedIndex = 0;
                 ucSI.rbYM2151P_SCCI.Enabled = true;
@@ -208,14 +203,13 @@ namespace MDPlayer
                 ucSI.cmbYM2151S_SCCI.Enabled = false;
             }
 
-            List<NScci.NSoundChip> lstYM2203 = Audio.getChipList(enmScciChipType.YM2203);
+            List<Setting.ChipType> lstYM2203 = Audio.getChipList(enmScciChipType.YM2203);
             if (lstYM2203.Count > 0)
             {
-                foreach (NScci.NSoundChip sc in lstYM2203)
+                foreach (Setting.ChipType ct in lstYM2203)
                 {
-                    NScci.NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    ucSI.cmbYM2203P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
-                    ucSI.cmbYM2203S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", info.getdSoundLocation(), info.getdBusID(), info.getiSoundChip(), info.getcSoundChipName()));
+                    ucSI.cmbYM2203P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                    ucSI.cmbYM2203S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
                 ucSI.cmbYM2203P_SCCI.SelectedIndex = 0; 
                 ucSI.rbYM2203P_SCCI.Enabled = true;

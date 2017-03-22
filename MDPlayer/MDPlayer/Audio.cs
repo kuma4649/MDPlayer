@@ -123,7 +123,6 @@ namespace MDPlayer
         private static enmFileFormat PlayingFileFormat;
 
 
-
         public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
         {
             PlayList.music music = new PlayList.music();
@@ -270,7 +269,12 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 05");
 
-            nscci = new NScci.NScci();
+            if (cnscci == null)
+            {
+                nscci = new NScci.NScci();
+                getScciInstances();
+            }
+
             scYM2612[0] = getChip(Audio.setting.YM2612Type);
             if (scYM2612[0] != null) scYM2612[0].init();
             scSN76489[0] = getChip(Audio.setting.SN76489Type);
@@ -344,27 +348,98 @@ namespace MDPlayer
 
         }
 
-        public static List<NScci.NSoundChip> getChipList(enmScciChipType scciChipType)
+        public class cNscci
         {
-            List<NScci.NSoundChip> ret = new List<NSoundChip>();
+            public cSoundInterface[] arySoundInterface;
+        }
 
+        public class cSoundInterface
+        {
+            public NSoundInterface nSoundInterface;
+            public cSoundChip[] arySoundChip;
+        }
+
+        public class cSoundChip
+        {
+            public NSoundChip nSoundChip;
+            public NSCCI_SOUND_CHIP_INFO info;
+        }
+
+        public static cNscci cnscci;
+
+        public static void getScciInstances()
+        {
+            cnscci = new cNscci();
             int ifc = nscci.getInterfaceCount();
+            cnscci.arySoundInterface = new cSoundInterface[ifc];
+
             for (int i = 0; i < ifc; i++)
             {
+                cnscci.arySoundInterface[i] = new cSoundInterface();
                 NSoundInterface sif = nscci.getInterface(i);
+                cnscci.arySoundInterface[i].nSoundInterface = sif;
+
                 int scc = sif.getSoundChipCount();
+                cnscci.arySoundInterface[i].arySoundChip = new cSoundChip[scc];
+
                 for (int j = 0; j < scc; j++)
                 {
                     NSoundChip sc = sif.getSoundChip(j);
+                    cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip(); 
+                    cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip = sc;
+
+                    NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+                    
+                    cnscci.arySoundInterface[i].arySoundChip[j].info = info;
+
+                }
+            }
+
+        }
+
+        public static List<Setting.ChipType> getChipList(enmScciChipType scciChipType)
+        {
+            List<Setting.ChipType> ret = new List<Setting.ChipType>();
+
+            for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
+            {
+                for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
+                {
+                    NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
                     int t = sc.getSoundChipType();
                     if (t == (int)scciChipType)
                     {
-                        ret.Add(sc);
+                        Setting.ChipType ct = new Setting.ChipType();
+                        ct.SoundLocation = 0;
+                        ct.BusID = i;
+                        ct.SoundChip = j;
+                        ct.ChipName = sc.getSoundChipInfo().getcSoundChipName();
+                        ret.Add(ct);
                     }
                 }
             }
 
             return ret;
+        }
+
+        private static NScci.NSoundChip getChip(Setting.ChipType ct)// int SoundLocation, int BusID, int SoundChip)
+        {
+            for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
+            {
+                for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
+                {
+                    NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
+                    NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
+                    if (0 == ct.SoundLocation 
+                        && i == ct.BusID 
+                        && j == ct.SoundChip)
+                    {
+                        return sc;
+                    }
+                }
+            }
+
+            return null;
         }
 
         public static int getLatency()
@@ -1234,8 +1309,8 @@ namespace MDPlayer
             {
                 Stop();
                 naudioWrap.Stop();
-                nscci.Dispose();
-                nscci = null;
+                //nscci.Dispose();
+                //nscci = null;
             }
             catch(Exception ex)
             {
@@ -1723,27 +1798,6 @@ namespace MDPlayer
             return (model == enmModel.VirtualModel) ? ((vgm)vgmVirtual).isPcmRAMWrite : ((vgm)vgmReal).isPcmRAMWrite;
         }
 
-
-        private static NScci.NSoundChip getChip(Setting.ChipType ct)// int SoundLocation, int BusID, int SoundChip)
-        {
-            int ifc = nscci.getInterfaceCount();
-            for (int i = 0; i < ifc; i++)
-            {
-                NSoundInterface sif = nscci.getInterface(i);
-                int scc = sif.getSoundChipCount();
-                for (int j = 0; j < scc; j++)
-                {
-                    NSoundChip sc = sif.getSoundChip(j);
-                    NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    if (info.getdSoundLocation() == ct.SoundLocation && info.getdBusID() == ct.BusID && info.getiSoundChip() == ct.SoundChip)
-                    {
-                        return sc;
-                    }
-                }
-            }
-
-            return null;
-        }
 
         private static void NaudioWrap_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {

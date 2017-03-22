@@ -422,7 +422,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveRf5c164(chipID);
-                            rf5c164Screen = null;
+                            rf5c164Screen[chipID] = null;
                         }
                     }
 
@@ -436,7 +436,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveC140(chipID);
-                            c140Screen = null;
+                            c140Screen[chipID] = null;
                         }
                     }
 
@@ -450,7 +450,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveYM2151(chipID);
-                            ym2151Screen = null;
+                            ym2151Screen[chipID] = null;
                         }
                     }
 
@@ -464,7 +464,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveYM2608(chipID);
-                            ym2608Screen = null;
+                            ym2608Screen[chipID] = null;
                         }
                     }
 
@@ -478,7 +478,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveYM2203(chipID);
-                            ym2203Screen = null;
+                            ym2203Screen[chipID] = null;
                         }
                     }
 
@@ -492,7 +492,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveYM2610(chipID);
-                            ym2610Screen = null;
+                            ym2610Screen[chipID] = null;
                         }
                     }
 
@@ -506,7 +506,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveYM2612(chipID);
-                            ym2612Screen = null;
+                            ym2612Screen[chipID] = null;
                         }
                     }
 
@@ -520,7 +520,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveOKIM6258(chipID);
-                            OKIM6258Screen = null;
+                            OKIM6258Screen[chipID] = null;
                         }
                     }
 
@@ -534,7 +534,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveOKIM6295(chipID);
-                            OKIM6295Screen = null;
+                            OKIM6295Screen[chipID] = null;
                         }
                     }
 
@@ -548,7 +548,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveSN76489(chipID);
-                            SN76489Screen = null;
+                            SN76489Screen[chipID] = null;
                         }
                     }
 
@@ -562,7 +562,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveSegaPCM(chipID);
-                            SegaPCMScreen = null;
+                            SegaPCMScreen[chipID] = null;
                         }
                     }
 
@@ -576,7 +576,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveAY8910(chipID);
-                            AY8910Screen = null;
+                            AY8910Screen[chipID] = null;
                         }
                     }
 
@@ -590,7 +590,7 @@ namespace MDPlayer
                         {
                             log.ForcedWrite(ex);
                             RemoveHuC6280(chipID);
-                            HuC6280Screen = null;
+                            HuC6280Screen[chipID] = null;
                         }
                     }
 
@@ -916,6 +916,8 @@ namespace MDPlayer
 
         public void drawButtonP(int x, int y, int t, int m)
         {
+            if (mainScreen == null) return;
+
             switch (t)
             {
                 case 0:

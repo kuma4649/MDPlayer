@@ -114,6 +114,7 @@ namespace MDPlayer
             vgmFrameCounter = 0;
             vgmSpeed = 1;
 
+
             try
             {
                 ram = new byte[65536];
@@ -199,6 +200,43 @@ namespace MDPlayer
             }
         }
 
+        public bool IsPlaying()
+        {
+            int loop = int.MaxValue;
+            bool flg = false;
+
+            foreach (Ch c in work.OPM1Chs)
+            {
+                if (c.TrackStopFlg == 255)
+                {
+                    continue;
+                }
+                loop = Math.Min(c.loopCounter, loop);
+                flg = true;
+            }
+            foreach (Ch c in work.OPM2Chs)
+            {
+                if (c.TrackStopFlg == 255)
+                {
+                    continue;
+                }
+                loop = Math.Min(c.loopCounter, loop);
+                flg = true;
+            }
+            foreach (Ch c in work.PSGChs)
+            {
+                if (c.TrackStopFlg == 255)
+                {
+                    continue;
+                }
+                loop = Math.Min(c.loopCounter, loop);
+                flg = true;
+            }
+
+            vgmCurLoop = (uint)loop;
+            return flg;
+        }
+
         private float CTC0DownCounter = 0.0f;
         private float CTC0DownCounterMAX = 0.0f;
         private bool CTC0Paluse = false;
@@ -228,6 +266,7 @@ namespace MDPlayer
                         vgmFrameCounter++;
                     }
                 }
+                Stopped = !IsPlaying();
             }
             catch (Exception ex)
             {

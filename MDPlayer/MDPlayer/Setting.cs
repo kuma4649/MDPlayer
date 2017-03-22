@@ -582,6 +582,20 @@ namespace MDPlayer
                 }
             }
 
+            private string _ChipName = "";
+            public string ChipName
+            {
+                get
+                {
+                    return _ChipName;
+                }
+
+                set
+                {
+                    _ChipName = value;
+                }
+            }
+
             private bool _UseWait = true;
             public bool UseWait
             {
