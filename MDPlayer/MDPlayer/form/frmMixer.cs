@@ -48,6 +48,9 @@ namespace MDPlayer
             bsOKIM6295.DataSource = new BindData();
             bsC140.DataSource = new BindData();
             bsSegaPCM.DataSource = new BindData();
+            bsYM2413.DataSource = new BindData();
+            bsAY8910.DataSource = new BindData();
+            bsHuC6280.DataSource = new BindData();
 
             this.balance = setting.balance;
             this.setting = setting;
@@ -75,6 +78,9 @@ namespace MDPlayer
             ((BindData)(bsOKIM6295.DataSource)).Value = balance.OKIM6295Volume;
             ((BindData)(bsC140.DataSource)).Value = balance.C140Volume;
             ((BindData)(bsSegaPCM.DataSource)).Value = balance.SEGAPCMVolume;
+            ((BindData)(bsYM2413.DataSource)).Value = balance.YM2413Volume;
+            ((BindData)(bsAY8910.DataSource)).Value = balance.AY8910Volume;
+            ((BindData)(bsHuC6280.DataSource)).Value = balance.HuC6280Volume;
 
         }
 
@@ -136,12 +142,16 @@ namespace MDPlayer
             balance.OKIM6295Volume = trkOKIM6295.Value;
             balance.C140Volume = trkC140.Value;
             balance.SEGAPCMVolume = trkSegaPCM.Value;
+            balance.YM2413Volume = trkYM2413.Value;
+            balance.AY8910Volume = trkAY8910.Value;
+            balance.HuC6280Volume = trkHuC6280.Value;
         }
 
         private void splitContainer1_Panel2_Layout(object sender, LayoutEventArgs e)
         {
             ((SplitterPanel)sender).VerticalScroll.Enabled=false;
         }
+
 
         private void bsMaster_CurrentItemChanged(object sender, EventArgs e)
         {
@@ -319,6 +329,27 @@ namespace MDPlayer
             Audio.SetSegaPCMVolume(trkSegaPCM.Value);
         }
 
+        private void bsAY8910_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.AY8910Volume = trkAY8910.Value;
+            Audio.SetAY8910Volume(trkAY8910.Value);
+        }
+
+        private void bsYM2413_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.YM2413Volume = trkYM2413.Value;
+            Audio.SetYM2413Volume(trkYM2413.Value);
+        }
+
+        private void bsHuC6280_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (balance == null) return;
+            balance.HuC6280Volume = trkHuC6280.Value;
+            Audio.SetHuC6280Volume(trkHuC6280.Value);
+        }
+
         private void tbMaster_TextChanged(object sender, EventArgs e)
         {
             int n;
@@ -457,6 +488,25 @@ namespace MDPlayer
             if (int.TryParse(tbSegaPCM.Text, out n)) trkSegaPCM.Value = Math.Max(Math.Min(n, 20), -192);
         }
 
+        private void tbYM2413_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbYM2413.Text, out n)) trkYM2413.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+        private void tbAY8910_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbAY8910.Text, out n)) trkAY8910.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+        private void tbHuC6280_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+            if (int.TryParse(tbHuC6280.Text, out n)) trkHuC6280.Value = Math.Max(Math.Min(n, 20), -192);
+        }
+
+
         private void btnMaster_Click(object sender, EventArgs e)
         {
             trkMaster.Value = 0;
@@ -570,6 +620,21 @@ namespace MDPlayer
         private void btnSegaPCM_Click(object sender, EventArgs e)
         {
             trkSegaPCM.Value = 0;
+        }
+
+        private void btnYM2413_Click(object sender, EventArgs e)
+        {
+            trkYM2413.Value = 0;
+        }
+
+        private void btnAY8910_Click(object sender, EventArgs e)
+        {
+            trkAY8910.Value = 0;
+        }
+
+        private void btnHuC6280_Click(object sender, EventArgs e)
+        {
+            trkHuC6280.Value = 0;
         }
 
     }

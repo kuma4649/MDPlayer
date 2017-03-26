@@ -2218,7 +2218,7 @@ namespace MDPlayer
 
         public static void SetAY8910Volume(int volume)
         {
-            //mds.setVolumeAY8910(volume);
+            mds.setVolumeAY8910(volume);
         }
 
         public static void SetYM2151Volume(int volume)
@@ -2239,6 +2239,11 @@ namespace MDPlayer
         public static void SetYM2203PSGVolume(int volume)
         {
             mds.SetVolumeYM2203PSG(volume);
+        }
+
+        public static void SetYM2413Volume(int volume)
+        {
+            mds.SetVolumeYM2413(volume);
         }
 
         public static void SetYM2608Volume(int volume)
@@ -2299,6 +2304,11 @@ namespace MDPlayer
         public static void SetSN76489Volume(int volume)
         {
             mds.SetVolumeSN76489(volume);
+        }
+
+        public static void SetHuC6280Volume(int volume)
+        {
+            mds.setVolumeHuC6280(volume);
         }
 
         public static void SetRF5C164Volume(int volume)
