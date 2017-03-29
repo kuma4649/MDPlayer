@@ -3394,6 +3394,17 @@ namespace MDPlayer
                 frmInfo.x = setting.location.PInfo.X;
                 frmInfo.y = setting.location.PInfo.Y;
             }
+
+            Screen s = Screen.FromControl(frmInfo);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmInfo.x > w - 100 || frmInfo.y > h - 100)
+            {
+                frmInfo.x = 0;
+                frmInfo.y = 0;
+            }
+
             frmInfo.setting = setting;
             frmInfo.Show();
             frmInfo.update();

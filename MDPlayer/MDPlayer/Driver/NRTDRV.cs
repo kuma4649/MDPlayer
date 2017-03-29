@@ -1928,7 +1928,8 @@ namespace MDPlayer
                 }
                 else
                 {
-                    a &= 0x78;
+                    //a &= 0x78;
+                    a &= work.KEYONF_OPMMASK;
                 }
                 a |= e;
                 wopm(d, a);
@@ -2327,7 +2328,9 @@ namespace MDPlayer
             //PENVF2:
             if ((wch.LFOFlags & 0x80) == 0)
             {
-                a = wch.Volume;
+                if (work.PENVF_VOL0) a = 0;
+                else a = wch.Volume;
+
                 if (a - b < 0)
                 {
                     a = 0;
