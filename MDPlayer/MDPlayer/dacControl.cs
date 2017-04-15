@@ -438,6 +438,9 @@ namespace MDPlayer
                     if(model== enmModel.VirtualModel) //System.Console.Write("[DAC]");
                     chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
                     break;
+                case 0x1b:  // HuC6280
+                    chipRegister.setHuC6280Register(ChipID, Offset, Data, model);
+                    break;
             }
         }
 

@@ -504,6 +504,7 @@ namespace MDPlayer
             {
                 if (!ctHuC6280[chipID].UseScci)
                 {
+                    //System.Console.WriteLine("chipID:{0} Adr:{1} Dat:{2}", chipID, dAddr, dData);
                     mds.WriteHuC6280((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }

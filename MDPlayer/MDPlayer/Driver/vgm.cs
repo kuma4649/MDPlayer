@@ -1619,7 +1619,7 @@ namespace MDPlayer
             }
 
             TotalCounter = getLE32(0x18);
-            if (TotalCounter <= 0) return false;
+            if (TotalCounter < 0) return false;
 
             vgmLoopOffset = getLE32(0x1c);
 
@@ -1806,6 +1806,11 @@ namespace MDPlayer
                     }
                 }
             }
+
+            OKIM6258ClockValue = 0;
+            HuC6280ClockValue = 0;
+            OKIM6295ClockValue = 0;
+
             if (version >= 0x0161)
             {
                 if (vgmDataOffset > 0x90)
