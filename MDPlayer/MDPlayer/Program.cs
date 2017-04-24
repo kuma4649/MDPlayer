@@ -27,7 +27,7 @@ namespace MDPlayer
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmMain());
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException )
             {
                 ;//無視する
             }

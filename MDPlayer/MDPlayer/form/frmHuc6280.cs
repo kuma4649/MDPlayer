@@ -103,7 +103,7 @@ namespace MDPlayer
             if (py < 1 * 8) return;
 
             //鍵盤
-            if (py < 5 * 8)
+            if (py < 7 * 8)
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
@@ -116,11 +116,10 @@ namespace MDPlayer
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 4; ch++) parent.ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
+                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
                 return;
             }
 
         }
-
     }
 }

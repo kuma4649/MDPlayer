@@ -1185,6 +1185,14 @@ namespace MDPlayer
             drawFont8(AY8910Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
+        public void drawChPHuC6280(int chipID, int x, int y, int ch, bool mask, int tp)
+        {
+            if (HuC6280Screen[chipID] == null) return;
+
+            HuC6280Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 136 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+            drawFont8(HuC6280Screen[chipID], x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
 
         public void drawVolume(FrameBuffer screen,int y, int c, ref int ov, int nv, int tp)
         {
@@ -1461,6 +1469,18 @@ namespace MDPlayer
             }
 
             drawChPAY8910(chipID, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public void drawChHuC6280(int chipID, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPHuC6280(chipID, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
@@ -2385,9 +2405,12 @@ namespace MDPlayer
                 drawWaveFormToHuC6280(chipID, c, ref oyc.inst, nyc.inst);
                 drawDDAToHuC6280(chipID, c, ref oyc.dda, nyc.dda);
 
+                drawChHuC6280(chipID, c, ref oyc.mask, nyc.mask, tp);
+
                 if (c < 4) continue;
                 drawNoiseToHuC6280(chipID, c, ref oyc.noise, nyc.noise);
                 drawNoiseFrqToHuC6280(chipID, c, ref oyc.nfrq, nyc.nfrq);
+
 
             }
 

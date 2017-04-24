@@ -41,8 +41,9 @@
             this.pbScreen.Size = new System.Drawing.Size(320, 151);
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
+            this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             // 
-            // frmHuc6280
+            // frmHuC6280
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -51,7 +52,7 @@
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmHuc6280";
+            this.Name = "frmHuC6280";
             this.Text = "Huc6280";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmHuc6280_FormClosed);
             this.Load += new System.EventHandler(this.frmHuc6280_Load);
