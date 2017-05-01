@@ -130,7 +130,7 @@ namespace MDPlayer
             int w = Math.Min(px / (13 * 8), 2);
             int instCh = h * 3 + w;
 
-            if (instCh < 3)
+            if (instCh < 6)
             {
                 //クリップボードに音色をコピーする
                 parent.getInstCh(enmUseChip.YM2612, instCh, chipID);

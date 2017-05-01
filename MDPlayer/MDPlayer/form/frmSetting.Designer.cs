@@ -888,7 +888,8 @@
             "MUSIC LALF #1",
             "MUSIC LALF #2",
             "MML2VGM",
-            "NRTDRV"});
+            "NRTDRV",
+            "HuSIC"});
             this.cmbInstFormat.Location = new System.Drawing.Point(223, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);

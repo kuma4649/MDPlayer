@@ -177,6 +177,11 @@ namespace MDPlayer
 
         public class HuC6280
         {
+            public int mvolL = -1;
+            public int mvolR = -1;
+            public int LfoCtrl = -1;
+            public int LfoFrq = -1;
+
             public Channel[] channels = new Channel[6] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
         public HuC6280[] huc6280 = new HuC6280[] { new HuC6280(), new HuC6280() };

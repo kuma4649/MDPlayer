@@ -268,6 +268,13 @@ namespace MDPlayer
                 tsmiPAY8910_Click(null, null);
             }
 
+            if (frmHuC6280[0] != null && !frmHuC6280[0].isClosed)
+            {
+                tsmiPHuC6280_Click(null, null);
+                tsmiPHuC6280_Click(null, null);
+            }
+
+
 
             if (frmMCD[1] != null && !frmMCD[1].isClosed)
             {
@@ -339,6 +346,12 @@ namespace MDPlayer
             {
                 tsmiSAY8910_Click(null, null);
                 tsmiSAY8910_Click(null, null);
+            }
+
+            if (frmHuC6280[1] != null && !frmHuC6280[1].isClosed)
+            {
+                tsmiSHuC6280_Click(null, null);
+                tsmiSHuC6280_Click(null, null);
             }
 
 
@@ -2845,6 +2858,11 @@ namespace MDPlayer
                 channel.nfrq = (int)psg.noiseFrq;
             }
 
+            newParam.huc6280[chipID].mvolL = (int)chip.MainVolumeL;
+            newParam.huc6280[chipID].mvolR = (int)chip.MainVolumeR;
+            newParam.huc6280[chipID].LfoCtrl = (int)chip.LfoCtrl;
+            newParam.huc6280[chipID].LfoFrq = (int)chip.LfoFrq;
+
         }
 
         private void screenDrawParams()
@@ -3512,6 +3530,9 @@ namespace MDPlayer
                 case enmInstFormat.NRTDRV:
                     getInstChForNRTDRV(chip, ch, chipID);
                     break;
+                case enmInstFormat.HUSIC:
+                    getInstChForHuSIC(chip, ch, chipID);
+                    break;
             }
         }
 
@@ -3716,8 +3737,33 @@ namespace MDPlayer
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
                 );
             }
+            else if (chip == enmUseChip.HuC6280)
+            {
+                MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
+                if (huc6280Register == null) return;
+                MDSound.Ootake_PSG.PSG psg= huc6280Register.Psg[ch];
+                if (psg == null) return;
+                if (psg.wave == null) return;
+                if (psg.wave.Length != 32) return;
 
-            Clipboard.SetText(n);
+                n = "'@ H xx,\r\n   +0 +1 +2 +3 +4 +5 +6 +7\r\n";
+
+                for (int i = 0; i < 32; i+=8)
+                {
+                    n += string.Format("'@ {0:D2},{1:D2},{2:D2},{3:D2},{4:D2},{5:D2},{6:D2},{7:D2}\r\n"
+                        , (17-psg.wave[i + 0])
+                        , (17 - psg.wave[i + 1])
+                        , (17 - psg.wave[i + 2])
+                        , (17 - psg.wave[i + 3])
+                        , (17 - psg.wave[i + 4])
+                        , (17 - psg.wave[i + 5])
+                        , (17 - psg.wave[i + 6])
+                        , (17 - psg.wave[i + 7])
+                        );
+                }
+            }
+
+            if (n != null) Clipboard.SetText(n);
         }
 
         private void getInstChForMUSICLALF(enmUseChip chip, int ch, int chipID)
@@ -3924,6 +3970,42 @@ namespace MDPlayer
                     );
                 }
                 n += "}\r\n";
+            }
+
+            Clipboard.SetText(n);
+        }
+
+        private void getInstChForHuSIC(enmUseChip chip, int ch, int chipID)
+        {
+
+            string n = "";
+
+            if (chip == enmUseChip.HuC6280)
+            {
+                MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
+                if (huc6280Register == null) return;
+                MDSound.Ootake_PSG.PSG psg = huc6280Register.Psg[ch];
+                if (psg == null) return;
+                if (psg.wave == null) return;
+                if (psg.wave.Length != 32) return;
+
+                n = "@WTx={\r\n";
+
+                for (int i = 0; i < 32; i += 8)
+                {
+                    n += string.Format("${0:x2},${1:x2},${2:x2},${3:x2},${4:x2},${5:x2},${6:x2},${7:x2},\r\n"
+                        , (17 - psg.wave[i + 0])
+                        , (17 - psg.wave[i + 1])
+                        , (17 - psg.wave[i + 2])
+                        , (17 - psg.wave[i + 3])
+                        , (17 - psg.wave[i + 4])
+                        , (17 - psg.wave[i + 5])
+                        , (17 - psg.wave[i + 6])
+                        , (17 - psg.wave[i + 7])
+                        );
+                }
+
+                n = n.Substring(0, n.Length - 3) + "\r\n}\r\n";
             }
 
             Clipboard.SetText(n);

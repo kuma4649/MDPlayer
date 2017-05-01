@@ -1618,9 +1618,9 @@ namespace MDPlayer
             {
                 if (oi[i] == ni[i]) continue;
 
-                int n = (17 - ni[i]) ;
+                int n = (17 - ni[i]);
                 int x = i + (((c > 2) ? c - 3 : c) * 8 * 13) + 4 * 7;
-                int y = (((c > 2) ? 1 : 0) * 8 * 6) + 4 * 22;
+                int y = (((c > 2) ? 1 : 0) * 8 * 5) + 4 * 22;
 
                 int m = 0;
                 m = (n > 7) ? 8 : n;
@@ -1630,7 +1630,7 @@ namespace MDPlayer
                 m = (n > 23) ? 8 : ((n - 16) < 0 ? 0 : (n - 16));
                 HuC6280Screen[chipID].drawByteArray(x, y - 16, fontBuf, 128, m + 8 * 8, 8 * 37, 1, 8);
                 m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
-                HuC6280Screen[chipID].drawByteArray(x, y - 24, fontBuf, 128, m + 8 * 8, 8 * 37, 1, 8);
+                HuC6280Screen[chipID].drawByteArray(x, y - 23, fontBuf, 128, m + 8 * 8 + 1, 8 * 37, 1, 7);
 
                 oi[i] = ni[i];
             }
@@ -1641,7 +1641,7 @@ namespace MDPlayer
             if (od == nd) return;
 
             int x = (((c > 2) ? c - 3 : c) * 8 * 13) + 4 * 22;
-            int y = (((c > 2) ? 1 : 0) * 8 * 6) + 4 * 18;
+            int y = (((c > 2) ? 1 : 0) * 8 * 5) + 4 * 18;
 
             drawFont4(HuC6280Screen[chipID], x, y, 0, nd ? "ON " : "OFF");
             od = nd;
@@ -1652,7 +1652,7 @@ namespace MDPlayer
             if (od == nd) return;
 
             int x = (((c > 2) ? c - 3 : c) * 8 * 13) + 4 * 22;
-            int y = (((c > 2) ? 1 : 0) * 8 * 6) + 4 * 20;
+            int y = (((c > 2) ? 1 : 0) * 8 * 5) + 4 * 20;
 
             drawFont4(HuC6280Screen[chipID], x, y, 0, nd ? "ON " : "OFF");
             od = nd;
@@ -1663,11 +1663,45 @@ namespace MDPlayer
             if (od == nd) return;
 
             int x = (((c > 2) ? c - 3 : c) * 8 * 13) + 4 * 22;
-            int y = (((c > 2) ? 1 : 0) * 8 * 6) + 4 * 22;
+            int y = (((c > 2) ? 1 : 0) * 8 * 5) + 4 * 22;
 
             drawFont4(HuC6280Screen[chipID], x, y, 0, string.Format("{0:d2}", nd));
             od = nd;
         }
+
+        public void drawMainVolumeToHuC6280(int chipID, int c, ref int od, int nd)
+        {
+            if (od == nd) return;
+
+            int x = 8 * 9;
+            int y = c * 8 + 8 * 17;
+
+            drawFont4(HuC6280Screen[chipID], x, y, 0, string.Format("{0:d2}", nd));
+            od = nd;
+        }
+
+        public void drawLfoCtrlToHuC6280(int chipID, ref int od, int nd)
+        {
+            if (od == nd) return;
+
+            int x = 8 * 17;
+            int y = 8 * 17;
+
+            drawFont4(HuC6280Screen[chipID], x, y, 0, string.Format("{0:d1}", nd));
+            od = nd;
+        }
+
+        public void drawLfoFrqToHuC6280(int chipID, ref int od, int nd)
+        {
+            if (od == nd) return;
+
+            int x = 8 * 16;
+            int y = 8 * 18;
+
+            drawFont4(HuC6280Screen[chipID], x, y, 0, string.Format("{0:d3}", nd));
+            od = nd;
+        }
+
 
 
         public void drawPanYM2151(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
@@ -2411,9 +2445,13 @@ namespace MDPlayer
                 drawNoiseToHuC6280(chipID, c, ref oyc.noise, nyc.noise);
                 drawNoiseFrqToHuC6280(chipID, c, ref oyc.nfrq, nyc.nfrq);
 
-
             }
 
+            drawMainVolumeToHuC6280(chipID, 0, ref oldParam.huc6280[chipID].mvolL, newParam.huc6280[chipID].mvolL);
+            drawMainVolumeToHuC6280(chipID, 1, ref oldParam.huc6280[chipID].mvolR, newParam.huc6280[chipID].mvolR);
+
+            drawLfoCtrlToHuC6280(chipID, ref oldParam.huc6280[chipID].LfoCtrl, newParam.huc6280[chipID].LfoCtrl);
+            drawLfoFrqToHuC6280(chipID, ref oldParam.huc6280[chipID].LfoFrq, newParam.huc6280[chipID].LfoFrq);
         }
 
 
