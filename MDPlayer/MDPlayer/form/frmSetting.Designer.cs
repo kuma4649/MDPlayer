@@ -92,7 +92,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
             this.lblInstFormat = new System.Windows.Forms.Label();
+            this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.cbDumpSwitch = new System.Windows.Forms.CheckBox();
+            this.gbWav = new System.Windows.Forms.GroupBox();
+            this.btnWavPath = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbWavPath = new System.Windows.Forms.TextBox();
             this.gbDump = new System.Windows.Forms.GroupBox();
             this.btnDumpPath = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -160,6 +165,7 @@
             this.groupBox6.SuspendLayout();
             this.tpOther.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.gbWav.SuspendLayout();
             this.gbDump.SuspendLayout();
             this.tpOmake.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -835,7 +841,9 @@
             // 
             this.tpOther.Controls.Add(this.cbUseGetInst);
             this.tpOther.Controls.Add(this.groupBox4);
+            this.tpOther.Controls.Add(this.cbWavSwitch);
             this.tpOther.Controls.Add(this.cbDumpSwitch);
+            this.tpOther.Controls.Add(this.gbWav);
             this.tpOther.Controls.Add(this.gbDump);
             this.tpOther.Controls.Add(this.label30);
             this.tpOther.Controls.Add(this.tbScreenFrameRate);
@@ -904,10 +912,21 @@
             this.lblInstFormat.TabIndex = 17;
             this.lblInstFormat.Text = "フォーマット";
             // 
+            // cbWavSwitch
+            // 
+            this.cbWavSwitch.AutoSize = true;
+            this.cbWavSwitch.Location = new System.Drawing.Point(14, 203);
+            this.cbWavSwitch.Name = "cbWavSwitch";
+            this.cbWavSwitch.Size = new System.Drawing.Size(177, 16);
+            this.cbWavSwitch.TabIndex = 0;
+            this.cbWavSwitch.Text = "演奏時に.wavファイルを出力する";
+            this.cbWavSwitch.UseVisualStyleBackColor = true;
+            this.cbWavSwitch.CheckedChanged += new System.EventHandler(this.cbWavSwitch_CheckedChanged);
+            // 
             // cbDumpSwitch
             // 
             this.cbDumpSwitch.AutoSize = true;
-            this.cbDumpSwitch.Location = new System.Drawing.Point(14, 104);
+            this.cbDumpSwitch.Location = new System.Drawing.Point(14, 152);
             this.cbDumpSwitch.Name = "cbDumpSwitch";
             this.cbDumpSwitch.Size = new System.Drawing.Size(220, 16);
             this.cbDumpSwitch.TabIndex = 0;
@@ -915,12 +934,49 @@
             this.cbDumpSwitch.UseVisualStyleBackColor = true;
             this.cbDumpSwitch.CheckedChanged += new System.EventHandler(this.cbDumpSwitch_CheckedChanged);
             // 
+            // gbWav
+            // 
+            this.gbWav.Controls.Add(this.btnWavPath);
+            this.gbWav.Controls.Add(this.label7);
+            this.gbWav.Controls.Add(this.tbWavPath);
+            this.gbWav.Location = new System.Drawing.Point(7, 205);
+            this.gbWav.Name = "gbWav";
+            this.gbWav.Size = new System.Drawing.Size(358, 45);
+            this.gbWav.TabIndex = 22;
+            this.gbWav.TabStop = false;
+            // 
+            // btnWavPath
+            // 
+            this.btnWavPath.Location = new System.Drawing.Point(329, 16);
+            this.btnWavPath.Name = "btnWavPath";
+            this.btnWavPath.Size = new System.Drawing.Size(23, 23);
+            this.btnWavPath.TabIndex = 16;
+            this.btnWavPath.Text = "...";
+            this.btnWavPath.UseVisualStyleBackColor = true;
+            this.btnWavPath.Click += new System.EventHandler(this.btnWavPath_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 12);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "出力Path";
+            // 
+            // tbWavPath
+            // 
+            this.tbWavPath.Location = new System.Drawing.Point(73, 18);
+            this.tbWavPath.Name = "tbWavPath";
+            this.tbWavPath.Size = new System.Drawing.Size(250, 19);
+            this.tbWavPath.TabIndex = 15;
+            // 
             // gbDump
             // 
             this.gbDump.Controls.Add(this.btnDumpPath);
             this.gbDump.Controls.Add(this.label6);
             this.gbDump.Controls.Add(this.tbDumpPath);
-            this.gbDump.Location = new System.Drawing.Point(7, 106);
+            this.gbDump.Location = new System.Drawing.Point(7, 154);
             this.gbDump.Name = "gbDump";
             this.gbDump.Size = new System.Drawing.Size(358, 45);
             this.gbDump.TabIndex = 22;
@@ -955,7 +1011,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(136, 187);
+            this.label30.Location = new System.Drawing.Point(136, 132);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(30, 12);
             this.label30.TabIndex = 21;
@@ -963,7 +1019,7 @@
             // 
             // tbScreenFrameRate
             // 
-            this.tbScreenFrameRate.Location = new System.Drawing.Point(80, 184);
+            this.tbScreenFrameRate.Location = new System.Drawing.Point(80, 129);
             this.tbScreenFrameRate.Name = "tbScreenFrameRate";
             this.tbScreenFrameRate.Size = new System.Drawing.Size(50, 19);
             this.tbScreenFrameRate.TabIndex = 20;
@@ -971,7 +1027,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(5, 187);
+            this.label29.Location = new System.Drawing.Point(5, 132);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(69, 12);
             this.label29.TabIndex = 19;
@@ -988,7 +1044,7 @@
             // 
             // btnDataPath
             // 
-            this.btnDataPath.Location = new System.Drawing.Point(336, 157);
+            this.btnDataPath.Location = new System.Drawing.Point(336, 102);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
             this.btnDataPath.TabIndex = 16;
@@ -1005,7 +1061,7 @@
             // 
             // tbDataPath
             // 
-            this.tbDataPath.Location = new System.Drawing.Point(80, 159);
+            this.tbDataPath.Location = new System.Drawing.Point(80, 104);
             this.tbDataPath.Name = "tbDataPath";
             this.tbDataPath.Size = new System.Drawing.Size(250, 19);
             this.tbDataPath.TabIndex = 15;
@@ -1013,7 +1069,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(5, 162);
+            this.label19.Location = new System.Drawing.Point(5, 107);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 12);
             this.label19.TabIndex = 14;
@@ -1394,6 +1450,8 @@
             this.tpOther.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.gbWav.ResumeLayout(false);
+            this.gbWav.PerformLayout();
             this.gbDump.ResumeLayout(false);
             this.gbDump.PerformLayout();
             this.tpOmake.ResumeLayout(false);
@@ -1543,5 +1601,10 @@
         private System.Windows.Forms.Button btnMIDIOutputPath;
         private System.Windows.Forms.Label lblOutputPath;
         private System.Windows.Forms.TextBox tbMIDIOutputPath;
+        private System.Windows.Forms.CheckBox cbWavSwitch;
+        private System.Windows.Forms.GroupBox gbWav;
+        private System.Windows.Forms.Button btnWavPath;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbWavPath;
     }
 }

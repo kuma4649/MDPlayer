@@ -37,6 +37,7 @@ namespace MDPlayer
         private static uint samplingBuffer = 1024;
         private static MDSound.MDSound mds = null;
         private static NAudioWrap naudioWrap;
+        private static WaveWriter waveWriter = null;
 
         private static NScci.NScci nscci;
         private static NSoundChip[] scYM2612 = new NSoundChip[2] { null, null };
@@ -241,6 +242,8 @@ namespace MDPlayer
             vgmReal.setting = setting;
             nrtVirtual.setting = setting;
             nrtReal.setting = setting;
+
+            waveWriter = new WaveWriter(setting);
 
             log.ForcedWrite("Audio:Init:STEP 03");
 
@@ -621,6 +624,8 @@ namespace MDPlayer
 
         public static bool Play(Setting setting)
         {
+
+            waveWriter.Open(PlayingFileName);
 
             if (PlayingFileFormat == enmFileFormat.NRTDRV)
             {
@@ -1295,6 +1300,7 @@ namespace MDPlayer
                 if (nscci != null) nscci.reset();
                 //chipRegister.outMIDIData_Close();
 
+                waveWriter.Close();
             }
             catch (Exception ex)
             {
@@ -2048,8 +2054,12 @@ namespace MDPlayer
                     }
                 }
 
+                waveWriter.Write(buffer, offset, sampleCount);
+
                 if (vgmFadeoutCounter == 0.0)
                 {
+                    waveWriter.Close();
+
                     MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[8];
 
                     chips[0] = new MDSound.MDSound.Chip();

@@ -870,6 +870,34 @@ namespace MDPlayer
                 }
             }
 
+            private bool _WavSwitch = false;
+            public bool WavSwitch
+            {
+                get
+                {
+                    return _WavSwitch;
+                }
+
+                set
+                {
+                    _WavSwitch = value;
+                }
+            }
+
+            private string _WavPath = "";
+            public string WavPath
+            {
+                get
+                {
+                    return _WavPath;
+                }
+
+                set
+                {
+                    _WavPath = value;
+                }
+            }
+
             private int _FilterIndex = 0;
             public int FilterIndex
             {
@@ -904,6 +932,8 @@ namespace MDPlayer
                 other.AutoOpen = this.AutoOpen;
                 other.DumpSwitch = this.DumpSwitch;
                 other.DumpPath = this.DumpPath;
+                other.WavSwitch = this.WavSwitch;
+                other.WavPath = this.WavPath;
                 other.FilterIndex = this.FilterIndex;
 
                 return other;

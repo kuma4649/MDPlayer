@@ -708,6 +708,9 @@ namespace MDPlayer
             cbDumpSwitch.Checked = setting.other.DumpSwitch;
             gbDump.Enabled = cbDumpSwitch.Checked;
             tbDumpPath.Text = setting.other.DumpPath;
+            cbWavSwitch.Checked = setting.other.WavSwitch;
+            gbWav.Enabled = cbWavSwitch.Checked;
+            tbWavPath.Text = setting.other.WavPath;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1018,6 +1021,8 @@ namespace MDPlayer
             setting.other.AutoOpen = cbAutoOpen.Checked;
             setting.other.DumpSwitch = cbDumpSwitch.Checked;
             setting.other.DumpPath = tbDumpPath.Text;
+            setting.other.WavSwitch = cbWavSwitch.Checked;
+            setting.other.WavPath = tbWavPath.Text;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -1225,6 +1230,25 @@ namespace MDPlayer
             }
 
             tbMIDIOutputPath.Text = fbd.SelectedPath;
+        }
+
+        private void btnWavPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "フォルダーを指定してください。";
+
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbWavPath.Text = fbd.SelectedPath;
+        }
+
+        private void cbWavSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            gbWav.Enabled = cbWavSwitch.Checked;
         }
     }
 

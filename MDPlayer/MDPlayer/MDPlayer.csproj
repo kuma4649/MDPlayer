@@ -242,6 +242,7 @@
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </Compile>
     <Compile Include="Driver\vgm.cs" />
+    <Compile Include="WaveWriter.cs" />
     <EmbeddedResource Include="form\frmAY8910.resx">
       <DependentUpon>frmAY8910.cs</DependentUpon>
     </EmbeddedResource>
