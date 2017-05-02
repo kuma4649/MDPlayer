@@ -86,7 +86,9 @@ namespace MDPlayer
 
         public class YM2203
         {
-
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
         }
@@ -94,6 +96,8 @@ namespace MDPlayer
 
         public class YM2612
         {
+            public bool lfoSw = false;
+            public int lfoFrq = -1;
 
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
@@ -151,6 +155,11 @@ namespace MDPlayer
 
         public class YM2608
         {
+            public bool lfoSw = false;
+            public int lfoFrq = -1;
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
 
             public Channel[] channels = new Channel[19] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 0
@@ -164,6 +173,11 @@ namespace MDPlayer
 
         public class YM2610
         {
+            public bool lfoSw = false;
+            public int lfoFrq = -1;
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
 
             public Channel[] channels = new Channel[19] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 0

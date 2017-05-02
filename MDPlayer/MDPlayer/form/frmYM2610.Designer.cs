@@ -38,7 +38,7 @@
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeYM2610;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
-            this.pbScreen.Size = new System.Drawing.Size(320, 216);
+            this.pbScreen.Size = new System.Drawing.Size(320, 224);
             this.pbScreen.TabIndex = 1;
             this.pbScreen.TabStop = false;
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
@@ -48,7 +48,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(320, 216);
+            this.ClientSize = new System.Drawing.Size(320, 224);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

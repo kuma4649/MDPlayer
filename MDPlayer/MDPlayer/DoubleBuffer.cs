@@ -1533,7 +1533,8 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public void drawTnAY8910(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
+
+        public void drawTn(FrameBuffer screen, int x, int y, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1541,51 +1542,79 @@ namespace MDPlayer
                 return;
             }
 
-            drawTnP(AY8910Screen[chipID], 24, 8 + c * 8, nt, ntp);
+            drawTnP(screen, x * 4, y * 4 + c * 8, nt, ntp);
             ot = nt;
             otp = ntp;
         }
 
-        public void drawNfrqAY8910(int chipID, ref int onfrq, int nnfrq)
+        public void drawNfrq(FrameBuffer screen, int x, int y, ref int onfrq, int nnfrq)
         {
             if (onfrq == nnfrq)
             {
                 return;
             }
 
-            int x = 4 * 5;
-            int y = 8 * 4-1;
-            drawFont4Int(AY8910Screen[chipID], x, y, 0, 2, nnfrq);
+            x *= 4;
+            y *= 4;
+            drawFont4Int(screen, x, y, 0, 2, nnfrq);
 
             onfrq = nnfrq;
         }
 
-        public void drawEfrqAY8910(int chipID, ref int oefrq, int nefrq)
+        public void drawEfrq(FrameBuffer screen, int x, int y, ref int oefrq, int nefrq)
         {
             if (oefrq == nefrq)
             {
                 return;
             }
 
-            int x = 4 * 18;
-            int y = 8 * 4 - 1;
-            drawFont4(AY8910Screen[chipID], x, y, 0, string.Format("{0:D5}", nefrq));
+            x *= 4;
+            y *= 4;
+            drawFont4(screen, x, y, 0, string.Format("{0:D5}", nefrq));
 
             oefrq = nefrq;
         }
 
-        public void drawEtypeAY8910(int chipID, ref int oetype, int netype)
+        public void drawEtype(FrameBuffer screen, int x, int y, ref int oetype, int netype)
         {
             if (oetype == netype)
             {
                 return;
             }
 
-            int x = 4 * 33;
-            int y = 8 * 4;
+            x *= 4;
+            y *= 4;
 
-            drawEtypeP(AY8910Screen[chipID], x, y, netype);
+            drawEtypeP(screen, x, y, netype);
             oetype = netype;
+        }
+
+        public void drawLfoSw(FrameBuffer screen, int x, int y, ref bool olfosw, bool nlfosw)
+        {
+            if (olfosw == nlfosw)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+            drawFont4(screen, x, y, 0, nlfosw ? "ON " : "OFF");
+
+            olfosw = nlfosw;
+        }
+
+        public void drawLfoFrq(FrameBuffer screen, int x, int y, ref int olfofrq, int nlfofrq)
+        {
+            if (olfofrq == nlfofrq)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+            drawFont4Int(screen, x, y, 0, 1, nlfofrq);
+
+            olfofrq = nlfofrq;
         }
 
         public void drawPanToC140(int chipID, int c, ref int ot, int nt)
@@ -2126,9 +2155,15 @@ namespace MDPlayer
 
                 drawVolume(ym2203Screen[chipID], c + 3, 0, ref oyc.volume, nyc.volume, tp);
                 drawKb(ym2203Screen[chipID], c + 3, ref oyc.note, nyc.note, tp);
+                drawTn(ym2203Screen[chipID], 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 
                 drawChYM2203(chipID, c + 6, ref oyc.mask, nyc.mask, tp);
+
             }
+
+            drawNfrq(ym2203Screen[chipID],5, 32, ref oldParam.ym2203[chipID].nfrq, newParam.ym2203[chipID].nfrq);
+            drawEfrq(ym2203Screen[chipID],18,32, ref oldParam.ym2203[chipID].efrq, newParam.ym2203[chipID].efrq);
+            drawEtype(ym2203Screen[chipID],33,32, ref oldParam.ym2203[chipID].etype, newParam.ym2203[chipID].etype);
 
         }
 
@@ -2167,6 +2202,7 @@ namespace MDPlayer
 
                 drawVolumeYM2608(chipID, c + 6, 0, ref oyc.volume, nyc.volume, tp);
                 drawKbYM2608(chipID, c + 6, ref oyc.note, nyc.note, tp);
+                drawTn(ym2608Screen[chipID], 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 
                 drawChYM2608(chipID, c + 9, ref oyc.mask, nyc.mask, tp);
             }
@@ -2187,6 +2223,13 @@ namespace MDPlayer
                 drawPanYM2608Rhythm(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
             }
             drawChYM2608Rhythm(chipID, 0, ref oldParam.ym2608[chipID].channels[13].mask, newParam.ym2608[chipID].channels[13].mask, tp);
+
+            drawLfoSw(ym2608Screen[chipID], 4, 54, ref oldParam.ym2608[chipID].lfoSw, newParam.ym2608[chipID].lfoSw);
+            drawLfoFrq(ym2608Screen[chipID], 16, 54, ref oldParam.ym2608[chipID].lfoFrq, newParam.ym2608[chipID].lfoFrq);
+
+            drawNfrq(ym2608Screen[chipID],  25, 54, ref oldParam.ym2608[chipID].nfrq, newParam.ym2608[chipID].nfrq);
+            drawEfrq(ym2608Screen[chipID],  38, 54, ref oldParam.ym2608[chipID].efrq, newParam.ym2608[chipID].efrq);
+            drawEtype(ym2608Screen[chipID], 53, 54, ref oldParam.ym2608[chipID].etype, newParam.ym2608[chipID].etype);
 
         }
 
@@ -2225,6 +2268,7 @@ namespace MDPlayer
 
                 drawVolume(ym2610Screen[chipID], c + 6, 0, ref oyc.volume, nyc.volume, tp);
                 drawKb(ym2610Screen[chipID], c + 6, ref oyc.note, nyc.note, tp);
+                drawTn(ym2610Screen[chipID], 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 
                 drawChYM2610(chipID, c + 9, ref oyc.mask, nyc.mask, tp);
             }
@@ -2246,6 +2290,13 @@ namespace MDPlayer
 
             }
             drawChYM2610Rhythm(chipID, 0, ref oldParam.ym2610[chipID].channels[13].mask, newParam.ym2610[chipID].channels[13].mask, tp);
+
+            drawLfoSw(ym2610Screen[chipID], 4, 54, ref oldParam.ym2610[chipID].lfoSw, newParam.ym2610[chipID].lfoSw);
+            drawLfoFrq(ym2610Screen[chipID], 16, 54, ref oldParam.ym2610[chipID].lfoFrq, newParam.ym2610[chipID].lfoFrq);
+
+            drawNfrq(ym2610Screen[chipID], 25, 54, ref oldParam.ym2610[chipID].nfrq, newParam.ym2610[chipID].nfrq);
+            drawEfrq(ym2610Screen[chipID], 38, 54, ref oldParam.ym2610[chipID].efrq, newParam.ym2610[chipID].efrq);
+            drawEtype(ym2610Screen[chipID], 53, 54, ref oldParam.ym2610[chipID].etype, newParam.ym2610[chipID].etype);
         }
 
         private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
@@ -2390,9 +2441,12 @@ namespace MDPlayer
                     drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp);
                     drawChYM2612(chipID, c, ref oyc.mask, nyc.mask, tp);
                 }
-
-
+                
             }
+
+            drawLfoSw(ym2612Screen[chipID], 4, 44, ref oldParam.ym2612[chipID].lfoSw, newParam.ym2612[chipID].lfoSw);
+            drawLfoFrq(ym2612Screen[chipID], 16, 44, ref oldParam.ym2612[chipID].lfoFrq, newParam.ym2612[chipID].lfoFrq);
+
         }
 
         private void drawParamsToAY8910(MDChipParams oldParam, MDChipParams newParam, int chipID)
@@ -2407,16 +2461,16 @@ namespace MDPlayer
 
                 drawVolume(AY8910Screen[chipID], c, 0, ref oyc.volume, nyc.volume, tp);
                 drawKb(AY8910Screen[chipID], c, ref oyc.note, nyc.note, tp);
-                drawTnAY8910(chipID, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+                drawTn(AY8910Screen[chipID],6,2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
                 //drawInst(AY8910Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
 
                 drawChAY8910(chipID, c, ref oyc.mask, nyc.mask, tp);
 
             }
 
-            drawNfrqAY8910(chipID, ref oldParam.ay8910[chipID].nfrq, newParam.ay8910[chipID].nfrq);
-            drawEfrqAY8910(chipID, ref oldParam.ay8910[chipID].efrq, newParam.ay8910[chipID].efrq);
-            drawEtypeAY8910(chipID, ref oldParam.ay8910[chipID].etype, newParam.ay8910[chipID].etype);
+            drawNfrq(AY8910Screen[chipID], 5, 8, ref oldParam.ay8910[chipID].nfrq, newParam.ay8910[chipID].nfrq);
+            drawEfrq(AY8910Screen[chipID], 18, 8, ref oldParam.ay8910[chipID].efrq, newParam.ay8910[chipID].efrq);
+            drawEtype(AY8910Screen[chipID], 33, 8, ref oldParam.ay8910[chipID].etype, newParam.ay8910[chipID].etype);
 
         }
 

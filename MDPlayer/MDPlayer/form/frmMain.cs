@@ -2231,7 +2231,7 @@ namespace MDPlayer
 
                 bool t = (ym2203Register[0x07] & (0x1 << ch)) == 0;
                 bool n = (ym2203Register[0x07] & (0x8 << ch)) == 0;
-
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
                 channel.volume = (int)(((t || n) ? 1 : 0) * (ym2203Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
                 {
@@ -2254,6 +2254,10 @@ namespace MDPlayer
 
             }
 
+            newParam.ym2203[chipID].nfrq = ym2203Register[0x06] & 0x1f;
+            newParam.ym2203[chipID].efrq = ym2203Register[0x0c] * 0x100 + ym2203Register[0x0b];
+            newParam.ym2203[chipID].etype = (ym2203Register[0x0d] & 0x7) + 2;
+
         }
 
         private void screenChangeParamsFromYM2610(int chipID)
@@ -2268,6 +2272,10 @@ namespace MDPlayer
             int[][] YM2610Rhythm = Audio.GetYM2610RhythmVolume(chipID);
             int[] YM2610AdpcmVol = Audio.GetYM2610AdpcmVolume(chipID);
             bool isFmEx = (YM2610Register[chipID][0x27] & 0x40) > 0;
+
+            newParam.ym2610[chipID].lfoSw = (YM2610Register[0][0x22] & 0x8) != 0;
+            newParam.ym2610[chipID].lfoFrq = (YM2610Register[0][0x22] & 0x7);
+
             for (int ch = 0; ch < 6; ch++)
             {
                 int p = (ch > 2) ? 1 : 0;
@@ -2349,6 +2357,7 @@ namespace MDPlayer
 
                 bool t = (YM2610Register[0][0x07] & (0x1 << ch)) == 0;
                 bool n = (YM2610Register[0][0x07] & (0x8 << ch)) == 0;
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
                 channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
@@ -2371,6 +2380,10 @@ namespace MDPlayer
                 }
 
             }
+
+            newParam.ym2610[chipID].nfrq = YM2610Register[0][0x06] & 0x1f;
+            newParam.ym2610[chipID].efrq = YM2610Register[0][0x0c] * 0x100 + YM2610Register[0][0x0b];
+            newParam.ym2610[chipID].etype = (YM2610Register[0][0x0d] & 0x7) + 2;
 
             //ADPCM B
             newParam.ym2610[chipID].channels[12].pan = (YM2610Register[0][0x11] & 0xc0) >> 6;
@@ -2404,6 +2417,10 @@ namespace MDPlayer
             int[] ym2608AdpcmVol = Audio.GetYM2608AdpcmVolume(chipID);
 
             isFmEx = (ym2608Register[0][0x27] & 0x40) > 0;
+
+            newParam.ym2608[chipID].lfoSw = (ym2608Register[0][0x22] & 0x8) != 0;
+            newParam.ym2608[chipID].lfoFrq = (ym2608Register[0][0x22] & 0x7);
+
             for (int ch = 0; ch < 6; ch++)
             {
                 int p = (ch > 2) ? 1 : 0;
@@ -2485,6 +2502,7 @@ namespace MDPlayer
 
                 bool t = (ym2608Register[0][0x07] & (0x1 << ch)) == 0;
                 bool n = (ym2608Register[0][0x07] & (0x8 << ch)) == 0;
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
                 channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
@@ -2507,6 +2525,10 @@ namespace MDPlayer
                 }
 
             }
+
+            newParam.ym2608[chipID].nfrq = ym2608Register[0][0x06] & 0x1f;
+            newParam.ym2608[chipID].efrq = ym2608Register[0][0x0c] * 0x100 + ym2608Register[0][0x0b];
+            newParam.ym2608[chipID].etype = (ym2608Register[0][0x0d] & 0x7) + 2;
 
             //ADPCM
             newParam.ym2608[chipID].channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6; // ((ym2608Register[1][0x01] & 0xc0) >> 6) != 0 ? ((ym2608Register[1][0x01] & 0xc0) >> 6) : newParam.ym2608[chipID].channels[12].pan;
@@ -2702,6 +2724,9 @@ namespace MDPlayer
             int[] fmKey = Audio.GetFMKeyOn(chipID);
 
             bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
+
+            newParam.ym2612[chipID].lfoSw = (fmRegister[0][0x22] & 0x8) != 0;
+            newParam.ym2612[chipID].lfoFrq = (fmRegister[0][0x22] & 0x7);
 
             for (int ch = 0; ch < 6; ch++)
             {
