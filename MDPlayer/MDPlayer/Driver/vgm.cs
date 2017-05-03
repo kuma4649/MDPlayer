@@ -1576,6 +1576,9 @@ namespace MDPlayer
             C140ClockValue = 0;// defaultC140ClockValue;
             OKIM6295ClockValue = 0;//defaultOKIM6295ClockValue;
             AY8910ClockValue = 0;
+            YM2413ClockValue = 0;
+            HuC6280ClockValue = 0;
+
 
             //ヘッダーを読み込めるサイズをもっているかチェック
             if (vgmBuf.Length < 0x40) return false;
@@ -1608,14 +1611,6 @@ namespace MDPlayer
                 YM2413DualChipFlag = (YM2413clock & 0x40000000) != 0;
                 if (YM2413DualChipFlag) chips.Add("YM2413x2");
                 else chips.Add("YM2413");
-            }
-
-            uint vgmGd3 = getLE32(0x14);
-            if (vgmGd3 != 0)
-            {
-                uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
-                if (vgmGd3Id != FCC_GD3) return false;
-                GD3=getGD3Info(vgmBuf, vgmGd3);
             }
 
             TotalCounter = getLE32(0x18);
@@ -1807,9 +1802,9 @@ namespace MDPlayer
                 }
             }
 
-            OKIM6258ClockValue = 0;
-            HuC6280ClockValue = 0;
-            OKIM6295ClockValue = 0;
+            //OKIM6258ClockValue = 0;
+            //HuC6280ClockValue = 0;
+            //OKIM6295ClockValue = 0;
 
             if (version >= 0x0161)
             {
@@ -1893,6 +1888,14 @@ namespace MDPlayer
                 UsedChips = UsedChips.Substring(0, UsedChips.Length - 3);
             }
 
+            uint vgmGd3 = getLE32(0x14);
+            if (vgmGd3 != 0)
+            {
+                uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
+                if (vgmGd3Id != FCC_GD3) return false;
+                GD3 = getGD3Info(vgmBuf, vgmGd3);
+            }
+
             return true;
         }
 
@@ -1914,7 +1917,7 @@ namespace MDPlayer
             GD3.Notes = "";
             GD3.VGMBy = "";
             GD3.Version = "";
-            GD3.UsedChips = "";
+            GD3.UsedChips = UsedChips;
 
             try
             {

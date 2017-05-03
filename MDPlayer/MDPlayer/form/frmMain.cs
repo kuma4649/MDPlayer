@@ -2916,7 +2916,6 @@ namespace MDPlayer
             screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.ChipPriSPCM, chips[11]);
             screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.ChipPriAY10, chips[12]);
             screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
-            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
             screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipPriHuC8, chips[14]);
 
             screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.ChipSecOPN, chips[128 + 0]);

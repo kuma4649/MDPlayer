@@ -170,6 +170,7 @@ namespace MDPlayer
             gd3.ComposerJ = gd3.Composer;
             gd3.VGMBy = getNRDString(buf, ref vgmGd3);
             gd3.Notes = getNRDString(buf, ref vgmGd3);
+            gd3.UsedChips = "YM2151x2 , AY8910"; // ;P
 
             return gd3;
         }
