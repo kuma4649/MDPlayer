@@ -170,9 +170,218 @@ namespace MDPlayer
             gd3.ComposerJ = gd3.Composer;
             gd3.VGMBy = getNRDString(buf, ref vgmGd3);
             gd3.Notes = getNRDString(buf, ref vgmGd3);
-            gd3.UsedChips = "YM2151x2 , AY8910"; // ;P
+
+            if ( (((buf[2] & 0x80) != 0) && buf[41] != 2) || (buf[2] & 0x80) == 0)
+            {
+                gd3.Notes = "!!Warning!! This data version is older/newer.";
+            }
+
+            int r = checkUseChip(buf);
+
+            switch (r)
+            {
+                case 0:
+                    gd3.UsedChips = "";
+                    break;
+                case 1:
+                case 2:
+                    gd3.UsedChips = "YM2151";
+                    break;
+                case 3:
+                    gd3.UsedChips = "YM2151x2";
+                    break;
+                case 4:
+                    gd3.UsedChips = "AY8910";
+                    break;
+                case 5:
+                case 6:
+                    gd3.UsedChips = "YM2151 , AY8910";
+                    break;
+                case 7:
+                    gd3.UsedChips = "YM2151x2 , AY8910";
+                    break;
+            }
 
             return gd3;
+        }
+
+        public int checkUseChip(byte[] buf)
+        {
+            ushort trkPtr = 3;
+            byte l;
+            byte h;
+            ushort hl;
+
+            bool useOPM1 = false;
+            bool useOPM2 = false;
+            bool usePSG = false;
+            bool flg = false;
+
+            flg = false;
+            for (int i = 0; i < 8; i++)
+            {
+                l = buf[trkPtr];
+                h = buf[trkPtr + 1];
+                hl = (ushort)((h << 8) + l);
+                byte cmd = buf[hl];
+                while (cmd != 127)
+                {
+                    if ((cmd & 0x80) != 0)
+                    {
+                        flg = true;
+                    }
+                    else
+                    {
+                        switch (cmd)
+                        {
+                            case 0x00:
+                                hl++;
+                                while (buf[hl] == 255) hl++;
+                                break;
+                            case 0x0e:
+                                hl += 2;
+                                break;
+                            case 0x0f:
+                            case 0x13:
+                            case 0x14:
+                            case 0x15:
+                                hl++;
+                                break;
+                            case 0x11:
+                            case 0x12:
+                            case 0x16:
+                            case 0x17:
+                            case 0x7d:
+                            case 0x7e:
+                                break;
+                            default:
+                                flg = true;
+                                break;
+                        }
+                    }
+
+                    if (flg) break;
+
+                    hl++;
+                    cmd = buf[hl];
+                }
+
+                if (flg) break;
+                trkPtr += 2;
+            }
+            useOPM1 = flg;
+
+            trkPtr = 3 + 2 * 8;
+            flg = false;
+            for (int i = 0; i < 8; i++)
+            {
+                l = buf[trkPtr];
+                h = buf[trkPtr + 1];
+                hl = (ushort)((h << 8) + l);
+                byte cmd = buf[hl];
+                while (cmd != 127)
+                {
+                    if ((cmd & 0x80) != 0)
+                    {
+                        flg = true;
+                    }
+                    else
+                    {
+                        switch (cmd)
+                        {
+                            case 0x00:
+                                hl++;
+                                while (buf[hl] == 255) hl++;
+                                break;
+                            case 0x0e:
+                                hl += 2;
+                                break;
+                            case 0x0f:
+                            case 0x13:
+                            case 0x14:
+                            case 0x15:
+                                hl++;
+                                break;
+                            case 0x11:
+                            case 0x12:
+                            case 0x16:
+                            case 0x17:
+                            case 0x7d:
+                            case 0x7e:
+                                break;
+                            default:
+                                flg = true;
+                                break;
+                        }
+                    }
+
+                    if (flg) break;
+
+                    hl++;
+                    cmd = buf[hl];
+                }
+
+                if (flg) break;
+                trkPtr += 2;
+            }
+            useOPM2 = flg;
+
+            trkPtr = 3 + 2 * 16;
+            flg = false;
+            for (int i = 0; i < 3; i++)
+            {
+                l = buf[trkPtr];
+                h = buf[trkPtr + 1];
+                hl = (ushort)((h << 8) + l);
+                byte cmd = buf[hl];
+                while (cmd != 127)
+                {
+                    if ((cmd & 0x80) != 0)
+                    {
+                        flg = true;
+                    }
+                    else
+                    {
+                        switch (cmd)
+                        {
+                            case 0x00:
+                                hl++;
+                                while (buf[hl] == 255) hl++;
+                                break;
+                            case 0x0e:
+                                hl += 2;
+                                break;
+                            case 0x0f:
+                            case 0x13:
+                            case 0x14:
+                            case 0x15:
+                                hl++;
+                                break;
+                            case 0x11:
+                            case 0x12:
+                            case 0x16:
+                            case 0x17:
+                            case 0x7d:
+                            case 0x7e:
+                                break;
+                            default:
+                                flg = true;
+                                break;
+                        }
+                    }
+
+                    if (flg) break;
+
+                    hl++;
+                    cmd = buf[hl];
+                }
+
+                if (flg) break;
+                trkPtr += 2;
+            }
+            usePSG = flg;
+
+            return (usePSG ? 4 : 0) | (useOPM2 ? 2 : 0) | (useOPM1 ? 1 : 0);
         }
 
         public void Call(int cmdNo)
@@ -970,7 +1179,14 @@ namespace MDPlayer
                     if (work.OPMKeyONEnable)
                     {
                         //KEYON
-                        keyon(wch, e, cmdno);
+                        if (work.KEYON_LightMode)
+                        {
+                            throw new NotImplementedException();
+                        }
+                        else
+                        {
+                            keyon(wch, e, cmdno);
+                        }
                     }
                     else
                     {
@@ -1653,6 +1869,22 @@ namespace MDPlayer
             return 0;
         }
 
+        private int PORTAP(Ch wch, byte e)
+        {
+            byte a = ram[wch.ptrData];
+            wch.OP1TLs = a;
+            a = ram[wch.ptrData + 1];
+            wch.PortaFlg = a;
+            wch.PortaStartFlg = a;
+            wch.OP2TLs = 0;
+            wch.GlideFlg = 0;
+
+            wch.ptrData++;
+            wch.ptrData++; //CCRET
+
+            return 0;
+        }
+
         private int KKOFF(Ch wch, byte e)
         {
             byte d = 8;
@@ -2213,7 +2445,21 @@ namespace MDPlayer
 
                 if ((cmdno & 0x80) != 0)
                 {
-                    PKEYON(wch, e, cmdno);
+                    if (work.PSGKeyONEnable)
+                    {
+                        if (work.PKEYON_LightMode)
+                        {
+                            throw new NotImplementedException();
+                        }
+                        else
+                        {
+                            PKEYON(wch, e, cmdno);
+                        }
+                    }
+                    else
+                    {
+                        wch.ptrData--;
+                    }
                     return;
                 }
                 else if (cmdno == 127)
@@ -2239,7 +2485,14 @@ namespace MDPlayer
             int r = 0;
             switch (cmdno)
             {
-                case 0: r = REST(wch, e); break;
+                case 0:
+                    if (work.PSGRestEnable) r = REST(wch, e);
+                    else
+                    {
+                        r = 1;
+                        wch.ptrData--;
+                    }
+                    break;
                 case 1: r = PZCOM(wch, e); break;
                 case 2: r = REST(wch, e); break;
                 case 3: r = REST(wch, e); break;
@@ -2268,7 +2521,7 @@ namespace MDPlayer
                 case 26: r = QUANT2(wch, e); break;
                 case 27: r = NFREQ(wch, e); break;
                 case 28: r = KSHIFT(wch, e); break;
-                case 29: r = PORTA(wch, e); break;
+                case 29: r = PORTAP(wch, e); break;
                 case 30: r = TEMPO(wch, e); break;
                 case 31: r = SPM(wch, e); break;
                 case 32: r = SHAPE(wch, e); break;
@@ -2413,15 +2666,17 @@ namespace MDPlayer
             a++;
             wch.gatetime = a;
 
-            bc = wch.workForPlayer;
+            //PKONR
+            bc = wch.workForPlayer; //2倍 不要
             byte d = (byte)(e << 1);
 
             byte b = 0;
             byte c = (byte)(PTABLE[bc]);
             a = wch.Detune;
-            a = (byte)(~a+1);
+            a = (byte)(~a+1); //NEG
             if (a-129 < 0)
             {
+                //PKON6
                 if (a + c <= 255)
                 {
                     a += c;
@@ -2990,21 +3245,46 @@ namespace MDPlayer
         {
             if (wch.PortaStartFlg == 0) return;
 
+            byte b = wch.OP1TLs;
+            byte a = wch.OP2TLs;
+            a += b;
+            if (a - 100 >= 0)
+            {
+                a -= 100;
+                wch.OP2TLs = a;
+                a = wch.PortaFlg;
+                a &= 0x7f;
+                a++;
+            }
+            else
+            {
+                wch.OP2TLs = a;
+                a = wch.PortaFlg;
+                a &= 0x7f;
+            }
+            wch.OP3TLs = a;
+
             byte l = (byte)wch.PSGTone;
             byte h = (byte)(wch.PSGTone >> 8);
-            byte b = (byte)(wch.PortaTone >> 8);
+            b = (byte)(wch.PortaTone >> 8);
             byte c = (byte)(wch.PortaTone & 0xff);
-            byte a = h;
+
+            a = h;
 
             bool neg = true;
 
             if (wch.PSGTone < wch.PortaTone) neg = false;
+            if (wch.PSGTone == wch.PortaTone)
+            {
+                wch.PortaStartFlg = 0;
+                return;
+            }
 
             //
             if (neg)
             {
                 //減算処理
-                int p = wch.PortaFlg;
+                int p = wch.OP3TLs;
                 int hl = (h * 0x100) + l - p;
                 h = (byte)(hl >> 8);
                 l = (byte)(hl & 0xff);
@@ -3018,7 +3298,7 @@ namespace MDPlayer
             else
             {
                 //加算処理
-                int p = wch.PortaFlg;
+                int p = wch.OP3TLs;
                 int hl = (h * 0x100) + l + p;
                 h = (byte)(hl >> 8);
                 l = (byte)(hl & 0xff);
