@@ -359,6 +359,7 @@
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
     <Content Include="Resources\planeYM2203.png" />
+    <Content Include="Resources\planeYM2413.png" />
     <Content Include="Resources\planeYM2610.png" />
     <Content Include="Resources\planeYM2612.png" />
     <Content Include="Resources\savePL.png" />

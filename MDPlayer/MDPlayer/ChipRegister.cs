@@ -92,6 +92,9 @@ namespace MDPlayer
         };
 
         public int[][] fmRegisterYM2413 = new int[][] { null, null };
+        private int[] fmRegisterYM2413RyhthmB = new int[2] { 0, 0 };
+        private int[] fmRegisterYM2413Ryhthm = new int[2] { 0, 0 };
+
 
         public int[][][] fmRegisterYM2612 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2612 = new int[][] { null, null };
@@ -288,6 +291,10 @@ namespace MDPlayer
                 {
                     fmRegisterYM2413[chipID][i] = 0;
                 }
+                fmRegisterYM2413Ryhthm[0] = 0;
+                fmRegisterYM2413Ryhthm[1] = 0;
+                fmRegisterYM2413RyhthmB[0] = 0;
+                fmRegisterYM2413RyhthmB[1] = 0;
 
                 psgRegisterAY8910[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
@@ -491,7 +498,24 @@ namespace MDPlayer
 
                 //scYM2413[chipID].setRegister(dAddr, dData);
             }
+
+            if (dAddr == 0x0e)
+            {
+                fmRegisterYM2413Ryhthm[chipID] = (fmRegisterYM2413RyhthmB[chipID] ^ dData) & 0x1f;
+                fmRegisterYM2413RyhthmB[chipID] = dData;
+            }
         }
+
+        public int getYM2413RyhthmKeyON(int chipID)
+        {
+            return fmRegisterYM2413Ryhthm[chipID];
+        }
+
+        public void resetYM2413RyhthmKeyON(int chipID)
+        {
+            fmRegisterYM2413Ryhthm[chipID] = 0;
+        }
+
 
         public void setHuC6280Register(int chipID, int dAddr, int dData, enmModel model)
         {
@@ -1114,6 +1138,11 @@ namespace MDPlayer
                 setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], enmModel.VirtualModel);
                 setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], enmModel.RealModel);
             }
+        }
+
+        public void setMaskYM2413(int chipID, int ch, bool mask)
+        {
+            //
         }
 
         public void setMaskYM2608(int chipID, int ch, bool mask)

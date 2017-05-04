@@ -33,6 +33,7 @@ namespace MDPlayer
         private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
         private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
         private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
+        private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -158,6 +159,7 @@ namespace MDPlayer
             if (setting.location.OpenYm2151[0]) tsmiPOPM_Click(null, null);
             if (setting.location.OpenYm2608[0]) tsmiPOPNA_Click(null, null);
             if (setting.location.OpenYm2203[0]) tsmiPOPN_Click(null, null);
+            if (setting.location.OpenYm2413[0]) tsmiPOPLL_Click(null, null);
             if (setting.location.OpenYm2610[0]) tsmiPOPNB_Click(null, null);
             if (setting.location.OpenYm2612[0]) tsmiPOPN2_Click(null, null);
             if (setting.location.OpenOKIM6258[0]) tsmiPOKIM6258_Click(null, null);
@@ -171,6 +173,7 @@ namespace MDPlayer
             if (setting.location.OpenYm2151[1]) tsmiSOPM_Click(null, null);
             if (setting.location.OpenYm2608[1]) tsmiSOPNA_Click(null, null);
             if (setting.location.OpenYm2203[1]) tsmiSOPN_Click(null, null);
+            if (setting.location.OpenYm2413[1]) tsmiSOPLL_Click(null, null);
             if (setting.location.OpenYm2610[1]) tsmiSOPNB_Click(null, null);
             if (setting.location.OpenYm2612[1]) tsmiSOPN2_Click(null, null);
             if (setting.location.OpenOKIM6258[1]) tsmiSOKIM6258_Click(null, null);
@@ -224,6 +227,12 @@ namespace MDPlayer
             {
                 tsmiPOPN_Click(null, null);
                 tsmiPOPN_Click(null, null);
+            }
+
+            if (frmYM2413[0] != null && !frmYM2413[0].isClosed)
+            {
+                tsmiPOPLL_Click(null, null);
+                tsmiPOPLL_Click(null, null);
             }
 
             if (frmYM2610[0] != null && !frmYM2610[0].isClosed)
@@ -304,6 +313,12 @@ namespace MDPlayer
             {
                 tsmiSOPN_Click(null, null);
                 tsmiSOPN_Click(null, null);
+            }
+
+            if (frmYM2413[1] != null && !frmYM2413[1].isClosed)
+            {
+                tsmiSOPLL_Click(null, null);
+                tsmiSOPLL_Click(null, null);
             }
 
             if (frmYM2610[1] != null && !frmYM2610[1].isClosed)
@@ -458,6 +473,7 @@ namespace MDPlayer
                 setting.location.OpenYm2151[chipID] = false;
                 setting.location.OpenYm2608[chipID] = false;
                 setting.location.OpenYm2203[chipID] = false;
+                setting.location.OpenYm2413[chipID] = false;
                 setting.location.OpenYm2610[chipID] = false;
                 setting.location.OpenYm2612[chipID] = false;
                 setting.location.OpenOKIM6258[chipID] = false;
@@ -514,6 +530,11 @@ namespace MDPlayer
                 {
                     setting.location.PosYm2203[chipID] = frmYM2203[chipID].Location;
                     setting.location.OpenYm2203[chipID] = true;
+                }
+                if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed)
+                {
+                    setting.location.PosYm2413[chipID] = frmYM2413[chipID].Location;
+                    setting.location.OpenYm2413[chipID] = true;
                 }
                 if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed)
                 {
@@ -972,7 +993,7 @@ namespace MDPlayer
 
         private void tsmiPOPLL_Click(object sender, EventArgs e)
         {
-
+            OpenFormYM2413(0);
         }
 
         private void tsmiPHuC6280_Click(object sender, EventArgs e)
@@ -1049,7 +1070,7 @@ namespace MDPlayer
 
         private void tsmiSOPLL_Click(object sender, EventArgs e)
         {
-
+            OpenFormYM2413(1);
         }
 
         private void tsmiSHuC6280_Click(object sender, EventArgs e)
@@ -1892,6 +1913,70 @@ namespace MDPlayer
             frmHuC6280[chipID] = null;
         }
 
+        private void OpenFormYM2413(int chipID, bool force = false)
+        {
+            if (frmYM2413[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormYM2413(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmYM2413[chipID] = new frmYM2413(this, chipID, setting.other.Zoom);
+
+            if (setting.location.PosYm2413[chipID] == System.Drawing.Point.Empty)
+            {
+                frmYM2413[chipID].x = this.Location.X;
+                frmYM2413[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmYM2413[chipID].x = setting.location.PosYm2413[chipID].X;
+                frmYM2413[chipID].y = setting.location.PosYm2413[chipID].Y;
+            }
+
+            screen.AddYM2413(chipID, frmYM2413[chipID].pbScreen, Properties.Resources.planeYM2413);
+            frmYM2413[chipID].Show();
+            frmYM2413[chipID].update();
+            frmYM2413[chipID].Text = string.Format("YM2413 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            screen.screenInitYM2413(chipID);
+            oldParam.ym2413[chipID] = new MDChipParams.YM2413();
+        }
+
+        private void CloseFormYM2413(int chipID)
+        {
+            if (frmYM2413[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveYM2413(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2413[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmYM2413[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmYM2413[chipID] = null;
+        }
+
 
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
@@ -1980,6 +2065,9 @@ namespace MDPlayer
                     if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) frmYM2203[chipID].screenChangeParams();
                     else frmYM2203[chipID] = null;
 
+                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) frmYM2413[chipID].screenChangeParams();
+                    else frmYM2413[chipID] = null;
+
                     if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) frmYM2610[chipID].screenChangeParams();
                     else frmYM2610[chipID] = null;
 
@@ -2030,6 +2118,9 @@ namespace MDPlayer
 
                     if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) frmYM2203[chipID].screenDrawParams();
                     else frmYM2203[chipID] = null;
+
+                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) frmYM2413[chipID].screenDrawParams();
+                    else frmYM2413[chipID] = null;
 
                     if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) frmYM2610[chipID].screenDrawParams();
                     else frmYM2610[chipID] = null;
@@ -2109,9 +2200,10 @@ namespace MDPlayer
                 screenChangeParamsFromC140(chipID);
                 screenChangeParamsFromSegaPCM(chipID);
                 screenChangeParamsFromYM2151(chipID);
+                screenChangeParamsFromYM2203(chipID);
+                screenChangeParamsFromYM2413(chipID);
                 screenChangeParamsFromYM2608(chipID);
                 screenChangeParamsFromYM2610(chipID);
-                screenChangeParamsFromYM2203(chipID);
                 screenChangeParamsFromAY8910(chipID);
                 screenChangeParamsFromHuC6280(chipID);
             }
@@ -2257,6 +2349,131 @@ namespace MDPlayer
             newParam.ym2203[chipID].nfrq = ym2203Register[0x06] & 0x1f;
             newParam.ym2203[chipID].efrq = ym2203Register[0x0c] * 0x100 + ym2203Register[0x0b];
             newParam.ym2203[chipID].etype = (ym2203Register[0x0d] & 0x7) + 2;
+
+        }
+
+        private void screenChangeParamsFromYM2413(int chipID)
+        {
+            int[] ym2413Register = Audio.GetYM2413Register(chipID);
+
+            for (int ch = 0; ch < 9; ch++)
+            {
+                newParam.ym2413[chipID].channels[ch].inst[0] = (ym2413Register[0x30 + ch] & 0xf0) >> 4;
+                newParam.ym2413[chipID].channels[ch].inst[1] = (ym2413Register[0x20 + ch] & 0x20) >> 5;
+                newParam.ym2413[chipID].channels[ch].inst[2] = (ym2413Register[0x20 + ch] & 0x10) >> 4;
+                newParam.ym2413[chipID].channels[ch].inst[3] = (ym2413Register[0x30 + ch] & 0x0f);
+
+                int freq = ym2413Register[0x10 + ch] + ((ym2413Register[0x20 + ch] & 0x1) << 8);
+                int oct = ((ym2413Register[0x20 + ch] & 0xe) >> 1);
+
+                if (newParam.ym2413[chipID].channels[ch].inst[2] == 0)
+                {
+                    newParam.ym2413[chipID].channels[ch].note = -1;
+                    newParam.ym2413[chipID].channels[ch].volumeL--;
+                    if (newParam.ym2413[chipID].channels[ch].volumeL < 0) newParam.ym2413[chipID].channels[ch].volumeL = 0;
+                }
+                else
+                {
+                    int n = searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
+                    if (newParam.ym2413[chipID].channels[ch].note != n)
+                    {
+                        newParam.ym2413[chipID].channels[ch].note = n;
+                        newParam.ym2413[chipID].channels[ch].volumeL = (19 - newParam.ym2413[chipID].channels[ch].inst[3]);
+                    }
+                    else
+                    {
+                        newParam.ym2413[chipID].channels[ch].volumeL--;
+                        if (newParam.ym2413[chipID].channels[ch].volumeL < 0) newParam.ym2413[chipID].channels[ch].volumeL = 0;
+                    }
+                }
+
+            }
+
+            int r=Audio.getYM2413RyhthmKeyON(chipID);
+
+            //BD
+            if ((r & 0x10) != 0 )
+            {
+                newParam.ym2413[chipID].channels[9].volume = (19 - (ym2413Register[0x36] & 0x0f));
+            }
+            else
+            {
+                newParam.ym2413[chipID].channels[9].volume--;
+                if (newParam.ym2413[chipID].channels[9].volume < 0) newParam.ym2413[chipID].channels[9].volume = 0;
+            }
+
+            //SD
+            if ((r & 0x08) != 0)
+            {
+                newParam.ym2413[chipID].channels[10].volume = (19 - (ym2413Register[0x37] & 0x0f));
+            }
+            else
+            {
+                newParam.ym2413[chipID].channels[10].volume--;
+                if (newParam.ym2413[chipID].channels[10].volume < 0) newParam.ym2413[chipID].channels[10].volume = 0;
+            }
+
+            //TOM
+            if ((r & 0x04) != 0)
+            {
+                newParam.ym2413[chipID].channels[11].volume = 19 - ((ym2413Register[0x38] & 0xf0) >> 4);
+            }
+            else
+            {
+                newParam.ym2413[chipID].channels[11].volume--;
+                if (newParam.ym2413[chipID].channels[11].volume < 0) newParam.ym2413[chipID].channels[11].volume = 0;
+            }
+
+            //CYM
+            if ((r & 0x02) != 0)
+            {
+                newParam.ym2413[chipID].channels[12].volume = 19 - ((ym2413Register[0x38] & 0x0f) >> 0);
+            }
+            else
+            {
+                newParam.ym2413[chipID].channels[12].volume--;
+                if (newParam.ym2413[chipID].channels[12].volume < 0) newParam.ym2413[chipID].channels[12].volume = 0;
+            }
+
+            //HH
+            if ((r & 0x01) != 0)
+            {
+                newParam.ym2413[chipID].channels[13].volume = 19 - ((ym2413Register[0x37] & 0xf0) >> 4);
+            }
+            else
+            {
+                newParam.ym2413[chipID].channels[13].volume--;
+                if (newParam.ym2413[chipID].channels[13].volume < 0) newParam.ym2413[chipID].channels[13].volume = 0;
+            }
+
+            Audio.resetYM2413RyhthmKeyON(chipID);
+
+
+            newParam.ym2413[chipID].channels[0].inst[4] = (ym2413Register[0x02] & 0x3f);//TL
+            newParam.ym2413[chipID].channels[0].inst[5] = (ym2413Register[0x03] & 0x07);//FB
+
+            newParam.ym2413[chipID].channels[0].inst[6] = (ym2413Register[0x04] & 0xf0) >> 4;//AR
+            newParam.ym2413[chipID].channels[0].inst[7] = (ym2413Register[0x04] & 0x0f);//DR
+            newParam.ym2413[chipID].channels[0].inst[8] = (ym2413Register[0x06] & 0xf0) >> 4;//SL
+            newParam.ym2413[chipID].channels[0].inst[9] = (ym2413Register[0x06] & 0x0f);//RR
+            newParam.ym2413[chipID].channels[0].inst[10] = (ym2413Register[0x02] & 0x80) >> 7;//KL
+            newParam.ym2413[chipID].channels[0].inst[11] = (ym2413Register[0x00] & 0x0f);//MT
+            newParam.ym2413[chipID].channels[0].inst[12] = (ym2413Register[0x00] & 0x80) >> 7;//AM
+            newParam.ym2413[chipID].channels[0].inst[13] = (ym2413Register[0x00] & 0x40) >> 6;//VB
+            newParam.ym2413[chipID].channels[0].inst[14] = (ym2413Register[0x00] & 0x20) >> 5;//EG
+            newParam.ym2413[chipID].channels[0].inst[15] = (ym2413Register[0x00] & 0x10) >> 4;//KR
+            newParam.ym2413[chipID].channels[0].inst[16] = (ym2413Register[0x03] & 0x08) >> 3;//DM
+            newParam.ym2413[chipID].channels[0].inst[17] = (ym2413Register[0x05] & 0xf0) >> 4;//AR
+            newParam.ym2413[chipID].channels[0].inst[18] = (ym2413Register[0x05] & 0x0f);//DR
+            newParam.ym2413[chipID].channels[0].inst[19] = (ym2413Register[0x07] & 0xf0) >> 4;//SL
+            newParam.ym2413[chipID].channels[0].inst[20] = (ym2413Register[0x07] & 0x0f);//RR
+            newParam.ym2413[chipID].channels[0].inst[21] = (ym2413Register[0x03] & 0x80) >> 7;//KL
+            newParam.ym2413[chipID].channels[0].inst[22] = (ym2413Register[0x01] & 0x0f);//MT
+            newParam.ym2413[chipID].channels[0].inst[23] = (ym2413Register[0x01] & 0x80) >> 7;//AM
+            newParam.ym2413[chipID].channels[0].inst[24] = (ym2413Register[0x01] & 0x40) >> 6;//VB
+            newParam.ym2413[chipID].channels[0].inst[25] = (ym2413Register[0x01] & 0x20) >> 5;//EG
+            newParam.ym2413[chipID].channels[0].inst[26] = (ym2413Register[0x01] & 0x10) >> 4;//KR
+            newParam.ym2413[chipID].channels[0].inst[27] = (ym2413Register[0x03] & 0x10) >> 4;//DC
 
         }
 
@@ -3202,6 +3419,7 @@ namespace MDPlayer
             {
                 for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
                 for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
                 for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
                 for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
                 for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
@@ -3245,6 +3463,9 @@ namespace MDPlayer
 
                 if (Audio.ChipPriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
                 if (Audio.ChipSecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
+
+                if (Audio.ChipPriOPLL != 0) OpenFormYM2413(0, true); else CloseFormYM2413(0);
+                if (Audio.ChipSecOPLL != 0) OpenFormYM2413(1, true); else CloseFormYM2413(1);
 
                 if (Audio.ChipPriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
                 if (Audio.ChipSecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
@@ -4446,6 +4667,17 @@ namespace MDPlayer
                         }
                     }
                     break;
+                case enmUseChip.YM2413:
+                    if (ch >= 0 && ch < 9)
+                    {
+                        if (!newParam.ym2413[chipID].channels[ch].mask)
+                            Audio.setYM2413Mask(chipID, ch);
+                        else
+                            Audio.resetYM2413Mask(chipID, ch);
+
+                        newParam.ym2413[chipID].channels[ch].mask = !newParam.ym2413[chipID].channels[ch].mask;
+                    }
+                    break;
                 case enmUseChip.YM2608:
                     if (ch >= 0 && ch < 14)
                     {
@@ -4608,6 +4840,10 @@ namespace MDPlayer
                 case enmUseChip.YM2203:
                     newParam.ym2203[chipID].channels[ch].mask = false;
                     Audio.resetYM2203Mask(chipID, ch);
+                    break;
+                case enmUseChip.YM2413:
+                    newParam.ym2413[chipID].channels[ch].mask = false;
+                    Audio.resetYM2413Mask(chipID, ch);
                     break;
                 case enmUseChip.YM2608:
                     newParam.ym2608[chipID].channels[ch].mask = false;

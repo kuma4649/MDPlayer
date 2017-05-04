@@ -1909,6 +1909,35 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosYm2413 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYm2413
+            {
+                get
+                {
+                    return _PosYm2413;
+                }
+
+                set
+                {
+                    _PosYm2413 = value;
+                }
+            }
+
+            private bool[] _OpenYm2413 = new bool[2] { false, false };
+            public bool[] OpenYm2413
+            {
+                get
+                {
+                    return _OpenYm2413;
+                }
+
+                set
+                {
+                    _OpenYm2413 = value;
+                }
+            }
+
+
 
             public Location Copy()
             {

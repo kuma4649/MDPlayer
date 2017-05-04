@@ -33,7 +33,8 @@ namespace MDPlayer
         , YM2203 = 2048
         , YM2610 = 4096
         , AY8910 = 9192
-            , HuC6280 = 18384
+        , HuC6280 = 18384
+        , YM2413 = 36768
     }
 
     public enum enmScciChipType : int

@@ -200,5 +200,16 @@ namespace MDPlayer
         }
         public HuC6280[] huc6280 = new HuC6280[] { new HuC6280(), new HuC6280() };
 
+        public class YM2413
+        {
+
+            public Channel[] channels = new Channel[14] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 9
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
+            };
+
+        }
+        public YM2413[] ym2413 = new YM2413[] { new YM2413(), new YM2413() };
+
     }
 }

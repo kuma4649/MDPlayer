@@ -14,6 +14,7 @@ namespace MDPlayer
         public FrameBuffer[] ym2608Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] ym2151Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] ym2203Screen = new FrameBuffer[2] { null, null };
+        public FrameBuffer[] ym2413Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] ym2610Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] ym2612Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] OKIM6258Screen = new FrameBuffer[2] { null, null };
@@ -232,6 +233,12 @@ namespace MDPlayer
             ym2203Screen[chipID].Add(pbYM2203Screen, initialYM2203Image, this.Paint, setting.other.Zoom);
         }
 
+        public void AddYM2413(int chipID, PictureBox pbYM2413Screen, Image initialYM2413Image)
+        {
+            ym2413Screen[chipID] = new FrameBuffer();
+            ym2413Screen[chipID].Add(pbYM2413Screen, initialYM2413Image, this.Paint, setting.other.Zoom);
+        }
+
         public void AddYM2610(int chipID, PictureBox pbYM2610Screen, Image initialYM2610Image)
         {
             ym2610Screen[chipID] = new FrameBuffer();
@@ -312,6 +319,12 @@ namespace MDPlayer
             ym2203Screen[chipID].Remove(this.Paint);
         }
 
+        public void RemoveYM2413(int chipID)
+        {
+            if (ym2413Screen[chipID] == null) return;
+            ym2413Screen[chipID].Remove(this.Paint);
+        }
+
         public void RemoveYM2610(int chipID)
         {
             if (ym2610Screen[chipID] == null) return;
@@ -375,8 +388,9 @@ namespace MDPlayer
                 if (rf5c164Screen[chipID] != null) rf5c164Screen[chipID].Remove(this.Paint);
                 if (c140Screen[chipID] != null) c140Screen[chipID].Remove(this.Paint);
                 if (ym2151Screen[chipID] != null) ym2151Screen[chipID].Remove(this.Paint);
-                if (ym2608Screen[chipID] != null) ym2608Screen[chipID].Remove(this.Paint);
                 if (ym2203Screen[chipID] != null) ym2203Screen[chipID].Remove(this.Paint);
+                if (ym2413Screen[chipID] != null) ym2413Screen[chipID].Remove(this.Paint);
+                if (ym2608Screen[chipID] != null) ym2608Screen[chipID].Remove(this.Paint);
                 if (ym2610Screen[chipID] != null) ym2610Screen[chipID].Remove(this.Paint);
                 if (ym2612Screen[chipID] != null) ym2612Screen[chipID].Remove(this.Paint);
                 if (OKIM6258Screen[chipID] != null) OKIM6258Screen[chipID].Remove(this.Paint);
@@ -454,20 +468,6 @@ namespace MDPlayer
                         }
                     }
 
-                    if (ym2608Screen[chipID] != null)
-                    {
-                        try
-                        {
-                            ym2608Screen[chipID].Refresh(this.Paint);
-                        }
-                        catch (Exception ex)
-                        {
-                            log.ForcedWrite(ex);
-                            RemoveYM2608(chipID);
-                            ym2608Screen[chipID] = null;
-                        }
-                    }
-
                     if (ym2203Screen[chipID] != null)
                     {
                         try
@@ -479,6 +479,34 @@ namespace MDPlayer
                             log.ForcedWrite(ex);
                             RemoveYM2203(chipID);
                             ym2203Screen[chipID] = null;
+                        }
+                    }
+
+                    if (ym2413Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            ym2413Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2413(chipID);
+                            ym2413Screen[chipID] = null;
+                        }
+                    }
+
+                    if (ym2608Screen[chipID] != null)
+                    {
+                        try
+                        {
+                            ym2608Screen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveYM2608(chipID);
+                            ym2608Screen[chipID] = null;
                         }
                     }
 
@@ -1212,6 +1240,32 @@ namespace MDPlayer
             for (int i = 0; i <= nv; i++)
             {
                 drawVolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
+        public void drawVolumeXY(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+
+            y *= 4;
+            x *= 4;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                drawVolumeP(screen, x + i * 2, y + sy, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                drawVolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -2067,6 +2121,24 @@ namespace MDPlayer
             }
         }
 
+        public void drawInstNumber(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        {
+            if (oi != ni)
+            {
+                drawFont4Int(screen, x * 4, y * 4, 0, 2, ni);
+                oi = ni;
+            }
+        }
+
+        public void drawSUSFlag(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        {
+            if (oi != ni)
+            {
+                drawFont4(screen, x * 4, y * 4, 0, ni == 0 ? "-" : "*");
+                oi = ni;
+            }
+        }
+
 
         public void drawTimer(int c, ref int ot1, ref int ot2, ref int ot3, int nt1, int nt2, int nt3)
         {
@@ -2108,17 +2180,51 @@ namespace MDPlayer
 
                 if (ym2151Screen[chipID] != null) drawParamsToYM2151(oldParam, newParam, chipID);
 
+                if (ym2203Screen[chipID] != null) drawParamsToYM2203(oldParam, newParam, chipID);
+
+                if (ym2413Screen[chipID] != null) drawParamsToYM2413(oldParam, newParam, chipID);
+
                 if (ym2608Screen[chipID] != null) drawParamsToYM2608(oldParam, newParam, chipID);
 
                 if (ym2610Screen[chipID] != null) drawParamsToYM2610(oldParam, newParam, chipID);
-
-                if (ym2203Screen[chipID] != null) drawParamsToYM2203(oldParam, newParam, chipID);
 
                 if (AY8910Screen[chipID] != null) drawParamsToAY8910(oldParam, newParam, chipID);
 
                 if (HuC6280Screen[chipID] != null) drawParamsToHuC6280(oldParam, newParam, chipID);
 
             }
+
+        }
+
+        private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int c = 0; c < 8; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.ym2151[chipID].channels[c];
+                MDChipParams.Channel nyc = newParam.ym2151[chipID].channels[c];
+
+                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
+
+                drawInst(ym2151Screen[chipID], 1, 11, c, oyc.inst, nyc.inst);
+
+                drawPanYM2151(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                drawKb(ym2151Screen[chipID], c, ref oyc.note, nyc.note, tp);
+
+                drawVolume(ym2151Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                drawVolume(ym2151Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+
+                drawChYM2151(chipID, c, ref oyc.mask, nyc.mask, tp);
+
+                drawKfYM2151(chipID, c, ref oyc.kf, nyc.kf);
+            }
+
+            drawNeYM2151(chipID, ref oldParam.ym2151[chipID].ne, newParam.ym2151[chipID].ne);
+            drawNfrqYM2151(chipID, ref oldParam.ym2151[chipID].nfrq, newParam.ym2151[chipID].nfrq);
+            drawLfrqYM2151(chipID, ref oldParam.ym2151[chipID].lfrq, newParam.ym2151[chipID].lfrq);
+            drawAmdYM2151(chipID, ref oldParam.ym2151[chipID].amd, newParam.ym2151[chipID].amd);
+            drawPmdYM2151(chipID, ref oldParam.ym2151[chipID].pmd, newParam.ym2151[chipID].pmd);
+            drawWaveFormYM2151(chipID, ref oldParam.ym2151[chipID].waveform, newParam.ym2151[chipID].waveform);
+            drawLfoSyncYM2151(chipID, ref oldParam.ym2151[chipID].lfosync, newParam.ym2151[chipID].lfosync);
 
         }
 
@@ -2165,6 +2271,48 @@ namespace MDPlayer
             drawEfrq(ym2203Screen[chipID],18,32, ref oldParam.ym2203[chipID].efrq, newParam.ym2203[chipID].efrq);
             drawEtype(ym2203Screen[chipID],33,32, ref oldParam.ym2203[chipID].etype, newParam.ym2203[chipID].etype);
 
+        }
+
+        private void drawParamsToYM2413(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            int tp = setting.YM2413Type.UseScci ? 1 : 0;
+
+            MDChipParams.Channel oyc;
+            MDChipParams.Channel nyc;
+
+            for (int c = 0; c < 9; c++)
+            {
+
+                oyc = oldParam.ym2413[chipID].channels[c];
+                nyc = newParam.ym2413[chipID].channels[c];
+
+                drawVolume(ym2413Screen[chipID], c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                drawKb(ym2413Screen[chipID], c, ref oyc.note, nyc.note, tp);
+
+                drawInstNumber(ym2413Screen[chipID], (c % 3) * 16 + 37, (c / 3) * 2 + 24, ref oyc.inst[0], nyc.inst[0]);
+                drawSUSFlag(ym2413Screen[chipID], (c % 3) * 16 + 41, (c / 3) * 2 + 24, ref oyc.inst[1], nyc.inst[1]);
+                drawSUSFlag(ym2413Screen[chipID], (c % 3) * 16 + 44, (c / 3) * 2 + 24, ref oyc.inst[2], nyc.inst[2]);
+                drawInstNumber(ym2413Screen[chipID], (c % 3) * 16 + 46, (c / 3) * 2 + 24, ref oyc.inst[3], nyc.inst[3]);
+
+
+            }
+
+            drawVolumeXY(ym2413Screen[chipID], 6, 20, 0, ref oldParam.ym2413[chipID].channels[9].volume, newParam.ym2413[chipID].channels[9].volume, tp);
+            drawVolumeXY(ym2413Screen[chipID], 21, 20, 0, ref oldParam.ym2413[chipID].channels[10].volume, newParam.ym2413[chipID].channels[10].volume, tp);
+            drawVolumeXY(ym2413Screen[chipID], 36, 20, 0, ref oldParam.ym2413[chipID].channels[11].volume, newParam.ym2413[chipID].channels[11].volume, tp);
+            drawVolumeXY(ym2413Screen[chipID], 51, 20, 0, ref oldParam.ym2413[chipID].channels[12].volume, newParam.ym2413[chipID].channels[12].volume, tp);
+            drawVolumeXY(ym2413Screen[chipID], 66, 20, 0, ref oldParam.ym2413[chipID].channels[13].volume, newParam.ym2413[chipID].channels[13].volume, tp);
+
+            oyc = oldParam.ym2413[chipID].channels[0];
+            nyc = newParam.ym2413[chipID].channels[0];
+            drawInstNumber(ym2413Screen[chipID], 9, 22, ref oyc.inst[4], nyc.inst[4]); //TL
+            drawInstNumber(ym2413Screen[chipID], 14, 22, ref oyc.inst[5], nyc.inst[5]); //FB
+
+            for (int c = 0; c < 11; c++)
+            {
+                drawInstNumber(ym2413Screen[chipID], c * 3, 26, ref oyc.inst[6 + c], nyc.inst[6 + c]);
+                drawInstNumber(ym2413Screen[chipID], c * 3, 28, ref oyc.inst[17 + c], nyc.inst[17 + c]);
+            }
         }
 
         private void drawParamsToYM2608(MDChipParams oldParam, MDChipParams newParam, int chipID)
@@ -2297,38 +2445,6 @@ namespace MDPlayer
             drawNfrq(ym2610Screen[chipID], 25, 54, ref oldParam.ym2610[chipID].nfrq, newParam.ym2610[chipID].nfrq);
             drawEfrq(ym2610Screen[chipID], 38, 54, ref oldParam.ym2610[chipID].efrq, newParam.ym2610[chipID].efrq);
             drawEtype(ym2610Screen[chipID], 53, 54, ref oldParam.ym2610[chipID].etype, newParam.ym2610[chipID].etype);
-        }
-
-        private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
-        {
-            for (int c = 0; c < 8; c++)
-            {
-                MDChipParams.Channel oyc = oldParam.ym2151[chipID].channels[c];
-                MDChipParams.Channel nyc = newParam.ym2151[chipID].channels[c];
-
-                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
-
-                drawInst(ym2151Screen[chipID], 1, 11, c, oyc.inst, nyc.inst);
-
-                drawPanYM2151(chipID, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                drawKb(ym2151Screen[chipID], c, ref oyc.note, nyc.note, tp);
-
-                drawVolume(ym2151Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                drawVolume(ym2151Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-
-                drawChYM2151(chipID, c, ref oyc.mask, nyc.mask, tp);
-
-                drawKfYM2151(chipID, c, ref oyc.kf, nyc.kf);
-            }
-
-            drawNeYM2151(chipID, ref oldParam.ym2151[chipID].ne, newParam.ym2151[chipID].ne);
-            drawNfrqYM2151(chipID, ref oldParam.ym2151[chipID].nfrq, newParam.ym2151[chipID].nfrq);
-            drawLfrqYM2151(chipID, ref oldParam.ym2151[chipID].lfrq, newParam.ym2151[chipID].lfrq);
-            drawAmdYM2151(chipID, ref oldParam.ym2151[chipID].amd, newParam.ym2151[chipID].amd);
-            drawPmdYM2151(chipID, ref oldParam.ym2151[chipID].pmd, newParam.ym2151[chipID].pmd);
-            drawWaveFormYM2151(chipID, ref oldParam.ym2151[chipID].waveform, newParam.ym2151[chipID].waveform);
-            drawLfoSyncYM2151(chipID, ref oldParam.ym2151[chipID].lfosync, newParam.ym2151[chipID].lfosync);
-
         }
 
         private void drawParamsToC140(MDChipParams oldParam, MDChipParams newParam, int chipID)
@@ -2556,6 +2672,110 @@ namespace MDPlayer
 
         }
 
+        public void screenInitC140(int chipID)
+        {
+            //C140
+            for (int ch = 0; ch < 24; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(c140Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(c140Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(c140Screen[chipID], 24, ch * 8 + 8, 0);
+                drawChPC140(chipID, 0, 8 + ch * 8, ch, false, 0);
+            }
+        }
+
+        public void screenInitRF5C164(int chipID)
+        {
+            //RF5C164
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(rf5c164Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(rf5c164Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(rf5c164Screen[chipID], 24, ch * 8 + 8, 0);
+            }
+        }
+
+        public void screenInitYM2151(int chipID)
+        {
+            //YM2151
+            for (int ch = 0; ch < 8; ch++)
+            {
+                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
+
+                drawFont8(ym2151Screen[chipID], 296, ch * 8 + 8, 1, "   ");
+
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(ym2151Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
+                }
+
+                drawChPYM2151(chipID, 0, ch * 8 + 8, ch, false, tp);
+                drawPanP(ym2151Screen[chipID], 24, ch * 8 + 8, 3, tp);
+                int d = 99;
+                drawVolume(ym2151Screen[chipID], ch, 1, ref d, 0, tp);
+                d = 99;
+                drawVolume(ym2151Screen[chipID], ch, 2, ref d, 0, tp);
+
+            }
+        }
+
+        public void screenInitYM2203(int chipID)
+        {
+            //YM2203
+            for (int y = 0; y < 3 + 3 + 3; y++)
+            {
+                int tp = chipID == 0 ? (setting.YM2203Type.UseScci ? 1 : 0) : (setting.YM2203SType.UseScci ? 1 : 0);
+
+                drawFont8(ym2203Screen[chipID], 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(ym2203Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                int d = 99;
+                drawVolume(ym2203Screen[chipID], y, 0, ref d, 0, tp);
+            }
+
+        }
+
+        public void screenInitYM2413(int chipID)
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                int tp = chipID == 0 ? (setting.YM2413Type.UseScci ? 1 : 0) : (setting.YM2413SType.UseScci ? 1 : 0);
+
+                //Note
+                drawFont8(ym2413Screen[chipID], 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(ym2413Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                drawVolume(ym2413Screen[chipID], y, 0, ref d, 0, tp);
+            }
+
+        }
+
         public void screenInitYM2608(int chipID)
         {
             //YM2608
@@ -2606,63 +2826,54 @@ namespace MDPlayer
             }
         }
 
-        public void screenInitYM2151(int chipID)
+        public void screenInitYM2610(int chipID)
         {
-            //YM2151
-            for (int ch = 0; ch < 8; ch++)
+            int tp = setting.YM2610Type.UseScci ? 1 : 0;
+            //YM2610
+            for (int y = 0; y < 14; y++)
             {
-                int tp = ((chipID == 0) ? setting.YM2151Type.UseScci : setting.YM2151SType.UseScci) ? 1 : 0;
-
-                drawFont8(ym2151Screen[chipID], 296, ch * 8 + 8, 1, "   ");
-
-                for (int ot = 0; ot < 12 * 8; ot++)
+                drawFont8(ym2610Screen[chipID], 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(ym2151Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(ym2610Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
                 }
 
-                drawChPYM2151(chipID,0, ch * 8 + 8, ch, false, tp);
-                drawPanP(ym2151Screen[chipID], 24, ch * 8 + 8, 3, tp);
+                if (y < 13)
+                {
+                    drawChPYM2610(chipID, 0, y * 8 + 8, y, false, tp);
+                }
+
+                if (y < 6 || y == 13)
+                {
+                    drawPanP(ym2610Screen[chipID], 24, y * 8 + 8, 3, tp);
+                }
+
                 int d = 99;
-                drawVolume(ym2151Screen[chipID], ch, 1, ref d, 0, tp);
+                if (y > 5 && y < 9)
+                {
+                    drawVolume(ym2610Screen[chipID], y, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    drawVolume(ym2610Screen[chipID], y, 1, ref d, 0, tp);
+                    d = 99;
+                    drawVolume(ym2610Screen[chipID], y, 2, ref d, 0, tp);
+                }
+            }
+
+            for (int y = 0; y < 6; y++)
+            {
+                int d = 99;
+                drawPanYM2610Rhythm(chipID, y, ref d, 3, ref d, tp);
                 d = 99;
-                drawVolume(ym2151Screen[chipID], ch, 2, ref d, 0, tp);
-
+                drawVolumeYM2610Rhythm(chipID, y, 1, ref d, 0, tp);
+                d = 99;
+                drawVolumeYM2610Rhythm(chipID, y, 2, ref d, 0, tp);
             }
-        }
-
-        public void screenInitC140(int chipID)
-        {
-            //C140
-            for (int ch = 0; ch < 24; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(c140Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(c140Screen[chipID], 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(c140Screen[chipID], 24, ch * 8 + 8, 0);
-                drawChPC140(chipID, 0, 8 + ch * 8, ch, false, 0);
-            }
-        }
-
-        public void screenInitRF5C164(int chipID)
-        {
-            //RF5C164
-            for (int ch = 0; ch < 8; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(rf5c164Screen[chipID], 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(rf5c164Screen[chipID], 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(rf5c164Screen[chipID], 24, ch * 8 + 8, 0);
-            }
+            bool f = true;
+            drawChYM2610Rhythm(chipID, 0, ref f, false, tp);
         }
 
         public void screenInitYM2612(int chipID)
@@ -2726,82 +2937,6 @@ namespace MDPlayer
                 }
 
             }
-        }
-
-        public void screenInitYM2610(int chipID)
-        {
-            int tp = setting.YM2610Type.UseScci ? 1 : 0;
-            //YM2610
-            for (int y = 0; y < 14; y++)
-            {
-                drawFont8(ym2610Screen[chipID], 296, y * 8 + 8, 1, "   ");
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
-                    drawKbn(ym2610Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                if (y < 13)
-                {
-                    drawChPYM2610(chipID, 0, y * 8 + 8, y, false, tp);
-                }
-
-                if (y < 6 || y == 13)
-                {
-                    drawPanP(ym2610Screen[chipID], 24, y * 8 + 8, 3, tp);
-                }
-
-                int d = 99;
-                if (y > 5 && y < 9)
-                {
-                    drawVolume(ym2610Screen[chipID], y, 0, ref d, 0, tp);
-                }
-                else
-                {
-                    drawVolume(ym2610Screen[chipID], y, 1, ref d, 0, tp);
-                    d = 99;
-                    drawVolume(ym2610Screen[chipID], y, 2, ref d, 0, tp);
-                }
-            }
-
-            for (int y = 0; y < 6; y++)
-            {
-                int d = 99;
-                drawPanYM2610Rhythm(chipID, y, ref d, 3, ref d, tp);
-                d = 99;
-                drawVolumeYM2610Rhythm(chipID, y, 1, ref d, 0, tp);
-                d = 99;
-                drawVolumeYM2610Rhythm(chipID, y, 2, ref d, 0, tp);
-            }
-            bool f = true;
-            drawChYM2610Rhythm(chipID, 0, ref f, false, tp);
-        }
-
-        public void screenInitYM2203(int chipID)
-        {
-            //YM2203
-            for (int y = 0; y < 3 + 3 + 3; y++)
-            {
-                int tp = chipID == 0 ? (setting.YM2203Type.UseScci ? 1 : 0) : (setting.YM2203SType.UseScci ? 1 : 0);
-
-                drawFont8(ym2203Screen[chipID], 296, y * 8 + 8, 1, "   ");
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
-                    drawKbn(ym2203Screen[chipID], 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                //if (y < 13)
-                //{
-                //drawChPYM2608(chipID, 0, y * 8 + 8, y, false, tp);
-                //}
-
-                int d = 99;
-                drawVolume(ym2203Screen[chipID], y, 0, ref d, 0, tp);
-            }
-
         }
 
         public void screenInitOKIM6258(int chipID)

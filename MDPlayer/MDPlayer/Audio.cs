@@ -17,7 +17,7 @@ namespace MDPlayer
         {
             get
             {
-                lock(lockObj)
+                lock (lockObj)
                 {
                     return _fatalError;
                 }
@@ -25,7 +25,7 @@ namespace MDPlayer
 
             set
             {
-                lock(lockObj)
+                lock (lockObj)
                 {
                     _fatalError = value;
                 }
@@ -124,7 +124,7 @@ namespace MDPlayer
         private static enmFileFormat PlayingFileFormat;
 
 
-        public static PlayList.music getMusic(string file,byte[] buf,string zipFile=null)
+        public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
             PlayList.music music = new PlayList.music();
 
@@ -214,7 +214,7 @@ namespace MDPlayer
 
                 return n;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 log.ForcedWrite(e);
             }
@@ -223,7 +223,7 @@ namespace MDPlayer
 
         public static void Init(Setting setting)
         {
-           log.ForcedWrite("Audio:Init:Begin");
+            log.ForcedWrite("Audio:Init:Begin");
 
             vgmVirtual = new vgm();
             vgmReal = new vgm();
@@ -317,7 +317,7 @@ namespace MDPlayer
             chipRegister = new ChipRegister(
                 setting
                 , mds
-                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910, scYM2413 ,scHuC6280
+                , scYM2612, scSN76489, scYM2608, scYM2151, scYM2203, scYM2610, scAY8910, scYM2413, scHuC6280
                 , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
                 , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
                 , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
@@ -388,11 +388,11 @@ namespace MDPlayer
                 for (int j = 0; j < scc; j++)
                 {
                     NSoundChip sc = sif.getSoundChip(j);
-                    cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip(); 
+                    cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip();
                     cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip = sc;
 
                     NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-                    
+
                     cnscci.arySoundInterface[i].arySoundChip[j].info = info;
 
                 }
@@ -433,8 +433,8 @@ namespace MDPlayer
                 {
                     NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
                     NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
-                    if (0 == ct.SoundLocation 
-                        && i == ct.BusID 
+                    if (0 == ct.SoundLocation
+                        && i == ct.BusID
                         && j == ct.SoundChip)
                     {
                         return sc;
@@ -454,7 +454,7 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf,string playingFileName)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName)
         {
             Stop();
             PlayingFileFormat = format;
@@ -473,11 +473,11 @@ namespace MDPlayer
 
                 Stop();
 
-                int r=((NRTDRV)nrtVirtual).checkUseChip(vgmBuf);
+                int r = ((NRTDRV)nrtVirtual).checkUseChip(vgmBuf);
 
                 chipRegister.setFadeoutVolYM2151(0, 0);
                 chipRegister.setFadeoutVolYM2151(1, 0);
-                
+
                 chipRegister.resetChips();
 
                 vgmFadeout = false;
@@ -1227,9 +1227,9 @@ namespace MDPlayer
 
             try
             {
-                    Paused = !Paused;
+                Paused = !Paused;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.ForcedWrite(ex);
             }
@@ -1259,7 +1259,7 @@ namespace MDPlayer
 
         public static void Fadeout()
         {
-                vgmFadeout = true;
+            vgmFadeout = true;
         }
 
         public static void Stop()
@@ -1327,7 +1327,7 @@ namespace MDPlayer
                 //nscci.Dispose();
                 //nscci = null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.ForcedWrite(ex);
             }
@@ -1458,6 +1458,21 @@ namespace MDPlayer
         public static int[] GetYM2203Register(int chipID)
         {
             return chipRegister.fmRegisterYM2203[chipID];
+        }
+
+        public static int[] GetYM2413Register(int chipID)
+        {
+            return chipRegister.fmRegisterYM2413[chipID];
+        }
+
+        public static int getYM2413RyhthmKeyON(int chipID)
+        {
+            return chipRegister.getYM2413RyhthmKeyON(chipID);
+        }
+
+        public static void resetYM2413RyhthmKeyON(int chipID)
+        {
+            chipRegister.resetYM2413RyhthmKeyON(chipID);
         }
 
         public static int[][] GetYM2608Register(int chipID)
@@ -1615,18 +1630,6 @@ namespace MDPlayer
             return mds.ReadRf5c164Volume(chipID);
         }
 
-        public static void setYM2612Mask(int chipID,int ch)
-        {
-            //mds.setYM2612Mask(chipID,1 << ch);
-            chipRegister.setMaskYM2612(chipID, ch, true);
-        }
-
-        public static void setYM2203Mask(int chipID, int ch)
-        {
-            //mds.setYM2203Mask(chipID, 1 << ch);
-            chipRegister.setMaskYM2203(chipID, ch, true);
-        }
-
         public static void setSN76489Mask(int chipID, int ch)
         {
             //mds.setSN76489Mask(chipID,1 << ch);
@@ -1644,6 +1647,16 @@ namespace MDPlayer
             chipRegister.setMaskYM2151(chipID,ch, true);
         }
 
+        public static void setYM2203Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYM2203(chipID, ch, true);
+        }
+
+        public static void setYM2413Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYM2413(chipID, ch, true);
+        }
+
         public static void setYM2608Mask(int chipID, int ch)
         {
             //mds.setYM2608Mask(ch);
@@ -1654,6 +1667,11 @@ namespace MDPlayer
         {
             //mds.setYM2610Mask(ch);
             chipRegister.setMaskYM2610(chipID, ch, true);
+        }
+
+        public static void setYM2612Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
         public static void setC140Mask(int chipID, int ch)
@@ -1691,8 +1709,16 @@ namespace MDPlayer
         {
             try
             {
-                //mds.resetYM2203Mask(chipID, 1 << ch);
                 chipRegister.setMaskYM2203(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYM2413Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYM2413(chipID, ch, false);
             }
             catch { }
         }
@@ -2370,6 +2396,7 @@ namespace MDPlayer
             mds.SetVolumeSegaPCM(volume);
         }
 
+
         public static GD3 GetGD3()
         {
             switch (PlayingFileFormat)
@@ -2382,6 +2409,7 @@ namespace MDPlayer
 
             return null;
         }
+
 
         private static UInt32 getLE16(UInt32 adr)
         {
