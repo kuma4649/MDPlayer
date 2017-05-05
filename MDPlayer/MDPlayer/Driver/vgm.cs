@@ -1901,71 +1901,14 @@ namespace MDPlayer
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
-            GD3 GD3 = new GD3();
 
             uint adr = vgmGd3 + 12 + 0x14;
-
-            GD3.TrackName = "";
-            GD3.TrackNameJ = "";
-            GD3.GameName = "";
-            GD3.GameNameJ = "";
-            GD3.SystemName = "";
-            GD3.SystemNameJ = "";
-            GD3.Composer = "";
-            GD3.ComposerJ = "";
-            GD3.Converted = "";
-            GD3.Notes = "";
-            GD3.VGMBy = "";
-            GD3.Version = "";
+            GD3 = common.getGD3Info(buf, adr);
             GD3.UsedChips = UsedChips;
-
-            try
-            {
-                //trackName
-                GD3.TrackName = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //trackNameJ
-                GD3.TrackNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //gameName
-                GD3.GameName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //gameNameJ
-                GD3.GameNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //systemName
-                GD3.SystemName = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //systemNameJ
-                GD3.SystemNameJ = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Composer
-                GD3.Composer = System.Text.Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //ComposerJ
-                GD3.ComposerJ = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Converted
-                GD3.Converted = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //VGMBy
-                GD3.VGMBy = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-                //Notes
-                GD3.Notes = Encoding.Unicode.GetString(getByteArray(buf, ref adr));
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
 
             return GD3;
         }
 
-        private static byte[] getByteArray(byte[] buf, ref uint adr)
-        {
-            List<byte> ary = new List<byte>();
-            while (buf[adr] != 0 || buf[adr + 1] != 0)
-            {
-                ary.Add(buf[adr]);
-                adr++;
-                ary.Add(buf[adr]);
-                adr++;
-            }
-            adr += 2;
-
-            return ary.ToArray();
-        }
 
     }
 

@@ -6,8 +6,113 @@ using System.Threading.Tasks;
 
 namespace MDPlayer
 {
-    public class common
+    public static class common
     {
+        public static UInt32 getLE16(byte[] buf, UInt32 adr)
+        {
+            if (buf == null || buf.Length - 1 < adr + 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            UInt32 dat;
+            dat = (UInt32)buf[adr] + (UInt32)buf[adr + 1] * 0x100;
+
+            return dat;
+        }
+
+        public static UInt32 getLE24(byte[] buf, UInt32 adr)
+        {
+            if (buf == null || buf.Length - 1 < adr + 2)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            UInt32 dat;
+            dat = (UInt32)buf[adr] + (UInt32)buf[adr + 1] * 0x100 + (UInt32)buf[adr + 2] * 0x10000;
+
+            return dat;
+        }
+
+        public static UInt32 getLE32(byte[] buf, UInt32 adr)
+        {
+            if (buf == null || buf.Length - 1 < adr + 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            UInt32 dat;
+            dat = (UInt32)buf[adr] + (UInt32)buf[adr + 1] * 0x100 + (UInt32)buf[adr + 2] * 0x10000 + (UInt32)buf[adr + 3] * 0x1000000;
+
+            return dat;
+        }
+
+        public static byte[] getByteArray(byte[] buf, ref uint adr)
+        {
+            List<byte> ary = new List<byte>();
+            while (buf[adr] != 0 || buf[adr + 1] != 0)
+            {
+                ary.Add(buf[adr]);
+                adr++;
+                ary.Add(buf[adr]);
+                adr++;
+            }
+            adr += 2;
+
+            return ary.ToArray();
+        }
+
+        public static GD3 getGD3Info(byte[] buf, uint adr)
+        {
+            GD3 GD3 = new GD3();
+
+            GD3.TrackName = "";
+            GD3.TrackNameJ = "";
+            GD3.GameName = "";
+            GD3.GameNameJ = "";
+            GD3.SystemName = "";
+            GD3.SystemNameJ = "";
+            GD3.Composer = "";
+            GD3.ComposerJ = "";
+            GD3.Converted = "";
+            GD3.Notes = "";
+            GD3.VGMBy = "";
+            GD3.Version = "";
+            GD3.UsedChips = "";
+
+            try
+            {
+                //trackName
+                GD3.TrackName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //trackNameJ
+                GD3.TrackNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //gameName
+                GD3.GameName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //gameNameJ
+                GD3.GameNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //systemName
+                GD3.SystemName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //systemNameJ
+                GD3.SystemNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //Composer
+                GD3.Composer = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //ComposerJ
+                GD3.ComposerJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //Converted
+                GD3.Converted = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //VGMBy
+                GD3.VGMBy = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //Notes
+                GD3.Notes = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
+            return GD3;
+        }
+
     }
 
     public enum enmModel
@@ -63,7 +168,8 @@ namespace MDPlayer
     {
         unknown = 0,
         VGM = 1,
-        NRTDRV = 2
+        NRTDRV = 2,
+        XGM = 3
     }
 
 

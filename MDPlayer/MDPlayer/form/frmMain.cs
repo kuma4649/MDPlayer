@@ -3711,6 +3711,12 @@ namespace MDPlayer
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".xgm") != -1)
+            {
+                format = enmFileFormat.XGM;
+                return buf;
+            }
+
 
             //.VGMの場合はヘッダの確認とGzipで解凍後のファイルのヘッダの確認
             uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
