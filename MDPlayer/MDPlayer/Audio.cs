@@ -168,6 +168,11 @@ namespace MDPlayer
 
                 music.converted = gd3.Converted;
                 music.notes = gd3.Notes;
+
+                if (music.title == "" && music.titleJ == "" && music.game == "" && music.gameJ == "" && music.composer == "" && music.composerJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
             }
             else
             {
@@ -774,8 +779,8 @@ namespace MDPlayer
                 SetYM2612Volume(setting.balance.YM2151Volume);
                 SetSN76489Volume(setting.balance.SN76489Volume);
 
-                xgmVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0);
-                xgmReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0);
+                if (!xgmVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0)) return false;
+                if (!xgmReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0)) return false;
 
                 //Play
 

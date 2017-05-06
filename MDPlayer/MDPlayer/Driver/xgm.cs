@@ -46,6 +46,7 @@ namespace MDPlayer
             Stopped = false;
             vgmFrameCounter = 0;
             vgmSpeed = 1;
+            vgmSpeedCounter = 0;
 
             if (!getXGMInfo(vgmBuf)) return false;
 
@@ -68,7 +69,7 @@ namespace MDPlayer
             try
             {
                 vgmSpeedCounter += vgmSpeed;
-                while (vgmSpeedCounter >= 1.0)
+                while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
                     vgmSpeedCounter -= 1.0;
                     if (vgmFrameCounter > -1)
@@ -80,7 +81,7 @@ namespace MDPlayer
                         vgmFrameCounter++;
                     }
                 }
-                Stopped = !IsPlaying();
+                //Stopped = !IsPlaying();
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace MDPlayer
 
             if (!existGD3) return new GD3();
 
-            GD3 GD3 = common.getGD3Info(vgmBuf, gd3InfoStartAddr);
+            GD3 GD3 = common.getGD3Info(vgmBuf, gd3InfoStartAddr + 12);
             GD3.UsedChips = UsedChips;
 
             return GD3;
@@ -143,6 +144,11 @@ namespace MDPlayer
                 gd3InfoStartAddr = musicDataBlockAddr + musicDataBlockSize;
 
                 GD3 = getGD3Info();
+
+                if (musicDataBlockSize == 0)
+                {
+                    return false;
+                }
             }
             catch (Exception e)
             {

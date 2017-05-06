@@ -561,7 +561,7 @@ namespace MDPlayer
                 foreach (string fn in files)
                 {
                     string ext1 = System.IO.Path.GetExtension(fn).ToUpper();
-                    if (ext1 == ".VGM" || ext1 == ".VGZ")
+                    if (ext1 == ".VGM" || ext1 == ".VGZ" || ext1 == ".NRD" || ext1 == ".XGM")
                     {
                         AddList(fn);
                     }
