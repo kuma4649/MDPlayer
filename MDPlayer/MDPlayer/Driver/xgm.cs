@@ -96,7 +96,7 @@ namespace MDPlayer
             return GD3;
         }
 
-        private GD3 getGD3Info()
+        private GD3 getGD3Info(byte[] vgmBuf)
         {
 
             if (!existGD3) return new GD3();
@@ -143,7 +143,7 @@ namespace MDPlayer
 
                 gd3InfoStartAddr = musicDataBlockAddr + musicDataBlockSize;
 
-                GD3 = getGD3Info();
+                GD3 = getGD3Info(vgmBuf);
 
                 if (musicDataBlockSize == 0)
                 {

@@ -565,8 +565,8 @@ namespace MDPlayer
                         {
                             fmKeyOnYM2203[chipID][2] = dData & 0xf0;
                             if ((dData & 0x10) > 0) fmCh3SlotVolYM2203[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x48 + 2] & 0x7f)) / 127.0));
                             if ((dData & 0x80) > 0) fmCh3SlotVolYM2203[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
@@ -656,8 +656,8 @@ namespace MDPlayer
                         {
                             fmKeyOnYM2608[chipID][2] = dData & 0xf0;
                             if ((dData & 0x10) > 0) fmCh3SlotVolYM2608[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
                             if ((dData & 0x80) > 0) fmCh3SlotVolYM2608[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
@@ -812,8 +812,8 @@ namespace MDPlayer
                         {
                             fmKeyOnYM2610[chipID][2] = dData & 0xf0;
                             if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
                             if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
@@ -989,8 +989,8 @@ namespace MDPlayer
                         {
                             fmKeyOnYM2612[chipID][2] = dData & 0xf0;
                             if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
                             if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }

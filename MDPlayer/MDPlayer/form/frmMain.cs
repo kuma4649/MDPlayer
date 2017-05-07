@@ -2999,6 +2999,11 @@ namespace MDPlayer
 
             for (int ch = 6; ch < 9; ch++)
             {
+                //Operator 1′s frequency is in A9 and ADH
+                //Operator 2′s frequency is in AA and AEH
+                //Operator 3′s frequency is in A8 and ACH
+                //Operator 4′s frequency is in A2 and A6H
+
                 int[] exReg = new int[3] { 2, 0, -6 };
                 int c = exReg[ch - 6];
 

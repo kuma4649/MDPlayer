@@ -2638,6 +2638,8 @@ namespace MDPlayer
                     return nrtVirtual.GD3;
                 case enmFileFormat.VGM:
                     return vgmVirtual.GD3;
+                case enmFileFormat.XGM:
+                    return xgmVirtual.GD3;
             }
 
             return null;
