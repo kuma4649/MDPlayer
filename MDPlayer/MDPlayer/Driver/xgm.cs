@@ -13,8 +13,8 @@ namespace MDPlayer
 
         private class XGMSampleID
         {
-            public ushort addr = 0;
-            public ushort size = 0;
+            public uint addr = 0;
+            public uint size = 0;
         }
 
         private XGMSampleID[] sampleID = new XGMSampleID[63];
@@ -119,8 +119,8 @@ namespace MDPlayer
                 for (uint i = 0; i < 63; i++)
                 {
                     sampleID[i] = new XGMSampleID();
-                    sampleID[i].addr = (ushort)(common.getLE16(vgmBuf, i * 4 + 4) * 256);
-                    sampleID[i].size = (ushort)(common.getLE16(vgmBuf, i * 4 + 6) * 256);
+                    sampleID[i].addr = (common.getLE16(vgmBuf, i * 4 + 4) * 256);
+                    sampleID[i].size = (common.getLE16(vgmBuf, i * 4 + 6) * 256);
                 }
 
                 sampleDataBlockSize = common.getLE16(vgmBuf, 0x100);
