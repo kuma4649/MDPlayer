@@ -219,7 +219,7 @@ namespace MDPlayer
                 //loop command
                 if (cmd == 0x7e)
                 {
-                    musicPtr = musicDataBlockAddr + common.getLE32(vgmBuf, musicPtr);
+                    musicPtr = musicDataBlockAddr + common.getLE24(vgmBuf, musicPtr);
                     vgmCurLoop++;
                     continue;
                 }
