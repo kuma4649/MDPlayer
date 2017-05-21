@@ -8,49 +8,51 @@ namespace MDPlayer
 {
     public class MDChipParams
     {
-        public int Cminutes = 0;
-        public int Csecond = 0;
-        public int Cmillisecond = 0;
+        public int Cminutes = -1;
+        public int Csecond = -1;
+        public int Cmillisecond = -1;
 
-        public int TCminutes = 0;
-        public int TCsecond = 0;
-        public int TCmillisecond = 0;
+        public int TCminutes = -1;
+        public int TCsecond = -1;
+        public int TCmillisecond = -1;
 
-        public int LCminutes = 0;
-        public int LCsecond = 0;
-        public int LCmillisecond = 0;
+        public int LCminutes = -1;
+        public int LCsecond = -1;
+        public int LCmillisecond = -1;
 
-        public int ChipPriOPN = 0;
-        public int ChipPriOPN2 = 0;
-        public int ChipPriOPNA = 0;
-        public int ChipPriOPNB = 0;
-        public int ChipPriOPM = 0;
-        public int ChipPriDCSG = 0;
-        public int ChipPriRF5C = 0;
-        public int ChipPriPWM = 0;
-        public int ChipPriOKI5 = 0;
-        public int ChipPriOKI9 = 0;
-        public int ChipPriC140 = 0;
-        public int ChipPriSPCM = 0;
-        public int ChipPriAY10 = 0;
-        public int ChipPriOPLL = 0;
-        public int ChipPriHuC8 = 0;
+        public int ChipPriOPN = -1;
+        public int ChipPriOPN2 = -1;
+        public int ChipPriOPNA = -1;
+        public int ChipPriOPNB = -1;
+        public int ChipPriOPM = -1;
+        public int ChipPriDCSG = -1;
+        public int ChipPriRF5C = -1;
+        public int ChipPriPWM = -1;
+        public int ChipPriOKI5 = -1;
+        public int ChipPriOKI9 = -1;
+        public int ChipPriC140 = -1;
+        public int ChipPriSPCM = -1;
+        public int ChipPriAY10 = -1;
+        public int ChipPriOPLL = -1;
+        public int ChipPriHuC8 = -1;
 
-        public int ChipSecOPN = 0;
-        public int ChipSecOPN2 = 0;
-        public int ChipSecOPNA = 0;
-        public int ChipSecOPNB = 0;
-        public int ChipSecOPM = 0;
-        public int ChipSecDCSG = 0;
-        public int ChipSecRF5C = 0;
-        public int ChipSecPWM = 0;
-        public int ChipSecOKI5 = 0;
-        public int ChipSecOKI9 = 0;
-        public int ChipSecC140 = 0;
-        public int ChipSecSPCM = 0;
-        public int ChipSecAY10 = 0;
-        public int ChipSecOPLL = 0;
-        public int ChipSecHuC8 = 0;
+        public int ChipSecOPN = -1;
+        public int ChipSecOPN2 = -1;
+        public int ChipSecOPNA = -1;
+        public int ChipSecOPNB = -1;
+        public int ChipSecOPM = -1;
+        public int ChipSecDCSG = -1;
+        public int ChipSecRF5C = -1;
+        public int ChipSecPWM = -1;
+        public int ChipSecOKI5 = -1;
+        public int ChipSecOKI9 = -1;
+        public int ChipSecC140 = -1;
+        public int ChipSecSPCM = -1;
+        public int ChipSecAY10 = -1;
+        public int ChipSecOPLL = -1;
+        public int ChipSecHuC8 = -1;
+
+        public enmFileFormat fileFormat = enmFileFormat.unknown;
 
 
         public class Channel
@@ -98,6 +100,9 @@ namespace MDPlayer
         {
             public bool lfoSw = false;
             public int lfoFrq = -1;
+            public int[] xpcmVolL = new int[4] { -1, -1, -1, -1 };
+            public int[] xpcmVolR = new int[4] { -1, -1, -1, -1 };
+            public int[] xpcmInst = new int[4] { -1, -1, -1, -1 };
 
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 

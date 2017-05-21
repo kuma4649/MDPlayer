@@ -1762,11 +1762,7 @@ namespace MDPlayer
 
         public int[][] GetYM2612Volume(int chipID)
         {
-            //if (ctYM2612.UseScci)
-            //{
             return fmVolYM2612[chipID];
-            //}
-            //return mds.ReadFMVolume();
         }
 
 
@@ -1799,11 +1795,7 @@ namespace MDPlayer
 
         public int[] GetYM2612Ch3SlotVolume(int chipID)
         {
-            //if (ctYM2612.UseScci)
-            //{
             return fmCh3SlotVolYM2612[chipID];
-            //}
-            //return mds.ReadFMCh3SlotVolume();
         }
 
 

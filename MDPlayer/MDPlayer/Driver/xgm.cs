@@ -58,7 +58,7 @@ namespace MDPlayer
 
             //Driverの初期化
             musicPtr = musicDataBlockAddr;
-            pcm= new PCM[] { new PCM(), new PCM(), new PCM(), new PCM() };
+            xgmpcm= new XGMPCM[] { new XGMPCM(), new XGMPCM(), new XGMPCM(), new XGMPCM() };
             DACEnable = 0;
 
             return true;
@@ -302,16 +302,18 @@ namespace MDPlayer
             }
         }
 
-        private class PCM
+        public class XGMPCM
         {
             public uint Priority = 0;
             public uint startAddr = 0;
             public uint endAddr = 0;
             public uint addr = 0;
+            public uint inst = 0;
             public bool isPlaying = false;
+            public byte data = 0;
         }
 
-        private PCM[] pcm = null;
+        public XGMPCM[] xgmpcm = null;
 
         private void PlayPCM(byte X)
         {
@@ -320,24 +322,26 @@ namespace MDPlayer
             byte id = vgmBuf[musicPtr++];
 
             //優先度が高い場合または消音中の場合のみ発音できる
-            if (pcm[channel].Priority <= priority || !pcm[channel].isPlaying)
+            if (xgmpcm[channel].Priority <= priority || !xgmpcm[channel].isPlaying)
             {
                 if (id == 0 || sampleID[id - 1].size == 0)
                 {
                     //IDが0の場合や、定義されていないIDが指定された場合は発音を停止する
-                    pcm[channel].Priority = 0;
-                    pcm[channel].startAddr = 0;
-                    pcm[channel].endAddr = 0;
-                    pcm[channel].addr = 0;
-                    pcm[channel].isPlaying = false;
+                    xgmpcm[channel].Priority = 0;
+                    xgmpcm[channel].startAddr = 0;
+                    xgmpcm[channel].endAddr = 0;
+                    xgmpcm[channel].addr = 0;
+                    xgmpcm[channel].inst = id;
+                    xgmpcm[channel].isPlaying = false;
                 }
                 else
                 {
-                    pcm[channel].Priority = priority;
-                    pcm[channel].startAddr = (uint)(sampleDataBlockAddr + sampleID[id - 1].addr);
-                    pcm[channel].endAddr = (uint)(sampleDataBlockAddr + sampleID[id - 1].addr + sampleID[id - 1].size);
-                    pcm[channel].addr = sampleDataBlockAddr + sampleID[id - 1].addr;
-                    pcm[channel].isPlaying = true;
+                    xgmpcm[channel].Priority = priority;
+                    xgmpcm[channel].startAddr = (uint)(sampleDataBlockAddr + sampleID[id - 1].addr);
+                    xgmpcm[channel].endAddr = (uint)(sampleDataBlockAddr + sampleID[id - 1].addr + sampleID[id - 1].size);
+                    xgmpcm[channel].addr = sampleDataBlockAddr + sampleID[id - 1].addr;
+                    xgmpcm[channel].inst = id;
+                    xgmpcm[channel].isPlaying = true;
                 }
             }
         }
@@ -351,13 +355,15 @@ namespace MDPlayer
 
             for (int i = 0; i < 4; i++)
             {
-                if (!pcm[i].isPlaying) continue;
+                if (!xgmpcm[i].isPlaying) continue;
                 cnt++;
-                sbyte d = (sbyte)vgmBuf[pcm[i].addr++];
+                sbyte d = (sbyte)vgmBuf[xgmpcm[i].addr++];
                 o += d;
-                if (pcm[i].addr >= pcm[i].endAddr)
+                xgmpcm[i].data = (byte)(Math.Abs(d));
+                if (xgmpcm[i].addr >= xgmpcm[i].endAddr)
                 {
-                    pcm[i].isPlaying = false;
+                    xgmpcm[i].isPlaying = false;
+                    xgmpcm[i].data = 0;
                 }
             }
 

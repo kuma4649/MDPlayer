@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MDPlayer
@@ -112,7 +113,33 @@ namespace MDPlayer
 
                 bgPlane.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 bgPlane.Graphics.DrawImage(bmpPlane, 0, 0, bmpPlane.Width*zoom , bmpPlane.Height*zoom);
+
+                //IntPtr hBmp = bmpPlane.GetHbitmap();
+                //IntPtr hFormDC = bgPlane.Graphics.GetHdc(), hDC = CreateCompatibleDC(hFormDC);
+                //IntPtr hPrevBmp = SelectObject(hDC, hBmp);
+                //BitBlt(hFormDC, 0, 0, bmpPlane.Width, bmpPlane.Height, hDC, 0, 0, SRCCOPY);
+                //bgPlane.Graphics.ReleaseHdc(hFormDC);
+                //SelectObject(hDC, hPrevBmp);
+                //DeleteDC(hDC);
+                //DeleteObject(hBmp);
             }
+
+            public static uint SRCINVERT = 0x00660046;
+            public static uint SRCCOPY = 0x00CC0020;
+            [DllImport("gdi32.dll")]
+            public static extern bool BitBlt(
+             IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc,
+                    int nXSrc, int nYSrc, uint dwRop);
+            [DllImport("gdi32.dll", EntryPoint = "SelectObject")]
+            public static extern IntPtr SelectObject(IntPtr hdc, IntPtr h);
+            [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+
+            [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern bool DeleteDC(IntPtr hdc);
+
+            [DllImport("gdi32.dll")]
+            public static extern bool DeleteObject(IntPtr hObject);
 
             public void Refresh(Action<object, PaintEventArgs> p)
             {
@@ -1064,6 +1091,31 @@ namespace MDPlayer
             }
         }
 
+        public void drawCh6PYM2612XGM(int chipID, int x, int y, int m, bool mask, int tp)
+        {
+            if (m == 0)
+            {
+                //FM mode
+
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 64, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, mask ? 1 : 0, "6");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(ym2612Screen[chipID], 32 + kx, y, kt, tp);
+                }
+            }
+            else
+            {
+                //PCM mode
+
+                ym2612Screen[chipID].drawByteArray(x, y, fontBuf, 128, 80, 104 - (mask ? 8 : 0) + 16 * tp, 16, 8);
+                drawFont8(ym2612Screen[chipID], x + 16, y, 0, " ");
+                drawFont4(ym2612Screen[chipID], x + 32, y, 0, " 1C00             2C00             3C00             4C00                ");
+            }
+        }
+
         public void drawChPYM2151(int chipID, int x, int y, int ch, bool mask, int tp)
         {
             if (ym2151Screen[chipID] == null) return;
@@ -1413,6 +1465,20 @@ namespace MDPlayer
             }
 
             drawCh6PYM2612(chipID,0, 48, nt, nm, ntp);
+            ot = nt;
+            om = nm;
+            otp = ntp;
+        }
+
+        public void drawCh6YM2612XGM(int chipID, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        {
+
+            if (ot == nt && om == nm && otp == ntp)
+            {
+                return;
+            }
+
+            drawCh6PYM2612XGM(chipID, 0, 48, nt, nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
@@ -2544,12 +2610,40 @@ namespace MDPlayer
                         tp6v = newParam.ym2612[chipID].channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
                                                                                 //tp6 = 0;
                     }
-                    drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
-                    drawVolume(ym2612Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+
                     drawPan(ym2612Screen[chipID], c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6v);
-                    drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp6v);
                     drawInst(ym2612Screen[chipID], 1, 12, c, oyc.inst, nyc.inst);
-                    drawCh6YM2612(chipID, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+
+                    if (newParam.fileFormat != enmFileFormat.XGM)
+                    {
+                        drawCh6YM2612(chipID, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                        drawVolume(ym2612Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                        drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp6v);
+                    }
+                    else
+                    {
+                        drawCh6YM2612XGM(chipID, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        if (newParam.ym2612[chipID].channels[5].pcmMode == 0)
+                        {
+                            drawVolume(ym2612Screen[chipID], c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                            drawVolume(ym2612Screen[chipID], c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                            drawKb(ym2612Screen[chipID], c, ref oyc.note, nyc.note, tp6v);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                drawVolumeXY(ym2612Screen[chipID], 13 + i * 17, 12, 1, ref oldParam.ym2612[chipID].xpcmVolL[i], newParam.ym2612[chipID].xpcmVolL[i], tp6v);
+                                drawVolumeXY(ym2612Screen[chipID], 13 + i * 17, 12, 2, ref oldParam.ym2612[chipID].xpcmVolR[i], newParam.ym2612[chipID].xpcmVolR[i], tp6v);
+                                if (oldParam.ym2612[chipID].xpcmInst[i] != newParam.ym2612[chipID].xpcmInst[i])
+                                {
+                                    drawFont4Int2(ym2612Screen[chipID], 44 + i * 17 * 4, 48, tp6v, 2, newParam.ym2612[chipID].xpcmInst[i]);
+                                    oldParam.ym2612[chipID].xpcmInst[i] = newParam.ym2612[chipID].xpcmInst[i];
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {

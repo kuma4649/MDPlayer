@@ -3026,6 +3026,30 @@ namespace MDPlayer
             }
 
             newParam.ym2612[chipID].channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
+
+            if (newParam.fileFormat == enmFileFormat.XGM)
+            {
+                if (((xgm)Audio.xgmVirtual).xgmpcm != null)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (((xgm)Audio.xgmVirtual).xgmpcm[i].isPlaying)
+                        {
+                            newParam.ym2612[chipID].xpcmInst[i] = (int)(((xgm)Audio.xgmVirtual).xgmpcm[i].inst);
+                            int d = (((xgm)Audio.xgmVirtual).xgmpcm[i].data /6);
+                            d = Math.Min(d, 19);
+                            newParam.ym2612[chipID].xpcmVolL[i] = d;
+                            newParam.ym2612[chipID].xpcmVolR[i] = d; 
+                        }
+                        else
+                        {
+                            newParam.ym2612[chipID].xpcmInst[i] = 0;
+                            newParam.ym2612[chipID].xpcmVolL[i] = 0;
+                            newParam.ym2612[chipID].xpcmVolR[i] = 0;
+                        }
+                    }
+                }
+            }
         }
 
         private void screenChangeParamsFromAY8910(int chipID)
@@ -4588,6 +4612,7 @@ namespace MDPlayer
                 }
 
                 Audio.SetVGMBuffer(format, srcBuf, outMIDIFn);
+                newParam.fileFormat = format;
 
                 if (srcBuf != null)
                 {
