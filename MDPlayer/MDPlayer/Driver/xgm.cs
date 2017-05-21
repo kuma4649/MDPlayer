@@ -359,7 +359,7 @@ namespace MDPlayer
                 cnt++;
                 sbyte d = (sbyte)vgmBuf[xgmpcm[i].addr++];
                 o += d;
-                xgmpcm[i].data = (byte)(Math.Abs(d));
+                xgmpcm[i].data = (byte)(Math.Abs((int)d));
                 if (xgmpcm[i].addr >= xgmpcm[i].endAddr)
                 {
                     xgmpcm[i].isPlaying = false;
