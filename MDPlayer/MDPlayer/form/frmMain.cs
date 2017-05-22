@@ -57,7 +57,7 @@ namespace MDPlayer
         private int frameSizeH = 0;
 
 
-        //private MidiIn midiin = null;
+        private MidiIn midiin = null;
         private bool forcedExit = false;
 
         public frmMain()
@@ -4505,81 +4505,94 @@ namespace MDPlayer
         private void StartMIDIInMonitoring()
         {
 
-            //if (setting.other.MidiInDeviceName == "")
-            //{
-            //    return;
-            //}
+            if (setting.other.MidiInDeviceName == "")
+            {
+                return;
+            }
 
-            //if (midiin != null)
-            //{
-            //    try
-            //    {
-            //        midiin.Stop();
-            //        midiin.Dispose();
-            //        midiin.MessageReceived -= midiIn_MessageReceived;
-            //        midiin.ErrorReceived -= midiIn_ErrorReceived;
-            //        midiin = null;
-            //    }
-            //    catch
-            //    {
-            //        midiin = null;
-            //    }
-            //}
+            if (midiin != null)
+            {
+                try
+                {
+                    midiin.Stop();
+                    midiin.Dispose();
+                    midiin.MessageReceived -= midiIn_MessageReceived;
+                    midiin.ErrorReceived -= midiIn_ErrorReceived;
+                    midiin = null;
+                }
+                catch
+                {
+                    midiin = null;
+                }
+            }
 
-            //if (midiin == null)
-            //{
-            //    for (int i = 0; i < MidiIn.NumberOfDevices; i++)
-            //    {
-            //        if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
-            //        {
-            //            try
-            //            {
-            //                midiin = new MidiIn(i);
-            //                midiin.MessageReceived += midiIn_MessageReceived;
-            //                midiin.ErrorReceived += midiIn_ErrorReceived;
-            //                midiin.Start();
-            //            }
-            //            catch
-            //            {
-            //                midiin = null;
-            //            }
-            //        }
-            //    }
-            //}
+            if (midiin == null)
+            {
+                for (int i = 0; i < MidiIn.NumberOfDevices; i++)
+                {
+                    if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
+                    {
+                        try
+                        {
+                            midiin = new MidiIn(i);
+                            midiin.MessageReceived += midiIn_MessageReceived;
+                            midiin.ErrorReceived += midiIn_ErrorReceived;
+                            midiin.Start();
+                        }
+                        catch
+                        {
+                            midiin = null;
+                        }
+                    }
+                }
+            }
 
         }
 
         void midiIn_ErrorReceived(object sender, MidiInMessageEventArgs e)
         {
-            //            Console.WriteLine(String.Format("Error Time {0} Message 0x{1:X8} Event {2}",
-            //                e.Timestamp, e.RawMessage, e.MidiEvent));
+            Console.WriteLine(String.Format("Error Time {0} Message 0x{1:X8} Event {2}",
+                e.Timestamp, e.RawMessage, e.MidiEvent));
         }
 
         private void StopMIDIInMonitoring()
         {
-            //if (midiin != null)
-            //{
-            //    try
-            //    {
-            //        midiin.Stop();
-            //        midiin.Dispose();
-            //        midiin.MessageReceived -= midiIn_MessageReceived;
-            //        midiin.ErrorReceived -= midiIn_ErrorReceived;
-            //        midiin = null;
-            //    }
-            //    catch
-            //    {
-            //        midiin = null;
-            //    }
-            //}
+            if (midiin != null)
+            {
+                try
+                {
+                    midiin.Stop();
+                    midiin.Dispose();
+                    midiin.MessageReceived -= midiIn_MessageReceived;
+                    midiin.ErrorReceived -= midiIn_ErrorReceived;
+                    midiin = null;
+                }
+                catch
+                {
+                    midiin = null;
+                }
+            }
         }
 
         void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
             {
-                //Console.WriteLine(String.Format("Time {0} Message 0x{1:X8} Event {2}",
-                //    e.Timestamp, e.RawMessage, e.MidiEvent));
+                NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
+
+                Audio.NoteON(noe.NoteNumber);
+                return;
+            }
+            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+            {
+                NoteEvent ne = (NoteEvent)e.MidiEvent;
+                Audio.NoteOFF();
+                return;
+            }
+            if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+            {
+                ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
+                if ((int)ce.Controller == 97) Audio.VoiceCopy();
             }
         }
 

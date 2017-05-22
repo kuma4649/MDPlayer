@@ -1132,7 +1132,6 @@
             // cbUseMIDIKeyboard
             // 
             this.cbUseMIDIKeyboard.AutoSize = true;
-            this.cbUseMIDIKeyboard.Enabled = false;
             this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(11, 4);
             this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
             this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(122, 16);
@@ -1184,6 +1183,7 @@
             this.gbUseChannel.Controls.Add(this.cbPSG2);
             this.gbUseChannel.Controls.Add(this.cbFM6);
             this.gbUseChannel.Controls.Add(this.cbPSG1);
+            this.gbUseChannel.Enabled = false;
             this.gbUseChannel.Location = new System.Drawing.Point(6, 44);
             this.gbUseChannel.Name = "gbUseChannel";
             this.gbUseChannel.Size = new System.Drawing.Size(356, 60);

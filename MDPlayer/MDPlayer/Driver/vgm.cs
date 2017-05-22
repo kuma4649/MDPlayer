@@ -822,7 +822,7 @@ namespace MDPlayer
             try
             {
 
-                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName.Replace("*","").Replace("?","").Replace(" ","").Replace("\"","")));
+                string fn = System.IO.Path.Combine(setting.other.DumpPath, string.Format("{1}_{2}_{0:000}.bin", dumpCounter++, chipName, GD3.TrackName.Replace("*","").Replace("?","").Replace(" ","").Replace("\"", "").Replace("/", "")));
                 using (System.IO.FileStream fs = new System.IO.FileStream(fn, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write))
                 {
                     using (System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs))

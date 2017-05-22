@@ -3,13 +3,29 @@ using System.Collections.Generic;
 using NScci;
 using System.Threading;
 using System.Diagnostics;
-using System.Windows.Forms;
 using MDSound;
 
 namespace MDPlayer
 {
     public class Audio
     {
+        public class cNscci
+        {
+            public cSoundInterface[] arySoundInterface;
+        }
+
+        public class cSoundInterface
+        {
+            public NSoundInterface nSoundInterface;
+            public cSoundChip[] arySoundChip;
+        }
+
+        public class cSoundChip
+        {
+            public NSoundChip nSoundChip;
+            public NSCCI_SOUND_CHIP_INFO info;
+        }
+
 
         private static object lockObj = new object();
         private static bool _fatalError = false;
@@ -36,6 +52,7 @@ namespace MDPlayer
 
         private static uint samplingBuffer = 1024;
         private static MDSound.MDSound mds = null;
+        private static MDSound.MDSound mdsMIDI = null;
         private static NAudioWrap naudioWrap;
         private static WaveWriter waveWriter = null;
 
@@ -51,7 +68,6 @@ namespace MDPlayer
         private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
-
 
         private static Thread trdMain = null;
         private static bool trdClosed = false;
@@ -98,7 +114,6 @@ namespace MDPlayer
         public static int ChipPriOKI9 = 0;
         public static int ChipPriC140 = 0;
         public static int ChipPriSPCM = 0;
-        //public static int ChipPriPSG = 0;
         public static int ChipPriAY10 = 0;
         public static int ChipPriOPLL = 0;
         public static int ChipPriHuC = 0;
@@ -115,15 +130,15 @@ namespace MDPlayer
         public static int ChipSecOKI9 = 0;
         public static int ChipSecC140 = 0;
         public static int ChipSecSPCM = 0;
-        //public static int ChipSecPSG = 0;
         public static int ChipSecAY10 = 0;
         public static int ChipSecOPLL = 0;
         public static int ChipSecHuC = 0;
 
         private static int MasterVolume = 0;
-        static int[] chips = new int[256];
+        private static int[] chips = new int[256];
         private static string PlayingFileName;
         private static enmFileFormat PlayingFileFormat;
+        public static cNscci cnscci;
 
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
@@ -177,24 +192,24 @@ namespace MDPlayer
             else
             {
                 if (buf.Length < 0x40) return music;
-                if (getLE32(buf, 0x00) != vgm.FCC_VGM) return music;
+                if (common.getLE32(buf, 0x00) != vgm.FCC_VGM) return music;
 
                 music.format = enmFileFormat.VGM;
-                uint version = getLE32(buf, 0x08);
+                uint version = common.getLE32(buf, 0x08);
                 string Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
-                uint vgmGd3 = getLE32(buf, 0x14);
+                uint vgmGd3 = common.getLE32(buf, 0x14);
                 GD3 gd3 = new GD3();
                 if (vgmGd3 != 0)
                 {
-                    uint vgmGd3Id = getLE32(buf, vgmGd3 + 0x14);
+                    uint vgmGd3Id = common.getLE32(buf, vgmGd3 + 0x14);
                     if (vgmGd3Id != vgm.FCC_GD3) return music;
                     gd3 = vgmVirtual.getGD3Info(buf, vgmGd3);
                 }
 
-                uint TotalCounter = getLE32(buf, 0x18);
-                uint vgmLoopOffset = getLE32(buf, 0x1c);
-                uint LoopCounter = getLE32(buf, 0x20);
+                uint TotalCounter = common.getLE32(buf, 0x18);
+                uint vgmLoopOffset = common.getLE32(buf, 0x1c);
+                uint LoopCounter = common.getLE32(buf, 0x20);
 
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
@@ -278,6 +293,46 @@ namespace MDPlayer
             else
                 mds.Init(SamplingRate, samplingBuffer, null);
 
+            List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+            MDSound.MDSound.Chip chip;
+
+            ym2612 ym2612 = new ym2612();
+            chip = new MDSound.MDSound.Chip();
+            chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
+            chip.ID = (byte)0;
+            chip.Instrument = ym2612;
+            chip.Update = ym2612.Update;
+            chip.Start = ym2612.Start;
+            chip.Stop = ym2612.Stop;
+            chip.Reset = ym2612.Reset;
+            chip.SamplingRate = SamplingRate;
+            chip.Volume = setting.balance.YM2612Volume;
+            chip.Clock = 7670454;
+            chip.Option = null;
+            ChipPriOPN2 = 1;
+            lstChips.Add(chip);
+
+            sn76489 sn76489 = new sn76489();
+            chip = new MDSound.MDSound.Chip();
+            chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+            chip.ID = (byte)0;
+            chip.Instrument = sn76489;
+            chip.Update = sn76489.Update;
+            chip.Start = sn76489.Start;
+            chip.Stop = sn76489.Stop;
+            chip.Reset = sn76489.Reset;
+            chip.SamplingRate = SamplingRate;
+            chip.Volume = setting.balance.SN76489Volume;
+            chip.Clock = 3579545;
+            chip.Option = null;
+            ChipPriDCSG = 1;
+            lstChips.Add(chip);
+
+            if (mdsMIDI == null)
+                mdsMIDI = new MDSound.MDSound(SamplingRate, samplingBuffer, lstChips.ToArray());
+            else
+                mdsMIDI.Init(SamplingRate, samplingBuffer, lstChips.ToArray());
+
             log.ForcedWrite("Audio:Init:STEP 04");
 
             if (cnscci == null)
@@ -359,25 +414,6 @@ namespace MDPlayer
 
         }
 
-        public class cNscci
-        {
-            public cSoundInterface[] arySoundInterface;
-        }
-
-        public class cSoundInterface
-        {
-            public NSoundInterface nSoundInterface;
-            public cSoundChip[] arySoundChip;
-        }
-
-        public class cSoundChip
-        {
-            public NSoundChip nSoundChip;
-            public NSCCI_SOUND_CHIP_INFO info;
-        }
-
-        public static cNscci cnscci;
-
         public static void getScciInstances()
         {
             cnscci = new cNscci();
@@ -433,7 +469,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private static NScci.NSoundChip getChip(Setting.ChipType ct)// int SoundLocation, int BusID, int SoundChip)
+        private static NSoundChip getChip(Setting.ChipType ct)
         {
             for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
             {
@@ -470,6 +506,7 @@ namespace MDPlayer
             PlayingFileName = playingFileName;
             chipRegister.SetFileName(playingFileName);
         }
+
 
         public static bool Play(Setting setting)
         {
@@ -553,7 +590,7 @@ namespace MDPlayer
                 ChipPriAY10 = 0;
                 ChipPriOPLL = 0;
                 ChipPriHuC = 0;
-                //ChipPriPSG = 0;
+
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
                 ChipSecOPNA = 0;
@@ -569,7 +606,6 @@ namespace MDPlayer
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
-                //ChipSecPSG = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -578,7 +614,6 @@ namespace MDPlayer
                 {
                     if ((i == 0 && (r & 0x3) != 0) || (i == 1 && (r & 0x2) != 0))
                     {
-
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                         chip.ID = (byte)i;
@@ -1355,6 +1390,7 @@ namespace MDPlayer
 
         }
 
+
         public static void FF()
         {
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
@@ -1498,7 +1534,6 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
             }
         }
-
 
         public static long GetCounter()
         {
@@ -1673,22 +1708,22 @@ namespace MDPlayer
             return chipRegister.psgRegisterAY8910[chipID];
         }
 
-        public static MDSound.Ootake_PSG.huc6280_state GetHuC6280Register(int chipID)
+        public static Ootake_PSG.huc6280_state GetHuC6280Register(int chipID)
         {
             return mds.ReadHuC6280Status(chipID);
         }
 
-        public static MDSound.scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
+        public static scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
         {
             return mds.ReadRf5c164Register(chipID);
         }
 
-        public static MDSound.c140.c140_state GetC140Register(int chipID)
+        public static c140.c140_state GetC140Register(int chipID)
         {
             return mds.ReadC140Register(chipID);
         }
 
-        public static MDSound.segapcm.segapcm_state GetSegaPCMRegister(int chipID)
+        public static segapcm.segapcm_state GetSegaPCMRegister(int chipID)
         {
             return mds.ReadSegaPCMStatus(chipID);
         }
@@ -1871,8 +1906,7 @@ namespace MDPlayer
         {
             mds.setHuC6280Mask(chipID, 1 << ch);
         }
-
-
+        
         public static void resetYM2612Mask(int chipID,int ch)
         {
             try
@@ -1969,7 +2003,6 @@ namespace MDPlayer
             mds.resetHuC6280Mask(chipID, 1 << ch);
         }
 
-
         public static uint GetVgmCurLoopCounter()
         {
             uint cnt = 0;
@@ -2042,7 +2075,6 @@ namespace MDPlayer
             return (model == enmModel.VirtualModel) ? ((vgm)vgmVirtual).isPcmRAMWrite : ((vgm)vgmReal).isPcmRAMWrite;
         }
 
-
         private static void NaudioWrap_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {
             if (e.Exception != null)
@@ -2070,6 +2102,7 @@ namespace MDPlayer
                 catch { }
             }
         }
+
 
         private static void trdVgmRealFunction()
         {
@@ -2246,16 +2279,30 @@ namespace MDPlayer
 
         internal static int trdVgmVirtualFunction(short[] buffer, int offset, int sampleCount)
         {
+            int cnt1 = trdVgmVirtualMainFunction(buffer, offset, sampleCount);
+
+            if (setting.other.UseMIDIKeyboard)
+            {
+                short[] buf = new short[sampleCount];
+                int cnt2 = mdsMIDI.Update(buf, 0, sampleCount, null);
+                for (int i = 0; i < sampleCount; i++)
+                {
+                    buffer[i + offset] += buf[i];
+                }
+            }
+
+            return cnt1;
+        }
+
+        private static int trdVgmVirtualMainFunction(short[] buffer, int offset, int sampleCount)
+        {
             try
             {
                 int i;
 
-                if (Stopped || Paused)
-                {
-                    return mds.Update(buffer, offset, sampleCount, null);
+                if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
 
-                }
-                if (((vgm)vgmReal).isDataBlock) { return mds.Update(buffer, offset, sampleCount, null); }
+                if (((vgm)vgmReal).isDataBlock) return mds.Update(buffer, offset, sampleCount, null);
 
                 if (StepCounter > 0)
                 {
@@ -2268,8 +2315,7 @@ namespace MDPlayer
                     }
                 }
 
-
-                int cnt=0;
+                int cnt = 0;
                 switch (PlayingFileFormat)
                 {
                     case enmFileFormat.VGM:
@@ -2283,7 +2329,6 @@ namespace MDPlayer
                         break;
                 }
 
-
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
@@ -2292,11 +2337,9 @@ namespace MDPlayer
 
                 if (vgmFadeout)
                 {
-
                     for (i = 0; i < sampleCount; i++)
                     {
                         buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
-
 
                         vgmFadeoutCounter -= vgmFadeoutCounterV;
                         //vgmFadeoutCounterV += 0.00001;
@@ -2318,142 +2361,29 @@ namespace MDPlayer
                 {
                     waveWriter.Close();
 
-                    MDSound.MDSound.Chip[] chips = new MDSound.MDSound.Chip[8];
-
-                    chips[0] = new MDSound.MDSound.Chip();
-                    chips[0].type = MDSound.MDSound.enmInstrumentType.SN76489;
-                    chips[0].ID = 0;
-                    MDSound.sn76489 sn76489 = new MDSound.sn76489();
-                    chips[0].Instrument = sn76489;
-                    chips[0].Update = sn76489.Update;
-                    chips[0].Start = sn76489.Start;
-                    chips[0].Stop = sn76489.Stop;
-                    chips[0].Reset = sn76489.Reset;
-                    chips[0].SamplingRate = SamplingRate;
-                    chips[0].Volume = 0;
-                    chips[0].Clock = vgm.defaultSN76489ClockValue;
-                    chips[0].Option = null;
-
-                    chips[1] = new MDSound.MDSound.Chip();
-                    chips[1].type = MDSound.MDSound.enmInstrumentType.YM2612;
-                    chips[1].ID = 0;
-                    MDSound.ym2612 ym2612 = new MDSound.ym2612();
-                    chips[1].Instrument = ym2612;
-                    chips[1].Update = ym2612.Update;
-                    chips[1].Start = ym2612.Start;
-                    chips[1].Stop = ym2612.Stop;
-                    chips[1].Reset = ym2612.Reset;
-                    chips[1].SamplingRate = SamplingRate;
-                    chips[1].Volume = 0;
-                    chips[1].Clock = vgm.defaultYM2612ClockValue;
-                    chips[1].Option = null;
-
-                    chips[2] = new MDSound.MDSound.Chip();
-                    chips[2].type = MDSound.MDSound.enmInstrumentType.RF5C164;
-                    chips[2].ID = 0;
-                    MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();
-                    chips[2].Instrument = rf5c164;
-                    chips[2].Update = rf5c164.Update;
-                    chips[2].Start = rf5c164.Start;
-                    chips[2].Stop = rf5c164.Stop;
-                    chips[2].Reset = rf5c164.Reset;
-                    chips[2].SamplingRate = SamplingRate;
-                    chips[2].Volume = 0;
-                    chips[2].Clock = vgm.defaultRF5C164ClockValue;
-                    chips[2].Option = null;
-
-                    chips[3] = new MDSound.MDSound.Chip();
-                    chips[3].type = MDSound.MDSound.enmInstrumentType.PWM;
-                    chips[3].ID = 0;
-                    MDSound.pwm pwm = new MDSound.pwm();
-                    chips[3].Instrument = pwm;
-                    chips[3].Update = pwm.Update;
-                    chips[3].Start = pwm.Start;
-                    chips[3].Stop = pwm.Stop;
-                    chips[3].Reset = pwm.Reset;
-                    chips[3].SamplingRate = SamplingRate;
-                    chips[3].Volume = 0;
-                    chips[3].Clock = vgm.defaultPWMClockValue;
-                    chips[3].Option = null;
-
-                    chips[4] = new MDSound.MDSound.Chip();
-                    chips[4].type = MDSound.MDSound.enmInstrumentType.C140;
-                    chips[4].ID = 0;
-                    MDSound.c140 c140 = new MDSound.c140();
-                    chips[4].Instrument = c140;
-                    chips[4].Update = c140.Update;
-                    chips[4].Start = c140.Start;
-                    chips[4].Stop = c140.Stop;
-                    chips[4].Reset = c140.Reset;
-                    chips[4].SamplingRate = SamplingRate;
-                    chips[4].Volume = 100;
-                    chips[4].Clock = vgm.defaultC140ClockValue;
-                    chips[4].Option = new object[1] { vgm.defaultC140Type };
-
-                    chips[5] = new MDSound.MDSound.Chip();
-                    chips[5].type = MDSound.MDSound.enmInstrumentType.OKIM6258;
-                    chips[5].ID = 0;
-                    MDSound.okim6258 okim6258 = new MDSound.okim6258();
-                    chips[5].Instrument = okim6258;
-                    chips[5].Update = okim6258.Update;
-                    chips[5].Start = okim6258.Start;
-                    chips[5].Stop = okim6258.Stop;
-                    chips[5].Reset = okim6258.Reset;
-                    chips[5].SamplingRate = SamplingRate;
-                    chips[5].Volume = 0;
-                    chips[5].Clock = vgm.defaultOKIM6258ClockValue;
-                    chips[5].Option = new object[1] { (int)0 };
-
-                    chips[6] = new MDSound.MDSound.Chip();
-                    chips[6].type = MDSound.MDSound.enmInstrumentType.OKIM6295;
-                    chips[6].ID = 0;
-                    MDSound.okim6295 okim6295 = new MDSound.okim6295();
-                    chips[6].Instrument = okim6295;
-                    chips[6].Update = okim6295.Update;
-                    chips[6].Start = okim6295.Start;
-                    chips[6].Stop = okim6295.Stop;
-                    chips[6].Reset = okim6295.Reset;
-                    chips[6].SamplingRate = SamplingRate;
-                    chips[6].Volume = 0;
-                    chips[6].Clock = vgm.defaultOKIM6295ClockValue;
-                    chips[6].Option = null;
-
-                    chips[7] = new MDSound.MDSound.Chip();
-                    chips[7].type = MDSound.MDSound.enmInstrumentType.SEGAPCM;
-                    chips[7].ID = 0;
-                    MDSound.segapcm segapcm = new MDSound.segapcm();
-                    chips[7].Instrument = segapcm;
-                    chips[7].Update = segapcm.Update;
-                    chips[7].Start = segapcm.Start;
-                    chips[7].Stop = segapcm.Stop;
-                    chips[7].Reset = segapcm.Reset;
-                    chips[7].SamplingRate = SamplingRate;
-                    chips[7].Volume = 0;
-                    chips[7].Clock = vgm.defaultSEGAPCMClockValue;
-                    chips[7].Option = new object[1] { (int)0 };
-
                     if (mds == null)
-                        mds = new MDSound.MDSound(SamplingRate, samplingBuffer, chips);
+                        mds = new MDSound.MDSound(SamplingRate, samplingBuffer, null);
                     else
-                        mds.Init(SamplingRate, samplingBuffer, chips);
+                        mds.Init(SamplingRate, samplingBuffer, null);
 
                     Stopped = true;
 
                     chipRegister.Close();
-
                 }
 
                 return cnt;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.ForcedWrite(ex);
                 fatalError = true;
                 Stopped = true;
             }
+
             return -1;
         }
+
 
         public static int Limit(int v, int max, int min)
         {
@@ -2497,7 +2427,6 @@ namespace MDPlayer
                 return xgmReal.vgmFrameCounter;
             }
         }
-
 
         public static void SetMasterVolume(int volume)
         {
@@ -2629,7 +2558,6 @@ namespace MDPlayer
             mds.SetVolumeSegaPCM(volume);
         }
 
-
         public static GD3 GetGD3()
         {
             switch (PlayingFileFormat)
@@ -2645,37 +2573,38 @@ namespace MDPlayer
             return null;
         }
 
-
-        private static UInt32 getLE16(UInt32 adr)
+        public static void NoteON(int noteNumber)
         {
-            UInt32 dat;
-            dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100;
+            int fnum = Tables.FmFNum[(noteNumber % 12) + 36];
+            int oct = noteNumber / 12 - 1;
+            oct = Math.Min(Math.Max(oct, 0), 7);
 
-            return dat;
+            mdsMIDI.WriteYM2612(0, 0, 0xa4, (byte)(((fnum & 0x700) >> 8) | (oct << 3)));
+            mdsMIDI.WriteYM2612(0, 0, 0xa0, (byte)(fnum & 0xff));
+
+            mdsMIDI.WriteYM2612(0, 0, 0x28, 0xf0);
         }
 
-        private static UInt32 getLE24(UInt32 adr)
+        public static void NoteOFF()
         {
-            UInt32 dat;
-            dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100 + (UInt32)vgmBuf[adr + 2] * 0x10000;
-
-            return dat;
+            mdsMIDI.WriteYM2612(0, 0, 0x28, 0x00);
         }
 
-        private static UInt32 getLE32(UInt32 adr)
+        public static void VoiceCopy()
         {
-            UInt32 dat;
-            dat = (UInt32)vgmBuf[adr] + (UInt32)vgmBuf[adr + 1] * 0x100 + (UInt32)vgmBuf[adr + 2] * 0x10000 + (UInt32)vgmBuf[adr + 3] * 0x1000000;
+            int[][] reg = mds.ReadYM2612Register(0);
+            if (reg == null) return;
 
-            return dat;
-        }
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0x30; j < 0xa0; j++)
+                {
+                    if (reg[i][j] == -1) continue;
 
-        private static UInt32 getLE32(byte[] buf,UInt32 adr)
-        {
-            UInt32 dat;
-            dat = (UInt32)buf[adr] + (UInt32)buf[adr + 1] * 0x100 + (UInt32)buf[adr + 2] * 0x10000 + (UInt32)buf[adr + 3] * 0x1000000;
+                    mdsMIDI.WriteYM2612(0, (byte)i, (byte)j, (byte)reg[i][j]);
+                }
+            }
 
-            return dat;
         }
 
     }
