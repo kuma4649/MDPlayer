@@ -1663,6 +1663,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2612[chipID];
         }
 
+        public static int[][] GetYM2612MIDIRegister()
+        {
+            return mdsMIDI.ReadYM2612Register(0);
+        }
+
         public static int[] GetYM2151Register(int chipID)
         {
             return chipRegister.fmRegisterYM2151[chipID];
@@ -2435,127 +2440,227 @@ namespace MDPlayer
 
         public static void SetAY8910Volume(int volume)
         {
-            mds.setVolumeAY8910(volume);
+            try
+            {
+                mds.setVolumeAY8910(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2151Volume(int volume)
         {
-            mds.SetVolumeYM2151(volume);
+            try
+            {
+                mds.SetVolumeYM2151(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2203Volume(int volume)
         {
-            mds.SetVolumeYM2203(volume);
+            try
+            {
+                mds.SetVolumeYM2203(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2203FMVolume(int volume)
         {
-            mds.SetVolumeYM2203FM(volume);
+            try
+            {
+                mds.SetVolumeYM2203FM(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2203PSGVolume(int volume)
         {
-            mds.SetVolumeYM2203PSG(volume);
+            try
+            {
+                mds.SetVolumeYM2203PSG(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2413Volume(int volume)
         {
-            mds.SetVolumeYM2413(volume);
+            try
+            {
+                mds.SetVolumeYM2413(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2608Volume(int volume)
         {
-            mds.SetVolumeYM2608(volume);
+            try
+            {
+                mds.SetVolumeYM2608(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2608FMVolume(int volume)
         {
-            mds.SetVolumeYM2608FM(volume);
+            try
+            {
+                mds.SetVolumeYM2608FM(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2608PSGVolume(int volume)
         {
-            mds.SetVolumeYM2608PSG(volume);
+            try
+            {
+                mds.SetVolumeYM2608PSG(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2608RhythmVolume(int volume)
         {
-            mds.SetVolumeYM2608Rhythm(volume);
+            try
+            {
+                mds.SetVolumeYM2608Rhythm(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2608AdpcmVolume(int volume)
         {
-            mds.SetVolumeYM2608Adpcm(volume);
+            try
+            {
+                mds.SetVolumeYM2608Adpcm(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2610Volume(int volume)
         {
-            mds.SetVolumeYM2610(volume);
+            try
+            {
+                mds.SetVolumeYM2610(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2610FMVolume(int volume)
         {
-            mds.SetVolumeYM2610FM(volume);
+            try
+            {
+                mds.SetVolumeYM2610FM(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2610PSGVolume(int volume)
         {
-            mds.SetVolumeYM2610PSG(volume);
+            try
+            {
+                mds.SetVolumeYM2610PSG(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2610AdpcmAVolume(int volume)
         {
-            mds.SetVolumeYM2610AdpcmA(volume);
+            try
+            {
+                mds.SetVolumeYM2610AdpcmA(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2610AdpcmBVolume(int volume)
         {
-            mds.SetVolumeYM2610AdpcmB(volume);
+            try
+            {
+                mds.SetVolumeYM2610AdpcmB(volume);
+            }
+            catch { }
         }
 
         public static void SetYM2612Volume(int volume)
         {
-            mds.SetVolumeYM2612(volume);
+            try
+            {
+                mds.SetVolumeYM2612(volume);
+            }
+            catch { }
         }
 
         public static void SetSN76489Volume(int volume)
         {
-            mds.SetVolumeSN76489(volume);
+            try
+            {
+                mds.SetVolumeSN76489(volume);
+            }
+            catch { }
         }
 
         public static void SetHuC6280Volume(int volume)
         {
-            mds.setVolumeHuC6280(volume);
+            try
+            {
+                mds.setVolumeHuC6280(volume);
+            }
+            catch { }
         }
 
         public static void SetRF5C164Volume(int volume)
         {
-            mds.SetVolumeRF5C164(volume);
+            try
+            {
+                mds.SetVolumeRF5C164(volume);
+            }
+            catch { }
         }
 
         public static void SetPWMVolume(int volume)
         {
-            mds.SetVolumePWM(volume);
+            try
+            {
+                mds.SetVolumePWM(volume);
+            }
+            catch { }
         }
 
         public static void SetOKIM6258Volume(int volume)
         {
-            mds.SetVolumeOKIM6258(volume);
+            try
+            {
+                mds.SetVolumeOKIM6258(volume);
+            }
+            catch { }
         }
 
         public static void SetOKIM6295Volume(int volume)
         {
-            mds.SetVolumeOKIM6295(volume);
+            try
+            {
+                mds.SetVolumeOKIM6295(volume);
+            }
+            catch { }
         }
 
         public static void SetC140Volume(int volume)
         {
-            mds.SetVolumeC140(volume);
+            try
+            {
+                mds.SetVolumeC140(volume);
+            }
+            catch { }
         }
 
         public static void SetSegaPCMVolume(int volume)
         {
-            mds.SetVolumeSegaPCM(volume);
+            try
+            {
+                mds.SetVolumeSegaPCM(volume);
+            }
+            catch { }
         }
 
         public static GD3 GetGD3()
@@ -2573,37 +2678,115 @@ namespace MDPlayer
             return null;
         }
 
-        public static void NoteON(int noteNumber)
+        private static int latestNoteNumberMONO = -1;
+
+        public static int NoteONMONO(int noteNumber)
         {
             int fnum = Tables.FmFNum[(noteNumber % 12) + 36];
             int oct = noteNumber / 12 - 1;
             oct = Math.Min(Math.Max(oct, 0), 7);
 
-            mdsMIDI.WriteYM2612(0, 0, 0xa4, (byte)(((fnum & 0x700) >> 8) | (oct << 3)));
-            mdsMIDI.WriteYM2612(0, 0, 0xa0, (byte)(fnum & 0xff));
+            int ch = setting.other.UseMONOChannel;
+            if (ch < 0 || ch > 5) return -1;
 
-            mdsMIDI.WriteYM2612(0, 0, 0x28, 0xf0);
+            mdsMIDI.WriteYM2612(0, (byte)(ch / 3), (byte)(0xa4 + (ch % 3)), (byte)(((fnum & 0x700) >> 8) | (oct << 3)));
+            mdsMIDI.WriteYM2612(0, (byte)(ch / 3), (byte)(0xa0 + (ch % 3)), (byte)(fnum & 0xff));
+
+            mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
+            mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0xf0 + ch + (ch / 3)));
+            latestNoteNumberMONO = noteNumber;
+
+            return ch;
         }
 
-        public static void NoteOFF()
+        public static void NoteOFFMONO(int noteNumber)
         {
-            mdsMIDI.WriteYM2612(0, 0, 0x28, 0x00);
+            int ch = setting.other.UseMONOChannel;
+            if (ch < 0 || ch > 5) return;
+
+            if (noteNumber == latestNoteNumberMONO)
+                mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
+        }
+
+        private static int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
+
+        public static int NoteON(int noteNumber)
+        {
+            if (setting.other.IsMONO)
+            {
+                return NoteONMONO(noteNumber);
+            }
+
+            int fnum = Tables.FmFNum[(noteNumber % 12) + 36];
+            int oct = noteNumber / 12 - 1;
+            oct = Math.Min(Math.Max(oct, 0), 7);
+
+            bool sw = false;
+            int ch = 0;
+            for (; ch < 6; ch++)
+            {
+                if (latestNoteNumber[ch] != -1) continue;
+                sw = true;
+                break;
+            }
+            if (!sw) return -1;
+
+            mdsMIDI.WriteYM2612(0, (byte)(ch / 3), (byte)(0xa4 + (ch % 3)), (byte)(((fnum & 0x700) >> 8) | (oct << 3)));
+            mdsMIDI.WriteYM2612(0, (byte)(ch / 3), (byte)(0xa0 + (ch % 3)), (byte)(fnum & 0xff));
+
+            mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
+            mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0xf0 + ch + (ch / 3)));
+            latestNoteNumber[ch] = noteNumber;
+
+            return ch;
+        }
+
+        public static void NoteOFF(int noteNumber)
+        {
+            if (setting.other.IsMONO)
+            {
+                NoteOFFMONO(noteNumber);
+                return;
+            }
+
+            bool sw = false;
+            int ch = 0;
+            for (; ch < 6; ch++)
+            {
+                if (latestNoteNumber[ch] != noteNumber) continue;
+                sw = true;
+                break;
+            }
+            if (!sw) return;
+
+            latestNoteNumber[ch] = -1;
+            mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
         }
 
         public static void VoiceCopy()
         {
-            int[][] reg = mds.ReadYM2612Register(0);
+            int[][] reg = chipRegister.fmRegisterYM2612[0];
             if (reg == null) return;
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 6; i++)
             {
-                for (int j = 0x30; j < 0xa0; j++)
-                {
-                    if (reg[i][j] == -1) continue;
+                VoiceCopyCh(0, i, reg);
+            }
+        }
 
-                    mdsMIDI.WriteYM2612(0, (byte)i, (byte)j, (byte)reg[i][j]);
+        public static void VoiceCopyCh(int src,int des, int[][] reg)
+        {
+
+            for (int i = 0x30; i < 0xa0; i += 0x10)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(i + j * 4 + (des % 3)), (byte)reg[src / 3][i + j * 4 + (src % 3)]);
                 }
             }
+
+            mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb0 + (des % 3)), (byte)reg[src / 3][0xb0 + (src % 3)]);
+            mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)((0xb4 + (des % 3)) | 0xc0), (byte)reg[src / 3][0xb4 + (src % 3)]);
 
         }
 

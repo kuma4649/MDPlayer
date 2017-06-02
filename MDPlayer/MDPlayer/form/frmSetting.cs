@@ -685,9 +685,16 @@ namespace MDPlayer
             cbFM4.Checked = setting.other.UseChannel[3];
             cbFM5.Checked = setting.other.UseChannel[4];
             cbFM6.Checked = setting.other.UseChannel[5];
-            cbPSG1.Checked = setting.other.UseChannel[6];
-            cbPSG2.Checked = setting.other.UseChannel[7];
-            cbPSG3.Checked = setting.other.UseChannel[8];
+
+            rbMONO.Checked = setting.other.IsMONO;
+            rbPOLY.Checked = !setting.other.IsMONO;
+
+            rbFM1.Checked = setting.other.UseMONOChannel == 0;
+            rbFM2.Checked = setting.other.UseMONOChannel == 1;
+            rbFM3.Checked = setting.other.UseMONOChannel == 2;
+            rbFM4.Checked = setting.other.UseMONOChannel == 3;
+            rbFM5.Checked = setting.other.UseMONOChannel == 4;
+            rbFM6.Checked = setting.other.UseMONOChannel == 5;
 
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
@@ -990,11 +997,11 @@ namespace MDPlayer
             setting.other.UseChannel[3] = cbFM4.Checked;
             setting.other.UseChannel[4] = cbFM5.Checked;
             setting.other.UseChannel[5] = cbFM6.Checked;
-            setting.other.UseChannel[6] = cbPSG1.Checked;
-            setting.other.UseChannel[7] = cbPSG2.Checked;
-            setting.other.UseChannel[8] = cbPSG3.Checked;
 
             setting.other.UseMIDIKeyboard = cbUseMIDIKeyboard.Checked;
+
+            setting.other.IsMONO = rbMONO.Checked;
+            setting.other.UseMONOChannel = rbFM1.Checked ? 0 : (rbFM2.Checked ? 1 : (rbFM3.Checked ? 2 : (rbFM4.Checked ? 3 : (rbFM5.Checked ? 4 : (rbFM6.Checked ? 5 : -1)))));
 
             if (int.TryParse(tbLatencyEmu.Text, out i))
             {

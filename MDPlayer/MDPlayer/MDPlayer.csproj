@@ -83,9 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\NAudio.dll</HintPath>
+      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NScci, Version=1.0.6016.37071, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -226,6 +227,12 @@
     <Compile Include="form\frmYM2612.Designer.cs">
       <DependentUpon>frmYM2612.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmYM2612MIDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmYM2612MIDI.Designer.cs">
+      <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
+    </Compile>
     <Compile Include="log.cs" />
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
@@ -301,6 +308,9 @@
     <EmbeddedResource Include="form\frmYM2612.resx">
       <DependentUpon>frmYM2612.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmYM2612MIDI.resx">
+      <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -363,6 +373,7 @@
     <Content Include="Resources\planeYM2413.png" />
     <Content Include="Resources\planeYM2610.png" />
     <Content Include="Resources\planeYM2612.png" />
+    <Content Include="Resources\planeYM2612MIDI.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />

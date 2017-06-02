@@ -744,6 +744,34 @@ namespace MDPlayer
                 }
             }
 
+            private bool _IsMONO = true;
+            public bool IsMONO
+            {
+                get
+                {
+                    return _IsMONO;
+                }
+
+                set
+                {
+                    _IsMONO = value;
+                }
+            }
+
+            private int _UseMONOChannel = 0;
+            public int UseMONOChannel
+            {
+                get
+                {
+                    return _UseMONOChannel;
+                }
+
+                set
+                {
+                    _UseMONOChannel = value;
+                }
+            }
+
             private bool[] _UseChannel = new bool[9];
             public bool[] UseChannel
             {
@@ -924,6 +952,8 @@ namespace MDPlayer
                 {
                     other.UseChannel[i] = this.UseChannel[i];
                 }
+                other.IsMONO = this.IsMONO;
+                other.UseMONOChannel = this.UseMONOChannel;
                 other.UseGetInst = this.UseGetInst;
                 other.DefaultDataPath = this.DefaultDataPath;
                 other.InstFormat = this.InstFormat;
@@ -1937,6 +1967,35 @@ namespace MDPlayer
                 }
             }
 
+            private Point _PosYm2612MIDI = Point.Empty;
+            public Point PosYm2612MIDI
+            {
+                get
+                {
+                    return _PosYm2612MIDI;
+                }
+
+                set
+                {
+                    _PosYm2612MIDI = value;
+                }
+            }
+
+            private bool _OpenYm2612MIDI = false;
+            public bool OpenYm2612MIDI
+            {
+                get
+                {
+                    return _OpenYm2612MIDI;
+                }
+
+                set
+                {
+                    _OpenYm2612MIDI = value;
+                }
+            }
+
+
 
 
             public Location Copy()
@@ -1978,6 +2037,8 @@ namespace MDPlayer
                 Location.OpenAY8910 = this.OpenAY8910;
                 Location.PosHuC6280 = this.PosHuC6280;
                 Location.OpenHuC6280 = this.OpenHuC6280;
+                Location.PosYm2612MIDI = this.PosYm2612MIDI;
+                Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
 
                 return Location;
             }

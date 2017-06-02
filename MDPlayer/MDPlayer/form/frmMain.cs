@@ -34,14 +34,18 @@ namespace MDPlayer
         private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
         private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
         private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
+        private frmYM2612MIDI frmYM2612MIDI = null;
+
+        private int[][] noteLog = new int[6][] { new int[100], new int[100], new int[100], new int[100], new int[100], new int[100] };
+        private int[] noteLogPtr = new int[6];
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[16];
-        private int[] newButton = new int[16];
-        private int[] oldButtonMode = new int[16];
-        private int[] newButtonMode = new int[16];
+        private int[] oldButton = new int[17];
+        private int[] newButton = new int[17];
+        private int[] oldButtonMode = new int[17];
+        private int[] newButtonMode = new int[17];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -126,7 +130,7 @@ namespace MDPlayer
 
             log.ForcedWrite("frmMain_Load:STEP 06");
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, Properties.Resources.font, 1);
+            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, 1);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
@@ -190,6 +194,11 @@ namespace MDPlayer
 
             changeZoom();
 
+            for (int ch = 0; ch < 6; ch++)
+            {
+                for (int n = 0; n < 100; n++) noteLog[ch][n] = -1;
+                noteLogPtr[ch] = 0;
+            }
         }
 
         private void changeZoom()
@@ -369,6 +378,12 @@ namespace MDPlayer
                 tsmiSHuC6280_Click(null, null);
             }
 
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
+            {
+                openMIDIKeyboard();
+                openMIDIKeyboard();
+            }
+
 
         }
 
@@ -427,10 +442,8 @@ namespace MDPlayer
 
             if (screen != null) screen.Dispose();
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, Properties.Resources.font, setting.other.Zoom);
+            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, setting.other.Zoom);
             screen.setting = setting;
-            //oldParam = new MDChipParams();
-            //newParam = new MDChipParams();
             screen.screenInitAll();
         }
 
@@ -576,6 +589,11 @@ namespace MDPlayer
                     setting.location.PosHuC6280[chipID] = frmHuC6280[chipID].Location;
                     setting.location.OpenHuC6280[chipID] = true;
                 }
+                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
+                {
+                    setting.location.PosYm2612MIDI = frmYM2612MIDI.Location;
+                    setting.location.OpenYm2612MIDI = true;
+                }
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 05");
@@ -598,7 +616,7 @@ namespace MDPlayer
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
 
-            if (py < 24)//208)
+            if (py < 24)
             {
                 for (int n = 0; n < newButton.Length; n++)
                 {
@@ -610,7 +628,7 @@ namespace MDPlayer
             for (int n = 0; n < newButton.Length; n++)
             {
                 //if (px >= 320 - (16 - n) * 16 && px < 320 - (15 - n) * 16) newButton[n] = 1;
-                if (px >= n * 16 + 64 && px < n * 16 + 16 + 64) newButton[n] = 1;
+                if (px >= n * 16 + 48 && px < n * 16 + 16 + 48) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -626,53 +644,6 @@ namespace MDPlayer
         {
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
-
-            //if (py < 14 * 8)
-            //{
-            //    if (e.Button == MouseButtons.Left)
-            //    {
-            //        int ch = (py / 8) - 1;
-            //        if (ch < 0) return;
-
-            //        if (ch >= 0 && ch < 6)
-            //        {
-            //            SetChannelMask(enmUseChip.YM2612, ch);
-            //        }
-            //        else if (ch < 10)
-            //        {
-            //            SetChannelMask(enmUseChip.SN76489, ch - 6);
-            //        }
-            //        else if (ch < 13)
-            //        {
-            //            SetChannelMask(enmUseChip.YM2612, ch - 4);
-            //        }
-
-            //    }
-            //    else if (e.Button == MouseButtons.Right)
-            //    {
-            //        for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, ch);
-            //        for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, ch);
-            //    }
-
-            //    return;
-            //}
-
-
-            //// 音色表示欄の判定
-
-            //if (py < 26 * 8)
-            //{
-            //    int h = (py - 14 * 8) / (6 * 8);
-            //    int w = Math.Min(px / (13 * 8), 2);
-            //    int instCh = h * 3 + w;
-
-            //    //クリップボードに音色をコピーする
-            //    getInstCh(enmUseChip.YM2612, instCh);
-
-            //    return;
-            //}
-
-
 
             if (py < 16)
             {
@@ -772,80 +743,69 @@ namespace MDPlayer
 
             // ボタンの判定
 
-            //if (px >= 320 - 16 * 16 && px < 320 - 15 * 16)
-            if (px >= 0 * 16 + 64 && px < 1 * 16 + 64)
+            if (px >= 0 * 16 + 48 && px < 1 * 16 + 48)
             {
                 openSetting();
                 return;
             }
 
-            //if (px >= 320 - 15 * 16 && px < 320 - 14 * 16)
-            if (px >= 1 * 16 + 64 && px < 2 * 16 + 64)
+            if (px >= 1 * 16 +48 && px < 2 * 16 + 48)
             {
                 frmPlayList.Stop();
                 stop();
                 return;
             }
 
-            //if (px >= 320 - 14 * 16 && px < 320 - 13 * 16)
-            if (px >= 2 * 16 + 64 && px < 3 * 16 + 64)
+            if (px >= 2 * 16 + 48 && px < 3 * 16 + 48)
             {
                 pause();
                 return;
             }
 
-            //if (px >= 320 - 13 * 16 && px < 320 - 12 * 16)
-            if (px >= 3 * 16 + 64 && px < 4 * 16 + 64)
+            if (px >= 3 * 16 + 48 && px < 4 * 16 + 48)
             {
                 fadeout();
                 frmPlayList.Stop();
                 return;
             }
 
-            //if (px >= 320 - 12 * 16 && px < 320 - 11 * 16)
-            if (px >= 4 * 16 + 64 && px < 5 * 16 + 64)
+            if (px >= 4 * 16 + 48 && px < 5 * 16 + 48)
             {
                 prev();
                 return;
             }
 
-            //if (px >= 320 - 11 * 16 && px < 320 - 10 * 16)
-            if (px >= 5 * 16 + 64 && px < 6 * 16 + 64)
+            if (px >= 5 * 16 + 48 && px < 6 * 16 + 48)
             {
                 slow();
                 return;
             }
 
-            //if (px >= 320 - 10 * 16 && px < 320 - 9 * 16)
-            if (px >= 6 * 16 + 64 && px < 7 * 16 + 64)
+            if (px >= 6 * 16 + 48 && px < 7 * 16 + 48)
             {
                 play();
                 return;
             }
 
-            //if (px >= 320 - 9 * 16 && px < 320 - 8 * 16)
-            if (px >= 7 * 16 + 64 && px < 8 * 16 + 64)
+            if (px >= 7 * 16 + 48 && px < 8 * 16 + 48)
             {
                 ff();
                 return;
             }
 
-            //if (px >= 320 - 8 * 16 && px < 320 - 7 * 16)
-            if (px >= 8 * 16 + 64 && px < 9 * 16 + 64)
+            if (px >= 8 * 16 + 48 && px < 9 * 16 + 48)
             {
                 next();
                 return;
             }
 
-            //if (px >= 320 - 7 * 16 && px < 320 - 6 * 16)
-            if (px >= 9 * 16 + 64 && px < 10 * 16 + 64)
+            if (px >= 9 * 16 + 48 && px < 10 * 16 + 48)
             {
                 playMode();
                 return;
             }
 
-            //if (px >= 320 - 6 * 16 && px < 320 - 5 * 16)
-            if (px >= 10 * 16 + 64 && px < 11 * 16 + 64)
+            if (px >= 10 * 16 + 48 && px < 11 * 16 + 48)
             {
                 string[] fn = fileOpen(true);
 
@@ -886,37 +846,37 @@ namespace MDPlayer
                 return;
             }
 
-            //if (px >= 320 - 5 * 16 && px < 320 - 4 * 16)
-            if (px >= 11 * 16 + 64 && px < 12 * 16 + 64)
+            if (px >= 11 * 16 + 48 && px < 12 * 16 + 48)
             {
                 dispPlayList();
                 return;
             }
 
-            //if (px >= 320 - 4 * 16 && px < 320 - 3 * 16)
-            if (px >= 12 * 16 + 64 && px < 13 * 16 + 64)
+            if (px >= 12 * 16 + 48 && px < 13 * 16 + 48)
             {
                 openInfo();
                 return;
             }
 
-            //if (px >= 320 - 3 * 16 && px < 320 - 2 * 16)
-            if (px >= 13 * 16 + 64 && px < 14 * 16 + 64)
+            if (px >= 13 * 16 + 48 && px < 14 * 16 + 48)
             {
-                //OpenFormMegaCD(0);
                 dispMixer();
                 return;
             }
 
-            //if (px >= 320 - 2 * 16 && px < 320 - 1 * 16)
-            if (px >= 14 * 16 + 64 && px < 15 * 16 + 64)
+            if (px >= 14 * 16 + 48 && px < 15 * 16 + 48)
             {
                 showContextMenu();
                 return;
             }
 
-            //if (px >= 320 - 1 * 16 && px < 320 - 0 * 16)
-            if (px >= 15 * 16 + 64 && px < 16 * 16 + 64)
+            if (px >= 15 * 16 + 48 && px < 16 * 16 + 48)
+            {
+                openMIDIKeyboard();
+                return;
+            }
+
+            if (px >= 16 * 16 + 48 && px < 17 * 16 + 48)
             {
                 setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
                 changeZoom();
@@ -2208,6 +2168,8 @@ namespace MDPlayer
                 screenChangeParamsFromHuC6280(chipID);
             }
 
+            screenChangeParamsFromYM2612MIDI();
+
             long w = Audio.GetCounter();
             double sec = (double)w / (double)SamplingRate;
             newParam.Cminutes = (int)(sec / 60);
@@ -3136,6 +3098,70 @@ namespace MDPlayer
 
         }
 
+        private void screenChangeParamsFromYM2612MIDI()
+        {
+            int[][] fmRegister = Audio.GetYM2612MIDIRegister();
+            //int[] fmKey = Audio.GetFMKeyOn();
+
+            newParam.ym2612Midi.IsMONO = setting.other.IsMONO;
+            if (setting.other.IsMONO)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    newParam.ym2612Midi.useChannel[i] = (setting.other.UseMONOChannel == i);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    newParam.ym2612Midi.useChannel[i] = setting.other.UseChannel[i];
+                }
+            }
+
+            for (int ch = 0; ch < 6; ch++)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops + c] & 0x1f; //AR
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.ym2612Midi.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
+                newParam.ym2612Midi.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
+                newParam.ym2612Midi.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 3;//AMS
+                newParam.ym2612Midi.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
+
+                newParam.ym2612Midi.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
+
+                int freq = 0;
+                int octav = 0;
+                int n = -1;
+                freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
+                octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+
+                //if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+
+                //newParam.ym2612Midi.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
+                //newParam.ym2612Midi.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+                //newParam.ym2612Midi.channels[ch].note = n;
+
+            }
+
+        }
+
+
         private void screenDrawParams()
         {
             // 描画
@@ -3346,6 +3372,9 @@ namespace MDPlayer
                 log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
 
                 Audio.Init(setting);
+
+                frmMixer.balance = setting.balance;
+                frmMixer.setting = setting;
 
                 log.ForcedWrite("Audio初期化処理完了");
                 log.debug = setting.Debug_DispFrameCounter;
@@ -3712,6 +3741,53 @@ namespace MDPlayer
             frmInfo.setting = setting;
             frmInfo.Show();
             frmInfo.update();
+        }
+
+        private void openMIDIKeyboard()
+        {
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
+            {
+                frmYM2612MIDI.Close();
+                frmYM2612MIDI.Dispose();
+                frmYM2612MIDI = null;
+                return;
+            }
+
+            if (frmYM2612MIDI != null)
+            {
+                frmYM2612MIDI.Close();
+                frmYM2612MIDI.Dispose();
+                frmYM2612MIDI = null;
+            }
+
+            frmYM2612MIDI = new frmYM2612MIDI(this,  setting.other.Zoom);
+            if (setting.location.PosYm2612MIDI == System.Drawing.Point.Empty)
+            {
+                frmYM2612MIDI.x = this.Location.X + 328;
+                frmYM2612MIDI.y = this.Location.Y;
+            }
+            else
+            {
+                frmYM2612MIDI.x = setting.location.PosYm2612MIDI.X;
+                frmYM2612MIDI.y = setting.location.PosYm2612MIDI.Y;
+            }
+
+            Screen s = Screen.FromControl(frmYM2612MIDI);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmYM2612MIDI.x > w - 100 || frmYM2612MIDI.y > h - 100)
+            {
+                frmYM2612MIDI.x = 0;
+                frmYM2612MIDI.y = 0;
+            }
+
+            //frmYM2612MIDI.setting = setting;
+            screen.AddYM2612MIDI(frmYM2612MIDI.pbScreen, Properties.Resources.planeYM2612MIDI);
+            frmYM2612MIDI.Show();
+            frmYM2612MIDI.update();
+            screen.screenInitYM2612MIDI();
+            oldParam.ym2612Midi = new MDChipParams.YM2612MIDI();
         }
 
         private void showContextMenu()
@@ -4580,13 +4656,30 @@ namespace MDPlayer
             {
                 NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
 
-                Audio.NoteON(noe.NoteNumber);
+                int ch=Audio.NoteON(noe.NoteNumber);
+
+                if (ch != -1)
+                {
+                    int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
+                    n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
+                    noteLog[ch][noteLogPtr[ch]] = n;
+                    int p = noteLogPtr[ch] - 9;
+                    if (p < 0) p += 100;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        newParam.ym2612Midi.noteLog[ch][i] = noteLog[ch][p];
+                        p++;
+                        if (p == 100) p = 0;
+                    }
+                    noteLogPtr[ch]++;
+                    if (noteLogPtr[ch] == 100) noteLogPtr[ch] = 0;
+                }
                 return;
             }
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
             {
                 NoteEvent ne = (NoteEvent)e.MidiEvent;
-                Audio.NoteOFF();
+                Audio.NoteOFF(ne.NoteNumber);
                 return;
             }
             if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
@@ -4935,6 +5028,22 @@ namespace MDPlayer
                     Audio.resetHuC6280Mask(chipID, ch);
                     break;
 
+            }
+        }
+
+        public void ym2612Midi_ClearNoteLog()
+        {
+            for (int ch = 0; ch < 6; ch++)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    newParam.ym2612Midi.noteLog[ch][i] = -1;
+                }
+                for (int i = 0; i < 100; i++)
+                {
+                    noteLog[ch][i] = -1;
+                }
+                noteLogPtr[ch] = 0;
             }
         }
 

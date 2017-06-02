@@ -216,5 +216,18 @@ namespace MDPlayer
         }
         public YM2413[] ym2413 = new YM2413[] { new YM2413(), new YM2413() };
 
+        public class YM2612MIDI
+        {
+            public bool lfoSw = false;
+            public int lfoFrq = -1;
+            public bool IsMONO = true;
+
+            public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+
+            public int[][] noteLog = new int[6][] { new int[10], new int[10], new int[10], new int[10], new int[10], new int[10] };
+            public bool[] useChannel = new bool[6] { false, false, false, false, false, false };
+        }
+        public YM2612MIDI ym2612Midi = new YM2612MIDI();
+
     }
 }
