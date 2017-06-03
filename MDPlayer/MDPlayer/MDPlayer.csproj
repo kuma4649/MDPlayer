@@ -345,9 +345,6 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\font.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="lib\MDSound.dll" />
     <Content Include="lib\NAudio.dll" />
     <Content Include="lib\NScci.dll" />
@@ -374,6 +371,35 @@
     <Content Include="Resources\planeYM2610.png" />
     <Content Include="Resources\planeYM2612.png" />
     <Content Include="Resources\planeYM2612MIDI.png" />
+    <Content Include="Resources\rChipName_01.png" />
+    <Content Include="Resources\rChipName_02.png" />
+    <Content Include="Resources\rChipName_03.png" />
+    <Content Include="Resources\rFont_01.png" />
+    <Content Include="Resources\rFont_02.png" />
+    <Content Include="Resources\rFont_03.png" />
+    <Content Include="Resources\rFont_04.png" />
+    <Content Include="Resources\rFont_05.png" />
+    <Content Include="Resources\rFont_06.png" />
+    <Content Include="Resources\rKBD_01.png" />
+    <Content Include="Resources\rKBD_02.png" />
+    <Content Include="Resources\rMenuButtons_01.png" />
+    <Content Include="Resources\rMenuButtons_02.png" />
+    <Content Include="Resources\rPan2_01.png" />
+    <Content Include="Resources\rPan2_02.png" />
+    <Content Include="Resources\rPan_01.png" />
+    <Content Include="Resources\rPan_02.png" />
+    <Content Include="Resources\rPSGEnv.png" />
+    <Content Include="Resources\rPSGMode_01.png" />
+    <Content Include="Resources\rPSGMode_02.png" />
+    <Content Include="Resources\rPSGMode_03.png" />
+    <Content Include="Resources\rPSGMode_04.png" />
+    <Content Include="Resources\rType_01.png" />
+    <Content Include="Resources\rType_02.png" />
+    <Content Include="Resources\rType_03.png" />
+    <Content Include="Resources\rType_04.png" />
+    <Content Include="Resources\rVol_01.png" />
+    <Content Include="Resources\rVol_02.png" />
+    <Content Include="Resources\rWavGraph.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />

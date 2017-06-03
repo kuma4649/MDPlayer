@@ -139,7 +139,8 @@ namespace MDPlayer
         private static string PlayingFileName;
         private static enmFileFormat PlayingFileFormat;
         public static cNscci cnscci;
-
+        private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
+        public static int ProcTimePer1Frame = 0;
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -276,7 +277,7 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 02");
 
-            Audio.setting = setting.Copy();
+            Audio.setting = setting;// Copy();
             vgmVirtual.setting = setting;
             vgmReal.setting = setting;
             nrtVirtual.setting = setting;
@@ -2299,10 +2300,13 @@ namespace MDPlayer
             return cnt1;
         }
 
+
         private static int trdVgmVirtualMainFunction(short[] buffer, int offset, int sampleCount)
         {
             try
             {
+                stwh.Reset();stwh.Start();
+
                 int i;
 
                 if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
@@ -2375,6 +2379,9 @@ namespace MDPlayer
 
                     chipRegister.Close();
                 }
+
+                //1frame当たりの処理時間
+                ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / sampleCount * 1000000.0);
 
                 return cnt;
 
@@ -2680,7 +2687,7 @@ namespace MDPlayer
 
         private static int latestNoteNumberMONO = -1;
 
-        public static int NoteONMONO(int noteNumber)
+        private static int NoteONMONO(int noteNumber)
         {
             int fnum = Tables.FmFNum[(noteNumber % 12) + 36];
             int oct = noteNumber / 12 - 1;
@@ -2699,7 +2706,7 @@ namespace MDPlayer
             return ch;
         }
 
-        public static void NoteOFFMONO(int noteNumber)
+        private static void NoteOFFMONO(int noteNumber)
         {
             int ch = setting.other.UseMONOChannel;
             if (ch < 0 || ch > 5) return;
@@ -2710,7 +2717,7 @@ namespace MDPlayer
 
         private static int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
 
-        public static int NoteON(int noteNumber)
+        public static int YM2612MIDI_NoteON(int noteNumber)
         {
             if (setting.other.IsMONO)
             {
@@ -2726,6 +2733,7 @@ namespace MDPlayer
             for (; ch < 6; ch++)
             {
                 if (latestNoteNumber[ch] != -1) continue;
+                if (!setting.other.UseChannel[ch]) continue;
                 sw = true;
                 break;
             }
@@ -2741,7 +2749,7 @@ namespace MDPlayer
             return ch;
         }
 
-        public static void NoteOFF(int noteNumber)
+        public static void YM2612MIDI_NoteOFF(int noteNumber)
         {
             if (setting.other.IsMONO)
             {
@@ -2763,18 +2771,18 @@ namespace MDPlayer
             mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
         }
 
-        public static void VoiceCopy()
+        public static void YM2612MIDI_VoiceCopy()
         {
             int[][] reg = chipRegister.fmRegisterYM2612[0];
             if (reg == null) return;
 
             for (int i = 0; i < 6; i++)
             {
-                VoiceCopyCh(0, i, reg);
+                YM2612MIDI_VoiceCopyCh(0, i, reg);
             }
         }
 
-        public static void VoiceCopyCh(int src,int des, int[][] reg)
+        public static void YM2612MIDI_VoiceCopyCh(int src,int des, int[][] reg)
         {
 
             for (int i = 0x30; i < 0xa0; i += 0x10)
@@ -2788,6 +2796,50 @@ namespace MDPlayer
             mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb0 + (des % 3)), (byte)reg[src / 3][0xb0 + (src % 3)]);
             mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)((0xb4 + (des % 3)) | 0xc0), (byte)reg[src / 3][0xb4 + (src % 3)]);
 
+        }
+
+        public static void YM2612MIDI_AllNoteOff()
+        {
+            for (int ch=0; ch < 6; ch++)
+            {
+                mdsMIDI.WriteYM2612(0, 0, 0x28, (byte)(0x00 + ch + (ch / 3)));
+            }
+        }
+
+        public static void YM2612MIDI_SetMode(int m)
+        {
+            switch (m)
+            {
+                case 0:
+                    //MONO
+                    for (int ch = 0; ch < 6; ch++)
+                    {
+                        setting.other.UseChannel[ch] = false;
+                        if (ch == setting.other.UseMONOChannel)
+                        {
+                            setting.other.UseChannel[ch] = true;
+                        }
+                    }
+                    setting.other.IsMONO = true;
+                    break;
+                default:
+                    //POLY
+                    setting.other.IsMONO = false;
+                    break;
+            }
+        }
+
+        public static void YM2612MIDI_SelectChannel(int ch)
+        {
+            if (setting.other.IsMONO)
+            {
+                setting.other.UseMONOChannel = ch;
+                YM2612MIDI_SetMode(0);
+            }
+            else
+            {
+                setting.other.UseChannel[ch] = !setting.other.UseChannel[ch];
+            }
         }
 
     }

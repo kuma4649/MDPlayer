@@ -11,6 +11,10 @@ namespace MDPlayer
     [Serializable]
     public class Setting
     {
+        public Setting()
+        {
+        }
+
         private OutputDevice _outputDevice = new OutputDevice();
         public OutputDevice outputDevice
         {

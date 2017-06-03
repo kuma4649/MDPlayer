@@ -3145,11 +3145,11 @@ namespace MDPlayer
 
                 newParam.ym2612Midi.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
 
-                int freq = 0;
-                int octav = 0;
-                int n = -1;
-                freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
-                octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+                //int freq = 0;
+                //int octav = 0;
+                //int n = -1;
+                //freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
+                //octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
 
                 //if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
 
@@ -3206,6 +3206,11 @@ namespace MDPlayer
             screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.ChipSecOPLL, chips[128 + 13]);
             screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipSecHuC8, chips[128 + 14]);
 
+            screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
+            screen.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
+            screen.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
+
             if (setting.Debug_DispFrameCounter)
             {
                 long v = Audio.getVirtualFrameCounter();
@@ -3214,13 +3219,8 @@ namespace MDPlayer
                 if (r != -1) screen.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
                 long d = r - v;
                 if (r != -1 && v != -1) screen.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
-
+                screen.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
             }
-
-            screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
-            screen.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
 
             screen.Refresh();
 
@@ -4576,119 +4576,6 @@ namespace MDPlayer
             return null;
         }
 
-
-
-        private void StartMIDIInMonitoring()
-        {
-
-            if (setting.other.MidiInDeviceName == "")
-            {
-                return;
-            }
-
-            if (midiin != null)
-            {
-                try
-                {
-                    midiin.Stop();
-                    midiin.Dispose();
-                    midiin.MessageReceived -= midiIn_MessageReceived;
-                    midiin.ErrorReceived -= midiIn_ErrorReceived;
-                    midiin = null;
-                }
-                catch
-                {
-                    midiin = null;
-                }
-            }
-
-            if (midiin == null)
-            {
-                for (int i = 0; i < MidiIn.NumberOfDevices; i++)
-                {
-                    if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
-                    {
-                        try
-                        {
-                            midiin = new MidiIn(i);
-                            midiin.MessageReceived += midiIn_MessageReceived;
-                            midiin.ErrorReceived += midiIn_ErrorReceived;
-                            midiin.Start();
-                        }
-                        catch
-                        {
-                            midiin = null;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        void midiIn_ErrorReceived(object sender, MidiInMessageEventArgs e)
-        {
-            Console.WriteLine(String.Format("Error Time {0} Message 0x{1:X8} Event {2}",
-                e.Timestamp, e.RawMessage, e.MidiEvent));
-        }
-
-        private void StopMIDIInMonitoring()
-        {
-            if (midiin != null)
-            {
-                try
-                {
-                    midiin.Stop();
-                    midiin.Dispose();
-                    midiin.MessageReceived -= midiIn_MessageReceived;
-                    midiin.ErrorReceived -= midiIn_ErrorReceived;
-                    midiin = null;
-                }
-                catch
-                {
-                    midiin = null;
-                }
-            }
-        }
-
-        void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
-        {
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
-            {
-                NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
-
-                int ch=Audio.NoteON(noe.NoteNumber);
-
-                if (ch != -1)
-                {
-                    int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
-                    n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
-                    noteLog[ch][noteLogPtr[ch]] = n;
-                    int p = noteLogPtr[ch] - 9;
-                    if (p < 0) p += 100;
-                    for (int i = 0; i < 10; i++)
-                    {
-                        newParam.ym2612Midi.noteLog[ch][i] = noteLog[ch][p];
-                        p++;
-                        if (p == 100) p = 0;
-                    }
-                    noteLogPtr[ch]++;
-                    if (noteLogPtr[ch] == 100) noteLogPtr[ch] = 0;
-                }
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
-            {
-                NoteEvent ne = (NoteEvent)e.MidiEvent;
-                Audio.NoteOFF(ne.NoteNumber);
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
-            {
-                ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
-                if ((int)ce.Controller == 97) Audio.VoiceCopy();
-            }
-        }
-
         public bool loadAndPlay(string fn, string zfn = null)
         {
             try
@@ -5031,22 +4918,154 @@ namespace MDPlayer
             }
         }
 
+
+
+        private void StartMIDIInMonitoring()
+        {
+
+            if (setting.other.MidiInDeviceName == "")
+            {
+                return;
+            }
+
+            if (midiin != null)
+            {
+                try
+                {
+                    midiin.Stop();
+                    midiin.Dispose();
+                    midiin.MessageReceived -= midiIn_MessageReceived;
+                    midiin.ErrorReceived -= midiIn_ErrorReceived;
+                    midiin = null;
+                }
+                catch
+                {
+                    midiin = null;
+                }
+            }
+
+            if (midiin == null)
+            {
+                for (int i = 0; i < MidiIn.NumberOfDevices; i++)
+                {
+                    if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
+                    {
+                        try
+                        {
+                            midiin = new MidiIn(i);
+                            midiin.MessageReceived += midiIn_MessageReceived;
+                            midiin.ErrorReceived += midiIn_ErrorReceived;
+                            midiin.Start();
+                        }
+                        catch
+                        {
+                            midiin = null;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        void midiIn_ErrorReceived(object sender, MidiInMessageEventArgs e)
+        {
+            Console.WriteLine(String.Format("Error Time {0} Message 0x{1:X8} Event {2}",
+                e.Timestamp, e.RawMessage, e.MidiEvent));
+        }
+
+        private void StopMIDIInMonitoring()
+        {
+            if (midiin != null)
+            {
+                try
+                {
+                    midiin.Stop();
+                    midiin.Dispose();
+                    midiin.MessageReceived -= midiIn_MessageReceived;
+                    midiin.ErrorReceived -= midiIn_ErrorReceived;
+                    midiin = null;
+                }
+                catch
+                {
+                    midiin = null;
+                }
+            }
+        }
+
+        void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        {
+            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
+            {
+                NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
+
+                int ch=Audio.YM2612MIDI_NoteON(noe.NoteNumber);
+
+                if (ch != -1)
+                {
+                    int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
+                    n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
+                    noteLog[ch][noteLogPtr[ch]] = n;
+                    int p = noteLogPtr[ch] - 9;
+                    if (p < 0) p += 100;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        newParam.ym2612Midi.noteLog[ch][i] = noteLog[ch][p];
+                        p++;
+                        if (p == 100) p = 0;
+                    }
+                    noteLogPtr[ch]++;
+                    if (noteLogPtr[ch] == 100) noteLogPtr[ch] = 0;
+                }
+                return;
+            }
+            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+            {
+                NoteEvent ne = (NoteEvent)e.MidiEvent;
+                Audio.YM2612MIDI_NoteOFF(ne.NoteNumber);
+                return;
+            }
+            if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+            {
+                ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
+                if ((int)ce.Controller == 97) Audio.YM2612MIDI_VoiceCopy();
+            }
+        }
+
         public void ym2612Midi_ClearNoteLog()
         {
             for (int ch = 0; ch < 6; ch++)
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    newParam.ym2612Midi.noteLog[ch][i] = -1;
-                }
-                for (int i = 0; i < 100; i++)
-                {
-                    noteLog[ch][i] = -1;
-                }
-                noteLogPtr[ch] = 0;
+                ym2612Midi_ClearNoteLog(ch);
             }
         }
 
+        public void ym2612Midi_ClearNoteLog(int ch)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                newParam.ym2612Midi.noteLog[ch][i] = -1;
+            }
+            for (int i = 0; i < 100; i++)
+            {
+                noteLog[ch][i] = -1;
+            }
+            noteLogPtr[ch] = 0;
+        }
+
+        public void ym2612Midi_AllNoteOff()
+        {
+            Audio.YM2612MIDI_AllNoteOff();
+        }
+
+        public void ym2612Midi_SetMode(int m)
+        {
+            Audio.YM2612MIDI_SetMode(m);
+        }
+
+        public void ym2612Midi_SelectChannel(int ch)
+        {
+            Audio.YM2612MIDI_SelectChannel(ch);
+        }
     }
 }
 

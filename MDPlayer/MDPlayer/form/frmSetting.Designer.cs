@@ -1300,7 +1300,6 @@
             this.groupBox2.Controls.Add(this.cbFM5);
             this.groupBox2.Controls.Add(this.cbFM3);
             this.groupBox2.Controls.Add(this.cbFM4);
-            this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(181, 18);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(170, 62);

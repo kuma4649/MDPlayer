@@ -103,7 +103,7 @@ namespace MDPlayer
 
             if (py < 16)
             {
-                Console.WriteLine("鍵盤");
+                //Console.WriteLine("鍵盤");
                 return;
             }
             else if (py < 32)
@@ -121,10 +121,12 @@ namespace MDPlayer
                 switch (u * 4 + p)
                 {
                     case 0:
-                        Console.WriteLine("MONO");
+                        //Console.WriteLine("MONO");
+                        cmdSetMode(0);
                         break;
                     case 1:
-                        Console.WriteLine("PANIC");
+                        //Console.WriteLine("PANIC");
+                        cmdAllNoteOff();
                         break;
                     case 2:
                         Console.WriteLine("TP.PUT");
@@ -133,10 +135,11 @@ namespace MDPlayer
                         Console.WriteLine("T.LOAD");
                         break;
                     case 4:
-                        Console.WriteLine("POLY");
+                        //Console.WriteLine("POLY");
+                        cmdSetMode(1);
                         break;
                     case 5:
-                        Console.WriteLine("L.CLS");
+                        //Console.WriteLine("L.CLS");
                         cmdLogClear();
                         break;
                     case 6:
@@ -149,7 +152,15 @@ namespace MDPlayer
             }
             else if (py < 40)
             {
-                Console.WriteLine("チャンネル選択 || 音色選択(1-3Ch)");
+                if ((px / 8) % 13 == 0)
+                {
+                    //Console.WriteLine("チャンネル選択");
+                    cmdSelectChannel(px / 8 / 13);
+                }
+                else
+                {
+                    Console.WriteLine("音色選択(1-3Ch)");
+                }
             }
             else if (py < 80)
             {
@@ -157,11 +168,27 @@ namespace MDPlayer
             }
             else if (py < 104)
             {
-                Console.WriteLine("ログ表示部(1-3Ch)");
+                if (py < 88 && (px / 8) % 13 == 3)
+                {
+                    //Console.WriteLine("ログクリア");
+                    cmdLogClear(px / 8 / 13);
+                }
+                else
+                {
+                    Console.WriteLine("ログ->MML変換(1-3Ch)");
+                }
             }
             else if (py < 112)
             {
-                Console.WriteLine("チャンネル選択 || 音色選択(4-6Ch)");
+                if ((px / 8) % 13 == 0)
+                {
+                    //Console.WriteLine("チャンネル選択");
+                    cmdSelectChannel((px / 8 / 13) + 3);
+                }
+                else
+                {
+                    Console.WriteLine("音色選択(4-6Ch)");
+                }
             }
             else if (py < 152)
             {
@@ -169,7 +196,15 @@ namespace MDPlayer
             }
             else if (py < 176)
             {
-                Console.WriteLine("ログ表示部(4-6Ch)");
+                if (py < 160 && (px / 8) % 13 == 3)
+                {
+                    //Console.WriteLine("ログクリア");
+                    cmdLogClear((px / 8 / 13)+3);
+                }
+                else
+                {
+                    Console.WriteLine("ログ->MML変換(4-6Ch)");
+                }
             }
             else
             {
@@ -177,9 +212,45 @@ namespace MDPlayer
             }
         }
 
+        /// <summary>
+        /// MONO/POLY
+        /// </summary>
+        private void cmdSetMode(int m)
+        {
+            parent.ym2612Midi_SetMode(m);
+        }
+
+        /// <summary>
+        /// PANIC
+        /// </summary>
+        private void cmdAllNoteOff()
+        {
+            parent.ym2612Midi_AllNoteOff();
+        }
+
+        /// <summary>
+        /// L.CLS
+        /// </summary>
         private void cmdLogClear()
         {
             parent.ym2612Midi_ClearNoteLog();
         }
+
+        /// <summary>
+        /// LogClear
+        /// </summary>
+        private void cmdLogClear(int ch)
+        {
+            parent.ym2612Midi_ClearNoteLog(ch);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void cmdSelectChannel(int ch)
+        {
+            parent.ym2612Midi_SelectChannel(ch);
+        }
+
     }
 }
