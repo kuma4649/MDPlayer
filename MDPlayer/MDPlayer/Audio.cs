@@ -2782,7 +2782,7 @@ namespace MDPlayer
             }
         }
 
-        public static void YM2612MIDI_VoiceCopyCh(int src,int des, int[][] reg)
+        public static void YM2612MIDI_VoiceCopyCh(int src, int des, int[][] reg)
         {
 
             for (int i = 0x30; i < 0xa0; i += 0x10)
@@ -2796,6 +2796,68 @@ namespace MDPlayer
             mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb0 + (des % 3)), (byte)reg[src / 3][0xb0 + (src % 3)]);
             mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)((0xb4 + (des % 3)) | 0xc0), (byte)reg[src / 3][0xb4 + (src % 3)]);
 
+        }
+
+        public static void YM2612MIDI_VoiceCopyChFromOPM(int src, int des, int[] reg)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                int opn = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                int opm = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x50 + opn + (des % 3)), (byte)(reg[0x80 + opm + src] & 0xdf));//AR + KS
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x60 + opn + (des % 3)), (byte)(reg[0xa0 + opm + src] & 0x9f));//DR + AM
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x70 + opn + (des % 3)), (byte)(reg[0xc0 + opm + src] & 0x1f));//SR
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x80 + opn + (des % 3)), (byte)(reg[0xe0 + opm + src] & 0xff));//RR + SL
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x40 + opn + (des % 3)), (byte)(reg[0x60 + opm + src] & 0x7f));//TL
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x30 + opn + (des % 3)), (byte)(reg[0x40 + opm + src] & 0x7f));//ML + DT
+            }
+
+            mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb0 + (des % 3)), (byte)(reg[0x20 + src] & 0x3f));//AL + FB
+
+        }
+
+        public static void YM2612MIDI_SetVoice(enmUseChip chip, int chipID, int ch)
+        {
+            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2610 || chip == enmUseChip.YM2203)
+            {
+                int[][] srcRegs = null;
+                if (chip == enmUseChip.YM2612)
+                {
+                    srcRegs = GetFMRegister(chipID);
+                }
+                else if (chip == enmUseChip.YM2608)
+                {
+                    srcRegs = GetYM2608Register(chipID);
+                }
+                else if (chip == enmUseChip.YM2610)
+                {
+                    srcRegs = GetYM2610Register(chipID);
+                }
+                else if (chip == enmUseChip.YM2203)
+                {
+                    int[] sReg = GetYM2203Register(chipID);
+                    srcRegs = new int[2][] { sReg, null };
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    if (setting.other.UseChannel[i])
+                    {
+                        YM2612MIDI_VoiceCopyCh(ch, i, srcRegs);
+                    }
+                }
+            }
+            else if (chip == enmUseChip.YM2151)
+            {
+                int[] reg=GetYM2151Register(chipID);
+                for (int i = 0; i < 6; i++)
+                {
+                    if (setting.other.UseChannel[i])
+                    {
+                        YM2612MIDI_VoiceCopyChFromOPM(ch, i, reg);
+                    }
+                }
+            }
         }
 
         public static void YM2612MIDI_AllNoteOff()

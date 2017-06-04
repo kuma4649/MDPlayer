@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NAudio.Midi;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MDPlayer
 {
@@ -3861,6 +3862,9 @@ namespace MDPlayer
 
         public void getInstCh(enmUseChip chip, int ch, int chipID)
         {
+
+            Audio.YM2612MIDI_SetVoice(chip, chipID, ch);
+
             if (!setting.other.UseGetInst) return;
 
             switch (setting.other.InstFormat)
@@ -4473,6 +4477,7 @@ namespace MDPlayer
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, ref COPYDATASTRUCT lParam);
         public const int WM_COPYDATA = 0x004A;
+        public const int WM_PASTE = 0x0302;
 
         //SendMessageを使ってプロセス間通信で文字列を渡す
         void SendString(IntPtr targetWindowHandle, string str)
@@ -5028,6 +5033,10 @@ namespace MDPlayer
             {
                 ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
                 if ((int)ce.Controller == 97) Audio.YM2612MIDI_VoiceCopy();
+                if ((int)ce.Controller == 66)
+                {
+                    if(setting.other.IsMONO) ym2612Midi_Log2MML66(setting.other.UseMONOChannel);
+                }
             }
         }
 
@@ -5051,6 +5060,196 @@ namespace MDPlayer
             }
             noteLogPtr[ch] = 0;
         }
+
+        public void ym2612Midi_Log2MML(int ch)
+        {
+            string[] tblNote = new[] { "c", "c+", "d", "d+", "e", "f", "f+", "g", "g+", "a", "a+", "b" };
+            int ptr = noteLogPtr[ch];
+
+            //解析開始位置を調べる
+            do
+            {
+                ptr--;
+                if (ptr < 0) ptr = noteLog[ch].Length - 1;
+
+                if (ptr == noteLogPtr[ch]){
+                    ptr = noteLogPtr[ch] - 1;
+                    if (ptr < 0) ptr = noteLog[ch].Length - 1;
+                    break;
+                }
+            } while (noteLog[ch][ptr] != -1);
+            ptr++;
+            if (ptr == noteLog[ch].Length) ptr = 0;
+
+
+            //解析開始
+            StringBuilder mml = new StringBuilder("o");
+
+            //オクターブコマンド
+            int oct = noteLog[ch][ptr] / 12;
+            mml.Append(oct+1);
+
+            do
+            {
+                int o = noteLog[ch][ptr] / 12;
+                int n = noteLog[ch][ptr] % 12;
+
+                //相対オクターブコマンドの解析
+                int s = Math.Sign(oct - o);
+                if (s < 0)
+                {
+                    do
+                    {
+                        mml.Append(">");
+                        oct++;
+                    } while (oct != o);
+                }
+                else if (s > 0)
+                {
+                    do
+                    {
+                        mml.Append("<");
+                        oct--;
+                    } while (oct != o);
+                }
+
+                //ノートコマンド
+                mml.Append(tblNote[n]);
+
+                ptr++;
+            } while (ptr != noteLogPtr[ch]);
+
+            //クリップボードにMMLをセット
+            Clipboard.SetText(mml.ToString());
+
+        }
+
+        public void ym2612Midi_Log2MML66(int ch)
+        {
+            string[] tblNote = new[] { "c", "c+", "d", "d+", "e", "f", "f+", "g", "g+", "a", "a+", "b" };
+            int ptr = noteLogPtr[ch];
+
+            //解析開始位置を調べる
+            do
+            {
+                ptr--;
+                if (ptr < 0) ptr = noteLog[ch].Length - 1;
+
+                if (ptr == noteLogPtr[ch])
+                {
+                    ptr = noteLogPtr[ch] - 1;
+                    if (ptr < 0) ptr = noteLog[ch].Length - 1;
+                    break;
+                }
+            } while (noteLog[ch][ptr] != -1);
+            ptr++;
+            if (ptr == noteLog[ch].Length) ptr = 0;
+
+            if (ptr == noteLogPtr[ch]) return;
+
+            //解析開始
+            StringBuilder mml = new StringBuilder("");
+
+            //オクターブのみ取得
+            int oct = noteLog[ch][ptr] / 12;
+
+            do
+            {
+                int o = noteLog[ch][ptr] / 12;
+                int n = noteLog[ch][ptr] % 12;
+
+                //相対オクターブコマンドの解析
+                int s = Math.Sign(oct - o);
+                if (s < 0)
+                {
+                    do
+                    {
+                        mml.Append(">");
+                        oct++;
+                    } while (oct != o);
+                }
+                else if (s > 0)
+                {
+                    do
+                    {
+                        mml.Append("<");
+                        oct--;
+                    } while (oct != o);
+                }
+
+                //ノートコマンド
+                mml.Append(tblNote[n]);
+
+                ptr++;
+            } while (ptr != noteLogPtr[ch]);
+
+            //クリップボードにMMLをセット
+            Clipboard.SetText(mml.ToString());
+            SendKeys.SendWait("^v");
+
+            //IntPtr myWindowHandle = Process.GetCurrentProcess().MainWindowHandle;
+            //IntPtr hWnd = GetForegroundWindow();
+            //int id = 0;
+            //GetWindowThreadProcessId(hWnd, out id);
+            //Process process = Process.GetProcessById(id);
+            //Console.WriteLine(process.ProcessName);
+            //SendMessage2(process.MainWindowHandle, WM_PASTE, IntPtr.Zero, IntPtr.Zero);
+
+            //GUITHREADINFO info;
+            //GetInfo(GetForegroundWindow(), out info);
+            //SendMessage2(info.hwndActive, WM_PASTE, IntPtr.Zero, IntPtr.Zero);
+
+
+            ym2612Midi_ClearNoteLog(ch);
+        }
+
+        //[DllImport("user32.dll")]
+        //private static extern IntPtr GetForegroundWindow();
+        //[DllImport("user32.dll", CharSet = CharSet.Auto , EntryPoint ="SendMessage")]
+        //public static extern int SendMessage2(IntPtr hWnd, int Msg, IntPtr dummy1, IntPtr dummy2);
+        //[DllImport("user32.dll")]
+        //public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //public static extern bool GetGUIThreadInfo(uint hTreadID, ref GUITHREADINFO lpgui);
+
+        //[DllImport("user32.dll")]
+        //public static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint lpdwProcessId);
+
+        //[StructLayout(LayoutKind.Sequential)]
+        //public struct RECT
+        //{
+        //    public int iLeft;
+        //    public int iTop;
+        //    public int iRight;
+        //    public int iBottom;
+        //}
+
+        //[StructLayout(LayoutKind.Sequential)]
+        //public struct GUITHREADINFO
+        //{
+        //    public int cbSize;
+        //    public int flags;
+        //    public IntPtr hwndActive;
+        //    public IntPtr hwndFocus;
+        //    public IntPtr hwndCapture;
+        //    public IntPtr hwndMenuOwner;
+        //    public IntPtr hwndMoveSize;
+        //    public IntPtr hwndCaret;
+        //    public RECT rectCaret;
+        //}
+
+        //public static bool GetInfo(IntPtr hwnd, out GUITHREADINFO lpgui)
+        //{
+        //    uint lpdwProcessId;
+        //    uint threadId = GetWindowThreadProcessId(hwnd, out lpdwProcessId);
+
+        //    lpgui = new GUITHREADINFO();
+        //    lpgui.cbSize = Marshal.SizeOf(lpgui);
+
+        //    return GetGUIThreadInfo(threadId, ref lpgui);
+        //}
 
         public void ym2612Midi_AllNoteOff()
         {

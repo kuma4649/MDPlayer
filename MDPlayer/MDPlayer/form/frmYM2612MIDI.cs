@@ -175,7 +175,8 @@ namespace MDPlayer
                 }
                 else
                 {
-                    Console.WriteLine("ログ->MML変換(1-3Ch)");
+                    //Console.WriteLine("ログ->MML変換(1-3Ch)");
+                    cmdLog2MML(px / 8 / 13);
                 }
             }
             else if (py < 112)
@@ -203,7 +204,8 @@ namespace MDPlayer
                 }
                 else
                 {
-                    Console.WriteLine("ログ->MML変換(4-6Ch)");
+                    //Console.WriteLine("ログ->MML変換(4-6Ch)");
+                    cmdLog2MML((px / 8 / 13)+3);
                 }
             }
             else
@@ -242,6 +244,14 @@ namespace MDPlayer
         private void cmdLogClear(int ch)
         {
             parent.ym2612Midi_ClearNoteLog(ch);
+        }
+
+        /// <summary>
+        /// MML変換
+        /// </summary>
+        private void cmdLog2MML(int ch)
+        {
+            parent.ym2612Midi_Log2MML(ch);
         }
 
         /// <summary>
