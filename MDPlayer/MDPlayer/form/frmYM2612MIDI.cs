@@ -129,7 +129,8 @@ namespace MDPlayer
                         cmdAllNoteOff();
                         break;
                     case 2:
-                        Console.WriteLine("TP.PUT");
+                        //Console.WriteLine("TP.PUT");
+                        cmdTPPut();
                         break;
                     case 3:
                         Console.WriteLine("T.LOAD");
@@ -143,7 +144,8 @@ namespace MDPlayer
                         cmdLogClear();
                         break;
                     case 6:
-                        Console.WriteLine("TP.GET");
+                        //Console.WriteLine("TP.GET");
+                        cmdTPGet();
                         break;
                     case 7:
                         Console.WriteLine("T.SAVE");
@@ -260,6 +262,21 @@ namespace MDPlayer
         private void cmdSelectChannel(int ch)
         {
             parent.ym2612Midi_SelectChannel(ch);
+        }
+
+        private void cmdTPPut()
+        {
+            parent.ym2612Midi_SetTonesToSetting();
+            frmTPPut frmTPPut = new frmTPPut();
+            frmTPPut.ShowDialog(parent.setting, parent.tonePallet);
+        }
+
+        private void cmdTPGet()
+        {
+            parent.ym2612Midi_SetTonesToSetting();
+            frmTPGet frmTPGet = new frmTPGet();
+            frmTPGet.ShowDialog(parent.setting, parent.tonePallet);
+            parent.ym2612Midi_SetTonesFromSetting();
         }
 
     }

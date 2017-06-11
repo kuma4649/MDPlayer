@@ -720,6 +720,7 @@ namespace MDPlayer
                 }
             }
 
+
             private bool _UseMIDIKeyboard = false;
             public bool UseMIDIKeyboard
             {
@@ -787,6 +788,20 @@ namespace MDPlayer
                 set
                 {
                     _UseChannel = value;
+                }
+            }
+
+            private Tone[] _Tones = new Tone[6];
+            public Tone[] Tones
+            {
+                get
+                {
+                    return _Tones;
+                }
+
+                set
+                {
+                    _Tones = value;
                 }
             }
 

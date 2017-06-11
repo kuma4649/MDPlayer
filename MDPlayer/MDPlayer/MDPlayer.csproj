@@ -191,6 +191,18 @@
     <Compile Include="form\frmSN76489.Designer.cs">
       <DependentUpon>frmSN76489.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmTPGet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmTPGet.Designer.cs">
+      <DependentUpon>frmTPGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmTPPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmTPPut.Designer.cs">
+      <DependentUpon>frmTPPut.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,7 +262,10 @@
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </Compile>
     <Compile Include="Driver\vgm.cs" />
+    <Compile Include="Tone.cs" />
+    <Compile Include="TonePallet.cs" />
     <Compile Include="WaveWriter.cs" />
+    <Compile Include="YM2612MIDI.cs" />
     <EmbeddedResource Include="form\frmAY8910.resx">
       <DependentUpon>frmAY8910.cs</DependentUpon>
     </EmbeddedResource>
@@ -289,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmSN76489.resx">
       <DependentUpon>frmSN76489.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmTPGet.resx">
+      <DependentUpon>frmTPGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmTPPut.resx">
+      <DependentUpon>frmTPPut.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>

@@ -37,9 +37,6 @@ namespace MDPlayer
         private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
         private frmYM2612MIDI frmYM2612MIDI = null;
 
-        private int[][] noteLog = new int[6][] { new int[100], new int[100], new int[100], new int[100], new int[100], new int[100] };
-        private int[] noteLogPtr = new int[6];
-
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
@@ -57,6 +54,7 @@ namespace MDPlayer
         private byte[] srcBuf;
 
         public Setting setting = Setting.Load();
+        public TonePallet tonePallet = TonePallet.Load(null);
 
         private int frameSizeW = 0;
         private int frameSizeH = 0;
@@ -64,6 +62,7 @@ namespace MDPlayer
 
         private MidiIn midiin = null;
         private bool forcedExit = false;
+        private YM2612MIDI YM2612MIDI = null;
 
         public frmMain()
         {
@@ -104,6 +103,8 @@ namespace MDPlayer
             log.ForcedWrite("起動時のAudio初期化処理開始");
 
             Audio.Init(setting);
+
+            YM2612MIDI = new YM2612MIDI(setting, Audio.mdsMIDI, newParam);
 
             log.ForcedWrite("起動時のAudio初期化処理完了");
 
@@ -195,11 +196,6 @@ namespace MDPlayer
 
             changeZoom();
 
-            for (int ch = 0; ch < 6; ch++)
-            {
-                for (int n = 0; n < 100; n++) noteLog[ch][n] = -1;
-                noteLogPtr[ch] = 0;
-            }
         }
 
         private void changeZoom()
@@ -458,6 +454,8 @@ namespace MDPlayer
             frmPlayList.Stop();
             frmPlayList.Save();
 
+            tonePallet.Save(null);
+
             log.ForcedWrite("frmMain_FormClosing:STEP 01");
 
             StopMIDIInMonitoring();
@@ -473,6 +471,8 @@ namespace MDPlayer
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 03");
+
+            YM2612MIDI.Close();
 
             // 解放
             screen.Dispose();
@@ -3863,7 +3863,7 @@ namespace MDPlayer
         public void getInstCh(enmUseChip chip, int ch, int chipID)
         {
 
-            Audio.YM2612MIDI_SetVoice(chip, chipID, ch);
+            YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
 
             if (!setting.other.UseGetInst) return;
 
@@ -4999,271 +4999,52 @@ namespace MDPlayer
 
         void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
-            {
-                NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
-
-                int ch=Audio.YM2612MIDI_NoteON(noe.NoteNumber);
-
-                if (ch != -1)
-                {
-                    int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
-                    n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
-                    noteLog[ch][noteLogPtr[ch]] = n;
-                    int p = noteLogPtr[ch] - 9;
-                    if (p < 0) p += 100;
-                    for (int i = 0; i < 10; i++)
-                    {
-                        newParam.ym2612Midi.noteLog[ch][i] = noteLog[ch][p];
-                        p++;
-                        if (p == 100) p = 0;
-                    }
-                    noteLogPtr[ch]++;
-                    if (noteLogPtr[ch] == 100) noteLogPtr[ch] = 0;
-                }
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
-            {
-                NoteEvent ne = (NoteEvent)e.MidiEvent;
-                Audio.YM2612MIDI_NoteOFF(ne.NoteNumber);
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
-            {
-                ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
-                if ((int)ce.Controller == 97) Audio.YM2612MIDI_VoiceCopy();
-                if ((int)ce.Controller == 66)
-                {
-                    if(setting.other.IsMONO) ym2612Midi_Log2MML66(setting.other.UseMONOChannel);
-                }
-            }
+            YM2612MIDI.midiIn_MessageReceived(e);
         }
 
         public void ym2612Midi_ClearNoteLog()
         {
-            for (int ch = 0; ch < 6; ch++)
-            {
-                ym2612Midi_ClearNoteLog(ch);
-            }
+            YM2612MIDI.ClearNoteLog();
         }
 
         public void ym2612Midi_ClearNoteLog(int ch)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                newParam.ym2612Midi.noteLog[ch][i] = -1;
-            }
-            for (int i = 0; i < 100; i++)
-            {
-                noteLog[ch][i] = -1;
-            }
-            noteLogPtr[ch] = 0;
+            YM2612MIDI.ClearNoteLog(ch);
         }
 
         public void ym2612Midi_Log2MML(int ch)
         {
-            string[] tblNote = new[] { "c", "c+", "d", "d+", "e", "f", "f+", "g", "g+", "a", "a+", "b" };
-            int ptr = noteLogPtr[ch];
-
-            //解析開始位置を調べる
-            do
-            {
-                ptr--;
-                if (ptr < 0) ptr = noteLog[ch].Length - 1;
-
-                if (ptr == noteLogPtr[ch]){
-                    ptr = noteLogPtr[ch] - 1;
-                    if (ptr < 0) ptr = noteLog[ch].Length - 1;
-                    break;
-                }
-            } while (noteLog[ch][ptr] != -1);
-            ptr++;
-            if (ptr == noteLog[ch].Length) ptr = 0;
-
-
-            //解析開始
-            StringBuilder mml = new StringBuilder("o");
-
-            //オクターブコマンド
-            int oct = noteLog[ch][ptr] / 12;
-            mml.Append(oct+1);
-
-            do
-            {
-                int o = noteLog[ch][ptr] / 12;
-                int n = noteLog[ch][ptr] % 12;
-
-                //相対オクターブコマンドの解析
-                int s = Math.Sign(oct - o);
-                if (s < 0)
-                {
-                    do
-                    {
-                        mml.Append(">");
-                        oct++;
-                    } while (oct != o);
-                }
-                else if (s > 0)
-                {
-                    do
-                    {
-                        mml.Append("<");
-                        oct--;
-                    } while (oct != o);
-                }
-
-                //ノートコマンド
-                mml.Append(tblNote[n]);
-
-                ptr++;
-            } while (ptr != noteLogPtr[ch]);
-
-            //クリップボードにMMLをセット
-            Clipboard.SetText(mml.ToString());
-
+            YM2612MIDI.Log2MML(ch);
         }
 
         public void ym2612Midi_Log2MML66(int ch)
         {
-            string[] tblNote = new[] { "c", "c+", "d", "d+", "e", "f", "f+", "g", "g+", "a", "a+", "b" };
-            int ptr = noteLogPtr[ch];
-
-            //解析開始位置を調べる
-            do
-            {
-                ptr--;
-                if (ptr < 0) ptr = noteLog[ch].Length - 1;
-
-                if (ptr == noteLogPtr[ch])
-                {
-                    ptr = noteLogPtr[ch] - 1;
-                    if (ptr < 0) ptr = noteLog[ch].Length - 1;
-                    break;
-                }
-            } while (noteLog[ch][ptr] != -1);
-            ptr++;
-            if (ptr == noteLog[ch].Length) ptr = 0;
-
-            if (ptr == noteLogPtr[ch]) return;
-
-            //解析開始
-            StringBuilder mml = new StringBuilder("");
-
-            //オクターブのみ取得
-            int oct = noteLog[ch][ptr] / 12;
-
-            do
-            {
-                int o = noteLog[ch][ptr] / 12;
-                int n = noteLog[ch][ptr] % 12;
-
-                //相対オクターブコマンドの解析
-                int s = Math.Sign(oct - o);
-                if (s < 0)
-                {
-                    do
-                    {
-                        mml.Append(">");
-                        oct++;
-                    } while (oct != o);
-                }
-                else if (s > 0)
-                {
-                    do
-                    {
-                        mml.Append("<");
-                        oct--;
-                    } while (oct != o);
-                }
-
-                //ノートコマンド
-                mml.Append(tblNote[n]);
-
-                ptr++;
-            } while (ptr != noteLogPtr[ch]);
-
-            //クリップボードにMMLをセット
-            Clipboard.SetText(mml.ToString());
-            SendKeys.SendWait("^v");
-
-            //IntPtr myWindowHandle = Process.GetCurrentProcess().MainWindowHandle;
-            //IntPtr hWnd = GetForegroundWindow();
-            //int id = 0;
-            //GetWindowThreadProcessId(hWnd, out id);
-            //Process process = Process.GetProcessById(id);
-            //Console.WriteLine(process.ProcessName);
-            //SendMessage2(process.MainWindowHandle, WM_PASTE, IntPtr.Zero, IntPtr.Zero);
-
-            //GUITHREADINFO info;
-            //GetInfo(GetForegroundWindow(), out info);
-            //SendMessage2(info.hwndActive, WM_PASTE, IntPtr.Zero, IntPtr.Zero);
-
-
-            ym2612Midi_ClearNoteLog(ch);
+            YM2612MIDI.Log2MML66(ch);
         }
-
-        //[DllImport("user32.dll")]
-        //private static extern IntPtr GetForegroundWindow();
-        //[DllImport("user32.dll", CharSet = CharSet.Auto , EntryPoint ="SendMessage")]
-        //public static extern int SendMessage2(IntPtr hWnd, int Msg, IntPtr dummy1, IntPtr dummy2);
-        //[DllImport("user32.dll")]
-        //public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-
-        //[DllImport("user32.dll", SetLastError = true)]
-        //public static extern bool GetGUIThreadInfo(uint hTreadID, ref GUITHREADINFO lpgui);
-
-        //[DllImport("user32.dll")]
-        //public static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint lpdwProcessId);
-
-        //[StructLayout(LayoutKind.Sequential)]
-        //public struct RECT
-        //{
-        //    public int iLeft;
-        //    public int iTop;
-        //    public int iRight;
-        //    public int iBottom;
-        //}
-
-        //[StructLayout(LayoutKind.Sequential)]
-        //public struct GUITHREADINFO
-        //{
-        //    public int cbSize;
-        //    public int flags;
-        //    public IntPtr hwndActive;
-        //    public IntPtr hwndFocus;
-        //    public IntPtr hwndCapture;
-        //    public IntPtr hwndMenuOwner;
-        //    public IntPtr hwndMoveSize;
-        //    public IntPtr hwndCaret;
-        //    public RECT rectCaret;
-        //}
-
-        //public static bool GetInfo(IntPtr hwnd, out GUITHREADINFO lpgui)
-        //{
-        //    uint lpdwProcessId;
-        //    uint threadId = GetWindowThreadProcessId(hwnd, out lpdwProcessId);
-
-        //    lpgui = new GUITHREADINFO();
-        //    lpgui.cbSize = Marshal.SizeOf(lpgui);
-
-        //    return GetGUIThreadInfo(threadId, ref lpgui);
-        //}
 
         public void ym2612Midi_AllNoteOff()
         {
-            Audio.YM2612MIDI_AllNoteOff();
+            YM2612MIDI.AllNoteOff();
         }
 
         public void ym2612Midi_SetMode(int m)
         {
-            Audio.YM2612MIDI_SetMode(m);
+            YM2612MIDI.SetMode(m);
         }
 
         public void ym2612Midi_SelectChannel(int ch)
         {
-            Audio.YM2612MIDI_SelectChannel(ch);
+            YM2612MIDI.SelectChannel(ch);
+        }
+
+        public void ym2612Midi_SetTonesToSetting()
+        {
+            YM2612MIDI.SetTonesToSettng();
+        }
+
+        public void ym2612Midi_SetTonesFromSetting()
+        {
+            YM2612MIDI.SetTonesFromSettng();
         }
     }
 }
