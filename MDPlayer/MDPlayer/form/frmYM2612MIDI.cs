@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -148,7 +149,8 @@ namespace MDPlayer
                         cmdTPGet();
                         break;
                     case 7:
-                        Console.WriteLine("T.SAVE");
+                        //Console.WriteLine("T.SAVE");
+                        cmdTSave();
                         break;
                 }
             }
@@ -279,5 +281,38 @@ namespace MDPlayer
             parent.ym2612Midi_SetTonesFromSetting();
         }
 
+        private bool IsInitialOpenFolder = true;
+
+        private void cmdTSave()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)|*.gwi|FMP7ファイル(*.mwi)|*.mwi|NRTDRVファイル(*.mml)|*.mml|MXDRVファイル(*.mml)|*.mml|MusicLALFファイル(*.mml)|*.mml";
+            sfd.Title = "TonePalletファイルを保存";
+            if (parent.setting.other.DefaultDataPath != "" && Directory.Exists(parent.setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                sfd.InitialDirectory = parent.setting.other.DefaultDataPath;
+            }
+            else
+            {
+                sfd.RestoreDirectory = true;
+            }
+            sfd.CheckPathExists = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            IsInitialOpenFolder = false;
+
+            try
+            {
+                parent.ym2612Midi_SaveTonePallet(sfd.FileName, sfd.FilterIndex);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                MessageBox.Show("ファイルの保存に失敗しました。");
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NAudio.Midi;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace MDPlayer
         private int latestNoteNumberMONO = -1;
         private int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
 
-        private Setting setting=null;
-        private MDSound.MDSound mdsMIDI=null;
+        private Setting setting = null;
+        private MDSound.MDSound mdsMIDI = null;
         public MDChipParams newParam = null;
 
 
@@ -281,7 +282,7 @@ namespace MDPlayer
             return tone;
         }
 
-        private Tone VoiceCopyToneToTone(Tone src,string name)
+        private Tone VoiceCopyToneToTone(Tone src, string name)
         {
             Tone des = new Tone();
 
@@ -610,6 +611,146 @@ namespace MDPlayer
             }
         }
 
+        public void SaveTonePallet(string fn, int tp, TonePallet tonePallet)
+        {
+            switch (tp)
+            {
+                case 1:
+                    tonePallet.Save(fn);
+                    break;
+                case 2:
+                    SaveTonePalletForMml2vgm(fn, tonePallet);
+                    break;
+                case 3:
+                    SaveTonePalletForFMP7(fn, tonePallet);
+                    break;
+                case 4:
+                    SaveTonePalletForNRTDRV(fn, tonePallet);
+                    break;
+                case 5:
+                    SaveTonePalletForMXDRV(fn, tonePallet);
+                    break;
+                case 6:
+                    SaveTonePalletForMUSICLALF(fn, tonePallet);
+                    break;
+            }
+        }
+
+        public void SaveTonePalletForMml2vgm(string fn, TonePallet tonePallet)
+        {
+            using (StreamWriter sw = new StreamWriter(fn, false))
+            {
+                int n = 0;
+                foreach (Tone t in tonePallet.lstTone)
+                {
+                    sw.WriteLine("{0}",t.name);
+                    sw.WriteLine("'@ N {0:D3}", n++);
+                    sw.WriteLine("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG - EG");
+                    foreach (Tone.Op op in t.OPs)
+                    {
+                        sw.WriteLine("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} {10:D3}"
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.AM, op.SG
+                            );
+                    }
+                    sw.WriteLine("   AL  FB");
+                    sw.WriteLine("'@ {0:D3} {1:D3}", t.AL, t.FB);
+                    sw.WriteLine("");
+                }
+            }
+        }
+
+        public void SaveTonePalletForFMP7(string fn, TonePallet tonePallet)
+        {
+            using (StreamWriter sw = new StreamWriter(fn, false, Encoding.GetEncoding("shift_jis")))
+            {
+                int n = 0;
+                foreach (Tone t in tonePallet.lstTone)
+                {
+                    sw.WriteLine("{0}", t.name);
+                    sw.WriteLine("'@ F {0:D3}", n++);
+                    sw.WriteLine("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG - EG");
+                    foreach (Tone.Op op in t.OPs)
+                    {
+                        sw.WriteLine("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} {10:D3}"
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.AM, op.SG
+                            );
+                    }
+                    sw.WriteLine("   AL  FB");
+                    sw.WriteLine("'@ {0:D3} {1:D3}", t.AL, t.FB);
+                    sw.WriteLine("");
+                }
+            }
+        }
+
+        public void SaveTonePalletForNRTDRV(string fn, TonePallet tonePallet)
+        {
+            using (StreamWriter sw = new StreamWriter(fn, false,Encoding.GetEncoding("shift_jis")))
+            {
+                int n = 0;
+                foreach (Tone t in tonePallet.lstTone)
+                {
+                    sw.WriteLine("@{0:D3} {{ ;{1}", n++, t.name);
+                    sw.WriteLine("; AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME");
+                    foreach (Tone.Op op in t.OPs)
+                    {
+                        sw.WriteLine("  {0:D3},{1:D3},{2:D3},{3:D3},{4:D3},{5:D3},{6:D3},{7:D3},{8:D3},{9:D3},{10:D3}"
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.DT2, op.AM
+                            );
+                    }
+                    sw.WriteLine(";PAN ALG FB  OP");
+                    sw.WriteLine(" 003,{0:D3},{1:D3},015", t.AL, t.FB);
+                    sw.WriteLine("}");
+                    sw.WriteLine("");
+                }
+            }
+        }
+
+        public void SaveTonePalletForMXDRV(string fn, TonePallet tonePallet)
+        {
+            using (StreamWriter sw = new StreamWriter(fn, false, Encoding.GetEncoding("shift_jis")))
+            {
+                int n = 0;
+                foreach (Tone t in tonePallet.lstTone)
+                {
+                    sw.WriteLine("/* {0} */", t.name);
+                    sw.WriteLine("@{0}= {{ ", n++);
+                    sw.WriteLine("/* AR  D1R D2R RR  D1L TL  KS  MUL DT1 DT2 AME */");
+                    foreach (Tone.Op op in t.OPs)
+                    {
+                        sw.WriteLine("   {0:d3},{1:d3},{2:d3},{3:d3},{4:d3},{5:d3},{6:d3},{7:d3},{8:d3},{9:d3},{10:d3}"
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.DT2, op.AM
+                            );
+                    }
+                    sw.WriteLine("/* CON FL  OP");
+                    sw.WriteLine("   {0:d3},{1:d3},015", t.AL, t.FB);
+                    sw.WriteLine("}");
+                    sw.WriteLine("");
+                }
+            }
+        }
+
+        public void SaveTonePalletForMUSICLALF(string fn, TonePallet tonePallet)
+        {
+            using (StreamWriter sw = new StreamWriter(fn, false, Encoding.GetEncoding("shift_jis")))
+            {
+                int n = 0;
+                foreach (Tone t in tonePallet.lstTone)
+                {
+                    sw.WriteLine("@{0:D3}:{{", n++);
+                    sw.WriteLine(";  AL  FB");
+                    sw.WriteLine("   {0:D3} {1:D3}", t.AL, t.FB);
+                    sw.WriteLine(";  AR  DR  SR  RR  SL  TL  KS  ML  DT");
+                    foreach (Tone.Op op in t.OPs)
+                    {
+                        sw.WriteLine("   {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3}"
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT
+                            );
+                    }
+                    sw.WriteLine(",\"{0}\" }} ", t.name);
+                    sw.WriteLine("");
+                }
+            }
+        }
 
 
     }

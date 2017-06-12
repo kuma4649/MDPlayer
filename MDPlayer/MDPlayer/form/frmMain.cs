@@ -5046,6 +5046,11 @@ namespace MDPlayer
         {
             YM2612MIDI.SetTonesFromSettng();
         }
+
+        public void ym2612Midi_SaveTonePallet(string fn, int tp)
+        {
+            YM2612MIDI.SaveTonePallet(fn, tp, tonePallet);
+        }
     }
 }
 
