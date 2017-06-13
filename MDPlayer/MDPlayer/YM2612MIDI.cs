@@ -734,22 +734,159 @@ namespace MDPlayer
             using (StreamWriter sw = new StreamWriter(fn, false, Encoding.GetEncoding("shift_jis")))
             {
                 int n = 0;
+                int row = 10;
                 foreach (Tone t in tonePallet.lstTone)
                 {
-                    sw.WriteLine("@{0:D3}:{{", n++);
-                    sw.WriteLine(";  AL  FB");
-                    sw.WriteLine("   {0:D3} {1:D3}", t.AL, t.FB);
-                    sw.WriteLine(";  AR  DR  SR  RR  SL  TL  KS  ML  DT");
+                    sw.WriteLine("{0} ' @{1}:{{", row, n++);
+                    row += 10;
+                    sw.WriteLine("{0} ' {1,3},{2,3}", row, t.AL, t.FB);
+                    row += 10;
+
+                    int o = 0;
                     foreach (Tone.Op op in t.OPs)
                     {
-                        sw.WriteLine("   {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3}"
-                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT
-                            );
+                        o++;
+                        if (o != 4)
+                        {
+                            sw.WriteLine("{0} ' {1,3},{2,3},{3,3},{4,3},{5,3},{6,3},{7,3},{8,3},{9,3}"
+                                , row, op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT
+                                );
+                        }
+                        else
+                        {
+                            sw.WriteLine("{0} ' {1,3},{2,3},{3,3},{4,3},{5,3},{6,3},{7,3},{8,3},{9,3},\"{10}\" }}"
+                                , row, op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, t.name
+                                );
+                        }
+                        row += 10;
                     }
-                    sw.WriteLine(",\"{0}\" }} ", t.name);
-                    sw.WriteLine("");
+
+                    sw.WriteLine("{0} '", row);
+                    row += 10;
                 }
             }
+        }
+
+        public void LoadTonePallet(string fn, int tp, TonePallet tonePallet)
+        {
+            switch (tp)
+            {
+                case 1:
+                    TonePallet tP=TonePallet.Load(fn);
+                    tonePallet.lstTone = tP.lstTone;
+                    break;
+                case 2:
+                    LoadTonePalletFromMml2vgm(fn, tonePallet);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+            }
+        }
+
+        public void LoadTonePalletFromMml2vgm(string fn, TonePallet tonePallet)
+        {
+            using (StreamReader sr = new StreamReader(fn))
+            {
+                string line;
+                int stage = 0;
+                List<int> toneBuf = new List<int>();
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    line = line.Trim();
+                    if (line.IndexOf("'@") != 0) continue;
+
+                    line = line.Replace("'@", "").Trim();
+                    string c = line[0].ToString().ToUpper();
+                    if (stage == 0 && (c == "M" || c == "N"))
+                    {
+                        stage = 1;
+                        if (line.Length < 2) continue;
+
+                        line = line.Substring(1).Trim();
+                    }
+
+                    if (stage > 0)
+                    {
+                        int[] nums = numSplit(line);
+                        foreach (int n in nums)
+                        {
+                            stage++;
+                            toneBuf.Add(n);
+                        }
+                        if (stage > 47)
+                        {
+                            if (stage == 48)
+                            {
+                                Tone t = new Tone();
+                                t.name = string.Format("No.{0}(From MML2VGM)", toneBuf[0]);
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 10];
+                                    t.OPs[i].SG = toneBuf[i * 11 + 11];
+                                }
+                                t.AL = toneBuf[45];
+                                t.FB = toneBuf[46];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                            }
+
+                            stage = 0;
+                            toneBuf.Clear();
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private int[] numSplit(string line)
+        {
+            List<int> ret = new List<int>();
+
+            line = line.Trim();
+            while (line.Length > 0)
+            {
+                char c = line[0];
+                int? n = null;
+                while (c >= '0' && c <= '9')
+                {
+                    if (n == null) n = 0;
+
+                    n = n * 10 + (c - '0');
+
+                    line = line.Substring(1);
+                    if (line.Length < 1) break;
+
+                    c = line[0];
+                }
+
+                if (n != null) ret.Add((int)n);
+
+                if (line.Length < 1) break;
+                line = line.Substring(1);
+
+                line = line.Trim();
+            }
+
+            return ret.ToArray();
         }
 
 

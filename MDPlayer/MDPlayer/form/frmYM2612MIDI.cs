@@ -134,7 +134,8 @@ namespace MDPlayer
                         cmdTPPut();
                         break;
                     case 3:
-                        Console.WriteLine("T.LOAD");
+                        //Console.WriteLine("T.LOAD");
+                        cmdTLoad();
                         break;
                     case 4:
                         //Console.WriteLine("POLY");
@@ -312,6 +313,39 @@ namespace MDPlayer
             {
                 log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの保存に失敗しました。");
+            }
+        }
+
+        private void cmdTLoad()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            //ofd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)|*.gwi|FMP7ファイル(*.mwi)|*.mwi|NRTDRVファイル(*.mml)|*.mml|MXDRVファイル(*.mml)|*.mml|MusicLALFファイル(*.mml)|*.mml";
+            ofd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)";
+            ofd.Title = "TonePalletファイルの読込";
+            if (parent.setting.other.DefaultDataPath != "" && Directory.Exists(parent.setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = parent.setting.other.DefaultDataPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
+            ofd.CheckPathExists = true;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            IsInitialOpenFolder = false;
+
+            try
+            {
+                parent.ym2612Midi_LoadTonePallet(ofd.FileName, ofd.FilterIndex);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                MessageBox.Show("ファイルの読込に失敗しました。");
             }
         }
     }
