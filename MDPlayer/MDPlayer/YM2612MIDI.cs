@@ -779,6 +779,7 @@ namespace MDPlayer
                     LoadTonePalletFromMml2vgm(fn, tonePallet);
                     break;
                 case 3:
+                    LoadTonePalletFromFMP7(fn, tonePallet);
                     break;
                 case 4:
                     break;
@@ -841,6 +842,160 @@ namespace MDPlayer
                                     t.OPs[i].DT = toneBuf[i * 11 + 9];
                                     t.OPs[i].AM = toneBuf[i * 11 + 10];
                                     t.OPs[i].SG = toneBuf[i * 11 + 11];
+                                    t.OPs[i].DT2 = 0;
+                                }
+                                t.AL = toneBuf[45];
+                                t.FB = toneBuf[46];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                            }
+
+                            stage = 0;
+                            toneBuf.Clear();
+                        }
+                    }
+
+                }
+            }
+        }
+
+        public void LoadTonePalletFromFMP7(string fn, TonePallet tonePallet)
+        {
+            using (StreamReader sr = new StreamReader(fn))
+            {
+                string line;
+                int stage = 0;
+                List<int> toneBuf = new List<int>();
+                int m = 0;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    line = line.Trim();
+                    if (line.IndexOf("'@") != 0) continue;
+
+                    line = line.Replace("'@", "").Trim();
+                    string c = line[0].ToString().ToUpper();
+                    if (stage == 0 && c == "F")
+                    {
+                        stage = 1;
+                        if (line.Length < 2) continue;
+
+                        line = line.Substring(1).Trim();
+                        c = line[0].ToString().ToUpper();
+                        m = 0;//互換モード
+
+                        if (c == "A")
+                        {
+                            m = 1;//OPNAモード
+                            line = line.Substring(1).Trim();
+                        }
+                        else if (c == "C")
+                        {
+                            m = 2;//OPMモード
+                            line = line.Substring(1).Trim();
+                        }
+                    }
+
+                    if (stage > 0)
+                    {
+                        int[] nums = numSplit(line);
+                        foreach (int n in nums)
+                        {
+                            stage++;
+                            toneBuf.Add(n);
+                        }
+
+                        if(m==0 && stage>=40)
+                        {
+                            if (stage == 40)
+                            {
+                                //互換
+                                Tone t = new Tone();
+                                t.name = string.Format("No.{0}(From FMP7 compatible)", toneBuf[0]);
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 9 + 1];
+                                    t.OPs[i].DR = toneBuf[i * 9 + 2];
+                                    t.OPs[i].SR = toneBuf[i * 9 + 3];
+                                    t.OPs[i].RR = toneBuf[i * 9 + 4];
+                                    t.OPs[i].SL = toneBuf[i * 9 + 5];
+                                    t.OPs[i].TL = toneBuf[i * 9 + 6];
+                                    t.OPs[i].KS = toneBuf[i * 9 + 7];
+                                    t.OPs[i].ML = toneBuf[i * 9 + 8];
+                                    t.OPs[i].DT = toneBuf[i * 9 + 9];
+                                    t.OPs[i].AM = 0;
+                                    t.OPs[i].SG = 0;
+                                    t.OPs[i].DT2 = 0;
+                                }
+                                t.AL = toneBuf[37];
+                                t.FB = toneBuf[38];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                            }
+
+                            stage = 0;
+                            toneBuf.Clear();
+                        }
+
+                        if (m == 1 && stage >= 44)
+                        {
+                            if (stage == 44)
+                            {
+                                //OPNA
+                                Tone t = new Tone();
+                                t.name = string.Format("No.{0}(From FMP7 OPNA)", toneBuf[0]);
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 10 + 1];
+                                    t.OPs[i].DR = toneBuf[i * 10 + 2];
+                                    t.OPs[i].SR = toneBuf[i * 10 + 3];
+                                    t.OPs[i].RR = toneBuf[i * 10 + 4];
+                                    t.OPs[i].SL = toneBuf[i * 10 + 5];
+                                    t.OPs[i].TL = toneBuf[i * 10 + 6];
+                                    t.OPs[i].KS = toneBuf[i * 10 + 7];
+                                    t.OPs[i].ML = toneBuf[i * 10 + 8];
+                                    t.OPs[i].DT = toneBuf[i * 10 + 9];
+                                    t.OPs[i].AM = toneBuf[i * 10 + 10];
+                                    t.OPs[i].SG = 0;
+                                    t.OPs[i].DT2 = 0;
+                                }
+                                t.AL = toneBuf[41];
+                                t.FB = toneBuf[42];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                            }
+
+                            stage = 0;
+                            toneBuf.Clear();
+                        }
+
+                        if (m == 2 && stage >= 48)
+                        {
+                            if (stage == 48)
+                            {
+                                //OPM
+                                Tone t = new Tone();
+                                t.name = string.Format("No.{0}(From FMP7 OPM)", toneBuf[0]);
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 10];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 11];
+                                    t.OPs[i].SG = 0;
                                 }
                                 t.AL = toneBuf[45];
                                 t.FB = toneBuf[46];
