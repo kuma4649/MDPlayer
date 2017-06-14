@@ -320,7 +320,7 @@ namespace MDPlayer
         {
             OpenFileDialog ofd = new OpenFileDialog();
             //ofd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)|*.gwi|FMP7ファイル(*.mwi)|*.mwi|NRTDRVファイル(*.mml)|*.mml|MXDRVファイル(*.mml)|*.mml|MusicLALFファイル(*.mml)|*.mml";
-            ofd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)|*.gwi|FMP7ファイル(*.mwi)|*.mwi|NRTDRVファイル(*.mml)|*.mml";
+            ofd.Filter = "XMLファイル(*.xml)|*.xml|MML2VGMファイル(*.gwi)|*.gwi|FMP7ファイル(*.mwi)|*.mwi|NRTDRVファイル(*.mml)|*.mml|MXDRVファイル(*.mml)|*.mml";
             ofd.Title = "TonePalletファイルの読込";
             if (parent.setting.other.DefaultDataPath != "" && Directory.Exists(parent.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
