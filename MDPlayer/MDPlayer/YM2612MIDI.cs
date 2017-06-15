@@ -788,6 +788,7 @@ namespace MDPlayer
                     LoadTonePalletFromMXDRV(fn, tonePallet);
                     break;
                 case 6:
+                    LoadTonePalletFromMUSICLALF(fn, tonePallet);
                     break;
             }
         }
@@ -1493,6 +1494,179 @@ namespace MDPlayer
                     }
 
                     line = sr.ReadLine();
+                } while (line != null);
+            }
+        }
+
+        public void LoadTonePalletFromMUSICLALF(string fn, TonePallet tonePallet)
+        {
+            using (StreamReader sr = new StreamReader(fn))
+            {
+                string line;
+                int stage = 0;
+                List<int> toneBuf = new List<int>();
+                string nm = "";
+
+                line = sr.ReadLine();
+                if (line == null) return;
+                line = line.Substring(line.IndexOf("'") + 1).Trim();
+
+                do
+                {
+
+                    line = line.Trim();
+
+                    if (line.Length > 0 && line[0] == ';')
+                    {
+                        line = sr.ReadLine();
+                        if (line == null) return;
+                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        continue;
+                    }
+
+                    if (line == "")
+                    {
+                        line = sr.ReadLine();
+                        if (line == null) return;
+                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        continue;
+                    }
+
+                    if (stage == 0 && line[0] == '@')
+                    {
+                        stage++;
+                        line = line.Substring(1);
+
+                        char c = line[0];
+                        int? n = null;
+                        while (c >= '0' && c <= '9')
+                        {
+                            if (n == null) n = 0;
+
+                            n = n * 10 + (c - '0');
+
+                            line = line.Substring(1);
+                            if (line.Length < 1) break;
+
+                            c = line[0];
+                        }
+                        if (n != null) toneBuf.Add((int)n);
+
+                        continue;
+                    }
+                    else if (stage == 1 && line[0] == ':')
+                    {
+                        stage++;
+
+                        if (line.Length > 1)
+                        {
+                            line = line.Substring(1);
+                        }
+                        else
+                        {
+                            line = sr.ReadLine();
+                            if (line == null) return;
+                            line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        }
+                        continue;
+                    }
+                    else if (stage == 2 && line[0] == '{')
+                    {
+                        stage++;
+
+                        if (line.Length > 1)
+                        {
+                            line = line.Substring(1);
+                        }
+                        else
+                        {
+                            line = sr.ReadLine();
+                            if (line == null) return;
+                            line = line.Substring(line.IndexOf("'") + 1).Trim();
+                            continue;
+                        }
+
+                        int[] nums = numSplit(line);
+                        foreach (int n in nums)
+                        {
+                            toneBuf.Add(n);
+                        }
+
+                        line = sr.ReadLine();
+                        if (line == null) return;
+                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        continue;
+                    }
+                    else if (stage == 3)
+                    {
+
+                        int[] nums = numSplit(line);
+                        foreach (int n in nums)
+                        {
+                            toneBuf.Add(n);
+                        }
+
+                        if (toneBuf.Count == 39)
+                        {
+                            stage = 4;
+                            continue;
+                        }
+                    }
+                    else if (stage == 4)
+                    {
+                        if (line.IndexOf('"') >= 0)
+                        {
+                            try
+                            {
+                                string n = line.Substring(line.IndexOf('"') + 1);
+                                nm = n.Substring(0, n.IndexOf('"') );
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        else                           if (line.IndexOf('}') >= 0)
+                        {
+
+                            if (toneBuf.Count == 39)
+                            {
+                                Tone t = null;
+                                t = new Tone();
+                                t.name = nm=="" ? string.Format("No.{0}(From MusicLALF)", toneBuf[0]) : nm;
+
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 9 + 3];
+                                    t.OPs[i].DR = toneBuf[i * 9 + 4];
+                                    t.OPs[i].SR = toneBuf[i * 9 + 5];
+                                    t.OPs[i].RR = toneBuf[i * 9 + 6];
+                                    t.OPs[i].SL = toneBuf[i * 9 + 7];
+                                    t.OPs[i].TL = toneBuf[i * 9 + 8];
+                                    t.OPs[i].KS = toneBuf[i * 9 + 9];
+                                    t.OPs[i].ML = toneBuf[i * 9 + 10];
+                                    t.OPs[i].DT = toneBuf[i * 9 + 11];
+                                    t.OPs[i].DT2 = 0;
+                                    t.OPs[i].AM = 0;
+                                    t.OPs[i].SG = 0;
+                                }
+                                t.AL = toneBuf[1];
+                                t.FB = toneBuf[2];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                            }
+                            stage = 0;
+                            nm = "";
+                            line = line.Substring(1);
+                            toneBuf.Clear();
+                            continue;
+                        }
+                    }
+
+                    line = sr.ReadLine();
+                    if (line == null) return;
+                    line = line.Substring(line.IndexOf("'") + 1).Trim();
                 } while (line != null);
             }
         }
