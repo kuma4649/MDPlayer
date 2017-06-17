@@ -373,6 +373,14 @@
     <Content Include="lib\scciconfig.exe" />
     <Content Include="Resources\addFolderPL.png" />
     <Content Include="Resources\addPL.png" />
+    <Content Include="Resources\ccFadeout.png" />
+    <Content Include="Resources\ccFast.png" />
+    <Content Include="Resources\ccNext.png" />
+    <Content Include="Resources\ccPause.png" />
+    <Content Include="Resources\ccPlay.png" />
+    <Content Include="Resources\ccPrevious.png" />
+    <Content Include="Resources\ccSlow.png" />
+    <Content Include="Resources\ccStop.png" />
     <Content Include="Resources\downPL.png" />
     <Content Include="Resources\japPL.png" />
     <Content Include="Resources\openPL.png" />

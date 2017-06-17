@@ -104,7 +104,7 @@ namespace MDPlayer
 
             Audio.Init(setting);
 
-            YM2612MIDI = new YM2612MIDI(setting, Audio.mdsMIDI, newParam);
+            YM2612MIDI = new YM2612MIDI(this, Audio.mdsMIDI, newParam);
 
             log.ForcedWrite("起動時のAudio初期化処理完了");
 
@@ -3104,19 +3104,19 @@ namespace MDPlayer
             int[][] fmRegister = Audio.GetYM2612MIDIRegister();
             //int[] fmKey = Audio.GetFMKeyOn();
 
-            newParam.ym2612Midi.IsMONO = setting.other.IsMONO;
-            if (setting.other.IsMONO)
+            newParam.ym2612Midi.IsMONO = setting.midiKbd.IsMONO;
+            if (setting.midiKbd.IsMONO)
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    newParam.ym2612Midi.useChannel[i] = (setting.other.UseMONOChannel == i);
+                    newParam.ym2612Midi.useChannel[i] = (setting.midiKbd.UseMONOChannel == i);
                 }
             }
             else
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    newParam.ym2612Midi.useChannel[i] = setting.other.UseChannel[i];
+                    newParam.ym2612Midi.useChannel[i] = setting.midiKbd.UseChannel[i];
                 }
             }
 
@@ -3387,7 +3387,7 @@ namespace MDPlayer
             }
         }
 
-        private void stop()
+        public void stop()
         {
             if (Audio.isPaused)
             {
@@ -3399,12 +3399,12 @@ namespace MDPlayer
 
         }
 
-        private void pause()
+        public void pause()
         {
             Audio.Pause();
         }
 
-        private void fadeout()
+        public void fadeout()
         {
             if (Audio.isPaused)
             {
@@ -3414,7 +3414,7 @@ namespace MDPlayer
             Audio.Fadeout();
         }
 
-        private void prev()
+        public void prev()
         {
             if (Audio.isPaused)
             {
@@ -3424,7 +3424,7 @@ namespace MDPlayer
             frmPlayList.prevPlay();
         }
 
-        private void play()
+        public void play()
         {
             if (Audio.isPaused)
             {
@@ -3562,7 +3562,7 @@ namespace MDPlayer
             }
         }
 
-        private void ff()
+        public void ff()
         {
             if (Audio.isPaused)
             {
@@ -3572,7 +3572,7 @@ namespace MDPlayer
             Audio.FF();
         }
 
-        private void next()
+        public void next()
         {
             if (Audio.isPaused)
             {
@@ -3587,7 +3587,7 @@ namespace MDPlayer
             frmPlayList.nextPlayMode(newButtonMode[9]);
         }
 
-        private void slow()
+        public void slow()
         {
             if (Audio.isPaused)
             {
@@ -4928,7 +4928,7 @@ namespace MDPlayer
         private void StartMIDIInMonitoring()
         {
 
-            if (setting.other.MidiInDeviceName == "")
+            if (setting.midiKbd.MidiInDeviceName == "")
             {
                 return;
             }
@@ -4953,7 +4953,7 @@ namespace MDPlayer
             {
                 for (int i = 0; i < MidiIn.NumberOfDevices; i++)
                 {
-                    if (setting.other.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
+                    if (setting.midiKbd.MidiInDeviceName == MidiIn.DeviceInfo(i).ProductName)
                     {
                         try
                         {
@@ -4999,6 +4999,8 @@ namespace MDPlayer
 
         void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            if (!setting.midiKbd.UseMIDIKeyboard) return;
+
             YM2612MIDI.midiIn_MessageReceived(e);
         }
 

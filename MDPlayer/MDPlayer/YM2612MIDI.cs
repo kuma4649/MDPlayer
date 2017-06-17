@@ -14,7 +14,7 @@ namespace MDPlayer
         private int latestNoteNumberMONO = -1;
         private int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
 
-        private Setting setting = null;
+        private frmMain parent = null;
         private MDSound.MDSound mdsMIDI = null;
         public MDChipParams newParam = null;
 
@@ -49,9 +49,9 @@ namespace MDPlayer
 
 
 
-        public YM2612MIDI(Setting setting, MDSound.MDSound mdsMIDI, MDChipParams newParam)
+        public YM2612MIDI(frmMain parent, MDSound.MDSound mdsMIDI, MDChipParams newParam)
         {
-            this.setting = setting;
+            this.parent = parent;
             this.mdsMIDI = mdsMIDI;
             this.newParam = newParam;
 
@@ -59,8 +59,8 @@ namespace MDPlayer
             {
                 for (int n = 0; n < 100; n++) NoteLog[ch][n] = -1;
                 NoteLogPtr[ch] = 0;
-                if (setting.other.Tones != null && setting.other.Tones[ch] != null)
-                    VoiceCopyChFromTone(ch, setting.other.Tones[ch]);
+                if (parent.setting.midiKbd.Tones != null && parent.setting.midiKbd.Tones[ch] != null)
+                    VoiceCopyChFromTone(ch, parent.setting.midiKbd.Tones[ch]);
             }
         }
 
@@ -75,7 +75,7 @@ namespace MDPlayer
             int oct = noteNumber / 12 - 1;
             oct = Math.Min(Math.Max(oct, 0), 7);
 
-            int ch = setting.other.UseMONOChannel;
+            int ch = parent.setting.midiKbd.UseMONOChannel;
             if (ch < 0 || ch > 5) return -1;
 
             mdsMIDI.WriteYM2612(0, (byte)(ch / 3), (byte)(0xa4 + (ch % 3)), (byte)(((fnum & 0x700) >> 8) | (oct << 3)));
@@ -90,7 +90,7 @@ namespace MDPlayer
 
         private void NoteOFFMONO(int noteNumber)
         {
-            int ch = setting.other.UseMONOChannel;
+            int ch = parent.setting.midiKbd.UseMONOChannel;
             if (ch < 0 || ch > 5) return;
 
             if (noteNumber == latestNoteNumberMONO)
@@ -99,7 +99,7 @@ namespace MDPlayer
 
         private int NoteON(int noteNumber)
         {
-            if (setting.other.IsMONO)
+            if (parent.setting.midiKbd.IsMONO)
             {
                 return NoteONMONO(noteNumber);
             }
@@ -113,7 +113,7 @@ namespace MDPlayer
             for (; ch < 6; ch++)
             {
                 if (latestNoteNumber[ch] != -1) continue;
-                if (!setting.other.UseChannel[ch]) continue;
+                if (!parent.setting.midiKbd.UseChannel[ch]) continue;
                 sw = true;
                 break;
             }
@@ -131,7 +131,7 @@ namespace MDPlayer
 
         private void NoteOFF(int noteNumber)
         {
-            if (setting.other.IsMONO)
+            if (parent.setting.midiKbd.IsMONO)
             {
                 NoteOFFMONO(noteNumber);
                 return;
@@ -334,7 +334,7 @@ namespace MDPlayer
                 }
                 for (int i = 0; i < 6; i++)
                 {
-                    if (setting.other.UseChannel[i])
+                    if (parent.setting.midiKbd.UseChannel[i])
                     {
                         VoiceCopyCh(ch, i, srcRegs);
                     }
@@ -345,7 +345,7 @@ namespace MDPlayer
                 int[] reg = Audio.GetYM2151Register(chipID);
                 for (int i = 0; i < 6; i++)
                 {
-                    if (setting.other.UseChannel[i])
+                    if (parent.setting.midiKbd.UseChannel[i])
                     {
                         VoiceCopyChFromOPM(ch, i, reg);
                     }
@@ -369,31 +369,31 @@ namespace MDPlayer
                     //MONO
                     for (int ch = 0; ch < 6; ch++)
                     {
-                        setting.other.UseChannel[ch] = false;
-                        if (ch == setting.other.UseMONOChannel)
+                        parent.setting.midiKbd.UseChannel[ch] = false;
+                        if (ch == parent.setting.midiKbd.UseMONOChannel)
                         {
-                            setting.other.UseChannel[ch] = true;
+                            parent.setting.midiKbd.UseChannel[ch] = true;
                         }
                     }
-                    setting.other.IsMONO = true;
+                    parent.setting.midiKbd.IsMONO = true;
                     break;
                 default:
                     //POLY
-                    setting.other.IsMONO = false;
+                    parent.setting.midiKbd.IsMONO = false;
                     break;
             }
         }
 
         public void SelectChannel(int ch)
         {
-            if (setting.other.IsMONO)
+            if (parent.setting.midiKbd.IsMONO)
             {
-                setting.other.UseMONOChannel = ch;
+                parent.setting.midiKbd.UseMONOChannel = ch;
                 SetMode(0);
             }
             else
             {
-                setting.other.UseChannel[ch] = !setting.other.UseChannel[ch];
+                parent.setting.midiKbd.UseChannel[ch] = !parent.setting.midiKbd.UseChannel[ch];
             }
         }
 
@@ -585,21 +585,58 @@ namespace MDPlayer
             }
             if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
             {
-                ControlChangeEvent ce = (ControlChangeEvent)e.MidiEvent;
-                if ((int)ce.Controller == 97) VoiceCopy();
-                if ((int)ce.Controller == 66)
+                int cc = (int)(((ControlChangeEvent)e.MidiEvent).Controller);
+                Setting.MidiKbd mk = parent.setting.midiKbd;
+                if (cc == mk.MidiCtrl_CopyToneFromYM2612Ch1) VoiceCopy();
+                if (cc == mk.MidiCtrl_CopySelecttingLogToClipbrd)
                 {
-                    if (setting.other.IsMONO) Log2MML66(setting.other.UseMONOChannel);
+                    if (parent.setting.midiKbd.IsMONO) Log2MML66(parent.setting.midiKbd.UseMONOChannel);
+                }
+                if (cc == mk.MidiCtrl_DelOneLog)
+                {
+                    //TBD
+                }
+                if (cc == mk.MidiCtrl_Fadeout)
+                {
+                    parent.fadeout();
+                }
+                if (cc == mk.MidiCtrl_Fast)
+                {
+                    parent.ff();
+                }
+                if (cc == mk.MidiCtrl_Next)
+                {
+                    parent.next();
+                }
+                if (cc == mk.MidiCtrl_Pause)
+                {
+                    parent.pause();
+                }
+                if (cc == mk.MidiCtrl_Play)
+                {
+                    parent.play();
+                }
+                if (cc == mk.MidiCtrl_Previous)
+                {
+                    parent.prev();
+                }
+                if (cc == mk.MidiCtrl_Slow)
+                {
+                    parent.slow();
+                }
+                if (cc == mk.MidiCtrl_Stop)
+                {
+                    parent.stop();
                 }
             }
         }
 
         public void SetTonesToSettng()
         {
-            setting.other.Tones = new Tone[6];
+            parent.setting.midiKbd.Tones = new Tone[6];
             for (int ch = 0; ch < 6; ch++)
             {
-                setting.other.Tones[ch] = VoiceCopyChToTone(ch, "");
+                parent.setting.midiKbd.Tones[ch] = VoiceCopyChToTone(ch, "");
             }
         }
 
@@ -607,7 +644,7 @@ namespace MDPlayer
         {
             for (int ch = 0; ch < 6; ch++)
             {
-                VoiceCopyChFromTone(ch, setting.other.Tones[ch]);
+                VoiceCopyChFromTone(ch, parent.setting.midiKbd.Tones[ch]);
             }
         }
 

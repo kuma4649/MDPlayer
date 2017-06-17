@@ -2287,7 +2287,7 @@ namespace MDPlayer
         {
             int cnt1 = trdVgmVirtualMainFunction(buffer, offset, sampleCount);
 
-            if (setting.other.UseMIDIKeyboard)
+            if (setting.midiKbd.UseMIDIKeyboard)
             {
                 short[] buf = new short[sampleCount];
                 int cnt2 = mdsMIDI.Update(buf, 0, sampleCount, null);

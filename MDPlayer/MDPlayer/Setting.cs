@@ -396,6 +396,20 @@ namespace MDPlayer
             }
         }
 
+        private MidiKbd _midiKbd = new MidiKbd();
+        public MidiKbd midiKbd
+        {
+            get
+            {
+                return _midiKbd;
+            }
+
+            set
+            {
+                _midiKbd = value;
+            }
+        }
+
         [Serializable]
         public class OutputDevice
         {
@@ -721,90 +735,6 @@ namespace MDPlayer
             }
 
 
-            private bool _UseMIDIKeyboard = false;
-            public bool UseMIDIKeyboard
-            {
-                get
-                {
-                    return _UseMIDIKeyboard;
-                }
-
-                set
-                {
-                    _UseMIDIKeyboard = value;
-                }
-            }
-
-            private string _MidiInDeviceName="";
-            public string MidiInDeviceName
-            {
-                get
-                {
-                    return _MidiInDeviceName;
-                }
-
-                set
-                {
-                    _MidiInDeviceName = value;
-                }
-            }
-
-            private bool _IsMONO = true;
-            public bool IsMONO
-            {
-                get
-                {
-                    return _IsMONO;
-                }
-
-                set
-                {
-                    _IsMONO = value;
-                }
-            }
-
-            private int _UseMONOChannel = 0;
-            public int UseMONOChannel
-            {
-                get
-                {
-                    return _UseMONOChannel;
-                }
-
-                set
-                {
-                    _UseMONOChannel = value;
-                }
-            }
-
-            private bool[] _UseChannel = new bool[9];
-            public bool[] UseChannel
-            {
-                get
-                {
-                    return _UseChannel;
-                }
-
-                set
-                {
-                    _UseChannel = value;
-                }
-            }
-
-            private Tone[] _Tones = new Tone[6];
-            public Tone[] Tones
-            {
-                get
-                {
-                    return _Tones;
-                }
-
-                set
-                {
-                    _Tones = value;
-                }
-            }
-
             private bool _UseGetInst = true;
             public bool UseGetInst
             {
@@ -965,14 +895,6 @@ namespace MDPlayer
                 Other other = new Other();
                 other.UseLoopTimes = this.UseLoopTimes;
                 other.LoopTimes = this.LoopTimes;
-                other.MidiInDeviceName = this.MidiInDeviceName;
-                other.UseMIDIKeyboard = this.UseMIDIKeyboard;
-                for (int i = 0; i < other.UseChannel.Length; i++)
-                {
-                    other.UseChannel[i] = this.UseChannel[i];
-                }
-                other.IsMONO = this.IsMONO;
-                other.UseMONOChannel = this.UseMONOChannel;
                 other.UseGetInst = this.UseGetInst;
                 other.DefaultDataPath = this.DefaultDataPath;
                 other.InstFormat = this.InstFormat;
@@ -2153,6 +2075,278 @@ namespace MDPlayer
 
         }
 
+        [Serializable]
+        public class MidiKbd
+        {
+
+            private bool _UseMIDIKeyboard = false;
+            public bool UseMIDIKeyboard
+            {
+                get
+                {
+                    return _UseMIDIKeyboard;
+                }
+
+                set
+                {
+                    _UseMIDIKeyboard = value;
+                }
+            }
+
+            private string _MidiInDeviceName = "";
+            public string MidiInDeviceName
+            {
+                get
+                {
+                    return _MidiInDeviceName;
+                }
+
+                set
+                {
+                    _MidiInDeviceName = value;
+                }
+            }
+
+            private bool _IsMONO = true;
+            public bool IsMONO
+            {
+                get
+                {
+                    return _IsMONO;
+                }
+
+                set
+                {
+                    _IsMONO = value;
+                }
+            }
+
+            private int _UseMONOChannel = 0;
+            public int UseMONOChannel
+            {
+                get
+                {
+                    return _UseMONOChannel;
+                }
+
+                set
+                {
+                    _UseMONOChannel = value;
+                }
+            }
+
+            private bool[] _UseChannel = new bool[9];
+            public bool[] UseChannel
+            {
+                get
+                {
+                    return _UseChannel;
+                }
+
+                set
+                {
+                    _UseChannel = value;
+                }
+            }
+
+            private Tone[] _Tones = new Tone[6];
+            public Tone[] Tones
+            {
+                get
+                {
+                    return _Tones;
+                }
+
+                set
+                {
+                    _Tones = value;
+                }
+            }
+
+            private int _MidiCtrl_CopyToneFromYM2612Ch1 = 97;
+            public int MidiCtrl_CopyToneFromYM2612Ch1
+            {
+                get
+                {
+                    return _MidiCtrl_CopyToneFromYM2612Ch1;
+                }
+
+                set
+                {
+                    _MidiCtrl_CopyToneFromYM2612Ch1 = value;
+                }
+            }
+
+            private int _MidiCtrl_DelOneLog = 96;
+            public int MidiCtrl_DelOneLog
+            {
+                get
+                {
+                    return _MidiCtrl_DelOneLog;
+                }
+
+                set
+                {
+                    _MidiCtrl_DelOneLog = value;
+                }
+            }
+
+            private int _MidiCtrl_CopySelecttingLogToClipbrd = 66;
+            public int MidiCtrl_CopySelecttingLogToClipbrd
+            {
+                get
+                {
+                    return _MidiCtrl_CopySelecttingLogToClipbrd;
+                }
+
+                set
+                {
+                    _MidiCtrl_CopySelecttingLogToClipbrd = value;
+                }
+            }
+
+            private int _MidiCtrl_Stop = -1;
+            public int MidiCtrl_Stop
+            {
+                get
+                {
+                    return _MidiCtrl_Stop;
+                }
+
+                set
+                {
+                    _MidiCtrl_Stop = value;
+                }
+            }
+
+            private int _MidiCtrl_Pause = -1;
+            public int MidiCtrl_Pause
+            {
+                get
+                {
+                    return _MidiCtrl_Pause;
+                }
+
+                set
+                {
+                    _MidiCtrl_Pause = value;
+                }
+            }
+
+            private int _MidiCtrl_Fadeout = -1;
+            public int MidiCtrl_Fadeout
+            {
+                get
+                {
+                    return _MidiCtrl_Fadeout;
+                }
+
+                set
+                {
+                    _MidiCtrl_Fadeout = value;
+                }
+            }
+
+            private int _MidiCtrl_Previous = -1;
+            public int MidiCtrl_Previous
+            {
+                get
+                {
+                    return _MidiCtrl_Previous;
+                }
+
+                set
+                {
+                    _MidiCtrl_Previous = value;
+                }
+            }
+
+            private int _MidiCtrl_Slow = -1;
+            public int MidiCtrl_Slow
+            {
+                get
+                {
+                    return _MidiCtrl_Slow;
+                }
+
+                set
+                {
+                    _MidiCtrl_Slow = value;
+                }
+            }
+
+            private int _MidiCtrl_Play = -1;
+            public int MidiCtrl_Play
+            {
+                get
+                {
+                    return _MidiCtrl_Play;
+                }
+
+                set
+                {
+                    _MidiCtrl_Play = value;
+                }
+            }
+
+            private int _MidiCtrl_Fast = -1;
+            public int MidiCtrl_Fast
+            {
+                get
+                {
+                    return _MidiCtrl_Fast;
+                }
+
+                set
+                {
+                    _MidiCtrl_Fast = value;
+                }
+            }
+
+            private int _MidiCtrl_Next = -1;
+            public int MidiCtrl_Next
+            {
+                get
+                {
+                    return _MidiCtrl_Next;
+                }
+
+                set
+                {
+                    _MidiCtrl_Next = value;
+                }
+            }
+
+
+            public MidiKbd Copy()
+            {
+                MidiKbd midiKbd = new MidiKbd();
+
+                midiKbd.MidiInDeviceName = this.MidiInDeviceName;
+                midiKbd.UseMIDIKeyboard = this.UseMIDIKeyboard;
+                for (int i = 0; i < midiKbd.UseChannel.Length; i++)
+                {
+                    midiKbd.UseChannel[i] = this.UseChannel[i];
+                }
+                midiKbd.IsMONO = this.IsMONO;
+                midiKbd.UseMONOChannel = this.UseMONOChannel;
+
+                midiKbd.MidiCtrl_CopySelecttingLogToClipbrd = this.MidiCtrl_CopySelecttingLogToClipbrd;
+                midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 = this.MidiCtrl_CopyToneFromYM2612Ch1;
+                midiKbd.MidiCtrl_DelOneLog = this.MidiCtrl_DelOneLog;
+                midiKbd.MidiCtrl_Fadeout = this.MidiCtrl_Fadeout;
+                midiKbd.MidiCtrl_Fast = this.MidiCtrl_Fast;
+                midiKbd.MidiCtrl_Next = this.MidiCtrl_Next;
+                midiKbd.MidiCtrl_Pause = this.MidiCtrl_Pause;
+                midiKbd.MidiCtrl_Play = this.MidiCtrl_Play;
+                midiKbd.MidiCtrl_Previous = this.MidiCtrl_Previous;
+                midiKbd.MidiCtrl_Slow = this.MidiCtrl_Slow;
+                midiKbd.MidiCtrl_Stop = this.MidiCtrl_Stop;
+
+                return midiKbd;
+            }
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -2180,6 +2374,7 @@ namespace MDPlayer
             setting.HiyorimiMode = this.HiyorimiMode;
             setting.location = this.location.Copy();
             setting.midiExport = this.midiExport.Copy();
+            setting.midiKbd = this.midiKbd.Copy();
 
             return setting;
         }

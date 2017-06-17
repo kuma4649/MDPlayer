@@ -300,7 +300,7 @@ namespace MDPlayer
                 cmbMIDIIN.SelectedIndex = 0;
                 foreach (string item in cmbMIDIIN.Items)
                 {
-                    if (item == setting.other.MidiInDeviceName)
+                    if (item == setting.midiKbd.MidiInDeviceName)
                     {
                         cmbMIDIIN.SelectedItem = item;
                     }
@@ -677,24 +677,24 @@ namespace MDPlayer
                 }
             }
 
-            cbUseMIDIKeyboard.Checked = setting.other.UseMIDIKeyboard;
+            cbUseMIDIKeyboard.Checked = setting.midiKbd.UseMIDIKeyboard;
 
-            cbFM1.Checked = setting.other.UseChannel[0];
-            cbFM2.Checked = setting.other.UseChannel[1];
-            cbFM3.Checked = setting.other.UseChannel[2];
-            cbFM4.Checked = setting.other.UseChannel[3];
-            cbFM5.Checked = setting.other.UseChannel[4];
-            cbFM6.Checked = setting.other.UseChannel[5];
+            cbFM1.Checked = setting.midiKbd.UseChannel[0];
+            cbFM2.Checked = setting.midiKbd.UseChannel[1];
+            cbFM3.Checked = setting.midiKbd.UseChannel[2];
+            cbFM4.Checked = setting.midiKbd.UseChannel[3];
+            cbFM5.Checked = setting.midiKbd.UseChannel[4];
+            cbFM6.Checked = setting.midiKbd.UseChannel[5];
 
-            rbMONO.Checked = setting.other.IsMONO;
-            rbPOLY.Checked = !setting.other.IsMONO;
+            rbMONO.Checked = setting.midiKbd.IsMONO;
+            rbPOLY.Checked = !setting.midiKbd.IsMONO;
 
-            rbFM1.Checked = setting.other.UseMONOChannel == 0;
-            rbFM2.Checked = setting.other.UseMONOChannel == 1;
-            rbFM3.Checked = setting.other.UseMONOChannel == 2;
-            rbFM4.Checked = setting.other.UseMONOChannel == 3;
-            rbFM5.Checked = setting.other.UseMONOChannel == 4;
-            rbFM6.Checked = setting.other.UseMONOChannel == 5;
+            rbFM1.Checked = setting.midiKbd.UseMONOChannel == 0;
+            rbFM2.Checked = setting.midiKbd.UseMONOChannel == 1;
+            rbFM3.Checked = setting.midiKbd.UseMONOChannel == 2;
+            rbFM4.Checked = setting.midiKbd.UseMONOChannel == 3;
+            rbFM5.Checked = setting.midiKbd.UseMONOChannel == 4;
+            rbFM6.Checked = setting.midiKbd.UseMONOChannel == 5;
 
             tbLatencyEmu.Text = setting.LatencyEmulation.ToString();
             tbLatencySCCI.Text = setting.LatencySCCI.ToString();
@@ -725,6 +725,18 @@ namespace MDPlayer
             cbMIDIUseVOPM.Checked = setting.midiExport.UseVOPMex;
             cbMIDIYM2151.Checked = setting.midiExport.UseYM2151Export;
             cbMIDIYM2612.Checked = setting.midiExport.UseYM2612Export;
+
+            tbCCChCopy.Text   = setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 == -1 ? "" : setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1.ToString();
+            tbCCCopyLog.Text  = setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd == -1 ? "" : setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd.ToString();
+            tbCCDelLog.Text   = setting.midiKbd.MidiCtrl_DelOneLog == -1 ? "" : setting.midiKbd.MidiCtrl_DelOneLog.ToString();
+            tbCCFadeout.Text  = setting.midiKbd.MidiCtrl_Fadeout == -1 ? "" : setting.midiKbd.MidiCtrl_Fadeout.ToString();
+            tbCCFast.Text     = setting.midiKbd.MidiCtrl_Fast == -1 ? "" : setting.midiKbd.MidiCtrl_Fast.ToString();
+            tbCCNext.Text     = setting.midiKbd.MidiCtrl_Next == -1 ? "" : setting.midiKbd.MidiCtrl_Next.ToString();
+            tbCCPause.Text    = setting.midiKbd.MidiCtrl_Pause == -1 ? "" : setting.midiKbd.MidiCtrl_Pause.ToString();
+            tbCCPlay.Text     = setting.midiKbd.MidiCtrl_Play == -1 ? "" : setting.midiKbd.MidiCtrl_Play.ToString();
+            tbCCPrevious.Text = setting.midiKbd.MidiCtrl_Previous == -1 ? "" : setting.midiKbd.MidiCtrl_Previous.ToString();
+            tbCCSlow.Text     = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
+            tbCCStop.Text     = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
 
         }
 
@@ -990,18 +1002,41 @@ namespace MDPlayer
             setting.YM2203SType.UseEmu = ucSI.rbYM2203S_Emu.Checked;
 
 
-            setting.other.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
-            setting.other.UseChannel[0] = cbFM1.Checked;
-            setting.other.UseChannel[1] = cbFM2.Checked;
-            setting.other.UseChannel[2] = cbFM3.Checked;
-            setting.other.UseChannel[3] = cbFM4.Checked;
-            setting.other.UseChannel[4] = cbFM5.Checked;
-            setting.other.UseChannel[5] = cbFM6.Checked;
+            setting.midiKbd.MidiInDeviceName = cmbMIDIIN.SelectedItem != null ? cmbMIDIIN.SelectedItem.ToString() : "";
+            setting.midiKbd.UseChannel[0] = cbFM1.Checked;
+            setting.midiKbd.UseChannel[1] = cbFM2.Checked;
+            setting.midiKbd.UseChannel[2] = cbFM3.Checked;
+            setting.midiKbd.UseChannel[3] = cbFM4.Checked;
+            setting.midiKbd.UseChannel[4] = cbFM5.Checked;
+            setting.midiKbd.UseChannel[5] = cbFM6.Checked;
 
-            setting.other.UseMIDIKeyboard = cbUseMIDIKeyboard.Checked;
+            setting.midiKbd.UseMIDIKeyboard = cbUseMIDIKeyboard.Checked;
 
-            setting.other.IsMONO = rbMONO.Checked;
-            setting.other.UseMONOChannel = rbFM1.Checked ? 0 : (rbFM2.Checked ? 1 : (rbFM3.Checked ? 2 : (rbFM4.Checked ? 3 : (rbFM5.Checked ? 4 : (rbFM6.Checked ? 5 : -1)))));
+            setting.midiKbd.IsMONO = rbMONO.Checked;
+            setting.midiKbd.UseMONOChannel = rbFM1.Checked ? 0 : (rbFM2.Checked ? 1 : (rbFM3.Checked ? 2 : (rbFM4.Checked ? 3 : (rbFM5.Checked ? 4 : (rbFM6.Checked ? 5 : -1)))));
+
+            setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd = -1;
+            if (int.TryParse(tbCCCopyLog.Text, out i)) setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 = -1;
+            if (int.TryParse(tbCCChCopy.Text, out i)) setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_DelOneLog = -1;
+            if (int.TryParse(tbCCDelLog.Text, out i)) setting.midiKbd.MidiCtrl_DelOneLog = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Fadeout = -1;
+            if (int.TryParse(tbCCFadeout.Text, out i)) setting.midiKbd.MidiCtrl_Fadeout = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Fast = -1;
+            if (int.TryParse(tbCCFast.Text, out i)) setting.midiKbd.MidiCtrl_Fast = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Next = -1;
+            if (int.TryParse(tbCCNext.Text, out i)) setting.midiKbd.MidiCtrl_Next = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Pause = -1;
+            if (int.TryParse(tbCCPause.Text, out i)) setting.midiKbd.MidiCtrl_Pause = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Play = -1;
+            if (int.TryParse(tbCCPlay.Text, out i)) setting.midiKbd.MidiCtrl_Play = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Previous = -1;
+            if (int.TryParse(tbCCPrevious.Text, out i)) setting.midiKbd.MidiCtrl_Previous = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Slow = -1;
+            if (int.TryParse(tbCCSlow.Text, out i)) setting.midiKbd.MidiCtrl_Slow = Math.Min(Math.Max(i, 0), 127);
+            setting.midiKbd.MidiCtrl_Stop = -1;
+            if (int.TryParse(tbCCStop.Text, out i)) setting.midiKbd.MidiCtrl_Stop = Math.Min(Math.Max(i, 0), 127);
 
             if (int.TryParse(tbLatencyEmu.Text, out i))
             {

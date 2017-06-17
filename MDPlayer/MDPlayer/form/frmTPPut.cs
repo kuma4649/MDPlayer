@@ -114,23 +114,23 @@ namespace MDPlayer
         {
             for (int i = 0; i < 4; i++)
             {
-                tonePallet.lstTone[ind].OPs[i].AR = setting.other.Tones[ch].OPs[i].AR;//AR
-                tonePallet.lstTone[ind].OPs[i].KS = setting.other.Tones[ch].OPs[i].KS;//KS
-                tonePallet.lstTone[ind].OPs[i].DR = setting.other.Tones[ch].OPs[i].DR;//DR
-                tonePallet.lstTone[ind].OPs[i].AM = setting.other.Tones[ch].OPs[i].AM;//AM
-                tonePallet.lstTone[ind].OPs[i].SR = setting.other.Tones[ch].OPs[i].SR;//SR
-                tonePallet.lstTone[ind].OPs[i].RR = setting.other.Tones[ch].OPs[i].RR;//RR
-                tonePallet.lstTone[ind].OPs[i].SL = setting.other.Tones[ch].OPs[i].SL;//SL
-                tonePallet.lstTone[ind].OPs[i].TL = setting.other.Tones[ch].OPs[i].TL;//TL
-                tonePallet.lstTone[ind].OPs[i].ML = setting.other.Tones[ch].OPs[i].ML;//ML
-                tonePallet.lstTone[ind].OPs[i].DT = setting.other.Tones[ch].OPs[i].DT;//DT
-                tonePallet.lstTone[ind].OPs[i].DT2 = setting.other.Tones[ch].OPs[i].DT2;//DT2 
+                tonePallet.lstTone[ind].OPs[i].AR = setting.midiKbd.Tones[ch].OPs[i].AR;//AR
+                tonePallet.lstTone[ind].OPs[i].KS = setting.midiKbd.Tones[ch].OPs[i].KS;//KS
+                tonePallet.lstTone[ind].OPs[i].DR = setting.midiKbd.Tones[ch].OPs[i].DR;//DR
+                tonePallet.lstTone[ind].OPs[i].AM = setting.midiKbd.Tones[ch].OPs[i].AM;//AM
+                tonePallet.lstTone[ind].OPs[i].SR = setting.midiKbd.Tones[ch].OPs[i].SR;//SR
+                tonePallet.lstTone[ind].OPs[i].RR = setting.midiKbd.Tones[ch].OPs[i].RR;//RR
+                tonePallet.lstTone[ind].OPs[i].SL = setting.midiKbd.Tones[ch].OPs[i].SL;//SL
+                tonePallet.lstTone[ind].OPs[i].TL = setting.midiKbd.Tones[ch].OPs[i].TL;//TL
+                tonePallet.lstTone[ind].OPs[i].ML = setting.midiKbd.Tones[ch].OPs[i].ML;//ML
+                tonePallet.lstTone[ind].OPs[i].DT = setting.midiKbd.Tones[ch].OPs[i].DT;//DT
+                tonePallet.lstTone[ind].OPs[i].DT2 = setting.midiKbd.Tones[ch].OPs[i].DT2;//DT2 
             }
 
-            tonePallet.lstTone[ind].AL = setting.other.Tones[ch].AL;//AL
-            tonePallet.lstTone[ind].FB = setting.other.Tones[ch].FB;//FB
-            tonePallet.lstTone[ind].AMS = setting.other.Tones[ch].AMS;
-            tonePallet.lstTone[ind].PMS = setting.other.Tones[ch].PMS;
+            tonePallet.lstTone[ind].AL = setting.midiKbd.Tones[ch].AL;//AL
+            tonePallet.lstTone[ind].FB = setting.midiKbd.Tones[ch].FB;//FB
+            tonePallet.lstTone[ind].AMS = setting.midiKbd.Tones[ch].AMS;
+            tonePallet.lstTone[ind].PMS = setting.midiKbd.Tones[ch].PMS;
 
         }
 
