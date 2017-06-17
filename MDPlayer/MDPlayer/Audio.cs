@@ -812,7 +812,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2612Volume(setting.balance.YM2151Volume);
+                SetYM2612Volume(setting.balance.YM2612Volume);
                 SetSN76489Volume(setting.balance.SN76489Volume);
 
                 if (!xgmVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0)) return false;
