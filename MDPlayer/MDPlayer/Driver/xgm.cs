@@ -357,8 +357,8 @@ namespace MDPlayer
             {
                 if (!xgmpcm[i].isPlaying) continue;
                 cnt++;
-                sbyte d = (sbyte)vgmBuf[xgmpcm[i].addr++];
-                o += d;
+                short d = vgmBuf[xgmpcm[i].addr++];
+                o += (short)(d > 127 ? (d - 256) : d);
                 xgmpcm[i].data = (byte)(Math.Abs((int)d));
                 if (xgmpcm[i].addr >= xgmpcm[i].endAddr)
                 {
@@ -367,15 +367,21 @@ namespace MDPlayer
                 }
             }
 
-            if (cnt > 1)
-            {
-                if (o < sbyte.MinValue || o > sbyte.MaxValue)
-                {
-                    o = (short)(o >> (cnt - 1));
-                }
-            }
+            //if (cnt > 1)
+            //{
+            //if (o < sbyte.MinValue || o > sbyte.MaxValue)
+            //{
+            //o = (short)(o >> (cnt - 1));
+            o = Math.Min(Math.Max(o, sbyte.MinValue), sbyte.MaxValue);
+            o += 0x80;
+            //}
+            //}
+            //else
+            //{
+            //    o = 0;
+            //}
 
-            chipRegister.setYM2612Register(0, 0, 0x2a, (byte)(0x80 + o), model, vgmFrameCounter);
+            chipRegister.setYM2612Register(0, 0, 0x2a, o, model, vgmFrameCounter);
         }
 
     }

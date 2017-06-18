@@ -456,6 +456,7 @@ namespace MDPlayer
 
                 int p = ch > 2 ? 1 : 0;
                 int vch = ch > 2 ? (ch - 3) : ch;
+                if (ch > 5) return;
                 midi2612.oldFreq[ch] = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x3f) * 0x100;
                 int freq = midi2612.oldFreq[ch] & 0x7ff;
                 if (freq == 0) return;
