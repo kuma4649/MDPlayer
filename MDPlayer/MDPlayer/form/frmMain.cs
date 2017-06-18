@@ -750,7 +750,7 @@ namespace MDPlayer
                 return;
             }
 
-            if (px >= 1 * 16 +48 && px < 2 * 16 + 48)
+            if (px >= 1 * 16 + 48 && px < 2 * 16 + 48)
             {
                 frmPlayList.Stop();
                 stop();
@@ -2352,10 +2352,10 @@ namespace MDPlayer
 
             }
 
-            int r=Audio.getYM2413RyhthmKeyON(chipID);
+            int r = Audio.getYM2413RyhthmKeyON(chipID);
 
             //BD
-            if ((r & 0x10) != 0 )
+            if ((r & 0x10) != 0)
             {
                 newParam.ym2413[chipID].channels[9].volume = (19 - (ym2413Register[0x36] & 0x0f));
             }
@@ -2999,10 +2999,10 @@ namespace MDPlayer
                         if (((xgm)Audio.xgmVirtual).xgmpcm[i].isPlaying)
                         {
                             newParam.ym2612[chipID].xpcmInst[i] = (int)(((xgm)Audio.xgmVirtual).xgmpcm[i].inst);
-                            int d = (((xgm)Audio.xgmVirtual).xgmpcm[i].data /6);
+                            int d = (((xgm)Audio.xgmVirtual).xgmpcm[i].data / 6);
                             d = Math.Min(d, 19);
                             newParam.ym2612[chipID].xpcmVolL[i] = d;
-                            newParam.ym2612[chipID].xpcmVolR[i] = d; 
+                            newParam.ym2612[chipID].xpcmVolR[i] = d;
                         }
                         else
                         {
@@ -3761,7 +3761,7 @@ namespace MDPlayer
                 frmYM2612MIDI = null;
             }
 
-            frmYM2612MIDI = new frmYM2612MIDI(this,  setting.other.Zoom);
+            frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom);
             if (setting.location.PosYm2612MIDI == System.Drawing.Point.Empty)
             {
                 frmYM2612MIDI.x = this.Location.X + 328;
@@ -4101,17 +4101,17 @@ namespace MDPlayer
             {
                 MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
                 if (huc6280Register == null) return;
-                MDSound.Ootake_PSG.PSG psg= huc6280Register.Psg[ch];
+                MDSound.Ootake_PSG.PSG psg = huc6280Register.Psg[ch];
                 if (psg == null) return;
                 if (psg.wave == null) return;
                 if (psg.wave.Length != 32) return;
 
                 n = "'@ H xx,\r\n   +0 +1 +2 +3 +4 +5 +6 +7\r\n";
 
-                for (int i = 0; i < 32; i+=8)
+                for (int i = 0; i < 32; i += 8)
                 {
                     n += string.Format("'@ {0:D2},{1:D2},{2:D2},{3:D2},{4:D2},{5:D2},{6:D2},{7:D2}\r\n"
-                        , (17-psg.wave[i + 0])
+                        , (17 - psg.wave[i + 0])
                         , (17 - psg.wave[i + 1])
                         , (17 - psg.wave[i + 2])
                         , (17 - psg.wave[i + 3])
@@ -5058,6 +5058,51 @@ namespace MDPlayer
         {
             YM2612MIDI.LoadTonePallet(fn, tp, tonePallet);
         }
+
+        public void ym2612Midi_CopyToneToClipboard()
+        {
+            if (setting.midiKbd.IsMONO)
+            {
+                YM2612MIDI.CopyToneToClipboard(new int[] { setting.midiKbd.UseMONOChannel });
+            }
+            else
+            {
+                List<int> uc = new List<int>();
+                for(int i=0;i<setting.midiKbd.UseChannel.Length;i++)
+                {
+                    if (setting.midiKbd.UseChannel[i]) uc.Add(i);
+                }
+                YM2612MIDI.CopyToneToClipboard(uc.ToArray());
+            }
+        }
+
+        public void ym2612Midi_PasteToneFromClipboard()
+        {
+            if (setting.midiKbd.IsMONO)
+            {
+                YM2612MIDI.PasteToneFromClipboard(new int[] { setting.midiKbd.UseMONOChannel });
+            }
+            else
+            {
+                List<int> uc = new List<int>();
+                for (int i = 0; i < setting.midiKbd.UseChannel.Length; i++)
+                {
+                    if (setting.midiKbd.UseChannel[i]) uc.Add(i);
+                }
+                YM2612MIDI.PasteToneFromClipboard(uc.ToArray());
+            }
+        }
+
+        public void ym2612Midi_CopyToneToClipboard(int ch)
+        {
+            YM2612MIDI.CopyToneToClipboard(new int[] { ch });
+        }
+
+        public void ym2612Midi_PasteToneFromClipboard(int ch)
+        {
+            YM2612MIDI.PasteToneFromClipboard(new int[] { ch });
+        }
+
     }
 }
 

@@ -164,12 +164,14 @@ namespace MDPlayer
                 }
                 else
                 {
-                    Console.WriteLine("音色選択(1-3Ch)");
+                    //Console.WriteLine("音色選択(1-3Ch)");
+                    cmdSelectTone(px / 8/13, e);
                 }
             }
             else if (py < 80)
             {
-                Console.WriteLine("音色選択(1-3Ch)");
+                //Console.WriteLine("音色選択(1-3Ch)");
+                cmdSelectTone(px / 8/13, e);
             }
             else if (py < 104)
             {
@@ -193,24 +195,26 @@ namespace MDPlayer
                 }
                 else
                 {
-                    Console.WriteLine("音色選択(4-6Ch)");
+                    //Console.WriteLine("音色選択(4-6Ch)");
+                    cmdSelectTone(px / 8/13 + 3, e);
                 }
             }
             else if (py < 152)
             {
-                Console.WriteLine("音色選択(4-6Ch)");
+                //Console.WriteLine("音色選択(4-6Ch)");
+                cmdSelectTone(px / 8/13 + 3, e);
             }
             else if (py < 176)
             {
                 if (py < 160 && (px / 8) % 13 == 3)
                 {
                     //Console.WriteLine("ログクリア");
-                    cmdLogClear((px / 8 / 13)+3);
+                    cmdLogClear((px / 8 / 13) + 3);
                 }
                 else
                 {
                     //Console.WriteLine("ログ->MML変換(4-6Ch)");
-                    cmdLog2MML((px / 8 / 13)+3);
+                    cmdLog2MML((px / 8 / 13) + 3);
                 }
             }
             else
@@ -346,6 +350,39 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
                 MessageBox.Show("ファイルの読込に失敗しました。");
             }
+        }
+
+        private void cmdSelectTone(int ch, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+
+            cmsMIDIKBD.Tag = ch;
+            cmsMIDIKBD.Show(this, e.X, e.Y);
+        }
+
+        private void frmYM2612MIDI_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.C)
+                {
+                    parent.ym2612Midi_CopyToneToClipboard();
+                }
+                else if (e.KeyCode == Keys.V)
+                {
+                    parent.ym2612Midi_PasteToneFromClipboard();
+                }
+            }
+        }
+
+        private void ctsmiCopy_Click(object sender, EventArgs e)
+        {
+            parent.ym2612Midi_CopyToneToClipboard((int)cmsMIDIKBD.Tag);
+        }
+
+        private void ctsmiPaste_Click(object sender, EventArgs e)
+        {
+            parent.ym2612Midi_PasteToneFromClipboard((int)cmsMIDIKBD.Tag);
         }
     }
 }
