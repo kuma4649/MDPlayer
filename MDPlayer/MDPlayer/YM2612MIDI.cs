@@ -729,12 +729,12 @@ namespace MDPlayer
             List<string> tt = new List<string>();
 
             tt.Add(string.Format("{0}", t.name));
-            tt.Add(string.Format("'@ F {0:D3}", n));
-            tt.Add("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG - EG");
+            tt.Add(string.Format("'@ FA {0:D3}", n));
+            tt.Add("   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM");
             foreach (Tone.Op op in t.OPs)
             {
-                tt.Add(string.Format("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} {10:D3}"
-                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.AM, op.SG
+                tt.Add(string.Format("'@ {0:D3} {1:D3} {2:D3} {3:D3} {4:D3} {5:D3} {6:D3} {7:D3} {8:D3} {9:D3} "
+                            , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.AM
                             ));
             }
             tt.Add("   AL  FB");
@@ -748,6 +748,8 @@ namespace MDPlayer
         {
             List<string> tt = new List<string>();
             tt.Add(string.Format("@{0:D3} {{ ;{1}", n, t.name));
+            tt.Add(";PAN ALG FB  OP");
+            tt.Add(string.Format(" 003,{0:D3},{1:D3},015", t.AL, t.FB));
             tt.Add("; AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME");
             foreach (Tone.Op op in t.OPs)
             {
@@ -755,8 +757,6 @@ namespace MDPlayer
                     , op.AR, op.DR, op.SR, op.RR, op.SL, op.TL, op.KS, op.ML, op.DT, op.DT2, op.AM
                     ));
             }
-            tt.Add(";PAN ALG FB  OP");
-            tt.Add(string.Format(" 003,{0:D3},{1:D3},015", t.AL, t.FB));
             tt.Add("}");
             tt.Add("");
 
@@ -816,701 +816,469 @@ namespace MDPlayer
 
         public void LoadTonePallet(string fn, int tp, TonePallet tonePallet)
         {
+            if (tp == 1)
+            {
+                TonePallet tP = TonePallet.Load(fn);
+                tonePallet.lstTone = tP.lstTone;
+                return;
+            }
+
+            List<string> tnt = new List<string>();
+
+            using (StreamReader sr = new StreamReader(fn))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    tnt.Add(line);
+                }
+            }
+
             switch (tp)
             {
-                case 1:
-                    TonePallet tP=TonePallet.Load(fn);
-                    tonePallet.lstTone = tP.lstTone;
-                    break;
                 case 2:
-                    LoadTonePalletFromMml2vgm(fn, tonePallet);
+                    LoadTonePalletFromMml2vgm(tnt.ToArray(), tonePallet);
                     break;
                 case 3:
-                    LoadTonePalletFromFMP7(fn, tonePallet);
+                    LoadTonePalletFromFMP7(tnt.ToArray(), tonePallet);
                     break;
                 case 4:
-                    LoadTonePalletFromNRTDRV(fn, tonePallet);
+                    LoadTonePalletFromNRTDRV(tnt.ToArray(), tonePallet);
                     break;
                 case 5:
-                    LoadTonePalletFromMXDRV(fn, tonePallet);
+                    LoadTonePalletFromMXDRV(tnt.ToArray(), tonePallet);
                     break;
                 case 6:
-                    LoadTonePalletFromMUSICLALF(fn, tonePallet);
+                    LoadTonePalletFromMUSICLALF(tnt.ToArray(), tonePallet);
                     break;
             }
         }
 
-        public void LoadTonePalletFromMml2vgm(string fn, TonePallet tonePallet)
+        public void LoadTonePalletFromMml2vgm(string[] tnt, TonePallet tonePallet)
         {
-            using (StreamReader sr = new StreamReader(fn))
+            string line;
+            int stage = 0;
+            List<int> toneBuf = new List<int>();
+            int index = 0;
+
+            while ((line = index == tnt.Length ? null : tnt[index++]) != null)
             {
-                string line;
-                int stage = 0;
-                List<int> toneBuf = new List<int>();
+                line = line.Trim();
+                if (line.IndexOf("'@") != 0) continue;
 
-                while ((line = sr.ReadLine()) != null)
+                line = line.Replace("'@", "").Trim();
+                string c = line[0].ToString().ToUpper();
+                if (stage == 0 && (c == "M" || c == "N"))
                 {
-                    line = line.Trim();
-                    if (line.IndexOf("'@") != 0) continue;
+                    stage = 1;
+                    if (line.Length < 2) continue;
 
-                    line = line.Replace("'@", "").Trim();
-                    string c = line[0].ToString().ToUpper();
-                    if (stage == 0 && (c == "M" || c == "N"))
-                    {
-                        stage = 1;
-                        if (line.Length < 2) continue;
-
-                        line = line.Substring(1).Trim();
-                    }
-
-                    if (stage > 0)
-                    {
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            stage++;
-                            toneBuf.Add(n);
-                        }
-                        if (stage > 47)
-                        {
-                            if (stage == 48)
-                            {
-                                Tone t = new Tone();
-                                t.name = string.Format("No.{0}(From MML2VGM)", toneBuf[0]);
-                                t.OPs = new Tone.Op[4];
-                                for (int i = 0; i < 4; i++)
-                                {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 10];
-                                    t.OPs[i].SG = toneBuf[i * 11 + 11];
-                                    t.OPs[i].DT2 = 0;
-                                }
-                                t.AL = toneBuf[45];
-                                t.FB = toneBuf[46];
-
-                                tonePallet.lstTone[toneBuf[0]] = t;
-                            }
-
-                            stage = 0;
-                            toneBuf.Clear();
-                        }
-                    }
-
+                    line = line.Substring(1).Trim();
                 }
+
+                if (stage > 0)
+                {
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        stage++;
+                        toneBuf.Add(n);
+                    }
+                    if (stage > 47)
+                    {
+                        if (stage == 48)
+                        {
+                            Tone t = new Tone();
+                            t.name = string.Format("No.{0}(From MML2VGM)", toneBuf[0]);
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                t.OPs[i].AM = toneBuf[i * 11 + 10];
+                                t.OPs[i].SG = toneBuf[i * 11 + 11];
+                                t.OPs[i].DT2 = 0;
+                            }
+                            t.AL = toneBuf[45];
+                            t.FB = toneBuf[46];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+
+                        stage = 0;
+                        toneBuf.Clear();
+                    }
+                }
+
             }
         }
 
-        public void LoadTonePalletFromFMP7(string fn, TonePallet tonePallet)
+        public void LoadTonePalletFromFMP7(string[] tnt, TonePallet tonePallet)
         {
-            using (StreamReader sr = new StreamReader(fn))
+            string line;
+            int stage = 0;
+            List<int> toneBuf = new List<int>();
+            int m = 0;
+            int index = 0;
+
+            while ((line = index == tnt.Length ? null : tnt[index++]) != null)
             {
-                string line;
-                int stage = 0;
-                List<int> toneBuf = new List<int>();
-                int m = 0;
+                line = line.Trim();
+                if (line.IndexOf("'@") != 0) continue;
 
-                while ((line = sr.ReadLine()) != null)
+                line = line.Replace("'@", "").Trim();
+                string c = line[0].ToString().ToUpper();
+                if (stage == 0 && c == "F")
                 {
-                    line = line.Trim();
-                    if (line.IndexOf("'@") != 0) continue;
+                    stage = 1;
+                    if (line.Length < 2) continue;
 
-                    line = line.Replace("'@", "").Trim();
-                    string c = line[0].ToString().ToUpper();
-                    if (stage == 0 && c == "F")
+                    line = line.Substring(1).Trim();
+                    c = line[0].ToString().ToUpper();
+                    m = 0;//互換モード
+
+                    if (c == "A")
                     {
-                        stage = 1;
-                        if (line.Length < 2) continue;
-
+                        m = 1;//OPNAモード
                         line = line.Substring(1).Trim();
-                        c = line[0].ToString().ToUpper();
-                        m = 0;//互換モード
-
-                        if (c == "A")
-                        {
-                            m = 1;//OPNAモード
-                            line = line.Substring(1).Trim();
-                        }
-                        else if (c == "C")
-                        {
-                            m = 2;//OPMモード
-                            line = line.Substring(1).Trim();
-                        }
                     }
-
-                    if (stage > 0)
+                    else if (c == "C")
                     {
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            stage++;
-                            toneBuf.Add(n);
-                        }
+                        m = 2;//OPMモード
+                        line = line.Substring(1).Trim();
+                    }
+                }
 
-                        if(m==0 && stage>=40)
-                        {
-                            if (stage == 40)
-                            {
-                                //互換
-                                Tone t = new Tone();
-                                t.name = string.Format("No.{0}(From FMP7 compatible)", toneBuf[0]);
-                                t.OPs = new Tone.Op[4];
-                                for (int i = 0; i < 4; i++)
-                                {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 9 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 9 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 9 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 9 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 9 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 9 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 9 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 9 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 9 + 9];
-                                    t.OPs[i].AM = 0;
-                                    t.OPs[i].SG = 0;
-                                    t.OPs[i].DT2 = 0;
-                                }
-                                t.AL = toneBuf[37];
-                                t.FB = toneBuf[38];
-
-                                tonePallet.lstTone[toneBuf[0]] = t;
-                            }
-
-                            stage = 0;
-                            toneBuf.Clear();
-                        }
-
-                        if (m == 1 && stage >= 44)
-                        {
-                            if (stage == 44)
-                            {
-                                //OPNA
-                                Tone t = new Tone();
-                                t.name = string.Format("No.{0}(From FMP7 OPNA)", toneBuf[0]);
-                                t.OPs = new Tone.Op[4];
-                                for (int i = 0; i < 4; i++)
-                                {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 10 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 10 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 10 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 10 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 10 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 10 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 10 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 10 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 10 + 9];
-                                    t.OPs[i].AM = toneBuf[i * 10 + 10];
-                                    t.OPs[i].SG = 0;
-                                    t.OPs[i].DT2 = 0;
-                                }
-                                t.AL = toneBuf[41];
-                                t.FB = toneBuf[42];
-
-                                tonePallet.lstTone[toneBuf[0]] = t;
-                            }
-
-                            stage = 0;
-                            toneBuf.Clear();
-                        }
-
-                        if (m == 2 && stage >= 48)
-                        {
-                            if (stage == 48)
-                            {
-                                //OPM
-                                Tone t = new Tone();
-                                t.name = string.Format("No.{0}(From FMP7 OPM)", toneBuf[0]);
-                                t.OPs = new Tone.Op[4];
-                                for (int i = 0; i < 4; i++)
-                                {
-                                    t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                    t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                    t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                    t.OPs[i].SG = 0;
-                                }
-                                t.AL = toneBuf[45];
-                                t.FB = toneBuf[46];
-
-                                tonePallet.lstTone[toneBuf[0]] = t;
-                            }
-
-                            stage = 0;
-                            toneBuf.Clear();
-                        }
+                if (stage > 0)
+                {
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        stage++;
+                        toneBuf.Add(n);
                     }
 
+                    if (m == 0 && stage >= 40)
+                    {
+                        if (stage == 40)
+                        {
+                            //互換
+                            Tone t = new Tone();
+                            t.name = string.Format("No.{0}(From FMP7 compatible)", toneBuf[0]);
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 9 + 1];
+                                t.OPs[i].DR = toneBuf[i * 9 + 2];
+                                t.OPs[i].SR = toneBuf[i * 9 + 3];
+                                t.OPs[i].RR = toneBuf[i * 9 + 4];
+                                t.OPs[i].SL = toneBuf[i * 9 + 5];
+                                t.OPs[i].TL = toneBuf[i * 9 + 6];
+                                t.OPs[i].KS = toneBuf[i * 9 + 7];
+                                t.OPs[i].ML = toneBuf[i * 9 + 8];
+                                t.OPs[i].DT = toneBuf[i * 9 + 9];
+                                t.OPs[i].AM = 0;
+                                t.OPs[i].SG = 0;
+                                t.OPs[i].DT2 = 0;
+                            }
+                            t.AL = toneBuf[37];
+                            t.FB = toneBuf[38];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+
+                        stage = 0;
+                        toneBuf.Clear();
+                    }
+
+                    if (m == 1 && stage >= 44)
+                    {
+                        if (stage == 44)
+                        {
+                            //OPNA
+                            Tone t = new Tone();
+                            t.name = string.Format("No.{0}(From FMP7 OPNA)", toneBuf[0]);
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 10 + 1];
+                                t.OPs[i].DR = toneBuf[i * 10 + 2];
+                                t.OPs[i].SR = toneBuf[i * 10 + 3];
+                                t.OPs[i].RR = toneBuf[i * 10 + 4];
+                                t.OPs[i].SL = toneBuf[i * 10 + 5];
+                                t.OPs[i].TL = toneBuf[i * 10 + 6];
+                                t.OPs[i].KS = toneBuf[i * 10 + 7];
+                                t.OPs[i].ML = toneBuf[i * 10 + 8];
+                                t.OPs[i].DT = toneBuf[i * 10 + 9];
+                                t.OPs[i].AM = toneBuf[i * 10 + 10];
+                                t.OPs[i].SG = 0;
+                                t.OPs[i].DT2 = 0;
+                            }
+                            t.AL = toneBuf[41];
+                            t.FB = toneBuf[42];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+
+                        stage = 0;
+                        toneBuf.Clear();
+                    }
+
+                    if (m == 2 && stage >= 48)
+                    {
+                        if (stage == 48)
+                        {
+                            //OPM
+                            Tone t = new Tone();
+                            t.name = string.Format("No.{0}(From FMP7 OPM)", toneBuf[0]);
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                t.OPs[i].DT2 = toneBuf[i * 11 + 10];
+                                t.OPs[i].AM = toneBuf[i * 11 + 11];
+                                t.OPs[i].SG = 0;
+                            }
+                            t.AL = toneBuf[45];
+                            t.FB = toneBuf[46];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+
+                        stage = 0;
+                        toneBuf.Clear();
+                    }
                 }
+
             }
         }
 
-        public void LoadTonePalletFromNRTDRV(string fn, TonePallet tonePallet)
+        public void LoadTonePalletFromNRTDRV(string[] tnt, TonePallet tonePallet)
         {
             int voiceMode = 0;
 
-            using (StreamReader sr = new StreamReader(fn))
+            string line;
+            bool cm = false;
+            int ind;
+            int index = 0;
+
+            line = index == tnt.Length ? null : tnt[index++];
+            if (line == null) return;
+
+            do
             {
-                string line;
-                bool cm = false;
-                int ind;
-
-                line = sr.ReadLine();
-                if (line == null) return;
-
-                do
+                if (cm)
                 {
-                    if (cm)
+                    //コメント中
+                    ind = line.IndexOf("*/");
+                    if (ind >= 0)
                     {
-                        //コメント中
-                        ind = line.IndexOf("*/");
-                        if (ind >= 0)
+                        cm = false;
+                        if (line.Length == 2)
                         {
-                            cm = false;
-                            if (line.Length == 2)
-                            {
-                                line = sr.ReadLine();
-                                continue;
-                            }
-                            line = line.Substring(ind + 2);
+                            line = index == tnt.Length ? null : tnt[index++];
                             continue;
                         }
-
-                        line = sr.ReadLine();
+                        line = line.Substring(ind + 2);
                         continue;
                     }
 
-                    ind = line.IndexOf(";");
-                    if (ind >= 0)
-                    {
-                        if (ind == 0)
-                        {
-                            line = sr.ReadLine();
-                            continue;
-                        }
-                        line = line.Substring(0, ind);
-                        continue;
-                    }
+                    line = index == tnt.Length ? null : tnt[index++];
+                    continue;
+                }
 
-                    ind = line.IndexOf("/*");
-                    if (ind >= 0)
-                    {
-                        cm = true;
-                        line = line.Substring(0, ind);
-                    }
-
-                    string cmd = line.Trim().ToUpper();
-                    if (cmd.IndexOf("#VOICE_MODE") >= 0)
-                    {
-                        try
-                        {
-                            voiceMode = int.Parse(cmd.Replace("#VOICE_MODE", "").Trim());
-                        }
-                        catch
-                        {
-                            voiceMode = 0;
-                        }
-                    }
-
-                    line = sr.ReadLine();
-                } while (line != null);
-            }
-
-
-            using (StreamReader sr = new StreamReader(fn))
-            {
-                string line;
-                bool cm = false;
-                int ind;
-                int stage = 0;
-                List<int> toneBuf = new List<int>();
-
-                line = sr.ReadLine();
-                if (line == null) return;
-
-                do
+                ind = line.IndexOf(";");
+                if (ind >= 0)
                 {
-                    if (cm)
+                    if (ind == 0)
                     {
-                        //コメント中
-                        ind = line.IndexOf("*/");
-                        if (ind >= 0)
-                        {
-                            cm = false;
-                            if (line.Length == 2)
-                            {
-                                line = sr.ReadLine();
-                                continue;
-                            }
-                            line = line.Substring(ind + 2);
-                            continue;
-                        }
-
-                        line = sr.ReadLine();
+                        line = index == tnt.Length ? null : tnt[index++];
                         continue;
                     }
+                    line = line.Substring(0, ind);
+                    continue;
+                }
 
-                    ind = line.IndexOf(";");
-                    if (ind >= 0)
+                ind = line.IndexOf("/*");
+                if (ind >= 0)
+                {
+                    cm = true;
+                    line = line.Substring(0, ind);
+                }
+
+                string cmd = line.Trim().ToUpper();
+                if (cmd.IndexOf("#VOICE_MODE") >= 0)
+                {
+                    try
                     {
-                        if (ind == 0)
-                        {
-                            line = sr.ReadLine();
-                            continue;
-                        }
-                        line = line.Substring(0, ind);
-                        continue;
+                        voiceMode = int.Parse(cmd.Replace("#VOICE_MODE", "").Trim());
                     }
-
-                    ind = line.IndexOf("/*");
-                    if (ind >= 0)
+                    catch
                     {
-                        cm = true;
-                        line = line.Substring(0, ind);
+                        voiceMode = 0;
                     }
+                }
 
-                    string cmd = line.Trim();
-                    if (cmd.Length == 0)
-                    {
-                        line = sr.ReadLine();
-                        continue;
-                    }
-
-                    if (stage == 0 && cmd[0] == '@')
-                    {
-                        stage++;
-                        line = line.Substring(1);
-
-                        char c = line[0];
-                        int? n = null;
-                        while (c >= '0' && c <= '9')
-                        {
-                            if (n == null) n = 0;
-
-                            n = n * 10 + (c - '0');
-
-                            line = line.Substring(1);
-                            if (line.Length < 1) break;
-
-                            c = line[0];
-                        }
-                        if (n != null) toneBuf.Add((int)n);
-
-                        continue;
-                    }
-                    else if (stage == 1 && cmd[0] == '{')
-                    {
-                        stage++;
-                        line = line.Substring(1);
-
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            toneBuf.Add(n);
-                        }
-
-                        line = sr.ReadLine();
-                        continue;
-                    }
-                    else if (stage == 2) {
-
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            toneBuf.Add(n);
-                        }
-
-                        if (line.IndexOf('}') >= 0)
-                        {
-
-                            //
-                            Tone t = null;
-                            t = new Tone();
-                            t.name = string.Format("No.{0}(From NRTDRV)", toneBuf[0]);
-
-                            switch (voiceMode)
-                            {
-                                case 0:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 5];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 6];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 7];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 8];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 9];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 10];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 11];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 12];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 13];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 14];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 15];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[2];
-                                    t.FB = toneBuf[3];
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                                case 1:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[46];
-                                    t.FB = toneBuf[47];
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                                case 2:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 4];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 5];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 6];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 7];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 8];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 9];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 10];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 11];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 12];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 13];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 14];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[1];
-                                    t.FB = toneBuf[2];
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                                case 3:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 1];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 2];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 3];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 4];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 5];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 6];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 7];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 8];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 9];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 10];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 11];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[45];
-                                    t.FB = toneBuf[46];
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                                case 4:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 4];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 5];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 6];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 7];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 8];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 9];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 10];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 11];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 12];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 13];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 14];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[1] & 0x7;
-                                    t.FB = (toneBuf[1] & 0x38) >> 3;
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                                case 5:
-                                    t.OPs = new Tone.Op[4];
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        t.OPs[i] = new Tone.Op();
-                                        t.OPs[i].AR = toneBuf[i * 11 + 12];
-                                        t.OPs[i].DR = toneBuf[i * 11 + 13];
-                                        t.OPs[i].SR = toneBuf[i * 11 + 14];
-                                        t.OPs[i].RR = toneBuf[i * 11 + 15];
-                                        t.OPs[i].SL = toneBuf[i * 11 + 16];
-                                        t.OPs[i].TL = toneBuf[i * 11 + 17];
-                                        t.OPs[i].KS = toneBuf[i * 11 + 18];
-                                        t.OPs[i].ML = toneBuf[i * 11 + 19];
-                                        t.OPs[i].DT = toneBuf[i * 11 + 20];
-                                        t.OPs[i].DT2 = toneBuf[i * 11 + 21];
-                                        t.OPs[i].AM = toneBuf[i * 11 + 22];
-                                        t.OPs[i].SG = 0;
-                                    }
-                                    t.AL = toneBuf[1] & 0x7;
-                                    t.FB = (toneBuf[1] & 0x38) >> 3;
-
-                                    tonePallet.lstTone[toneBuf[0]] = t;
-                                    break;
-                            }
-
-                            stage = 0;
-                            line = line.Substring(1);
-                            toneBuf.Clear();
-                            continue;
-                        }
-                    }
-
-                    line = sr.ReadLine();
-                } while (line != null);
-            }
+                line = index == tnt.Length ? null : tnt[index++];
+            } while (line != null);
 
 
-        }
+            line="";
+            cm = false;
+            ind=0;
+            int stage = 0;
+            List<int> toneBuf = new List<int>();
+            index = 0;
 
-        public void LoadTonePalletFromMXDRV(string fn, TonePallet tonePallet)
-        {
-            using (StreamReader sr = new StreamReader(fn))
+            line = index == tnt.Length ? null : tnt[index++];
+            if (line == null) return;
+
+            do
             {
-                string line;
-                int stage = 0;
-                List<int> toneBuf = new List<int>();
+                if (cm)
+                {
+                    //コメント中
+                    ind = line.IndexOf("*/");
+                    if (ind >= 0)
+                    {
+                        cm = false;
+                        if (line.Length == 2)
+                        {
+                            line = index == tnt.Length ? null : tnt[index++];
+                            continue;
+                        }
+                        line = line.Substring(ind + 2);
+                        continue;
+                    }
 
-                line = sr.ReadLine();
-                if (line == null) return;
+                    line = index == tnt.Length ? null : tnt[index++];
+                    continue;
+                }
 
-                do
+                ind = line.IndexOf(";");
+                if (ind >= 0)
+                {
+                    if (ind == 0)
+                    {
+                        line = index == tnt.Length ? null : tnt[index++];
+                        continue;
+                    }
+                    line = line.Substring(0, ind);
+                    continue;
+                }
+
+                ind = line.IndexOf("/*");
+                if (ind >= 0)
+                {
+                    cm = true;
+                    line = line.Substring(0, ind);
+                }
+
+                string cmd = line.Trim();
+                if (cmd.Length == 0)
+                {
+                    line = index == tnt.Length ? null : tnt[index++];
+                    continue;
+                }
+
+                if (stage == 0 && cmd[0] == '@')
+                {
+                    stage++;
+                    line = line.Substring(1);
+
+                    char c = line[0];
+                    int? n = null;
+                    while (c >= '0' && c <= '9')
+                    {
+                        if (n == null) n = 0;
+
+                        n = n * 10 + (c - '0');
+
+                        line = line.Substring(1);
+                        if (line.Length < 1) break;
+
+                        c = line[0];
+                    }
+                    if (n != null) toneBuf.Add((int)n);
+
+                    continue;
+                }
+                else if (stage == 1 && cmd[0] == '{')
+                {
+                    stage++;
+                    line = line.Substring(1);
+
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        toneBuf.Add(n);
+                    }
+
+                    line = index == tnt.Length ? null : tnt[index++];
+                    continue;
+                }
+                else if (stage == 2)
                 {
 
-                    line = line.Trim();
-
-                    if (line.Length > 1 && line[0] == '/' && line[1] == '*')
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
                     {
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        continue;
+                        toneBuf.Add(n);
                     }
 
-                    if (line=="")
-                    {
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        continue;
-                    }
-
-                    if (stage == 0 && line[0] == '@')
-                    {
-                        stage++;
-                        line = line.Substring(1);
-
-                        char c = line[0];
-                        int? n = null;
-                        while (c >= '0' && c <= '9')
-                        {
-                            if (n == null) n = 0;
-
-                            n = n * 10 + (c - '0');
-
-                            line = line.Substring(1);
-                            if (line.Length < 1) break;
-
-                            c = line[0];
-                        }
-                        if (n != null) toneBuf.Add((int)n);
-
-                        continue;
-                    }
-                    else if (stage == 1 && line[0] == '=')
-                    {
-                        stage++;
-
-                        if (line.Length > 1)
-                        {
-                            line = line.Substring(1);
-                        }
-                        else
-                        {
-                            line = sr.ReadLine();
-                            if (line == null) return;
-                        }
-                        continue;
-                    }
-                    else if (stage == 2 && line[0] == '{')
-                    {
-                        stage++;
-
-                        if (line.Length > 1)
-                        {
-                            line = line.Substring(1);
-                        }
-                        else
-                        {
-                            line = sr.ReadLine();
-                            if (line == null) return;
-                            continue;
-                        }
-
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            toneBuf.Add(n);
-                        }
-
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        continue;
-                    }
-                    else if (stage == 3)
+                    if (line.IndexOf('}') >= 0)
                     {
 
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
+                        //
+                        Tone t = null;
+                        t = new Tone();
+                        t.name = string.Format("No.{0}(From NRTDRV)", toneBuf[0]);
+
+                        switch (voiceMode)
                         {
-                            toneBuf.Add(n);
-                        }
+                            case 0:
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 5];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 6];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 7];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 8];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 9];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 10];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 11];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 12];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 13];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 14];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 15];
+                                    t.OPs[i].SG = 0;
+                                }
+                                t.AL = toneBuf[2];
+                                t.FB = toneBuf[3];
 
-                        if (line.IndexOf('}') >= 0)
-                        {
-
-                            if (toneBuf.Count == 48)
-                            {
-                                Tone t = null;
-                                t = new Tone();
-                                t.name = string.Format("No.{0}(From MXDRV)", toneBuf[0]);
-
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                                break;
+                            case 1:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
@@ -1528,194 +1296,430 @@ namespace MDPlayer
                                     t.OPs[i].AM = toneBuf[i * 11 + 11];
                                     t.OPs[i].SG = 0;
                                 }
-                                t.AL = toneBuf[45];
-                                t.FB = toneBuf[46];
+                                t.AL = toneBuf[46];
+                                t.FB = toneBuf[47];
 
                                 tonePallet.lstTone[toneBuf[0]] = t;
-                            }
-                            stage = 0;
-                            line = line.Substring(1);
-                            toneBuf.Clear();
-                            continue;
-                        }
-                    }
-
-                    line = sr.ReadLine();
-                } while (line != null);
-            }
-        }
-
-        public void LoadTonePalletFromMUSICLALF(string fn, TonePallet tonePallet)
-        {
-            using (StreamReader sr = new StreamReader(fn))
-            {
-                string line;
-                int stage = 0;
-                List<int> toneBuf = new List<int>();
-                string nm = "";
-
-                line = sr.ReadLine();
-                if (line == null) return;
-                line = line.Substring(line.IndexOf("'") + 1).Trim();
-
-                do
-                {
-
-                    line = line.Trim();
-
-                    if (line.Length > 0 && line[0] == ';')
-                    {
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        line = line.Substring(line.IndexOf("'") + 1).Trim();
-                        continue;
-                    }
-
-                    if (line == "")
-                    {
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        line = line.Substring(line.IndexOf("'") + 1).Trim();
-                        continue;
-                    }
-
-                    if (stage == 0 && line[0] == '@')
-                    {
-                        stage++;
-                        line = line.Substring(1);
-
-                        char c = line[0];
-                        int? n = null;
-                        while (c >= '0' && c <= '9')
-                        {
-                            if (n == null) n = 0;
-
-                            n = n * 10 + (c - '0');
-
-                            line = line.Substring(1);
-                            if (line.Length < 1) break;
-
-                            c = line[0];
-                        }
-                        if (n != null) toneBuf.Add((int)n);
-
-                        continue;
-                    }
-                    else if (stage == 1 && line[0] == ':')
-                    {
-                        stage++;
-
-                        if (line.Length > 1)
-                        {
-                            line = line.Substring(1);
-                        }
-                        else
-                        {
-                            line = sr.ReadLine();
-                            if (line == null) return;
-                            line = line.Substring(line.IndexOf("'") + 1).Trim();
-                        }
-                        continue;
-                    }
-                    else if (stage == 2 && line[0] == '{')
-                    {
-                        stage++;
-
-                        if (line.Length > 1)
-                        {
-                            line = line.Substring(1);
-                        }
-                        else
-                        {
-                            line = sr.ReadLine();
-                            if (line == null) return;
-                            line = line.Substring(line.IndexOf("'") + 1).Trim();
-                            continue;
-                        }
-
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            toneBuf.Add(n);
-                        }
-
-                        line = sr.ReadLine();
-                        if (line == null) return;
-                        line = line.Substring(line.IndexOf("'") + 1).Trim();
-                        continue;
-                    }
-                    else if (stage == 3)
-                    {
-
-                        int[] nums = numSplit(line);
-                        foreach (int n in nums)
-                        {
-                            toneBuf.Add(n);
-                        }
-
-                        if (toneBuf.Count == 39)
-                        {
-                            stage = 4;
-                            continue;
-                        }
-                    }
-                    else if (stage == 4)
-                    {
-                        if (line.IndexOf('"') >= 0)
-                        {
-                            try
-                            {
-                                string n = line.Substring(line.IndexOf('"') + 1);
-                                nm = n.Substring(0, n.IndexOf('"') );
-                            }
-                            catch
-                            {
-                            }
-                        }
-                        else                           if (line.IndexOf('}') >= 0)
-                        {
-
-                            if (toneBuf.Count == 39)
-                            {
-                                Tone t = null;
-                                t = new Tone();
-                                t.name = nm=="" ? string.Format("No.{0}(From MusicLALF)", toneBuf[0]) : nm;
-
+                                break;
+                            case 2:
                                 t.OPs = new Tone.Op[4];
                                 for (int i = 0; i < 4; i++)
                                 {
                                     t.OPs[i] = new Tone.Op();
-                                    t.OPs[i].AR = toneBuf[i * 9 + 3];
-                                    t.OPs[i].DR = toneBuf[i * 9 + 4];
-                                    t.OPs[i].SR = toneBuf[i * 9 + 5];
-                                    t.OPs[i].RR = toneBuf[i * 9 + 6];
-                                    t.OPs[i].SL = toneBuf[i * 9 + 7];
-                                    t.OPs[i].TL = toneBuf[i * 9 + 8];
-                                    t.OPs[i].KS = toneBuf[i * 9 + 9];
-                                    t.OPs[i].ML = toneBuf[i * 9 + 10];
-                                    t.OPs[i].DT = toneBuf[i * 9 + 11];
-                                    t.OPs[i].DT2 = 0;
-                                    t.OPs[i].AM = 0;
+                                    t.OPs[i].AR = toneBuf[i * 11 + 4];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 5];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 6];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 7];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 8];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 9];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 10];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 11];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 12];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 13];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 14];
                                     t.OPs[i].SG = 0;
                                 }
                                 t.AL = toneBuf[1];
                                 t.FB = toneBuf[2];
 
                                 tonePallet.lstTone[toneBuf[0]] = t;
+                                break;
+                            case 3:
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 10];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 11];
+                                    t.OPs[i].SG = 0;
+                                }
+                                t.AL = toneBuf[45];
+                                t.FB = toneBuf[46];
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                                break;
+                            case 4:
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 4];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 5];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 6];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 7];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 8];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 9];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 10];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 11];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 12];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 13];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 14];
+                                    t.OPs[i].SG = 0;
+                                }
+                                t.AL = toneBuf[1] & 0x7;
+                                t.FB = (toneBuf[1] & 0x38) >> 3;
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                                break;
+                            case 5:
+                                t.OPs = new Tone.Op[4];
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    t.OPs[i] = new Tone.Op();
+                                    t.OPs[i].AR = toneBuf[i * 11 + 12];
+                                    t.OPs[i].DR = toneBuf[i * 11 + 13];
+                                    t.OPs[i].SR = toneBuf[i * 11 + 14];
+                                    t.OPs[i].RR = toneBuf[i * 11 + 15];
+                                    t.OPs[i].SL = toneBuf[i * 11 + 16];
+                                    t.OPs[i].TL = toneBuf[i * 11 + 17];
+                                    t.OPs[i].KS = toneBuf[i * 11 + 18];
+                                    t.OPs[i].ML = toneBuf[i * 11 + 19];
+                                    t.OPs[i].DT = toneBuf[i * 11 + 20];
+                                    t.OPs[i].DT2 = toneBuf[i * 11 + 21];
+                                    t.OPs[i].AM = toneBuf[i * 11 + 22];
+                                    t.OPs[i].SG = 0;
+                                }
+                                t.AL = toneBuf[1] & 0x7;
+                                t.FB = (toneBuf[1] & 0x38) >> 3;
+
+                                tonePallet.lstTone[toneBuf[0]] = t;
+                                break;
+                        }
+
+                        stage = 0;
+                        line = line.Substring(1);
+                        toneBuf.Clear();
+                        continue;
+                    }
+                }
+
+                line = index == tnt.Length ? null : tnt[index++];
+            } while (line != null);
+
+
+        }
+
+        public void LoadTonePalletFromMXDRV(string[] tnt, TonePallet tonePallet)
+        {
+            string line;
+            int stage = 0;
+            List<int> toneBuf = new List<int>();
+            int index = 0;
+
+            line = index == tnt.Length ? null : tnt[index++];
+            if (line == null) return;
+
+            do
+            {
+
+                line = line.Trim();
+
+                if (line.Length > 1 && line[0] == '/' && line[1] == '*')
+                {
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    continue;
+                }
+
+                if (line == "")
+                {
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    continue;
+                }
+
+                if (stage == 0 && line[0] == '@')
+                {
+                    stage++;
+                    line = line.Substring(1);
+
+                    char c = line[0];
+                    int? n = null;
+                    while (c >= '0' && c <= '9')
+                    {
+                        if (n == null) n = 0;
+
+                        n = n * 10 + (c - '0');
+
+                        line = line.Substring(1);
+                        if (line.Length < 1) break;
+
+                        c = line[0];
+                    }
+                    if (n != null) toneBuf.Add((int)n);
+
+                    continue;
+                }
+                else if (stage == 1 && line[0] == '=')
+                {
+                    stage++;
+
+                    if (line.Length > 1)
+                    {
+                        line = line.Substring(1);
+                    }
+                    else
+                    {
+                        line = index == tnt.Length ? null : tnt[index++];
+                        if (line == null) return;
+                    }
+                    continue;
+                }
+                else if (stage == 2 && line[0] == '{')
+                {
+                    stage++;
+
+                    if (line.Length > 1)
+                    {
+                        line = line.Substring(1);
+                    }
+                    else
+                    {
+                        line = index == tnt.Length ? null : tnt[index++];
+                        if (line == null) return;
+                        continue;
+                    }
+
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        toneBuf.Add(n);
+                    }
+
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    continue;
+                }
+                else if (stage == 3)
+                {
+
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        toneBuf.Add(n);
+                    }
+
+                    if (line.IndexOf('}') >= 0)
+                    {
+
+                        if (toneBuf.Count == 48)
+                        {
+                            Tone t = null;
+                            t = new Tone();
+                            t.name = string.Format("No.{0}(From MXDRV)", toneBuf[0]);
+
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 11 + 1];
+                                t.OPs[i].DR = toneBuf[i * 11 + 2];
+                                t.OPs[i].SR = toneBuf[i * 11 + 3];
+                                t.OPs[i].RR = toneBuf[i * 11 + 4];
+                                t.OPs[i].SL = toneBuf[i * 11 + 5];
+                                t.OPs[i].TL = toneBuf[i * 11 + 6];
+                                t.OPs[i].KS = toneBuf[i * 11 + 7];
+                                t.OPs[i].ML = toneBuf[i * 11 + 8];
+                                t.OPs[i].DT = toneBuf[i * 11 + 9];
+                                t.OPs[i].DT2 = toneBuf[i * 11 + 10];
+                                t.OPs[i].AM = toneBuf[i * 11 + 11];
+                                t.OPs[i].SG = 0;
                             }
-                            stage = 0;
-                            nm = "";
-                            line = line.Substring(1);
-                            toneBuf.Clear();
-                            continue;
+                            t.AL = toneBuf[45];
+                            t.FB = toneBuf[46];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+                        stage = 0;
+                        line = line.Substring(1);
+                        toneBuf.Clear();
+                        continue;
+                    }
+                }
+
+                line = index == tnt.Length ? null : tnt[index++];
+            } while (line != null);
+        }
+
+        public void LoadTonePalletFromMUSICLALF(string[] tnt, TonePallet tonePallet)
+        {
+            string line;
+            int stage = 0;
+            List<int> toneBuf = new List<int>();
+            string nm = "";
+            int index = 0;
+
+            line = index == tnt.Length ? null : tnt[index++];
+            if (line == null) return;
+            line = line.Substring(line.IndexOf("'") + 1).Trim();
+
+            do
+            {
+
+                line = line.Trim();
+
+                if (line.Length > 0 && line[0] == ';')
+                {
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    continue;
+                }
+
+                if (line == "")
+                {
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    continue;
+                }
+
+                if (stage == 0 && line[0] == '@')
+                {
+                    stage++;
+                    line = line.Substring(1);
+
+                    char c = line[0];
+                    int? n = null;
+                    while (c >= '0' && c <= '9')
+                    {
+                        if (n == null) n = 0;
+
+                        n = n * 10 + (c - '0');
+
+                        line = line.Substring(1);
+                        if (line.Length < 1) break;
+
+                        c = line[0];
+                    }
+                    if (n != null) toneBuf.Add((int)n);
+
+                    continue;
+                }
+                else if (stage == 1 && line[0] == ':')
+                {
+                    stage++;
+
+                    if (line.Length > 1)
+                    {
+                        line = line.Substring(1);
+                    }
+                    else
+                    {
+                        line = index == tnt.Length ? null : tnt[index++];
+                        if (line == null) return;
+                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    }
+                    continue;
+                }
+                else if (stage == 2 && line[0] == '{')
+                {
+                    stage++;
+
+                    if (line.Length > 1)
+                    {
+                        line = line.Substring(1);
+                    }
+                    else
+                    {
+                        line = index == tnt.Length ? null : tnt[index++];
+                        if (line == null) return;
+                        line = line.Substring(line.IndexOf("'") + 1).Trim();
+                        continue;
+                    }
+
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        toneBuf.Add(n);
+                    }
+
+                    line = index == tnt.Length ? null : tnt[index++];
+                    if (line == null) return;
+                    line = line.Substring(line.IndexOf("'") + 1).Trim();
+                    continue;
+                }
+                else if (stage == 3)
+                {
+
+                    int[] nums = numSplit(line);
+                    foreach (int n in nums)
+                    {
+                        toneBuf.Add(n);
+                    }
+
+                    if (toneBuf.Count >= 39)
+                    {
+                        stage = 4;
+                        continue;
+                    }
+                }
+                else if (stage == 4)
+                {
+                    if (line.IndexOf('"') >= 0)
+                    {
+                        try
+                        {
+                            string n = line.Substring(line.IndexOf('"') + 1);
+                            nm = n.Substring(0, n.IndexOf('"'));
+                        }
+                        catch
+                        {
                         }
                     }
 
-                    line = sr.ReadLine();
-                    if (line == null) return;
-                    line = line.Substring(line.IndexOf("'") + 1).Trim();
-                } while (line != null);
-            }
+                    if (line.IndexOf('}') >= 0)
+                    {
+
+                        if (toneBuf.Count == 39)
+                        {
+                            Tone t = null;
+                            t = new Tone();
+                            t.name = nm == "" ? string.Format("No.{0}(From MusicLALF)", toneBuf[0]) : nm;
+
+                            t.OPs = new Tone.Op[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                t.OPs[i] = new Tone.Op();
+                                t.OPs[i].AR = toneBuf[i * 9 + 3];
+                                t.OPs[i].DR = toneBuf[i * 9 + 4];
+                                t.OPs[i].SR = toneBuf[i * 9 + 5];
+                                t.OPs[i].RR = toneBuf[i * 9 + 6];
+                                t.OPs[i].SL = toneBuf[i * 9 + 7];
+                                t.OPs[i].TL = toneBuf[i * 9 + 8];
+                                t.OPs[i].KS = toneBuf[i * 9 + 9];
+                                t.OPs[i].ML = toneBuf[i * 9 + 10];
+                                t.OPs[i].DT = toneBuf[i * 9 + 11];
+                                t.OPs[i].DT2 = 0;
+                                t.OPs[i].AM = 0;
+                                t.OPs[i].SG = 0;
+                            }
+                            t.AL = toneBuf[1];
+                            t.FB = toneBuf[2];
+
+                            tonePallet.lstTone[toneBuf[0]] = t;
+                        }
+                        stage = 0;
+                        nm = "";
+                        line = line.Substring(1);
+                        toneBuf.Clear();
+                        continue;
+                    }
+                }
+
+                line = index == tnt.Length ? null : tnt[index++];
+                if (line == null) return;
+                line = line.Substring(line.IndexOf("'") + 1).Trim();
+            } while (line != null);
         }
 
         private int[] numSplit(string line)
@@ -1813,6 +1817,51 @@ namespace MDPlayer
 
         public void PasteToneFromClipboard(int[] chs)
         {
+            string cbt = Clipboard.GetText();
+            if (cbt == string.Empty) return;
+            string[] tnt = cbt.Split(new string[] { "\r\n" },  StringSplitOptions.None);
+
+            TonePallet tp = new TonePallet();
+            tp.lstTone = new List<Tone>(256);
+            for (int i = 0; i < 256; i++) tp.lstTone.Add(null);
+
+            switch (parent.setting.other.InstFormat)
+            {
+                case enmInstFormat.MML2VGM:
+                    LoadTonePalletFromMml2vgm(tnt, tp);
+                    break;
+                case enmInstFormat.FMP7:
+                    LoadTonePalletFromFMP7(tnt, tp);
+                    break;
+                case enmInstFormat.MDX:
+                    LoadTonePalletFromMXDRV(tnt, tp);
+                    break;
+                case enmInstFormat.MUSICLALF:
+                    LoadTonePalletFromMUSICLALF(tnt, tp);
+                    break;
+                case enmInstFormat.NRTDRV:
+                    LoadTonePalletFromNRTDRV(tnt, tp);
+                    break;
+                case enmInstFormat.HUSIC:
+                case enmInstFormat.TFI:
+                case enmInstFormat.MUSICLALF2:
+                    return;
+            }
+
+            int j = 0;
+            foreach (int ch in chs)
+            {
+                Tone t = null;
+                while (t == null && j < 256)
+                {
+                    t = tp.lstTone[j];
+                    j++;
+                }
+
+                if (t != null) parent.setting.midiKbd.Tones[ch] = t;
+            }
+
+            SetTonesFromSettng();
         }
 
     }
