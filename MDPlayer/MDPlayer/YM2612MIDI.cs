@@ -235,6 +235,9 @@ namespace MDPlayer
 
         private void VoiceCopyChFromTone(int des, Tone tone)
         {
+            if (tone == null) return;
+            if (des < 0 || des > 5) return;
+
             for (int i = 0; i < 4; i++)
             {
                 int opn = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
