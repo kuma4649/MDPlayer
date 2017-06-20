@@ -3120,6 +3120,8 @@ namespace MDPlayer
                 }
             }
 
+            newParam.ym2612Midi.useFormat = setting.midiKbd.UseFormat;
+
             for (int ch = 0; ch < 6; ch++)
             {
                 int p = (ch > 2) ? 1 : 0;

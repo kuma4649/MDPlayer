@@ -2121,6 +2121,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _useFormat = 0;
+            public int UseFormat
+            {
+                get
+                {
+                    return _useFormat;
+                }
+
+                set
+                {
+                    _useFormat = value;
+                }
+            }
+
             private int _UseMONOChannel = 0;
             public int UseMONOChannel
             {
@@ -2316,7 +2330,6 @@ namespace MDPlayer
                     _MidiCtrl_Next = value;
                 }
             }
-
 
             public MidiKbd Copy()
             {

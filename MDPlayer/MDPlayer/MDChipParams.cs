@@ -221,6 +221,7 @@ namespace MDPlayer
             public bool lfoSw = false;
             public int lfoFrq = -1;
             public bool IsMONO = true;
+            public int useFormat = 0;
 
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 

@@ -1157,6 +1157,11 @@ namespace MDPlayer
             }
         }
 
+        public void drawToneFormatP(FrameBuffer screen, int x, int y, int toneFormat)
+        {
+            screen.drawByteArray(x, y, rMenuButtons[1], 128, (toneFormat % 3) *5* 8, (6 + toneFormat / 3) * 8, 40, 8);
+        }
+
         public void drawChPYM2612(int chipID, int x, int y, int ch, bool mask, int tp)
         {
             if (ch == 5)
@@ -1834,6 +1839,21 @@ namespace MDPlayer
             drawFont4Int(screen, x, y, 0, 1, nlfofrq);
 
             olfofrq = nlfofrq;
+        }
+
+        public void drawToneFormat(FrameBuffer screen, int x, int y, ref int oToneFormat, int nToneFormat)
+        {
+            if (oToneFormat == nToneFormat)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+
+            drawToneFormatP(screen, x, y, nToneFormat);
+
+            oToneFormat = nToneFormat;
         }
 
         public void drawPanToC140(int chipID, int c, ref int ot, int nt)
@@ -2846,6 +2866,7 @@ namespace MDPlayer
 
             drawLfoSw(ym2612MIDIScreen, 4, 44, ref oldParam.ym2612Midi.lfoSw, newParam.ym2612Midi.lfoSw);
             drawLfoFrq(ym2612MIDIScreen, 16, 44, ref oldParam.ym2612Midi.lfoFrq, newParam.ym2612Midi.lfoFrq);
+            drawToneFormat(ym2612MIDIScreen,16,6,ref oldParam.ym2612Midi.useFormat,newParam.ym2612Midi.useFormat);
         }
 
         private void drawMONOPOLYYM2612MIDI(ref bool olm, bool nlm)

@@ -1766,27 +1766,22 @@ namespace MDPlayer
             foreach (int ch in chs)
             {
                 string[] tt = null;
-                switch (parent.setting.other.InstFormat)
+                switch (parent.setting.midiKbd.UseFormat)
                 {
-                    case enmInstFormat.MML2VGM:
+                    case 0:
                         tt = makeToneTextForMml2vgm(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
-                    case enmInstFormat.FMP7:
+                    case 2:
                         tt = makeToneTextForFMP7(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
-                    case enmInstFormat.MDX:
+                    case 4:
                         tt = makeToneTextForMXDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
-                    case enmInstFormat.MUSICLALF:
+                    case 3:
                         tt = makeToneTextForMUSICLALF(parent.setting.midiKbd.Tones[ch], ch + 1);
                         break;
-                    case enmInstFormat.NRTDRV:
+                    case 1:
                         tt = makeToneTextForNRTDRV(parent.setting.midiKbd.Tones[ch], ch + 1);
-                        break;
-                    case enmInstFormat.HUSIC:
-                    case enmInstFormat.TFI:
-                    case enmInstFormat.MUSICLALF2:
-                        tt = null;
                         break;
                 }
 
@@ -1799,7 +1794,7 @@ namespace MDPlayer
 
             }
 
-            if (parent.setting.other.InstFormat == enmInstFormat.MUSICLALF)
+            if (parent.setting.midiKbd.UseFormat == 3)
             {
                 int row = 10;
                 for (int i = 0; i < des.Count; i++)
@@ -1828,27 +1823,23 @@ namespace MDPlayer
             tp.lstTone = new List<Tone>(256);
             for (int i = 0; i < 256; i++) tp.lstTone.Add(null);
 
-            switch (parent.setting.other.InstFormat)
+            switch (parent.setting.midiKbd.UseFormat)
             {
-                case enmInstFormat.MML2VGM:
+                case 0:
                     LoadTonePalletFromMml2vgm(tnt, tp);
                     break;
-                case enmInstFormat.FMP7:
+                case 2:
                     LoadTonePalletFromFMP7(tnt, tp);
                     break;
-                case enmInstFormat.MDX:
+                case 4:
                     LoadTonePalletFromMXDRV(tnt, tp);
                     break;
-                case enmInstFormat.MUSICLALF:
+                case 3:
                     LoadTonePalletFromMUSICLALF(tnt, tp);
                     break;
-                case enmInstFormat.NRTDRV:
+                case 1:
                     LoadTonePalletFromNRTDRV(tnt, tp);
                     break;
-                case enmInstFormat.HUSIC:
-                case enmInstFormat.TFI:
-                case enmInstFormat.MUSICLALF2:
-                    return;
             }
 
             int j = 0;

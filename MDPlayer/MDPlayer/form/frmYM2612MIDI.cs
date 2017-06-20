@@ -113,43 +113,50 @@ namespace MDPlayer
                 int u = (py - 16) / 8;
                 int p = -1;
                 if (px >= 1 * 8 && px < 6 * 8) p = 0;
-                else if (px >= 15 * 8 && px < 20 * 8) p = 1;
-                else if (px >= 23 * 8 && px < 29 * 8) p = 2;
-                else if (px >= 32 * 8 && px < 38 * 8) p = 3;
+                else if (px >= 8 * 8 && px < 14 * 8) p = 1;
+                else if (px >= 15 * 8 && px < 20 * 8) p = 2;
+                else if (px >= 23 * 8 && px < 29 * 8) p = 3;
+                else if (px >= 32 * 8 && px < 38 * 8) p = 4;
 
                 if (p == -1) return;
 
-                switch (u * 4 + p)
+                switch (u * 5 + p)
                 {
                     case 0:
                         //Console.WriteLine("MONO");
                         cmdSetMode(0);
                         break;
                     case 1:
+                        break;
+                    case 2:
                         //Console.WriteLine("PANIC");
                         cmdAllNoteOff();
                         break;
-                    case 2:
+                    case 3:
                         //Console.WriteLine("TP.PUT");
                         cmdTPPut();
                         break;
-                    case 3:
+                    case 4:
                         //Console.WriteLine("T.LOAD");
                         cmdTLoad();
                         break;
-                    case 4:
+                    case 5:
                         //Console.WriteLine("POLY");
                         cmdSetMode(1);
                         break;
-                    case 5:
+                    case 6:
+                        parent.setting.midiKbd.UseFormat++;
+                        if (parent.setting.midiKbd.UseFormat > 4) parent.setting.midiKbd.UseFormat = 0;
+                        break;
+                    case 7:
                         //Console.WriteLine("L.CLS");
                         cmdLogClear();
                         break;
-                    case 6:
+                    case 8:
                         //Console.WriteLine("TP.GET");
                         cmdTPGet();
                         break;
-                    case 7:
+                    case 9:
                         //Console.WriteLine("T.SAVE");
                         cmdTSave();
                         break;
