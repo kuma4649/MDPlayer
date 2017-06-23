@@ -40,6 +40,8 @@ namespace MDPlayer
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
         public uint HuC6280ClockValue;
+        public uint C352ClockValue;
+        public byte C352ClockDivider;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -52,6 +54,7 @@ namespace MDPlayer
         public bool AY8910DualChipFlag;
         public bool YM2413DualChipFlag;
         public bool HuC6280DualChipFlag;
+        public bool C352DualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -456,7 +459,7 @@ namespace MDPlayer
             vgmCmdTbl[0xdf] = vcDummy3Ope;
 
             vgmCmdTbl[0xe0] = vcSeekToOffsetInPCMDataBank;
-            vgmCmdTbl[0xe1] = vcDummy4Ope;
+            vgmCmdTbl[0xe1] = vcC352;
             vgmCmdTbl[0xe2] = vcDummy4Ope;
             vgmCmdTbl[0xe3] = vcDummy4Ope;
             vgmCmdTbl[0xe4] = vcDummy4Ope;
@@ -778,6 +781,11 @@ namespace MDPlayer
 
                             chipRegister.writeC140PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "C140_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+                        case 0x92:
+                            // C352
+                            chipRegister.writeC352PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "C352_PCMData", vgmAdr + 15, bLen - 8);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -1133,6 +1141,15 @@ namespace MDPlayer
             byte data = vgmBuf[vgmAdr + 3];
             chipRegister.writeC140(0, adr, data, model);
             vgmAdr += 4;
+        }
+
+        private void vcC352()
+        {
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0xff) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
+            uint data = (uint)((vgmBuf[vgmAdr + 3] & 0xff) * 0x100 + (vgmBuf[vgmAdr + 4] & 0xff));
+            
+            chipRegister.writeC352(0, adr, data, model);
+            vgmAdr += 5;
         }
 
         private UInt32 getLE16(UInt32 adr)
@@ -1874,6 +1891,21 @@ namespace MDPlayer
                             OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
                             chips.Add("OKIM6295");
                         }
+                    }
+                }
+
+            }
+            if (version >= 0x0171)
+            {
+                if (vgmDataOffset > 0xdc)
+                {
+
+                    uint C352clock = getLE32(0xdc);
+                    if (C352clock != 0)
+                    {
+                        chips.Add("C352");
+                        C352ClockValue = C352clock;
+                        C352ClockDivider = vgmBuf[0xd6];
                     }
                 }
 

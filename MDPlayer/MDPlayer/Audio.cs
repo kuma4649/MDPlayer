@@ -117,6 +117,7 @@ namespace MDPlayer
         public static int ChipPriAY10 = 0;
         public static int ChipPriOPLL = 0;
         public static int ChipPriHuC = 0;
+        public static int ChipPriC352 = 0;
 
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
@@ -133,6 +134,7 @@ namespace MDPlayer
         public static int ChipSecAY10 = 0;
         public static int ChipSecOPLL = 0;
         public static int ChipSecHuC = 0;
+        public static int ChipSecC352 = 0;
 
         private static int MasterVolume = 0;
         private static int[] chips = new int[256];
@@ -591,6 +593,7 @@ namespace MDPlayer
                 ChipPriAY10 = 0;
                 ChipPriOPLL = 0;
                 ChipPriHuC = 0;
+                ChipPriC352 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -607,6 +610,7 @@ namespace MDPlayer
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
+                ChipSecC352 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -751,6 +755,7 @@ namespace MDPlayer
                 ChipPriAY10 = 0;
                 ChipPriOPLL = 0;
                 ChipPriHuC = 0;
+                ChipPriC352 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -767,6 +772,7 @@ namespace MDPlayer
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
+                ChipSecC352 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -938,6 +944,7 @@ namespace MDPlayer
                 ChipPriOPLL = 0;
                 //ChipPriPSG = 0;
                 ChipPriHuC = 0;
+                ChipPriC352 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -954,6 +961,7 @@ namespace MDPlayer
                 ChipSecAY10 = 0;
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
+                ChipSecC352 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -1102,8 +1110,9 @@ namespace MDPlayer
                     chip.SamplingRate = SamplingRate;
                     chip.Volume = setting.balance.OKIM6258Volume;
                     chip.Clock = ((vgm)vgmVirtual).OKIM6258ClockValue;
-                    //chip.Option = new object[1] { (int)vgmVirtual.OKIM6258Type };
-                    chip.Option = new object[1] { 6 };
+                    chip.Option = new object[1] { (int)((vgm)vgmVirtual).OKIM6258Type };
+                    //chip.Option = new object[1] { 6 };
+                    okim6258.okim6258_set_srchg_cb(0, ChangeChipSampleRate, chip);
 
                     hiyorimiDeviceFlag |= 0x2;
 
@@ -1129,6 +1138,7 @@ namespace MDPlayer
                         chip.Volume = setting.balance.OKIM6295Volume;
                         chip.Clock = ((vgm)vgmVirtual).OKIM6295ClockValue;
                         chip.Option = null;
+                        okim6295.okim6295_set_srchg_cb(0, ChangeChipSampleRate, chip);
 
                         hiyorimiDeviceFlag |= 0x2;
 
@@ -1352,6 +1362,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)vgmVirtual).C352ClockValue != 0)
+                {
+                    MDSound.c352 c352 = new c352();
+                    for (int i = 0; i < (((vgm)vgmVirtual).C352DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.C352;
+                        chip.ID = (byte)i;
+                        chip.Instrument = c352;
+                        chip.Update = c352.Update;
+                        chip.Start = c352.Start;
+                        chip.Stop = c352.Stop;
+                        chip.Reset = c352.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = 0;// setting.balance.C352Volume;
+                        chip.Clock = (((vgm)vgmVirtual).C352ClockValue & 0x7fffffff);
+                        chip.Option = new object[1] { (((vgm)vgmVirtual).C352ClockDivider) };
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) ChipPriC352 = 1;
+                        else ChipSecC352 = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -1391,6 +1428,27 @@ namespace MDPlayer
 
         }
 
+        public static void ChangeChipSampleRate(MDSound.MDSound.Chip chip, int NewSmplRate)
+        {
+            MDSound.MDSound.Chip CAA = chip; 
+
+            if (CAA.SamplingRate == NewSmplRate)
+                return;
+
+            // quick and dirty hack to make sample rate changes work
+            CAA.SamplingRate = (uint)NewSmplRate;
+            if (CAA.SamplingRate < 44100)//SampleRate)
+                CAA.Resampler = 0x01;
+            else if (CAA.SamplingRate == 44100)//SampleRate)
+                CAA.Resampler = 0x02;
+            else if (CAA.SamplingRate > 44100)//SampleRate)
+                CAA.Resampler = 0x03;
+            CAA.SmpP = 1;
+            CAA.SmpNext -= CAA.SmpLast;
+            CAA.SmpLast = 0x00;
+
+            return;
+        }
 
         public static void FF()
         {
@@ -1619,6 +1677,8 @@ namespace MDPlayer
             chipRegister.ChipPriOPLL = ChipPriOPLL;
             chips[14] = chipRegister.ChipPriHuC;
             chipRegister.ChipPriHuC = ChipPriHuC;
+            chips[15] = chipRegister.ChipPriC352;
+            chipRegister.ChipPriC352 = ChipPriC352;
 
 
             chips[128 + 0] = chipRegister.ChipSecOPN;
@@ -1654,6 +1714,8 @@ namespace MDPlayer
             chipRegister.ChipSecOPLL = ChipSecOPLL;
             chips[128 + 14] = chipRegister.ChipSecHuC;
             chipRegister.ChipSecHuC = ChipSecHuC;
+            chips[128+15] = chipRegister.ChipSecC352;
+            chipRegister.ChipSecC352 = ChipSecC352;
 
 
             return chips;
