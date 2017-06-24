@@ -118,6 +118,7 @@ namespace MDPlayer
         public static int ChipPriOPLL = 0;
         public static int ChipPriHuC = 0;
         public static int ChipPriC352 = 0;
+        public static int ChipPriK054539 = 0;
 
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
@@ -135,6 +136,7 @@ namespace MDPlayer
         public static int ChipSecOPLL = 0;
         public static int ChipSecHuC = 0;
         public static int ChipSecC352 = 0;
+        public static int ChipSecK054539 = 0;
 
         private static int MasterVolume = 0;
         private static int[] chips = new int[256];
@@ -594,6 +596,7 @@ namespace MDPlayer
                 ChipPriOPLL = 0;
                 ChipPriHuC = 0;
                 ChipPriC352 = 0;
+                ChipPriK054539 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -611,6 +614,7 @@ namespace MDPlayer
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
                 ChipSecC352 = 0;
+                ChipSecK054539 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -756,6 +760,7 @@ namespace MDPlayer
                 ChipPriOPLL = 0;
                 ChipPriHuC = 0;
                 ChipPriC352 = 0;
+                ChipPriK054539 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -773,6 +778,7 @@ namespace MDPlayer
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
                 ChipSecC352 = 0;
+                ChipSecK054539 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -945,6 +951,7 @@ namespace MDPlayer
                 //ChipPriPSG = 0;
                 ChipPriHuC = 0;
                 ChipPriC352 = 0;
+                ChipPriK054539 = 0;
 
                 ChipSecOPN = 0;
                 ChipSecOPN2 = 0;
@@ -962,6 +969,7 @@ namespace MDPlayer
                 ChipSecOPLL = 0;
                 ChipSecHuC = 0;
                 ChipSecC352 = 0;
+                ChipSecK054539 = 0;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -1389,6 +1397,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)vgmVirtual).K054539ClockValue != 0)
+                {
+                    MDSound.K054539 k054539 = new MDSound.K054539();
+
+                    for (int i = 0; i < (((vgm)vgmVirtual).K054539DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.K054539;
+                        chip.ID = (byte)i;
+                        chip.Instrument = k054539;
+                        chip.Update = k054539.Update;
+                        chip.Start = k054539.Start;
+                        chip.Stop = k054539.Stop;
+                        chip.Reset = k054539.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = 0;// setting.balance.K054539Volume;
+                        chip.Clock = ((vgm)vgmVirtual).K054539ClockValue;
+                        chip.Option = null;
+                        if (i == 0) ChipPriK054539 = 1;
+                        else ChipSecK054539 = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -1679,6 +1714,8 @@ namespace MDPlayer
             chipRegister.ChipPriHuC = ChipPriHuC;
             chips[15] = chipRegister.ChipPriC352;
             chipRegister.ChipPriC352 = ChipPriC352;
+            chips[16] = chipRegister.ChipPriK054539;
+            chipRegister.ChipPriK054539 = ChipPriK054539;
 
 
             chips[128 + 0] = chipRegister.ChipSecOPN;
@@ -1716,6 +1753,8 @@ namespace MDPlayer
             chipRegister.ChipSecHuC = ChipSecHuC;
             chips[128+15] = chipRegister.ChipSecC352;
             chipRegister.ChipSecC352 = ChipSecC352;
+            chips[128+16] = chipRegister.ChipSecK054539;
+            chipRegister.ChipSecK054539 = ChipSecK054539;
 
 
             return chips;

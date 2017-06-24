@@ -51,6 +51,7 @@ namespace MDPlayer
         public int ChipPriOPLL = 0;
         public int ChipPriHuC = 0;
         public int ChipPriC352 = 0;
+        public int ChipPriK054539 = 0;
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
         public int ChipSecOPNA = 0;
@@ -68,6 +69,7 @@ namespace MDPlayer
         public int ChipSecOPLL = 0;
         public int ChipSecHuC = 0;
         public int ChipSecC352 = 0;
+        public int ChipSecK054539 = 0;
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -1596,6 +1598,24 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WritePWM(chipid, adr, data);
+        }
+
+        public void writeK054539(byte chipid, uint adr, byte data, enmModel model)
+        {
+            if (chipid == 0) ChipPriK054539 = 2;
+            else ChipSecK054539 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteK054539(chipid, (int)adr, data);
+        }
+
+        public void writeK054539PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) ChipPriK054539 = 2;
+            else ChipSecK054539 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteK054539PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeC140(byte chipid, uint adr, byte data, enmModel model)

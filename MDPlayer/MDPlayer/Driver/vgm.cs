@@ -42,6 +42,8 @@ namespace MDPlayer
         public uint HuC6280ClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
+        public uint K054539ClockValue;
+        public byte K054539Flags;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -55,6 +57,7 @@ namespace MDPlayer
         public bool YM2413DualChipFlag;
         public bool HuC6280DualChipFlag;
         public bool C352DualChipFlag;
+        public bool K054539DualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -443,7 +446,7 @@ namespace MDPlayer
             vgmCmdTbl[0xd0] = vcDummy3Ope;
             vgmCmdTbl[0xd1] = vcDummy3Ope;
             vgmCmdTbl[0xd2] = vcDummy3Ope;
-            vgmCmdTbl[0xd3] = vcDummy3Ope;
+            vgmCmdTbl[0xd3] = vcK054539;
             vgmCmdTbl[0xd4] = vcC140;
             vgmCmdTbl[0xd5] = vcDummy3Ope;
             vgmCmdTbl[0xd6] = vcDummy3Ope;
@@ -773,6 +776,12 @@ namespace MDPlayer
                             // OKIM6295
                             chipRegister.writeOKIM6295PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "OKIM6295_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x8c:
+                            // K054539
+                            chipRegister.writeK054539PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "K054539_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x8d:
@@ -1135,9 +1144,18 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcK054539()
+        {
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
+            byte data = vgmBuf[vgmAdr + 3];
+            chipRegister.writeK054539(id, adr, data, model);
+            vgmAdr += 4;
+        }
+
         private void vcC140()
         {
-            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) *0x100+ (vgmBuf[vgmAdr + 2] & 0xff));
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
             byte data = vgmBuf[vgmAdr + 3];
             chipRegister.writeC140(0, adr, data, model);
             vgmAdr += 4;
@@ -1595,6 +1613,7 @@ namespace MDPlayer
             AY8910ClockValue = 0;
             YM2413ClockValue = 0;
             HuC6280ClockValue = 0;
+            K054539ClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -1833,6 +1852,19 @@ namespace MDPlayer
                         chips.Add("OKIM6258");
                         OKIM6258ClockValue = OKIM6258clock;
                         OKIM6258Type = vgmBuf[0x94];
+                    }
+                }
+
+                if (vgmDataOffset > 0xa0)
+                {
+                    uint K054539clock = getLE32(0xa0);
+                    if (K054539clock != 0)
+                    {
+                        K054539ClockValue = K054539clock & 0x3fffffff;
+                        K054539DualChipFlag = (K054539clock & 0x40000000) != 0;
+                        if (K054539DualChipFlag) chips.Add("K054539x2");
+                        else chips.Add("K054539");
+                        K054539Flags = vgmBuf[0x95];
                     }
                 }
 
