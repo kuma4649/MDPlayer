@@ -523,6 +523,7 @@ namespace MDPlayer
                 mml.Append(tblNote[n]);
 
                 ptr++;
+                if (ptr == NoteLog[ch].Length) ptr = 0;
             } while (ptr != NoteLogPtr[ch]);
 
             //クリップボードにMMLをセット
@@ -597,7 +598,23 @@ namespace MDPlayer
                 }
                 if (cc == mk.MidiCtrl_DelOneLog)
                 {
-                    //TBD
+                    if (parent.setting.midiKbd.IsMONO)
+                    {
+                        int ch = parent.setting.midiKbd.UseMONOChannel;
+                        int ptr = NoteLogPtr[ch];
+                        ptr--;
+                        if (ptr < 0) ptr += 100;
+                        NoteLog[ch][ptr] = -1;
+                        NoteLogPtr[ch] = ptr;
+                        int p = NoteLogPtr[ch] - 9;
+                        if (p < 0) p += 100;
+                        for (int i = 0; i < 10; i++)
+                        {
+                            newParam.ym2612Midi.noteLog[ch][i] = NoteLog[ch][p];
+                            p++;
+                            if (p == 100) p = 0;
+                        }
+                    }
                 }
                 if (cc == mk.MidiCtrl_Fadeout)
                 {
