@@ -25,7 +25,9 @@ namespace MDPlayer
         {
             parent = frm;
             this.zoom = zoom;
+
             InitializeComponent();
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.frmYM2612MIDI_MouseWheel);
 
             update();
         }
@@ -172,13 +174,13 @@ namespace MDPlayer
                 else
                 {
                     //Console.WriteLine("音色選択(1-3Ch)");
-                    cmdSelectTone(px / 8/13, e);
+                    cmdSelectTone(px, py, e);// / 8 / 13, e);
                 }
             }
             else if (py < 80)
             {
                 //Console.WriteLine("音色選択(1-3Ch)");
-                cmdSelectTone(px / 8/13, e);
+                cmdSelectTone(px, py, e);
             }
             else if (py < 104)
             {
@@ -203,13 +205,13 @@ namespace MDPlayer
                 else
                 {
                     //Console.WriteLine("音色選択(4-6Ch)");
-                    cmdSelectTone(px / 8/13 + 3, e);
+                    cmdSelectTone(px, py, e);
                 }
             }
             else if (py < 152)
             {
                 //Console.WriteLine("音色選択(4-6Ch)");
-                cmdSelectTone(px / 8/13 + 3, e);
+                cmdSelectTone(px, py, e);
             }
             else if (py < 176)
             {
@@ -359,9 +361,75 @@ namespace MDPlayer
             }
         }
 
-        private void cmdSelectTone(int ch, MouseEventArgs e)
+        private void cmdSelectTone(int px,int py, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Right) return;
+            int ch = px / 8 / 13 + (py < 104 ? 0 : 3);
+            int row = -1;
+            int col = 0;
+            int n = -1;
+
+            if (e.Button != MouseButtons.Right)
+            {
+                px %= 8 * 13;
+                py = py >= 104 ? (py - 104) : (py - 32);
+                col = px / 4;
+
+                if (py < 8)
+                {
+                    row = 0;
+                    switch (col)
+                    {
+                        case 10:
+                        case 11:
+                            n = 44;
+                            break;
+                        case 14:
+                        case 15:
+                            n = 45;
+                            break;
+                        case 19:
+                        case 20:
+                            n = 46;
+                            break;
+                        case 24:
+                        case 25:
+                            n = 47;
+                            break;
+                    }
+                }
+                else if (py < 16)
+                {
+                    return;
+                }
+                else if (py < 48)
+                {
+                    row = (py - 16) / 8 + 1;
+                    if (col < 12)
+                    {
+                        n = col / 2;
+                        if (n < 1) return;
+                        n--;
+                    }
+                    else if (col < 15)
+                    {
+                        n = 5;
+                    }
+                    else if (col < 25)
+                    {
+                        n = (col+1) / 2;
+                        n -= 2;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    n += (row - 1) * 11;
+                }
+
+                //Console.WriteLine("row={0} col={1} ch={2} n={3}", row, col, ch, n);
+                parent.ym2612Midi_SetSelectInstParam(ch, n);
+                return;
+            }
 
             cmsMIDIKBD.Tag = ch;
             cmsMIDIKBD.Show(this, e.X, e.Y);
@@ -380,6 +448,14 @@ namespace MDPlayer
                     parent.ym2612Midi_PasteToneFromClipboard();
                 }
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                parent.ym2612Midi_AddSelectInstParam(1);
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                parent.ym2612Midi_AddSelectInstParam(11);
+            }
         }
 
         private void ctsmiCopy_Click(object sender, EventArgs e)
@@ -391,5 +467,11 @@ namespace MDPlayer
         {
             parent.ym2612Midi_PasteToneFromClipboard((int)cmsMIDIKBD.Tag);
         }
+
+        private void frmYM2612MIDI_MouseWheel(object sender, MouseEventArgs e)
+        {
+            parent.ym2612Midi_ChangeSelectedParamValue(Math.Sign(e.Delta));
+        }
+
     }
 }

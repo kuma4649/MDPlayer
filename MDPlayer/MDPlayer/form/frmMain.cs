@@ -2226,8 +2226,8 @@ namespace MDPlayer
                 }
                 newParam.ym2203[chipID].channels[ch].inst[44] = ym2203Register[0xb0 + c] & 0x07;//AL
                 newParam.ym2203[chipID].channels[ch].inst[45] = (ym2203Register[0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2203[chipID].channels[ch].inst[46] = (ym2203Register[0xb4 + c] & 0x38) >> 3;//AMS
-                newParam.ym2203[chipID].channels[ch].inst[47] = ym2203Register[0xb4 + c] & 0x03;//FMS
+                newParam.ym2203[chipID].channels[ch].inst[46] = (ym2203Register[0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.ym2203[chipID].channels[ch].inst[47] = ym2203Register[0xb4 + c] & 0x07;//FMS
 
                 newParam.ym2203[chipID].channels[ch].pan = 3;
 
@@ -2477,8 +2477,8 @@ namespace MDPlayer
                 }
                 newParam.ym2610[chipID].channels[ch].inst[44] = YM2610Register[p][0xb0 + c] & 0x07;//AL
                 newParam.ym2610[chipID].channels[ch].inst[45] = (YM2610Register[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2610[chipID].channels[ch].inst[46] = (YM2610Register[p][0xb4 + c] & 0x38) >> 3;//AMS
-                newParam.ym2610[chipID].channels[ch].inst[47] = YM2610Register[p][0xb4 + c] & 0x03;//FMS
+                newParam.ym2610[chipID].channels[ch].inst[46] = (YM2610Register[p][0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.ym2610[chipID].channels[ch].inst[47] = YM2610Register[p][0xb4 + c] & 0x07;//FMS
 
                 newParam.ym2610[chipID].channels[ch].pan = (YM2610Register[p][0xb4 + c] & 0xc0) >> 6;
 
@@ -2622,8 +2622,8 @@ namespace MDPlayer
                 }
                 newParam.ym2608[chipID].channels[ch].inst[44] = ym2608Register[p][0xb0 + c] & 0x07;//AL
                 newParam.ym2608[chipID].channels[ch].inst[45] = (ym2608Register[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2608[chipID].channels[ch].inst[46] = (ym2608Register[p][0xb4 + c] & 0x38) >> 3;//AMS
-                newParam.ym2608[chipID].channels[ch].inst[47] = ym2608Register[p][0xb4 + c] & 0x03;//FMS
+                newParam.ym2608[chipID].channels[ch].inst[46] = (ym2608Register[p][0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.ym2608[chipID].channels[ch].inst[47] = ym2608Register[p][0xb4 + c] & 0x07;//FMS
 
                 newParam.ym2608[chipID].channels[ch].pan = (ym2608Register[p][0xb4 + c] & 0xc0) >> 6;
 
@@ -2929,8 +2929,8 @@ namespace MDPlayer
                 }
                 newParam.ym2612[chipID].channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
                 newParam.ym2612[chipID].channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2612[chipID].channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 3;//AMS
-                newParam.ym2612[chipID].channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
+                newParam.ym2612[chipID].channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.ym2612[chipID].channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x07;//FMS
 
                 newParam.ym2612[chipID].channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
 
@@ -3143,10 +3143,21 @@ namespace MDPlayer
                 }
                 newParam.ym2612Midi.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
                 newParam.ym2612Midi.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2612Midi.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 3;//AMS
-                newParam.ym2612Midi.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x03;//FMS
+                newParam.ym2612Midi.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.ym2612Midi.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x07;//FMS
 
                 newParam.ym2612Midi.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
+
+                if (newParam.ym2612Midi.selectCh != -1 && newParam.ym2612Midi.selectParam != -1)
+                {
+                    if (oldParam.ym2612Midi.selectCh != -1 && oldParam.ym2612Midi.selectParam != -1)
+                    {
+                        newParam.ym2612Midi.channels[oldParam.ym2612Midi.selectCh].typ[oldParam.ym2612Midi.selectParam] = 0;
+                    }
+                    newParam.ym2612Midi.channels[newParam.ym2612Midi.selectCh].typ[newParam.ym2612Midi.selectParam] = 1;
+                    oldParam.ym2612Midi.selectCh = newParam.ym2612Midi.selectCh;
+                    oldParam.ym2612Midi.selectParam = newParam.ym2612Midi.selectParam;
+                }
 
                 //int freq = 0;
                 //int octav = 0;
@@ -5105,6 +5116,24 @@ namespace MDPlayer
             YM2612MIDI.PasteToneFromClipboard(new int[] { ch });
         }
 
+        public void ym2612Midi_SetSelectInstParam(int ch, int n)
+        {
+            YM2612MIDI.newParam.ym2612Midi.selectCh = ch;
+            YM2612MIDI.newParam.ym2612Midi.selectParam = n;
+        }
+
+        public void ym2612Midi_AddSelectInstParam(int n)
+        {
+            int p = YM2612MIDI.newParam.ym2612Midi.selectParam;
+            p += n;
+            if (p > 47) p = 0;
+            YM2612MIDI.newParam.ym2612Midi.selectParam = p;
+        }
+
+        public void ym2612Midi_ChangeSelectedParamValue(int n)
+        {
+            YM2612MIDI.ChangeSelectedParamValue(n);
+        }
     }
 }
 

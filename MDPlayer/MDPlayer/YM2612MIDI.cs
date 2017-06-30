@@ -248,9 +248,11 @@ namespace MDPlayer
                 mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x80 + opn + (des % 3)), (byte)((tone.OPs[i].RR & 0xf) + ((tone.OPs[i].SL & 0xf) << 4)));//RR + SL
                 mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x40 + opn + (des % 3)), (byte)((tone.OPs[i].TL & 0x7f)));//TL
                 mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x30 + opn + (des % 3)), (byte)((tone.OPs[i].ML & 0xf) + ((tone.OPs[i].DT & 0x7) << 4)));//ML + DT
+                mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0x90 + opn + (des % 3)), (byte)((tone.OPs[i].SG & 0xf)));//SG
             }
 
             mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb0 + (des % 3)), (byte)((tone.AL & 0x7) + ((tone.FB & 0x7) << 3)));//AL + FB
+            mdsMIDI.WriteYM2612(0, (byte)(des / 3), (byte)(0xb4 + (des % 3)), (byte)(0xc0 + (tone.PMS & 0x7) + ((tone.AMS & 0x3) << 4)));//PMS + AMS
 
         }
 
@@ -606,7 +608,7 @@ namespace MDPlayer
                         if (ptr < 0) ptr += 100;
                         NoteLog[ch][ptr] = -1;
                         NoteLogPtr[ch] = ptr;
-                        int p = NoteLogPtr[ch] - 9;
+                        int p = NoteLogPtr[ch] - 10;
                         if (p < 0) p += 100;
                         for (int i = 0; i < 10; i++)
                         {
@@ -1872,6 +1874,73 @@ namespace MDPlayer
                 if (t != null) parent.setting.midiKbd.Tones[ch] = t;
             }
 
+            SetTonesFromSettng();
+        }
+
+        public void ChangeSelectedParamValue(int n)
+        {
+            int ch = newParam.ym2612Midi.selectCh;
+            int p = newParam.ym2612Midi.selectParam;
+            if (ch == -1 || p == -1) return;
+
+            if (p >= 44 && p < 48)
+            {
+                switch (p)
+                {
+                    case 44:
+                        parent.setting.midiKbd.Tones[ch].AL += n;
+                        break;
+                    case 45:
+                        parent.setting.midiKbd.Tones[ch].FB += n;
+                        break;
+                    case 46:
+                        parent.setting.midiKbd.Tones[ch].AMS += n;
+                        break;
+                    case 47:
+                        parent.setting.midiKbd.Tones[ch].PMS += n;
+                        break;
+                }
+            }
+            else
+            {
+                int op = p / 11;
+                switch (p%11)
+                {
+                    case 0:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].AR += n;
+                        break;
+                    case 1:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].DR += n;
+                        break;
+                    case 2:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].SR += n;
+                        break;
+                    case 3:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].RR += n;
+                        break;
+                    case 4:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].SL += n;
+                        break;
+                    case 5:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].TL += n;
+                        break;
+                    case 6:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].KS += n;
+                        break;
+                    case 7:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].ML += n;
+                        break;
+                    case 8:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].DT += n;
+                        break;
+                    case 9:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].AM += n;
+                        break;
+                    case 10:
+                        parent.setting.midiKbd.Tones[ch].OPs[op].SG += n;
+                        break;
+                }
+            }
             SetTonesFromSettng();
         }
 

@@ -76,12 +76,14 @@ namespace MDPlayer
             public int nfrq = -1;//HuC6280
 
             public int[] inst = new int[48];
+            public int[] typ = new int[48];
 
             public Channel()
             {
                 for (int i = 0; i < inst.Length; i++)
                 {
                     inst[i] = -1;
+                    typ[i] = 0;
                 }
             }
         }
@@ -222,6 +224,8 @@ namespace MDPlayer
             public int lfoFrq = -1;
             public bool IsMONO = true;
             public int useFormat = 0;
+            public int selectCh = -1;
+            public int selectParam = -1;
 
             public Channel[] channels = new Channel[9] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
 
