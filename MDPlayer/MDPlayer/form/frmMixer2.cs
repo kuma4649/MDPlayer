@@ -19,6 +19,7 @@ namespace MDPlayer
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int zoom = 1;
+        private int chipn = -1;
 
         public frmMixer2(frmMain frm, int zoom)
         {
@@ -115,5 +116,147 @@ namespace MDPlayer
 
         }
 
+        private void frmMixer2_MouseDown(object sender, MouseEventArgs e)
+        {
+            int px = e.Location.X / parent.setting.other.Zoom;
+            int py = e.Location.Y / parent.setting.other.Zoom;
+
+            chipn = px / 20 + (py / 72) * 16;
+        }
+
+        private void frmMixer2_MouseMove(object sender, MouseEventArgs e)
+        {
+            int px = e.Location.X / parent.setting.other.Zoom;
+            int py = e.Location.Y / parent.setting.other.Zoom;
+            py = py % 72;
+            int n = 0;
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                if (py < 18)
+                {
+                    n = (18 - py) > 8 ? 8 : (18 - py);
+                    n= (int)(n * 2.5);
+                }
+                else if (py == 18)
+                {
+                    n = 0;
+                }
+                else
+                {
+                    n = (18 - py) < -35 ? -35 : (18 - py);
+                    n = (int)(n * (192.0 / 35.0));
+                }
+
+                switch (chipn)
+                {
+                    case 0:
+                        parent.setting.balance.MasterVolume = n;
+                        Audio.SetMasterVolume(n);
+                        break;
+                    case 1:
+                        parent.setting.balance.YM2151Volume = n;
+                        Audio.SetYM2151Volume(n);
+                        break;
+                    case 2:
+                        parent.setting.balance.YM2203Volume = n;
+                        Audio.SetYM2203Volume(n);
+                        break;
+                    case 3:
+                        parent.setting.balance.YM2203FMVolume = n;
+                        Audio.SetYM2203FMVolume(n);
+                        break;
+                    case 4:
+                        parent.setting.balance.YM2203PSGVolume = n;
+                        Audio.SetYM2203PSGVolume(n);
+                        break;
+                    case 5:
+                        parent.setting.balance.YM2413Volume = n;
+                        Audio.SetYM2413Volume(n);
+                        break;
+                    case 6:
+                        parent.setting.balance.YM2608Volume = n;
+                        Audio.SetYM2608Volume(n);
+                        break;
+                    case 7:
+                        parent.setting.balance.YM2608FMVolume = n;
+                        Audio.SetYM2608FMVolume(n);
+                        break;
+                    case 8:
+                        parent.setting.balance.YM2608PSGVolume = n;
+                        Audio.SetYM2608PSGVolume(n);
+                        break;
+                    case 9:
+                        parent.setting.balance.YM2608RhythmVolume = n;
+                        Audio.SetYM2608RhythmVolume(n);
+                        break;
+                    case 10:
+                        parent.setting.balance.YM2608AdpcmVolume = n;
+                        Audio.SetYM2608AdpcmVolume(n);
+                        break;
+                    case 11:
+                        parent.setting.balance.YM2610Volume = n;
+                        Audio.SetYM2610Volume(n);
+                        break;
+                    case 12:
+                        parent.setting.balance.YM2610FMVolume = n;
+                        Audio.SetYM2610FMVolume(n);
+                        break;
+                    case 13:
+                        parent.setting.balance.YM2610PSGVolume = n;
+                        Audio.SetYM2610PSGVolume(n);
+                        break;
+                    case 14:
+                        parent.setting.balance.YM2610AdpcmAVolume = n;
+                        Audio.SetYM2610AdpcmAVolume(n);
+                        break;
+                    case 15:
+                        parent.setting.balance.YM2610AdpcmBVolume = n;
+                        Audio.SetYM2610AdpcmBVolume(n);
+                        break;
+
+                    case 16:
+                        parent.setting.balance.YM2612Volume = n;
+                        Audio.SetYM2612Volume(n);
+                        break;
+                    case 17:
+                        parent.setting.balance.AY8910Volume = n;
+                        Audio.SetAY8910Volume(n);
+                        break;
+                    case 18:
+                        parent.setting.balance.SN76489Volume = n;
+                        Audio.SetSN76489Volume(n);
+                        break;
+                    case 19:
+                        parent.setting.balance.HuC6280Volume = n;
+                        Audio.SetHuC6280Volume(n);
+                        break;
+                    case 20:
+                        parent.setting.balance.RF5C164Volume = n;
+                        Audio.SetRF5C164Volume(n);
+                        break;
+                    case 21:
+                        parent.setting.balance.PWMVolume = n;
+                        Audio.SetPWMVolume(n);
+                        break;
+                    case 22:
+                        parent.setting.balance.OKIM6258Volume = n;
+                        Audio.SetOKIM6258Volume(n);
+                        break;
+                    case 23:
+                        parent.setting.balance.OKIM6295Volume = n;
+                        Audio.SetOKIM6295Volume(n);
+                        break;
+                    case 24:
+                        parent.setting.balance.C140Volume = n;
+                        Audio.SetC140Volume(n);
+                        break;
+                    case 25:
+                        parent.setting.balance.SEGAPCMVolume = n;
+                        Audio.SetSegaPCMVolume(n);
+                        break;
+                }
+
+            }
+        }
     }
 }

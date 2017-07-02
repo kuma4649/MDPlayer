@@ -146,6 +146,8 @@ namespace MDPlayer
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
         public static int ProcTimePer1Frame = 0;
 
+        public static short masterVisVolume = 0;
+
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
             PlayList.music music = new PlayList.music();
@@ -2439,11 +2441,18 @@ namespace MDPlayer
                         break;
                 }
 
+                int vol = 0;
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
                     buffer[offset + i] = (short)((Limit(buffer[offset + i], 0x7fff, -0x8000) * mul) >> 14);
+
+                    short v = buffer[offset + i];
+                    v = (v == short.MinValue) ? (short)(v + 1) : v;
+                    vol += Math.Abs(v);
                 }
+                if (sampleCount > 0) vol = vol / sampleCount;
+                masterVisVolume = (short)vol;
 
                 if (vgmFadeout)
                 {
@@ -2462,6 +2471,7 @@ namespace MDPlayer
                         {
                             vgmFadeoutCounter = 0.0;
                         }
+                        
                     }
                 }
 

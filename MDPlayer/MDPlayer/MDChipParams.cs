@@ -241,6 +241,7 @@ namespace MDPlayer
                 public int Volume = -9999;
                 public int VisVolume1 = -1;
                 public int VisVolume2 = -1;
+                public int VisVol2Cnt = 30;
             }
             public VolumeInfo AY8910 = new VolumeInfo();
             public VolumeInfo C140 = new VolumeInfo();

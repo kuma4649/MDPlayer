@@ -42,6 +42,8 @@
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
+            this.pbScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseDown);
+            this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseMove);
             // 
             // frmMixer2
             // 
@@ -56,6 +58,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMixer2_FormClosed);
             this.Load += new System.EventHandler(this.frmMixer2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMixer2_KeyDown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
             this.ResumeLayout(false);
 

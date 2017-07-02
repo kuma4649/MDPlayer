@@ -868,7 +868,7 @@ namespace MDPlayer
 
             if (px >= 13 * 16 + 48 && px < 14 * 16 + 48)
             {
-                dispMixer();
+                //dispMixer();
                 openMixer();
                 return;
             }
@@ -3221,6 +3221,15 @@ namespace MDPlayer
             newParam.mixer.YM2610PSG.Volume = setting.balance.YM2610PSGVolume;
             newParam.mixer.YM2610.Volume = setting.balance.YM2610Volume;
             newParam.mixer.YM2612.Volume = setting.balance.YM2612Volume;
+
+            int v = Audio.masterVisVolume / 200;// (short.MaxValue / 44);
+            v = (v > 44) ? 44 : (v < 0 ? 0 : v);
+            newParam.mixer.Master.VisVolume1 = v;
+            if (newParam.mixer.Master.VisVolume2 <= newParam.mixer.Master.VisVolume1)
+            {
+                newParam.mixer.Master.VisVolume2 = newParam.mixer.Master.VisVolume1;
+                newParam.mixer.Master.VisVol2Cnt = 30;
+            }
 
         }
 

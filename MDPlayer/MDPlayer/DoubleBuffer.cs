@@ -3083,7 +3083,43 @@ namespace MDPlayer
             drawFader(mixerScreen, 5 + 7 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.OKIM6295.Volume, newParam.mixer.OKIM6295.Volume);
             drawFader(mixerScreen, 5 + 8 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.C140.Volume, newParam.mixer.C140.Volume);
             drawFader(mixerScreen, 5 + 9 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.SEGAPCM.Volume, newParam.mixer.SEGAPCM.Volume);
-            drawFader(mixerScreen, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.YM2608Adpcm.Volume, newParam.mixer.YM2608Adpcm.Volume);
+
+
+            newParam.mixer.Master.VisVol2Cnt--;
+            if (newParam.mixer.Master.VisVol2Cnt == 0)
+            {
+                newParam.mixer.Master.VisVolume2--;
+                newParam.mixer.Master.VisVol2Cnt = 1;
+                if (newParam.mixer.Master.VisVolume2 < 0) newParam.mixer.Master.VisVolume2 = 0;
+            }
+            drawMixerVolume(mixerScreen, 2 + 0 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.Master.VisVolume1, newParam.mixer.Master.VisVolume1, ref oldParam.mixer.Master.VisVolume2, newParam.mixer.Master.VisVolume2);
+
+            drawMixerVolume(mixerScreen, 2 + 1 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2151.VisVolume1, newParam.mixer.YM2151.VisVolume1, ref oldParam.mixer.YM2151.VisVolume2, newParam.mixer.YM2151.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 2 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203.VisVolume1, newParam.mixer.YM2203.VisVolume1, ref oldParam.mixer.YM2203.VisVolume2, newParam.mixer.YM2203.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 3 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203FM.VisVolume1, newParam.mixer.YM2203FM.VisVolume1, ref oldParam.mixer.YM2203FM.VisVolume2, newParam.mixer.YM2203FM.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 4 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203PSG.VisVolume1, newParam.mixer.YM2203PSG.VisVolume1, ref oldParam.mixer.YM2203PSG.VisVolume2, newParam.mixer.YM2203PSG.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 5 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2413.VisVolume1, newParam.mixer.YM2413.VisVolume1, ref oldParam.mixer.YM2413.VisVolume2, newParam.mixer.YM2413.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 6 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608.VisVolume1, newParam.mixer.YM2608.VisVolume1, ref oldParam.mixer.YM2608.VisVolume2, newParam.mixer.YM2608.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 7 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608FM.VisVolume1, newParam.mixer.YM2608FM.VisVolume1, ref oldParam.mixer.YM2608FM.VisVolume2, newParam.mixer.YM2608FM.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 8 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608PSG.VisVolume1, newParam.mixer.YM2608PSG.VisVolume1, ref oldParam.mixer.YM2608PSG.VisVolume2, newParam.mixer.YM2608PSG.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 9 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608Rhythm.VisVolume1, newParam.mixer.YM2608Rhythm.VisVolume1, ref oldParam.mixer.YM2608Rhythm.VisVolume2, newParam.mixer.YM2608Rhythm.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 10 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608Adpcm.VisVolume1, newParam.mixer.YM2608Adpcm.VisVolume1, ref oldParam.mixer.YM2608Adpcm.VisVolume2, newParam.mixer.YM2608Adpcm.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 11 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610.VisVolume1, newParam.mixer.YM2610.VisVolume1, ref oldParam.mixer.YM2610.VisVolume2, newParam.mixer.YM2610.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 12 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610FM.VisVolume1, newParam.mixer.YM2610FM.VisVolume1, ref oldParam.mixer.YM2610FM.VisVolume2, newParam.mixer.YM2610FM.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 13 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610PSG.VisVolume1, newParam.mixer.YM2610PSG.VisVolume1, ref oldParam.mixer.YM2610PSG.VisVolume2, newParam.mixer.YM2610PSG.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 14 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610AdpcmA.VisVolume1, newParam.mixer.YM2610AdpcmA.VisVolume1, ref oldParam.mixer.YM2610AdpcmA.VisVolume2, newParam.mixer.YM2610AdpcmA.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 15 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610AdpcmB.VisVolume1, newParam.mixer.YM2610AdpcmB.VisVolume1, ref oldParam.mixer.YM2610AdpcmB.VisVolume2, newParam.mixer.YM2610AdpcmB.VisVolume2);
+
+            drawMixerVolume(mixerScreen, 2 + 0 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.YM2612.VisVolume1, newParam.mixer.YM2612.VisVolume1, ref oldParam.mixer.YM2612.VisVolume2, newParam.mixer.YM2612.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 1 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.AY8910.VisVolume1, newParam.mixer.AY8910.VisVolume1, ref oldParam.mixer.AY8910.VisVolume2, newParam.mixer.AY8910.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 2 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.SN76489.VisVolume1, newParam.mixer.SN76489.VisVolume1, ref oldParam.mixer.SN76489.VisVolume2, newParam.mixer.SN76489.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 3 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.HuC6280.VisVolume1, newParam.mixer.HuC6280.VisVolume1, ref oldParam.mixer.HuC6280.VisVolume2, newParam.mixer.HuC6280.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 4 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.RF5C164.VisVolume1, newParam.mixer.RF5C164.VisVolume1, ref oldParam.mixer.RF5C164.VisVolume2, newParam.mixer.RF5C164.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 5 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.PWM.VisVolume1, newParam.mixer.PWM.VisVolume1, ref oldParam.mixer.PWM.VisVolume2, newParam.mixer.PWM.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 6 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.OKIM6258.VisVolume1, newParam.mixer.OKIM6258.VisVolume1, ref oldParam.mixer.OKIM6258.VisVolume2, newParam.mixer.OKIM6258.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 7 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.OKIM6295.VisVolume1, newParam.mixer.OKIM6295.VisVolume1, ref oldParam.mixer.OKIM6295.VisVolume2, newParam.mixer.OKIM6295.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 8 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.C140.VisVolume1, newParam.mixer.C140.VisVolume1, ref oldParam.mixer.C140.VisVolume2, newParam.mixer.C140.VisVolume2);
+            drawMixerVolume(mixerScreen, 2 + 9 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.SEGAPCM.VisVolume1, newParam.mixer.SEGAPCM.VisVolume1, ref oldParam.mixer.SEGAPCM.VisVolume2, newParam.mixer.SEGAPCM.VisVolume2);
 
         }
 
@@ -3102,7 +3138,7 @@ namespace MDPlayer
             }
             else
             {
-                n = -(int)(nd / 129.0 * 24.0);
+                n = -(int)(nd / 192.0 * 35.0);
             }
 
             y += n;
@@ -3127,6 +3163,32 @@ namespace MDPlayer
         {
             screen.drawByteArray(x, y, rFader, 32, t == 0 ? 0 : 8, 0, 8, 13);
         }
+
+        private void drawMixerVolume(FrameBuffer screen, int x, int y, ref int od, int nd, ref int ov, int nv)
+        {
+            if (od == nd && ov==nv) return;
+
+            for (int i = 0; i < 44; i++)
+            {
+                int t = i < 8 ? 0 : 1;
+                if (i % 2 != 0) t = 2;
+                else if (44 - i > nd) t = 2;
+
+                drawMixerVolumeP(screen, x, y + i , t);
+            }
+
+            drawMixerVolumeP(screen, x, y + (44 - nv), nv > 36 ? 0 : 1);
+
+            od = nd;
+            ov = nv;
+        }
+
+        private void drawMixerVolumeP(FrameBuffer screen, int x, int y, int t)
+        {
+            screen.drawByteArray(x, y, rFader, 32, 24, 8 + t, 2, 1);
+        }
+
+
 
         public void drawButtons(int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
         {
