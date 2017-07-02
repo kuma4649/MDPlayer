@@ -25,6 +25,7 @@ namespace MDPlayer
         public FrameBuffer[] AY8910Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] HuC6280Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer ym2612MIDIScreen = null;
+        public FrameBuffer mixerScreen = null;
 
         private byte[][] rChipName;
         private byte[][] rFont1;
@@ -39,6 +40,7 @@ namespace MDPlayer
         private byte[][] rType;
         private byte[][] rVol;
         private byte[] rWavGraph;
+        private byte[] rFader;
 
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
         private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
@@ -201,22 +203,25 @@ namespace MDPlayer
                     adr2 = srcWidth * 4 * imgY + imgX * 4;
                     for (int i = 0; i < imgHeight; i++)
                     {
-                        for (int j = 0; j < imgWidth * 4; j++)
+                        if (adr1 >= 0 && adr2>=0)
                         {
-                            if (baPlaneBuffer == null)
+                            for (int j = 0; j < imgWidth * 4; j++)
                             {
-                                continue;
-                            }
+                                if (baPlaneBuffer == null)
+                                {
+                                    continue;
+                                }
 
-                            if (adr1 + j >= baPlaneBuffer.Length)
-                            {
-                                continue;
+                                if (adr1 + j >= baPlaneBuffer.Length)
+                                {
+                                    continue;
+                                }
+                                if (adr2 + j >= src.Length)
+                                {
+                                    continue;
+                                }
+                                baPlaneBuffer[adr1 + j] = src[adr2 + j];
                             }
-                            if (adr2 + j >= src.Length)
-                            {
-                                continue;
-                            }
-                            baPlaneBuffer[adr1 + j] = src[adr2 + j];
                         }
 
                         adr1 += wid;
@@ -289,6 +294,7 @@ namespace MDPlayer
             rVol[1] = getByteArray(Properties.Resources.rVol_02);
 
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
+            rFader = getByteArray(Properties.Resources.rFader);
 
         }
 
@@ -385,6 +391,12 @@ namespace MDPlayer
             ym2612MIDIScreen.Add(pbYM2612MIDIScreen, initialYM2612MIDIImage, this.Paint, setting.other.Zoom);
         }
 
+        public void AddMixer(PictureBox pbMixerScreen, Image initialMixerImage)
+        {
+            mixerScreen = new FrameBuffer();
+            mixerScreen.Add(pbMixerScreen, initialMixerImage, this.Paint, setting.other.Zoom);
+        }
+
 
 
         public void RemoveRf5c164(int chipID)
@@ -477,6 +489,11 @@ namespace MDPlayer
             ym2612MIDIScreen.Remove(this.Paint);
         }
 
+        public void RemoveMixer()
+        {
+            if (mixerScreen == null) return;
+            mixerScreen.Remove(this.Paint);
+        }
 
         ~DoubleBuffer()
         {
@@ -502,7 +519,10 @@ namespace MDPlayer
                 if (SN76489Screen[chipID] != null) SN76489Screen[chipID].Remove(this.Paint);
                 if (SegaPCMScreen[chipID] != null) SegaPCMScreen[chipID].Remove(this.Paint);
                 if (AY8910Screen[chipID] != null) AY8910Screen[chipID].Remove(this.Paint);
+                if (HuC6280Screen[chipID] != null) HuC6280Screen[chipID].Remove(this.Paint);
             }
+            if (ym2612MIDIScreen != null) ym2612MIDIScreen.Remove(this.Paint);
+            if (mixerScreen != null) mixerScreen.Remove(this.Paint);
         }
 
         private void Paint(object sender, PaintEventArgs e)
@@ -726,21 +746,36 @@ namespace MDPlayer
                         }
                     }
 
-                    if (ym2612MIDIScreen != null)
-                    {
-                        try
-                        {
-                            ym2612MIDIScreen.Refresh(this.Paint);
-                        }
-                        catch (Exception ex)
-                        {
-                            log.ForcedWrite(ex);
-                            RemoveYM2612MIDI();
-                            ym2612MIDIScreen = null;
-                        }
-                    }
-
                 }
+
+                if (ym2612MIDIScreen != null)
+                {
+                    try
+                    {
+                        ym2612MIDIScreen.Refresh(this.Paint);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                        RemoveYM2612MIDI();
+                        ym2612MIDIScreen = null;
+                    }
+                }
+
+                if (mixerScreen != null)
+                {
+                    try
+                    {
+                        mixerScreen.Refresh(this.Paint);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                        RemoveMixer();
+                        mixerScreen = null;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -971,6 +1006,77 @@ namespace MDPlayer
             x += 4;
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
         }
+
+        public void drawFont4IntM(FrameBuffer screen, int x, int y, int k, int num)
+        {
+            if (screen == null) return;
+
+            int t = 0;
+            int n;
+
+            if (num < 0)
+            {
+                num = -num;
+                screen.drawByteArray(x - 4, y, rFont2[t], 128, 52, 1, 4, 7);
+            }
+            else
+            {
+                if (num != 0) t = 1;
+                screen.drawByteArray(x - 4, y, rFont2[t], 128, 24, 1, 4, 7);
+            }
+
+            if (k == 3)
+            {
+                bool f = false;
+                n = num / 100;
+                num -= n * 100;
+                n = (n > 9) ? 0 : n;
+                if (n != 0)
+                {
+                    screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
+                    if (n != 0) { f = true; }
+                }
+                else
+                {
+                    screen.drawByteArray(x, y, rFont2[t], 128, 0, 1, 4, 7);
+                }
+
+                n = num / 10;
+                num -= n * 10;
+                x += 4;
+                if (n != 0 || f)
+                {
+                    screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
+                    if (n != 0) { f = true; }
+                }
+                else
+                {
+                    screen.drawByteArray(x, y, rFont2[t], 128, 0, 1, 4, 7);
+                }
+
+                n = num / 1;
+                x += 4;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            if (n != 0)
+            {
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rFont2[t], 128, 0, 1, 4, 7);
+            }
+
+            n = num / 1;
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
+        }
+
 
 
         public void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
@@ -2424,6 +2530,7 @@ namespace MDPlayer
 
             if (ym2612MIDIScreen != null) drawParamsToYM2612MIDI(oldParam, newParam);
 
+            if (mixerScreen != null) drawParamsToMixer(oldParam, newParam);
         }
 
         private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
@@ -2947,6 +3054,79 @@ namespace MDPlayer
             oln = nln;
         }
 
+        private void drawParamsToMixer(MDChipParams oldParam, MDChipParams newParam)
+        {
+            drawFader(mixerScreen, 5, 16, 0, ref oldParam.mixer.Master.Volume, newParam.mixer.Master.Volume);
+            drawFader(mixerScreen, 5 + 1 * 20, 16, 1, ref oldParam.mixer.YM2151.Volume, newParam.mixer.YM2151.Volume);
+            drawFader(mixerScreen, 5 + 2 * 20, 16, 1, ref oldParam.mixer.YM2203.Volume, newParam.mixer.YM2203.Volume);
+            drawFader(mixerScreen, 5 + 3 * 20, 16, 1, ref oldParam.mixer.YM2203FM.Volume, newParam.mixer.YM2203FM.Volume);
+            drawFader(mixerScreen, 5 + 4 * 20, 16, 1, ref oldParam.mixer.YM2203PSG.Volume, newParam.mixer.YM2203PSG.Volume);
+            drawFader(mixerScreen, 5 + 5 * 20, 16, 1, ref oldParam.mixer.YM2413.Volume, newParam.mixer.YM2413.Volume);
+            drawFader(mixerScreen, 5 + 6 * 20, 16, 1, ref oldParam.mixer.YM2608.Volume, newParam.mixer.YM2608.Volume);
+            drawFader(mixerScreen, 5 + 7 * 20, 16, 1, ref oldParam.mixer.YM2608FM.Volume, newParam.mixer.YM2608FM.Volume);
+            drawFader(mixerScreen, 5 + 8 * 20, 16, 1, ref oldParam.mixer.YM2608PSG.Volume, newParam.mixer.YM2608PSG.Volume);
+            drawFader(mixerScreen, 5 + 9 * 20, 16, 1, ref oldParam.mixer.YM2608Rhythm.Volume, newParam.mixer.YM2608Rhythm.Volume);
+            drawFader(mixerScreen, 5 + 10 * 20, 16, 1, ref oldParam.mixer.YM2608Adpcm.Volume, newParam.mixer.YM2608Adpcm.Volume);
+            drawFader(mixerScreen, 5 + 11 * 20, 16, 1, ref oldParam.mixer.YM2610.Volume, newParam.mixer.YM2610.Volume);
+            drawFader(mixerScreen, 5 + 12 * 20, 16, 1, ref oldParam.mixer.YM2610FM.Volume, newParam.mixer.YM2610FM.Volume);
+            drawFader(mixerScreen, 5 + 13 * 20, 16, 1, ref oldParam.mixer.YM2610PSG.Volume, newParam.mixer.YM2610PSG.Volume);
+            drawFader(mixerScreen, 5 + 14 * 20, 16, 1, ref oldParam.mixer.YM2610AdpcmA.Volume, newParam.mixer.YM2610AdpcmA.Volume);
+            drawFader(mixerScreen, 5 + 15 * 20, 16, 1, ref oldParam.mixer.YM2610AdpcmB.Volume, newParam.mixer.YM2610AdpcmB.Volume);
+
+            drawFader(mixerScreen, 5 + 0 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.YM2612.Volume, newParam.mixer.YM2612.Volume);
+            drawFader(mixerScreen, 5 + 1 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.AY8910.Volume, newParam.mixer.AY8910.Volume);
+            drawFader(mixerScreen, 5 + 2 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.SN76489.Volume, newParam.mixer.SN76489.Volume);
+            drawFader(mixerScreen, 5 + 3 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.HuC6280.Volume, newParam.mixer.HuC6280.Volume);
+            drawFader(mixerScreen, 5 + 4 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.RF5C164.Volume, newParam.mixer.RF5C164.Volume);
+            drawFader(mixerScreen, 5 + 5 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.PWM.Volume, newParam.mixer.PWM.Volume);
+            drawFader(mixerScreen, 5 + 6 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.OKIM6258.Volume, newParam.mixer.OKIM6258.Volume);
+            drawFader(mixerScreen, 5 + 7 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.OKIM6295.Volume, newParam.mixer.OKIM6295.Volume);
+            drawFader(mixerScreen, 5 + 8 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.C140.Volume, newParam.mixer.C140.Volume);
+            drawFader(mixerScreen, 5 + 9 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.SEGAPCM.Volume, newParam.mixer.SEGAPCM.Volume);
+            drawFader(mixerScreen, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.YM2608Adpcm.Volume, newParam.mixer.YM2608Adpcm.Volume);
+
+        }
+
+        public void drawFader(FrameBuffer screen, int x, int y, int t, ref int od, int nd)
+        {
+            if (od == nd) return;
+
+            drawFaderSlitP(screen, x, y-8);
+            drawFont4IntM(screen, x, y + 48,  3, nd);
+
+            int n = 0;
+
+            if (nd >= 0)
+            {
+                n = -(int)(nd / 20.0 * 8.0);
+            }
+            else
+            {
+                n = -(int)(nd / 129.0 * 24.0);
+            }
+
+            y += n;
+
+            drawFaderP(screen, x, y, t);
+
+            od = nd;
+        }
+
+        private void drawFaderSlitP(FrameBuffer screen, int x, int y)
+        {
+            screen.drawByteArray(x, y, rFader, 32, 16, 0, 8, 8);
+            screen.drawByteArray(x, y + 8, rFader, 32, 16, 8, 8, 8);
+            screen.drawByteArray(x, y + 16, rFader, 32, 16, 8, 8, 8);
+            screen.drawByteArray(x, y + 24, rFader, 32, 16, 8, 8, 8);
+            screen.drawByteArray(x, y + 32, rFader, 32, 16, 8, 8, 8);
+            screen.drawByteArray(x, y + 40, rFader, 32, 16, 8, 8, 8);
+            screen.drawByteArray(x, y + 48, rFader, 32, 24, 0, 8, 8);
+        }
+
+        private void drawFaderP(FrameBuffer screen, int x, int y, int t)
+        {
+            screen.drawByteArray(x, y, rFader, 32, t == 0 ? 0 : 8, 0, 8, 13);
+        }
 
         public void drawButtons(int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
         {
@@ -2992,6 +3172,9 @@ namespace MDPlayer
                 screenInitHuC6280(chipID);
 
             }
+
+            screenInitYM2612MIDI();
+            screenInitMixer();
 
         }
 
@@ -3347,6 +3530,10 @@ namespace MDPlayer
                     drawFont4V(ym2612MIDIScreen, (c % 3) * 13 * 8 + 2 * 8+n*8, (c / 3) * 18 * 4 + 24 * 4, 0, "   ");
                 }
             }
+        }
+
+        public void screenInitMixer()
+        {
         }
 
     }

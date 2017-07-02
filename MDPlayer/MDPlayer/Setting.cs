@@ -1936,6 +1936,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point _PosMixer = Point.Empty;
+            public Point PosMixer
+            {
+                get
+                {
+                    return _PosMixer;
+                }
+
+                set
+                {
+                    _PosMixer = value;
+                }
+            }
+
+            private bool _OpenMixer = false;
+            public bool OpenMixer
+            {
+                get
+                {
+                    return _OpenMixer;
+                }
+
+                set
+                {
+                    _OpenMixer = value;
+                }
+            }
+
 
 
 
@@ -1952,6 +1980,8 @@ namespace MDPlayer
                 Location.PMixer = this.PMixer;
                 Location.OMixer = this.OMixer;
                 Location.PMixerWH = this.PMixerWH;
+                Location.PosMixer = this.PosMixer;
+                Location.OpenMixer = this.OpenMixer;
                 Location.PosRf5c164 = this.PosRf5c164;
                 Location.OpenRf5c164 = this.OpenRf5c164;
                 Location.PosC140 = this.PosC140;

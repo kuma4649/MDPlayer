@@ -36,6 +36,7 @@ namespace MDPlayer
         private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
         private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
         private frmYM2612MIDI frmYM2612MIDI = null;
+        private frmMixer2 frmMixer2 = null;
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -379,6 +380,12 @@ namespace MDPlayer
             {
                 openMIDIKeyboard();
                 openMIDIKeyboard();
+            }
+
+            if (frmMixer2 != null && !frmMixer2.isClosed)
+            {
+                openMixer();
+                openMixer();
             }
 
 
@@ -862,6 +869,7 @@ namespace MDPlayer
             if (px >= 13 * 16 + 48 && px < 14 * 16 + 48)
             {
                 dispMixer();
+                openMixer();
                 return;
             }
 
@@ -2054,6 +2062,10 @@ namespace MDPlayer
                     else frmHuC6280[chipID] = null;
 
                 }
+                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
+                else frmYM2612MIDI = null;
+                if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenChangeParams();
+                else frmMixer2 = null;
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
@@ -2108,6 +2120,10 @@ namespace MDPlayer
                     else frmHuC6280[chipID] = null;
 
                 }
+                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenDrawParams();
+                else frmYM2612MIDI = null;
+                if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenDrawParams();
+                else frmMixer2 = null;
 
                 nextFrame += period;
 
@@ -2170,6 +2186,7 @@ namespace MDPlayer
             }
 
             screenChangeParamsFromYM2612MIDI();
+            screenChangeParamsFromMixer();
 
             long w = Audio.GetCounter();
             double sec = (double)w / (double)SamplingRate;
@@ -3172,6 +3189,38 @@ namespace MDPlayer
                 //newParam.ym2612Midi.channels[ch].note = n;
 
             }
+
+        }
+
+        private void screenChangeParamsFromMixer()
+        {
+
+            newParam.mixer.AY8910.Volume = setting.balance.AY8910Volume;
+            newParam.mixer.C140.Volume = setting.balance.C140Volume;
+            newParam.mixer.HuC6280.Volume = setting.balance.HuC6280Volume;
+            newParam.mixer.Master.Volume = setting.balance.MasterVolume;
+            newParam.mixer.OKIM6258.Volume = setting.balance.OKIM6258Volume;
+            newParam.mixer.OKIM6295.Volume = setting.balance.OKIM6295Volume;
+            newParam.mixer.PWM.Volume = setting.balance.PWMVolume;
+            newParam.mixer.RF5C164.Volume = setting.balance.RF5C164Volume;
+            newParam.mixer.SEGAPCM.Volume = setting.balance.SEGAPCMVolume;
+            newParam.mixer.SN76489.Volume = setting.balance.SN76489Volume;
+            newParam.mixer.YM2151.Volume = setting.balance.YM2151Volume;
+            newParam.mixer.YM2203FM.Volume = setting.balance.YM2203FMVolume;
+            newParam.mixer.YM2203PSG.Volume = setting.balance.YM2203PSGVolume;
+            newParam.mixer.YM2203.Volume = setting.balance.YM2203Volume;
+            newParam.mixer.YM2413.Volume = setting.balance.YM2413Volume;
+            newParam.mixer.YM2608Adpcm.Volume = setting.balance.YM2608AdpcmVolume;
+            newParam.mixer.YM2608FM.Volume = setting.balance.YM2608FMVolume;
+            newParam.mixer.YM2608PSG.Volume = setting.balance.YM2608PSGVolume;
+            newParam.mixer.YM2608Rhythm.Volume = setting.balance.YM2608RhythmVolume;
+            newParam.mixer.YM2608.Volume = setting.balance.YM2608Volume;
+            newParam.mixer.YM2610AdpcmA.Volume = setting.balance.YM2610AdpcmAVolume;
+            newParam.mixer.YM2610AdpcmB.Volume = setting.balance.YM2610AdpcmBVolume;
+            newParam.mixer.YM2610FM.Volume = setting.balance.YM2610FMVolume;
+            newParam.mixer.YM2610PSG.Volume = setting.balance.YM2610PSGVolume;
+            newParam.mixer.YM2610.Volume = setting.balance.YM2610Volume;
+            newParam.mixer.YM2612.Volume = setting.balance.YM2612Volume;
 
         }
 
@@ -5134,6 +5183,56 @@ namespace MDPlayer
         {
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
+
+
+        private void openMixer()
+        {
+            if (frmMixer2 != null && !frmMixer2.isClosed)
+            {
+                frmMixer2.Close();
+                frmMixer2.Dispose();
+                frmMixer2 = null;
+                return;
+            }
+
+            if (frmMixer2 != null)
+            {
+                frmMixer2.Close();
+                frmMixer2.Dispose();
+                frmMixer2 = null;
+            }
+
+            frmMixer2 = new frmMixer2(this, setting.other.Zoom);
+            if (setting.location.PosMixer == System.Drawing.Point.Empty)
+            {
+                frmMixer2.x = this.Location.X + 328;
+                frmMixer2.y = this.Location.Y;
+            }
+            else
+            {
+                frmMixer2.x = setting.location.PosMixer.X;
+                frmMixer2.y = setting.location.PosMixer.Y;
+            }
+
+            Screen s = Screen.FromControl(frmMixer2);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmMixer2.x > w - 100 || frmMixer2.y > h - 100)
+            {
+                frmMixer2.x = 0;
+                frmMixer2.y = 0;
+            }
+
+            //frmMixer.setting = setting;
+            screen.AddMixer(frmMixer2.pbScreen, Properties.Resources.planeMixer);
+            frmMixer2.Show();
+            frmMixer2.update();
+            screen.screenInitMixer();
+            oldParam.mixer = new MDChipParams.Mixer();
+        }
+
+
     }
 }
 

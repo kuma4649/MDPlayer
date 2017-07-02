@@ -234,5 +234,42 @@ namespace MDPlayer
         }
         public YM2612MIDI ym2612Midi = new YM2612MIDI();
 
+        public class Mixer
+        {
+            public class VolumeInfo
+            {
+                public int Volume = -9999;
+                public int VisVolume1 = -1;
+                public int VisVolume2 = -1;
+            }
+            public VolumeInfo AY8910 = new VolumeInfo();
+            public VolumeInfo C140 = new VolumeInfo();
+            public VolumeInfo HuC6280 = new VolumeInfo();
+            public VolumeInfo Master = new VolumeInfo();
+            public VolumeInfo OKIM6258 = new VolumeInfo();
+            public VolumeInfo OKIM6295 = new VolumeInfo();
+            public VolumeInfo PWM = new VolumeInfo();
+            public VolumeInfo RF5C164 = new VolumeInfo();
+            public VolumeInfo SEGAPCM = new VolumeInfo();
+            public VolumeInfo SN76489 = new VolumeInfo();
+            public VolumeInfo YM2151 = new VolumeInfo();
+            public VolumeInfo YM2203FM = new VolumeInfo();
+            public VolumeInfo YM2203PSG = new VolumeInfo();
+            public VolumeInfo YM2203 = new VolumeInfo();
+            public VolumeInfo YM2413 = new VolumeInfo();
+            public VolumeInfo YM2608Adpcm = new VolumeInfo();
+            public VolumeInfo YM2608FM = new VolumeInfo();
+            public VolumeInfo YM2608PSG = new VolumeInfo();
+            public VolumeInfo YM2608Rhythm = new VolumeInfo();
+            public VolumeInfo YM2608 = new VolumeInfo();
+            public VolumeInfo YM2610AdpcmA = new VolumeInfo();
+            public VolumeInfo YM2610AdpcmB = new VolumeInfo();
+            public VolumeInfo YM2610FM = new VolumeInfo();
+            public VolumeInfo YM2610PSG = new VolumeInfo();
+            public VolumeInfo YM2610 = new VolumeInfo();
+            public VolumeInfo YM2612 = new VolumeInfo();
+        }
+        public Mixer mixer = new Mixer();
+
     }
 }

@@ -311,6 +311,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeMixer {
+            get {
+                object obj = ResourceManager.GetObject("planeMixer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeMSM6258 {
             get {
                 object obj = ResourceManager.GetObject("planeMSM6258", resourceCulture);
@@ -424,6 +434,16 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap rChipName_03 {
             get {
                 object obj = ResourceManager.GetObject("rChipName_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rFader {
+            get {
+                object obj = ResourceManager.GetObject("rFader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
