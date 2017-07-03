@@ -147,6 +147,21 @@ namespace MDPlayer
         public static int ProcTimePer1Frame = 0;
 
         public static short masterVisVolume = 0;
+        public static short ym2151VisVolume = 0;
+        public static short ym2203VisVolume = 0;
+        public static short ym2203FMVisVolume = 0;
+        public static short ym2203SSGVisVolume = 0;
+        public static short ym2413VisVolume = 0;
+        public static short ym2608VisVolume = 0;
+        public static short ym2608FMVisVolume = 0;
+        public static short ym2608SSGVisVolume = 0;
+        public static short ym2608RtmVisVolume = 0;
+        public static short ym2608APCMVisVolume = 0;
+        public static short ym2610VisVolume = 0;
+        public static short ym2610FMVisVolume = 0;
+        public static short ym2610SSGVisVolume = 0;
+        public static short ym2610APCMAVisVolume = 0;
+        public static short ym2610APCMBVisVolume = 0;
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -2441,18 +2456,39 @@ namespace MDPlayer
                         break;
                 }
 
-                int vol = 0;
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
                     buffer[offset + i] = (short)((Limit(buffer[offset + i], 0x7fff, -0x8000) * mul) >> 14);
-
-                    short v = buffer[offset + i];
-                    v = (v == short.MinValue) ? (short)(v + 1) : v;
-                    vol += Math.Abs(v);
                 }
-                if (sampleCount > 0) vol = vol / sampleCount;
-                masterVisVolume = (short)vol;
+
+                masterVisVolume = buffer[offset];
+
+                int[][][] vol = mds.getYM2151VisVolume();
+
+                if (vol != null) ym2151VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYM2203VisVolume();
+                if (vol != null) ym2203VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (vol != null) ym2203FMVisVolume = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+                if (vol != null) ym2203SSGVisVolume = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+
+                vol = mds.getYM2413VisVolume();
+                if (vol != null) ym2413VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYM2608VisVolume();
+                if (vol != null) ym2608VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (vol != null) ym2608FMVisVolume = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+                if (vol != null) ym2608SSGVisVolume = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+                if (vol != null) ym2608RtmVisVolume = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
+                if (vol != null) ym2608APCMVisVolume = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
+
+                vol = mds.getYM2610VisVolume();
+                if (vol != null) ym2610VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (vol != null) ym2610FMVisVolume = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+                if (vol != null) ym2610SSGVisVolume = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+                if (vol != null) ym2610APCMAVisVolume = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
+                if (vol != null) ym2610APCMBVisVolume = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
 
                 if (vgmFadeout)
                 {
@@ -2507,6 +2543,14 @@ namespace MDPlayer
             return -1;
         }
 
+        public static int getMonoVolume(int pl, int pr, int sl, int sr)
+        {
+            int v = pl + pr + sl + sr;
+            v >>= 1;
+            if (sl + sr != 0) v >>= 1;
+
+            return v;
+        }
 
         public static int Limit(int v, int max, int min)
         {

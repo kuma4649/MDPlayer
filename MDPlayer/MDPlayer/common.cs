@@ -130,6 +130,11 @@ namespace MDPlayer
                 return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
+
+        public static int Range(int n, int min, int max)
+        {
+            return (n > max) ? max : (n < min ? min : n);
+        }
     }
 
     public enum enmModel

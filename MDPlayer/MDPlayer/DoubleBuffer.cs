@@ -3088,26 +3088,129 @@ namespace MDPlayer
             newParam.mixer.Master.VisVol2Cnt--;
             if (newParam.mixer.Master.VisVol2Cnt == 0)
             {
-                newParam.mixer.Master.VisVolume2--;
                 newParam.mixer.Master.VisVol2Cnt = 1;
-                if (newParam.mixer.Master.VisVolume2 < 0) newParam.mixer.Master.VisVolume2 = 0;
+                if (newParam.mixer.Master.VisVolume2 > 0) newParam.mixer.Master.VisVolume2--;
             }
             drawMixerVolume(mixerScreen, 2 + 0 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.Master.VisVolume1, newParam.mixer.Master.VisVolume1, ref oldParam.mixer.Master.VisVolume2, newParam.mixer.Master.VisVolume2);
 
+            newParam.mixer.YM2151.VisVol2Cnt--;
+            if (newParam.mixer.YM2151.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2151.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2151.VisVolume2 > 0) newParam.mixer.YM2151.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 1 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2151.VisVolume1, newParam.mixer.YM2151.VisVolume1, ref oldParam.mixer.YM2151.VisVolume2, newParam.mixer.YM2151.VisVolume2);
+
+            newParam.mixer.YM2203.VisVol2Cnt--;
+            if (newParam.mixer.YM2203.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2203.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2203.VisVolume2 > 0) newParam.mixer.YM2203.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 2 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203.VisVolume1, newParam.mixer.YM2203.VisVolume1, ref oldParam.mixer.YM2203.VisVolume2, newParam.mixer.YM2203.VisVolume2);
+
+            newParam.mixer.YM2203FM.VisVol2Cnt--;
+            if (newParam.mixer.YM2203FM.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2203FM.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2203FM.VisVolume2 > 0) newParam.mixer.YM2203FM.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 3 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203FM.VisVolume1, newParam.mixer.YM2203FM.VisVolume1, ref oldParam.mixer.YM2203FM.VisVolume2, newParam.mixer.YM2203FM.VisVolume2);
+
+            newParam.mixer.YM2203PSG.VisVol2Cnt--;
+            if (newParam.mixer.YM2203PSG.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2203PSG.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2203PSG.VisVolume2 > 0) newParam.mixer.YM2203PSG.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 4 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2203PSG.VisVolume1, newParam.mixer.YM2203PSG.VisVolume1, ref oldParam.mixer.YM2203PSG.VisVolume2, newParam.mixer.YM2203PSG.VisVolume2);
+
+            newParam.mixer.YM2413.VisVol2Cnt--;
+            if (newParam.mixer.YM2413.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2413.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2413.VisVolume2 > 0) newParam.mixer.YM2413.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 5 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2413.VisVolume1, newParam.mixer.YM2413.VisVolume1, ref oldParam.mixer.YM2413.VisVolume2, newParam.mixer.YM2413.VisVolume2);
+
+            newParam.mixer.YM2608.VisVol2Cnt--;
+            if (newParam.mixer.YM2608.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2608.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2608.VisVolume2 > 0) newParam.mixer.YM2608.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 6 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608.VisVolume1, newParam.mixer.YM2608.VisVolume1, ref oldParam.mixer.YM2608.VisVolume2, newParam.mixer.YM2608.VisVolume2);
+
+            newParam.mixer.YM2608FM.VisVol2Cnt--;
+            if (newParam.mixer.YM2608FM.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2608FM.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2608FM.VisVolume2 > 0) newParam.mixer.YM2608FM.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 7 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608FM.VisVolume1, newParam.mixer.YM2608FM.VisVolume1, ref oldParam.mixer.YM2608FM.VisVolume2, newParam.mixer.YM2608FM.VisVolume2);
+
+            newParam.mixer.YM2608PSG.VisVol2Cnt--;
+            if (newParam.mixer.YM2608PSG.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2608PSG.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2608PSG.VisVolume2 > 0) newParam.mixer.YM2608PSG.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 8 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608PSG.VisVolume1, newParam.mixer.YM2608PSG.VisVolume1, ref oldParam.mixer.YM2608PSG.VisVolume2, newParam.mixer.YM2608PSG.VisVolume2);
+
+            newParam.mixer.YM2608Rhythm.VisVol2Cnt--;
+            if (newParam.mixer.YM2608Rhythm.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2608Rhythm.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2608Rhythm.VisVolume2 > 0) newParam.mixer.YM2608Rhythm.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 9 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608Rhythm.VisVolume1, newParam.mixer.YM2608Rhythm.VisVolume1, ref oldParam.mixer.YM2608Rhythm.VisVolume2, newParam.mixer.YM2608Rhythm.VisVolume2);
+
+            newParam.mixer.YM2608Adpcm.VisVol2Cnt--;
+            if (newParam.mixer.YM2608Adpcm.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2608Adpcm.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2608Adpcm.VisVolume2 > 0) newParam.mixer.YM2608Adpcm.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 10 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2608Adpcm.VisVolume1, newParam.mixer.YM2608Adpcm.VisVolume1, ref oldParam.mixer.YM2608Adpcm.VisVolume2, newParam.mixer.YM2608Adpcm.VisVolume2);
+
+            newParam.mixer.YM2610.VisVol2Cnt--;
+            if (newParam.mixer.YM2610.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2610.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2610.VisVolume2 > 0) newParam.mixer.YM2610.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 11 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610.VisVolume1, newParam.mixer.YM2610.VisVolume1, ref oldParam.mixer.YM2610.VisVolume2, newParam.mixer.YM2610.VisVolume2);
+
+            newParam.mixer.YM2610FM.VisVol2Cnt--;
+            if (newParam.mixer.YM2610FM.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2610FM.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2610FM.VisVolume2 > 0) newParam.mixer.YM2610FM.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 12 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610FM.VisVolume1, newParam.mixer.YM2610FM.VisVolume1, ref oldParam.mixer.YM2610FM.VisVolume2, newParam.mixer.YM2610FM.VisVolume2);
+
+            newParam.mixer.YM2610PSG.VisVol2Cnt--;
+            if (newParam.mixer.YM2610PSG.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2610PSG.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2610PSG.VisVolume2 > 0) newParam.mixer.YM2610PSG.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 13 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610PSG.VisVolume1, newParam.mixer.YM2610PSG.VisVolume1, ref oldParam.mixer.YM2610PSG.VisVolume2, newParam.mixer.YM2610PSG.VisVolume2);
+
+            newParam.mixer.YM2610AdpcmA.VisVol2Cnt--;
+            if (newParam.mixer.YM2610AdpcmA.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2610AdpcmA.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2610AdpcmA.VisVolume2 > 0) newParam.mixer.YM2610AdpcmA.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 14 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610AdpcmA.VisVolume1, newParam.mixer.YM2610AdpcmA.VisVolume1, ref oldParam.mixer.YM2610AdpcmA.VisVolume2, newParam.mixer.YM2610AdpcmA.VisVolume2);
+
+            newParam.mixer.YM2610AdpcmB.VisVol2Cnt--;
+            if (newParam.mixer.YM2610AdpcmB.VisVol2Cnt == 0)
+            {
+                newParam.mixer.YM2610AdpcmB.VisVol2Cnt = 1;
+                if (newParam.mixer.YM2610AdpcmB.VisVolume2 > 0) newParam.mixer.YM2610AdpcmB.VisVolume2--;
+            }
             drawMixerVolume(mixerScreen, 2 + 15 * 20, 10 + 0 * 8 * 9, ref oldParam.mixer.YM2610AdpcmB.VisVolume1, newParam.mixer.YM2610AdpcmB.VisVolume1, ref oldParam.mixer.YM2610AdpcmB.VisVolume2, newParam.mixer.YM2610AdpcmB.VisVolume2);
 
             drawMixerVolume(mixerScreen, 2 + 0 * 20, 10 + 1 * 8 * 9, ref oldParam.mixer.YM2612.VisVolume1, newParam.mixer.YM2612.VisVolume1, ref oldParam.mixer.YM2612.VisVolume2, newParam.mixer.YM2612.VisVolume2);
