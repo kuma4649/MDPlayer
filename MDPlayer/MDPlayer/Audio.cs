@@ -162,6 +162,18 @@ namespace MDPlayer
         public static short ym2610SSGVisVolume = 0;
         public static short ym2610APCMAVisVolume = 0;
         public static short ym2610APCMBVisVolume = 0;
+        public static short ym2612VisVolume = 0;
+        public static short ay8910VisVolume = 0;
+        public static short sn76489VisVolume = 0;
+        public static short huc6280VisVolume = 0;
+        public static short rf5c164VisVolume = 0;
+        public static short pwmVisVolume = 0;
+        public static short okim6258VisVolume = 0;
+        public static short okim6295VisVolume = 0;
+        public static short c140VisVolume = 0;
+        public static short segaPCMVisVolume = 0;
+        public static short c352VisVolume = 0;
+        public static short k054539VisVolume = 0;
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -2489,6 +2501,42 @@ namespace MDPlayer
                 if (vol != null) ym2610SSGVisVolume = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
                 if (vol != null) ym2610APCMAVisVolume = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
                 if (vol != null) ym2610APCMBVisVolume = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
+
+                vol = mds.getYM2612VisVolume();
+                if (vol != null) ym2612VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getAY8910VisVolume();
+                if (vol != null) ay8910VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getSN76489VisVolume();
+                if (vol != null) sn76489VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getHuC6280VisVolume();
+                if (vol != null) huc6280VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getRF5C164VisVolume();
+                if (vol != null) rf5c164VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getPWMVisVolume();
+                if (vol != null) pwmVisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getOKIM6258VisVolume();
+                if (vol != null) okim6258VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getOKIM6295VisVolume();
+                if (vol != null) okim6295VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getC140VisVolume();
+                if (vol != null) c140VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getSegaPCMVisVolume();
+                if (vol != null) segaPCMVisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getC352VisVolume();
+                if (vol != null) c352VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getK054539VisVolume();
+                if (vol != null) k054539VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
                 if (vgmFadeout)
                 {

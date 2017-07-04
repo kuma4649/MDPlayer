@@ -245,7 +245,9 @@ namespace MDPlayer
             }
             public VolumeInfo AY8910 = new VolumeInfo();
             public VolumeInfo C140 = new VolumeInfo();
+            public VolumeInfo C352 = new VolumeInfo();
             public VolumeInfo HuC6280 = new VolumeInfo();
+            public VolumeInfo K054539 = new VolumeInfo();
             public VolumeInfo Master = new VolumeInfo();
             public VolumeInfo OKIM6258 = new VolumeInfo();
             public VolumeInfo OKIM6295 = new VolumeInfo();

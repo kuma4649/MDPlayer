@@ -3337,6 +3337,89 @@ namespace MDPlayer
                 newParam.mixer.YM2610AdpcmB.VisVol2Cnt = 30;
             }
 
+            newParam.mixer.YM2612.VisVolume1 = common.Range(Audio.ym2612VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.YM2612.VisVolume2 <= newParam.mixer.YM2612.VisVolume1)
+            {
+                newParam.mixer.YM2612.VisVolume2 = newParam.mixer.YM2612.VisVolume1;
+                newParam.mixer.YM2612.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.AY8910.VisVolume1 = common.Range(Audio.ay8910VisVolume / 120, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.AY8910.VisVolume2 <= newParam.mixer.AY8910.VisVolume1)
+            {
+                newParam.mixer.AY8910.VisVolume2 = newParam.mixer.AY8910.VisVolume1;
+                newParam.mixer.AY8910.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.SN76489.VisVolume1 = common.Range(Audio.sn76489VisVolume / 120, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.SN76489.VisVolume2 <= newParam.mixer.SN76489.VisVolume1)
+            {
+                newParam.mixer.SN76489.VisVolume2 = newParam.mixer.SN76489.VisVolume1;
+                newParam.mixer.SN76489.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.HuC6280.VisVolume1 = common.Range(Audio.huc6280VisVolume / 120, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.HuC6280.VisVolume2 <= newParam.mixer.HuC6280.VisVolume1)
+            {
+                newParam.mixer.HuC6280.VisVolume2 = newParam.mixer.HuC6280.VisVolume1;
+                newParam.mixer.HuC6280.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.RF5C164.VisVolume1 = common.Range(Audio.rf5c164VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.RF5C164.VisVolume2 <= newParam.mixer.RF5C164.VisVolume1)
+            {
+                newParam.mixer.RF5C164.VisVolume2 = newParam.mixer.RF5C164.VisVolume1;
+                newParam.mixer.RF5C164.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.PWM.VisVolume1 = common.Range(Audio.pwmVisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.PWM.VisVolume2 <= newParam.mixer.PWM.VisVolume1)
+            {
+                newParam.mixer.PWM.VisVolume2 = newParam.mixer.PWM.VisVolume1;
+                newParam.mixer.PWM.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.OKIM6258.VisVolume1 = common.Range(Audio.okim6258VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.OKIM6258.VisVolume2 <= newParam.mixer.OKIM6258.VisVolume1)
+            {
+                newParam.mixer.OKIM6258.VisVolume2 = newParam.mixer.OKIM6258.VisVolume1;
+                newParam.mixer.OKIM6258.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.OKIM6295.VisVolume1 = common.Range(Audio.okim6295VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.OKIM6295.VisVolume2 <= newParam.mixer.OKIM6295.VisVolume1)
+            {
+                newParam.mixer.OKIM6295.VisVolume2 = newParam.mixer.OKIM6295.VisVolume1;
+                newParam.mixer.OKIM6295.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.C140.VisVolume1 = common.Range(Audio.c140VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.C140.VisVolume2 <= newParam.mixer.C140.VisVolume1)
+            {
+                newParam.mixer.C140.VisVolume2 = newParam.mixer.C140.VisVolume1;
+                newParam.mixer.C140.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.SEGAPCM.VisVolume1 = common.Range(Audio.segaPCMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.SEGAPCM.VisVolume2 <= newParam.mixer.SEGAPCM.VisVolume1)
+            {
+                newParam.mixer.SEGAPCM.VisVolume2 = newParam.mixer.SEGAPCM.VisVolume1;
+                newParam.mixer.SEGAPCM.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.C352.VisVolume1 = common.Range(Audio.c352VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.C352.VisVolume2 <= newParam.mixer.C352.VisVolume1)
+            {
+                newParam.mixer.C352.VisVolume2 = newParam.mixer.C352.VisVolume1;
+                newParam.mixer.C352.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.K054539.VisVolume1 = common.Range(Audio.k054539VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.K054539.VisVolume2 <= newParam.mixer.K054539.VisVolume1)
+            {
+                newParam.mixer.K054539.VisVolume2 = newParam.mixer.K054539.VisVolume1;
+                newParam.mixer.K054539.VisVol2Cnt = 30;
+            }
         }
 
 
