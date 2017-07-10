@@ -27,14 +27,19 @@ namespace MDPlayer
             this.zoom = zoom;
 
             InitializeComponent();
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseWheel);
+            pbScreen.MouseWheel += new MouseEventHandler(this.pbScreen_MouseWheel);
 
             update();
         }
 
-        private void frmMixer2_MouseWheel(object sender, MouseEventArgs e)
+        private void pbScreen_MouseWheel(object sender, MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            int px = e.Location.X / parent.setting.other.Zoom;
+            int py = e.Location.Y / parent.setting.other.Zoom;
+            chipn = px / 20 + (py / 72) * 16;
+            int delta = Math.Sign(e.Delta);
+
+            fader(chipn, false, delta, 0);
         }
 
         public void update()
@@ -48,8 +53,6 @@ namespace MDPlayer
                 return true;
             }
         }
-
-
 
         private void frmMixer2_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -107,8 +110,10 @@ namespace MDPlayer
         {
             int px = e.Location.X / parent.setting.other.Zoom;
             int py = e.Location.Y / parent.setting.other.Zoom;
+            chipn = px / 20 + (py / 72) * 16;
+            bool b = e.Button == MouseButtons.Middle;
 
-
+            fader(chipn, b, 0, 0);
         }
 
         private void frmMixer2_KeyDown(object sender, KeyEventArgs e)
@@ -122,6 +127,7 @@ namespace MDPlayer
             int py = e.Location.Y / parent.setting.other.Zoom;
 
             chipn = px / 20 + (py / 72) * 16;
+
         }
 
         private void frmMixer2_MouseMove(object sender, MouseEventArgs e)
@@ -147,116 +153,98 @@ namespace MDPlayer
                     n = (int)(n * (192.0 / 35.0));
                 }
 
-                switch (chipn)
-                {
-                    case 0:
-                        parent.setting.balance.MasterVolume = n;
-                        Audio.SetMasterVolume(n);
-                        break;
-                    case 1:
-                        parent.setting.balance.YM2151Volume = n;
-                        Audio.SetYM2151Volume(n);
-                        break;
-                    case 2:
-                        parent.setting.balance.YM2203Volume = n;
-                        Audio.SetYM2203Volume(n);
-                        break;
-                    case 3:
-                        parent.setting.balance.YM2203FMVolume = n;
-                        Audio.SetYM2203FMVolume(n);
-                        break;
-                    case 4:
-                        parent.setting.balance.YM2203PSGVolume = n;
-                        Audio.SetYM2203PSGVolume(n);
-                        break;
-                    case 5:
-                        parent.setting.balance.YM2413Volume = n;
-                        Audio.SetYM2413Volume(n);
-                        break;
-                    case 6:
-                        parent.setting.balance.YM2608Volume = n;
-                        Audio.SetYM2608Volume(n);
-                        break;
-                    case 7:
-                        parent.setting.balance.YM2608FMVolume = n;
-                        Audio.SetYM2608FMVolume(n);
-                        break;
-                    case 8:
-                        parent.setting.balance.YM2608PSGVolume = n;
-                        Audio.SetYM2608PSGVolume(n);
-                        break;
-                    case 9:
-                        parent.setting.balance.YM2608RhythmVolume = n;
-                        Audio.SetYM2608RhythmVolume(n);
-                        break;
-                    case 10:
-                        parent.setting.balance.YM2608AdpcmVolume = n;
-                        Audio.SetYM2608AdpcmVolume(n);
-                        break;
-                    case 11:
-                        parent.setting.balance.YM2610Volume = n;
-                        Audio.SetYM2610Volume(n);
-                        break;
-                    case 12:
-                        parent.setting.balance.YM2610FMVolume = n;
-                        Audio.SetYM2610FMVolume(n);
-                        break;
-                    case 13:
-                        parent.setting.balance.YM2610PSGVolume = n;
-                        Audio.SetYM2610PSGVolume(n);
-                        break;
-                    case 14:
-                        parent.setting.balance.YM2610AdpcmAVolume = n;
-                        Audio.SetYM2610AdpcmAVolume(n);
-                        break;
-                    case 15:
-                        parent.setting.balance.YM2610AdpcmBVolume = n;
-                        Audio.SetYM2610AdpcmBVolume(n);
-                        break;
-
-                    case 16:
-                        parent.setting.balance.YM2612Volume = n;
-                        Audio.SetYM2612Volume(n);
-                        break;
-                    case 17:
-                        parent.setting.balance.AY8910Volume = n;
-                        Audio.SetAY8910Volume(n);
-                        break;
-                    case 18:
-                        parent.setting.balance.SN76489Volume = n;
-                        Audio.SetSN76489Volume(n);
-                        break;
-                    case 19:
-                        parent.setting.balance.HuC6280Volume = n;
-                        Audio.SetHuC6280Volume(n);
-                        break;
-                    case 20:
-                        parent.setting.balance.RF5C164Volume = n;
-                        Audio.SetRF5C164Volume(n);
-                        break;
-                    case 21:
-                        parent.setting.balance.PWMVolume = n;
-                        Audio.SetPWMVolume(n);
-                        break;
-                    case 22:
-                        parent.setting.balance.OKIM6258Volume = n;
-                        Audio.SetOKIM6258Volume(n);
-                        break;
-                    case 23:
-                        parent.setting.balance.OKIM6295Volume = n;
-                        Audio.SetOKIM6295Volume(n);
-                        break;
-                    case 24:
-                        parent.setting.balance.C140Volume = n;
-                        Audio.SetC140Volume(n);
-                        break;
-                    case 25:
-                        parent.setting.balance.SEGAPCMVolume = n;
-                        Audio.SetSegaPCMVolume(n);
-                        break;
-                }
+                fader(chipn, true, 0, n);
 
             }
         }
+
+
+        private void fader(int chipn, bool b, int delta, int v)
+        {
+            switch (chipn)
+            {
+                case 0:
+                    Audio.SetMasterVolume(parent.setting.balance.MasterVolume = b ? v : (parent.setting.balance.MasterVolume + delta));
+                    break;
+                case 1:
+                    Audio.SetYM2151Volume(parent.setting.balance.YM2151Volume = b ? v : (parent.setting.balance.YM2151Volume + delta));
+                    break;
+                case 2:
+                    Audio.SetYM2203Volume(parent.setting.balance.YM2203Volume = b ? v : (parent.setting.balance.YM2203Volume + delta));
+                    break;
+                case 3:
+                    Audio.SetYM2203FMVolume(parent.setting.balance.YM2203FMVolume = b ? v : (parent.setting.balance.YM2203FMVolume + delta));
+                    break;
+                case 4:
+                    Audio.SetYM2203PSGVolume(parent.setting.balance.YM2203PSGVolume = b ? v : (parent.setting.balance.YM2203PSGVolume + delta));
+                    break;
+                case 5:
+                    Audio.SetYM2413Volume(parent.setting.balance.YM2413Volume = b ? v : (parent.setting.balance.YM2413Volume + delta));
+                    break;
+                case 6:
+                    Audio.SetYM2608Volume(parent.setting.balance.YM2608Volume = b ? v : (parent.setting.balance.YM2608Volume + delta));
+                    break;
+                case 7:
+                    Audio.SetYM2608FMVolume(parent.setting.balance.YM2608FMVolume = b ? v : (parent.setting.balance.YM2608FMVolume + delta));
+                    break;
+                case 8:
+                    Audio.SetYM2608PSGVolume(parent.setting.balance.YM2608PSGVolume = b ? v : (parent.setting.balance.YM2608PSGVolume + delta));
+                    break;
+                case 9:
+                    Audio.SetYM2608RhythmVolume(parent.setting.balance.YM2608RhythmVolume = b ? v : (parent.setting.balance.YM2608RhythmVolume + delta));
+                    break;
+                case 10:
+                    Audio.SetYM2608AdpcmVolume(parent.setting.balance.YM2608AdpcmVolume = b ? v : (parent.setting.balance.YM2608AdpcmVolume + delta));
+                    break;
+                case 11:
+                    Audio.SetYM2610Volume(parent.setting.balance.YM2610Volume = b ? v : (parent.setting.balance.YM2610Volume + delta));
+                    break;
+                case 12:
+                    Audio.SetYM2610FMVolume(parent.setting.balance.YM2610FMVolume = b ? v : (parent.setting.balance.YM2610FMVolume + delta));
+                    break;
+                case 13:
+                    Audio.SetYM2610PSGVolume(parent.setting.balance.YM2610PSGVolume = b ? v : (parent.setting.balance.YM2610PSGVolume + delta));
+                    break;
+                case 14:
+                    Audio.SetYM2610AdpcmAVolume(parent.setting.balance.YM2610AdpcmAVolume = b ? v : (parent.setting.balance.YM2610AdpcmAVolume + delta));
+                    break;
+                case 15:
+                    Audio.SetYM2610AdpcmBVolume(parent.setting.balance.YM2610AdpcmBVolume = b ? v : (parent.setting.balance.YM2610AdpcmBVolume + delta));
+                    break;
+
+                case 16:
+                    Audio.SetYM2612Volume(parent.setting.balance.YM2612Volume = b ? v : (parent.setting.balance.YM2612Volume + delta));
+                    break;
+                case 17:
+                    Audio.SetAY8910Volume(parent.setting.balance.AY8910Volume = b ? v : (parent.setting.balance.AY8910Volume + delta));
+                    break;
+                case 18:
+                    Audio.SetSN76489Volume(parent.setting.balance.SN76489Volume = b ? v : (parent.setting.balance.SN76489Volume + delta));
+                    break;
+                case 19:
+                    Audio.SetHuC6280Volume(parent.setting.balance.HuC6280Volume = b ? v : (parent.setting.balance.HuC6280Volume + delta));
+                    break;
+                case 20:
+                    Audio.SetRF5C164Volume(parent.setting.balance.RF5C164Volume = b ? v : (parent.setting.balance.RF5C164Volume + delta));
+                    break;
+                case 21:
+                    Audio.SetPWMVolume(parent.setting.balance.PWMVolume = b ? v : (parent.setting.balance.PWMVolume + delta));
+                    break;
+                case 22:
+                    Audio.SetOKIM6258Volume(parent.setting.balance.OKIM6258Volume = b ? v : (parent.setting.balance.OKIM6258Volume + delta));
+                    break;
+                case 23:
+                    Audio.SetOKIM6295Volume(parent.setting.balance.OKIM6295Volume = b ? v : (parent.setting.balance.OKIM6295Volume + delta));
+                    break;
+                case 24:
+                    Audio.SetC140Volume(parent.setting.balance.C140Volume = b ? v : (parent.setting.balance.C140Volume + delta));
+                    break;
+                case 25:
+                    Audio.SetSegaPCMVolume(parent.setting.balance.SEGAPCMVolume = b ? v : (parent.setting.balance.SEGAPCMVolume + delta));
+                    break;
+            }
+        }
+
+
     }
 }

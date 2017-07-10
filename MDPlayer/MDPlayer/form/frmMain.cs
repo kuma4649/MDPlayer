@@ -3964,17 +3964,31 @@ namespace MDPlayer
         {
             if (frmInfo != null && !frmInfo.isClosed)
             {
-                frmInfo.Close();
-                frmInfo.Dispose();
-                frmInfo = null;
+                try
+                {
+                    frmInfo.Close();
+                    frmInfo.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmInfo = null;
+                }
                 return;
             }
 
             if (frmInfo != null)
             {
-                frmInfo.Close();
-                frmInfo.Dispose();
-                frmInfo = null;
+                try
+                {
+                    frmInfo.Close();
+                    frmInfo.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmInfo = null;
+                }
             }
 
             frmInfo = new frmInfo(this);
@@ -4008,17 +4022,31 @@ namespace MDPlayer
         {
             if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
             {
-                frmYM2612MIDI.Close();
-                frmYM2612MIDI.Dispose();
-                frmYM2612MIDI = null;
+                try
+                {
+                    frmYM2612MIDI.Close();
+                    frmYM2612MIDI.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmYM2612MIDI = null;
+                }
                 return;
             }
 
             if (frmYM2612MIDI != null)
             {
-                frmYM2612MIDI.Close();
-                frmYM2612MIDI.Dispose();
-                frmYM2612MIDI = null;
+                try
+                {
+                    frmYM2612MIDI.Close();
+                    frmYM2612MIDI.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmYM2612MIDI = null;
+                }
             }
 
             frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom);
@@ -5387,17 +5415,35 @@ namespace MDPlayer
         {
             if (frmMixer2 != null && !frmMixer2.isClosed)
             {
-                frmMixer2.Close();
-                frmMixer2.Dispose();
-                frmMixer2 = null;
+                try
+                {
+                    frmMixer2.Close();
+                    frmMixer2.Dispose();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    frmMixer2 = null;
+                }
                 return;
             }
 
             if (frmMixer2 != null)
             {
-                frmMixer2.Close();
-                frmMixer2.Dispose();
-                frmMixer2 = null;
+                try
+                {
+                    frmMixer2.Close();
+                    frmMixer2.Dispose();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    frmMixer2 = null;
+                }
             }
 
             frmMixer2 = new frmMixer2(this, setting.other.Zoom);
