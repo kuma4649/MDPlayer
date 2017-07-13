@@ -112,6 +112,8 @@ VGMPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツール)
     ・NRTDRV  
     ・hoot  
     ・ASLPLAY  
+    ・NAUDIO  
+    ・VST.NET  
      
     ・SMS Power!  
     ・DOBON.NET  
