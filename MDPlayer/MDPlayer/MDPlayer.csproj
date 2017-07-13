@@ -79,6 +79,14 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jacobi.Vst.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=fa678e13c1efc859, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Jacobi.Vst.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Jacobi.Vst.Interop, Version=1.1.0.0, Culture=neutral, PublicKeyToken=fa678e13c1efc859, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Jacobi.Vst.Interop.dll</HintPath>
+    </Reference>
     <Reference Include="MDSound, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
@@ -209,6 +217,12 @@
     <Compile Include="form\frmTPPut.Designer.cs">
       <DependentUpon>frmTPPut.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmVST.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmVST.Designer.cs">
+      <DependentUpon>frmVST.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +265,7 @@
     <Compile Include="form\frmYM2612MIDI.Designer.cs">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="HostCommandStub.cs" />
     <Compile Include="log.cs" />
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
@@ -320,6 +335,9 @@
     <EmbeddedResource Include="form\frmTPPut.resx">
       <DependentUpon>frmTPPut.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmVST.resx">
+      <DependentUpon>frmVST.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </EmbeddedResource>
@@ -375,6 +393,8 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lib\Jacobi.Vst.Core.dll" />
+    <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
     <Content Include="lib\NAudio.dll" />
     <Content Include="lib\NScci.dll" />

@@ -57,6 +57,7 @@
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -89,6 +90,10 @@
             this.tpMIDIKBD = new System.Windows.Forms.TabPage();
             this.cbUseMIDIKeyboard = new System.Windows.Forms.CheckBox();
             this.gbMIDIKeyboard = new System.Windows.Forms.GroupBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -177,11 +182,9 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.ucSI = new MDPlayer.ucSettingInstruments();
+            this.btVST = new System.Windows.Forms.Button();
+            this.tbVST = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -196,6 +199,10 @@
             this.groupBox6.SuspendLayout();
             this.tpMIDIKBD.SuspendLayout();
             this.gbMIDIKeyboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -224,10 +231,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bs10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -558,6 +561,15 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(358, 182);
+            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -927,6 +939,42 @@
             this.gbMIDIKeyboard.Size = new System.Drawing.Size(368, 282);
             this.gbMIDIKeyboard.TabIndex = 0;
             this.gbMIDIKeyboard.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
+            this.pictureBox8.Location = new System.Drawing.Point(323, 257);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox8.TabIndex = 4;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
+            this.pictureBox7.Location = new System.Drawing.Point(229, 257);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox7.TabIndex = 4;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
+            this.pictureBox6.Location = new System.Drawing.Point(136, 258);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox6.TabIndex = 4;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::MDPlayer.Properties.Resources.ccSlow;
+            this.pictureBox5.Location = new System.Drawing.Point(42, 258);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.TabIndex = 4;
+            this.pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -1585,6 +1633,9 @@
             // 
             // tpOmake
             // 
+            this.tpOmake.Controls.Add(this.label14);
+            this.tpOmake.Controls.Add(this.btVST);
+            this.tpOmake.Controls.Add(this.tbVST);
             this.tpOmake.Controls.Add(this.groupBox5);
             this.tpOmake.Location = new System.Drawing.Point(4, 22);
             this.tpOmake.Name = "tpOmake";
@@ -1722,50 +1773,31 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // pictureBox5
+            // btVST
             // 
-            this.pictureBox5.Image = global::MDPlayer.Properties.Resources.ccSlow;
-            this.pictureBox5.Location = new System.Drawing.Point(42, 258);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox5.TabIndex = 4;
-            this.pictureBox5.TabStop = false;
+            this.btVST.Location = new System.Drawing.Point(344, 54);
+            this.btVST.Name = "btVST";
+            this.btVST.Size = new System.Drawing.Size(23, 23);
+            this.btVST.TabIndex = 18;
+            this.btVST.Text = "...";
+            this.btVST.UseVisualStyleBackColor = true;
+            this.btVST.Click += new System.EventHandler(this.btVST_Click);
             // 
-            // pictureBox6
+            // tbVST
             // 
-            this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
-            this.pictureBox6.Location = new System.Drawing.Point(136, 258);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox6.TabIndex = 4;
-            this.pictureBox6.TabStop = false;
+            this.tbVST.Location = new System.Drawing.Point(88, 56);
+            this.tbVST.Name = "tbVST";
+            this.tbVST.Size = new System.Drawing.Size(250, 19);
+            this.tbVST.TabIndex = 17;
             // 
-            // pictureBox7
+            // label14
             // 
-            this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
-            this.pictureBox7.Location = new System.Drawing.Point(229, 257);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox7.TabIndex = 4;
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
-            this.pictureBox8.Location = new System.Drawing.Point(323, 257);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox8.TabIndex = 4;
-            this.pictureBox8.TabStop = false;
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(358, 182);
-            this.ucSI.TabIndex = 7;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 59);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 12);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "VST effect";
             // 
             // frmSetting
             // 
@@ -1809,6 +1841,10 @@
             this.tpMIDIKBD.PerformLayout();
             this.gbMIDIKeyboard.ResumeLayout(false);
             this.gbMIDIKeyboard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -1828,6 +1864,7 @@
             this.gbDump.ResumeLayout(false);
             this.gbDump.PerformLayout();
             this.tpOmake.ResumeLayout(false);
+            this.tpOmake.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tpAbout.ResumeLayout(false);
@@ -1846,10 +1883,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bs10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bs4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2009,5 +2042,8 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btVST;
+        private System.Windows.Forms.TextBox tbVST;
     }
 }

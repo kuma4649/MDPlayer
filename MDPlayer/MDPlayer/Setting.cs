@@ -410,6 +410,20 @@ namespace MDPlayer
             }
         }
 
+        private Vst _vst = new Vst();
+        public Vst vst
+        {
+            get
+            {
+                return _vst;
+            }
+
+            set
+            {
+                _vst = value;
+            }
+        }
+
         [Serializable]
         public class OutputDevice
         {
@@ -2390,6 +2404,34 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class Vst
+        {
+            private string[] _VSTPluginPath = null;
+            public string[] VSTPluginPath
+            {
+                get
+                {
+                    return _VSTPluginPath;
+                }
+
+                set
+                {
+                    _VSTPluginPath = value;
+                }
+            }
+
+            public Vst Copy()
+            {
+                Vst vst = new Vst();
+
+                vst.VSTPluginPath = this.VSTPluginPath;
+
+                return vst;
+            }
+
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -2418,6 +2460,7 @@ namespace MDPlayer
             setting.location = this.location.Copy();
             setting.midiExport = this.midiExport.Copy();
             setting.midiKbd = this.midiKbd.Copy();
+            setting.vst = this.vst.Copy();
 
             return setting;
         }

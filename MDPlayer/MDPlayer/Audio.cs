@@ -4,6 +4,8 @@ using NScci;
 using System.Threading;
 using System.Diagnostics;
 using MDSound;
+using Jacobi.Vst.Interop.Host;
+using Jacobi.Vst.Core;
 
 namespace MDPlayer
 {
@@ -174,6 +176,11 @@ namespace MDPlayer
         public static short segaPCMVisVolume = 0;
         public static short c352VisVolume = 0;
         public static short k054539VisVolume = 0;
+
+        //private static VST.VST[] vst = new VST.VST[3] { new VST.VST(), null, null };
+        private static List<VstPluginContext> _plugins = new List<VstPluginContext>();
+        private static List<frmVST> _pluginsForm = new List<frmVST>();
+        public static VstPluginContext PluginContext { get; set; }
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -439,6 +446,39 @@ namespace MDPlayer
             Stopped = true;
             fatalError = false;
             oneTimeReset = false;
+
+            if (_plugins.Count == 1)
+            {
+                _plugins[0].PluginCommandStub.EditorClose();
+                _pluginsForm[0].Close();
+                _plugins[0].PluginCommandStub.StopProcess();
+                _plugins[0].PluginCommandStub.MainsChanged(false);
+
+                _plugins[0].Dispose();
+                _plugins.RemoveAt(0);
+                _pluginsForm.RemoveAt(0);
+            }
+
+            if (setting.vst!=null && setting.vst.VSTPluginPath != null && setting.vst.VSTPluginPath[0]!="")
+            {
+                VstPluginContext ctx = OpenPlugin(setting.vst.VSTPluginPath[0]);
+
+                if (ctx != null)
+                {
+                    _plugins.Add(ctx);
+                }
+
+                ctx.PluginCommandStub.SetBlockSize(512);
+                ctx.PluginCommandStub.SetSampleRate(44100f);
+                ctx.PluginCommandStub.MainsChanged(true);
+                ctx.PluginCommandStub.StartProcess();
+
+                frmVST dlg = new frmVST();
+                dlg.PluginCommandStub = ctx.PluginCommandStub;// PluginContext.PluginCommandStub;
+                dlg.Show();
+                _pluginsForm.Add(dlg);
+            }
+            //ctx.PluginCommandStub.MainsChanged(false);
 
             log.ForcedWrite("Audio:Init:STEP 06");
 
@@ -1647,8 +1687,22 @@ namespace MDPlayer
         {
             try
             {
+
                 Stop();
                 naudioWrap.Stop();
+
+                if (_plugins.Count == 1)
+                {
+                    _plugins[0].PluginCommandStub.EditorClose();
+                    _pluginsForm[0].Close();
+                    _plugins[0].PluginCommandStub.StopProcess();
+                    _plugins[0].PluginCommandStub.MainsChanged(false);
+
+                    _plugins[0].Dispose();
+                    _plugins.RemoveAt(0);
+                    _pluginsForm.RemoveAt(0);
+                }
+
                 //nscci.Dispose();
                 //nscci = null;
             }
@@ -2427,9 +2481,55 @@ namespace MDPlayer
                 }
             }
 
+            if (_plugins.Count > 0) VST_Update(buffer, offset, sampleCount);
+
             return cnt1;
         }
 
+        private static void VST_Update(short[] buffer, int offset, int sampleCount)
+        {
+            try
+            {
+                int blockSize = sampleCount / 2;
+                int inputCount = 2;
+                int outputCount = 2;
+                VstPluginContext PluginContext = _plugins[0];
+
+                using (VstAudioBufferManager inputMgr = new VstAudioBufferManager(inputCount, blockSize))
+                {
+                    using (VstAudioBufferManager outputMgr = new VstAudioBufferManager(outputCount, blockSize))
+                    {
+                        VstAudioBuffer[] inputBuffers = inputMgr.ToArray();
+                        VstAudioBuffer[] outputBuffers = outputMgr.ToArray();
+
+                        inputMgr.ClearBuffer(inputBuffers[0]);
+                        inputMgr.ClearBuffer(inputBuffers[1]);
+                        outputMgr.ClearBuffer(outputBuffers[0]);
+                        outputMgr.ClearBuffer(outputBuffers[1]);
+
+                        for (int j = 0; j < blockSize; j++)
+                        {
+                            // generate a value between -1.0 and 1.0
+                            inputBuffers[0][j] = buffer[j * 2 + offset + 0] / (float)short.MaxValue;
+                            inputBuffers[1][j] = buffer[j * 2 + offset + 1] / (float)short.MaxValue;
+                        }
+
+
+                        PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
+
+
+                        for (int j = 0; j < blockSize; j++)
+                        {
+                            // generate a value between -1.0 and 1.0
+                            buffer[j * 2 + offset + 0] = (short)(outputBuffers[0][j] * short.MaxValue);
+                            buffer[j * 2 + offset + 1] = (short)(outputBuffers[1][j] * short.MaxValue);
+                        }
+
+                    }
+                }
+            }
+            catch { }
+        }
 
         private static int trdVgmVirtualMainFunction(short[] buffer, int offset, int sampleCount)
         {
@@ -2888,7 +2988,57 @@ namespace MDPlayer
             return null;
         }
 
+        private static VstPluginContext OpenPlugin(string pluginPath)
+        {
+            try
+            {
+                HostCommandStub hostCmdStub = new HostCommandStub();
+                hostCmdStub.PluginCalled += new EventHandler<PluginCalledEventArgs>(HostCmdStub_PluginCalled);
 
+                VstPluginContext ctx = VstPluginContext.Create(pluginPath, hostCmdStub);
+
+                // add custom data to the context
+                ctx.Set("PluginPath", pluginPath);
+                ctx.Set("HostCmdStub", hostCmdStub);
+
+                // actually open the plugin itself
+                ctx.PluginCommandStub.Open();
+
+                return ctx;
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show(this, e.ToString(), Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        private static void ReleaseAllPlugins()
+        {
+            foreach (VstPluginContext ctx in _plugins)
+            {
+                // dispose of all (unmanaged) resources
+                ctx.Dispose();
+            }
+
+            _plugins.Clear();
+        }
+
+        private static void HostCmdStub_PluginCalled(object sender, PluginCalledEventArgs e)
+        {
+            HostCommandStub hostCmdStub = (HostCommandStub)sender;
+
+            // can be null when called from inside the plugin main entry point.
+            if (hostCmdStub.PluginContext.PluginInfo != null)
+            {
+                Debug.WriteLine("Plugin " + hostCmdStub.PluginContext.PluginInfo.PluginID + " called:" + e.Message);
+            }
+            else
+            {
+                Debug.WriteLine("The loading Plugin called:" + e.Message);
+            }
+        }
 
     }
 

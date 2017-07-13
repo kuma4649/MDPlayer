@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
 using System.Reflection;
+using System.IO;
 
 namespace MDPlayer
 {
@@ -18,6 +19,7 @@ namespace MDPlayer
         private bool asioSupported = true;
         private bool wasapiSupported = true;
         public Setting setting = null;
+        private bool IsInitialOpenFolder;
 
         public frmSetting(Setting setting)
         {
@@ -738,6 +740,14 @@ namespace MDPlayer
             tbCCSlow.Text     = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
             tbCCStop.Text     = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
 
+            if (setting.vst != null)
+            {
+                if (setting.vst.VSTPluginPath != null && setting.vst.VSTPluginPath.Length > 0)
+                {
+
+                    tbVST.Text = setting.vst.VSTPluginPath[0];
+                }
+            }
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1075,6 +1085,9 @@ namespace MDPlayer
             setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
             setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
 
+            setting.vst.VSTPluginPath = new string[1];
+            setting.vst.VSTPluginPath[0] = tbVST.Text;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -1291,6 +1304,36 @@ namespace MDPlayer
         private void cbWavSwitch_CheckedChanged(object sender, EventArgs e)
         {
             gbWav.Enabled = cbWavSwitch.Checked;
+        }
+
+        private void btVST_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "VST Pluginファイル(*.dll)|*.dll|すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
+            //ofd.FilterIndex = setting.other.FilterIndex;
+
+            if (setting.other.DefaultDataPath != "" && Directory.Exists(setting.other.DefaultDataPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = setting.other.DefaultDataPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = false;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            IsInitialOpenFolder = false;
+            //setting.other.FilterIndex = ofd.FilterIndex;
+
+            tbVST.Text = ofd.FileName;
+
         }
     }
 
