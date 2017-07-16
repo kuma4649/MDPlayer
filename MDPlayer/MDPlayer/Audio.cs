@@ -75,7 +75,7 @@ namespace MDPlayer
 
             frmVST dlg = new frmVST();
             dlg.PluginCommandStub = ctx.PluginCommandStub;
-            dlg.Show();
+            dlg.Show(vi);
             vi.vstPluginsForm = dlg;
             vi.editor = true;
 
@@ -95,6 +95,7 @@ namespace MDPlayer
                         if (vstPlugins[i].vstPlugins != null)
                         {
                             vstPlugins[i].vstPluginsForm.timer1.Enabled = false;
+                            vstPlugins[i].location = vstPlugins[i].vstPluginsForm.Location;
                             vstPlugins[i].vstPluginsForm.Close();
                             vstPlugins[i].vstPlugins.PluginCommandStub.EditorClose();
                             vstPlugins[i].vstPlugins.PluginCommandStub.StopProcess();
@@ -124,6 +125,7 @@ namespace MDPlayer
                         if (vstPlugins[ind].vstPlugins != null)
                         {
                             vstPlugins[ind].vstPluginsForm.timer1.Enabled = false;
+                            vstPlugins[ind].location = vstPlugins[ind].vstPluginsForm.Location;
                             vstPlugins[ind].vstPluginsForm.Close();
                             vstPlugins[ind].vstPlugins.PluginCommandStub.EditorClose();
                             vstPlugins[ind].vstPlugins.PluginCommandStub.StopProcess();
@@ -538,6 +540,8 @@ namespace MDPlayer
                 if (vstPlugins[0] != null)
                 {
                     if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.EditorClose();
+                    vstPlugins[0].vstPluginsForm.timer1.Enabled = false;
+                    vstPlugins[0].location = vstPlugins[0].vstPluginsForm.Location;
                     vstPlugins[0].vstPluginsForm.Close();
                     if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.StopProcess();
                     if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.MainsChanged(false);
@@ -565,14 +569,15 @@ namespace MDPlayer
                     ctx.PluginCommandStub.MainsChanged(true);
                     ctx.PluginCommandStub.StartProcess();
                     vi.name = ctx.PluginCommandStub.GetEffectName();
-                    vi.power = setting.vst.VSTInfo[i].power; ;
+                    vi.power = setting.vst.VSTInfo[i].power; 
                     vi.editor = setting.vst.VSTInfo[i].editor;
+                    vi.location = setting.vst.VSTInfo[i].location;
 
                     if (vi.editor)
                     {
                         frmVST dlg = new frmVST();
                         dlg.PluginCommandStub = ctx.PluginCommandStub;
-                        dlg.Show();
+                        dlg.Show(vi);
                         vi.vstPluginsForm = dlg;
                     }
 
@@ -1796,7 +1801,13 @@ namespace MDPlayer
 
                 for (int i = 0; i < vstPlugins.Count; i++)
                 {
-                    try { vstPlugins[i].vstPluginsForm.Close(); } catch { }
+                    try
+                    {
+                        vstPlugins[i].vstPluginsForm.timer1.Enabled = false;
+                        vstPlugins[i].location = vstPlugins[i].vstPluginsForm.Location;
+                        vstPlugins[i].vstPluginsForm.Close();
+                    }
+                    catch { }
 
                     try
                     {
@@ -1816,6 +1827,7 @@ namespace MDPlayer
                     vi.key = vstPlugins[i].key;
                     vi.name = vstPlugins[i].name;
                     vi.power = vstPlugins[i].power;
+                    vi.location = vstPlugins[i].location;
 
                     vstlst.Add(vi);
                 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,15 @@ namespace MDPlayer
     {
         private frmMain parent = null;
         public bool isClosed = false;
+        public Setting setting = null;
+        private bool IsInitialOpenFolder=true;
 
-        public frmVSTeffectList(frmMain parent)
+        public frmVSTeffectList(frmMain parent,Setting setting)
         {
             InitializeComponent();
             this.Visible = false;
             this.parent = parent;
+            this.setting = setting;
         }
 
         private void tsbAddVST_Click(object sender, EventArgs e)
@@ -29,14 +33,14 @@ namespace MDPlayer
             ofd.Title = "ファイルを選択してください";
             //ofd.FilterIndex = setting.other.FilterIndex;
 
-            //if (setting.other.DefaultDataPath != "" && Directory.Exists(setting.other.DefaultDataPath) && IsInitialOpenFolder)
-            //{
-                //ofd.InitialDirectory = setting.other.DefaultDataPath;
-            //}
-            //else
-            //{
-                //ofd.RestoreDirectory = true;
-            //}
+            if (setting.vst.DefaultPath != "" && Directory.Exists(setting.vst.DefaultPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = setting.vst.DefaultPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
             ofd.CheckPathExists = true;
             ofd.Multiselect = false;
 
@@ -45,6 +49,7 @@ namespace MDPlayer
                 return;
             }
 
+            setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
             parent.stop();
             while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
             Audio.addVSTeffect(ofd.FileName);
@@ -72,40 +77,10 @@ namespace MDPlayer
             }
         }
 
-        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (e.RowIndex < 0) return;
-            //if (vstInfos == null) return;
-
-            //if (e.ColumnIndex == 2)
-            //{
-            //    vstInfos[e.RowIndex].power = !vstInfos[e.RowIndex].power;
-            //    vstInfos[e.RowIndex].vstPlugins.PluginCommandStub.SetBypass(!vstInfos[e.RowIndex].power);
-            //    dgvList.Rows[e.RowIndex].Cells[2].Value = vstInfos[e.RowIndex].power ? "ON" : "OFF";
-            //}
-
-            //if (e.ColumnIndex == 3)
-            //{
-            //    vstInfos[e.RowIndex].editor = !vstInfos[e.RowIndex].editor;
-            //    if (!vstInfos[e.RowIndex].editor)
-            //    {
-            //        vstInfos[e.RowIndex].vstPluginsForm.Close();
-            //    }
-            //    else
-            //    {
-            //        frmVST dlg = new frmVST();
-            //        dlg.PluginCommandStub = vstInfos[e.RowIndex].vstPlugins.PluginCommandStub;
-            //        dlg.Show();
-            //        vstInfos[e.RowIndex].vstPluginsForm = dlg;
-            //    }
-            //    dgvList.Rows[e.RowIndex].Cells[3].Value = vstInfos[e.RowIndex].editor ? "OPENED" : "CLOSED";
-            //}
-        }
-
         private void frmVSTeffectList_FormClosing(object sender, FormClosingEventArgs e)
         {
             isClosed = true;
-            //setting.location.PPlayList = this.Location;
+            setting.location.PosVSTeffectList = this.Location;
             //setting.location.PPlayListWH = new Point(this.Width, this.Height);
             this.Visible = false;
             e.Cancel = true;
@@ -169,19 +144,27 @@ namespace MDPlayer
                     vstInfos[e.RowIndex].editor = !vstInfos[e.RowIndex].editor;
                     if (!vstInfos[e.RowIndex].editor)
                     {
+                        vstInfos[e.RowIndex].vstPluginsForm.timer1.Enabled = false;
+                        vstInfos[e.RowIndex].location = vstInfos[e.RowIndex].vstPluginsForm.Location;
                         vstInfos[e.RowIndex].vstPluginsForm.Close();
                     }
                     else
                     {
                         frmVST dlg = new frmVST();
                         dlg.PluginCommandStub = vstInfos[e.RowIndex].vstPlugins.PluginCommandStub;
-                        dlg.Show();
+                        dlg.Show(vstInfos[e.RowIndex]);
                         vstInfos[e.RowIndex].vstPluginsForm = dlg;
                     }
                     dgvList.Rows[e.RowIndex].Cells[3].Value = vstInfos[e.RowIndex].editor ? "OPENED" : "CLOSED";
                 }
 
             }
+
+        }
+
+        private void frmVSTeffectList_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(setting.location.PosVSTeffectList.X, setting.location.PosVSTeffectList.Y);
 
         }
     }

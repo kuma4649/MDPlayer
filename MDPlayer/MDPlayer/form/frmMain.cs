@@ -160,11 +160,11 @@ namespace MDPlayer
             frmMixer.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmMixer.Refresh();
 
-            frmVSTeffectList = new frmVSTeffectList(this);
+            frmVSTeffectList = new frmVSTeffectList(this, setting);
             frmVSTeffectList.Show();
             frmVSTeffectList.Visible = false;
             frmVSTeffectList.Opacity = 1.0;
-            frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            //frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmVSTeffectList.Refresh();
 
             if (setting.location.OPlayList) dispPlayList();
@@ -532,6 +532,11 @@ namespace MDPlayer
                 setting.location.PMixer = frmMixer.Location;
                 setting.location.PMixerWH = new System.Drawing.Point(frmMixer.Width, frmMixer.Height);
                 setting.location.OMixer = true;
+            }
+            if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
+            {
+                setting.location.PosVSTeffectList = frmVSTeffectList.Location;
+                setting.location.OpenVSTeffectList = true;
             }
             for (int chipID = 0; chipID < 2; chipID++)
             {

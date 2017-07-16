@@ -1978,6 +1978,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point _PosVSTeffectList = Point.Empty;
+            public Point PosVSTeffectList
+            {
+                get
+                {
+                    return _PosVSTeffectList;
+                }
+
+                set
+                {
+                    _PosVSTeffectList = value;
+                }
+            }
+
+            private bool _OpenVSTeffectList = false;
+            public bool OpenVSTeffectList
+            {
+                get
+                {
+                    return _OpenVSTeffectList;
+                }
+
+                set
+                {
+                    _OpenVSTeffectList = value;
+                }
+            }
+
 
 
 
@@ -2024,6 +2052,8 @@ namespace MDPlayer
                 Location.OpenHuC6280 = this.OpenHuC6280;
                 Location.PosYm2612MIDI = this.PosYm2612MIDI;
                 Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
+                Location.PosVSTeffectList = this.PosVSTeffectList;
+                Location.OpenVSTeffectList = this.OpenVSTeffectList;
 
                 return Location;
             }
@@ -2407,6 +2437,8 @@ namespace MDPlayer
         [Serializable]
         public class Vst
         {
+            private string _DefaultPath = "";
+
             private string[] _VSTPluginPath = null;
             public string[] VSTPluginPath
             {
@@ -2436,11 +2468,25 @@ namespace MDPlayer
                 }
             }
 
+            public string DefaultPath
+            {
+                get
+                {
+                    return _DefaultPath;
+                }
+
+                set
+                {
+                    _DefaultPath = value;
+                }
+            }
+
             public Vst Copy()
             {
                 Vst vst = new Vst();
 
                 vst.VSTInfo = this.VSTInfo;
+                vst.DefaultPath = this.DefaultPath;
 
                 return vst;
             }

@@ -36,7 +36,7 @@ namespace MDPlayer
             return base.ShowDialog(owner);
         }
 
-        public new void Show()
+        public void Show(vstInfo2 vi)
         {
 
             this.Text = PluginCommandStub.GetEffectName();
@@ -46,7 +46,7 @@ namespace MDPlayer
                 this.Size = this.SizeFromClientSize(new Size(wndRect.Width, wndRect.Height));
                 PluginCommandStub.EditorOpen(this.Handle);
             }
-
+            this.Location = new Point(vi.location.X, vi.location.Y);
             base.Show();
         }
 

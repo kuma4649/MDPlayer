@@ -113,7 +113,6 @@
             this.dgvList.ShowRowErrors = false;
             this.dgvList.Size = new System.Drawing.Size(410, 236);
             this.dgvList.TabIndex = 1;
-            this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
             this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
             // 
             // clmKey
@@ -276,6 +275,7 @@
             this.Opacity = 0D;
             this.Text = "VST Effect List";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmVSTeffectList_FormClosing);
+            this.Load += new System.EventHandler(this.frmVSTeffectList_Load);
             this.Shown += new System.EventHandler(this.frmVSTeffectList_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
