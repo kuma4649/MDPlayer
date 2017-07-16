@@ -160,6 +160,9 @@
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
             this.tpOmake = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btVST = new System.Windows.Forms.Button();
+            this.tbVST = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbDispFrameCounter = new System.Windows.Forms.CheckBox();
             this.tpAbout = new System.Windows.Forms.TabPage();
@@ -182,9 +185,6 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
-            this.btVST = new System.Windows.Forms.Button();
-            this.tbVST = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1644,6 +1644,35 @@
             this.tpOmake.Text = "おまけ";
             this.tpOmake.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 59);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 12);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "VST effect";
+            this.label14.Visible = false;
+            // 
+            // btVST
+            // 
+            this.btVST.Location = new System.Drawing.Point(344, 54);
+            this.btVST.Name = "btVST";
+            this.btVST.Size = new System.Drawing.Size(23, 23);
+            this.btVST.TabIndex = 18;
+            this.btVST.Text = "...";
+            this.btVST.UseVisualStyleBackColor = true;
+            this.btVST.Visible = false;
+            this.btVST.Click += new System.EventHandler(this.btVST_Click);
+            // 
+            // tbVST
+            // 
+            this.tbVST.Location = new System.Drawing.Point(88, 56);
+            this.tbVST.Name = "tbVST";
+            this.tbVST.Size = new System.Drawing.Size(250, 19);
+            this.tbVST.TabIndex = 17;
+            this.tbVST.Visible = false;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.cbDispFrameCounter);
@@ -1772,32 +1801,6 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
-            // 
-            // btVST
-            // 
-            this.btVST.Location = new System.Drawing.Point(344, 54);
-            this.btVST.Name = "btVST";
-            this.btVST.Size = new System.Drawing.Size(23, 23);
-            this.btVST.TabIndex = 18;
-            this.btVST.Text = "...";
-            this.btVST.UseVisualStyleBackColor = true;
-            this.btVST.Click += new System.EventHandler(this.btVST_Click);
-            // 
-            // tbVST
-            // 
-            this.tbVST.Location = new System.Drawing.Point(88, 56);
-            this.tbVST.Name = "tbVST";
-            this.tbVST.Size = new System.Drawing.Size(250, 19);
-            this.tbVST.TabIndex = 17;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(7, 59);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(61, 12);
-            this.label14.TabIndex = 19;
-            this.label14.Text = "VST effect";
             // 
             // frmSetting
             // 

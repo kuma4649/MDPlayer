@@ -5,6 +5,8 @@ namespace MDPlayer
 {
     public partial class frmVST : Form
     {
+        Rectangle wndRect = new Rectangle();
+
         public frmVST()
         {
             InitializeComponent();
@@ -22,7 +24,6 @@ namespace MDPlayer
         /// <returns></returns>
         public new DialogResult ShowDialog(IWin32Window owner)
         {
-            Rectangle wndRect = new Rectangle();
 
             this.Text = PluginCommandStub.GetEffectName();
 
@@ -37,7 +38,6 @@ namespace MDPlayer
 
         public new void Show()
         {
-            Rectangle wndRect = new Rectangle();
 
             this.Text = PluginCommandStub.GetEffectName();
 
@@ -60,5 +60,17 @@ namespace MDPlayer
             }
         }
 
+        private void timer1_Tick(object sender, System.EventArgs e)
+        {
+            try
+            {
+                PluginCommandStub.EditorIdle();
+                if (PluginCommandStub.EditorGetRect(out wndRect))
+                {
+                    this.Size = this.SizeFromClientSize(new Size(wndRect.Width, wndRect.Height));
+                }
+            }
+            catch { }
+        }
     }
 }

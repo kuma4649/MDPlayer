@@ -32,25 +32,31 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMixer));
             this.panel6 = new System.Windows.Forms.Panel();
             this.trkYM2151 = new System.Windows.Forms.TrackBar();
+            this.bsYM2151 = new System.Windows.Forms.BindingSource(this.components);
             this.label24 = new System.Windows.Forms.Label();
             this.tbYM2151 = new System.Windows.Forms.TextBox();
             this.btnYM2151 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.trkMaster = new System.Windows.Forms.TrackBar();
+            this.bsMaster = new System.Windows.Forms.BindingSource(this.components);
             this.btnMaster = new System.Windows.Forms.Button();
             this.tbMaster = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
             this.trkSegaPCM = new System.Windows.Forms.TrackBar();
+            this.bsSegaPCM = new System.Windows.Forms.BindingSource(this.components);
             this.panel16 = new System.Windows.Forms.Panel();
             this.trkOKIM6258 = new System.Windows.Forms.TrackBar();
+            this.bsOKIM6258 = new System.Windows.Forms.BindingSource(this.components);
             this.btnSegaPCM = new System.Windows.Forms.Button();
             this.btnOKIM6258 = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
             this.trkC140 = new System.Windows.Forms.TrackBar();
+            this.bsC140 = new System.Windows.Forms.BindingSource(this.components);
             this.panel15 = new System.Windows.Forms.Panel();
             this.trkPWM = new System.Windows.Forms.TrackBar();
+            this.bsPWM = new System.Windows.Forms.BindingSource(this.components);
             this.tbSegaPCM = new System.Windows.Forms.TextBox();
             this.tbOKIM6258 = new System.Windows.Forms.TextBox();
             this.btnC140 = new System.Windows.Forms.Button();
@@ -59,9 +65,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.trkOKIM6295 = new System.Windows.Forms.TrackBar();
+            this.bsOKIM6295 = new System.Windows.Forms.BindingSource(this.components);
             this.tbC140 = new System.Windows.Forms.TextBox();
             this.panel14 = new System.Windows.Forms.Panel();
             this.trkRF5C164 = new System.Windows.Forms.TrackBar();
+            this.bsRF5C164 = new System.Windows.Forms.BindingSource(this.components);
             this.btnOKIM6295 = new System.Windows.Forms.Button();
             this.tbPWM = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -69,40 +77,62 @@
             this.tbOKIM6295 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.panel25 = new System.Windows.Forms.Panel();
+            this.trkAY8910 = new System.Windows.Forms.TrackBar();
+            this.bsAY8910 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel26 = new System.Windows.Forms.Panel();
+            this.trkHuC6280 = new System.Windows.Forms.TrackBar();
+            this.bsHuC6280 = new System.Windows.Forms.BindingSource(this.components);
             this.panel13 = new System.Windows.Forms.Panel();
             this.trkSN76489 = new System.Windows.Forms.TrackBar();
+            this.bsSN76489 = new System.Windows.Forms.BindingSource(this.components);
+            this.btnAY8910 = new System.Windows.Forms.Button();
+            this.btnHuC6280 = new System.Windows.Forms.Button();
             this.tbRF5C164 = new System.Windows.Forms.TextBox();
             this.btnSN76489 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
+            this.tbAY8910 = new System.Windows.Forms.TextBox();
+            this.tbHuC6280 = new System.Windows.Forms.TextBox();
             this.panel12 = new System.Windows.Forms.Panel();
             this.trkYM2612 = new System.Windows.Forms.TrackBar();
+            this.bsYM2612 = new System.Windows.Forms.BindingSource(this.components);
             this.tbSN76489 = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.btnYM2612 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.panel23 = new System.Windows.Forms.Panel();
             this.trkYM2610AdpcmB = new System.Windows.Forms.TrackBar();
+            this.bsYM2610AdpcmB = new System.Windows.Forms.BindingSource(this.components);
             this.panel22 = new System.Windows.Forms.Panel();
             this.trkYM2610AdpcmA = new System.Windows.Forms.TrackBar();
+            this.bsYM2610AdpcmA = new System.Windows.Forms.BindingSource(this.components);
             this.panel9 = new System.Windows.Forms.Panel();
             this.trkYM2610PSG = new System.Windows.Forms.TrackBar();
+            this.bsYM2610PSG = new System.Windows.Forms.BindingSource(this.components);
             this.tbYM2612 = new System.Windows.Forms.TextBox();
             this.panel21 = new System.Windows.Forms.Panel();
             this.trkYM2608Adpcm = new System.Windows.Forms.TrackBar();
+            this.bsYM2608Adpcm = new System.Windows.Forms.BindingSource(this.components);
             this.panel20 = new System.Windows.Forms.Panel();
             this.trkYM2608Rhythm = new System.Windows.Forms.TrackBar();
+            this.bsYM2608Rhythm = new System.Windows.Forms.BindingSource(this.components);
             this.btnYM2610AdpcmB = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.trkYM2608PSG = new System.Windows.Forms.TrackBar();
+            this.bsYM2608PSG = new System.Windows.Forms.BindingSource(this.components);
             this.btnYM2610AdpcmA = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.btnYM2610PSG = new System.Windows.Forms.Button();
             this.bynYM2608Adpcm = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.trkYM2203PSG = new System.Windows.Forms.TrackBar();
+            this.bsYM2203PSG = new System.Windows.Forms.BindingSource(this.components);
             this.btnYM2608Rhythm = new System.Windows.Forms.Button();
             this.tbYM2610AdpcmB = new System.Windows.Forms.TextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.trkYM2610FM = new System.Windows.Forms.TrackBar();
+            this.bsYM2610FM = new System.Windows.Forms.BindingSource(this.components);
             this.tbYM2610AdpcmA = new System.Windows.Forms.TextBox();
             this.btnYM2608PSG = new System.Windows.Forms.Button();
             this.tbYM2610PSG = new System.Windows.Forms.TextBox();
@@ -112,12 +142,15 @@
             this.label21 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.trkYM2608FM = new System.Windows.Forms.TrackBar();
+            this.bsYM2608FM = new System.Windows.Forms.BindingSource(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.trkYM2203FM = new System.Windows.Forms.TrackBar();
+            this.bsYM2203FM = new System.Windows.Forms.BindingSource(this.components);
             this.tbYM2608Adpcm = new System.Windows.Forms.TextBox();
             this.panel11 = new System.Windows.Forms.Panel();
             this.trkYM2610 = new System.Windows.Forms.TrackBar();
+            this.bsYM2610 = new System.Windows.Forms.BindingSource(this.components);
             this.tbYM2608Rhythm = new System.Windows.Forms.TextBox();
             this.tbYM2610FM = new System.Windows.Forms.TextBox();
             this.tbYM2608PSG = new System.Windows.Forms.TextBox();
@@ -134,9 +167,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.trkYM2608 = new System.Windows.Forms.TrackBar();
+            this.bsYM2608 = new System.Windows.Forms.BindingSource(this.components);
             this.tbYM2608FM = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.trkYM2203 = new System.Windows.Forms.TrackBar();
+            this.bsYM2203 = new System.Windows.Forms.BindingSource(this.components);
             this.btnYM2608 = new System.Windows.Forms.Button();
             this.tbYM2203FM = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -144,131 +179,96 @@
             this.tbYM2608 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.tbYM2203 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.tbYM2413 = new System.Windows.Forms.TextBox();
-            this.btnYM2413 = new System.Windows.Forms.Button();
             this.panel24 = new System.Windows.Forms.Panel();
             this.trkYM2413 = new System.Windows.Forms.TrackBar();
-            this.label25 = new System.Windows.Forms.Label();
-            this.tbAY8910 = new System.Windows.Forms.TextBox();
-            this.btnAY8910 = new System.Windows.Forms.Button();
-            this.panel25 = new System.Windows.Forms.Panel();
-            this.trkAY8910 = new System.Windows.Forms.TrackBar();
-            this.label26 = new System.Windows.Forms.Label();
-            this.tbHuC6280 = new System.Windows.Forms.TextBox();
-            this.btnHuC6280 = new System.Windows.Forms.Button();
-            this.panel26 = new System.Windows.Forms.Panel();
-            this.trkHuC6280 = new System.Windows.Forms.TrackBar();
-            this.bsMaster = new System.Windows.Forms.BindingSource(this.components);
-            this.bsSegaPCM = new System.Windows.Forms.BindingSource(this.components);
-            this.bsOKIM6258 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsC140 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsPWM = new System.Windows.Forms.BindingSource(this.components);
-            this.bsOKIM6295 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsRF5C164 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsSN76489 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2612 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2610AdpcmB = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2610AdpcmA = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2610PSG = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2608Adpcm = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2608Rhythm = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2608PSG = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2203PSG = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2610FM = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2608FM = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2203FM = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2610 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2608 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2203 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsYM2151 = new System.Windows.Forms.BindingSource(this.components);
             this.bsYM2413 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsAY8910 = new System.Windows.Forms.BindingSource(this.components);
-            this.bsHuC6280 = new System.Windows.Forms.BindingSource(this.components);
+            this.btnYM2413 = new System.Windows.Forms.Button();
+            this.tbYM2203 = new System.Windows.Forms.TextBox();
+            this.tbYM2413 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2151)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2151)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkMaster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).BeginInit();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkSegaPCM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).BeginInit();
             this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6258)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).BeginInit();
             this.panel18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkC140)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsC140)).BeginInit();
             this.panel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsPWM)).BeginInit();
             this.panel19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6295)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6295)).BeginInit();
             this.panel14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkRF5C164)).BeginInit();
-            this.panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).BeginInit();
-            this.panel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).BeginInit();
-            this.panel23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).BeginInit();
-            this.panel22.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).BeginInit();
-            this.panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610PSG)).BeginInit();
-            this.panel21.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).BeginInit();
-            this.panel20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).BeginInit();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608PSG)).BeginInit();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203PSG)).BeginInit();
-            this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610FM)).BeginInit();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608FM)).BeginInit();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203FM)).BeginInit();
-            this.panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).BeginInit();
-            this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).BeginInit();
-            this.panel24.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2413)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).BeginInit();
             this.panel25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkAY8910)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAY8910)).BeginInit();
             this.panel26.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHuC6280)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsC140)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6295)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608FM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203FM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2151)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2413)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAY8910)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHuC6280)).BeginInit();
+            this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).BeginInit();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).BeginInit();
+            this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).BeginInit();
+            this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).BeginInit();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610PSG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).BeginInit();
+            this.panel21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).BeginInit();
+            this.panel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608PSG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203PSG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).BeginInit();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610FM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).BeginInit();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608FM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608FM)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203FM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203FM)).BeginInit();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610)).BeginInit();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203)).BeginInit();
+            this.panel24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2413)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2413)).BeginInit();
             this.SuspendLayout();
             // 
             // panel6
@@ -292,10 +292,15 @@
             this.trkYM2151.Minimum = -192;
             this.trkYM2151.Name = "trkYM2151";
             this.trkYM2151.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2151.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2151.Size = new System.Drawing.Size(44, 198);
             this.trkYM2151.TabIndex = 0;
             this.trkYM2151.TickFrequency = 10;
             this.trkYM2151.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2151
+            // 
+            this.bsYM2151.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2151.CurrentItemChanged += new System.EventHandler(this.bsYM2151_CurrentItemChanged);
             // 
             // label24
             // 
@@ -474,10 +479,15 @@
             this.trkMaster.Minimum = -192;
             this.trkMaster.Name = "trkMaster";
             this.trkMaster.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkMaster.Size = new System.Drawing.Size(45, 198);
+            this.trkMaster.Size = new System.Drawing.Size(44, 198);
             this.trkMaster.TabIndex = 0;
             this.trkMaster.TickFrequency = 10;
             this.trkMaster.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsMaster
+            // 
+            this.bsMaster.DataSource = typeof(MDPlayer.BindData);
+            this.bsMaster.CurrentItemChanged += new System.EventHandler(this.bsMaster_CurrentItemChanged);
             // 
             // btnMaster
             // 
@@ -534,10 +544,15 @@
             this.trkSegaPCM.Minimum = -192;
             this.trkSegaPCM.Name = "trkSegaPCM";
             this.trkSegaPCM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkSegaPCM.Size = new System.Drawing.Size(45, 198);
+            this.trkSegaPCM.Size = new System.Drawing.Size(44, 198);
             this.trkSegaPCM.TabIndex = 0;
             this.trkSegaPCM.TickFrequency = 10;
             this.trkSegaPCM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsSegaPCM
+            // 
+            this.bsSegaPCM.DataSource = typeof(MDPlayer.BindData);
+            this.bsSegaPCM.CurrentItemChanged += new System.EventHandler(this.bsSegaPCM_CurrentItemChanged);
             // 
             // panel16
             // 
@@ -560,10 +575,15 @@
             this.trkOKIM6258.Minimum = -192;
             this.trkOKIM6258.Name = "trkOKIM6258";
             this.trkOKIM6258.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkOKIM6258.Size = new System.Drawing.Size(45, 198);
+            this.trkOKIM6258.Size = new System.Drawing.Size(44, 198);
             this.trkOKIM6258.TabIndex = 0;
             this.trkOKIM6258.TickFrequency = 10;
             this.trkOKIM6258.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsOKIM6258
+            // 
+            this.bsOKIM6258.DataSource = typeof(MDPlayer.BindData);
+            this.bsOKIM6258.CurrentItemChanged += new System.EventHandler(this.bsOKIM6258_CurrentItemChanged);
             // 
             // btnSegaPCM
             // 
@@ -606,10 +626,15 @@
             this.trkC140.Minimum = -192;
             this.trkC140.Name = "trkC140";
             this.trkC140.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkC140.Size = new System.Drawing.Size(45, 198);
+            this.trkC140.Size = new System.Drawing.Size(44, 198);
             this.trkC140.TabIndex = 0;
             this.trkC140.TickFrequency = 10;
             this.trkC140.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsC140
+            // 
+            this.bsC140.DataSource = typeof(MDPlayer.BindData);
+            this.bsC140.CurrentItemChanged += new System.EventHandler(this.bsC140_CurrentItemChanged);
             // 
             // panel15
             // 
@@ -632,10 +657,15 @@
             this.trkPWM.Minimum = -192;
             this.trkPWM.Name = "trkPWM";
             this.trkPWM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkPWM.Size = new System.Drawing.Size(45, 198);
+            this.trkPWM.Size = new System.Drawing.Size(44, 198);
             this.trkPWM.TabIndex = 0;
             this.trkPWM.TickFrequency = 10;
             this.trkPWM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsPWM
+            // 
+            this.bsPWM.DataSource = typeof(MDPlayer.BindData);
+            this.bsPWM.CurrentItemChanged += new System.EventHandler(this.bsPWM_CurrentItemChanged);
             // 
             // tbSegaPCM
             // 
@@ -724,10 +754,15 @@
             this.trkOKIM6295.Minimum = -192;
             this.trkOKIM6295.Name = "trkOKIM6295";
             this.trkOKIM6295.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkOKIM6295.Size = new System.Drawing.Size(45, 198);
+            this.trkOKIM6295.Size = new System.Drawing.Size(44, 198);
             this.trkOKIM6295.TabIndex = 0;
             this.trkOKIM6295.TickFrequency = 10;
             this.trkOKIM6295.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsOKIM6295
+            // 
+            this.bsOKIM6295.DataSource = typeof(MDPlayer.BindData);
+            this.bsOKIM6295.CurrentItemChanged += new System.EventHandler(this.bsOKIM6295_CurrentItemChanged);
             // 
             // tbC140
             // 
@@ -762,10 +797,15 @@
             this.trkRF5C164.Minimum = -192;
             this.trkRF5C164.Name = "trkRF5C164";
             this.trkRF5C164.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkRF5C164.Size = new System.Drawing.Size(45, 198);
+            this.trkRF5C164.Size = new System.Drawing.Size(44, 198);
             this.trkRF5C164.TabIndex = 0;
             this.trkRF5C164.TickFrequency = 10;
             this.trkRF5C164.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsRF5C164
+            // 
+            this.bsRF5C164.DataSource = typeof(MDPlayer.BindData);
+            this.bsRF5C164.CurrentItemChanged += new System.EventHandler(this.bsRF5C164_CurrentItemChanged);
             // 
             // btnOKIM6295
             // 
@@ -844,6 +884,68 @@
             this.label18.Text = "OKIM 6295";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel25
+            // 
+            this.panel25.BackColor = System.Drawing.Color.White;
+            this.panel25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel25.Controls.Add(this.trkAY8910);
+            this.panel25.Location = new System.Drawing.Point(938, 34);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(46, 200);
+            this.panel25.TabIndex = 49;
+            // 
+            // trkAY8910
+            // 
+            this.trkAY8910.BackColor = System.Drawing.Color.White;
+            this.trkAY8910.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsAY8910, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkAY8910.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkAY8910.LargeChange = 10;
+            this.trkAY8910.Location = new System.Drawing.Point(0, 0);
+            this.trkAY8910.Maximum = 20;
+            this.trkAY8910.Minimum = -192;
+            this.trkAY8910.Name = "trkAY8910";
+            this.trkAY8910.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkAY8910.Size = new System.Drawing.Size(44, 198);
+            this.trkAY8910.TabIndex = 0;
+            this.trkAY8910.TickFrequency = 10;
+            this.trkAY8910.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsAY8910
+            // 
+            this.bsAY8910.DataSource = typeof(MDPlayer.BindData);
+            this.bsAY8910.CurrentItemChanged += new System.EventHandler(this.bsAY8910_CurrentItemChanged);
+            // 
+            // panel26
+            // 
+            this.panel26.BackColor = System.Drawing.Color.White;
+            this.panel26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel26.Controls.Add(this.trkHuC6280);
+            this.panel26.Location = new System.Drawing.Point(1052, 34);
+            this.panel26.Name = "panel26";
+            this.panel26.Size = new System.Drawing.Size(46, 200);
+            this.panel26.TabIndex = 49;
+            // 
+            // trkHuC6280
+            // 
+            this.trkHuC6280.BackColor = System.Drawing.Color.White;
+            this.trkHuC6280.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsHuC6280, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkHuC6280.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkHuC6280.LargeChange = 10;
+            this.trkHuC6280.Location = new System.Drawing.Point(0, 0);
+            this.trkHuC6280.Maximum = 20;
+            this.trkHuC6280.Minimum = -192;
+            this.trkHuC6280.Name = "trkHuC6280";
+            this.trkHuC6280.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkHuC6280.Size = new System.Drawing.Size(44, 198);
+            this.trkHuC6280.TabIndex = 0;
+            this.trkHuC6280.TickFrequency = 10;
+            this.trkHuC6280.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsHuC6280
+            // 
+            this.bsHuC6280.DataSource = typeof(MDPlayer.BindData);
+            this.bsHuC6280.CurrentItemChanged += new System.EventHandler(this.bsHuC6280_CurrentItemChanged);
+            // 
             // panel13
             // 
             this.panel13.BackColor = System.Drawing.Color.White;
@@ -865,10 +967,35 @@
             this.trkSN76489.Minimum = -192;
             this.trkSN76489.Name = "trkSN76489";
             this.trkSN76489.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkSN76489.Size = new System.Drawing.Size(45, 198);
+            this.trkSN76489.Size = new System.Drawing.Size(44, 198);
             this.trkSN76489.TabIndex = 0;
             this.trkSN76489.TickFrequency = 10;
             this.trkSN76489.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsSN76489
+            // 
+            this.bsSN76489.DataSource = typeof(MDPlayer.BindData);
+            this.bsSN76489.CurrentItemChanged += new System.EventHandler(this.bsSN76489_CurrentItemChanged);
+            // 
+            // btnAY8910
+            // 
+            this.btnAY8910.Location = new System.Drawing.Point(967, 240);
+            this.btnAY8910.Name = "btnAY8910";
+            this.btnAY8910.Size = new System.Drawing.Size(17, 17);
+            this.btnAY8910.TabIndex = 51;
+            this.btnAY8910.Text = "R";
+            this.btnAY8910.UseVisualStyleBackColor = true;
+            this.btnAY8910.Click += new System.EventHandler(this.btnAY8910_Click);
+            // 
+            // btnHuC6280
+            // 
+            this.btnHuC6280.Location = new System.Drawing.Point(1081, 240);
+            this.btnHuC6280.Name = "btnHuC6280";
+            this.btnHuC6280.Size = new System.Drawing.Size(17, 17);
+            this.btnHuC6280.TabIndex = 51;
+            this.btnHuC6280.Text = "R";
+            this.btnHuC6280.UseVisualStyleBackColor = true;
+            this.btnHuC6280.Click += new System.EventHandler(this.btnHuC6280_Click);
             // 
             // tbRF5C164
             // 
@@ -903,6 +1030,30 @@
             this.label13.Text = "RF 5C164";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tbAY8910
+            // 
+            this.tbAY8910.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsAY8910, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbAY8910.Location = new System.Drawing.Point(938, 239);
+            this.tbAY8910.MaxLength = 4;
+            this.tbAY8910.Name = "tbAY8910";
+            this.tbAY8910.Size = new System.Drawing.Size(29, 19);
+            this.tbAY8910.TabIndex = 50;
+            this.tbAY8910.Text = "0";
+            this.tbAY8910.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbAY8910.TextChanged += new System.EventHandler(this.tbAY8910_TextChanged);
+            // 
+            // tbHuC6280
+            // 
+            this.tbHuC6280.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsHuC6280, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbHuC6280.Location = new System.Drawing.Point(1052, 239);
+            this.tbHuC6280.MaxLength = 4;
+            this.tbHuC6280.Name = "tbHuC6280";
+            this.tbHuC6280.Size = new System.Drawing.Size(29, 19);
+            this.tbHuC6280.TabIndex = 50;
+            this.tbHuC6280.Text = "0";
+            this.tbHuC6280.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbHuC6280.TextChanged += new System.EventHandler(this.tbHuC6280_TextChanged);
+            // 
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.Color.White;
@@ -924,10 +1075,15 @@
             this.trkYM2612.Minimum = -192;
             this.trkYM2612.Name = "trkYM2612";
             this.trkYM2612.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2612.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2612.Size = new System.Drawing.Size(44, 198);
             this.trkYM2612.TabIndex = 0;
             this.trkYM2612.TickFrequency = 10;
             this.trkYM2612.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2612
+            // 
+            this.bsYM2612.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2612.CurrentItemChanged += new System.EventHandler(this.bsYM2612_CurrentItemChanged);
             // 
             // tbSN76489
             // 
@@ -940,6 +1096,28 @@
             this.tbSN76489.Text = "0";
             this.tbSN76489.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbSN76489.TextChanged += new System.EventHandler(this.tbSN76489_TextChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoEllipsis = true;
+            this.label25.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label25.Location = new System.Drawing.Point(935, 7);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(52, 25);
+            this.label25.TabIndex = 48;
+            this.label25.Text = "AY8910";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            this.label26.AutoEllipsis = true;
+            this.label26.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label26.Location = new System.Drawing.Point(1049, 7);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(52, 25);
+            this.label26.TabIndex = 48;
+            this.label26.Text = "HuC 6280";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnYM2612
             // 
@@ -983,10 +1161,15 @@
             this.trkYM2610AdpcmB.Minimum = -192;
             this.trkYM2610AdpcmB.Name = "trkYM2610AdpcmB";
             this.trkYM2610AdpcmB.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2610AdpcmB.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610AdpcmB.Size = new System.Drawing.Size(44, 198);
             this.trkYM2610AdpcmB.TabIndex = 0;
             this.trkYM2610AdpcmB.TickFrequency = 10;
             this.trkYM2610AdpcmB.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2610AdpcmB
+            // 
+            this.bsYM2610AdpcmB.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610AdpcmB.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmB_CurrentItemChanged);
             // 
             // panel22
             // 
@@ -1009,10 +1192,15 @@
             this.trkYM2610AdpcmA.Minimum = -192;
             this.trkYM2610AdpcmA.Name = "trkYM2610AdpcmA";
             this.trkYM2610AdpcmA.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2610AdpcmA.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610AdpcmA.Size = new System.Drawing.Size(44, 198);
             this.trkYM2610AdpcmA.TabIndex = 0;
             this.trkYM2610AdpcmA.TickFrequency = 10;
             this.trkYM2610AdpcmA.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2610AdpcmA
+            // 
+            this.bsYM2610AdpcmA.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610AdpcmA.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmA_CurrentItemChanged);
             // 
             // panel9
             // 
@@ -1035,10 +1223,15 @@
             this.trkYM2610PSG.Minimum = -192;
             this.trkYM2610PSG.Name = "trkYM2610PSG";
             this.trkYM2610PSG.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2610PSG.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610PSG.Size = new System.Drawing.Size(44, 198);
             this.trkYM2610PSG.TabIndex = 0;
             this.trkYM2610PSG.TickFrequency = 10;
             this.trkYM2610PSG.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2610PSG
+            // 
+            this.bsYM2610PSG.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2610PSG_CurrentItemChanged);
             // 
             // tbYM2612
             // 
@@ -1073,10 +1266,15 @@
             this.trkYM2608Adpcm.Minimum = -192;
             this.trkYM2608Adpcm.Name = "trkYM2608Adpcm";
             this.trkYM2608Adpcm.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2608Adpcm.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608Adpcm.Size = new System.Drawing.Size(44, 198);
             this.trkYM2608Adpcm.TabIndex = 0;
             this.trkYM2608Adpcm.TickFrequency = 10;
             this.trkYM2608Adpcm.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2608Adpcm
+            // 
+            this.bsYM2608Adpcm.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608Adpcm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Adpcm_CurrentItemChanged);
             // 
             // panel20
             // 
@@ -1099,10 +1297,15 @@
             this.trkYM2608Rhythm.Minimum = -192;
             this.trkYM2608Rhythm.Name = "trkYM2608Rhythm";
             this.trkYM2608Rhythm.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2608Rhythm.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608Rhythm.Size = new System.Drawing.Size(44, 198);
             this.trkYM2608Rhythm.TabIndex = 0;
             this.trkYM2608Rhythm.TickFrequency = 10;
             this.trkYM2608Rhythm.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2608Rhythm
+            // 
+            this.bsYM2608Rhythm.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608Rhythm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Rhythm_CurrentItemChanged);
             // 
             // btnYM2610AdpcmB
             // 
@@ -1135,10 +1338,15 @@
             this.trkYM2608PSG.Minimum = -192;
             this.trkYM2608PSG.Name = "trkYM2608PSG";
             this.trkYM2608PSG.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2608PSG.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608PSG.Size = new System.Drawing.Size(44, 198);
             this.trkYM2608PSG.TabIndex = 0;
             this.trkYM2608PSG.TickFrequency = 10;
             this.trkYM2608PSG.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2608PSG
+            // 
+            this.bsYM2608PSG.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2608PSG_CurrentItemChanged);
             // 
             // btnYM2610AdpcmA
             // 
@@ -1202,10 +1410,15 @@
             this.trkYM2203PSG.Minimum = -192;
             this.trkYM2203PSG.Name = "trkYM2203PSG";
             this.trkYM2203PSG.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2203PSG.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2203PSG.Size = new System.Drawing.Size(44, 198);
             this.trkYM2203PSG.TabIndex = 0;
             this.trkYM2203PSG.TickFrequency = 10;
             this.trkYM2203PSG.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2203PSG
+            // 
+            this.bsYM2203PSG.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2203PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2203PSG_CurrentItemChanged);
             // 
             // btnYM2608Rhythm
             // 
@@ -1250,10 +1463,15 @@
             this.trkYM2610FM.Minimum = -192;
             this.trkYM2610FM.Name = "trkYM2610FM";
             this.trkYM2610FM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2610FM.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610FM.Size = new System.Drawing.Size(44, 198);
             this.trkYM2610FM.TabIndex = 0;
             this.trkYM2610FM.TickFrequency = 10;
             this.trkYM2610FM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2610FM
+            // 
+            this.bsYM2610FM.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610FM.CurrentItemChanged += new System.EventHandler(this.bsYM2610FM_CurrentItemChanged);
             // 
             // tbYM2610AdpcmA
             // 
@@ -1352,10 +1570,15 @@
             this.trkYM2608FM.Minimum = -192;
             this.trkYM2608FM.Name = "trkYM2608FM";
             this.trkYM2608FM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2608FM.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608FM.Size = new System.Drawing.Size(44, 198);
             this.trkYM2608FM.TabIndex = 0;
             this.trkYM2608FM.TickFrequency = 10;
             this.trkYM2608FM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2608FM
+            // 
+            this.bsYM2608FM.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608FM.CurrentItemChanged += new System.EventHandler(this.bsYM2608FM_CurrentItemChanged);
             // 
             // label8
             // 
@@ -1389,10 +1612,15 @@
             this.trkYM2203FM.Minimum = -192;
             this.trkYM2203FM.Name = "trkYM2203FM";
             this.trkYM2203FM.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2203FM.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2203FM.Size = new System.Drawing.Size(44, 198);
             this.trkYM2203FM.TabIndex = 0;
             this.trkYM2203FM.TickFrequency = 10;
             this.trkYM2203FM.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2203FM
+            // 
+            this.bsYM2203FM.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2203FM.CurrentItemChanged += new System.EventHandler(this.bsYM2203FM_CurrentItemChanged);
             // 
             // tbYM2608Adpcm
             // 
@@ -1427,10 +1655,15 @@
             this.trkYM2610.Minimum = -192;
             this.trkYM2610.Name = "trkYM2610";
             this.trkYM2610.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2610.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2610.Size = new System.Drawing.Size(44, 198);
             this.trkYM2610.TabIndex = 0;
             this.trkYM2610.TickFrequency = 10;
             this.trkYM2610.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2610
+            // 
+            this.bsYM2610.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2610.CurrentItemChanged += new System.EventHandler(this.bsYM2610_CurrentItemChanged);
             // 
             // tbYM2608Rhythm
             // 
@@ -1609,10 +1842,15 @@
             this.trkYM2608.Minimum = -192;
             this.trkYM2608.Name = "trkYM2608";
             this.trkYM2608.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2608.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2608.Size = new System.Drawing.Size(44, 198);
             this.trkYM2608.TabIndex = 0;
             this.trkYM2608.TickFrequency = 10;
             this.trkYM2608.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2608
+            // 
+            this.bsYM2608.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2608.CurrentItemChanged += new System.EventHandler(this.bsYM2608_CurrentItemChanged);
             // 
             // tbYM2608FM
             // 
@@ -1647,10 +1885,15 @@
             this.trkYM2203.Minimum = -192;
             this.trkYM2203.Name = "trkYM2203";
             this.trkYM2203.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2203.Size = new System.Drawing.Size(45, 198);
+            this.trkYM2203.Size = new System.Drawing.Size(44, 198);
             this.trkYM2203.TabIndex = 0;
             this.trkYM2203.TickFrequency = 10;
             this.trkYM2203.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2203
+            // 
+            this.bsYM2203.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2203.CurrentItemChanged += new System.EventHandler(this.bsYM2203_CurrentItemChanged);
             // 
             // btnYM2608
             // 
@@ -1729,6 +1972,47 @@
             this.label7.Text = "YM2608";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel24
+            // 
+            this.panel24.BackColor = System.Drawing.Color.White;
+            this.panel24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel24.Controls.Add(this.trkYM2413);
+            this.panel24.Location = new System.Drawing.Point(242, 34);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(46, 200);
+            this.panel24.TabIndex = 17;
+            // 
+            // trkYM2413
+            // 
+            this.trkYM2413.BackColor = System.Drawing.Color.White;
+            this.trkYM2413.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2413, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trkYM2413.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trkYM2413.LargeChange = 10;
+            this.trkYM2413.Location = new System.Drawing.Point(0, 0);
+            this.trkYM2413.Maximum = 20;
+            this.trkYM2413.Minimum = -192;
+            this.trkYM2413.Name = "trkYM2413";
+            this.trkYM2413.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trkYM2413.Size = new System.Drawing.Size(44, 198);
+            this.trkYM2413.TabIndex = 0;
+            this.trkYM2413.TickFrequency = 10;
+            this.trkYM2413.TickStyle = System.Windows.Forms.TickStyle.Both;
+            // 
+            // bsYM2413
+            // 
+            this.bsYM2413.DataSource = typeof(MDPlayer.BindData);
+            this.bsYM2413.CurrentItemChanged += new System.EventHandler(this.bsYM2413_CurrentItemChanged);
+            // 
+            // btnYM2413
+            // 
+            this.btnYM2413.Location = new System.Drawing.Point(272, 240);
+            this.btnYM2413.Name = "btnYM2413";
+            this.btnYM2413.Size = new System.Drawing.Size(17, 17);
+            this.btnYM2413.TabIndex = 19;
+            this.btnYM2413.Text = "R";
+            this.btnYM2413.UseVisualStyleBackColor = true;
+            this.btnYM2413.Click += new System.EventHandler(this.btnYM2413_Click);
+            // 
             // tbYM2203
             // 
             this.tbYM2203.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2203, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -1740,6 +2024,18 @@
             this.tbYM2203.Text = "0";
             this.tbYM2203.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbYM2203.TextChanged += new System.EventHandler(this.tbYM2203_TextChanged);
+            // 
+            // tbYM2413
+            // 
+            this.tbYM2413.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2413, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.tbYM2413.Location = new System.Drawing.Point(243, 239);
+            this.tbYM2413.MaxLength = 4;
+            this.tbYM2413.Name = "tbYM2413";
+            this.tbYM2413.Size = new System.Drawing.Size(29, 19);
+            this.tbYM2413.TabIndex = 18;
+            this.tbYM2413.Text = "0";
+            this.tbYM2413.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbYM2413.TextChanged += new System.EventHandler(this.tbYM2413_TextChanged);
             // 
             // label2
             // 
@@ -1763,302 +2059,6 @@
             this.label23.Text = "YM2413";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tbYM2413
-            // 
-            this.tbYM2413.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsYM2413, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbYM2413.Location = new System.Drawing.Point(243, 239);
-            this.tbYM2413.MaxLength = 4;
-            this.tbYM2413.Name = "tbYM2413";
-            this.tbYM2413.Size = new System.Drawing.Size(29, 19);
-            this.tbYM2413.TabIndex = 18;
-            this.tbYM2413.Text = "0";
-            this.tbYM2413.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbYM2413.TextChanged += new System.EventHandler(this.tbYM2413_TextChanged);
-            // 
-            // btnYM2413
-            // 
-            this.btnYM2413.Location = new System.Drawing.Point(272, 240);
-            this.btnYM2413.Name = "btnYM2413";
-            this.btnYM2413.Size = new System.Drawing.Size(17, 17);
-            this.btnYM2413.TabIndex = 19;
-            this.btnYM2413.Text = "R";
-            this.btnYM2413.UseVisualStyleBackColor = true;
-            this.btnYM2413.Click += new System.EventHandler(this.btnYM2413_Click);
-            // 
-            // panel24
-            // 
-            this.panel24.BackColor = System.Drawing.Color.White;
-            this.panel24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel24.Controls.Add(this.trkYM2413);
-            this.panel24.Location = new System.Drawing.Point(242, 34);
-            this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(46, 200);
-            this.panel24.TabIndex = 17;
-            // 
-            // trkYM2413
-            // 
-            this.trkYM2413.BackColor = System.Drawing.Color.White;
-            this.trkYM2413.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsYM2413, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.trkYM2413.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trkYM2413.LargeChange = 10;
-            this.trkYM2413.Location = new System.Drawing.Point(0, 0);
-            this.trkYM2413.Maximum = 20;
-            this.trkYM2413.Minimum = -192;
-            this.trkYM2413.Name = "trkYM2413";
-            this.trkYM2413.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkYM2413.Size = new System.Drawing.Size(45, 198);
-            this.trkYM2413.TabIndex = 0;
-            this.trkYM2413.TickFrequency = 10;
-            this.trkYM2413.TickStyle = System.Windows.Forms.TickStyle.Both;
-            // 
-            // label25
-            // 
-            this.label25.AutoEllipsis = true;
-            this.label25.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label25.Location = new System.Drawing.Point(935, 7);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(52, 25);
-            this.label25.TabIndex = 48;
-            this.label25.Text = "AY8910";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tbAY8910
-            // 
-            this.tbAY8910.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsAY8910, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbAY8910.Location = new System.Drawing.Point(938, 239);
-            this.tbAY8910.MaxLength = 4;
-            this.tbAY8910.Name = "tbAY8910";
-            this.tbAY8910.Size = new System.Drawing.Size(29, 19);
-            this.tbAY8910.TabIndex = 50;
-            this.tbAY8910.Text = "0";
-            this.tbAY8910.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbAY8910.TextChanged += new System.EventHandler(this.tbAY8910_TextChanged);
-            // 
-            // btnAY8910
-            // 
-            this.btnAY8910.Location = new System.Drawing.Point(967, 240);
-            this.btnAY8910.Name = "btnAY8910";
-            this.btnAY8910.Size = new System.Drawing.Size(17, 17);
-            this.btnAY8910.TabIndex = 51;
-            this.btnAY8910.Text = "R";
-            this.btnAY8910.UseVisualStyleBackColor = true;
-            this.btnAY8910.Click += new System.EventHandler(this.btnAY8910_Click);
-            // 
-            // panel25
-            // 
-            this.panel25.BackColor = System.Drawing.Color.White;
-            this.panel25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel25.Controls.Add(this.trkAY8910);
-            this.panel25.Location = new System.Drawing.Point(938, 34);
-            this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(46, 200);
-            this.panel25.TabIndex = 49;
-            // 
-            // trkAY8910
-            // 
-            this.trkAY8910.BackColor = System.Drawing.Color.White;
-            this.trkAY8910.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsAY8910, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.trkAY8910.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trkAY8910.LargeChange = 10;
-            this.trkAY8910.Location = new System.Drawing.Point(0, 0);
-            this.trkAY8910.Maximum = 20;
-            this.trkAY8910.Minimum = -192;
-            this.trkAY8910.Name = "trkAY8910";
-            this.trkAY8910.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkAY8910.Size = new System.Drawing.Size(45, 198);
-            this.trkAY8910.TabIndex = 0;
-            this.trkAY8910.TickFrequency = 10;
-            this.trkAY8910.TickStyle = System.Windows.Forms.TickStyle.Both;
-            // 
-            // label26
-            // 
-            this.label26.AutoEllipsis = true;
-            this.label26.Font = new System.Drawing.Font("MS UI Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label26.Location = new System.Drawing.Point(1049, 7);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(52, 25);
-            this.label26.TabIndex = 48;
-            this.label26.Text = "HuC 6280";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tbHuC6280
-            // 
-            this.tbHuC6280.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsHuC6280, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbHuC6280.Location = new System.Drawing.Point(1052, 239);
-            this.tbHuC6280.MaxLength = 4;
-            this.tbHuC6280.Name = "tbHuC6280";
-            this.tbHuC6280.Size = new System.Drawing.Size(29, 19);
-            this.tbHuC6280.TabIndex = 50;
-            this.tbHuC6280.Text = "0";
-            this.tbHuC6280.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbHuC6280.TextChanged += new System.EventHandler(this.tbHuC6280_TextChanged);
-            // 
-            // btnHuC6280
-            // 
-            this.btnHuC6280.Location = new System.Drawing.Point(1081, 240);
-            this.btnHuC6280.Name = "btnHuC6280";
-            this.btnHuC6280.Size = new System.Drawing.Size(17, 17);
-            this.btnHuC6280.TabIndex = 51;
-            this.btnHuC6280.Text = "R";
-            this.btnHuC6280.UseVisualStyleBackColor = true;
-            this.btnHuC6280.Click += new System.EventHandler(this.btnHuC6280_Click);
-            // 
-            // panel26
-            // 
-            this.panel26.BackColor = System.Drawing.Color.White;
-            this.panel26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel26.Controls.Add(this.trkHuC6280);
-            this.panel26.Location = new System.Drawing.Point(1052, 34);
-            this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(46, 200);
-            this.panel26.TabIndex = 49;
-            // 
-            // trkHuC6280
-            // 
-            this.trkHuC6280.BackColor = System.Drawing.Color.White;
-            this.trkHuC6280.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bsHuC6280, "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.trkHuC6280.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trkHuC6280.LargeChange = 10;
-            this.trkHuC6280.Location = new System.Drawing.Point(0, 0);
-            this.trkHuC6280.Maximum = 20;
-            this.trkHuC6280.Minimum = -192;
-            this.trkHuC6280.Name = "trkHuC6280";
-            this.trkHuC6280.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkHuC6280.Size = new System.Drawing.Size(45, 198);
-            this.trkHuC6280.TabIndex = 0;
-            this.trkHuC6280.TickFrequency = 10;
-            this.trkHuC6280.TickStyle = System.Windows.Forms.TickStyle.Both;
-            // 
-            // bsMaster
-            // 
-            this.bsMaster.DataSource = typeof(MDPlayer.BindData);
-            this.bsMaster.CurrentItemChanged += new System.EventHandler(this.bsMaster_CurrentItemChanged);
-            // 
-            // bsSegaPCM
-            // 
-            this.bsSegaPCM.DataSource = typeof(MDPlayer.BindData);
-            this.bsSegaPCM.CurrentItemChanged += new System.EventHandler(this.bsSegaPCM_CurrentItemChanged);
-            // 
-            // bsOKIM6258
-            // 
-            this.bsOKIM6258.DataSource = typeof(MDPlayer.BindData);
-            this.bsOKIM6258.CurrentItemChanged += new System.EventHandler(this.bsOKIM6258_CurrentItemChanged);
-            // 
-            // bsC140
-            // 
-            this.bsC140.DataSource = typeof(MDPlayer.BindData);
-            this.bsC140.CurrentItemChanged += new System.EventHandler(this.bsC140_CurrentItemChanged);
-            // 
-            // bsPWM
-            // 
-            this.bsPWM.DataSource = typeof(MDPlayer.BindData);
-            this.bsPWM.CurrentItemChanged += new System.EventHandler(this.bsPWM_CurrentItemChanged);
-            // 
-            // bsOKIM6295
-            // 
-            this.bsOKIM6295.DataSource = typeof(MDPlayer.BindData);
-            this.bsOKIM6295.CurrentItemChanged += new System.EventHandler(this.bsOKIM6295_CurrentItemChanged);
-            // 
-            // bsRF5C164
-            // 
-            this.bsRF5C164.DataSource = typeof(MDPlayer.BindData);
-            this.bsRF5C164.CurrentItemChanged += new System.EventHandler(this.bsRF5C164_CurrentItemChanged);
-            // 
-            // bsSN76489
-            // 
-            this.bsSN76489.DataSource = typeof(MDPlayer.BindData);
-            this.bsSN76489.CurrentItemChanged += new System.EventHandler(this.bsSN76489_CurrentItemChanged);
-            // 
-            // bsYM2612
-            // 
-            this.bsYM2612.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2612.CurrentItemChanged += new System.EventHandler(this.bsYM2612_CurrentItemChanged);
-            // 
-            // bsYM2610AdpcmB
-            // 
-            this.bsYM2610AdpcmB.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2610AdpcmB.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmB_CurrentItemChanged);
-            // 
-            // bsYM2610AdpcmA
-            // 
-            this.bsYM2610AdpcmA.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2610AdpcmA.CurrentItemChanged += new System.EventHandler(this.bsYM2610AdpcmA_CurrentItemChanged);
-            // 
-            // bsYM2610PSG
-            // 
-            this.bsYM2610PSG.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2610PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2610PSG_CurrentItemChanged);
-            // 
-            // bsYM2608Adpcm
-            // 
-            this.bsYM2608Adpcm.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2608Adpcm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Adpcm_CurrentItemChanged);
-            // 
-            // bsYM2608Rhythm
-            // 
-            this.bsYM2608Rhythm.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2608Rhythm.CurrentItemChanged += new System.EventHandler(this.bsYM2608Rhythm_CurrentItemChanged);
-            // 
-            // bsYM2608PSG
-            // 
-            this.bsYM2608PSG.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2608PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2608PSG_CurrentItemChanged);
-            // 
-            // bsYM2203PSG
-            // 
-            this.bsYM2203PSG.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2203PSG.CurrentItemChanged += new System.EventHandler(this.bsYM2203PSG_CurrentItemChanged);
-            // 
-            // bsYM2610FM
-            // 
-            this.bsYM2610FM.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2610FM.CurrentItemChanged += new System.EventHandler(this.bsYM2610FM_CurrentItemChanged);
-            // 
-            // bsYM2608FM
-            // 
-            this.bsYM2608FM.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2608FM.CurrentItemChanged += new System.EventHandler(this.bsYM2608FM_CurrentItemChanged);
-            // 
-            // bsYM2203FM
-            // 
-            this.bsYM2203FM.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2203FM.CurrentItemChanged += new System.EventHandler(this.bsYM2203FM_CurrentItemChanged);
-            // 
-            // bsYM2610
-            // 
-            this.bsYM2610.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2610.CurrentItemChanged += new System.EventHandler(this.bsYM2610_CurrentItemChanged);
-            // 
-            // bsYM2608
-            // 
-            this.bsYM2608.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2608.CurrentItemChanged += new System.EventHandler(this.bsYM2608_CurrentItemChanged);
-            // 
-            // bsYM2203
-            // 
-            this.bsYM2203.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2203.CurrentItemChanged += new System.EventHandler(this.bsYM2203_CurrentItemChanged);
-            // 
-            // bsYM2151
-            // 
-            this.bsYM2151.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2151.CurrentItemChanged += new System.EventHandler(this.bsYM2151_CurrentItemChanged);
-            // 
-            // bsYM2413
-            // 
-            this.bsYM2413.DataSource = typeof(MDPlayer.BindData);
-            this.bsYM2413.CurrentItemChanged += new System.EventHandler(this.bsYM2413_CurrentItemChanged);
-            // 
-            // bsAY8910
-            // 
-            this.bsAY8910.DataSource = typeof(MDPlayer.BindData);
-            this.bsAY8910.CurrentItemChanged += new System.EventHandler(this.bsAY8910_CurrentItemChanged);
-            // 
-            // bsHuC6280
-            // 
-            this.bsHuC6280.DataSource = typeof(MDPlayer.BindData);
-            this.bsHuC6280.CurrentItemChanged += new System.EventHandler(this.bsHuC6280_CurrentItemChanged);
-            // 
             // frmMixer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2071,6 +2071,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(200, 320);
             this.Name = "frmMixer";
+            this.Opacity = 0D;
             this.ShowIcon = false;
             this.Text = "Mixer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMixer_FormClosing);
@@ -2080,6 +2081,7 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkYM2151)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2151)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -2089,104 +2091,103 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkMaster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).EndInit();
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkSegaPCM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).EndInit();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6258)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).EndInit();
             this.panel18.ResumeLayout(false);
             this.panel18.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkC140)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsC140)).EndInit();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkPWM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsPWM)).EndInit();
             this.panel19.ResumeLayout(false);
             this.panel19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkOKIM6295)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6295)).EndInit();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkRF5C164)).EndInit();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).EndInit();
-            this.panel12.ResumeLayout(false);
-            this.panel12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).EndInit();
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).EndInit();
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).EndInit();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610PSG)).EndInit();
-            this.panel21.ResumeLayout(false);
-            this.panel21.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).EndInit();
-            this.panel20.ResumeLayout(false);
-            this.panel20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608PSG)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203PSG)).EndInit();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610FM)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608FM)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203FM)).EndInit();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).EndInit();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).EndInit();
-            this.panel24.ResumeLayout(false);
-            this.panel24.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkYM2413)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).EndInit();
             this.panel25.ResumeLayout(false);
             this.panel25.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkAY8910)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsAY8910)).EndInit();
             this.panel26.ResumeLayout(false);
             this.panel26.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHuC6280)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsMaster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsSegaPCM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6258)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsC140)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsOKIM6295)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsRF5C164)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608FM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203FM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2151)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsYM2413)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsAY8910)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsHuC6280)).EndInit();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSN76489)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsSN76489)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2612)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2612)).EndInit();
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmB)).EndInit();
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610AdpcmA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610AdpcmA)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610PSG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610PSG)).EndInit();
+            this.panel21.ResumeLayout(false);
+            this.panel21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Adpcm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Adpcm)).EndInit();
+            this.panel20.ResumeLayout(false);
+            this.panel20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608Rhythm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608Rhythm)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608PSG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608PSG)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203PSG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203PSG)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610FM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610FM)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608FM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608FM)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203FM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203FM)).EndInit();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2610)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2610)).EndInit();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2608)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2608)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2203)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2203)).EndInit();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkYM2413)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsYM2413)).EndInit();
             this.ResumeLayout(false);
 
         }

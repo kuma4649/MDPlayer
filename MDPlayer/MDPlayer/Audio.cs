@@ -50,6 +50,95 @@ namespace MDPlayer
             }
         }
 
+        public static List<vstInfo2> getVSTInfos()
+        {
+            return vstPlugins;
+        }
+
+        public static bool addVSTeffect(string fileName)
+        {
+            VstPluginContext ctx = OpenPlugin(fileName);
+            if (ctx == null) return false;
+
+            //Stop();
+
+            vstInfo2 vi = new vstInfo2();
+            vi.vstPlugins = ctx;
+            vi.fileName = fileName;
+
+            ctx.PluginCommandStub.SetBlockSize(512);
+            ctx.PluginCommandStub.SetSampleRate(44100f);
+            ctx.PluginCommandStub.MainsChanged(true);
+            ctx.PluginCommandStub.StartProcess();
+            vi.name = ctx.PluginCommandStub.GetEffectName();
+            vi.power = true;
+
+            frmVST dlg = new frmVST();
+            dlg.PluginCommandStub = ctx.PluginCommandStub;
+            dlg.Show();
+            vi.vstPluginsForm = dlg;
+            vi.editor = true;
+
+            vstPlugins.Add(vi);
+
+            return true;
+        }
+
+        public static bool delVSTeffect(string fileName)
+        {
+            if (fileName == "")
+            {
+                for (int i = 0; i < vstPlugins.Count; i++)
+                {
+                    try
+                    {
+                        if (vstPlugins[i].vstPlugins != null)
+                        {
+                            vstPlugins[i].vstPluginsForm.timer1.Enabled = false;
+                            vstPlugins[i].vstPluginsForm.Close();
+                            vstPlugins[i].vstPlugins.PluginCommandStub.EditorClose();
+                            vstPlugins[i].vstPlugins.PluginCommandStub.StopProcess();
+                            vstPlugins[i].vstPlugins.PluginCommandStub.MainsChanged(false);
+                            vstPlugins[i].vstPlugins.Dispose();
+                        }
+                    }
+                    catch { }
+                }
+                vstPlugins.Clear();
+            }
+            else
+            {
+                int ind = -1;
+                for (int i = 0; i < vstPlugins.Count; i++)
+                {
+                    if (vstPlugins[i].fileName == fileName)
+                    {
+                        ind = i;
+                        break;
+                    }
+                }
+                if (ind != -1)
+                {
+                    try
+                    {
+                        if (vstPlugins[ind].vstPlugins != null)
+                        {
+                            vstPlugins[ind].vstPluginsForm.timer1.Enabled = false;
+                            vstPlugins[ind].vstPluginsForm.Close();
+                            vstPlugins[ind].vstPlugins.PluginCommandStub.EditorClose();
+                            vstPlugins[ind].vstPlugins.PluginCommandStub.StopProcess();
+                            vstPlugins[ind].vstPlugins.PluginCommandStub.MainsChanged(false);
+                            vstPlugins[ind].vstPlugins.Dispose();
+                        }
+                    }
+                    catch { }
+                    vstPlugins.RemoveAt(ind);
+                }
+            }
+
+            return true;
+        }
+
         private static uint SamplingRate = 44100;
 
         private static uint samplingBuffer = 1024;
@@ -73,7 +162,7 @@ namespace MDPlayer
 
         private static Thread trdMain = null;
         private static bool trdClosed = false;
-        private static bool trdStopped = true;
+        public static bool trdStopped = true;
         private static Stopwatch sw = Stopwatch.StartNew();
         private static double swFreq = Stopwatch.Frequency;
 
@@ -177,10 +266,7 @@ namespace MDPlayer
         public static short c352VisVolume = 0;
         public static short k054539VisVolume = 0;
 
-        //private static VST.VST[] vst = new VST.VST[3] { new VST.VST(), null, null };
-        private static List<VstPluginContext> _plugins = new List<VstPluginContext>();
-        private static List<frmVST> _pluginsForm = new List<frmVST>();
-        public static VstPluginContext PluginContext { get; set; }
+        private static List<vstInfo2> vstPlugins = new List<vstInfo2>();
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -447,38 +533,52 @@ namespace MDPlayer
             fatalError = false;
             oneTimeReset = false;
 
-            if (_plugins.Count == 1)
+            while (vstPlugins.Count > 0)
             {
-                _plugins[0].PluginCommandStub.EditorClose();
-                _pluginsForm[0].Close();
-                _plugins[0].PluginCommandStub.StopProcess();
-                _plugins[0].PluginCommandStub.MainsChanged(false);
-
-                _plugins[0].Dispose();
-                _plugins.RemoveAt(0);
-                _pluginsForm.RemoveAt(0);
-            }
-
-            if (setting.vst!=null && setting.vst.VSTPluginPath != null && setting.vst.VSTPluginPath[0]!="")
-            {
-                VstPluginContext ctx = OpenPlugin(setting.vst.VSTPluginPath[0]);
-
-                if (ctx != null)
+                if (vstPlugins[0] != null)
                 {
-                    _plugins.Add(ctx);
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.EditorClose();
+                    vstPlugins[0].vstPluginsForm.Close();
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.StopProcess();
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.MainsChanged(false);
+                    vstPlugins[0].vstPlugins.Dispose();
                 }
 
-                ctx.PluginCommandStub.SetBlockSize(512);
-                ctx.PluginCommandStub.SetSampleRate(44100f);
-                ctx.PluginCommandStub.MainsChanged(true);
-                ctx.PluginCommandStub.StartProcess();
+                vstPlugins.RemoveAt(0);
 
-                frmVST dlg = new frmVST();
-                dlg.PluginCommandStub = ctx.PluginCommandStub;// PluginContext.PluginCommandStub;
-                dlg.Show();
-                _pluginsForm.Add(dlg);
             }
-            //ctx.PluginCommandStub.MainsChanged(false);
+
+            if (setting.vst != null && setting.vst.VSTInfo != null)
+            {
+                for (int i = 0; i < setting.vst.VSTInfo.Length; i++)
+                {
+                    if (setting.vst.VSTInfo[i] == null) continue;
+                    VstPluginContext ctx = OpenPlugin(setting.vst.VSTInfo[i].fileName);
+                    if (ctx == null) continue;
+
+                    vstInfo2 vi = new vstInfo2();
+                    vi.vstPlugins = ctx;
+                    vi.fileName = setting.vst.VSTInfo[i].fileName;
+
+                    ctx.PluginCommandStub.SetBlockSize(512);
+                    ctx.PluginCommandStub.SetSampleRate(44100f);
+                    ctx.PluginCommandStub.MainsChanged(true);
+                    ctx.PluginCommandStub.StartProcess();
+                    vi.name = ctx.PluginCommandStub.GetEffectName();
+                    vi.power = setting.vst.VSTInfo[i].power; ;
+                    vi.editor = setting.vst.VSTInfo[i].editor;
+
+                    if (vi.editor)
+                    {
+                        frmVST dlg = new frmVST();
+                        dlg.PluginCommandStub = ctx.PluginCommandStub;
+                        dlg.Show();
+                        vi.vstPluginsForm = dlg;
+                    }
+
+                    vstPlugins.Add(vi);
+                }
+            }
 
             log.ForcedWrite("Audio:Init:STEP 06");
 
@@ -1691,17 +1791,35 @@ namespace MDPlayer
                 Stop();
                 naudioWrap.Stop();
 
-                if (_plugins.Count == 1)
-                {
-                    _plugins[0].PluginCommandStub.EditorClose();
-                    _pluginsForm[0].Close();
-                    _plugins[0].PluginCommandStub.StopProcess();
-                    _plugins[0].PluginCommandStub.MainsChanged(false);
+                setting.vst.VSTInfo = null;
+                List<vstInfo> vstlst = new List<vstInfo>();
 
-                    _plugins[0].Dispose();
-                    _plugins.RemoveAt(0);
-                    _pluginsForm.RemoveAt(0);
+                for (int i = 0; i < vstPlugins.Count; i++)
+                {
+                    try { vstPlugins[i].vstPluginsForm.Close(); } catch { }
+
+                    try
+                    {
+                        if (vstPlugins[i].vstPlugins != null)
+                        {
+                            vstPlugins[i].vstPlugins.PluginCommandStub.EditorClose();
+                            vstPlugins[i].vstPlugins.PluginCommandStub.StopProcess();
+                            vstPlugins[i].vstPlugins.PluginCommandStub.MainsChanged(false);
+                            vstPlugins[i].vstPlugins.Dispose();
+                        }
+                    }
+                    catch { }
+
+                    vstInfo vi = new vstInfo();
+                    vi.editor = vstPlugins[i].editor;
+                    vi.fileName = vstPlugins[i].fileName;
+                    vi.key = vstPlugins[i].key;
+                    vi.name = vstPlugins[i].name;
+                    vi.power = vstPlugins[i].power;
+
+                    vstlst.Add(vi);
                 }
+                setting.vst.VSTInfo = vstlst.ToArray();
 
                 //nscci.Dispose();
                 //nscci = null;
@@ -2481,7 +2599,7 @@ namespace MDPlayer
                 }
             }
 
-            if (_plugins.Count > 0) VST_Update(buffer, offset, sampleCount);
+            if (vstPlugins.Count > 0) VST_Update(buffer, offset, sampleCount);
 
             return cnt1;
         }
@@ -2493,7 +2611,6 @@ namespace MDPlayer
                 int blockSize = sampleCount / 2;
                 int inputCount = 2;
                 int outputCount = 2;
-                VstPluginContext PluginContext = _plugins[0];
 
                 using (VstAudioBufferManager inputMgr = new VstAudioBufferManager(inputCount, blockSize))
                 {
@@ -2515,8 +2632,12 @@ namespace MDPlayer
                         }
 
 
-                        PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
-
+                        for (int i = 0; i < vstPlugins.Count; i++)
+                        {
+                            VstPluginContext PluginContext = vstPlugins[i].vstPlugins;
+                            PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
+                            inputBuffers = outputBuffers;
+                        }
 
                         for (int j = 0; j < blockSize; j++)
                         {
@@ -3008,6 +3129,7 @@ namespace MDPlayer
             }
             catch (Exception e)
             {
+                log.ForcedWrite(e);
                 //MessageBox.Show(this, e.ToString(), Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -3016,13 +3138,13 @@ namespace MDPlayer
 
         private static void ReleaseAllPlugins()
         {
-            foreach (VstPluginContext ctx in _plugins)
+            foreach (vstInfo2 ctx in vstPlugins)
             {
                 // dispose of all (unmanaged) resources
-                ctx.Dispose();
+                ctx.vstPlugins.Dispose();
             }
 
-            _plugins.Clear();
+            vstPlugins.Clear();
         }
 
         private static void HostCmdStub_PluginCalled(object sender, PluginCalledEventArgs e)

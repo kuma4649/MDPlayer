@@ -740,14 +740,6 @@ namespace MDPlayer
             tbCCSlow.Text     = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
             tbCCStop.Text     = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
 
-            if (setting.vst != null)
-            {
-                if (setting.vst.VSTPluginPath != null && setting.vst.VSTPluginPath.Length > 0)
-                {
-
-                    tbVST.Text = setting.vst.VSTPluginPath[0];
-                }
-            }
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1084,9 +1076,6 @@ namespace MDPlayer
             setting.midiExport.UseVOPMex = cbMIDIUseVOPM.Checked;
             setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
             setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
-
-            setting.vst.VSTPluginPath = new string[1];
-            setting.vst.VSTPluginPath[0] = tbVST.Text;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -1188,8 +1188,8 @@ namespace MDPlayer
         {
             if (mainScreen == null) return;
 
-            int n = t % 17;
-            t /= 17;
+            int n = t % 18;
+            t /= 18;
             switch (n)
             {
                 case 0:
@@ -1253,10 +1253,14 @@ namespace MDPlayer
                     mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 5 * 16, 2 * 16, 16, 16);
                     break;
                 case 15:
+                    //VST List
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 7 * 16, 0 * 16, 16, 16);
+                    break;
+                case 16:
                     //MIDI Keyboard
                     mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 3 * 16, 1 * 16, 16, 16);
                     break;
-                case 16:
+                case 17:
                     //zoom
                     mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 6 * 16, 2 * 16, 16, 16);
                     break;
@@ -2249,9 +2253,9 @@ namespace MDPlayer
                 return;
             }
 
-            drawFont8(mainScreen, 48 + c * 16, 24, 0, "  ");
-            drawFont8(mainScreen, 48 + c * 16, 32, 0, "  ");
-            drawButtonP(48 + c * 16, 24, nt * 17 + c, nm);
+            drawFont8(mainScreen, 32 + c * 16, 24, 0, "  ");
+            drawFont8(mainScreen, 32 + c * 16, 32, 0, "  ");
+            drawButtonP(32 + c * 16, 24, nt * 18 + c, nm);
 
             ot = nt;
             om = nm;

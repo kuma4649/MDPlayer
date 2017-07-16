@@ -20,6 +20,7 @@ namespace MDPlayer
         private frmInfo frmInfo = null;
         private frmPlayList frmPlayList = null;
         private frmMixer frmMixer = null;
+        private frmVSTeffectList frmVSTeffectList = null;
 
         private frmMegaCD[] frmMCD = new frmMegaCD[2] { null, null };
         private frmC140[] frmC140 = new frmC140[2] { null, null };
@@ -41,10 +42,10 @@ namespace MDPlayer
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
-        private int[] oldButton = new int[17];
-        private int[] newButton = new int[17];
-        private int[] oldButtonMode = new int[17];
-        private int[] newButtonMode = new int[17];
+        private int[] oldButton = new int[18];
+        private int[] newButton = new int[18];
+        private int[] oldButtonMode = new int[18];
+        private int[] newButtonMode = new int[18];
 
         private bool isRunning = false;
         private bool stopped = false;
@@ -158,6 +159,13 @@ namespace MDPlayer
             frmMixer.Opacity = 1.0;
             frmMixer.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmMixer.Refresh();
+
+            frmVSTeffectList = new frmVSTeffectList(this);
+            frmVSTeffectList.Show();
+            frmVSTeffectList.Visible = false;
+            frmVSTeffectList.Opacity = 1.0;
+            frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            frmVSTeffectList.Refresh();
 
             if (setting.location.OPlayList) dispPlayList();
             if (setting.location.OInfo) openInfo();
@@ -636,7 +644,7 @@ namespace MDPlayer
             for (int n = 0; n < newButton.Length; n++)
             {
                 //if (px >= 320 - (16 - n) * 16 && px < 320 - (15 - n) * 16) newButton[n] = 1;
-                if (px >= n * 16 + 48 && px < n * 16 + 16 + 48) newButton[n] = 1;
+                if (px >= n * 16 + 32 && px < n * 16 + 48) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -751,69 +759,69 @@ namespace MDPlayer
 
             // ボタンの判定
 
-            if (px >= 0 * 16 + 48 && px < 1 * 16 + 48)
+            if (px >= 0 * 16 + 32 && px < 1 * 16 + 32)
             {
                 openSetting();
                 return;
             }
 
-            if (px >= 1 * 16 + 48 && px < 2 * 16 + 48)
+            if (px >= 1 * 16 + 32 && px < 2 * 16 + 32)
             {
                 frmPlayList.Stop();
                 stop();
                 return;
             }
 
-            if (px >= 2 * 16 + 48 && px < 3 * 16 + 48)
+            if (px >= 2 * 16 + 32 && px < 3 * 16 + 32)
             {
                 pause();
                 return;
             }
 
-            if (px >= 3 * 16 + 48 && px < 4 * 16 + 48)
+            if (px >= 3 * 16 + 32 && px < 4 * 16 + 32)
             {
                 fadeout();
                 frmPlayList.Stop();
                 return;
             }
 
-            if (px >= 4 * 16 + 48 && px < 5 * 16 + 48)
+            if (px >= 4 * 16 + 32 && px < 5 * 16 + 32)
             {
                 prev();
                 return;
             }
 
-            if (px >= 5 * 16 + 48 && px < 6 * 16 + 48)
+            if (px >= 5 * 16 + 32 && px < 6 * 16 + 32)
             {
                 slow();
                 return;
             }
 
-            if (px >= 6 * 16 + 48 && px < 7 * 16 + 48)
+            if (px >= 6 * 16 + 32 && px < 7 * 16 + 32)
             {
                 play();
                 return;
             }
 
-            if (px >= 7 * 16 + 48 && px < 8 * 16 + 48)
+            if (px >= 7 * 16 + 32 && px < 8 * 16 + 32)
             {
                 ff();
                 return;
             }
 
-            if (px >= 8 * 16 + 48 && px < 9 * 16 + 48)
+            if (px >= 8 * 16 + 32 && px < 9 * 16 + 32)
             {
                 next();
                 return;
             }
 
-            if (px >= 9 * 16 + 48 && px < 10 * 16 + 48)
+            if (px >= 9 * 16 + 32 && px < 10 * 16 + 32)
             {
                 playMode();
                 return;
             }
 
-            if (px >= 10 * 16 + 48 && px < 11 * 16 + 48)
+            if (px >= 10 * 16 + 32 && px < 11 * 16 + 32)
             {
                 string[] fn = fileOpen(true);
 
@@ -854,38 +862,44 @@ namespace MDPlayer
                 return;
             }
 
-            if (px >= 11 * 16 + 48 && px < 12 * 16 + 48)
+            if (px >= 11 * 16 + 32 && px < 12 * 16 + 32)
             {
                 dispPlayList();
                 return;
             }
 
-            if (px >= 12 * 16 + 48 && px < 13 * 16 + 48)
+            if (px >= 12 * 16 + 32 && px < 13 * 16 + 32)
             {
                 openInfo();
                 return;
             }
 
-            if (px >= 13 * 16 + 48 && px < 14 * 16 + 48)
+            if (px >= 13 * 16 + 32 && px < 14 * 16 + 32)
             {
                 //dispMixer();
                 openMixer();
                 return;
             }
 
-            if (px >= 14 * 16 + 48 && px < 15 * 16 + 48)
+            if (px >= 14 * 16 + 32 && px < 15 * 16 + 32)
             {
                 showContextMenu();
                 return;
             }
 
-            if (px >= 15 * 16 + 48 && px < 16 * 16 + 48)
+            if (px >= 15 * 16 + 32 && px < 16 * 16 + 32)
+            {
+                dispVSTList();
+                return;
+            }
+
+            if (px >= 16 * 16 + 32 && px < 17 * 16 + 32)
             {
                 openMIDIKeyboard();
                 return;
             }
 
-            if (px >= 16 * 16 + 48 && px < 17 * 16 + 48)
+            if (px >= 17 * 16 + 32 && px < 18 * 16 + 32)
             {
                 setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
                 changeZoom();
@@ -3620,6 +3634,7 @@ namespace MDPlayer
 
                 StopMIDIInMonitoring();
                 frmPlayList.Stop();
+                Audio.Stop();
                 Audio.Close();
 
                 setting = frm.setting;
@@ -3640,6 +3655,7 @@ namespace MDPlayer
                 log.ForcedWrite("Audio初期化処理完了");
                 log.debug = setting.Debug_DispFrameCounter;
 
+                frmVSTeffectList.dispPluginList();
                 StartMIDIInMonitoring();
 
                 IsInitialOpenFolder = true;
@@ -3916,6 +3932,13 @@ namespace MDPlayer
             frmPlayList.Visible = !frmPlayList.Visible;
             frmPlayList.TopMost = true;
             frmPlayList.TopMost = false;
+        }
+
+        private void dispVSTList()
+        {
+            frmVSTeffectList.Visible = !frmVSTeffectList.Visible;
+            frmVSTeffectList.TopMost = true;
+            frmVSTeffectList.TopMost = false;
         }
 
         private void dispMixer()

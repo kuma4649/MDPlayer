@@ -223,6 +223,12 @@
     <Compile Include="form\frmVST.Designer.cs">
       <DependentUpon>frmVST.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmVSTeffectList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmVSTeffectList.Designer.cs">
+      <DependentUpon>frmVSTeffectList.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +291,7 @@
     <Compile Include="Driver\vgm.cs" />
     <Compile Include="Tone.cs" />
     <Compile Include="TonePallet.cs" />
+    <Compile Include="vstInfo.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
     <EmbeddedResource Include="form\frmAY8910.resx">
@@ -337,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmVST.resx">
       <DependentUpon>frmVST.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmVSTeffectList.resx">
+      <DependentUpon>frmVSTeffectList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>

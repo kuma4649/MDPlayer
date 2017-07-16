@@ -2421,11 +2421,26 @@ namespace MDPlayer
                 }
             }
 
+
+            private vstInfo[] _VSTInfo = null;
+            public vstInfo[] VSTInfo
+            {
+                get
+                {
+                    return _VSTInfo;
+                }
+
+                set
+                {
+                    _VSTInfo = value;
+                }
+            }
+
             public Vst Copy()
             {
                 Vst vst = new Vst();
 
-                vst.VSTPluginPath = this.VSTPluginPath;
+                vst.VSTInfo = this.VSTInfo;
 
                 return vst;
             }
