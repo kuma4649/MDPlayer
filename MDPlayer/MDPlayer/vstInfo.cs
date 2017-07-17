@@ -16,6 +16,7 @@ namespace MDPlayer
         public bool editor = false;
         public string name = "";
         public System.Drawing.Point location = System.Drawing.Point.Empty;
+        public float[] param = null;
 
     }
 

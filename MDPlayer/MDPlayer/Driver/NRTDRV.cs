@@ -417,7 +417,8 @@ namespace MDPlayer
 
             foreach (Ch c in work.OPM1Chs)
             {
-                if (c.TrackStopFlg == 255)
+                //if (c.TrackStopFlg == 255)
+                if (c.TrackStopFlg != 0)
                 {
                     continue;
                 }
@@ -426,7 +427,8 @@ namespace MDPlayer
             }
             foreach (Ch c in work.OPM2Chs)
             {
-                if (c.TrackStopFlg == 255)
+                //if (c.TrackStopFlg == 255)
+                if (c.TrackStopFlg != 0)
                 {
                     continue;
                 }
@@ -435,7 +437,8 @@ namespace MDPlayer
             }
             foreach (Ch c in work.PSGChs)
             {
-                if (c.TrackStopFlg == 255)
+                //if (c.TrackStopFlg == 255)
+                if (c.TrackStopFlg != 0)
                 {
                     continue;
                 }

@@ -72,6 +72,8 @@ namespace MDPlayer
             ctx.PluginCommandStub.StartProcess();
             vi.name = ctx.PluginCommandStub.GetEffectName();
             vi.power = true;
+            ctx.PluginCommandStub.GetParameterProperties(0);
+
 
             frmVST dlg = new frmVST();
             dlg.PluginCommandStub = ctx.PluginCommandStub;
@@ -572,6 +574,7 @@ namespace MDPlayer
                     vi.power = setting.vst.VSTInfo[i].power; 
                     vi.editor = setting.vst.VSTInfo[i].editor;
                     vi.location = setting.vst.VSTInfo[i].location;
+                    vi.param = setting.vst.VSTInfo[i].param;
 
                     if (vi.editor)
                     {
@@ -579,6 +582,14 @@ namespace MDPlayer
                         dlg.PluginCommandStub = ctx.PluginCommandStub;
                         dlg.Show(vi);
                         vi.vstPluginsForm = dlg;
+                    }
+
+                    if (vi.param != null)
+                    {
+                        for (int p = 0; p < vi.param.Length; p++)
+                        {
+                            ctx.PluginCommandStub.SetParameter(p, vi.param[p]);
+                        }
                     }
 
                     vstPlugins.Add(vi);
@@ -1816,6 +1827,14 @@ namespace MDPlayer
                             vstPlugins[i].vstPlugins.PluginCommandStub.EditorClose();
                             vstPlugins[i].vstPlugins.PluginCommandStub.StopProcess();
                             vstPlugins[i].vstPlugins.PluginCommandStub.MainsChanged(false);
+                            int pc=vstPlugins[i].vstPlugins.PluginInfo.ParameterCount;
+                            List<float> plst = new List<float>();
+                            for (int p = 0; p < pc; p++)
+                            {
+                                float v = vstPlugins[i].vstPlugins.PluginCommandStub.GetParameter(p);
+                                plst.Add(v);
+                            }
+                            vstPlugins[i].param = plst.ToArray();
                             vstPlugins[i].vstPlugins.Dispose();
                         }
                     }
@@ -1828,6 +1847,7 @@ namespace MDPlayer
                     vi.name = vstPlugins[i].name;
                     vi.power = vstPlugins[i].power;
                     vi.location = vstPlugins[i].location;
+                    vi.param = vstPlugins[i].param;
 
                     vstlst.Add(vi);
                 }
