@@ -2293,10 +2293,32 @@ namespace MDPlayer
 
             }
 
-            for (int ch = 6; ch < 9; ch++) //FM EX
+            //for (int ch = 6; ch < 9; ch++) //FM EX
+            //{
+            //    int[] exReg = new int[3] { 2, 0, -6 };
+            //    int c = exReg[ch - 6];
+
+            //    newParam.ym2203[chipID].channels[ch].pan = 0;
+
+            //    if (isFmEx)
+            //    {
+            //        int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
+            //        int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
+            //        int n = -1;
+            //        if ((fmKeyYM2203[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+            //        newParam.ym2203[chipID].channels[ch].note = n;
+            //        newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 5] / 80, 0), 19);
+            //    }
+            //    else
+            //    {
+            //        newParam.ym2203[chipID].channels[ch].note = -1;
+            //        newParam.ym2203[chipID].channels[ch].volumeL = 0;
+            //    }
+            //}
+            for (int ch = 3; ch < 6; ch++) //FM EX
             {
                 int[] exReg = new int[3] { 2, 0, -6 };
-                int c = exReg[ch - 6];
+                int c = exReg[ch - 3];
 
                 newParam.ym2203[chipID].channels[ch].pan = 0;
 
@@ -2305,9 +2327,9 @@ namespace MDPlayer
                     int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
                     int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKeyYM2203[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
                     newParam.ym2203[chipID].channels[ch].note = n;
-                    newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 5] / 80, 0), 19);
+                    newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 2] / 80, 0), 19);
                 }
                 else
                 {
@@ -2556,7 +2578,7 @@ namespace MDPlayer
                     int freq = YM2610Register[0][0xa8 + c] + (YM2610Register[0][0xac + c] & 0x07) * 0x100;
                     int octav = (YM2610Register[0][0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKeyYM2610[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    if ((fmKeyYM2610[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
                     newParam.ym2610[chipID].channels[ch].note = n;
                     newParam.ym2610[chipID].channels[ch].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[ch - 5] / 80, 0), 19);
                 }
@@ -2701,7 +2723,7 @@ namespace MDPlayer
                     int freq = ym2608Register[0][0xa8 + c] + (ym2608Register[0][0xac + c] & 0x07) * 0x100;
                     int octav = (ym2608Register[0][0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKeyYM2608[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+                    if ((fmKeyYM2608[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
                     newParam.ym2608[chipID].channels[ch].note = n;
                     newParam.ym2608[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2608Ch3SlotVol[ch - 5] / 80, 0), 19);
                 }
@@ -3239,6 +3261,8 @@ namespace MDPlayer
             newParam.mixer.YM2610PSG.Volume = setting.balance.YM2610PSGVolume;
             newParam.mixer.YM2610.Volume = setting.balance.YM2610Volume;
             newParam.mixer.YM2612.Volume = setting.balance.YM2612Volume;
+            newParam.mixer.C352.Volume = setting.balance.C352Volume;
+            newParam.mixer.K054539.Volume = setting.balance.K054539Volume;
 
             newParam.mixer.Master.Volume = setting.balance.MasterVolume;
             newParam.mixer.Master.VisVolume1 = common.Range(Audio.masterVisVolume / 250, 0, 44);//(short.MaxValue / 44);

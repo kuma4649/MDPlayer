@@ -3087,6 +3087,8 @@ namespace MDPlayer
             drawFader(mixerScreen, 5 + 7 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.OKIM6295.Volume, newParam.mixer.OKIM6295.Volume);
             drawFader(mixerScreen, 5 + 8 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.C140.Volume, newParam.mixer.C140.Volume);
             drawFader(mixerScreen, 5 + 9 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.SEGAPCM.Volume, newParam.mixer.SEGAPCM.Volume);
+            drawFader(mixerScreen, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.C352.Volume, newParam.mixer.C352.Volume);
+            drawFader(mixerScreen, 5 + 14 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.K054539.Volume, newParam.mixer.K054539.Volume);
 
 
             newParam.mixer.Master.VisVol2Cnt--;

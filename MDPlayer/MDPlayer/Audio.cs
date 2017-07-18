@@ -1569,10 +1569,10 @@ namespace MDPlayer
                         chip.Stop = c352.Stop;
                         chip.Reset = c352.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = 0;// setting.balance.C352Volume;
+                        chip.Volume = setting.balance.C352Volume;
                         chip.Clock = (((vgm)vgmVirtual).C352ClockValue & 0x7fffffff);
                         chip.Option = new object[1] { (((vgm)vgmVirtual).C352ClockDivider) };
-
+                        c352.c352_set_options((byte)(((vgm)vgmVirtual).C352ClockValue >> 31));
                         hiyorimiDeviceFlag |= 0x2;
 
                         if (i == 0) ChipPriC352 = 1;
@@ -1597,7 +1597,7 @@ namespace MDPlayer
                         chip.Stop = k054539.Stop;
                         chip.Reset = k054539.Reset;
                         chip.SamplingRate = SamplingRate;
-                        chip.Volume = 0;// setting.balance.K054539Volume;
+                        chip.Volume = setting.balance.K054539Volume;
                         chip.Clock = ((vgm)vgmVirtual).K054539ClockValue;
                         chip.Option = null;
                         if (i == 0) ChipPriK054539 = 1;
@@ -3122,6 +3122,24 @@ namespace MDPlayer
             try
             {
                 mds.SetVolumeSegaPCM(volume);
+            }
+            catch { }
+        }
+
+        public static void SetC352Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeC352(volume);
+            }
+            catch { }
+        }
+
+        public static void SetK054539Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeK054539(volume);
             }
             catch { }
         }

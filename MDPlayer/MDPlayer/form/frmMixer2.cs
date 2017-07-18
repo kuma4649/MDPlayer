@@ -242,6 +242,12 @@ namespace MDPlayer
                 case 25:
                     Audio.SetSegaPCMVolume(parent.setting.balance.SEGAPCMVolume = b ? v : (parent.setting.balance.SEGAPCMVolume + delta));
                     break;
+                case 26:
+                    Audio.SetC352Volume(parent.setting.balance.C352Volume = b ? v : (parent.setting.balance.C352Volume + delta));
+                    break;
+                case 30:
+                    Audio.SetK054539Volume(parent.setting.balance.K054539Volume = b ? v : (parent.setting.balance.K054539Volume + delta));
+                    break;
             }
         }
 

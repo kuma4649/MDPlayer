@@ -1345,6 +1345,38 @@ namespace MDPlayer
                 }
             }
 
+            private int _C352Volume = 0;
+            public int C352Volume
+            {
+                get
+                {
+                    if (_C352Volume > 20 || _C352Volume < -192) _C352Volume = 0;
+                    return _C352Volume;
+                }
+
+                set
+                {
+                    _C352Volume = value;
+                    if (_C352Volume > 20 || _C352Volume < -192) _C352Volume = 0;
+                }
+            }
+
+            private int _K054539Volume = 0;
+            public int K054539Volume
+            {
+                get
+                {
+                    if (_K054539Volume > 20 || _K054539Volume < -192) _K054539Volume = 0;
+                    return _K054539Volume;
+                }
+
+                set
+                {
+                    _K054539Volume = value;
+                    if (_K054539Volume > 20 || _K054539Volume < -192) _K054539Volume = 0;
+                }
+            }
+
 
             public Balance Copy()
             {
@@ -1372,6 +1404,8 @@ namespace MDPlayer
                 Balance.YM2610PSGVolume = this.YM2610PSGVolume;
                 Balance.YM2610AdpcmAVolume = this.YM2610AdpcmAVolume;
                 Balance.YM2610AdpcmBVolume = this.YM2610AdpcmBVolume;
+                Balance.C352Volume = this.C352Volume;
+                Balance.K054539Volume = this.K054539Volume;
 
                 return Balance;
             }
