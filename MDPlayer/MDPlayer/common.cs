@@ -191,7 +191,8 @@ namespace MDPlayer
         unknown = 0,
         VGM = 1,
         NRTDRV = 2,
-        XGM = 3
+        XGM = 3,
+        S98 = 4
     }
 
 

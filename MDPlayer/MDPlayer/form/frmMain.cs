@@ -2823,7 +2823,12 @@ namespace MDPlayer
                 note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
-                newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + ((vgm)Audio.vgmVirtual).YM2151Hosei[chipID]) : -1;//4
+                int hosei = 0;
+                if (Audio.driverVirtual is vgm)
+                {
+                    hosei= ((vgm)Audio.driverVirtual).YM2151Hosei[chipID];
+                }
+                newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
 
                 newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
                 newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
@@ -2938,6 +2943,7 @@ namespace MDPlayer
             int[][] psgVol = Audio.GetPSGVolume(chipID);
             if (psgRegister != null)
             {
+                //Console.WriteLine("Val{0:X}", psgRegister[0 * 2]);
                 for (int ch = 0; ch < 4; ch++)
                 {
                     if (psgRegister[ch * 2 + 1] != 15)
@@ -3050,14 +3056,14 @@ namespace MDPlayer
 
             if (newParam.fileFormat == enmFileFormat.XGM)
             {
-                if (((xgm)Audio.xgmVirtual).xgmpcm != null)
+                if (((xgm)Audio.driverVirtual).xgmpcm != null)
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        if (((xgm)Audio.xgmVirtual).xgmpcm[i].isPlaying)
+                        if (((xgm)Audio.driverVirtual).xgmpcm[i].isPlaying)
                         {
-                            newParam.ym2612[chipID].xpcmInst[i] = (int)(((xgm)Audio.xgmVirtual).xgmpcm[i].inst);
-                            int d = (((xgm)Audio.xgmVirtual).xgmpcm[i].data / 6);
+                            newParam.ym2612[chipID].xpcmInst[i] = (int)(((xgm)Audio.driverVirtual).xgmpcm[i].inst);
+                            int d = (((xgm)Audio.driverVirtual).xgmpcm[i].data / 6);
                             d = Math.Min(d, 19);
                             newParam.ym2612[chipID].xpcmVolL[i] = d;
                             newParam.ym2612[chipID].xpcmVolR[i] = d;
@@ -4160,6 +4166,12 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
                 format = enmFileFormat.XGM;
+                return buf;
+            }
+
+            if (filename.ToLower().LastIndexOf(".s98") != -1)
+            {
+                format = enmFileFormat.S98;
                 return buf;
             }
 

@@ -1459,6 +1459,7 @@ namespace MDPlayer
                 if (!ctSN76489[chipID].UseScci && ctSN76489[chipID].UseEmu)
                 {
                     mds.WriteSN76489((byte)chipID, (byte)dData);
+                    //Console.WriteLine("[{0:X}]",dData);
                 }
             }
         }
