@@ -30,20 +30,9 @@ namespace MDPlayer
             try
             {
                 if (common.getLE24(buf, 0) != FCC_S98) return null;
+                int Format = (int)(buf[3] - '0');
                 uint TAGAdr = common.getLE32(buf, 0x10);
-                if (buf[TAGAdr++] != 0x5b) return null;
-                if (buf[TAGAdr++] != 0x53) return null;
-                if (buf[TAGAdr++] != 0x39) return null;
-                if (buf[TAGAdr++] != 0x38) return null;
-                if (buf[TAGAdr++] != 0x5d) return null;
-                bool IsUTF8 = false;
-                if (common.getLE24(buf, TAGAdr) == FCC_BOM)
-                {
-                    IsUTF8 = true;
-                    TAGAdr += 3;
-                }
-
-                while (buf[TAGAdr] != 0x00)
+                if (Format < 2)
                 {
                     List<byte> strLst = new List<byte>();
                     string str;
@@ -51,73 +40,100 @@ namespace MDPlayer
                     {
                         strLst.Add(buf[TAGAdr++]);
                     }
-                    if (IsUTF8)
+                    str = Encoding.ASCII.GetString(strLst.ToArray());
+                    gd3.TrackName = str;
+                    gd3.TrackNameJ = str;
+                }
+                else if (Format == 3)
+                {
+                    if (buf[TAGAdr++] != 0x5b) return null;
+                    if (buf[TAGAdr++] != 0x53) return null;
+                    if (buf[TAGAdr++] != 0x39) return null;
+                    if (buf[TAGAdr++] != 0x38) return null;
+                    if (buf[TAGAdr++] != 0x5d) return null;
+                    bool IsUTF8 = false;
+                    if (common.getLE24(buf, TAGAdr) == FCC_BOM)
                     {
-                        str = Encoding.UTF8.GetString(strLst.ToArray());
+                        IsUTF8 = true;
+                        TAGAdr += 3;
                     }
-                    else
-                    {
-                        str = Encoding.ASCII.GetString(strLst.ToArray());
-                    }
-                    TAGAdr++;
 
-                    if (str.ToLower().IndexOf("artist=") != -1)
+                    while (buf[TAGAdr] != 0x00)
                     {
-                        try
+                        List<byte> strLst = new List<byte>();
+                        string str;
+                        while (buf[TAGAdr] != 0x0a && buf[TAGAdr] != 0x00)
                         {
-                            gd3.Composer = str.Substring(str.IndexOf("=") + 1);
-                            gd3.ComposerJ = str.Substring(str.IndexOf("=") + 1);
+                            strLst.Add(buf[TAGAdr++]);
                         }
-                        catch
-                        { }
-                    }
-                    if (str.ToLower().IndexOf("s98by=") != -1)
-                    {
-                        try
+                        if (IsUTF8)
                         {
-                            gd3.VGMBy = str.Substring(str.IndexOf("=") + 1);
+                            str = Encoding.UTF8.GetString(strLst.ToArray());
                         }
-                        catch
-                        { }
-                    }
-                    if (str.ToLower().IndexOf("game=") != -1)
-                    {
-                        try
+                        else
                         {
-                            gd3.GameName = str.Substring(str.IndexOf("=") + 1);
-                            gd3.GameNameJ = str.Substring(str.IndexOf("=") + 1);
+                            str = Encoding.ASCII.GetString(strLst.ToArray());
                         }
-                        catch
-                        { }
-                    }
-                    if (str.ToLower().IndexOf("system=") != -1)
-                    {
-                        try
+                        TAGAdr++;
+
+                        if (str.ToLower().IndexOf("artist=") != -1)
                         {
-                            gd3.SystemName = str.Substring(str.IndexOf("=") + 1);
-                            gd3.SystemNameJ = str.Substring(str.IndexOf("=") + 1);
+                            try
+                            {
+                                gd3.Composer = str.Substring(str.IndexOf("=") + 1);
+                                gd3.ComposerJ = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
                         }
-                        catch
-                        { }
-                    }
-                    if (str.ToLower().IndexOf("title=") != -1)
-                    {
-                        try
+                        if (str.ToLower().IndexOf("s98by=") != -1)
                         {
-                            gd3.TrackName = str.Substring(str.IndexOf("=") + 1);
-                            gd3.TrackNameJ = str.Substring(str.IndexOf("=") + 1);
+                            try
+                            {
+                                gd3.VGMBy = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
                         }
-                        catch
-                        { }
-                    }
-                    if (str.ToLower().IndexOf("year=") != -1)
-                    {
-                        try
+                        if (str.ToLower().IndexOf("game=") != -1)
                         {
-                            gd3.Converted = str.Substring(str.IndexOf("=") + 1);
+                            try
+                            {
+                                gd3.GameName = str.Substring(str.IndexOf("=") + 1);
+                                gd3.GameNameJ = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
                         }
-                        catch
-                        { }
+                        if (str.ToLower().IndexOf("system=") != -1)
+                        {
+                            try
+                            {
+                                gd3.SystemName = str.Substring(str.IndexOf("=") + 1);
+                                gd3.SystemNameJ = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
+                        }
+                        if (str.ToLower().IndexOf("title=") != -1)
+                        {
+                            try
+                            {
+                                gd3.TrackName = str.Substring(str.IndexOf("=") + 1);
+                                gd3.TrackNameJ = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
+                        }
+                        if (str.ToLower().IndexOf("year=") != -1)
+                        {
+                            try
+                            {
+                                gd3.Converted = str.Substring(str.IndexOf("=") + 1);
+                            }
+                            catch
+                            { }
+                        }
                     }
                 }
 
@@ -192,15 +208,29 @@ namespace MDPlayer
         {
            
             s98Info.FormatVersion = (uint)(vgmBuf[3] - '0');
-            s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
-            if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
-            s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
-            if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
-            s98Info.Compressing = common.getLE32(vgmBuf, 0xc);
-            s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-            s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-            s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
-            s98Info.DeviceCount = common.getLE32(vgmBuf, 0x1c);
+            if (s98Info.FormatVersion < 2)
+            {
+                s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
+                s98Info.SyncDnumerator = 1000;
+                s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
+                s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
+                s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
+                s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                s98Info.DeviceCount = 0;
+            }
+            else if (s98Info.FormatVersion == 3)
+            {
+                s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
+                s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
+                if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
+                s98Info.Compressing = common.getLE32(vgmBuf, 0xc);
+                s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
+                s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
+                s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                s98Info.DeviceCount = common.getLE32(vgmBuf, 0x1c);
+            }
 
             byte[] devIDs = new byte[256];
 
@@ -214,6 +244,7 @@ namespace MDPlayer
                 info.Pan = 3;
                 s98Info.DeviceInfos.Add(info);
                 chips.Add("YM2608");
+                s98Info.DeviceCount = 1;
             }
             else
             {
