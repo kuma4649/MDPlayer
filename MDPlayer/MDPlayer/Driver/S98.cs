@@ -40,7 +40,7 @@ namespace MDPlayer
                     {
                         strLst.Add(buf[TAGAdr++]);
                     }
-                    str = Encoding.ASCII.GetString(strLst.ToArray());
+                    str = Encoding.GetEncoding(932).GetString(strLst.ToArray());
                     gd3.TrackName = str;
                     gd3.TrackNameJ = str;
                 }
@@ -72,7 +72,7 @@ namespace MDPlayer
                         }
                         else
                         {
-                            str = Encoding.ASCII.GetString(strLst.ToArray());
+                            str = Encoding.GetEncoding(932).GetString(strLst.ToArray());
                         }
                         TAGAdr++;
 
@@ -208,28 +208,43 @@ namespace MDPlayer
         {
            
             s98Info.FormatVersion = (uint)(vgmBuf[3] - '0');
-            if (s98Info.FormatVersion < 2)
+            s98Info.DeviceCount = uint.MaxValue;
+            switch (s98Info.FormatVersion)
             {
-                s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
-                if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
-                s98Info.SyncDnumerator = 1000;
-                s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
-                s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-                s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-                s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
-                s98Info.DeviceCount = 0;
-            }
-            else if (s98Info.FormatVersion == 3)
-            {
-                s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
-                if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
-                s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
-                if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
-                s98Info.Compressing = common.getLE32(vgmBuf, 0xc);
-                s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-                s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-                s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
-                s98Info.DeviceCount = common.getLE32(vgmBuf, 0x1c);
+                case 0:
+                case 1:
+                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
+                    s98Info.SyncDnumerator = 1000;
+                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
+                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                    s98Info.DeviceCount = 0;
+                    break;
+                case 2:
+                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
+                    s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
+                    if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
+                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
+                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                    //0x1c Compressed data not support
+                    if (common.getLE32(vgmBuf, 0x20) == 0) s98Info.DeviceCount = 0;
+                    break;
+                case 3:
+                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
+                    s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
+                    if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
+                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);
+                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                    s98Info.DeviceCount = common.getLE32(vgmBuf, 0x1c);
+                    break;
             }
 
             byte[] devIDs = new byte[256];
@@ -248,53 +263,93 @@ namespace MDPlayer
             }
             else
             {
-                for (int i = 0; i < s98Info.DeviceCount; i++)
+                if (s98Info.FormatVersion == 2)
                 {
-                    S98DevInfo info = new S98DevInfo();
-                    info.DeviceType = common.getLE32(vgmBuf, (uint)(0x20 + i * 0x10));
-                    if (devIDs[info.DeviceType] > 1) continue;//同じchipは2こまで
-
-                    info.Clock = common.getLE32(vgmBuf, (uint)(0x24 + i * 0x10));
-                    info.Pan = common.getLE32(vgmBuf, (uint)(0x28 + i * 0x10));
-                    switch (info.DeviceType)
+                    uint i = 0;
+                    while (common.getLE32(vgmBuf, 0x20 + i * 0x10) != 0)
                     {
-                        case 1:
-                            chips.Add("YM2149");
-                            break;
-                        case 2:
-                            chips.Add("YM2203");
-                            break;
-                        case 3:
-                            chips.Add("YM2612");
-                            break;
-                        case 4:
-                            chips.Add("YM2608");
-                            break;
-                        case 5:
-                            chips.Add("YM2151");
-                            break;
-                        case 6:
-                            chips.Add("YM2413");
-                            break;
-                        case 7:
-                            chips.Add("YM3526");
-                            break;
-                        case 8:
-                            chips.Add("YM3812");
-                            break;
-                        case 9:
-                            chips.Add("YMF262");
-                            break;
-                        case 15:
-                            chips.Add("AY8910");
-                            break;
-                        case 16:
-                            chips.Add("SN76489");
-                            break;
-                    }
+                        S98DevInfo info = new S98DevInfo();
+                        info.DeviceType = common.getLE32(vgmBuf, 0x20 + i * 0x10);
+                        if (devIDs[info.DeviceType] > 1)
+                        {
+                            i++;
+                            continue;//同じchipは2こまで
+                        }
+                        info.Clock = common.getLE32(vgmBuf, 0x24 + i * 0x10);
+                        switch (info.DeviceType)
+                        {
+                            case 1:
+                                chips.Add("YM2149");
+                                break;
+                            case 2:
+                                chips.Add("YM2203");
+                                break;
+                            case 3:
+                                chips.Add("YM2612");
+                                break;
+                            case 4:
+                                chips.Add("YM2608");
+                                break;
+                            case 5:
+                                chips.Add("YM2151");
+                                break;
+                        }
 
-                    info.ChipID = devIDs[info.DeviceType]++;
-                    s98Info.DeviceInfos.Add(info);
+                        info.ChipID = devIDs[info.DeviceType]++;
+                        s98Info.DeviceInfos.Add(info);
+                    }
+                    s98Info.DeviceCount = i;
+                }
+                else
+                {
+                    for (int i = 0; i < s98Info.DeviceCount; i++)
+                    {
+                        S98DevInfo info = new S98DevInfo();
+                        info.DeviceType = common.getLE32(vgmBuf, (uint)(0x20 + i * 0x10));
+                        if (devIDs[info.DeviceType] > 1) continue;//同じchipは2こまで
+
+                        info.Clock = common.getLE32(vgmBuf, (uint)(0x24 + i * 0x10));
+                        info.Pan = common.getLE32(vgmBuf, (uint)(0x28 + i * 0x10));
+                        switch (info.DeviceType)
+                        {
+                            case 1:
+                                chips.Add("YM2149");
+                                break;
+                            case 2:
+                                chips.Add("YM2203");
+                                break;
+                            case 3:
+                                chips.Add("YM2612");
+                                break;
+                            case 4:
+                                chips.Add("YM2608");
+                                break;
+                            case 5:
+                                chips.Add("YM2151");
+                                break;
+                            case 6:
+                                chips.Add("YM2413");
+                                break;
+                            case 7:
+                                chips.Add("YM3526");
+                                break;
+                            case 8:
+                                chips.Add("YM3812");
+                                break;
+                            case 9:
+                                chips.Add("YMF262");
+                                break;
+                            case 15:
+                                chips.Add("AY8910");
+                                break;
+                            case 16:
+                                chips.Add("SN76489");
+                                break;
+                        }
+
+                        info.ChipID = devIDs[info.DeviceType]++;
+                        s98Info.DeviceInfos.Add(info);
+                    }
                 }
             }
 
