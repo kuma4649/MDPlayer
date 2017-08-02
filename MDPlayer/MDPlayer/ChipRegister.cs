@@ -409,7 +409,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2151 == null) return;
+                if (scYM2151[chipID] == null) return;
 
                 if (dAddr >= 0x28 && dAddr <= 0x2f)
                 {
@@ -775,6 +775,7 @@ namespace MDPlayer
             {
                 if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
                 {
+                    //if(dAddr==0x29) Console.Write("{0:x2}:{1:x2}:{2:x2}  ", dPort, dAddr, dData);
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }

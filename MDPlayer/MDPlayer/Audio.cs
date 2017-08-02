@@ -1146,6 +1146,7 @@ namespace MDPlayer
                 ym2203 ym2203 = null;
                 ym2612 ym2612 = null;
                 ym2608 ym2608 = null;
+                ym2151 ym2151 = null;
                 foreach (S98.S98DevInfo dInfo in s98DInfo)
                 {
                     switch (dInfo.DeviceType)
@@ -1175,10 +1176,6 @@ namespace MDPlayer
                             chip.Option = null;
                             lstChips.Add(chip);
 
-                            SetYM2203Volume(setting.balance.YM2203Volume);
-                            SetYM2203FMVolume(setting.balance.YM2203FMVolume);
-                            SetYM2203PSGVolume(setting.balance.YM2203PSGVolume);
-
                             break;
                         case 3:
                             chip = new MDSound.MDSound.Chip();
@@ -1204,8 +1201,6 @@ namespace MDPlayer
                             chip.Clock = dInfo.Clock;
                             chip.Option = null;
                             lstChips.Add(chip);
-
-                            SetYM2612Volume(setting.balance.YM2612Volume);
 
                             break;
                         case 4:
@@ -1234,11 +1229,33 @@ namespace MDPlayer
                             //hiyorimiDeviceFlag |= 0x2;
                             lstChips.Add(chip);
 
-                            SetYM2608Volume(setting.balance.YM2608Volume);
-                            SetYM2608FMVolume(setting.balance.YM2608FMVolume);
-                            SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
-                            SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
-                            SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+                            break;
+                        case 5:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ym2151 == null)
+                            {
+                                ym2151 = new ym2151();
+                                chip.ID = 0;
+                                ChipPriOPM = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                ChipSecOPM = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                            chip.Instrument = ym2151;
+                            chip.Update = ym2151.Update;
+                            chip.Start = ym2151.Start;
+                            chip.Stop = ym2151.Stop;
+                            chip.Reset = ym2151.Reset;
+                            chip.SamplingRate = SamplingRate;
+                            chip.Volume = setting.balance.YM2151Volume;
+                            chip.Clock = dInfo.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+
                             break;
                     }
                 }
@@ -1252,6 +1269,24 @@ namespace MDPlayer
                     mds.Init(SamplingRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister();
+
+                SetYM2203Volume(setting.balance.YM2203Volume);
+                SetYM2203FMVolume(setting.balance.YM2203FMVolume);
+                SetYM2203PSGVolume(setting.balance.YM2203PSGVolume);
+
+                SetYM2612Volume(setting.balance.YM2612Volume);
+
+                SetYM2608Volume(setting.balance.YM2608Volume);
+                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
+
+                SetYM2151Volume(setting.balance.YM2151Volume);
 
                 //Play
 

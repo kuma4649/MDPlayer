@@ -58,7 +58,7 @@ namespace MDPlayer
                         TAGAdr += 3;
                     }
 
-                    while (buf[TAGAdr] != 0x00)
+                    while (buf.Length>TAGAdr && buf[TAGAdr] != 0x00)
                     {
                         List<byte> strLst = new List<byte>();
                         string str;
