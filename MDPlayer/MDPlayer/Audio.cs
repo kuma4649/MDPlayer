@@ -1143,14 +1143,44 @@ namespace MDPlayer
 
                 List<S98.S98DevInfo> s98DInfo = ((S98)driverVirtual).s98Info.DeviceInfos;
 
+                ay8910 ym2149 = null;
                 ym2203 ym2203 = null;
                 ym2612 ym2612 = null;
                 ym2608 ym2608 = null;
                 ym2151 ym2151 = null;
+                ym2413 ym2413 = null;
+                ay8910 ay8910 = null;
                 foreach (S98.S98DevInfo dInfo in s98DInfo)
                 {
                     switch (dInfo.DeviceType)
                     {
+                        case 1:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ym2149 == null)
+                            {
+                                ym2149 = new ay8910();
+                                chip.ID = 0;
+                                ChipPriAY10 = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                ChipSecAY10 = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                            chip.Instrument = ym2149;
+                            chip.Update = ym2149.Update;
+                            chip.Start = ym2149.Start;
+                            chip.Stop = ym2149.Stop;
+                            chip.Reset = ym2149.Reset;
+                            chip.SamplingRate = SamplingRate;
+                            chip.Volume = setting.balance.AY8910Volume;
+                            chip.Clock = dInfo.Clock/4;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+
+                            break;
                         case 2:
                             chip = new MDSound.MDSound.Chip();
                             if (ym2203 == null)
@@ -1257,6 +1287,60 @@ namespace MDPlayer
                             lstChips.Add(chip);
 
                             break;
+                        case 6:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ym2413 == null)
+                            {
+                                ym2413 = new ym2413();
+                                chip.ID = 0;
+                                ChipPriOPLL = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                ChipSecOPLL = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
+                            chip.Instrument = ym2413;
+                            chip.Update = ym2413.Update;
+                            chip.Start = ym2413.Start;
+                            chip.Stop = ym2413.Stop;
+                            chip.Reset = ym2413.Reset;
+                            chip.SamplingRate = SamplingRate;
+                            chip.Volume = setting.balance.YM2413Volume;
+                            chip.Clock = dInfo.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+
+                            break;
+                        case 15:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ay8910 == null)
+                            {
+                                ay8910 = new ay8910();
+                                chip.ID = 0;
+                                ChipPriAY10 = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                ChipSecAY10 = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                            chip.Instrument = ay8910;
+                            chip.Update = ay8910.Update;
+                            chip.Start = ay8910.Start;
+                            chip.Stop = ay8910.Stop;
+                            chip.Reset = ay8910.Reset;
+                            chip.SamplingRate = SamplingRate;
+                            chip.Volume = setting.balance.AY8910Volume;
+                            chip.Clock = dInfo.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+
+                            break;
                     }
                 }
 
@@ -1287,6 +1371,10 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
 
                 SetYM2151Volume(setting.balance.YM2151Volume);
+
+                SetYM2413Volume(setting.balance.YM2413Volume);
+
+                SetAY8910Volume(setting.balance.AY8910Volume);
 
                 //Play
 

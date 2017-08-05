@@ -443,7 +443,7 @@ namespace MDPlayer
                 }
 
                 int devNo = cmd / 2;
-                if (devNo >= s98Info.DeviceCount)
+                if (devNo >= s98Info.DeviceInfos.Count)// s98Info.DeviceCount)
                 {
                     musicPtr += 2;
                     continue;
@@ -453,6 +453,9 @@ namespace MDPlayer
 
                 switch (s98Info.DeviceInfos[devNo].DeviceType)
                 {
+                    case 1:
+                        WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                        break;
                     case 2:
                         WriteYM2203(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
                         break;

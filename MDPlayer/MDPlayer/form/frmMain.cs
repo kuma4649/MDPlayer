@@ -3056,7 +3056,7 @@ namespace MDPlayer
 
             if (newParam.fileFormat == enmFileFormat.XGM)
             {
-                if (((xgm)Audio.driverVirtual).xgmpcm != null)
+                if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
                 {
                     for (int i = 0; i < 4; i++)
                     {
