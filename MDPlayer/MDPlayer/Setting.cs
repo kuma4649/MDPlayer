@@ -424,6 +424,20 @@ namespace MDPlayer
             }
         }
 
+        private MidiOut _midiOut = new MidiOut();
+        public MidiOut midiOut
+        {
+            get
+            {
+                return _midiOut;
+            }
+
+            set
+            {
+                _midiOut = value;
+            }
+        }
+
         [Serializable]
         public class OutputDevice
         {
@@ -2527,6 +2541,33 @@ namespace MDPlayer
 
         }
 
+        [Serializable]
+        public class MidiOut
+        {
+            private midiOutInfo[] _MidiOutInfo = null;
+            public midiOutInfo[] MidiOutInfo
+            {
+                get
+                {
+                    return _MidiOutInfo;
+                }
+                set
+                {
+                    _MidiOutInfo = value;
+                }
+            }
+
+            public MidiOut Copy()
+            {
+                MidiOut MidiOut = new MidiOut();
+
+                MidiOut.MidiOutInfo = this.MidiOutInfo;
+
+                return MidiOut;
+            }
+
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -2556,6 +2597,7 @@ namespace MDPlayer
             setting.midiExport = this.midiExport.Copy();
             setting.midiKbd = this.midiKbd.Copy();
             setting.vst = this.vst.Copy();
+            setting.midiOut = this.midiOut.Copy();
 
             return setting;
         }

@@ -165,8 +165,25 @@ namespace MDPlayer
         private static ChipRegister chipRegister = null;
 
         private static Thread trdMain = null;
-        private static bool trdClosed = false;
-        public static bool trdStopped = true;
+        public static bool trdClosed = false;
+        private static bool _trdStopped = true;
+        public static bool trdStopped
+        {
+            get
+            {
+                lock (lockObj)
+                {
+                    return _trdStopped;
+                }
+            }
+            set
+            {
+                lock (lockObj)
+                {
+                    _trdStopped = value;
+                }
+            }
+        }
         private static Stopwatch sw = Stopwatch.StartNew();
         private static double swFreq = Stopwatch.Frequency;
 
@@ -2871,6 +2888,8 @@ namespace MDPlayer
         {
             try
             {
+                if (trdStopped) return;
+
                 int blockSize = sampleCount / 2;
                 int inputCount = 2;
                 int outputCount = 2;
@@ -2898,6 +2917,7 @@ namespace MDPlayer
                         for (int i = 0; i < vstPlugins.Count; i++)
                         {
                             VstPluginContext PluginContext = vstPlugins[i].vstPlugins;
+                            if (PluginContext.PluginCommandStub == null) continue;
                             PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
                             inputBuffers = outputBuffers;
                         }

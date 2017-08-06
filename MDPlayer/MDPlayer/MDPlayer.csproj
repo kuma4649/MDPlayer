@@ -276,6 +276,7 @@
     <Compile Include="log.cs" />
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
+    <Compile Include="midiOutInfo.cs" />
     <Compile Include="NAudioWrap.cs" />
     <Compile Include="Driver\NRTDRV.cs" />
     <Compile Include="PlayList.cs" />

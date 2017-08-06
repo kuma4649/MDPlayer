@@ -740,6 +740,40 @@ namespace MDPlayer
             tbCCSlow.Text     = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
             tbCCStop.Text     = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
 
+            dgvMIDIoutList.Rows.Clear();
+            HashSet<int> midioutNotFound = new HashSet<int>();
+            if (setting.midiOut.MidiOutInfo != null && setting.midiOut.MidiOutInfo.Length > 0)
+            {
+                for (int i = 0; i < setting.midiOut.MidiOutInfo.Length; i++)
+                {
+                    midiOutInfo moi = setting.midiOut.MidiOutInfo[i];
+                    int found = -999;
+                    for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
+                    {
+                        NAudio.Midi.MidiOutCapabilities moc = NAudio.Midi.MidiOut.DeviceInfo(j);
+                        if (moi.name == moc.ProductName)
+                        {
+                            midioutNotFound.Add(j);
+                            found = j;
+                            break;
+                        }
+                    }
+
+                    moi.id = found;
+                    dgvMIDIoutList.Rows.Add(moi.id, moi.name, moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown");
+
+                }
+            }
+
+            dgvMIDIoutPallet.Rows.Clear();
+            for (int i = 0; i < NAudio.Midi.MidiOut.NumberOfDevices; i++)
+            {
+                if (!midioutNotFound.Contains(i))
+                {
+                    NAudio.Midi.MidiOutCapabilities moc = NAudio.Midi.MidiOut.DeviceInfo(i);
+                    dgvMIDIoutPallet.Rows.Add(i, moc.ProductName, moc.Manufacturer.ToString() != "-1" ? moc.Manufacturer.ToString() : "Unknown");
+                }
+            }
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1077,6 +1111,23 @@ namespace MDPlayer
             setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
             setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
 
+            setting.midiOut.MidiOutInfo = null;
+            if (dgvMIDIoutList.Rows.Count>0)
+            {
+                List<midiOutInfo> lstMoi = new List<midiOutInfo>();
+                for (i = 0; i < dgvMIDIoutList.Rows.Count; i++)
+                {
+                    midiOutInfo moi = new midiOutInfo();
+                    moi.id = (int)dgvMIDIoutList.Rows[i].Cells[0].Value;
+                    moi.name = (string)dgvMIDIoutList.Rows[i].Cells[1].Value;
+                    string mn = (string)dgvMIDIoutList.Rows[i].Cells[2].Value;
+                    moi.manufacturer = mn == "Unknown"? - 1:(int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
+
+                    lstMoi.Add(moi);
+                }
+                setting.midiOut.MidiOutInfo = lstMoi.ToArray();
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -1323,6 +1374,58 @@ namespace MDPlayer
 
             tbVST.Text = ofd.FileName;
 
+        }
+
+        private void btnAddMIDIout_Click(object sender, EventArgs e)
+        {
+            if (dgvMIDIoutPallet.SelectedRows == null || dgvMIDIoutPallet.SelectedRows.Count < 1) return;
+
+            foreach (DataGridViewRow row in dgvMIDIoutPallet.SelectedRows)
+            {
+                dgvMIDIoutList.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutPallet.Rows.Remove(row);
+            }
+        }
+
+        private void btnSubMIDIout_Click(object sender, EventArgs e)
+        {
+            if (dgvMIDIoutList.SelectedRows == null || dgvMIDIoutList.SelectedRows.Count < 1) return;
+
+            foreach (DataGridViewRow row in dgvMIDIoutList.SelectedRows)
+            {
+                dgvMIDIoutPallet.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Remove(row);
+            }
+        }
+
+        private void btnUP_Click(object sender, EventArgs e)
+        {
+            if (dgvMIDIoutList.SelectedRows == null || dgvMIDIoutList.SelectedRows.Count < 1) return;
+
+            foreach (DataGridViewRow row in dgvMIDIoutList.SelectedRows)
+            {
+                if (row.Index < 1) continue;
+
+                int i = row.Index-1;
+                dgvMIDIoutList.Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Remove(row);
+                dgvMIDIoutList.Rows[i].Selected = true;
+            }
+        }
+
+        private void btnDOWN_Click(object sender, EventArgs e)
+        {
+            if (dgvMIDIoutList.SelectedRows == null || dgvMIDIoutList.SelectedRows.Count < 1) return;
+
+            foreach (DataGridViewRow row in dgvMIDIoutList.SelectedRows)
+            {
+                if (row.Index > dgvMIDIoutList.Rows.Count-2) continue;
+
+                int i = row.Index + 1;
+                dgvMIDIoutList.Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Remove(row);
+                dgvMIDIoutList.Rows[i].Selected = true;
+            }
         }
     }
 

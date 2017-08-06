@@ -103,7 +103,8 @@ namespace MDPlayer
             if (res != DialogResult.OK) return;
 
             parent.stop();
-            while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
+            //while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
+            while (!Audio.trdClosed) { System.Threading.Thread.Sleep(1); }
             Audio.delVSTeffect("");
             dispPluginList();
         }

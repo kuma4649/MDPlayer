@@ -132,6 +132,15 @@
             this.cbFM4 = new System.Windows.Forms.CheckBox();
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.tpMIDIOut = new System.Windows.Forms.TabPage();
+            this.btnUP = new System.Windows.Forms.Button();
+            this.btnSubMIDIout = new System.Windows.Forms.Button();
+            this.btnDOWN = new System.Windows.Forms.Button();
+            this.btnAddMIDIout = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dgvMIDIoutList = new System.Windows.Forms.DataGridView();
+            this.dgvMIDIoutPallet = new System.Windows.Forms.DataGridView();
+            this.label16 = new System.Windows.Forms.Label();
             this.tpOther = new System.Windows.Forms.TabPage();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -185,6 +194,14 @@
             this.bs10 = new System.Windows.Forms.BindingSource(this.components);
             this.bs11 = new System.Windows.Forms.BindingSource(this.components);
             this.bs4 = new System.Windows.Forms.BindingSource(this.components);
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -210,6 +227,9 @@
             this.gbUseChannel.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tpMIDIOut.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).BeginInit();
             this.tpOther.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.gbWav.SuspendLayout();
@@ -475,6 +495,7 @@
             this.tcSetting.Controls.Add(this.tpModule);
             this.tcSetting.Controls.Add(this.tabMIDIExp);
             this.tcSetting.Controls.Add(this.tpMIDIKBD);
+            this.tcSetting.Controls.Add(this.tpMIDIOut);
             this.tcSetting.Controls.Add(this.tpOther);
             this.tcSetting.Controls.Add(this.tpOmake);
             this.tcSetting.Controls.Add(this.tpAbout);
@@ -1351,6 +1372,121 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "MIDI IN";
             // 
+            // tpMIDIOut
+            // 
+            this.tpMIDIOut.Controls.Add(this.btnUP);
+            this.tpMIDIOut.Controls.Add(this.btnSubMIDIout);
+            this.tpMIDIOut.Controls.Add(this.btnDOWN);
+            this.tpMIDIOut.Controls.Add(this.btnAddMIDIout);
+            this.tpMIDIOut.Controls.Add(this.label18);
+            this.tpMIDIOut.Controls.Add(this.dgvMIDIoutList);
+            this.tpMIDIOut.Controls.Add(this.dgvMIDIoutPallet);
+            this.tpMIDIOut.Controls.Add(this.label16);
+            this.tpMIDIOut.Location = new System.Drawing.Point(4, 22);
+            this.tpMIDIOut.Name = "tpMIDIOut";
+            this.tpMIDIOut.Size = new System.Drawing.Size(374, 291);
+            this.tpMIDIOut.TabIndex = 8;
+            this.tpMIDIOut.Text = "MIDI out";
+            this.tpMIDIOut.UseVisualStyleBackColor = true;
+            // 
+            // btnUP
+            // 
+            this.btnUP.Location = new System.Drawing.Point(342, 162);
+            this.btnUP.Name = "btnUP";
+            this.btnUP.Size = new System.Drawing.Size(25, 60);
+            this.btnUP.TabIndex = 3;
+            this.btnUP.Text = "↑";
+            this.btnUP.UseVisualStyleBackColor = true;
+            this.btnUP.Click += new System.EventHandler(this.btnUP_Click);
+            // 
+            // btnSubMIDIout
+            // 
+            this.btnSubMIDIout.Location = new System.Drawing.Point(190, 132);
+            this.btnSubMIDIout.Name = "btnSubMIDIout";
+            this.btnSubMIDIout.Size = new System.Drawing.Size(30, 24);
+            this.btnSubMIDIout.TabIndex = 3;
+            this.btnSubMIDIout.Text = "↑";
+            this.btnSubMIDIout.UseVisualStyleBackColor = true;
+            this.btnSubMIDIout.Click += new System.EventHandler(this.btnSubMIDIout_Click);
+            // 
+            // btnDOWN
+            // 
+            this.btnDOWN.Location = new System.Drawing.Point(342, 228);
+            this.btnDOWN.Name = "btnDOWN";
+            this.btnDOWN.Size = new System.Drawing.Size(25, 60);
+            this.btnDOWN.TabIndex = 3;
+            this.btnDOWN.Text = "↓";
+            this.btnDOWN.UseVisualStyleBackColor = true;
+            this.btnDOWN.Click += new System.EventHandler(this.btnDOWN_Click);
+            // 
+            // btnAddMIDIout
+            // 
+            this.btnAddMIDIout.Location = new System.Drawing.Point(154, 132);
+            this.btnAddMIDIout.Name = "btnAddMIDIout";
+            this.btnAddMIDIout.Size = new System.Drawing.Size(30, 24);
+            this.btnAddMIDIout.TabIndex = 3;
+            this.btnAddMIDIout.Text = "↓";
+            this.btnAddMIDIout.UseVisualStyleBackColor = true;
+            this.btnAddMIDIout.Click += new System.EventHandler(this.btnAddMIDIout_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(5, 147);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(74, 12);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "MIDI Outリスト";
+            // 
+            // dgvMIDIoutList
+            // 
+            this.dgvMIDIoutList.AllowUserToAddRows = false;
+            this.dgvMIDIoutList.AllowUserToDeleteRows = false;
+            this.dgvMIDIoutList.AllowUserToResizeRows = false;
+            this.dgvMIDIoutList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMIDIoutList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dgvMIDIoutList.Location = new System.Drawing.Point(7, 162);
+            this.dgvMIDIoutList.MultiSelect = false;
+            this.dgvMIDIoutList.Name = "dgvMIDIoutList";
+            this.dgvMIDIoutList.RowHeadersVisible = false;
+            this.dgvMIDIoutList.RowTemplate.Height = 21;
+            this.dgvMIDIoutList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMIDIoutList.Size = new System.Drawing.Size(329, 126);
+            this.dgvMIDIoutList.TabIndex = 1;
+            // 
+            // dgvMIDIoutPallet
+            // 
+            this.dgvMIDIoutPallet.AllowUserToAddRows = false;
+            this.dgvMIDIoutPallet.AllowUserToDeleteRows = false;
+            this.dgvMIDIoutPallet.AllowUserToResizeRows = false;
+            this.dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMIDIoutPallet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmID,
+            this.clmDeviceName,
+            this.clmManufacturer,
+            this.clmSpacer});
+            this.dgvMIDIoutPallet.Location = new System.Drawing.Point(7, 20);
+            this.dgvMIDIoutPallet.MultiSelect = false;
+            this.dgvMIDIoutPallet.Name = "dgvMIDIoutPallet";
+            this.dgvMIDIoutPallet.RowHeadersVisible = false;
+            this.dgvMIDIoutPallet.RowTemplate.Height = 21;
+            this.dgvMIDIoutPallet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMIDIoutPallet.Size = new System.Drawing.Size(360, 106);
+            this.dgvMIDIoutPallet.TabIndex = 1;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(5, 5);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(126, 12);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "MIDI Outデバイス パレット";
+            // 
             // tpOther
             // 
             this.tpOther.Controls.Add(this.cbUseGetInst);
@@ -1802,6 +1938,75 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // clmID
+            // 
+            this.clmID.Frozen = true;
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.ReadOnly = true;
+            this.clmID.Visible = false;
+            this.clmID.Width = 40;
+            // 
+            // clmDeviceName
+            // 
+            this.clmDeviceName.Frozen = true;
+            this.clmDeviceName.HeaderText = "Device Name";
+            this.clmDeviceName.Name = "clmDeviceName";
+            this.clmDeviceName.ReadOnly = true;
+            this.clmDeviceName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmDeviceName.Width = 200;
+            // 
+            // clmManufacturer
+            // 
+            this.clmManufacturer.Frozen = true;
+            this.clmManufacturer.HeaderText = "Manufacturer";
+            this.clmManufacturer.Name = "clmManufacturer";
+            this.clmManufacturer.ReadOnly = true;
+            this.clmManufacturer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmSpacer
+            // 
+            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmSpacer.HeaderText = "";
+            this.clmSpacer.Name = "clmSpacer";
+            this.clmSpacer.ReadOnly = true;
+            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.Frozen = true;
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.Frozen = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Device Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.Frozen = true;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Manufacturer";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1858,6 +2063,10 @@
             this.groupBox7.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tpMIDIOut.ResumeLayout(false);
+            this.tpMIDIOut.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).EndInit();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -2048,5 +2257,22 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btVST;
         private System.Windows.Forms.TextBox tbVST;
+        private System.Windows.Forms.TabPage tpMIDIOut;
+        private System.Windows.Forms.Button btnUP;
+        private System.Windows.Forms.Button btnSubMIDIout;
+        private System.Windows.Forms.Button btnDOWN;
+        private System.Windows.Forms.Button btnAddMIDIout;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DataGridView dgvMIDIoutList;
+        private System.Windows.Forms.DataGridView dgvMIDIoutPallet;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDeviceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmManufacturer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmSpacer;
     }
 }
