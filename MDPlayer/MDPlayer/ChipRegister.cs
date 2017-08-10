@@ -9,6 +9,7 @@ namespace MDPlayer
 
         private Setting setting = null;
         private MDSound.MDSound mds = null;
+        public List<NAudio.Midi.MidiOut> midiOuts = null;
 
         private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
@@ -313,6 +314,48 @@ namespace MDPlayer
         public void Close()
         {
             midiExport.Close();
+        }
+
+        public void sendMIDIout(enmModel model, int num,byte cmd,byte prm1,byte prm2)
+        {
+            if (model == enmModel.VirtualModel) return;
+            if (midiOuts == null) return;
+            if (num >= midiOuts.Count) return;
+            if (midiOuts[num] == null) return;
+
+            midiOuts[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
+        }
+
+        public void sendMIDIout(enmModel model, int num, byte cmd, byte prm1)
+        {
+            if (model == enmModel.VirtualModel) return;
+            if (midiOuts == null) return;
+            if (num >= midiOuts.Count) return;
+            if (midiOuts[num] == null) return;
+
+            midiOuts[num].SendBuffer(new byte[] { cmd, prm1});
+        }
+
+        public void sendMIDIout(enmModel model, int num, byte[] data)
+        {
+            if (model == enmModel.VirtualModel) return;
+            if (midiOuts == null) return;
+            if (num >= midiOuts.Count) return;
+            if (midiOuts[num] == null) return;
+
+            midiOuts[num].SendBuffer(data);
+        }
+
+        public void resetAllMIDIout()
+        {
+            if (midiOuts == null) return;
+
+            for (int i = 0; i < midiOuts.Count; i++)
+            {
+                if (midiOuts[i] == null) continue;
+                midiOuts[i].Reset();
+            }
+
         }
 
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei,long vgmFrameCounter)

@@ -119,6 +119,7 @@
     <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
+    <Compile Include="Driver\MID.cs" />
     <Compile Include="Driver\S98.cs" />
     <Compile Include="Driver\xgm.cs" />
     <Compile Include="form\frmAY8910.cs">

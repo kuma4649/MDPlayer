@@ -451,7 +451,7 @@ namespace MDPlayer
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|S98ファイル(*.s98)|*.s98|すべてのファイル(*.*)|*.*";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|S98ファイル(*.s98)|*.s98|StandardMIDIファイル(*.mid)|*.mid|すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex=setting.other.FilterIndex;
 

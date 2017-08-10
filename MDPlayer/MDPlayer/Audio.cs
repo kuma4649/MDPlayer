@@ -284,6 +284,7 @@ namespace MDPlayer
         public static short k054539VisVolume = 0;
 
         private static List<vstInfo2> vstPlugins = new List<vstInfo2>();
+        private static List<NAudio.Midi.MidiOut> midiOuts = new List<NAudio.Midi.MidiOut>();
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -351,6 +352,34 @@ namespace MDPlayer
                     music.notes = gd3.Notes;
                 }
                 else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+            }
+            else if (file.ToLower().LastIndexOf(".mid") != -1)
+            {
+                music.format = enmFileFormat.MID;
+                GD3 gd3 = new MID().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+                if (music.title == "" && music.titleJ == "")
                 {
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
@@ -613,6 +642,47 @@ namespace MDPlayer
                 }
             }
 
+            //midi outをリリース
+            if (midiOuts.Count > 0)
+            {
+                for (int i = 0; i < midiOuts.Count; i++)
+                {
+                    if (midiOuts[i] != null)
+                    {
+                        midiOuts[i].Reset();
+                        midiOuts[i].Close();
+                        midiOuts[i] = null;
+                    }
+                }
+                midiOuts.Clear();
+            }
+
+            //midi out のインスタンスを作成
+            if (setting.midiOut.MidiOutInfo != null && setting.midiOut.MidiOutInfo.Length > 0)
+            {
+                for (int i = 0; i < setting.midiOut.MidiOutInfo.Length; i++)
+                {
+                    int n = -1;
+                    for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
+                    {
+                        if (setting.midiOut.MidiOutInfo[i].name == NAudio.Midi.MidiOut.DeviceInfo(j).ProductName)
+                        {
+                            n = j;
+                            break;
+                        }
+                    }
+
+                    if (n == -1)
+                    {
+                        midiOuts.Add(null);
+                    }
+                    else
+                    {
+                        midiOuts.Add(new NAudio.Midi.MidiOut(n));
+                    }
+                }
+            }
+
             log.ForcedWrite("Audio:Init:STEP 06");
 
             naudioWrap.Start(Audio.setting);
@@ -745,6 +815,15 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
                 return s98Play(setting);
+            }
+
+            if (PlayingFileFormat == enmFileFormat.MID)
+            {
+                driverVirtual = new MID();
+                driverReal = new MID();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+                return midPlay(setting);
             }
 
             driverVirtual = new vgm();
@@ -1392,6 +1471,110 @@ namespace MDPlayer
                 SetYM2413Volume(setting.balance.YM2413Volume);
 
                 SetAY8910Volume(setting.balance.AY8910Volume);
+
+                //Play
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool midPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                ChipPriOPN = 0;
+                ChipPriOPN2 = 0;
+                ChipPriOPNA = 0;
+                ChipPriOPNB = 0;
+                ChipPriOPM = 0;
+                ChipPriDCSG = 0;
+                ChipPriRF5C = 0;
+                ChipPriPWM = 0;
+                ChipPriOKI5 = 0;
+                ChipPriOKI9 = 0;
+                ChipPriC140 = 0;
+                ChipPriSPCM = 0;
+                ChipPriAY10 = 0;
+                ChipPriOPLL = 0;
+                ChipPriHuC = 0;
+                ChipPriC352 = 0;
+                ChipPriK054539 = 0;
+
+                ChipSecOPN = 0;
+                ChipSecOPN2 = 0;
+                ChipSecOPNA = 0;
+                ChipSecOPNB = 0;
+                ChipSecOPM = 0;
+                ChipSecDCSG = 0;
+                ChipSecRF5C = 0;
+                ChipSecPWM = 0;
+                ChipSecOKI5 = 0;
+                ChipSecOKI9 = 0;
+                ChipSecC140 = 0;
+                ChipSecSPCM = 0;
+                ChipSecAY10 = 0;
+                ChipSecOPLL = 0;
+                ChipSecHuC = 0;
+                ChipSecC352 = 0;
+                ChipSecK054539 = 0;
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                chipRegister.initChipRegister();
+                chipRegister.midiOuts = midiOuts;
 
                 //Play
 
@@ -2173,6 +2356,21 @@ namespace MDPlayer
                 Stop();
                 naudioWrap.Stop();
 
+                //midi outをリリース
+                if (midiOuts.Count > 0)
+                {
+                    for (int i = 0; i < midiOuts.Count; i++)
+                    {
+                        if (midiOuts[i] != null)
+                        {
+                            midiOuts[i].Reset();
+                            midiOuts[i].Close();
+                            midiOuts[i] = null;
+                        }
+                    }
+                    midiOuts.Clear();
+                }
+
                 setting.vst.VSTInfo = null;
                 List<vstInfo> vstlst = new List<vstInfo>();
 
@@ -2777,6 +2975,7 @@ namespace MDPlayer
                         {
                             nscci.reset();
                             oneTimeReset = true;
+                            chipRegister.resetAllMIDIout();
                         }
                         continue;
                     }
@@ -2806,6 +3005,7 @@ namespace MDPlayer
                             {
                                 if (nscci != null) nscci.reset();
                                 vgmRealFadeoutVolWait = 1000;
+                                chipRegister.resetAllMIDIout();
                             }
                             else
                             {

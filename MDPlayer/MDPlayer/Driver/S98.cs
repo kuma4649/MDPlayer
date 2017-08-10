@@ -422,7 +422,7 @@ namespace MDPlayer
                 //wait nSync
                 if (cmd == 0xfe)
                 {
-                    s98WaitCounter = getvv();
+                    s98WaitCounter = common.getvv(vgmBuf, ref musicPtr);
                     break;
                 }
 
@@ -481,20 +481,6 @@ namespace MDPlayer
                 musicPtr += 2;
 
             }
-        }
-
-        private int getvv()
-        {
-            int s = 0, n = 0;
-
-            do
-            {
-                n |= (vgmBuf[musicPtr] & 0x7f) << s;
-                s += 7;
-            }
-            while ((vgmBuf[musicPtr++] & 0x80) > 0);
-
-            return n + 2;
         }
 
         private void WriteYM2203(int chipID, byte adr, byte data)

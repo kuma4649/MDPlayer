@@ -135,6 +135,52 @@ namespace MDPlayer
         {
             return (n > max) ? max : (n < min ? min : n);
         }
+
+        public static int getvv(byte[] buf, ref uint musicPtr)
+        {
+            int s = 0, n = 0;
+
+            do
+            {
+                n |= (buf[musicPtr] & 0x7f) << s;
+                s += 7;
+            }
+            while ((buf[musicPtr++] & 0x80) > 0);
+
+            return n + 2;
+        }
+
+        public static int getv(byte[] buf, ref uint musicPtr)
+        {
+            int s = 0, n = 0;
+
+            do
+            {
+                n |= (buf[musicPtr] & 0x7f) << s;
+                s += 7;
+            }
+            while ((buf[musicPtr++] & 0x80) > 0);
+
+            return n;
+        }
+
+        public static int getDelta(ref uint trkPtr, byte[] bs)
+        {
+            int delta = 0;
+            while(true)
+            {
+                delta = (delta << 7) + (bs[trkPtr] & 0x7f);
+                if ((bs[trkPtr] & 0x80) == 0)
+                {
+                    trkPtr++;
+                    break;
+                }
+                trkPtr++;
+            }
+
+            return delta;
+        }
+
     }
 
     public enum enmModel
@@ -192,7 +238,8 @@ namespace MDPlayer
         VGM = 1,
         NRTDRV = 2,
         XGM = 3,
-        S98 = 4
+        S98 = 4,
+        MID = 5
     }
 
 
