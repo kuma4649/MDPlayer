@@ -83,7 +83,7 @@ namespace MDPlayer
                                         //case 0x02:
                                         if (T01TrackName == "")
                                         {
-                                            T01TrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                            T01TrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray()).Trim();
                                         }
                                         break;
                                     case 0x03:
@@ -95,8 +95,8 @@ namespace MDPlayer
                                         {
                                             if (format==0 || (format==1 && i == 0))
                                             {
-                                                gd3.TrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
-                                                gd3.TrackNameJ = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                                gd3.TrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray()).Trim();
+                                                gd3.TrackNameJ = Encoding.GetEncoding(932).GetString(eventData.ToArray()).Trim();
                                             }
                                         }
                                         break;

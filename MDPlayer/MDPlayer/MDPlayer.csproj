@@ -120,6 +120,10 @@
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\MID.cs" />
+    <Compile Include="Driver\MIDIEvent.cs" />
+    <Compile Include="Driver\MIDIPart.cs" />
+    <Compile Include="Driver\MIDITrack.cs" />
+    <Compile Include="Driver\RCP.cs" />
     <Compile Include="Driver\S98.cs" />
     <Compile Include="Driver\xgm.cs" />
     <Compile Include="form\frmAY8910.cs">

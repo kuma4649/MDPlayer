@@ -385,6 +385,34 @@ namespace MDPlayer
                 }
 
             }
+            else if (file.ToLower().LastIndexOf(".rcp") != -1)
+            {
+                music.format = enmFileFormat.RCP;
+                GD3 gd3 = new RCP().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+                if (music.title == "" && music.titleJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+            }
             else
             {
                 if (buf.Length < 0x40) return music;
@@ -824,6 +852,15 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
                 return midPlay(setting);
+            }
+
+            if (PlayingFileFormat == enmFileFormat.RCP)
+            {
+                driverVirtual = new RCP();
+                driverReal = new RCP();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+                return rcpPlay(setting);
             }
 
             driverVirtual = new vgm();
@@ -1575,6 +1612,110 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
                 chipRegister.midiOuts = midiOuts;
+
+                //Play
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool rcpPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                ChipPriOPN = 0;
+                ChipPriOPN2 = 0;
+                ChipPriOPNA = 0;
+                ChipPriOPNB = 0;
+                ChipPriOPM = 0;
+                ChipPriDCSG = 0;
+                ChipPriRF5C = 0;
+                ChipPriPWM = 0;
+                ChipPriOKI5 = 0;
+                ChipPriOKI9 = 0;
+                ChipPriC140 = 0;
+                ChipPriSPCM = 0;
+                ChipPriAY10 = 0;
+                ChipPriOPLL = 0;
+                ChipPriHuC = 0;
+                ChipPriC352 = 0;
+                ChipPriK054539 = 0;
+
+                ChipSecOPN = 0;
+                ChipSecOPN2 = 0;
+                ChipSecOPNA = 0;
+                ChipSecOPNB = 0;
+                ChipSecOPM = 0;
+                ChipSecDCSG = 0;
+                ChipSecRF5C = 0;
+                ChipSecPWM = 0;
+                ChipSecOKI5 = 0;
+                ChipSecOKI9 = 0;
+                ChipSecC140 = 0;
+                ChipSecSPCM = 0;
+                ChipSecAY10 = 0;
+                ChipSecOPLL = 0;
+                ChipSecHuC = 0;
+                ChipSecC352 = 0;
+                ChipSecK054539 = 0;
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                chipRegister.initChipRegister();
+                chipRegister.midiOuts = midiOuts;
+
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
 
                 //Play
 
@@ -2428,9 +2569,12 @@ namespace MDPlayer
 
         public static long GetCounter()
         {
-            if (driverVirtual == null) return -1;
+            if (driverVirtual == null && driverReal == null) return -1;
 
-            return driverVirtual.Counter;
+            if (driverVirtual == null) return driverReal.Counter;
+            if (driverReal==null) return driverVirtual.Counter;
+
+            return driverVirtual.Counter > driverReal.Counter ? driverVirtual.Counter : driverReal.Counter;
         }
 
         public static long GetTotalCounter()

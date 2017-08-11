@@ -239,7 +239,8 @@ namespace MDPlayer
         NRTDRV = 2,
         XGM = 3,
         S98 = 4,
-        MID = 5
+        MID = 5,
+        RCP = 6
     }
 
 
