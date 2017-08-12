@@ -207,7 +207,8 @@ namespace MDPlayer
         private int ptr = 0;
         private int trkLen = 0;
         private int TimeBase = 0;
-        private int Tempo = 0;
+        private double nowTempo = 0;
+        private double Tempo = 0;
         private int BeatDen = 0;
         private int BeatMol = 0;
         private int Key = 0;
@@ -221,8 +222,8 @@ namespace MDPlayer
         private MIDITrack[] trk = null;
         private MIDIPart[] prt = null;
 
-        private int trkTick = 0;
-        private int meaTick = 0;
+        //private int trkTick = 0;
+        //private int meaTick = 0;
         private int meaInd = 0;
         private bool endTrack = false;
         private Dictionary<byte, byte> taiDic = null;
@@ -236,6 +237,9 @@ namespace MDPlayer
         delegate void efd(MIDITrack trk, MIDIEvent eve);
         private efd[] EventFunc = new efd[256];
         private efd[] SpecialEventFunc = new efd[256];
+        private int RelativeTempoChangeTargetTempo;
+        private double RelativeTempoChangeTickSlice;
+        private bool RelativeTempoChangeSW = false;
 
 
         private bool getInformationHeader()
@@ -262,7 +266,7 @@ namespace MDPlayer
                 Header_RCP();
             }
 
-            oneSyncTime = 60.0 / Tempo / TimeBase;
+            oneSyncTime = 60.0 / nowTempo / TimeBase;
 
             Rythm();
 
@@ -373,8 +377,9 @@ namespace MDPlayer
             TimeBase = vgmBuf[ptr] + (vgmBuf[ptr + 1] * 0x100);
             ptr += 2;
             //Tempo
-            Tempo = vgmBuf[ptr++];
-            if (Tempo < 8 || Tempo > 250) Tempo = 120;
+            nowTempo = vgmBuf[ptr++];
+            if (nowTempo < 8 || nowTempo > 250) nowTempo = 120;
+            Tempo = nowTempo;
             //dummy Skip
             ptr++;
             //拍子（分子）
@@ -420,7 +425,8 @@ namespace MDPlayer
             //Timebase下位
             TimeBase = vgmBuf[ptr++];
             //Tempo
-            Tempo = vgmBuf[ptr++];
+            nowTempo = vgmBuf[ptr++];
+            Tempo = nowTempo;
             //拍子（分子）
             BeatDen = vgmBuf[ptr++];
             //拍子（分母）
@@ -570,9 +576,9 @@ namespace MDPlayer
                 trk[trkNumber].Name = (Encoding.GetEncoding("Shift_JIS").GetString(vgmBuf, ptr, 36)).Replace("\0", "");
                 ptr += 36;
 
-                trkTick = 0;
+                //trkTick = 0;
                 taiDic = new Dictionary<byte, byte>();
-                meaTick = 0;
+                //meaTick = 0;
                 meaInd = 0;
                 musData(trk[trkNumber], vgmBuf);
                 extractSame(trk[trkNumber]);
@@ -1089,6 +1095,31 @@ namespace MDPlayer
 
         private void oneFrameRCP()
         {
+            //リタルダンド処理
+            if (RelativeTempoChangeSW)
+            {
+                nowTempo += RelativeTempoChangeTickSlice;
+                if (RelativeTempoChangeTickSlice <= 0)
+                {
+                    if (RelativeTempoChangeTargetTempo >= nowTempo)
+                    {
+                        nowTempo = RelativeTempoChangeTargetTempo;
+                        RelativeTempoChangeSW = false;
+                    }
+                }
+                else
+                {
+                    if (RelativeTempoChangeTargetTempo <= nowTempo)
+                    {
+                        nowTempo = RelativeTempoChangeTargetTempo;
+                        RelativeTempoChangeSW = false;
+                    }
+                }
+
+                oneSyncTime = 60.0 / nowTempo / TimeBase;
+
+            }
+
             bool endMark = true;
             foreach(MIDITrack tk in trk)
             {
@@ -1574,27 +1605,25 @@ namespace MDPlayer
 
         void sefTempoChange(MIDITrack trk, MIDIEvent eve)
         {
-            //double mul = eve.MIDIMessageLst[0][0] / 64.0;
-            //if (eve.MIDIMessageLst[0][1] == 0)
-            //{
-            //    int Tempo = (int)((double)prj.Information.Tempo * mul);
-            //    if (Tempo < 10) Tempo = 10;
-            //    else if (Tempo > 240) Tempo = 240;
-            //    prj.RelativeTempoChangeNowTempo = (double)Tempo;
-            //    prj.RelativeTempoChangeSW = false;
-            //    MIDIClock.Stop();
-            //    MIDIClock.SetTempo(60000000 / Tempo);
-            //    MIDIClock.Start();
-            //    ps.Tempo = Tempo;
-            //}
-            //else
-            //{
-            //    int Tempo = (int)((double)prj.Information.Tempo * mul);
-            //    double s = (double)(Tempo - prj.Information.Tempo) * 256.0 / ((256.0 - eve.MIDIMessageLst[0][1]) * prj.Information.TimeBase);
-            //    prj.RelativeTempoChangeTargetTempo = Tempo;
-            //    prj.RelativeTempoChangeTickSlice = (prj.RelativeTempoChangeNowTempo < Tempo) ? s : -s;
-            //    prj.RelativeTempoChangeSW = true;
-            //}
+            double mul = eve.MIDIMessageLst[0][0] / 64.0;
+
+            if (eve.MIDIMessageLst[0][1] == 0)
+            {
+                int Tempo = (int)(this.Tempo * mul);
+                if (Tempo < 10) Tempo = 10;
+                else if (Tempo > 240) Tempo = 240;
+                nowTempo = Tempo;
+                oneSyncTime = 60.0 / nowTempo / TimeBase;
+            }
+            else
+            {
+                //リタルダンド
+                int Tempo = (int)((double)this.Tempo * mul);
+                double s = (double)(Tempo - this.Tempo) * 256.0 / ((256.0 - eve.MIDIMessageLst[0][1]) * TimeBase);
+                RelativeTempoChangeTargetTempo = Tempo;
+                RelativeTempoChangeTickSlice = (nowTempo < Tempo) ? s : -s;
+                RelativeTempoChangeSW = true;
+            }
         }
 
         void sefYAMAHABase(MIDITrack trk, MIDIEvent eve)

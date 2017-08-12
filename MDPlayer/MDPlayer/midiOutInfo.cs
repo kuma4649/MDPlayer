@@ -12,6 +12,7 @@ namespace MDPlayer
         public int id = 0;
         public int manufacturer = -1;
         public string name = "";
+        public int type = 0;//0:GM 1:XG 2:GS
 
     }
 }

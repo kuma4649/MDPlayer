@@ -311,6 +311,36 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeMIDI_GM {
+            get {
+                object obj = ResourceManager.GetObject("planeMIDI_GM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeMIDI_GS {
+            get {
+                object obj = ResourceManager.GetObject("planeMIDI_GS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap planeMIDI_XG {
+            get {
+                object obj = ResourceManager.GetObject("planeMIDI_XG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeMixer {
             get {
                 object obj = ResourceManager.GetObject("planeMixer", resourceCulture);
@@ -544,6 +574,126 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap rMenuButtons_02 {
             get {
                 object obj = ResourceManager.GetObject("rMenuButtons_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_01 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_02 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_03 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Fader_01 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Fader_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Fader_02 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Fader_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Fader_03 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Fader_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_01 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_02 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_03 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Vol_01 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Vol_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Vol_02 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Vol_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Vol_03 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Vol_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

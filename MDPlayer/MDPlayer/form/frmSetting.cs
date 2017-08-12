@@ -760,7 +760,11 @@ namespace MDPlayer
                     }
 
                     moi.id = found;
-                    dgvMIDIoutList.Rows.Add(moi.id, moi.name, moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown");
+
+                    string stype = "GM";
+                    if (moi.type == 1) stype = "XG";
+                    if (moi.type == 2) stype = "GS";
+                    dgvMIDIoutList.Rows.Add(moi.id, moi.name, stype, moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown");
 
                 }
             }
@@ -1120,7 +1124,11 @@ namespace MDPlayer
                     midiOutInfo moi = new midiOutInfo();
                     moi.id = (int)dgvMIDIoutList.Rows[i].Cells[0].Value;
                     moi.name = (string)dgvMIDIoutList.Rows[i].Cells[1].Value;
-                    string mn = (string)dgvMIDIoutList.Rows[i].Cells[2].Value;
+                    string stype= (string)dgvMIDIoutList.Rows[i].Cells[2].Value;
+                    moi.type = 0;
+                    if (stype == "XG") moi.type = 1;
+                    if (stype == "GS") moi.type = 2;
+                    string mn = (string)dgvMIDIoutList.Rows[i].Cells[3].Value;
                     moi.manufacturer = mn == "Unknown"? - 1:(int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
 
                     lstMoi.Add(moi);
@@ -1382,7 +1390,7 @@ namespace MDPlayer
 
             foreach (DataGridViewRow row in dgvMIDIoutPallet.SelectedRows)
             {
-                dgvMIDIoutList.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, "GM", row.Cells[2].Value);
                 dgvMIDIoutPallet.Rows.Remove(row);
             }
         }
@@ -1393,7 +1401,7 @@ namespace MDPlayer
 
             foreach (DataGridViewRow row in dgvMIDIoutList.SelectedRows)
             {
-                dgvMIDIoutPallet.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutPallet.Rows.Add(row.Cells[0].Value, row.Cells[1].Value, row.Cells[3].Value);
                 dgvMIDIoutList.Rows.Remove(row);
             }
         }
@@ -1407,7 +1415,7 @@ namespace MDPlayer
                 if (row.Index < 1) continue;
 
                 int i = row.Index-1;
-                dgvMIDIoutList.Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value);
                 dgvMIDIoutList.Rows.Remove(row);
                 dgvMIDIoutList.Rows[i].Selected = true;
             }
@@ -1422,7 +1430,7 @@ namespace MDPlayer
                 if (row.Index > dgvMIDIoutList.Rows.Count-2) continue;
 
                 int i = row.Index + 1;
-                dgvMIDIoutList.Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value);
+                dgvMIDIoutList.Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value);
                 dgvMIDIoutList.Rows.Remove(row);
                 dgvMIDIoutList.Rows[i].Selected = true;
             }

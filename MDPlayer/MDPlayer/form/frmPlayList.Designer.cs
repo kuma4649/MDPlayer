@@ -38,21 +38,6 @@ namespace MDPlayer
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayList));
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmZipFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmVGMby = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsPlayList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPlayThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelThis = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +55,23 @@ namespace MDPlayer
             this.tsbDown = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbJapanese = new System.Windows.Forms.ToolStripButton();
+            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmZipFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPlayingNow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmEXT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTitleJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmGame = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmGameJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmComposerJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmVGMby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmConverted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.cmsPlayList.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -101,6 +103,8 @@ namespace MDPlayer
             this.clmZipFileName,
             this.clmFileName,
             this.clmPlayingNow,
+            this.clmEXT,
+            this.clmType,
             this.clmTitle,
             this.clmTitleJ,
             this.clmGame,
@@ -143,112 +147,6 @@ namespace MDPlayer
             this.dgvList.TabIndex = 0;
             this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
             this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
-            // 
-            // clmKey
-            // 
-            this.clmKey.HeaderText = "Key";
-            this.clmKey.Name = "clmKey";
-            this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmKey.Visible = false;
-            // 
-            // clmZipFileName
-            // 
-            this.clmZipFileName.HeaderText = "ZipFileName";
-            this.clmZipFileName.Name = "clmZipFileName";
-            this.clmZipFileName.Visible = false;
-            // 
-            // clmFileName
-            // 
-            this.clmFileName.HeaderText = "FileName";
-            this.clmFileName.Name = "clmFileName";
-            this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmFileName.Visible = false;
-            // 
-            // clmPlayingNow
-            // 
-            this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.clmPlayingNow.HeaderText = " ";
-            this.clmPlayingNow.Name = "clmPlayingNow";
-            this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmPlayingNow.Width = 25;
-            // 
-            // clmTitle
-            // 
-            this.clmTitle.HeaderText = "Title";
-            this.clmTitle.Name = "clmTitle";
-            this.clmTitle.ReadOnly = true;
-            this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitle.Width = 200;
-            // 
-            // clmTitleJ
-            // 
-            this.clmTitleJ.HeaderText = "タイトル";
-            this.clmTitleJ.Name = "clmTitleJ";
-            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitleJ.Visible = false;
-            // 
-            // clmGame
-            // 
-            this.clmGame.HeaderText = "Game";
-            this.clmGame.Name = "clmGame";
-            this.clmGame.ReadOnly = true;
-            this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGame.Width = 200;
-            // 
-            // clmGameJ
-            // 
-            this.clmGameJ.HeaderText = "ゲーム";
-            this.clmGameJ.Name = "clmGameJ";
-            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGameJ.Visible = false;
-            // 
-            // clmComposer
-            // 
-            this.clmComposer.HeaderText = "Composer";
-            this.clmComposer.Name = "clmComposer";
-            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmComposerJ
-            // 
-            this.clmComposerJ.HeaderText = "作曲者";
-            this.clmComposerJ.Name = "clmComposerJ";
-            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmComposerJ.Visible = false;
-            // 
-            // clmVGMby
-            // 
-            this.clmVGMby.HeaderText = "VGMby";
-            this.clmVGMby.Name = "clmVGMby";
-            this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmConverted
-            // 
-            this.clmConverted.HeaderText = "Release";
-            this.clmConverted.Name = "clmConverted";
-            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmNotes
-            // 
-            this.clmNotes.HeaderText = "Notes";
-            this.clmNotes.Name = "clmNotes";
-            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmDuration
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
-            this.clmDuration.HeaderText = "Duration";
-            this.clmDuration.Name = "clmDuration";
-            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmSpacer
-            // 
-            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmSpacer.HeaderText = "";
-            this.clmSpacer.Name = "clmSpacer";
-            this.clmSpacer.ReadOnly = true;
-            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cmsPlayList
             // 
@@ -418,6 +316,128 @@ namespace MDPlayer
             this.tsbJapanese.Text = "日本語";
             this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // clmKey
+            // 
+            this.clmKey.HeaderText = "Key";
+            this.clmKey.Name = "clmKey";
+            this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmKey.Visible = false;
+            // 
+            // clmZipFileName
+            // 
+            this.clmZipFileName.HeaderText = "ZipFileName";
+            this.clmZipFileName.Name = "clmZipFileName";
+            this.clmZipFileName.Visible = false;
+            // 
+            // clmFileName
+            // 
+            this.clmFileName.HeaderText = "FileName";
+            this.clmFileName.Name = "clmFileName";
+            this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmFileName.Visible = false;
+            // 
+            // clmPlayingNow
+            // 
+            this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.clmPlayingNow.HeaderText = " ";
+            this.clmPlayingNow.Name = "clmPlayingNow";
+            this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmPlayingNow.Width = 25;
+            // 
+            // clmEXT
+            // 
+            this.clmEXT.HeaderText = "EXT";
+            this.clmEXT.Name = "clmEXT";
+            this.clmEXT.ReadOnly = true;
+            this.clmEXT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmEXT.Width = 40;
+            // 
+            // clmType
+            // 
+            this.clmType.HeaderText = "Type";
+            this.clmType.Name = "clmType";
+            this.clmType.ReadOnly = true;
+            this.clmType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmType.Width = 40;
+            // 
+            // clmTitle
+            // 
+            this.clmTitle.HeaderText = "Title";
+            this.clmTitle.Name = "clmTitle";
+            this.clmTitle.ReadOnly = true;
+            this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmTitle.Width = 200;
+            // 
+            // clmTitleJ
+            // 
+            this.clmTitleJ.HeaderText = "タイトル";
+            this.clmTitleJ.Name = "clmTitleJ";
+            this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmTitleJ.Visible = false;
+            // 
+            // clmGame
+            // 
+            this.clmGame.HeaderText = "Game";
+            this.clmGame.Name = "clmGame";
+            this.clmGame.ReadOnly = true;
+            this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGame.Width = 200;
+            // 
+            // clmGameJ
+            // 
+            this.clmGameJ.HeaderText = "ゲーム";
+            this.clmGameJ.Name = "clmGameJ";
+            this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmGameJ.Visible = false;
+            // 
+            // clmComposer
+            // 
+            this.clmComposer.HeaderText = "Composer";
+            this.clmComposer.Name = "clmComposer";
+            this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmComposerJ
+            // 
+            this.clmComposerJ.HeaderText = "作曲者";
+            this.clmComposerJ.Name = "clmComposerJ";
+            this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmComposerJ.Visible = false;
+            // 
+            // clmVGMby
+            // 
+            this.clmVGMby.HeaderText = "VGMby";
+            this.clmVGMby.Name = "clmVGMby";
+            this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmConverted
+            // 
+            this.clmConverted.HeaderText = "Release";
+            this.clmConverted.Name = "clmConverted";
+            this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmNotes
+            // 
+            this.clmNotes.HeaderText = "Notes";
+            this.clmNotes.Name = "clmNotes";
+            this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmDuration
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmDuration.HeaderText = "Duration";
+            this.clmDuration.Name = "clmDuration";
+            this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmSpacer
+            // 
+            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmSpacer.HeaderText = "";
+            this.clmSpacer.Name = "clmSpacer";
+            this.clmSpacer.ReadOnly = true;
+            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // frmPlayList
             // 
             this.AllowDrop = true;
@@ -475,6 +495,8 @@ namespace MDPlayer
         private System.Windows.Forms.DataGridViewTextBoxColumn clmZipFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmPlayingNow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmEXT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmType;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTitleJ;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmGame;

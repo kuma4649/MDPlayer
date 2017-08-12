@@ -175,6 +175,8 @@ namespace MDPlayer
             row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
             row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
             row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.zipFileName;
+            row.Cells[dgvList.Columns["clmEXT"].Index].Value = Path.GetExtension(music.fileName).ToUpper();
+            row.Cells[dgvList.Columns["clmType"].Index].Value = "-";
             row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
             row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
             row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
