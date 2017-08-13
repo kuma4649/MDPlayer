@@ -121,7 +121,13 @@ namespace MDPlayer
             }
             ptr += 32;
 
-            str = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 64)).Replace("\0", "");
+            List<byte> title = new List<byte>();
+            for (int i = 0; i < 64; i++)
+            {
+                if (buf[ptr + i] == 0) break;
+                title.Add(buf[ptr + i]);
+            }
+            str = (Encoding.GetEncoding("Shift_JIS").GetString(title.ToArray())).Trim();
             ptr += 64;
             gd3.TrackName = str;
             gd3.TrackNameJ = str;
@@ -1600,7 +1606,16 @@ namespace MDPlayer
 
         void sefMIDIChChange(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventMIDIChChangeは未実装！");
+            int ch = eve.MIDIMessageLst[0][0];
+            if (ch == 0)
+            {
+                trk.Mute = true;
+                return;
+            }
+            trk.Mute = false;
+            ch--;
+            trk.OutDeviceNumber = ch / 16;
+            trk.OutChannel = ch % 16;
         }
 
         void sefTempoChange(MIDITrack trk, MIDIEvent eve)
@@ -1628,22 +1643,48 @@ namespace MDPlayer
 
         void sefYAMAHABase(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventYAMAHABaseは未実装！");
+            trk.YAMAHABase_gt = eve.MIDIMessageLst[0][0];
+            trk.YAMAHABase_vel = eve.MIDIMessageLst[0][1];
         }
 
         void sefYAMAHADev(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventYAMAHADevは未実装！");
+            trk.YAMAHA_dev = eve.MIDIMessageLst[0][0];
+            trk.YAMAHA_model = eve.MIDIMessageLst[0][1];
         }
 
         void sefYAMAHAAddrPara(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventYAMAHAAddrParaは未実装！");
+            trk.YAMAHAPara_gt = eve.MIDIMessageLst[0][0];
+            trk.YAMAHAPara_vel = eve.MIDIMessageLst[0][1];
+
+            msgBuf[0] = 0xf0;
+            msgBuf[1] = 0x43;
+            msgBuf[2] = trk.YAMAHA_dev;
+            msgBuf[3] = trk.YAMAHA_model;
+            msgBuf[4] = trk.YAMAHABase_gt;
+            msgBuf[5] = trk.YAMAHABase_vel;
+            msgBuf[6] = trk.YAMAHAPara_gt;
+            msgBuf[7] = trk.YAMAHAPara_vel;
+            msgBuf[8] = 0xf7;
+            PutMIDIMessage((int)trk.OutDeviceNumber, msgBuf, 9);
         }
 
         void sefYAMAHAXGAddrPara(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventYAMAHAXGAddrParaは未実装！");
+            trk.YAMAHAPara_gt = eve.MIDIMessageLst[0][0];
+            trk.YAMAHAPara_vel = eve.MIDIMessageLst[0][1];
+
+            msgBuf[0] = 0xf0;
+            msgBuf[1] = 0x43;
+            msgBuf[2] = 0x10;
+            msgBuf[3] = 0x4c;
+            msgBuf[4] = trk.YAMAHABase_gt;
+            msgBuf[5] = trk.YAMAHABase_vel;
+            msgBuf[6] = trk.YAMAHAPara_gt;
+            msgBuf[7] = trk.YAMAHAPara_vel;
+            msgBuf[8] = 0xf7;
+            PutMIDIMessage((int)trk.OutDeviceNumber, msgBuf, 9);
         }
 
         void sefRolandBase(MIDITrack trk, MIDIEvent eve)
@@ -1679,7 +1720,16 @@ namespace MDPlayer
 
         void sefKeyChange(MIDITrack trk, MIDIEvent eve)
         {
-            Console.WriteLine("spEventKeyChangeは未実装！");
+            int sf, mi;
+            int v, vv;
+
+            v = eve.Step;
+            vv = v % 0x10;
+            sf = vv > 0x07 ? (0x100 - vv) % 0x100 : vv;
+            mi = v > 0x0f ? 1 : 0;
+
+            trk.KeySIG_SF= sf; //Sharp Flat -7:7flats -1:1flat 0:Key of C 1:1sharp 7:7sharp
+            trk.KeySIG_MI = mi; // Is minor Key
         }
 
         void sefCommentStart(MIDITrack trk, MIDIEvent eve)

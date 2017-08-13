@@ -2544,16 +2544,29 @@ namespace MDPlayer
         [Serializable]
         public class MidiOut
         {
-            private midiOutInfo[] _MidiOutInfo = null;
-            public midiOutInfo[] MidiOutInfo
+            //private midiOutInfo[] _MidiOutInfo = null;
+            //public midiOutInfo[] MidiOutInfo
+            //{
+            //    get
+            //    {
+            //        return _MidiOutInfo;
+            //    }
+            //    set
+            //    {
+            //        _MidiOutInfo = value;
+            //    }
+            //}
+
+            private List<midiOutInfo[]> _lstMidiOutInfo = null;
+            public List<midiOutInfo[]> lstMidiOutInfo
             {
                 get
                 {
-                    return _MidiOutInfo;
+                    return _lstMidiOutInfo;
                 }
                 set
                 {
-                    _MidiOutInfo = value;
+                    _lstMidiOutInfo = value;
                 }
             }
 
@@ -2561,7 +2574,8 @@ namespace MDPlayer
             {
                 MidiOut MidiOut = new MidiOut();
 
-                MidiOut.MidiOutInfo = this.MidiOutInfo;
+                //MidiOut.MidiOutInfo = this.MidiOutInfo;
+                MidiOut.lstMidiOutInfo = this.lstMidiOutInfo;
 
                 return MidiOut;
             }

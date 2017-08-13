@@ -249,6 +249,7 @@ namespace MDPlayer
         private static int MasterVolume = 0;
         private static int[] chips = new int[256];
         private static string PlayingFileName;
+        private static int MidiMode = 0;
         private static enmFileFormat PlayingFileFormat;
         public static cNscci cnscci;
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
@@ -295,6 +296,7 @@ namespace MDPlayer
             music.zipFileName = zipFile;
             music.title = "unknown";
             music.game = "unknown";
+            music.type = "-";
 
             if (file.ToLower().LastIndexOf(".nrd") != -1)
             {
@@ -645,7 +647,7 @@ namespace MDPlayer
                     ctx.PluginCommandStub.MainsChanged(true);
                     ctx.PluginCommandStub.StartProcess();
                     vi.name = ctx.PluginCommandStub.GetEffectName();
-                    vi.power = setting.vst.VSTInfo[i].power; 
+                    vi.power = setting.vst.VSTInfo[i].power;
                     vi.editor = setting.vst.VSTInfo[i].editor;
                     vi.location = setting.vst.VSTInfo[i].location;
                     vi.param = setting.vst.VSTInfo[i].param;
@@ -671,6 +673,52 @@ namespace MDPlayer
             }
 
             //midi outをリリース
+            ReleaseAllMIDIout();
+
+            //midi out のインスタンスを作成
+            MakeMIDIout(setting, 1);
+
+            log.ForcedWrite("Audio:Init:STEP 06");
+
+            naudioWrap.Start(Audio.setting);
+
+            log.ForcedWrite("Audio:Init:Complete");
+
+        }
+
+        private static void MakeMIDIout(Setting setting,int m)
+        {
+            if (setting.midiOut.lstMidiOutInfo != null && setting.midiOut.lstMidiOutInfo.Count > 0)
+            {
+                if (setting.midiOut.lstMidiOutInfo[m] != null && setting.midiOut.lstMidiOutInfo[m].Length > 0)
+                {
+                    for (int i = 0; i < setting.midiOut.lstMidiOutInfo[m].Length; i++)
+                    {
+                        int n = -1;
+                        for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
+                        {
+                            if (setting.midiOut.lstMidiOutInfo[m][i].name == NAudio.Midi.MidiOut.DeviceInfo(j).ProductName)
+                            {
+                                n = j;
+                                break;
+                            }
+                        }
+
+                        if (n == -1)
+                        {
+                            midiOuts.Add(null);
+                        }
+                        else
+                        {
+                            midiOuts.Add(new NAudio.Midi.MidiOut(n));
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ReleaseAllMIDIout()
+        {
             if (midiOuts.Count > 0)
             {
                 for (int i = 0; i < midiOuts.Count; i++)
@@ -684,39 +732,6 @@ namespace MDPlayer
                 }
                 midiOuts.Clear();
             }
-
-            //midi out のインスタンスを作成
-            if (setting.midiOut.MidiOutInfo != null && setting.midiOut.MidiOutInfo.Length > 0)
-            {
-                for (int i = 0; i < setting.midiOut.MidiOutInfo.Length; i++)
-                {
-                    int n = -1;
-                    for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
-                    {
-                        if (setting.midiOut.MidiOutInfo[i].name == NAudio.Midi.MidiOut.DeviceInfo(j).ProductName)
-                        {
-                            n = j;
-                            break;
-                        }
-                    }
-
-                    if (n == -1)
-                    {
-                        midiOuts.Add(null);
-                    }
-                    else
-                    {
-                        midiOuts.Add(new NAudio.Midi.MidiOut(n));
-                    }
-                }
-            }
-
-            log.ForcedWrite("Audio:Init:STEP 06");
-
-            naudioWrap.Start(Audio.setting);
-
-            log.ForcedWrite("Audio:Init:Complete");
-
         }
 
         public static void getScciInstances()
@@ -803,12 +818,13 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode)
         {
             Stop();
             PlayingFileFormat = format;
             vgmBuf = srcBuf;
             PlayingFileName = playingFileName;
+            MidiMode = midiMode;
             chipRegister.SetFileName(playingFileName);
         }
 
@@ -1611,6 +1627,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 chipRegister.initChipRegister();
+                ReleaseAllMIDIout();
+                MakeMIDIout(setting, MidiMode);
+
                 chipRegister.midiOuts = midiOuts;
 
                 //Play
@@ -1709,6 +1728,8 @@ namespace MDPlayer
                 MasterVolume = setting.balance.MasterVolume;
 
                 chipRegister.initChipRegister();
+                ReleaseAllMIDIout();
+                MakeMIDIout(setting, MidiMode);
                 chipRegister.midiOuts = midiOuts;
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;

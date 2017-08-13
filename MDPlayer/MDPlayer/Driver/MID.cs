@@ -29,6 +29,13 @@ namespace MDPlayer
         List<byte> midiEventBackup = null;
         byte midiEventCh = 0;
         byte midiEventChBackup = 0;
+        private List<byte> eventStr = new List<byte>();
+        private string eventText = "";
+        private string eventCopyrightNotice = "";
+        private string eventSequenceTrackName = "";
+        private string eventInstrumentName = "";
+        private string eventLyric = "";
+        private string eventMarker = "";
 
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
@@ -72,6 +79,7 @@ namespace MDPlayer
                             List<byte> eventData = new List<byte>();
                             for (int j = 0; j < eventLen; j++)
                             {
+                                if (buf[adr + j] == 0) break;
                                 eventData.Add(buf[adr + j]);
                             }
                             adr = adr + eventLen;
@@ -338,16 +346,39 @@ namespace MDPlayer
                             ptr = ptr + eventLen;
                             if (eventData.Count > 0)
                             {
+                                //文字列系のイベントの場合は終端文字までを文字列のデータとする。
+                                if (eventType >= 0x01 && eventType <= 0x07)
+                                {
+                                    eventStr.Clear();
+                                    foreach (byte b in eventData)
+                                    {
+                                        if (b == 0) break;
+                                        eventStr.Add(b);
+                                    }
+                                }
+
                                 switch (eventType)
                                 {
                                     case 0x01:
+                                        eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x02:
+                                        eventCopyrightNotice = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x03:
+                                        eventSequenceTrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x04:
+                                        eventInstrumentName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x05:
+                                        eventLyric = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x06:
+                                        eventMarker = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        break;
                                     case 0x07:
-                                        //Console.Write("{0:X2}:{1}", eventType, Encoding.GetEncoding(932).GetString(eventData.ToArray()));
+                                        eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
                                         break;
                                     case 0x21:
                                         trkPort[trk] = eventData[0];

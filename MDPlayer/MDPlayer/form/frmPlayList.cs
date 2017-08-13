@@ -56,14 +56,20 @@ namespace MDPlayer
             return playList;
         }
 
-        public Tuple<string,string> setStart(int n)
+        public Tuple<int,string,string> setStart(int n)
         {
             updatePlayingIndex(n);
 
             string fn = playList.lstMusic[playIndex].fileName;
             string zfn = playList.lstMusic[playIndex].zipFileName;
+            int m = 0;
+            if (playList.lstMusic[playIndex].type != null && playList.lstMusic[playIndex].type != "-")
+            {
+                m = playList.lstMusic[playIndex].type[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
 
-            return new Tuple<string, string>(fn, zfn);
+            return new Tuple<int, string, string>(m, fn, zfn);
         }
 
         public void Play()
@@ -176,7 +182,7 @@ namespace MDPlayer
             row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
             row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.zipFileName;
             row.Cells[dgvList.Columns["clmEXT"].Index].Value = Path.GetExtension(music.fileName).ToUpper();
-            row.Cells[dgvList.Columns["clmType"].Index].Value = "-";
+            row.Cells[dgvList.Columns["clmType"].Index].Value = music.type;
             row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
             row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
             row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
@@ -277,7 +283,14 @@ namespace MDPlayer
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
             string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
-            frmMain.loadAndPlay(fn, zfn);
+            int m = 0;
+            if (dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+            {
+                m = dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
+
+            frmMain.loadAndPlay(m, fn, zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -311,7 +324,14 @@ namespace MDPlayer
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
             string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
-            frmMain.loadAndPlay(fn,zfn);
+            int m = 0;
+            if (dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+            {
+                m = dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
+
+            frmMain.loadAndPlay(m,fn,zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -327,7 +347,14 @@ namespace MDPlayer
 
             string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
             string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
-            frmMain.loadAndPlay(fn, zfn);
+            int m = 0;
+            if (dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+            {
+                m = dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
+
+            frmMain.loadAndPlay(m, fn, zfn);
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -340,7 +367,14 @@ namespace MDPlayer
 
             string fn = (string)dgvList.Rows[e.RowIndex].Cells["clmFileName"].Value;
             string zfn = (string)dgvList.Rows[e.RowIndex].Cells["clmZipFileName"].Value;
-            frmMain.loadAndPlay(fn,zfn);
+            int m = 0;
+            if (dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+            {
+                m = dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
+
+            frmMain.loadAndPlay(m, fn, zfn);
             updatePlayingIndex(e.RowIndex);
 
             playing = true;
@@ -354,7 +388,14 @@ namespace MDPlayer
 
             string fn = (string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmFileName"].Value;
             string zfn = (string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmZipFileName"].Value;
-            frmMain.loadAndPlay(fn,zfn);
+            int m = 0;
+            if (dgvList.Rows[dgvList.SelectedRows[0].Index].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[dgvList.SelectedRows[0].Index].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+            {
+                m = dgvList.Rows[dgvList.SelectedRows[0].Index].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                if (m < 0 || m > 9) m = 0;
+            }
+
+            frmMain.loadAndPlay(m, fn, zfn);
             updatePlayingIndex(dgvList.SelectedRows[0].Index);
 
             playing = true;
@@ -611,7 +652,14 @@ namespace MDPlayer
 
                     string fn = (string)dgvList.SelectedRows[0].Cells["clmFileName"].Value;
                     string zfn = (string)dgvList.SelectedRows[0].Cells["clmZipFileName"].Value;
-                    frmMain.loadAndPlay(fn,zfn);
+                    int m = 0;
+                    if (dgvList.SelectedRows[0].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.SelectedRows[0].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+                    {
+                        m = dgvList.SelectedRows[0].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                        if (m < 0 || m > 9) m = 0;
+                    }
+
+                    frmMain.loadAndPlay(m, fn, zfn);
                     updatePlayingIndex(index);
 
                     playing = true;
@@ -646,7 +694,7 @@ namespace MDPlayer
 
                         if (fn.ToLower().LastIndexOf(".zip") == -1)
                         {
-                            frmMain.loadAndPlay(fn);
+                            frmMain.loadAndPlay(0, fn);
                             setStart(-1);
                             frmMain.oldParam = new MDChipParams();
                             Play();
@@ -661,6 +709,16 @@ namespace MDPlayer
             }
         }
 
+        private void tsmiA_Click(object sender, EventArgs e)
+        {
+            if (dgvList.SelectedRows.Count < 1) return;
 
+            List<int> sel = new List<int>();
+            foreach (DataGridViewRow r in dgvList.SelectedRows)
+            {
+                playList.lstMusic[r.Index].type= ((ToolStripMenuItem)sender).Text;
+                r.Cells["clmType"].Value = ((ToolStripMenuItem)sender).Text;
+            }
+        }
     }
 }

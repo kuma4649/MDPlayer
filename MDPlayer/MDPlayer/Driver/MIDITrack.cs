@@ -52,6 +52,14 @@ namespace MDPlayer
         private byte _RolandDev_vel = 0;
         private byte _RolandPara_gt = 0;
         private byte _RolandPara_vel = 0;
+        private byte _YAMAHABase_gt = 0;
+        private byte _YAMAHABase_vel = 0;
+        private byte _YAMAHA_dev = 0;
+        private byte _YAMAHA_model = 0;
+        private byte _YAMAHAPara_gt = 0;
+        private byte _YAMAHAPara_vel = 0;
+        private int _KeySIG_SF = 0;
+        private int _KeySIG_MI = 0;
         private int[] _NoteGateTime = new int[128];
 
 
@@ -580,6 +588,110 @@ namespace MDPlayer
             get
             {
                 return _NoteGateTime;
+            }
+        }
+
+        public byte YAMAHABase_gt
+        {
+            get
+            {
+                return _YAMAHABase_gt;
+            }
+
+            set
+            {
+                _YAMAHABase_gt = value;
+            }
+        }
+
+        public byte YAMAHABase_vel
+        {
+            get
+            {
+                return _YAMAHABase_vel;
+            }
+
+            set
+            {
+                _YAMAHABase_vel = value;
+            }
+        }
+
+        public byte YAMAHA_dev
+        {
+            get
+            {
+                return _YAMAHA_dev;
+            }
+
+            set
+            {
+                _YAMAHA_dev = value;
+            }
+        }
+
+        public byte YAMAHA_model
+        {
+            get
+            {
+                return _YAMAHA_model;
+            }
+
+            set
+            {
+                _YAMAHA_model = value;
+            }
+        }
+
+        public byte YAMAHAPara_gt
+        {
+            get
+            {
+                return _YAMAHAPara_gt;
+            }
+
+            set
+            {
+                _YAMAHAPara_gt = value;
+            }
+        }
+
+        public byte YAMAHAPara_vel
+        {
+            get
+            {
+                return _YAMAHAPara_vel;
+            }
+
+            set
+            {
+                _YAMAHAPara_vel = value;
+            }
+        }
+
+        public int KeySIG_SF
+        {
+            get
+            {
+                return _KeySIG_SF;
+            }
+
+            set
+            {
+                _KeySIG_SF = value;
+            }
+        }
+
+        public int KeySIG_MI
+        {
+            get
+            {
+                return _KeySIG_MI;
+            }
+
+            set
+            {
+                _KeySIG_MI = value;
             }
         }
 
