@@ -25,6 +25,7 @@ namespace MDPlayer
         public FrameBuffer[] AY8910Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer[] HuC6280Screen = new FrameBuffer[2] { null, null };
         public FrameBuffer ym2612MIDIScreen = null;
+        public FrameBuffer[] MIDIScreen = new FrameBuffer[2] { null, null };
         public FrameBuffer mixerScreen = null;
 
         private byte[][] rChipName;
@@ -41,6 +42,10 @@ namespace MDPlayer
         private byte[][] rVol;
         private byte[] rWavGraph;
         private byte[] rFader;
+        private byte[][] rMIDILCD_Fader;
+        private byte[] rMIDILCD_KBD;
+        private byte[][] rMIDILCD_Vol;
+        private byte[][] rMIDILCD;
 
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
         private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
@@ -235,6 +240,59 @@ namespace MDPlayer
                 }
             }
 
+            public void drawByteArrayTransp(int x, int y, byte[] src, int srcWidth, int imgX, int imgY, int imgWidth, int imgHeight)
+            {
+                if (bmpPlane == null)
+                {
+                    return;
+                }
+
+                try
+                {
+                    int adr1;
+                    int adr2;
+                    int wid = bmpPlaneW * 4;
+                    adr1 = wid * y + x * 4;
+                    adr2 = srcWidth * 4 * imgY + imgX * 4;
+                    for (int i = 0; i < imgHeight; i++)
+                    {
+                        if (adr1 >= 0 && adr2 >= 0)
+                        {
+                            for (int j = 0; j < imgWidth * 4; j += 4)
+                            {
+                                if (baPlaneBuffer == null)
+                                {
+                                    continue;
+                                }
+
+                                if (adr1 + j >= baPlaneBuffer.Length)
+                                {
+                                    continue;
+                                }
+                                if (adr2 + j >= src.Length)
+                                {
+                                    continue;
+                                }
+
+                                if (src[adr2 + j + 0] == 0x00 && src[adr2 + j + 1] == 0xff && src[adr2 + j + 2] == 0x00) continue;
+
+                                baPlaneBuffer[adr1 + j + 0] = src[adr2 + j + 0];
+                                baPlaneBuffer[adr1 + j + 1] = src[adr2 + j + 1];
+                                baPlaneBuffer[adr1 + j + 2] = src[adr2 + j + 2];
+                                baPlaneBuffer[adr1 + j + 3] = src[adr2 + j + 3];
+                            }
+                        }
+
+                        adr1 += wid;
+                        adr2 += srcWidth * 4;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+            }
         }
 
         public DoubleBuffer(PictureBox pbMainScreen, Image initialImage, int zoom)
@@ -296,6 +354,22 @@ namespace MDPlayer
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
             rFader = getByteArray(Properties.Resources.rFader);
 
+            rMIDILCD_Fader = new byte[3][];
+            rMIDILCD_Fader[0] = getByteArray(Properties.Resources.rMIDILCD_Fader_01);
+            rMIDILCD_Fader[1] = getByteArray(Properties.Resources.rMIDILCD_Fader_02);
+            rMIDILCD_Fader[2] = getByteArray(Properties.Resources.rMIDILCD_Fader_03);
+
+            rMIDILCD_KBD = getByteArray(Properties.Resources.rMIDILCD_KBD_01);
+
+            rMIDILCD_Vol = new byte[3][];
+            rMIDILCD_Vol[0] = getByteArray(Properties.Resources.rMIDILCD_Vol_01);
+            rMIDILCD_Vol[1] = getByteArray(Properties.Resources.rMIDILCD_Vol_02);
+            rMIDILCD_Vol[2] = getByteArray(Properties.Resources.rMIDILCD_Vol_03);
+
+            rMIDILCD = new byte[3][];
+            rMIDILCD[0] = getByteArray(Properties.Resources.rMIDILCD_01);
+            rMIDILCD[1] = getByteArray(Properties.Resources.rMIDILCD_02);
+            rMIDILCD[2] = getByteArray(Properties.Resources.rMIDILCD_03);
         }
 
         public void AddRf5c164(int chipID, PictureBox pbRf5c164Screen, Image initialRf5c164Image)
@@ -389,6 +463,12 @@ namespace MDPlayer
         {
             ym2612MIDIScreen = new FrameBuffer();
             ym2612MIDIScreen.Add(pbYM2612MIDIScreen, initialYM2612MIDIImage, this.Paint, setting.other.Zoom);
+        }
+
+        public void AddMIDI(int chipID, PictureBox pbMIDIScreen, Image initialMIDIImage)
+        {
+            MIDIScreen[chipID] = new FrameBuffer();
+            MIDIScreen[chipID].Add(pbMIDIScreen, initialMIDIImage, this.Paint, setting.other.Zoom);
         }
 
         public void AddMixer(PictureBox pbMixerScreen, Image initialMixerImage)
@@ -489,6 +569,12 @@ namespace MDPlayer
             ym2612MIDIScreen.Remove(this.Paint);
         }
 
+        public void RemoveMIDI(int chipID)
+        {
+            if (MIDIScreen[chipID] == null) return;
+            MIDIScreen[chipID].Remove(this.Paint);
+        }
+
         public void RemoveMixer()
         {
             if (mixerScreen == null) return;
@@ -520,6 +606,7 @@ namespace MDPlayer
                 if (SegaPCMScreen[chipID] != null) SegaPCMScreen[chipID].Remove(this.Paint);
                 if (AY8910Screen[chipID] != null) AY8910Screen[chipID].Remove(this.Paint);
                 if (HuC6280Screen[chipID] != null) HuC6280Screen[chipID].Remove(this.Paint);
+                if (MIDIScreen[chipID] != null) MIDIScreen[chipID].Remove(this.Paint);
             }
             if (ym2612MIDIScreen != null) ym2612MIDIScreen.Remove(this.Paint);
             if (mixerScreen != null) mixerScreen.Remove(this.Paint);
@@ -743,6 +830,20 @@ namespace MDPlayer
                             log.ForcedWrite(ex);
                             RemoveHuC6280(chipID);
                             HuC6280Screen[chipID] = null;
+                        }
+                    }
+
+                    if (MIDIScreen[chipID] != null)
+                    {
+                        try
+                        {
+                            MIDIScreen[chipID].Refresh(this.Paint);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            RemoveMIDI(chipID);
+                            MIDIScreen[chipID] = null;
                         }
                     }
 
@@ -2530,6 +2631,8 @@ namespace MDPlayer
 
                 if (HuC6280Screen[chipID] != null) drawParamsToHuC6280(oldParam, newParam, chipID);
 
+                if (MIDIScreen[chipID] != null) drawParamsToMIDI(oldParam, newParam, chipID);
+
             }
 
             if (ym2612MIDIScreen != null) drawParamsToYM2612MIDI(oldParam, newParam);
@@ -2993,6 +3096,121 @@ namespace MDPlayer
             drawLfoFrqToHuC6280(chipID, ref oldParam.huc6280[chipID].LfoFrq, newParam.huc6280[chipID].LfoFrq);
         }
 
+        private void drawParamsToMIDI(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            for (int ch = 0; ch < 16; ch++)
+            {
+                //drawFont8Int(MIDIScreen[chipID], 8 *  5 + 80, ch * 16 + 16, 0, 3, newParam.midi[chipID].level[ch][0]);
+                //drawFont8Int(MIDIScreen[chipID], 8 * 10 + 80, ch * 16 + 16, 0, 3, newParam.midi[chipID].level[ch][1]);
+                //drawFont8Int(MIDIScreen[chipID], 8 * 15 + 80, ch * 16 + 16, 0, 3, newParam.midi[chipID].level[ch][2]);
+
+                byte b = (byte)(128 - newParam.midi[chipID].cc[ch][10]);
+                b = (byte)(b > 127 ? 127 : b);
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 0, 64, ch * 16 + 16,ref oldParam.midi[chipID].cc[ch][10], b);//Panpot
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 68, ch * 16 + 16,ref oldParam.midi[chipID].cc[ch][7], newParam.midi[chipID].cc[ch][7]);//Volume
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 72, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][11], newParam.midi[chipID].cc[ch][11]);//Expression
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 0, 76, ch * 16 + 16, ref oldParam.midi[chipID].bend[ch], newParam.midi[chipID].bend[ch]);//PitchBend
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 80, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][1]);//Modulation
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 84, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][91]);//Reverb
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 88, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][93]);//Chorus
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 92, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][94]);//Variation(Delay)
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 96, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][64]);//Hold(DumperPedal)
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 100, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][67]);//Soft
+                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 104, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][66]);//Sostenuto
+
+                for (int n = 0; n < 120; n++)
+                {
+                    drawMIDILCD_Kbd(MIDIScreen[chipID], 108
+                        , ch * 16 + 16, n, ref oldParam.midi[chipID].note[ch][n], newParam.midi[chipID].note[ch][n]);
+                }
+
+                drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 16, ref oldParam.midi[chipID].level[ch][0], newParam.midi[chipID].level[ch][0]);
+                drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 24, ref oldParam.midi[chipID].level[ch][2], newParam.midi[chipID].level[ch][2]);
+
+                int s = 0;
+                for (int n = 0; n < 16; n++)
+                {
+                    s = (newParam.midi[chipID].level[ch][1] / 8) < n ? 8 : 0;
+                    MIDIScreen[chipID].drawByteArray(4 + ch * 8, 338 - (n * 3), rMIDILCD[0], 136, 8 * 16, s, 8, 2);
+                }
+            }
+        }
+
+        private void drawMIDILCD_Volume(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue, int value)
+        {
+            if (oldValue == value) return;
+            
+            int s = 0;
+            for (int n = (Math.Min(oldValue,value)/5) ; n < (Math.Max(oldValue, value) / 5)+1; n++)
+            {
+                s = (value / 5) < n ? 2 : 0;
+                screen.drawByteArray(n * 2 + x, y, rMIDILCD_Vol[MIDImodule], 32, 0 + (n > 23 ? 4 : 0) + s, 0, 2, 8);
+            }
+
+            oldValue = value;
+        }
+
+        private void drawMIDILCD_Fader(FrameBuffer screen, int MIDImodule, int faderType, int x, int y, ref byte oldValue, byte value)
+        {
+            if (oldValue == value) return;
+            oldValue = value;
+
+            int v;
+            switch (faderType)
+            {
+                case 0:
+                    v = Math.Max(value - 8, 0) / 8;
+                    drawMIDILCD_FaderP(screen, MIDImodule, 0, x, y, v);
+                    break;
+                case 1:
+                    v = value / 8;
+                    drawMIDILCD_FaderP(screen, MIDImodule, 1, x, y, v);
+                    break;
+            }
+
+        }
+
+        private void drawMIDILCD_Fader(FrameBuffer screen, int MIDImodule, int faderType, int x, int y, ref short oldValue, short value)
+        {
+            if (oldValue == value) return;
+            oldValue = value;
+
+            int v;
+            switch (faderType)
+            {
+                case 0:
+                    v = Math.Max(value - 0x1ff, 0) / 0x3ff;
+                    drawMIDILCD_FaderP(screen, MIDImodule, 0, x, y, v);
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        private void drawMIDILCD_FaderP(FrameBuffer screen, int MIDImodule,int faderType, int x,int y,int value)
+        {
+            screen.drawByteArray(x, y, rMIDILCD_Fader[MIDImodule], 64, value * 4, faderType * 16, 4, 16);
+        }
+
+
+        private static int[] kbl2 = new int[] { 0, 12, 4, 12, 8,  0, 12,  4, 12,  4, 12,  8 };
+        private static int[] kbdl = new int[] { 0,  2, 4,  6, 8, 12, 14, 16, 18, 20, 22, 24 };
+
+        private void drawMIDILCD_Kbd(FrameBuffer screen, int x, int y, int note, ref byte oldVel, byte vel)
+        {
+            if (oldVel == vel) return;
+            oldVel = vel;
+
+            drawMIDILCD_KbdP(screen, x, y, note, vel);
+        }
+
+        private void drawMIDILCD_KbdP(FrameBuffer screen, int x, int y, int note, int vel)
+        {
+            screen.drawByteArrayTransp(x + kbdl[note % 12] + note / 12 * 28, y, rMIDILCD_KBD, 16, kbl2[note % 12], vel / 16 * 8, 4, 8);
+        }
+
+
+
         private void drawParamsToYM2612MIDI(MDChipParams oldParam, MDChipParams newParam)
         {
             for (int c = 0; c < 6; c++)
@@ -3426,6 +3644,8 @@ namespace MDPlayer
 
                 screenInitHuC6280(chipID);
 
+                screenInitMIDI(chipID);
+
             }
 
             screenInitYM2612MIDI();
@@ -3785,6 +4005,10 @@ namespace MDPlayer
                     drawFont4V(ym2612MIDIScreen, (c % 3) * 13 * 8 + 2 * 8+n*8, (c / 3) * 18 * 4 + 24 * 4, 0, "   ");
                 }
             }
+        }
+
+        public void screenInitMIDI(int chipID)
+        {
         }
 
         public void screenInitMixer()

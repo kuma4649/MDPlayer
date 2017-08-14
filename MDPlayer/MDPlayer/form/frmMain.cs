@@ -36,6 +36,7 @@ namespace MDPlayer
         private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
         private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
         private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
+        private frmMIDI[] frmMIDI = new frmMIDI[2] { null, null };
         private frmYM2612MIDI frmYM2612MIDI = null;
         private frmMixer2 frmMixer2 = null;
 
@@ -1066,6 +1067,15 @@ namespace MDPlayer
             OpenFormHuC6280(1);
         }
 
+        private void tsmiPMIDI_Click(object sender, EventArgs e)
+        {
+            OpenFormMIDI(0);
+        }
+
+        private void tsmiSMIDI_Click(object sender, EventArgs e)
+        {
+            OpenFormMIDI(1);
+        }
 
         private void OpenFormMegaCD(int chipID, bool force = false)
         {
@@ -1965,6 +1975,70 @@ namespace MDPlayer
             frmYM2413[chipID] = null;
         }
 
+        private void OpenFormMIDI(int chipID, bool force = false)
+        {
+            if (frmMIDI[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormMIDI(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmMIDI[chipID] = new frmMIDI(this, chipID, setting.other.Zoom);
+
+            if (setting.location.PosMIDI[chipID] == System.Drawing.Point.Empty)
+            {
+                frmMIDI[chipID].x = this.Location.X;
+                frmMIDI[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmMIDI[chipID].x = setting.location.PosMIDI[chipID].X;
+                frmMIDI[chipID].y = setting.location.PosMIDI[chipID].Y;
+            }
+
+            screen.AddMIDI(chipID, frmMIDI[chipID].pbScreen, Properties.Resources.planeMIDI_GM);
+            frmMIDI[chipID].Show();
+            frmMIDI[chipID].update();
+            frmMIDI[chipID].Text = string.Format("MIDI ({0})", chipID == 0 ? "Primary" : "Secondary");
+            screen.screenInitMIDI(chipID);
+            oldParam.midi[chipID] = new MIDIParam();
+        }
+
+        private void CloseFormMIDI(int chipID)
+        {
+            if (frmMIDI[chipID] == null) return;
+
+            try
+            {
+                screen.RemoveMIDI(chipID);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmMIDI[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmMIDI[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmMIDI[chipID] = null;
+        }
+
 
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
@@ -2202,6 +2276,7 @@ namespace MDPlayer
                 screenChangeParamsFromYM2610(chipID);
                 screenChangeParamsFromAY8910(chipID);
                 screenChangeParamsFromHuC6280(chipID);
+                screenChangeParamsFromMIDI(chipID);
             }
 
             screenChangeParamsFromYM2612MIDI();
@@ -3161,6 +3236,32 @@ namespace MDPlayer
             newParam.huc6280[chipID].LfoCtrl = (int)chip.LfoCtrl;
             newParam.huc6280[chipID].LfoFrq = (int)chip.LfoFrq;
 
+        }
+
+        private void screenChangeParamsFromMIDI(int chipID)
+        {
+            MIDIParam prm = Audio.GetMIDIInfos(chipID);
+
+            for (int ch = 0; ch < 16; ch++)
+            {
+                for (int i = 0; i < 256; i++)
+                {
+                    newParam.midi[chipID].cc[ch][i] = prm.cc[ch][i];
+                }
+                newParam.midi[chipID].bend[ch] = prm.bend[ch];
+
+                for (int i = 0; i < 128; i++)
+                {
+                    newParam.midi[chipID].note[ch][i] = prm.note[ch][i];
+                }
+
+                newParam.midi[chipID].level[ch][0] = prm.level[ch][0];
+                newParam.midi[chipID].level[ch][1] = prm.level[ch][1];
+                newParam.midi[chipID].level[ch][2] = prm.level[ch][2];
+                if (prm.level[ch][0] > 0) { prm.level[ch][0] -= 3; if (prm.level[ch][0] < 0) prm.level[ch][0] = 0; }
+                if (prm.level[ch][1] > 0) { prm.level[ch][1] -= 3; if (prm.level[ch][1] < 0) prm.level[ch][1] = 0; }
+                if (prm.level[ch][2] > 0) { prm.level[ch][2] -= 3; if (prm.level[ch][2] < 0) prm.level[ch][2] = 0; }
+            }
         }
 
         private void screenChangeParamsFromYM2612MIDI()
@@ -5551,7 +5652,6 @@ namespace MDPlayer
             screen.screenInitMixer();
             oldParam.mixer = new MDChipParams.Mixer();
         }
-
 
     }
 }

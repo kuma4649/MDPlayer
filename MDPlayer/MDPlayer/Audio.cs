@@ -2755,6 +2755,11 @@ namespace MDPlayer
             return mds.ReadHuC6280Status(chipID);
         }
 
+        public static MIDIParam GetMIDIInfos(int chipID)
+        {
+            return chipRegister.midiParams[chipID];
+        }
+
         public static scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
         {
             return mds.ReadRf5c164Register(chipID);

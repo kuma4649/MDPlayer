@@ -163,6 +163,12 @@
     <Compile Include="form\frmMegaCD.Designer.cs">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmMIDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmMIDI.Designer.cs">
+      <DependentUpon>frmMIDI.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmMixer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,6 +288,7 @@
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
     <Compile Include="midiOutInfo.cs" />
+    <Compile Include="MIDIParam.cs" />
     <Compile Include="NAudioWrap.cs" />
     <Compile Include="Driver\NRTDRV.cs" />
     <Compile Include="PlayList.cs" />
@@ -318,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmMegaCD.resx">
       <DependentUpon>frmMegaCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmMIDI.resx">
+      <DependentUpon>frmMIDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmMixer.resx">
       <DependentUpon>frmMixer.cs</DependentUpon>
@@ -473,6 +483,7 @@
     <Content Include="Resources\rMIDILCD_Font_01.png" />
     <Content Include="Resources\rMIDILCD_Font_02.png" />
     <Content Include="Resources\rMIDILCD_Font_03.png" />
+    <Content Include="Resources\rMIDILCD_KBD_01.png" />
     <Content Include="Resources\rMIDILCD_Vol_01.png" />
     <Content Include="Resources\rMIDILCD_Vol_02.png" />
     <Content Include="Resources\rMIDILCD_Vol_03.png" />

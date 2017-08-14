@@ -169,6 +169,8 @@ namespace MDPlayer
             ,new bool[3] { false, false, false }
         };
 
+        public MIDIParam[] midiParams = new MIDIParam[] { null, null };
+
         private int[] LatchedRegister = new int[] { 0, 0 };
         private int[] NoiseFreq = new int[] { 0, 0 };
 
@@ -308,6 +310,7 @@ namespace MDPlayer
                 }
                 psgKeyOnAY8910[chipID] = new int[3] { 0, 0, 0 };
 
+                midiParams[chipID] = new MIDIParam();
             }
         }
 
@@ -324,6 +327,7 @@ namespace MDPlayer
             if (midiOuts[num] == null) return;
 
             midiOuts[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
+            if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
         }
 
         public void sendMIDIout(enmModel model, int num, byte cmd, byte prm1)
@@ -334,6 +338,7 @@ namespace MDPlayer
             if (midiOuts[num] == null) return;
 
             midiOuts[num].SendBuffer(new byte[] { cmd, prm1});
+            if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1});
         }
 
         public void sendMIDIout(enmModel model, int num, byte[] data)
@@ -344,6 +349,7 @@ namespace MDPlayer
             if (midiOuts[num] == null) return;
 
             midiOuts[num].SendBuffer(data);
+            if (num < midiParams.Length) midiParams[num].SendBuffer(data);
         }
 
         public void resetAllMIDIout()

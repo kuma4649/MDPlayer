@@ -1858,6 +1858,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosMIDI = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosMIDI
+            {
+                get
+                {
+                    return _PosMIDI;
+                }
+
+                set
+                {
+                    _PosMIDI = value;
+                }
+            }
+
+            private bool[] _OpenMIDI = new bool[2] { false, false };
+            public bool[] OpenMIDI
+            {
+                get
+                {
+                    return _OpenMIDI;
+                }
+
+                set
+                {
+                    _OpenMIDI = value;
+                }
+            }
+
             private Point[] _PosSegaPCM = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosSegaPCM
             {
@@ -2102,6 +2130,8 @@ namespace MDPlayer
                 Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
                 Location.PosVSTeffectList = this.PosVSTeffectList;
                 Location.OpenVSTeffectList = this.OpenVSTeffectList;
+                Location.PosMIDI = this.PosMIDI;
+                Location.OpenMIDI = this.OpenMIDI;
 
                 return Location;
             }

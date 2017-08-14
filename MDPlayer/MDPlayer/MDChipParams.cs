@@ -234,6 +234,8 @@ namespace MDPlayer
         }
         public YM2612MIDI ym2612Midi = new YM2612MIDI();
 
+        public MIDIParam[] midi = new MIDIParam[] { new MIDIParam(), new MIDIParam() };
+
         public class Mixer
         {
             public class VolumeInfo
