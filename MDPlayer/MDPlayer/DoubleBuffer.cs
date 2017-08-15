@@ -310,9 +310,12 @@ namespace MDPlayer
             rFont1 = new byte[2][];
             rFont1[0] = getByteArray(Properties.Resources.rFont_01);
             rFont1[1] = getByteArray(Properties.Resources.rFont_02);
-            rFont2 = new byte[2][];
+            rFont2 = new byte[5][];
             rFont2[0] = getByteArray(Properties.Resources.rFont_03);
             rFont2[1] = getByteArray(Properties.Resources.rFont_04);
+            rFont2[2] = getByteArray(Properties.Resources.rMIDILCD_Font_04);
+            rFont2[3] = getByteArray(Properties.Resources.rMIDILCD_Font_05);
+            rFont2[4] = getByteArray(Properties.Resources.rMIDILCD_Font_06);
             rFont3 = new byte[2][];
             rFont3[0] = getByteArray(Properties.Resources.rFont_05);
             rFont3[1] = getByteArray(Properties.Resources.rFont_06);
@@ -1106,6 +1109,32 @@ namespace MDPlayer
             n = num / 1;
             x += 4;
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+        }
+
+        public void drawFont4IntMIDI(FrameBuffer screen, int x, int y, int t,ref byte oldnum, byte num)
+        {
+            if (oldnum == num) return;
+            oldnum = num;
+
+            if (screen == null) return;
+
+            int n;
+
+            n = num / 100;
+            num -= (byte)(n * 100);
+            //n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 10;
+            num -= (byte)(n * 10);
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 1;
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            return;
         }
 
         public void drawFont4IntM(FrameBuffer screen, int x, int y, int k, int num)
@@ -3127,21 +3156,104 @@ namespace MDPlayer
                 drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 16, ref oldParam.midi[chipID].level[ch][0], newParam.midi[chipID].level[ch][0]);
                 drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 24, ref oldParam.midi[chipID].level[ch][2], newParam.midi[chipID].level[ch][2]);
 
-                int s = 0;
-                for (int n = 0; n < 16; n++)
+                if (newParam.midi[chipID].LCDDisplayTime == 0 && newParam.midi[chipID].LCDDisplayTimeXG == 0)
                 {
-                    s = (newParam.midi[chipID].level[ch][1] / 8) < n ? 8 : 0;
-                    MIDIScreen[chipID].drawByteArray(4 + ch * 8, 338 - (n * 3), rMIDILCD[0], 136, 8 * 16, s, 8, 2);
+                    drawMIDILCD_VolumeLCD(MIDIScreen[chipID], 0, 4 + ch * 8, 338, ref oldParam.midi[chipID].level[ch][1], newParam.midi[chipID].level[ch][1], ref oldParam.midi[chipID].level[ch][3], newParam.midi[chipID].level[ch][3]);
                 }
+                else
+                {
+                    int s = 0;
+                    for (int n = 0; n < 16; n++)
+                    {
+                        oldParam.midi[chipID].level[ch][1] = 256;
+                        oldParam.midi[chipID].level[ch][3] = 256;
+                        oldParam.midi[chipID].level[ch][4] = 256;
+                    }
+                    if (newParam.midi[chipID].LCDDisplayTime > 0)
+                    {
+                        //GS
+                        for (int n = 0; n < 64; n++)
+                        {
+                            s = newParam.midi[chipID].LCDDisplay[n];
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
+                            if (n > 47) continue;
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
+                        }
+                    }
+                    else
+                    {
+                        //XG
+                        for (int n = 0; n < 48; n++)
+                        {
+                            s = newParam.midi[chipID].LCDDisplay[n];
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x40) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x20) != 0) ? 0 : 8, 8, 2);
+                            if (n > 31) continue;
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 40, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 48, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
+                        }
+                    }
+                }
+
+                // Prg Bank Map
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 7, ch * 16 + 16, 2, ref oldParam.midi[chipID].pc[ch], newParam.midi[chipID].pc[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 10, ch * 16 + 16, 2, ref oldParam.midi[chipID].cc[ch][0], newParam.midi[chipID].cc[ch][0]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 13, ch * 16 + 16, 2, ref oldParam.midi[chipID].cc[ch][32], newParam.midi[chipID].cc[ch][32]);
+
+                //Vib Rate Depth Delay
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 28, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibRate[ch], newParam.midi[chipID].nrpnVibRate[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 31, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibDepth[ch], newParam.midi[chipID].nrpnVibDepth[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 34, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibDelay[ch], newParam.midi[chipID].nrpnVibDelay[ch]);
+
+                //Filter LPF LPFRsn HPF
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 38, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnLPF[ch], newParam.midi[chipID].nrpnLPF[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 41, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnLPFRsn[ch], newParam.midi[chipID].nrpnLPFRsn[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 44, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnHPF[ch], newParam.midi[chipID].nrpnHPF[ch]);
+
+                //EG Atk Dcy Rsn
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 48, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGAttack[ch], newParam.midi[chipID].nrpnEGAttack[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 51, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGDecay[ch], newParam.midi[chipID].nrpnEGDecay[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 54, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGRls[ch], newParam.midi[chipID].nrpnEGRls[ch]);
+
+                //EQ Base Gain Frq Treble Gain Frq
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 58, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQBaseGain[ch], newParam.midi[chipID].nrpnEQBaseGain[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 61, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQBaseFrq[ch], newParam.midi[chipID].nrpnEQBaseFrq[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 64, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQTrebleGain[ch], newParam.midi[chipID].nrpnEQTrebleGain[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 67, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQTrebleFrq[ch], newParam.midi[chipID].nrpnEQTrebleFrq[ch]);
+
             }
+        }
+
+        private void drawMIDILCD_VolumeLCD(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue1, int value1, ref int oldValue2, int value2)
+        {
+            if (oldValue1 == value1 && oldValue2 == value2) return;
+
+            int s = 0;
+            //for (int n = (Math.Min(oldValue1, value1) / 8); n < 16; n++)
+            for (int n = 0; n < 16; n++)
+            {
+                s = (value1 / 8) < n ? 8 : 0;
+                screen.drawByteArray(x, y - (n * 3), rMIDILCD[MIDImodule], 136, 8 * 16, s, 8, 2);
+            }
+
+            screen.drawByteArray(x, y - (value2 / 8 * 3), rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, 2);
+
+            oldValue1 = value1;
+            oldValue2 = value2;
         }
 
         private void drawMIDILCD_Volume(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue, int value)
         {
             if (oldValue == value) return;
-            
+
             int s = 0;
-            for (int n = (Math.Min(oldValue,value)/5) ; n < (Math.Max(oldValue, value) / 5)+1; n++)
+            for (int n = (Math.Min(oldValue, value) / 5); n < (Math.Max(oldValue, value) / 5) + 1; n++)
             {
                 s = (value / 5) < n ? 2 : 0;
                 screen.drawByteArray(n * 2 + x, y, rMIDILCD_Vol[MIDImodule], 32, 0 + (n > 23 ? 4 : 0) + s, 0, 2, 8);

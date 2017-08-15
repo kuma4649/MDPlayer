@@ -463,4 +463,13 @@ VGMPlayer(メガドライブ 関連音源チップエミュレーション専用
   <data name="rMIDILCD_KBD_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rMIDILCD_KBD_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="rMIDILCD_Font_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rMIDILCD_Font_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rMIDILCD_Font_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

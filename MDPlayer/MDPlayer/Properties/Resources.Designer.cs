@@ -671,6 +671,36 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_04 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_05 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rMIDILCD_Font_06 {
+            get {
+                object obj = ResourceManager.GetObject("rMIDILCD_Font_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rMIDILCD_KBD_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_KBD_01", resourceCulture);

@@ -391,6 +391,18 @@ namespace MDPlayer
                 openMIDIKeyboard();
             }
 
+            if (frmMIDI[0] != null && !frmMIDI[0].isClosed)
+            {
+                OpenFormMIDI(0);
+                OpenFormMIDI(0);
+            }
+
+            if (frmMIDI[1] != null && !frmMIDI[1].isClosed)
+            {
+                OpenFormMIDI(1);
+                OpenFormMIDI(1);
+            }
+
             if (frmMixer2 != null && !frmMixer2.isClosed)
             {
                 openMixer();
@@ -610,6 +622,11 @@ namespace MDPlayer
                 {
                     setting.location.PosHuC6280[chipID] = frmHuC6280[chipID].Location;
                     setting.location.OpenHuC6280[chipID] = true;
+                }
+                if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed)
+                {
+                    setting.location.PosMIDI[chipID] = frmMIDI[chipID].Location;
+                    setting.location.OpenMIDI[chipID] = true;
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
                 {
@@ -2154,6 +2171,9 @@ namespace MDPlayer
                     if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
                     else frmHuC6280[chipID] = null;
 
+                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenChangeParams();
+                    else frmMIDI[chipID] = null;
+
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
                 else frmYM2612MIDI = null;
@@ -2211,6 +2231,9 @@ namespace MDPlayer
 
                     if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenDrawParams();
                     else frmHuC6280[chipID] = null;
+
+                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenDrawParams();
+                    else frmMIDI[chipID] = null;
 
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenDrawParams();
@@ -3258,10 +3281,53 @@ namespace MDPlayer
                 newParam.midi[chipID].level[ch][0] = prm.level[ch][0];
                 newParam.midi[chipID].level[ch][1] = prm.level[ch][1];
                 newParam.midi[chipID].level[ch][2] = prm.level[ch][2];
+                newParam.midi[chipID].level[ch][3] = prm.level[ch][3];
+                newParam.midi[chipID].level[ch][4] = prm.level[ch][4];
                 if (prm.level[ch][0] > 0) { prm.level[ch][0] -= 3; if (prm.level[ch][0] < 0) prm.level[ch][0] = 0; }
                 if (prm.level[ch][1] > 0) { prm.level[ch][1] -= 3; if (prm.level[ch][1] < 0) prm.level[ch][1] = 0; }
                 if (prm.level[ch][2] > 0) { prm.level[ch][2] -= 3; if (prm.level[ch][2] < 0) prm.level[ch][2] = 0; }
+                if (prm.level[ch][3] > 0) {
+                    prm.level[ch][4] -= 3;
+                    if (prm.level[ch][4] < 0)
+                    {
+                        prm.level[ch][4] = 0;
+                        prm.level[ch][3] -= 3;
+                        if (prm.level[ch][3] < 0) prm.level[ch][3] = 0;
+                    }
+                }
+
+                newParam.midi[chipID].pc[ch] = prm.pc[ch];
+
+                newParam.midi[chipID].nrpnVibRate[ch] = prm.nrpnVibRate[ch];
+                newParam.midi[chipID].nrpnVibDepth[ch] = prm.nrpnVibDepth[ch];
+                newParam.midi[chipID].nrpnVibDelay[ch] = prm.nrpnVibDelay[ch];
+
+                newParam.midi[chipID].nrpnLPF[ch] = prm.nrpnLPF[ch];
+                newParam.midi[chipID].nrpnLPFRsn[ch] = prm.nrpnLPFRsn[ch];
+                newParam.midi[chipID].nrpnHPF[ch] = prm.nrpnHPF[ch];
+
+                newParam.midi[chipID].nrpnEQBaseFrq[ch] = prm.nrpnEQBaseFrq[ch];
+                newParam.midi[chipID].nrpnEQBaseGain[ch] = prm.nrpnEQBaseGain[ch];
+                newParam.midi[chipID].nrpnEQTrebleFrq[ch] = prm.nrpnEQTrebleFrq[ch];
+                newParam.midi[chipID].nrpnEQTrebleGain[ch] = prm.nrpnEQTrebleGain[ch];
+
+                newParam.midi[chipID].nrpnEGAttack[ch] = prm.nrpnEGAttack[ch];
+                newParam.midi[chipID].nrpnEGDecay[ch] = prm.nrpnEGDecay[ch];
+                newParam.midi[chipID].nrpnEGRls[ch] = prm.nrpnEGRls[ch];
             }
+
+            //LCDData
+            for (int i = 0; i < 64; i++)
+            {
+                newParam.midi[chipID].LCDDisplay[i] = prm.LCDDisplay[i];
+            }
+            newParam.midi[chipID].LCDDisplayTime = prm.LCDDisplayTime;
+            prm.LCDDisplayTime -= 3;
+            if (prm.LCDDisplayTime < 0) prm.LCDDisplayTime = 0;
+            newParam.midi[chipID].LCDDisplayTimeXG = prm.LCDDisplayTimeXG;
+            prm.LCDDisplayTimeXG -= 3;
+            if (prm.LCDDisplayTimeXG < 0) prm.LCDDisplayTimeXG = 0;
+
         }
 
         private void screenChangeParamsFromYM2612MIDI()
