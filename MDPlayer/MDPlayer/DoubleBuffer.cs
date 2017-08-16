@@ -46,6 +46,7 @@ namespace MDPlayer
         private byte[] rMIDILCD_KBD;
         private byte[][] rMIDILCD_Vol;
         private byte[][] rMIDILCD;
+        private byte[][] rPlane_MIDI;
 
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
         private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
@@ -53,6 +54,34 @@ namespace MDPlayer
         private static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8" };
 
         public Setting setting = null;
+
+        private string[][] tblMIDIEffectGS = new string[4][] {
+            new string[] { "Room 1         " , "Room 2         " , "Room 3         " , "Hall 1         "
+                         , "Hall 2         " , "Plate          " , "Delay          " , "Panning Delay  " },
+            new string[] { "Chorus 1       " , "Chorus 2       " , "Chorus 3       " , "Chorus 4       "
+                         , "Feedback Chorus" , "Flanger        " , "Short Delay    " , "ShortDelay(FB) " },
+            new string[] { "Delay 1        " , "Delay 2        " , "Delay 3        " , "Delay 4        "
+                         , "Pan Delay 1    " , "Pan Delay 2    " , "Pan Delay 3    " , "Pan Delay 4    "
+                         , "Delay to Reverb" , "Pan Repeat     " },
+            new string[] { "Thru           " , "Stereo-EQ      " , "Spectrum       " , "Enhancer       "
+                         , "Humanizer      " , "Overdrive      " , "Distortion     " , "Phaser         "
+                         , "Auto Wah       " , "Rotary         " , "Stereo Flanger " , "Step Flanger   "
+                         , "Tremolo        " , "Auto Pan       " , "Compressor     " , "Limiter        "
+                         , "Hexa Chorus    " , "Tremolo Chorus " , "Stereo Chorus  " , "Space D        "
+                         , "3D Chorus      " , "Stereo Delay   " , "Mod Delay      " , "3 Tap Delay    "
+                         , "4 Tap Delay    " , "Tm Ctrl Delay  " , "Reverb         " , "Gate Reverb    "
+                         , "3D Delay       " , "2 Pitch Shifter" , "Fb P.Shifter   " , "3D Auto        "
+                         , "3D Manual      " , "Lo-Fi 1        " , "Lo-Fi 2        " , "OD>Chorus      "
+                         , "OD>Flanger     " , "OD>Delay       " , "DS>Chorus      " , "DS>Flanger     "
+                         , "DS>Delay       " , "EH>Chorus      " , "EH>Flanger     " , "EH>Delay       "
+                         , "Cho>Delay      " , "FL>Delay       " , "Cho>Flanger    " , "Rotary Multi   "
+                         , "GTR Multi 1    " , "GTR Multi 2    " , "GTR Multi 3    " , "Clean GtMulti 1"
+                         , "Clean GtMulti 2" , "Bass Multi     " , "Rhodes Multi   " , "Keyboard Multi "
+                         , "Cho/Delay      " , "FL/Dealy       " , "Cho/Flanger    " , "OD1/OD2        "
+                         , "OD/Rotary      " , "OD/Phaser      " , "OD/AutoWah     " , "PH/Rotary      "
+                         , "PH/AutoWah     "
+            }
+        };
 
         public class FrameBuffer
         {
@@ -373,6 +402,12 @@ namespace MDPlayer
             rMIDILCD[0] = getByteArray(Properties.Resources.rMIDILCD_01);
             rMIDILCD[1] = getByteArray(Properties.Resources.rMIDILCD_02);
             rMIDILCD[2] = getByteArray(Properties.Resources.rMIDILCD_03);
+
+            rPlane_MIDI = new byte[3][];
+            rPlane_MIDI[0] = getByteArray(Properties.Resources.planeMIDI_GM);
+            rPlane_MIDI[1] = getByteArray(Properties.Resources.planeMIDI_XG);
+            rPlane_MIDI[2] = getByteArray(Properties.Resources.planeMIDI_GS);
+
         }
 
         public void AddRf5c164(int chipID, PictureBox pbRf5c164Screen, Image initialRf5c164Image)
@@ -3127,6 +3162,13 @@ namespace MDPlayer
 
         private void drawParamsToMIDI(MDChipParams oldParam, MDChipParams newParam, int chipID)
         {
+            int module = newParam.midi[chipID].MIDIModule;
+
+            if (oldParam.midi[chipID].MIDIModule != newParam.midi[chipID].MIDIModule) {
+                MIDIScreen[chipID].drawByteArray(0, 0, rPlane_MIDI[newParam.midi[chipID].MIDIModule], 440, 0, 0, 440, 352);
+                oldParam.midi[chipID].MIDIModule = newParam.midi[chipID].MIDIModule;
+            }
+
             for (int ch = 0; ch < 16; ch++)
             {
                 //drawFont8Int(MIDIScreen[chipID], 8 *  5 + 80, ch * 16 + 16, 0, 3, newParam.midi[chipID].level[ch][0]);
@@ -3135,17 +3177,17 @@ namespace MDPlayer
 
                 byte b = (byte)(128 - newParam.midi[chipID].cc[ch][10]);
                 b = (byte)(b > 127 ? 127 : b);
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 0, 64, ch * 16 + 16,ref oldParam.midi[chipID].cc[ch][10], b);//Panpot
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 68, ch * 16 + 16,ref oldParam.midi[chipID].cc[ch][7], newParam.midi[chipID].cc[ch][7]);//Volume
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 72, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][11], newParam.midi[chipID].cc[ch][11]);//Expression
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 0, 76, ch * 16 + 16, ref oldParam.midi[chipID].bend[ch], newParam.midi[chipID].bend[ch]);//PitchBend
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 80, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][1]);//Modulation
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 84, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][91]);//Reverb
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 88, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][93]);//Chorus
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 92, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][94]);//Variation(Delay)
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 96, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][64]);//Hold(DumperPedal)
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 100, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][67]);//Soft
-                drawMIDILCD_Fader(MIDIScreen[chipID], 0, 1, 104, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][66]);//Sostenuto
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 0, 64, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][10], b);//Panpot
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 68, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][7], newParam.midi[chipID].cc[ch][7]);//Volume
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 72, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][11], newParam.midi[chipID].cc[ch][11]);//Expression
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 0, 76, ch * 16 + 16, ref oldParam.midi[chipID].bend[ch], newParam.midi[chipID].bend[ch]);//PitchBend
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 80, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][1]);//Modulation
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 84, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][91]);//Reverb
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 88, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][93]);//Chorus
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 92, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][94]);//Variation(Delay)
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 96, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][64]);//Hold(DumperPedal)
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 100, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][67]);//Soft
+                drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 104, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][66]);//Sostenuto
 
                 for (int n = 0; n < 120; n++)
                 {
@@ -3153,12 +3195,12 @@ namespace MDPlayer
                         , ch * 16 + 16, n, ref oldParam.midi[chipID].note[ch][n], newParam.midi[chipID].note[ch][n]);
                 }
 
-                drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 16, ref oldParam.midi[chipID].level[ch][0], newParam.midi[chipID].level[ch][0]);
-                drawMIDILCD_Volume(MIDIScreen[chipID], 0, 388, ch * 16 + 24, ref oldParam.midi[chipID].level[ch][2], newParam.midi[chipID].level[ch][2]);
+                drawMIDILCD_Volume(MIDIScreen[chipID], module, 388, ch * 16 + 16, ref oldParam.midi[chipID].level[ch][0], newParam.midi[chipID].level[ch][0]);
+                drawMIDILCD_Volume(MIDIScreen[chipID], module, 388, ch * 16 + 24, ref oldParam.midi[chipID].level[ch][2], newParam.midi[chipID].level[ch][2]);
 
                 if (newParam.midi[chipID].LCDDisplayTime == 0 && newParam.midi[chipID].LCDDisplayTimeXG == 0)
                 {
-                    drawMIDILCD_VolumeLCD(MIDIScreen[chipID], 0, 4 + ch * 8, 338, ref oldParam.midi[chipID].level[ch][1], newParam.midi[chipID].level[ch][1], ref oldParam.midi[chipID].level[ch][3], newParam.midi[chipID].level[ch][3]);
+                    drawMIDILCD_VolumeLCD(MIDIScreen[chipID], module, 4 + ch * 8, 338, ref oldParam.midi[chipID].level[ch][1], newParam.midi[chipID].level[ch][1], ref oldParam.midi[chipID].level[ch][3], newParam.midi[chipID].level[ch][3]);
                 }
                 else
                 {
@@ -3175,12 +3217,12 @@ namespace MDPlayer
                         for (int n = 0; n < 64; n++)
                         {
                             s = newParam.midi[chipID].LCDDisplay[n];
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
                             if (n > 47) continue;
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 40 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
                         }
                     }
                     else
@@ -3189,45 +3231,71 @@ namespace MDPlayer
                         for (int n = 0; n < 48; n++)
                         {
                             s = newParam.midi[chipID].LCDDisplay[n];
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x40) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x20) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 0, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x40) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 8, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x20) != 0) ? 0 : 8, 8, 2);
                             if (n > 31) continue;
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 40, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
-                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 48, 293 + (n % 16) * 3, rMIDILCD[0], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 16, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x10) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 24, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x08) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 32, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x04) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 40, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x02) != 0) ? 0 : 8, 8, 2);
+                            MIDIScreen[chipID].drawByteArray((n / 16) * 56 + 4 + 48, 293 + (n % 16) * 3, rMIDILCD[module], 136, 8 * 16, ((s & 0x01) != 0) ? 0 : 8, 8, 2);
                         }
                     }
                 }
 
                 // Prg Bank Map
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 7, ch * 16 + 16, 2, ref oldParam.midi[chipID].pc[ch], newParam.midi[chipID].pc[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 10, ch * 16 + 16, 2, ref oldParam.midi[chipID].cc[ch][0], newParam.midi[chipID].cc[ch][0]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 13, ch * 16 + 16, 2, ref oldParam.midi[chipID].cc[ch][32], newParam.midi[chipID].cc[ch][32]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 7, ch * 16 + 16, 2+module, ref oldParam.midi[chipID].pc[ch], newParam.midi[chipID].pc[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 10, ch * 16 + 16, 2 + module, ref oldParam.midi[chipID].cc[ch][0], newParam.midi[chipID].cc[ch][0]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 13, ch * 16 + 16, 2 + module, ref oldParam.midi[chipID].cc[ch][32], newParam.midi[chipID].cc[ch][32]);
 
                 //Vib Rate Depth Delay
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 28, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibRate[ch], newParam.midi[chipID].nrpnVibRate[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 31, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibDepth[ch], newParam.midi[chipID].nrpnVibDepth[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 34, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnVibDelay[ch], newParam.midi[chipID].nrpnVibDelay[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 28, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnVibRate[ch], newParam.midi[chipID].nrpnVibRate[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 31, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnVibDepth[ch], newParam.midi[chipID].nrpnVibDepth[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 34, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnVibDelay[ch], newParam.midi[chipID].nrpnVibDelay[ch]);
 
                 //Filter LPF LPFRsn HPF
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 38, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnLPF[ch], newParam.midi[chipID].nrpnLPF[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 41, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnLPFRsn[ch], newParam.midi[chipID].nrpnLPFRsn[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 44, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnHPF[ch], newParam.midi[chipID].nrpnHPF[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 38, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnLPF[ch], newParam.midi[chipID].nrpnLPF[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 41, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnLPFRsn[ch], newParam.midi[chipID].nrpnLPFRsn[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 44, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnHPF[ch], newParam.midi[chipID].nrpnHPF[ch]);
 
                 //EG Atk Dcy Rsn
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 48, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGAttack[ch], newParam.midi[chipID].nrpnEGAttack[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 51, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGDecay[ch], newParam.midi[chipID].nrpnEGDecay[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 54, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEGRls[ch], newParam.midi[chipID].nrpnEGRls[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 48, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEGAttack[ch], newParam.midi[chipID].nrpnEGAttack[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 51, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEGDecay[ch], newParam.midi[chipID].nrpnEGDecay[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 54, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEGRls[ch], newParam.midi[chipID].nrpnEGRls[ch]);
 
                 //EQ Base Gain Frq Treble Gain Frq
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 58, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQBaseGain[ch], newParam.midi[chipID].nrpnEQBaseGain[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 61, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQBaseFrq[ch], newParam.midi[chipID].nrpnEQBaseFrq[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 64, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQTrebleGain[ch], newParam.midi[chipID].nrpnEQTrebleGain[ch]);
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 67, ch * 16 + 24, 2, ref oldParam.midi[chipID].nrpnEQTrebleFrq[ch], newParam.midi[chipID].nrpnEQTrebleFrq[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 58, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEQBaseGain[ch], newParam.midi[chipID].nrpnEQBaseGain[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 61, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEQBaseFrq[ch], newParam.midi[chipID].nrpnEQBaseFrq[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 64, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEQTrebleGain[ch], newParam.midi[chipID].nrpnEQTrebleGain[ch]);
+                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 67, ch * 16 + 24, 2 + module, ref oldParam.midi[chipID].nrpnEQTrebleFrq[ch], newParam.midi[chipID].nrpnEQTrebleFrq[ch]);
 
             }
+
+            if (module == 1)
+            {
+                //drawMIDI_Macro(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbXG, newParam.midi[chipID].ReverbXG);
+                //drawMIDI_Macro(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusXG, newParam.midi[chipID].ChorusXG);
+                //drawMIDI_Macro(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].VariationXG, newParam.midi[chipID].VariationXG);
+                //drawMIDI_Macro(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion1XG, newParam.midi[chipID].Insertion1XG);
+                //drawMIDI_Macro(MIDIScreen[chipID], module, 4, 4 * 35, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion2XG, newParam.midi[chipID].Insertion2XG);
+            }
+            else
+            {
+                drawMIDI_Macro(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbGS, newParam.midi[chipID].ReverbGS);
+                drawMIDI_Macro(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusGS, newParam.midi[chipID].ChorusGS);
+                drawMIDI_Macro(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].DelayGS, newParam.midi[chipID].DelayGS);
+                drawMIDI_Macro(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].EFXGS, newParam.midi[chipID].EFXGS);
+            }
+
+        }
+
+        private void drawMIDI_Macro(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
+        {
+            //if (oldValue1 == value1) return;
+
+            drawFont4(screen, x, y, 2 + MIDImodule, tblMIDIEffectGS[macroType][value1]);
+
+            oldValue1 = value1;
         }
 
         private void drawMIDILCD_VolumeLCD(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue1, int value1, ref int oldValue2, int value2)

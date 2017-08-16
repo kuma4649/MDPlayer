@@ -286,6 +286,7 @@ namespace MDPlayer
 
         private static List<vstInfo2> vstPlugins = new List<vstInfo2>();
         private static List<NAudio.Midi.MidiOut> midiOuts = new List<NAudio.Midi.MidiOut>();
+        private static List<int> midiOutsType = new List<int>();
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -695,11 +696,13 @@ namespace MDPlayer
                     for (int i = 0; i < setting.midiOut.lstMidiOutInfo[m].Length; i++)
                     {
                         int n = -1;
+                        int t = 0;
                         for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
                         {
                             if (setting.midiOut.lstMidiOutInfo[m][i].name == NAudio.Midi.MidiOut.DeviceInfo(j).ProductName)
                             {
                                 n = j;
+                                t = setting.midiOut.lstMidiOutInfo[m][i].type;
                                 break;
                             }
                         }
@@ -707,10 +710,21 @@ namespace MDPlayer
                         if (n == -1)
                         {
                             midiOuts.Add(null);
+                            midiOutsType.Add(t);
                         }
                         else
                         {
-                            midiOuts.Add(new NAudio.Midi.MidiOut(n));
+                            NAudio.Midi.MidiOut mo = null;
+                            try
+                            {
+                                mo=new NAudio.Midi.MidiOut(n);
+                            }
+                            catch
+                            {
+                                mo = null;
+                            }
+                            midiOuts.Add(mo);
+                            midiOutsType.Add(t);
                         }
                     }
                 }
@@ -731,6 +745,7 @@ namespace MDPlayer
                     }
                 }
                 midiOuts.Clear();
+                midiOutsType.Clear();
             }
         }
 
@@ -1630,7 +1645,7 @@ namespace MDPlayer
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
 
-                chipRegister.midiOuts = midiOuts;
+                chipRegister.setMIDIout(midiOuts, midiOutsType);
 
                 //Play
 
@@ -1730,7 +1745,7 @@ namespace MDPlayer
                 chipRegister.initChipRegister();
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
-                chipRegister.midiOuts = midiOuts;
+                chipRegister.setMIDIout(midiOuts, midiOutsType);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
                 if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
@@ -2531,6 +2546,7 @@ namespace MDPlayer
                         }
                     }
                     midiOuts.Clear();
+                    midiOutsType.Clear();
                 }
 
                 setting.vst.VSTInfo = null;

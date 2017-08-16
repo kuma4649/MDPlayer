@@ -541,7 +541,9 @@ namespace MDPlayer
                 int ch = vgmBuf[ptr++];
                 if (ch != 255)
                 {
-                    int n = (stDevNum + (ch / 16)) % chipRegister.midiOuts.Count;
+                    int mc = chipRegister.getMIDIoutCount();
+                    if (mc == 0) mc = 1;
+                    int n = (stDevNum + (ch / 16)) % mc;
                     trk[trkNumber].OutDeviceName = "dummy";// config.MIDIOutDeviceList[n].DevName;
                     trk[trkNumber].OutDeviceNumber = n;// config.MIDIOutDeviceList[n].DevNumber;
                     trk[trkNumber].OutUserDeviceNumber = n; // config.MIDIOutDeviceList[n].UsrNumber;

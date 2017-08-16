@@ -8,6 +8,7 @@ namespace MDPlayer
 {
     public class MIDIParam
     {
+        public int MIDIModule = 0;//0:GMIDI 1:XG 2:GS
         public byte[][] note = null;
         public byte[][] keyPress = null;
         public byte[][] cc = null;
@@ -32,9 +33,117 @@ namespace MDPlayer
         public int LCDDisplayTime = 0;
         public int LCDDisplayTimeXG = 0;
 
+        public int ReverbXG = 4; 
+        public int ChorusXG = 2; 
+        public int VariationXG = 0; 
+        public int Insertion1XG = 0; 
+        public int Insertion2XG = 0; 
+
+        public int ReverbGS = 4; // Room1(default)
+        public int ChorusGS = 2; // Chorus3(default)
+        public int DelayGS = 0; // Delay1(default)
+        public int EFXGS = 0; // Thru(default)
+
+        public int RevType_MSB = 0;
+        public int RevType_LSB = 0;
+        public int ChoType_MSB = 0;
+        public int ChoType_LSB = 0;
+        public int VarType_MSB = 0;
+        public int VarType_LSB = 0;
+        public int Ins1Type_MSB = 0;
+        public int Ins1Type_LSB = 0;
+        public int Ins2Type_MSB = 0;
+        public int Ins2Type_LSB = 0;
+        public int EFXType_MSB = 0;
+        public int EFXType_LSB = 0;
+
         private byte[] msg = null;
         private int msgInd = 0;
         private bool NowSystemMsg = false;
+
+        private int[] tblRevTypeXG = new int[] {
+            0x0000
+            ,0x0100,0x0101,0x0106,0x0107
+            ,0x0200,0x0201,0x0202,0x0205,0x0206,0x0207
+            ,0x0300,0x0301
+            ,0x0400,0x0407
+            ,0x1000
+            ,0x1100
+            ,0x1200
+            ,0x1300
+        };
+
+        private int[] tblChoTypeXG = new int[] {
+            0x0000
+            ,0x4100,0x4101,0x4102,0x4103,0x4104,0x4105,0x4106,0x4107,0x4108
+            ,0x4200,0x4201,0x4202,0x4208
+            ,0x4300,0x4301,0x4307,0x4308
+            ,0x4400
+            ,0x4800
+            ,0x5700
+        };
+
+        private int[] tblVarInsTypeXG = new int[] {
+0x0000
+,0x0100,0x0101,0x0106,0x0107
+,0x0200,0x0201,0x0202,0x0205,0x0206,0x0207
+,0x0300,0x0301
+,0x0400,0x0407
+,0x0500
+,0x0600
+,0x0700
+,0x0800
+,0x0900,0x0901
+,0x0a00
+,0x0b00
+,0x1000
+,0x1100
+,0x1200
+,0x1300
+,0x1400,0x1401,0x1402
+,0x4100,0x4101,0x4102,0x4103,0x4104,0x4105,0x4106,0x4107,0x4108
+,0x4200,0x4201,0x4202,0x4208
+,0x4300,0x4301,0x4307,0x4308
+,0x4400
+,0x4500,0x4501,0x4502,0x4503
+,0x4600
+,0x4700
+,0x4800,0x4808
+,0x4900,0x4901,0x4908
+,0x4a00,0x4a08
+,0x4b00,0x4b08
+,0x4c00
+,0x4d00
+,0x4e00,0x4e01,0x4e02
+,0x5000,0x5001
+,0x5100
+,0x5200,0x5201,0x5202,0x5208
+,0x5300
+,0x5400
+,0x5500
+,0x5600,0x5601,0x5602,0x5603
+,0x5700
+,0x5800
+,0x5d00
+,0x5e00
+,0x5f00,0x5f01
+,0x6000,0x6001
+,0x6100,0x6101
+,0x6200,0x6201,0x6202,0x6203
+,0x6300,0x6301
+        };
+
+        private int[] tblIns1TypeFromEFX = new int[] {
+            0x0000,0x0100,0x0101,0x0102,0x0103,0x0110,0x0111,0x0120
+            ,0x0121,0x0122,0x0123,0x0124,0x0125,0x0126,0x0130,0x0131
+            ,0x0140,0x0141,0x0142,0x0143,0x0144,0x0150,0x0151,0x0152
+            ,0x0153,0x0154,0x0155,0x0156,0x0157,0x0160,0x0161,0x0170
+            ,0x0171,0x0172,0x0173,0x0200,0x0201,0x0202,0x0203,0x0204
+            ,0x0205,0x0206,0x0207,0x0208,0x0209,0x020a,0x020b,0x0300
+            ,0x0400,0x0401,0x0402,0x0403,0x0404,0x0405,0x0406,0x0500
+            ,0x1100,0x1101,0x1102,0x1103,0x1104,0x1105,0x1106,0x1107,0x1108
+        };
+
 
         public MIDIParam()
         {
@@ -274,19 +383,54 @@ namespace MDPlayer
             {
                 byte dat = msg[ptr];
 
-                if (manufactureID == 0x43)
+                if (manufactureID == 0x43) //YAMAHA
                 {
-                    if (adr >= 0x070000 && adr <= 0x07002f)
+                    if (adr == 0x020100 || adr == 0x020101)
+                    {
+                        //REVERB TYPE MSB/LSB
+                        if (adr == 0x020100) RevType_MSB = dat & 0xff;
+                        else RevType_LSB = dat & 0xff;
+                        ReverbXG = getRevTypeXG();
+                    }
+                    else if (adr == 0x020120 || adr == 0x020121)
+                    {
+                        //CHORUS TYPE MSB/LSB
+                        if (adr == 0x020120) ChoType_MSB = dat & 0xff;
+                        else ChoType_LSB = dat & 0xff;
+                        ChorusXG = getChoTypeXG();
+                    }
+                    else if (adr == 0x020140 || adr == 0x020141)
+                    {
+                        //VARIATION TYPE MSB/LSB
+                        if (adr == 0x020140) VarType_MSB = dat & 0xff;
+                        else VarType_LSB = dat & 0xff;
+                        VariationXG = getVarTypeXG();
+                    }
+                    else if (adr == 0x030000 || adr == 0x030001)
+                    {
+                        //INSERTION EFFECT1 TYPE MSB/LSB
+                        if (adr == 0x030000) Ins1Type_MSB = dat & 0xff;
+                        else Ins1Type_LSB = dat & 0xff;
+                        Insertion1XG = getIns1TypeXG();
+                    }
+                    else if (adr == 0x030100 || adr == 0x030101)
+                    {
+                        //INSERTION EFFECT2 TYPE MSB/LSB
+                        if (adr == 0x030100) Ins2Type_MSB = dat & 0xff;
+                        else Ins2Type_LSB = dat & 0xff;
+                        Insertion2XG = getIns2TypeXG();
+                    }
+                    else if (adr >= 0x070000 && adr <= 0x07002f)
                     {
                         //DISPLAY Dot Data
                         LCDDisplay[adr & 0x3f] = dat;
                         if (adr == 0x07002f)
                         {
-                            LCDDisplayTimeXG = 300;
+                            LCDDisplayTimeXG = 400;
                         }
                     }
                 }
-                else if (manufactureID == 0x41)
+                else if (manufactureID == 0x41) //GS
                 {
                     if (adr >= 0x100100 && adr <= 0x10013f)
                     {
@@ -294,8 +438,35 @@ namespace MDPlayer
                         LCDDisplay[adr & 0x3f] = dat;
                         if (adr == 0x10013f)
                         {
-                            LCDDisplayTime = 300;
+                            LCDDisplayTime = 400;
                         }
+                    }
+                    else if (adr == 0x400130)
+                    {
+                        //REVERB MACRO
+                        if (dat >= 0 && dat <= 7) ReverbGS = dat;
+                    }
+                    else if (adr == 0x400138)
+                    {
+                        //CHORUS MACRO
+                        if(dat >= 0 && dat <= 7) ChorusGS = dat;
+                    }
+                    else if (adr == 0x400150)
+                    {
+                        //Delay MACRO
+                        if(dat >= 0 && dat <= 9) DelayGS = dat;
+                    }
+                    else if (adr == 0x400300)
+                    {
+                        //EFX Type
+                        EFXType_MSB = dat & 0xff;
+                        EFXGS = getIns1TypeFromEFX();
+                    }
+                    else if (adr == 0x400301)
+                    {
+                        //EFX Type
+                        EFXType_LSB = dat & 0xff;
+                        EFXGS = getIns1TypeFromEFX();
                     }
                 }
 
@@ -304,6 +475,103 @@ namespace MDPlayer
                 adr++;
             }
 
+        }
+
+        private int getRevTypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblRevTypeXG.Length; i++)
+            {
+                if (RevType_MSB * 0x100 + RevType_LSB == tblRevTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblRevTypeXG.Length; i++)
+            {
+                if (RevType_MSB * 0x100 == tblRevTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getChoTypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblChoTypeXG.Length; i++)
+            {
+                if (ChoType_MSB * 0x100 + ChoType_LSB == tblChoTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblChoTypeXG.Length; i++)
+            {
+                if (ChoType_MSB * 0x100 == tblChoTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getVarTypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (VarType_MSB * 0x100 + VarType_LSB == tblVarInsTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (VarType_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getIns1TypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins1Type_MSB * 0x100 + Ins1Type_LSB == tblVarInsTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins1Type_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getIns2TypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins2Type_MSB * 0x100 + Ins2Type_LSB == tblVarInsTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins2Type_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getIns1TypeFromEFX()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblIns1TypeFromEFX.Length; i++)
+            {
+                if (EFXType_MSB * 0x100 + EFXType_LSB == tblIns1TypeFromEFX[i]) return i;
+            }
+
+            return ret;
         }
 
     }

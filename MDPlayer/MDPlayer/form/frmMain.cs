@@ -3316,6 +3316,8 @@ namespace MDPlayer
                 newParam.midi[chipID].nrpnEGRls[ch] = prm.nrpnEGRls[ch];
             }
 
+            newParam.midi[chipID].MIDIModule = prm.MIDIModule;
+
             //LCDData
             for (int i = 0; i < 64; i++)
             {
@@ -3327,6 +3329,11 @@ namespace MDPlayer
             newParam.midi[chipID].LCDDisplayTimeXG = prm.LCDDisplayTimeXG;
             prm.LCDDisplayTimeXG -= 3;
             if (prm.LCDDisplayTimeXG < 0) prm.LCDDisplayTimeXG = 0;
+
+            newParam.midi[chipID].ReverbGS = prm.ReverbGS;
+            newParam.midi[chipID].ChorusGS = prm.ChorusGS;
+            newParam.midi[chipID].DelayGS = prm.DelayGS;
+            newParam.midi[chipID].EFXGS = prm.EFXGS;
 
         }
 

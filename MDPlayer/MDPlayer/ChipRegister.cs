@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using NAudio.Midi;
 
 namespace MDPlayer
 {
@@ -9,7 +10,8 @@ namespace MDPlayer
 
         private Setting setting = null;
         private MDSound.MDSound mds = null;
-        public List<NAudio.Midi.MidiOut> midiOuts = null;
+        private List<NAudio.Midi.MidiOut> midiOuts = null;
+        private List<int> midiOutsType = null;
 
         private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
@@ -317,6 +319,24 @@ namespace MDPlayer
         public void Close()
         {
             midiExport.Close();
+        }
+
+        public void setMIDIout(List<NAudio.Midi.MidiOut> midiOuts,List<int> midiOutsType)
+        {
+            this.midiOuts = midiOuts;
+            this.midiOutsType = midiOutsType;
+
+            if (midiParams != null && midiParams.Length > 1 && midiOutsType != null)
+            {
+                if (midiOutsType.Count > 0) midiParams[0].MIDIModule = midiOutsType[0];
+                if (midiOutsType.Count > 1) midiParams[1].MIDIModule = midiOutsType[1];
+            }
+        }
+
+        public int getMIDIoutCount()
+        {
+            if (midiOuts == null) return 0;
+            return midiOuts.Count;
         }
 
         public void sendMIDIout(enmModel model, int num,byte cmd,byte prm1,byte prm2)
