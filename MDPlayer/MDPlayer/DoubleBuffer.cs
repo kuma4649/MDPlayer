@@ -83,6 +83,51 @@ namespace MDPlayer
             }
         };
 
+        private string[][] tblMIDIEffectXG = new string[3][] {
+            new string[] {
+                           "NO EFFECT                 " , "HALL 1                    " , "HALL 2                    " , "HALL M                    "
+                         , "HALL L                    " , "ROOM 1                    " , "ROOM 2                    " , "ROOM 3                    " 
+                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
+                         , "STAGE2                    " , "PLATE                     " , "GMPLATE                   " , "WHITEROOM                 "
+                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  "                           
+            } ,                                                                                                                                 
+            new string[] {                                                                                                                      
+                           "NO EFFECT                 " , "CHORUS1                   " , "CHORUS2                   " , "CHORUS3                   "
+                         , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                " , "GMCHORUS 3                "
+                         , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  " , "CELESTE2                  "
+                         , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 " , "FLANGER 2                 "
+                         , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 " , "PHASER 1                  "
+                         , "ENSEMBLEDETUNE            "
+            } ,
+            new string[] {
+                           "NO EFFECT                 " , "HALL1                     " , "HALL2                     " , "HALL M                    "
+                         , "HALL L                    " , "ROOM1                     " , "ROOM2                     " , "ROOM3                     "
+                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
+                         , "STAGE2                    " , "PLATE                     " , "GM PLATE                  " , "DELAY L,C,R               "
+                         , "DELAY L,R                 " , "ECHO                      " , "CROSSDELAY                " , "ER1                       "
+                         , "ER2                       " , "GATE REVERB               " , "REVERSE GATE              " , "WHITE ROOM                "
+                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  " , "KARAOKE1                  "
+                         , "KARAOKE2                  " , "KARAOKE3                  " , "CHORUS1                   " , "CHORUS2                   "
+                         , "CHORUS3                   " , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                "
+                         , "GMCHORUS 3                " , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  "
+                         , "CELESTE2                  " , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 "
+                         , "FLANGER 2                 " , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 "
+                         , "ROTARYSP.                 " , "DIST+ROTARYSP.            " , "OVERDRIVE+ROTARYSP.       " , "AMPSIM.+ROTARY            "
+                         , "TREMOLO                   " , "AUTO PAN                  " , "PHASER1                   " , "PHASER2                   "
+                         , "DISTORTION                " , "COMP+DISTORTION           " , "STEREODISTORTION          " , "OVERDRIVE                 "
+                         , "STEREOOVERDRIVE           " , "AMPSIM.                   " , "STEREOAMPSIM.             " , "3BANDEQ                   "
+                         , "2BANDEQ                   " , "AUTO WAH                  " , "AUTO WAH+DIST             " , "AUTO WAH+OVERDRIVE        "
+                         , "PITCH CHANGE              " , "PITCH CHANGE2             " , "HARMONIC ENHANCER         " , "TOUCHWAH 1                "
+                         , "TOUCHWAH 2                " , "TOUCHWAH+DIST             " , "TOUCHWAH+OVERDRIVE        " , "COMPRESSOR                "
+                         , "NOISEGATE                 " , "VOICECANCEL               " , "2WAY ROTARY SP            " , "DIST. + 2WAYROTARY SP.    "
+                         , "OVERDRIVE + 2WAY ROTARYSP." , "AMPSIM. + 2WAY ROTARYSP.  " , "ENSEMBLE DETUNE           " , "AMBIENCE                  "
+                         , "TALKING MODULATION        " , "LO-FI                     " , "DIST+DELAY                " , "OVERDRIVE+DELAY           "
+                         , "COMP+DIST+DELAY           " , "COMP+OVERDRIVE+DELAY      " , "WAH+DIST+DELAY            " , "WAH+OVERDRIVE+DELAY       "
+                         , "V DISTORTION HARD         " , "V DISTORTION HARD+DELAY   " , "V DISTORTION SOFT         " , "V DISTORTION SOFT+DELAY   "
+                         , "DUAL ROTOR SPEAKER1       " , "DUAL ROTOR SPEAKER2       " , "THRU                      "
+            }
+        };
+
         public class FrameBuffer
         {
             public PictureBox pbScreen;
@@ -3273,23 +3318,34 @@ namespace MDPlayer
 
             if (module == 1)
             {
-                //drawMIDI_Macro(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbXG, newParam.midi[chipID].ReverbXG);
-                //drawMIDI_Macro(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusXG, newParam.midi[chipID].ChorusXG);
-                //drawMIDI_Macro(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].VariationXG, newParam.midi[chipID].VariationXG);
-                //drawMIDI_Macro(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion1XG, newParam.midi[chipID].Insertion1XG);
-                //drawMIDI_Macro(MIDIScreen[chipID], module, 4, 4 * 35, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion2XG, newParam.midi[chipID].Insertion2XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbXG, newParam.midi[chipID].ReverbXG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusXG, newParam.midi[chipID].ChorusXG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].VariationXG, newParam.midi[chipID].VariationXG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion1XG, newParam.midi[chipID].Insertion1XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion2XG, newParam.midi[chipID].Insertion2XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion3XG, newParam.midi[chipID].Insertion3XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion4XG, newParam.midi[chipID].Insertion4XG);
             }
             else
             {
-                drawMIDI_Macro(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbGS, newParam.midi[chipID].ReverbGS);
-                drawMIDI_Macro(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusGS, newParam.midi[chipID].ChorusGS);
-                drawMIDI_Macro(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].DelayGS, newParam.midi[chipID].DelayGS);
-                drawMIDI_Macro(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].EFXGS, newParam.midi[chipID].EFXGS);
+                drawMIDI_MacroGS(MIDIScreen[chipID], module, 0, 4 * 35, 16 + 33 * 8, ref oldParam.midi[chipID].ReverbGS, newParam.midi[chipID].ReverbGS);
+                drawMIDI_MacroGS(MIDIScreen[chipID], module, 1, 4 * 35, 32 + 33 * 8, ref oldParam.midi[chipID].ChorusGS, newParam.midi[chipID].ChorusGS);
+                drawMIDI_MacroGS(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].DelayGS, newParam.midi[chipID].DelayGS);
+                drawMIDI_MacroGS(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].EFXGS, newParam.midi[chipID].EFXGS);
             }
 
         }
 
-        private void drawMIDI_Macro(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
+        private void drawMIDI_MacroXG(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
+        {
+            //if (oldValue1 == value1) return;
+
+            drawFont4(screen, x, y, 2 + MIDImodule, tblMIDIEffectXG[macroType][value1]);
+
+            oldValue1 = value1;
+        }
+
+        private void drawMIDI_MacroGS(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
         {
             //if (oldValue1 == value1) return;
 

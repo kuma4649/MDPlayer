@@ -3335,6 +3335,13 @@ namespace MDPlayer
             newParam.midi[chipID].DelayGS = prm.DelayGS;
             newParam.midi[chipID].EFXGS = prm.EFXGS;
 
+            newParam.midi[chipID].ReverbXG = prm.ReverbXG;
+            newParam.midi[chipID].ChorusXG = prm.ChorusXG;
+            newParam.midi[chipID].VariationXG = prm.VariationXG;
+            newParam.midi[chipID].Insertion1XG = prm.Insertion1XG;
+            newParam.midi[chipID].Insertion2XG = prm.Insertion2XG;
+            newParam.midi[chipID].Insertion3XG = prm.Insertion3XG;
+            newParam.midi[chipID].Insertion4XG = prm.Insertion4XG;
         }
 
         private void screenChangeParamsFromYM2612MIDI()

@@ -33,11 +33,13 @@ namespace MDPlayer
         public int LCDDisplayTime = 0;
         public int LCDDisplayTimeXG = 0;
 
-        public int ReverbXG = 4; 
-        public int ChorusXG = 2; 
-        public int VariationXG = 0; 
-        public int Insertion1XG = 0; 
-        public int Insertion2XG = 0; 
+        public int ReverbXG = 1; //HALL1
+        public int ChorusXG = 1; //CHORUS1
+        public int VariationXG = 15; //DELAY LCR
+        public int Insertion1XG = 56;// DISTORTION 
+        public int Insertion2XG = 56;//DISTORTION 
+        public int Insertion3XG = 56;// DISTORTION 
+        public int Insertion4XG = 56;//DISTORTION 
 
         public int ReverbGS = 4; // Room1(default)
         public int ChorusGS = 2; // Chorus3(default)
@@ -54,6 +56,10 @@ namespace MDPlayer
         public int Ins1Type_LSB = 0;
         public int Ins2Type_MSB = 0;
         public int Ins2Type_LSB = 0;
+        public int Ins3Type_MSB = 0;
+        public int Ins3Type_LSB = 0;
+        public int Ins4Type_MSB = 0;
+        public int Ins4Type_LSB = 0;
         public int EFXType_MSB = 0;
         public int EFXType_LSB = 0;
 
@@ -420,6 +426,20 @@ namespace MDPlayer
                         else Ins2Type_LSB = dat & 0xff;
                         Insertion2XG = getIns2TypeXG();
                     }
+                    else if (adr == 0x030200 || adr == 0x030201)
+                    {
+                        //INSERTION EFFECT3 TYPE MSB/LSB
+                        if (adr == 0x030200) Ins3Type_MSB = dat & 0xff;
+                        else Ins3Type_LSB = dat & 0xff;
+                        Insertion3XG = getIns3TypeXG();
+                    }
+                    else if (adr == 0x030300 || adr == 0x030301)
+                    {
+                        //INSERTION EFFECT4 TYPE MSB/LSB
+                        if (adr == 0x030300) Ins4Type_MSB = dat & 0xff;
+                        else Ins4Type_LSB = dat & 0xff;
+                        Insertion4XG = getIns4TypeXG();
+                    }
                     else if (adr >= 0x070000 && adr <= 0x07002f)
                     {
                         //DISPLAY Dot Data
@@ -557,6 +577,40 @@ namespace MDPlayer
             for (int i = 0; i < tblVarInsTypeXG.Length; i++)
             {
                 if (Ins2Type_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getIns3TypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins3Type_MSB * 0x100 + Ins3Type_LSB == tblVarInsTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins3Type_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
+            }
+
+            return ret;
+        }
+
+        private int getIns4TypeXG()
+        {
+            int ret = 0;
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins4Type_MSB * 0x100 + Ins4Type_LSB == tblVarInsTypeXG[i]) return i;
+            }
+
+            for (int i = 0; i < tblVarInsTypeXG.Length; i++)
+            {
+                if (Ins4Type_MSB * 0x100 == tblVarInsTypeXG[i]) return i;
             }
 
             return ret;
