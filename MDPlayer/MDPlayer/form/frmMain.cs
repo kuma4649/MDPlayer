@@ -3318,7 +3318,7 @@ namespace MDPlayer
 
             newParam.midi[chipID].MIDIModule = prm.MIDIModule;
 
-            //LCDData
+            //Display Data
             for (int i = 0; i < 64; i++)
             {
                 newParam.midi[chipID].LCDDisplay[i] = prm.LCDDisplay[i];
@@ -3329,6 +3329,34 @@ namespace MDPlayer
             newParam.midi[chipID].LCDDisplayTimeXG = prm.LCDDisplayTimeXG;
             prm.LCDDisplayTimeXG -= 3;
             if (prm.LCDDisplayTimeXG < 0) prm.LCDDisplayTimeXG = 0;
+
+            //Display Letter Data
+            for (int i = 0; i < 32; i++)
+            {
+                newParam.midi[chipID].LCDDisplayLetter[i] = prm.LCDDisplayLetter[i];
+            }
+            newParam.midi[chipID].LCDDisplayLetterLen = prm.LCDDisplayLetterLen;
+            newParam.midi[chipID].LCDDisplayLetterTime = prm.LCDDisplayLetterTime;
+            prm.LCDDisplayLetterTime -= 3;
+            if (prm.LCDDisplayLetterTime < 0)
+            {
+                if (prm.LCDDisplayLetterLen > 0)
+                {
+                    for (int i = 1; i < 32; i++)
+                    {
+                        prm.LCDDisplayLetter[i - 1] = (byte)(i < prm.LCDDisplayLetterLen ? prm.LCDDisplayLetter[i] : 0x20);
+                    }
+                    prm.LCDDisplayLetterTime = 40;
+                    prm.LCDDisplayLetterLen--;
+                }
+                else
+                {
+                    prm.LCDDisplayLetterTime = 0;
+                }
+            }
+            newParam.midi[chipID].LCDDisplayLetterTimeXG = prm.LCDDisplayLetterTimeXG;
+            prm.LCDDisplayLetterTimeXG -= 3;
+            if (prm.LCDDisplayLetterTimeXG < 0) prm.LCDDisplayLetterTimeXG = 0;
 
             newParam.midi[chipID].ReverbGS = prm.ReverbGS;
             newParam.midi[chipID].ChorusGS = prm.ChorusGS;
@@ -3342,6 +3370,9 @@ namespace MDPlayer
             newParam.midi[chipID].Insertion2XG = prm.Insertion2XG;
             newParam.midi[chipID].Insertion3XG = prm.Insertion3XG;
             newParam.midi[chipID].Insertion4XG = prm.Insertion4XG;
+
+            newParam.midi[chipID].MasterVolume = prm.MasterVolume;
+
         }
 
         private void screenChangeParamsFromYM2612MIDI()

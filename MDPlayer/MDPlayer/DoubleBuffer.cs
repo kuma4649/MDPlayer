@@ -46,10 +46,12 @@ namespace MDPlayer
         private byte[] rMIDILCD_KBD;
         private byte[][] rMIDILCD_Vol;
         private byte[][] rMIDILCD;
+        private byte[][] rMIDILCD_Font;
         private byte[][] rPlane_MIDI;
 
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
         private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
+        private static string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         private static string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
         private static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8" };
 
@@ -126,6 +128,41 @@ namespace MDPlayer
                          , "V DISTORTION HARD         " , "V DISTORTION HARD+DELAY   " , "V DISTORTION SOFT         " , "V DISTORTION SOFT+DELAY   "
                          , "DUAL ROTOR SPEAKER1       " , "DUAL ROTOR SPEAKER2       " , "THRU                      "
             }
+        };
+
+        private string[] tblMIDIInstrumentGM = new string[] {
+                         "G.Piano  ","B.Piano  ","E.Piano  ","Honkytonk"
+                        ,"E.Piano1 ","E.Piano2 ","Harpschrd","Clavi    "
+                        ,"Celesta  ","Glocken  ","Music Box","Vibraphon"
+                        ,"Marimba  ","Xylophone","Tblarbell","Dulcimer "
+                        ,"D.Organ  ","P.Organ  ","R.Organ  ","ChrchOrgn"
+                        ,"Reed Orgn","Accordion","Harmonica","T.Accrdon"
+                        ,"NylonGt. ","SteelGt. ","JazzGt.  ","CleanGt. "
+                        ,"MutedGt. ","Overd.Gt.","Dist.Gt. ","Harmo.Gt."
+                        ,"A.Bass   ","FingrBass","PickBass ","FrtlBass "
+                        ,"SlapBass1","SlapBass2","Syn.Bass1","Syn.Bass2"
+                        ,"Violin   ","Viola    ","Cello    ","Cntrabass"
+                        ,"TremlStr.","PizzStr. ","Harp     ","Timpani  "
+                        ,"Strings1 ","Strings2 ","Syn.Str1 ","Syn.Str2 "
+                        ,"ChoirAahs","VoiceOohs","SynVoice ","OrchHit  "
+                        ,"Trumpet  ","Trombone ","Tuba     ","MtTrumpet"
+                        ,"Fr. Horn ","BrassSec.","Syn.Brs1 ","Syn.Brs2 "
+                        ,"SoprnoSax","AltoSax  ","TenorSax ","BartnSax "
+                        ,"Oboe     ","Eng.Horn ","Bassoon  ","Clarinet "
+                        ,"Piccolo  ","Flute    ","Recorder ","PanFlute "
+                        ,"BlowBttle","Shakuhach","Whistle  ","Ocarina  "
+                        ,"Square   ","Saw      ","Calliope ","Chiff    "
+                        ,"Charang  ","Voice    ","5thSaw   ","Bassoon  "
+                        ,"NewAge   ","Warm     ","Polysynth","Choir    "
+                        ,"BowedGlss","MetalPad ","Halo     ","Sweep    "
+                        ,"IceRain  ","Soundtrk ","Crystal  ","Atmsphere"
+                        ,"Brightnes","Goblins  ","Echoes   ","Sci-fi   "
+                        ,"Sitar    ","Banjo    ","Shamisen ","Koto     "
+                        ,"Kalimba  ","BagPipe  ","Fiddle   ","Shanai   "
+                        ,"TinkleBll","Agogo    ","SteelDrum","Woodblock"
+                        ,"Taiko    ","Melo.Tom ","Syn.Drum ","Rev.Cym  "
+                        ,"Gt.FretNz","BrthNoise","Seashore ","BirdTweet"
+                        ,"Telephone","Helicoptr","Applause ","Gunshot  "
         };
 
         public class FrameBuffer
@@ -447,6 +484,11 @@ namespace MDPlayer
             rMIDILCD[0] = getByteArray(Properties.Resources.rMIDILCD_01);
             rMIDILCD[1] = getByteArray(Properties.Resources.rMIDILCD_02);
             rMIDILCD[2] = getByteArray(Properties.Resources.rMIDILCD_03);
+
+            rMIDILCD_Font = new byte[3][];
+            rMIDILCD_Font[0] = getByteArray(Properties.Resources.rMIDILCD_Font_01);
+            rMIDILCD_Font[1] = getByteArray(Properties.Resources.rMIDILCD_Font_02);
+            rMIDILCD_Font[2] = getByteArray(Properties.Resources.rMIDILCD_Font_03);
 
             rPlane_MIDI = new byte[3][];
             rPlane_MIDI[0] = getByteArray(Properties.Resources.planeMIDI_GM);
@@ -1191,12 +1233,53 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
         }
 
-        public void drawFont4IntMIDI(FrameBuffer screen, int x, int y, int t,ref byte oldnum, byte num)
+        public void drawFont4IntMIDI(FrameBuffer screen, int x, int y, int t, ref byte oldnum, byte num)
         {
             if (oldnum == num) return;
             oldnum = num;
 
             if (screen == null) return;
+
+            int n;
+
+            n = num / 100;
+            num -= (byte)(n * 100);
+            //n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 10;
+            num -= (byte)(n * 10);
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 1;
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            return;
+        }
+
+        public void drawFont4MIDINotes(FrameBuffer screen, int x, int y, int t, ref string oldnotes, string notes)
+        {
+            if (oldnotes == notes) return;
+            oldnotes = notes;
+
+            if (screen == null) return;
+
+            drawFont4(screen, x, y, t, notes);
+
+            return;
+        }
+        
+
+        public void drawFont4IntMIDIInstrument(FrameBuffer screen, int x, int y, int t, ref byte oldnum, byte num)
+        {
+            if (oldnum == num) return;
+            oldnum = num;
+
+            if (screen == null) return;
+
+            drawFont4(screen, x, y + 8, t, tblMIDIInstrumentGM[num]);
 
             int n;
 
@@ -3205,6 +3288,8 @@ namespace MDPlayer
             drawLfoFrqToHuC6280(chipID, ref oldParam.huc6280[chipID].LfoFrq, newParam.huc6280[chipID].LfoFrq);
         }
 
+        private string notes = "";
+
         private void drawParamsToMIDI(MDChipParams oldParam, MDChipParams newParam, int chipID)
         {
             int module = newParam.midi[chipID].MIDIModule;
@@ -3234,11 +3319,20 @@ namespace MDPlayer
                 drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 100, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][67]);//Soft
                 drawMIDILCD_Fader(MIDIScreen[chipID], module, 1, 104, ch * 16 + 16, ref oldParam.midi[chipID].cc[ch][1], newParam.midi[chipID].cc[ch][66]);//Sostenuto
 
+                notes = "";
                 for (int n = 0; n < 120; n++)
                 {
                     drawMIDILCD_Kbd(MIDIScreen[chipID], 108
                         , ch * 16 + 16, n, ref oldParam.midi[chipID].note[ch][n], newParam.midi[chipID].note[ch][n]);
+
+                    if (newParam.midi[chipID].note[ch][n] > 0)
+                    {
+                        notes = notes + string.Format("{0}{1} ", kbns[n % 12], n / 12);
+                    }
                 }
+                notes += "                           ";
+                notes = notes.Substring(0, 26);
+                drawFont4MIDINotes(MIDIScreen[chipID],71*4, ch * 16 + 24, module + 2, ref oldParam.midi[chipID].notes[ch], notes);
 
                 drawMIDILCD_Volume(MIDIScreen[chipID], module, 388, ch * 16 + 16, ref oldParam.midi[chipID].level[ch][0], newParam.midi[chipID].level[ch][0]);
                 drawMIDILCD_Volume(MIDIScreen[chipID], module, 388, ch * 16 + 24, ref oldParam.midi[chipID].level[ch][2], newParam.midi[chipID].level[ch][2]);
@@ -3289,7 +3383,7 @@ namespace MDPlayer
                 }
 
                 // Prg Bank Map
-                drawFont4IntMIDI(MIDIScreen[chipID], 4 * 7, ch * 16 + 16, 2+module, ref oldParam.midi[chipID].pc[ch], newParam.midi[chipID].pc[ch]);
+                drawFont4IntMIDIInstrument(MIDIScreen[chipID], 4 * 7, ch * 16 + 16, 2+module, ref oldParam.midi[chipID].pc[ch], newParam.midi[chipID].pc[ch]);
                 drawFont4IntMIDI(MIDIScreen[chipID], 4 * 10, ch * 16 + 16, 2 + module, ref oldParam.midi[chipID].cc[ch][0], newParam.midi[chipID].cc[ch][0]);
                 drawFont4IntMIDI(MIDIScreen[chipID], 4 * 13, ch * 16 + 16, 2 + module, ref oldParam.midi[chipID].cc[ch][32], newParam.midi[chipID].cc[ch][32]);
 
@@ -3334,7 +3428,24 @@ namespace MDPlayer
                 drawMIDI_MacroGS(MIDIScreen[chipID], module, 3, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].EFXGS, newParam.midi[chipID].EFXGS);
             }
 
+            if (newParam.midi[chipID].LCDDisplayLetterTime == 0 && newParam.midi[chipID].LCDDisplayLetterTimeXG == 0)
+            {
+                drawMIDILCD_Letter(MIDIScreen[chipID], module, 4 , 281, ref oldParam.midi[chipID].LCDDisplayLetter, spc, 16);
+            }
+            else
+            {
+                drawMIDILCD_Letter(MIDIScreen[chipID], module, 4 , 281, ref oldParam.midi[chipID].LCDDisplayLetter, newParam.midi[chipID].LCDDisplayLetter, newParam.midi[chipID].LCDDisplayLetterLen);
+            }
+
+            drawFont4IntMIDI(MIDIScreen[chipID], 53*4, 17 * 16 + 8, 2 + module, ref oldParam.midi[chipID].MasterVolume, newParam.midi[chipID].MasterVolume);
+
         }
+
+        byte[] spc = new byte[] {
+              0x20, 0x3c, 0x3c, 0x20, 0x4d, 0x44, 0x50, 0x6c
+            , 0x61, 0x79, 0x65, 0x72, 0x20, 0x3e, 0x3e, 0x20
+            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20
+            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
 
         private void drawMIDI_MacroXG(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
         {
@@ -3352,6 +3463,25 @@ namespace MDPlayer
             drawFont4(screen, x, y, 2 + MIDImodule, tblMIDIEffectGS[macroType][value1]);
 
             oldValue1 = value1;
+        }
+        
+
+        private void drawMIDILCD_Letter(FrameBuffer screen, int MIDImodule, int x, int y, ref byte[] oldValue, byte[] value,int len)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                if (oldValue[i] == value[i]) continue;
+                oldValue[i] = value[i];
+
+                if (screen == null) return;
+
+                int cd = 0;
+                //if (i < len) 
+                cd = value[i] - ' ';
+
+                screen.drawByteArray(x + i * 8, y, rMIDILCD_Font[MIDImodule], 128, (cd % 16) * 8, (cd / 16) * 8, 8, 8);
+            }
+
         }
 
         private void drawMIDILCD_VolumeLCD(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue1, int value1, ref int oldValue2, int value2)

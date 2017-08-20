@@ -10,6 +10,7 @@ namespace MDPlayer
     {
         public int MIDIModule = 0;//0:GMIDI 1:XG 2:GS
         public byte[][] note = null;
+        public string[] notes = null;
         public byte[][] keyPress = null;
         public byte[][] cc = null;
         public byte[] pc = null;
@@ -32,6 +33,12 @@ namespace MDPlayer
         public byte[] LCDDisplay = null;
         public int LCDDisplayTime = 0;
         public int LCDDisplayTimeXG = 0;
+        public byte[] LCDDisplayLetter = null;
+        public int LCDDisplayLetterTime = 0;
+        public int LCDDisplayLetterTimeXG = 0;
+        public int LCDDisplayLetterLen = 0;
+
+        public byte MasterVolume = 0;
 
         public int ReverbXG = 1; //HALL1
         public int ChorusXG = 1; //CHORUS1
@@ -154,6 +161,7 @@ namespace MDPlayer
         public MIDIParam()
         {
             note = new byte[16][] { new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256] };
+            notes = new string[16];
             keyPress = new byte[16][] { new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256] };
             cc = new byte[16][] { new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256], new byte[256] };
             pc = new byte[16];
@@ -177,6 +185,10 @@ namespace MDPlayer
             LCDDisplayTime = 0;
             LCDDisplayTimeXG = 0;
 
+            LCDDisplayLetter = new byte[32];
+            LCDDisplayLetterTime = 0;
+            LCDDisplayLetterTimeXG = 0;
+
             msg = new byte[256];
             msgInd = 0;
             NowSystemMsg = false;
@@ -191,6 +203,7 @@ namespace MDPlayer
                 cc[ch][10] = 64;
                 cc[ch][11] = 110;
                 bend[ch] = 8192;
+                notes[ch] = "          ";
 
                 //nrpnVibRate[ch] = 64;
                 //nrpnVibDepth[ch] = 64;
@@ -384,6 +397,14 @@ namespace MDPlayer
                 adr = msg[5] * 0x10000 + msg[6] * 0x100 + msg[7];
                 ptr = 8;
             }
+            else if (manufactureID == 0x7f)//universal realtime message
+            {
+                if (msg[2] == 0x7f && msg[3] == 0x04 && msg[4] == 0x01 && msg[7] == 0xf7)
+                {
+                    MasterVolume = msg[5];
+                }
+                return;
+            }
 
             while (ptr < msg.Length && msg[ptr] != 0xf7)
             {
@@ -440,6 +461,17 @@ namespace MDPlayer
                         else Ins4Type_LSB = dat & 0xff;
                         Insertion4XG = getIns4TypeXG();
                     }
+                    else if (adr >= 0x060000 && adr <= 0x06001f)
+                    {
+                        if (adr == 0x060000) for (int i = 0; i < 32; i++) LCDDisplayLetter[i] = 0x20;
+
+                        //DISPLAY LETTER Data
+                        dat = (byte)((dat < 0x20 || dat > 0x7f) ? 0x20 : dat);
+                        LCDDisplayLetter[adr & 0x1f] = dat;
+                        LCDDisplayLetterLen = (adr & 0x1f) + 1;
+                        LCDDisplayLetterTime = 400;
+                        if (LCDDisplayLetterLen > 16) LCDDisplayLetterTime = 40;
+                    }
                     else if (adr >= 0x070000 && adr <= 0x07002f)
                     {
                         //DISPLAY Dot Data
@@ -452,7 +484,18 @@ namespace MDPlayer
                 }
                 else if (manufactureID == 0x41) //GS
                 {
-                    if (adr >= 0x100100 && adr <= 0x10013f)
+                    if (adr >= 0x100000 && adr <= 0x10001f)
+                    {
+                        if (adr == 0x100000) for (int i = 0; i < 32; i++) LCDDisplayLetter[i] = 0x20;
+
+                        //DISPLAY LETTER Data
+                        dat = (byte)((dat < 0x20 || dat > 0x7f) ? 0x20 : dat);
+                        LCDDisplayLetter[adr & 0x1f] = dat;
+                        LCDDisplayLetterLen = (adr & 0x1f);// + 1;
+                        LCDDisplayLetterTime = 400;
+                        if (LCDDisplayLetterLen > 16) LCDDisplayLetterTime = 40;
+                    }
+                    else if (adr >= 0x100100 && adr <= 0x10013f)
                     {
                         //DISPLAY Dot Data
                         LCDDisplay[adr & 0x3f] = dat;
@@ -469,12 +512,12 @@ namespace MDPlayer
                     else if (adr == 0x400138)
                     {
                         //CHORUS MACRO
-                        if(dat >= 0 && dat <= 7) ChorusGS = dat;
+                        if (dat >= 0 && dat <= 7) ChorusGS = dat;
                     }
                     else if (adr == 0x400150)
                     {
                         //Delay MACRO
-                        if(dat >= 0 && dat <= 9) DelayGS = dat;
+                        if (dat >= 0 && dat <= 9) DelayGS = dat;
                     }
                     else if (adr == 0x400300)
                     {
