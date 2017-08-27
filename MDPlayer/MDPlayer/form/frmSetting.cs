@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
@@ -776,7 +771,15 @@ namespace MDPlayer
                             string stype = "GM";
                             if (moi.type == 1) stype = "XG";
                             if (moi.type == 2) stype = "GS";
-                            dgv[i].Rows.Add(moi.id, moi.name, stype, moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown");
+
+                            dgv[i].Rows.Add(
+                                moi.id
+                                , moi.isVST
+                                , moi.fileName
+                                , moi.name
+                                , stype
+                                , moi.isVST ? moi.vendor : (moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown")
+                                );
 
                         }
                     }
@@ -1140,13 +1143,24 @@ namespace MDPlayer
                     {
                         midiOutInfo moi = new midiOutInfo();
                         moi.id = (int)d.Rows[i].Cells[0].Value;
-                        moi.name = (string)d.Rows[i].Cells[1].Value;
-                        string stype = (string)d.Rows[i].Cells[2].Value;
+                        moi.isVST = (bool)d.Rows[i].Cells[1].Value;
+                        moi.fileName = (string)d.Rows[i].Cells[2].Value;
+                        moi.name = (string)d.Rows[i].Cells[3].Value;
+                        string stype = (string)d.Rows[i].Cells[4].Value;
                         moi.type = 0;
                         if (stype == "XG") moi.type = 1;
                         if (stype == "GS") moi.type = 2;
-                        string mn = (string)d.Rows[i].Cells[3].Value;
-                        moi.manufacturer = mn == "Unknown" ? -1 : (int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
+                        string mn = (string)d.Rows[i].Cells[5].Value;
+                        if (moi.isVST)
+                        {
+                            moi.vendor = mn;
+                            moi.manufacturer = -1;
+                        }
+                        else
+                        {
+                            moi.vendor = "";
+                            moi.manufacturer = mn == "Unknown" ? -1 : (int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
+                        }
 
                         lstMoi.Add(moi);
                     }
@@ -1424,7 +1438,7 @@ namespace MDPlayer
                     }
                 }
 
-                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, row.Cells[1].Value, "GM", row.Cells[2].Value);
+                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, false, "", row.Cells[1].Value, "GM", row.Cells[2].Value);
             }
         }
 
@@ -1451,7 +1465,7 @@ namespace MDPlayer
                 if (row.Index < 1) continue;
 
                 int i = row.Index-1;
-                dgv[p].Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value);
+                dgv[p].Rows.Insert(i, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value, row.Cells[4].Value, row.Cells[5].Value);
                 dgv[p].Rows.Remove(row);
                 dgv[p].Rows[i].Selected = true;
             }
@@ -1468,10 +1482,48 @@ namespace MDPlayer
                 if (row.Index > dgv[p].Rows.Count-2) continue;
 
                 int i = row.Index + 1;
-                dgv[p].Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value);
+                dgv[p].Rows.Insert(row.Index+2, row.Cells[0].Value, row.Cells[1].Value, row.Cells[2].Value, row.Cells[3].Value, row.Cells[4].Value, row.Cells[5].Value);
                 dgv[p].Rows.Remove(row);
                 dgv[p].Rows[i].Selected = true;
             }
+        }
+
+        private void btnAddVST_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "VST Pluginファイル(*.dll)|*.dll|すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
+            //ofd.FilterIndex = setting.other.FilterIndex;
+
+            if (setting.vst.DefaultPath != "" && Directory.Exists(setting.vst.DefaultPath) && IsInitialOpenFolder)
+            {
+                ofd.InitialDirectory = setting.vst.DefaultPath;
+            }
+            else
+            {
+                ofd.RestoreDirectory = true;
+            }
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = false;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            vstInfo s = Audio.getVSTInfo(ofd.FileName);
+
+            setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
+
+            int p = tbcMIDIoutList.SelectedIndex;
+            dgv[p].Rows.Add(
+                -999 
+                , true 
+                , s.fileName
+                , s.effectName
+                , "GM"
+                , s.vendorName);
+
         }
     }
 

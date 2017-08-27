@@ -186,6 +186,7 @@ namespace MDPlayer
 
             try
             {
+                vstDelta++;
                 vgmSpeedCounter += vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
@@ -1080,16 +1081,14 @@ namespace MDPlayer
 
                 if (musicDownCounter <= 0.0)
                 {
-                    //midWaitCounter--;
-                    //if (midWaitCounter <= 0) 
-                    if (model != enmModel.VirtualModel)
-                    {
+                    //if (model != enmModel.VirtualModel)
+                    //{
                         oneFrameRCP();
-                    }
-                    else
-                    {
-                        Stopped = true;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    Stopped = true;
+                    //}
                     musicDownCounter += musicStep;
                 }
                 musicDownCounter -= 1.0;
@@ -1234,7 +1233,7 @@ namespace MDPlayer
             for (int i = 0; i < len; i++)
             {
                 vv[0] = pMIDIMessage[i];
-                chipRegister.sendMIDIout(model, n, vv);
+                chipRegister.sendMIDIout(model, n, vv, vstDelta);
             }
         }
 

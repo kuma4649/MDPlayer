@@ -20,6 +20,7 @@ namespace MDPlayer
         public GD3 GD3 = new GD3();
         public string Version = "";
         public string UsedChips = "";
+        public int vstDelta = 0;
 
         public int[] YM2151Hosei = new int[2] { 0, 0 };
 

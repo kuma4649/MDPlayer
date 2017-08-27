@@ -72,7 +72,9 @@ namespace MDPlayer
 
             foreach (vstInfo vi in vstInfos)
             {
-                dgvList.Rows.Add(vi.key, vi.fileName, vi.power ? "ON" : "OFF", vi.editor ? "OPENED" : "CLOSED", vi.name);
+                if (((vstInfo2)vi).isInstrument) continue;
+
+                dgvList.Rows.Add(vi.key, vi.fileName, vi.power ? "ON" : "OFF", vi.editor ? "OPENED" : "CLOSED", vi.effectName);
                 //dgvList.Rows[0].Cells[2].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
@@ -92,7 +94,8 @@ namespace MDPlayer
 
             parent.stop();
             while (!Audio.trdStopped) { System.Threading.Thread.Sleep(1); }
-            Audio.delVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmFileName"].Value);
+            //Audio.delVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmFileName"].Value);
+            Audio.delVSTeffect((string)dgvList.Rows[dgvList.SelectedRows[0].Index].Cells["clmKey"].Value);
             dispPluginList();
 
         }

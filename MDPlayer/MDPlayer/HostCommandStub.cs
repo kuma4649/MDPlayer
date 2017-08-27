@@ -125,21 +125,39 @@ namespace MDPlayer
         public float GetSampleRate()
         {
             RaisePluginCalled("GetSampleRate()");
-            return 44.8f;
+            return 44.1f;
         }
 
         /// <inheritdoc />
         public Jacobi.Vst.Core.VstTimeInfo GetTimeInfo(Jacobi.Vst.Core.VstTimeInfoFlags filterFlags)
         {
-            RaisePluginCalled("GetTimeInfo(" + filterFlags + ")");
-            return null;
+            //RaisePluginCalled("GetTimeInfo(" + filterFlags + ")");
+            Jacobi.Vst.Core.VstTimeInfo vti = new Jacobi.Vst.Core.VstTimeInfo();
+            vti.SamplePosition = 0;
+            vti.SampleRate = 44.1f;
+            vti.NanoSeconds = 0;
+            vti.PpqPosition = 0;
+            vti.Tempo = 120;
+            vti.BarStartPosition = 0;
+            vti.CycleStartPosition = 0;
+            vti.CycleEndPosition = 0;
+            vti.TimeSignatureNumerator = 4;
+            vti.TimeSignatureDenominator = 4;
+            vti.SmpteOffset = 0;
+            vti.SmpteFrameRate = Jacobi.Vst.Core.VstSmpteFrameRate.Smpte24fps;
+            vti.SamplesToNearestClock = 0;
+            vti.Flags = Jacobi.Vst.Core.VstTimeInfoFlags.NanoSecondsValid
+                | Jacobi.Vst.Core.VstTimeInfoFlags.PpqPositionValid
+                | Jacobi.Vst.Core.VstTimeInfoFlags.TempoValid
+                | Jacobi.Vst.Core.VstTimeInfoFlags.TimeSignatureValid;
+            return vti;
         }
 
         /// <inheritdoc />
         public string GetVendorString()
         {
             RaisePluginCalled("GetVendorString()");
-            return "Jacobi Software";
+            return "";
         }
 
         /// <inheritdoc />

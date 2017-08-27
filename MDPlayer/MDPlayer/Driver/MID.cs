@@ -229,10 +229,9 @@ namespace MDPlayer
 
         public override void oneFrameProc()
         {
-            //if (model == enmModel.VirtualModel) return;
-
             try
             {
+                vstDelta++;
                 vgmSpeedCounter += vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
@@ -324,7 +323,7 @@ namespace MDPlayer
                                 //Console.Write("{0:X2} ", vgmBuf[ptr + j]);
                             }
 
-                            chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray());
+                            chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray(),vstDelta);
 
                             ptr = ptr + eventLen;
                             //Console.WriteLine("");
@@ -425,13 +424,13 @@ namespace MDPlayer
 
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);
+                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1], vstDelta);
                                     //Console.WriteLine("V1:{0:X2} V2:{1:X2} ", vgmBuf[ptr], vgmBuf[ptr + 1]);
                                     ptr += 2;
                                 }
                                 else
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr]);
+                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vstDelta);
                                     //Console.WriteLine("V1:{0:X2} V2:-- ", vgmBuf[ptr]);
                                     ptr++;
                                 }
@@ -444,12 +443,12 @@ namespace MDPlayer
 
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vgmBuf[ptr]);
+                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vgmBuf[ptr], vstDelta);
                                     ptr++;
                                 }
                                 else
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd);
+                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vstDelta);
                                 }
                             }
 

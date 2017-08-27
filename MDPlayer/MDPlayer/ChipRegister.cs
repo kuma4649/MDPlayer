@@ -12,6 +12,8 @@ namespace MDPlayer
         private MDSound.MDSound mds = null;
         private List<NAudio.Midi.MidiOut> midiOuts = null;
         private List<int> midiOutsType = null;
+        private List<vstInfo2> vstMidiOuts = null;
+        private List<int> vstMidiOutsType = null;
 
         private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
@@ -321,15 +323,27 @@ namespace MDPlayer
             midiExport.Close();
         }
 
-        public void setMIDIout(List<NAudio.Midi.MidiOut> midiOuts,List<int> midiOutsType)
+        public void setMIDIout(List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType, List<vstInfo2> vstMidiOuts, List<int> vstMidiOutsType)
         {
             this.midiOuts = midiOuts;
             this.midiOutsType = midiOutsType;
+            this.vstMidiOuts = vstMidiOuts;
+            this.vstMidiOutsType = vstMidiOutsType;
 
-            if (midiParams != null && midiParams.Length > 1 && midiOutsType != null)
+            if (midiParams == null && midiParams.Length < 1) return;
+            if (midiOutsType == null && vstMidiOutsType == null) return;
+            if (midiOuts == null && vstMidiOuts == null) return;
+
+            if (midiOutsType.Count > 0) midiParams[0].MIDIModule = midiOutsType[0];
+            if (midiOutsType.Count > 1) midiParams[1].MIDIModule = midiOutsType[1];
+
+            if (vstMidiOutsType.Count > 0)
             {
-                if (midiOutsType.Count > 0) midiParams[0].MIDIModule = midiOutsType[0];
-                if (midiOutsType.Count > 1) midiParams[1].MIDIModule = midiOutsType[1];
+                if (midiOutsType.Count < 1 || (midiOutsType.Count > 0 && midiOuts[0] == null)) midiParams[0].MIDIModule = vstMidiOutsType[0];
+            }
+            if (vstMidiOutsType.Count > 1)
+            {
+                if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = vstMidiOutsType[1];
             }
         }
 
@@ -339,49 +353,156 @@ namespace MDPlayer
             return midiOuts.Count;
         }
 
-        public void sendMIDIout(enmModel model, int num,byte cmd,byte prm1,byte prm2)
+        public void sendMIDIout(enmModel model, int num, byte cmd, byte prm1, byte prm2, int deltaFrames = 0)
         {
-            if (model == enmModel.VirtualModel) return;
-            if (midiOuts == null) return;
-            if (num >= midiOuts.Count) return;
-            if (midiOuts[num] == null) return;
+            if (model == enmModel.RealModel)
+            {
+                if (midiOuts == null) return;
+                if (num >= midiOuts.Count) return;
+                if (midiOuts[num] == null) return;
 
-            midiOuts[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
+                midiOuts[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
+                if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
+                return;
+            }
+
+            if (vstMidiOuts == null) return;
+            if (num >= vstMidiOuts.Count) return;
+            if (vstMidiOuts[num] == null) return;
+
+            Jacobi.Vst.Core.VstMidiEvent evt = new Jacobi.Vst.Core.VstMidiEvent(
+                deltaFrames
+                , 0//noteLength
+                , 0//noteOffset
+                , new byte[] { cmd, prm1, prm2 }
+                , 0//detune
+                , 0//noteOffVelocity
+                );
+            vstMidiOuts[num].AddMidiEvent(evt);
             if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1, prm2 });
         }
 
-        public void sendMIDIout(enmModel model, int num, byte cmd, byte prm1)
+        public void sendMIDIout(enmModel model, int num, byte cmd, byte prm1, int deltaFrames = 0)
         {
-            if (model == enmModel.VirtualModel) return;
-            if (midiOuts == null) return;
-            if (num >= midiOuts.Count) return;
-            if (midiOuts[num] == null) return;
+            if (model == enmModel.RealModel)
+            {
+                if (midiOuts == null) return;
+                if (num >= midiOuts.Count) return;
+                if (midiOuts[num] == null) return;
 
-            midiOuts[num].SendBuffer(new byte[] { cmd, prm1});
-            if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1});
+                midiOuts[num].SendBuffer(new byte[] { cmd, prm1 });
+                if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1 });
+                return;
+            }
+
+            if (vstMidiOuts == null) return;
+            if (num >= vstMidiOuts.Count) return;
+            if (vstMidiOuts[num] == null) return;
+
+            Jacobi.Vst.Core.VstMidiEvent evt = new Jacobi.Vst.Core.VstMidiEvent(
+                deltaFrames
+                , 0//noteLength
+                , 0//noteOffset
+                , new byte[] { cmd, prm1 }
+                , 0//detune
+                , 0//noteOffVelocity
+                );
+            vstMidiOuts[num].AddMidiEvent(evt);
+            if (num < midiParams.Length) midiParams[num].SendBuffer(new byte[] { cmd, prm1 });
         }
 
-        public void sendMIDIout(enmModel model, int num, byte[] data)
+        public void sendMIDIout(enmModel model, int num, byte[] data, int deltaFrames = 0)
         {
-            if (model == enmModel.VirtualModel) return;
-            if (midiOuts == null) return;
-            if (num >= midiOuts.Count) return;
-            if (midiOuts[num] == null) return;
+            if (model == enmModel.RealModel)
+            {
+                if (midiOuts == null) return;
+                if (num >= midiOuts.Count) return;
+                if (midiOuts[num] == null) return;
 
-            midiOuts[num].SendBuffer(data);
+                midiOuts[num].SendBuffer(data);
+                if (num < midiParams.Length) midiParams[num].SendBuffer(data);
+                return;
+            }
+
+            if (vstMidiOuts == null) return;
+            if (num >= vstMidiOuts.Count) return;
+            if (vstMidiOuts[num] == null) return;
+
+            Jacobi.Vst.Core.VstMidiEvent evt = new Jacobi.Vst.Core.VstMidiEvent(
+                deltaFrames
+                , 0//noteLength
+                , 0//noteOffset
+                , data
+                , 0//detune
+                , 0//noteOffVelocity
+                );
+            vstMidiOuts[num].AddMidiEvent(evt);
             if (num < midiParams.Length) midiParams[num].SendBuffer(data);
         }
 
         public void resetAllMIDIout()
         {
-            if (midiOuts == null) return;
-
-            for (int i = 0; i < midiOuts.Count; i++)
+            if (midiOuts != null)
             {
-                if (midiOuts[i] == null) continue;
-                midiOuts[i].Reset();
+                for (int i = 0; i < midiOuts.Count; i++)
+                {
+                    if (midiOuts[i] == null) continue;
+                    midiOuts[i].Reset();
+                }
             }
+            if (vstMidiOuts != null)
+            {
+                for (int i = 0; i < vstMidiOuts.Count; i++)
+                {
+                    if (vstMidiOuts[i] == null) continue;
+                    if (vstMidiOuts[i].vstPlugins == null) continue;
+                    if (vstMidiOuts[i].vstPlugins.PluginCommandStub == null) continue;
+                    try
+                    {
+                        vstMidiOuts[i].vstPlugins.PluginCommandStub.ProcessEvents(new Jacobi.Vst.Core.VstEvent[] { new Jacobi.Vst.Core.VstMidiEvent(0, 0, 0, new byte[] {
+                            0xb0,120,0 ,0xb1,120,0 ,0xb2,120,0 ,0xb3,120,0 ,0xb4,120,0
+                            ,0xb5,120,0 ,0xb6,120,0 ,0xb7,120,0 ,0xb8,120,0 ,0xb9,120,0
+                            ,0xba,120,0 ,0xbb,120,0 ,0xbc,120,0 ,0xbd,120,0 ,0xbe,120,0 ,0xbf,120,0
 
+                            ,0xb0,121,0
+                            ,0xb1,121,0
+                            ,0xb2,121,0
+                            ,0xb3,121,0
+                            ,0xb4,121,0
+                            ,0xb5,121,0
+                            ,0xb6,121,0
+                            ,0xb7,121,0
+                            ,0xb8,121,0
+                            ,0xb9,121,0
+                            ,0xba,121,0
+                            ,0xbb,121,0
+                            ,0xbc,121,0
+                            ,0xbd,121,0
+                            ,0xbe,121,0
+                            ,0xbf,121,0
+
+                            ,0xb0,123,0
+                            ,0xb1,123,0
+                            ,0xb2,123,0
+                            ,0xb3,123,0
+                            ,0xb4,123,0
+                            ,0xb5,123,0
+                            ,0xb6,123,0
+                            ,0xb7,123,0
+                            ,0xb8,123,0
+                            ,0xb9,123,0
+                            ,0xba,123,0
+                            ,0xbb,123,0
+                            ,0xbc,123,0
+                            ,0xbd,123,0
+                            ,0xbe,123,0
+                            ,0xbf,123,0
+                        }, 0, 0) });
+
+                    }
+                    catch { }
+                }
+            }
         }
 
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei,long vgmFrameCounter)

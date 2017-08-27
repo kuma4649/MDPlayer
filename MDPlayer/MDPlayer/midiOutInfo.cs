@@ -9,10 +9,14 @@ namespace MDPlayer
     [Serializable]
     public class midiOutInfo
     {
+
         public int id = 0;
         public int manufacturer = -1;
         public string name = "";
         public int type = 0;//0:GM 1:XG 2:GS
+        public bool isVST = false;
+        public string fileName = "";
+        public string vendor = "";
 
     }
 }

@@ -55,6 +55,24 @@ namespace MDPlayer
             return vstPlugins;
         }
 
+        public static vstInfo getVSTInfo(string filename)
+        {
+            VstPluginContext ctx = OpenPlugin(filename);
+            if (ctx == null) return null;
+
+            vstInfo ret = new vstInfo();
+            ret.effectName = ctx.PluginCommandStub.GetEffectName();
+            ret.productName = ctx.PluginCommandStub.GetProductString();
+            ret.vendorName = ctx.PluginCommandStub.GetVendorString();
+            ret.programName = ctx.PluginCommandStub.GetProgramName();
+            ret.fileName = filename;
+            ret.midiInputChannels = ctx.PluginCommandStub.GetNumberOfMidiInputChannels();
+            ret.midiOutputChannels = ctx.PluginCommandStub.GetNumberOfMidiOutputChannels();
+            ctx.PluginCommandStub.Close();
+            
+            return ret;
+        }
+
         public static bool addVSTeffect(string fileName)
         {
             VstPluginContext ctx = OpenPlugin(fileName);
@@ -65,12 +83,14 @@ namespace MDPlayer
             vstInfo2 vi = new vstInfo2();
             vi.vstPlugins = ctx;
             vi.fileName = fileName;
+            vi.key = DateTime.Now.Ticks.ToString();
+            Thread.Sleep(1);
 
             ctx.PluginCommandStub.SetBlockSize(512);
             ctx.PluginCommandStub.SetSampleRate(44100f);
             ctx.PluginCommandStub.MainsChanged(true);
             ctx.PluginCommandStub.StartProcess();
-            vi.name = ctx.PluginCommandStub.GetEffectName();
+            vi.effectName = ctx.PluginCommandStub.GetEffectName();
             vi.power = true;
             ctx.PluginCommandStub.GetParameterProperties(0);
 
@@ -83,12 +103,32 @@ namespace MDPlayer
 
             vstPlugins.Add(vi);
 
+            List<vstInfo> lvi = new List<vstInfo>();
+            foreach (vstInfo2 vi2 in vstPlugins)
+            {
+                vstInfo v = new vstInfo();
+                v.editor = vi.editor;
+                v.effectName = vi.effectName;
+                v.fileName = vi.fileName;
+                v.key = vi.key;
+                v.location = vi.location;
+                v.midiInputChannels = vi.midiInputChannels;
+                v.midiOutputChannels = vi.midiOutputChannels;
+                v.param = vi.param;
+                v.power = vi.power;
+                v.productName = vi.productName;
+                v.programName = vi.programName;
+                v.vendorName = vi.vendorName;
+                lvi.Add(v);
+            }
+            setting.vst.VSTInfo = lvi.ToArray();
+
             return true;
         }
 
-        public static bool delVSTeffect(string fileName)
+        public static bool delVSTeffect(string key)
         {
-            if (fileName == "")
+            if (key == "")
             {
                 for (int i = 0; i < vstPlugins.Count; i++)
                 {
@@ -108,18 +148,21 @@ namespace MDPlayer
                     catch { }
                 }
                 vstPlugins.Clear();
+                setting.vst.VSTInfo = new vstInfo[0];
             }
             else
             {
                 int ind = -1;
                 for (int i = 0; i < vstPlugins.Count; i++)
                 {
-                    if (vstPlugins[i].fileName == fileName)
+                    //if (vstPlugins[i].fileName == fileName)
+                    if (vstPlugins[i].key == key)
                     {
                         ind = i;
                         break;
                     }
                 }
+
                 if (ind != -1)
                 {
                     try
@@ -138,6 +181,14 @@ namespace MDPlayer
                     catch { }
                     vstPlugins.RemoveAt(ind);
                 }
+
+                List<vstInfo> nvst = new List<vstInfo>();
+                foreach (vstInfo vi in setting.vst.VSTInfo)
+                {
+                    if (vi.key == key) continue;
+                    nvst.Add(vi);
+                }
+                setting.vst.VSTInfo = nvst.ToArray();
             }
 
             return true;
@@ -285,8 +336,12 @@ namespace MDPlayer
         public static short k054539VisVolume = 0;
 
         private static List<vstInfo2> vstPlugins = new List<vstInfo2>();
+        private static List<vstInfo2> vstPluginsInst = new List<vstInfo2>();
+
         private static List<NAudio.Midi.MidiOut> midiOuts = new List<NAudio.Midi.MidiOut>();
         private static List<int> midiOutsType = new List<int>();
+        private static List<vstInfo2> vstMidiOuts = new List<vstInfo2>();
+        private static List<int> vstMidiOutsType = new List<int>();
 
         public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
         {
@@ -614,25 +669,87 @@ namespace MDPlayer
             fatalError = false;
             oneTimeReset = false;
 
-            while (vstPlugins.Count > 0)
+            log.ForcedWrite("Audio:Init:STEP 06");
+
+            log.ForcedWrite("Audio:Init:VST:STEP 01");
+
+            vstparse();
+
+            log.ForcedWrite("Audio:Init:VST:STEP 02"); //Load VST instrument
+
+            //複数のmidioutの設定から必要なVSTを絞り込む
+            Dictionary<string, int> dicVst = new Dictionary<string, int>();
+            if (setting.midiOut.lstMidiOutInfo != null)
             {
-                if (vstPlugins[0] != null)
+                foreach (midiOutInfo[] aryMoi in setting.midiOut.lstMidiOutInfo)
                 {
-                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.EditorClose();
-                    vstPlugins[0].vstPluginsForm.timer1.Enabled = false;
-                    vstPlugins[0].location = vstPlugins[0].vstPluginsForm.Location;
-                    vstPlugins[0].vstPluginsForm.Close();
-                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.StopProcess();
-                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.MainsChanged(false);
-                    vstPlugins[0].vstPlugins.Dispose();
+                    if (aryMoi == null) continue;
+                    Dictionary<string, int> dicVst2 = new Dictionary<string, int>();
+                    foreach (midiOutInfo moi in aryMoi)
+                    {
+                        if (!moi.isVST) continue;
+                        if (dicVst2.ContainsKey(moi.fileName))
+                        {
+                            dicVst2[moi.fileName]++;
+                            continue;
+                        }
+                        dicVst2.Add(moi.fileName, 1);
+                    }
+
+                    foreach (var kv in dicVst2)
+                    {
+                        if (dicVst.ContainsKey(kv.Key))
+                        {
+                            if (dicVst[kv.Key] < kv.Value)
+                            {
+                                dicVst[kv.Key] = kv.Value;
+                            }
+                            continue;
+                        }
+                        dicVst.Add(kv.Key, kv.Value);
+                    }
                 }
-
-                vstPlugins.RemoveAt(0);
-
             }
+
+            foreach (var kv in dicVst)
+            {
+                for (int i = 0; i < kv.Value; i++)
+                {
+                    VstPluginContext ctx = OpenPlugin(kv.Key);
+                    if (ctx == null) continue;
+
+                    vstInfo2 vi = new vstInfo2();
+                    vi.key = DateTime.Now.Ticks.ToString();
+                    Thread.Sleep(1);
+                    vi.vstPlugins = ctx;
+                    vi.fileName = kv.Key;
+                    vi.isInstrument = true;
+
+                    ctx.PluginCommandStub.SetBlockSize(512);
+                    ctx.PluginCommandStub.SetSampleRate(44100f);
+                    ctx.PluginCommandStub.MainsChanged(true);
+                    ctx.PluginCommandStub.StartProcess();
+                    vi.effectName = ctx.PluginCommandStub.GetEffectName();
+                    vi.editor = true;
+
+                    if (vi.editor)
+                    {
+                        frmVST dlg = new frmVST();
+                        dlg.PluginCommandStub = ctx.PluginCommandStub;
+                        dlg.Show(vi);
+                        vi.vstPluginsForm = dlg;
+                    }
+
+                    vstPluginsInst.Add(vi);
+                }
+            }
+
 
             if (setting.vst != null && setting.vst.VSTInfo != null)
             {
+
+                log.ForcedWrite("Audio:Init:VST:STEP 03"); //Load VST Effect
+
                 for (int i = 0; i < setting.vst.VSTInfo.Length; i++)
                 {
                     if (setting.vst.VSTInfo[i] == null) continue;
@@ -642,12 +759,13 @@ namespace MDPlayer
                     vstInfo2 vi = new vstInfo2();
                     vi.vstPlugins = ctx;
                     vi.fileName = setting.vst.VSTInfo[i].fileName;
+                    vi.key = setting.vst.VSTInfo[i].key;
 
                     ctx.PluginCommandStub.SetBlockSize(512);
-                    ctx.PluginCommandStub.SetSampleRate(44100f);
+                    ctx.PluginCommandStub.SetSampleRate(44.100f);
                     ctx.PluginCommandStub.MainsChanged(true);
                     ctx.PluginCommandStub.StartProcess();
-                    vi.name = ctx.PluginCommandStub.GetEffectName();
+                    vi.effectName = ctx.PluginCommandStub.GetEffectName();
                     vi.power = setting.vst.VSTInfo[i].power;
                     vi.editor = setting.vst.VSTInfo[i].editor;
                     vi.location = setting.vst.VSTInfo[i].location;
@@ -671,15 +789,22 @@ namespace MDPlayer
 
                     vstPlugins.Add(vi);
                 }
+
+
             }
+
+            log.ForcedWrite("Audio:Init:STEP 07");
 
             //midi outをリリース
             ReleaseAllMIDIout();
 
+            log.ForcedWrite("Audio:Init:STEP 08");
+
             //midi out のインスタンスを作成
             MakeMIDIout(setting, 1);
+            chipRegister.resetAllMIDIout();
 
-            log.ForcedWrite("Audio:Init:STEP 06");
+            log.ForcedWrite("Audio:Init:STEP 09");
 
             naudioWrap.Start(Audio.setting);
 
@@ -687,46 +812,110 @@ namespace MDPlayer
 
         }
 
-        private static void MakeMIDIout(Setting setting,int m)
+        private static void vstparse()
         {
-            if (setting.midiOut.lstMidiOutInfo != null && setting.midiOut.lstMidiOutInfo.Count > 0)
+            while (vstPluginsInst.Count > 0)
             {
-                if (setting.midiOut.lstMidiOutInfo[m] != null && setting.midiOut.lstMidiOutInfo[m].Length > 0)
+                if (vstPluginsInst[0] != null)
                 {
-                    for (int i = 0; i < setting.midiOut.lstMidiOutInfo[m].Length; i++)
-                    {
-                        int n = -1;
-                        int t = 0;
-                        for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
-                        {
-                            if (setting.midiOut.lstMidiOutInfo[m][i].name == NAudio.Midi.MidiOut.DeviceInfo(j).ProductName)
-                            {
-                                n = j;
-                                t = setting.midiOut.lstMidiOutInfo[m][i].type;
-                                break;
-                            }
-                        }
+                    if (vstPluginsInst[0].vstPlugins.PluginCommandStub != null) vstPluginsInst[0].vstPlugins.PluginCommandStub.EditorClose();
+                    vstPluginsInst[0].vstPluginsForm.timer1.Enabled = false;
+                    vstPluginsInst[0].location = vstPluginsInst[0].vstPluginsForm.Location;
+                    vstPluginsInst[0].vstPluginsForm.Close();
+                    if (vstPluginsInst[0].vstPlugins.PluginCommandStub != null) vstPluginsInst[0].vstPlugins.PluginCommandStub.StopProcess();
+                    if (vstPluginsInst[0].vstPlugins.PluginCommandStub != null) vstPluginsInst[0].vstPlugins.PluginCommandStub.MainsChanged(false);
+                    vstPluginsInst[0].vstPlugins.Dispose();
+                }
 
-                        if (n == -1)
+                vstPluginsInst.RemoveAt(0);
+            }
+
+            while (vstPlugins.Count > 0)
+            {
+                if (vstPlugins[0] != null)
+                {
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.EditorClose();
+                    vstPlugins[0].vstPluginsForm.timer1.Enabled = false;
+                    vstPlugins[0].location = vstPlugins[0].vstPluginsForm.Location;
+                    vstPlugins[0].vstPluginsForm.Close();
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.StopProcess();
+                    if (vstPlugins[0].vstPlugins.PluginCommandStub != null) vstPlugins[0].vstPlugins.PluginCommandStub.MainsChanged(false);
+                    vstPlugins[0].vstPlugins.Dispose();
+                }
+
+                vstPlugins.RemoveAt(0);
+            }
+        }
+
+        private static void MakeMIDIout(Setting setting, int m)
+        {
+            if (setting.midiOut.lstMidiOutInfo == null || setting.midiOut.lstMidiOutInfo.Count < 1) return;
+            if (setting.midiOut.lstMidiOutInfo[m] == null || setting.midiOut.lstMidiOutInfo[m].Length < 1) return;
+
+            for (int i = 0; i < setting.midiOut.lstMidiOutInfo[m].Length; i++)
+            {
+                int n = -1;
+                int t = 0;
+                NAudio.Midi.MidiOut mo = null;
+                int vn = -1;
+                int vt = 0;
+                vstInfo2 vmo = null;
+
+                for (int j = 0; j < NAudio.Midi.MidiOut.NumberOfDevices; j++)
+                {
+                    if (setting.midiOut.lstMidiOutInfo[m][i].name != NAudio.Midi.MidiOut.DeviceInfo(j).ProductName) continue;
+
+                    n = j;
+                    t = setting.midiOut.lstMidiOutInfo[m][i].type;
+                    break;
+                }
+
+                if (n != -1)
+                {
+                    try
+                    {
+                        mo = new NAudio.Midi.MidiOut(n);
+                    }
+                    catch
+                    {
+                        mo = null;
+                    }
+                }
+
+
+                if (n == -1)
+                {
+                    for (int j = 0; j < vstPluginsInst.Count; j++)
+                    {
+                        if (!vstPluginsInst[j].isInstrument || setting.midiOut.lstMidiOutInfo[m][i].fileName != vstPluginsInst[j].fileName) continue;
+                        bool k = false;
+                        foreach (vstInfo2 v in vstMidiOuts) if (v == vstPluginsInst[j]) { k = true; break; }
+                        if (k) continue;
+                        vn = j;
+                        vt = setting.midiOut.lstMidiOutInfo[m][i].type;
+                        break;
+                    }
+
+                    if (vn != -1)
+                    {
+                        try
                         {
-                            midiOuts.Add(null);
-                            midiOutsType.Add(t);
+                            vmo = vstPluginsInst[vn];
                         }
-                        else
+                        catch
                         {
-                            NAudio.Midi.MidiOut mo = null;
-                            try
-                            {
-                                mo=new NAudio.Midi.MidiOut(n);
-                            }
-                            catch
-                            {
-                                mo = null;
-                            }
-                            midiOuts.Add(mo);
-                            midiOutsType.Add(t);
+                            vmo = null;
                         }
                     }
+                }
+
+                if (mo != null || vmo != null)
+                {
+                    midiOuts.Add(mo);
+                    midiOutsType.Add(t);
+
+                    vstMidiOuts.Add(vmo);
+                    vstMidiOutsType.Add(vt);
                 }
             }
         }
@@ -746,6 +935,12 @@ namespace MDPlayer
                 }
                 midiOuts.Clear();
                 midiOutsType.Clear();
+            }
+
+            if (vstMidiOuts.Count > 0)
+            {
+                vstMidiOuts.Clear();
+                vstMidiOutsType.Clear();
             }
         }
 
@@ -1645,7 +1840,7 @@ namespace MDPlayer
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
 
-                chipRegister.setMIDIout(midiOuts, midiOutsType);
+                chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
                 //Play
 
@@ -1745,7 +1940,7 @@ namespace MDPlayer
                 chipRegister.initChipRegister();
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
-                chipRegister.setMIDIout(midiOuts, midiOutsType);
+                chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
                 if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
@@ -2517,6 +2712,9 @@ namespace MDPlayer
                 //chipRegister.outMIDIData_Close();
 
                 waveWriter.Close();
+
+                //DEBUG
+                //vstparse();
             }
             catch (Exception ex)
             {
@@ -2547,6 +2745,12 @@ namespace MDPlayer
                     }
                     midiOuts.Clear();
                     midiOutsType.Clear();
+                }
+
+                if (vstMidiOuts.Count > 0)
+                {
+                    vstMidiOuts.Clear();
+                    vstMidiOutsType.Clear();
                 }
 
                 setting.vst.VSTInfo = null;
@@ -2586,14 +2790,56 @@ namespace MDPlayer
                     vi.editor = vstPlugins[i].editor;
                     vi.fileName = vstPlugins[i].fileName;
                     vi.key = vstPlugins[i].key;
-                    vi.name = vstPlugins[i].name;
+                    vi.effectName = vstPlugins[i].effectName;
                     vi.power = vstPlugins[i].power;
                     vi.location = vstPlugins[i].location;
                     vi.param = vstPlugins[i].param;
 
-                    vstlst.Add(vi);
+                    if (!vstPlugins[i].isInstrument) vstlst.Add(vi);
                 }
                 setting.vst.VSTInfo = vstlst.ToArray();
+
+
+                for (int i = 0; i < vstPluginsInst.Count; i++)
+                {
+                    try
+                    {
+                        vstPluginsInst[i].vstPluginsForm.timer1.Enabled = false;
+                        vstPluginsInst[i].location = vstPluginsInst[i].vstPluginsForm.Location;
+                        vstPluginsInst[i].vstPluginsForm.Close();
+                    }
+                    catch { }
+
+                    try
+                    {
+                        if (vstPluginsInst[i].vstPlugins != null)
+                        {
+                            vstPluginsInst[i].vstPlugins.PluginCommandStub.EditorClose();
+                            vstPluginsInst[i].vstPlugins.PluginCommandStub.StopProcess();
+                            vstPluginsInst[i].vstPlugins.PluginCommandStub.MainsChanged(false);
+                            int pc = vstPluginsInst[i].vstPlugins.PluginInfo.ParameterCount;
+                            List<float> plst = new List<float>();
+                            for (int p = 0; p < pc; p++)
+                            {
+                                float v = vstPluginsInst[i].vstPlugins.PluginCommandStub.GetParameter(p);
+                                plst.Add(v);
+                            }
+                            vstPluginsInst[i].param = plst.ToArray();
+                            vstPluginsInst[i].vstPlugins.Dispose();
+                        }
+                    }
+                    catch { }
+
+                    vstInfo vi = new vstInfo();
+                    vi.editor = vstPluginsInst[i].editor;
+                    vi.fileName = vstPluginsInst[i].fileName;
+                    vi.key = vstPluginsInst[i].key;
+                    vi.effectName = vstPluginsInst[i].effectName;
+                    vi.power = vstPluginsInst[i].power;
+                    vi.location = vstPluginsInst[i].location;
+                    vi.param = vstPluginsInst[i].param;
+
+                }
 
                 //nscci.Dispose();
                 //nscci = null;
@@ -3265,64 +3511,142 @@ namespace MDPlayer
                 }
             }
 
-            if (vstPlugins.Count > 0) VST_Update(buffer, offset, sampleCount);
+            if (vstPlugins.Count > 0 || vstPluginsInst.Count > 0) VST_Update(buffer, offset, sampleCount);
 
             return cnt1;
         }
 
         private static void VST_Update(short[] buffer, int offset, int sampleCount)
         {
+            if (buffer == null || buffer.Length < 1 || sampleCount == 0) return;
+
             try
             {
                 if (trdStopped) return;
 
                 int blockSize = sampleCount / 2;
-                int inputCount = 2;
-                int outputCount = 2;
 
-                using (VstAudioBufferManager inputMgr = new VstAudioBufferManager(inputCount, blockSize))
+                for (int i = 0; i < vstPluginsInst.Count; i++)
                 {
-                    using (VstAudioBufferManager outputMgr = new VstAudioBufferManager(outputCount, blockSize))
+                    vstInfo2 info2 = vstPluginsInst[i];
+                    VstPluginContext PluginContext = info2.vstPlugins;
+                    if (PluginContext == null) continue;
+                    if (PluginContext.PluginCommandStub == null) continue;
+
+
+                    int inputCount = info2.vstPlugins.PluginInfo.AudioInputCount;
+                    int outputCount = info2.vstPlugins.PluginInfo.AudioOutputCount;
+
+                    using (VstAudioBufferManager inputMgr = new VstAudioBufferManager(inputCount, blockSize))
                     {
-                        VstAudioBuffer[] inputBuffers = inputMgr.ToArray();
-                        VstAudioBuffer[] outputBuffers = outputMgr.ToArray();
-
-                        inputMgr.ClearBuffer(inputBuffers[0]);
-                        inputMgr.ClearBuffer(inputBuffers[1]);
-                        outputMgr.ClearBuffer(outputBuffers[0]);
-                        outputMgr.ClearBuffer(outputBuffers[1]);
-
-                        for (int j = 0; j < blockSize; j++)
+                        using (VstAudioBufferManager outputMgr = new VstAudioBufferManager(outputCount, blockSize))
                         {
-                            // generate a value between -1.0 and 1.0
-                            inputBuffers[0][j] = buffer[j * 2 + offset + 0] / (float)short.MaxValue;
-                            inputBuffers[1][j] = buffer[j * 2 + offset + 1] / (float)short.MaxValue;
-                        }
+                            VstAudioBuffer[] inputBuffers = inputMgr.ToArray();
+                            VstAudioBuffer[] outputBuffers = outputMgr.ToArray();
 
+                            if (inputCount != 0)
+                            {
+                                inputMgr.ClearBuffer(inputBuffers[0]);
+                                inputMgr.ClearBuffer(inputBuffers[1]);
 
-                        for (int i = 0; i < vstPlugins.Count; i++)
-                        {
-                            VstPluginContext PluginContext = vstPlugins[i].vstPlugins;
-                            if (PluginContext.PluginCommandStub == null) continue;
+                                for (int j = 0; j < blockSize; j++)
+                                {
+                                    // generate a value between -1.0 and 1.0
+                                    inputBuffers[0][j] = buffer[j * 2 + offset + 0] / (float)short.MaxValue;
+                                    inputBuffers[1][j] = buffer[j * 2 + offset + 1] / (float)short.MaxValue;
+                                }
+                            }
+
+                            outputMgr.ClearBuffer(outputBuffers[0]);
+                            outputMgr.ClearBuffer(outputBuffers[1]);
+
+                            PluginContext.PluginCommandStub.ProcessEvents(info2.lstEvent.ToArray());
+                            info2.lstEvent.Clear();
+
                             PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
-                            inputBuffers = outputBuffers;
-                        }
 
-                        for (int j = 0; j < blockSize; j++)
-                        {
-                            // generate a value between -1.0 and 1.0
-                            buffer[j * 2 + offset + 0] = (short)(outputBuffers[0][j] * short.MaxValue);
-                            buffer[j * 2 + offset + 1] = (short)(outputBuffers[1][j] * short.MaxValue);
-                        }
+                            for (int j = 0; j < blockSize; j++)
+                            {
+                                // generate a value between -1.0 and 1.0
+                                if (inputCount == 0)
+                                {
+                                    buffer[j * 2 + offset + 0] += (short)(outputBuffers[0][j] * short.MaxValue);
+                                    buffer[j * 2 + offset + 1] += (short)(outputBuffers[1][j] * short.MaxValue);
+                                }
+                                else
+                                {
+                                    buffer[j * 2 + offset + 0] = (short)(outputBuffers[0][j] * short.MaxValue);
+                                    buffer[j * 2 + offset + 1] = (short)(outputBuffers[1][j] * short.MaxValue);
+                                }
+                            }
 
+                        }
                     }
                 }
+
+                for (int i = 0; i < vstPlugins.Count; i++)
+                {
+                    vstInfo2 info2 = vstPlugins[i];
+                    VstPluginContext PluginContext = info2.vstPlugins;
+                    if (PluginContext == null) continue;
+                    if (PluginContext.PluginCommandStub == null) continue;
+
+
+                    int inputCount = info2.vstPlugins.PluginInfo.AudioInputCount;
+                    int outputCount = info2.vstPlugins.PluginInfo.AudioOutputCount;
+
+                    using (VstAudioBufferManager inputMgr = new VstAudioBufferManager(inputCount, blockSize))
+                    {
+                        using (VstAudioBufferManager outputMgr = new VstAudioBufferManager(outputCount, blockSize))
+                        {
+                            VstAudioBuffer[] inputBuffers = inputMgr.ToArray();
+                            VstAudioBuffer[] outputBuffers = outputMgr.ToArray();
+
+                            if (inputCount != 0)
+                            {
+                                inputMgr.ClearBuffer(inputBuffers[0]);
+                                inputMgr.ClearBuffer(inputBuffers[1]);
+
+                                for (int j = 0; j < blockSize; j++)
+                                {
+                                    // generate a value between -1.0 and 1.0
+                                    inputBuffers[0][j] = buffer[j * 2 + offset + 0] / (float)short.MaxValue;
+                                    inputBuffers[1][j] = buffer[j * 2 + offset + 1] / (float)short.MaxValue;
+                                }
+                            }
+
+                            outputMgr.ClearBuffer(outputBuffers[0]);
+                            outputMgr.ClearBuffer(outputBuffers[1]);
+
+                            PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
+
+                            for (int j = 0; j < blockSize; j++)
+                            {
+                                // generate a value between -1.0 and 1.0
+                                if (inputCount == 0)
+                                {
+                                    buffer[j * 2 + offset + 0] += (short)(outputBuffers[0][j] * short.MaxValue);
+                                    buffer[j * 2 + offset + 1] += (short)(outputBuffers[1][j] * short.MaxValue);
+                                }
+                                else
+                                {
+                                    buffer[j * 2 + offset + 0] = (short)(outputBuffers[0][j] * short.MaxValue);
+                                    buffer[j * 2 + offset + 1] = (short)(outputBuffers[1][j] * short.MaxValue);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
             }
             catch { }
         }
 
         private static int trdVgmVirtualMainFunction(short[] buffer, int offset, int sampleCount)
         {
+            if (buffer == null || buffer.Length < 1 || sampleCount == 0) return 0;
+
             try
             {
                 stwh.Reset();stwh.Start();
@@ -3345,6 +3669,7 @@ namespace MDPlayer
                 }
 
                 int cnt = 0;
+                driverVirtual.vstDelta = 0;
                 cnt = mds.Update(buffer, offset, sampleCount, driverVirtual.oneFrameProc);
 
                 for (i = 0; i < sampleCount; i++)
