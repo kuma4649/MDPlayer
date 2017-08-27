@@ -3522,7 +3522,7 @@ namespace MDPlayer
 
             try
             {
-                if (trdStopped) return;
+                //if (trdStopped) return;
 
                 int blockSize = sampleCount / 2;
 
@@ -3562,6 +3562,7 @@ namespace MDPlayer
 
                             PluginContext.PluginCommandStub.ProcessEvents(info2.lstEvent.ToArray());
                             info2.lstEvent.Clear();
+
 
                             PluginContext.PluginCommandStub.ProcessReplacing(inputBuffers, outputBuffers);
 

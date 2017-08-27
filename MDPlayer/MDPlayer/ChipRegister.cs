@@ -459,45 +459,12 @@ namespace MDPlayer
                     if (vstMidiOuts[i].vstPlugins.PluginCommandStub == null) continue;
                     try
                     {
-                        vstMidiOuts[i].vstPlugins.PluginCommandStub.ProcessEvents(new Jacobi.Vst.Core.VstEvent[] { new Jacobi.Vst.Core.VstMidiEvent(0, 0, 0, new byte[] {
-                            0xb0,120,0 ,0xb1,120,0 ,0xb2,120,0 ,0xb3,120,0 ,0xb4,120,0
-                            ,0xb5,120,0 ,0xb6,120,0 ,0xb7,120,0 ,0xb8,120,0 ,0xb9,120,0
-                            ,0xba,120,0 ,0xbb,120,0 ,0xbc,120,0 ,0xbd,120,0 ,0xbe,120,0 ,0xbf,120,0
-
-                            ,0xb0,121,0
-                            ,0xb1,121,0
-                            ,0xb2,121,0
-                            ,0xb3,121,0
-                            ,0xb4,121,0
-                            ,0xb5,121,0
-                            ,0xb6,121,0
-                            ,0xb7,121,0
-                            ,0xb8,121,0
-                            ,0xb9,121,0
-                            ,0xba,121,0
-                            ,0xbb,121,0
-                            ,0xbc,121,0
-                            ,0xbd,121,0
-                            ,0xbe,121,0
-                            ,0xbf,121,0
-
-                            ,0xb0,123,0
-                            ,0xb1,123,0
-                            ,0xb2,123,0
-                            ,0xb3,123,0
-                            ,0xb4,123,0
-                            ,0xb5,123,0
-                            ,0xb6,123,0
-                            ,0xb7,123,0
-                            ,0xb8,123,0
-                            ,0xb9,123,0
-                            ,0xba,123,0
-                            ,0xbb,123,0
-                            ,0xbc,123,0
-                            ,0xbd,123,0
-                            ,0xbe,123,0
-                            ,0xbf,123,0
-                        }, 0, 0) });
+                        List<byte> dat = new List<byte>();
+                        for (int ch = 0; ch < 16; ch++)
+                        {
+                            sendMIDIout(enmModel.VirtualModel, i, new byte[] { (byte)(0xb0 + ch), 120, 0x00 }, 0);
+                            sendMIDIout(enmModel.VirtualModel, i, new byte[] { (byte)(0xb0 + ch), 64, 0x00 }, 0);
+                        }
 
                     }
                     catch { }
