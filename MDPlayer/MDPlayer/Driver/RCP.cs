@@ -1230,11 +1230,13 @@ namespace MDPlayer
 
         private void PutMIDIMessage(int n, byte[] pMIDIMessage, int len)
         {
+            List<byte> dat = new List<byte>();
             for (int i = 0; i < len; i++)
             {
-                vv[0] = pMIDIMessage[i];
-                chipRegister.sendMIDIout(model, n, vv, vstDelta);
+                dat.Add(pMIDIMessage[i]);
+//                chipRegister.sendMIDIout(model, n, vv, vstDelta);
             }
+            chipRegister.sendMIDIout(model, n, dat.ToArray(), vstDelta);
         }
 
         /// <summary>
