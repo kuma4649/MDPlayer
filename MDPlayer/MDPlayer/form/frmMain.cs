@@ -3373,6 +3373,8 @@ namespace MDPlayer
 
             newParam.midi[chipID].MasterVolume = prm.MasterVolume;
 
+            newParam.midi[chipID].Lyric = prm.Lyric;
+
         }
 
         private void screenChangeParamsFromYM2612MIDI()

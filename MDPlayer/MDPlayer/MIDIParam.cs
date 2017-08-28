@@ -37,6 +37,7 @@ namespace MDPlayer
         public int LCDDisplayLetterTime = 0;
         public int LCDDisplayLetterTimeXG = 0;
         public int LCDDisplayLetterLen = 0;
+        public string Lyric = "";
 
         public byte MasterVolume = 0;
 
@@ -220,6 +221,7 @@ namespace MDPlayer
                 //nrpnEGRls[ch] = 64;
 
             }
+            Lyric = "";
         }
 
         public void SendBuffer(byte[] dat)

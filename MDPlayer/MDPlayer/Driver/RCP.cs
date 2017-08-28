@@ -1738,6 +1738,7 @@ namespace MDPlayer
         void sefCommentStart(MIDITrack trk, MIDIEvent eve)
         {
             trk.Comment = (Encoding.GetEncoding("Shift_JIS").GetString(eve.MIDIMessageLst[0])).Replace("\0", "");
+            chipRegister.midiParams[0].Lyric = trk.Comment;
         }
 
         void sefLoopEnd(MIDITrack trk, MIDIEvent eve)

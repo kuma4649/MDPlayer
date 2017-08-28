@@ -48,6 +48,10 @@ namespace MDPlayer
         private byte[][] rMIDILCD;
         private byte[][] rMIDILCD_Font;
         private byte[][] rPlane_MIDI;
+        private Bitmap[] bitmapMIDILyric = null;
+        private Graphics[] gMIDILyric = null;
+        private Font[] fntMIDILyric = null;
+
 
         private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
         private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
@@ -501,6 +505,15 @@ namespace MDPlayer
             rPlane_MIDI[1] = getByteArray(Properties.Resources.planeMIDI_XG);
             rPlane_MIDI[2] = getByteArray(Properties.Resources.planeMIDI_GS);
 
+            bitmapMIDILyric = new Bitmap[2];
+            bitmapMIDILyric[0] = new Bitmap(232, 24);
+            bitmapMIDILyric[1] = new Bitmap(232, 24);
+            gMIDILyric = new Graphics[2];
+            gMIDILyric[0] = Graphics.FromImage(bitmapMIDILyric[0]);
+            gMIDILyric[1] = Graphics.FromImage(bitmapMIDILyric[1]);
+            fntMIDILyric = new Font[2];
+            fntMIDILyric[0] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
+            fntMIDILyric[1] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
         }
 
         public void AddRf5c164(int chipID, PictureBox pbRf5c164Screen, Image initialRf5c164Image)
@@ -738,9 +751,14 @@ namespace MDPlayer
                 if (AY8910Screen[chipID] != null) AY8910Screen[chipID].Remove(this.Paint);
                 if (HuC6280Screen[chipID] != null) HuC6280Screen[chipID].Remove(this.Paint);
                 if (MIDIScreen[chipID] != null) MIDIScreen[chipID].Remove(this.Paint);
+
+                if (fntMIDILyric!=null && fntMIDILyric[chipID] != null) fntMIDILyric[chipID].Dispose();
+                if (gMIDILyric!=null && gMIDILyric[chipID] != null) gMIDILyric[chipID].Dispose();
+                if (bitmapMIDILyric != null && bitmapMIDILyric[chipID] != null) bitmapMIDILyric[chipID].Dispose();
             }
             if (ym2612MIDIScreen != null) ym2612MIDIScreen.Remove(this.Paint);
             if (mixerScreen != null) mixerScreen.Remove(this.Paint);
+
         }
 
         private void Paint(object sender, PaintEventArgs e)
@@ -3445,7 +3463,21 @@ namespace MDPlayer
 
             drawFont4IntMIDI(MIDIScreen[chipID], 53*4, 17 * 16 + 8, 2 + module, ref oldParam.midi[chipID].MasterVolume, newParam.midi[chipID].MasterVolume);
 
+            drawMIDI_Lyric(chipID, 26 * 8, 41 * 8, ref oldParam.midi[chipID].Lyric, newParam.midi[chipID].Lyric);
         }
+
+        private void drawMIDI_Lyric(int chipID, int x, int y, ref string oldValue1, string value1)
+        {
+            //if (oldValue1 == value1) return;
+
+            gMIDILyric[chipID].Clear(Color.Black);
+            System.Windows.Forms.TextRenderer.DrawText(gMIDILyric[chipID], value1, fntMIDILyric[chipID], new Point(0, 0), Color.White);
+            byte[] bit = getByteArray(bitmapMIDILyric[chipID]);
+            MIDIScreen[chipID].drawByteArray(x, y, bit, 232, 0, 0, 232, 24);
+
+            oldValue1 = value1;
+        }
+
 
         private void drawMIDI_MacroXG(FrameBuffer screen, int MIDImodule, int macroType, int x, int y, ref int oldValue1, int value1)
         {

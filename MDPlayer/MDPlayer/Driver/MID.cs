@@ -95,18 +95,19 @@ namespace MDPlayer
                                         }
                                         break;
                                     case 0x03:
-                                        //case 0x04:
-                                        //case 0x05:
-                                        //case 0x06:
-                                        //case 0x07:
                                         if (gd3.TrackName == "")
                                         {
-                                            if (format==0 || (format==1 && i == 0))
+                                            if (format == 0 || (format == 1 && i == 0))
                                             {
                                                 gd3.TrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray()).Trim();
                                                 gd3.TrackNameJ = Encoding.GetEncoding(932).GetString(eventData.ToArray()).Trim();
                                             }
                                         }
+                                        break;
+                                    case 0x05:
+                                        //case 0x04:
+                                        //case 0x06:
+                                        //case 0x07:
                                         break;
                                 }
                             }
@@ -372,6 +373,7 @@ namespace MDPlayer
                                         break;
                                     case 0x05:
                                         eventLyric = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.midiParams[trkPort[trk]].Lyric = eventLyric;
                                         break;
                                     case 0x06:
                                         eventMarker = Encoding.GetEncoding(932).GetString(eventData.ToArray());
