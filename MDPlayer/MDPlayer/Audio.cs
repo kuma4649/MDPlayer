@@ -2437,6 +2437,7 @@ namespace MDPlayer
                 if (((vgm)driverVirtual).YM2413ClockValue != 0)
                 {
                     MDSound.ym2413 ym2413 = new MDSound.ym2413();
+                    
                     for (int i = 0; i < (((vgm)driverVirtual).YM2413DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
@@ -2451,7 +2452,7 @@ namespace MDPlayer
                         chip.Volume = setting.balance.YM2413Volume;
                         chip.Clock = (((vgm)driverVirtual).YM2413ClockValue & 0x7fffffff);
                         chip.Option = null;
-
+                        
                         hiyorimiDeviceFlag |= 0x2;
 
                         if (i == 0) ChipPriOPLL = 1;

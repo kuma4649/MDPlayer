@@ -3441,8 +3441,8 @@ namespace MDPlayer
                 drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 48 + 33 * 8, ref oldParam.midi[chipID].VariationXG, newParam.midi[chipID].VariationXG);
                 drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion1XG, newParam.midi[chipID].Insertion1XG);
                 drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 35, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion2XG, newParam.midi[chipID].Insertion2XG);
-                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 64 + 33 * 8, ref oldParam.midi[chipID].Insertion3XG, newParam.midi[chipID].Insertion3XG);
-                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 80 + 33 * 8, ref oldParam.midi[chipID].Insertion4XG, newParam.midi[chipID].Insertion4XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 32 + 33 * 8, ref oldParam.midi[chipID].Insertion3XG, newParam.midi[chipID].Insertion3XG);
+                drawMIDI_MacroXG(MIDIScreen[chipID], module, 2, 4 * 53, 48 + 33 * 8, ref oldParam.midi[chipID].Insertion4XG, newParam.midi[chipID].Insertion4XG);
             }
             else
             {
