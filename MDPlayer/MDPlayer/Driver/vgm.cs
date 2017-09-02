@@ -168,6 +168,8 @@ namespace MDPlayer
 
             if (!vgmAnalyze)
             {
+                //if (model == enmModel.VirtualModel)
+                //    oneFrameVGMStream();
                 Stopped = true;
                 return;
             }

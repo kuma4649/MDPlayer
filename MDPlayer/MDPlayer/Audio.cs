@@ -3674,6 +3674,11 @@ namespace MDPlayer
                 driverVirtual.vstDelta = 0;
                 cnt = mds.Update(buffer, offset, sampleCount, driverVirtual.oneFrameProc);
 
+                //for (i = 0; i < sampleCount; i++)
+                //{
+                //    Console.WriteLine("{0}:{1}:{2}", offset,i,buffer[offset + i]);
+                //}
+
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
