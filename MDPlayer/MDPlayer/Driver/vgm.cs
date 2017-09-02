@@ -1628,7 +1628,7 @@ namespace MDPlayer
 
             uint version = getLE32(0x08);
             //バージョンチェック
-            if (version < 0x0110) return false;
+            if (version < 0x0101) return false;
             Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
 
             uint SN76489clock = getLE32(0x0c);
@@ -1656,291 +1656,299 @@ namespace MDPlayer
 
             LoopCounter = getLE32(0x20);
 
-            uint YM2612clock = getLE32(0x2c);
-            if (YM2612clock != 0)
+            if (version > 0x0101)
             {
-                YM2612ClockValue = YM2612clock & 0x3fffffff;
-                YM2612DualChipFlag = (YM2612clock & 0x40000000) != 0;
-                if (YM2612DualChipFlag) chips.Add("YM2612x2");
-                else chips.Add("YM2612");
-            }
 
-            uint YM2151clock = getLE32(0x30);
-            if (YM2151clock != 0)
-            {
-                YM2151ClockValue = YM2151clock & 0x3fffffff;
-                YM2151DualChipFlag = (YM2151clock & 0x40000000) != 0;
-                if (YM2151DualChipFlag) chips.Add("YM2151x2");
-                else chips.Add("YM2151");
-            }
-
-            for (int chipID = 0; chipID < 2; chipID++)
-            {
-                YM2151Hosei[chipID] = 0;
-                float delta = (float)YM2151ClockValue / 3579545;
-                if (model == enmModel.RealModel)
+                uint YM2612clock = getLE32(0x2c);
+                if (YM2612clock != 0)
                 {
-                    delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock((byte)chipID);
+                    YM2612ClockValue = YM2612clock & 0x3fffffff;
+                    YM2612DualChipFlag = (YM2612clock & 0x40000000) != 0;
+                    if (YM2612DualChipFlag) chips.Add("YM2612x2");
+                    else chips.Add("YM2612");
                 }
-                float d;
-                float oldD = float.MaxValue;
-                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
-                {
-                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
-                    YM2151Hosei[chipID] = i;
-                    if (d > oldD) break;
-                    oldD = d;
-                }
-                YM2151Hosei[chipID] -= 12;
-            }
 
-            vgmDataOffset = getLE32(0x34);
-            if (vgmDataOffset == 0)
-            {
-                vgmDataOffset = 0x40;
+                uint YM2151clock = getLE32(0x30);
+                if (YM2151clock != 0)
+                {
+                    YM2151ClockValue = YM2151clock & 0x3fffffff;
+                    YM2151DualChipFlag = (YM2151clock & 0x40000000) != 0;
+                    if (YM2151DualChipFlag) chips.Add("YM2151x2");
+                    else chips.Add("YM2151");
+                }
+
+                for (int chipID = 0; chipID < 2; chipID++)
+                {
+                    YM2151Hosei[chipID] = 0;
+                    float delta = (float)YM2151ClockValue / 3579545;
+                    if (model == enmModel.RealModel)
+                    {
+                        delta = (float)YM2151ClockValue / chipRegister.getYM2151Clock((byte)chipID);
+                    }
+                    float d;
+                    float oldD = float.MaxValue;
+                    for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
+                    {
+                        d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                        YM2151Hosei[chipID] = i;
+                        if (d > oldD) break;
+                        oldD = d;
+                    }
+                    YM2151Hosei[chipID] -= 12;
+                }
+
+                vgmDataOffset = getLE32(0x34);
+                if (vgmDataOffset == 0)
+                {
+                    vgmDataOffset = 0x40;
+                }
+                else
+                {
+                    vgmDataOffset += 0x34;
+                }
+
+                if (version >= 0x0151)
+                {
+                    if (vgmDataOffset > 0x38)
+                    {
+                        uint SegaPCMclock = getLE32(0x38);
+                        int SPCMInterface = (int)getLE32(0x3c);
+                        if (SegaPCMclock != 0 && SPCMInterface != 0)
+                        {
+                            chips.Add("Sega PCM");
+                            SEGAPCMClockValue = SegaPCMclock;
+                            SEGAPCMInterface = SPCMInterface;
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x40)
+                    {
+                        uint RF5C68clock = getLE32(0x40);
+                        if (RF5C68clock != 0) chips.Add("RF5C68");
+                    }
+
+                    if (vgmDataOffset > 0x44)
+                    {
+                        uint YM2203clock = getLE32(0x44);
+                        if (YM2203clock != 0)
+                        {
+                            YM2203ClockValue = YM2203clock & 0x3fffffff;
+                            YM2203DualChipFlag = (YM2203clock & 0x40000000) != 0;
+                            if (YM2203DualChipFlag) chips.Add("YM2203x2");
+                            else chips.Add("YM2203");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x48)
+                    {
+                        uint YM2608clock = getLE32(0x48);
+                        if (YM2608clock != 0)
+                        {
+                            YM2608ClockValue = YM2608clock & 0x3fffffff;
+                            YM2608DualChipFlag = (YM2608clock & 0x40000000) != 0;
+                            if (YM2608DualChipFlag) chips.Add("YM2608x2");
+                            else chips.Add("YM2608");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x4c)
+                    {
+                        uint YM2610Bclock = getLE32(0x4c);
+                        if (YM2610Bclock != 0)
+                        {
+                            YM2610ClockValue = YM2610Bclock & 0x3fffffff;
+                            YM2610DualChipFlag = (YM2610Bclock & 0x40000000) != 0;
+                            if (YM2610DualChipFlag) chips.Add("YM2610/Bx2");
+                            else chips.Add("YM2610/B");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x50)
+                    {
+                        uint YM3812clock = getLE32(0x50);
+                        if (YM3812clock != 0) chips.Add("YM3812");
+                    }
+
+                    if (vgmDataOffset > 0x54)
+                    {
+                        uint YM3526clock = getLE32(0x54);
+                        if (YM3526clock != 0) chips.Add("YM3526");
+                    }
+
+                    if (vgmDataOffset > 0x58)
+                    {
+                        uint Y8950clock = getLE32(0x58);
+                        if (Y8950clock != 0) chips.Add("Y8950");
+                    }
+
+                    if (vgmDataOffset > 0x5c)
+                    {
+                        uint YMF262clock = getLE32(0x5c);
+                        if (YMF262clock != 0) chips.Add("YMF262");
+                    }
+
+                    if (vgmDataOffset > 0x60)
+                    {
+                        uint YMF278Bclock = getLE32(0x60);
+                        if (YMF278Bclock != 0) chips.Add("YMF278B");
+                    }
+
+                    if (vgmDataOffset > 0x64)
+                    {
+                        uint YMF271clock = getLE32(0x64);
+                        if (YMF271clock != 0) chips.Add("YMF271");
+                    }
+
+                    if (vgmDataOffset > 0x68)
+                    {
+                        uint YMZ280Bclock = getLE32(0x68);
+                        if (YMZ280Bclock != 0) chips.Add("YMZ280B");
+                    }
+
+                    if (vgmDataOffset > 0x6c)
+                    {
+                        uint RF5C164clock = getLE32(0x6c);
+                        if (RF5C164clock != 0)
+                        {
+                            RF5C164ClockValue = RF5C164clock & 0x3fffffff;
+                            RF5C164DualChipFlag = (RF5C164clock & 0x40000000) != 0;
+                            if (RF5C164DualChipFlag) chips.Add("RF5C164x2");
+                            else chips.Add("RF5C164");
+                        }
+                    }
+
+
+                    if (vgmDataOffset > 0x70)
+                    {
+                        uint PWMclock = getLE32(0x70);
+                        if (PWMclock != 0)
+                        {
+                            chips.Add("PWM");
+                            PWMClockValue = PWMclock;
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x74)
+                    {
+                        uint AY8910clock = getLE32(0x74);
+                        if (AY8910clock != 0)
+                        {
+                            AY8910ClockValue = AY8910clock & 0x3fffffff;
+                            AY8910DualChipFlag = (AY8910clock & 0x40000000) != 0;
+                            if (AY8910DualChipFlag) chips.Add("AY8910x2");
+                            else chips.Add("AY8910");
+                        }
+                    }
+                }
+
+                //OKIM6258ClockValue = 0;
+                //HuC6280ClockValue = 0;
+                //OKIM6295ClockValue = 0;
+
+                if (version >= 0x0161)
+                {
+                    if (vgmDataOffset > 0x90)
+                    {
+                        uint OKIM6258clock = getLE32(0x90);
+                        if (OKIM6258clock != 0)
+                        {
+                            chips.Add("OKIM6258");
+                            OKIM6258ClockValue = OKIM6258clock;
+                            OKIM6258Type = vgmBuf[0x94];
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xa0)
+                    {
+                        uint K054539clock = getLE32(0xa0);
+                        if (K054539clock != 0)
+                        {
+                            K054539ClockValue = K054539clock & 0x3fffffff;
+                            K054539DualChipFlag = (K054539clock & 0x40000000) != 0;
+                            if (K054539DualChipFlag) chips.Add("K054539x2");
+                            else chips.Add("K054539");
+                            K054539Flags = vgmBuf[0x95];
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xa8)
+                    {
+
+                        uint C140clock = getLE32(0xa8);
+                        if (C140clock != 0)
+                        {
+                            chips.Add("C140");
+                            C140ClockValue = C140clock;
+                            switch (vgmBuf[0x96])
+                            {
+                                case 0x00:
+                                    C140Type = MDSound.c140.C140_TYPE.SYSTEM2;
+                                    break;
+                                case 0x01:
+                                    C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
+                                    break;
+                                case 0x02:
+                                    C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
+                                    break;
+                                case 0x03:
+                                default:
+                                    C140Type = MDSound.c140.C140_TYPE.ASIC219;
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xa4)
+                    {
+
+                        uint HuC6280clock = getLE32(0xa4);
+                        if (HuC6280clock != 0)
+                        {
+                            chips.Add("HuC6280");
+                            HuC6280ClockValue = HuC6280clock;
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x98)
+                    {
+                        uint OKIM6295clock = getLE32(0x98);
+                        if (OKIM6295clock != 0)
+
+                        {
+                            OKIM6295DualChipFlag = (OKIM6295clock & 0x40000000) != 0;
+                            if (OKIM6295DualChipFlag)
+                            {
+                                OKIM6295ClockValue = OKIM6295clock & 0x3fffffff;
+                                chips.Add("OKIM6295x2");
+                            }
+                            else
+                            {
+                                OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
+                                chips.Add("OKIM6295");
+                            }
+                        }
+                    }
+
+                }
+                if (version >= 0x0171)
+                {
+                    if (vgmDataOffset > 0xdc)
+                    {
+
+                        uint C352clock = getLE32(0xdc);
+                        if (C352clock != 0)
+                        {
+                            chips.Add("C352");
+                            C352ClockValue = C352clock;
+                            C352ClockDivider = vgmBuf[0xd6];
+                        }
+                    }
+
+                }
             }
             else
             {
-                vgmDataOffset += 0x34;
-            }
-
-            if (version >= 0x0151)
-            {
-                if (vgmDataOffset > 0x38)
-                {
-                    uint SegaPCMclock = getLE32(0x38);
-                    int SPCMInterface = (int)getLE32(0x3c);
-                    if (SegaPCMclock != 0 && SPCMInterface != 0)
-                    {
-                        chips.Add("Sega PCM");
-                        SEGAPCMClockValue = SegaPCMclock;
-                        SEGAPCMInterface = SPCMInterface;
-                    }
-                }
-
-                if (vgmDataOffset > 0x40)
-                {
-                    uint RF5C68clock = getLE32(0x40);
-                    if (RF5C68clock != 0) chips.Add("RF5C68");
-                }
-
-                if (vgmDataOffset > 0x44)
-                {
-                    uint YM2203clock = getLE32(0x44);
-                    if (YM2203clock != 0)
-                    {
-                        YM2203ClockValue = YM2203clock & 0x3fffffff;
-                        YM2203DualChipFlag = (YM2203clock & 0x40000000)!=0;
-                        if (YM2203DualChipFlag) chips.Add("YM2203x2");
-                        else chips.Add("YM2203");
-                    }
-                }
-
-                if (vgmDataOffset > 0x48)
-                {
-                    uint YM2608clock = getLE32(0x48);
-                    if (YM2608clock != 0)
-                    {
-                        YM2608ClockValue = YM2608clock & 0x3fffffff;
-                        YM2608DualChipFlag = (YM2608clock & 0x40000000) != 0;
-                        if (YM2608DualChipFlag) chips.Add("YM2608x2");
-                        else chips.Add("YM2608");
-                    }
-                }
-
-                if (vgmDataOffset > 0x4c)
-                {
-                    uint YM2610Bclock = getLE32(0x4c);
-                    if (YM2610Bclock != 0)
-                    {
-                        YM2610ClockValue = YM2610Bclock & 0x3fffffff;
-                        YM2610DualChipFlag = (YM2610Bclock & 0x40000000) != 0;
-                        if (YM2610DualChipFlag) chips.Add("YM2610/Bx2");
-                        else chips.Add("YM2610/B");
-                    }
-                }
-
-                if (vgmDataOffset > 0x50)
-                {
-                    uint YM3812clock = getLE32(0x50);
-                    if (YM3812clock != 0) chips.Add("YM3812");
-                }
-
-                if (vgmDataOffset > 0x54)
-                {
-                    uint YM3526clock = getLE32(0x54);
-                    if (YM3526clock != 0) chips.Add("YM3526");
-                }
-
-                if (vgmDataOffset > 0x58)
-                {
-                    uint Y8950clock = getLE32(0x58);
-                    if (Y8950clock != 0) chips.Add("Y8950");
-                }
-
-                if (vgmDataOffset > 0x5c)
-                {
-                    uint YMF262clock = getLE32(0x5c);
-                    if (YMF262clock != 0) chips.Add("YMF262");
-                }
-
-                if (vgmDataOffset > 0x60)
-                {
-                    uint YMF278Bclock = getLE32(0x60);
-                    if (YMF278Bclock != 0) chips.Add("YMF278B");
-                }
-
-                if (vgmDataOffset > 0x64)
-                {
-                    uint YMF271clock = getLE32(0x64);
-                    if (YMF271clock != 0) chips.Add("YMF271");
-                }
-
-                if (vgmDataOffset > 0x68)
-                {
-                    uint YMZ280Bclock = getLE32(0x68);
-                    if (YMZ280Bclock != 0) chips.Add("YMZ280B");
-                }
-
-                if (vgmDataOffset > 0x6c)
-                {
-                    uint RF5C164clock = getLE32(0x6c);
-                    if (RF5C164clock != 0)
-                    {
-                        RF5C164ClockValue = RF5C164clock & 0x3fffffff;
-                        RF5C164DualChipFlag = (RF5C164clock & 0x40000000) != 0;
-                        if (RF5C164DualChipFlag) chips.Add("RF5C164x2");
-                        else chips.Add("RF5C164");
-                    }
-                }
-
-
-                if (vgmDataOffset > 0x70)
-                {
-                    uint PWMclock = getLE32(0x70);
-                    if (PWMclock != 0)
-                    {
-                        chips.Add("PWM");
-                        PWMClockValue = PWMclock;
-                    }
-                }
-
-                if (vgmDataOffset > 0x74)
-                {
-                    uint AY8910clock = getLE32(0x74);
-                    if (AY8910clock != 0)
-                    {
-                        AY8910ClockValue = AY8910clock & 0x3fffffff;
-                        AY8910DualChipFlag = (AY8910clock & 0x40000000) != 0;
-                        if (AY8910DualChipFlag) chips.Add("AY8910x2");
-                        else chips.Add("AY8910");
-                    }
-                }
-            }
-
-            //OKIM6258ClockValue = 0;
-            //HuC6280ClockValue = 0;
-            //OKIM6295ClockValue = 0;
-
-            if (version >= 0x0161)
-            {
-                if (vgmDataOffset > 0x90)
-                {
-                    uint OKIM6258clock = getLE32(0x90);
-                    if (OKIM6258clock != 0)
-                    {
-                        chips.Add("OKIM6258");
-                        OKIM6258ClockValue = OKIM6258clock;
-                        OKIM6258Type = vgmBuf[0x94];
-                    }
-                }
-
-                if (vgmDataOffset > 0xa0)
-                {
-                    uint K054539clock = getLE32(0xa0);
-                    if (K054539clock != 0)
-                    {
-                        K054539ClockValue = K054539clock & 0x3fffffff;
-                        K054539DualChipFlag = (K054539clock & 0x40000000) != 0;
-                        if (K054539DualChipFlag) chips.Add("K054539x2");
-                        else chips.Add("K054539");
-                        K054539Flags = vgmBuf[0x95];
-                    }
-                }
-
-                if (vgmDataOffset > 0xa8)
-                {
-
-                    uint C140clock = getLE32(0xa8);
-                    if (C140clock != 0)
-                    {
-                        chips.Add("C140");
-                        C140ClockValue = C140clock;
-                        switch (vgmBuf[0x96])
-                        {
-                            case 0x00:
-                                C140Type = MDSound.c140.C140_TYPE.SYSTEM2;
-                                break;
-                            case 0x01:
-                                C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
-                                break;
-                            case 0x02:
-                                C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
-                                break;
-                            case 0x03:
-                            default:
-                                C140Type = MDSound.c140.C140_TYPE.ASIC219;
-                                break;
-                        }
-                    }
-                }
-
-                if (vgmDataOffset > 0xa4)
-                {
-
-                    uint HuC6280clock = getLE32(0xa4);
-                    if (HuC6280clock != 0)
-                    {
-                        chips.Add("HuC6280");
-                        HuC6280ClockValue = HuC6280clock;
-                    }
-                }
-
-                if (vgmDataOffset > 0x98)
-                {
-                    uint OKIM6295clock = getLE32(0x98);
-                    if (OKIM6295clock != 0)
-
-                    {
-                        OKIM6295DualChipFlag = (OKIM6295clock & 0x40000000) != 0;
-                        if (OKIM6295DualChipFlag)
-                        {
-                            OKIM6295ClockValue = OKIM6295clock & 0x3fffffff;
-                            chips.Add("OKIM6295x2");
-                        }
-                        else
-                        {
-                            OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
-                            chips.Add("OKIM6295");
-                        }
-                    }
-                }
-
-            }
-            if (version >= 0x0171)
-            {
-                if (vgmDataOffset > 0xdc)
-                {
-
-                    uint C352clock = getLE32(0xdc);
-                    if (C352clock != 0)
-                    {
-                        chips.Add("C352");
-                        C352ClockValue = C352clock;
-                        C352ClockDivider = vgmBuf[0xd6];
-                    }
-                }
-
+                vgmDataOffset = 0x40;
             }
 
             foreach (string chip in chips)
