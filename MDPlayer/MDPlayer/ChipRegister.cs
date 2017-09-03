@@ -103,7 +103,10 @@ namespace MDPlayer
         public int[][] fmRegisterYM2413 = new int[][] { null, null };
         private int[] fmRegisterYM2413RyhthmB = new int[2] { 0, 0 };
         private int[] fmRegisterYM2413Ryhthm = new int[2] { 0, 0 };
-
+        private bool[][] maskFMChYM2413 = new bool[][] {
+            new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+            , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+        };
 
         public int[][][] fmRegisterYM2612 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2612 = new int[][] { null, null };
@@ -645,6 +648,25 @@ namespace MDPlayer
             else ChipSecOPLL = 2;
 
             if (model == enmModel.VirtualModel) fmRegisterYM2413[chipID][dAddr] = dData;
+
+            //mask適用
+            if (dAddr >= 0x20 && dAddr <= 0x28)
+            {
+                if (maskFMChYM2413[chipID][dAddr - 0x20])
+                {
+                    dData &= 0xef;
+                }
+            }
+            if (dAddr == 0x0e)
+            {
+                dData = (dData & 0x20)
+                    | (maskFMChYM2413[chipID][9] ? 0 : (dData & 0x10))
+                    | (maskFMChYM2413[chipID][10] ? 0 : (dData & 0x08))
+                    | (maskFMChYM2413[chipID][11] ? 0 : (dData & 0x04))
+                    | (maskFMChYM2413[chipID][12] ? 0 : (dData & 0x02))
+                    | (maskFMChYM2413[chipID][13] ? 0 : (dData & 0x01))
+                    ;
+            }
 
             if (model == enmModel.VirtualModel)
             {
@@ -1304,7 +1326,18 @@ namespace MDPlayer
 
         public void setMaskYM2413(int chipID, int ch, bool mask)
         {
-            //
+            maskFMChYM2413[chipID][ch] = mask;
+
+            if (ch < 9)
+            {
+                setYM2413Register((byte)chipID, 0x20 + ch, fmRegisterYM2413[chipID][0x20 + ch], enmModel.VirtualModel);
+                setYM2413Register((byte)chipID, 0x20 + ch, fmRegisterYM2413[chipID][0x20 + ch], enmModel.RealModel);
+            }
+            else if (ch < 14)
+            {
+                setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.VirtualModel);
+                setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.RealModel);
+            }
         }
 
         public void setMaskYM2608(int chipID, int ch, bool mask)

@@ -104,10 +104,19 @@ namespace MDPlayer
             if (py < 1 * 8) return;
 
             //鍵盤
-            if (py < 10 * 8)
+            if (py < 11 * 8)
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
+
+                if (ch == 9)
+                {
+                    int x = (px / 4 - 4);
+                    if (x < 0) return;
+                    x /= 15;
+                    if (x > 4) return;
+                    ch += x;
+                }
 
                 if (e.Button == MouseButtons.Left)
                 {
@@ -117,10 +126,16 @@ namespace MDPlayer
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 9; ch++) parent.ResetChannelMask(enmUseChip.YM2413, chipID, ch);
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(enmUseChip.YM2413, chipID, ch);
                 return;
             }
 
+            //音色欄
+            if (py < 15 * 8 && px < 16 * 8)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(enmUseChip.YM2413, 0, chipID);
+            }
         }
     }
 }

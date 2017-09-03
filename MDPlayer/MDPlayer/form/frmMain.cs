@@ -4003,7 +4003,7 @@ namespace MDPlayer
             {
                 for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
                 for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
                 for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
                 for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
                 for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
@@ -4538,8 +4538,7 @@ namespace MDPlayer
                 );
             }
 
-            if (string.IsNullOrEmpty(n)) return;
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForMDX(enmUseChip chip, int ch, int chipID)
@@ -4608,7 +4607,7 @@ namespace MDPlayer
                 );
             }
 
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForMML2VGM(enmUseChip chip, int ch, int chipID)
@@ -4701,7 +4700,7 @@ namespace MDPlayer
                 }
             }
 
-            if (n != null) Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForMUSICLALF(enmUseChip chip, int ch, int chipID)
@@ -4764,7 +4763,7 @@ namespace MDPlayer
                 n += "}\r\n";
             }
 
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForMUSICLALF2(enmUseChip chip, int ch, int chipID)
@@ -4841,7 +4840,7 @@ namespace MDPlayer
                     );
             }
 
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForNRTDRV(enmUseChip chip, int ch, int chipID)
@@ -4910,7 +4909,7 @@ namespace MDPlayer
                 n += "}\r\n";
             }
 
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForHuSIC(enmUseChip chip, int ch, int chipID)
@@ -4946,7 +4945,7 @@ namespace MDPlayer
                 n = n.Substring(0, n.Length - 3) + "\r\n}\r\n";
             }
 
-            Clipboard.SetText(n);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
         private void getInstChForTFI(enmUseChip chip, int ch, int chipID)
@@ -5280,7 +5279,7 @@ namespace MDPlayer
                     }
                     break;
                 case enmUseChip.YM2413:
-                    if (ch >= 0 && ch < 9)
+                    if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym2413[chipID].channels[ch].mask)
                             Audio.setYM2413Mask(chipID, ch);
