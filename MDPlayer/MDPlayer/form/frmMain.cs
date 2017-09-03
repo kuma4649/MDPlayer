@@ -4440,6 +4440,11 @@ namespace MDPlayer
 
         public void getInstCh(enmUseChip chip, int ch, int chipID)
         {
+            if (chip == enmUseChip.YM2413)
+            {
+                getInstChForMGSC(chip, ch, chipID);
+                return;
+            }
 
             YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
 
@@ -4943,6 +4948,57 @@ namespace MDPlayer
                 }
 
                 n = n.Substring(0, n.Length - 3) + "\r\n}\r\n";
+            }
+
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForMGSC(enmUseChip chip, int ch, int chipID)
+        {
+
+            string n = "";
+
+            if (chip == enmUseChip.YM2413)
+            {
+                int[] Register = Audio.GetYM2413Register(chipID);
+                if (Register == null) return;
+
+                n = "@vXX = { \r\n";
+                n += "   ;       TL FB\r\n";
+                n += string.Format("           {0:d2},{1:d2},\r\n"
+                    , Register[0x02] & 0x3f
+                    , Register[0x03] & 0x7
+                    );
+                n += "   ;       AR DR SL RR KL MT AM VB EG KR DT\r\n";
+
+                n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2},\r\n"
+                    , (Register[0x04] & 0xf0) >> 4
+                    , (Register[0x04] & 0x0f)
+                    , (Register[0x06] & 0xf0) >> 4
+                    , (Register[0x06] & 0x0f)
+                    , (Register[0x02] & 0xc0) >> 6
+                    , (Register[0x00] & 0x0f)
+                    , (Register[0x00] & 0x80) >> 7
+                    , (Register[0x00] & 0x40) >> 6
+                    , (Register[0x00] & 0x20) >> 5
+                    , (Register[0x00] & 0x10) >> 4
+                    , (Register[0x03] & 0x08) >> 3
+                    );
+
+                n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2} }}\r\n"
+                    , (Register[0x05] & 0xf0) >> 4
+                    , (Register[0x05] & 0x0f)
+                    , (Register[0x07] & 0xf0) >> 4
+                    , (Register[0x07] & 0x0f)
+                    , (Register[0x03] & 0xc0) >> 6
+                    , (Register[0x01] & 0x0f)
+                    , (Register[0x01] & 0x80) >> 7
+                    , (Register[0x01] & 0x40) >> 6
+                    , (Register[0x01] & 0x20) >> 5
+                    , (Register[0x01] & 0x10) >> 4
+                    , (Register[0x03] & 0x10) >> 4
+                    );
+
             }
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
