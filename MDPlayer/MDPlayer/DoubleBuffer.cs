@@ -2442,6 +2442,18 @@ namespace MDPlayer
         }
 
 
+        public void drawPanOKIM6258(int chipID, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanP(OKIM6258Screen[chipID], 24, 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
 
         public void drawPanYM2151(int chipID, int c, ref int ot, int nt, ref int otp, int ntp)
         {
@@ -2893,12 +2905,65 @@ namespace MDPlayer
 
                 if (MIDIScreen[chipID] != null) drawParamsToMIDI(oldParam, newParam, chipID);
 
+                if (OKIM6258Screen[chipID] != null) drawParamsToOKIM6258(oldParam, newParam, chipID);
             }
 
             if (ym2612MIDIScreen != null) drawParamsToYM2612MIDI(oldParam, newParam);
 
             if (mixerScreen != null) drawParamsToMixer(oldParam, newParam);
         }
+
+        private void drawParamsToOKIM6258(MDChipParams oldParam, MDChipParams newParam, int chipID)
+        {
+            MDChipParams.OKIM6258 ost = oldParam.okim6258[chipID];
+            MDChipParams.OKIM6258 nst = newParam.okim6258[chipID];
+
+            drawPanOKIM6258(chipID, ref ost.pan, nst.pan, ref ost.pantp, 0);
+
+            if (ost.masterFreq != nst.masterFreq)
+            {
+                drawFont4(OKIM6258Screen[chipID], 12 * 4, 8, 0, string.Format("{0:d5}", nst.masterFreq));
+                ost.masterFreq = nst.masterFreq;
+            }
+
+            if (ost.divider != nst.divider)
+            {
+                drawFont4(OKIM6258Screen[chipID], 19 * 4, 8, 0, string.Format("{0:d5}", nst.divider));
+                ost.divider = nst.divider;
+            }
+
+            if (ost.pbFreq != nst.pbFreq)
+            {
+                drawFont4(OKIM6258Screen[chipID], 26 * 4, 8, 0, string.Format("{0:d5}", nst.pbFreq));
+                ost.pbFreq = nst.pbFreq;
+            }
+
+            drawVolume(OKIM6258Screen[chipID], 0, 1, ref ost.volumeL, nst.volumeL/2, 0);
+            drawVolume(OKIM6258Screen[chipID], 0, 2, ref ost.volumeR, nst.volumeR/2, 0);
+
+            drawChOKIM6258(chipID, ref ost.mask, nst.mask, 0);
+
+        }
+
+        public void drawChOKIM6258(int chipID, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            drawChPOKIM6258(chipID, 0, 8 + 0 * 8, nm, tp);
+            om = nm;
+        }
+
+        public void drawChPOKIM6258(int chipID, int x, int y, bool mask, int tp)
+        {
+            if (OKIM6258Screen[chipID] == null) return;
+
+            OKIM6258Screen[chipID].drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 8*8, 0, 24, 8);
+        }
+
 
         private void drawParamsToYM2151(MDChipParams oldParam, MDChipParams newParam, int chipID)
         {
@@ -4370,6 +4435,21 @@ namespace MDPlayer
 
         public void screenInitOKIM6258(int chipID)
         {
+            int o;
+            int n;
+
+            o = 0;n = 3;
+            drawPanOKIM6258(chipID, ref o, n, ref o, 0);
+
+            drawFont4(OKIM6258Screen[chipID], 12 * 4, 8, 0, string.Format("{0:d5}", 0));
+            drawFont4(OKIM6258Screen[chipID], 19 * 4, 8, 0, string.Format("{0:d5}", 0));
+            drawFont4(OKIM6258Screen[chipID], 26 * 4, 8, 0, string.Format("{0:d5}", 0));
+
+            o = 0; n = 38;
+            drawVolume(OKIM6258Screen[chipID], 0, 1, ref o, n / 2, 0);
+            o = 0; n = 38;
+            drawVolume(OKIM6258Screen[chipID], 0, 2, ref o, n / 2, 0);
+
         }
 
         public void screenInitOKIM6295(int chipID)

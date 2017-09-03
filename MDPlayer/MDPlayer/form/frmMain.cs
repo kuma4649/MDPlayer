@@ -811,6 +811,7 @@ namespace MDPlayer
             if (px >= 4 * 16 + 32 && px < 5 * 16 + 32)
             {
                 prev();
+                oldParam = new MDChipParams();
                 return;
             }
 
@@ -823,6 +824,7 @@ namespace MDPlayer
             if (px >= 6 * 16 + 32 && px < 7 * 16 + 32)
             {
                 play();
+                oldParam = new MDChipParams();
                 return;
             }
 
@@ -835,6 +837,7 @@ namespace MDPlayer
             if (px >= 8 * 16 + 32 && px < 9 * 16 + 32)
             {
                 next();
+                oldParam = new MDChipParams();
                 return;
             }
 
@@ -2300,6 +2303,7 @@ namespace MDPlayer
                 screenChangeParamsFromAY8910(chipID);
                 screenChangeParamsFromHuC6280(chipID);
                 screenChangeParamsFromMIDI(chipID);
+                screenChangeParamsFromOKIM6258(chipID);
             }
 
             screenChangeParamsFromYM2612MIDI();
@@ -2928,8 +2932,8 @@ namespace MDPlayer
                 }
                 newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
 
-                newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
-                newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
+                newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
+                newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
 
                 newParam.ym2151[chipID].channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
 
@@ -3007,6 +3011,60 @@ namespace MDPlayer
                     newParam.c140[chipID].channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
                     newParam.c140[chipID].channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
                 }
+            }
+        }
+
+        private void screenChangeParamsFromOKIM6258(int chipID)
+        {
+            MDSound.okim6258.okim6258_state okim6258State = Audio.GetOKIM6258Register(chipID);
+            if (okim6258State == null) return;
+
+            switch (okim6258State.pan & 0x3)
+            {
+                case 0:
+                case 3:
+                    newParam.okim6258[chipID].pan = 3;
+                    break;
+                case 1:
+                    newParam.okim6258[chipID].pan = 2;
+                    break;
+                case 2:
+                    newParam.okim6258[chipID].pan = 1;
+                    break;
+            }
+
+            newParam.okim6258[chipID].masterFreq = (int)okim6258State.master_clock / 1000;
+            newParam.okim6258[chipID].divider = (int)okim6258State.divider;
+            if (okim6258State.divider == 0) newParam.okim6258[chipID].pbFreq = 0;
+            else newParam.okim6258[chipID].pbFreq = (int)(okim6258State.master_clock / okim6258State.divider / 1000);
+
+            //if (newParam.okim6258[chipID].volumeL > 0) newParam.okim6258[chipID].volumeL--;
+            //if (newParam.okim6258[chipID].volumeR > 0) newParam.okim6258[chipID].volumeR--;
+            //if (Audio.GetOKIM6258KeyOn(chipID))
+            //{
+            //    newParam.okim6258[chipID].volumeL = ((newParam.okim6258[chipID].pan & 0x2) != 0) ? 38 : 0;
+            //    newParam.okim6258[chipID].volumeR = ((newParam.okim6258[chipID].pan & 0x1) != 0) ? 38 : 0;
+            //    Audio.ResetOKIM6258KeyOn(chipID);
+            //}
+
+            int v = (int)(((Math.Abs(okim6258State.data_in - 128)*2) >> 3) * 1.2);
+            if ((okim6258State.status & 0x2) == 0) v = 0;
+            v = Math.Min(v, 38);
+            if (newParam.okim6258[chipID].volumeL < v && ((newParam.okim6258[chipID].pan & 0x2) != 0))
+            {
+                newParam.okim6258[chipID].volumeL = v;
+            }
+            else
+            {
+                newParam.okim6258[chipID].volumeL--;
+            }
+            if (newParam.okim6258[chipID].volumeR < v && ((newParam.okim6258[chipID].pan & 0x1) != 0))
+            {
+                newParam.okim6258[chipID].volumeR = v;
+            }
+            else
+            {
+                newParam.okim6258[chipID].volumeR--;
             }
         }
 
@@ -4014,7 +4072,7 @@ namespace MDPlayer
                 for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
             }
 
-            //oldParam = new MDChipParams();
+            oldParam = new MDChipParams();
             //newParam = new MDChipParams();
             screen.screenInitAll();
 
@@ -5485,6 +5543,17 @@ namespace MDPlayer
                     }
                     newParam.huc6280[chipID].channels[ch].mask = !newParam.huc6280[chipID].channels[ch].mask;
                     break;
+                case enmUseChip.OKIM6258:
+                    if (!newParam.okim6258[chipID].mask)
+                    {
+                        Audio.setOKIM6258Mask(chipID);
+                    }
+                    else
+                    {
+                        Audio.resetOKIM6258Mask(chipID);
+                    }
+                    newParam.okim6258[chipID].mask = !newParam.okim6258[chipID].mask;
+                    break;
             }
         }
 
@@ -5551,6 +5620,10 @@ namespace MDPlayer
                 case enmUseChip.HuC6280:
                     newParam.huc6280[chipID].channels[ch].mask = false;
                     Audio.resetHuC6280Mask(chipID, ch);
+                    break;
+                case enmUseChip.OKIM6258:
+                    newParam.okim6258[chipID].mask = false;
+                    Audio.resetOKIM6258Mask(chipID);
                     break;
 
             }

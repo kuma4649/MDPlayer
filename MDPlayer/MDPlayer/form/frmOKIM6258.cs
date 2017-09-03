@@ -94,5 +94,33 @@ namespace MDPlayer
         public void screenDrawParams()
         {
         }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int py = e.Location.Y / zoom;
+            int px = e.Location.X / zoom;
+
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
+
+            //鍵盤
+            if (py < 2 * 8)
+            {
+                int ch = (py / 8) - 1;
+                if (ch < 0) return;
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    //マスク
+                    parent.SetChannelMask(enmUseChip.OKIM6258, chipID, 0);
+                    return;
+                }
+
+                //マスク解除
+                parent.ResetChannelMask(enmUseChip.OKIM6258, chipID, 0);
+                return;
+            }
+
+        }
     }
 }

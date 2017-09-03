@@ -176,6 +176,9 @@ namespace MDPlayer
             ,new bool[3] { false, false, false }
         };
 
+        private bool[] maskOKIM6258 = new bool[2] { false, false };
+        public bool[] okim6258Keyon = new bool[2] { false, false };
+
         public MIDIParam[] midiParams = new MIDIParam[] { null, null };
 
         private int[] LatchedRegister = new int[] { 0, 0 };
@@ -1448,6 +1451,14 @@ namespace MDPlayer
             setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], enmModel.RealModel, -1);
         }
 
+        public void setMaskOKIM6258(int chipID, bool mask)
+        {
+            maskOKIM6258[chipID] = mask;
+
+            writeOKIM6258((byte)chipID, 0, 1, enmModel.VirtualModel);
+            writeOKIM6258((byte)chipID, 0, 1, enmModel.RealModel);
+        }
+
 
         public void setFadeoutVolYM2151(int chipID, int v)
         {
@@ -1850,6 +1861,20 @@ namespace MDPlayer
         {
             if (ChipID == 0) ChipPriOKI5 = 2;
             else ChipSecOKI5 = 2;
+
+            if (Port == 0x00)
+            {
+                if ((Data & 0x2) != 0) okim6258Keyon[ChipID] = true;
+
+                if (maskOKIM6258[ChipID])
+                {
+                    if ((Data & 0x2) != 0) return;
+                }
+            }
+            if (Port == 0x1)
+            {
+                if (maskOKIM6258[ChipID]) return;
+            }
 
             if (model == enmModel.VirtualModel)
                 mds.WriteOKIM6258(ChipID, Port, Data);

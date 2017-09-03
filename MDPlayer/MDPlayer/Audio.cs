@@ -3033,6 +3033,11 @@ namespace MDPlayer
             return mds.ReadC140Register(chipID);
         }
 
+        public static okim6258.okim6258_state GetOKIM6258Register(int chipID)
+        {
+            return mds.ReadOKIM6258Status(chipID);
+        }
+
         public static segapcm.segapcm_state GetSegaPCMRegister(int chipID)
         {
             return mds.ReadSegaPCMStatus(chipID);
@@ -3046,6 +3051,16 @@ namespace MDPlayer
         public static int[] GetYM2151KeyOn(int chipID)
         {
             return chipRegister.fmKeyOnYM2151[chipID];
+        }
+
+        public static bool GetOKIM6258KeyOn(int chipID)
+        {
+            return chipRegister.okim6258Keyon[chipID];
+        }
+
+        public static void ResetOKIM6258KeyOn(int chipID)
+        {
+            chipRegister.okim6258Keyon[chipID] = false;
         }
 
         public static int GetYM2151PMD(int chipID)
@@ -3216,7 +3231,17 @@ namespace MDPlayer
         {
             mds.setHuC6280Mask(chipID, 1 << ch);
         }
-        
+
+        public static void setOKIM6258Mask(int chipID)
+        {
+            chipRegister.setMaskOKIM6258(chipID,true);
+        }
+
+        public static void resetOKIM6258Mask(int chipID)
+        {
+            chipRegister.setMaskOKIM6258(chipID,false);
+        }
+
         public static void resetYM2612Mask(int chipID,int ch)
         {
             try

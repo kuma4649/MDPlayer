@@ -131,6 +131,21 @@ namespace MDPlayer
         }
         public C140[] c140 = new C140[] { new C140(), new C140() };
 
+        public class OKIM6258
+        {
+            public int pan = -1;
+            public int pantp = -1;
+            public int masterFreq = -1;
+            public int divider=-1;
+            public int pbFreq = -1;
+            public int volumeL = -1;
+            public int volumeR = -1;
+            public bool keyon = false;
+            public bool mask = false;
+
+        }
+        public OKIM6258[] okim6258 = new OKIM6258[] { new OKIM6258(), new OKIM6258() };
+
         public class SegaPcm
         {
             public Channel[] channels = new Channel[16] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
