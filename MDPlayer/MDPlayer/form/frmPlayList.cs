@@ -163,6 +163,17 @@ namespace MDPlayer
                 return;
             }
 
+            if (file.ToLower().LastIndexOf(".m3u") != -1)
+            {
+                PlayList pl= PlayList.LoadM3U(file);
+                foreach (PlayList.music ms in pl.lstMusic)
+                {
+                    AddList(ms.fileName);
+                }
+                return;
+            }
+
+
             enmFileFormat dmyFileFormat;
             PlayList.music music = Audio.getMusic(file, frmMain.getAllBytes(file, out dmyFileFormat));
 
@@ -418,7 +429,7 @@ namespace MDPlayer
         private void tsbOpenPlayList_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "XMLファイル(*.xml)|*.xml";
+            ofd.Filter = "サポートする全てのプレイリスト(*.xml;*.m3u)|*.xml;*.m3u|ファイル(*.xml)|*.xml|M3Uファイル(*.m3u)|*.m3u";
             ofd.Title = "プレイリストファイルを選択";
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
@@ -440,10 +451,25 @@ namespace MDPlayer
             try
             {
 
-                PlayList pl=PlayList.Load(ofd.FileName);
+                PlayList pl = null;
 
-                playing = false;
-                playList = pl;
+                if (ofd.FileName.ToLower().LastIndexOf(".m3u") == -1)
+                {
+                    pl = PlayList.Load(ofd.FileName);
+                    playing = false;
+                    playList = pl;
+                }
+                else
+                {
+                    pl = PlayList.LoadM3U(ofd.FileName);
+                    playing = false;
+                    playList.lstMusic.Clear();
+                    foreach (PlayList.music ms in pl.lstMusic)
+                    {
+                        AddList(ms.fileName);
+                    }
+                }
+
                 playIndex = -1;
                 oldPlayIndex = -1;
 
@@ -461,7 +487,7 @@ namespace MDPlayer
         {
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "XMLファイル(*.xml)|*.xml";
+            sfd.Filter = "M3Uファイル(*.m3u)|*.m3u|XMLファイル(*.xml)|*.xml";
             sfd.Title = "プレイリストファイルを保存";
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
@@ -477,11 +503,33 @@ namespace MDPlayer
             {
                 return;
             }
+
             IsInitialOpenFolder = false;
+            string filename = sfd.FileName;
+
+            switch (sfd.FilterIndex)
+            {
+                case 0:
+                    if (Path.GetExtension(filename) == "")
+                    {
+                        filename = Path.Combine(filename, ".m3u");
+                    }
+                    break;
+                case 1:
+                    if (Path.GetExtension(filename) == "")
+                    {
+                        filename = Path.Combine(filename, ".xml");
+                    }
+                    break;
+            }
 
             try
             {
-                playList.Save(sfd.FileName);
+                if (sfd.FileName.ToLower().LastIndexOf(".m3u") == -1)
+                    playList.Save(sfd.FileName);
+                else
+                    playList.SaveM3U(sfd.FileName);
+
             }
             catch (Exception ex)
             {
@@ -494,7 +542,7 @@ namespace MDPlayer
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|S98ファイル(*.s98)|*.s98|StandardMIDIファイル(*.mid)|*.mid|RCPファイル(*.rcp)|*.rcp|すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp)|*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp|すべてのファイル(*.*)|*.*";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|S98ファイル(*.s98)|*.s98|StandardMIDIファイル(*.mid)|*.mid|RCPファイル(*.rcp)|*.rcp|M3Uファイル(*.m3u)|*.m3u|すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp;*.m3u)|*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp;*.m3u|すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex=setting.other.FilterIndex;
 
@@ -692,7 +740,7 @@ namespace MDPlayer
 
                         AddList(fn);
 
-                        if (fn.ToLower().LastIndexOf(".zip") == -1)
+                        if (fn.ToLower().LastIndexOf(".zip") == -1 && fn.ToLower().LastIndexOf(".m3u") == -1)
                         {
                             frmMain.loadAndPlay(0, fn);
                             setStart(-1);

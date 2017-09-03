@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -78,6 +79,27 @@ namespace MDPlayer
             }
         }
 
+        public void SaveM3U(string fileName)
+        {
+            string basePath = Path.GetDirectoryName(fileName);
+
+            using (StreamWriter sw = new StreamWriter(fileName, false, Encoding.GetEncoding(932)))
+            {
+                foreach (PlayList.music ms in this.lstMusic)
+                {
+                    string path = Path.GetDirectoryName(ms.fileName);
+                    if (path == basePath)
+                    {
+                        sw.WriteLine(Path.GetFileName(ms.fileName));
+                    }
+                    else
+                    {
+                        sw.WriteLine(ms.fileName);
+                    }
+                }
+            }
+        }
+
         public static PlayList Load(string fileName)
         {
             try
@@ -98,9 +120,44 @@ namespace MDPlayer
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(PlayList));
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(fullPath, new UTF8Encoding(false)))
                 {
-                    PlayList pl= (PlayList)serializer.Deserialize(sr);
+                    PlayList pl = (PlayList)serializer.Deserialize(sr);
                     return pl;
                 }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return new PlayList();
+            }
+        }
+
+        public static PlayList LoadM3U(string filename)
+        {
+            try
+            {
+                PlayList pl = new PlayList();
+
+                using (StreamReader sr = new StreamReader(filename,Encoding.GetEncoding(932)))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        line = line.Trim();
+                        if (line == "") continue;
+                        if (line[0] == '#') continue;
+
+                        if (!Path.IsPathRooted(line))
+                        {
+                            line = Path.Combine(Path.GetDirectoryName(filename), line);
+                        }
+                        music ms = new music();
+                        ms.fileName = line;
+                        pl.lstMusic.Add(ms);
+                    }
+                }
+
+
+                return pl;
             }
             catch (Exception ex)
             {
