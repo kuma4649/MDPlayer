@@ -278,6 +278,7 @@ namespace MDPlayer
         public static int ChipPriHuC = 0;
         public static int ChipPriC352 = 0;
         public static int ChipPriK054539 = 0;
+        public static int ChipPriK051649 = 0;
 
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
@@ -296,6 +297,7 @@ namespace MDPlayer
         public static int ChipSecHuC = 0;
         public static int ChipSecC352 = 0;
         public static int ChipSecK054539 = 0;
+        public static int ChipSecK051649 = 0;
 
         private static int MasterVolume = 0;
         private static int[] chips = new int[256];
@@ -2536,6 +2538,33 @@ namespace MDPlayer
                         chip.Option = null;
                         if (i == 0) ChipPriK054539 = 1;
                         else ChipSecK054539 = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
+                if (((vgm)driverVirtual).K051649ClockValue != 0)
+                {
+                    MDSound.K051649 k051649 = new MDSound.K051649();
+
+                    for (int i = 0; i < (((vgm)driverVirtual).K051649DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.K051649;
+                        chip.ID = (byte)i;
+                        chip.Instrument = k051649;
+                        chip.Update = k051649.Update;
+                        chip.Start = k051649.Start;
+                        chip.Stop = k051649.Stop;
+                        chip.Reset = k051649.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = 0;// setting.balance.K051649Volume;
+                        chip.Clock = ((vgm)driverVirtual).K051649ClockValue;
+                        chip.Option = null;
+                        if (i == 0) ChipPriK051649 = 1;
+                        else ChipSecK051649 = 1;
 
                         hiyorimiDeviceFlag |= 0x2;
 

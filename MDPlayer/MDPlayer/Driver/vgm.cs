@@ -44,6 +44,7 @@ namespace MDPlayer
         public byte C352ClockDivider;
         public uint K054539ClockValue;
         public byte K054539Flags;
+        public uint K051649ClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -58,6 +59,7 @@ namespace MDPlayer
         public bool HuC6280DualChipFlag;
         public bool C352DualChipFlag;
         public bool K054539DualChipFlag;
+        public bool K051649DualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -447,7 +449,7 @@ namespace MDPlayer
 
             vgmCmdTbl[0xd0] = vcDummy3Ope;
             vgmCmdTbl[0xd1] = vcDummy3Ope;
-            vgmCmdTbl[0xd2] = vcDummy3Ope;
+            vgmCmdTbl[0xd2] = vcK051649;
             vgmCmdTbl[0xd3] = vcK054539;
             vgmCmdTbl[0xd4] = vcC140;
             vgmCmdTbl[0xd5] = vcDummy3Ope;
@@ -1144,6 +1146,18 @@ namespace MDPlayer
             uint data = (uint)((vgmBuf[vgmAdr + 1] & 0xf) * 0x100 + vgmBuf[vgmAdr + 2]);
             chipRegister.writePWM(0, cmd, data, model);
             vgmAdr += 3;
+        }
+
+        private void vcK051649()
+        {
+            int scc1_port = vgmBuf[vgmAdr + 1] & 0x7f;
+            byte scc1_offset = vgmBuf[vgmAdr + 2];
+            byte rDat = vgmBuf[vgmAdr + 3];
+            byte scc1_chipid = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            vgmAdr += 4;
+            chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
+            chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
+
         }
 
         private void vcK054539()
@@ -1857,6 +1871,18 @@ namespace MDPlayer
                             chips.Add("OKIM6258");
                             OKIM6258ClockValue = OKIM6258clock;
                             OKIM6258Type = vgmBuf[0x94];
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x9c)
+                    {
+                        uint K051649clock = getLE32(0x9c);
+                        if (K051649clock != 0)
+                        {
+                            K051649ClockValue = K051649clock & 0x3fffffff;
+                            K051649DualChipFlag = (K051649clock & 0x40000000) != 0;
+                            if (K051649DualChipFlag) chips.Add("K051649x2");
+                            else chips.Add("K051649");
                         }
                     }
 
