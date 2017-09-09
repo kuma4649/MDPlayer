@@ -45,6 +45,7 @@ namespace MDPlayer
         public uint K054539ClockValue;
         public byte K054539Flags;
         public uint K051649ClockValue;
+        public uint NESClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -60,6 +61,7 @@ namespace MDPlayer
         public bool C352DualChipFlag;
         public bool K054539DualChipFlag;
         public bool K051649DualChipFlag;
+        public bool NESDualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
@@ -416,7 +418,7 @@ namespace MDPlayer
                 vgmCmdTbl[0xb2] = vcDummy2Ope;
             //}
             vgmCmdTbl[0xb3] = vcDummy2Ope;
-            vgmCmdTbl[0xb4] = vcDummy2Ope;
+            vgmCmdTbl[0xb4] = vcNES;
             vgmCmdTbl[0xb5] = vcDummy2Ope;
             vgmCmdTbl[0xb6] = vcDummy2Ope;
             vgmCmdTbl[0xb7] = vcOKIM6258;
@@ -541,6 +543,13 @@ namespace MDPlayer
         private void vcAY8910()
         {
             chipRegister.setAY8910Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcNES()
+        {
+            chipRegister.setNESRegister((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
@@ -819,6 +828,10 @@ namespace MDPlayer
                         case 0xc1:
                             chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
                             dumpData(model, "RF5C164_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
+                            break;
+                        case 0xc2:
+                            chipRegister.writeNESPCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                            dumpData(model, "NES_PCMData", vgmAdr + 9, dataSize);
                             break;
                     }
 
@@ -1630,6 +1643,7 @@ namespace MDPlayer
             YM2413ClockValue = 0;
             HuC6280ClockValue = 0;
             K054539ClockValue = 0;
+            NESClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -1863,6 +1877,16 @@ namespace MDPlayer
 
                 if (version >= 0x0161)
                 {
+                    if (vgmDataOffset > 0x84)
+                    {
+                        uint NESclock = getLE32(0x84);
+                        if (NESclock != 0)
+                        {
+                            chips.Add("NES_APU");
+                            NESClockValue = NESclock;
+                        }
+                    }
+
                     if (vgmDataOffset > 0x90)
                     {
                         uint OKIM6258clock = getLE32(0x90);

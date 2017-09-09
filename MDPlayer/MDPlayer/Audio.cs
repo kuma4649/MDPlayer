@@ -279,6 +279,7 @@ namespace MDPlayer
         public static int ChipPriC352 = 0;
         public static int ChipPriK054539 = 0;
         public static int ChipPriK051649 = 0;
+        public static int ChipPriNES = 0;
 
         public static int ChipSecOPN = 0;
         public static int ChipSecOPN2 = 0;
@@ -298,6 +299,7 @@ namespace MDPlayer
         public static int ChipSecC352 = 0;
         public static int ChipSecK054539 = 0;
         public static int ChipSecK051649 = 0;
+        public static int ChipSecNES = 0;
 
         private static int MasterVolume = 0;
         private static int[] chips = new int[256];
@@ -2572,6 +2574,32 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).NESClockValue != 0)
+                {
+                    MDSound.nes_intf nes = new MDSound.nes_intf();
+
+                    for (int i = 0; i < (((vgm)driverVirtual).NESDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.Nes;
+                        chip.ID = (byte)i;
+                        chip.Instrument = nes;
+                        chip.Update = nes.Update;
+                        chip.Start = nes.Start;
+                        chip.Stop = nes.Stop;
+                        chip.Reset = nes.Reset;
+                        chip.SamplingRate = SamplingRate;
+                        chip.Volume = 0;// setting.balance.NESVolume;
+                        chip.Clock = ((vgm)driverVirtual).NESClockValue;
+                        chip.Option = null;
+                        if (i == 0) ChipPriNES = 1;
+                        else ChipSecNES = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;

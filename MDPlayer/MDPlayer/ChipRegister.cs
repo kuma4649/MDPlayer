@@ -58,6 +58,7 @@ namespace MDPlayer
         public int ChipPriC352 = 0;
         public int ChipPriK054539 = 0;
         public int ChipPriK051649 = 0;
+        public int ChipPriNES = 0;
         public int ChipSecOPN = 0;
         public int ChipSecOPN2 = 0;
         public int ChipSecOPNA = 0;
@@ -77,6 +78,7 @@ namespace MDPlayer
         public int ChipSecC352 = 0;
         public int ChipSecK054539 = 0;
         public int ChipSecK051649 = 0;
+        public int ChipSecNES = 0;
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -642,6 +644,26 @@ namespace MDPlayer
                 if (scAY8910[chipID] == null) return;
 
                 //scAY8910[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public void setNESRegister(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (chipID == 0) ChipPriNES = 2;
+            else ChipSecNES = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctNES[chipID].UseScci)
+                //{
+                    mds.WriteNES((byte)chipID, (byte)dAddr, (byte)dData);
+                //}
+            }
+            else
+            {
+                //if (scNES[chipID] == null) return;
+
+                //scNES[chipID].setRegister(dAddr, dData);
             }
         }
 
@@ -1776,6 +1798,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
+        }
+
+        public void writeNESPCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
+        {
+            if (chipid == 0) ChipPriNES = 2;
+            else ChipSecNES = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteNESRam(chipid, (int)stAdr, (int)dataSize, vgmBuf, (int)vgmAdr);
         }
 
         public void writeRF5C164(byte chipid, byte adr, byte data, enmModel model)
