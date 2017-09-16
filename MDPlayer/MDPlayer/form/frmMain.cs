@@ -4447,6 +4447,12 @@ namespace MDPlayer
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".nsf") != -1)
+            {
+                format = enmFileFormat.NSF;
+                return buf;
+            }
+
             if (filename.ToLower().LastIndexOf(".mid") != -1)
             {
                 format = enmFileFormat.MID;

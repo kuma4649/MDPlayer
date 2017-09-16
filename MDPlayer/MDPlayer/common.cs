@@ -240,7 +240,8 @@ namespace MDPlayer
         XGM = 3,
         S98 = 4,
         MID = 5,
-        RCP = 6
+        RCP = 6,
+        NSF = 7
     }
 
 

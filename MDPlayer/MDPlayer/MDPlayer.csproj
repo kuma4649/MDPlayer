@@ -59,13 +59,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -119,10 +120,17 @@
     <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
+    <Compile Include="Driver\nsf.cs" />
+    <Compile Include="Driver\NSF\chip\nes_apu.cs" />
+    <Compile Include="Driver\NSF\chip\nes_dmc.cs" />
+    <Compile Include="Driver\NSF\chip\nes_fds.cs" />
+    <Compile Include="Driver\NSF\cpu\km6502.cs" />
+    <Compile Include="Driver\NSF\memory\nes_bank.cs" />
+    <Compile Include="Driver\NSF\memory\nes_mem.cs" />
     <Compile Include="Driver\MID.cs" />
-    <Compile Include="Driver\MIDIEvent.cs" />
-    <Compile Include="Driver\MIDIPart.cs" />
-    <Compile Include="Driver\MIDITrack.cs" />
+    <Compile Include="Driver\RCP\MIDIEvent.cs" />
+    <Compile Include="Driver\RCP\MIDIPart.cs" />
+    <Compile Include="Driver\RCP\MIDITrack.cs" />
     <Compile Include="Driver\RCP.cs" />
     <Compile Include="Driver\S98.cs" />
     <Compile Include="Driver\xgm.cs" />

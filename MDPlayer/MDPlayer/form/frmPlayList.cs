@@ -542,7 +542,17 @@ namespace MDPlayer
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|S98ファイル(*.s98)|*.s98|StandardMIDIファイル(*.mid)|*.mid|RCPファイル(*.rcp)|*.rcp|M3Uファイル(*.m3u)|*.m3u|すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp;*.m3u)|*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.mid;*.rcp;*.m3u|すべてのファイル(*.*)|*.*";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|"
+                + "NRDファイル(*.nrd)|*.nrd|"
+                + "XGMファイル(*.xgm)|*.xgm|"
+                + "S98ファイル(*.s98)|*.s98|"
+                + "NSFファイル(*.nsf)|*.nsf|"
+                + "StandardMIDIファイル(*.mid)|*.mid|"
+                + "RCPファイル(*.rcp)|*.rcp|"
+                + "M3Uファイル(*.m3u)|*.m3u|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.mid;*.rcp;*.m3u|"
+                + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex=setting.other.FilterIndex;
 
