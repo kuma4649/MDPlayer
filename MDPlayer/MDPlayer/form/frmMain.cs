@@ -438,7 +438,7 @@ namespace MDPlayer
                     frmPlayList.AddList(args[1]);
                 }
 
-                if (!loadAndPlay(0,args[1], ""))
+                if (!loadAndPlay(0, 0,args[1], ""))
                 {
                     frmPlayList.Stop();
                     Audio.Stop();
@@ -864,7 +864,7 @@ namespace MDPlayer
 
                         frmPlayList.AddList(fn[0]);
 
-                        loadAndPlay(0, fn[0], "");
+                        loadAndPlay(0, 0, fn[0], "");
                         frmPlayList.setStart(-1);
                         oldParam = new MDChipParams();
 
@@ -2083,7 +2083,7 @@ namespace MDPlayer
 
                     if (filename.ToLower().LastIndexOf(".zip") == -1)
                     {
-                        loadAndPlay(0,filename);
+                        loadAndPlay(0,0,filename);
                         frmPlayList.setStart(-1);
                         oldParam = new MDChipParams();
 
@@ -4015,7 +4015,7 @@ namespace MDPlayer
             }
 
             string[] fn = null;
-            Tuple<int, string, string> playFn = null;
+            Tuple<int, int, string, string> playFn = null;
 
             frmPlayList.Stop();
 
@@ -4038,7 +4038,7 @@ namespace MDPlayer
             screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
-            loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3);
+            loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3,playFn.Item4);
             frmPlayList.Play();
 
         }
@@ -5205,7 +5205,7 @@ namespace MDPlayer
                         frmPlayList.AddList(sParam);
                     }
 
-                    if (!loadAndPlay(0, sParam))
+                    if (!loadAndPlay(0,0, sParam))
                     {
                         frmPlayList.Stop();
                         Audio.Stop();
@@ -5278,7 +5278,7 @@ namespace MDPlayer
             return null;
         }
 
-        public bool loadAndPlay(int m , string fn, string zfn = null)
+        public bool loadAndPlay(int m, int songNo, string fn, string zfn = null)
         {
             try
             {
@@ -5306,7 +5306,7 @@ namespace MDPlayer
                     }
                 }
 
-                Audio.SetVGMBuffer(format, srcBuf, outMIDIFn, m);
+                Audio.SetVGMBuffer(format, srcBuf, outMIDIFn, m, songNo);
                 newParam.fileFormat = format;
 
                 if (srcBuf != null)

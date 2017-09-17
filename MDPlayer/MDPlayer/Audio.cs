@@ -305,6 +305,7 @@ namespace MDPlayer
         private static int[] chips = new int[256];
         private static string PlayingFileName;
         private static int MidiMode = 0;
+        private static int SongNo = 0;
         private static enmFileFormat PlayingFileFormat;
         public static cNscci cnscci;
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
@@ -347,8 +348,9 @@ namespace MDPlayer
         private static List<vstInfo2> vstMidiOuts = new List<vstInfo2>();
         private static List<int> vstMidiOutsType = new List<int>();
 
-        public static PlayList.music getMusic(string file, byte[] buf, string zipFile = null)
+        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null)
         {
+            List<PlayList.music> musics = new List<PlayList.music>();
             PlayList.music music = new PlayList.music();
 
             music.format = enmFileFormat.unknown;
@@ -421,23 +423,40 @@ namespace MDPlayer
             }
             else if (file.ToLower().LastIndexOf(".nsf") != -1)
             {
-                music.format = enmFileFormat.NSF;
-                GD3 gd3 = new nsf().getGD3Info(buf, 0);
+                nsf nsf = new nsf();
+                GD3 gd3 = nsf.getGD3Info(buf, 0);
+
                 if (gd3 != null)
                 {
-                    music.title = gd3.TrackName;
-                    music.titleJ = gd3.TrackNameJ;
-                    music.game = gd3.GameName;
-                    music.gameJ = gd3.GameNameJ;
-                    music.composer = gd3.Composer;
-                    music.composerJ = gd3.ComposerJ;
-                    music.vgmby = gd3.VGMBy;
+                    for (int s = 0; s < nsf.songs; s++)
+                    {
+                        music = new PlayList.music();
+                        music.format = enmFileFormat.NSF;
+                        music.fileName = file;
+                        music.zipFileName = zipFile;
+                        music.title = string.Format("{0} - Trk {1}", gd3.GameName, s);
+                        music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s);
+                        music.game = gd3.GameName;
+                        music.gameJ = gd3.GameNameJ;
+                        music.composer = gd3.Composer;
+                        music.composerJ = gd3.ComposerJ;
+                        music.vgmby = gd3.VGMBy;
+                        music.converted = gd3.Converted;
+                        music.notes = gd3.Notes;
+                        music.songNo = s;
 
-                    music.converted = gd3.Converted;
-                    music.notes = gd3.Notes;
+                        musics.Add(music);
+                    }
+
+                    return musics;
                 }
                 else
                 {
+                    music.format = enmFileFormat.NSF;
+                    music.fileName = file;
+                    music.zipFileName = zipFile;
+                    music.game = "unknown";
+                    music.type = "-";
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
 
@@ -500,8 +519,16 @@ namespace MDPlayer
             }
             else
             {
-                if (buf.Length < 0x40) return music;
-                if (common.getLE32(buf, 0x00) != vgm.FCC_VGM) return music;
+                if (buf.Length < 0x40)
+                {
+                    musics.Add(music);
+                    return musics;
+                }
+                if (common.getLE32(buf, 0x00) != vgm.FCC_VGM)
+                {
+                    musics.Add(music);
+                    return musics;
+                }
 
                 music.format = enmFileFormat.VGM;
                 uint version = common.getLE32(buf, 0x08);
@@ -512,7 +539,11 @@ namespace MDPlayer
                 if (vgmGd3 != 0)
                 {
                     uint vgmGd3Id = common.getLE32(buf, vgmGd3 + 0x14);
-                    if (vgmGd3Id != vgm.FCC_GD3) return music;
+                    if (vgmGd3Id != vgm.FCC_GD3)
+                    {
+                        musics.Add(music);
+                        return musics;
+                    }
                     gd3 = (new vgm()).getGD3Info(buf, vgmGd3);
                 }
 
@@ -540,7 +571,8 @@ namespace MDPlayer
                 music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
             }
 
-            return music;
+            musics.Add(music);
+            return musics;
         }
 
         private static string getNRDString(byte[] buf, ref int index)
@@ -1055,13 +1087,14 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode,int songNo)
         {
             Stop();
             PlayingFileFormat = format;
             vgmBuf = srcBuf;
             PlayingFileName = playingFileName;
             MidiMode = midiMode;
+            SongNo = songNo;
             chipRegister.SetFileName(playingFileName);
         }
 
@@ -1095,6 +1128,7 @@ namespace MDPlayer
                 driverReal = new S98();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
+                
                 return s98Play(setting);
             }
 
@@ -1122,6 +1156,7 @@ namespace MDPlayer
                 driverReal = new nsf();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
+
                 return nsfPlay(setting);
             }
 
@@ -2079,6 +2114,8 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
+                ((nsf)driverVirtual).song = SongNo;
+                ((nsf)driverReal).song = SongNo;
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
                 if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
 
@@ -3920,7 +3957,7 @@ namespace MDPlayer
                     if ((driverReal is vgm) && ((vgm)driverReal).isDataBlock) return mds.Update(buffer, offset, sampleCount, null);
 
                     driverVirtual.vstDelta = 0;
-                    cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount/2, offset)*2;
+                    cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount / 2, offset) * 2;
                 }
 
                 //for (i = 0; i < sampleCount; i++)

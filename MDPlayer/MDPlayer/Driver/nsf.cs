@@ -99,7 +99,7 @@ namespace MDPlayer
 
             bodysize = buf.Length - 0x80;
 
-            song = start - 1;
+            //song = start - 1;
 
             GD3 gd3 = new GD3();
             gd3.GameName = title;
@@ -123,7 +123,12 @@ namespace MDPlayer
             this.useChip = useChip;
             this.latency = latency;
 
-            if (model == enmModel.RealModel) return true;
+            if (model == enmModel.RealModel)
+            {
+                Stopped = true;
+                vgmCurLoop = 9999;
+                return true;
+            }
 
             Counter = 0;
             TotalCounter = 0;
@@ -228,6 +233,8 @@ namespace MDPlayer
         private nes_dmc nes_dmc = null;
         private nes_fds nes_fds = null;
 
+        private NESDetector ld = null;
+
         private double rate = 44100.0;
         private double cpu_clock_rest;
         private double apu_clock_rest;
@@ -274,6 +281,10 @@ namespace MDPlayer
             stack.DetachAll();
             layer.DetachAll();
             apu_bus.DetachAll();
+
+            ld = new NESDetector();
+            ld.Reset();
+            stack.Attach(ld);
 
             apu_bus.Attach(nes_apu);
             apu_bus.Attach(nes_dmc);
@@ -331,8 +342,6 @@ namespace MDPlayer
             layer.Reset();
             nes_cpu.Reset();
 
-            song = 0;
-
             nes_cpu.Start(init_address, play_address, speed, song, (region == enmREGION.PAL) ? 1 : 0);
         }
 
@@ -367,6 +376,8 @@ namespace MDPlayer
 
         public UInt32 Render(Int16[] b, UInt32 length,Int32 offset)
         {
+            if (model == enmModel.RealModel) return length;
+ 
             Int32[] buf = new Int32[2];
             Int32[] _out = new Int32[2];
             //Int32 outm;
@@ -376,11 +387,15 @@ namespace MDPlayer
             master_volume = 0x80;// (*config)["MASTER_VOLUME"];
 
             double apu_clock_per_sample = nes_cpu.NES_BASECYCLES / rate;
-            double cpu_clock_per_sample = apu_clock_per_sample * 1;// ((double)((*config)["MULT_SPEED"].GetInt()) / 256.0);
+            double cpu_clock_per_sample = apu_clock_per_sample * vgmSpeed;// ((double)((*config)["MULT_SPEED"].GetInt()) / 256.0);
+
 
             for (i = 0; i < length; i++)
             {
                 //total_render++;
+                vgmSpeedCounter += vgmSpeed;
+                Counter=(Int32)vgmSpeedCounter;
+                vgmFrameCounter++;
 
                 // tick CPU
                 cpu_clock_rest += cpu_clock_per_sample;
@@ -459,13 +474,35 @@ namespace MDPlayer
                 //b += nch;
             }
 
-            time_in_ms += (int)(1000 * length / rate * 1.0);// ((* config)["MULT_SPEED"].GetInt()) / 256);
+            time_in_ms += (int)(1000 * length / rate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
 
             //CheckTerminal();
-            //DetectLoop();
+            DetectLoop();
             //DetectSilent();
+            if (!playtime_detected) vgmCurLoop = 0;
+            else
+            {
+                vgmCurLoop = (uint)(Counter / TotalCounter);
+            }
 
             return length;
+        }
+
+        public bool playtime_detected = false;
+
+        public void DetectLoop()
+        {
+            if (ld.IsLooped(time_in_ms, 30000, 5000) && !playtime_detected)
+            {
+                playtime_detected = true;
+                TotalCounter = (long)(ld.GetLoopEnd() * 44100L/1000L);
+                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * 44100L/1000L);
+                //TotalCounter = Counter;
+                //playtime_detected = true;
+                //time_in_ms = ld.GetLoopEnd();
+                //loop_in_ms = ld.GetLoopEnd() - ld.GetLoopStart();
+                //fade_in_ms = -1;
+            }
         }
 
 

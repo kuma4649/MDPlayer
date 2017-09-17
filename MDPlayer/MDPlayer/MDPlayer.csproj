@@ -125,6 +125,7 @@
     <Compile Include="Driver\NSF\chip\nes_dmc.cs" />
     <Compile Include="Driver\NSF\chip\nes_fds.cs" />
     <Compile Include="Driver\NSF\cpu\km6502.cs" />
+    <Compile Include="Driver\NSF\detect.cs" />
     <Compile Include="Driver\NSF\memory\nes_bank.cs" />
     <Compile Include="Driver\NSF\memory\nes_mem.cs" />
     <Compile Include="Driver\MID.cs" />

@@ -33,6 +33,8 @@ namespace MDPlayer
             public string vgmby;
             public string remark;
             public string duration;
+
+            public int songNo;
         }
 
         private List<music> _lstMusic = new List<music>();
