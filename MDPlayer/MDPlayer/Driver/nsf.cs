@@ -239,7 +239,7 @@ namespace MDPlayer
         private double cpu_clock_rest;
         private double apu_clock_rest;
         private Int32 time_in_ms;
-
+        private long silent_length = 0;
 
         private void nsfInit()
         {
@@ -334,6 +334,7 @@ namespace MDPlayer
         {
             apu_clock_rest = 0.0;
             cpu_clock_rest = 0.0;
+            silent_length = 0;
 
             enmREGION region = GetRegion(pal_ntsc);
             double speed;
@@ -380,7 +381,8 @@ namespace MDPlayer
  
             Int32[] buf = new Int32[2];
             Int32[] _out = new Int32[2];
-            //Int32 outm;
+            Int32 outm;
+            Int32 last_out = 0;
             UInt32 i;
             UInt32 master_volume;
 
@@ -426,9 +428,9 @@ namespace MDPlayer
                 //mixer.Render(buf);
                 nes_apu.Tick((UInt32)apu_clocks);
                 nes_apu.Render(buf);
-                //outm = (buf[0] + buf[1]) >> 1; // mono mix
-                //if (outm == last_out) silent_length++; else silent_length = 0;
-                //last_out = outm;
+                outm = (buf[0] + buf[1]) >> 1; // mono mix
+                if (outm == last_out) silent_length++; else silent_length = 0;
+                last_out = outm;
 
                 // echo.FastRender(buf);
                 //dcf.FastRender(buf);
@@ -478,11 +480,12 @@ namespace MDPlayer
 
             //CheckTerminal();
             DetectLoop();
-            //DetectSilent();
+            DetectSilent();
             if (!playtime_detected) vgmCurLoop = 0;
             else
             {
-                vgmCurLoop = (uint)(Counter / TotalCounter);
+                if (TotalCounter != 0) vgmCurLoop = (uint)(Counter / TotalCounter);
+                else Stopped = true;
             }
 
             return length;
@@ -496,15 +499,22 @@ namespace MDPlayer
             {
                 playtime_detected = true;
                 TotalCounter = (long)(ld.GetLoopEnd() * 44100L/1000L);
+                if (TotalCounter == 0) TotalCounter = Counter;
                 LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * 44100L/1000L);
-                //TotalCounter = Counter;
-                //playtime_detected = true;
-                //time_in_ms = ld.GetLoopEnd();
-                //loop_in_ms = ld.GetLoopEnd() - ld.GetLoopStart();
-                //fade_in_ms = -1;
             }
         }
 
+        public void DetectSilent()
+        {
+            if (silent_length>44100*3 && !playtime_detected)
+            {
+                playtime_detected = true;
+                TotalCounter = (long)(ld.GetLoopEnd() * 44100L / 1000L);
+                if (TotalCounter == 0) TotalCounter = Counter;
+                LoopCounter = 0;
+                Stopped = true;
+            }
+        }
 
     }
 }
