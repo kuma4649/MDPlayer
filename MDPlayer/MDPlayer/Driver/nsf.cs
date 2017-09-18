@@ -233,6 +233,8 @@ namespace MDPlayer
         private nes_dmc nes_dmc = null;
         private nes_fds nes_fds = null;
         private nes_n106 nes_n106 = null;
+        private nes_vrc6 nes_vrc6 = null;
+        private nes_mmc5 nes_mmc5 = null;
 
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
@@ -242,6 +244,7 @@ namespace MDPlayer
         private double apu_clock_rest;
         private Int32 time_in_ms;
         private long silent_length = 0;
+        private Int32 last_out = 0;
 
         private void nsfInit()
         {
@@ -252,6 +255,8 @@ namespace MDPlayer
             nes_dmc = new nes_dmc();
             nes_fds = new nes_fds();
             nes_n106 = new nes_n106();
+            nes_vrc6 = new nes_vrc6();
+            nes_mmc5 = new nes_mmc5();
 
             nes_apu.chip = nes_apu.apu.NES_APU_np_Create(1789773, 44100);
             nes_apu.Reset();
@@ -262,6 +267,13 @@ namespace MDPlayer
             nes_n106.SetClock(1789773);
             nes_n106.SetRate(44100);
             nes_n106.Reset();
+            nes_vrc6.SetClock(1789773);
+            nes_vrc6.SetRate(44100);
+            nes_vrc6.Reset();
+            nes_mmc5.SetClock(1789773);
+            nes_mmc5.SetRate(44100);
+            nes_mmc5.Reset();
+            nes_mmc5.SetCPU(nes_cpu);
 
             nes_dmc.dmc.nes_apu = nes_apu.apu;
             nes_dmc.dmc.NES_DMC_np_SetAPU(nes_dmc.chip, nes_apu.chip);
@@ -313,6 +325,14 @@ namespace MDPlayer
             if (use_n106)
             {
                 apu_bus.Attach(nes_n106);
+            }
+            if (use_vrc6)
+            {
+                apu_bus.Attach(nes_vrc6);
+            }
+            if (use_mmc5)
+            {
+                apu_bus.Attach(nes_mmc5);
             }
 
             if (bmax > 0) layer.Attach(nes_bank);
@@ -394,7 +414,6 @@ namespace MDPlayer
             Int32[] buf = new Int32[2];
             Int32[] _out = new Int32[2];
             Int32 outm;
-            Int32 last_out = 0;
             UInt32 i;
             UInt32 master_volume;
 
@@ -421,8 +440,8 @@ namespace MDPlayer
 
                     // tick APU frame sequencer
                     nes_dmc.dmc.TickFrameSequence(nes_dmc.chip, real_cpu_clocks);
-                    //if (use_mmc5)
-                    //    nes_mmc5.TickFrameSequence(real_cpu_clocks);
+                    if (use_mmc5)
+                        nes_mmc5.TickFrameSequence(real_cpu_clocks);
                 }
 
                 //UpdateInfo();
@@ -457,10 +476,13 @@ namespace MDPlayer
                 _out[0] += buf[0];
                 _out[1] += buf[1];
 
-                nes_fds.Tick((UInt32)apu_clocks);
-                nes_fds.Render(buf);
-                _out[0] += buf[0];
-                _out[1] += buf[1];
+                if (use_fds)
+                {
+                    nes_fds.Tick((UInt32)apu_clocks);
+                    nes_fds.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
 
                 if (use_n106)
                 {
@@ -470,8 +492,25 @@ namespace MDPlayer
                     _out[1] += buf[1];
                 }
 
+                if (use_vrc6)
+                {
+                    nes_vrc6.Tick((UInt32)apu_clocks);
+                    nes_vrc6.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
+
+                if (use_mmc5)
+                {
+                    nes_mmc5.Tick((UInt32)apu_clocks);
+                    nes_mmc5.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
+
                 outm = (_out[0] + _out[1]) >> 1; // mono mix
-                if (outm == last_out) silent_length++; else silent_length = 0;
+                if (outm == last_out) silent_length++;
+                else silent_length = 0;
                 last_out = outm;
 
                 _out[0] = (Int32)((_out[0] * master_volume) >> 8);
