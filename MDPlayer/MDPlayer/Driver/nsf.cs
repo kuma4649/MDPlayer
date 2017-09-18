@@ -232,8 +232,10 @@ namespace MDPlayer
         private nes_apu nes_apu = null;
         private nes_dmc nes_dmc = null;
         private nes_fds nes_fds = null;
+        private nes_n106 nes_n106 = null;
 
         private NESDetector ld = null;
+//        private NESDetectorEx ld = null;
 
         private double rate = 44100.0;
         private double cpu_clock_rest;
@@ -249,6 +251,7 @@ namespace MDPlayer
             nes_apu = new nes_apu();
             nes_dmc = new nes_dmc();
             nes_fds = new nes_fds();
+            nes_n106 = new nes_n106();
 
             nes_apu.chip = nes_apu.apu.NES_APU_np_Create(1789773, 44100);
             nes_apu.Reset();
@@ -256,6 +259,10 @@ namespace MDPlayer
             nes_dmc.Reset();
             nes_fds.chip = nes_fds.fds.NES_FDS_Create(1789773, 44100);
             nes_fds.Reset();
+            nes_n106.SetClock(1789773);
+            nes_n106.SetRate(44100);
+            nes_n106.Reset();
+
             nes_dmc.dmc.nes_apu = nes_apu.apu;
             nes_dmc.dmc.NES_DMC_np_SetAPU(nes_dmc.chip, nes_apu.chip);
 
@@ -283,6 +290,7 @@ namespace MDPlayer
             apu_bus.DetachAll();
 
             ld = new NESDetector();
+//            ld = new NESDetectorEx();
             ld.Reset();
             stack.Attach(ld);
 
@@ -301,6 +309,10 @@ namespace MDPlayer
             {
                 nes_mem.SetFDSMode(false);
                 nes_bank.SetFDSMode(false);
+            }
+            if (use_n106)
+            {
+                apu_bus.Attach(nes_n106);
             }
 
             if (bmax > 0) layer.Attach(nes_bank);
@@ -428,9 +440,6 @@ namespace MDPlayer
                 //mixer.Render(buf);
                 nes_apu.Tick((UInt32)apu_clocks);
                 nes_apu.Render(buf);
-                outm = (buf[0] + buf[1]) >> 1; // mono mix
-                if (outm == last_out) silent_length++; else silent_length = 0;
-                last_out = outm;
 
                 // echo.FastRender(buf);
                 //dcf.FastRender(buf);
@@ -452,6 +461,18 @@ namespace MDPlayer
                 nes_fds.Render(buf);
                 _out[0] += buf[0];
                 _out[1] += buf[1];
+
+                if (use_n106)
+                {
+                    nes_n106.Tick((UInt32)apu_clocks);
+                    nes_n106.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
+
+                outm = (_out[0] + _out[1]) >> 1; // mono mix
+                if (outm == last_out) silent_length++; else silent_length = 0;
+                last_out = outm;
 
                 _out[0] = (Int32)((_out[0] * master_volume) >> 8);
                 _out[1] = (Int32)((_out[1] * master_volume) >> 8);

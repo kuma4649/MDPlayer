@@ -121,9 +121,11 @@
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\nsf.cs" />
+    <Compile Include="Driver\NSF\chip\IDeviceInfo.cs" />
     <Compile Include="Driver\NSF\chip\nes_apu.cs" />
     <Compile Include="Driver\NSF\chip\nes_dmc.cs" />
     <Compile Include="Driver\NSF\chip\nes_fds.cs" />
+    <Compile Include="Driver\NSF\chip\nes_n106.cs" />
     <Compile Include="Driver\NSF\cpu\km6502.cs" />
     <Compile Include="Driver\NSF\detect.cs" />
     <Compile Include="Driver\NSF\memory\nes_bank.cs" />
