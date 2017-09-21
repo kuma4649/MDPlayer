@@ -6,6 +6,8 @@ using System.Diagnostics;
 using MDSound;
 using Jacobi.Vst.Interop.Host;
 using Jacobi.Vst.Core;
+using System.IO;
+using System.IO.Compression;
 
 namespace MDPlayer
 {
@@ -348,7 +350,7 @@ namespace MDPlayer
         private static List<vstInfo2> vstMidiOuts = new List<vstInfo2>();
         private static List<int> vstMidiOutsType = new List<int>();
 
-        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null)
+        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null,ZipArchiveEntry entry=null)
         {
             List<PlayList.music> musics = new List<PlayList.music>();
             PlayList.music music = new PlayList.music();
@@ -363,7 +365,7 @@ namespace MDPlayer
             if (file.ToLower().LastIndexOf(".nrd") != -1)
             {
 
-                music.format = enmFileFormat.NRTDRV;
+                music.format = enmFileFormat.NRT;
                 uint index = 42;
                 GD3 gd3 = (new NRTDRV()).getGD3Info(buf, index);
                 music.title = gd3.TrackName;
@@ -434,8 +436,8 @@ namespace MDPlayer
                         music.format = enmFileFormat.NSF;
                         music.fileName = file;
                         music.zipFileName = zipFile;
-                        music.title = string.Format("{0} - Trk {1}", gd3.GameName, s);
-                        music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s);
+                        music.title = string.Format("{0} - Trk {1}", gd3.GameName, s+1);
+                        music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s+1);
                         music.game = gd3.GameName;
                         music.gameJ = gd3.GameNameJ;
                         music.composer = gd3.Composer;
@@ -514,6 +516,298 @@ namespace MDPlayer
                 if (music.title == "" && music.titleJ == "")
                 {
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+
+            }
+            else
+            {
+                if (buf.Length < 0x40)
+                {
+                    musics.Add(music);
+                    return musics;
+                }
+                if (common.getLE32(buf, 0x00) != vgm.FCC_VGM)
+                {
+                    //musics.Add(music);
+                    //return musics;
+                    //VGZかもしれないので確認する
+                    try
+                    {
+                        int num;
+                        buf = new byte[1024]; // 1Kbytesずつ処理する
+
+                        Stream inStream; // 入力ストリーム
+                        if (entry == null)
+                        {
+                            inStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                        }
+                        else
+                        {
+                            inStream = entry.Open();
+                        }
+                        GZipStream decompStream // 解凍ストリーム
+                          = new GZipStream(
+                            inStream, // 入力元となるストリームを指定
+                            CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                        MemoryStream outStream // 出力ストリーム
+                          = new MemoryStream();
+
+                        using (inStream)
+                        using (outStream)
+                        using (decompStream)
+                        {
+                            while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                            {
+                                outStream.Write(buf, 0, num);
+                            }
+                        }
+
+                        buf = outStream.ToArray();
+                    }
+                    catch
+                    {
+                        //vgzではなかった
+                    }
+                }
+
+                if (common.getLE32(buf, 0x00) != vgm.FCC_VGM)
+                {
+                    musics.Add(music);
+                    return musics;
+                }
+
+                music.format = enmFileFormat.VGM;
+                uint version = common.getLE32(buf, 0x08);
+                string Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
+
+                uint vgmGd3 = common.getLE32(buf, 0x14);
+                GD3 gd3 = new GD3();
+                if (vgmGd3 != 0)
+                {
+                    uint vgmGd3Id = common.getLE32(buf, vgmGd3 + 0x14);
+                    if (vgmGd3Id != vgm.FCC_GD3)
+                    {
+                        musics.Add(music);
+                        return musics;
+                    }
+                    gd3 = (new vgm()).getGD3Info(buf, vgmGd3);
+                }
+
+                uint TotalCounter = common.getLE32(buf, 0x18);
+                uint vgmLoopOffset = common.getLE32(buf, 0x1c);
+                uint LoopCounter = common.getLE32(buf, 0x20);
+
+                music.title = gd3.TrackName;
+                music.titleJ = gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+                double sec = (double)TotalCounter / (double)SamplingRate;
+                int TCminutes = (int)(sec / 60);
+                sec -= TCminutes * 60;
+                int TCsecond = (int)sec;
+                sec -= TCsecond;
+                int TCmillisecond = (int)(sec * 100.0);
+                music.duration = string.Format("{0:D2}:{1:D2}:{2:D2}", TCminutes, TCsecond, TCmillisecond);
+            }
+
+            musics.Add(music);
+            return musics;
+        }
+
+        public static List<PlayList.music> getMusic(PlayList.music ms, byte[] buf, string zipFile = null)
+        {
+            List<PlayList.music> musics = new List<PlayList.music>();
+            PlayList.music music = new PlayList.music();
+
+            music.format = enmFileFormat.unknown;
+            music.fileName = ms.fileName;
+            music.zipFileName = zipFile;
+            music.title = "unknown";
+            music.game = "unknown";
+            music.type = "-";
+
+            if (ms.fileName.ToLower().LastIndexOf(".nrd") != -1)
+            {
+
+                music.format = enmFileFormat.NRT;
+                uint index = 42;
+                GD3 gd3 = (new NRTDRV()).getGD3Info(buf, index);
+                music.title = gd3.TrackName;
+                music.titleJ = gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
+            else if (ms.fileName.ToLower().LastIndexOf(".xgm") != -1)
+            {
+                music.format = enmFileFormat.XGM;
+                GD3 gd3 = new xgm().getGD3Info(buf, 0);
+                music.title = gd3.TrackName;
+                music.titleJ = gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+                if (music.title == "" && music.titleJ == "" && music.game == "" && music.gameJ == "" && music.composer == "" && music.composerJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+            }
+            else if (ms.fileName.ToLower().LastIndexOf(".s98") != -1)
+            {
+                music.format = enmFileFormat.S98;
+                GD3 gd3 = new S98().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+
+            }
+            else if (ms.fileName.ToLower().LastIndexOf(".nsf") != -1)
+            {
+                nsf nsf = new nsf();
+                GD3 gd3 = nsf.getGD3Info(buf, 0);
+
+                if (gd3 != null)
+                {
+                    if (ms.songNo == -1)
+                    {
+                        for (int s = 0; s < nsf.songs; s++)
+                        {
+                            music = new PlayList.music();
+                            music.format = enmFileFormat.NSF;
+                            music.fileName = ms.fileName;
+                            music.zipFileName = zipFile;
+                            music.title = string.Format("{0} - Trk {1}", gd3.GameName, s);
+                            music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s);
+                            music.game = gd3.GameName;
+                            music.gameJ = gd3.GameNameJ;
+                            music.composer = gd3.Composer;
+                            music.composerJ = gd3.ComposerJ;
+                            music.vgmby = gd3.VGMBy;
+                            music.converted = gd3.Converted;
+                            music.notes = gd3.Notes;
+                            music.songNo = s;
+
+                            musics.Add(music);
+                        }
+
+                        return musics;
+
+                    }
+                    else
+                    {
+                        music.format = enmFileFormat.NSF;
+                        music.fileName = ms.fileName;
+                        music.zipFileName = zipFile;
+                        music.title = ms.title;
+                        music.titleJ = ms.titleJ;
+                        music.game = gd3.GameName;
+                        music.gameJ = gd3.GameNameJ;
+                        music.composer = gd3.Composer;
+                        music.composerJ = gd3.ComposerJ;
+                        music.vgmby = gd3.VGMBy;
+                        music.converted = gd3.Converted;
+                        music.notes = gd3.Notes;
+                        music.songNo = ms.songNo;
+                    }
+                }
+                else
+                {
+                    music.format = enmFileFormat.NSF;
+                    music.fileName = ms.fileName;
+                    music.zipFileName = zipFile;
+                    music.game = "unknown";
+                    music.type = "-";
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+
+            }
+            else if (ms.fileName.ToLower().LastIndexOf(".mid") != -1)
+            {
+                music.format = enmFileFormat.MID;
+                GD3 gd3 = new MID().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+
+                if (music.title == "" && music.titleJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+
+            }
+            else if (ms.fileName.ToLower().LastIndexOf(".rcp") != -1)
+            {
+                music.format = enmFileFormat.RCP;
+                GD3 gd3 = new RCP().getGD3Info(buf, 0);
+                if (gd3 != null)
+                {
+                    music.title = gd3.TrackName;
+                    music.titleJ = gd3.TrackNameJ;
+                    music.game = gd3.GameName;
+                    music.gameJ = gd3.GameNameJ;
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.ComposerJ;
+                    music.vgmby = gd3.VGMBy;
+
+                    music.converted = gd3.Converted;
+                    music.notes = gd3.Notes;
+                }
+                else
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
+                }
+
+                if (music.title == "" && music.titleJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));
                 }
 
             }
@@ -1104,7 +1398,7 @@ namespace MDPlayer
 
             waveWriter.Open(PlayingFileName);
 
-            if (PlayingFileFormat == enmFileFormat.NRTDRV)
+            if (PlayingFileFormat == enmFileFormat.NRT)
             {
                 driverVirtual = new NRTDRV();
                 driverReal = new NRTDRV();
@@ -3609,8 +3903,8 @@ namespace MDPlayer
             bool v;
             bool r;
 
-            v = driverVirtual.Stopped;
-            r = driverReal.Stopped;
+            v = driverVirtual == null ? true : driverVirtual.Stopped;
+            r = driverReal == null ? true : driverReal.Stopped;
             return v && r;
         }
 

@@ -181,6 +181,23 @@ namespace MDPlayer
             return delta;
         }
 
+        public static enmFileFormat CheckExt(string filename)
+        {
+            if (filename.ToLower().LastIndexOf(".m3u") != -1) return enmFileFormat.M3U;
+            if (filename.ToLower().LastIndexOf(".mid") != -1) return enmFileFormat.MID;
+            if (filename.ToLower().LastIndexOf(".nrd") != -1) return enmFileFormat.NRT;
+            if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
+            if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
+            if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
+            if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
+            if (filename.ToLower().LastIndexOf(".vgz") != -1) return enmFileFormat.VGM;
+            if (filename.ToLower().LastIndexOf(".xgm") != -1) return enmFileFormat.XGM;
+            if (filename.ToLower().LastIndexOf(".zip") != -1) return enmFileFormat.ZIP;
+
+            return enmFileFormat.unknown;
+        }
+
+
     }
 
     public enum enmModel
@@ -236,12 +253,14 @@ namespace MDPlayer
     {
         unknown = 0,
         VGM = 1,
-        NRTDRV = 2,
+        NRT = 2,
         XGM = 3,
         S98 = 4,
         MID = 5,
         RCP = 6,
-        NSF = 7
+        NSF = 7,
+        ZIP = 8,
+        M3U = 9
     }
 
 

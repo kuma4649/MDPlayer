@@ -37,7 +37,7 @@ namespace MDPlayer
         private int? _StartPartIndex = null;
         private int? _EndPartIndex = null;
         private int _NumberPart = 0;
-        private int _NowPartIndex = 0;
+        //private int _NowPartIndex = 0;
         private MIDIPart _NowPart = null;
         private int _NowTick = 0;
         private int _NextEventTick = 0;

@@ -298,6 +298,7 @@
     </Compile>
     <Compile Include="HostCommandStub.cs" />
     <Compile Include="log.cs" />
+    <Compile Include="M3U.cs" />
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
     <Compile Include="midiOutInfo.cs" />

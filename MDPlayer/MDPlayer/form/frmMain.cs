@@ -435,7 +435,8 @@ namespace MDPlayer
                 PlayList pl = frmPlayList.getPlayList();
                 if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != args[1])
                 {
-                    frmPlayList.AddList(args[1]);
+                    pl.AddFile(args[1]);
+                    //frmPlayList.AddList(args[1]);
                 }
 
                 if (!loadAndPlay(0, 0,args[1], ""))
@@ -862,10 +863,14 @@ namespace MDPlayer
                     {
                         frmPlayList.Stop();
 
-                        frmPlayList.AddList(fn[0]);
+                        //frmPlayList.AddList(fn[0]);
+                        frmPlayList.getPlayList().AddFile(fn[0]);
 
-                        loadAndPlay(0, 0, fn[0], "");
-                        frmPlayList.setStart(-1);
+                        if (common.CheckExt(fn[0]) != enmFileFormat.M3U && common.CheckExt(fn[0]) != enmFileFormat.ZIP)
+                        {
+                            loadAndPlay(0, 0, fn[0], "");
+                            frmPlayList.setStart(-1);
+                        }
                         oldParam = new MDChipParams();
 
                         frmPlayList.Play();
@@ -876,7 +881,11 @@ namespace MDPlayer
 
                         try
                         {
-                            foreach (string f in fn) frmPlayList.AddList(f);
+                            foreach (string f in fn)
+                            {
+                                frmPlayList.getPlayList().AddFile(f);
+                                //frmPlayList.AddList(f);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -2079,7 +2088,8 @@ namespace MDPlayer
 
                     frmPlayList.Stop();
 
-                    frmPlayList.AddList(filename);
+                    frmPlayList.getPlayList().AddFile(filename);
+                    //frmPlayList.AddList(filename);
 
                     if (filename.ToLower().LastIndexOf(".zip") == -1)
                     {
@@ -4024,7 +4034,8 @@ namespace MDPlayer
             {
                 fn = fileOpen(false);
                 if (fn == null) return;
-                frmPlayList.AddList(fn[0]);
+                frmPlayList.getPlayList().AddFile(fn[0]);
+                //frmPlayList.AddList(fn[0]);
                 playFn = frmPlayList.setStart(-1); //last
             }
             else
@@ -4431,7 +4442,7 @@ namespace MDPlayer
             //.NRDファイルの場合は拡張子判定
             if (filename.ToLower().LastIndexOf(".nrd") != -1)
             {
-                format = enmFileFormat.NRTDRV;
+                format = enmFileFormat.NRT;
                 return buf;
             }
 
@@ -5202,7 +5213,8 @@ namespace MDPlayer
                     PlayList pl = frmPlayList.getPlayList();
                     if (pl.lstMusic.Count < 1 || pl.lstMusic[pl.lstMusic.Count - 1].fileName != sParam)
                     {
-                        frmPlayList.AddList(sParam);
+                        frmPlayList.getPlayList().AddFile(sParam);
+                        //frmPlayList.AddList(sParam);
                     }
 
                     if (!loadAndPlay(0,0, sParam))
@@ -5300,9 +5312,13 @@ namespace MDPlayer
                     {
                         ZipArchiveEntry entry = archive.GetEntry(fn);
                         string arcFn = "";
-                        srcBuf = getBytesFromZipFile(entry, out arcFn);
-                        if (arcFn != "") outMIDIFn = arcFn;
-                        format = enmFileFormat.VGM;
+
+                        format = common.CheckExt(fn);
+                        if (format != enmFileFormat.unknown)
+                        {
+                            srcBuf = getBytesFromZipFile(entry, out arcFn);
+                            if (arcFn != "") outMIDIFn = arcFn;
+                        }
                     }
                 }
 
@@ -5329,46 +5345,51 @@ namespace MDPlayer
         public byte[] getBytesFromZipFile(ZipArchiveEntry entry, out string arcFn)
         {
             byte[] buf = null;
-            arcFn = "";
-            if (entry.FullName.EndsWith(".vgm", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".vgz", StringComparison.OrdinalIgnoreCase))
+            arcFn = entry.FullName;
+            using (BinaryReader reader = new BinaryReader(entry.Open()))
             {
-                //Console.WriteLine(entry.FullName);
-                arcFn = entry.FullName;
-                using (BinaryReader reader = new BinaryReader(entry.Open()))
+                buf = reader.ReadBytes((int)entry.Length);
+            }
+
+            if (common.CheckExt(entry.FullName) == enmFileFormat.VGM)
+            {
+                try
                 {
-                    buf = reader.ReadBytes((int)entry.Length);
-                }
-
-                uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
-                if (vgm != FCC_VGM)
-                {
-                    int num;
-                    buf = new byte[1024]; // 1Kbytesずつ処理する
-
-                    Stream inStream // 入力ストリーム
-                      = entry.Open();
-
-                    GZipStream decompStream // 解凍ストリーム
-                      = new GZipStream(
-                        inStream, // 入力元となるストリームを指定
-                        CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                    MemoryStream outStream // 出力ストリーム
-                      = new MemoryStream();
-
-                    using (inStream)
-                    using (outStream)
-                    using (decompStream)
+                    uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
+                    if (vgm != FCC_VGM)
                     {
-                        while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                        int num;
+                        buf = new byte[1024]; // 1Kbytesずつ処理する
+
+                        Stream inStream // 入力ストリーム
+                          = entry.Open();
+
+                        GZipStream decompStream // 解凍ストリーム
+                          = new GZipStream(
+                            inStream, // 入力元となるストリームを指定
+                            CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                        MemoryStream outStream // 出力ストリーム
+                          = new MemoryStream();
+
+                        using (inStream)
+                        using (outStream)
+                        using (decompStream)
                         {
-                            outStream.Write(buf, 0, num);
+                            while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                            {
+                                outStream.Write(buf, 0, num);
+                            }
                         }
+
+                        buf = outStream.ToArray();
                     }
-
-                    buf = outStream.ToArray();
                 }
-
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                    buf = null;
+                }
             }
 
             return buf;

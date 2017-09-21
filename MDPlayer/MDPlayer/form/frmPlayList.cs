@@ -36,6 +36,7 @@ namespace MDPlayer
             InitializeComponent();
 
             playList = PlayList.Load(null);
+            playList.SetDGV(dgvList);
             playIndex = -1;
 
             oldPlayIndex = -1;
@@ -139,56 +140,107 @@ namespace MDPlayer
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
 
-        public void AddList(string file)
-        {
-            if (file.ToLower().LastIndexOf(".zip") != -1)
-            {
-                using (ZipArchive archive = ZipFile.OpenRead(file))
-                {
-                    foreach (ZipArchiveEntry entry in archive.Entries)
-                    {
-                        string dummy;
-                        byte[] buf = frmMain.getBytesFromZipFile(entry,out dummy);
+        //public void AddList(string file)
+        //{
+        //    if (file.ToLower().LastIndexOf(".zip") != -1)
+        //    {
+        //        using (ZipArchive archive = ZipFile.OpenRead(file))
+        //        {
+        //            foreach (ZipArchiveEntry entry in archive.Entries)
+        //            {
+        //                string dummy;
+        //                byte[] buf = frmMain.getBytesFromZipFile(entry,out dummy);
 
-                        if (buf != null)
-                        {
-                            List<PlayList.music> zipmusics = Audio.getMusic(entry.FullName, buf, file);
-                            List<DataGridViewRow> ziprows = makeRow(zipmusics);
+        //                if (buf != null)
+        //                {
+        //                    List<PlayList.music> zipmusics = Audio.getMusic(entry.FullName, buf, file);
+        //                    List<DataGridViewRow> ziprows = makeRow(zipmusics);
 
-                            foreach (DataGridViewRow ziprow in ziprows)
-                            {
-                                dgvList.Rows.Add(ziprow);
-                            }
-                            foreach (PlayList.music zipmusic in zipmusics)
-                            {
-                                playList.lstMusic.Add(zipmusic);
-                            }
-                        }
-                    }
-                }
-                return;
-            }
+        //                    foreach (DataGridViewRow ziprow in ziprows)
+        //                    {
+        //                        dgvList.Rows.Add(ziprow);
+        //                    }
+        //                    foreach (PlayList.music zipmusic in zipmusics)
+        //                    {
+        //                        playList.lstMusic.Add(zipmusic);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return;
+        //    }
 
-            if (file.ToLower().LastIndexOf(".m3u") != -1)
-            {
-                PlayList pl= PlayList.LoadM3U(file);
-                foreach (PlayList.music ms in pl.lstMusic)
-                {
-                    AddList(ms.fileName);
-                }
-                return;
-            }
+        //    //if (file.ToLower().LastIndexOf(".m3u") != -1)
+        //    //{
+        //    //    PlayList pl= M3U.LoadM3U(file);
+        //    //    foreach (PlayList.music ms in pl.lstMusic)
+        //    //    {
+        //    //        AddList(ms);
+        //    //    }
+        //    //    return;
+        //    //}
 
 
-            enmFileFormat dmyFileFormat;
-            List<PlayList.music> musics = Audio.getMusic(file, frmMain.getAllBytes(file, out dmyFileFormat));
+        //    enmFileFormat dmyFileFormat;
+        //    List<PlayList.music> musics = Audio.getMusic(file, frmMain.getAllBytes(file, out dmyFileFormat));
 
-            List<DataGridViewRow> rows = makeRow(musics);
+        //    List<DataGridViewRow> rows = makeRow(musics);
 
-            foreach(DataGridViewRow row in rows) dgvList.Rows.Add(row);
-            foreach(PlayList.music music in musics) playList.lstMusic.Add(music);
-            //updatePlayingIndex(dgvList.Rows.Count - 1);
-        }
+        //    foreach(DataGridViewRow row in rows) dgvList.Rows.Add(row);
+        //    foreach(PlayList.music music in musics) playList.lstMusic.Add(music);
+        //    //updatePlayingIndex(dgvList.Rows.Count - 1);
+        //}
+
+        //public void AddList(PlayList.music ms)
+        //{
+        //    if (ms.fileName.ToLower().LastIndexOf(".zip") != -1)
+        //    {
+        //        using (ZipArchive archive = ZipFile.OpenRead(ms.fileName))
+        //        {
+        //            foreach (ZipArchiveEntry entry in archive.Entries)
+        //            {
+        //                string dummy;
+        //                byte[] buf = frmMain.getBytesFromZipFile(entry, out dummy);
+
+        //                if (buf != null)
+        //                {
+        //                    List<PlayList.music> zipmusics = Audio.getMusic(entry.FullName, buf, ms.fileName);
+        //                    List<DataGridViewRow> ziprows = makeRow(zipmusics);
+
+        //                    foreach (DataGridViewRow ziprow in ziprows)
+        //                    {
+        //                        dgvList.Rows.Add(ziprow);
+        //                    }
+        //                    foreach (PlayList.music zipmusic in zipmusics)
+        //                    {
+        //                        playList.lstMusic.Add(zipmusic);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return;
+        //    }
+
+        //    //if (ms.fileName.ToLower().LastIndexOf(".m3u") != -1)
+        //    //{
+        //    //    PlayList pl = M3U.LoadM3U(ms.fileName);
+        //    //    foreach (PlayList.music mms in pl.lstMusic)
+        //    //    {
+        //    //        AddList(mms);
+        //    //    }
+        //    //    return;
+        //    //}
+
+
+        //    enmFileFormat dmyFileFormat;
+        //    List<PlayList.music> musics = Audio.getMusic(ms, frmMain.getAllBytes(ms.fileName, out dmyFileFormat));
+
+        //    List<DataGridViewRow> rows = makeRow(musics);
+
+        //    foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+        //    foreach (PlayList.music music in musics) playList.lstMusic.Add(music);
+        //    //updatePlayingIndex(dgvList.Rows.Count - 1);
+        //}
 
         private List<DataGridViewRow> makeRow(List<PlayList.music> musics)
         {
@@ -516,6 +568,7 @@ namespace MDPlayer
                     pl = PlayList.Load(ofd.FileName);
                     playing = false;
                     playList = pl;
+                    playList.SetDGV(dgvList);
                 }
                 else
                 {
@@ -524,7 +577,8 @@ namespace MDPlayer
                     playList.lstMusic.Clear();
                     foreach (PlayList.music ms in pl.lstMusic)
                     {
-                        AddList(ms.fileName);
+                        playList.AddFile(ms.fileName);
+                        //AddList(ms.fileName);
                     }
                 }
 
@@ -637,7 +691,11 @@ namespace MDPlayer
 
             try
             {
-                foreach (string fn in ofd.FileNames) AddList(fn);
+                foreach (string fn in ofd.FileNames)
+                {
+                    //                    AddList(fn);
+                    playList.AddFile(fn);
+                }
             }
             catch (Exception ex)
             {
@@ -722,7 +780,8 @@ namespace MDPlayer
                     string ext1 = System.IO.Path.GetExtension(fn).ToUpper();
                     if (ext1 == ".VGM" || ext1 == ".VGZ" || ext1 == ".NRD" || ext1 == ".XGM")
                     {
-                        AddList(fn);
+                        playList.AddFile(fn);
+                        //AddList(fn);
                     }
                 }
             }
@@ -815,7 +874,8 @@ namespace MDPlayer
 
                         Stop();
 
-                        AddList(fn);
+                        playList.AddFile(fn);
+                        //AddList(fn);
 
                         if (fn.ToLower().LastIndexOf(".zip") == -1 && fn.ToLower().LastIndexOf(".m3u") == -1)
                         {
