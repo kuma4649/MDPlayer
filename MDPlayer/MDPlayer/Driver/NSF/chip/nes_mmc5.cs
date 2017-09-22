@@ -221,13 +221,13 @@ namespace MDPlayer.NSF
             _out[2] = pcm;
         }
 
+        private Int32[] m = new Int32[3];
+
         public override UInt32 Render(Int32[] b)//b[2])
         {
             _out[0] = (mask & 1) != 0 ? 0 : _out[0];
             _out[1] = (mask & 2) != 0 ? 0 : _out[1];
             _out[2] = (mask & 4) != 0 ? 0 : _out[2];
-
-            Int32[] m = new Int32[3];
 
             if (option[(int)OPT.NONLINEAR_MIXER] != 0)
             {
@@ -357,8 +357,8 @@ namespace MDPlayer.NSF
                     break;
 
                 case 0x5015:
-                    enable[0] = (val & 1) != 0 ? true : false;
-                    enable[1] = (val & 2) != 0 ? true : false;
+                    enable[0] = (val & 1) != 0;
+                    enable[1] = (val & 2) != 0;
                     if (!enable[0])
                         length_counter[0] = 0;
                     if (!enable[1])

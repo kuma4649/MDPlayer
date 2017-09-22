@@ -212,6 +212,8 @@ namespace MDPlayer.NSF
             }
         }
 
+        private Int32[] MIX = new Int32[9] { 256 / 1, 256 / 1, 256 / 2, 256 / 3, 256 / 4, 256 / 5, 256 / 6, 256 / 6, 256 / 6 };
+
         public override UInt32 Render(Int32[] b)//b[2])
         {
             b[0] = 0;
@@ -269,7 +271,6 @@ namespace MDPlayer.NSF
                 }
 
                 // mix together, increase output level by 8 bits, roll off 7 bits from sm
-                Int32[] MIX = new Int32[9] { 256 / 1, 256 / 1, 256 / 2, 256 / 3, 256 / 4, 256 / 5, 256 / 6, 256 / 6, 256 / 6 };
                 b[0] = (b[0] * MIX[channels]) >> 7;
                 b[1] = (b[1] * MIX[channels]) >> 7;
                 // when approximating the serial multiplex as a straight mix, once the

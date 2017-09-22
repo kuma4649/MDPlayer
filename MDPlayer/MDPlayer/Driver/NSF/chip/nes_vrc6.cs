@@ -178,9 +178,10 @@ namespace MDPlayer.NSF
             _out[2] = calc_saw(clocks);
         }
 
+        private Int32[] m = new Int32[3];
+
         public override UInt32 Render(Int32[] b)//b[2])
         {
-            Int32[] m = new Int32[3];
             m[0] = _out[0];
             m[1] = _out[1];
             m[2] = _out[2];
@@ -209,10 +210,11 @@ namespace MDPlayer.NSF
             return 2;
         }
 
+        private Int32[] cmap = new Int32[4] { 0, 0, 1, 2 };
+
         public override bool Write(UInt32 adr, UInt32 val, UInt32 id=0)
         {
             Int32 ch;
-            Int32[] cmap = new Int32[4] { 0, 0, 1, 2 };
 
             switch (adr)
             {

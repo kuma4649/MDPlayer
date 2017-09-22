@@ -239,7 +239,7 @@ namespace MDPlayer
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
 
-        private double rate = 44100.0;
+        private double rate = common.SampleRate;
         private double cpu_clock_rest;
         private double apu_clock_rest;
         private Int32 time_in_ms;
@@ -258,20 +258,20 @@ namespace MDPlayer
             nes_vrc6 = new nes_vrc6();
             nes_mmc5 = new nes_mmc5();
 
-            nes_apu.chip = nes_apu.apu.NES_APU_np_Create(1789773, 44100);
+            nes_apu.chip = nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
             nes_apu.Reset();
-            nes_dmc.chip = nes_dmc.dmc.NES_DMC_np_Create(1789773, 44100);
+            nes_dmc.chip = nes_dmc.dmc.NES_DMC_np_Create(common.NsfClock, common.SampleRate);
             nes_dmc.Reset();
-            nes_fds.chip = nes_fds.fds.NES_FDS_Create(1789773, 44100);
+            nes_fds.chip = nes_fds.fds.NES_FDS_Create(common.NsfClock, common.SampleRate);
             nes_fds.Reset();
-            nes_n106.SetClock(1789773);
-            nes_n106.SetRate(44100);
+            nes_n106.SetClock(common.NsfClock);
+            nes_n106.SetRate(common.SampleRate);
             nes_n106.Reset();
-            nes_vrc6.SetClock(1789773);
-            nes_vrc6.SetRate(44100);
+            nes_vrc6.SetClock(common.NsfClock);
+            nes_vrc6.SetRate(common.SampleRate);
             nes_vrc6.Reset();
-            nes_mmc5.SetClock(1789773);
-            nes_mmc5.SetRate(44100);
+            nes_mmc5.SetClock(common.NsfClock);
+            nes_mmc5.SetRate(common.SampleRate);
             nes_mmc5.Reset();
             nes_mmc5.SetCPU(nes_cpu);
 
@@ -311,8 +311,9 @@ namespace MDPlayer
 
             if (use_fds)
             {
-                nes_mem.SetFDSMode(true);
-                nes_bank.SetFDSMode(true);
+                bool write_enable = !setting.nsf.FDSWriteDisable8000;
+                nes_mem.SetFDSMode(write_enable);
+                nes_bank.SetFDSMode(write_enable);
                 nes_bank.SetBankDefault(6, bankswitch[6]);
                 nes_bank.SetBankDefault(7, bankswitch[7]);
                 apu_bus.Attach(nes_fds);
@@ -508,7 +509,7 @@ namespace MDPlayer
                     _out[1] += buf[1];
                 }
 
-                outm = (_out[0] + _out[1]) >> 1; // mono mix
+                outm = (_out[0] + _out[1]);// >> 1; // mono mix
                 if (outm == last_out) silent_length++;
                 else silent_length = 0;
                 last_out = outm;

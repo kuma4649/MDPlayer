@@ -27,7 +27,7 @@ namespace MDPlayer.NSF
         //    {
         public nes_mem()
         {
-            fds_enable = false;
+            fds_enable = true;
         }
 
         ~nes_mem()

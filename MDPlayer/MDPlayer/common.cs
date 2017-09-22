@@ -9,6 +9,9 @@ namespace MDPlayer
 {
     public static class common
     {
+        public static Int32 SampleRate = 44100;
+        public static Int32 NsfClock = 1789773;
+
         public static UInt32 getLE16(byte[] buf, UInt32 adr)
         {
             if (buf == null || buf.Length - 1 < adr + 1)

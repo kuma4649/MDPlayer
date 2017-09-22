@@ -438,6 +438,21 @@ namespace MDPlayer
             }
         }
 
+        private NSF _nsf = new NSF();
+        public NSF nsf
+        {
+            get
+            {
+                return _nsf;
+            }
+
+            set
+            {
+                _nsf = value;
+            }
+        }
+
+
         [Serializable]
         public class OutputDevice
         {
@@ -2612,6 +2627,34 @@ namespace MDPlayer
 
         }
 
+        [Serializable]
+        public class NSF
+        {
+
+            private bool _FDSWriteDisable8000 = false;
+            public bool FDSWriteDisable8000
+            {
+                get
+                {
+                    return _FDSWriteDisable8000;
+                }
+                set
+                {
+                    _FDSWriteDisable8000 = value;
+                }
+            }
+
+            public NSF Copy()
+            {
+                NSF NSF = new NSF();
+
+                NSF.FDSWriteDisable8000 = this.FDSWriteDisable8000;
+
+                return NSF;
+            }
+
+        }
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -2642,6 +2685,7 @@ namespace MDPlayer
             setting.midiKbd = this.midiKbd.Copy();
             setting.vst = this.vst.Copy();
             setting.midiOut = this.midiOut.Copy();
+            setting.nsf = this.nsf.Copy();
 
             return setting;
         }

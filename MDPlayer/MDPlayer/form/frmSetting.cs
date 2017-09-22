@@ -795,6 +795,8 @@ namespace MDPlayer
                     dgvMIDIoutPallet.Rows.Add(i, moc.ProductName, moc.Manufacturer.ToString() != "-1" ? moc.Manufacturer.ToString() : "Unknown");
                 //}
             }
+
+            cbNSFFDSWriteDisable8000.Checked = setting.nsf.FDSWriteDisable8000;
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1171,6 +1173,8 @@ namespace MDPlayer
                     setting.midiOut.lstMidiOutInfo.Add(null);
                 }
             }
+
+            setting.nsf.FDSWriteDisable8000 = cbNSFFDSWriteDisable8000.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
