@@ -3275,20 +3275,39 @@ namespace MDPlayer
 
         private void drawParamsToSN76489(MDChipParams oldParam, MDChipParams newParam, int chipID)
         {
-            for (int c = 0; c < 4; c++)
+            bool SN76489Type = (chipID == 0) ? setting.SN76489Type.UseScci : setting.SN76489SType.UseScci;
+            int tp = SN76489Type ? 1 : 0;
+            MDChipParams.Channel osc;
+            MDChipParams.Channel nsc;
+
+            for (int c = 0; c < 3; c++)
             {
-
-                bool SN76489Type = (chipID == 0) ? setting.SN76489Type.UseScci : setting.SN76489SType.UseScci;
-                int tp = SN76489Type ? 1 : 0;
-
-                MDChipParams.Channel osc = oldParam.sn76489[chipID].channels[c];
-                MDChipParams.Channel nsc = newParam.sn76489[chipID].channels[c];
+                osc = oldParam.sn76489[chipID].channels[c];
+                nsc = newParam.sn76489[chipID].channels[c];
 
                 drawVolume(SN76489Screen[chipID], c, 0, ref osc.volume, nsc.volume, tp);
                 drawKb(SN76489Screen[chipID], c, ref osc.note, nsc.note, tp);
                 drawChSN76489(chipID, c, ref osc.mask, nsc.mask, tp);
             }
+
+            osc = oldParam.sn76489[chipID].channels[3];
+            nsc = newParam.sn76489[chipID].channels[3];
+            drawVolume(SN76489Screen[chipID], 3, 0, ref osc.volume, nsc.volume, tp);
+            drawChSN76489(chipID, 3, ref osc.mask, nsc.mask, tp);
+            drawChSN76489Noise(chipID, ref osc, nsc, tp);
+
         }
+
+        private void drawChSN76489Noise(int chipID, ref MDChipParams.Channel osc, MDChipParams.Channel nsc, int tp)
+        {
+            if (osc.note == nsc.note) return;
+
+            drawFont4(SN76489Screen[chipID], 56, 32, tp, (nsc.note & 0x4) != 0 ? "WHITE   " : "PERIODIC");
+            drawFont4(SN76489Screen[chipID], 120, 32, tp, (nsc.note & 0x3) == 0 ? "0  " : ((nsc.note & 0x3) == 1 ? "1  " : ((nsc.note & 0x3) == 2 ? "2  " : "CH3")));
+
+            osc.note = nsc.note;
+        }
+
 
         private void drawParamsToYM2612(MDChipParams oldParam, MDChipParams newParam, int chipID)
         {
@@ -4462,12 +4481,19 @@ namespace MDPlayer
 
             for (int ch = 0; ch < 4; ch++)
             {
-                for (int ot = 0; ot < 12 * 8; ot++)
+                if (ch != 3)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
-                    drawKbn(SN76489Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
+                    for (int ot = 0; ot < 12 * 8; ot++)
+                    {
+                        int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                        int kt = kbl[(ot % 12) * 2 + 1];
+                        drawKbn(SN76489Screen[chipID], 32 + kx, ch * 8 + 8, kt, tp);
+                    }
                 }
+                else
+                {
+                }
+
                 drawFont8(SN76489Screen[chipID], 296, ch * 8 + 8, 1, "   ");
                 drawChPSN76489(chipID, 0, ch * 8 + 8, ch, false, tp);
 

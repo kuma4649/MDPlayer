@@ -3109,8 +3109,8 @@ namespace MDPlayer
             int[][] psgVol = Audio.GetPSGVolume(chipID);
             if (psgRegister != null)
             {
-                //Console.WriteLine("Val{0:X}", psgRegister[0 * 2]);
-                for (int ch = 0; ch < 4; ch++)
+                //Tone Ch
+                for (int ch = 0; ch < 3; ch++)
                 {
                     if (psgRegister[ch * 2 + 1] != 15)
                     {
@@ -3123,6 +3123,10 @@ namespace MDPlayer
 
                     newParam.sn76489[chipID].channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
                 }
+
+                //Noise Ch
+                newParam.sn76489[chipID].channels[3].note = psgRegister[6];
+                newParam.sn76489[chipID].channels[3].volume = Math.Min(Math.Max((int)((psgVol[3][0] + psgVol[3][1]) / (30.0 / 19.0)), 0), 19);
             }
         }
 
