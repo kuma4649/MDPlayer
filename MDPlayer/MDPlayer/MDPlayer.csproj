@@ -121,10 +121,12 @@
     <Compile Include="dacControl.cs" />
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\nsf.cs" />
+    <Compile Include="Driver\NSF\chip\emu2149.cs" />
     <Compile Include="Driver\NSF\chip\IDeviceInfo.cs" />
     <Compile Include="Driver\NSF\chip\nes_apu.cs" />
     <Compile Include="Driver\NSF\chip\nes_dmc.cs" />
     <Compile Include="Driver\NSF\chip\nes_fds.cs" />
+    <Compile Include="Driver\NSF\chip\nes_fme7.cs" />
     <Compile Include="Driver\NSF\chip\nes_mmc5.cs" />
     <Compile Include="Driver\NSF\chip\nes_n106.cs" />
     <Compile Include="Driver\NSF\chip\nes_vrc6.cs" />
@@ -546,7 +548,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"
+copy "$(TargetDir)"*.dll c:\bin\$(ConfigurationName)
+copy "$(TargetDir)"MDPlayer.exe c:\bin\$(ConfigurationName)
+copy "$(TargetDir)"scciconfig.exe c:\bin\$(ConfigurationName)
+copy "$(TargetDir)"scci.ini c:\bin\$(ConfigurationName)
+del c:\bin\bin$(ConfigurationName).zip
+powershell compress-archive c:\bin\$(ConfigurationName)\*.* c:\bin\bin$(ConfigurationName).zip 
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

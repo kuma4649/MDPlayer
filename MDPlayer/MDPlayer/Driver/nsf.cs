@@ -81,12 +81,12 @@ namespace MDPlayer
 
             soundchip = buf[0x7b];
 
-            use_vrc6 = (soundchip & 1) != 0 ? true : false;
-            use_vrc7 = (soundchip & 2) != 0 ? true : false;
-            use_fds = (soundchip & 4) != 0 ? true : false;
-            use_mmc5 = (soundchip & 8) != 0 ? true : false;
-            use_n106 = (soundchip & 16) != 0 ? true : false;
-            use_fme7 = (soundchip & 32) != 0 ? true : false;
+            use_vrc6 = (soundchip & 1) != 0;
+            use_vrc7 = (soundchip & 2) != 0;
+            use_fds = (soundchip & 4) != 0;
+            use_mmc5 = (soundchip & 8) != 0;
+            use_n106 = (soundchip & 16) != 0;
+            use_fme7 = (soundchip & 32) != 0;
 
             //memcpy(extra, image + 0x7c, 4);
             for (int i = 0; i < 4; i++) extra[i] = buf[0x7c + i];
@@ -235,6 +235,7 @@ namespace MDPlayer
         private nes_n106 nes_n106 = null;
         private nes_vrc6 nes_vrc6 = null;
         private nes_mmc5 nes_mmc5 = null;
+        private nes_fme7 nes_fme7 = null;
 
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
@@ -257,6 +258,7 @@ namespace MDPlayer
             nes_n106 = new nes_n106();
             nes_vrc6 = new nes_vrc6();
             nes_mmc5 = new nes_mmc5();
+            nes_fme7 = new nes_fme7();
 
             nes_apu.chip = nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
             nes_apu.Reset();
@@ -274,6 +276,9 @@ namespace MDPlayer
             nes_mmc5.SetRate(common.SampleRate);
             nes_mmc5.Reset();
             nes_mmc5.SetCPU(nes_cpu);
+            nes_fme7.SetClock(common.NsfClock);
+            nes_fme7.SetRate(common.SampleRate);
+            nes_fme7.Reset();
 
             nes_dmc.dmc.nes_apu = nes_apu.apu;
             nes_dmc.dmc.NES_DMC_np_SetAPU(nes_dmc.chip, nes_apu.chip);
@@ -334,6 +339,10 @@ namespace MDPlayer
             if (use_mmc5)
             {
                 apu_bus.Attach(nes_mmc5);
+            }
+            if (use_fme7)
+            {
+                apu_bus.Attach(nes_fme7);
             }
 
             if (bmax > 0) layer.Attach(nes_bank);
@@ -505,6 +514,14 @@ namespace MDPlayer
                 {
                     nes_mmc5.Tick((UInt32)apu_clocks);
                     nes_mmc5.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
+
+                if (use_fme7)
+                {
+                    nes_fme7.Tick((UInt32)apu_clocks);
+                    nes_fme7.Render(buf);
                     _out[0] += buf[0];
                     _out[1] += buf[1];
                 }
