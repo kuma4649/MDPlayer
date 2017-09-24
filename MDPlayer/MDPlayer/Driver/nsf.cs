@@ -236,6 +236,7 @@ namespace MDPlayer
         private nes_vrc6 nes_vrc6 = null;
         private nes_mmc5 nes_mmc5 = null;
         private nes_fme7 nes_fme7 = null;
+        private nes_vrc7 nes_vrc7 = null;
 
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
@@ -259,6 +260,7 @@ namespace MDPlayer
             nes_vrc6 = new nes_vrc6();
             nes_mmc5 = new nes_mmc5();
             nes_fme7 = new nes_fme7();
+            nes_vrc7 = new nes_vrc7();
 
             nes_apu.chip = nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
             nes_apu.Reset();
@@ -279,6 +281,9 @@ namespace MDPlayer
             nes_fme7.SetClock(common.NsfClock);
             nes_fme7.SetRate(common.SampleRate);
             nes_fme7.Reset();
+            nes_vrc7.SetClock(common.NsfClock);
+            nes_vrc7.SetRate(common.SampleRate);
+            nes_vrc7.Reset();
 
             nes_dmc.dmc.nes_apu = nes_apu.apu;
             nes_dmc.dmc.NES_DMC_np_SetAPU(nes_dmc.chip, nes_apu.chip);
@@ -343,6 +348,10 @@ namespace MDPlayer
             if (use_fme7)
             {
                 apu_bus.Attach(nes_fme7);
+            }
+            if (use_vrc7)
+            {
+                apu_bus.Attach(nes_vrc7);
             }
 
             if (bmax > 0) layer.Attach(nes_bank);
@@ -522,6 +531,14 @@ namespace MDPlayer
                 {
                     nes_fme7.Tick((UInt32)apu_clocks);
                     nes_fme7.Render(buf);
+                    _out[0] += buf[0];
+                    _out[1] += buf[1];
+                }
+
+                if (use_vrc7)
+                {
+                    nes_vrc7.Tick((UInt32)apu_clocks);
+                    nes_vrc7.Render(buf);
                     _out[0] += buf[0];
                     _out[1] += buf[1];
                 }

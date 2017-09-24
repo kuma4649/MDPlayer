@@ -122,6 +122,7 @@
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\NSF\chip\emu2149.cs" />
+    <Compile Include="Driver\NSF\chip\emu2413.cs" />
     <Compile Include="Driver\NSF\chip\IDeviceInfo.cs" />
     <Compile Include="Driver\NSF\chip\nes_apu.cs" />
     <Compile Include="Driver\NSF\chip\nes_dmc.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Driver\NSF\chip\nes_mmc5.cs" />
     <Compile Include="Driver\NSF\chip\nes_n106.cs" />
     <Compile Include="Driver\NSF\chip\nes_vrc6.cs" />
+    <Compile Include="Driver\NSF\chip\nes_vrc7.cs" />
     <Compile Include="Driver\NSF\cpu\km6502.cs" />
     <Compile Include="Driver\NSF\detect.cs" />
     <Compile Include="Driver\NSF\memory\nes_bank.cs" />
