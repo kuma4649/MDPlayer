@@ -1406,6 +1406,134 @@ namespace MDPlayer
                 }
             }
 
+            private int _APUVolume = 0;
+            public int APUVolume
+            {
+                get
+                {
+                    if (_APUVolume > 20 || _APUVolume < -192) _APUVolume = 0;
+                    return _APUVolume;
+                }
+
+                set
+                {
+                    _APUVolume = value;
+                    if (_APUVolume > 20 || _APUVolume < -192) _APUVolume = 0;
+                }
+            }
+
+            private int _DMCVolume = 0;
+            public int DMCVolume
+            {
+                get
+                {
+                    if (_DMCVolume > 20 || _DMCVolume < -192) _DMCVolume = 0;
+                    return _DMCVolume;
+                }
+
+                set
+                {
+                    _DMCVolume = value;
+                    if (_DMCVolume > 20 || _DMCVolume < -192) _DMCVolume = 0;
+                }
+            }
+
+            private int _FDSVolume = 0;
+            public int FDSVolume
+            {
+                get
+                {
+                    if (_FDSVolume > 20 || _FDSVolume < -192) _FDSVolume = 0;
+                    return _FDSVolume;
+                }
+
+                set
+                {
+                    _FDSVolume = value;
+                    if (_FDSVolume > 20 || _FDSVolume < -192) _FDSVolume = 0;
+                }
+            }
+
+            private int _MMC5Volume = 0;
+            public int MMC5Volume
+            {
+                get
+                {
+                    if (_MMC5Volume > 20 || _MMC5Volume < -192) _MMC5Volume = 0;
+                    return _MMC5Volume;
+                }
+
+                set
+                {
+                    _MMC5Volume = value;
+                    if (_MMC5Volume > 20 || _MMC5Volume < -192) _MMC5Volume = 0;
+                }
+            }
+
+            private int _N160Volume = 0;
+            public int N160Volume
+            {
+                get
+                {
+                    if (_N160Volume > 20 || _N160Volume < -192) _N160Volume = 0;
+                    return _N160Volume;
+                }
+
+                set
+                {
+                    _N160Volume = value;
+                    if (_N160Volume > 20 || _N160Volume < -192) _N160Volume = 0;
+                }
+            }
+
+            private int _VRC6Volume = 0;
+            public int VRC6Volume
+            {
+                get
+                {
+                    if (_VRC6Volume > 20 || _VRC6Volume < -192) _VRC6Volume = 0;
+                    return _VRC6Volume;
+                }
+
+                set
+                {
+                    _VRC6Volume = value;
+                    if (_VRC6Volume > 20 || _VRC6Volume < -192) _VRC6Volume = 0;
+                }
+            }
+
+            private int _VRC7Volume = 0;
+            public int VRC7Volume
+            {
+                get
+                {
+                    if (_VRC7Volume > 20 || _VRC7Volume < -192) _VRC7Volume = 0;
+                    return _VRC7Volume;
+                }
+
+                set
+                {
+                    _VRC7Volume = value;
+                    if (_VRC7Volume > 20 || _VRC7Volume < -192) _VRC7Volume = 0;
+                }
+            }
+
+            private int _FME7Volume = 0;
+            public int FME7Volume
+            {
+                get
+                {
+                    if (_FME7Volume > 20 || _FME7Volume < -192) _FME7Volume = 0;
+                    return _FME7Volume;
+                }
+
+                set
+                {
+                    _FME7Volume = value;
+                    if (_FME7Volume > 20 || _FME7Volume < -192) _FME7Volume = 0;
+                }
+            }
+
 
             public Balance Copy()
             {
@@ -1435,6 +1563,14 @@ namespace MDPlayer
                 Balance.YM2610AdpcmBVolume = this.YM2610AdpcmBVolume;
                 Balance.C352Volume = this.C352Volume;
                 Balance.K054539Volume = this.K054539Volume;
+                Balance.APUVolume = this.APUVolume;
+                Balance.DMCVolume = this.DMCVolume;
+                Balance.FDSVolume = this.FDSVolume;
+                Balance.MMC5Volume = this.MMC5Volume;
+                Balance.N160Volume = this.N160Volume;
+                Balance.VRC6Volume = this.VRC6Volume;
+                Balance.VRC7Volume = this.VRC7Volume;
+                Balance.FME7Volume = this.FME7Volume;
 
                 return Balance;
             }

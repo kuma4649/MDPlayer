@@ -288,6 +288,14 @@ namespace MDPlayer
             public VolumeInfo YM2610PSG = new VolumeInfo();
             public VolumeInfo YM2610 = new VolumeInfo();
             public VolumeInfo YM2612 = new VolumeInfo();
+            public VolumeInfo APU = new VolumeInfo();
+            public VolumeInfo DMC = new VolumeInfo();
+            public VolumeInfo FDS = new VolumeInfo();
+            public VolumeInfo MMC5 = new VolumeInfo();
+            public VolumeInfo N160 = new VolumeInfo();
+            public VolumeInfo VRC6 = new VolumeInfo();
+            public VolumeInfo VRC7 = new VolumeInfo();
+            public VolumeInfo FME7 = new VolumeInfo();
         }
         public Mixer mixer = new Mixer();
 

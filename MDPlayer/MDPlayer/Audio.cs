@@ -341,6 +341,14 @@ namespace MDPlayer
         public static short segaPCMVisVolume = 0;
         public static short c352VisVolume = 0;
         public static short k054539VisVolume = 0;
+        public static short APUVisVolume = 0;
+        public static short DMCVisVolume = 0;
+        public static short FDSVisVolume = 0;
+        public static short MMC5VisVolume = 0;
+        public static short N160VisVolume = 0;
+        public static short VRC6VisVolume = 0;
+        public static short VRC7VisVolume = 0;
+        public static short FME7VisVolume = 0;
 
         private static List<vstInfo2> vstPlugins = new List<vstInfo2>();
         private static List<vstInfo2> vstPluginsInst = new List<vstInfo2>();
@@ -2413,8 +2421,10 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
                 if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
 
-                nes_intf nes = new nes_intf();
+                //nes_intf nes = new nes_intf();
                 MDSound.MDSound.Chip chip;
+                nes_intf nes = new nes_intf();
+
                 chip = new MDSound.MDSound.Chip();
                 chip.ID = 0;
                 chip.type = MDSound.MDSound.enmInstrumentType.Nes;
@@ -2424,10 +2434,116 @@ namespace MDPlayer
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
                 chip.SamplingRate = SamplingRate;
-                chip.Volume = 0;
+                chip.Volume = setting.balance.APUVolume;
                 chip.Clock = 0;
                 chip.Option = null;
                 lstChips.Add(chip);
+                ((nsf)driverVirtual).cAPU = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.DMC;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.DMCVolume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cDMC = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.FDS;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.FDSVolume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cFDS = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.MMC5;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.MMC5Volume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cMMC5 = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.N160;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.N160Volume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cN160 = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.VRC6;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.VRC6Volume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cVRC6 = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.VRC7;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.VRC7Volume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cVRC7 = chip;
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.FME7;
+                chip.Instrument = nes;
+                chip.Update = nes.Update;
+                chip.Start = nes.Start;
+                chip.Stop = nes.Stop;
+                chip.Reset = nes.Reset;
+                chip.SamplingRate = SamplingRate;
+                chip.Clock = 0;
+                chip.Option = null;
+                chip.Volume = setting.balance.FME7Volume;
+                lstChips.Add(chip);
+                ((nsf)driverVirtual).cFME7 = chip;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -4329,6 +4445,30 @@ namespace MDPlayer
                 vol = mds.getK054539VisVolume();
                 if (vol != null) k054539VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
+                vol = mds.getNESVisVolume();
+                if (vol != null) APUVisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getDMCVisVolume();
+                if (vol != null) DMCVisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getFDSVisVolume();
+                if (vol != null) FDSVisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getMMC5VisVolume();
+                if (vol != null) MMC5VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getN160VisVolume();
+                if (vol != null) N160VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getVRC6VisVolume();
+                if (vol != null) VRC6VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getVRC7VisVolume();
+                if (vol != null) VRC7VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getFME7VisVolume();
+                if (vol != null) FME7VisVolume = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
                 if (vgmFadeout)
                 {
                     for (i = 0; i < sampleCount; i++)
@@ -4652,6 +4792,78 @@ namespace MDPlayer
             try
             {
                 mds.SetVolumeK054539(volume);
+            }
+            catch { }
+        }
+
+        public static void SetAPUVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeNES(volume);
+            }
+            catch { }
+        }
+
+        public static void SetDMCVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeDMC(volume);
+            }
+            catch { }
+        }
+
+        public static void SetFDSVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeFDS(volume);
+            }
+            catch { }
+        }
+
+        public static void SetMMC5Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeMMC5(volume);
+            }
+            catch { }
+        }
+
+        public static void SetN160Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeN160(volume);
+            }
+            catch { }
+        }
+
+        public static void SetVRC6Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeVRC6(volume);
+            }
+            catch { }
+        }
+
+        public static void SetVRC7Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeVRC7(volume);
+            }
+            catch { }
+        }
+
+        public static void SetFME7Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeFME7(volume);
             }
             catch { }
         }

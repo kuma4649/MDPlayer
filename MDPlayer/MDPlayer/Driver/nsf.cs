@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MDPlayer.NSF;
 using MDSound.np;
+using MDSound.np.memory;
+using MDSound.np.cpu;
+using MDSound.np.chip;
 
 namespace MDPlayer
 {
@@ -237,6 +239,15 @@ namespace MDPlayer
         private nes_mmc5 nes_mmc5 = null;
         private nes_fme7 nes_fme7 = null;
         private nes_vrc7 nes_vrc7 = null;
+
+        public MDSound.MDSound.Chip cAPU = null;
+        public MDSound.MDSound.Chip cDMC = null;
+        public MDSound.MDSound.Chip cFDS = null;
+        public MDSound.MDSound.Chip cMMC5 = null;
+        public MDSound.MDSound.Chip cN160 = null;
+        public MDSound.MDSound.Chip cVRC6 = null;
+        public MDSound.MDSound.Chip cVRC7 = null;
+        public MDSound.MDSound.Chip cFME7 = null;
 
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
@@ -487,60 +498,68 @@ namespace MDPlayer
                 //mfilter->Put(buf[0]);
                 //out = mfilter->Get();
 
-                _out[0] = buf[0];
-                _out[1] = buf[1];
+                int mul = (int)(16384.0 * Math.Pow(10.0, cAPU.Volume / 40.0));
+                _out[0] = (buf[0] * mul) >> 13;
+                _out[1] = (buf[1] * mul) >> 13;
 
                 nes_dmc.Tick((UInt32)apu_clocks);
                 nes_dmc.Render(buf);
-                _out[0] += buf[0];
-                _out[1] += buf[1];
+                mul = (int)(16384.0 * Math.Pow(10.0, cDMC.Volume / 40.0));
+                _out[0] += (buf[0] * mul) >> 13;
+                _out[1] += (buf[1] * mul) >> 13;
 
                 if (use_fds)
                 {
                     nes_fds.Tick((UInt32)apu_clocks);
                     nes_fds.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cFDS.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 if (use_n106)
                 {
                     nes_n106.Tick((UInt32)apu_clocks);
                     nes_n106.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cN160.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 if (use_vrc6)
                 {
                     nes_vrc6.Tick((UInt32)apu_clocks);
                     nes_vrc6.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cVRC6.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 if (use_mmc5)
                 {
                     nes_mmc5.Tick((UInt32)apu_clocks);
                     nes_mmc5.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cMMC5.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 if (use_fme7)
                 {
                     nes_fme7.Tick((UInt32)apu_clocks);
                     nes_fme7.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cFME7.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 if (use_vrc7)
                 {
                     nes_vrc7.Tick((UInt32)apu_clocks);
                     nes_vrc7.Render(buf);
-                    _out[0] += buf[0];
-                    _out[1] += buf[1];
+                    mul = (int)(16384.0 * Math.Pow(10.0, cVRC7.Volume / 40.0));
+                    _out[0] += (buf[0] * mul) >> 13;
+                    _out[1] += (buf[1] * mul) >> 13;
                 }
 
                 outm = (_out[0] + _out[1]);// >> 1; // mono mix

@@ -245,9 +245,45 @@ namespace MDPlayer
                 case 26:
                     Audio.SetC352Volume(parent.setting.balance.C352Volume = b ? v : (parent.setting.balance.C352Volume + delta));
                     break;
-                case 30:
+                case 27://K051
+                    break;
+                case 28://K052
+                    break;
+                case 29://K053
+                    break;
+                case 30://K054
                     Audio.SetK054539Volume(parent.setting.balance.K054539Volume = b ? v : (parent.setting.balance.K054539Volume + delta));
                     break;
+                case 31://QSND
+                    break;
+
+                case 32://NES(APU)
+                    Audio.SetAPUVolume(parent.setting.balance.APUVolume = b ? v : (parent.setting.balance.APUVolume + delta));
+                    break;
+                case 33://DMC
+                    Audio.SetDMCVolume(parent.setting.balance.DMCVolume = b ? v : (parent.setting.balance.DMCVolume + delta));
+                    break;
+                case 34://FDS
+                    Audio.SetFDSVolume(parent.setting.balance.FDSVolume = b ? v : (parent.setting.balance.FDSVolume + delta));
+                    break;
+                case 35://MMC5
+                    Audio.SetMMC5Volume(parent.setting.balance.MMC5Volume = b ? v : (parent.setting.balance.MMC5Volume + delta));
+                    break;
+                case 36://N160
+                    Audio.SetN160Volume(parent.setting.balance.N160Volume = b ? v : (parent.setting.balance.N160Volume + delta));
+                    break;
+                case 37://VRC6
+                    Audio.SetVRC6Volume(parent.setting.balance.VRC6Volume = b ? v : (parent.setting.balance.VRC6Volume + delta));
+                    break;
+                case 38://VRC7
+                    Audio.SetVRC7Volume(parent.setting.balance.VRC7Volume = b ? v : (parent.setting.balance.VRC7Volume + delta));
+                    break;
+                case 39://FME7
+                    Audio.SetFME7Volume(parent.setting.balance.FME7Volume = b ? v : (parent.setting.balance.FME7Volume + delta));
+                    break;
+                case 40://DMG
+                    break;
+
             }
         }
 

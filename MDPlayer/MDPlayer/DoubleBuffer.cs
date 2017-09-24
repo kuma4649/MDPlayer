@@ -3840,6 +3840,14 @@ namespace MDPlayer
             drawFader(mixerScreen, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.C352.Volume, newParam.mixer.C352.Volume);
             drawFader(mixerScreen, 5 + 14 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.mixer.K054539.Volume, newParam.mixer.K054539.Volume);
 
+            drawFader(mixerScreen, 5 + 0 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.APU.Volume, newParam.mixer.APU.Volume);
+            drawFader(mixerScreen, 5 + 1 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.DMC.Volume, newParam.mixer.DMC.Volume);
+            drawFader(mixerScreen, 5 + 2 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.FDS.Volume, newParam.mixer.FDS.Volume);
+            drawFader(mixerScreen, 5 + 3 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.MMC5.Volume, newParam.mixer.MMC5.Volume);
+            drawFader(mixerScreen, 5 + 4 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.N160.Volume, newParam.mixer.N160.Volume);
+            drawFader(mixerScreen, 5 + 5 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.VRC6.Volume, newParam.mixer.VRC6.Volume);
+            drawFader(mixerScreen, 5 + 6 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.VRC7.Volume, newParam.mixer.VRC7.Volume);
+            drawFader(mixerScreen, 5 + 7 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.mixer.FME7.Volume, newParam.mixer.FME7.Volume);
 
             newParam.mixer.Master.VisVol2Cnt--;
             if (newParam.mixer.Master.VisVol2Cnt == 0)

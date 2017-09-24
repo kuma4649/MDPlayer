@@ -3555,6 +3555,14 @@ namespace MDPlayer
             newParam.mixer.YM2612.Volume = setting.balance.YM2612Volume;
             newParam.mixer.C352.Volume = setting.balance.C352Volume;
             newParam.mixer.K054539.Volume = setting.balance.K054539Volume;
+            newParam.mixer.APU.Volume = setting.balance.APUVolume;
+            newParam.mixer.DMC.Volume = setting.balance.DMCVolume;
+            newParam.mixer.FDS.Volume = setting.balance.FDSVolume;
+            newParam.mixer.MMC5.Volume = setting.balance.MMC5Volume;
+            newParam.mixer.N160.Volume = setting.balance.N160Volume;
+            newParam.mixer.VRC6.Volume = setting.balance.VRC6Volume;
+            newParam.mixer.VRC7.Volume = setting.balance.VRC7Volume;
+            newParam.mixer.FME7.Volume = setting.balance.FME7Volume;
 
             newParam.mixer.Master.Volume = setting.balance.MasterVolume;
             newParam.mixer.Master.VisVolume1 = common.Range(Audio.masterVisVolume / 250, 0, 44);//(short.MaxValue / 44);
@@ -3754,6 +3762,55 @@ namespace MDPlayer
             {
                 newParam.mixer.K054539.VisVolume2 = newParam.mixer.K054539.VisVolume1;
                 newParam.mixer.K054539.VisVol2Cnt = 30;
+            }
+
+            newParam.mixer.APU.VisVolume1 = common.Range(Audio.APUVisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.APU.VisVolume2 <= newParam.mixer.APU.VisVolume1)
+            {
+                newParam.mixer.APU.VisVolume2 = newParam.mixer.APU.VisVolume1;
+                newParam.mixer.APU.VisVol2Cnt = 30;
+            }
+            newParam.mixer.DMC.VisVolume1 = common.Range(Audio.DMCVisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.DMC.VisVolume2 <= newParam.mixer.DMC.VisVolume1)
+            {
+                newParam.mixer.DMC.VisVolume2 = newParam.mixer.DMC.VisVolume1;
+                newParam.mixer.DMC.VisVol2Cnt = 30;
+            }
+            newParam.mixer.FDS.VisVolume1 = common.Range(Audio.FDSVisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.FDS.VisVolume2 <= newParam.mixer.FDS.VisVolume1)
+            {
+                newParam.mixer.FDS.VisVolume2 = newParam.mixer.FDS.VisVolume1;
+                newParam.mixer.FDS.VisVol2Cnt = 30;
+            }
+            newParam.mixer.MMC5.VisVolume1 = common.Range(Audio.MMC5VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.MMC5.VisVolume2 <= newParam.mixer.K054539.VisVolume1)
+            {
+                newParam.mixer.MMC5.VisVolume2 = newParam.mixer.MMC5.VisVolume1;
+                newParam.mixer.MMC5.VisVol2Cnt = 30;
+            }
+            newParam.mixer.N160.VisVolume1 = common.Range(Audio.N160VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.N160.VisVolume2 <= newParam.mixer.N160.VisVolume1)
+            {
+                newParam.mixer.N160.VisVolume2 = newParam.mixer.N160.VisVolume1;
+                newParam.mixer.N160.VisVol2Cnt = 30;
+            }
+            newParam.mixer.VRC6.VisVolume1 = common.Range(Audio.VRC6VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.VRC6.VisVolume2 <= newParam.mixer.VRC6.VisVolume1)
+            {
+                newParam.mixer.VRC6.VisVolume2 = newParam.mixer.VRC6.VisVolume1;
+                newParam.mixer.VRC6.VisVol2Cnt = 30;
+            }
+            newParam.mixer.VRC7.VisVolume1 = common.Range(Audio.VRC7VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.VRC7.VisVolume2 <= newParam.mixer.VRC7.VisVolume1)
+            {
+                newParam.mixer.VRC7.VisVolume2 = newParam.mixer.VRC7.VisVolume1;
+                newParam.mixer.VRC7.VisVol2Cnt = 30;
+            }
+            newParam.mixer.FME7.VisVolume1 = common.Range(Audio.FME7VisVolume / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.mixer.FME7.VisVolume2 <= newParam.mixer.FME7.VisVolume1)
+            {
+                newParam.mixer.FME7.VisVolume2 = newParam.mixer.FME7.VisVolume1;
+                newParam.mixer.FME7.VisVol2Cnt = 30;
             }
         }
 
