@@ -15,7 +15,7 @@ namespace MDPlayer
         private List<string> chips = null;
         private uint musicPtr = 0;
         private double oneSyncTime;
-        private double musicStep = 44100.0 / 60.0;
+        private double musicStep = common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
         private int s98WaitCounter;
 
@@ -388,7 +388,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = 44100.0 * oneSyncTime;
+                musicStep = common.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

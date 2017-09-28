@@ -125,7 +125,7 @@ namespace MDPlayer
         public float GetSampleRate()
         {
             RaisePluginCalled("GetSampleRate()");
-            return 44.1f;
+            return common.SampleRate/1000.0f;
         }
 
         /// <inheritdoc />
@@ -134,7 +134,7 @@ namespace MDPlayer
             //RaisePluginCalled("GetTimeInfo(" + filterFlags + ")");
             Jacobi.Vst.Core.VstTimeInfo vti = new Jacobi.Vst.Core.VstTimeInfo();
             vti.SamplePosition = 0;
-            vti.SampleRate = 44.1f;
+            vti.SampleRate = common.SampleRate/1000.0f;
             vti.NanoSeconds = 0;
             vti.PpqPosition = 0;
             vti.Tempo = 120;

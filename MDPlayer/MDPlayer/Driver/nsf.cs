@@ -330,9 +330,26 @@ namespace MDPlayer
             apu_bus.Attach(nes_apu);
             apu_bus.Attach(nes_dmc);
 
+            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_UNMUTE_ON_RESET, setting.nsf.NESUnmuteOnReset ? 1 : 0);
+            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_NONLINEAR_MIXER, setting.nsf.NESNonLinearMixer ? 1 : 0);
+            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_PHASE_REFRESH, setting.nsf.NESPhaseRefresh ? 1 : 0);
+            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_DUTY_SWAP, setting.nsf.NESDutySwap ? 1 : 0);
+
+            nes_dmc.SetOption(0, setting.nsf.DMCUnmuteOnReset ? 1 : 0);
+            nes_dmc.SetOption(1, setting.nsf.DMCNonLinearMixer ? 1 : 0);
+            nes_dmc.SetOption(2, setting.nsf.DMCEnable4011 ? 1 : 0);
+            nes_dmc.SetOption(3, setting.nsf.DMCEnablePnoise ? 1 : 0);
+            nes_dmc.SetOption(4, setting.nsf.DMCDPCMAntiClick ? 1 : 0);
+            nes_dmc.SetOption(5, setting.nsf.DMCRandomizeNoise ? 1 : 0);
+            nes_dmc.SetOption(6, setting.nsf.DMCTRImute ? 1 : 0);
+            nes_dmc.SetOption(7, setting.nsf.DMCTRINull ? 1 : 0);
+
             if (use_fds)
             {
                 bool write_enable = !setting.nsf.FDSWriteDisable8000;
+                nes_fds.SetOption(0, setting.nsf.FDSLpf);
+                nes_fds.SetOption(1, setting.nsf.FDS4085Reset ? 1 : 0);
+
                 nes_mem.SetFDSMode(write_enable);
                 nes_bank.SetFDSMode(write_enable);
                 nes_bank.SetBankDefault(6, bankswitch[6]);
@@ -346,6 +363,7 @@ namespace MDPlayer
             }
             if (use_n106)
             {
+                nes_n106.SetOption(0, setting.nsf.N160Serial ? 1 : 0);
                 apu_bus.Attach(nes_n106);
             }
             if (use_vrc6)
@@ -354,6 +372,8 @@ namespace MDPlayer
             }
             if (use_mmc5)
             {
+                nes_mmc5.SetOption(0, setting.nsf.MMC5NonLinearMixer ? 1 : 0);
+                nes_mmc5.SetOption(1, setting.nsf.MMC5PhaseRefresh ? 1 : 0);
                 apu_bus.Attach(nes_mmc5);
             }
             if (use_fme7)
@@ -522,8 +542,8 @@ namespace MDPlayer
                     nes_n106.Tick((UInt32)apu_clocks);
                     nes_n106.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cN160.Volume / 40.0));
-                    _out[0] += (buf[0] * mul) >> 13;
-                    _out[1] += (buf[1] * mul) >> 13;
+                    _out[0] += (buf[0] * mul) >> 10;
+                    _out[1] += (buf[1] * mul) >> 10;
                 }
 
                 if (use_vrc6)
@@ -531,8 +551,8 @@ namespace MDPlayer
                     nes_vrc6.Tick((UInt32)apu_clocks);
                     nes_vrc6.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cVRC6.Volume / 40.0));
-                    _out[0] += (buf[0] * mul) >> 13;
-                    _out[1] += (buf[1] * mul) >> 13;
+                    _out[0] += (buf[0] * mul) >> 10;
+                    _out[1] += (buf[1] * mul) >> 10;
                 }
 
                 if (use_mmc5)
@@ -549,8 +569,8 @@ namespace MDPlayer
                     nes_fme7.Tick((UInt32)apu_clocks);
                     nes_fme7.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cFME7.Volume / 40.0));
-                    _out[0] += (buf[0] * mul) >> 13;
-                    _out[1] += (buf[1] * mul) >> 13;
+                    _out[0] += (buf[0] * mul) >> 9;
+                    _out[1] += (buf[1] * mul) >> 9;
                 }
 
                 if (use_vrc7)
@@ -558,8 +578,8 @@ namespace MDPlayer
                     nes_vrc7.Tick((UInt32)apu_clocks);
                     nes_vrc7.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cVRC7.Volume / 40.0));
-                    _out[0] += (buf[0] * mul) >> 13;
-                    _out[1] += (buf[1] * mul) >> 13;
+                    _out[0] += (buf[0] * mul) >> 10;
+                    _out[1] += (buf[1] * mul) >> 10;
                 }
 
                 outm = (_out[0] + _out[1]);// >> 1; // mono mix
@@ -567,14 +587,18 @@ namespace MDPlayer
                 else silent_length = 0;
                 last_out = outm;
 
-                _out[0] = (Int32)((_out[0] * master_volume) >> 8);
-                _out[1] = (Int32)((_out[1] * master_volume) >> 8);
+                _out[0] = (Int32)((_out[0] * master_volume) >> 9);
+                _out[1] = (Int32)((_out[1] * master_volume) >> 9);
 
-                if (_out[0] < -32767) _out[0] = -32767;
-                else if (32767 < _out[0]) _out[0] = 32767;
+                if (_out[0] < -32767)
+                    _out[0] = -32767;
+                else if (32767 < _out[0])
+                    _out[0] = 32767;
 
-                if (_out[1] < -32767) _out[1] = -32767;
-                else if (32767 < _out[1]) _out[1] = 32767;
+                if (_out[1] < -32767)
+                    _out[1] = -32767;
+                else if (32767 < _out[1])
+                    _out[1] = 32767;
 
                 //if (nch == 2)
                 //{
@@ -612,18 +636,18 @@ namespace MDPlayer
             if (ld.IsLooped(time_in_ms, 30000, 5000) && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * 44100L/1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * common.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
-                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * 44100L/1000L);
+                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * common.SampleRate / 1000L);
             }
         }
 
         public void DetectSilent()
         {
-            if (silent_length>44100*3 && !playtime_detected)
+            if (silent_length> common.SampleRate * 3 && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * 44100L / 1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * common.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
                 LoopCounter = 0;
                 Stopped = true;

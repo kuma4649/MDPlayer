@@ -15,18 +15,27 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmMegaCD(frmMain frm,int chipID,int zoom)
+        private MDChipParams.RF5C164 newParam = null;
+        private MDChipParams.RF5C164 oldParam = new MDChipParams.RF5C164();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmMegaCD(frmMain frm, int chipID, int zoom, MDChipParams.RF5C164 newParam)
         {
+            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
-            parent = frm;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeC, null, zoom);
+            DrawBuff.screenInitRF5C164(frameBuffer);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -82,11 +91,47 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register(chipID);
+            if (rf5c164Register != null)
+            {
+                int[][] rf5c164Vol = Audio.GetRf5c164Volume(chipID);
+                for (int ch = 0; ch < 8; ch++)
+                {
+                    if (rf5c164Register.Channel[ch].Enable != 0)
+                    {
+                        newParam.channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                    }
+                    else
+                    {
+                        newParam.channels[ch].note = -1;
+                        newParam.channels[ch].volumeL = 0;
+                        newParam.channels[ch].volumeR = 0;
+                    }
+                    newParam.channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
+                }
+            }
+
         }
 
         public void screenDrawParams()
         {
+            for (int c = 0; c < 8; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.channels[c];
+                MDChipParams.Channel nrc = newParam.channels[c];
+
+                DrawBuff.Volume(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, 0);
+                DrawBuff.Volume(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, 0);
+                DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, 0);
+                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan);
+                DrawBuff.ChRF5C164(frameBuffer, c, ref orc.mask, nrc.mask, 0);
+
+            }
         }
+
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
@@ -104,13 +149,22 @@ namespace MDPlayer
             for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
         }
 
-        private void pbScreen_DragDrop(object sender, DragEventArgs e)
+        private int searchRf5c164Note(uint freq)
         {
-
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(freq - (0x0800 * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
         }
 
-        private void pbScreen_DragEnter(object sender, DragEventArgs e)
-        {
-        }
+
     }
 }

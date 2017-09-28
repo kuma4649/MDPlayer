@@ -20,37 +20,7 @@ namespace MDPlayer
         public int LCsecond = -1;
         public int LCmillisecond = -1;
 
-        public int ChipPriOPN = -1;
-        public int ChipPriOPN2 = -1;
-        public int ChipPriOPNA = -1;
-        public int ChipPriOPNB = -1;
-        public int ChipPriOPM = -1;
-        public int ChipPriDCSG = -1;
-        public int ChipPriRF5C = -1;
-        public int ChipPriPWM = -1;
-        public int ChipPriOKI5 = -1;
-        public int ChipPriOKI9 = -1;
-        public int ChipPriC140 = -1;
-        public int ChipPriSPCM = -1;
-        public int ChipPriAY10 = -1;
-        public int ChipPriOPLL = -1;
-        public int ChipPriHuC8 = -1;
-
-        public int ChipSecOPN = -1;
-        public int ChipSecOPN2 = -1;
-        public int ChipSecOPNA = -1;
-        public int ChipSecOPNB = -1;
-        public int ChipSecOPM = -1;
-        public int ChipSecDCSG = -1;
-        public int ChipSecRF5C = -1;
-        public int ChipSecPWM = -1;
-        public int ChipSecOKI5 = -1;
-        public int ChipSecOKI9 = -1;
-        public int ChipSecC140 = -1;
-        public int ChipSecSPCM = -1;
-        public int ChipSecAY10 = -1;
-        public int ChipSecOPLL = -1;
-        public int ChipSecHuC8 = -1;
+        public ChipLEDs chipLED = new ChipLEDs();
 
         public enmFileFormat fileFormat = enmFileFormat.unknown;
 

@@ -20,19 +20,27 @@ namespace MDPlayer
         private int frameSizeH = 0;
         private int chipID = 0;
         private int zoom = 1;
+        private MDChipParams.C140 newParam = null;
+        private MDChipParams.C140 oldParam = new MDChipParams.C140();
+        private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmC140(frmMain frm,int chipID,int zoom)
+        public frmC140(frmMain frm,int chipID,int zoom, MDChipParams.C140 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeF, null, zoom);
+            DrawBuff.screenInitC140(frameBuffer);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -89,10 +97,46 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            MDSound.c140.c140_state c140State = Audio.GetC140Register(chipID);
+            if (c140State != null)
+            {
+                for (int ch = 0; ch < 24; ch++)
+                {
+                    int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
+                    int l = c140State.REG[ch * 16 + 1];
+                    int r = c140State.REG[ch * 16 + 0];
+                    int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
+
+                    if (c140State.voi[ch].key == 0) frequency = 0;
+                    if (frequency == 0)
+                    {
+                        l = 0;
+                        r = 0;
+                    }
+
+                    newParam.channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
+                    newParam.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
+                    newParam.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
+                }
+            }
         }
 
         public void screenDrawParams()
         {
+            for (int c = 0; c < 24; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.channels[c];
+                MDChipParams.Channel nrc = newParam.channels[c];
+
+                DrawBuff.VolumeToC140(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL);
+                DrawBuff.VolumeToC140(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR);
+                DrawBuff.KeyBoardToC140(frameBuffer, c, ref orc.note, nrc.note);
+                DrawBuff.PanToC140(frameBuffer, c, ref orc.pan, nrc.pan);
+
+                DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, 0);
+            }
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -117,5 +161,22 @@ namespace MDPlayer
             }
 
         }
+
+        private int searchC140Note(int freq)
+        {
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
     }
 }

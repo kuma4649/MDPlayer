@@ -1,4 +1,5 @@
 ﻿using NScci;
+using System;
 
 namespace MDPlayer
 {
@@ -176,7 +177,7 @@ namespace MDPlayer
             {
                 // very effective Speed Hack for fast seeking
                 NewPos = chip.Step + (samples - 0x10);
-                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, 44100);// DAC_SMPL_RATE);
+                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);// DAC_SMPL_RATE);
                 while (chip.RemainCmds > 0 && chip.Pos < NewPos)
                 {
                     chip.Pos += chip.DataStep;
@@ -187,8 +188,8 @@ namespace MDPlayer
 
             chip.Step += samples;
             // Formula: Step * Freq / SampleRate
-            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, 44100);// DAC_SMPL_RATE);
-            //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, 44100);
+            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);// DAC_SMPL_RATE);
+            //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);
             sendCommand(chip);
 
             while (chip.RemainCmds > 0 && chip.Pos < NewPos)

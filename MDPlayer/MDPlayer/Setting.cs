@@ -2766,8 +2766,102 @@ namespace MDPlayer
         [Serializable]
         public class NSF
         {
+            private bool _NESUnmuteOnReset = true;
+            private bool _NESNonLinearMixer = true;
+            private bool _NESPhaseRefresh = true;
+            private bool _NESDutySwap = false;
 
-            private bool _FDSWriteDisable8000 = false;
+            private int _FDSLpf = 2000;
+            private bool _FDS4085Reset = false;
+            private bool _FDSWriteDisable8000 = true;
+
+            private bool _DMCUnmuteOnReset = true;
+            private bool _DMCNonLinearMixer = true;
+            private bool _DMCEnable4011 = true;
+            private bool _DMCEnablePnoise = true;
+            private bool _DMCDPCMAntiClick = false;
+            private bool _DMCRandomizeNoise = true;
+            private bool _DMCTRImute = true;
+            private bool _DMCTRINull = true;
+
+            private bool _MMC5NonLinearMixer = true;
+            private bool _MMC5PhaseRefresh = true;
+
+            private bool _N160Serial = false;
+
+            public bool NESUnmuteOnReset
+            {
+                get
+                {
+                    return _NESUnmuteOnReset;
+                }
+
+                set
+                {
+                    _NESUnmuteOnReset = value;
+                }
+            }
+            public bool NESNonLinearMixer
+            {
+                get
+                {
+                    return _NESNonLinearMixer;
+                }
+
+                set
+                {
+                    _NESNonLinearMixer = value;
+                }
+            }
+            public bool NESPhaseRefresh
+            {
+                get
+                {
+                    return _NESPhaseRefresh;
+                }
+
+                set
+                {
+                    _NESPhaseRefresh = value;
+                }
+            }
+            public bool NESDutySwap
+            {
+                get
+                {
+                    return _NESDutySwap;
+                }
+
+                set
+                {
+                    _NESDutySwap = value;
+                }
+            }
+
+            public int FDSLpf
+            {
+                get
+                {
+                    return _FDSLpf;
+                }
+
+                set
+                {
+                    _FDSLpf = value;
+                }
+            }
+            public bool FDS4085Reset
+            {
+                get
+                {
+                    return _FDS4085Reset;
+                }
+
+                set
+                {
+                    _FDS4085Reset = value;
+                }
+            }
             public bool FDSWriteDisable8000
             {
                 get
@@ -2780,11 +2874,168 @@ namespace MDPlayer
                 }
             }
 
+            public bool DMCUnmuteOnReset
+            {
+                get
+                {
+                    return _DMCUnmuteOnReset;
+                }
+
+                set
+                {
+                    _DMCUnmuteOnReset = value;
+                }
+            }
+            public bool DMCNonLinearMixer
+            {
+                get
+                {
+                    return _DMCNonLinearMixer;
+                }
+
+                set
+                {
+                    _DMCNonLinearMixer = value;
+                }
+            }
+            public bool DMCEnable4011
+            {
+                get
+                {
+                    return _DMCEnable4011;
+                }
+
+                set
+                {
+                    _DMCEnable4011 = value;
+                }
+            }
+            public bool DMCEnablePnoise
+            {
+                get
+                {
+                    return _DMCEnablePnoise;
+                }
+
+                set
+                {
+                    _DMCEnablePnoise = value;
+                }
+            }
+            public bool DMCDPCMAntiClick
+            {
+                get
+                {
+                    return _DMCDPCMAntiClick;
+                }
+
+                set
+                {
+                    _DMCDPCMAntiClick = value;
+                }
+            }
+            public bool DMCRandomizeNoise
+            {
+                get
+                {
+                    return _DMCRandomizeNoise;
+                }
+
+                set
+                {
+                    _DMCRandomizeNoise = value;
+                }
+            }
+            public bool DMCTRImute
+            {
+                get
+                {
+                    return _DMCTRImute;
+                }
+
+                set
+                {
+                    _DMCTRImute = value;
+                }
+            }
+            public bool DMCTRINull
+            {
+                get
+                {
+                    return _DMCTRINull;
+                }
+
+                set
+                {
+                    _DMCTRINull = value;
+                }
+            }
+
+            public bool MMC5NonLinearMixer
+            {
+                get
+                {
+                    return _MMC5NonLinearMixer;
+                }
+
+                set
+                {
+                    _MMC5NonLinearMixer = value;
+                }
+            }
+            public bool MMC5PhaseRefresh
+            {
+                get
+                {
+                    return _MMC5PhaseRefresh;
+                }
+
+                set
+                {
+                    _MMC5PhaseRefresh = value;
+                }
+            }
+
+            public bool N160Serial
+            {
+                get
+                {
+                    return _N160Serial;
+                }
+
+                set
+                {
+                    _N160Serial = value;
+                }
+            }
+
+
             public NSF Copy()
             {
                 NSF NSF = new NSF();
 
+                NSF.NESUnmuteOnReset = this.NESUnmuteOnReset;
+                NSF.NESNonLinearMixer = this.NESNonLinearMixer;
+                NSF.NESPhaseRefresh = this.NESPhaseRefresh;
+                NSF.NESDutySwap = this.NESDutySwap;
+
+                NSF.FDSLpf = this.FDSLpf;
+                NSF.FDS4085Reset = this.FDS4085Reset;
                 NSF.FDSWriteDisable8000 = this.FDSWriteDisable8000;
+
+                NSF.DMCUnmuteOnReset = this.DMCUnmuteOnReset;
+                NSF.DMCNonLinearMixer = this.DMCNonLinearMixer;
+                NSF.DMCEnable4011 = this.DMCEnable4011;
+                NSF.DMCEnablePnoise = this.DMCEnablePnoise;
+                NSF.DMCDPCMAntiClick = this.DMCDPCMAntiClick;
+                NSF.DMCRandomizeNoise = this.DMCRandomizeNoise;
+                NSF.DMCTRImute = this.DMCTRImute;
+                NSF.DMCTRINull = this.DMCTRINull;
+
+                NSF.MMC5NonLinearMixer = this.MMC5NonLinearMixer;
+                NSF.MMC5PhaseRefresh = this.MMC5PhaseRefresh;
+
+                NSF.N160Serial = this.N160Serial;
 
                 return NSF;
             }

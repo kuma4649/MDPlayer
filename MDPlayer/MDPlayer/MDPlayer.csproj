@@ -116,9 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio.cs" />
+    <Compile Include="ChipLEDs.cs" />
     <Compile Include="ChipRegister.cs" />
     <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
+    <Compile Include="drawBuff.cs" />
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\MID.cs" />
@@ -170,12 +172,6 @@
     </Compile>
     <Compile Include="form\frmMIDI.Designer.cs">
       <DependentUpon>frmMIDI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="form\frmMixer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="form\frmMixer.Designer.cs">
-      <DependentUpon>frmMixer.cs</DependentUpon>
     </Compile>
     <Compile Include="form\frmMixer2.cs">
       <SubType>Form</SubType>
@@ -285,6 +281,7 @@
     <Compile Include="form\frmYM2612MIDI.Designer.cs">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrameBuffer.cs" />
     <Compile Include="HostCommandStub.cs" />
     <Compile Include="log.cs" />
     <Compile Include="M3U.cs" />
@@ -308,6 +305,7 @@
     <Compile Include="Driver\vgm.cs" />
     <Compile Include="Tone.cs" />
     <Compile Include="TonePallet.cs" />
+    <Compile Include="VisVolume.cs" />
     <Compile Include="vstInfo.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
@@ -331,9 +329,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmMIDI.resx">
       <DependentUpon>frmMIDI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="form\frmMixer.resx">
-      <DependentUpon>frmMixer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmMixer2.resx">
       <DependentUpon>frmMixer2.cs</DependentUpon>

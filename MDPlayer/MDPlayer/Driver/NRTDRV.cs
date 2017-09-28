@@ -459,8 +459,8 @@ namespace MDPlayer
         private float CTC3DownCounter = 0.0f;
         private float CTC3DownCounterMAX = 0.0f;
         //private bool CTC3Paluse = false;
-        private float CTCStep = 4000000.0f / 44100.0f;
-        private float CTC1Step = 4000000.0f / 44100.0f;
+        private float CTCStep = 4000000.0f / common.SampleRate;
+        private float CTC1Step = 4000000.0f / (UInt32)common.SampleRate;
 
         public override void oneFrameProc()
         {

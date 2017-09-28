@@ -19,7 +19,6 @@ namespace MDPlayer
 
         private frmInfo frmInfo = null;
         private frmPlayList frmPlayList = null;
-        private frmMixer frmMixer = null;
         private frmVSTeffectList frmVSTeffectList = null;
 
         private frmMegaCD[] frmMCD = new frmMegaCD[2] { null, null };
@@ -53,7 +52,6 @@ namespace MDPlayer
 
         private bool IsInitialOpenFolder = true;
 
-        private static int SamplingRate = 44100;
         private byte[] srcBuf;
 
         public Setting setting = Setting.Load();
@@ -73,6 +71,7 @@ namespace MDPlayer
             log.ForcedWrite("frmMain(コンストラクタ):STEP 00");
 
             InitializeComponent();
+            DrawBuff.Init();
 
             log.ForcedWrite("frmMain(コンストラクタ):STEP 01");
 
@@ -152,14 +151,6 @@ namespace MDPlayer
             frmPlayList.Opacity = 1.0;
             frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
-
-            frmMixer = new frmMixer(setting);
-            frmMixer.frmMain = this;
-            frmMixer.Show();
-            frmMixer.Visible = false;
-            frmMixer.Opacity = 1.0;
-            frmMixer.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
-            frmMixer.Refresh();
 
             frmVSTeffectList = new frmVSTeffectList(this, setting);
             frmVSTeffectList.Show();
@@ -541,12 +532,6 @@ namespace MDPlayer
                 setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
                 setting.location.OPlayList = true;
             }
-            if (frmMixer != null && !frmMixer.isClosed)
-            {
-                setting.location.PMixer = frmMixer.Location;
-                setting.location.PMixerWH = new System.Drawing.Point(frmMixer.Width, frmMixer.Height);
-                setting.location.OMixer = true;
-            }
             if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
             {
                 setting.location.PosVSTeffectList = frmVSTeffectList.Location;
@@ -637,12 +622,6 @@ namespace MDPlayer
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 05");
-
-            try
-            {
-                frmMixer.Close();
-            }
-            catch { }
 
             setting.Save();
 
@@ -1119,7 +1098,7 @@ namespace MDPlayer
                     return;
             }
 
-            frmMCD[chipID] = new frmMegaCD(this, chipID, setting.other.Zoom);
+            frmMCD[chipID] = new frmMegaCD(this, chipID, setting.other.Zoom,newParam.rf5c164[chipID]);
             if (setting.location.PosRf5c164[chipID] == System.Drawing.Point.Empty)
             {
                 frmMCD[chipID].x = this.Location.X;
@@ -1131,26 +1110,15 @@ namespace MDPlayer
                 frmMCD[chipID].y = setting.location.PosRf5c164[chipID].Y;
             }
 
-            screen.AddRf5c164(chipID, frmMCD[chipID].pbScreen, Properties.Resources.planeC);
             frmMCD[chipID].Show();
             frmMCD[chipID].update();
             frmMCD[chipID].Text = string.Format("RF5C164 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitRF5C164(chipID);
             oldParam.rf5c164[chipID] = new MDChipParams.RF5C164();
         }
 
         private void CloseFormMegaCD(int chipID)
         {
             if (frmMCD[chipID] == null) return;
-
-            try
-            {
-                screen.RemoveRf5c164(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
 
             try
             {
@@ -1314,8 +1282,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmC140[chipID] = new frmC140(this, chipID, setting.other.Zoom);
-            screen.AddC140(chipID, frmC140[chipID].pbScreen, Properties.Resources.planeF);
+            frmC140[chipID] = new frmC140(this, chipID, setting.other.Zoom, newParam.c140[chipID]);
 
             if (setting.location.PosC140[chipID] == System.Drawing.Point.Empty)
             {
@@ -1331,22 +1298,12 @@ namespace MDPlayer
             frmC140[chipID].Show();
             frmC140[chipID].update();
             frmC140[chipID].Text = string.Format("C140 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitC140(chipID);
             oldParam.c140[chipID] = new MDChipParams.C140();
         }
 
         private void CloseFormC140(int chipID)
         {
             if (frmC140[chipID] == null) return;
-
-            try
-            {
-                screen.RemoveC140(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
 
             try
             {
@@ -1824,7 +1781,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmAY8910[chipID] = new frmAY8910(this, chipID, setting.other.Zoom);
+            frmAY8910[chipID] = new frmAY8910(this, chipID, setting.other.Zoom, newParam.ay8910[chipID]);
 
             if (setting.location.PosAY8910[chipID] == System.Drawing.Point.Empty)
             {
@@ -1837,11 +1794,9 @@ namespace MDPlayer
                 frmAY8910[chipID].y = setting.location.PosAY8910[chipID].Y;
             }
 
-            screen.AddAY8910(chipID, frmAY8910[chipID].pbScreen, Properties.Resources.planeAY8910);
             frmAY8910[chipID].Show();
             frmAY8910[chipID].update();
             frmAY8910[chipID].Text = string.Format("AY8910 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitAY8910(chipID);
             oldParam.ay8910[chipID] = new MDChipParams.AY8910();
         }
 
@@ -1849,14 +1804,6 @@ namespace MDPlayer
         {
             if (frmAY8910[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveAY8910(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmAY8910[chipID].Close();
@@ -1888,7 +1835,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmHuC6280[chipID] = new frmHuC6280(this, chipID, setting.other.Zoom);
+            frmHuC6280[chipID] = new frmHuC6280(this, chipID, setting.other.Zoom,newParam.huc6280[chipID]);
 
             if (setting.location.PosHuC6280[chipID] == System.Drawing.Point.Empty)
             {
@@ -1901,11 +1848,9 @@ namespace MDPlayer
                 frmHuC6280[chipID].y = setting.location.PosHuC6280[chipID].Y;
             }
 
-            screen.AddHuC6280(chipID, frmHuC6280[chipID].pbScreen, Properties.Resources.planeHuC6280);
             frmHuC6280[chipID].Show();
             frmHuC6280[chipID].update();
             frmHuC6280[chipID].Text = string.Format("HuC6280 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitHuC6280(chipID);
             oldParam.huc6280[chipID] = new MDChipParams.HuC6280();
         }
 
@@ -1913,14 +1858,6 @@ namespace MDPlayer
         {
             if (frmHuC6280[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveHuC6280(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmHuC6280[chipID].Close();
@@ -2016,7 +1953,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmMIDI[chipID] = new frmMIDI(this, chipID, setting.other.Zoom);
+            frmMIDI[chipID] = new frmMIDI(this, chipID, setting.other.Zoom, newParam.midi[chipID]);
 
             if (setting.location.PosMIDI[chipID] == System.Drawing.Point.Empty)
             {
@@ -2029,11 +1966,9 @@ namespace MDPlayer
                 frmMIDI[chipID].y = setting.location.PosMIDI[chipID].Y;
             }
 
-            screen.AddMIDI(chipID, frmMIDI[chipID].pbScreen, Properties.Resources.planeMIDI_GM);
             frmMIDI[chipID].Show();
             frmMIDI[chipID].update();
             frmMIDI[chipID].Text = string.Format("MIDI ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitMIDI(chipID);
             oldParam.midi[chipID] = new MIDIParam();
         }
 
@@ -2041,14 +1976,6 @@ namespace MDPlayer
         {
             if (frmMIDI[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveMIDI(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmMIDI[chipID].Close();
@@ -2178,7 +2105,10 @@ namespace MDPlayer
                     if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenChangeParams();
                     else frmSegaPCM[chipID] = null;
 
-                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) frmAY8910[chipID].screenChangeParams();
+                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
+                    {
+                        frmAY8910[chipID].screenChangeParams();
+                    }
                     else frmAY8910[chipID] = null;
 
                     if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
@@ -2203,55 +2133,55 @@ namespace MDPlayer
 
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
-                    if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) frmMCD[chipID].screenDrawParams();
+                    if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) { frmMCD[chipID].screenDrawParams(); frmMCD[chipID].update(); }
                     else frmMCD[chipID] = null;
 
-                    if (frmC140[chipID] != null && !frmC140[chipID].isClosed) frmC140[chipID].screenDrawParams();
+                    if (frmC140[chipID] != null && !frmC140[chipID].isClosed) { frmC140[chipID].screenDrawParams(); frmC140[chipID].update(); }
                     else frmC140[chipID] = null;
 
-                    if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) frmYM2608[chipID].screenDrawParams();
+                    if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) { frmYM2608[chipID].screenDrawParams(); frmYM2608[chipID].update(); }
                     else frmYM2608[chipID] = null;
 
-                    if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) frmYM2151[chipID].screenDrawParams();
+                    if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) { frmYM2151[chipID].screenDrawParams(); frmYM2151[chipID].update(); }
                     else frmYM2151[chipID] = null;
 
-                    if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) frmYM2203[chipID].screenDrawParams();
+                    if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) { frmYM2203[chipID].screenDrawParams(); frmYM2203[chipID].update(); }
                     else frmYM2203[chipID] = null;
 
-                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) frmYM2413[chipID].screenDrawParams();
+                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) { frmYM2413[chipID].screenDrawParams(); frmYM2413[chipID].update(); }
                     else frmYM2413[chipID] = null;
 
-                    if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) frmYM2610[chipID].screenDrawParams();
+                    if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) { frmYM2610[chipID].screenDrawParams(); frmYM2610[chipID].update(); }
                     else frmYM2610[chipID] = null;
 
-                    if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) frmYM2612[chipID].screenDrawParams();
+                    if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) { frmYM2612[chipID].screenDrawParams(); frmYM2612[chipID].update(); }
                     else frmYM2612[chipID] = null;
 
-                    if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) frmOKIM6258[chipID].screenDrawParams();
+                    if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) { frmOKIM6258[chipID].screenDrawParams(); frmOKIM6258[chipID].update(); }
                     else frmOKIM6258[chipID] = null;
 
-                    if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) frmOKIM6295[chipID].screenDrawParams();
+                    if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) { frmOKIM6295[chipID].screenDrawParams(); frmOKIM6295[chipID].update(); }
                     else frmOKIM6295[chipID] = null;
 
-                    if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) frmSN76489[chipID].screenDrawParams();
+                    if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) { frmSN76489[chipID].screenDrawParams(); frmSN76489[chipID].update(); }
                     else frmSN76489[chipID] = null;
 
-                    if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenDrawParams();
+                    if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) { frmSegaPCM[chipID].screenDrawParams(); frmSegaPCM[chipID].update(); }
                     else frmSegaPCM[chipID] = null;
 
-                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) frmAY8910[chipID].screenDrawParams();
+                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) { frmAY8910[chipID].screenDrawParams(); frmAY8910[chipID].update(); }
                     else frmAY8910[chipID] = null;
 
-                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenDrawParams();
+                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) { frmHuC6280[chipID].screenDrawParams(); frmHuC6280[chipID].update(); }
                     else frmHuC6280[chipID] = null;
 
-                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenDrawParams();
+                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) { frmMIDI[chipID].screenDrawParams(); frmMIDI[chipID].update(); }
                     else frmMIDI[chipID] = null;
 
                 }
-                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenDrawParams();
+                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) { frmYM2612MIDI.screenDrawParams(); frmYM2612MIDI.update(); }
                 else frmYM2612MIDI = null;
-                if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenDrawParams();
+                if (frmMixer2 != null && !frmMixer2.isClosed) { frmMixer2.screenDrawParams(); frmMixer2.update(); }
                 else frmMixer2 = null;
 
                 nextFrame += period;
@@ -2302,25 +2232,19 @@ namespace MDPlayer
             {
                 screenChangeParamsFromYM2612(chipID);
                 screenChangeParamsFromSN76489(chipID);
-                screenChangeParamsFromRF5C164(chipID);
-                screenChangeParamsFromC140(chipID);
                 screenChangeParamsFromSegaPCM(chipID);
                 screenChangeParamsFromYM2151(chipID);
                 screenChangeParamsFromYM2203(chipID);
                 screenChangeParamsFromYM2413(chipID);
                 screenChangeParamsFromYM2608(chipID);
                 screenChangeParamsFromYM2610(chipID);
-                screenChangeParamsFromAY8910(chipID);
-                screenChangeParamsFromHuC6280(chipID);
-                screenChangeParamsFromMIDI(chipID);
                 screenChangeParamsFromOKIM6258(chipID);
             }
 
             screenChangeParamsFromYM2612MIDI();
-            screenChangeParamsFromMixer();
 
             long w = Audio.GetCounter();
-            double sec = (double)w / (double)SamplingRate;
+            double sec = (double)w / (double)common.SampleRate;
             newParam.Cminutes = (int)(sec / 60);
             sec -= newParam.Cminutes * 60;
             newParam.Csecond = (int)sec;
@@ -2328,7 +2252,7 @@ namespace MDPlayer
             newParam.Cmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetTotalCounter();
-            sec = (double)w / (double)SamplingRate;
+            sec = (double)w / (double)common.SampleRate;
             newParam.TCminutes = (int)(sec / 60);
             sec -= newParam.TCminutes * 60;
             newParam.TCsecond = (int)sec;
@@ -2336,7 +2260,7 @@ namespace MDPlayer
             newParam.TCmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetLoopCounter();
-            sec = (double)w / (double)SamplingRate;
+            sec = (double)w / (double)common.SampleRate;
             newParam.LCminutes = (int)(sec / 60);
             sec -= newParam.LCminutes * 60;
             newParam.LCsecond = (int)sec;
@@ -2405,28 +2329,6 @@ namespace MDPlayer
 
             }
 
-            //for (int ch = 6; ch < 9; ch++) //FM EX
-            //{
-            //    int[] exReg = new int[3] { 2, 0, -6 };
-            //    int c = exReg[ch - 6];
-
-            //    newParam.ym2203[chipID].channels[ch].pan = 0;
-
-            //    if (isFmEx)
-            //    {
-            //        int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
-            //        int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
-            //        int n = -1;
-            //        if ((fmKeyYM2203[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
-            //        newParam.ym2203[chipID].channels[ch].note = n;
-            //        newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 5] / 80, 0), 19);
-            //    }
-            //    else
-            //    {
-            //        newParam.ym2203[chipID].channels[ch].note = -1;
-            //        newParam.ym2203[chipID].channels[ch].volumeL = 0;
-            //    }
-            //}
             for (int ch = 3; ch < 6; ch++) //FM EX
             {
                 int[] exReg = new int[3] { 2, 0, -6 };
@@ -2997,33 +2899,6 @@ namespace MDPlayer
             }
         }
 
-        private void screenChangeParamsFromC140(int chipID)
-        {
-            MDSound.c140.c140_state c140State = Audio.GetC140Register(chipID);
-            if (c140State != null)
-            {
-                for (int ch = 0; ch < 24; ch++)
-                {
-                    int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
-                    int l = c140State.REG[ch * 16 + 1];
-                    int r = c140State.REG[ch * 16 + 0];
-                    int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
-
-                    if (c140State.voi[ch].key == 0) frequency = 0;
-                    if (frequency == 0)
-                    {
-                        l = 0;
-                        r = 0;
-                    }
-
-                    newParam.c140[chipID].channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
-                    newParam.c140[chipID].channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
-                    newParam.c140[chipID].channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
-                    newParam.c140[chipID].channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
-                }
-            }
-        }
-
         private void screenChangeParamsFromOKIM6258(int chipID)
         {
             MDSound.okim6258.okim6258_state okim6258State = Audio.GetOKIM6258Register(chipID);
@@ -3075,31 +2950,6 @@ namespace MDPlayer
             else
             {
                 newParam.okim6258[chipID].volumeR--;
-            }
-        }
-
-        private void screenChangeParamsFromRF5C164(int chipID)
-        {
-            MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register(chipID);
-            if (rf5c164Register != null)
-            {
-                int[][] rf5c164Vol = Audio.GetRf5c164Volume(chipID);
-                for (int ch = 0; ch < 8; ch++)
-                {
-                    if (rf5c164Register.Channel[ch].Enable != 0)
-                    {
-                        newParam.rf5c164[chipID].channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
-                        newParam.rf5c164[chipID].channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
-                        newParam.rf5c164[chipID].channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
-                    }
-                    else
-                    {
-                        newParam.rf5c164[chipID].channels[ch].note = -1;
-                        newParam.rf5c164[chipID].channels[ch].volumeL = 0;
-                        newParam.rf5c164[chipID].channels[ch].volumeR = 0;
-                    }
-                    newParam.rf5c164[chipID].channels[ch].pan = (int)rf5c164Register.Channel[ch].PAN;
-                }
             }
         }
 
@@ -3249,206 +3099,6 @@ namespace MDPlayer
             }
         }
 
-        private void screenChangeParamsFromAY8910(int chipID)
-        {
-            int[] AY8910Register = Audio.GetAY8910Register(chipID);
-
-            for (int ch = 0; ch < 3; ch++) //SSG
-            {
-                MDChipParams.Channel channel = newParam.ay8910[chipID].channels[ch];
-
-                bool t = (AY8910Register[0x07] & (0x1 << ch)) == 0;
-                bool n = (AY8910Register[0x07] & (0x8 << ch)) == 0;
-
-                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-                newParam.ay8910[chipID].nfrq = AY8910Register[0x06] & 0x1f;
-                newParam.ay8910[chipID].efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
-                newParam.ay8910[chipID].etype = (AY8910Register[0x0d] & 0x7) + 2;
-
-                int v = (AY8910Register[0x08 + ch] & 0x1f);
-                v = v > 15 ? 15 : v;
-                channel.volume = (int)(((t || n) ? 1 : 0) * v * (20.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
-
-                if (channel.volume == 0)
-                {
-                    channel.note = -1;
-                }
-                else
-                {
-                    int ft = AY8910Register[0x00 + ch * 2];
-                    int ct = AY8910Register[0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = searchSSGNote(ftone);
-                }
-
-            }
-
-        }
-
-        private void screenChangeParamsFromHuC6280(int chipID)
-        {
-
-            MDSound.Ootake_PSG.huc6280_state chip = Audio.GetHuC6280Register(chipID);
-            if (chip == null) return;
-
-            for (int ch = 0; ch < 6; ch++)
-            {
-                MDSound.Ootake_PSG.PSG psg = chip.Psg[ch];
-                if (psg == null) continue;
-                MDChipParams.Channel channel = newParam.huc6280[chipID].channels[ch];
-                channel.volumeL = (psg.outVolumeL >> 10);
-                channel.volumeR = (psg.outVolumeR >> 10);
-                channel.volumeL = Math.Min(channel.volumeL, 19);
-                channel.volumeR = Math.Min(channel.volumeR, 19);
-
-                channel.pan = (int)((psg.volumeL & 0xf) | ((psg.volumeR & 0xf) << 4));
-
-                channel.inst = psg.wave;
-
-                channel.dda = psg.bDDA;
-
-                int tp = (int)psg.frq;
-                if (tp == 0) tp = 1;
-
-                float ftone = 3579545.0f / 32.0f / (float)tp;
-                channel.note = searchSSGNote(ftone);
-                if (channel.volumeL == 0 && channel.volumeR == 0) channel.note = -1;
-
-                if (ch < 4) continue;
-
-                channel.noise = psg.bNoiseOn;
-                channel.nfrq = (int)psg.noiseFrq;
-            }
-
-            newParam.huc6280[chipID].mvolL = (int)chip.MainVolumeL;
-            newParam.huc6280[chipID].mvolR = (int)chip.MainVolumeR;
-            newParam.huc6280[chipID].LfoCtrl = (int)chip.LfoCtrl;
-            newParam.huc6280[chipID].LfoFrq = (int)chip.LfoFrq;
-
-        }
-
-        private void screenChangeParamsFromMIDI(int chipID)
-        {
-            MIDIParam prm = Audio.GetMIDIInfos(chipID);
-
-            for (int ch = 0; ch < 16; ch++)
-            {
-                for (int i = 0; i < 256; i++)
-                {
-                    newParam.midi[chipID].cc[ch][i] = prm.cc[ch][i];
-                }
-                newParam.midi[chipID].bend[ch] = prm.bend[ch];
-
-                for (int i = 0; i < 128; i++)
-                {
-                    newParam.midi[chipID].note[ch][i] = prm.note[ch][i];
-                }
-
-                newParam.midi[chipID].level[ch][0] = prm.level[ch][0];
-                newParam.midi[chipID].level[ch][1] = prm.level[ch][1];
-                newParam.midi[chipID].level[ch][2] = prm.level[ch][2];
-                newParam.midi[chipID].level[ch][3] = prm.level[ch][3];
-                newParam.midi[chipID].level[ch][4] = prm.level[ch][4];
-                if (prm.level[ch][0] > 0) { prm.level[ch][0] -= 3; if (prm.level[ch][0] < 0) prm.level[ch][0] = 0; }
-                if (prm.level[ch][1] > 0) { prm.level[ch][1] -= 3; if (prm.level[ch][1] < 0) prm.level[ch][1] = 0; }
-                if (prm.level[ch][2] > 0) { prm.level[ch][2] -= 3; if (prm.level[ch][2] < 0) prm.level[ch][2] = 0; }
-                if (prm.level[ch][3] > 0) {
-                    prm.level[ch][4] -= 3;
-                    if (prm.level[ch][4] < 0)
-                    {
-                        prm.level[ch][4] = 0;
-                        prm.level[ch][3] -= 3;
-                        if (prm.level[ch][3] < 0) prm.level[ch][3] = 0;
-                    }
-                }
-
-                newParam.midi[chipID].pc[ch] = prm.pc[ch];
-
-                newParam.midi[chipID].nrpnVibRate[ch] = prm.nrpnVibRate[ch];
-                newParam.midi[chipID].nrpnVibDepth[ch] = prm.nrpnVibDepth[ch];
-                newParam.midi[chipID].nrpnVibDelay[ch] = prm.nrpnVibDelay[ch];
-
-                newParam.midi[chipID].nrpnLPF[ch] = prm.nrpnLPF[ch];
-                newParam.midi[chipID].nrpnLPFRsn[ch] = prm.nrpnLPFRsn[ch];
-                newParam.midi[chipID].nrpnHPF[ch] = prm.nrpnHPF[ch];
-
-                newParam.midi[chipID].nrpnEQBaseFrq[ch] = prm.nrpnEQBaseFrq[ch];
-                newParam.midi[chipID].nrpnEQBaseGain[ch] = prm.nrpnEQBaseGain[ch];
-                newParam.midi[chipID].nrpnEQTrebleFrq[ch] = prm.nrpnEQTrebleFrq[ch];
-                newParam.midi[chipID].nrpnEQTrebleGain[ch] = prm.nrpnEQTrebleGain[ch];
-
-                newParam.midi[chipID].nrpnEGAttack[ch] = prm.nrpnEGAttack[ch];
-                newParam.midi[chipID].nrpnEGDecay[ch] = prm.nrpnEGDecay[ch];
-                newParam.midi[chipID].nrpnEGRls[ch] = prm.nrpnEGRls[ch];
-            }
-
-            newParam.midi[chipID].MIDIModule = prm.MIDIModule;
-
-            //Display Data
-            for (int i = 0; i < 64; i++)
-            {
-                newParam.midi[chipID].LCDDisplay[i] = prm.LCDDisplay[i];
-            }
-            newParam.midi[chipID].LCDDisplayTime = prm.LCDDisplayTime;
-            prm.LCDDisplayTime -= 3;
-            if (prm.LCDDisplayTime < 0) prm.LCDDisplayTime = 0;
-            newParam.midi[chipID].LCDDisplayTimeXG = prm.LCDDisplayTimeXG;
-            prm.LCDDisplayTimeXG -= 3;
-            if (prm.LCDDisplayTimeXG < 0) prm.LCDDisplayTimeXG = 0;
-
-            //Display Letter Data
-            for (int i = 0; i < 32; i++)
-            {
-                newParam.midi[chipID].LCDDisplayLetter[i] = prm.LCDDisplayLetter[i];
-            }
-            newParam.midi[chipID].LCDDisplayLetterLen = prm.LCDDisplayLetterLen;
-            newParam.midi[chipID].LCDDisplayLetterTime = prm.LCDDisplayLetterTime;
-            prm.LCDDisplayLetterTime -= 3;
-            if (prm.LCDDisplayLetterTime < 0)
-            {
-                if (prm.LCDDisplayLetterLen > 0)
-                {
-                    for (int i = 1; i < 32; i++)
-                    {
-                        prm.LCDDisplayLetter[i - 1] = (byte)(i < prm.LCDDisplayLetterLen ? prm.LCDDisplayLetter[i] : 0x20);
-                    }
-                    prm.LCDDisplayLetterTime = 40;
-                    prm.LCDDisplayLetterLen--;
-                }
-                else
-                {
-                    prm.LCDDisplayLetterTime = 0;
-                }
-            }
-            newParam.midi[chipID].LCDDisplayLetterTimeXG = prm.LCDDisplayLetterTimeXG;
-            prm.LCDDisplayLetterTimeXG -= 3;
-            if (prm.LCDDisplayLetterTimeXG < 0) prm.LCDDisplayLetterTimeXG = 0;
-
-            newParam.midi[chipID].ReverbGS = prm.ReverbGS;
-            newParam.midi[chipID].ChorusGS = prm.ChorusGS;
-            newParam.midi[chipID].DelayGS = prm.DelayGS;
-            newParam.midi[chipID].EFXGS = prm.EFXGS;
-
-            newParam.midi[chipID].ReverbXG = prm.ReverbXG;
-            newParam.midi[chipID].ChorusXG = prm.ChorusXG;
-            newParam.midi[chipID].VariationXG = prm.VariationXG;
-            newParam.midi[chipID].Insertion1XG = prm.Insertion1XG;
-            newParam.midi[chipID].Insertion2XG = prm.Insertion2XG;
-            newParam.midi[chipID].Insertion3XG = prm.Insertion3XG;
-            newParam.midi[chipID].Insertion4XG = prm.Insertion4XG;
-
-            newParam.midi[chipID].MasterVolume = prm.MasterVolume;
-
-            newParam.midi[chipID].Lyric = prm.Lyric;
-
-        }
-
         private void screenChangeParamsFromYM2612MIDI()
         {
             int[][] fmRegister = Audio.GetYM2612MIDIRegister();
@@ -3525,298 +3175,10 @@ namespace MDPlayer
 
         }
 
-        private void screenChangeParamsFromMixer()
-        {
-
-            newParam.mixer.AY8910.Volume = setting.balance.AY8910Volume;
-            newParam.mixer.C140.Volume = setting.balance.C140Volume;
-            newParam.mixer.HuC6280.Volume = setting.balance.HuC6280Volume;
-            newParam.mixer.OKIM6258.Volume = setting.balance.OKIM6258Volume;
-            newParam.mixer.OKIM6295.Volume = setting.balance.OKIM6295Volume;
-            newParam.mixer.PWM.Volume = setting.balance.PWMVolume;
-            newParam.mixer.RF5C164.Volume = setting.balance.RF5C164Volume;
-            newParam.mixer.SEGAPCM.Volume = setting.balance.SEGAPCMVolume;
-            newParam.mixer.SN76489.Volume = setting.balance.SN76489Volume;
-            newParam.mixer.YM2151.Volume = setting.balance.YM2151Volume;
-            newParam.mixer.YM2203FM.Volume = setting.balance.YM2203FMVolume;
-            newParam.mixer.YM2203PSG.Volume = setting.balance.YM2203PSGVolume;
-            newParam.mixer.YM2203.Volume = setting.balance.YM2203Volume;
-            newParam.mixer.YM2413.Volume = setting.balance.YM2413Volume;
-            newParam.mixer.YM2608Adpcm.Volume = setting.balance.YM2608AdpcmVolume;
-            newParam.mixer.YM2608FM.Volume = setting.balance.YM2608FMVolume;
-            newParam.mixer.YM2608PSG.Volume = setting.balance.YM2608PSGVolume;
-            newParam.mixer.YM2608Rhythm.Volume = setting.balance.YM2608RhythmVolume;
-            newParam.mixer.YM2608.Volume = setting.balance.YM2608Volume;
-            newParam.mixer.YM2610AdpcmA.Volume = setting.balance.YM2610AdpcmAVolume;
-            newParam.mixer.YM2610AdpcmB.Volume = setting.balance.YM2610AdpcmBVolume;
-            newParam.mixer.YM2610FM.Volume = setting.balance.YM2610FMVolume;
-            newParam.mixer.YM2610PSG.Volume = setting.balance.YM2610PSGVolume;
-            newParam.mixer.YM2610.Volume = setting.balance.YM2610Volume;
-            newParam.mixer.YM2612.Volume = setting.balance.YM2612Volume;
-            newParam.mixer.C352.Volume = setting.balance.C352Volume;
-            newParam.mixer.K054539.Volume = setting.balance.K054539Volume;
-            newParam.mixer.APU.Volume = setting.balance.APUVolume;
-            newParam.mixer.DMC.Volume = setting.balance.DMCVolume;
-            newParam.mixer.FDS.Volume = setting.balance.FDSVolume;
-            newParam.mixer.MMC5.Volume = setting.balance.MMC5Volume;
-            newParam.mixer.N160.Volume = setting.balance.N160Volume;
-            newParam.mixer.VRC6.Volume = setting.balance.VRC6Volume;
-            newParam.mixer.VRC7.Volume = setting.balance.VRC7Volume;
-            newParam.mixer.FME7.Volume = setting.balance.FME7Volume;
-
-            newParam.mixer.Master.Volume = setting.balance.MasterVolume;
-            newParam.mixer.Master.VisVolume1 = common.Range(Audio.masterVisVolume / 250, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.Master.VisVolume2 <= newParam.mixer.Master.VisVolume1)
-            {
-                newParam.mixer.Master.VisVolume2 = newParam.mixer.Master.VisVolume1;
-                newParam.mixer.Master.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2151.VisVolume1 = common.Range(Audio.ym2151VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2151.VisVolume2 <= newParam.mixer.YM2151.VisVolume1)
-            {
-                newParam.mixer.YM2151.VisVolume2 = newParam.mixer.YM2151.VisVolume1;
-                newParam.mixer.YM2151.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2203.VisVolume1 = common.Range(Audio.ym2203VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2203.VisVolume2 <= newParam.mixer.YM2203.VisVolume1)
-            {
-                newParam.mixer.YM2203.VisVolume2 = newParam.mixer.YM2203.VisVolume1;
-                newParam.mixer.YM2203.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2203FM.VisVolume1 = common.Range(Audio.ym2203FMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2203FM.VisVolume2 <= newParam.mixer.YM2203FM.VisVolume1)
-            {
-                newParam.mixer.YM2203FM.VisVolume2 = newParam.mixer.YM2203FM.VisVolume1;
-                newParam.mixer.YM2203FM.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2203PSG.VisVolume1 = common.Range(Audio.ym2203SSGVisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2203PSG.VisVolume2 <= newParam.mixer.YM2203PSG.VisVolume1)
-            {
-                newParam.mixer.YM2203PSG.VisVolume2 = newParam.mixer.YM2203PSG.VisVolume1;
-                newParam.mixer.YM2203PSG.VisVol2Cnt = 30;
-            }
-
-
-            newParam.mixer.YM2413.VisVolume1 = common.Range(Audio.ym2413VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2413.VisVolume2 <= newParam.mixer.YM2413.VisVolume1)
-            {
-                newParam.mixer.YM2413.VisVolume2 = newParam.mixer.YM2413.VisVolume1;
-                newParam.mixer.YM2413.VisVol2Cnt = 30;
-            }
-
-
-            newParam.mixer.YM2608.VisVolume1 = common.Range(Audio.ym2608VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2608.VisVolume2 <= newParam.mixer.YM2608.VisVolume1)
-            {
-                newParam.mixer.YM2608.VisVolume2 = newParam.mixer.YM2608.VisVolume1;
-                newParam.mixer.YM2608.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2608FM.VisVolume1 = common.Range(Audio.ym2608FMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2608FM.VisVolume2 <= newParam.mixer.YM2608FM.VisVolume1)
-            {
-                newParam.mixer.YM2608FM.VisVolume2 = newParam.mixer.YM2608FM.VisVolume1;
-                newParam.mixer.YM2608FM.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2608PSG.VisVolume1 = common.Range(Audio.ym2608SSGVisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2608PSG.VisVolume2 <= newParam.mixer.YM2608PSG.VisVolume1)
-            {
-                newParam.mixer.YM2608PSG.VisVolume2 = newParam.mixer.YM2608PSG.VisVolume1;
-                newParam.mixer.YM2608PSG.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2608Rhythm.VisVolume1 = common.Range(Audio.ym2608RtmVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2608Rhythm.VisVolume2 <= newParam.mixer.YM2608Rhythm.VisVolume1)
-            {
-                newParam.mixer.YM2608Rhythm.VisVolume2 = newParam.mixer.YM2608Rhythm.VisVolume1;
-                newParam.mixer.YM2608Rhythm.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2608Adpcm.VisVolume1 = common.Range(Audio.ym2608APCMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2608Adpcm.VisVolume2 <= newParam.mixer.YM2608Adpcm.VisVolume1)
-            {
-                newParam.mixer.YM2608Adpcm.VisVolume2 = newParam.mixer.YM2608Adpcm.VisVolume1;
-                newParam.mixer.YM2608Adpcm.VisVol2Cnt = 30;
-            }
-
-
-            newParam.mixer.YM2610.VisVolume1 = common.Range(Audio.ym2610VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2610.VisVolume2 <= newParam.mixer.YM2610.VisVolume1)
-            {
-                newParam.mixer.YM2610.VisVolume2 = newParam.mixer.YM2610.VisVolume1;
-                newParam.mixer.YM2610.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2610FM.VisVolume1 = common.Range(Audio.ym2610FMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2610FM.VisVolume2 <= newParam.mixer.YM2610FM.VisVolume1)
-            {
-                newParam.mixer.YM2610FM.VisVolume2 = newParam.mixer.YM2610FM.VisVolume1;
-                newParam.mixer.YM2610FM.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2610PSG.VisVolume1 = common.Range(Audio.ym2610SSGVisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2610PSG.VisVolume2 <= newParam.mixer.YM2610PSG.VisVolume1)
-            {
-                newParam.mixer.YM2610PSG.VisVolume2 = newParam.mixer.YM2610PSG.VisVolume1;
-                newParam.mixer.YM2610PSG.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2610AdpcmA.VisVolume1 = common.Range(Audio.ym2610APCMAVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2610AdpcmA.VisVolume2 <= newParam.mixer.YM2610AdpcmA.VisVolume1)
-            {
-                newParam.mixer.YM2610AdpcmA.VisVolume2 = newParam.mixer.YM2610AdpcmA.VisVolume1;
-                newParam.mixer.YM2610AdpcmA.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2610AdpcmB.VisVolume1 = common.Range(Audio.ym2610APCMBVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2610AdpcmB.VisVolume2 <= newParam.mixer.YM2610AdpcmB.VisVolume1)
-            {
-                newParam.mixer.YM2610AdpcmB.VisVolume2 = newParam.mixer.YM2610AdpcmB.VisVolume1;
-                newParam.mixer.YM2610AdpcmB.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.YM2612.VisVolume1 = common.Range(Audio.ym2612VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.YM2612.VisVolume2 <= newParam.mixer.YM2612.VisVolume1)
-            {
-                newParam.mixer.YM2612.VisVolume2 = newParam.mixer.YM2612.VisVolume1;
-                newParam.mixer.YM2612.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.AY8910.VisVolume1 = common.Range(Audio.ay8910VisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.AY8910.VisVolume2 <= newParam.mixer.AY8910.VisVolume1)
-            {
-                newParam.mixer.AY8910.VisVolume2 = newParam.mixer.AY8910.VisVolume1;
-                newParam.mixer.AY8910.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.SN76489.VisVolume1 = common.Range(Audio.sn76489VisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.SN76489.VisVolume2 <= newParam.mixer.SN76489.VisVolume1)
-            {
-                newParam.mixer.SN76489.VisVolume2 = newParam.mixer.SN76489.VisVolume1;
-                newParam.mixer.SN76489.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.HuC6280.VisVolume1 = common.Range(Audio.huc6280VisVolume / 120, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.HuC6280.VisVolume2 <= newParam.mixer.HuC6280.VisVolume1)
-            {
-                newParam.mixer.HuC6280.VisVolume2 = newParam.mixer.HuC6280.VisVolume1;
-                newParam.mixer.HuC6280.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.RF5C164.VisVolume1 = common.Range(Audio.rf5c164VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.RF5C164.VisVolume2 <= newParam.mixer.RF5C164.VisVolume1)
-            {
-                newParam.mixer.RF5C164.VisVolume2 = newParam.mixer.RF5C164.VisVolume1;
-                newParam.mixer.RF5C164.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.PWM.VisVolume1 = common.Range(Audio.pwmVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.PWM.VisVolume2 <= newParam.mixer.PWM.VisVolume1)
-            {
-                newParam.mixer.PWM.VisVolume2 = newParam.mixer.PWM.VisVolume1;
-                newParam.mixer.PWM.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.OKIM6258.VisVolume1 = common.Range(Audio.okim6258VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.OKIM6258.VisVolume2 <= newParam.mixer.OKIM6258.VisVolume1)
-            {
-                newParam.mixer.OKIM6258.VisVolume2 = newParam.mixer.OKIM6258.VisVolume1;
-                newParam.mixer.OKIM6258.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.OKIM6295.VisVolume1 = common.Range(Audio.okim6295VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.OKIM6295.VisVolume2 <= newParam.mixer.OKIM6295.VisVolume1)
-            {
-                newParam.mixer.OKIM6295.VisVolume2 = newParam.mixer.OKIM6295.VisVolume1;
-                newParam.mixer.OKIM6295.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.C140.VisVolume1 = common.Range(Audio.c140VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.C140.VisVolume2 <= newParam.mixer.C140.VisVolume1)
-            {
-                newParam.mixer.C140.VisVolume2 = newParam.mixer.C140.VisVolume1;
-                newParam.mixer.C140.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.SEGAPCM.VisVolume1 = common.Range(Audio.segaPCMVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.SEGAPCM.VisVolume2 <= newParam.mixer.SEGAPCM.VisVolume1)
-            {
-                newParam.mixer.SEGAPCM.VisVolume2 = newParam.mixer.SEGAPCM.VisVolume1;
-                newParam.mixer.SEGAPCM.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.C352.VisVolume1 = common.Range(Audio.c352VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.C352.VisVolume2 <= newParam.mixer.C352.VisVolume1)
-            {
-                newParam.mixer.C352.VisVolume2 = newParam.mixer.C352.VisVolume1;
-                newParam.mixer.C352.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.K054539.VisVolume1 = common.Range(Audio.k054539VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.K054539.VisVolume2 <= newParam.mixer.K054539.VisVolume1)
-            {
-                newParam.mixer.K054539.VisVolume2 = newParam.mixer.K054539.VisVolume1;
-                newParam.mixer.K054539.VisVol2Cnt = 30;
-            }
-
-            newParam.mixer.APU.VisVolume1 = common.Range(Audio.APUVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.APU.VisVolume2 <= newParam.mixer.APU.VisVolume1)
-            {
-                newParam.mixer.APU.VisVolume2 = newParam.mixer.APU.VisVolume1;
-                newParam.mixer.APU.VisVol2Cnt = 30;
-            }
-            newParam.mixer.DMC.VisVolume1 = common.Range(Audio.DMCVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.DMC.VisVolume2 <= newParam.mixer.DMC.VisVolume1)
-            {
-                newParam.mixer.DMC.VisVolume2 = newParam.mixer.DMC.VisVolume1;
-                newParam.mixer.DMC.VisVol2Cnt = 30;
-            }
-            newParam.mixer.FDS.VisVolume1 = common.Range(Audio.FDSVisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.FDS.VisVolume2 <= newParam.mixer.FDS.VisVolume1)
-            {
-                newParam.mixer.FDS.VisVolume2 = newParam.mixer.FDS.VisVolume1;
-                newParam.mixer.FDS.VisVol2Cnt = 30;
-            }
-            newParam.mixer.MMC5.VisVolume1 = common.Range(Audio.MMC5VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.MMC5.VisVolume2 <= newParam.mixer.K054539.VisVolume1)
-            {
-                newParam.mixer.MMC5.VisVolume2 = newParam.mixer.MMC5.VisVolume1;
-                newParam.mixer.MMC5.VisVol2Cnt = 30;
-            }
-            newParam.mixer.N160.VisVolume1 = common.Range(Audio.N160VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.N160.VisVolume2 <= newParam.mixer.N160.VisVolume1)
-            {
-                newParam.mixer.N160.VisVolume2 = newParam.mixer.N160.VisVolume1;
-                newParam.mixer.N160.VisVol2Cnt = 30;
-            }
-            newParam.mixer.VRC6.VisVolume1 = common.Range(Audio.VRC6VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.VRC6.VisVolume2 <= newParam.mixer.VRC6.VisVolume1)
-            {
-                newParam.mixer.VRC6.VisVolume2 = newParam.mixer.VRC6.VisVolume1;
-                newParam.mixer.VRC6.VisVol2Cnt = 30;
-            }
-            newParam.mixer.VRC7.VisVolume1 = common.Range(Audio.VRC7VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.VRC7.VisVolume2 <= newParam.mixer.VRC7.VisVolume1)
-            {
-                newParam.mixer.VRC7.VisVolume2 = newParam.mixer.VRC7.VisVolume1;
-                newParam.mixer.VRC7.VisVol2Cnt = 30;
-            }
-            newParam.mixer.FME7.VisVolume1 = common.Range(Audio.FME7VisVolume / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.mixer.FME7.VisVolume2 <= newParam.mixer.FME7.VisVolume1)
-            {
-                newParam.mixer.FME7.VisVolume2 = newParam.mixer.FME7.VisVolume1;
-                newParam.mixer.FME7.VisVol2Cnt = 30;
-            }
-        }
-
 
         private void screenDrawParams()
         {
+
             // 描画
             screen.drawParams(oldParam, newParam);
 
@@ -3826,38 +3188,38 @@ namespace MDPlayer
             screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
-            int[] chips = Audio.GetChipStatus();
-            screen.drawChipName(14 * 4, 0 * 8, 0, ref oldParam.ChipPriOPN, chips[0]);
-            screen.drawChipName(18 * 4, 0 * 8, 1, ref oldParam.ChipPriOPN2, chips[1]);
-            screen.drawChipName(23 * 4, 0 * 8, 2, ref oldParam.ChipPriOPNA, chips[2]);
-            screen.drawChipName(28 * 4, 0 * 8, 3, ref oldParam.ChipPriOPNB, chips[3]);
-            screen.drawChipName(33 * 4, 0 * 8, 4, ref oldParam.ChipPriOPM, chips[4]);
-            screen.drawChipName(37 * 4, 0 * 8, 5, ref oldParam.ChipPriDCSG, chips[5]);
-            screen.drawChipName(42 * 4, 0 * 8, 6, ref oldParam.ChipPriRF5C, chips[6]);
-            screen.drawChipName(47 * 4, 0 * 8, 7, ref oldParam.ChipPriPWM, chips[7]);
-            screen.drawChipName(51 * 4, 0 * 8, 8, ref oldParam.ChipPriOKI5, chips[8]);
-            screen.drawChipName(56 * 4, 0 * 8, 9, ref oldParam.ChipPriOKI9, chips[9]);
-            screen.drawChipName(61 * 4, 0 * 8, 10, ref oldParam.ChipPriC140, chips[10]);
-            screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.ChipPriSPCM, chips[11]);
-            screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.ChipPriAY10, chips[12]);
-            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.ChipPriOPLL, chips[13]);
-            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipPriHuC8, chips[14]);
+            byte[] chips = Audio.GetChipStatus();
+            screen.drawChipName(14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            screen.drawChipName(18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            screen.drawChipName(23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            screen.drawChipName(28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            screen.drawChipName(33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            screen.drawChipName(37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            screen.drawChipName(42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            screen.drawChipName(47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            screen.drawChipName(51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            screen.drawChipName(56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            screen.drawChipName(61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
 
-            screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.ChipSecOPN, chips[128 + 0]);
-            screen.drawChipName(18 * 4, 1 * 8, 1, ref oldParam.ChipSecOPN2, chips[128 + 1]);
-            screen.drawChipName(23 * 4, 1 * 8, 2, ref oldParam.ChipSecOPNA, chips[128 + 2]);
-            screen.drawChipName(28 * 4, 1 * 8, 3, ref oldParam.ChipSecOPNB, chips[128 + 3]);
-            screen.drawChipName(33 * 4, 1 * 8, 4, ref oldParam.ChipSecOPM, chips[128 + 4]);
-            screen.drawChipName(37 * 4, 1 * 8, 5, ref oldParam.ChipSecDCSG, chips[128 + 5]);
-            screen.drawChipName(42 * 4, 1 * 8, 6, ref oldParam.ChipSecRF5C, chips[128 + 6]);
-            screen.drawChipName(47 * 4, 1 * 8, 7, ref oldParam.ChipSecPWM, chips[128 + 7]);
-            screen.drawChipName(51 * 4, 1 * 8, 8, ref oldParam.ChipSecOKI5, chips[128 + 8]);
-            screen.drawChipName(56 * 4, 1 * 8, 9, ref oldParam.ChipSecOKI9, chips[128 + 9]);
-            screen.drawChipName(61 * 4, 1 * 8, 10, ref oldParam.ChipSecC140, chips[128 + 10]);
-            screen.drawChipName(66 * 4, 1 * 8, 11, ref oldParam.ChipSecSPCM, chips[128 + 11]);
-            screen.drawChipName(4 * 4, 1 * 8, 12, ref oldParam.ChipSecAY10, chips[128 + 12]);
-            screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.ChipSecOPLL, chips[128 + 13]);
-            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.ChipSecHuC8, chips[128 + 14]);
+            screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            screen.drawChipName(18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            screen.drawChipName(23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            screen.drawChipName(28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            screen.drawChipName(33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            screen.drawChipName(37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            screen.drawChipName(42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            screen.drawChipName(47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            screen.drawChipName(51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            screen.drawChipName(56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            screen.drawChipName(61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            screen.drawChipName(66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            screen.drawChipName(4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
             screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
             screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
@@ -3925,22 +3287,6 @@ namespace MDPlayer
                 //if (freq < Tables.freqTbl[i]) break;
                 //n = i;
                 float a = Math.Abs(freq - Tables.freqTbl[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
-
-        private int searchRf5c164Note(uint freq)
-        {
-            double m = double.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                double a = Math.Abs(freq - (0x0800 * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
@@ -4026,9 +3372,6 @@ namespace MDPlayer
                 log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
 
                 Audio.Init(setting);
-
-                frmMixer.balance = setting.balance;
-                frmMixer.setting = setting;
 
                 log.ForcedWrite("Audio初期化処理完了");
                 log.debug = setting.Debug_DispFrameCounter;
@@ -4172,47 +3515,47 @@ namespace MDPlayer
             if (setting.other.AutoOpen)
             {
 
-                if (Audio.ChipPriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
-                if (Audio.ChipSecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);
+                if (Audio.chipLED.PriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
+                if (Audio.chipLED.SecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);
 
-                if (Audio.ChipPriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
-                if (Audio.ChipSecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
+                if (Audio.chipLED.PriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
+                if (Audio.chipLED.SecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
 
-                if (Audio.ChipPriOPLL != 0) OpenFormYM2413(0, true); else CloseFormYM2413(0);
-                if (Audio.ChipSecOPLL != 0) OpenFormYM2413(1, true); else CloseFormYM2413(1);
+                if (Audio.chipLED.PriOPLL != 0) OpenFormYM2413(0, true); else CloseFormYM2413(0);
+                if (Audio.chipLED.SecOPLL != 0) OpenFormYM2413(1, true); else CloseFormYM2413(1);
 
-                if (Audio.ChipPriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
-                if (Audio.ChipSecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
+                if (Audio.chipLED.PriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
+                if (Audio.chipLED.SecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
 
-                if (Audio.ChipPriOPNB != 0) OpenFormYM2610(0, true); else CloseFormYM2610(0);
-                if (Audio.ChipSecOPNB != 0) OpenFormYM2610(1, true); else CloseFormYM2610(1);
+                if (Audio.chipLED.PriOPNB != 0) OpenFormYM2610(0, true); else CloseFormYM2610(0);
+                if (Audio.chipLED.SecOPNB != 0) OpenFormYM2610(1, true); else CloseFormYM2610(1);
 
-                if (Audio.ChipPriOPN2 != 0) OpenFormYM2612(0, true); else CloseFormYM2612(0);
-                if (Audio.ChipSecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
+                if (Audio.chipLED.PriOPN2 != 0) OpenFormYM2612(0, true); else CloseFormYM2612(0);
+                if (Audio.chipLED.SecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
 
-                if (Audio.ChipPriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
-                if (Audio.ChipSecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
+                if (Audio.chipLED.PriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
+                if (Audio.chipLED.SecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
 
-                if (Audio.ChipPriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
-                if (Audio.ChipSecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
+                if (Audio.chipLED.PriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
+                if (Audio.chipLED.SecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
 
-                if (Audio.ChipPriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
-                if (Audio.ChipSecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
+                if (Audio.chipLED.PriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
+                if (Audio.chipLED.SecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
 
-                if (Audio.ChipPriOKI9 != 0) OpenFormOKIM6295(0, true); else CloseFormOKIM6295(0);
-                if (Audio.ChipSecOKI9 != 0) OpenFormOKIM6295(1, true); else CloseFormOKIM6295(1);
+                if (Audio.chipLED.PriOKI9 != 0) OpenFormOKIM6295(0, true); else CloseFormOKIM6295(0);
+                if (Audio.chipLED.SecOKI9 != 0) OpenFormOKIM6295(1, true); else CloseFormOKIM6295(1);
 
-                if (Audio.ChipPriC140 != 0) OpenFormC140(0, true); else CloseFormC140(0);
-                if (Audio.ChipSecC140 != 0) OpenFormC140(1, true); else CloseFormC140(1);
+                if (Audio.chipLED.PriC140 != 0) OpenFormC140(0, true); else CloseFormC140(0);
+                if (Audio.chipLED.SecC140 != 0) OpenFormC140(1, true); else CloseFormC140(1);
 
-                if (Audio.ChipPriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
-                if (Audio.ChipSecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
+                if (Audio.chipLED.PriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
+                if (Audio.chipLED.SecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
 
-                if (Audio.ChipPriAY10 != 0) OpenFormAY8910(0, true); else CloseFormAY8910(0);
-                if (Audio.ChipSecAY10 != 0) OpenFormAY8910(1, true); else CloseFormAY8910(1);
+                if (Audio.chipLED.PriAY10 != 0) OpenFormAY8910(0, true); else CloseFormAY8910(0);
+                if (Audio.chipLED.SecAY10 != 0) OpenFormAY8910(1, true); else CloseFormAY8910(1);
 
-                if (Audio.ChipPriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
-                if (Audio.ChipSecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
+                if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
+                if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
 
             }
         }
@@ -4318,48 +3661,6 @@ namespace MDPlayer
             frmVSTeffectList.Visible = !frmVSTeffectList.Visible;
             frmVSTeffectList.TopMost = true;
             frmVSTeffectList.TopMost = false;
-        }
-
-        private void dispMixer()
-        {
-            frmMixer.setting = setting;
-            if (!frmMixer.Visible)
-            {
-                if (setting.location.PMixer != System.Drawing.Point.Empty)
-                {
-                    frmMixer.Location = setting.location.PMixer;
-                }
-                if (setting.location.PMixerWH != System.Drawing.Point.Empty)
-                {
-                    frmMixer.Width = setting.location.PMixerWH.X;
-                    frmMixer.Height = setting.location.PMixerWH.Y;
-                }
-            }
-            else
-            {
-                if (setting.location.PMixer != System.Drawing.Point.Empty)
-                {
-                    setting.location.PMixer = frmMixer.Location;
-                }
-                if (setting.location.PMixerWH != System.Drawing.Point.Empty)
-                {
-                    setting.location.PMixerWH = new System.Drawing.Point(frmMixer.Width, frmMixer.Height);
-                }
-            }
-
-            frmMixer.Visible = !frmMixer.Visible;
-
-            Screen s = Screen.FromControl(frmMixer);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmMixer.Location.X > w - 100 || frmMixer.Location.Y > h - 100)
-            {
-                frmMixer.Location = new System.Drawing.Point(0, 0);
-            }
-
-            frmMixer.TopMost = true;
-            frmMixer.TopMost = false;
         }
 
         private void openInfo()
@@ -5952,7 +5253,7 @@ namespace MDPlayer
                 }
             }
 
-            frmMixer2 = new frmMixer2(this, setting.other.Zoom);
+            frmMixer2 = new frmMixer2(this, setting.other.Zoom, newParam.mixer);
             if (setting.location.PosMixer == System.Drawing.Point.Empty)
             {
                 frmMixer2.x = this.Location.X + 328;
@@ -5975,10 +5276,10 @@ namespace MDPlayer
             }
 
             //frmMixer.setting = setting;
-            screen.AddMixer(frmMixer2.pbScreen, Properties.Resources.planeMixer);
+            //screen.AddMixer(frmMixer2.pbScreen, Properties.Resources.planeMixer);
             frmMixer2.Show();
             frmMixer2.update();
-            screen.screenInitMixer();
+            //screen.screenInitMixer();
             oldParam.mixer = new MDChipParams.Mixer();
         }
 

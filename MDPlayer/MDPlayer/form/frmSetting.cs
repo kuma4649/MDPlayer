@@ -796,7 +796,29 @@ namespace MDPlayer
                 //}
             }
 
+
+            cbNFSNes_UnmuteOnReset.Checked = setting.nsf.NESUnmuteOnReset;
+            cbNFSNes_NonLinearMixer.Checked = setting.nsf.NESNonLinearMixer;
+            cbNFSNes_PhaseRefresh.Checked = setting.nsf.NESPhaseRefresh;
+            cbNFSNes_DutySwap.Checked = setting.nsf.NESDutySwap;
+
+            tbNSFFds_LPF.Text = setting.nsf.FDSLpf.ToString();
+            cbNFSFds_4085Reset.Checked = setting.nsf.FDS4085Reset;
             cbNSFFDSWriteDisable8000.Checked = setting.nsf.FDSWriteDisable8000;
+
+            cbNSFDmc_UnmuteOnReset.Checked = setting.nsf.DMCUnmuteOnReset;
+            cbNSFDmc_NonLinearMixer.Checked = setting.nsf.DMCNonLinearMixer;
+            cbNSFDmc_Enable4011.Checked = setting.nsf.DMCEnable4011;
+            cbNSFDmc_EnablePNoise.Checked = setting.nsf.DMCEnablePnoise;
+            cbNSFDmc_DPCMAntiClick.Checked = setting.nsf.DMCDPCMAntiClick;
+            cbNSFDmc_RandomizeNoise.Checked = setting.nsf.DMCRandomizeNoise;
+            cbNSFDmc_TriMute.Checked = setting.nsf.DMCTRImute;
+            cbNSFDmc_TriNull.Checked = setting.nsf.DMCTRINull;
+
+            cbNSFMmc5_NonLinearMixer.Checked = setting.nsf.MMC5NonLinearMixer;
+            cbNSFMmc5_PhaseRefresh.Checked = setting.nsf.MMC5PhaseRefresh;
+
+            cbNSFN160_Serial.Checked = setting.nsf.N160Serial;
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1174,7 +1196,28 @@ namespace MDPlayer
                 }
             }
 
+            setting.nsf.NESUnmuteOnReset = cbNFSNes_UnmuteOnReset.Checked;
+            setting.nsf.NESNonLinearMixer = cbNFSNes_NonLinearMixer.Checked;
+            setting.nsf.NESPhaseRefresh = cbNFSNes_PhaseRefresh.Checked;
+            setting.nsf.NESDutySwap = cbNFSNes_DutySwap.Checked;
+
+            if (int.TryParse(tbNSFFds_LPF.Text, out i)) setting.nsf.FDSLpf = Math.Min(Math.Max(i, 0), 99999);
+            setting.nsf.FDS4085Reset = cbNFSFds_4085Reset.Checked;
             setting.nsf.FDSWriteDisable8000 = cbNSFFDSWriteDisable8000.Checked;
+
+            setting.nsf.DMCUnmuteOnReset = cbNSFDmc_UnmuteOnReset.Checked;
+            setting.nsf.DMCNonLinearMixer = cbNSFDmc_NonLinearMixer.Checked;
+            setting.nsf.DMCEnable4011 = cbNSFDmc_Enable4011.Checked;
+            setting.nsf.DMCEnablePnoise = cbNSFDmc_EnablePNoise.Checked;
+            setting.nsf.DMCDPCMAntiClick = cbNSFDmc_DPCMAntiClick.Checked;
+            setting.nsf.DMCRandomizeNoise = cbNSFDmc_RandomizeNoise.Checked;
+            setting.nsf.DMCTRImute = cbNSFDmc_TriMute.Checked;
+            setting.nsf.DMCTRINull = cbNSFDmc_TriNull.Checked;
+
+            setting.nsf.MMC5NonLinearMixer = cbNSFMmc5_NonLinearMixer.Checked;
+            setting.nsf.MMC5PhaseRefresh = cbNSFMmc5_PhaseRefresh.Checked;
+
+            setting.nsf.N160Serial = cbNSFN160_Serial.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

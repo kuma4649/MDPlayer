@@ -15,7 +15,7 @@ namespace MDPlayer
         public uint reso = 196;
 
         private double oneSyncTime = 0.0001;
-        private double musicStep = 44100.0 / 60.0;
+        private double musicStep = common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
         private List<uint> musicPtr = null;
@@ -263,7 +263,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = 44100.0 * oneSyncTime;
+                musicStep = common.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

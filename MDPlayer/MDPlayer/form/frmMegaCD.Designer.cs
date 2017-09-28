@@ -41,8 +41,6 @@
             this.pbScreen.Size = new System.Drawing.Size(320, 72);
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
-            this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
-            this.pbScreen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             // 
             // frmMegaCD

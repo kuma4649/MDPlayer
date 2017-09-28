@@ -65,72 +65,32 @@
             this.tbLatencyEmu = new System.Windows.Forms.TextBox();
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tabMIDIExp = new System.Windows.Forms.TabPage();
-            this.cbUseMIDIExport = new System.Windows.Forms.CheckBox();
-            this.gbMIDIExport = new System.Windows.Forms.GroupBox();
-            this.cbMIDIUseVOPM = new System.Windows.Forms.CheckBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.cbMIDIYM2612 = new System.Windows.Forms.CheckBox();
-            this.cbMIDISN76489Sec = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2612Sec = new System.Windows.Forms.CheckBox();
-            this.cbMIDISN76489 = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2151 = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2610BSec = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2151Sec = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2610B = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2203 = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2608Sec = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2203Sec = new System.Windows.Forms.CheckBox();
-            this.cbMIDIYM2608 = new System.Windows.Forms.CheckBox();
-            this.cbMIDIPlayless = new System.Windows.Forms.CheckBox();
-            this.btnMIDIOutputPath = new System.Windows.Forms.Button();
-            this.lblOutputPath = new System.Windows.Forms.Label();
-            this.tbMIDIOutputPath = new System.Windows.Forms.TextBox();
-            this.tpMIDIKBD = new System.Windows.Forms.TabPage();
-            this.cbUseMIDIKeyboard = new System.Windows.Forms.CheckBox();
-            this.gbMIDIKeyboard = new System.Windows.Forms.GroupBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tbCCFadeout = new System.Windows.Forms.TextBox();
-            this.tbCCPause = new System.Windows.Forms.TextBox();
-            this.tbCCSlow = new System.Windows.Forms.TextBox();
-            this.tbCCPrevious = new System.Windows.Forms.TextBox();
-            this.tbCCNext = new System.Windows.Forms.TextBox();
-            this.tbCCFast = new System.Windows.Forms.TextBox();
-            this.tbCCStop = new System.Windows.Forms.TextBox();
-            this.tbCCPlay = new System.Windows.Forms.TextBox();
-            this.tbCCCopyLog = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.tbCCDelLog = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbCCChCopy = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.gbUseChannel = new System.Windows.Forms.GroupBox();
-            this.rbMONO = new System.Windows.Forms.RadioButton();
-            this.rbPOLY = new System.Windows.Forms.RadioButton();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.rbFM6 = new System.Windows.Forms.RadioButton();
-            this.rbFM3 = new System.Windows.Forms.RadioButton();
-            this.rbFM5 = new System.Windows.Forms.RadioButton();
-            this.rbFM2 = new System.Windows.Forms.RadioButton();
-            this.rbFM4 = new System.Windows.Forms.RadioButton();
-            this.rbFM1 = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbFM1 = new System.Windows.Forms.CheckBox();
-            this.cbFM6 = new System.Windows.Forms.CheckBox();
-            this.cbFM2 = new System.Windows.Forms.CheckBox();
-            this.cbFM5 = new System.Windows.Forms.CheckBox();
-            this.cbFM3 = new System.Windows.Forms.CheckBox();
-            this.cbFM4 = new System.Windows.Forms.CheckBox();
-            this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.tpNSF = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cbNSFDmc_TriNull = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_TriMute = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_RandomizeNoise = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_DPCMAntiClick = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_EnablePNoise = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_Enable4011 = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_NonLinearMixer = new System.Windows.Forms.CheckBox();
+            this.cbNSFDmc_UnmuteOnReset = new System.Windows.Forms.CheckBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.cbNSFN160_Serial = new System.Windows.Forms.CheckBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbNSFMmc5_PhaseRefresh = new System.Windows.Forms.CheckBox();
+            this.cbNSFMmc5_NonLinearMixer = new System.Windows.Forms.CheckBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbNFSNes_DutySwap = new System.Windows.Forms.CheckBox();
+            this.cbNFSNes_PhaseRefresh = new System.Windows.Forms.CheckBox();
+            this.cbNFSNes_NonLinearMixer = new System.Windows.Forms.CheckBox();
+            this.cbNFSNes_UnmuteOnReset = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbNSFFds_LPF = new System.Windows.Forms.TextBox();
+            this.cbNFSFds_4085Reset = new System.Windows.Forms.CheckBox();
+            this.cbNSFFDSWriteDisable8000 = new System.Windows.Forms.CheckBox();
             this.tpMIDIOut = new System.Windows.Forms.TabPage();
             this.btnAddVST = new System.Windows.Forms.Button();
             this.tbcMIDIoutList = new System.Windows.Forms.TabControl();
@@ -253,6 +213,72 @@
             this.clmManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label16 = new System.Windows.Forms.Label();
+            this.tabMIDIExp = new System.Windows.Forms.TabPage();
+            this.cbUseMIDIExport = new System.Windows.Forms.CheckBox();
+            this.gbMIDIExport = new System.Windows.Forms.GroupBox();
+            this.cbMIDIUseVOPM = new System.Windows.Forms.CheckBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cbMIDIYM2612 = new System.Windows.Forms.CheckBox();
+            this.cbMIDISN76489Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2612Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDISN76489 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2151 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2610BSec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2151Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2610B = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2203 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2608Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2203Sec = new System.Windows.Forms.CheckBox();
+            this.cbMIDIYM2608 = new System.Windows.Forms.CheckBox();
+            this.cbMIDIPlayless = new System.Windows.Forms.CheckBox();
+            this.btnMIDIOutputPath = new System.Windows.Forms.Button();
+            this.lblOutputPath = new System.Windows.Forms.Label();
+            this.tbMIDIOutputPath = new System.Windows.Forms.TextBox();
+            this.tpMIDIKBD = new System.Windows.Forms.TabPage();
+            this.cbUseMIDIKeyboard = new System.Windows.Forms.CheckBox();
+            this.gbMIDIKeyboard = new System.Windows.Forms.GroupBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tbCCFadeout = new System.Windows.Forms.TextBox();
+            this.tbCCPause = new System.Windows.Forms.TextBox();
+            this.tbCCSlow = new System.Windows.Forms.TextBox();
+            this.tbCCPrevious = new System.Windows.Forms.TextBox();
+            this.tbCCNext = new System.Windows.Forms.TextBox();
+            this.tbCCFast = new System.Windows.Forms.TextBox();
+            this.tbCCStop = new System.Windows.Forms.TextBox();
+            this.tbCCPlay = new System.Windows.Forms.TextBox();
+            this.tbCCCopyLog = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tbCCDelLog = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbCCChCopy = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.gbUseChannel = new System.Windows.Forms.GroupBox();
+            this.rbMONO = new System.Windows.Forms.RadioButton();
+            this.rbPOLY = new System.Windows.Forms.RadioButton();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.rbFM6 = new System.Windows.Forms.RadioButton();
+            this.rbFM3 = new System.Windows.Forms.RadioButton();
+            this.rbFM5 = new System.Windows.Forms.RadioButton();
+            this.rbFM2 = new System.Windows.Forms.RadioButton();
+            this.rbFM4 = new System.Windows.Forms.RadioButton();
+            this.rbFM1 = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbFM1 = new System.Windows.Forms.CheckBox();
+            this.cbFM6 = new System.Windows.Forms.CheckBox();
+            this.cbFM2 = new System.Windows.Forms.CheckBox();
+            this.cbFM5 = new System.Windows.Forms.CheckBox();
+            this.cbFM3 = new System.Windows.Forms.CheckBox();
+            this.cbFM4 = new System.Windows.Forms.CheckBox();
+            this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tpOther = new System.Windows.Forms.TabPage();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -294,9 +320,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.tpNSF = new System.Windows.Forms.TabPage();
-            this.cbNSFFDSWriteDisable8000 = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -306,22 +329,12 @@
             this.tpModule.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tabMIDIExp.SuspendLayout();
-            this.gbMIDIExport.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.tpMIDIKBD.SuspendLayout();
-            this.gbMIDIKeyboard.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.gbUseChannel.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.tpNSF.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.tpMIDIOut.SuspendLayout();
             this.tbcMIDIoutList.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -345,6 +358,22 @@
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).BeginInit();
+            this.tabMIDIExp.SuspendLayout();
+            this.gbMIDIExport.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.tpMIDIKBD.SuspendLayout();
+            this.gbMIDIKeyboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.gbUseChannel.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tpOther.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.gbWav.SuspendLayout();
@@ -354,8 +383,6 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.tpNSF.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -776,709 +803,279 @@
             this.label10.TabIndex = 2;
             this.label10.Text = "ms";
             // 
-            // tabMIDIExp
-            // 
-            this.tabMIDIExp.Controls.Add(this.cbUseMIDIExport);
-            this.tabMIDIExp.Controls.Add(this.gbMIDIExport);
-            this.tabMIDIExp.Location = new System.Drawing.Point(4, 22);
-            this.tabMIDIExp.Name = "tabMIDIExp";
-            this.tabMIDIExp.Size = new System.Drawing.Size(443, 371);
-            this.tabMIDIExp.TabIndex = 6;
-            this.tabMIDIExp.Text = "MIDIExport";
-            this.tabMIDIExp.UseVisualStyleBackColor = true;
-            // 
-            // cbUseMIDIExport
-            // 
-            this.cbUseMIDIExport.AutoSize = true;
-            this.cbUseMIDIExport.Location = new System.Drawing.Point(15, 3);
-            this.cbUseMIDIExport.Name = "cbUseMIDIExport";
-            this.cbUseMIDIExport.Size = new System.Drawing.Size(177, 16);
-            this.cbUseMIDIExport.TabIndex = 1;
-            this.cbUseMIDIExport.Text = "演奏時MIDIファイルをexportする";
-            this.cbUseMIDIExport.UseVisualStyleBackColor = true;
-            this.cbUseMIDIExport.CheckedChanged += new System.EventHandler(this.cbUseMIDIExport_CheckedChanged);
-            // 
-            // gbMIDIExport
-            // 
-            this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
-            this.gbMIDIExport.Controls.Add(this.groupBox6);
-            this.gbMIDIExport.Controls.Add(this.cbMIDIPlayless);
-            this.gbMIDIExport.Controls.Add(this.btnMIDIOutputPath);
-            this.gbMIDIExport.Controls.Add(this.lblOutputPath);
-            this.gbMIDIExport.Controls.Add(this.tbMIDIOutputPath);
-            this.gbMIDIExport.Location = new System.Drawing.Point(7, 3);
-            this.gbMIDIExport.Name = "gbMIDIExport";
-            this.gbMIDIExport.Size = new System.Drawing.Size(433, 365);
-            this.gbMIDIExport.TabIndex = 0;
-            this.gbMIDIExport.TabStop = false;
-            // 
-            // cbMIDIUseVOPM
-            // 
-            this.cbMIDIUseVOPM.AutoSize = true;
-            this.cbMIDIUseVOPM.Location = new System.Drawing.Point(21, 44);
-            this.cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
-            this.cbMIDIUseVOPM.Size = new System.Drawing.Size(196, 16);
-            this.cbMIDIUseVOPM.TabIndex = 23;
-            this.cbMIDIUseVOPM.Text = "VOPMex向けコントロールを出力する";
-            this.cbMIDIUseVOPM.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.cbMIDIYM2612);
-            this.groupBox6.Controls.Add(this.cbMIDISN76489Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2612Sec);
-            this.groupBox6.Controls.Add(this.cbMIDISN76489);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2151);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2610BSec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2151Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2610B);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2203);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
-            this.groupBox6.Controls.Add(this.cbMIDIYM2608);
-            this.groupBox6.Location = new System.Drawing.Point(21, 91);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(188, 152);
-            this.groupBox6.TabIndex = 22;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "出力対象音源";
-            // 
-            // cbMIDIYM2612
-            // 
-            this.cbMIDIYM2612.AutoSize = true;
-            this.cbMIDIYM2612.Checked = true;
-            this.cbMIDIYM2612.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMIDIYM2612.Location = new System.Drawing.Point(6, 18);
-            this.cbMIDIYM2612.Name = "cbMIDIYM2612";
-            this.cbMIDIYM2612.Size = new System.Drawing.Size(64, 16);
-            this.cbMIDIYM2612.TabIndex = 21;
-            this.cbMIDIYM2612.Text = "YM2612";
-            this.cbMIDIYM2612.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDISN76489Sec
-            // 
-            this.cbMIDISN76489Sec.AutoSize = true;
-            this.cbMIDISN76489Sec.Enabled = false;
-            this.cbMIDISN76489Sec.Location = new System.Drawing.Point(84, 128);
-            this.cbMIDISN76489Sec.Name = "cbMIDISN76489Sec";
-            this.cbMIDISN76489Sec.Size = new System.Drawing.Size(96, 16);
-            this.cbMIDISN76489Sec.TabIndex = 21;
-            this.cbMIDISN76489Sec.Text = "SN76489(Sec)";
-            this.cbMIDISN76489Sec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2612Sec
-            // 
-            this.cbMIDIYM2612Sec.AutoSize = true;
-            this.cbMIDIYM2612Sec.Enabled = false;
-            this.cbMIDIYM2612Sec.Location = new System.Drawing.Point(84, 18);
-            this.cbMIDIYM2612Sec.Name = "cbMIDIYM2612Sec";
-            this.cbMIDIYM2612Sec.Size = new System.Drawing.Size(91, 16);
-            this.cbMIDIYM2612Sec.TabIndex = 21;
-            this.cbMIDIYM2612Sec.Text = "YM2612(Sec)";
-            this.cbMIDIYM2612Sec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDISN76489
-            // 
-            this.cbMIDISN76489.AutoSize = true;
-            this.cbMIDISN76489.Enabled = false;
-            this.cbMIDISN76489.Location = new System.Drawing.Point(6, 128);
-            this.cbMIDISN76489.Name = "cbMIDISN76489";
-            this.cbMIDISN76489.Size = new System.Drawing.Size(69, 16);
-            this.cbMIDISN76489.TabIndex = 21;
-            this.cbMIDISN76489.Text = "SN76489";
-            this.cbMIDISN76489.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2151
-            // 
-            this.cbMIDIYM2151.AutoSize = true;
-            this.cbMIDIYM2151.Location = new System.Drawing.Point(6, 40);
-            this.cbMIDIYM2151.Name = "cbMIDIYM2151";
-            this.cbMIDIYM2151.Size = new System.Drawing.Size(64, 16);
-            this.cbMIDIYM2151.TabIndex = 21;
-            this.cbMIDIYM2151.Text = "YM2151";
-            this.cbMIDIYM2151.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2610BSec
-            // 
-            this.cbMIDIYM2610BSec.AutoSize = true;
-            this.cbMIDIYM2610BSec.Enabled = false;
-            this.cbMIDIYM2610BSec.Location = new System.Drawing.Point(84, 106);
-            this.cbMIDIYM2610BSec.Name = "cbMIDIYM2610BSec";
-            this.cbMIDIYM2610BSec.Size = new System.Drawing.Size(99, 16);
-            this.cbMIDIYM2610BSec.TabIndex = 21;
-            this.cbMIDIYM2610BSec.Text = "YM2610B(Sec)";
-            this.cbMIDIYM2610BSec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2151Sec
-            // 
-            this.cbMIDIYM2151Sec.AutoSize = true;
-            this.cbMIDIYM2151Sec.Enabled = false;
-            this.cbMIDIYM2151Sec.Location = new System.Drawing.Point(84, 40);
-            this.cbMIDIYM2151Sec.Name = "cbMIDIYM2151Sec";
-            this.cbMIDIYM2151Sec.Size = new System.Drawing.Size(91, 16);
-            this.cbMIDIYM2151Sec.TabIndex = 21;
-            this.cbMIDIYM2151Sec.Text = "YM2151(Sec)";
-            this.cbMIDIYM2151Sec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2610B
-            // 
-            this.cbMIDIYM2610B.AutoSize = true;
-            this.cbMIDIYM2610B.Enabled = false;
-            this.cbMIDIYM2610B.Location = new System.Drawing.Point(6, 106);
-            this.cbMIDIYM2610B.Name = "cbMIDIYM2610B";
-            this.cbMIDIYM2610B.Size = new System.Drawing.Size(72, 16);
-            this.cbMIDIYM2610B.TabIndex = 21;
-            this.cbMIDIYM2610B.Text = "YM2610B";
-            this.cbMIDIYM2610B.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2203
-            // 
-            this.cbMIDIYM2203.AutoSize = true;
-            this.cbMIDIYM2203.Enabled = false;
-            this.cbMIDIYM2203.Location = new System.Drawing.Point(6, 62);
-            this.cbMIDIYM2203.Name = "cbMIDIYM2203";
-            this.cbMIDIYM2203.Size = new System.Drawing.Size(64, 16);
-            this.cbMIDIYM2203.TabIndex = 21;
-            this.cbMIDIYM2203.Text = "YM2203";
-            this.cbMIDIYM2203.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2608Sec
-            // 
-            this.cbMIDIYM2608Sec.AutoSize = true;
-            this.cbMIDIYM2608Sec.Enabled = false;
-            this.cbMIDIYM2608Sec.Location = new System.Drawing.Point(84, 84);
-            this.cbMIDIYM2608Sec.Name = "cbMIDIYM2608Sec";
-            this.cbMIDIYM2608Sec.Size = new System.Drawing.Size(91, 16);
-            this.cbMIDIYM2608Sec.TabIndex = 21;
-            this.cbMIDIYM2608Sec.Text = "YM2608(Sec)";
-            this.cbMIDIYM2608Sec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2203Sec
-            // 
-            this.cbMIDIYM2203Sec.AutoSize = true;
-            this.cbMIDIYM2203Sec.Enabled = false;
-            this.cbMIDIYM2203Sec.Location = new System.Drawing.Point(84, 62);
-            this.cbMIDIYM2203Sec.Name = "cbMIDIYM2203Sec";
-            this.cbMIDIYM2203Sec.Size = new System.Drawing.Size(91, 16);
-            this.cbMIDIYM2203Sec.TabIndex = 21;
-            this.cbMIDIYM2203Sec.Text = "YM2203(Sec)";
-            this.cbMIDIYM2203Sec.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIYM2608
-            // 
-            this.cbMIDIYM2608.AutoSize = true;
-            this.cbMIDIYM2608.Enabled = false;
-            this.cbMIDIYM2608.Location = new System.Drawing.Point(6, 84);
-            this.cbMIDIYM2608.Name = "cbMIDIYM2608";
-            this.cbMIDIYM2608.Size = new System.Drawing.Size(64, 16);
-            this.cbMIDIYM2608.TabIndex = 21;
-            this.cbMIDIYM2608.Text = "YM2608";
-            this.cbMIDIYM2608.UseVisualStyleBackColor = true;
-            // 
-            // cbMIDIPlayless
-            // 
-            this.cbMIDIPlayless.AutoSize = true;
-            this.cbMIDIPlayless.Enabled = false;
-            this.cbMIDIPlayless.Location = new System.Drawing.Point(21, 22);
-            this.cbMIDIPlayless.Name = "cbMIDIPlayless";
-            this.cbMIDIPlayless.Size = new System.Drawing.Size(141, 16);
-            this.cbMIDIPlayless.TabIndex = 20;
-            this.cbMIDIPlayless.Text = "演奏を行わずに出力する";
-            this.cbMIDIPlayless.UseVisualStyleBackColor = true;
-            // 
-            // btnMIDIOutputPath
-            // 
-            this.btnMIDIOutputPath.Location = new System.Drawing.Point(332, 64);
-            this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
-            this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
-            this.btnMIDIOutputPath.TabIndex = 19;
-            this.btnMIDIOutputPath.Text = "...";
-            this.btnMIDIOutputPath.UseVisualStyleBackColor = true;
-            this.btnMIDIOutputPath.Click += new System.EventHandler(this.btnMIDIOutputPath_Click);
-            // 
-            // lblOutputPath
-            // 
-            this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Location = new System.Drawing.Point(20, 69);
-            this.lblOutputPath.Name = "lblOutputPath";
-            this.lblOutputPath.Size = new System.Drawing.Size(52, 12);
-            this.lblOutputPath.TabIndex = 17;
-            this.lblOutputPath.Text = "出力Path";
-            // 
-            // tbMIDIOutputPath
-            // 
-            this.tbMIDIOutputPath.Location = new System.Drawing.Point(78, 66);
-            this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
-            this.tbMIDIOutputPath.Size = new System.Drawing.Size(248, 19);
-            this.tbMIDIOutputPath.TabIndex = 18;
-            // 
-            // tpMIDIKBD
-            // 
-            this.tpMIDIKBD.Controls.Add(this.cbUseMIDIKeyboard);
-            this.tpMIDIKBD.Controls.Add(this.gbMIDIKeyboard);
-            this.tpMIDIKBD.Location = new System.Drawing.Point(4, 22);
-            this.tpMIDIKBD.Name = "tpMIDIKBD";
-            this.tpMIDIKBD.Size = new System.Drawing.Size(443, 371);
-            this.tpMIDIKBD.TabIndex = 5;
-            this.tpMIDIKBD.Text = "MIDI鍵盤";
-            this.tpMIDIKBD.UseVisualStyleBackColor = true;
-            // 
-            // cbUseMIDIKeyboard
-            // 
-            this.cbUseMIDIKeyboard.AutoSize = true;
-            this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(11, 4);
-            this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
-            this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(124, 16);
-            this.cbUseMIDIKeyboard.TabIndex = 1;
-            this.cbUseMIDIKeyboard.Text = "MIDIキーボードを使う";
-            this.cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
-            this.cbUseMIDIKeyboard.CheckedChanged += new System.EventHandler(this.cbUseMIDIKeyboard_CheckedChanged);
-            // 
-            // gbMIDIKeyboard
-            // 
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox8);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox7);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox6);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox5);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox4);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox3);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox2);
-            this.gbMIDIKeyboard.Controls.Add(this.pictureBox1);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCFadeout);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPause);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCSlow);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPrevious);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCNext);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCFast);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCStop);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCPlay);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCCopyLog);
-            this.gbMIDIKeyboard.Controls.Add(this.label17);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCDelLog);
-            this.gbMIDIKeyboard.Controls.Add(this.label15);
-            this.gbMIDIKeyboard.Controls.Add(this.tbCCChCopy);
-            this.gbMIDIKeyboard.Controls.Add(this.label8);
-            this.gbMIDIKeyboard.Controls.Add(this.label9);
-            this.gbMIDIKeyboard.Controls.Add(this.gbUseChannel);
-            this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
-            this.gbMIDIKeyboard.Controls.Add(this.label5);
-            this.gbMIDIKeyboard.Enabled = false;
-            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 6);
-            this.gbMIDIKeyboard.Name = "gbMIDIKeyboard";
-            this.gbMIDIKeyboard.Size = new System.Drawing.Size(437, 362);
-            this.gbMIDIKeyboard.TabIndex = 0;
-            this.gbMIDIKeyboard.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
-            this.pictureBox8.Location = new System.Drawing.Point(323, 257);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox8.TabIndex = 4;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
-            this.pictureBox7.Location = new System.Drawing.Point(229, 257);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox7.TabIndex = 4;
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
-            this.pictureBox6.Location = new System.Drawing.Point(136, 258);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox6.TabIndex = 4;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::MDPlayer.Properties.Resources.ccSlow;
-            this.pictureBox5.Location = new System.Drawing.Point(42, 258);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox5.TabIndex = 4;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::MDPlayer.Properties.Resources.ccStop;
-            this.pictureBox4.Location = new System.Drawing.Point(42, 234);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::MDPlayer.Properties.Resources.ccPause;
-            this.pictureBox3.Location = new System.Drawing.Point(136, 234);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.TabIndex = 4;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::MDPlayer.Properties.Resources.ccPrevious;
-            this.pictureBox2.Location = new System.Drawing.Point(323, 234);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::MDPlayer.Properties.Resources.ccFadeout;
-            this.pictureBox1.Location = new System.Drawing.Point(229, 234);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
-            // tbCCFadeout
-            // 
-            this.tbCCFadeout.Location = new System.Drawing.Point(193, 232);
-            this.tbCCFadeout.MaxLength = 3;
-            this.tbCCFadeout.Name = "tbCCFadeout";
-            this.tbCCFadeout.Size = new System.Drawing.Size(30, 19);
-            this.tbCCFadeout.TabIndex = 12;
-            // 
-            // tbCCPause
-            // 
-            this.tbCCPause.Location = new System.Drawing.Point(100, 232);
-            this.tbCCPause.MaxLength = 3;
-            this.tbCCPause.Name = "tbCCPause";
-            this.tbCCPause.Size = new System.Drawing.Size(30, 19);
-            this.tbCCPause.TabIndex = 11;
-            // 
-            // tbCCSlow
-            // 
-            this.tbCCSlow.Location = new System.Drawing.Point(6, 257);
-            this.tbCCSlow.MaxLength = 3;
-            this.tbCCSlow.Name = "tbCCSlow";
-            this.tbCCSlow.Size = new System.Drawing.Size(30, 19);
-            this.tbCCSlow.TabIndex = 14;
-            // 
-            // tbCCPrevious
-            // 
-            this.tbCCPrevious.Location = new System.Drawing.Point(287, 232);
-            this.tbCCPrevious.MaxLength = 3;
-            this.tbCCPrevious.Name = "tbCCPrevious";
-            this.tbCCPrevious.Size = new System.Drawing.Size(30, 19);
-            this.tbCCPrevious.TabIndex = 13;
-            // 
-            // tbCCNext
-            // 
-            this.tbCCNext.Location = new System.Drawing.Point(287, 257);
-            this.tbCCNext.MaxLength = 3;
-            this.tbCCNext.Name = "tbCCNext";
-            this.tbCCNext.Size = new System.Drawing.Size(30, 19);
-            this.tbCCNext.TabIndex = 17;
-            // 
-            // tbCCFast
-            // 
-            this.tbCCFast.Location = new System.Drawing.Point(193, 257);
-            this.tbCCFast.MaxLength = 3;
-            this.tbCCFast.Name = "tbCCFast";
-            this.tbCCFast.Size = new System.Drawing.Size(30, 19);
-            this.tbCCFast.TabIndex = 16;
-            // 
-            // tbCCStop
-            // 
-            this.tbCCStop.Location = new System.Drawing.Point(6, 232);
-            this.tbCCStop.MaxLength = 3;
-            this.tbCCStop.Name = "tbCCStop";
-            this.tbCCStop.Size = new System.Drawing.Size(30, 19);
-            this.tbCCStop.TabIndex = 10;
-            // 
-            // tbCCPlay
-            // 
-            this.tbCCPlay.Location = new System.Drawing.Point(100, 257);
-            this.tbCCPlay.MaxLength = 3;
-            this.tbCCPlay.Name = "tbCCPlay";
-            this.tbCCPlay.Size = new System.Drawing.Size(30, 19);
-            this.tbCCPlay.TabIndex = 15;
-            // 
-            // tbCCCopyLog
-            // 
-            this.tbCCCopyLog.Location = new System.Drawing.Point(6, 207);
-            this.tbCCCopyLog.MaxLength = 3;
-            this.tbCCCopyLog.Name = "tbCCCopyLog";
-            this.tbCCCopyLog.Size = new System.Drawing.Size(30, 19);
-            this.tbCCCopyLog.TabIndex = 8;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(42, 210);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(230, 12);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "MONOモード時、選択ログをクリップボードに設定";
-            // 
-            // tbCCDelLog
-            // 
-            this.tbCCDelLog.Location = new System.Drawing.Point(6, 182);
-            this.tbCCDelLog.MaxLength = 3;
-            this.tbCCDelLog.Name = "tbCCDelLog";
-            this.tbCCDelLog.Size = new System.Drawing.Size(30, 19);
-            this.tbCCDelLog.TabIndex = 6;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(42, 185);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(117, 12);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "直近のログをひとつ削除";
-            // 
-            // tbCCChCopy
-            // 
-            this.tbCCChCopy.Location = new System.Drawing.Point(6, 157);
-            this.tbCCChCopy.MaxLength = 3;
-            this.tbCCChCopy.Name = "tbCCChCopy";
-            this.tbCCChCopy.Size = new System.Drawing.Size(30, 19);
-            this.tbCCChCopy.TabIndex = 4;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 142);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(159, 12);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "CC(Control Change)による操作";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(42, 160);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(261, 12);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "1Chの音色を全てのチャンネルにコピー(選択状況無視)";
-            // 
-            // gbUseChannel
-            // 
-            this.gbUseChannel.Controls.Add(this.rbMONO);
-            this.gbUseChannel.Controls.Add(this.rbPOLY);
-            this.gbUseChannel.Controls.Add(this.groupBox7);
-            this.gbUseChannel.Controls.Add(this.groupBox2);
-            this.gbUseChannel.Location = new System.Drawing.Point(6, 44);
-            this.gbUseChannel.Name = "gbUseChannel";
-            this.gbUseChannel.Size = new System.Drawing.Size(425, 86);
-            this.gbUseChannel.TabIndex = 2;
-            this.gbUseChannel.TabStop = false;
-            this.gbUseChannel.Text = "use channel";
-            // 
-            // rbMONO
-            // 
-            this.rbMONO.AutoSize = true;
-            this.rbMONO.Checked = true;
-            this.rbMONO.Location = new System.Drawing.Point(12, 17);
-            this.rbMONO.Name = "rbMONO";
-            this.rbMONO.Size = new System.Drawing.Size(56, 16);
-            this.rbMONO.TabIndex = 1;
-            this.rbMONO.TabStop = true;
-            this.rbMONO.Text = "MONO";
-            this.rbMONO.UseVisualStyleBackColor = true;
-            // 
-            // rbPOLY
-            // 
-            this.rbPOLY.AutoSize = true;
-            this.rbPOLY.Location = new System.Drawing.Point(215, 17);
-            this.rbPOLY.Name = "rbPOLY";
-            this.rbPOLY.Size = new System.Drawing.Size(51, 16);
-            this.rbPOLY.TabIndex = 3;
-            this.rbPOLY.Text = "POLY";
-            this.rbPOLY.UseVisualStyleBackColor = true;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.rbFM6);
-            this.groupBox7.Controls.Add(this.rbFM3);
-            this.groupBox7.Controls.Add(this.rbFM5);
-            this.groupBox7.Controls.Add(this.rbFM2);
-            this.groupBox7.Controls.Add(this.rbFM4);
-            this.groupBox7.Controls.Add(this.rbFM1);
-            this.groupBox7.Location = new System.Drawing.Point(6, 18);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(197, 62);
-            this.groupBox7.TabIndex = 0;
-            this.groupBox7.TabStop = false;
-            // 
-            // rbFM6
-            // 
-            this.rbFM6.AutoSize = true;
-            this.rbFM6.Location = new System.Drawing.Point(108, 40);
-            this.rbFM6.Name = "rbFM6";
-            this.rbFM6.Size = new System.Drawing.Size(45, 16);
-            this.rbFM6.TabIndex = 5;
-            this.rbFM6.Text = "FM6";
-            this.rbFM6.UseVisualStyleBackColor = true;
-            // 
-            // rbFM3
-            // 
-            this.rbFM3.AutoSize = true;
-            this.rbFM3.Location = new System.Drawing.Point(108, 18);
-            this.rbFM3.Name = "rbFM3";
-            this.rbFM3.Size = new System.Drawing.Size(45, 16);
-            this.rbFM3.TabIndex = 2;
-            this.rbFM3.Text = "FM3";
-            this.rbFM3.UseVisualStyleBackColor = true;
-            // 
-            // rbFM5
-            // 
-            this.rbFM5.AutoSize = true;
-            this.rbFM5.Location = new System.Drawing.Point(57, 40);
-            this.rbFM5.Name = "rbFM5";
-            this.rbFM5.Size = new System.Drawing.Size(45, 16);
-            this.rbFM5.TabIndex = 4;
-            this.rbFM5.Text = "FM5";
-            this.rbFM5.UseVisualStyleBackColor = true;
-            // 
-            // rbFM2
-            // 
-            this.rbFM2.AutoSize = true;
-            this.rbFM2.Location = new System.Drawing.Point(57, 18);
-            this.rbFM2.Name = "rbFM2";
-            this.rbFM2.Size = new System.Drawing.Size(45, 16);
-            this.rbFM2.TabIndex = 1;
-            this.rbFM2.Text = "FM2";
-            this.rbFM2.UseVisualStyleBackColor = true;
-            // 
-            // rbFM4
-            // 
-            this.rbFM4.AutoSize = true;
-            this.rbFM4.Location = new System.Drawing.Point(6, 40);
-            this.rbFM4.Name = "rbFM4";
-            this.rbFM4.Size = new System.Drawing.Size(45, 16);
-            this.rbFM4.TabIndex = 3;
-            this.rbFM4.Text = "FM4";
-            this.rbFM4.UseVisualStyleBackColor = true;
-            // 
-            // rbFM1
-            // 
-            this.rbFM1.AutoSize = true;
-            this.rbFM1.Checked = true;
-            this.rbFM1.Location = new System.Drawing.Point(6, 18);
-            this.rbFM1.Name = "rbFM1";
-            this.rbFM1.Size = new System.Drawing.Size(45, 16);
-            this.rbFM1.TabIndex = 0;
-            this.rbFM1.TabStop = true;
-            this.rbFM1.Text = "FM1";
-            this.rbFM1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cbFM1);
-            this.groupBox2.Controls.Add(this.cbFM6);
-            this.groupBox2.Controls.Add(this.cbFM2);
-            this.groupBox2.Controls.Add(this.cbFM5);
-            this.groupBox2.Controls.Add(this.cbFM3);
-            this.groupBox2.Controls.Add(this.cbFM4);
-            this.groupBox2.Location = new System.Drawing.Point(209, 18);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(210, 62);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            // 
-            // cbFM1
-            // 
-            this.cbFM1.AutoSize = true;
-            this.cbFM1.Checked = true;
-            this.cbFM1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM1.Location = new System.Drawing.Point(6, 18);
-            this.cbFM1.Name = "cbFM1";
-            this.cbFM1.Size = new System.Drawing.Size(46, 16);
-            this.cbFM1.TabIndex = 0;
-            this.cbFM1.Text = "FM1";
-            this.cbFM1.UseVisualStyleBackColor = true;
-            // 
-            // cbFM6
-            // 
-            this.cbFM6.AutoSize = true;
-            this.cbFM6.Checked = true;
-            this.cbFM6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM6.Location = new System.Drawing.Point(110, 40);
-            this.cbFM6.Name = "cbFM6";
-            this.cbFM6.Size = new System.Drawing.Size(46, 16);
-            this.cbFM6.TabIndex = 5;
-            this.cbFM6.Text = "FM6";
-            this.cbFM6.UseVisualStyleBackColor = true;
-            // 
-            // cbFM2
-            // 
-            this.cbFM2.AutoSize = true;
-            this.cbFM2.Checked = true;
-            this.cbFM2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM2.Location = new System.Drawing.Point(58, 18);
-            this.cbFM2.Name = "cbFM2";
-            this.cbFM2.Size = new System.Drawing.Size(46, 16);
-            this.cbFM2.TabIndex = 1;
-            this.cbFM2.Text = "FM2";
-            this.cbFM2.UseVisualStyleBackColor = true;
-            // 
-            // cbFM5
-            // 
-            this.cbFM5.AutoSize = true;
-            this.cbFM5.Checked = true;
-            this.cbFM5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM5.Location = new System.Drawing.Point(58, 40);
-            this.cbFM5.Name = "cbFM5";
-            this.cbFM5.Size = new System.Drawing.Size(46, 16);
-            this.cbFM5.TabIndex = 4;
-            this.cbFM5.Text = "FM5";
-            this.cbFM5.UseVisualStyleBackColor = true;
-            // 
-            // cbFM3
-            // 
-            this.cbFM3.AutoSize = true;
-            this.cbFM3.Checked = true;
-            this.cbFM3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM3.Location = new System.Drawing.Point(110, 18);
-            this.cbFM3.Name = "cbFM3";
-            this.cbFM3.Size = new System.Drawing.Size(46, 16);
-            this.cbFM3.TabIndex = 2;
-            this.cbFM3.Text = "FM3";
-            this.cbFM3.UseVisualStyleBackColor = true;
-            // 
-            // cbFM4
-            // 
-            this.cbFM4.AutoSize = true;
-            this.cbFM4.Checked = true;
-            this.cbFM4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFM4.Location = new System.Drawing.Point(6, 40);
-            this.cbFM4.Name = "cbFM4";
-            this.cbFM4.Size = new System.Drawing.Size(46, 16);
-            this.cbFM4.TabIndex = 3;
-            this.cbFM4.Text = "FM4";
-            this.cbFM4.UseVisualStyleBackColor = true;
-            // 
-            // cmbMIDIIN
-            // 
-            this.cmbMIDIIN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMIDIIN.FormattingEnabled = true;
-            this.cmbMIDIIN.Location = new System.Drawing.Point(72, 18);
-            this.cmbMIDIIN.Name = "cmbMIDIIN";
-            this.cmbMIDIIN.Size = new System.Drawing.Size(290, 20);
-            this.cmbMIDIIN.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 21);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 12);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "MIDI IN";
+            // tpNSF
+            // 
+            this.tpNSF.Controls.Add(this.groupBox10);
+            this.tpNSF.Controls.Add(this.groupBox12);
+            this.tpNSF.Controls.Add(this.groupBox11);
+            this.tpNSF.Controls.Add(this.groupBox9);
+            this.tpNSF.Controls.Add(this.groupBox8);
+            this.tpNSF.Location = new System.Drawing.Point(4, 22);
+            this.tpNSF.Name = "tpNSF";
+            this.tpNSF.Size = new System.Drawing.Size(443, 371);
+            this.tpNSF.TabIndex = 9;
+            this.tpNSF.Text = "NSF";
+            this.tpNSF.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cbNSFDmc_TriNull);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_TriMute);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_RandomizeNoise);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_DPCMAntiClick);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_EnablePNoise);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_Enable4011);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_NonLinearMixer);
+            this.groupBox10.Controls.Add(this.cbNSFDmc_UnmuteOnReset);
+            this.groupBox10.Location = new System.Drawing.Point(224, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(210, 200);
+            this.groupBox10.TabIndex = 8;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "DMC";
+            // 
+            // cbNSFDmc_TriNull
+            // 
+            this.cbNSFDmc_TriNull.AutoSize = true;
+            this.cbNSFDmc_TriNull.Location = new System.Drawing.Point(6, 171);
+            this.cbNSFDmc_TriNull.Name = "cbNSFDmc_TriNull";
+            this.cbNSFDmc_TriNull.Size = new System.Drawing.Size(64, 16);
+            this.cbNSFDmc_TriNull.TabIndex = 7;
+            this.cbNSFDmc_TriNull.Text = "TRI null";
+            this.cbNSFDmc_TriNull.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_TriMute
+            // 
+            this.cbNSFDmc_TriMute.AutoSize = true;
+            this.cbNSFDmc_TriMute.Location = new System.Drawing.Point(6, 149);
+            this.cbNSFDmc_TriMute.Name = "cbNSFDmc_TriMute";
+            this.cbNSFDmc_TriMute.Size = new System.Drawing.Size(71, 16);
+            this.cbNSFDmc_TriMute.TabIndex = 7;
+            this.cbNSFDmc_TriMute.Text = "TRI mute";
+            this.cbNSFDmc_TriMute.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_RandomizeNoise
+            // 
+            this.cbNSFDmc_RandomizeNoise.AutoSize = true;
+            this.cbNSFDmc_RandomizeNoise.Location = new System.Drawing.Point(6, 128);
+            this.cbNSFDmc_RandomizeNoise.Name = "cbNSFDmc_RandomizeNoise";
+            this.cbNSFDmc_RandomizeNoise.Size = new System.Drawing.Size(110, 16);
+            this.cbNSFDmc_RandomizeNoise.TabIndex = 7;
+            this.cbNSFDmc_RandomizeNoise.Text = "Randomize noise";
+            this.cbNSFDmc_RandomizeNoise.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_DPCMAntiClick
+            // 
+            this.cbNSFDmc_DPCMAntiClick.AutoSize = true;
+            this.cbNSFDmc_DPCMAntiClick.Location = new System.Drawing.Point(6, 106);
+            this.cbNSFDmc_DPCMAntiClick.Name = "cbNSFDmc_DPCMAntiClick";
+            this.cbNSFDmc_DPCMAntiClick.Size = new System.Drawing.Size(107, 16);
+            this.cbNSFDmc_DPCMAntiClick.TabIndex = 7;
+            this.cbNSFDmc_DPCMAntiClick.Text = "DPCM anti click";
+            this.cbNSFDmc_DPCMAntiClick.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_EnablePNoise
+            // 
+            this.cbNSFDmc_EnablePNoise.AutoSize = true;
+            this.cbNSFDmc_EnablePNoise.Location = new System.Drawing.Point(6, 84);
+            this.cbNSFDmc_EnablePNoise.Name = "cbNSFDmc_EnablePNoise";
+            this.cbNSFDmc_EnablePNoise.Size = new System.Drawing.Size(96, 16);
+            this.cbNSFDmc_EnablePNoise.TabIndex = 7;
+            this.cbNSFDmc_EnablePNoise.Text = "Enable Pnoise";
+            this.cbNSFDmc_EnablePNoise.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_Enable4011
+            // 
+            this.cbNSFDmc_Enable4011.AutoSize = true;
+            this.cbNSFDmc_Enable4011.Location = new System.Drawing.Point(6, 62);
+            this.cbNSFDmc_Enable4011.Name = "cbNSFDmc_Enable4011";
+            this.cbNSFDmc_Enable4011.Size = new System.Drawing.Size(92, 16);
+            this.cbNSFDmc_Enable4011.TabIndex = 7;
+            this.cbNSFDmc_Enable4011.Text = "Enable $4011";
+            this.cbNSFDmc_Enable4011.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_NonLinearMixer
+            // 
+            this.cbNSFDmc_NonLinearMixer.AutoSize = true;
+            this.cbNSFDmc_NonLinearMixer.Location = new System.Drawing.Point(6, 40);
+            this.cbNSFDmc_NonLinearMixer.Name = "cbNSFDmc_NonLinearMixer";
+            this.cbNSFDmc_NonLinearMixer.Size = new System.Drawing.Size(110, 16);
+            this.cbNSFDmc_NonLinearMixer.TabIndex = 7;
+            this.cbNSFDmc_NonLinearMixer.Text = "Non-linear mixer";
+            this.cbNSFDmc_NonLinearMixer.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFDmc_UnmuteOnReset
+            // 
+            this.cbNSFDmc_UnmuteOnReset.AutoSize = true;
+            this.cbNSFDmc_UnmuteOnReset.Location = new System.Drawing.Point(6, 18);
+            this.cbNSFDmc_UnmuteOnReset.Name = "cbNSFDmc_UnmuteOnReset";
+            this.cbNSFDmc_UnmuteOnReset.Size = new System.Drawing.Size(109, 16);
+            this.cbNSFDmc_UnmuteOnReset.TabIndex = 7;
+            this.cbNSFDmc_UnmuteOnReset.Text = "Unmute on reset";
+            this.cbNSFDmc_UnmuteOnReset.UseVisualStyleBackColor = true;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.cbNSFN160_Serial);
+            this.groupBox12.Location = new System.Drawing.Point(224, 209);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(210, 62);
+            this.groupBox12.TabIndex = 8;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "N160";
+            // 
+            // cbNSFN160_Serial
+            // 
+            this.cbNSFN160_Serial.AutoSize = true;
+            this.cbNSFN160_Serial.Location = new System.Drawing.Point(6, 18);
+            this.cbNSFN160_Serial.Name = "cbNSFN160_Serial";
+            this.cbNSFN160_Serial.Size = new System.Drawing.Size(53, 16);
+            this.cbNSFN160_Serial.TabIndex = 7;
+            this.cbNSFN160_Serial.Text = "Serial";
+            this.cbNSFN160_Serial.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.cbNSFMmc5_PhaseRefresh);
+            this.groupBox11.Controls.Add(this.cbNSFMmc5_NonLinearMixer);
+            this.groupBox11.Location = new System.Drawing.Point(7, 209);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(210, 62);
+            this.groupBox11.TabIndex = 8;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "MMC5";
+            // 
+            // cbNSFMmc5_PhaseRefresh
+            // 
+            this.cbNSFMmc5_PhaseRefresh.AutoSize = true;
+            this.cbNSFMmc5_PhaseRefresh.Location = new System.Drawing.Point(6, 40);
+            this.cbNSFMmc5_PhaseRefresh.Name = "cbNSFMmc5_PhaseRefresh";
+            this.cbNSFMmc5_PhaseRefresh.Size = new System.Drawing.Size(95, 16);
+            this.cbNSFMmc5_PhaseRefresh.TabIndex = 7;
+            this.cbNSFMmc5_PhaseRefresh.Text = "Phase refresh";
+            this.cbNSFMmc5_PhaseRefresh.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFMmc5_NonLinearMixer
+            // 
+            this.cbNSFMmc5_NonLinearMixer.AutoSize = true;
+            this.cbNSFMmc5_NonLinearMixer.Location = new System.Drawing.Point(6, 18);
+            this.cbNSFMmc5_NonLinearMixer.Name = "cbNSFMmc5_NonLinearMixer";
+            this.cbNSFMmc5_NonLinearMixer.Size = new System.Drawing.Size(110, 16);
+            this.cbNSFMmc5_NonLinearMixer.TabIndex = 7;
+            this.cbNSFMmc5_NonLinearMixer.Text = "Non-linear Mixer";
+            this.cbNSFMmc5_NonLinearMixer.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.cbNFSNes_DutySwap);
+            this.groupBox9.Controls.Add(this.cbNFSNes_PhaseRefresh);
+            this.groupBox9.Controls.Add(this.cbNFSNes_NonLinearMixer);
+            this.groupBox9.Controls.Add(this.cbNFSNes_UnmuteOnReset);
+            this.groupBox9.Location = new System.Drawing.Point(7, 3);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(210, 107);
+            this.groupBox9.TabIndex = 8;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "NES";
+            // 
+            // cbNFSNes_DutySwap
+            // 
+            this.cbNFSNes_DutySwap.AutoSize = true;
+            this.cbNFSNes_DutySwap.Location = new System.Drawing.Point(6, 84);
+            this.cbNFSNes_DutySwap.Name = "cbNFSNes_DutySwap";
+            this.cbNFSNes_DutySwap.Size = new System.Drawing.Size(78, 16);
+            this.cbNFSNes_DutySwap.TabIndex = 7;
+            this.cbNFSNes_DutySwap.Text = "Duty swap";
+            this.cbNFSNes_DutySwap.UseVisualStyleBackColor = true;
+            // 
+            // cbNFSNes_PhaseRefresh
+            // 
+            this.cbNFSNes_PhaseRefresh.AutoSize = true;
+            this.cbNFSNes_PhaseRefresh.Location = new System.Drawing.Point(6, 62);
+            this.cbNFSNes_PhaseRefresh.Name = "cbNFSNes_PhaseRefresh";
+            this.cbNFSNes_PhaseRefresh.Size = new System.Drawing.Size(95, 16);
+            this.cbNFSNes_PhaseRefresh.TabIndex = 7;
+            this.cbNFSNes_PhaseRefresh.Text = "Phase refresh";
+            this.cbNFSNes_PhaseRefresh.UseVisualStyleBackColor = true;
+            // 
+            // cbNFSNes_NonLinearMixer
+            // 
+            this.cbNFSNes_NonLinearMixer.AutoSize = true;
+            this.cbNFSNes_NonLinearMixer.Location = new System.Drawing.Point(6, 40);
+            this.cbNFSNes_NonLinearMixer.Name = "cbNFSNes_NonLinearMixer";
+            this.cbNFSNes_NonLinearMixer.Size = new System.Drawing.Size(110, 16);
+            this.cbNFSNes_NonLinearMixer.TabIndex = 7;
+            this.cbNFSNes_NonLinearMixer.Text = "Non-linear mixer";
+            this.cbNFSNes_NonLinearMixer.UseVisualStyleBackColor = true;
+            // 
+            // cbNFSNes_UnmuteOnReset
+            // 
+            this.cbNFSNes_UnmuteOnReset.AutoSize = true;
+            this.cbNFSNes_UnmuteOnReset.Location = new System.Drawing.Point(6, 18);
+            this.cbNFSNes_UnmuteOnReset.Name = "cbNFSNes_UnmuteOnReset";
+            this.cbNFSNes_UnmuteOnReset.Size = new System.Drawing.Size(109, 16);
+            this.cbNFSNes_UnmuteOnReset.TabIndex = 7;
+            this.cbNFSNes_UnmuteOnReset.Text = "Unmute on reset";
+            this.cbNFSNes_UnmuteOnReset.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.label20);
+            this.groupBox8.Controls.Add(this.tbNSFFds_LPF);
+            this.groupBox8.Controls.Add(this.cbNFSFds_4085Reset);
+            this.groupBox8.Controls.Add(this.cbNSFFDSWriteDisable8000);
+            this.groupBox8.Location = new System.Drawing.Point(7, 116);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(210, 87);
+            this.groupBox8.TabIndex = 8;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "FDS";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(143, 16);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(18, 12);
+            this.label21.TabIndex = 10;
+            this.label21.Text = "Hz";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 16);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(25, 12);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "LPF";
+            // 
+            // tbNSFFds_LPF
+            // 
+            this.tbNSFFds_LPF.Location = new System.Drawing.Point(37, 13);
+            this.tbNSFFds_LPF.Name = "tbNSFFds_LPF";
+            this.tbNSFFds_LPF.Size = new System.Drawing.Size(100, 19);
+            this.tbNSFFds_LPF.TabIndex = 9;
+            // 
+            // cbNFSFds_4085Reset
+            // 
+            this.cbNFSFds_4085Reset.AutoSize = true;
+            this.cbNFSFds_4085Reset.Location = new System.Drawing.Point(6, 38);
+            this.cbNFSFds_4085Reset.Name = "cbNFSFds_4085Reset";
+            this.cbNFSFds_4085Reset.Size = new System.Drawing.Size(84, 16);
+            this.cbNFSFds_4085Reset.TabIndex = 7;
+            this.cbNFSFds_4085Reset.Text = "$4085 reset";
+            this.cbNFSFds_4085Reset.UseVisualStyleBackColor = true;
+            // 
+            // cbNSFFDSWriteDisable8000
+            // 
+            this.cbNSFFDSWriteDisable8000.AutoSize = true;
+            this.cbNSFFDSWriteDisable8000.Location = new System.Drawing.Point(6, 60);
+            this.cbNSFFDSWriteDisable8000.Name = "cbNSFFDSWriteDisable8000";
+            this.cbNSFFDSWriteDisable8000.Size = new System.Drawing.Size(177, 16);
+            this.cbNSFFDSWriteDisable8000.TabIndex = 7;
+            this.cbNSFFDSWriteDisable8000.Text = "Write disable($8000 - $DFFF)";
+            this.cbNSFFDSWriteDisable8000.UseVisualStyleBackColor = true;
             // 
             // tpMIDIOut
             // 
@@ -2758,6 +2355,710 @@
             this.label16.TabIndex = 0;
             this.label16.Text = "MIDI Outデバイス パレット";
             // 
+            // tabMIDIExp
+            // 
+            this.tabMIDIExp.Controls.Add(this.cbUseMIDIExport);
+            this.tabMIDIExp.Controls.Add(this.gbMIDIExport);
+            this.tabMIDIExp.Location = new System.Drawing.Point(4, 22);
+            this.tabMIDIExp.Name = "tabMIDIExp";
+            this.tabMIDIExp.Size = new System.Drawing.Size(443, 371);
+            this.tabMIDIExp.TabIndex = 6;
+            this.tabMIDIExp.Text = "MIDIExport";
+            this.tabMIDIExp.UseVisualStyleBackColor = true;
+            // 
+            // cbUseMIDIExport
+            // 
+            this.cbUseMIDIExport.AutoSize = true;
+            this.cbUseMIDIExport.Location = new System.Drawing.Point(15, 3);
+            this.cbUseMIDIExport.Name = "cbUseMIDIExport";
+            this.cbUseMIDIExport.Size = new System.Drawing.Size(177, 16);
+            this.cbUseMIDIExport.TabIndex = 1;
+            this.cbUseMIDIExport.Text = "演奏時MIDIファイルをexportする";
+            this.cbUseMIDIExport.UseVisualStyleBackColor = true;
+            this.cbUseMIDIExport.CheckedChanged += new System.EventHandler(this.cbUseMIDIExport_CheckedChanged);
+            // 
+            // gbMIDIExport
+            // 
+            this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
+            this.gbMIDIExport.Controls.Add(this.groupBox6);
+            this.gbMIDIExport.Controls.Add(this.cbMIDIPlayless);
+            this.gbMIDIExport.Controls.Add(this.btnMIDIOutputPath);
+            this.gbMIDIExport.Controls.Add(this.lblOutputPath);
+            this.gbMIDIExport.Controls.Add(this.tbMIDIOutputPath);
+            this.gbMIDIExport.Location = new System.Drawing.Point(7, 3);
+            this.gbMIDIExport.Name = "gbMIDIExport";
+            this.gbMIDIExport.Size = new System.Drawing.Size(433, 365);
+            this.gbMIDIExport.TabIndex = 0;
+            this.gbMIDIExport.TabStop = false;
+            // 
+            // cbMIDIUseVOPM
+            // 
+            this.cbMIDIUseVOPM.AutoSize = true;
+            this.cbMIDIUseVOPM.Location = new System.Drawing.Point(21, 44);
+            this.cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
+            this.cbMIDIUseVOPM.Size = new System.Drawing.Size(196, 16);
+            this.cbMIDIUseVOPM.TabIndex = 23;
+            this.cbMIDIUseVOPM.Text = "VOPMex向けコントロールを出力する";
+            this.cbMIDIUseVOPM.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.cbMIDIYM2612);
+            this.groupBox6.Controls.Add(this.cbMIDISN76489Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2612Sec);
+            this.groupBox6.Controls.Add(this.cbMIDISN76489);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2151);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2610BSec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2151Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2610B);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2203);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
+            this.groupBox6.Controls.Add(this.cbMIDIYM2608);
+            this.groupBox6.Location = new System.Drawing.Point(21, 91);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(188, 152);
+            this.groupBox6.TabIndex = 22;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "出力対象音源";
+            // 
+            // cbMIDIYM2612
+            // 
+            this.cbMIDIYM2612.AutoSize = true;
+            this.cbMIDIYM2612.Checked = true;
+            this.cbMIDIYM2612.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMIDIYM2612.Location = new System.Drawing.Point(6, 18);
+            this.cbMIDIYM2612.Name = "cbMIDIYM2612";
+            this.cbMIDIYM2612.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2612.TabIndex = 21;
+            this.cbMIDIYM2612.Text = "YM2612";
+            this.cbMIDIYM2612.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDISN76489Sec
+            // 
+            this.cbMIDISN76489Sec.AutoSize = true;
+            this.cbMIDISN76489Sec.Enabled = false;
+            this.cbMIDISN76489Sec.Location = new System.Drawing.Point(84, 128);
+            this.cbMIDISN76489Sec.Name = "cbMIDISN76489Sec";
+            this.cbMIDISN76489Sec.Size = new System.Drawing.Size(96, 16);
+            this.cbMIDISN76489Sec.TabIndex = 21;
+            this.cbMIDISN76489Sec.Text = "SN76489(Sec)";
+            this.cbMIDISN76489Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2612Sec
+            // 
+            this.cbMIDIYM2612Sec.AutoSize = true;
+            this.cbMIDIYM2612Sec.Enabled = false;
+            this.cbMIDIYM2612Sec.Location = new System.Drawing.Point(84, 18);
+            this.cbMIDIYM2612Sec.Name = "cbMIDIYM2612Sec";
+            this.cbMIDIYM2612Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2612Sec.TabIndex = 21;
+            this.cbMIDIYM2612Sec.Text = "YM2612(Sec)";
+            this.cbMIDIYM2612Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDISN76489
+            // 
+            this.cbMIDISN76489.AutoSize = true;
+            this.cbMIDISN76489.Enabled = false;
+            this.cbMIDISN76489.Location = new System.Drawing.Point(6, 128);
+            this.cbMIDISN76489.Name = "cbMIDISN76489";
+            this.cbMIDISN76489.Size = new System.Drawing.Size(69, 16);
+            this.cbMIDISN76489.TabIndex = 21;
+            this.cbMIDISN76489.Text = "SN76489";
+            this.cbMIDISN76489.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2151
+            // 
+            this.cbMIDIYM2151.AutoSize = true;
+            this.cbMIDIYM2151.Location = new System.Drawing.Point(6, 40);
+            this.cbMIDIYM2151.Name = "cbMIDIYM2151";
+            this.cbMIDIYM2151.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2151.TabIndex = 21;
+            this.cbMIDIYM2151.Text = "YM2151";
+            this.cbMIDIYM2151.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2610BSec
+            // 
+            this.cbMIDIYM2610BSec.AutoSize = true;
+            this.cbMIDIYM2610BSec.Enabled = false;
+            this.cbMIDIYM2610BSec.Location = new System.Drawing.Point(84, 106);
+            this.cbMIDIYM2610BSec.Name = "cbMIDIYM2610BSec";
+            this.cbMIDIYM2610BSec.Size = new System.Drawing.Size(99, 16);
+            this.cbMIDIYM2610BSec.TabIndex = 21;
+            this.cbMIDIYM2610BSec.Text = "YM2610B(Sec)";
+            this.cbMIDIYM2610BSec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2151Sec
+            // 
+            this.cbMIDIYM2151Sec.AutoSize = true;
+            this.cbMIDIYM2151Sec.Enabled = false;
+            this.cbMIDIYM2151Sec.Location = new System.Drawing.Point(84, 40);
+            this.cbMIDIYM2151Sec.Name = "cbMIDIYM2151Sec";
+            this.cbMIDIYM2151Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2151Sec.TabIndex = 21;
+            this.cbMIDIYM2151Sec.Text = "YM2151(Sec)";
+            this.cbMIDIYM2151Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2610B
+            // 
+            this.cbMIDIYM2610B.AutoSize = true;
+            this.cbMIDIYM2610B.Enabled = false;
+            this.cbMIDIYM2610B.Location = new System.Drawing.Point(6, 106);
+            this.cbMIDIYM2610B.Name = "cbMIDIYM2610B";
+            this.cbMIDIYM2610B.Size = new System.Drawing.Size(72, 16);
+            this.cbMIDIYM2610B.TabIndex = 21;
+            this.cbMIDIYM2610B.Text = "YM2610B";
+            this.cbMIDIYM2610B.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2203
+            // 
+            this.cbMIDIYM2203.AutoSize = true;
+            this.cbMIDIYM2203.Enabled = false;
+            this.cbMIDIYM2203.Location = new System.Drawing.Point(6, 62);
+            this.cbMIDIYM2203.Name = "cbMIDIYM2203";
+            this.cbMIDIYM2203.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2203.TabIndex = 21;
+            this.cbMIDIYM2203.Text = "YM2203";
+            this.cbMIDIYM2203.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2608Sec
+            // 
+            this.cbMIDIYM2608Sec.AutoSize = true;
+            this.cbMIDIYM2608Sec.Enabled = false;
+            this.cbMIDIYM2608Sec.Location = new System.Drawing.Point(84, 84);
+            this.cbMIDIYM2608Sec.Name = "cbMIDIYM2608Sec";
+            this.cbMIDIYM2608Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2608Sec.TabIndex = 21;
+            this.cbMIDIYM2608Sec.Text = "YM2608(Sec)";
+            this.cbMIDIYM2608Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2203Sec
+            // 
+            this.cbMIDIYM2203Sec.AutoSize = true;
+            this.cbMIDIYM2203Sec.Enabled = false;
+            this.cbMIDIYM2203Sec.Location = new System.Drawing.Point(84, 62);
+            this.cbMIDIYM2203Sec.Name = "cbMIDIYM2203Sec";
+            this.cbMIDIYM2203Sec.Size = new System.Drawing.Size(91, 16);
+            this.cbMIDIYM2203Sec.TabIndex = 21;
+            this.cbMIDIYM2203Sec.Text = "YM2203(Sec)";
+            this.cbMIDIYM2203Sec.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIYM2608
+            // 
+            this.cbMIDIYM2608.AutoSize = true;
+            this.cbMIDIYM2608.Enabled = false;
+            this.cbMIDIYM2608.Location = new System.Drawing.Point(6, 84);
+            this.cbMIDIYM2608.Name = "cbMIDIYM2608";
+            this.cbMIDIYM2608.Size = new System.Drawing.Size(64, 16);
+            this.cbMIDIYM2608.TabIndex = 21;
+            this.cbMIDIYM2608.Text = "YM2608";
+            this.cbMIDIYM2608.UseVisualStyleBackColor = true;
+            // 
+            // cbMIDIPlayless
+            // 
+            this.cbMIDIPlayless.AutoSize = true;
+            this.cbMIDIPlayless.Enabled = false;
+            this.cbMIDIPlayless.Location = new System.Drawing.Point(21, 22);
+            this.cbMIDIPlayless.Name = "cbMIDIPlayless";
+            this.cbMIDIPlayless.Size = new System.Drawing.Size(141, 16);
+            this.cbMIDIPlayless.TabIndex = 20;
+            this.cbMIDIPlayless.Text = "演奏を行わずに出力する";
+            this.cbMIDIPlayless.UseVisualStyleBackColor = true;
+            // 
+            // btnMIDIOutputPath
+            // 
+            this.btnMIDIOutputPath.Location = new System.Drawing.Point(332, 64);
+            this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
+            this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
+            this.btnMIDIOutputPath.TabIndex = 19;
+            this.btnMIDIOutputPath.Text = "...";
+            this.btnMIDIOutputPath.UseVisualStyleBackColor = true;
+            this.btnMIDIOutputPath.Click += new System.EventHandler(this.btnMIDIOutputPath_Click);
+            // 
+            // lblOutputPath
+            // 
+            this.lblOutputPath.AutoSize = true;
+            this.lblOutputPath.Location = new System.Drawing.Point(20, 69);
+            this.lblOutputPath.Name = "lblOutputPath";
+            this.lblOutputPath.Size = new System.Drawing.Size(52, 12);
+            this.lblOutputPath.TabIndex = 17;
+            this.lblOutputPath.Text = "出力Path";
+            // 
+            // tbMIDIOutputPath
+            // 
+            this.tbMIDIOutputPath.Location = new System.Drawing.Point(78, 66);
+            this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
+            this.tbMIDIOutputPath.Size = new System.Drawing.Size(248, 19);
+            this.tbMIDIOutputPath.TabIndex = 18;
+            // 
+            // tpMIDIKBD
+            // 
+            this.tpMIDIKBD.Controls.Add(this.cbUseMIDIKeyboard);
+            this.tpMIDIKBD.Controls.Add(this.gbMIDIKeyboard);
+            this.tpMIDIKBD.Location = new System.Drawing.Point(4, 22);
+            this.tpMIDIKBD.Name = "tpMIDIKBD";
+            this.tpMIDIKBD.Size = new System.Drawing.Size(443, 371);
+            this.tpMIDIKBD.TabIndex = 5;
+            this.tpMIDIKBD.Text = "MIDI鍵盤";
+            this.tpMIDIKBD.UseVisualStyleBackColor = true;
+            // 
+            // cbUseMIDIKeyboard
+            // 
+            this.cbUseMIDIKeyboard.AutoSize = true;
+            this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(11, 4);
+            this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
+            this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(124, 16);
+            this.cbUseMIDIKeyboard.TabIndex = 1;
+            this.cbUseMIDIKeyboard.Text = "MIDIキーボードを使う";
+            this.cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
+            this.cbUseMIDIKeyboard.CheckedChanged += new System.EventHandler(this.cbUseMIDIKeyboard_CheckedChanged);
+            // 
+            // gbMIDIKeyboard
+            // 
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox8);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox7);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox6);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox5);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox4);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox3);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox2);
+            this.gbMIDIKeyboard.Controls.Add(this.pictureBox1);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCFadeout);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCPause);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCSlow);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCPrevious);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCNext);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCFast);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCStop);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCPlay);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCCopyLog);
+            this.gbMIDIKeyboard.Controls.Add(this.label17);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCDelLog);
+            this.gbMIDIKeyboard.Controls.Add(this.label15);
+            this.gbMIDIKeyboard.Controls.Add(this.tbCCChCopy);
+            this.gbMIDIKeyboard.Controls.Add(this.label8);
+            this.gbMIDIKeyboard.Controls.Add(this.label9);
+            this.gbMIDIKeyboard.Controls.Add(this.gbUseChannel);
+            this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
+            this.gbMIDIKeyboard.Controls.Add(this.label5);
+            this.gbMIDIKeyboard.Enabled = false;
+            this.gbMIDIKeyboard.Location = new System.Drawing.Point(3, 6);
+            this.gbMIDIKeyboard.Name = "gbMIDIKeyboard";
+            this.gbMIDIKeyboard.Size = new System.Drawing.Size(437, 362);
+            this.gbMIDIKeyboard.TabIndex = 0;
+            this.gbMIDIKeyboard.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
+            this.pictureBox8.Location = new System.Drawing.Point(323, 257);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox8.TabIndex = 4;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
+            this.pictureBox7.Location = new System.Drawing.Point(229, 257);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox7.TabIndex = 4;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
+            this.pictureBox6.Location = new System.Drawing.Point(136, 258);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox6.TabIndex = 4;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::MDPlayer.Properties.Resources.ccSlow;
+            this.pictureBox5.Location = new System.Drawing.Point(42, 258);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.TabIndex = 4;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::MDPlayer.Properties.Resources.ccStop;
+            this.pictureBox4.Location = new System.Drawing.Point(42, 234);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::MDPlayer.Properties.Resources.ccPause;
+            this.pictureBox3.Location = new System.Drawing.Point(136, 234);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::MDPlayer.Properties.Resources.ccPrevious;
+            this.pictureBox2.Location = new System.Drawing.Point(323, 234);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MDPlayer.Properties.Resources.ccFadeout;
+            this.pictureBox1.Location = new System.Drawing.Point(229, 234);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tbCCFadeout
+            // 
+            this.tbCCFadeout.Location = new System.Drawing.Point(193, 232);
+            this.tbCCFadeout.MaxLength = 3;
+            this.tbCCFadeout.Name = "tbCCFadeout";
+            this.tbCCFadeout.Size = new System.Drawing.Size(30, 19);
+            this.tbCCFadeout.TabIndex = 12;
+            // 
+            // tbCCPause
+            // 
+            this.tbCCPause.Location = new System.Drawing.Point(100, 232);
+            this.tbCCPause.MaxLength = 3;
+            this.tbCCPause.Name = "tbCCPause";
+            this.tbCCPause.Size = new System.Drawing.Size(30, 19);
+            this.tbCCPause.TabIndex = 11;
+            // 
+            // tbCCSlow
+            // 
+            this.tbCCSlow.Location = new System.Drawing.Point(6, 257);
+            this.tbCCSlow.MaxLength = 3;
+            this.tbCCSlow.Name = "tbCCSlow";
+            this.tbCCSlow.Size = new System.Drawing.Size(30, 19);
+            this.tbCCSlow.TabIndex = 14;
+            // 
+            // tbCCPrevious
+            // 
+            this.tbCCPrevious.Location = new System.Drawing.Point(287, 232);
+            this.tbCCPrevious.MaxLength = 3;
+            this.tbCCPrevious.Name = "tbCCPrevious";
+            this.tbCCPrevious.Size = new System.Drawing.Size(30, 19);
+            this.tbCCPrevious.TabIndex = 13;
+            // 
+            // tbCCNext
+            // 
+            this.tbCCNext.Location = new System.Drawing.Point(287, 257);
+            this.tbCCNext.MaxLength = 3;
+            this.tbCCNext.Name = "tbCCNext";
+            this.tbCCNext.Size = new System.Drawing.Size(30, 19);
+            this.tbCCNext.TabIndex = 17;
+            // 
+            // tbCCFast
+            // 
+            this.tbCCFast.Location = new System.Drawing.Point(193, 257);
+            this.tbCCFast.MaxLength = 3;
+            this.tbCCFast.Name = "tbCCFast";
+            this.tbCCFast.Size = new System.Drawing.Size(30, 19);
+            this.tbCCFast.TabIndex = 16;
+            // 
+            // tbCCStop
+            // 
+            this.tbCCStop.Location = new System.Drawing.Point(6, 232);
+            this.tbCCStop.MaxLength = 3;
+            this.tbCCStop.Name = "tbCCStop";
+            this.tbCCStop.Size = new System.Drawing.Size(30, 19);
+            this.tbCCStop.TabIndex = 10;
+            // 
+            // tbCCPlay
+            // 
+            this.tbCCPlay.Location = new System.Drawing.Point(100, 257);
+            this.tbCCPlay.MaxLength = 3;
+            this.tbCCPlay.Name = "tbCCPlay";
+            this.tbCCPlay.Size = new System.Drawing.Size(30, 19);
+            this.tbCCPlay.TabIndex = 15;
+            // 
+            // tbCCCopyLog
+            // 
+            this.tbCCCopyLog.Location = new System.Drawing.Point(6, 207);
+            this.tbCCCopyLog.MaxLength = 3;
+            this.tbCCCopyLog.Name = "tbCCCopyLog";
+            this.tbCCCopyLog.Size = new System.Drawing.Size(30, 19);
+            this.tbCCCopyLog.TabIndex = 8;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(42, 210);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(230, 12);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "MONOモード時、選択ログをクリップボードに設定";
+            // 
+            // tbCCDelLog
+            // 
+            this.tbCCDelLog.Location = new System.Drawing.Point(6, 182);
+            this.tbCCDelLog.MaxLength = 3;
+            this.tbCCDelLog.Name = "tbCCDelLog";
+            this.tbCCDelLog.Size = new System.Drawing.Size(30, 19);
+            this.tbCCDelLog.TabIndex = 6;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(42, 185);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 12);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "直近のログをひとつ削除";
+            // 
+            // tbCCChCopy
+            // 
+            this.tbCCChCopy.Location = new System.Drawing.Point(6, 157);
+            this.tbCCChCopy.MaxLength = 3;
+            this.tbCCChCopy.Name = "tbCCChCopy";
+            this.tbCCChCopy.Size = new System.Drawing.Size(30, 19);
+            this.tbCCChCopy.TabIndex = 4;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 142);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(159, 12);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "CC(Control Change)による操作";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(42, 160);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(261, 12);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "1Chの音色を全てのチャンネルにコピー(選択状況無視)";
+            // 
+            // gbUseChannel
+            // 
+            this.gbUseChannel.Controls.Add(this.rbMONO);
+            this.gbUseChannel.Controls.Add(this.rbPOLY);
+            this.gbUseChannel.Controls.Add(this.groupBox7);
+            this.gbUseChannel.Controls.Add(this.groupBox2);
+            this.gbUseChannel.Location = new System.Drawing.Point(6, 44);
+            this.gbUseChannel.Name = "gbUseChannel";
+            this.gbUseChannel.Size = new System.Drawing.Size(425, 86);
+            this.gbUseChannel.TabIndex = 2;
+            this.gbUseChannel.TabStop = false;
+            this.gbUseChannel.Text = "use channel";
+            // 
+            // rbMONO
+            // 
+            this.rbMONO.AutoSize = true;
+            this.rbMONO.Checked = true;
+            this.rbMONO.Location = new System.Drawing.Point(12, 17);
+            this.rbMONO.Name = "rbMONO";
+            this.rbMONO.Size = new System.Drawing.Size(56, 16);
+            this.rbMONO.TabIndex = 1;
+            this.rbMONO.TabStop = true;
+            this.rbMONO.Text = "MONO";
+            this.rbMONO.UseVisualStyleBackColor = true;
+            // 
+            // rbPOLY
+            // 
+            this.rbPOLY.AutoSize = true;
+            this.rbPOLY.Location = new System.Drawing.Point(215, 17);
+            this.rbPOLY.Name = "rbPOLY";
+            this.rbPOLY.Size = new System.Drawing.Size(51, 16);
+            this.rbPOLY.TabIndex = 3;
+            this.rbPOLY.Text = "POLY";
+            this.rbPOLY.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.rbFM6);
+            this.groupBox7.Controls.Add(this.rbFM3);
+            this.groupBox7.Controls.Add(this.rbFM5);
+            this.groupBox7.Controls.Add(this.rbFM2);
+            this.groupBox7.Controls.Add(this.rbFM4);
+            this.groupBox7.Controls.Add(this.rbFM1);
+            this.groupBox7.Location = new System.Drawing.Point(6, 18);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(197, 62);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            // 
+            // rbFM6
+            // 
+            this.rbFM6.AutoSize = true;
+            this.rbFM6.Location = new System.Drawing.Point(108, 40);
+            this.rbFM6.Name = "rbFM6";
+            this.rbFM6.Size = new System.Drawing.Size(45, 16);
+            this.rbFM6.TabIndex = 5;
+            this.rbFM6.Text = "FM6";
+            this.rbFM6.UseVisualStyleBackColor = true;
+            // 
+            // rbFM3
+            // 
+            this.rbFM3.AutoSize = true;
+            this.rbFM3.Location = new System.Drawing.Point(108, 18);
+            this.rbFM3.Name = "rbFM3";
+            this.rbFM3.Size = new System.Drawing.Size(45, 16);
+            this.rbFM3.TabIndex = 2;
+            this.rbFM3.Text = "FM3";
+            this.rbFM3.UseVisualStyleBackColor = true;
+            // 
+            // rbFM5
+            // 
+            this.rbFM5.AutoSize = true;
+            this.rbFM5.Location = new System.Drawing.Point(57, 40);
+            this.rbFM5.Name = "rbFM5";
+            this.rbFM5.Size = new System.Drawing.Size(45, 16);
+            this.rbFM5.TabIndex = 4;
+            this.rbFM5.Text = "FM5";
+            this.rbFM5.UseVisualStyleBackColor = true;
+            // 
+            // rbFM2
+            // 
+            this.rbFM2.AutoSize = true;
+            this.rbFM2.Location = new System.Drawing.Point(57, 18);
+            this.rbFM2.Name = "rbFM2";
+            this.rbFM2.Size = new System.Drawing.Size(45, 16);
+            this.rbFM2.TabIndex = 1;
+            this.rbFM2.Text = "FM2";
+            this.rbFM2.UseVisualStyleBackColor = true;
+            // 
+            // rbFM4
+            // 
+            this.rbFM4.AutoSize = true;
+            this.rbFM4.Location = new System.Drawing.Point(6, 40);
+            this.rbFM4.Name = "rbFM4";
+            this.rbFM4.Size = new System.Drawing.Size(45, 16);
+            this.rbFM4.TabIndex = 3;
+            this.rbFM4.Text = "FM4";
+            this.rbFM4.UseVisualStyleBackColor = true;
+            // 
+            // rbFM1
+            // 
+            this.rbFM1.AutoSize = true;
+            this.rbFM1.Checked = true;
+            this.rbFM1.Location = new System.Drawing.Point(6, 18);
+            this.rbFM1.Name = "rbFM1";
+            this.rbFM1.Size = new System.Drawing.Size(45, 16);
+            this.rbFM1.TabIndex = 0;
+            this.rbFM1.TabStop = true;
+            this.rbFM1.Text = "FM1";
+            this.rbFM1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cbFM1);
+            this.groupBox2.Controls.Add(this.cbFM6);
+            this.groupBox2.Controls.Add(this.cbFM2);
+            this.groupBox2.Controls.Add(this.cbFM5);
+            this.groupBox2.Controls.Add(this.cbFM3);
+            this.groupBox2.Controls.Add(this.cbFM4);
+            this.groupBox2.Location = new System.Drawing.Point(209, 18);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(210, 62);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            // 
+            // cbFM1
+            // 
+            this.cbFM1.AutoSize = true;
+            this.cbFM1.Checked = true;
+            this.cbFM1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM1.Location = new System.Drawing.Point(6, 18);
+            this.cbFM1.Name = "cbFM1";
+            this.cbFM1.Size = new System.Drawing.Size(46, 16);
+            this.cbFM1.TabIndex = 0;
+            this.cbFM1.Text = "FM1";
+            this.cbFM1.UseVisualStyleBackColor = true;
+            // 
+            // cbFM6
+            // 
+            this.cbFM6.AutoSize = true;
+            this.cbFM6.Checked = true;
+            this.cbFM6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM6.Location = new System.Drawing.Point(110, 40);
+            this.cbFM6.Name = "cbFM6";
+            this.cbFM6.Size = new System.Drawing.Size(46, 16);
+            this.cbFM6.TabIndex = 5;
+            this.cbFM6.Text = "FM6";
+            this.cbFM6.UseVisualStyleBackColor = true;
+            // 
+            // cbFM2
+            // 
+            this.cbFM2.AutoSize = true;
+            this.cbFM2.Checked = true;
+            this.cbFM2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM2.Location = new System.Drawing.Point(58, 18);
+            this.cbFM2.Name = "cbFM2";
+            this.cbFM2.Size = new System.Drawing.Size(46, 16);
+            this.cbFM2.TabIndex = 1;
+            this.cbFM2.Text = "FM2";
+            this.cbFM2.UseVisualStyleBackColor = true;
+            // 
+            // cbFM5
+            // 
+            this.cbFM5.AutoSize = true;
+            this.cbFM5.Checked = true;
+            this.cbFM5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM5.Location = new System.Drawing.Point(58, 40);
+            this.cbFM5.Name = "cbFM5";
+            this.cbFM5.Size = new System.Drawing.Size(46, 16);
+            this.cbFM5.TabIndex = 4;
+            this.cbFM5.Text = "FM5";
+            this.cbFM5.UseVisualStyleBackColor = true;
+            // 
+            // cbFM3
+            // 
+            this.cbFM3.AutoSize = true;
+            this.cbFM3.Checked = true;
+            this.cbFM3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM3.Location = new System.Drawing.Point(110, 18);
+            this.cbFM3.Name = "cbFM3";
+            this.cbFM3.Size = new System.Drawing.Size(46, 16);
+            this.cbFM3.TabIndex = 2;
+            this.cbFM3.Text = "FM3";
+            this.cbFM3.UseVisualStyleBackColor = true;
+            // 
+            // cbFM4
+            // 
+            this.cbFM4.AutoSize = true;
+            this.cbFM4.Checked = true;
+            this.cbFM4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFM4.Location = new System.Drawing.Point(6, 40);
+            this.cbFM4.Name = "cbFM4";
+            this.cbFM4.Size = new System.Drawing.Size(46, 16);
+            this.cbFM4.TabIndex = 3;
+            this.cbFM4.Text = "FM4";
+            this.cbFM4.UseVisualStyleBackColor = true;
+            // 
+            // cmbMIDIIN
+            // 
+            this.cmbMIDIIN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMIDIIN.FormattingEnabled = true;
+            this.cmbMIDIIN.Location = new System.Drawing.Point(72, 18);
+            this.cmbMIDIIN.Name = "cmbMIDIIN";
+            this.cmbMIDIIN.Size = new System.Drawing.Size(290, 20);
+            this.cmbMIDIIN.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 21);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "MIDI IN";
+            // 
             // tpOther
             // 
             this.tpOther.Controls.Add(this.cbUseGetInst);
@@ -3209,36 +3510,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // tpNSF
-            // 
-            this.tpNSF.Controls.Add(this.groupBox8);
-            this.tpNSF.Location = new System.Drawing.Point(4, 22);
-            this.tpNSF.Name = "tpNSF";
-            this.tpNSF.Size = new System.Drawing.Size(443, 371);
-            this.tpNSF.TabIndex = 9;
-            this.tpNSF.Text = "NSF";
-            this.tpNSF.UseVisualStyleBackColor = true;
-            // 
-            // cbNSFFDSWriteDisable8000
-            // 
-            this.cbNSFFDSWriteDisable8000.AutoSize = true;
-            this.cbNSFFDSWriteDisable8000.Location = new System.Drawing.Point(6, 18);
-            this.cbNSFFDSWriteDisable8000.Name = "cbNSFFDSWriteDisable8000";
-            this.cbNSFFDSWriteDisable8000.Size = new System.Drawing.Size(177, 16);
-            this.cbNSFFDSWriteDisable8000.TabIndex = 7;
-            this.cbNSFFDSWriteDisable8000.Text = "Write disable($8000 - $DFFF)";
-            this.cbNSFFDSWriteDisable8000.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.cbNSFFDSWriteDisable8000);
-            this.groupBox8.Location = new System.Drawing.Point(7, 3);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(433, 58);
-            this.groupBox8.TabIndex = 8;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "FDS";
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3271,30 +3542,17 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.tabMIDIExp.ResumeLayout(false);
-            this.tabMIDIExp.PerformLayout();
-            this.gbMIDIExport.ResumeLayout(false);
-            this.gbMIDIExport.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.tpMIDIKBD.ResumeLayout(false);
-            this.tpMIDIKBD.PerformLayout();
-            this.gbMIDIKeyboard.ResumeLayout(false);
-            this.gbMIDIKeyboard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.gbUseChannel.ResumeLayout(false);
-            this.gbUseChannel.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.tpNSF.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.tpMIDIOut.ResumeLayout(false);
             this.tpMIDIOut.PerformLayout();
             this.tbcMIDIoutList.ResumeLayout(false);
@@ -3319,6 +3577,30 @@
             this.tabPage10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).EndInit();
+            this.tabMIDIExp.ResumeLayout(false);
+            this.tabMIDIExp.PerformLayout();
+            this.gbMIDIExport.ResumeLayout(false);
+            this.gbMIDIExport.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.tpMIDIKBD.ResumeLayout(false);
+            this.tpMIDIKBD.PerformLayout();
+            this.gbMIDIKeyboard.ResumeLayout(false);
+            this.gbMIDIKeyboard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.gbUseChannel.ResumeLayout(false);
+            this.gbUseChannel.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3335,9 +3617,6 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.tpNSF.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3613,5 +3892,28 @@
         private System.Windows.Forms.TabPage tpNSF;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.CheckBox cbNSFFDSWriteDisable8000;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox cbNSFDmc_TriNull;
+        private System.Windows.Forms.CheckBox cbNSFDmc_TriMute;
+        private System.Windows.Forms.CheckBox cbNSFDmc_RandomizeNoise;
+        private System.Windows.Forms.CheckBox cbNSFDmc_DPCMAntiClick;
+        private System.Windows.Forms.CheckBox cbNSFDmc_EnablePNoise;
+        private System.Windows.Forms.CheckBox cbNSFDmc_Enable4011;
+        private System.Windows.Forms.CheckBox cbNSFDmc_NonLinearMixer;
+        private System.Windows.Forms.CheckBox cbNSFDmc_UnmuteOnReset;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.CheckBox cbNSFN160_Serial;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.CheckBox cbNSFMmc5_PhaseRefresh;
+        private System.Windows.Forms.CheckBox cbNSFMmc5_NonLinearMixer;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.CheckBox cbNFSNes_DutySwap;
+        private System.Windows.Forms.CheckBox cbNFSNes_PhaseRefresh;
+        private System.Windows.Forms.CheckBox cbNFSNes_NonLinearMixer;
+        private System.Windows.Forms.CheckBox cbNFSNes_UnmuteOnReset;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbNSFFds_LPF;
+        private System.Windows.Forms.CheckBox cbNFSFds_4085Reset;
     }
 }

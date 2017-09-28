@@ -39,46 +39,7 @@ namespace MDPlayer
         private int[] noteTbl = new int[] { 2, 4, 5, -1, 6, 8, 9, -1, 10, 12, 13, -1, 14, 0, 1, -1 };
         private int[] noteTbl2 = new int[] { 13, 14, 0, -1, 1, 2, 4, -1, 5, 6, 8, -1, 9, 10, 12, -1 };
 
-        public int ChipPriOPN = 0;
-        public int ChipPriOPN2 = 0;
-        public int ChipPriOPNA = 0;
-        public int ChipPriOPNB = 0;
-        public int ChipPriOPM = 0;
-        public int ChipPriDCSG = 0;
-        public int ChipPriRF5C = 0;
-        public int ChipPriPWM = 0;
-        public int ChipPriOKI5 = 0;
-        public int ChipPriOKI9 = 0;
-        public int ChipPriC140 = 0;
-        public int ChipPriSPCM = 0;
-        //public int ChipPriPSG = 0;
-        public int ChipPriAY10 = 0;
-        public int ChipPriOPLL = 0;
-        public int ChipPriHuC = 0;
-        public int ChipPriC352 = 0;
-        public int ChipPriK054539 = 0;
-        public int ChipPriK051649 = 0;
-        public int ChipPriNES = 0;
-        public int ChipSecOPN = 0;
-        public int ChipSecOPN2 = 0;
-        public int ChipSecOPNA = 0;
-        public int ChipSecOPNB = 0;
-        public int ChipSecOPM = 0;
-        public int ChipSecDCSG = 0;
-        public int ChipSecRF5C = 0;
-        public int ChipSecPWM = 0;
-        public int ChipSecOKI5 = 0;
-        public int ChipSecOKI9 = 0;
-        public int ChipSecC140 = 0;
-        public int ChipSecSPCM = 0;
-        //public int ChipSecPSG = 0;
-        public int ChipSecAY10 = 0;
-        public int ChipSecOPLL = 0;
-        public int ChipSecHuC = 0;
-        public int ChipSecC352 = 0;
-        public int ChipSecK054539 = 0;
-        public int ChipSecK051649 = 0;
-        public int ChipSecNES = 0;
+        public ChipLEDs chipLED = new ChipLEDs();
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
@@ -486,8 +447,8 @@ namespace MDPlayer
         {
             if (ctYM2151 == null) return;
 
-            if (chipID == 0) ChipPriOPM = 2;
-            else ChipSecOPM = 2;
+            if (chipID == 0) chipLED.PriOPM = 2;
+            else chipLED.SecOPM = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -619,8 +580,8 @@ namespace MDPlayer
         {
             if (ctAY8910 == null) return;
 
-            if (chipID == 0) ChipPriAY10 = 2;
-            else ChipSecAY10 = 2;
+            if (chipID == 0) chipLED.PriAY10 = 2;
+            else chipLED.SecAY10 = 2;
 
             if (model == enmModel.VirtualModel) psgRegisterAY8910[chipID][dAddr] = dData;
 
@@ -649,8 +610,8 @@ namespace MDPlayer
 
         public void setNESRegister(int chipID, int dAddr, int dData, enmModel model)
         {
-            if (chipID == 0) ChipPriNES = 2;
-            else ChipSecNES = 2;
+            if (chipID == 0) chipLED.PriNES = 2;
+            else chipLED.SecNES = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -671,8 +632,8 @@ namespace MDPlayer
         {
             if (ctYM2413 == null) return;
 
-            if (chipID == 0) ChipPriOPLL = 2;
-            else ChipSecOPLL = 2;
+            if (chipID == 0) chipLED.PriOPLL = 2;
+            else chipLED.SecOPLL = 2;
 
             if (model == enmModel.VirtualModel) fmRegisterYM2413[chipID][dAddr] = dData;
 
@@ -731,8 +692,8 @@ namespace MDPlayer
         {
             if (ctHuC6280 == null) return;
 
-            if (chipID == 0) ChipPriHuC = 2;
-            else ChipSecHuC = 2;
+            if (chipID == 0) chipLED.PriHuC = 2;
+            else chipLED.SecHuC = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -753,8 +714,8 @@ namespace MDPlayer
         {
             if (ctYM2203 == null) return;
 
-            if (chipID == 0) ChipPriOPN = 2;
-            else ChipSecOPN = 2;
+            if (chipID == 0) chipLED.PriOPN = 2;
+            else chipLED.SecOPN = 2;
 
             if (model == enmModel.VirtualModel) fmRegisterYM2203[chipID][dAddr] = dData;
 
@@ -842,8 +803,8 @@ namespace MDPlayer
         {
             if (ctYM2608 == null) return;
 
-            if (chipID == 0) ChipPriOPNA = 2;
-            else ChipSecOPNA = 2;
+            if (chipID == 0) chipLED.PriOPNA = 2;
+            else chipLED.SecOPNA = 2;
 
             if (model == enmModel.VirtualModel) fmRegisterYM2608[chipID][dPort][dAddr] = dData;
 
@@ -998,8 +959,8 @@ namespace MDPlayer
         {
             if (ctYM2610 == null) return;
 
-            if (chipID == 0) ChipPriOPNB = 2;
-            else ChipSecOPNB = 2;
+            if (chipID == 0) chipLED.PriOPNB = 2;
+            else chipLED.SecOPNB = 2;
 
             if (model == enmModel.VirtualModel) fmRegisterYM2610[chipID][dPort][dAddr] = dData;
 
@@ -1168,8 +1129,8 @@ namespace MDPlayer
         {
             if (ctYM2612 == null) return;
 
-            if (chipID == 0) ChipPriOPN2 = 2;
-            else ChipSecOPN2 = 2;
+            if (chipID == 0) chipLED.PriOPN2 = 2;
+            else chipLED.SecOPN2 = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -1655,8 +1616,8 @@ namespace MDPlayer
         {
             if (ctSN76489 == null) return;
 
-            if (chipID == 0) ChipPriDCSG = 2;
-            else ChipSecDCSG = 2;
+            if (chipID == 0) chipLED.PriDCSG = 2;
+            else chipLED.SecDCSG = 2;
 
             SN76489_Write(chipID, dData);
 
@@ -1793,8 +1754,8 @@ namespace MDPlayer
 
         public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriRF5C = 2;
-            else ChipSecRF5C = 2;
+            if (chipid == 0) chipLED.PriRF5C = 2;
+            else chipLED.SecRF5C = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
@@ -1802,8 +1763,8 @@ namespace MDPlayer
 
         public void writeNESPCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriNES = 2;
-            else ChipSecNES = 2;
+            if (chipid == 0) chipLED.PriNES = 2;
+            else chipLED.SecNES = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteNESRam(chipid, (int)stAdr, (int)dataSize, vgmBuf, (int)vgmAdr);
@@ -1811,8 +1772,8 @@ namespace MDPlayer
 
         public void writeRF5C164(byte chipid, byte adr, byte data, enmModel model)
         {
-            if (chipid == 0) ChipPriRF5C = 2;
-            else ChipSecRF5C = 2;
+            if (chipid == 0) chipLED.PriRF5C = 2;
+            else chipLED.SecRF5C = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164(chipid, adr, data);
@@ -1820,8 +1781,8 @@ namespace MDPlayer
 
         public void writeRF5C164MemW(byte chipid, uint offset, byte data, enmModel model)
         {
-            if (chipid == 0) ChipPriRF5C = 2;
-            else ChipSecRF5C = 2;
+            if (chipid == 0) chipLED.PriRF5C = 2;
+            else chipLED.SecRF5C = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164MemW(chipid, offset, data);
@@ -1829,8 +1790,8 @@ namespace MDPlayer
 
         public void writePWM(byte chipid, byte adr, uint data, enmModel model)
         {
-            if (chipid == 0) ChipPriPWM = 2;
-            else ChipSecPWM = 2;
+            if (chipid == 0) chipLED.PriPWM = 2;
+            else chipLED.SecPWM = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WritePWM(chipid, adr, data);
@@ -1838,8 +1799,8 @@ namespace MDPlayer
 
         public void writeK051649(byte chipid, uint adr, byte data, enmModel model)
         {
-            if (chipid == 0) ChipPriK051649 = 2;
-            else ChipSecK051649 = 2;
+            if (chipid == 0) chipLED.PriK051649 = 2;
+            else chipLED.SecK051649 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteK051649(chipid, (int)adr, data);
@@ -1847,8 +1808,8 @@ namespace MDPlayer
 
         public void writeK054539(byte chipid, uint adr, byte data, enmModel model)
         {
-            if (chipid == 0) ChipPriK054539 = 2;
-            else ChipSecK054539 = 2;
+            if (chipid == 0) chipLED.PriK054539 = 2;
+            else chipLED.SecK054539 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteK054539(chipid, (int)adr, data);
@@ -1856,8 +1817,8 @@ namespace MDPlayer
 
         public void writeK054539PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriK054539 = 2;
-            else ChipSecK054539 = 2;
+            if (chipid == 0) chipLED.PriK054539 = 2;
+            else chipLED.SecK054539 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteK054539PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
@@ -1865,8 +1826,8 @@ namespace MDPlayer
 
         public void writeC140(byte chipid, uint adr, byte data, enmModel model)
         {
-            if (chipid == 0) ChipPriC140 = 2;
-            else ChipSecC140 = 2;
+            if (chipid == 0) chipLED.PriC140 = 2;
+            else chipLED.SecC140 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC140(chipid, adr, data);
@@ -1874,8 +1835,8 @@ namespace MDPlayer
 
         public void writeC140PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriC140 = 2;
-            else ChipSecC140 = 2;
+            if (chipid == 0) chipLED.PriC140 = 2;
+            else chipLED.SecC140 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
@@ -1883,8 +1844,8 @@ namespace MDPlayer
 
         public void writeC352(byte chipid, uint adr, uint data, enmModel model)
         {
-            if (chipid == 0) ChipPriC352 = 2;
-            else ChipSecC352 = 2;
+            if (chipid == 0) chipLED.PriC352 = 2;
+            else chipLED.SecC352 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC352(chipid, adr, data);
@@ -1892,8 +1853,8 @@ namespace MDPlayer
 
         public void writeC352PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriC352 = 2;
-            else ChipSecC352 = 2;
+            if (chipid == 0) chipLED.PriC352 = 2;
+            else chipLED.SecC352 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC352PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
@@ -1901,8 +1862,8 @@ namespace MDPlayer
 
         public void writeOKIM6258(byte ChipID, byte Port, byte Data, enmModel model)
         {
-            if (ChipID == 0) ChipPriOKI5 = 2;
-            else ChipSecOKI5 = 2;
+            if (ChipID == 0) chipLED.PriOKI5 = 2;
+            else chipLED.SecOKI5 = 2;
 
             if (Port == 0x00)
             {
@@ -1924,8 +1885,8 @@ namespace MDPlayer
 
         public void writeOKIM6295(byte ChipID, byte Port, byte Data, enmModel model)
         {
-            if (ChipID == 0) ChipPriOKI9 = 2;
-            else ChipSecOKI9 = 2;
+            if (ChipID == 0) chipLED.PriOKI9 = 2;
+            else chipLED.SecOKI9 = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -1936,8 +1897,8 @@ namespace MDPlayer
 
         public void writeOKIM6295PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriOKI9 = 2;
-            else ChipSecOKI9 = 2;
+            if (chipid == 0) chipLED.PriOKI9 = 2;
+            else chipLED.SecOKI9 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteOKIM6295PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
@@ -1945,8 +1906,8 @@ namespace MDPlayer
 
         public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)
         {
-            if (ChipID == 0) ChipPriSPCM = 2;
-            else ChipSecSPCM = 2;
+            if (ChipID == 0) chipLED.PriSPCM = 2;
+            else chipLED.SecSPCM = 2;
 
             if (model == enmModel.VirtualModel)
             {
@@ -1957,8 +1918,8 @@ namespace MDPlayer
 
         public void writeSEGAPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) ChipPriSPCM = 2;
-            else ChipSecSPCM = 2;
+            if (chipid == 0) chipLED.PriSPCM = 2;
+            else chipLED.SecSPCM = 2;
 
             if (model == enmModel.VirtualModel)
             {

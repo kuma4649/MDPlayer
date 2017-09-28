@@ -21,17 +21,27 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmAY8910(frmMain frm, int chipID, int zoom)
+        private MDChipParams.AY8910 newParam = null;
+        private MDChipParams.AY8910 oldParam = new MDChipParams.AY8910();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeAY8910, null, zoom);
+            DrawBuff.screenInitAY8910(frameBuffer);
             update();
         }
+
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -44,7 +54,7 @@ namespace MDPlayer
 
         private void frmAY8910_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosSN76489[chipID] = Location;
+            parent.setting.location.PosAY8910[chipID] = Location;
             isClosed = true;
         }
 
@@ -88,10 +98,68 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            int[] AY8910Register = Audio.GetAY8910Register(chipID);
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.channels[ch];
+
+                bool t = (AY8910Register[0x07] & (0x1 << ch)) == 0;
+                bool n = (AY8910Register[0x07] & (0x8 << ch)) == 0;
+
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
+                newParam.nfrq = AY8910Register[0x06] & 0x1f;
+                newParam.efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
+                newParam.etype = (AY8910Register[0x0d] & 0x7) + 2;
+
+                int v = (AY8910Register[0x08 + ch] & 0x1f);
+                v = v > 15 ? 15 : v;
+                channel.volume = (int)(((t || n) ? 1 : 0) * v * (20.0 / 16.0));
+                if (!t && !n && channel.volume > 0)
+                {
+                    channel.volume--;
+                }
+
+                if (channel.volume == 0)
+                {
+                    channel.note = -1;
+                }
+                else
+                {
+                    int ft = AY8910Register[0x00 + ch * 2];
+                    int ct = AY8910Register[0x01 + ch * 2];
+                    int tp = (ct << 8) | ft;
+                    if (tp == 0) tp = 1;
+                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    channel.note = searchSSGNote(ftone);
+                }
+
+            }
         }
 
         public void screenDrawParams()
         {
+            //int tp = setting.AY8910Type.UseScci ? 1 : 0;
+            int tp = 0;
+
+            for (int c = 0; c < 3; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.channels[c];
+                MDChipParams.Channel nyc = newParam.channels[c];
+
+                DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+
+                DrawBuff.ChAY8910(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            DrawBuff.Nfrq(frameBuffer, 5, 8, ref oldParam.nfrq, newParam.nfrq);
+            DrawBuff.Efrq(frameBuffer, 18, 8, ref oldParam.efrq, newParam.efrq);
+            DrawBuff.Etype(frameBuffer, 33, 8, ref oldParam.etype, newParam.etype);
+
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -120,5 +188,24 @@ namespace MDPlayer
             }
 
         }
+
+        private int searchSSGNote(float freq)
+        {
+            float m = float.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                //if (freq < Tables.freqTbl[i]) break;
+                //n = i;
+                float a = Math.Abs(freq - Tables.freqTbl[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
     }
 }

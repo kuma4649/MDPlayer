@@ -165,8 +165,8 @@ namespace MDPlayer
         }
 
 
-        private double musicStep = 44100.0 / 60.0;
-        private double pcmStep = 44100.0 / 14000.0;
+        private double musicStep = common.SampleRate / 60.0;
+        private double pcmStep = common.SampleRate / 14000.0;
         private double musicDownCounter = 0.0;
         private double pcmDownCounter = 0.0;
         private uint musicPtr = 0;
@@ -180,7 +180,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = 44100.0 / (isNTSC ? 60.0 : 50.0);
+                musicStep = common.SampleRate / (isNTSC ? 60.0 : 50.0);
 
                 if (musicDownCounter <= 0.0)
                 {
