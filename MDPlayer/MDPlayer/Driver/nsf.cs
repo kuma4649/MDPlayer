@@ -560,8 +560,8 @@ namespace MDPlayer
                     nes_mmc5.Tick((UInt32)apu_clocks);
                     nes_mmc5.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cMMC5.Volume / 40.0));
-                    _out[0] += (buf[0] * mul) >> 13;
-                    _out[1] += (buf[1] * mul) >> 13;
+                    _out[0] += (buf[0] * mul) >> 10;
+                    _out[1] += (buf[1] * mul) >> 10;
                 }
 
                 if (use_fme7)
