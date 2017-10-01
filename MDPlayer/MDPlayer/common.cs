@@ -200,6 +200,78 @@ namespace MDPlayer
             return enmFileFormat.unknown;
         }
 
+        public static int searchFMNote(int freq)
+        {
+            int m = int.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 5; i++)
+            {
+                //if (freq < Tables.FmFNum[i]) break;
+                //n = i;
+                int a = Math.Abs(freq - Tables.FmFNum[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n - 12 * 3;
+        }
+
+        public static int searchSSGNote(float freq)
+        {
+            float m = float.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                //if (freq < Tables.freqTbl[i]) break;
+                //n = i;
+                float a = Math.Abs(freq - Tables.freqTbl[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
+        public static int searchSegaPCMNote(double ml)
+        {
+            double m = double.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                double a = Math.Abs(ml - (Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
+        public static int searchYM2608Adpcm(float freq)
+        {
+            float m = float.MaxValue;
+            int n = 0;
+
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                if (freq < Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))) break;
+                n = i;
+                float a = Math.Abs(freq - (float)(Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))));
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+
+            return n + 1;
+        }
+
 
     }
 

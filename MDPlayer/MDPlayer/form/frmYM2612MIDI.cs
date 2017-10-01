@@ -21,7 +21,11 @@ namespace MDPlayer
         private int frameSizeH = 0;
         private int zoom = 1;
 
-        public frmYM2612MIDI(frmMain frm, int zoom)
+        private MDChipParams.YM2612MIDI newParam = null;
+        private MDChipParams.YM2612MIDI oldParam = new MDChipParams.YM2612MIDI();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmYM2612MIDI(frmMain frm, int zoom, MDChipParams.YM2612MIDI newParam)
         {
             parent = frm;
             this.zoom = zoom;
@@ -29,11 +33,15 @@ namespace MDPlayer
             InitializeComponent();
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.frmYM2612MIDI_MouseWheel);
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeYM2612MIDI, null, zoom);
+            DrawBuff.screenInitYM2612MIDI(frameBuffer);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -90,11 +98,112 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            int[][] fmRegister = Audio.GetYM2612MIDIRegister();
+            //int[] fmKey = Audio.GetFMKeyOn();
+
+            newParam.IsMONO = parent.setting.midiKbd.IsMONO;
+            if (parent.setting.midiKbd.IsMONO)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    newParam.useChannel[i] = (parent.setting.midiKbd.UseMONOChannel == i);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    newParam.useChannel[i] = parent.setting.midiKbd.UseChannel[i];
+                }
+            }
+
+            newParam.useFormat = parent.setting.midiKbd.UseFormat;
+
+            for (int ch = 0; ch < 6; ch++)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops + c] & 0x1f; //AR
+                    newParam.channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
+                    newParam.channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
+                    newParam.channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
+                    newParam.channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
+                    newParam.channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
+                    newParam.channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
+                newParam.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
+                newParam.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x07;//FMS
+
+                newParam.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
+
+                if (newParam.selectCh != -1 && newParam.selectParam != -1)
+                {
+                    if (oldParam.selectCh != -1 && oldParam.selectParam != -1)
+                    {
+                        newParam.channels[oldParam.selectCh].typ[oldParam.selectParam] = 0;
+                    }
+                    newParam.channels[newParam.selectCh].typ[newParam.selectParam] = 1;
+                    oldParam.selectCh = newParam.selectCh;
+                    oldParam.selectParam = newParam.selectParam;
+                }
+
+                //int freq = 0;
+                //int octav = 0;
+                //int n = -1;
+                //freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
+                //octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+
+                //if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
+
+                //newParam.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
+                //newParam.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+                //newParam.channels[ch].note = n;
+
+            }
+
         }
+
 
         public void screenDrawParams()
         {
+            for (int c = 0; c < 6; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.channels[c];
+                MDChipParams.Channel nyc = newParam.channels[c];
+
+                bool YM2612type = parent.setting.YM2612Type.UseScci;
+                int tp = YM2612type ? 1 : 0;
+
+                DrawBuff.Inst(frameBuffer, 1, 6 + (c > 2 ? 3 : 0), c, oyc.inst, nyc.inst, oyc.typ, nyc.typ);
+
+                int[] onl = oldParam.noteLog[c];
+                int[] nnl = newParam.noteLog[c];
+
+                for (int n = 0; n < 10; n++)
+                {
+                    DrawBuff.NoteLogYM2612MIDI(frameBuffer, (c % 3) * 13 * 8 + 2 * 8 + n * 8, (c / 3) * 18 * 4 + 24 * 4, ref onl[n], nnl[n]);
+                }
+
+                DrawBuff.UseChannelYM2612MIDI(frameBuffer, (c % 3) * 13 * 8, (c / 3) * 9 * 8 + 4 * 8, ref oldParam.useChannel[c], newParam.useChannel[c]);
+            }
+
+            DrawBuff.MONOPOLYYM2612MIDI(frameBuffer, ref oldParam.IsMONO, newParam.IsMONO);
+
+            DrawBuff.LfoSw(frameBuffer, 4, 44, ref oldParam.lfoSw, newParam.lfoSw);
+            DrawBuff.LfoFrq(frameBuffer, 16, 44, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.ToneFormat(frameBuffer, 16, 6, ref oldParam.useFormat, newParam.useFormat);
         }
+
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
@@ -361,7 +470,7 @@ namespace MDPlayer
             }
         }
 
-        private void cmdSelectTone(int px,int py, MouseEventArgs e)
+        private void cmdSelectTone(int px, int py, MouseEventArgs e)
         {
             int ch = px / 8 / 13 + (py < 104 ? 0 : 3);
             int row = -1;
@@ -416,7 +525,7 @@ namespace MDPlayer
                     }
                     else if (col < 25)
                     {
-                        n = (col+1) / 2;
+                        n = (col + 1) / 2;
                         n -= 2;
                     }
                     else

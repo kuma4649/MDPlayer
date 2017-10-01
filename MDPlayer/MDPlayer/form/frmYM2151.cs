@@ -21,18 +21,28 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmYM2151(frmMain frm,int chipID, int zoom)
+        private MDChipParams.YM2151 newParam = null;
+        private MDChipParams.YM2151 oldParam = new MDChipParams.YM2151();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmYM2151(frmMain frm,int chipID, int zoom,MDChipParams.YM2151 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeE, null, zoom);
+            bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
+            int tp = YM2151Type ? 1 : 0;
+            DrawBuff.screenInitYM2151(frameBuffer, tp);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -88,13 +98,95 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            int[] ym2151Register = Audio.GetYM2151Register(chipID);
+            int[] fmKeyYM2151 = Audio.GetYM2151KeyOn(chipID);
+            int[][] fmYM2151Vol = Audio.GetYM2151Volume(chipID);
+
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    newParam.channels[ch].inst[i * 11 + 0] = ym2151Register[0x80 + ops + ch] & 0x1f; //AR
+                    newParam.channels[ch].inst[i * 11 + 1] = ym2151Register[0xa0 + ops + ch] & 0x1f; //DR
+                    newParam.channels[ch].inst[i * 11 + 2] = ym2151Register[0xc0 + ops + ch] & 0x1f; //SR
+                    newParam.channels[ch].inst[i * 11 + 3] = ym2151Register[0xe0 + ops + ch] & 0x0f; //RR
+                    newParam.channels[ch].inst[i * 11 + 4] = (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4;//SL
+                    newParam.channels[ch].inst[i * 11 + 5] = ym2151Register[0x60 + ops + ch] & 0x7f;//TL
+                    newParam.channels[ch].inst[i * 11 + 6] = (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6;//KS
+                    newParam.channels[ch].inst[i * 11 + 7] = ym2151Register[0x40 + ops + ch] & 0x0f;//ML
+                    newParam.channels[ch].inst[i * 11 + 8] = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;//DT
+                    newParam.channels[ch].inst[i * 11 + 9] = (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6;//DT2
+                    newParam.channels[ch].inst[i * 11 + 10] = (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7;//AM
+                }
+                newParam.channels[ch].inst[44] = ym2151Register[0x20 + ch] & 0x07;//AL
+                newParam.channels[ch].inst[45] = (ym2151Register[0x20 + ch] & 0x38) >> 3;//FB
+                newParam.channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
+                newParam.channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70) >> 4;//PMS
+
+                int p = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
+                newParam.channels[ch].pan = p == 1 ? 2 : (p == 2 ? 1 : p);
+                int note = (ym2151Register[0x28 + ch] & 0x0f);
+                note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
+                int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
+                //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
+                int hosei = 0;
+                if (Audio.driverVirtual is vgm)
+                {
+                    hosei = ((vgm)Audio.driverVirtual).YM2151Hosei[chipID];
+                }
+                newParam.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
+
+                newParam.channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
+                newParam.channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
+
+                newParam.channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
+
+            }
+            newParam.ne = ((ym2151Register[0x0f] & 0x80) >> 7);
+            newParam.nfrq = ((ym2151Register[0x0f] & 0x1f) >> 0);
+            newParam.lfrq = ((ym2151Register[0x18] & 0xff) >> 0);
+            newParam.pmd = Audio.GetYM2151PMD(chipID);
+            newParam.amd = Audio.GetYM2151AMD(chipID);
+            newParam.waveform = ((ym2151Register[0x1b] & 0x3) >> 0);
+            newParam.lfosync = ((ym2151Register[0x01] & 0x02) >> 1);
+
         }
+
 
         public void screenDrawParams()
         {
+            for (int c = 0; c < 8; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.channels[c];
+                MDChipParams.Channel nyc = newParam.channels[c];
+
+                int tp = ((chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci) ? 1 : 0;
+
+                DrawBuff.Inst(frameBuffer, 1, 11, c, oyc.inst, nyc.inst);
+
+                DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+
+                DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+
+                DrawBuff.ChYM2151(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+
+                DrawBuff.KfYM2151(frameBuffer, c, ref oyc.kf, nyc.kf);
+            }
+
+            DrawBuff.NeYM2151(frameBuffer, ref oldParam.ne, newParam.ne);
+            DrawBuff.NfrqYM2151(frameBuffer, ref oldParam.nfrq, newParam.nfrq);
+            DrawBuff.LfrqYM2151(frameBuffer, ref oldParam.lfrq, newParam.lfrq);
+            DrawBuff.AmdYM2151(frameBuffer, ref oldParam.amd, newParam.amd);
+            DrawBuff.PmdYM2151(frameBuffer, ref oldParam.pmd, newParam.pmd);
+            DrawBuff.WaveFormYM2151(frameBuffer, ref oldParam.waveform, newParam.waveform);
+            DrawBuff.LfoSyncYM2151(frameBuffer, ref oldParam.lfosync, newParam.lfosync);
+
         }
 
-        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+    private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;

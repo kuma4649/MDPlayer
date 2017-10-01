@@ -21,18 +21,28 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmYM2203(frmMain frm, int chipID, int zoom)
+        private MDChipParams.YM2203 newParam = null;
+        private MDChipParams.YM2203 oldParam = new MDChipParams.YM2203();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmYM2203(frmMain frm, int chipID, int zoom,MDChipParams.YM2203 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeYM2203, null, zoom);
+            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203Type.UseScci;
+            int tp = YM2203Type ? 1 : 0;
+            DrawBuff.screenInitYM2203(frameBuffer, tp);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -89,13 +99,170 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            bool isFmEx;
+            int[] ym2203Register = Audio.GetYM2203Register(chipID);
+            int[] fmKeyYM2203 = Audio.GetYM2203KeyOn(chipID);
+            int[] ym2203Vol = Audio.GetYM2203Volume(chipID);
+            int[] ym2203Ch3SlotVol = Audio.GetYM2203Ch3SlotVolume(chipID);
+
+            isFmEx = (ym2203Register[0x27] & 0x40) > 0;
+            for (int ch = 0; ch < 3; ch++)
+            {
+                int c = ch;
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    newParam.channels[ch].inst[i * 11 + 0] = ym2203Register[0x50 + ops + c] & 0x1f; //AR
+                    newParam.channels[ch].inst[i * 11 + 1] = ym2203Register[0x60 + ops + c] & 0x1f; //DR
+                    newParam.channels[ch].inst[i * 11 + 2] = ym2203Register[0x70 + ops + c] & 0x1f; //SR
+                    newParam.channels[ch].inst[i * 11 + 3] = ym2203Register[0x80 + ops + c] & 0x0f; //RR
+                    newParam.channels[ch].inst[i * 11 + 4] = (ym2203Register[0x80 + ops + c] & 0xf0) >> 4;//SL
+                    newParam.channels[ch].inst[i * 11 + 5] = ym2203Register[0x40 + ops + c] & 0x7f;//TL
+                    newParam.channels[ch].inst[i * 11 + 6] = (ym2203Register[0x50 + ops + c] & 0xc0) >> 6;//KS
+                    newParam.channels[ch].inst[i * 11 + 7] = ym2203Register[0x30 + ops + c] & 0x0f;//ML
+                    newParam.channels[ch].inst[i * 11 + 8] = (ym2203Register[0x30 + ops + c] & 0x70) >> 4;//DT
+                    newParam.channels[ch].inst[i * 11 + 9] = (ym2203Register[0x60 + ops + c] & 0x80) >> 7;//AM
+                    newParam.channels[ch].inst[i * 11 + 10] = ym2203Register[0x90 + ops + c] & 0x0f;//SG
+                }
+                newParam.channels[ch].inst[44] = ym2203Register[0xb0 + c] & 0x07;//AL
+                newParam.channels[ch].inst[45] = (ym2203Register[0xb0 + c] & 0x38) >> 3;//FB
+                newParam.channels[ch].inst[46] = (ym2203Register[0xb4 + c] & 0x38) >> 4;//AMS
+                newParam.channels[ch].inst[47] = ym2203Register[0xb4 + c] & 0x07;//FMS
+
+                newParam.channels[ch].pan = 3;
+
+                int freq = 0;
+                int octav = 0;
+                int n = -1;
+                if (ch != 2 || !isFmEx)
+                {
+                    freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
+                    octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
+
+                    if (fmKeyYM2203[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
+                    //newParam.ym2203[0].channels[ch].volumeR = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
+                }
+                else
+                {
+                    freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
+                    octav = (ym2203Register[0xad] & 0x38) >> 3;
+
+                    if ((fmKeyYM2203[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    newParam.channels[2].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
+                    //newParam.ym2203[0].channels[2].volumeR = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
+                }
+                newParam.channels[ch].note = n;
+
+
+            }
+
+            for (int ch = 3; ch < 6; ch++) //FM EX
+            {
+                int[] exReg = new int[3] { 2, 0, -6 };
+                int c = exReg[ch - 3];
+
+                newParam.channels[ch].pan = 0;
+
+                if (isFmEx)
+                {
+                    int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
+                    int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
+                    int n = -1;
+                    if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    newParam.channels[ch].note = n;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 2] / 80, 0), 19);
+                }
+                else
+                {
+                    newParam.channels[ch].note = -1;
+                    newParam.channels[ch].volumeL = 0;
+                }
+            }
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.channels[ch + 6];
+
+                bool t = (ym2203Register[0x07] & (0x1 << ch)) == 0;
+                bool n = (ym2203Register[0x07] & (0x8 << ch)) == 0;
+                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
+                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2203Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
+                if (!t && !n && channel.volume > 0)
+                {
+                    channel.volume--;
+                }
+
+                if (channel.volume == 0)
+                {
+                    channel.note = -1;
+                }
+                else
+                {
+                    int ft = ym2203Register[0x00 + ch * 2];
+                    int ct = ym2203Register[0x01 + ch * 2];
+                    int tp = (ct << 8) | ft;
+                    if (tp == 0) tp = 1;
+                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    channel.note = common.searchSSGNote(ftone);
+                }
+
+            }
+
+            newParam.nfrq = ym2203Register[0x06] & 0x1f;
+            newParam.efrq = ym2203Register[0x0c] * 0x100 + ym2203Register[0x0b];
+            newParam.etype = (ym2203Register[0x0d] & 0x7) + 2;
+
         }
 
-        public void screenDrawParams()
+
+    public void screenDrawParams()
         {
+            int tp = parent.setting.YM2203Type.UseScci ? 1 : 0;
+
+            for (int c = 0; c < 6; c++)
+            {
+
+                MDChipParams.Channel oyc = oldParam.channels[c];
+                MDChipParams.Channel nyc = newParam.channels[c];
+
+                if (c < 3)
+                {
+                    DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                }
+                else
+                {
+                    DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                }
+
+                DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            for (int c = 0; c < 3; c++)
+            {
+                MDChipParams.Channel oyc = oldParam.channels[c + 6];
+                MDChipParams.Channel nyc = newParam.channels[c + 6];
+
+                DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+
+                DrawBuff.ChYM2203(frameBuffer, c + 6, ref oyc.mask, nyc.mask, tp);
+
+            }
+
+            DrawBuff.Nfrq(frameBuffer, 5, 32, ref oldParam.nfrq, newParam.nfrq);
+            DrawBuff.Efrq(frameBuffer, 18, 32, ref oldParam.efrq, newParam.efrq);
+            DrawBuff.Etype(frameBuffer, 33, 32, ref oldParam.etype, newParam.etype);
+
         }
 
-        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+
+    private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;
 

@@ -138,7 +138,7 @@ namespace MDPlayer
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInitAll();
+            allScreenInit();
 
             log.ForcedWrite("frmMain_Load:STEP 07");
 
@@ -461,7 +461,8 @@ namespace MDPlayer
 
             screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, setting.other.Zoom);
             screen.setting = setting;
-            screen.screenInitAll();
+            allScreenInit();
+            //screen.screenInitAll();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -1153,7 +1154,7 @@ namespace MDPlayer
                     return;
             }
 
-            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom);
+            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom,newParam.ym2608[chipID]);
 
             if (setting.location.PosYm2608[chipID] == System.Drawing.Point.Empty)
             {
@@ -1166,11 +1167,9 @@ namespace MDPlayer
                 frmYM2608[chipID].y = setting.location.PosYm2608[chipID].Y;
             }
 
-            screen.AddYM2608(chipID, frmYM2608[chipID].pbScreen, Properties.Resources.planeD);
             frmYM2608[chipID].Show();
             frmYM2608[chipID].update();
             frmYM2608[chipID].Text = string.Format("YM2608 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2608(chipID);
             oldParam.ym2608[chipID] = new MDChipParams.YM2608();
         }
 
@@ -1178,14 +1177,6 @@ namespace MDPlayer
         {
             if (frmYM2608[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveYM2608(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2608[chipID].Close();
@@ -1218,7 +1209,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmYM2151[chipID] = new frmYM2151(this, chipID, setting.other.Zoom);
+            frmYM2151[chipID] = new frmYM2151(this, chipID, setting.other.Zoom, newParam.ym2151[chipID]);
 
             if (setting.location.PosYm2151[chipID] == System.Drawing.Point.Empty)
             {
@@ -1231,11 +1222,9 @@ namespace MDPlayer
                 frmYM2151[chipID].y = setting.location.PosYm2151[chipID].Y;
             }
 
-            screen.AddYM2151(chipID, frmYM2151[chipID].pbScreen, Properties.Resources.planeE);
             frmYM2151[chipID].Show();
             frmYM2151[chipID].update();
             frmYM2151[chipID].Text = string.Format("YM2151 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2151(chipID);
             oldParam.ym2151[chipID] = new MDChipParams.YM2151();
         }
 
@@ -1243,14 +1232,6 @@ namespace MDPlayer
         {
             if (frmYM2151[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveYM2151(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2151[chipID].Close();
@@ -1336,7 +1317,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmYM2203[chipID] = new frmYM2203(this, chipID, setting.other.Zoom);
+            frmYM2203[chipID] = new frmYM2203(this, chipID, setting.other.Zoom, newParam.ym2203[chipID]);
 
             if (setting.location.PosYm2203[chipID] == System.Drawing.Point.Empty)
             {
@@ -1349,11 +1330,9 @@ namespace MDPlayer
                 frmYM2203[chipID].y = setting.location.PosYm2203[chipID].Y;
             }
 
-            screen.AddYM2203(chipID, frmYM2203[chipID].pbScreen, Properties.Resources.planeYM2203);
             frmYM2203[chipID].Show();
             frmYM2203[chipID].update();
             frmYM2203[chipID].Text = string.Format("YM2203 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2203(chipID);
             oldParam.ym2203[chipID] = new MDChipParams.YM2203();
         }
 
@@ -1361,14 +1340,6 @@ namespace MDPlayer
         {
             if (frmYM2203[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveYM2203(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2203[chipID].Close();
@@ -1400,7 +1371,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom);
+            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom,newParam.ym2610[chipID]);
 
             if (setting.location.PosYm2610[chipID] == System.Drawing.Point.Empty)
             {
@@ -1413,11 +1384,9 @@ namespace MDPlayer
                 frmYM2610[chipID].y = setting.location.PosYm2610[chipID].Y;
             }
 
-            screen.AddYM2610(chipID, frmYM2610[chipID].pbScreen, Properties.Resources.planeYM2610);
             frmYM2610[chipID].Show();
             frmYM2610[chipID].update();
             frmYM2610[chipID].Text = string.Format("YM2610 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2610(chipID);
             oldParam.ym2610[chipID] = new MDChipParams.YM2610();
         }
 
@@ -1425,14 +1394,6 @@ namespace MDPlayer
         {
             if (frmYM2610[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveYM2610(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2610[chipID].Close();
@@ -1464,7 +1425,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmYM2612[chipID] = new frmYM2612(this, chipID, setting.other.Zoom);
+            frmYM2612[chipID] = new frmYM2612(this, chipID, setting.other.Zoom, newParam.ym2612[chipID]);
 
             if (setting.location.PosYm2612[chipID] == System.Drawing.Point.Empty)
             {
@@ -1477,25 +1438,15 @@ namespace MDPlayer
                 frmYM2612[chipID].y = setting.location.PosYm2612[chipID].Y;
             }
 
-            screen.AddYM2612(chipID, frmYM2612[chipID].pbScreen, Properties.Resources.planeYM2612);
             frmYM2612[chipID].Show();
             frmYM2612[chipID].update();
             frmYM2612[chipID].Text = string.Format("YM2612 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2612(chipID);
             oldParam.ym2612[chipID] = new MDChipParams.YM2612();
         }
 
         private void CloseFormYM2612(int chipID)
         {
             if (frmYM2612[chipID] == null) return;
-            try
-            {
-                screen.RemoveYM2612(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2612[chipID].Close();
@@ -1527,7 +1478,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmOKIM6258[chipID] = new frmOKIM6258(this, chipID, setting.other.Zoom);
+            frmOKIM6258[chipID] = new frmOKIM6258(this, chipID, setting.other.Zoom, newParam.okim6258[chipID]);
 
             if (setting.location.PosOKIM6258[chipID] == System.Drawing.Point.Empty)
             {
@@ -1540,25 +1491,15 @@ namespace MDPlayer
                 frmOKIM6258[chipID].y = setting.location.PosOKIM6258[chipID].Y;
             }
 
-            screen.AddOKIM6258(chipID, frmOKIM6258[chipID].pbScreen, Properties.Resources.planeMSM6258);
             frmOKIM6258[chipID].Show();
             frmOKIM6258[chipID].update();
             frmOKIM6258[chipID].Text = string.Format("OKIM6258 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitOKIM6258(chipID);
         }
 
         private void CloseFormOKIM6258(int chipID)
         {
             if (frmOKIM6258[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveOKIM6258(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmOKIM6258[chipID].Close();
@@ -1590,7 +1531,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmOKIM6295[chipID] = new frmOKIM6295(this, chipID, setting.other.Zoom);
+            frmOKIM6295[chipID] = new frmOKIM6295(this, chipID, setting.other.Zoom, newParam.okim6295[chipID]);
 
             if (setting.location.PosOKIM6295[chipID] == System.Drawing.Point.Empty)
             {
@@ -1603,25 +1544,15 @@ namespace MDPlayer
                 frmOKIM6295[chipID].y = setting.location.PosOKIM6295[chipID].Y;
             }
 
-            screen.AddOKIM6295(chipID, frmOKIM6295[chipID].pbScreen, Properties.Resources.planeMSM6295);
             frmOKIM6295[chipID].Show();
             frmOKIM6295[chipID].update();
             frmOKIM6295[chipID].Text = string.Format("OKIM6295 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitOKIM6295(chipID);
         }
 
         private void CloseFormOKIM6295(int chipID)
         {
             if (frmOKIM6295[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveOKIM6295(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmOKIM6295[chipID].Close();
@@ -1653,7 +1584,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom);
+            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom,newParam.sn76489[chipID]);
 
             if (setting.location.PosSN76489[chipID] == System.Drawing.Point.Empty)
             {
@@ -1666,11 +1597,9 @@ namespace MDPlayer
                 frmSN76489[chipID].y = setting.location.PosSN76489[chipID].Y;
             }
 
-            screen.AddSN76489(chipID, frmSN76489[chipID].pbScreen, Properties.Resources.planeSN76489);
             frmSN76489[chipID].Show();
             frmSN76489[chipID].update();
             frmSN76489[chipID].Text = string.Format("SN76489 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitSN76489(chipID);
             oldParam.sn76489[chipID] = new MDChipParams.SN76489();
         }
 
@@ -1678,14 +1607,6 @@ namespace MDPlayer
         {
             if (frmSN76489[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveSN76489(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmSN76489[chipID].Close();
@@ -1717,7 +1638,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmSegaPCM[chipID] = new frmSegaPCM(this, chipID, setting.other.Zoom);
+            frmSegaPCM[chipID] = new frmSegaPCM(this, chipID, setting.other.Zoom,newParam.segaPcm[chipID]);
 
             if (setting.location.PosSegaPCM[chipID] == System.Drawing.Point.Empty)
             {
@@ -1730,11 +1651,9 @@ namespace MDPlayer
                 frmSegaPCM[chipID].y = setting.location.PosSegaPCM[chipID].Y;
             }
 
-            screen.AddSegaPCM(chipID, frmSegaPCM[chipID].pbScreen, Properties.Resources.planeSEGAPCM);
             frmSegaPCM[chipID].Show();
             frmSegaPCM[chipID].update();
             frmSegaPCM[chipID].Text = string.Format("SegaPCM ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitSegaPCM(chipID);
             oldParam.segaPcm[chipID] = new MDChipParams.SegaPcm();
         }
 
@@ -1742,14 +1661,6 @@ namespace MDPlayer
         {
             if (frmSegaPCM[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveSegaPCM(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmSegaPCM[chipID].Close();
@@ -1889,7 +1800,7 @@ namespace MDPlayer
                 else return;
             }
 
-            frmYM2413[chipID] = new frmYM2413(this, chipID, setting.other.Zoom);
+            frmYM2413[chipID] = new frmYM2413(this, chipID, setting.other.Zoom, newParam.ym2413[chipID]);
 
             if (setting.location.PosYm2413[chipID] == System.Drawing.Point.Empty)
             {
@@ -1902,11 +1813,9 @@ namespace MDPlayer
                 frmYM2413[chipID].y = setting.location.PosYm2413[chipID].Y;
             }
 
-            screen.AddYM2413(chipID, frmYM2413[chipID].pbScreen, Properties.Resources.planeYM2413);
             frmYM2413[chipID].Show();
             frmYM2413[chipID].update();
             frmYM2413[chipID].Text = string.Format("YM2413 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            screen.screenInitYM2413(chipID);
             oldParam.ym2413[chipID] = new MDChipParams.YM2413();
         }
 
@@ -1914,14 +1823,6 @@ namespace MDPlayer
         {
             if (frmYM2413[chipID] == null) return;
 
-            try
-            {
-                screen.RemoveYM2413(chipID);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
             try
             {
                 frmYM2413[chipID].Close();
@@ -2228,20 +2129,7 @@ namespace MDPlayer
         private void screenChangeParams()
         {
 
-            for (int chipID = 0; chipID < 2; chipID++)
-            {
-                screenChangeParamsFromYM2612(chipID);
-                screenChangeParamsFromSN76489(chipID);
-                screenChangeParamsFromSegaPCM(chipID);
-                screenChangeParamsFromYM2151(chipID);
-                screenChangeParamsFromYM2203(chipID);
-                screenChangeParamsFromYM2413(chipID);
-                screenChangeParamsFromYM2608(chipID);
-                screenChangeParamsFromYM2610(chipID);
-                screenChangeParamsFromOKIM6258(chipID);
-            }
-
-            screenChangeParamsFromYM2612MIDI();
+            //screenChangeParamsFromYM2612MIDI();
 
             long w = Audio.GetCounter();
             double sec = (double)w / (double)common.SampleRate;
@@ -2269,1049 +2157,6 @@ namespace MDPlayer
 
         }
 
-        private void screenChangeParamsFromYM2203(int chipID)
-        {
-            bool isFmEx;
-            int[] ym2203Register = Audio.GetYM2203Register(chipID);
-            int[] fmKeyYM2203 = Audio.GetYM2203KeyOn(chipID);
-            int[] ym2203Vol = Audio.GetYM2203Volume(chipID);
-            int[] ym2203Ch3SlotVol = Audio.GetYM2203Ch3SlotVolume(chipID);
-
-            isFmEx = (ym2203Register[0x27] & 0x40) > 0;
-            for (int ch = 0; ch < 3; ch++)
-            {
-                int c = ch;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 0] = ym2203Register[0x50 + ops + c] & 0x1f; //AR
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 1] = ym2203Register[0x60 + ops + c] & 0x1f; //DR
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 2] = ym2203Register[0x70 + ops + c] & 0x1f; //SR
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 3] = ym2203Register[0x80 + ops + c] & 0x0f; //RR
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 4] = (ym2203Register[0x80 + ops + c] & 0xf0) >> 4;//SL
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 5] = ym2203Register[0x40 + ops + c] & 0x7f;//TL
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 6] = (ym2203Register[0x50 + ops + c] & 0xc0) >> 6;//KS
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 7] = ym2203Register[0x30 + ops + c] & 0x0f;//ML
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 8] = (ym2203Register[0x30 + ops + c] & 0x70) >> 4;//DT
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 9] = (ym2203Register[0x60 + ops + c] & 0x80) >> 7;//AM
-                    newParam.ym2203[chipID].channels[ch].inst[i * 11 + 10] = ym2203Register[0x90 + ops + c] & 0x0f;//SG
-                }
-                newParam.ym2203[chipID].channels[ch].inst[44] = ym2203Register[0xb0 + c] & 0x07;//AL
-                newParam.ym2203[chipID].channels[ch].inst[45] = (ym2203Register[0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2203[chipID].channels[ch].inst[46] = (ym2203Register[0xb4 + c] & 0x38) >> 4;//AMS
-                newParam.ym2203[chipID].channels[ch].inst[47] = ym2203Register[0xb4 + c] & 0x07;//FMS
-
-                newParam.ym2203[chipID].channels[ch].pan = 3;
-
-                int freq = 0;
-                int octav = 0;
-                int n = -1;
-                if (ch != 2 || !isFmEx)
-                {
-                    freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
-                    octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
-
-                    if (fmKeyYM2203[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
-                    //newParam.ym2203[0].channels[ch].volumeR = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
-                }
-                else
-                {
-                    freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
-                    octav = (ym2203Register[0xad] & 0x38) >> 3;
-
-                    if ((fmKeyYM2203[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2203[chipID].channels[2].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
-                    //newParam.ym2203[0].channels[2].volumeR = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
-                }
-                newParam.ym2203[chipID].channels[ch].note = n;
-
-
-            }
-
-            for (int ch = 3; ch < 6; ch++) //FM EX
-            {
-                int[] exReg = new int[3] { 2, 0, -6 };
-                int c = exReg[ch - 3];
-
-                newParam.ym2203[chipID].channels[ch].pan = 0;
-
-                if (isFmEx)
-                {
-                    int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
-                    int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
-                    int n = -1;
-                    if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
-                    newParam.ym2203[chipID].channels[ch].note = n;
-                    newParam.ym2203[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 2] / 80, 0), 19);
-                }
-                else
-                {
-                    newParam.ym2203[chipID].channels[ch].note = -1;
-                    newParam.ym2203[chipID].channels[ch].volumeL = 0;
-                }
-            }
-
-            for (int ch = 0; ch < 3; ch++) //SSG
-            {
-                MDChipParams.Channel channel = newParam.ym2203[chipID].channels[ch + 6];
-
-                bool t = (ym2203Register[0x07] & (0x1 << ch)) == 0;
-                bool n = (ym2203Register[0x07] & (0x8 << ch)) == 0;
-                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2203Register[0x08 + ch] & 0xf) * (20.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
-
-                if (channel.volume == 0)
-                {
-                    channel.note = -1;
-                }
-                else
-                {
-                    int ft = ym2203Register[0x00 + ch * 2];
-                    int ct = ym2203Register[0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = searchSSGNote(ftone);
-                }
-
-            }
-
-            newParam.ym2203[chipID].nfrq = ym2203Register[0x06] & 0x1f;
-            newParam.ym2203[chipID].efrq = ym2203Register[0x0c] * 0x100 + ym2203Register[0x0b];
-            newParam.ym2203[chipID].etype = (ym2203Register[0x0d] & 0x7) + 2;
-
-        }
-
-        private void screenChangeParamsFromYM2413(int chipID)
-        {
-            int[] ym2413Register = Audio.GetYM2413Register(chipID);
-
-            for (int ch = 0; ch < 9; ch++)
-            {
-                newParam.ym2413[chipID].channels[ch].inst[0] = (ym2413Register[0x30 + ch] & 0xf0) >> 4;
-                newParam.ym2413[chipID].channels[ch].inst[1] = (ym2413Register[0x20 + ch] & 0x20) >> 5;
-                newParam.ym2413[chipID].channels[ch].inst[2] = (ym2413Register[0x20 + ch] & 0x10) >> 4;
-                newParam.ym2413[chipID].channels[ch].inst[3] = (ym2413Register[0x30 + ch] & 0x0f);
-
-                int freq = ym2413Register[0x10 + ch] + ((ym2413Register[0x20 + ch] & 0x1) << 8);
-                int oct = ((ym2413Register[0x20 + ch] & 0xe) >> 1);
-
-                if (newParam.ym2413[chipID].channels[ch].inst[2] == 0)
-                {
-                    newParam.ym2413[chipID].channels[ch].note = -1;
-                    newParam.ym2413[chipID].channels[ch].volumeL--;
-                    if (newParam.ym2413[chipID].channels[ch].volumeL < 0) newParam.ym2413[chipID].channels[ch].volumeL = 0;
-                }
-                else
-                {
-                    int n = searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
-                    if (newParam.ym2413[chipID].channels[ch].note != n)
-                    {
-                        newParam.ym2413[chipID].channels[ch].note = n;
-                        newParam.ym2413[chipID].channels[ch].volumeL = (19 - newParam.ym2413[chipID].channels[ch].inst[3]);
-                    }
-                    else
-                    {
-                        newParam.ym2413[chipID].channels[ch].volumeL--;
-                        if (newParam.ym2413[chipID].channels[ch].volumeL < 0) newParam.ym2413[chipID].channels[ch].volumeL = 0;
-                    }
-                }
-
-            }
-
-            int r = Audio.getYM2413RyhthmKeyON(chipID);
-
-            //BD
-            if ((r & 0x10) != 0)
-            {
-                newParam.ym2413[chipID].channels[9].volume = (19 - (ym2413Register[0x36] & 0x0f));
-            }
-            else
-            {
-                newParam.ym2413[chipID].channels[9].volume--;
-                if (newParam.ym2413[chipID].channels[9].volume < 0) newParam.ym2413[chipID].channels[9].volume = 0;
-            }
-
-            //SD
-            if ((r & 0x08) != 0)
-            {
-                newParam.ym2413[chipID].channels[10].volume = (19 - (ym2413Register[0x37] & 0x0f));
-            }
-            else
-            {
-                newParam.ym2413[chipID].channels[10].volume--;
-                if (newParam.ym2413[chipID].channels[10].volume < 0) newParam.ym2413[chipID].channels[10].volume = 0;
-            }
-
-            //TOM
-            if ((r & 0x04) != 0)
-            {
-                newParam.ym2413[chipID].channels[11].volume = 19 - ((ym2413Register[0x38] & 0xf0) >> 4);
-            }
-            else
-            {
-                newParam.ym2413[chipID].channels[11].volume--;
-                if (newParam.ym2413[chipID].channels[11].volume < 0) newParam.ym2413[chipID].channels[11].volume = 0;
-            }
-
-            //CYM
-            if ((r & 0x02) != 0)
-            {
-                newParam.ym2413[chipID].channels[12].volume = 19 - ((ym2413Register[0x38] & 0x0f) >> 0);
-            }
-            else
-            {
-                newParam.ym2413[chipID].channels[12].volume--;
-                if (newParam.ym2413[chipID].channels[12].volume < 0) newParam.ym2413[chipID].channels[12].volume = 0;
-            }
-
-            //HH
-            if ((r & 0x01) != 0)
-            {
-                newParam.ym2413[chipID].channels[13].volume = 19 - ((ym2413Register[0x37] & 0xf0) >> 4);
-            }
-            else
-            {
-                newParam.ym2413[chipID].channels[13].volume--;
-                if (newParam.ym2413[chipID].channels[13].volume < 0) newParam.ym2413[chipID].channels[13].volume = 0;
-            }
-
-            Audio.resetYM2413RyhthmKeyON(chipID);
-
-
-            newParam.ym2413[chipID].channels[0].inst[4] = (ym2413Register[0x02] & 0x3f);//TL
-            newParam.ym2413[chipID].channels[0].inst[5] = (ym2413Register[0x03] & 0x07);//FB
-
-            newParam.ym2413[chipID].channels[0].inst[6] = (ym2413Register[0x04] & 0xf0) >> 4;//AR
-            newParam.ym2413[chipID].channels[0].inst[7] = (ym2413Register[0x04] & 0x0f);//DR
-            newParam.ym2413[chipID].channels[0].inst[8] = (ym2413Register[0x06] & 0xf0) >> 4;//SL
-            newParam.ym2413[chipID].channels[0].inst[9] = (ym2413Register[0x06] & 0x0f);//RR
-            newParam.ym2413[chipID].channels[0].inst[10] = (ym2413Register[0x02] & 0x80) >> 7;//KL
-            newParam.ym2413[chipID].channels[0].inst[11] = (ym2413Register[0x00] & 0x0f);//MT
-            newParam.ym2413[chipID].channels[0].inst[12] = (ym2413Register[0x00] & 0x80) >> 7;//AM
-            newParam.ym2413[chipID].channels[0].inst[13] = (ym2413Register[0x00] & 0x40) >> 6;//VB
-            newParam.ym2413[chipID].channels[0].inst[14] = (ym2413Register[0x00] & 0x20) >> 5;//EG
-            newParam.ym2413[chipID].channels[0].inst[15] = (ym2413Register[0x00] & 0x10) >> 4;//KR
-            newParam.ym2413[chipID].channels[0].inst[16] = (ym2413Register[0x03] & 0x08) >> 3;//DM
-            newParam.ym2413[chipID].channels[0].inst[17] = (ym2413Register[0x05] & 0xf0) >> 4;//AR
-            newParam.ym2413[chipID].channels[0].inst[18] = (ym2413Register[0x05] & 0x0f);//DR
-            newParam.ym2413[chipID].channels[0].inst[19] = (ym2413Register[0x07] & 0xf0) >> 4;//SL
-            newParam.ym2413[chipID].channels[0].inst[20] = (ym2413Register[0x07] & 0x0f);//RR
-            newParam.ym2413[chipID].channels[0].inst[21] = (ym2413Register[0x03] & 0x80) >> 7;//KL
-            newParam.ym2413[chipID].channels[0].inst[22] = (ym2413Register[0x01] & 0x0f);//MT
-            newParam.ym2413[chipID].channels[0].inst[23] = (ym2413Register[0x01] & 0x80) >> 7;//AM
-            newParam.ym2413[chipID].channels[0].inst[24] = (ym2413Register[0x01] & 0x40) >> 6;//VB
-            newParam.ym2413[chipID].channels[0].inst[25] = (ym2413Register[0x01] & 0x20) >> 5;//EG
-            newParam.ym2413[chipID].channels[0].inst[26] = (ym2413Register[0x01] & 0x10) >> 4;//KR
-            newParam.ym2413[chipID].channels[0].inst[27] = (ym2413Register[0x03] & 0x10) >> 4;//DC
-
-        }
-
-        private void screenChangeParamsFromYM2610(int chipID)
-        {
-            int delta;
-            float frq;
-
-            int[][] YM2610Register = Audio.GetYM2610Register(chipID);
-            int[] fmKeyYM2610 = Audio.GetYM2610KeyOn(chipID);
-            int[][] YM2610Vol = Audio.GetYM2610Volume(chipID);
-            int[] YM2610Ch3SlotVol = Audio.GetYM2610Ch3SlotVolume(chipID);
-            int[][] YM2610Rhythm = Audio.GetYM2610RhythmVolume(chipID);
-            int[] YM2610AdpcmVol = Audio.GetYM2610AdpcmVolume(chipID);
-            bool isFmEx = (YM2610Register[chipID][0x27] & 0x40) > 0;
-
-            newParam.ym2610[chipID].lfoSw = (YM2610Register[0][0x22] & 0x8) != 0;
-            newParam.ym2610[chipID].lfoFrq = (YM2610Register[0][0x22] & 0x7);
-
-            for (int ch = 0; ch < 6; ch++)
-            {
-                int p = (ch > 2) ? 1 : 0;
-                int c = (ch > 2) ? ch - 3 : ch;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 0] = YM2610Register[p][0x50 + ops + c] & 0x1f; //AR
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 1] = YM2610Register[p][0x60 + ops + c] & 0x1f; //DR
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 2] = YM2610Register[p][0x70 + ops + c] & 0x1f; //SR
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 3] = YM2610Register[p][0x80 + ops + c] & 0x0f; //RR
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 4] = (YM2610Register[p][0x80 + ops + c] & 0xf0) >> 4;//SL
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 5] = YM2610Register[p][0x40 + ops + c] & 0x7f;//TL
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 6] = (YM2610Register[p][0x50 + ops + c] & 0xc0) >> 6;//KS
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 7] = YM2610Register[p][0x30 + ops + c] & 0x0f;//ML
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 8] = (YM2610Register[p][0x30 + ops + c] & 0x70) >> 4;//DT
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 9] = (YM2610Register[p][0x60 + ops + c] & 0x80) >> 7;//AM
-                    newParam.ym2610[chipID].channels[ch].inst[i * 11 + 10] = YM2610Register[p][0x90 + ops + c] & 0x0f;//SG
-                }
-                newParam.ym2610[chipID].channels[ch].inst[44] = YM2610Register[p][0xb0 + c] & 0x07;//AL
-                newParam.ym2610[chipID].channels[ch].inst[45] = (YM2610Register[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2610[chipID].channels[ch].inst[46] = (YM2610Register[p][0xb4 + c] & 0x38) >> 4;//AMS
-                newParam.ym2610[chipID].channels[ch].inst[47] = YM2610Register[p][0xb4 + c] & 0x07;//FMS
-
-                newParam.ym2610[chipID].channels[ch].pan = (YM2610Register[p][0xb4 + c] & 0xc0) >> 6;
-
-                int freq = 0;
-                int octav = 0;
-                int n = -1;
-                if (ch != 2 || !isFmEx)
-                {
-                    freq = YM2610Register[p][0xa0 + c] + (YM2610Register[p][0xa4 + c] & 0x07) * 0x100;
-                    octav = (YM2610Register[p][0xa4 + c] & 0x38) >> 3;
-
-                    if (fmKeyYM2610[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2610[chipID].channels[ch].volumeL = Math.Min(Math.Max(YM2610Vol[ch][0] / 80, 0), 19);
-                    newParam.ym2610[chipID].channels[ch].volumeR = Math.Min(Math.Max(YM2610Vol[ch][1] / 80, 0), 19);
-                }
-                else
-                {
-                    freq = YM2610Register[0][0xa9] + (YM2610Register[0][0xad] & 0x07) * 0x100;
-                    octav = (YM2610Register[0][0xad] & 0x38) >> 3;
-
-                    if ((fmKeyYM2610[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2610[chipID].channels[2].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
-                    newParam.ym2610[chipID].channels[2].volumeR = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
-                }
-                newParam.ym2610[chipID].channels[ch].note = n;
-
-
-            }
-
-            for (int ch = 6; ch < 9; ch++) //FM EX
-            {
-                int[] exReg = new int[3] { 2, 0, -6 };
-                int c = exReg[ch - 6];
-
-                newParam.ym2610[chipID].channels[ch].pan = 0;
-
-                if (isFmEx)
-                {
-                    int freq = YM2610Register[0][0xa8 + c] + (YM2610Register[0][0xac + c] & 0x07) * 0x100;
-                    int octav = (YM2610Register[0][0xac + c] & 0x38) >> 3;
-                    int n = -1;
-                    if ((fmKeyYM2610[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
-                    newParam.ym2610[chipID].channels[ch].note = n;
-                    newParam.ym2610[chipID].channels[ch].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[ch - 5] / 80, 0), 19);
-                }
-                else
-                {
-                    newParam.ym2610[chipID].channels[ch].note = -1;
-                    newParam.ym2610[chipID].channels[ch].volumeL = 0;
-                }
-            }
-
-            for (int ch = 0; ch < 3; ch++) //SSG
-            {
-                MDChipParams.Channel channel = newParam.ym2610[chipID].channels[ch + 9];
-
-                bool t = (YM2610Register[0][0x07] & (0x1 << ch)) == 0;
-                bool n = (YM2610Register[0][0x07] & (0x8 << ch)) == 0;
-                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-
-                channel.volume = (int)(((t || n) ? 1 : 0) * (YM2610Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
-
-                if (channel.volume == 0)
-                {
-                    channel.note = -1;
-                }
-                else
-                {
-                    int ft = YM2610Register[0][0x00 + ch * 2];
-                    int ct = YM2610Register[0][0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = searchSSGNote(ftone);
-                }
-
-            }
-
-            newParam.ym2610[chipID].nfrq = YM2610Register[0][0x06] & 0x1f;
-            newParam.ym2610[chipID].efrq = YM2610Register[0][0x0c] * 0x100 + YM2610Register[0][0x0b];
-            newParam.ym2610[chipID].etype = (YM2610Register[0][0x0d] & 0x7) + 2;
-
-            //ADPCM B
-            newParam.ym2610[chipID].channels[12].pan = (YM2610Register[0][0x11] & 0xc0) >> 6;
-            newParam.ym2610[chipID].channels[12].volumeL = Math.Min(Math.Max(YM2610AdpcmVol[0] / 80, 0), 19);
-            newParam.ym2610[chipID].channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
-            delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
-            frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
-            newParam.ym2610[chipID].channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? searchYM2608Adpcm(frq) : -1;
-            if ((YM2610Register[0][0x11] & 0xc0) == 0)
-            {
-                newParam.ym2610[chipID].channels[12].note = -1;
-            }
-
-
-            for (int ch = 13; ch < 19; ch++) //ADPCM A
-            {
-                newParam.ym2610[chipID].channels[ch].pan = (YM2610Register[1][0x08 + ch - 13] & 0xc0) >> 6;
-                newParam.ym2610[chipID].channels[ch].volumeL = Math.Min(Math.Max(YM2610Rhythm[ch - 13][0] / 80, 0), 19);
-                newParam.ym2610[chipID].channels[ch].volumeR = Math.Min(Math.Max(YM2610Rhythm[ch - 13][1] / 80, 0), 19);
-            }
-        }
-
-        private void screenChangeParamsFromYM2608(int chipID)
-        {
-            bool isFmEx;
-            int[][] ym2608Register = Audio.GetYM2608Register(chipID);
-            int[] fmKeyYM2608 = Audio.GetYM2608KeyOn(chipID);
-            int[][] ym2608Vol = Audio.GetYM2608Volume(chipID);
-            int[] ym2608Ch3SlotVol = Audio.GetYM2608Ch3SlotVolume(chipID);
-            int[][] ym2608Rhythm = Audio.GetYM2608RhythmVolume(chipID);
-            int[] ym2608AdpcmVol = Audio.GetYM2608AdpcmVolume(chipID);
-
-            isFmEx = (ym2608Register[0][0x27] & 0x40) > 0;
-
-            newParam.ym2608[chipID].lfoSw = (ym2608Register[0][0x22] & 0x8) != 0;
-            newParam.ym2608[chipID].lfoFrq = (ym2608Register[0][0x22] & 0x7);
-
-            for (int ch = 0; ch < 6; ch++)
-            {
-                int p = (ch > 2) ? 1 : 0;
-                int c = (ch > 2) ? ch - 3 : ch;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 0] = ym2608Register[p][0x50 + ops + c] & 0x1f; //AR
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 1] = ym2608Register[p][0x60 + ops + c] & 0x1f; //DR
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 2] = ym2608Register[p][0x70 + ops + c] & 0x1f; //SR
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 3] = ym2608Register[p][0x80 + ops + c] & 0x0f; //RR
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 4] = (ym2608Register[p][0x80 + ops + c] & 0xf0) >> 4;//SL
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 5] = ym2608Register[p][0x40 + ops + c] & 0x7f;//TL
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 6] = (ym2608Register[p][0x50 + ops + c] & 0xc0) >> 6;//KS
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 7] = ym2608Register[p][0x30 + ops + c] & 0x0f;//ML
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 8] = (ym2608Register[p][0x30 + ops + c] & 0x70) >> 4;//DT
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 9] = (ym2608Register[p][0x60 + ops + c] & 0x80) >> 7;//AM
-                    newParam.ym2608[chipID].channels[ch].inst[i * 11 + 10] = ym2608Register[p][0x90 + ops + c] & 0x0f;//SG
-                }
-                newParam.ym2608[chipID].channels[ch].inst[44] = ym2608Register[p][0xb0 + c] & 0x07;//AL
-                newParam.ym2608[chipID].channels[ch].inst[45] = (ym2608Register[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2608[chipID].channels[ch].inst[46] = (ym2608Register[p][0xb4 + c] & 0x38) >> 4;//AMS
-                newParam.ym2608[chipID].channels[ch].inst[47] = ym2608Register[p][0xb4 + c] & 0x07;//FMS
-
-                newParam.ym2608[chipID].channels[ch].pan = (ym2608Register[p][0xb4 + c] & 0xc0) >> 6;
-
-                int freq = 0;
-                int octav = 0;
-                int n = -1;
-                if (ch != 2 || !isFmEx)
-                {
-                    freq = ym2608Register[p][0xa0 + c] + (ym2608Register[p][0xa4 + c] & 0x07) * 0x100;
-                    octav = (ym2608Register[p][0xa4 + c] & 0x38) >> 3;
-
-                    if (fmKeyYM2608[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2608[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2608Vol[ch][0] / 80, 0), 19);
-                    newParam.ym2608[chipID].channels[ch].volumeR = Math.Min(Math.Max(ym2608Vol[ch][1] / 80, 0), 19);
-                }
-                else
-                {
-                    freq = ym2608Register[0][0xa9] + (ym2608Register[0][0xad] & 0x07) * 0x100;
-                    octav = (ym2608Register[0][0xad] & 0x38) >> 3;
-
-                    if ((fmKeyYM2608[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq) + 1, 0), 95);
-                    newParam.ym2608[chipID].channels[2].volumeL = Math.Min(Math.Max(ym2608Ch3SlotVol[0] / 80, 0), 19);
-                    newParam.ym2608[chipID].channels[2].volumeR = Math.Min(Math.Max(ym2608Ch3SlotVol[0] / 80, 0), 19);
-                }
-                newParam.ym2608[chipID].channels[ch].note = n;
-
-
-            }
-
-            for (int ch = 6; ch < 9; ch++) //FM EX
-            {
-                int[] exReg = new int[3] { 2, 0, -6 };
-                int c = exReg[ch - 6];
-
-                newParam.ym2608[chipID].channels[ch].pan = 0;
-
-                if (isFmEx)
-                {
-                    int freq = ym2608Register[0][0xa8 + c] + (ym2608Register[0][0xac + c] & 0x07) * 0x100;
-                    int octav = (ym2608Register[0][0xac + c] & 0x38) >> 3;
-                    int n = -1;
-                    if ((fmKeyYM2608[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq)+1, 0), 95);
-                    newParam.ym2608[chipID].channels[ch].note = n;
-                    newParam.ym2608[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2608Ch3SlotVol[ch - 5] / 80, 0), 19);
-                }
-                else
-                {
-                    newParam.ym2608[chipID].channels[ch].note = -1;
-                    newParam.ym2608[chipID].channels[ch].volumeL = 0;
-                }
-            }
-
-            for (int ch = 0; ch < 3; ch++) //SSG
-            {
-                MDChipParams.Channel channel = newParam.ym2608[chipID].channels[ch + 9];
-
-                bool t = (ym2608Register[0][0x07] & (0x1 << ch)) == 0;
-                bool n = (ym2608Register[0][0x07] & (0x8 << ch)) == 0;
-                channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-
-                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
-                if (!t && !n && channel.volume > 0)
-                {
-                    channel.volume--;
-                }
-
-                if (channel.volume == 0)
-                {
-                    channel.note = -1;
-                }
-                else
-                {
-                    int ft = ym2608Register[0][0x00 + ch * 2];
-                    int ct = ym2608Register[0][0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = searchSSGNote(ftone);
-                }
-
-            }
-
-            newParam.ym2608[chipID].nfrq = ym2608Register[0][0x06] & 0x1f;
-            newParam.ym2608[chipID].efrq = ym2608Register[0][0x0c] * 0x100 + ym2608Register[0][0x0b];
-            newParam.ym2608[chipID].etype = (ym2608Register[0][0x0d] & 0x7) + 2;
-
-            //ADPCM
-            newParam.ym2608[chipID].channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6; // ((ym2608Register[1][0x01] & 0xc0) >> 6) != 0 ? ((ym2608Register[1][0x01] & 0xc0) >> 6) : newParam.ym2608[chipID].channels[12].pan;
-            newParam.ym2608[chipID].channels[12].volumeL = Math.Min(Math.Max(ym2608AdpcmVol[0] / 80, 0), 19);
-            newParam.ym2608[chipID].channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 80, 0), 19);
-            int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
-            float frq = (float)(delta / 9447.0f);
-            newParam.ym2608[chipID].channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? searchYM2608Adpcm(frq) : -1;
-            if ((ym2608Register[1][0x01] & 0xc0) == 0)
-            {
-                newParam.ym2608[chipID].channels[12].note = -1;
-            }
-
-            for (int ch = 13; ch < 19; ch++) //RHYTHM
-            {
-                newParam.ym2608[chipID].channels[ch].pan = (ym2608Register[0][0x18 + ch - 13] & 0xc0) >> 6;
-                newParam.ym2608[chipID].channels[ch].volumeL = Math.Min(Math.Max(ym2608Rhythm[ch - 13][0] / 80, 0), 19);
-                newParam.ym2608[chipID].channels[ch].volumeR = Math.Min(Math.Max(ym2608Rhythm[ch - 13][1] / 80, 0), 19);
-            }
-
-        }
-
-        private void screenChangeParamsFromYM2151(int chipID)
-        {
-            int[] ym2151Register = Audio.GetYM2151Register(chipID);
-            int[] fmKeyYM2151 = Audio.GetYM2151KeyOn(chipID);
-            int[][] fmYM2151Vol = Audio.GetYM2151Volume(chipID);
-
-            for (int ch = 0; ch < 8; ch++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 0] = ym2151Register[0x80 + ops + ch] & 0x1f; //AR
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 1] = ym2151Register[0xa0 + ops + ch] & 0x1f; //DR
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 2] = ym2151Register[0xc0 + ops + ch] & 0x1f; //SR
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 3] = ym2151Register[0xe0 + ops + ch] & 0x0f; //RR
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 4] = (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4;//SL
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 5] = ym2151Register[0x60 + ops + ch] & 0x7f;//TL
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 6] = (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6;//KS
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 7] = ym2151Register[0x40 + ops + ch] & 0x0f;//ML
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 8] = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;//DT
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 9] = (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6;//DT2
-                    newParam.ym2151[chipID].channels[ch].inst[i * 11 + 10] = (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7;//AM
-                }
-                newParam.ym2151[chipID].channels[ch].inst[44] = ym2151Register[0x20 + ch] & 0x07;//AL
-                newParam.ym2151[chipID].channels[ch].inst[45] = (ym2151Register[0x20 + ch] & 0x38) >> 3;//FB
-                newParam.ym2151[chipID].channels[ch].inst[46] = (ym2151Register[0x38 + ch] & 0x3);//AMS
-                newParam.ym2151[chipID].channels[ch].inst[47] = (ym2151Register[0x38 + ch] & 0x70) >> 4;//PMS
-
-                int p = (ym2151Register[0x20 + ch] & 0xc0) >> 6;
-                newParam.ym2151[chipID].channels[ch].pan = p == 1 ? 2 : (p == 2 ? 1 : p);
-                int note = (ym2151Register[0x28 + ch] & 0x0f);
-                note = (note < 3) ? note : (note < 7 ? note - 1 : (note < 11 ? note - 2 : note - 3));
-                int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
-                //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
-                int hosei = 0;
-                if (Audio.driverVirtual is vgm)
-                {
-                    hosei= ((vgm)Audio.driverVirtual).YM2151Hosei[chipID];
-                }
-                newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
-
-                newParam.ym2151[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
-                newParam.ym2151[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
-
-                newParam.ym2151[chipID].channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
-
-            }
-            newParam.ym2151[chipID].ne = ((ym2151Register[0x0f] & 0x80) >> 7);
-            newParam.ym2151[chipID].nfrq = ((ym2151Register[0x0f] & 0x1f) >> 0);
-            newParam.ym2151[chipID].lfrq = ((ym2151Register[0x18] & 0xff) >> 0);
-            newParam.ym2151[chipID].pmd = Audio.GetYM2151PMD(chipID);
-            newParam.ym2151[chipID].amd = Audio.GetYM2151AMD(chipID);
-            newParam.ym2151[chipID].waveform = ((ym2151Register[0x1b] & 0x3) >> 0);
-            newParam.ym2151[chipID].lfosync = ((ym2151Register[0x01] & 0x02) >> 1);
-
-        }
-
-        private void screenChangeParamsFromSegaPCM(int chipID)
-        {
-            MDSound.segapcm.segapcm_state segapcmState = Audio.GetSegaPCMRegister(chipID);
-            if (segapcmState != null && segapcmState.ram != null && segapcmState.rom != null)
-            {
-                for (int ch = 0; ch < 16; ch++)
-                {
-                    int l = segapcmState.ram[ch * 8 + 2] & 0x7f;
-                    int r = segapcmState.ram[ch * 8 + 3] & 0x7f;
-                    int dt = segapcmState.ram[ch * 8 + 7];
-                    double ml = dt / 256.0;
-
-                    int ptrRom = segapcmState.ptrRom + ((segapcmState.ram[ch * 8 + 0x86] & segapcmState.bankmask) << segapcmState.bankshift);
-                    uint addr = (uint)((segapcmState.ram[ch * 8 + 0x85] << 16) | (segapcmState.ram[ch * 8 + 0x84] << 8) | segapcmState.low[ch]);
-                    int vdt = 0;
-                    if (ptrRom + ((addr >> 8) & segapcmState.rgnmask) < segapcmState.rom.Length)
-                    {
-                        vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
-                    }
-                    byte end = (byte)(segapcmState.ram[ch * 8 + 6] + 1);
-                    if ((segapcmState.ram[ch * 8 + 0x86] & 1) != 0) vdt = 0;
-                    if ((addr >> 16) == end)
-                    {
-                        if ((segapcmState.ram[ch * 8 + 0x86] & 2) == 0)
-                            ml = 0;
-                    }
-
-                    newParam.segaPcm[chipID].channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 8, 0), 19);
-                    newParam.segaPcm[chipID].channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 8, 0), 19);
-                    if (newParam.segaPcm[chipID].channels[ch].volumeL == 0 && newParam.segaPcm[chipID].channels[ch].volumeR == 0)
-                    {
-                        ml = 0;
-                    }
-                    newParam.segaPcm[chipID].channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (searchSegaPCMNote(ml));
-                    newParam.segaPcm[chipID].channels[ch].pan = (r >> 3) * 0x10 + (l >> 3);
-                }
-            }
-        }
-
-        private void screenChangeParamsFromOKIM6258(int chipID)
-        {
-            MDSound.okim6258.okim6258_state okim6258State = Audio.GetOKIM6258Register(chipID);
-            if (okim6258State == null) return;
-
-            switch (okim6258State.pan & 0x3)
-            {
-                case 0:
-                case 3:
-                    newParam.okim6258[chipID].pan = 3;
-                    break;
-                case 1:
-                    newParam.okim6258[chipID].pan = 2;
-                    break;
-                case 2:
-                    newParam.okim6258[chipID].pan = 1;
-                    break;
-            }
-
-            newParam.okim6258[chipID].masterFreq = (int)okim6258State.master_clock / 1000;
-            newParam.okim6258[chipID].divider = (int)okim6258State.divider;
-            if (okim6258State.divider == 0) newParam.okim6258[chipID].pbFreq = 0;
-            else newParam.okim6258[chipID].pbFreq = (int)(okim6258State.master_clock / okim6258State.divider / 1000);
-
-            //if (newParam.okim6258[chipID].volumeL > 0) newParam.okim6258[chipID].volumeL--;
-            //if (newParam.okim6258[chipID].volumeR > 0) newParam.okim6258[chipID].volumeR--;
-            //if (Audio.GetOKIM6258KeyOn(chipID))
-            //{
-            //    newParam.okim6258[chipID].volumeL = ((newParam.okim6258[chipID].pan & 0x2) != 0) ? 38 : 0;
-            //    newParam.okim6258[chipID].volumeR = ((newParam.okim6258[chipID].pan & 0x1) != 0) ? 38 : 0;
-            //    Audio.ResetOKIM6258KeyOn(chipID);
-            //}
-
-            int v = (int)(((Math.Abs(okim6258State.data_in - 128)*2) >> 3) * 1.2);
-            if ((okim6258State.status & 0x2) == 0) v = 0;
-            v = Math.Min(v, 38);
-            if (newParam.okim6258[chipID].volumeL < v && ((newParam.okim6258[chipID].pan & 0x2) != 0))
-            {
-                newParam.okim6258[chipID].volumeL = v;
-            }
-            else
-            {
-                newParam.okim6258[chipID].volumeL--;
-            }
-            if (newParam.okim6258[chipID].volumeR < v && ((newParam.okim6258[chipID].pan & 0x1) != 0))
-            {
-                newParam.okim6258[chipID].volumeR = v;
-            }
-            else
-            {
-                newParam.okim6258[chipID].volumeR--;
-            }
-        }
-
-        private void screenChangeParamsFromSN76489(int chipID)
-        {
-            int[] psgRegister = Audio.GetPSGRegister(chipID);
-            int[][] psgVol = Audio.GetPSGVolume(chipID);
-            if (psgRegister != null)
-            {
-                //Tone Ch
-                for (int ch = 0; ch < 3; ch++)
-                {
-                    if (psgRegister[ch * 2 + 1] != 15)
-                    {
-                        newParam.sn76489[chipID].channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
-                    }
-                    else
-                    {
-                        newParam.sn76489[chipID].channels[ch].note = -1;
-                    }
-
-                    newParam.sn76489[chipID].channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
-                }
-
-                //Noise Ch
-                newParam.sn76489[chipID].channels[3].note = psgRegister[6];
-                newParam.sn76489[chipID].channels[3].volume = Math.Min(Math.Max((int)((psgVol[3][0] + psgVol[3][1]) / (30.0 / 19.0)), 0), 19);
-            }
-        }
-
-        private void screenChangeParamsFromYM2612(int chipID)
-        {
-            int[][] fmRegister = Audio.GetFMRegister(chipID);
-            int[][] fmVol = Audio.GetFMVolume(chipID);
-            int[] fmCh3SlotVol = Audio.GetFMCh3SlotVolume(chipID);
-            int[] fmKey = Audio.GetFMKeyOn(chipID);
-
-            bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
-
-            newParam.ym2612[chipID].lfoSw = (fmRegister[0][0x22] & 0x8) != 0;
-            newParam.ym2612[chipID].lfoFrq = (fmRegister[0][0x22] & 0x7);
-
-            for (int ch = 0; ch < 6; ch++)
-            {
-                int p = (ch > 2) ? 1 : 0;
-                int c = (ch > 2) ? ch - 3 : ch;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops + c] & 0x1f; //AR
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
-                    newParam.ym2612[chipID].channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
-                }
-                newParam.ym2612[chipID].channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
-                newParam.ym2612[chipID].channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2612[chipID].channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 4;//AMS
-                newParam.ym2612[chipID].channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x07;//FMS
-
-                newParam.ym2612[chipID].channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
-
-                int freq = 0;
-                int octav = 0;
-                int n = -1;
-                if (ch != 2 || !isFmEx)
-                {
-                    freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
-                    octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
-
-                    if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
-                    newParam.ym2612[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
-                    newParam.ym2612[chipID].channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
-                }
-                else
-                {
-                    freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
-                    octav = (fmRegister[0][0xad] & 0x38) >> 3;
-
-                    if ((fmKey[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
-                    newParam.ym2612[chipID].channels[2].volumeL = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
-                    newParam.ym2612[chipID].channels[2].volumeR = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
-                }
-                newParam.ym2612[chipID].channels[ch].note = n;
-
-
-            }
-
-            for (int ch = 6; ch < 9; ch++)
-            {
-                //Operator 1′s frequency is in A9 and ADH
-                //Operator 2′s frequency is in AA and AEH
-                //Operator 3′s frequency is in A8 and ACH
-                //Operator 4′s frequency is in A2 and A6H
-
-                int[] exReg = new int[3] { 2, 0, -6 };
-                int c = exReg[ch - 6];
-
-                newParam.ym2612[chipID].channels[ch].pan = 0;
-
-                if (isFmEx)
-                {
-                    int freq = fmRegister[0][0xa8 + c] + (fmRegister[0][0xac + c] & 0x07) * 0x100;
-                    int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
-                    int n = -1;
-                    if ((fmKey[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
-                    newParam.ym2612[chipID].channels[ch].note = n;
-                    newParam.ym2612[chipID].channels[ch].volumeL = Math.Min(Math.Max(fmCh3SlotVol[ch - 5] / 80, 0), 19);
-                }
-                else
-                {
-                    newParam.ym2612[chipID].channels[ch].note = -1;
-                    newParam.ym2612[chipID].channels[ch].volumeL = 0;
-                }
-            }
-
-            newParam.ym2612[chipID].channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
-
-            if (newParam.fileFormat == enmFileFormat.XGM)
-            {
-                if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (((xgm)Audio.driverVirtual).xgmpcm[i].isPlaying)
-                        {
-                            newParam.ym2612[chipID].xpcmInst[i] = (int)(((xgm)Audio.driverVirtual).xgmpcm[i].inst);
-                            int d = (((xgm)Audio.driverVirtual).xgmpcm[i].data / 6);
-                            d = Math.Min(d, 19);
-                            newParam.ym2612[chipID].xpcmVolL[i] = d;
-                            newParam.ym2612[chipID].xpcmVolR[i] = d;
-                        }
-                        else
-                        {
-                            newParam.ym2612[chipID].xpcmInst[i] = 0;
-                            newParam.ym2612[chipID].xpcmVolL[i] = 0;
-                            newParam.ym2612[chipID].xpcmVolR[i] = 0;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void screenChangeParamsFromYM2612MIDI()
-        {
-            int[][] fmRegister = Audio.GetYM2612MIDIRegister();
-            //int[] fmKey = Audio.GetFMKeyOn();
-
-            newParam.ym2612Midi.IsMONO = setting.midiKbd.IsMONO;
-            if (setting.midiKbd.IsMONO)
-            {
-                for (int i = 0; i < 6; i++)
-                {
-                    newParam.ym2612Midi.useChannel[i] = (setting.midiKbd.UseMONOChannel == i);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 6; i++)
-                {
-                    newParam.ym2612Midi.useChannel[i] = setting.midiKbd.UseChannel[i];
-                }
-            }
-
-            newParam.ym2612Midi.useFormat = setting.midiKbd.UseFormat;
-
-            for (int ch = 0; ch < 6; ch++)
-            {
-                int p = (ch > 2) ? 1 : 0;
-                int c = (ch > 2) ? ch - 3 : ch;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 0] = fmRegister[p][0x50 + ops + c] & 0x1f; //AR
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 1] = fmRegister[p][0x60 + ops + c] & 0x1f; //DR
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 2] = fmRegister[p][0x70 + ops + c] & 0x1f; //SR
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 3] = fmRegister[p][0x80 + ops + c] & 0x0f; //RR
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 4] = (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4;//SL
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 5] = fmRegister[p][0x40 + ops + c] & 0x7f;//TL
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 6] = (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6;//KS
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 7] = fmRegister[p][0x30 + ops + c] & 0x0f;//ML
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 8] = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 9] = (fmRegister[p][0x60 + ops + c] & 0x80) >> 7;//AM
-                    newParam.ym2612Midi.channels[ch].inst[i * 11 + 10] = fmRegister[p][0x90 + ops + c] & 0x0f;//SG
-                }
-                newParam.ym2612Midi.channels[ch].inst[44] = fmRegister[p][0xb0 + c] & 0x07;//AL
-                newParam.ym2612Midi.channels[ch].inst[45] = (fmRegister[p][0xb0 + c] & 0x38) >> 3;//FB
-                newParam.ym2612Midi.channels[ch].inst[46] = (fmRegister[p][0xb4 + c] & 0x38) >> 4;//AMS
-                newParam.ym2612Midi.channels[ch].inst[47] = fmRegister[p][0xb4 + c] & 0x07;//FMS
-
-                newParam.ym2612Midi.channels[ch].pan = (fmRegister[p][0xb4 + c] & 0xc0) >> 6;
-
-                if (newParam.ym2612Midi.selectCh != -1 && newParam.ym2612Midi.selectParam != -1)
-                {
-                    if (oldParam.ym2612Midi.selectCh != -1 && oldParam.ym2612Midi.selectParam != -1)
-                    {
-                        newParam.ym2612Midi.channels[oldParam.ym2612Midi.selectCh].typ[oldParam.ym2612Midi.selectParam] = 0;
-                    }
-                    newParam.ym2612Midi.channels[newParam.ym2612Midi.selectCh].typ[newParam.ym2612Midi.selectParam] = 1;
-                    oldParam.ym2612Midi.selectCh = newParam.ym2612Midi.selectCh;
-                    oldParam.ym2612Midi.selectParam = newParam.ym2612Midi.selectParam;
-                }
-
-                //int freq = 0;
-                //int octav = 0;
-                //int n = -1;
-                //freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
-                //octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
-
-                //if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + searchFMNote(freq), 0), 95);
-
-                //newParam.ym2612Midi.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
-                //newParam.ym2612Midi.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
-                //newParam.ym2612Midi.channels[ch].note = n;
-
-            }
-
-        }
-
-
-        private void screenDrawParams()
-        {
-
-            // 描画
-            screen.drawParams(oldParam, newParam);
-
-            screen.drawButtons(oldButton, newButton, oldButtonMode, newButtonMode);
-
-            screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
-            screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
-            screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
-
-            byte[] chips = Audio.GetChipStatus();
-            screen.drawChipName(14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
-            screen.drawChipName(18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
-            screen.drawChipName(23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
-            screen.drawChipName(28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
-            screen.drawChipName(33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
-            screen.drawChipName(37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
-            screen.drawChipName(42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
-            screen.drawChipName(47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
-            screen.drawChipName(51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
-            screen.drawChipName(56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
-            screen.drawChipName(61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
-            screen.drawChipName(66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
-            screen.drawChipName(4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
-            screen.drawChipName(9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
-            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
-
-            screen.drawChipName(14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
-            screen.drawChipName(18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
-            screen.drawChipName(23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
-            screen.drawChipName(28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
-            screen.drawChipName(33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
-            screen.drawChipName(37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
-            screen.drawChipName(42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
-            screen.drawChipName(47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
-            screen.drawChipName(51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
-            screen.drawChipName(56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
-            screen.drawChipName(61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
-            screen.drawChipName(66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
-            screen.drawChipName(4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
-            screen.drawChipName(9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
-            screen.drawChipName(71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
-
-            screen.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
-            screen.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
-            screen.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
-
-            if (setting.Debug_DispFrameCounter)
-            {
-                long v = Audio.getVirtualFrameCounter();
-                if (v != -1) screen.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
-                long r = Audio.getRealFrameCounter();
-                if (r != -1) screen.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
-                long d = r - v;
-                if (r != -1 && v != -1) screen.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
-                screen.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
-            }
-
-            screen.Refresh();
-
-            Audio.updateVol();
-
-
-        }
-
-        private int searchFMNote(int freq)
-        {
-            int m = int.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 5; i++)
-            {
-                //if (freq < Tables.FmFNum[i]) break;
-                //n = i;
-                int a = Math.Abs(freq - Tables.FmFNum[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n - 12 * 3;
-        }
-
-        private int searchPSGNote(int freq)
-        {
-            int m = int.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                int a = Math.Abs(freq - Tables.PsgFNum[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
-
-        private int searchSSGNote(float freq)
-        {
-            float m = float.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                //if (freq < Tables.freqTbl[i]) break;
-                //n = i;
-                float a = Math.Abs(freq - Tables.freqTbl[i]);
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
-
-        private int searchC140Note(int freq)
-        {
-            double m = double.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
-
         private int searchSegaPCMNote(double ml)
         {
             double m = double.MaxValue;
@@ -3328,24 +2173,89 @@ namespace MDPlayer
             return n;
         }
 
-        private int searchYM2608Adpcm(float freq)
-        {
-            float m = float.MaxValue;
-            int n = 0;
 
+        private void screenDrawParams()
+        {
+
+            // 描画
+            //screen.drawParams(oldParam, newParam);
+
+            DrawBuff.drawButtons(screen.mainScreen, oldButton, newButton, oldButtonMode, newButtonMode);
+
+            DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+
+            byte[] chips = Audio.GetChipStatus();
+            DrawBuff.drawChipName(screen.mainScreen,14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            DrawBuff.drawChipName(screen.mainScreen,18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            DrawBuff.drawChipName(screen.mainScreen,23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            DrawBuff.drawChipName(screen.mainScreen,28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            DrawBuff.drawChipName(screen.mainScreen,33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            DrawBuff.drawChipName(screen.mainScreen,37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            DrawBuff.drawChipName(screen.mainScreen,42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            DrawBuff.drawChipName(screen.mainScreen,47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            DrawBuff.drawChipName(screen.mainScreen,51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            DrawBuff.drawChipName(screen.mainScreen,56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            DrawBuff.drawChipName(screen.mainScreen,61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            DrawBuff.drawChipName(screen.mainScreen,66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            DrawBuff.drawChipName(screen.mainScreen,4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            DrawBuff.drawChipName(screen.mainScreen,9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
+
+            DrawBuff.drawChipName(screen.mainScreen,14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            DrawBuff.drawChipName(screen.mainScreen,18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            DrawBuff.drawChipName(screen.mainScreen,23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            DrawBuff.drawChipName(screen.mainScreen,28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            DrawBuff.drawChipName(screen.mainScreen,33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            DrawBuff.drawChipName(screen.mainScreen,37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            DrawBuff.drawChipName(screen.mainScreen,42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            DrawBuff.drawChipName(screen.mainScreen,47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            DrawBuff.drawChipName(screen.mainScreen,51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            DrawBuff.drawChipName(screen.mainScreen,56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            DrawBuff.drawChipName(screen.mainScreen,61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            DrawBuff.drawChipName(screen.mainScreen,66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            DrawBuff.drawChipName(screen.mainScreen,4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            DrawBuff.drawChipName(screen.mainScreen,9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
+
+            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
+
+            if (setting.Debug_DispFrameCounter)
+            {
+                long v = Audio.getVirtualFrameCounter();
+                if (v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
+                long r = Audio.getRealFrameCounter();
+                if (r != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("SCCI       : {0:D12} ", r));
+                long d = r - v;
+                if (r != -1 && v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("SCCI - EMU : {0:D12} ", d));
+                DrawBuff.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
+            }
+
+            screen.Refresh();
+
+            Audio.updateVol();
+
+
+        }
+
+        private int searchC140Note(int freq)
+        {
+            double m = double.MaxValue;
+            int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                if (freq < Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))) break;
-                n = i;
-                float a = Math.Abs(freq - (float)(Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 3))));
+                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
                 if (m > a)
                 {
                     m = a;
                     n = i;
                 }
             }
-
-            return n + 1;
+            return n;
         }
 
 
@@ -3367,7 +2277,8 @@ namespace MDPlayer
                 screen.setting = setting;
                 //oldParam = new MDChipParams();
                 //newParam = new MDChipParams();
-                screen.screenInitAll();
+                allScreenInit();
+                //screen.screenInitAll();
 
                 log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
 
@@ -3448,14 +2359,29 @@ namespace MDPlayer
                 playFn = frmPlayList.setStart(-2);//first 
             }
 
-            oldParam = new MDChipParams();
-            screen.drawTimer(0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
-            screen.drawTimer(1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
-            screen.drawTimer(2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+            allScreenInit();
 
             loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3,playFn.Item4);
             frmPlayList.Play();
 
+        }
+
+        private void allScreenInit()
+        {
+            oldParam = new MDChipParams();
+            DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+
+            for (int i = 0; i < 2; i++)
+            {
+                //if (frmYM2151[i] != null) frmYM2151[i].screenInit();
+                //if (frmYM2203[i] != null) frmYM2203[i].screenInit();
+                //if (frmYM2608[i] != null) frmYM2608[i].screenInit();
+                //if (frmYM2610[i] != null) frmYM2610[i].screenInit();
+                if (frmYM2612[i] != null) frmYM2612[i].screenInit();
+
+            }
         }
 
         private void playdata()
@@ -3489,7 +2415,7 @@ namespace MDPlayer
 
             oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            screen.screenInitAll();
+            allScreenInit();
 
             if (!Audio.Play(setting))
             {
@@ -3752,7 +2678,7 @@ namespace MDPlayer
                 }
             }
 
-            frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom);
+            frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom,newParam.ym2612Midi);
             if (setting.location.PosYm2612MIDI == System.Drawing.Point.Empty)
             {
                 frmYM2612MIDI.x = this.Location.X + 328;
@@ -3775,10 +2701,8 @@ namespace MDPlayer
             }
 
             //frmYM2612MIDI.setting = setting;
-            screen.AddYM2612MIDI(frmYM2612MIDI.pbScreen, Properties.Resources.planeYM2612MIDI);
             frmYM2612MIDI.Show();
             frmYM2612MIDI.update();
-            screen.screenInitYM2612MIDI();
             oldParam.ym2612Midi = new MDChipParams.YM2612MIDI();
         }
 
@@ -4685,7 +3609,8 @@ namespace MDPlayer
                 }
 
                 Audio.SetVGMBuffer(format, srcBuf, outMIDIFn, m, songNo);
-                newParam.fileFormat = format;
+                newParam.ym2612[0].fileFormat = format;
+                newParam.ym2612[1].fileFormat = format;
 
                 if (srcBuf != null)
                 {

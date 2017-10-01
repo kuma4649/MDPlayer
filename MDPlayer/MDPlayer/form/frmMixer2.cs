@@ -443,7 +443,7 @@ namespace MDPlayer
                 newParam.Master.VisVol2Cnt = 1;
                 if (newParam.Master.VisVolume2 > 0) newParam.Master.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 0 * 20, 10 + 0 * 8 * 9, ref oldParam.Master.VisVolume1, newParam.Master.VisVolume1, ref oldParam.Master.VisVolume2, newParam.Master.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 0 * 20, 10 + 0 * 8 * 9, ref oldParam.Master.VisVolume1, newParam.Master.VisVolume1, ref oldParam.Master.VisVolume2, newParam.Master.VisVolume2);
 
             newParam.YM2151.VisVol2Cnt--;
             if (newParam.YM2151.VisVol2Cnt == 0)
@@ -451,7 +451,7 @@ namespace MDPlayer
                 newParam.YM2151.VisVol2Cnt = 1;
                 if (newParam.YM2151.VisVolume2 > 0) newParam.YM2151.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 1 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2151.VisVolume1, newParam.YM2151.VisVolume1, ref oldParam.YM2151.VisVolume2, newParam.YM2151.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 1 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2151.VisVolume1, newParam.YM2151.VisVolume1, ref oldParam.YM2151.VisVolume2, newParam.YM2151.VisVolume2);
 
             newParam.YM2203.VisVol2Cnt--;
             if (newParam.YM2203.VisVol2Cnt == 0)
@@ -459,7 +459,7 @@ namespace MDPlayer
                 newParam.YM2203.VisVol2Cnt = 1;
                 if (newParam.YM2203.VisVolume2 > 0) newParam.YM2203.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 2 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203.VisVolume1, newParam.YM2203.VisVolume1, ref oldParam.YM2203.VisVolume2, newParam.YM2203.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 2 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203.VisVolume1, newParam.YM2203.VisVolume1, ref oldParam.YM2203.VisVolume2, newParam.YM2203.VisVolume2);
 
             newParam.YM2203FM.VisVol2Cnt--;
             if (newParam.YM2203FM.VisVol2Cnt == 0)
@@ -467,7 +467,7 @@ namespace MDPlayer
                 newParam.YM2203FM.VisVol2Cnt = 1;
                 if (newParam.YM2203FM.VisVolume2 > 0) newParam.YM2203FM.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 3 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203FM.VisVolume1, newParam.YM2203FM.VisVolume1, ref oldParam.YM2203FM.VisVolume2, newParam.YM2203FM.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 3 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203FM.VisVolume1, newParam.YM2203FM.VisVolume1, ref oldParam.YM2203FM.VisVolume2, newParam.YM2203FM.VisVolume2);
 
             newParam.YM2203PSG.VisVol2Cnt--;
             if (newParam.YM2203PSG.VisVol2Cnt == 0)
@@ -475,7 +475,7 @@ namespace MDPlayer
                 newParam.YM2203PSG.VisVol2Cnt = 1;
                 if (newParam.YM2203PSG.VisVolume2 > 0) newParam.YM2203PSG.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 4 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203PSG.VisVolume1, newParam.YM2203PSG.VisVolume1, ref oldParam.YM2203PSG.VisVolume2, newParam.YM2203PSG.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 4 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203PSG.VisVolume1, newParam.YM2203PSG.VisVolume1, ref oldParam.YM2203PSG.VisVolume2, newParam.YM2203PSG.VisVolume2);
 
             newParam.YM2413.VisVol2Cnt--;
             if (newParam.YM2413.VisVol2Cnt == 0)
@@ -483,7 +483,7 @@ namespace MDPlayer
                 newParam.YM2413.VisVol2Cnt = 1;
                 if (newParam.YM2413.VisVolume2 > 0) newParam.YM2413.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 5 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2413.VisVolume1, newParam.YM2413.VisVolume1, ref oldParam.YM2413.VisVolume2, newParam.YM2413.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 5 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2413.VisVolume1, newParam.YM2413.VisVolume1, ref oldParam.YM2413.VisVolume2, newParam.YM2413.VisVolume2);
 
             newParam.YM2608.VisVol2Cnt--;
             if (newParam.YM2608.VisVol2Cnt == 0)
@@ -491,7 +491,7 @@ namespace MDPlayer
                 newParam.YM2608.VisVol2Cnt = 1;
                 if (newParam.YM2608.VisVolume2 > 0) newParam.YM2608.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 6 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608.VisVolume1, newParam.YM2608.VisVolume1, ref oldParam.YM2608.VisVolume2, newParam.YM2608.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 6 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608.VisVolume1, newParam.YM2608.VisVolume1, ref oldParam.YM2608.VisVolume2, newParam.YM2608.VisVolume2);
 
             newParam.YM2608FM.VisVol2Cnt--;
             if (newParam.YM2608FM.VisVol2Cnt == 0)
@@ -499,7 +499,7 @@ namespace MDPlayer
                 newParam.YM2608FM.VisVol2Cnt = 1;
                 if (newParam.YM2608FM.VisVolume2 > 0) newParam.YM2608FM.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 7 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608FM.VisVolume1, newParam.YM2608FM.VisVolume1, ref oldParam.YM2608FM.VisVolume2, newParam.YM2608FM.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 7 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608FM.VisVolume1, newParam.YM2608FM.VisVolume1, ref oldParam.YM2608FM.VisVolume2, newParam.YM2608FM.VisVolume2);
 
             newParam.YM2608PSG.VisVol2Cnt--;
             if (newParam.YM2608PSG.VisVol2Cnt == 0)
@@ -507,7 +507,7 @@ namespace MDPlayer
                 newParam.YM2608PSG.VisVol2Cnt = 1;
                 if (newParam.YM2608PSG.VisVolume2 > 0) newParam.YM2608PSG.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 8 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608PSG.VisVolume1, newParam.YM2608PSG.VisVolume1, ref oldParam.YM2608PSG.VisVolume2, newParam.YM2608PSG.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 8 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608PSG.VisVolume1, newParam.YM2608PSG.VisVolume1, ref oldParam.YM2608PSG.VisVolume2, newParam.YM2608PSG.VisVolume2);
 
             newParam.YM2608Rhythm.VisVol2Cnt--;
             if (newParam.YM2608Rhythm.VisVol2Cnt == 0)
@@ -515,7 +515,7 @@ namespace MDPlayer
                 newParam.YM2608Rhythm.VisVol2Cnt = 1;
                 if (newParam.YM2608Rhythm.VisVolume2 > 0) newParam.YM2608Rhythm.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 9 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Rhythm.VisVolume1, newParam.YM2608Rhythm.VisVolume1, ref oldParam.YM2608Rhythm.VisVolume2, newParam.YM2608Rhythm.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 9 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Rhythm.VisVolume1, newParam.YM2608Rhythm.VisVolume1, ref oldParam.YM2608Rhythm.VisVolume2, newParam.YM2608Rhythm.VisVolume2);
 
             newParam.YM2608Adpcm.VisVol2Cnt--;
             if (newParam.YM2608Adpcm.VisVol2Cnt == 0)
@@ -523,7 +523,7 @@ namespace MDPlayer
                 newParam.YM2608Adpcm.VisVol2Cnt = 1;
                 if (newParam.YM2608Adpcm.VisVolume2 > 0) newParam.YM2608Adpcm.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 10 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Adpcm.VisVolume1, newParam.YM2608Adpcm.VisVolume1, ref oldParam.YM2608Adpcm.VisVolume2, newParam.YM2608Adpcm.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 10 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Adpcm.VisVolume1, newParam.YM2608Adpcm.VisVolume1, ref oldParam.YM2608Adpcm.VisVolume2, newParam.YM2608Adpcm.VisVolume2);
 
             newParam.YM2610.VisVol2Cnt--;
             if (newParam.YM2610.VisVol2Cnt == 0)
@@ -531,7 +531,7 @@ namespace MDPlayer
                 newParam.YM2610.VisVol2Cnt = 1;
                 if (newParam.YM2610.VisVolume2 > 0) newParam.YM2610.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 11 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610.VisVolume1, newParam.YM2610.VisVolume1, ref oldParam.YM2610.VisVolume2, newParam.YM2610.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 11 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610.VisVolume1, newParam.YM2610.VisVolume1, ref oldParam.YM2610.VisVolume2, newParam.YM2610.VisVolume2);
 
             newParam.YM2610FM.VisVol2Cnt--;
             if (newParam.YM2610FM.VisVol2Cnt == 0)
@@ -539,7 +539,7 @@ namespace MDPlayer
                 newParam.YM2610FM.VisVol2Cnt = 1;
                 if (newParam.YM2610FM.VisVolume2 > 0) newParam.YM2610FM.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 12 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610FM.VisVolume1, newParam.YM2610FM.VisVolume1, ref oldParam.YM2610FM.VisVolume2, newParam.YM2610FM.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 12 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610FM.VisVolume1, newParam.YM2610FM.VisVolume1, ref oldParam.YM2610FM.VisVolume2, newParam.YM2610FM.VisVolume2);
 
             newParam.YM2610PSG.VisVol2Cnt--;
             if (newParam.YM2610PSG.VisVol2Cnt == 0)
@@ -547,7 +547,7 @@ namespace MDPlayer
                 newParam.YM2610PSG.VisVol2Cnt = 1;
                 if (newParam.YM2610PSG.VisVolume2 > 0) newParam.YM2610PSG.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 13 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610PSG.VisVolume1, newParam.YM2610PSG.VisVolume1, ref oldParam.YM2610PSG.VisVolume2, newParam.YM2610PSG.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 13 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610PSG.VisVolume1, newParam.YM2610PSG.VisVolume1, ref oldParam.YM2610PSG.VisVolume2, newParam.YM2610PSG.VisVolume2);
 
             newParam.YM2610AdpcmA.VisVol2Cnt--;
             if (newParam.YM2610AdpcmA.VisVol2Cnt == 0)
@@ -555,7 +555,7 @@ namespace MDPlayer
                 newParam.YM2610AdpcmA.VisVol2Cnt = 1;
                 if (newParam.YM2610AdpcmA.VisVolume2 > 0) newParam.YM2610AdpcmA.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 14 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmA.VisVolume1, newParam.YM2610AdpcmA.VisVolume1, ref oldParam.YM2610AdpcmA.VisVolume2, newParam.YM2610AdpcmA.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 14 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmA.VisVolume1, newParam.YM2610AdpcmA.VisVolume1, ref oldParam.YM2610AdpcmA.VisVolume2, newParam.YM2610AdpcmA.VisVolume2);
 
             newParam.YM2610AdpcmB.VisVol2Cnt--;
             if (newParam.YM2610AdpcmB.VisVol2Cnt == 0)
@@ -563,7 +563,7 @@ namespace MDPlayer
                 newParam.YM2610AdpcmB.VisVol2Cnt = 1;
                 if (newParam.YM2610AdpcmB.VisVolume2 > 0) newParam.YM2610AdpcmB.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 15 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmB.VisVolume1, newParam.YM2610AdpcmB.VisVolume1, ref oldParam.YM2610AdpcmB.VisVolume2, newParam.YM2610AdpcmB.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 15 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmB.VisVolume1, newParam.YM2610AdpcmB.VisVolume1, ref oldParam.YM2610AdpcmB.VisVolume2, newParam.YM2610AdpcmB.VisVolume2);
 
             newParam.YM2612.VisVol2Cnt--;
             if (newParam.YM2612.VisVol2Cnt == 0)
@@ -571,7 +571,7 @@ namespace MDPlayer
                 newParam.YM2612.VisVol2Cnt = 1;
                 if (newParam.YM2612.VisVolume2 > 0) newParam.YM2612.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 0 * 20, 10 + 1 * 8 * 9, ref oldParam.YM2612.VisVolume1, newParam.YM2612.VisVolume1, ref oldParam.YM2612.VisVolume2, newParam.YM2612.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 0 * 20, 10 + 1 * 8 * 9, ref oldParam.YM2612.VisVolume1, newParam.YM2612.VisVolume1, ref oldParam.YM2612.VisVolume2, newParam.YM2612.VisVolume2);
 
             newParam.AY8910.VisVol2Cnt--;
             if (newParam.AY8910.VisVol2Cnt == 0)
@@ -579,7 +579,7 @@ namespace MDPlayer
                 newParam.AY8910.VisVol2Cnt = 1;
                 if (newParam.AY8910.VisVolume2 > 0) newParam.AY8910.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 1 * 20, 10 + 1 * 8 * 9, ref oldParam.AY8910.VisVolume1, newParam.AY8910.VisVolume1, ref oldParam.AY8910.VisVolume2, newParam.AY8910.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 1 * 20, 10 + 1 * 8 * 9, ref oldParam.AY8910.VisVolume1, newParam.AY8910.VisVolume1, ref oldParam.AY8910.VisVolume2, newParam.AY8910.VisVolume2);
 
             newParam.SN76489.VisVol2Cnt--;
             if (newParam.SN76489.VisVol2Cnt == 0)
@@ -587,7 +587,7 @@ namespace MDPlayer
                 newParam.SN76489.VisVol2Cnt = 1;
                 if (newParam.SN76489.VisVolume2 > 0) newParam.SN76489.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 2 * 20, 10 + 1 * 8 * 9, ref oldParam.SN76489.VisVolume1, newParam.SN76489.VisVolume1, ref oldParam.SN76489.VisVolume2, newParam.SN76489.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 2 * 20, 10 + 1 * 8 * 9, ref oldParam.SN76489.VisVolume1, newParam.SN76489.VisVolume1, ref oldParam.SN76489.VisVolume2, newParam.SN76489.VisVolume2);
 
             newParam.HuC6280.VisVol2Cnt--;
             if (newParam.HuC6280.VisVol2Cnt == 0)
@@ -595,7 +595,7 @@ namespace MDPlayer
                 newParam.HuC6280.VisVol2Cnt = 1;
                 if (newParam.HuC6280.VisVolume2 > 0) newParam.HuC6280.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 3 * 20, 10 + 1 * 8 * 9, ref oldParam.HuC6280.VisVolume1, newParam.HuC6280.VisVolume1, ref oldParam.HuC6280.VisVolume2, newParam.HuC6280.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 3 * 20, 10 + 1 * 8 * 9, ref oldParam.HuC6280.VisVolume1, newParam.HuC6280.VisVolume1, ref oldParam.HuC6280.VisVolume2, newParam.HuC6280.VisVolume2);
 
             newParam.RF5C164.VisVol2Cnt--;
             if (newParam.RF5C164.VisVol2Cnt == 0)
@@ -603,7 +603,7 @@ namespace MDPlayer
                 newParam.RF5C164.VisVol2Cnt = 1;
                 if (newParam.RF5C164.VisVolume2 > 0) newParam.RF5C164.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 4 * 20, 10 + 1 * 8 * 9, ref oldParam.RF5C164.VisVolume1, newParam.RF5C164.VisVolume1, ref oldParam.RF5C164.VisVolume2, newParam.RF5C164.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 4 * 20, 10 + 1 * 8 * 9, ref oldParam.RF5C164.VisVolume1, newParam.RF5C164.VisVolume1, ref oldParam.RF5C164.VisVolume2, newParam.RF5C164.VisVolume2);
 
             newParam.PWM.VisVol2Cnt--;
             if (newParam.PWM.VisVol2Cnt == 0)
@@ -611,7 +611,7 @@ namespace MDPlayer
                 newParam.PWM.VisVol2Cnt = 1;
                 if (newParam.PWM.VisVolume2 > 0) newParam.PWM.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 5 * 20, 10 + 1 * 8 * 9, ref oldParam.PWM.VisVolume1, newParam.PWM.VisVolume1, ref oldParam.PWM.VisVolume2, newParam.PWM.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 5 * 20, 10 + 1 * 8 * 9, ref oldParam.PWM.VisVolume1, newParam.PWM.VisVolume1, ref oldParam.PWM.VisVolume2, newParam.PWM.VisVolume2);
 
             newParam.OKIM6258.VisVol2Cnt--;
             if (newParam.OKIM6258.VisVol2Cnt == 0)
@@ -619,7 +619,7 @@ namespace MDPlayer
                 newParam.OKIM6258.VisVol2Cnt = 1;
                 if (newParam.OKIM6258.VisVolume2 > 0) newParam.OKIM6258.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 6 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6258.VisVolume1, newParam.OKIM6258.VisVolume1, ref oldParam.OKIM6258.VisVolume2, newParam.OKIM6258.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 6 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6258.VisVolume1, newParam.OKIM6258.VisVolume1, ref oldParam.OKIM6258.VisVolume2, newParam.OKIM6258.VisVolume2);
 
             newParam.OKIM6295.VisVol2Cnt--;
             if (newParam.OKIM6295.VisVol2Cnt == 0)
@@ -627,7 +627,7 @@ namespace MDPlayer
                 newParam.OKIM6295.VisVol2Cnt = 1;
                 if (newParam.OKIM6295.VisVolume2 > 0) newParam.OKIM6295.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 7 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6295.VisVolume1, newParam.OKIM6295.VisVolume1, ref oldParam.OKIM6295.VisVolume2, newParam.OKIM6295.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 7 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6295.VisVolume1, newParam.OKIM6295.VisVolume1, ref oldParam.OKIM6295.VisVolume2, newParam.OKIM6295.VisVolume2);
 
             newParam.C140.VisVol2Cnt--;
             if (newParam.C140.VisVol2Cnt == 0)
@@ -635,7 +635,7 @@ namespace MDPlayer
                 newParam.C140.VisVol2Cnt = 1;
                 if (newParam.C140.VisVolume2 > 0) newParam.C140.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 8 * 20, 10 + 1 * 8 * 9, ref oldParam.C140.VisVolume1, newParam.C140.VisVolume1, ref oldParam.C140.VisVolume2, newParam.C140.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 8 * 20, 10 + 1 * 8 * 9, ref oldParam.C140.VisVolume1, newParam.C140.VisVolume1, ref oldParam.C140.VisVolume2, newParam.C140.VisVolume2);
 
             newParam.SEGAPCM.VisVol2Cnt--;
             if (newParam.SEGAPCM.VisVol2Cnt == 0)
@@ -643,7 +643,7 @@ namespace MDPlayer
                 newParam.SEGAPCM.VisVol2Cnt = 1;
                 if (newParam.SEGAPCM.VisVolume2 > 0) newParam.SEGAPCM.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 9 * 20, 10 + 1 * 8 * 9, ref oldParam.SEGAPCM.VisVolume1, newParam.SEGAPCM.VisVolume1, ref oldParam.SEGAPCM.VisVolume2, newParam.SEGAPCM.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 9 * 20, 10 + 1 * 8 * 9, ref oldParam.SEGAPCM.VisVolume1, newParam.SEGAPCM.VisVolume1, ref oldParam.SEGAPCM.VisVolume2, newParam.SEGAPCM.VisVolume2);
 
             newParam.C352.VisVol2Cnt--;
             if (newParam.C352.VisVol2Cnt == 0)
@@ -651,7 +651,7 @@ namespace MDPlayer
                 newParam.C352.VisVol2Cnt = 1;
                 if (newParam.C352.VisVolume2 > 0) newParam.C352.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 10 * 20, 10 + 1 * 8 * 9, ref oldParam.C352.VisVolume1, newParam.C352.VisVolume1, ref oldParam.C352.VisVolume2, newParam.C352.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 10 * 20, 10 + 1 * 8 * 9, ref oldParam.C352.VisVolume1, newParam.C352.VisVolume1, ref oldParam.C352.VisVolume2, newParam.C352.VisVolume2);
 
             newParam.K054539.VisVol2Cnt--;
             if (newParam.K054539.VisVol2Cnt == 0)
@@ -659,7 +659,7 @@ namespace MDPlayer
                 newParam.K054539.VisVol2Cnt = 1;
                 if (newParam.K054539.VisVolume2 > 0) newParam.K054539.VisVolume2--;
             }
-            DrawBuff.drawMixerVolume(frameBuffer, 2 + 14 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 14 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
         }
 
 

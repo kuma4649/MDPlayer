@@ -21,18 +21,29 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmSN76489(frmMain frm, int chipID, int zoom)
+        private MDChipParams.SN76489 newParam = null;
+        private MDChipParams.SN76489 oldParam = new MDChipParams.SN76489();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmSN76489(frmMain frm, int chipID, int zoom, MDChipParams.SN76489 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeSN76489, null, zoom);
+            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
+            int tp = SN76489Type ? 1 : 0;
+            DrawBuff.screenInitSN76489(frameBuffer, tp);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -89,11 +100,57 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            int[] psgRegister = Audio.GetPSGRegister(chipID);
+            int[][] psgVol = Audio.GetPSGVolume(chipID);
+            if (psgRegister != null)
+            {
+                //Tone Ch
+                for (int ch = 0; ch < 3; ch++)
+                {
+                    if (psgRegister[ch * 2 + 1] != 15)
+                    {
+                        newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                    }
+                    else
+                    {
+                        newParam.channels[ch].note = -1;
+                    }
+
+                    newParam.channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
+                }
+
+                //Noise Ch
+                newParam.channels[3].note = psgRegister[6];
+                newParam.channels[3].volume = Math.Min(Math.Max((int)((psgVol[3][0] + psgVol[3][1]) / (30.0 / 19.0)), 0), 19);
+            }
         }
+
 
         public void screenDrawParams()
         {
+            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
+            int tp = SN76489Type ? 1 : 0;
+            MDChipParams.Channel osc;
+            MDChipParams.Channel nsc;
+
+            for (int c = 0; c < 3; c++)
+            {
+                osc = oldParam.channels[c];
+                nsc = newParam.channels[c];
+
+                DrawBuff.Volume(frameBuffer, c, 0, ref osc.volume, nsc.volume, tp);
+                DrawBuff.KeyBoard(frameBuffer, c, ref osc.note, nsc.note, tp);
+                DrawBuff.ChSN76489(frameBuffer, c, ref osc.mask, nsc.mask, tp);
+            }
+
+            osc = oldParam.channels[3];
+            nsc = newParam.channels[3];
+            DrawBuff.Volume(frameBuffer, 3, 0, ref osc.volume, nsc.volume, tp);
+            DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
+            DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
+
         }
+
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
@@ -121,5 +178,26 @@ namespace MDPlayer
             }
 
         }
+
+        private int searchPSGNote(int freq)
+        {
+            int m = int.MaxValue;
+            int n = 0;
+
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                int a = Math.Abs(freq - Tables.PsgFNum[i]);
+
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+
+            return n;
+        }
+
+
     }
 }

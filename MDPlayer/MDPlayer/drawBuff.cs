@@ -327,6 +327,407 @@ namespace MDPlayer
         {
         }
 
+        public static void screenInitOKIM6258(FrameBuffer screen)
+        {
+            int o;
+            int n;
+
+            o = 0; n = 3;
+            PanToOKIM6258(screen, ref o, n, ref o, 0);
+
+            drawFont4(screen, 12 * 4, 8, 0, string.Format("{0:d5}", 0));
+            drawFont4(screen, 19 * 4, 8, 0, string.Format("{0:d5}", 0));
+            drawFont4(screen, 26 * 4, 8, 0, string.Format("{0:d5}", 0));
+
+            o = 0; n = 38;
+            Volume(screen, 0, 1, ref o, n / 2, 0);
+            o = 0; n = 38;
+            Volume(screen, 0, 2, ref o, n / 2, 0);
+
+        }
+
+        public static void screenInitOKIM6295(FrameBuffer screen)
+        {
+        }
+
+        public static void screenInitSegaPCM(FrameBuffer screen)
+        {
+            for (int ch = 0; ch < 16; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(screen, 24, ch * 8 + 8, 0);
+                ChSegaPCM_P(screen, 0, 8 + ch * 8, ch, false, 0);
+            }
+        }
+
+        public static void screenInitSN76489(FrameBuffer screen,int tp)
+        {
+
+            for (int ch = 0; ch < 4; ch++)
+            {
+                if (ch != 3)
+                {
+                    for (int ot = 0; ot < 12 * 8; ot++)
+                    {
+                        int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                        int kt = kbl[(ot % 12) * 2 + 1];
+                        drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
+                    }
+                }
+                else
+                {
+                }
+
+                DrawBuff.drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+                DrawBuff.ChSN76489_P(screen, 0, ch * 8 + 8, ch, false, tp);
+
+                int d = 99;
+                DrawBuff.Volume(screen, ch, 0, ref d, 0, tp);
+            }
+        }
+
+        public static void screenInitYM2151(FrameBuffer screen, int tp)
+        {
+            //YM2151
+            for (int ch = 0; ch < 8; ch++)
+            {
+
+                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = kbl[(ot % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+
+                ChYM2151_P(screen, 0, ch * 8 + 8, ch, false, tp);
+                drawPanP(screen, 24, ch * 8 + 8, 3, tp);
+                int d = 99;
+                Volume(screen, ch, 1, ref d, 0, tp);
+                d = 99;
+                Volume(screen, ch, 2, ref d, 0, tp);
+
+            }
+        }
+
+        public static void screenInitYM2203(FrameBuffer screen, int tp)
+        {
+            //YM2203
+            for (int y = 0; y < 3 + 3 + 3; y++)
+            {
+
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                int d = 99;
+                Volume(screen, y, 0, ref d, 0, tp);
+            }
+
+        }
+
+        public static void screenInitYM2413(FrameBuffer screen, int tp)
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                //Note
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                Volume(screen, y, 0, ref d, 0, tp);
+            }
+
+        }
+
+        public static void screenInitYM2608(FrameBuffer screen, int tp)
+        {
+            //YM2608
+            for (int y = 0; y < 6 + 3 + 3 + 1; y++)
+            {
+
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                if (y < 13)
+                {
+                    ChYM2608_P(screen, 0, y * 8 + 8, y, false, tp);
+                }
+
+                if (y < 6 || y == 12)
+                {
+                    drawPanP(screen, 24, y * 8 + 8, 3, tp);
+                }
+
+                int d = 99;
+                if (y > 5 && y < 9)
+                {
+                    Volume(screen, y, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    Volume(screen, y, 1, ref d, 0, tp);
+                    d = 99;
+                    Volume(screen, y, 2, ref d, 0, tp);
+                }
+            }
+
+            for (int y = 0; y < 6; y++)
+            {
+                int d = 99;
+                PanYM2608Rhythm(screen, y, ref d, 3, ref d, tp);
+                d = 99;
+                VolumeYM2608Rhythm(screen, y, 1, ref d, 0, tp);
+                d = 99;
+                VolumeYM2608Rhythm(screen, y, 2, ref d, 0, tp);
+            }
+        }
+
+        public static void screenInitYM2610(FrameBuffer screen, int tp)
+        {
+            //YM2610
+            for (int y = 0; y < 14; y++)
+            {
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                if (y < 13)
+                {
+                    ChYM2610_P(screen, 0, y * 8 + 8, y, false, tp);
+                }
+
+                if (y < 6 || y == 13)
+                {
+                    drawPanP(screen, 24, y * 8 + 8, 3, tp);
+                }
+
+                int d = 99;
+                if (y > 5 && y < 9)
+                {
+                    Volume(screen, y, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    Volume(screen, y, 1, ref d, 0, tp);
+                    d = 99;
+                    Volume(screen, y, 2, ref d, 0, tp);
+                }
+            }
+
+            for (int y = 0; y < 6; y++)
+            {
+                int d = 99;
+                PanYM2610Rhythm(screen, y, ref d, 3, ref d, tp);
+                d = 99;
+                DrawBuff.VolumeYM2610Rhythm(screen, y, 1, ref d, 0, tp);
+                d = 99;
+                DrawBuff.VolumeYM2610Rhythm(screen, y, 2, ref d, 0, tp);
+            }
+            bool f = true;
+            ChYM2610Rhythm(screen, 0, ref f, false, tp);
+        }
+
+        public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM,bool isXGM)
+        {
+            if (screen == null) return;
+
+            for (int y = 0; y < 9; y++)
+            {
+
+                int d = 99;
+//                bool YM2612type = chipID==0 ? parent.setting.YM2612Type.UseScci : setting.YM2612SType.UseScci;
+                int tp6 = tp;
+                if (tp6 == 1 && onlyPCM)
+                {
+                    //tp6 = 0;
+                }
+
+                //note
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    if (y != 5)
+                    {
+                        drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                    }
+                    else
+                    {
+                        if(!isXGM) drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp6);
+                    }
+                }
+
+                if (isXGM)
+                {
+                    Ch6YM2612XGM_P(screen, 0, 48, 0, false, tp6);
+                }
+
+                if (y != 5)
+                {
+                    d = -1;
+                    Volume(screen, y, 0, ref d, 0, tp);
+                }
+
+                if (y < 6)
+                {
+                    d = 99;
+                    DrawBuff.Pan(screen, y, ref d, 3, ref d, tp);
+                }
+
+                if (y != 5)
+                {
+                    ChYM2612_P(screen, 0, y * 8 + 8, y, false, tp);
+                }
+                else
+                {
+                    Ch6YM2612_P(screen, 0, y * 8 + 8, 0, false, tp6);
+                    d = -1;
+                    Volume(screen, y, 0, ref d, 0, tp6);
+                    d = -1;
+                    DrawBuff.Pan(screen, y, ref d, 3, ref d, tp6);
+                }
+
+            }
+        }
+
+        public static void screenInitYM2612MIDI(FrameBuffer screen)
+        {
+            if (screen == null) return;
+
+            for (int c = 0; c < 6; c++)
+            {
+                for (int n = 0; n < 10; n++)
+                {
+                    drawFont4V(screen, (c % 3) * 13 * 8 + 2 * 8 + n * 8, (c / 3) * 18 * 4 + 24 * 4, 0, "   ");
+                }
+            }
+        }
+
+
+
+        public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
+        {
+            int sx = (c % 3) * 8 * 13 + x * 8;
+            int sy = (c / 3) * 8 * 6 + 8 * y;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    if (oi[i + j * 11] != ni[i + j * 11])
+                    {
+                        drawFont4Int(screen, sx + i * 8 + (i > 5 ? 4 : 0), sy + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        oi[i + j * 11] = ni[i + j * 11];
+                    }
+                }
+            }
+
+            if (oi[44] != ni[44])
+            {
+                drawFont4Int(screen, sx + 8 * 4, sy - 16, 0, 2, ni[44]);
+                oi[44] = ni[44];
+            }
+            if (oi[45] != ni[45])
+            {
+                drawFont4Int(screen, sx + 8 * 6, sy - 16, 0, 2, ni[45]);
+                oi[45] = ni[45];
+            }
+            if (oi[46] != ni[46])
+            {
+                drawFont4Int(screen, sx + 8 * 8 + 4, sy - 16, 0, 2, ni[46]);
+                oi[46] = ni[46];
+            }
+            if (oi[47] != ni[47])
+            {
+                drawFont4Int(screen, sx + 8 * 11, sy - 16, 0, 2, ni[47]);
+                oi[47] = ni[47];
+            }
+        }
+
+        public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni, int[] ot, int[] nt)
+        {
+            int sx = (c % 3) * 8 * 13 + x * 8;
+            int sy = (c / 3) * 8 * 6 + 8 * y;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    if (oi[i + j * 11] != ni[i + j * 11] || ot[i + j * 11] != nt[i + j * 11])
+                    {
+                        drawFont4Int(screen, sx + i * 8 + (i > 5 ? 4 : 0), sy + j * 8, nt[i + j * 11], (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        oi[i + j * 11] = ni[i + j * 11];
+                        ot[i + j * 11] = nt[i + j * 11];
+                    }
+                }
+            }
+
+            if (oi[44] != ni[44] || ot[44] != nt[44])
+            {
+                drawFont4Int(screen, sx + 8 * 4, sy - 16, nt[44], 2, ni[44]);
+                oi[44] = ni[44];
+                ot[44] = nt[44];
+            }
+            if (oi[45] != ni[45] || ot[45] != nt[45])
+            {
+                drawFont4Int(screen, sx + 8 * 6, sy - 16, nt[45], 2, ni[45]);
+                oi[45] = ni[45];
+                ot[45] = nt[45];
+            }
+            if (oi[46] != ni[46] || ot[46] != nt[46])
+            {
+                drawFont4Int(screen, sx + 8 * 8 + 4, sy - 16, nt[46], 2, ni[46]);
+                oi[46] = ni[46];
+                ot[46] = nt[46];
+            }
+            if (oi[47] != ni[47] || ot[47] != nt[47])
+            {
+                drawFont4Int(screen, sx + 8 * 11, sy - 16, nt[47], 2, ni[47]);
+                oi[47] = ni[47];
+                ot[47] = nt[47];
+            }
+        }
+
+        public static void drawInstNumber(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        {
+            if (oi != ni)
+            {
+                drawFont4Int(screen, x * 4, y * 4, 0, 2, ni);
+                oi = ni;
+            }
+        }
 
         public static void Volume(FrameBuffer screen, int y, int c, ref int ov, int nv, int tp)
         {
@@ -432,6 +833,80 @@ namespace MDPlayer
             oldValue = value;
         }
 
+        public static void VolumeXY(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+
+            y *= 4;
+            x *= 4;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
+        public static void VolumeYM2608Rhythm(FrameBuffer screen, int x, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+            x = x * 4 * 13 + 8 * 2;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, sy + 8 * 14, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, sy + 8 * 14, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
+        public static void VolumeYM2610Rhythm(FrameBuffer screen, int x, int c, ref int ov, int nv, int tp)
+        {
+
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+            x = x * 4 * 13 + 8 * 2;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, sy + 8 * 13, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, sy + 8 * 13, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
 
         public static void KeyBoard(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
@@ -503,29 +978,17 @@ namespace MDPlayer
             ot = nt;
         }
 
-
-        public static void PanToC140(FrameBuffer screen, int c, ref int ot, int nt)
+        public static void Pan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
-            if (ot == nt)
+            if (ot == nt && otp == ntp)
             {
                 return;
             }
 
-            drawPanType2P(screen, 24, 8 + c * 8, nt);
+            drawPanP(screen, 24, 8 + c * 8, nt, ntp);
             ot = nt;
-        }
-
-        public static void PanToHuC6280(FrameBuffer screen, int c, ref int ot, int nt)
-        {
-
-            if (ot == nt)
-            {
-                return;
-            }
-
-            drawPanType2P(screen, 24, 8 + c * 8, nt);
-            ot = nt;
+            otp = ntp;
         }
 
         public static void PanType2(FrameBuffer screen, int c, ref int ot, int nt)
@@ -539,6 +1002,46 @@ namespace MDPlayer
             drawPanType2P(screen, 24, 8 + c * 8, nt);
             ot = nt;
         }
+
+        public static void PanToOKIM6258(FrameBuffer screen, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanP(screen, 24, 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public static void PanYM2608Rhythm(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanP(screen, c * 4 * 13 + 8, 8 * 14, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public static void PanYM2610Rhythm(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanP(screen, c * 4 * 13 + 8, 8 * 13, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
 
 
         public static void ChAY8910(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
@@ -588,6 +1091,180 @@ namespace MDPlayer
             ChRF5C164_P(screen, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
+
+        public static void ChOKIM6258(FrameBuffer screen, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChOKIM6258_P(screen, 0, 8 + 0 * 8, nm, tp);
+            om = nm;
+        }
+
+        public static void ChSegaPCM(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChSegaPCM_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChSN76489(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChSN76489_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChSN76489Noise(FrameBuffer screen, ref MDChipParams.Channel osc, MDChipParams.Channel nsc, int tp)
+        {
+            if (osc.note == nsc.note) return;
+
+            drawFont4(screen, 56, 32, tp, (nsc.note & 0x4) != 0 ? "WHITE   " : "PERIODIC");
+            drawFont4(screen, 120, 32, tp, (nsc.note & 0x3) == 0 ? "0  " : ((nsc.note & 0x3) == 1 ? "1  " : ((nsc.note & 0x3) == 2 ? "2  " : "CH3")));
+
+            osc.note = nsc.note;
+        }
+
+        public static void ChYM2151(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2151_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2203(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2203_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2413(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2413_P(screen, 0, ch < 9 ? (8 + ch * 8) : (8 + 9 * 8), ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2608(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2608_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2608Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2608Rhythm_P(screen, 0, 8 * 14, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2610(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2610_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2610Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2610Rhythm_P(screen, 0, 8 * 13, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChYM2612(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChYM2612_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void Ch6YM2612(FrameBuffer screen, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        {
+
+            if (ot == nt && om == nm && otp == ntp)
+            {
+                return;
+            }
+
+            Ch6YM2612_P(screen, 0, 48, nt, nm, ntp);
+            ot = nt;
+            om = nm;
+            otp = ntp;
+        }
+
+        public static void Ch6YM2612XGM(FrameBuffer screen,int buff, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        {
+            if (buff == 0)
+            {
+                if (ot == nt && om == nm && otp == ntp)
+                {
+                    return;
+                }
+            }
+
+            Ch6YM2612XGM_P(screen, 0, 48, nt, nm, ntp);
+            ot = nt;
+            om = nm;
+            otp = ntp;
+        }
+
+
 
 
         public static void ToneNoise(FrameBuffer screen, int x, int y, int c, ref int ot, int nt, ref int otp, int ntp)
@@ -937,7 +1614,7 @@ namespace MDPlayer
             od = nd;
         }
 
-        public static void drawMixerVolume(FrameBuffer screen, int x, int y, ref int od, int nd, ref int ov, int nv)
+        public static void MixerVolume(FrameBuffer screen, int x, int y, ref int od, int nd, ref int ov, int nv)
         {
             if (od == nd && ov == nv) return;
 
@@ -956,6 +1633,354 @@ namespace MDPlayer
             ov = nv;
         }
 
+        public static void KfYM2151(FrameBuffer screen, int ch, ref int ok, int nk)
+        {
+            if (ok == nk)
+            {
+                return;
+            }
+
+            int x = (ch % 4) * 4 * 3 + 4 * 67;
+            int y = (ch / 4) * 8 + 8 * 22;
+            drawFont4Int(screen, x, y, 0, 2, nk);
+            ok = nk;
+        }
+
+        public static void NeYM2151(FrameBuffer screen, ref int one, int nne)
+        {
+            if (one == nne)
+            {
+                return;
+            }
+
+            int x = 4 * 60;
+            int y = 8 * 22;
+            drawFont4Int(screen, x, y, 0, 1, nne);
+
+            one = nne;
+        }
+
+        public static void NfrqYM2151(FrameBuffer screen, ref int onfrq, int nnfrq)
+        {
+            if (onfrq == nnfrq)
+            {
+                return;
+            }
+
+            int x = 4 * 60;
+            int y = 8 * 23;
+            drawFont4Int(screen, x, y, 0, 2, nnfrq);
+
+            onfrq = nnfrq;
+        }
+
+        public static void LfrqYM2151(FrameBuffer screen, ref int olfrq, int nlfrq)
+        {
+            if (olfrq == nlfrq)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 24;
+            drawFont4Int(screen, x, y, 0, 3, nlfrq);
+
+            olfrq = nlfrq;
+        }
+
+        public static void AmdYM2151(FrameBuffer screen, ref int oamd, int namd)
+        {
+            if (oamd == namd)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 26;
+            drawFont4Int(screen, x, y, 0, 3, namd);
+
+            oamd = namd;
+        }
+
+        public static void PmdYM2151(FrameBuffer screen, ref int opmd, int npmd)
+        {
+            if (opmd == npmd)
+            {
+                return;
+            }
+
+            int x = 4 * 59;
+            int y = 8 * 25;
+            drawFont4Int(screen, x, y, 0, 3, npmd);
+
+            opmd = npmd;
+        }
+
+        public static void WaveFormYM2151(FrameBuffer screen, ref int owaveform, int nwaveform)
+        {
+            if (owaveform == nwaveform)
+            {
+                return;
+            }
+
+            int x = 4 * 68;
+            int y = 8 * 24;
+            drawFont4Int(screen, x, y, 0, 1, nwaveform);
+
+            owaveform = nwaveform;
+        }
+
+        public static void LfoSyncYM2151(FrameBuffer screen, ref int olfosync, int nlfosync)
+        {
+            if (olfosync == nlfosync)
+            {
+                return;
+            }
+
+            int x = 4 * 68;
+            int y = 8 * 25;
+            drawFont4Int(screen, x, y, 0, 1, nlfosync);
+
+            olfosync = nlfosync;
+        }
+
+        public static void Tn(FrameBuffer screen, int x, int y, int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawTnP(screen, x * 4, y * 4 + c * 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public static void SUSFlag(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        {
+            if (oi != ni)
+            {
+                drawFont4(screen, x * 4, y * 4, 0, ni == 0 ? "-" : "*");
+                oi = ni;
+            }
+        }
+
+        public static void LfoSw(FrameBuffer screen, int x, int y, ref bool olfosw, bool nlfosw)
+        {
+            if (olfosw == nlfosw)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+            drawFont4(screen, x, y, 0, nlfosw ? "ON " : "OFF");
+
+            olfosw = nlfosw;
+        }
+
+        public static void LfoFrq(FrameBuffer screen, int x, int y, ref int olfofrq, int nlfofrq)
+        {
+            if (olfofrq == nlfofrq)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+            drawFont4Int(screen, x, y, 0, 1, nlfofrq);
+
+            olfofrq = nlfofrq;
+        }
+
+        public static void NoteLogYM2612MIDI(FrameBuffer screen, int x, int y, ref int oln, int nln)
+        {
+            if (oln == nln) return;
+            if (nln == -1)
+            {
+                drawFont4V(screen, x, y, 0, "   ");
+            }
+            else
+            {
+                drawFont4V(screen, x, y, 0, kbnp[nln % 12]);
+                drawFont4V(screen, x, y - 2 * 4, 0, kbo[nln / 12]);
+            }
+            oln = nln;
+        }
+
+        public static void UseChannelYM2612MIDI(FrameBuffer screen, int x, int y, ref bool olm, bool nlm)
+        {
+            //if (olm == nlm) return;
+
+            drawFont8(screen, x, y, 1, nlm ? "^" : "-");
+
+            olm = nlm;
+        }
+
+        public static void MONOPOLYYM2612MIDI(FrameBuffer screen, ref bool olm, bool nlm)
+        {
+            if (olm == nlm) return;
+
+            drawFont8(screen, 8, 16, 1, nlm ? "^" : "-");
+            drawFont8(screen, 8, 24, 1, nlm ? "-" : "^");
+
+            olm = nlm;
+        }
+
+        public static void ToneFormat(FrameBuffer screen, int x, int y, ref int oToneFormat, int nToneFormat)
+        {
+            if (oToneFormat == nToneFormat)
+            {
+                return;
+            }
+
+            x *= 4;
+            y *= 4;
+
+            drawToneFormatP(screen, x, y, nToneFormat);
+
+            oToneFormat = nToneFormat;
+        }
+
+        public static void drawChipName(FrameBuffer screen, int x, int y, int t, ref byte oc, byte nc)
+        {
+            if (oc == nc) return;
+
+            drawChipNameP(screen, x, y, t, nc);
+
+            oc = nc;
+        }
+
+        public static void drawTimer(FrameBuffer screen, int c, ref int ot1, ref int ot2, ref int ot3, int nt1, int nt2, int nt3)
+        {
+            if (ot1 != nt1)
+            {
+                //drawFont4Int2(mainScreen, 4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
+                DrawBuff.drawFont8Int2(screen, 8 * 3 + c * 8 * 11, 16, 0, 3, nt1);
+                ot1 = nt1;
+            }
+            if (ot2 != nt2)
+            {
+                DrawBuff.drawFont8Int2(screen, 8 * 7 + c * 8 * 11, 16, 0, 2, nt2);
+                //drawFont4Int2(mainScreen, 4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
+                ot2 = nt2;
+            }
+            if (ot3 != nt3)
+            {
+                DrawBuff.drawFont8Int2(screen, 8 * 10 + c * 8 * 11, 16, 0, 2, nt3);
+                //drawFont4Int2(mainScreen, 4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
+                ot3 = nt3;
+            }
+        }
+
+        public static void drawButtonP(FrameBuffer mainScreen, int x, int y, int t, int m)
+        {
+            if (mainScreen == null) return;
+
+            int n = t % 18;
+            t /= 18;
+            switch (n)
+            {
+                case 0:
+                    //setting
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 5 * 16, 1 * 16, 16, 16);
+                    break;
+                case 1:
+                    //stop
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 0 * 16, 0 * 16, 16, 16);
+                    break;
+                case 2:
+                    //pause
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 1 * 16, 0 * 16, 16, 16);
+                    break;
+                case 3:
+                    //fadeout
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 4 * 16, 1 * 16, 16, 16);
+                    break;
+                case 4:
+                    //PREV
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 6 * 16, 1 * 16, 16, 16);
+                    break;
+                case 5:
+                    //slow
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 2 * 16, 0 * 16, 16, 16);
+                    break;
+                case 6:
+                    //play
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 3 * 16, 0 * 16, 16, 16);
+                    break;
+                case 7:
+                    //fast
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 4 * 16, 0 * 16, 16, 16);
+                    break;
+                case 8:
+                    //NEXT
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 7 * 16, 1 * 16, 16, 16);
+                    break;
+                case 9:
+                    //loopmode
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 1 * 16 + m * 16, 2 * 16, 16, 16);
+                    break;
+                case 10:
+                    //folder
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 5 * 16, 0 * 16, 16, 16);
+                    break;
+                case 11:
+                    //List
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 0 * 16, 2 * 16, 16, 16);
+                    break;
+                case 12:
+                    //info
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 0 * 16, 1 * 16, 16, 16);
+                    break;
+                case 13:
+                    //mixer
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 2 * 16, 1 * 16, 16, 16);
+                    break;
+                case 14:
+                    //panel
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 5 * 16, 2 * 16, 16, 16);
+                    break;
+                case 15:
+                    //VST List
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 7 * 16, 0 * 16, 16, 16);
+                    break;
+                case 16:
+                    //MIDI Keyboard
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 3 * 16, 1 * 16, 16, 16);
+                    break;
+                case 17:
+                    //zoom
+                    mainScreen.drawByteArray(x, y, rMenuButtons[t], 128, 6 * 16, 2 * 16, 16, 16);
+                    break;
+            }
+        }
+
+        public static void drawButton(FrameBuffer mainScreen,int c, ref int ot, int nt, ref int om, int nm)
+        {
+            if (ot == nt && om == nm)
+            {
+                return;
+            }
+
+            drawFont8(mainScreen, 32 + c * 16, 24, 0, "  ");
+            drawFont8(mainScreen, 32 + c * 16, 32, 0, "  ");
+            drawButtonP(mainScreen,32 + c * 16, 24, nt * 18 + c, nm);
+
+            ot = nt;
+            om = nm;
+        }
+
+        public static void drawButtons(FrameBuffer mainScreen, int[] oldButton, int[] newButton, int[] oldButtonMode, int[] newButtonMode)
+        {
+
+            for (int i = 0; i < newButton.Length; i++)
+            {
+                drawButton(mainScreen, i, ref oldButton[i], newButton[i], ref oldButtonMode[i], newButtonMode[i]);
+            }
+
+        }
 
 
 
@@ -1023,7 +2048,7 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rPSGMode[tp], 32, 8 * t, 0, 8, 8);
         }
 
-        private static void drawFont8(FrameBuffer screen, int x, int y, int t, string msg)
+        public static void drawFont8(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null)
             {
@@ -1038,7 +2063,101 @@ namespace MDPlayer
             }
         }
 
-        private static void drawFont4(FrameBuffer screen, int x, int y, int t, string msg)
+        public static void drawFont8Int(FrameBuffer screen, int x, int y, int t, int k, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            if (k == 3)
+            {
+                bool f = false;
+                n = num / 100;
+                num -= n * 100;
+                n = (n > 9) ? 0 : n;
+                if (n != 0)
+                {
+                    screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+                    if (n != 0) { f = true; }
+                }
+                else
+                {
+                    screen.drawByteArray(x, y, rFont1[t], 128, 0, 0, 8, 8);
+                }
+
+                n = num / 10;
+                num -= n * 10;
+                x += 8;
+                if (n != 0 || f)
+                {
+                    screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+                    if (n != 0) { f = true; }
+                }
+                else
+                {
+                    screen.drawByteArray(x, y, rFont1[t], 128, 0, 0, 8, 8);
+                }
+
+                n = num / 1;
+                num -= n * 1;
+                x += 8;
+                screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            if (n != 0)
+            {
+                screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rFont1[t], 128, 0, 0, 8, 8);
+            }
+
+            n = num / 1;
+            num -= n * 1;
+            x += 8;
+            screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+        }
+
+        public static void drawFont8Int2(FrameBuffer screen, int x, int y, int t, int k, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            if (k == 3)
+            {
+                n = num / 100;
+                num -= n * 100;
+
+                n = (n > 9) ? 0 : n;
+                if (n == 0) screen.drawByteArray(x, y, rFont1[t], 128, 0, 0, 8, 8);
+                else screen.drawByteArray(x, y, rFont1[t], 128, 0, 8, 8, 8);
+
+                n = num / 10;
+                num -= n * 10;
+                x += 8;
+                screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+
+                n = num / 1;
+                x += 8;
+                screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+
+            n = num / 1;
+            x += 8;
+            screen.drawByteArray(x, y, rFont1[t], 128, n * 8, 8, 8, 8);
+        }
+
+        public static void drawFont4(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
 
@@ -1177,10 +2296,61 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
         }
 
+        public static void drawFont4Int2(FrameBuffer screen, int x, int y, int t, int k, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            if (k == 3)
+            {
+                n = num / 100;
+                num -= n * 100;
+                n = (n > 9) ? 0 : n;
+                screen.drawByteArray(x, y, rFont2[t], 128, 0, 0, 4, 8);
+
+                n = num / 10;
+                num -= n * 10;
+                x += 4;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+                n = num / 1;
+                x += 4;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 1;
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+        }
+
+        private static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
+        {
+            if (screen == null) return;
+
+            foreach (char c in msg)
+            {
+                int cd = c - 'A' + 0x20 + 1;
+                screen.drawByteArray(x, y, rFont3[t], 128, (cd % 16) * 8, (cd / 16) * 4, 8, 4);
+                y -= 4;
+            }
+        }
+
         private static void drawEtypeP(FrameBuffer screen, int x, int y, int t)
         {
             if (screen == null) return;
             screen.drawByteArray(x, y, rPSGEnv, 64, 8 * t, 0, 8, 8);
+        }
+
+        private static void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null) return;
+            screen.drawByteArray(x, y, rPan[tp], 32, 8 * t, 0, 8, 8);
         }
 
         private static void drawPanType2P(FrameBuffer screen, int x, int y, int t)
@@ -1242,6 +2412,229 @@ namespace MDPlayer
             drawFont8(screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
         }
 
+        private static void ChOKIM6258_P(FrameBuffer screen, int x, int y, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 8 * 8, 0, 24, 8);
+        }
+
+        private static void ChSegaPCM_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+            if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChSN76489_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32, 0, 16, 8);
+            drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChYM2151_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+            drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChYM2203_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 3)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 6)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 3).ToString());
+            }
+            else if (ch < 9)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 24, 8);
+            }
+        }
+
+        private static void ChYM2413_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 9)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else
+            {
+                switch (ch)
+                {
+                    case 9:
+                        drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "BD");
+                        break;
+                    case 10:
+                        drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "SD");
+                        break;
+                    case 11:
+                        drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "TM");
+                        break;
+                    case 12:
+                        drawFont4(screen, (ch - 9) * 4 * 15 + 3 * 4, y, mask ? 1 : 0, "CYM");// 3 character
+                        break;
+                    case 13:
+                        drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "HH");
+                        break;
+                }
+            }
+        }
+
+        private static void ChYM2608_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 6)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 9)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+            else if (ch < 12)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 0, 24, 8);
+            }
+        }
+
+        private static void ChYM2608Rhythm_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            drawFont4(screen, x + 1 * 4, y, mask ? 1 : 0, "B");
+            drawFont4(screen, x + 14 * 4, y, mask ? 1 : 0, "S");
+            drawFont4(screen, x + 27 * 4, y, mask ? 1 : 0, "C");
+            drawFont4(screen, x + 40 * 4, y, mask ? 1 : 0, "H");
+            drawFont4(screen, x + 53 * 4, y, mask ? 1 : 0, "T");
+            drawFont4(screen, x + 66 * 4, y, mask ? 1 : 0, "R");
+        }
+
+        private static void ChYM2610_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 6)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 9)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+            }
+            else if (ch < 12)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 32, 24, 8);
+            }
+        }
+
+        private static void ChYM2610Rhythm_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            drawFont4(screen, x + 0 * 4, y, mask ? 1 : 0, "A1");
+            drawFont4(screen, x + 14 * 4, y, mask ? 1 : 0, "2");
+            drawFont4(screen, x + 27 * 4, y, mask ? 1 : 0, "3");
+            drawFont4(screen, x + 40 * 4, y, mask ? 1 : 0, "4");
+            drawFont4(screen, x + 53 * 4, y, mask ? 1 : 0, "5");
+            drawFont4(screen, x + 66 * 4, y, mask ? 1 : 0, "6");
+        }
+
+        private static void Ch6YM2612_P(FrameBuffer screen, int x, int y, int m, bool mask, int tp)
+        {
+            if (m == 0)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, "6");
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+                drawFont8(screen, x + 16, y, 0, " ");
+            }
+        }
+
+        private static void ChYM2612_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (ch == 5)
+            {
+                return;
+            }
+
+            if (ch < 5)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
+            }
+            else if (ch < 10)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (ch - 5).ToString());
+            }
+        }
+
+        private static void Ch6YM2612XGM_P(FrameBuffer screen, int x, int y, int m, bool mask, int tp)
+        {
+            if (m == 0)
+            {
+                //FM mode
+
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, "6");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y, kt, tp);
+                }
+            }
+            else
+            {
+                //PCM mode
+
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+                drawFont8(screen, x + 16, y, 0, " ");
+                drawFont4(screen, x + 32, y, 0, " 1C00             2C00             3C00             4C00                ");
+            }
+        }
+
+
+
         private static void drawFaderSlitP(FrameBuffer screen, int x, int y)
         {
             screen.drawByteArray(x, y, rFader, 32, 16, 0, 8, 8);
@@ -1262,6 +2655,33 @@ namespace MDPlayer
         {
             screen.drawByteArray(x, y, rFader, 32, 24, 8 + t, 2, 1);
         }
+
+        private static void drawTnP(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null) return;
+            screen.drawByteArray(x, y, rPSGMode[tp], 32, 8 * t, 0, 8, 8);
+        }
+
+        private static void drawToneFormatP(FrameBuffer screen, int x, int y, int toneFormat)
+        {
+            screen.drawByteArray(x, y, rMenuButtons[1], 128, (toneFormat % 3) * 5 * 8, (6 + toneFormat / 3) * 8, 40, 8);
+        }
+
+        private static void drawChipNameP(FrameBuffer screen, int x, int y, int t, int c)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            screen.drawByteArray(x, y, rChipName[c], 128
+                , (t % 8) * 16
+                , (t / 8) * 8
+                , 8 * 2
+                , 8);
+
+        }
+
 
 
 

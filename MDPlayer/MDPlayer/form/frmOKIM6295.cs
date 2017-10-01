@@ -21,18 +21,27 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmOKIM6295(frmMain frm, int chipID, int zoom)
+        private MDChipParams.OKIM6295 newParam = null;
+        private MDChipParams.OKIM6295 oldParam = new MDChipParams.OKIM6295();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmOKIM6295(frmMain frm, int chipID, int zoom,MDChipParams.OKIM6295 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeMSM6295, null, zoom);
+            DrawBuff.screenInitOKIM6295(frameBuffer);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation

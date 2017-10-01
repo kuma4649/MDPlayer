@@ -22,7 +22,6 @@ namespace MDPlayer
 
         public ChipLEDs chipLED = new ChipLEDs();
 
-        public enmFileFormat fileFormat = enmFileFormat.unknown;
 
 
         public class Channel
@@ -36,6 +35,7 @@ namespace MDPlayer
             public int volumeR = -1;
             public int freq = -1;
             public int pcmMode = -1;
+            public int pcmBuff = 0;
             public bool mask = false;
             public int tp = -1;
             public int kf = -1;//OPM only
@@ -70,6 +70,7 @@ namespace MDPlayer
 
         public class YM2612
         {
+            public enmFileFormat fileFormat = enmFileFormat.unknown;
             public bool lfoSw = false;
             public int lfoFrq = -1;
             public int[] xpcmVolL = new int[4] { -1, -1, -1, -1 };
@@ -115,6 +116,12 @@ namespace MDPlayer
 
         }
         public OKIM6258[] okim6258 = new OKIM6258[] { new OKIM6258(), new OKIM6258() };
+
+        public class OKIM6295
+        {
+
+        }
+        public OKIM6295[] okim6295 = new OKIM6295[] { new OKIM6295(), new OKIM6295() };
 
         public class SegaPcm
         {

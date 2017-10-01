@@ -21,18 +21,27 @@ namespace MDPlayer
         private int chipID = 0;
         private int zoom = 1;
 
-        public frmOKIM6258(frmMain frm, int chipID, int zoom)
+        private MDChipParams.OKIM6258 newParam = null;
+        private MDChipParams.OKIM6258 oldParam = new MDChipParams.OKIM6258();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmOKIM6258(frmMain frm, int chipID, int zoom, MDChipParams.OKIM6258 newParam)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
+
             InitializeComponent();
 
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeMSM6258, null, zoom);
+            DrawBuff.screenInitOKIM6258(frameBuffer);
             update();
         }
 
         public void update()
         {
+            frameBuffer.Refresh(null);
         }
 
         protected override bool ShowWithoutActivation
@@ -89,11 +98,82 @@ namespace MDPlayer
 
         public void screenChangeParams()
         {
+            MDSound.okim6258.okim6258_state okim6258State = Audio.GetOKIM6258Register(chipID);
+            if (okim6258State == null) return;
+
+            switch (okim6258State.pan & 0x3)
+            {
+                case 0:
+                case 3:
+                    newParam.pan = 3;
+                    break;
+                case 1:
+                    newParam.pan = 2;
+                    break;
+                case 2:
+                    newParam.pan = 1;
+                    break;
+            }
+
+            newParam.masterFreq = (int)okim6258State.master_clock / 1000;
+            newParam.divider = (int)okim6258State.divider;
+            if (okim6258State.divider == 0) newParam.pbFreq = 0;
+            else newParam.pbFreq = (int)(okim6258State.master_clock / okim6258State.divider / 1000);
+
+            int v = (int)(((Math.Abs(okim6258State.data_in - 128) * 2) >> 3) * 1.2);
+            if ((okim6258State.status & 0x2) == 0) v = 0;
+            v = Math.Min(v, 38);
+            if (newParam.volumeL < v && ((newParam.pan & 0x2) != 0))
+            {
+                newParam.volumeL = v;
+            }
+            else
+            {
+                newParam.volumeL--;
+            }
+            if (newParam.volumeR < v && ((newParam.pan & 0x1) != 0))
+            {
+                newParam.volumeR = v;
+            }
+            else
+            {
+                newParam.volumeR--;
+            }
         }
+
 
         public void screenDrawParams()
         {
+            MDChipParams.OKIM6258 ost = oldParam;
+            MDChipParams.OKIM6258 nst = newParam;
+
+            DrawBuff.PanToOKIM6258(frameBuffer, ref ost.pan, nst.pan, ref ost.pantp, 0);
+
+            if (ost.masterFreq != nst.masterFreq)
+            {
+                DrawBuff.drawFont4(frameBuffer, 12 * 4, 8, 0, string.Format("{0:d5}", nst.masterFreq));
+                ost.masterFreq = nst.masterFreq;
+            }
+
+            if (ost.divider != nst.divider)
+            {
+                DrawBuff.drawFont4(frameBuffer, 19 * 4, 8, 0, string.Format("{0:d5}", nst.divider));
+                ost.divider = nst.divider;
+            }
+
+            if (ost.pbFreq != nst.pbFreq)
+            {
+                DrawBuff.drawFont4(frameBuffer, 26 * 4, 8, 0, string.Format("{0:d5}", nst.pbFreq));
+                ost.pbFreq = nst.pbFreq;
+            }
+
+            DrawBuff.Volume(frameBuffer, 0, 1, ref ost.volumeL, nst.volumeL / 2, 0);
+            DrawBuff.Volume(frameBuffer, 0, 2, ref ost.volumeR, nst.volumeR / 2, 0);
+
+            DrawBuff.ChOKIM6258(frameBuffer, ref ost.mask, nst.mask, 0);
+
         }
+
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {

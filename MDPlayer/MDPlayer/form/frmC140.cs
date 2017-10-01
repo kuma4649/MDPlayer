@@ -133,7 +133,7 @@ namespace MDPlayer
                 DrawBuff.VolumeToC140(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL);
                 DrawBuff.VolumeToC140(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR);
                 DrawBuff.KeyBoardToC140(frameBuffer, c, ref orc.note, nrc.note);
-                DrawBuff.PanToC140(frameBuffer, c, ref orc.pan, nrc.pan);
+                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan);
 
                 DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, 0);
             }

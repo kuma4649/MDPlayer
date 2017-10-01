@@ -370,9 +370,9 @@ namespace MDPlayer
             //if (cnt > 1)
             //{
             //if (o < sbyte.MinValue || o > sbyte.MaxValue)
-            //{
-            //o = (short)(o >> (cnt - 1));
-            o = Math.Min(Math.Max(o, sbyte.MinValue), sbyte.MaxValue);
+            //{a
+            //o = (short)(o >> (cnt - 1))aa;
+            o = Math.Min(Math.Max(o, (short)(sbyte.MinValue + 1)), (short)(sbyte.MaxValue));
             o += 0x80;
             //}
             //}
@@ -380,7 +380,7 @@ namespace MDPlayer
             //{
             //    o = 0;
             //}
-
+            //Console.Write("{0} ", o);
             chipRegister.setYM2612Register(0, 0, 0x2a, o, model, vgmFrameCounter);
         }
 
