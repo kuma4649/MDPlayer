@@ -1,4 +1,4 @@
-﻿namespace MDPlayer
+﻿namespace MDPlayer.form
 {
     partial class frmMixer2
     {

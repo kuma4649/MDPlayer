@@ -228,17 +228,17 @@ namespace MDPlayer
         private Bus stack;
         private Layer layer;
 
-        private nes_bank nes_bank = null;
-        private nes_mem nes_mem = null;
-        private km6502 nes_cpu = null;
-        private nes_apu nes_apu = null;
-        private nes_dmc nes_dmc = null;
-        private nes_fds nes_fds = null;
-        private nes_n106 nes_n106 = null;
-        private nes_vrc6 nes_vrc6 = null;
-        private nes_mmc5 nes_mmc5 = null;
-        private nes_fme7 nes_fme7 = null;
-        private nes_vrc7 nes_vrc7 = null;
+        //private nes_bank nes_bank = null;
+        //private nes_mem nes_mem = null;
+        //private km6502 nes_cpu = null;
+        //private nes_apu nes_apu = null;
+        //private nes_dmc nes_dmc = null;
+        //private nes_fds nes_fds = null;
+        //private nes_n106 nes_n106 = null;
+        //private nes_vrc6 nes_vrc6 = null;
+        //private nes_mmc5 nes_mmc5 = null;
+        //private nes_fme7 nes_fme7 = null;
+        //private nes_vrc7 nes_vrc7 = null;
 
         public MDSound.MDSound.Chip cAPU = null;
         public MDSound.MDSound.Chip cDMC = null;
@@ -261,43 +261,43 @@ namespace MDPlayer
 
         private void nsfInit()
         {
-            nes_bank = new nes_bank();
-            nes_mem = new nes_mem();
-            nes_cpu = new km6502();
-            nes_apu = new nes_apu();
-            nes_dmc = new nes_dmc();
-            nes_fds = new nes_fds();
-            nes_n106 = new nes_n106();
-            nes_vrc6 = new nes_vrc6();
-            nes_mmc5 = new nes_mmc5();
-            nes_fme7 = new nes_fme7();
-            nes_vrc7 = new nes_vrc7();
+            chipRegister.nes_bank = new nes_bank();
+            chipRegister.nes_mem = new nes_mem();
+            chipRegister.nes_cpu = new km6502();
+            chipRegister.nes_apu = new nes_apu();
+            chipRegister.nes_dmc = new nes_dmc();
+            chipRegister.nes_fds = new nes_fds();
+            chipRegister.nes_n106 = new nes_n106();
+            chipRegister.nes_vrc6 = new nes_vrc6();
+            chipRegister.nes_mmc5 = new nes_mmc5();
+            chipRegister.nes_fme7 = new nes_fme7();
+            chipRegister.nes_vrc7 = new nes_vrc7();
 
-            nes_apu.chip = nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
-            nes_apu.Reset();
-            nes_dmc.chip = nes_dmc.dmc.NES_DMC_np_Create(common.NsfClock, common.SampleRate);
-            nes_dmc.Reset();
-            nes_fds.chip = nes_fds.fds.NES_FDS_Create(common.NsfClock, common.SampleRate);
-            nes_fds.Reset();
-            nes_n106.SetClock(common.NsfClock);
-            nes_n106.SetRate(common.SampleRate);
-            nes_n106.Reset();
-            nes_vrc6.SetClock(common.NsfClock);
-            nes_vrc6.SetRate(common.SampleRate);
-            nes_vrc6.Reset();
-            nes_mmc5.SetClock(common.NsfClock);
-            nes_mmc5.SetRate(common.SampleRate);
-            nes_mmc5.Reset();
-            nes_mmc5.SetCPU(nes_cpu);
-            nes_fme7.SetClock(common.NsfClock);
-            nes_fme7.SetRate(common.SampleRate);
-            nes_fme7.Reset();
-            nes_vrc7.SetClock(common.NsfClock);
-            nes_vrc7.SetRate(common.SampleRate);
-            nes_vrc7.Reset();
+            chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_apu.Reset();
+            chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_dmc.Reset();
+            chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_fds.Reset();
+            chipRegister.nes_n106.SetClock(common.NsfClock);
+            chipRegister.nes_n106.SetRate(common.SampleRate);
+            chipRegister.nes_n106.Reset();
+            chipRegister.nes_vrc6.SetClock(common.NsfClock);
+            chipRegister.nes_vrc6.SetRate(common.SampleRate);
+            chipRegister.nes_vrc6.Reset();
+            chipRegister.nes_mmc5.SetClock(common.NsfClock);
+            chipRegister.nes_mmc5.SetRate(common.SampleRate);
+            chipRegister.nes_mmc5.Reset();
+            chipRegister.nes_mmc5.SetCPU(chipRegister.nes_cpu);
+            chipRegister.nes_fme7.SetClock(common.NsfClock);
+            chipRegister.nes_fme7.SetRate(common.SampleRate);
+            chipRegister.nes_fme7.Reset();
+            chipRegister.nes_vrc7.SetClock(common.NsfClock);
+            chipRegister.nes_vrc7.SetRate(common.SampleRate);
+            chipRegister.nes_vrc7.Reset();
 
-            nes_dmc.dmc.nes_apu = nes_apu.apu;
-            nes_dmc.dmc.NES_DMC_np_SetAPU(nes_dmc.chip, nes_apu.chip);
+            chipRegister.nes_dmc.dmc.nes_apu = chipRegister.nes_apu.apu;
+            chipRegister.nes_dmc.dmc.NES_DMC_np_SetAPU(chipRegister.nes_dmc.chip, chipRegister.nes_apu.chip);
 
             stack = new Bus();
             layer = new Layer();
@@ -309,13 +309,13 @@ namespace MDPlayer
                 if (bmax < bankswitch[i])
                     bmax = bankswitch[i];
 
-            nes_mem.SetImage(body, load_address, (UInt32)bodysize);
+            chipRegister.nes_mem.SetImage(body, load_address, (UInt32)bodysize);
 
             if (bmax != 0)
             {
-                nes_bank.SetImage(body, load_address, (UInt32)bodysize);
+                chipRegister.nes_bank.SetImage(body, load_address, (UInt32)bodysize);
                 for (i = 0; i < 8; i++)
-                    nes_bank.SetBankDefault((byte)(i + 8), bankswitch[i]);
+                    chipRegister.nes_bank.SetBankDefault((byte)(i + 8), bankswitch[i]);
             }
 
             stack.DetachAll();
@@ -327,80 +327,79 @@ namespace MDPlayer
             ld.Reset();
             stack.Attach(ld);
 
-            apu_bus.Attach(nes_apu);
-            apu_bus.Attach(nes_dmc);
+            apu_bus.Attach(chipRegister.nes_apu);
+            apu_bus.Attach(chipRegister.nes_dmc);
 
-            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_UNMUTE_ON_RESET, setting.nsf.NESUnmuteOnReset ? 1 : 0);
-            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_NONLINEAR_MIXER, setting.nsf.NESNonLinearMixer ? 1 : 0);
-            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_PHASE_REFRESH, setting.nsf.NESPhaseRefresh ? 1 : 0);
-            nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_DUTY_SWAP, setting.nsf.NESDutySwap ? 1 : 0);
+            chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_UNMUTE_ON_RESET, setting.nsf.NESUnmuteOnReset ? 1 : 0);
+            chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_NONLINEAR_MIXER, setting.nsf.NESNonLinearMixer ? 1 : 0);
+            chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_PHASE_REFRESH, setting.nsf.NESPhaseRefresh ? 1 : 0);
+            chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_DUTY_SWAP, setting.nsf.NESDutySwap ? 1 : 0);
 
-            nes_dmc.SetOption(0, setting.nsf.DMCUnmuteOnReset ? 1 : 0);
-            nes_dmc.SetOption(1, setting.nsf.DMCNonLinearMixer ? 1 : 0);
-            nes_dmc.SetOption(2, setting.nsf.DMCEnable4011 ? 1 : 0);
-            nes_dmc.SetOption(3, setting.nsf.DMCEnablePnoise ? 1 : 0);
-            nes_dmc.SetOption(4, setting.nsf.DMCDPCMAntiClick ? 1 : 0);
-            nes_dmc.SetOption(5, setting.nsf.DMCRandomizeNoise ? 1 : 0);
-            nes_dmc.SetOption(6, setting.nsf.DMCTRImute ? 1 : 0);
-            nes_dmc.SetOption(7, setting.nsf.DMCTRINull ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(0, setting.nsf.DMCUnmuteOnReset ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(1, setting.nsf.DMCNonLinearMixer ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(2, setting.nsf.DMCEnable4011 ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(3, setting.nsf.DMCEnablePnoise ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(4, setting.nsf.DMCDPCMAntiClick ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(5, setting.nsf.DMCRandomizeNoise ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(6, setting.nsf.DMCTRImute ? 1 : 0);
+            chipRegister.nes_dmc.SetOption(7, setting.nsf.DMCTRINull ? 1 : 0);
 
             if (use_fds)
             {
                 bool write_enable = !setting.nsf.FDSWriteDisable8000;
-                nes_fds.SetOption(0, setting.nsf.FDSLpf);
-                nes_fds.SetOption(1, setting.nsf.FDS4085Reset ? 1 : 0);
-
-                nes_mem.SetFDSMode(write_enable);
-                nes_bank.SetFDSMode(write_enable);
-                nes_bank.SetBankDefault(6, bankswitch[6]);
-                nes_bank.SetBankDefault(7, bankswitch[7]);
-                apu_bus.Attach(nes_fds);
+                chipRegister.nes_fds.SetOption(0, setting.nsf.FDSLpf);
+                chipRegister.nes_fds.SetOption(1, setting.nsf.FDS4085Reset ? 1 : 0);
+                chipRegister.nes_mem.SetFDSMode(write_enable);
+                chipRegister.nes_bank.SetFDSMode(write_enable);
+                chipRegister.nes_bank.SetBankDefault(6, bankswitch[6]);
+                chipRegister.nes_bank.SetBankDefault(7, bankswitch[7]);
+                apu_bus.Attach(chipRegister.nes_fds);
             }
             else
             {
-                nes_mem.SetFDSMode(false);
-                nes_bank.SetFDSMode(false);
+                chipRegister.nes_mem.SetFDSMode(false);
+                chipRegister.nes_bank.SetFDSMode(false);
             }
             if (use_n106)
             {
-                nes_n106.SetOption(0, setting.nsf.N160Serial ? 1 : 0);
-                apu_bus.Attach(nes_n106);
+                chipRegister.nes_n106.SetOption(0, setting.nsf.N160Serial ? 1 : 0);
+                apu_bus.Attach(chipRegister.nes_n106);
             }
             if (use_vrc6)
             {
-                apu_bus.Attach(nes_vrc6);
+                apu_bus.Attach(chipRegister.nes_vrc6);
             }
             if (use_mmc5)
             {
-                nes_mmc5.SetOption(0, setting.nsf.MMC5NonLinearMixer ? 1 : 0);
-                nes_mmc5.SetOption(1, setting.nsf.MMC5PhaseRefresh ? 1 : 0);
-                apu_bus.Attach(nes_mmc5);
+                chipRegister.nes_mmc5.SetOption(0, setting.nsf.MMC5NonLinearMixer ? 1 : 0);
+                chipRegister.nes_mmc5.SetOption(1, setting.nsf.MMC5PhaseRefresh ? 1 : 0);
+                apu_bus.Attach(chipRegister.nes_mmc5);
             }
             if (use_fme7)
             {
-                apu_bus.Attach(nes_fme7);
+                apu_bus.Attach(chipRegister.nes_fme7);
             }
             if (use_vrc7)
             {
-                apu_bus.Attach(nes_vrc7);
+                apu_bus.Attach(chipRegister.nes_vrc7);
             }
 
-            if (bmax > 0) layer.Attach(nes_bank);
-            layer.Attach(nes_mem);
+            if (bmax > 0) layer.Attach(chipRegister.nes_bank);
+            layer.Attach(chipRegister.nes_mem);
 
             stack.Attach(apu_bus);
             stack.Attach(layer);
 
-            nes_cpu.SetMemory(stack);
-            nes_dmc.SetMemory(stack);
+            chipRegister.nes_cpu.SetMemory(stack);
+            chipRegister.nes_dmc.SetMemory(stack);
 
-            nes_apu.chip.square_table[0] = 0;
+            chipRegister.nes_apu.chip.square_table[0] = 0;
             for (i = 1; i < 32; i++)
-                nes_apu.chip.square_table[i] = (Int32)((8192.0 * 95.88) / (8128.0 / i + 100));
+                chipRegister.nes_apu.chip.square_table[i] = (Int32)((8192.0 * 95.88) / (8128.0 / i + 100));
 
             for (int c = 0; c < 2; ++c)
                 for (int t = 0; t < 2; ++t)
-                    nes_apu.chip.sm[c][t] = 128;
+                    chipRegister.nes_apu.chip.sm[c][t] = 128;
 
             Reset();
         }
@@ -423,9 +422,9 @@ namespace MDPlayer
             speed = 1000000.0 / ((region == enmREGION.NTSC) ? speed_ntsc : speed_pal);
 
             layer.Reset();
-            nes_cpu.Reset();
+            chipRegister.nes_cpu.Reset();
 
-            nes_cpu.Start(init_address, play_address, speed, song, (region == enmREGION.PAL) ? 1 : 0);
+            chipRegister.nes_cpu.Start(init_address, play_address, speed, song, (region == enmREGION.PAL) ? 1 : 0);
         }
 
         private enmREGION GetRegion(byte flags)
@@ -469,7 +468,7 @@ namespace MDPlayer
 
             master_volume = 0x80;// (*config)["MASTER_VOLUME"];
 
-            double apu_clock_per_sample = nes_cpu.NES_BASECYCLES / rate;
+            double apu_clock_per_sample = chipRegister.nes_cpu.NES_BASECYCLES / rate;
             double cpu_clock_per_sample = apu_clock_per_sample * vgmSpeed;// ((double)((*config)["MULT_SPEED"].GetInt()) / 256.0);
 
 
@@ -485,13 +484,13 @@ namespace MDPlayer
                 int cpu_clocks = (int)(cpu_clock_rest);
                 if (cpu_clocks > 0)
                 {
-                    UInt32 real_cpu_clocks = nes_cpu.Exec((UInt32)cpu_clocks);
+                    UInt32 real_cpu_clocks = chipRegister.nes_cpu.Exec((UInt32)cpu_clocks);
                     cpu_clock_rest -= (double)(real_cpu_clocks);
 
                     // tick APU frame sequencer
-                    nes_dmc.dmc.TickFrameSequence(nes_dmc.chip, real_cpu_clocks);
+                    chipRegister.nes_dmc.dmc.TickFrameSequence(chipRegister.nes_dmc.chip, real_cpu_clocks);
                     if (use_mmc5)
-                        nes_mmc5.TickFrameSequence(real_cpu_clocks);
+                        chipRegister.nes_mmc5.TickFrameSequence(real_cpu_clocks);
                 }
 
                 //UpdateInfo();
@@ -507,8 +506,8 @@ namespace MDPlayer
 
                 // render output
                 //mixer.Render(buf);
-                nes_apu.Tick((UInt32)apu_clocks);
-                nes_apu.Render(buf);
+                chipRegister.nes_apu.Tick((UInt32)apu_clocks);
+                chipRegister.nes_apu.Render(buf);
 
                 // echo.FastRender(buf);
                 //dcf.FastRender(buf);
@@ -522,16 +521,16 @@ namespace MDPlayer
                 _out[0] = (buf[0] * mul) >> 13;
                 _out[1] = (buf[1] * mul) >> 13;
 
-                nes_dmc.Tick((UInt32)apu_clocks);
-                nes_dmc.Render(buf);
+                chipRegister.nes_dmc.Tick((UInt32)apu_clocks);
+                chipRegister.nes_dmc.Render(buf);
                 mul = (int)(16384.0 * Math.Pow(10.0, cDMC.Volume / 40.0));
                 _out[0] += (buf[0] * mul) >> 13;
                 _out[1] += (buf[1] * mul) >> 13;
 
                 if (use_fds)
                 {
-                    nes_fds.Tick((UInt32)apu_clocks);
-                    nes_fds.Render(buf);
+                    chipRegister.nes_fds.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_fds.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cFDS.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 13;
                     _out[1] += (buf[1] * mul) >> 13;
@@ -539,8 +538,8 @@ namespace MDPlayer
 
                 if (use_n106)
                 {
-                    nes_n106.Tick((UInt32)apu_clocks);
-                    nes_n106.Render(buf);
+                    chipRegister.nes_n106.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_n106.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cN160.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 10;
                     _out[1] += (buf[1] * mul) >> 10;
@@ -548,8 +547,8 @@ namespace MDPlayer
 
                 if (use_vrc6)
                 {
-                    nes_vrc6.Tick((UInt32)apu_clocks);
-                    nes_vrc6.Render(buf);
+                    chipRegister.nes_vrc6.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_vrc6.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cVRC6.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 10;
                     _out[1] += (buf[1] * mul) >> 10;
@@ -557,8 +556,8 @@ namespace MDPlayer
 
                 if (use_mmc5)
                 {
-                    nes_mmc5.Tick((UInt32)apu_clocks);
-                    nes_mmc5.Render(buf);
+                    chipRegister.nes_mmc5.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_mmc5.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cMMC5.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 10;
                     _out[1] += (buf[1] * mul) >> 10;
@@ -566,8 +565,8 @@ namespace MDPlayer
 
                 if (use_fme7)
                 {
-                    nes_fme7.Tick((UInt32)apu_clocks);
-                    nes_fme7.Render(buf);
+                    chipRegister.nes_fme7.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_fme7.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cFME7.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 9;
                     _out[1] += (buf[1] * mul) >> 9;
@@ -575,8 +574,8 @@ namespace MDPlayer
 
                 if (use_vrc7)
                 {
-                    nes_vrc7.Tick((UInt32)apu_clocks);
-                    nes_vrc7.Render(buf);
+                    chipRegister.nes_vrc7.Tick((UInt32)apu_clocks);
+                    chipRegister.nes_vrc7.Render(buf);
                     mul = (int)(16384.0 * Math.Pow(10.0, cVRC7.Volume / 40.0));
                     _out[0] += (buf[0] * mul) >> 10;
                     _out[1] += (buf[1] * mul) >> 10;

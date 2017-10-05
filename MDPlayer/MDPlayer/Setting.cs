@@ -2233,6 +2233,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosNESDMC = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosNESDMC
+            {
+                get
+                {
+                    return _PosNESDMC;
+                }
+
+                set
+                {
+                    _PosNESDMC = value;
+                }
+            }
+
+            private bool[] _OpenNESDMC = new bool[2] { false, false };
+            public bool[] OpenNESDMC
+            {
+                get
+                {
+                    return _OpenNESDMC;
+                }
+
+                set
+                {
+                    _OpenNESDMC = value;
+                }
+            }
+
 
 
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MDPlayer
+namespace MDPlayer.form
 {
     public partial class frmYM2413 : Form
     {

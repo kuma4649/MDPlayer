@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using NAudio.Midi;
+using MDSound.np;
+using MDSound.np.memory;
+using MDSound.np.cpu;
+using MDSound.np.chip;
 
 namespace MDPlayer
 {
@@ -146,6 +150,19 @@ namespace MDPlayer
 
         public MIDIParam[] midiParams = new MIDIParam[] { null, null };
 
+        public nes_bank nes_bank = null;
+        public nes_mem nes_mem = null;
+        public km6502 nes_cpu = null;
+        public nes_apu nes_apu = null;
+        public nes_dmc nes_dmc = null;
+        public nes_fds nes_fds = null;
+        public nes_n106 nes_n106 = null;
+        public nes_vrc6 nes_vrc6 = null;
+        public nes_mmc5 nes_mmc5 = null;
+        public nes_fme7 nes_fme7 = null;
+        public nes_vrc7 nes_vrc7 = null;
+
+
         private int[] LatchedRegister = new int[] { 0, 0 };
         private int[] NoiseFreq = new int[] { 0, 0 };
 
@@ -287,9 +304,21 @@ namespace MDPlayer
 
                 midiParams[chipID] = new MIDIParam();
             }
+            nes_bank = null;
+            nes_mem = null;
+            nes_cpu = null;
+            nes_apu = null;
+            nes_dmc = null;
+            nes_fds = null;
+            nes_n106 = null;
+            nes_vrc6 = null;
+            nes_mmc5 = null;
+            nes_fme7 = null;
+            nes_vrc7 = null;
+
         }
 
-        public void Close()
+    public void Close()
         {
             midiExport.Close();
         }
@@ -622,6 +651,27 @@ namespace MDPlayer
             }
             else
             {
+                //if (scNES[chipID] == null) return;
+
+                //scNES[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public byte[] getNESRegister(int chipID,enmModel model)
+        {
+            if (chipID == 0) chipLED.PriNES = 2;
+            else chipLED.SecNES = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctNES[chipID].UseScci)
+                //{
+                return mds.ReadNES((byte)chipID);
+                //}
+            }
+            else
+            {
+                return null;
                 //if (scNES[chipID] == null) return;
 
                 //scNES[chipID].setRegister(dAddr, dData);

@@ -228,6 +228,15 @@ namespace MDPlayer
 
         public MIDIParam[] midi = new MIDIParam[] { new MIDIParam(), new MIDIParam() };
 
+        public class NESDMC
+        {
+            public Channel[] sqrChannels = new Channel[2] { new Channel(), new Channel() };
+            public Channel triChannel = new Channel();
+            public Channel noiseChannel = new Channel();
+            public Channel dmcChannel = new Channel();
+        }
+        public NESDMC[] nesdmc = new NESDMC[] { new NESDMC(), new NESDMC() };
+
         public class Mixer
         {
             public class VolumeInfo

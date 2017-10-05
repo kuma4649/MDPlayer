@@ -7,7 +7,7 @@ using NAudio.CoreAudioApi;
 using System.Reflection;
 using System.IO;
 
-namespace MDPlayer
+namespace MDPlayer.form
 {
     public partial class frmSetting : Form
     {

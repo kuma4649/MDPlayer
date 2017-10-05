@@ -8,6 +8,7 @@ using Jacobi.Vst.Interop.Host;
 using Jacobi.Vst.Core;
 using System.IO;
 using System.IO.Compression;
+using MDPlayer.form;
 
 namespace MDPlayer
 {
@@ -2123,6 +2124,9 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
+                chipRegister.initChipRegister();
+
+
                 trdClosed = false;
                 trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
                 trdMain.Priority = ThreadPriority.Highest;
@@ -2274,8 +2278,6 @@ namespace MDPlayer
                     mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
-
-                chipRegister.initChipRegister();
 
                 //Play
 
@@ -2914,7 +2916,7 @@ namespace MDPlayer
                         chip.Stop = nes.Stop;
                         chip.Reset = nes.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.NESVolume;
+                        chip.Volume = setting.balance.APUVolume;
                         chip.Clock = ((vgm)driverVirtual).NESClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriNES = 1;
@@ -4029,6 +4031,34 @@ namespace MDPlayer
         public static segapcm.segapcm_state GetSegaPCMRegister(int chipID)
         {
             return mds.ReadSegaPCMStatus(chipID);
+        }
+
+        public static byte[] GetAPURegister(int chipID)
+        {
+            byte[] reg = null;
+
+            if (chipRegister == null) reg= null;
+            else if (chipRegister.nes_apu == null) reg = null;
+            else if (chipRegister.nes_apu.chip == null) reg = null;
+            else reg =chipRegister.nes_apu.chip.reg;
+
+            if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
+
+            return reg;
+        }
+
+        public static byte[] GetDMCRegister(int chipID)
+        {
+            byte[] reg = null;
+
+            if (chipRegister == null) reg = null;
+            else if (chipRegister.nes_apu == null) reg = null;
+            else if (chipRegister.nes_apu.chip == null) reg = null;
+            else reg = chipRegister.nes_dmc.chip.reg;
+
+            //if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
+
+            return reg;
         }
 
         public static int[] GetFMKeyOn(int chipID)

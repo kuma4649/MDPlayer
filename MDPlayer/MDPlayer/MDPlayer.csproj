@@ -179,6 +179,12 @@
     <Compile Include="form\frmMixer2.Designer.cs">
       <DependentUpon>frmMixer2.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmNESDMC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmNESDMC.Designer.cs">
+      <DependentUpon>frmNESDMC.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmOKIM6258.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +339,9 @@
     <EmbeddedResource Include="form\frmMixer2.resx">
       <DependentUpon>frmMixer2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmNESDMC.resx">
+      <DependentUpon>frmNESDMC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmOKIM6258.resx">
       <DependentUpon>frmOKIM6258.cs</DependentUpon>
     </EmbeddedResource>
@@ -451,6 +460,7 @@
     <Content Include="Resources\planeMixer.png" />
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
+    <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
     <Content Include="Resources\planeYM2203.png" />
@@ -488,6 +498,7 @@
     <Content Include="Resources\rMIDILCD_Vol_01.png" />
     <Content Include="Resources\rMIDILCD_Vol_02.png" />
     <Content Include="Resources\rMIDILCD_Vol_03.png" />
+    <Content Include="Resources\rNESDMC.png" />
     <Content Include="Resources\rPan2_01.png" />
     <Content Include="Resources\rPan2_02.png" />
     <Content Include="Resources\rPan_01.png" />

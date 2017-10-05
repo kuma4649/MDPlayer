@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MDPlayer
+namespace MDPlayer.form
 {
     public partial class frmMIDI : Form
     {
@@ -249,7 +249,7 @@ namespace MDPlayer
 
                     if (newParam.note[ch][n] > 0)
                     {
-                        notes = notes + string.Format("{0}{1} ", DrawBuff.kbns[n % 12], n / 12);
+                        notes = notes + string.Format("{0}{1} ", Tables.kbns[n % 12], n / 12);
                     }
                 }
                 notes += "                           ";

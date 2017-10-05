@@ -8,7 +8,7 @@ using NAudio.Midi;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MDPlayer
+namespace MDPlayer.form
 {
     public partial class frmMain : Form
     {
@@ -38,6 +38,7 @@ namespace MDPlayer
         private frmMIDI[] frmMIDI = new frmMIDI[2] { null, null };
         private frmYM2612MIDI frmYM2612MIDI = null;
         private frmMixer2 frmMixer2 = null;
+        private frmNESDMC[] frmNESDMC = new frmNESDMC[2] { null, null };
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -64,6 +65,8 @@ namespace MDPlayer
         private MidiIn midiin = null;
         private bool forcedExit = false;
         private YM2612MIDI YM2612MIDI = null;
+
+
 
         public frmMain()
         {
@@ -161,34 +164,40 @@ namespace MDPlayer
 
             if (setting.location.OPlayList) dispPlayList();
             if (setting.location.OInfo) openInfo();
-            if (setting.location.OpenRf5c164[0]) tsmiPRF5C164_Click(null, null);
+
+            if (setting.location.OpenAY8910[0]) tsmiPAY8910_Click(null, null);
             if (setting.location.OpenC140[0]) tsmiPC140_Click(null, null);
-            if (setting.location.OpenYm2151[0]) tsmiPOPM_Click(null, null);
-            if (setting.location.OpenYm2608[0]) tsmiPOPNA_Click(null, null);
-            if (setting.location.OpenYm2203[0]) tsmiPOPN_Click(null, null);
-            if (setting.location.OpenYm2413[0]) tsmiPOPLL_Click(null, null);
-            if (setting.location.OpenYm2610[0]) tsmiPOPNB_Click(null, null);
-            if (setting.location.OpenYm2612[0]) tsmiPOPN2_Click(null, null);
+            if (setting.location.OpenHuC6280[0]) tsmiPHuC6280_Click(null, null);
+            if (setting.location.OpenMIDI[0]) tsmiPMIDI_Click(null, null);
+            if (setting.location.OpenNESDMC[0]) tsmiPNESDMC_Click(null, null);
             if (setting.location.OpenOKIM6258[0]) tsmiPOKIM6258_Click(null, null);
             if (setting.location.OpenOKIM6295[0]) tsmiPOKIM6258_Click(null, null);
-            if (setting.location.OpenSN76489[0]) tsmiPDCSG_Click(null, null);
+            if (setting.location.OpenRf5c164[0]) tsmiPRF5C164_Click(null, null);
             if (setting.location.OpenSegaPCM[0]) tsmiPSegaPCM_Click(null, null);
-            if (setting.location.OpenAY8910[0]) tsmiPAY8910_Click(null, null);
-            if (setting.location.OpenHuC6280[0]) tsmiPHuC6280_Click(null, null);
-            if (setting.location.OpenRf5c164[1]) tsmiSRF5C164_Click(null, null);
+            if (setting.location.OpenSN76489[0]) tsmiPDCSG_Click(null, null);
+            if (setting.location.OpenYm2151[0]) tsmiPOPM_Click(null, null);
+            if (setting.location.OpenYm2203[0]) tsmiPOPN_Click(null, null);
+            if (setting.location.OpenYm2413[0]) tsmiPOPLL_Click(null, null);
+            if (setting.location.OpenYm2608[0]) tsmiPOPNA_Click(null, null);
+            if (setting.location.OpenYm2610[0]) tsmiPOPNB_Click(null, null);
+            if (setting.location.OpenYm2612[0]) tsmiPOPN2_Click(null, null);
+
+            if (setting.location.OpenAY8910[1]) tsmiSAY8910_Click(null, null);
             if (setting.location.OpenC140[1]) tsmiSC140_Click(null, null);
-            if (setting.location.OpenYm2151[1]) tsmiSOPM_Click(null, null);
-            if (setting.location.OpenYm2608[1]) tsmiSOPNA_Click(null, null);
-            if (setting.location.OpenYm2203[1]) tsmiSOPN_Click(null, null);
-            if (setting.location.OpenYm2413[1]) tsmiSOPLL_Click(null, null);
-            if (setting.location.OpenYm2610[1]) tsmiSOPNB_Click(null, null);
-            if (setting.location.OpenYm2612[1]) tsmiSOPN2_Click(null, null);
+            if (setting.location.OpenHuC6280[1]) tsmiSHuC6280_Click(null, null);
+            if (setting.location.OpenMIDI[1]) tsmiSMIDI_Click(null, null);
+            if (setting.location.OpenNESDMC[1]) tsmiSNESDMC_Click(null, null);
             if (setting.location.OpenOKIM6258[1]) tsmiSOKIM6258_Click(null, null);
             if (setting.location.OpenOKIM6295[1]) tsmiSOKIM6258_Click(null, null);
+            if (setting.location.OpenRf5c164[1]) tsmiSRF5C164_Click(null, null);
             if (setting.location.OpenSN76489[1]) tsmiSDCSG_Click(null, null);
             if (setting.location.OpenSegaPCM[1]) tsmiSSegaPCM_Click(null, null);
-            if (setting.location.OpenAY8910[1]) tsmiSAY8910_Click(null, null);
-            if (setting.location.OpenHuC6280[1]) tsmiSHuC6280_Click(null, null);
+            if (setting.location.OpenYm2151[1]) tsmiSOPM_Click(null, null);
+            if (setting.location.OpenYm2203[1]) tsmiSOPN_Click(null, null);
+            if (setting.location.OpenYm2413[1]) tsmiSOPLL_Click(null, null);
+            if (setting.location.OpenYm2608[1]) tsmiSOPNA_Click(null, null);
+            if (setting.location.OpenYm2610[1]) tsmiSOPNB_Click(null, null);
+            if (setting.location.OpenYm2612[1]) tsmiSOPN2_Click(null, null);
 
             log.ForcedWrite("frmMain_Load:STEP 08");
 
@@ -517,6 +526,8 @@ namespace MDPlayer
                 setting.location.OpenSegaPCM[chipID] = false;
                 setting.location.OpenAY8910[chipID] = false;
                 setting.location.OpenHuC6280[chipID] = false;
+                setting.location.OpenMIDI[chipID] = false;
+                setting.location.OpenNESDMC[chipID] = false;
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
@@ -614,6 +625,11 @@ namespace MDPlayer
                 {
                     setting.location.PosMIDI[chipID] = frmMIDI[chipID].Location;
                     setting.location.OpenMIDI[chipID] = true;
+                }
+                if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed)
+                {
+                    setting.location.PosNESDMC[chipID] = frmNESDMC[chipID].Location;
+                    setting.location.OpenNESDMC[chipID] = true;
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
                 {
@@ -999,8 +1015,6 @@ namespace MDPlayer
             OpenFormHuC6280(0);
         }
 
-
-
         private void tsmiSOPN_Click(object sender, EventArgs e)
         {
             OpenFormYM2203(1);
@@ -1085,6 +1099,18 @@ namespace MDPlayer
         {
             OpenFormMIDI(1);
         }
+
+        private void tsmiPNESDMC_Click(object sender, EventArgs e)
+        {
+            OpenFormNESDMC(0);
+        }
+
+        private void tsmiSNESDMC_Click(object sender, EventArgs e)
+        {
+            OpenFormNESDMC(1);
+        }
+
+
 
         private void OpenFormMegaCD(int chipID, bool force = false)
         {
@@ -1896,6 +1922,277 @@ namespace MDPlayer
             frmMIDI[chipID] = null;
         }
 
+        private void OpenFormNESDMC(int chipID, bool force = false)
+        {
+            if (frmNESDMC[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormNESDMC(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmNESDMC[chipID] = new frmNESDMC(this, chipID, setting.other.Zoom, newParam.nesdmc[chipID]);
+
+            if (setting.location.PosNESDMC[chipID] == System.Drawing.Point.Empty)
+            {
+                frmNESDMC[chipID].x = this.Location.X;
+                frmNESDMC[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmNESDMC[chipID].x = setting.location.PosNESDMC[chipID].X;
+                frmNESDMC[chipID].y = setting.location.PosNESDMC[chipID].Y;
+            }
+
+            frmNESDMC[chipID].Show();
+            frmNESDMC[chipID].update();
+            frmNESDMC[chipID].Text = string.Format("NES&DMC ({0})", chipID == 0 ? "Primary" : "Secondary");
+            oldParam.nesdmc[chipID] = new MDChipParams.NESDMC();
+        }
+
+        private void CloseFormNESDMC(int chipID)
+        {
+            if (frmNESDMC[chipID] == null) return;
+
+            try
+            {
+                frmNESDMC[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmNESDMC[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmNESDMC[chipID] = null;
+        }
+
+        private void openInfo()
+        {
+            if (frmInfo != null && !frmInfo.isClosed)
+            {
+                try
+                {
+                    frmInfo.Close();
+                    frmInfo.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmInfo = null;
+                }
+                return;
+            }
+
+            if (frmInfo != null)
+            {
+                try
+                {
+                    frmInfo.Close();
+                    frmInfo.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmInfo = null;
+                }
+            }
+
+            frmInfo = new frmInfo(this);
+            if (setting.location.PInfo == System.Drawing.Point.Empty)
+            {
+                frmInfo.x = this.Location.X + 328;
+                frmInfo.y = this.Location.Y;
+            }
+            else
+            {
+                frmInfo.x = setting.location.PInfo.X;
+                frmInfo.y = setting.location.PInfo.Y;
+            }
+
+            Screen s = Screen.FromControl(frmInfo);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmInfo.x > w - 100 || frmInfo.y > h - 100)
+            {
+                frmInfo.x = 0;
+                frmInfo.y = 0;
+            }
+
+            frmInfo.setting = setting;
+            frmInfo.Show();
+            frmInfo.update();
+        }
+
+        private void openMIDIKeyboard()
+        {
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
+            {
+                try
+                {
+                    frmYM2612MIDI.Close();
+                    frmYM2612MIDI.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmYM2612MIDI = null;
+                }
+                return;
+            }
+
+            if (frmYM2612MIDI != null)
+            {
+                try
+                {
+                    frmYM2612MIDI.Close();
+                    frmYM2612MIDI.Dispose();
+                }
+                catch { }
+                finally
+                {
+                    frmYM2612MIDI = null;
+                }
+            }
+
+            frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom, newParam.ym2612Midi);
+            if (setting.location.PosYm2612MIDI == System.Drawing.Point.Empty)
+            {
+                frmYM2612MIDI.x = this.Location.X + 328;
+                frmYM2612MIDI.y = this.Location.Y;
+            }
+            else
+            {
+                frmYM2612MIDI.x = setting.location.PosYm2612MIDI.X;
+                frmYM2612MIDI.y = setting.location.PosYm2612MIDI.Y;
+            }
+
+            Screen s = Screen.FromControl(frmYM2612MIDI);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmYM2612MIDI.x > w - 100 || frmYM2612MIDI.y > h - 100)
+            {
+                frmYM2612MIDI.x = 0;
+                frmYM2612MIDI.y = 0;
+            }
+
+            //frmYM2612MIDI.setting = setting;
+            frmYM2612MIDI.Show();
+            frmYM2612MIDI.update();
+            oldParam.ym2612Midi = new MDChipParams.YM2612MIDI();
+        }
+
+        private void openSetting()
+        {
+            frmSetting frm = new frmSetting(setting);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+                StopMIDIInMonitoring();
+                frmPlayList.Stop();
+                Audio.Stop();
+                Audio.Close();
+
+                setting = frm.setting;
+                setting.Save();
+
+                screen.setting = setting;
+                //oldParam = new MDChipParams();
+                //newParam = new MDChipParams();
+                allScreenInit();
+                //screen.screenInitAll();
+
+                log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
+
+                Audio.Init(setting);
+
+                log.ForcedWrite("Audio初期化処理完了");
+                log.debug = setting.Debug_DispFrameCounter;
+
+                frmVSTeffectList.dispPluginList();
+                StartMIDIInMonitoring();
+
+                IsInitialOpenFolder = true;
+
+            }
+        }
+
+        private void openMixer()
+        {
+            if (frmMixer2 != null && !frmMixer2.isClosed)
+            {
+                try
+                {
+                    frmMixer2.Close();
+                    frmMixer2.Dispose();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    frmMixer2 = null;
+                }
+                return;
+            }
+
+            if (frmMixer2 != null)
+            {
+                try
+                {
+                    frmMixer2.Close();
+                    frmMixer2.Dispose();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    frmMixer2 = null;
+                }
+            }
+
+            frmMixer2 = new frmMixer2(this, setting.other.Zoom, newParam.mixer);
+            if (setting.location.PosMixer == System.Drawing.Point.Empty)
+            {
+                frmMixer2.x = this.Location.X + 328;
+                frmMixer2.y = this.Location.Y;
+            }
+            else
+            {
+                frmMixer2.x = setting.location.PosMixer.X;
+                frmMixer2.y = setting.location.PosMixer.Y;
+            }
+
+            Screen s = Screen.FromControl(frmMixer2);
+            //ディスプレイの高さと幅を取得
+            int h = s.Bounds.Height;
+            int w = s.Bounds.Width;
+            if (frmMixer2.x > w - 100 || frmMixer2.y > h - 100)
+            {
+                frmMixer2.x = 0;
+                frmMixer2.y = 0;
+            }
+
+            //frmMixer.setting = setting;
+            //screen.AddMixer(frmMixer2.pbScreen, Properties.Resources.planeMixer);
+            frmMixer2.Show();
+            frmMixer2.update();
+            //screen.screenInitMixer();
+            oldParam.mixer = new MDChipParams.Mixer();
+        }
+
 
 
         private void pbScreen_DragEnter(object sender, DragEventArgs e)
@@ -1945,6 +2242,20 @@ namespace MDPlayer
         }
 
 
+
+        private void allScreenInit()
+        {
+            oldParam = new MDChipParams();
+            DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
+            DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+
+            for (int i = 0; i < 2; i++)
+            {
+                //                if (frmYM2612[i] != null) frmYM2612[i].screenInit();
+
+            }
+        }
 
         private void screenMainLoop()
         {
@@ -2018,6 +2329,9 @@ namespace MDPlayer
                     if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenChangeParams();
                     else frmMIDI[chipID] = null;
 
+                    if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) frmNESDMC[chipID].screenChangeParams();
+                    else frmNESDMC[chipID] = null;
+
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
                 else frmYM2612MIDI = null;
@@ -2079,6 +2393,9 @@ namespace MDPlayer
                     if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) { frmMIDI[chipID].screenDrawParams(); frmMIDI[chipID].update(); }
                     else frmMIDI[chipID] = null;
 
+                    if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) { frmNESDMC[chipID].screenDrawParams(); frmNESDMC[chipID].update(); }
+                    else frmNESDMC[chipID] = null;
+
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) { frmYM2612MIDI.screenDrawParams(); frmYM2612MIDI.update(); }
                 else frmYM2612MIDI = null;
@@ -2129,8 +2446,6 @@ namespace MDPlayer
         private void screenChangeParams()
         {
 
-            //screenChangeParamsFromYM2612MIDI();
-
             long w = Audio.GetCounter();
             double sec = (double)w / (double)common.SampleRate;
             newParam.Cminutes = (int)(sec / 60);
@@ -2157,28 +2472,10 @@ namespace MDPlayer
 
         }
 
-        private int searchSegaPCMNote(double ml)
-        {
-            double m = double.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                double a = Math.Abs(ml - (Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
-
-
         private void screenDrawParams()
         {
 
             // 描画
-            //screen.drawParams(oldParam, newParam);
 
             DrawBuff.drawButtons(screen.mainScreen, oldButton, newButton, oldButtonMode, newButtonMode);
 
@@ -2242,58 +2539,7 @@ namespace MDPlayer
 
         }
 
-        private int searchC140Note(int freq)
-        {
-            double m = double.MaxValue;
-            int n = 0;
-            for (int i = 0; i < 12 * 8; i++)
-            {
-                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
-                if (m > a)
-                {
-                    m = a;
-                    n = i;
-                }
-            }
-            return n;
-        }
 
-
-
-        private void openSetting()
-        {
-            frmSetting frm = new frmSetting(setting);
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-
-                StopMIDIInMonitoring();
-                frmPlayList.Stop();
-                Audio.Stop();
-                Audio.Close();
-
-                setting = frm.setting;
-                setting.Save();
-
-                screen.setting = setting;
-                //oldParam = new MDChipParams();
-                //newParam = new MDChipParams();
-                allScreenInit();
-                //screen.screenInitAll();
-
-                log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
-
-                Audio.Init(setting);
-
-                log.ForcedWrite("Audio初期化処理完了");
-                log.debug = setting.Debug_DispFrameCounter;
-
-                frmVSTeffectList.dispPluginList();
-                StartMIDIInMonitoring();
-
-                IsInitialOpenFolder = true;
-
-            }
-        }
 
         public void stop()
         {
@@ -2364,24 +2610,6 @@ namespace MDPlayer
             loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3,playFn.Item4);
             frmPlayList.Play();
 
-        }
-
-        private void allScreenInit()
-        {
-            oldParam = new MDChipParams();
-            DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
-            DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
-            DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
-
-            for (int i = 0; i < 2; i++)
-            {
-                //if (frmYM2151[i] != null) frmYM2151[i].screenInit();
-                //if (frmYM2203[i] != null) frmYM2203[i].screenInit();
-                //if (frmYM2608[i] != null) frmYM2608[i].screenInit();
-                //if (frmYM2610[i] != null) frmYM2610[i].screenInit();
-                if (frmYM2612[i] != null) frmYM2612[i].screenInit();
-
-            }
         }
 
         private void playdata()
@@ -2589,123 +2817,6 @@ namespace MDPlayer
             frmVSTeffectList.TopMost = false;
         }
 
-        private void openInfo()
-        {
-            if (frmInfo != null && !frmInfo.isClosed)
-            {
-                try
-                {
-                    frmInfo.Close();
-                    frmInfo.Dispose();
-                }
-                catch { }
-                finally
-                {
-                    frmInfo = null;
-                }
-                return;
-            }
-
-            if (frmInfo != null)
-            {
-                try
-                {
-                    frmInfo.Close();
-                    frmInfo.Dispose();
-                }
-                catch { }
-                finally
-                {
-                    frmInfo = null;
-                }
-            }
-
-            frmInfo = new frmInfo(this);
-            if (setting.location.PInfo == System.Drawing.Point.Empty)
-            {
-                frmInfo.x = this.Location.X + 328;
-                frmInfo.y = this.Location.Y;
-            }
-            else
-            {
-                frmInfo.x = setting.location.PInfo.X;
-                frmInfo.y = setting.location.PInfo.Y;
-            }
-
-            Screen s = Screen.FromControl(frmInfo);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmInfo.x > w - 100 || frmInfo.y > h - 100)
-            {
-                frmInfo.x = 0;
-                frmInfo.y = 0;
-            }
-
-            frmInfo.setting = setting;
-            frmInfo.Show();
-            frmInfo.update();
-        }
-
-        private void openMIDIKeyboard()
-        {
-            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
-            {
-                try
-                {
-                    frmYM2612MIDI.Close();
-                    frmYM2612MIDI.Dispose();
-                }
-                catch { }
-                finally
-                {
-                    frmYM2612MIDI = null;
-                }
-                return;
-            }
-
-            if (frmYM2612MIDI != null)
-            {
-                try
-                {
-                    frmYM2612MIDI.Close();
-                    frmYM2612MIDI.Dispose();
-                }
-                catch { }
-                finally
-                {
-                    frmYM2612MIDI = null;
-                }
-            }
-
-            frmYM2612MIDI = new frmYM2612MIDI(this, setting.other.Zoom,newParam.ym2612Midi);
-            if (setting.location.PosYm2612MIDI == System.Drawing.Point.Empty)
-            {
-                frmYM2612MIDI.x = this.Location.X + 328;
-                frmYM2612MIDI.y = this.Location.Y;
-            }
-            else
-            {
-                frmYM2612MIDI.x = setting.location.PosYm2612MIDI.X;
-                frmYM2612MIDI.y = setting.location.PosYm2612MIDI.Y;
-            }
-
-            Screen s = Screen.FromControl(frmYM2612MIDI);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmYM2612MIDI.x > w - 100 || frmYM2612MIDI.y > h - 100)
-            {
-                frmYM2612MIDI.x = 0;
-                frmYM2612MIDI.y = 0;
-            }
-
-            //frmYM2612MIDI.setting = setting;
-            frmYM2612MIDI.Show();
-            frmYM2612MIDI.update();
-            oldParam.ym2612Midi = new MDChipParams.YM2612MIDI();
-        }
-
         private void showContextMenu()
         {
             cmsOpenOtherPanel.Show();
@@ -2713,6 +2824,7 @@ namespace MDPlayer
             cmsOpenOtherPanel.Top = p.Y;
             cmsOpenOtherPanel.Left = p.X;
         }
+
 
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
@@ -3576,6 +3688,8 @@ namespace MDPlayer
             return null;
         }
 
+
+
         public bool loadAndPlay(int m, int songNo, string fn, string zfn = null)
         {
             try
@@ -4142,71 +4256,6 @@ namespace MDPlayer
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
 
-
-        private void openMixer()
-        {
-            if (frmMixer2 != null && !frmMixer2.isClosed)
-            {
-                try
-                {
-                    frmMixer2.Close();
-                    frmMixer2.Dispose();
-                }
-                catch
-                {
-                }
-                finally
-                {
-                    frmMixer2 = null;
-                }
-                return;
-            }
-
-            if (frmMixer2 != null)
-            {
-                try
-                {
-                    frmMixer2.Close();
-                    frmMixer2.Dispose();
-                }
-                catch
-                {
-                }
-                finally
-                {
-                    frmMixer2 = null;
-                }
-            }
-
-            frmMixer2 = new frmMixer2(this, setting.other.Zoom, newParam.mixer);
-            if (setting.location.PosMixer == System.Drawing.Point.Empty)
-            {
-                frmMixer2.x = this.Location.X + 328;
-                frmMixer2.y = this.Location.Y;
-            }
-            else
-            {
-                frmMixer2.x = setting.location.PosMixer.X;
-                frmMixer2.y = setting.location.PosMixer.Y;
-            }
-
-            Screen s = Screen.FromControl(frmMixer2);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmMixer2.x > w - 100 || frmMixer2.y > h - 100)
-            {
-                frmMixer2.x = 0;
-                frmMixer2.y = 0;
-            }
-
-            //frmMixer.setting = setting;
-            //screen.AddMixer(frmMixer2.pbScreen, Properties.Resources.planeMixer);
-            frmMixer2.Show();
-            frmMixer2.update();
-            //screen.screenInitMixer();
-            oldParam.mixer = new MDChipParams.Mixer();
-        }
 
     }
 }

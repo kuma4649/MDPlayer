@@ -10,7 +10,6 @@ namespace MDPlayer
     {
 
         public FrameBuffer mainScreen = null;
-
         public Setting setting = null;
 
         public DoubleBuffer(PictureBox pbMainScreen, Image initialImage, int zoom)

@@ -10,8 +10,7 @@ namespace MDPlayer
 {
     public static class DrawBuff
     {
-
-
+        
         private static byte[][] rChipName;
         private static byte[][] rFont1;
         private static byte[][] rFont2;
@@ -32,134 +31,11 @@ namespace MDPlayer
         public static byte[][] rMIDILCD;
         private static byte[][] rMIDILCD_Font;
         public static byte[][] rPlane_MIDI;
+        private static byte[] rNESDMC;
         private static Bitmap[] bitmapMIDILyric = null;
         private static Graphics[] gMIDILyric = null;
         private static Font[] fntMIDILyric = null;
-
-        private static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
-        private static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
-        public static string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-        private static string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
-        private static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8" };
-        private static int[] kbl2 = new int[] { 0, 12, 4, 12, 8, 0, 12, 4, 12, 4, 12, 8 };
-        private static int[] kbdl = new int[] { 0, 2, 4, 6, 8, 12, 14, 16, 18, 20, 22, 24 };
-
-        private static string[][] tblMIDIEffectGS = new string[4][] {
-            new string[] { "Room 1         " , "Room 2         " , "Room 3         " , "Hall 1         "
-                         , "Hall 2         " , "Plate          " , "Delay          " , "Panning Delay  " },
-            new string[] { "Chorus 1       " , "Chorus 2       " , "Chorus 3       " , "Chorus 4       "
-                         , "Feedback Chorus" , "Flanger        " , "Short Delay    " , "ShortDelay(FB) " },
-            new string[] { "Delay 1        " , "Delay 2        " , "Delay 3        " , "Delay 4        "
-                         , "Pan Delay 1    " , "Pan Delay 2    " , "Pan Delay 3    " , "Pan Delay 4    "
-                         , "Delay to Reverb" , "Pan Repeat     " },
-            new string[] { "Thru           " , "Stereo-EQ      " , "Spectrum       " , "Enhancer       "
-                         , "Humanizer      " , "Overdrive      " , "Distortion     " , "Phaser         "
-                         , "Auto Wah       " , "Rotary         " , "Stereo Flanger " , "Step Flanger   "
-                         , "Tremolo        " , "Auto Pan       " , "Compressor     " , "Limiter        "
-                         , "Hexa Chorus    " , "Tremolo Chorus " , "Stereo Chorus  " , "Space D        "
-                         , "3D Chorus      " , "Stereo Delay   " , "Mod Delay      " , "3 Tap Delay    "
-                         , "4 Tap Delay    " , "Tm Ctrl Delay  " , "Reverb         " , "Gate Reverb    "
-                         , "3D Delay       " , "2 Pitch Shifter" , "Fb P.Shifter   " , "3D Auto        "
-                         , "3D Manual      " , "Lo-Fi 1        " , "Lo-Fi 2        " , "OD>Chorus      "
-                         , "OD>Flanger     " , "OD>Delay       " , "DS>Chorus      " , "DS>Flanger     "
-                         , "DS>Delay       " , "EH>Chorus      " , "EH>Flanger     " , "EH>Delay       "
-                         , "Cho>Delay      " , "FL>Delay       " , "Cho>Flanger    " , "Rotary Multi   "
-                         , "GTR Multi 1    " , "GTR Multi 2    " , "GTR Multi 3    " , "Clean GtMulti 1"
-                         , "Clean GtMulti 2" , "Bass Multi     " , "Rhodes Multi   " , "Keyboard Multi "
-                         , "Cho/Delay      " , "FL/Dealy       " , "Cho/Flanger    " , "OD1/OD2        "
-                         , "OD/Rotary      " , "OD/Phaser      " , "OD/AutoWah     " , "PH/Rotary      "
-                         , "PH/AutoWah     "
-            }
-        };
-
-        private static string[][] tblMIDIEffectXG = new string[3][] {
-            new string[] {
-                           "NO EFFECT                 " , "HALL 1                    " , "HALL 2                    " , "HALL M                    "
-                         , "HALL L                    " , "ROOM 1                    " , "ROOM 2                    " , "ROOM 3                    "
-                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
-                         , "STAGE2                    " , "PLATE                     " , "GMPLATE                   " , "WHITEROOM                 "
-                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  "
-            } ,
-            new string[] {
-                           "NO EFFECT                 " , "CHORUS1                   " , "CHORUS2                   " , "CHORUS3                   "
-                         , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                " , "GMCHORUS 3                "
-                         , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  " , "CELESTE2                  "
-                         , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 " , "FLANGER 2                 "
-                         , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 " , "PHASER 1                  "
-                         , "ENSEMBLEDETUNE            "
-            } ,
-            new string[] {
-                           "NO EFFECT                 " , "HALL1                     " , "HALL2                     " , "HALL M                    "
-                         , "HALL L                    " , "ROOM1                     " , "ROOM2                     " , "ROOM3                     "
-                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
-                         , "STAGE2                    " , "PLATE                     " , "GM PLATE                  " , "DELAY L,C,R               "
-                         , "DELAY L,R                 " , "ECHO                      " , "CROSSDELAY                " , "ER1                       "
-                         , "ER2                       " , "GATE REVERB               " , "REVERSE GATE              " , "WHITE ROOM                "
-                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  " , "KARAOKE1                  "
-                         , "KARAOKE2                  " , "KARAOKE3                  " , "CHORUS1                   " , "CHORUS2                   "
-                         , "CHORUS3                   " , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                "
-                         , "GMCHORUS 3                " , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  "
-                         , "CELESTE2                  " , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 "
-                         , "FLANGER 2                 " , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 "
-                         , "ROTARYSP.                 " , "DIST+ROTARYSP.            " , "OVERDRIVE+ROTARYSP.       " , "AMPSIM.+ROTARY            "
-                         , "TREMOLO                   " , "AUTO PAN                  " , "PHASER1                   " , "PHASER2                   "
-                         , "DISTORTION                " , "COMP+DISTORTION           " , "STEREODISTORTION          " , "OVERDRIVE                 "
-                         , "STEREOOVERDRIVE           " , "AMPSIM.                   " , "STEREOAMPSIM.             " , "3BANDEQ                   "
-                         , "2BANDEQ                   " , "AUTO WAH                  " , "AUTO WAH+DIST             " , "AUTO WAH+OVERDRIVE        "
-                         , "PITCH CHANGE              " , "PITCH CHANGE2             " , "HARMONIC ENHANCER         " , "TOUCHWAH 1                "
-                         , "TOUCHWAH 2                " , "TOUCHWAH+DIST             " , "TOUCHWAH+OVERDRIVE        " , "COMPRESSOR                "
-                         , "NOISEGATE                 " , "VOICECANCEL               " , "2WAY ROTARY SP            " , "DIST. + 2WAYROTARY SP.    "
-                         , "OVERDRIVE + 2WAY ROTARYSP." , "AMPSIM. + 2WAY ROTARYSP.  " , "ENSEMBLE DETUNE           " , "AMBIENCE                  "
-                         , "TALKING MODULATION        " , "LO-FI                     " , "DIST+DELAY                " , "OVERDRIVE+DELAY           "
-                         , "COMP+DIST+DELAY           " , "COMP+OVERDRIVE+DELAY      " , "WAH+DIST+DELAY            " , "WAH+OVERDRIVE+DELAY       "
-                         , "V DISTORTION HARD         " , "V DISTORTION HARD+DELAY   " , "V DISTORTION SOFT         " , "V DISTORTION SOFT+DELAY   "
-                         , "DUAL ROTOR SPEAKER1       " , "DUAL ROTOR SPEAKER2       " , "THRU                      "
-            }
-        };
-
-        private static string[] tblMIDIInstrumentGM = new string[] {
-                         "G.Piano  ","B.Piano  ","E.Piano  ","Honkytonk"
-                        ,"E.Piano1 ","E.Piano2 ","Harpschrd","Clavi    "
-                        ,"Celesta  ","Glocken  ","Music Box","Vibraphon"
-                        ,"Marimba  ","Xylophone","Tblarbell","Dulcimer "
-                        ,"D.Organ  ","P.Organ  ","R.Organ  ","ChrchOrgn"
-                        ,"Reed Orgn","Accordion","Harmonica","T.Accrdon"
-                        ,"NylonGt. ","SteelGt. ","JazzGt.  ","CleanGt. "
-                        ,"MutedGt. ","Overd.Gt.","Dist.Gt. ","Harmo.Gt."
-                        ,"A.Bass   ","FingrBass","PickBass ","FrtlBass "
-                        ,"SlapBass1","SlapBass2","Syn.Bass1","Syn.Bass2"
-                        ,"Violin   ","Viola    ","Cello    ","Cntrabass"
-                        ,"TremlStr.","PizzStr. ","Harp     ","Timpani  "
-                        ,"Strings1 ","Strings2 ","Syn.Str1 ","Syn.Str2 "
-                        ,"ChoirAahs","VoiceOohs","SynVoice ","OrchHit  "
-                        ,"Trumpet  ","Trombone ","Tuba     ","MtTrumpet"
-                        ,"Fr. Horn ","BrassSec.","Syn.Brs1 ","Syn.Brs2 "
-                        ,"SoprnoSax","AltoSax  ","TenorSax ","BartnSax "
-                        ,"Oboe     ","Eng.Horn ","Bassoon  ","Clarinet "
-                        ,"Piccolo  ","Flute    ","Recorder ","PanFlute "
-                        ,"BlowBttle","Shakuhach","Whistle  ","Ocarina  "
-                        ,"Square   ","Saw      ","Calliope ","Chiff    "
-                        ,"Charang  ","Voice    ","5thSaw   ","Bassoon  "
-                        ,"NewAge   ","Warm     ","Polysynth","Choir    "
-                        ,"BowedGlss","MetalPad ","Halo     ","Sweep    "
-                        ,"IceRain  ","Soundtrk ","Crystal  ","Atmsphere"
-                        ,"Brightnes","Goblins  ","Echoes   ","Sci-fi   "
-                        ,"Sitar    ","Banjo    ","Shamisen ","Koto     "
-                        ,"Kalimba  ","BagPipe  ","Fiddle   ","Shanai   "
-                        ,"TinkleBll","Agogo    ","SteelDrum","Woodblock"
-                        ,"Taiko    ","Melo.Tom ","Syn.Drum ","Rev.Cym  "
-                        ,"Gt.FretNz","BrthNoise","Seashore ","BirdTweet"
-                        ,"Telephone","Helicoptr","Applause ","Gunshot  "
-        };
-
-        private static byte[] spc = new byte[] {
-              0x20, 0x3c, 0x3c, 0x20, 0x4d, 0x44, 0x50, 0x6c
-            , 0x61, 0x79, 0x65, 0x72, 0x20, 0x3e, 0x3e, 0x20
-            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20
-            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
-
-
-
+        
 
 
         public static void Init()
@@ -218,6 +94,7 @@ namespace MDPlayer
 
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
             rFader = getByteArray(Properties.Resources.rFader);
+            rNESDMC = getByteArray(Properties.Resources.rNESDMC);
 
             rMIDILCD_Fader = new byte[3][];
             rMIDILCD_Fader[0] = getByteArray(Properties.Resources.rMIDILCD_Fader_01);
@@ -264,8 +141,8 @@ namespace MDPlayer
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
@@ -279,8 +156,8 @@ namespace MDPlayer
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
@@ -295,8 +172,8 @@ namespace MDPlayer
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
@@ -310,8 +187,8 @@ namespace MDPlayer
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
@@ -356,8 +233,8 @@ namespace MDPlayer
             {
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
@@ -375,8 +252,8 @@ namespace MDPlayer
                 {
                     for (int ot = 0; ot < 12 * 8; ot++)
                     {
-                        int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                        int kt = kbl[(ot % 12) * 2 + 1];
+                        int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                        int kt = Tables.kbl[(ot % 12) * 2 + 1];
                         drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
                     }
                 }
@@ -402,8 +279,8 @@ namespace MDPlayer
 
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
-                    int kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = kbl[(ot % 12) * 2 + 1];
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
                 }
 
@@ -426,8 +303,8 @@ namespace MDPlayer
                 drawFont8(screen, 296, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
@@ -447,8 +324,8 @@ namespace MDPlayer
                 //Keyboard
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
@@ -468,8 +345,8 @@ namespace MDPlayer
                 drawFont8(screen, 296, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
@@ -515,8 +392,8 @@ namespace MDPlayer
                 drawFont8(screen, 296, y * 8 + 8, 1, "   ");
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
@@ -577,8 +454,8 @@ namespace MDPlayer
                 //keyboard
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     if (y != 5)
                     {
                         drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
@@ -635,6 +512,21 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitNESDMC(FrameBuffer screen)
+        {
+            if (screen == null) return;
+
+            for (int ch = 0; ch < 3; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, ch * 16 + 8, kt, 0);
+                }
+                drawFont8(screen, 296, ch * 16 + 8, 1, "   ");
+            }
+        }
 
 
         public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
@@ -919,20 +811,20 @@ namespace MDPlayer
 
             if (ot >= 0)
             {
-                kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                kt = kbl[(ot % 12) * 2 + 1];
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
                 drawKbn(screen, 32 + kx, y, kt, tp);
             }
 
             if (nt >= 0)
             {
-                kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
-                kt = kbl[(nt % 12) * 2 + 1] + 4;
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
-                drawFont8(screen, 296, y, 1, kbn[nt % 12]);
+                drawFont8(screen, 296, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(screen, 312, y, 1, kbo[nt / 12]);
+                    drawFont8(screen, 312, y, 1, Tables.kbo[nt / 12]);
                 }
             }
             else
@@ -954,20 +846,20 @@ namespace MDPlayer
 
             if (ot >= 0)
             {
-                kx = kbl[(ot % 12) * 2] + ot / 12 * 28;
-                kt = kbl[(ot % 12) * 2 + 1];
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
                 drawKbn(screen, 32 + kx, y, kt, 0);
             }
 
             if (nt >= 0)
             {
-                kx = kbl[(nt % 12) * 2] + nt / 12 * 28;
-                kt = kbl[(nt % 12) * 2 + 1] + 4;
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, 0);
-                drawFont8(screen, 296, y, 1, kbn[nt % 12]);
+                drawFont8(screen, 296, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(screen, 312, y, 1, kbo[nt / 12]);
+                    drawFont8(screen, 312, y, 1, Tables.kbo[nt / 12]);
                 }
             }
             else
@@ -1485,7 +1377,7 @@ namespace MDPlayer
         {
             //if (oldValue1 == value1) return;
 
-            drawFont4(screen, x, y, 2 + MIDImodule, tblMIDIEffectXG[macroType][value1]);
+            drawFont4(screen, x, y, 2 + MIDImodule, Tables.tblMIDIEffectXG[macroType][value1]);
 
             oldValue1 = value1;
         }
@@ -1494,7 +1386,7 @@ namespace MDPlayer
         {
             //if (oldValue1 == value1) return;
 
-            drawFont4(screen, x, y, 2 + MIDImodule, tblMIDIEffectGS[macroType][value1]);
+            drawFont4(screen, x, y, 2 + MIDImodule, Tables.tblMIDIEffectGS[macroType][value1]);
 
             oldValue1 = value1;
         }
@@ -1503,14 +1395,14 @@ namespace MDPlayer
         {
             for (int i = 0; i < 16; i++)
             {
-                if (oldValue[i] == spc[i]) continue;
-                oldValue[i] = spc[i];
+                if (oldValue[i] == Tables.spc[i]) continue;
+                oldValue[i] = Tables.spc[i];
 
                 if (screen == null) return;
 
                 int cd = 0;
                 //if (i < len) 
-                cd = spc[i] - ' ';
+                cd = Tables.spc[i] - ' ';
 
                 screen.drawByteArray(x + i * 8, y, rMIDILCD_Font[MIDImodule], 128, (cd % 16) * 8, (cd / 16) * 8, 8, 8);
             }
@@ -1568,7 +1460,7 @@ namespace MDPlayer
 
             if (screen == null) return;
 
-            drawFont4(screen, x, y + 8, t, tblMIDIInstrumentGM[num]);
+            drawFont4(screen, x, y + 8, t, Tables.tblMIDIInstrumentGM[num]);
 
             int n;
 
@@ -1803,8 +1695,8 @@ namespace MDPlayer
             }
             else
             {
-                drawFont4V(screen, x, y, 0, kbnp[nln % 12]);
-                drawFont4V(screen, x, y - 2 * 4, 0, kbo[nln / 12]);
+                drawFont4V(screen, x, y, 0, Tables.kbnp[nln % 12]);
+                drawFont4V(screen, x, y - 2 * 4, 0, Tables.kbo[nln / 12]);
             }
             oln = nln;
         }
@@ -1982,7 +1874,30 @@ namespace MDPlayer
 
         }
 
+        public static void drawDuty(FrameBuffer screen, int x, int y, ref int op,int np)
+        {
+            if (op == np) return;
 
+            screen.drawByteArray(x, y, rNESDMC, 64, np * 8, 0, 8, 8);
+
+            op = np;
+        }
+
+        public static void drawNESSw(FrameBuffer screen, int x, int y, ref bool os, bool ns)
+        {
+            if (os == ns) return;
+
+            screen.drawByteArray(x, y, rNESDMC, 64, (ns ? 1 : 0) * 4 + 32, 0, 4, 8);
+
+            os = ns;
+        }
+
+        public static void font4HexByte(FrameBuffer screen, int x, int y,int t, ref int on, int nn) {
+            if (on == nn) return;
+
+            drawFont4HexByte(screen, x, y, t, nn);
+            on = nn;
+        }
 
 
 
@@ -2226,7 +2141,7 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
         }
 
-        private static void drawFont4IntM(FrameBuffer screen, int x, int y, int k, int num)
+        public static void drawFont4IntM(FrameBuffer screen, int x, int y, int k, int num)
         {
             if (screen == null) return;
 
@@ -2329,6 +2244,58 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
         }
 
+        public static void drawFont4Int3(FrameBuffer screen, int x, int y, int t, int k, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            if (k == 3)
+            {
+                n = num / 100;
+                num -= n * 100;
+                n = (n > 9) ? 0 : n;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+                n = num / 10;
+                num -= n * 10;
+                x += 4;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+                n = num / 1;
+                x += 4;
+                screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+                return;
+            }
+
+            n = num / 10;
+            num -= n * 10;
+            n = (n > 9) ? 0 : n;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+
+            n = num / 1;
+            x += 4;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+        }
+
+        public static void drawFont4HexByte(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = common.Range(num, 0, 255);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
         private static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
@@ -2376,7 +2343,7 @@ namespace MDPlayer
 
         private static void drawMIDILCD_KbdP(FrameBuffer screen, int x, int y, int note, int vel)
         {
-            screen.drawByteArrayTransp(x + kbdl[note % 12] + note / 12 * 28, y, rMIDILCD_KBD, 16, kbl2[note % 12], vel / 16 * 8, 4, 8);
+            screen.drawByteArrayTransp(x + Tables.kbdl[note % 12] + note / 12 * 28, y, rMIDILCD_KBD, 16, Tables.kbl2[note % 12], vel / 16 * 8, 4, 8);
         }
 
         private static void ChAY8910_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
@@ -2618,8 +2585,8 @@ namespace MDPlayer
                 drawFont8(screen, x + 16, y, mask ? 1 : 0, "6");
                 for (int i = 0; i < 96; i++)
                 {
-                    int kx = kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = kbl[(i % 12) * 2 + 1];
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
                     drawKbn(screen, 32 + kx, y, kt, tp);
                 }
             }

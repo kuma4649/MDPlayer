@@ -1,4 +1,4 @@
-﻿namespace MDPlayer
+﻿namespace MDPlayer.form
 {
     partial class frmMain
     {
@@ -48,6 +48,7 @@
             this.tsmiPC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPMIDI = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,8 +65,9 @@
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPMIDI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSMIDI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPNESDMC = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSNESDMC = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -97,21 +99,22 @@
             // 
             this.primaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiPAY8910,
+            this.tsmiPC140,
+            this.tsmiPDCSG,
+            this.tsmiPHuC6280,
+            this.tsmiPMIDI,
+            this.tsmiPNESDMC,
+            this.tsmiPOKIM6258,
+            this.tsmiPOKIM6295,
             this.tsmiPOPLL,
+            this.tsmiPOPM,
             this.tsmiPOPN,
             this.tsmiPOPN2,
             this.tsmiPOPNA,
             this.tsmiPOPNB,
-            this.tsmiPOPM,
-            this.tsmiPDCSG,
-            this.tsmiPRF5C164,
             this.tsmiPPWM,
-            this.tsmiPOKIM6258,
-            this.tsmiPOKIM6295,
-            this.tsmiPC140,
-            this.tsmiPSegaPCM,
-            this.tsmiPHuC6280,
-            this.tsmiPMIDI});
+            this.tsmiPRF5C164,
+            this.tsmiPSegaPCM});
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
             this.primaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.primaryToolStripMenuItem.Text = "Primary";
@@ -221,25 +224,33 @@
             this.tsmiPHuC6280.Text = "HuC6280";
             this.tsmiPHuC6280.Click += new System.EventHandler(this.tsmiPHuC6280_Click);
             // 
+            // tsmiPMIDI
+            // 
+            this.tsmiPMIDI.Name = "tsmiPMIDI";
+            this.tsmiPMIDI.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPMIDI.Text = "MIDI";
+            this.tsmiPMIDI.Click += new System.EventHandler(this.tsmiPMIDI_Click);
+            // 
             // sencondryToolStripMenuItem
             // 
             this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiSAY8910,
+            this.tsmiSC140,
+            this.tsmiSDCSG,
+            this.tsmiSHuC6280,
+            this.tsmiSMIDI,
+            this.tsmiSNESDMC,
+            this.tsmiSOKIM6258,
+            this.tsmiSOKIM6295,
             this.tsmiSOPLL,
+            this.tsmiSOPM,
             this.tsmiSOPN,
             this.tsmiSOPN2,
             this.tsmiSOPNA,
             this.tsmiSOPNB,
-            this.tsmiSOPM,
-            this.tsmiSDCSG,
-            this.tsmiSRF5C164,
             this.tsmiSPWM,
-            this.tsmiSOKIM6258,
-            this.tsmiSOKIM6295,
-            this.tsmiSC140,
-            this.tsmiSSegaPCM,
-            this.tsmiSHuC6280,
-            this.tsmiSMIDI});
+            this.tsmiSRF5C164,
+            this.tsmiSSegaPCM});
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
             this.sencondryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sencondryToolStripMenuItem.Text = "Secondary";
@@ -349,19 +360,26 @@
             this.tsmiSHuC6280.Text = "HuC6280";
             this.tsmiSHuC6280.Click += new System.EventHandler(this.tsmiSHuC6280_Click);
             // 
-            // tsmiPMIDI
-            // 
-            this.tsmiPMIDI.Name = "tsmiPMIDI";
-            this.tsmiPMIDI.Size = new System.Drawing.Size(152, 22);
-            this.tsmiPMIDI.Text = "MIDI";
-            this.tsmiPMIDI.Click += new System.EventHandler(this.tsmiPMIDI_Click);
-            // 
             // tsmiSMIDI
             // 
             this.tsmiSMIDI.Name = "tsmiSMIDI";
             this.tsmiSMIDI.Size = new System.Drawing.Size(152, 22);
             this.tsmiSMIDI.Text = "MIDI";
             this.tsmiSMIDI.Click += new System.EventHandler(this.tsmiSMIDI_Click);
+            // 
+            // tsmiPNESDMC
+            // 
+            this.tsmiPNESDMC.Name = "tsmiPNESDMC";
+            this.tsmiPNESDMC.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPNESDMC.Text = "NES&&DMC";
+            this.tsmiPNESDMC.Click += new System.EventHandler(this.tsmiPNESDMC_Click);
+            // 
+            // tsmiSNESDMC
+            // 
+            this.tsmiSNESDMC.Name = "tsmiSNESDMC";
+            this.tsmiSNESDMC.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSNESDMC.Text = "NES&&DMC";
+            this.tsmiSNESDMC.Click += new System.EventHandler(this.tsmiSNESDMC_Click);
             // 
             // frmMain
             // 
@@ -423,6 +441,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSHuC6280;
         private System.Windows.Forms.ToolStripMenuItem tsmiPMIDI;
         private System.Windows.Forms.ToolStripMenuItem tsmiSMIDI;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPNESDMC;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSNESDMC;
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MDPlayer
+namespace MDPlayer.form
 {
     partial class frmPlayList
     {

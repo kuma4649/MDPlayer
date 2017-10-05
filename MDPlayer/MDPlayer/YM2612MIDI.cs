@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MDPlayer.form;
 
 namespace MDPlayer
 {
@@ -14,7 +15,7 @@ namespace MDPlayer
         private int latestNoteNumberMONO = -1;
         private int[] latestNoteNumber = new int[6] { -1, -1, -1, -1, -1, -1 };
 
-        private frmMain parent = null;
+        private form.frmMain parent = null;
         private MDSound.MDSound mdsMIDI = null;
         public MDChipParams newParam = null;
 

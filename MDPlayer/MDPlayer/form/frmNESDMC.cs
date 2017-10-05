@@ -1,0 +1,242 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MDPlayer.form
+{
+    public partial class frmNESDMC : Form
+    {
+        public bool isClosed = false;
+        public int x = -1;
+        public int y = -1;
+        public frmMain parent = null;
+        private int frameSizeW = 0;
+        private int frameSizeH = 0;
+        private int chipID = 0;
+        private int zoom = 1;
+
+        private MDChipParams.NESDMC newParam = null;
+        private MDChipParams.NESDMC oldParam = new MDChipParams.NESDMC();
+        private FrameBuffer frameBuffer = new FrameBuffer();
+
+        public frmNESDMC(frmMain frm, int chipID, int zoom, MDChipParams.NESDMC newParam)
+        {
+            parent = frm;
+            this.chipID = chipID;
+            this.zoom = zoom;
+
+            InitializeComponent();
+
+            this.newParam = newParam;
+            frameBuffer.Add(pbScreen, Properties.Resources.planeNESDMC, null, zoom);
+            DrawBuff.screenInitNESDMC(frameBuffer);
+            update();
+        }
+
+        public void update()
+        {
+            frameBuffer.Refresh(null);
+        }
+
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        private void frmNESDMC_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            parent.setting.location.PosNESDMC[chipID] = Location;
+            isClosed = true;
+        }
+
+        private void frmNESDMC_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(x, y);
+
+            frameSizeW = this.Width - this.ClientSize.Width;
+            frameSizeH = this.Height - this.ClientSize.Height;
+
+            changeZoom();
+        }
+
+        public void changeZoom()
+        {
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeNESDMC.Width * zoom, frameSizeH + Properties.Resources.planeNESDMC.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeNESDMC.Width * zoom, frameSizeH + Properties.Resources.planeNESDMC.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeNESDMC.Width * zoom, frameSizeH + Properties.Resources.planeNESDMC.Height * zoom);
+            frmNESDMC_Resize(null, null);
+
+        }
+
+        private void frmNESDMC_Resize(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (parent != null)
+            {
+                parent.windowsMessage(ref m);
+            }
+
+            try { base.WndProc(ref m); }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        public void screenChangeParams()
+        {
+            const double LOG2_440 = 8.7813597135246596040696824762152;
+            const double LOG_2 = 0.69314718055994530941723212145818;
+            const int NOTE_440HZ = 12 * 4 + 9;
+
+            byte[] reg = Audio.GetAPURegister(chipID);
+            int freq;
+            int vol;
+            int note;
+            if (reg != null)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    freq = (reg[3 + i * 4] & 0x07) * 0x100 + reg[2 + i * 4];
+                    vol = reg[i * 4] & 0xf;
+                    note = 92 - (int)((12 * (Math.Log(freq) / LOG_2 - LOG2_440) + NOTE_440HZ + 0.5));
+                    note = vol == 0 ? -1 : note;
+                    newParam.sqrChannels[i].note = note;
+                    newParam.sqrChannels[i].volume = Math.Min((int)((vol) * 1.33), 19);
+                    newParam.sqrChannels[i].nfrq = (reg[1 + i * 4] & 0x70) >> 4;//Period
+                    newParam.sqrChannels[i].pan = (reg[1 + i * 4] & 0x07);//Shift
+                    newParam.sqrChannels[i].pantp = (reg[3 + i * 4] & 0xf8) >> 3;//Length counter load
+                    newParam.sqrChannels[i].kf = (reg[i * 4] & 0xc0) >> 6;//Duty
+                    newParam.sqrChannels[i].dda = ((reg[i * 4] & 0x20) >> 5) != 0;//LengthCounter
+                    newParam.sqrChannels[i].noise = ((reg[i * 4] & 0x10) >> 4) != 0;//constantVolume
+                    newParam.sqrChannels[i].volumeL = ((reg[1 + i * 4] & 0x80) >> 7);//Sweep unit enabled
+                    newParam.sqrChannels[i].volumeR = ((reg[1 + i * 4] & 0x08) >> 3);//negate 
+                }
+
+
+            }
+
+            byte[] reg2 = Audio.GetDMCRegister(chipID);
+            int step = 0;
+            if (reg2 == null)
+            {
+                step = 8;
+                reg2 = reg;
+            }
+            if (reg2 == null) return;
+
+            freq = (reg2[step+3] & 0x07) * 0x100 + reg2[step + 2];
+            note = 92 - (int)((12 * (Math.Log(freq) / LOG_2 - LOG2_440) + NOTE_440HZ + 0.5));
+            newParam.triChannel.note = (reg2[step + 0] & 0x7f) == 0 ? -1 : note;
+            if ((reg2[step + 0] & 0x80) == 0)
+            {
+                //if ((reg2[13] & 0x4) == 0)
+                if ((reg2[step + 1] & 0x4) == 0)
+                    newParam.triChannel.note = -1;
+            }
+            newParam.triChannel.volume = newParam.triChannel.note == -1 ? 0 : 19;
+            newParam.triChannel.dda = (reg2[step + 0] & 0x80) != 0;//LengthCounterHalt
+            newParam.triChannel.nfrq = (reg2[step + 0] & 0x7f);// linear counter load (R) 
+            newParam.triChannel.pantp = (reg2[step + 3] & 0xf8) >> 3;//Length counter load
+
+            newParam.noiseChannel.volume = Math.Min((int)((reg2[step + 4] & 0xf) * 1.33), 19);
+            newParam.noiseChannel.dda = (reg2[step + 4] & 0x20) != 0; //Envelope loop / length counter halt
+            newParam.noiseChannel.noise = (reg2[step + 4] & 0x10) != 0; //constant volume 
+            newParam.noiseChannel.volumeL = (reg2[step + 6] & 0x80) >> 7; //Loop noise 
+            newParam.noiseChannel.volumeR = reg2[step + 6] & 0x0f; //noise period 
+            newParam.noiseChannel.nfrq = (reg2[step + 7] & 0xf8) >> 3; //Length counter load 
+                                                                //newParam.noiseChannel.volume = ((reg2[1] & 0x8) != 0) ? newParam.noiseChannel.volume : 0;
+            newParam.noiseChannel.volume = ((reg2[step + 1] & 0x8) != 0) ? ((reg2[step + 4] & 0x10) != 0 ? newParam.noiseChannel.volume : 19) : 0;
+
+            newParam.dmcChannel.dda = (reg2[step + 8] & 0x80) != 0; //IRQ enable
+            newParam.dmcChannel.noise = (reg2[step + 8] & 0x40) != 0; //loop 
+            newParam.dmcChannel.volumeL = (reg2[step + 8] & 0x0f); //frequency
+            newParam.dmcChannel.volumeR = (reg2[step + 9] & 0x7f); //Load counter 
+            newParam.dmcChannel.nfrq = reg2[step + 10]; //Sample address
+            newParam.dmcChannel.pantp = reg2[step + 11]; //Sample length
+            newParam.dmcChannel.volume = ((reg2[step + 1] & 0x10) != 0) ? 19 : 0;
+        }
+
+        public void screenDrawParams()
+        {
+            bool ob;
+            for (int i = 0; i < 2; i++)
+            {
+                DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
+                DrawBuff.Volume(frameBuffer, i * 2, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
+                DrawBuff.drawFont4Int2(frameBuffer, 16 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].nfrq);
+                DrawBuff.drawFont4Int2(frameBuffer, 18 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].pan);
+                DrawBuff.drawFont4Int2(frameBuffer, 20 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].pantp);
+                DrawBuff.drawDuty(frameBuffer, 24, (1 + i * 2) * 8, ref oldParam.sqrChannels[i].kf, newParam.sqrChannels[i].kf);
+                DrawBuff.drawNESSw(frameBuffer, 32, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].dda, newParam.sqrChannels[i].dda);
+                DrawBuff.drawNESSw(frameBuffer, 40, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].noise, newParam.sqrChannels[i].noise);
+                ob = oldParam.sqrChannels[i].volumeL != 0;
+                DrawBuff.drawNESSw(frameBuffer, 48, (2 + i * 2) * 8, ref ob, newParam.sqrChannels[i].volumeL != 0);
+                oldParam.sqrChannels[i].volumeL = ob ? 1 : 0;
+                ob = oldParam.sqrChannels[i].volumeR != 0;
+                DrawBuff.drawNESSw(frameBuffer, 56, (2 + i * 2) * 8, ref ob, newParam.sqrChannels[i].volumeR != 0);
+                oldParam.sqrChannels[i].volumeR = ob ? 1 : 0;
+            }
+
+            DrawBuff.KeyBoard(frameBuffer, 4, ref oldParam.triChannel.note, newParam.triChannel.note, 0);
+            DrawBuff.Volume(frameBuffer, 4, 0, ref oldParam.triChannel.volume, newParam.triChannel.volume, 0);
+            DrawBuff.drawNESSw(frameBuffer, 40, 6 * 8, ref oldParam.triChannel.dda, newParam.triChannel.dda);
+            DrawBuff.drawFont4Int3(frameBuffer, 15 * 4, 6 * 8, 0, 3, newParam.triChannel.nfrq);
+            DrawBuff.drawFont4Int2(frameBuffer, 21 * 4, 6 * 8, 0, 2, newParam.triChannel.pantp);
+
+            DrawBuff.Volume(frameBuffer, 3, 0, ref oldParam.noiseChannel.volume, newParam.noiseChannel.volume, 0);
+            DrawBuff.drawNESSw(frameBuffer, 228, 32, ref oldParam.noiseChannel.dda, newParam.noiseChannel.dda);
+            DrawBuff.drawNESSw(frameBuffer, 144, 32, ref oldParam.noiseChannel.noise, newParam.noiseChannel.noise);
+            ob = oldParam.noiseChannel.volumeL != 0;
+            DrawBuff.drawNESSw(frameBuffer, 160, 32, ref ob, newParam.noiseChannel.volumeL != 0);
+            oldParam.noiseChannel.volumeL = ob ? 1 : 0;
+            DrawBuff.drawFont4Int2(frameBuffer, 176, 32, 0, 2, newParam.noiseChannel.volumeR);
+            DrawBuff.drawFont4Int2(frameBuffer, 196, 32, 0, 2, newParam.noiseChannel.nfrq);
+
+            DrawBuff.Volume(frameBuffer, 5, 0, ref oldParam.dmcChannel.volume, newParam.dmcChannel.volume, 0);
+            DrawBuff.drawNESSw(frameBuffer, 144, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.dda);
+            DrawBuff.drawNESSw(frameBuffer, 152, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.noise);
+            DrawBuff.drawFont4Int2(frameBuffer, 176, 48, 0, 2, newParam.dmcChannel.volumeL);
+            DrawBuff.drawFont4Int3(frameBuffer, 192, 48, 0, 3, newParam.dmcChannel.volumeR);
+            DrawBuff.font4HexByte(frameBuffer, 220, 48, 0, ref oldParam.dmcChannel.nfrq, newParam.dmcChannel.nfrq);
+            DrawBuff.font4HexByte(frameBuffer, 244, 48, 0, ref oldParam.dmcChannel.pantp, newParam.dmcChannel.pantp);
+        }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int py = e.Location.Y / zoom;
+
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
+
+            //鍵盤
+            if (py < 4 * 8)
+            {
+                int ch = (py / 8) - 1;
+                if (ch < 0) return;
+
+                if (e.Button == MouseButtons.Left)
+                {
+                }
+
+                return;
+            }
+
+        }
+
+
+    }
+}

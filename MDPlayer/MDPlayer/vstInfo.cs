@@ -29,7 +29,7 @@ namespace MDPlayer
     public class vstInfo2 : vstInfo
     {
         public VstPluginContext vstPlugins = null;
-        public frmVST vstPluginsForm = null;
+        public form.frmVST vstPluginsForm = null;
 
         //実際にVSTiかどうかは問わない
         public bool isInstrument = false;

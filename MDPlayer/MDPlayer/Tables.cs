@@ -65,5 +65,129 @@ namespace MDPlayer
             ,1.781820961700176f
             ,1.887776163901842f
         };
+
+        public static string[][] tblMIDIEffectGS = new string[4][] {
+            new string[] { "Room 1         " , "Room 2         " , "Room 3         " , "Hall 1         "
+                         , "Hall 2         " , "Plate          " , "Delay          " , "Panning Delay  " },
+            new string[] { "Chorus 1       " , "Chorus 2       " , "Chorus 3       " , "Chorus 4       "
+                         , "Feedback Chorus" , "Flanger        " , "Short Delay    " , "ShortDelay(FB) " },
+            new string[] { "Delay 1        " , "Delay 2        " , "Delay 3        " , "Delay 4        "
+                         , "Pan Delay 1    " , "Pan Delay 2    " , "Pan Delay 3    " , "Pan Delay 4    "
+                         , "Delay to Reverb" , "Pan Repeat     " },
+            new string[] { "Thru           " , "Stereo-EQ      " , "Spectrum       " , "Enhancer       "
+                         , "Humanizer      " , "Overdrive      " , "Distortion     " , "Phaser         "
+                         , "Auto Wah       " , "Rotary         " , "Stereo Flanger " , "Step Flanger   "
+                         , "Tremolo        " , "Auto Pan       " , "Compressor     " , "Limiter        "
+                         , "Hexa Chorus    " , "Tremolo Chorus " , "Stereo Chorus  " , "Space D        "
+                         , "3D Chorus      " , "Stereo Delay   " , "Mod Delay      " , "3 Tap Delay    "
+                         , "4 Tap Delay    " , "Tm Ctrl Delay  " , "Reverb         " , "Gate Reverb    "
+                         , "3D Delay       " , "2 Pitch Shifter" , "Fb P.Shifter   " , "3D Auto        "
+                         , "3D Manual      " , "Lo-Fi 1        " , "Lo-Fi 2        " , "OD>Chorus      "
+                         , "OD>Flanger     " , "OD>Delay       " , "DS>Chorus      " , "DS>Flanger     "
+                         , "DS>Delay       " , "EH>Chorus      " , "EH>Flanger     " , "EH>Delay       "
+                         , "Cho>Delay      " , "FL>Delay       " , "Cho>Flanger    " , "Rotary Multi   "
+                         , "GTR Multi 1    " , "GTR Multi 2    " , "GTR Multi 3    " , "Clean GtMulti 1"
+                         , "Clean GtMulti 2" , "Bass Multi     " , "Rhodes Multi   " , "Keyboard Multi "
+                         , "Cho/Delay      " , "FL/Dealy       " , "Cho/Flanger    " , "OD1/OD2        "
+                         , "OD/Rotary      " , "OD/Phaser      " , "OD/AutoWah     " , "PH/Rotary      "
+                         , "PH/AutoWah     "
+            }
+        };
+
+        public static string[][] tblMIDIEffectXG = new string[3][] {
+            new string[] {
+                           "NO EFFECT                 " , "HALL 1                    " , "HALL 2                    " , "HALL M                    "
+                         , "HALL L                    " , "ROOM 1                    " , "ROOM 2                    " , "ROOM 3                    "
+                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
+                         , "STAGE2                    " , "PLATE                     " , "GMPLATE                   " , "WHITEROOM                 "
+                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  "
+            } ,
+            new string[] {
+                           "NO EFFECT                 " , "CHORUS1                   " , "CHORUS2                   " , "CHORUS3                   "
+                         , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                " , "GMCHORUS 3                "
+                         , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  " , "CELESTE2                  "
+                         , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 " , "FLANGER 2                 "
+                         , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 " , "PHASER 1                  "
+                         , "ENSEMBLEDETUNE            "
+            } ,
+            new string[] {
+                           "NO EFFECT                 " , "HALL1                     " , "HALL2                     " , "HALL M                    "
+                         , "HALL L                    " , "ROOM1                     " , "ROOM2                     " , "ROOM3                     "
+                         , "ROOM S                    " , "ROOM M                    " , "ROOM L                    " , "STAGE1                    "
+                         , "STAGE2                    " , "PLATE                     " , "GM PLATE                  " , "DELAY L,C,R               "
+                         , "DELAY L,R                 " , "ECHO                      " , "CROSSDELAY                " , "ER1                       "
+                         , "ER2                       " , "GATE REVERB               " , "REVERSE GATE              " , "WHITE ROOM                "
+                         , "TUNNEL                    " , "CANYON                    " , "BASEMENT                  " , "KARAOKE1                  "
+                         , "KARAOKE2                  " , "KARAOKE3                  " , "CHORUS1                   " , "CHORUS2                   "
+                         , "CHORUS3                   " , "CHORUS4                   " , "GMCHORUS 1                " , "GMCHORUS 2                "
+                         , "GMCHORUS 3                " , "GMCHORUS 4                " , "FB CHORUS                 " , "CELESTE1                  "
+                         , "CELESTE2                  " , "CELESTE3                  " , "CELESTE4                  " , "FLANGER 1                 "
+                         , "FLANGER 2                 " , "FLANGER 3                 " , "GMFLANGER                 " , "SYMPHONIC                 "
+                         , "ROTARYSP.                 " , "DIST+ROTARYSP.            " , "OVERDRIVE+ROTARYSP.       " , "AMPSIM.+ROTARY            "
+                         , "TREMOLO                   " , "AUTO PAN                  " , "PHASER1                   " , "PHASER2                   "
+                         , "DISTORTION                " , "COMP+DISTORTION           " , "STEREODISTORTION          " , "OVERDRIVE                 "
+                         , "STEREOOVERDRIVE           " , "AMPSIM.                   " , "STEREOAMPSIM.             " , "3BANDEQ                   "
+                         , "2BANDEQ                   " , "AUTO WAH                  " , "AUTO WAH+DIST             " , "AUTO WAH+OVERDRIVE        "
+                         , "PITCH CHANGE              " , "PITCH CHANGE2             " , "HARMONIC ENHANCER         " , "TOUCHWAH 1                "
+                         , "TOUCHWAH 2                " , "TOUCHWAH+DIST             " , "TOUCHWAH+OVERDRIVE        " , "COMPRESSOR                "
+                         , "NOISEGATE                 " , "VOICECANCEL               " , "2WAY ROTARY SP            " , "DIST. + 2WAYROTARY SP.    "
+                         , "OVERDRIVE + 2WAY ROTARYSP." , "AMPSIM. + 2WAY ROTARYSP.  " , "ENSEMBLE DETUNE           " , "AMBIENCE                  "
+                         , "TALKING MODULATION        " , "LO-FI                     " , "DIST+DELAY                " , "OVERDRIVE+DELAY           "
+                         , "COMP+DIST+DELAY           " , "COMP+OVERDRIVE+DELAY      " , "WAH+DIST+DELAY            " , "WAH+OVERDRIVE+DELAY       "
+                         , "V DISTORTION HARD         " , "V DISTORTION HARD+DELAY   " , "V DISTORTION SOFT         " , "V DISTORTION SOFT+DELAY   "
+                         , "DUAL ROTOR SPEAKER1       " , "DUAL ROTOR SPEAKER2       " , "THRU                      "
+            }
+        };
+
+        public static string[] tblMIDIInstrumentGM = new string[] {
+                         "G.Piano  ","B.Piano  ","E.Piano  ","Honkytonk"
+                        ,"E.Piano1 ","E.Piano2 ","Harpschrd","Clavi    "
+                        ,"Celesta  ","Glocken  ","Music Box","Vibraphon"
+                        ,"Marimba  ","Xylophone","Tblarbell","Dulcimer "
+                        ,"D.Organ  ","P.Organ  ","R.Organ  ","ChrchOrgn"
+                        ,"Reed Orgn","Accordion","Harmonica","T.Accrdon"
+                        ,"NylonGt. ","SteelGt. ","JazzGt.  ","CleanGt. "
+                        ,"MutedGt. ","Overd.Gt.","Dist.Gt. ","Harmo.Gt."
+                        ,"A.Bass   ","FingrBass","PickBass ","FrtlBass "
+                        ,"SlapBass1","SlapBass2","Syn.Bass1","Syn.Bass2"
+                        ,"Violin   ","Viola    ","Cello    ","Cntrabass"
+                        ,"TremlStr.","PizzStr. ","Harp     ","Timpani  "
+                        ,"Strings1 ","Strings2 ","Syn.Str1 ","Syn.Str2 "
+                        ,"ChoirAahs","VoiceOohs","SynVoice ","OrchHit  "
+                        ,"Trumpet  ","Trombone ","Tuba     ","MtTrumpet"
+                        ,"Fr. Horn ","BrassSec.","Syn.Brs1 ","Syn.Brs2 "
+                        ,"SoprnoSax","AltoSax  ","TenorSax ","BartnSax "
+                        ,"Oboe     ","Eng.Horn ","Bassoon  ","Clarinet "
+                        ,"Piccolo  ","Flute    ","Recorder ","PanFlute "
+                        ,"BlowBttle","Shakuhach","Whistle  ","Ocarina  "
+                        ,"Square   ","Saw      ","Calliope ","Chiff    "
+                        ,"Charang  ","Voice    ","5thSaw   ","Bassoon  "
+                        ,"NewAge   ","Warm     ","Polysynth","Choir    "
+                        ,"BowedGlss","MetalPad ","Halo     ","Sweep    "
+                        ,"IceRain  ","Soundtrk ","Crystal  ","Atmsphere"
+                        ,"Brightnes","Goblins  ","Echoes   ","Sci-fi   "
+                        ,"Sitar    ","Banjo    ","Shamisen ","Koto     "
+                        ,"Kalimba  ","BagPipe  ","Fiddle   ","Shanai   "
+                        ,"TinkleBll","Agogo    ","SteelDrum","Woodblock"
+                        ,"Taiko    ","Melo.Tom ","Syn.Drum ","Rev.Cym  "
+                        ,"Gt.FretNz","BrthNoise","Seashore ","BirdTweet"
+                        ,"Telephone","Helicoptr","Applause ","Gunshot  "
+        };
+
+        public static byte[] spc = new byte[] {
+              0x20, 0x3c, 0x3c, 0x20, 0x4d, 0x44, 0x50, 0x6c
+            , 0x61, 0x79, 0x65, 0x72, 0x20, 0x3e, 0x3e, 0x20
+            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20
+            , 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+
+        public static int[] kbl = new int[] { 0, 0, 2, 1, 4, 2, 6, 1, 8, 3, 12, 0, 14, 1, 16, 2, 18, 1, 20, 2, 22, 1, 24, 3 };
+        public static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
+        public static string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        public static string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
+        public static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8" };
+        public static int[] kbl2 = new int[] { 0, 12, 4, 12, 8, 0, 12, 4, 12, 4, 12, 8 };
+        public static int[] kbdl = new int[] { 0, 2, 4, 6, 8, 12, 14, 16, 18, 20, 22, 24 };
+
+        public static string[] hexCh = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
     }
 }

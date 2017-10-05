@@ -1,4 +1,4 @@
-﻿namespace MDPlayer
+﻿namespace MDPlayer.form
 {
     partial class frmSetting
     {
@@ -56,7 +56,7 @@
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ucSI = new MDPlayer.ucSettingInstruments();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();

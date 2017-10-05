@@ -370,6 +370,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeNESDMC {
+            get {
+                object obj = ResourceManager.GetObject("planeNESDMC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeSEGAPCM {
             get {
                 object obj = ResourceManager.GetObject("planeSEGAPCM", resourceCulture);
@@ -733,6 +743,16 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap rMIDILCD_Vol_03 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Vol_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rNESDMC {
+            get {
+                object obj = ResourceManager.GetObject("rNESDMC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

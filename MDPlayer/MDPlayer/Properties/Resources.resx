@@ -641,4 +641,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="rMIDILCD_Font_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rMIDILCD_Font_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="planeNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rNESDMC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rNESDMC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
