@@ -30,7 +30,7 @@ namespace MDPlayer
         private uint gd3InfoStartAddr = 0;
 
 
-        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip, uint latency)
+        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
         {
 
             this.vgmBuf = xgmBuf;

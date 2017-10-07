@@ -116,7 +116,7 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip, uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
         {
 
             this.vgmBuf = vgmBuf;

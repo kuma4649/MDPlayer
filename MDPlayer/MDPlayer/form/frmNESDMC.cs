@@ -177,9 +177,9 @@ namespace MDPlayer.form
             {
                 DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
                 DrawBuff.Volume(frameBuffer, i * 2, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
-                DrawBuff.drawFont4Int2(frameBuffer, 16 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].nfrq);
-                DrawBuff.drawFont4Int2(frameBuffer, 18 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].pan);
-                DrawBuff.drawFont4Int2(frameBuffer, 20 * 4, (2 + i * 2) * 8, 0, 2, newParam.sqrChannels[i].pantp);
+                DrawBuff.font4Int2(frameBuffer, 16 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].nfrq, newParam.sqrChannels[i].nfrq);
+                DrawBuff.font4Int2(frameBuffer, 19 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pan, newParam.sqrChannels[i].pan);
+                DrawBuff.font4Int2(frameBuffer, 22 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pantp, newParam.sqrChannels[i].pantp);
                 DrawBuff.drawDuty(frameBuffer, 24, (1 + i * 2) * 8, ref oldParam.sqrChannels[i].kf, newParam.sqrChannels[i].kf);
                 DrawBuff.drawNESSw(frameBuffer, 32, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].dda, newParam.sqrChannels[i].dda);
                 DrawBuff.drawNESSw(frameBuffer, 40, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].noise, newParam.sqrChannels[i].noise);
@@ -189,13 +189,16 @@ namespace MDPlayer.form
                 ob = oldParam.sqrChannels[i].volumeR != 0;
                 DrawBuff.drawNESSw(frameBuffer, 56, (2 + i * 2) * 8, ref ob, newParam.sqrChannels[i].volumeR != 0);
                 oldParam.sqrChannels[i].volumeR = ob ? 1 : 0;
+                DrawBuff.ChNESDMC(frameBuffer, i, ref oldParam.sqrChannels[i].mask, newParam.sqrChannels[i].mask,0);
+
             }
 
             DrawBuff.KeyBoard(frameBuffer, 4, ref oldParam.triChannel.note, newParam.triChannel.note, 0);
             DrawBuff.Volume(frameBuffer, 4, 0, ref oldParam.triChannel.volume, newParam.triChannel.volume, 0);
-            DrawBuff.drawNESSw(frameBuffer, 40, 6 * 8, ref oldParam.triChannel.dda, newParam.triChannel.dda);
-            DrawBuff.drawFont4Int3(frameBuffer, 15 * 4, 6 * 8, 0, 3, newParam.triChannel.nfrq);
-            DrawBuff.drawFont4Int2(frameBuffer, 21 * 4, 6 * 8, 0, 2, newParam.triChannel.pantp);
+            DrawBuff.drawNESSw(frameBuffer, 36, 6 * 8, ref oldParam.triChannel.dda, newParam.triChannel.dda);
+            DrawBuff.font4Int3(frameBuffer, 13 * 4, 6 * 8, 0, 3,ref oldParam.triChannel.nfrq, newParam.triChannel.nfrq);
+            DrawBuff.font4Int2(frameBuffer, 19 * 4, 6 * 8, 0, 2,ref oldParam.triChannel.pantp, newParam.triChannel.pantp);
+            DrawBuff.ChNESDMC(frameBuffer, 2, ref oldParam.triChannel.mask, newParam.triChannel.mask, 0);
 
             DrawBuff.Volume(frameBuffer, 3, 0, ref oldParam.noiseChannel.volume, newParam.noiseChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 228, 32, ref oldParam.noiseChannel.dda, newParam.noiseChannel.dda);
@@ -203,16 +206,18 @@ namespace MDPlayer.form
             ob = oldParam.noiseChannel.volumeL != 0;
             DrawBuff.drawNESSw(frameBuffer, 160, 32, ref ob, newParam.noiseChannel.volumeL != 0);
             oldParam.noiseChannel.volumeL = ob ? 1 : 0;
-            DrawBuff.drawFont4Int2(frameBuffer, 176, 32, 0, 2, newParam.noiseChannel.volumeR);
-            DrawBuff.drawFont4Int2(frameBuffer, 196, 32, 0, 2, newParam.noiseChannel.nfrq);
+            DrawBuff.font4Int2(frameBuffer, 176, 32, 0, 2,ref oldParam.noiseChannel.volumeR, newParam.noiseChannel.volumeR);
+            DrawBuff.font4Int2(frameBuffer, 196, 32, 0, 2,ref oldParam.noiseChannel.nfrq, newParam.noiseChannel.nfrq);
+            DrawBuff.ChNESDMC(frameBuffer, 3, ref oldParam.noiseChannel.mask, newParam.noiseChannel.mask, 0);
 
             DrawBuff.Volume(frameBuffer, 5, 0, ref oldParam.dmcChannel.volume, newParam.dmcChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 144, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.dda);
             DrawBuff.drawNESSw(frameBuffer, 152, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.noise);
-            DrawBuff.drawFont4Int2(frameBuffer, 176, 48, 0, 2, newParam.dmcChannel.volumeL);
-            DrawBuff.drawFont4Int3(frameBuffer, 192, 48, 0, 3, newParam.dmcChannel.volumeR);
+            DrawBuff.font4Int2(frameBuffer, 176, 48, 0, 2,ref oldParam.dmcChannel.volumeL, newParam.dmcChannel.volumeL);
+            DrawBuff.font4Int3(frameBuffer, 192, 48, 0, 3,ref oldParam.dmcChannel.volumeR, newParam.dmcChannel.volumeR);
             DrawBuff.font4HexByte(frameBuffer, 220, 48, 0, ref oldParam.dmcChannel.nfrq, newParam.dmcChannel.nfrq);
             DrawBuff.font4HexByte(frameBuffer, 244, 48, 0, ref oldParam.dmcChannel.pantp, newParam.dmcChannel.pantp);
+            DrawBuff.ChNESDMC(frameBuffer, 4, ref oldParam.dmcChannel.mask, newParam.dmcChannel.mask, 0);
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -223,20 +228,36 @@ namespace MDPlayer.form
             if (py < 1 * 8) return;
 
             //鍵盤
-            if (py < 4 * 8)
+            if (py < 7 * 8)
             {
+                if (e.Button == MouseButtons.Right)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        //マスク解除
+                        if (i < 2) parent.ResetChannelMask(enmUseChip.NES, chipID, i);
+                        else parent.ResetChannelMask(enmUseChip.DMC, chipID, i - 2);
+                    }
+
+                    return;
+                }
+
                 int ch = (py / 8) - 1;
+                if (ch == 1) return;
+                ch = ch == 3 ? 3 : (ch == 5 ? 4 : ch / 2);
                 if (ch < 0) return;
 
                 if (e.Button == MouseButtons.Left)
                 {
+                    //マスク
+                    if (ch < 2) parent.SetChannelMask(enmUseChip.NES, chipID, ch);
+                    else parent.SetChannelMask(enmUseChip.DMC, chipID, ch - 2);
+
+                    return;
                 }
 
-                return;
             }
 
         }
-
-
     }
 }

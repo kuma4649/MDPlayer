@@ -1516,8 +1516,8 @@ namespace MDPlayer
                 SetYM2151Volume(setting.balance.YM2151Volume);
                 SetAY8910Volume(setting.balance.AY8910Volume);
 
-                driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
-                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2151 | enmUseChip.AY8910, 0);
+                driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }, 0);
+                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }, 0);
                 ((NRTDRV)driverVirtual).Call(0);//
                 ((NRTDRV)driverVirtual).Call(1);//MPLAY
                 ((NRTDRV)driverReal).Call(0);//
@@ -1629,8 +1629,8 @@ namespace MDPlayer
                 SetYM2612Volume(setting.balance.YM2612Volume);
                 SetSN76489Volume(setting.balance.SN76489Volume);
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2612 | enmUseChip.SN76489, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }, 0)) return false;
 
                 //Play
 
@@ -1695,8 +1695,8 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.YM2203, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.YM2203, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2203 }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel,new enmUseChip[] { enmUseChip.YM2203 }, 0)) return false;
 
                 List<S98.S98DevInfo> s98DInfo = ((S98)driverVirtual).s98Info.DeviceInfos;
 
@@ -1994,8 +1994,8 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2072,8 +2072,8 @@ namespace MDPlayer
                 MakeMIDIout(setting, MidiMode);
                 chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2139,13 +2139,22 @@ namespace MDPlayer
                 hiyorimiNecessary = setting.HiyorimiMode;
 
                 chipLED = new ChipLEDs();
+                chipLED.PriNES = 1;
+                chipLED.PriDMC = 1;
 
                 MasterVolume = setting.balance.MasterVolume;
 
                 ((nsf)driverVirtual).song = SongNo;
                 ((nsf)driverReal).song = SongNo;
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, enmUseChip.Unuse, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, enmUseChip.Unuse, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+
+                if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
+                if (((nsf)driverVirtual).use_fme7) chipLED.PriFME7 = 1;
+                if (((nsf)driverVirtual).use_mmc5) chipLED.PriMMC5 = 1;
+                if (((nsf)driverVirtual).use_n106) chipLED.PriN160 = 1;
+                if (((nsf)driverVirtual).use_vrc6) chipLED.PriVRC6 = 1;
+                if (((nsf)driverVirtual).use_vrc7) chipLED.PriVRC7 = 1;
 
                 //nes_intf nes = new nes_intf();
                 MDSound.MDSound.Chip chip;
@@ -2305,48 +2314,50 @@ namespace MDPlayer
 
                 Stop();
 
-                enmUseChip usechip = enmUseChip.Unuse;
+                List<enmUseChip> usechip = new List<enmUseChip>();
+                usechip.Add(enmUseChip.Unuse);
                 if (setting.YM2612Type.UseScci)
                 {
                     if (setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        usechip |= enmUseChip.YM2612Ch6;
+                        usechip.Add(enmUseChip.YM2612Ch6);
                     }
                 }
                 else
                 {
-                    usechip |= enmUseChip.YM2612;
-                    usechip |= enmUseChip.YM2612Ch6;
+                    usechip.Add(enmUseChip.YM2612);
+                    usechip.Add(enmUseChip.YM2612Ch6);
                 }
                 if (!setting.SN76489Type.UseScci)
                 {
-                    usechip |= enmUseChip.SN76489;
+                    usechip.Add(enmUseChip.SN76489);
                 }
-                usechip |= enmUseChip.RF5C164;
-                usechip |= enmUseChip.PWM;
+                usechip.Add(enmUseChip.RF5C164);
+                usechip.Add(enmUseChip.PWM);
 
                 if (!driverVirtual.init(vgmBuf
                     , chipRegister
                     , enmModel.VirtualModel
-                    , usechip
+                    , usechip.ToArray()
                     , (UInt32)common.SampleRate * (uint)setting.LatencyEmulation / 1000
                     ))
                     return false;
 
-                usechip = enmUseChip.Unuse;
+                usechip.Clear();
+                usechip.Add(enmUseChip.Unuse);
                 if (setting.YM2612Type.UseScci)
                 {
-                    usechip |= enmUseChip.YM2612;
+                    usechip.Add(enmUseChip.YM2612);
                     if (!setting.YM2612Type.OnlyPCMEmulation)
                     {
-                        usechip |= enmUseChip.YM2612Ch6;
+                        usechip.Add(enmUseChip.YM2612Ch6);
                     }
                 }
 
                 if (!driverReal.init(vgmBuf
                     , chipRegister
                     , enmModel.RealModel
-                    , usechip
+                    , usechip.ToArray()
                     , (UInt32)common.SampleRate * (uint)setting.LatencySCCI / 1000
                     ))
                     return false;
@@ -4037,11 +4048,14 @@ namespace MDPlayer
         {
             byte[] reg = null;
 
-            if (chipRegister == null) reg= null;
+            //nsf向け
+            if (chipRegister == null) reg = null;
             else if (chipRegister.nes_apu == null) reg = null;
             else if (chipRegister.nes_apu.chip == null) reg = null;
-            else reg =chipRegister.nes_apu.chip.reg;
+            else if (chipID == 1) reg = null;
+            else reg = chipRegister.nes_apu.chip.reg;
 
+            //vgm向け
             if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
 
             return reg;
@@ -4051,11 +4065,14 @@ namespace MDPlayer
         {
             byte[] reg = null;
 
+            //nsf向け
             if (chipRegister == null) reg = null;
             else if (chipRegister.nes_apu == null) reg = null;
             else if (chipRegister.nes_apu.chip == null) reg = null;
+            else if (chipID == 1) reg = null;
             else reg = chipRegister.nes_dmc.chip.reg;
 
+            //vgm向け
             //if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
 
             return reg;
@@ -4583,6 +4600,16 @@ namespace MDPlayer
             chipRegister.setMaskOKIM6258(chipID, true);
         }
 
+        public static void setNESMask(int chipID, int ch)
+        {
+            chipRegister.setNESMask(chipID, ch);
+        }
+
+        public static void setDMCMask(int chipID, int ch)
+        {
+            chipRegister.setNESMask(chipID, ch+2);
+        }
+
 
         public static void resetOKIM6258Mask(int chipID)
         {
@@ -4685,7 +4712,15 @@ namespace MDPlayer
             mds.resetHuC6280Mask(chipID, 1 << ch);
         }
 
+        public static void resetNESMask(int chipID, int ch)
+        {
+            chipRegister.resetNESMask(chipID, ch);
+        }
 
+        public static void resetDMCMask(int chipID, int ch)
+        {
+            chipRegister.resetNESMask(chipID, ch+2);
+        }
 
     }
 

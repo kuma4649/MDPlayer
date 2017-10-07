@@ -525,6 +525,8 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, ch * 16 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 16 + 8, 1, "   ");
+                bool m = true;
+                ChNESDMC(screen, ch, ref m, false, 0);
             }
         }
 
@@ -809,27 +811,29 @@ namespace MDPlayer
 
             y = (y + 1) * 8;
 
-            if (ot >= 0)
+            if (ot >= 0 && ot<12*8)
             {
                 kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = Tables.kbl[(ot % 12) * 2 + 1];
                 drawKbn(screen, 32 + kx, y, kt, tp);
             }
 
-            if (nt >= 0)
+            if (nt >= 0 && nt < 12 * 8)
             {
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 296, y, 1, "   ");
+
+            if (nt >= 0)
+            {
                 drawFont8(screen, 296, y, 1, Tables.kbn[nt % 12]);
-                if (nt / 12 < 8)
+                if (nt / 12 < 10)
                 {
                     drawFont8(screen, 312, y, 1, Tables.kbo[nt / 12]);
                 }
-            }
-            else
-            {
-                drawFont8(screen, 296, y, 1, "   ");
             }
 
             ot = nt;
@@ -1154,6 +1158,18 @@ namespace MDPlayer
             ot = nt;
             om = nm;
             otp = ntp;
+        }
+
+        public static void ChNESDMC(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChNESDMC_P(screen, ch, nm, tp);
+            om = nm;
         }
 
 
@@ -1892,7 +1908,24 @@ namespace MDPlayer
             os = ns;
         }
 
-        public static void font4HexByte(FrameBuffer screen, int x, int y,int t, ref int on, int nn) {
+        public static void font4Int2(FrameBuffer screen, int x, int y, int t, int k, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Int2(screen, x, y, t, k, nn);
+            on = nn;
+        }
+
+        public static void font4Int3(FrameBuffer screen, int x, int y, int t, int k, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Int3(screen, x, y, t, k, nn);
+            on = nn;
+        }
+
+        public static void font4HexByte(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
             if (on == nn) return;
 
             drawFont4HexByte(screen, x, y, t, nn);
@@ -2597,6 +2630,32 @@ namespace MDPlayer
                 screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
                 drawFont8(screen, x + 16, y, 0, " ");
                 drawFont4(screen, x + 32, y, 0, " 1C00             2C00             3C00             4C00                ");
+            }
+        }
+
+        private static void ChNESDMC_P(FrameBuffer screen, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            switch (ch)
+            {
+                case 0:
+                    screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 8, mask ? 1 : 0, "1");
+                    break;
+                case 1:
+                    screen.drawByteArray(0, 24, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 24, mask ? 1 : 0, "2");
+                    break;
+                case 2:
+                    screen.drawByteArray(0, 40, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 8, 32, 8);
+                    break;
+                case 3:
+                    screen.drawByteArray(112, 32, rType[tp * 2 + (mask ? 1 : 0)], 128, 96, 8, 24, 8);
+                    break;
+                case 4:
+                    screen.drawByteArray(112, 48, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 16, 16, 8);
+                    break;
             }
         }
 

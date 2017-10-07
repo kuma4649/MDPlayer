@@ -27,6 +27,13 @@ namespace MDPlayer
         public byte PriK054539 = 0;
         public byte PriK051649 = 0;
         public byte PriNES = 0;
+        public byte PriDMC = 0;
+        public byte PriFDS = 0;
+        public byte PriFME7 = 0;
+        public byte PriMMC5 = 0;
+        public byte PriN160 = 0;
+        public byte PriVRC6 = 0;
+        public byte PriVRC7 = 0;
         public byte PriHuC8 = 0;
 
         public byte SecOPN = 0;
@@ -48,6 +55,13 @@ namespace MDPlayer
         public byte SecK054539 = 0;
         public byte SecK051649 = 0;
         public byte SecNES = 0;
+        public byte SecDMC = 0;
+        public byte SecFDS = 0;
+        public byte SecFME7 = 0;
+        public byte SecMMC5 = 0;
+        public byte SecN160 = 0;
+        public byte SecVRC6 = 0;
+        public byte SecVRC7 = 0;
         public byte SecHuC8 = 0;
 
     }

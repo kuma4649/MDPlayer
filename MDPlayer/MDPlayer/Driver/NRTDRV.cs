@@ -96,7 +96,7 @@ namespace MDPlayer
             ,214,0                  //+2
         };
 
-        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip useChip, uint latency)
+        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
         {
 
             this.vgmBuf = nrdFileData;

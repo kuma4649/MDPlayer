@@ -151,7 +151,7 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(enmUseChip.C140, chipID, ch);
+                    parent.SetChannelMask( enmUseChip.C140, chipID, ch);
                     return;
                 }
 

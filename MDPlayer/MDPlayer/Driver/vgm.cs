@@ -66,7 +66,7 @@ namespace MDPlayer
         public dacControl dacControl = new dacControl();
         public bool isDataBlock = false;
         public bool isPcmRAMWrite = false;
-
+        public bool useChipYM2612Ch6 = false;
         //public Setting setting = null;
 
 
@@ -92,7 +92,7 @@ namespace MDPlayer
         private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
         private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip useChip,uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip,uint latency)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -130,7 +130,15 @@ namespace MDPlayer
             Stopped = false;
             isDataBlock = false;
             isPcmRAMWrite = false;
-
+            useChipYM2612Ch6 = false;
+            foreach (enmUseChip uc in useChip)
+            {
+                if (uc == enmUseChip.YM2612Ch6)
+                {
+                    useChipYM2612Ch6 = true;
+                    break;
+                }
+            }
             return true;
         }
 
@@ -240,7 +248,7 @@ namespace MDPlayer
             {
                 if (vgmSpeed == 1) //等速の場合のみウェイトをかける
                 {
-                    if ((useChip & enmUseChip.YM2612Ch6) == enmUseChip.YM2612Ch6)
+                    if (useChipYM2612Ch6)
                         chipRegister.setYM2612SyncWait(0, vgmWait);
                     //if ((useChip & enmUseChip.SN76489) == enmUseChip.SN76489)
                     //    chipRegister.setSN76489SyncWait(vgmWait);

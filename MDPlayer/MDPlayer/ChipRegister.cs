@@ -1494,6 +1494,47 @@ namespace MDPlayer
             writeOKIM6258((byte)chipID, 0, 1, enmModel.RealModel);
         }
 
+        private int nsfAPUmask = 0;
+        private int nsfDMCmask = 0;
+
+        public void setNESMask(int chipID, int ch)
+        {
+            switch (ch)
+            {
+                case 0:
+                case 1:
+                    nsfAPUmask |= 1 << ch;
+                    if(nes_apu!=null) nes_apu.SetMask(nsfAPUmask);
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    nsfDMCmask |= 1 << (ch-2);
+                    if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
+                    break;
+            }
+            mds.setNESMask(chipID, ch);
+        }
+
+        public void resetNESMask(int chipID, int ch)
+        {
+            switch (ch)
+            {
+                case 0:
+                case 1:
+                    nsfAPUmask &= ~(1 << ch);
+                    if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    nsfDMCmask &= ~(1 << (ch - 2));
+                    if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
+                    break;
+            }
+            mds.resetNESMask(chipID, ch);
+        }
+
 
         public void setFadeoutVolYM2151(int chipID, int v)
         {

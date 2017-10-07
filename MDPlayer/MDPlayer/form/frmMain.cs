@@ -2628,17 +2628,19 @@ namespace MDPlayer.form
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
-                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
-                for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
-                for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
+                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151 , chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203 , chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2413 , chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2608 , chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2610 , chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612 , chipID, ch);
+                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489 , chipID, ch);
+                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164 , chipID, ch);
+                for (int ch = 0; ch < 24; ch++) ResetChannelMask( enmUseChip.C140 , chipID, ch);
+                for (int ch = 0; ch < 16; ch++) ResetChannelMask( enmUseChip.SEGAPCM , chipID, ch);
                 for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
+                for (int ch = 0; ch < 2; ch++) ResetChannelMask(enmUseChip.NES, chipID, ch);
+                for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.DMC, chipID, ch);
             }
 
             oldParam = new MDChipParams();
@@ -2710,6 +2712,9 @@ namespace MDPlayer.form
 
                 if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
                 if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
+
+                if (Audio.chipLED.PriNES != 0 || Audio.chipLED.PriDMC != 0) OpenFormNESDMC(0, true); else CloseFormNESDMC(0);
+                if (Audio.chipLED.SecNES != 0 || Audio.chipLED.SecDMC != 0) OpenFormNESDMC(1, true); else CloseFormNESDMC(1);
 
             }
         }
@@ -3982,6 +3987,36 @@ namespace MDPlayer.form
                     }
                     newParam.okim6258[chipID].mask = !newParam.okim6258[chipID].mask;
                     break;
+                case enmUseChip.NES:
+                    if (!newParam.nesdmc[chipID].sqrChannels[ch].mask)
+                    {
+                        Audio.setNESMask(chipID, ch);
+                    }
+                    else
+                    {
+                        Audio.resetNESMask(chipID, ch);
+                    }
+                    newParam.nesdmc[chipID].sqrChannels[ch].mask = !newParam.nesdmc[chipID].sqrChannels[ch].mask;
+                    break;
+                case enmUseChip.DMC:
+                    switch (ch) {
+                        case 0:
+                            if (!newParam.nesdmc[chipID].triChannel.mask) Audio.setDMCMask(chipID, ch);
+                            else Audio.resetDMCMask(chipID, ch);
+                            newParam.nesdmc[chipID].triChannel.mask = !newParam.nesdmc[chipID].triChannel.mask;
+                            break;
+                        case 1:
+                            if (!newParam.nesdmc[chipID].noiseChannel.mask) Audio.setDMCMask(chipID, ch);
+                            else Audio.resetDMCMask(chipID, ch);
+                            newParam.nesdmc[chipID].noiseChannel.mask = !newParam.nesdmc[chipID].noiseChannel.mask;
+                            break;
+                        case 2:
+                            if (!newParam.nesdmc[chipID].dmcChannel.mask) Audio.setDMCMask(chipID, ch);
+                            else Audio.resetDMCMask(chipID, ch);
+                            newParam.nesdmc[chipID].dmcChannel.mask = !newParam.nesdmc[chipID].dmcChannel.mask;
+                            break;
+                    }
+                    break;
             }
         }
 
@@ -4052,6 +4087,44 @@ namespace MDPlayer.form
                 case enmUseChip.OKIM6258:
                     newParam.okim6258[chipID].mask = false;
                     Audio.resetOKIM6258Mask(chipID);
+                    break;
+                case enmUseChip.NES:
+                    switch(ch) {
+                        case 0:
+                        case 1:
+                            newParam.nesdmc[chipID].sqrChannels[ch].mask = false;
+                            Audio.resetNESMask(chipID, ch);
+                            break;
+                        case 2:
+                            newParam.nesdmc[chipID].triChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 0);
+                            break;
+                        case 3:
+                            newParam.nesdmc[chipID].noiseChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 1);
+                            break;
+                        case 4:
+                            newParam.nesdmc[chipID].dmcChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 2);
+                            break;
+                    }
+                    break;
+                case enmUseChip.DMC:
+                    switch (ch)
+                    {
+                        case 0:
+                            newParam.nesdmc[chipID].triChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 0);
+                            break;
+                        case 1:
+                            newParam.nesdmc[chipID].noiseChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 1);
+                            break;
+                        case 2:
+                            newParam.nesdmc[chipID].dmcChannel.mask = false;
+                            Audio.resetDMCMask(chipID, 2);
+                            break;
+                    }
                     break;
 
             }
