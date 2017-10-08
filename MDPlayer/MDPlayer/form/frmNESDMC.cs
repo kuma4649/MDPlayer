@@ -112,7 +112,7 @@ namespace MDPlayer.form
                 {
                     freq = (reg[3 + i * 4] & 0x07) * 0x100 + reg[2 + i * 4];
                     vol = reg[i * 4] & 0xf;
-                    note = 92 - (int)((12 * (Math.Log(freq) / LOG_2 - LOG2_440) + NOTE_440HZ + 0.5));
+                    note = 104 - (int)((12 * (Math.Log(freq) / LOG_2 - LOG2_440) + NOTE_440HZ + 0.5));
                     note = vol == 0 ? -1 : note;
                     newParam.sqrChannels[i].note = note;
                     newParam.sqrChannels[i].volume = Math.Min((int)((vol) * 1.33), 19);

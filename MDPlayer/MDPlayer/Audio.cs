@@ -4078,6 +4078,23 @@ namespace MDPlayer
             return reg;
         }
 
+        public static MDSound.np.np_nes_fds.NES_FDS GetFDSRegister(int chipID)
+        {
+            MDSound.np.np_nes_fds.NES_FDS reg = null;
+
+            //nsf向け
+            if (chipRegister == null) reg = null;
+            else if (chipRegister.nes_apu == null) reg = null;
+            else if (chipRegister.nes_apu.chip == null) reg = null;
+            else if (chipID == 1) reg = null;
+            else reg = chipRegister.nes_fds.chip;
+
+            //vgm向け
+            if (reg == null) reg = chipRegister.getFDSRegister(chipID, enmModel.VirtualModel);
+
+            return reg;
+        }
+
         public static int[] GetFMKeyOn(int chipID)
         {
             return chipRegister.fmKeyOnYM2612[chipID];
@@ -4610,6 +4627,11 @@ namespace MDPlayer
             chipRegister.setNESMask(chipID, ch+2);
         }
 
+        public static void setFDSMask(int chipID)
+        {
+            chipRegister.setFDSMask(chipID);
+        }
+
 
         public static void resetOKIM6258Mask(int chipID)
         {
@@ -4720,6 +4742,11 @@ namespace MDPlayer
         public static void resetDMCMask(int chipID, int ch)
         {
             chipRegister.resetNESMask(chipID, ch+2);
+        }
+
+        public static void resetFDSMask(int chipID)
+        {
+            chipRegister.resetFDSMask(chipID);
         }
 
     }

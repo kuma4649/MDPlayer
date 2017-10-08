@@ -318,7 +318,7 @@ namespace MDPlayer
 
         }
 
-    public void Close()
+        public void Close()
         {
             midiExport.Close();
         }
@@ -472,7 +472,7 @@ namespace MDPlayer
             }
         }
 
-        public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei,long vgmFrameCounter)
+        public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei, long vgmFrameCounter)
         {
             if (ctYM2151 == null) return;
 
@@ -579,7 +579,7 @@ namespace MDPlayer
                         int oct = (dData & 0x70) >> 4;
                         int note = dData & 0xf;
                         note = (note < 3) ? note : ((note < 7) ? (note - 1) : ((note < 11) ? (note - 2) : (note - 3)));
-                        note += hosei-1;
+                        note += hosei - 1;
                         if (note < 0)
                         {
                             oct += (note / 12) - 1;
@@ -646,7 +646,7 @@ namespace MDPlayer
             {
                 //if (!ctNES[chipID].UseScci)
                 //{
-                    mds.WriteNES((byte)chipID, (byte)dAddr, (byte)dData);
+                mds.WriteNES((byte)chipID, (byte)dAddr, (byte)dData);
                 //}
             }
             else
@@ -657,7 +657,7 @@ namespace MDPlayer
             }
         }
 
-        public byte[] getNESRegister(int chipID,enmModel model)
+        public byte[] getNESRegister(int chipID, enmModel model)
         {
             if (chipID == 0) chipLED.PriNES = 2;
             else chipLED.SecNES = 2;
@@ -676,6 +676,29 @@ namespace MDPlayer
 
                 //scNES[chipID].setRegister(dAddr, dData);
             }
+        }
+
+        public MDSound.np.np_nes_fds.NES_FDS getFDSRegister(int chipID, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriFDS = 2;
+            else chipLED.SecFDS = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctNES[chipID].UseScci)
+                //{
+                return mds.ReadFDS((byte)chipID);
+                //}
+            }
+            else
+            {
+                return null;
+                //if (scFDS[chipID] == null) return;
+
+                //scFDS[chipID].setRegister(dAddr, dData);
+            }
+
+            return null;
         }
 
         public void setYM2413Register(int chipID, int dAddr, int dData, enmModel model)
@@ -1327,7 +1350,7 @@ namespace MDPlayer
         {
             maskFMChYM2151[chipID][ch] = mask;
 
-            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], enmModel.VirtualModel, 0,-1);
+            setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], enmModel.VirtualModel, 0, -1);
             setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], enmModel.VirtualModel, 0, -1);
             setYM2151Register((byte)chipID, 0, 0x70 + ch, fmRegisterYM2151[chipID][0x70 + ch], enmModel.VirtualModel, 0, -1);
             setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], enmModel.VirtualModel, 0, -1);
@@ -1496,6 +1519,7 @@ namespace MDPlayer
 
         private int nsfAPUmask = 0;
         private int nsfDMCmask = 0;
+        private int nsfFDSmask = 0;
 
         public void setNESMask(int chipID, int ch)
         {
@@ -1504,12 +1528,12 @@ namespace MDPlayer
                 case 0:
                 case 1:
                     nsfAPUmask |= 1 << ch;
-                    if(nes_apu!=null) nes_apu.SetMask(nsfAPUmask);
+                    if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
                     break;
                 case 2:
                 case 3:
                 case 4:
-                    nsfDMCmask |= 1 << (ch-2);
+                    nsfDMCmask |= 1 << (ch - 2);
                     if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
                     break;
             }
@@ -1533,6 +1557,20 @@ namespace MDPlayer
                     break;
             }
             mds.resetNESMask(chipID, ch);
+        }
+
+        public void setFDSMask(int chipID)
+        {
+            nsfFDSmask |= 1;
+            if (nes_fds != null) nes_fds.SetMask(nsfFDSmask);
+            mds.setFDSMask(chipID);
+        }
+
+        public void resetFDSMask(int chipID)
+        {
+            nsfFDSmask &= ~1;
+            if (nes_fds != null) nes_fds.SetMask(nsfFDSmask);
+            mds.resetFDSMask(chipID);
         }
 
 

@@ -237,6 +237,35 @@ namespace MDPlayer
         }
         public NESDMC[] nesdmc = new NESDMC[] { new NESDMC(), new NESDMC() };
 
+        public class FDS
+        {
+            public Channel channel = new Channel();
+            public int[] wave = new int[32];
+            public int[] mod = new int[32];
+
+            public bool VolDir = false;
+            public int VolSpd = 0;
+            public int VolGain = 0;
+            public bool VolDi = false;
+            public int VolFrq = 0;
+            public bool VolHlR = false;
+
+            public bool ModDir = false;
+            public int ModSpd = 0;
+            public int ModGain = 0;
+            public bool ModDi = false;
+            public int ModFrq = 0;
+            public int ModCnt = 0;
+
+            public int EnvSpd = 0;
+            public bool EnvVolSw = false;
+            public bool EnvModSw = false;
+
+            public int MasterVol = 0;
+            public bool WE = false;
+        }
+        public FDS[] fds = new FDS[] { new FDS(), new FDS() };
+
         public class Mixer
         {
             public class VolumeInfo

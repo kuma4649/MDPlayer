@@ -2261,6 +2261,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosFDS = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosFDS
+            {
+                get
+                {
+                    return _PosFDS;
+                }
+
+                set
+                {
+                    _PosFDS = value;
+                }
+            }
+
+            private bool[] _OpenFDS = new bool[2] { false, false };
+            public bool[] OpenFDS
+            {
+                get
+                {
+                    return _OpenFDS;
+                }
+
+                set
+                {
+                    _OpenFDS = value;
+                }
+            }
+
 
 
 

@@ -530,6 +530,21 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitFDS(FrameBuffer screen)
+        {
+            if (screen == null) return;
+
+            for (int ot = 0; ot < 12 * 8; ot++)
+            {
+                int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 32 + kx, 8, kt, 0);
+            }
+            drawFont8(screen, 296, 8, 1, "   ");
+            bool m = true;
+            ChFDS(screen, 0, ref m, false, 0);
+        }
+
 
         public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
         {
@@ -1172,6 +1187,18 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChFDS(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChFDS_P(screen, ch, nm, tp);
+            om = nm;
+        }
+
 
 
 
@@ -1254,6 +1281,29 @@ namespace MDPlayer
             }
         }
 
+        public static void WaveFormToFDS(FrameBuffer screen, int c, ref int[] oi, int[] ni)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (oi[i] == ni[i]) continue;
+
+                int n = ni[i];
+                int x = i + c * 4 * 31 + 8;
+                int y = 8 * 6;
+
+                int m = 0;
+                m = (n > 7) ? 8 : n;
+                screen.drawByteArray(x, y, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 15) ? 8 : ((n - 8) < 0 ? 0 : (n - 8));
+                screen.drawByteArray(x, y - 8, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 23) ? 8 : ((n - 16) < 0 ? 0 : (n - 16));
+                screen.drawByteArray(x, y - 16, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
+                screen.drawByteArray(x, y - 23, rWavGraph, 64, m + 1, 0, 1, 7);
+
+                oi[i] = ni[i];
+            }
+        }
         public static void DDAToHuC6280(FrameBuffer screen, int c, ref bool od, bool nd)
         {
             if (od == nd) return;
@@ -1932,6 +1982,13 @@ namespace MDPlayer
             on = nn;
         }
 
+        public static void font4Hex12Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex12Bit(screen, x, y, t, nn);
+            on = nn;
+        }
 
 
 
@@ -2329,6 +2386,31 @@ namespace MDPlayer
             return;
         }
 
+        public static void drawFont4Hex12Bit(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = common.Range(num, 0, 0xfff);
+
+            n = num / 0x100;
+            num -= n * 0x100;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
         private static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
@@ -2657,6 +2739,13 @@ namespace MDPlayer
                     screen.drawByteArray(112, 48, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 16, 16, 8);
                     break;
             }
+        }
+
+        private static void ChFDS_P(FrameBuffer screen, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128,14*8, 0 * 8, 16, 8);
         }
 
 
