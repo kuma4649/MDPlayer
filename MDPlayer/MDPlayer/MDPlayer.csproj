@@ -185,6 +185,12 @@
     <Compile Include="form\frmMixer2.Designer.cs">
       <DependentUpon>frmMixer2.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmMMC5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmMMC5.Designer.cs">
+      <DependentUpon>frmMMC5.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmNESDMC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -468,6 +474,7 @@
     <Content Include="Resources\planeMIDI_GS.png" />
     <Content Include="Resources\planeMIDI_XG.png" />
     <Content Include="Resources\planeMixer.png" />
+    <Content Include="Resources\planeMMC5.png" />
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
     <Content Include="Resources\planeNESDMC.png" />

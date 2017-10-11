@@ -21,6 +21,7 @@ namespace MDPlayer.form
         private int chipID = 0;
         private int zoom = 1;
 
+        //
         private MDChipParams.NESDMC newParam = null;
         private MDChipParams.NESDMC oldParam = new MDChipParams.NESDMC();
         private FrameBuffer frameBuffer = new FrameBuffer();
