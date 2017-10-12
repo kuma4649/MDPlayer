@@ -36,6 +36,7 @@
             this.tsmiPAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPDCSG = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPFDS = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPMIDI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPNESDMC = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +55,7 @@
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSDCSG = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSFDS = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSHuC6280 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSMIDI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSNESDMC = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,8 +70,8 @@
             this.tsmiSPWM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPFDS = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSFDS = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPMMC5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSMMC5 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -106,6 +108,7 @@
             this.tsmiPFDS,
             this.tsmiPHuC6280,
             this.tsmiPMIDI,
+            this.tsmiPMMC5,
             this.tsmiPNESDMC,
             this.tsmiPOKIM6258,
             this.tsmiPOKIM6295,
@@ -142,6 +145,13 @@
             this.tsmiPDCSG.Size = new System.Drawing.Size(152, 22);
             this.tsmiPDCSG.Text = "DCSG";
             this.tsmiPDCSG.Click += new System.EventHandler(this.tsmiPDCSG_Click);
+            // 
+            // tsmiPFDS
+            // 
+            this.tsmiPFDS.Name = "tsmiPFDS";
+            this.tsmiPFDS.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPFDS.Text = "FDS";
+            this.tsmiPFDS.Click += new System.EventHandler(this.tsmiPFDS_Click);
             // 
             // tsmiPHuC6280
             // 
@@ -250,6 +260,7 @@
             this.tsmiSFDS,
             this.tsmiSHuC6280,
             this.tsmiSMIDI,
+            this.tsmiSMMC5,
             this.tsmiSNESDMC,
             this.tsmiSOKIM6258,
             this.tsmiSOKIM6295,
@@ -286,6 +297,13 @@
             this.tsmiSDCSG.Size = new System.Drawing.Size(152, 22);
             this.tsmiSDCSG.Text = "DCSG";
             this.tsmiSDCSG.Click += new System.EventHandler(this.tsmiSDCSG_Click);
+            // 
+            // tsmiSFDS
+            // 
+            this.tsmiSFDS.Name = "tsmiSFDS";
+            this.tsmiSFDS.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSFDS.Text = "FDS";
+            this.tsmiSFDS.Click += new System.EventHandler(this.tsmiSFDS_Click);
             // 
             // tsmiSHuC6280
             // 
@@ -385,19 +403,19 @@
             this.tsmiSSegaPCM.Text = "SEGA PCM";
             this.tsmiSSegaPCM.Click += new System.EventHandler(this.tsmiSSegaPCM_Click);
             // 
-            // tsmiPFDS
+            // tsmiPMMC5
             // 
-            this.tsmiPFDS.Name = "tsmiPFDS";
-            this.tsmiPFDS.Size = new System.Drawing.Size(152, 22);
-            this.tsmiPFDS.Text = "FDS";
-            this.tsmiPFDS.Click += new System.EventHandler(this.tsmiPFDS_Click);
+            this.tsmiPMMC5.Name = "tsmiPMMC5";
+            this.tsmiPMMC5.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPMMC5.Text = "MMC5";
+            this.tsmiPMMC5.Click += new System.EventHandler(this.tsmiPMMC5_Click);
             // 
-            // tsmiSFDS
+            // tsmiSMMC5
             // 
-            this.tsmiSFDS.Name = "tsmiSFDS";
-            this.tsmiSFDS.Size = new System.Drawing.Size(152, 22);
-            this.tsmiSFDS.Text = "FDS";
-            this.tsmiSFDS.Click += new System.EventHandler(this.tsmiSFDS_Click);
+            this.tsmiSMMC5.Name = "tsmiSMMC5";
+            this.tsmiSMMC5.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSMMC5.Text = "MMC5";
+            this.tsmiSMMC5.Click += new System.EventHandler(this.tsmiSMMC5_Click);
             // 
             // frmMain
             // 
@@ -463,6 +481,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSNESDMC;
         private System.Windows.Forms.ToolStripMenuItem tsmiPFDS;
         private System.Windows.Forms.ToolStripMenuItem tsmiSFDS;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPMMC5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSMMC5;
     }
 }
 

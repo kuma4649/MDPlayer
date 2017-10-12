@@ -698,7 +698,22 @@ namespace MDPlayer
                 //scFDS[chipID].setRegister(dAddr, dData);
             }
 
-            return null;
+        }
+
+        public MDSound.np.chip.nes_mmc5 getMMC5Register(int chipID, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriMMC5 = 2;
+            else chipLED.SecMMC5 = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                return null;// mds.ReadMMC5((byte)chipID);
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public void setYM2413Register(int chipID, int dAddr, int dData, enmModel model)
@@ -1520,6 +1535,7 @@ namespace MDPlayer
         private int nsfAPUmask = 0;
         private int nsfDMCmask = 0;
         private int nsfFDSmask = 0;
+        private int nsfMMC5mask = 0;
 
         public void setNESMask(int chipID, int ch)
         {
@@ -1572,6 +1588,19 @@ namespace MDPlayer
             if (nes_fds != null) nes_fds.SetMask(nsfFDSmask);
             mds.resetFDSMask(chipID);
         }
+
+        public void setMMC5Mask(int chipID, int ch)
+        {
+            nsfMMC5mask |= 1 << ch;
+            if (nes_mmc5 != null) nes_mmc5.SetMask(nsfMMC5mask);
+        }
+
+        public void resetMMC5Mask(int chipID, int ch)
+        {
+            nsfMMC5mask &= ~(1 << ch);
+            if (nes_mmc5 != null) nes_mmc5.SetMask(nsfMMC5mask);
+        }
+
 
 
         public void setFadeoutVolYM2151(int chipID, int v)

@@ -303,6 +303,7 @@ namespace MDPlayer
         , NES
         , DMC
         , FDS
+        , MMC5
     }
 
     public enum enmScciChipType : int

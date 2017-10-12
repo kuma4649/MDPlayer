@@ -1145,12 +1145,14 @@ namespace MDPlayer
             om = nm;
         }
 
-        public static void Ch6YM2612(FrameBuffer screen, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        public static void Ch6YM2612(FrameBuffer screen, int buff, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
         {
-
-            if (ot == nt && om == nm && otp == ntp)
+            if (buff == 0)
             {
-                return;
+                if (ot == nt && om == nm && otp == ntp)
+                {
+                    return;
+                }
             }
 
             Ch6YM2612_P(screen, 0, 48, nt, nm, ntp);
@@ -1196,6 +1198,18 @@ namespace MDPlayer
             }
 
             ChFDS_P(screen, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChMMC5(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChMMC5_P(screen, ch, nm, tp);
             om = nm;
         }
 
@@ -2748,6 +2762,25 @@ namespace MDPlayer
             screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128,14*8, 0 * 8, 16, 8);
         }
 
+        private static void ChMMC5_P(FrameBuffer screen, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            switch (ch)
+            {
+                case 0:
+                    screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 8, mask ? 1 : 0, "1");
+                    break;
+                case 1:
+                    screen.drawByteArray(0, 24, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 24, mask ? 1 : 0, "2");
+                    break;
+                case 2:
+                    screen.drawByteArray(112, 32, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+                    break;
+            }
+        }
 
 
         private static void drawFaderSlitP(FrameBuffer screen, int x, int y)

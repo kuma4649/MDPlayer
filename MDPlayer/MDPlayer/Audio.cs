@@ -4095,6 +4095,30 @@ namespace MDPlayer
             return reg;
         }
 
+        private static byte[] mmc5regs = new byte[10];
+        public static byte[] GetMMC5Register(int chipID)
+        {
+            //nsf向け
+            if (chipRegister == null) return null;
+            else if (chipRegister.nes_mmc5 == null) return null;
+            else if (chipID == 1) return null;
+
+            uint dat = 0;
+            for (uint adr = 0x5000; adr < 0x5008; adr++)
+            {
+                dat=0;
+                chipRegister.nes_mmc5.Read(adr, ref dat);
+                mmc5regs[adr & 0x7] = (byte)dat;
+            }
+
+            chipRegister.nes_mmc5.Read(0x5010, ref dat);
+            mmc5regs[8] = (byte)(chipRegister.nes_mmc5.pcm_mode ? 1 : 0);
+            mmc5regs[9] = chipRegister.nes_mmc5.pcm;
+
+
+            return mmc5regs;
+        }
+
         public static int[] GetFMKeyOn(int chipID)
         {
             return chipRegister.fmKeyOnYM2612[chipID];
@@ -4632,6 +4656,11 @@ namespace MDPlayer
             chipRegister.setFDSMask(chipID);
         }
 
+        public static void setMMC5Mask(int chipID, int ch)
+        {
+            chipRegister.setMMC5Mask(chipID, ch);
+        }
+
 
         public static void resetOKIM6258Mask(int chipID)
         {
@@ -4747,6 +4776,11 @@ namespace MDPlayer
         public static void resetFDSMask(int chipID)
         {
             chipRegister.resetFDSMask(chipID);
+        }
+
+        public static void resetMMC5Mask(int chipID, int ch)
+        {
+            chipRegister.resetMMC5Mask(chipID, ch);
         }
 
     }

@@ -193,7 +193,7 @@ namespace MDPlayer.form
             if (newParam.channels[5].pcmBuff > 0)
                 newParam.channels[5].pcmBuff--;
 
-            if (newParam.fileFormat == enmFileFormat.XGM)
+            if (newParam.fileFormat == enmFileFormat.XGM && Audio.driverVirtual is xgm)
             {
                 if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
                 {
@@ -253,7 +253,7 @@ namespace MDPlayer.form
 
                     if (newParam.fileFormat != enmFileFormat.XGM)
                     {
-                        DrawBuff.Ch6YM2612(frameBuffer, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                        DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
                         DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
                         DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp6v);

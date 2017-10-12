@@ -2289,6 +2289,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosMMC5 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosMMC5
+            {
+                get
+                {
+                    return _PosMMC5;
+                }
+
+                set
+                {
+                    _PosMMC5 = value;
+                }
+            }
+
+            private bool[] _OpenMMC5 = new bool[2] { false, false };
+            public bool[] OpenMMC5
+            {
+                get
+                {
+                    return _OpenMMC5;
+                }
+
+                set
+                {
+                    _OpenMMC5 = value;
+                }
+            }
+
 
 
 

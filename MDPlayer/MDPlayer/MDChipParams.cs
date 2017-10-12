@@ -266,6 +266,13 @@ namespace MDPlayer
         }
         public FDS[] fds = new FDS[] { new FDS(), new FDS() };
 
+        public class MMC5
+        {
+            public Channel[] sqrChannels = new Channel[2] { new Channel(), new Channel() };
+            public Channel pcmChannel = new Channel();
+        }
+        public MMC5[] mmc5 = new MMC5[] { new MMC5(), new MMC5() };
+
         public class Mixer
         {
             public class VolumeInfo

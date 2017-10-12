@@ -354,6 +354,9 @@
     <EmbeddedResource Include="form\frmMixer2.resx">
       <DependentUpon>frmMixer2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmMMC5.resx">
+      <DependentUpon>frmMMC5.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmNESDMC.resx">
       <DependentUpon>frmNESDMC.cs</DependentUpon>
     </EmbeddedResource>
