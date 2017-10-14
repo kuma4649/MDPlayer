@@ -4009,6 +4009,11 @@ namespace MDPlayer
             return chipRegister.sn76489Register[chipID];
         }
 
+        public static int GetPSGRegisterGGPanning(int chipID)
+        {
+            return chipRegister.sn76489RegisterGGPan[chipID];
+        }
+
         public static int[] GetAY8910Register(int chipID)
         {
             return chipRegister.psgRegisterAY8910[chipID];

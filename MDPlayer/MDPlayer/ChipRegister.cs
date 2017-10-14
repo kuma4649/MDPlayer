@@ -126,6 +126,7 @@ namespace MDPlayer
         };
 
         public int[][] sn76489Register = new int[][] { null, null };
+        public int[] sn76489RegisterGGPan = new int[] { 0xff,0xff};
         public int[][][] sn76489Vol = new int[][][] {
             new int[4][] { new int[2], new int[2], new int[2], new int[2] }
             ,new int[4][] { new int[2], new int[2], new int[2], new int[2] }
@@ -1770,6 +1771,30 @@ namespace MDPlayer
         }
 
 
+        public void setSN76489RegisterGGpanning(int chipID, int dData, enmModel model)
+        {
+            if (ctSN76489 == null) return;
+
+            if (chipID == 0) chipLED.PriDCSG = 2;
+            else chipLED.SecDCSG = 2;
+
+            if (model == enmModel.RealModel)
+            {
+                if (ctSN76489[chipID].UseScci)
+                {
+                    if (scSN76489[chipID] == null) return;
+                }
+            }
+            else
+            {
+                if (!ctSN76489[chipID].UseScci && ctSN76489[chipID].UseEmu)
+                {
+                    mds.WriteSN76489GGPanning((byte)chipID, (byte)dData);
+                    sn76489RegisterGGPan[chipID] = dData;
+                }
+            }
+        }
+
         public void setSN76489Register(int chipID, int dData, enmModel model)
         {
             if (ctSN76489 == null) return;
@@ -1781,8 +1806,8 @@ namespace MDPlayer
 
             if ((dData & 0x90) == 0x90)
             {
-                sn76489Vol[chipID][(dData & 0x60) >> 5][0] = 15 - (dData & 0xf);
-                sn76489Vol[chipID][(dData & 0x60) >> 5][1] = 15 - (dData & 0xf);
+                sn76489Vol[chipID][(dData & 0x60) >> 5][0] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> (((dData & 0x60) >> 5) + 4)) & 0x1);
+                sn76489Vol[chipID][(dData & 0x60) >> 5][1] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> ((dData & 0x60) >> 5)) & 0x1);
 
                 int v = dData & 0xf;
                 v = v + nowSN76489FadeoutVol[chipID];
@@ -1804,7 +1829,6 @@ namespace MDPlayer
                 if (!ctSN76489[chipID].UseScci && ctSN76489[chipID].UseEmu)
                 {
                     mds.WriteSN76489((byte)chipID, (byte)dData);
-                    //Console.WriteLine("[{0:X}]",dData);
                 }
             }
         }

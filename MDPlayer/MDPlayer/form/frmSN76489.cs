@@ -101,6 +101,7 @@ namespace MDPlayer.form
         public void screenChangeParams()
         {
             int[] psgRegister = Audio.GetPSGRegister(chipID);
+            int psgRegisterPan = Audio.GetPSGRegisterGGPanning(chipID);
             int[][] psgVol = Audio.GetPSGVolume(chipID);
             if (psgRegister != null)
             {
@@ -116,12 +117,18 @@ namespace MDPlayer.form
                         newParam.channels[ch].note = -1;
                     }
 
-                    newParam.channels[ch].volume = Math.Min(Math.Max((int)((psgVol[ch][0] + psgVol[ch][1]) / (30.0 / 19.0)), 0), 19);
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
+                    newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol[ch][1]) / (15.0 / 19.0)), 0), 19);
+                    newParam.channels[ch].pan = (psgRegisterPan >> ch) & 0x11;
+                    newParam.channels[ch].pan = ((newParam.channels[ch].pan) & 0x1) | (newParam.channels[ch].pan >> 3);
                 }
 
                 //Noise Ch
                 newParam.channels[3].note = psgRegister[6];
-                newParam.channels[3].volume = Math.Min(Math.Max((int)((psgVol[3][0] + psgVol[3][1]) / (30.0 / 19.0)), 0), 19);
+                newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
+                newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol[3][1]) / (15.0 / 19.0)), 0), 19);
+                newParam.channels[3].pan = (psgRegisterPan >> 3) & 0x11;
+                newParam.channels[3].pan = ((newParam.channels[3].pan) & 0x1) | (newParam.channels[3].pan >> 3);
             }
         }
 
@@ -138,16 +145,20 @@ namespace MDPlayer.form
                 osc = oldParam.channels[c];
                 nsc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 0, ref osc.volume, nsc.volume, tp);
+                DrawBuff.Volume(frameBuffer, c, 1, ref osc.volumeL, nsc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, c, 2, ref osc.volumeR, nsc.volumeR, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref osc.note, nsc.note, tp);
                 DrawBuff.ChSN76489(frameBuffer, c, ref osc.mask, nsc.mask, tp);
+                DrawBuff.Pan(frameBuffer, c, ref osc.pan, nsc.pan, ref osc.pantp, tp);
             }
 
             osc = oldParam.channels[3];
             nsc = newParam.channels[3];
-            DrawBuff.Volume(frameBuffer, 3, 0, ref osc.volume, nsc.volume, tp);
+            DrawBuff.Volume(frameBuffer, 3, 1, ref osc.volumeL, nsc.volumeL, tp);
+            DrawBuff.Volume(frameBuffer, 3, 2, ref osc.volumeR, nsc.volumeR, tp);
             DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
             DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
+            DrawBuff.Pan(frameBuffer, 3, ref osc.pan, nsc.pan, ref osc.pantp, tp);
 
         }
 

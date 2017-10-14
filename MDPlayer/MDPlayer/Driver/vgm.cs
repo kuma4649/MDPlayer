@@ -539,6 +539,7 @@ namespace MDPlayer
 
         private void vcGGPSGPort06()
         {
+            chipRegister.setSN76489RegisterGGpanning(vgmBuf[vgmAdr] == 0x4f ? 0 : 1, vgmBuf[vgmAdr + 1], model);
             vgmAdr += 2;
         }
 
