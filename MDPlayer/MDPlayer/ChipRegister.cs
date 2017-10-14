@@ -717,6 +717,34 @@ namespace MDPlayer
 
         }
 
+        public void setMultiPCMRegister(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriMPCM = 2;
+            else chipLED.SecMPCM = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteMultiPCM((byte)chipID, (byte)dAddr, (byte)dData);
+            }
+            else
+            {
+            }
+        }
+
+        public void setMultiPCMSetBank(int chipID, int dCh, int dAddr, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriMPCM = 2;
+            else chipLED.SecMPCM = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteMultiPCMSetBank((byte)chipID, (byte)dCh, (int)dAddr);
+            }
+            else
+            {
+            }
+        }
+
         public void setYM2413Register(int chipID, int dAddr, int dData, enmModel model)
         {
             if (ctYM2413 == null) return;
@@ -2084,6 +2112,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteOKIM6295PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeMultiPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriMPCM = 2;
+            else chipLED.SecMPCM = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteMultiPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)

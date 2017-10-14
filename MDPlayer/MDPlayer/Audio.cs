@@ -2564,6 +2564,33 @@ namespace MDPlayer
                     lstChips.Add(chip);
                 }
 
+                if (((vgm)driverVirtual).MultiPCMClockValue != 0)
+                {
+                    MDSound.multipcm multipcm = new MDSound.multipcm();
+                    for (int i = 0; i < (((vgm)driverVirtual).MultiPCMDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.MultiPCM;
+                        chip.ID = (byte)i;
+                        chip.Instrument = multipcm;
+                        chip.Update = multipcm.Update;
+                        chip.Start = multipcm.Start;
+                        chip.Stop = multipcm.Stop;
+                        chip.Reset = multipcm.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.MultiPCMVolume;
+                        chip.Clock = ((vgm)driverVirtual).MultiPCMClockValue;
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriMPCM = 1;
+                        else chipLED.SecMPCM = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).OKIM6258ClockValue != 0)
                 {
                     chip = new MDSound.MDSound.Chip();
