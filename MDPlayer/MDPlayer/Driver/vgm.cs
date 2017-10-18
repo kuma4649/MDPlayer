@@ -37,6 +37,7 @@ namespace MDPlayer
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
+        public uint YMF262ClockValue;
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
         public uint HuC6280ClockValue;
@@ -53,6 +54,7 @@ namespace MDPlayer
         public bool YM2203DualChipFlag;
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
+        public bool YMF262DualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
         public bool RF5C164DualChipFlag;
@@ -334,8 +336,8 @@ namespace MDPlayer
             vgmCmdTbl[0x5b] = vcDummy2Ope;
             vgmCmdTbl[0x5c] = vcDummy2Ope;
             vgmCmdTbl[0x5d] = vcDummy2Ope;
-            vgmCmdTbl[0x5e] = vcDummy2Ope;
-            vgmCmdTbl[0x5f] = vcDummy2Ope;
+            vgmCmdTbl[0x5e] = vcYMF262Port0;
+            vgmCmdTbl[0x5f] = vcYMF262Port1;
 
             vgmCmdTbl[0x61] = vcWaitNSamples;
             vgmCmdTbl[0x62] = vcWait735Samples;
@@ -647,6 +649,20 @@ namespace MDPlayer
             int adr = vgmBuf[vgmAdr + 1];
             int dat = vgmBuf[vgmAdr + 2];
             chipRegister.setYM2610Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
+            vgmAdr += 3;
+        }
+
+        private void vcYMF262Port0()
+        {
+            chipRegister.setYMF262Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYMF262Port1()
+        {
+            int adr = vgmBuf[vgmAdr + 1];
+            int dat = vgmBuf[vgmAdr + 2];
+            chipRegister.setYMF262Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
             vgmAdr += 3;
         }
 
@@ -1665,6 +1681,7 @@ namespace MDPlayer
             YM2203ClockValue = 0;
             YM2608ClockValue = 0;
             YM2610ClockValue = 0;
+            YMF262ClockValue = 0;
             RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
             PWMClockValue = 0;// defaultPWMClockValue;
             OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
@@ -1846,7 +1863,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x5c)
                     {
                         uint YMF262clock = getLE32(0x5c);
-                        if (YMF262clock != 0) chips.Add("YMF262");
+                        if (YMF262clock != 0)
+                        {
+                            YMF262ClockValue = YMF262clock & 0x3fffffff;
+                            YMF262DualChipFlag = (YMF262clock & 0x40000000) != 0;
+                            if (YMF262DualChipFlag) chips.Add("YMF262x2");
+                            else chips.Add("YMF262");
+                        }
                     }
 
                     if (vgmDataOffset > 0x60)
