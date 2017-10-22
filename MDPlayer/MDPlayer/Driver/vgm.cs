@@ -40,6 +40,7 @@ namespace MDPlayer
         public uint YMF262ClockValue;
         public uint YMF271ClockValue;
         public uint YMF278BClockValue;
+        public uint YMZ280BClockValue;
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
         public uint HuC6280ClockValue;
@@ -59,6 +60,7 @@ namespace MDPlayer
         public bool YMF262DualChipFlag;
         public bool YMF271DualChipFlag;
         public bool YMF278BDualChipFlag;
+        public bool YMZ280BDualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
         public bool RF5C164DualChipFlag;
@@ -339,7 +341,7 @@ namespace MDPlayer
             vgmCmdTbl[0x5a] = vcDummy2Ope;
             vgmCmdTbl[0x5b] = vcDummy2Ope;
             vgmCmdTbl[0x5c] = vcDummy2Ope;
-            vgmCmdTbl[0x5d] = vcDummy2Ope;
+            vgmCmdTbl[0x5d] = vcYMZ280B;
             vgmCmdTbl[0x5e] = vcYMF262Port0;
             vgmCmdTbl[0x5f] = vcYMF262Port1;
 
@@ -670,6 +672,12 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcYMZ280B()
+        {
+            chipRegister.setYMZ280BRegister((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
         private void vcYMF271()
         {
             chipRegister.setYMF271Register(
@@ -862,6 +870,12 @@ namespace MDPlayer
                             // YMF271
                             chipRegister.writeYMF271PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "YMF271_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x86:
+                            // YMZ280B
+                            chipRegister.writeYMZ280BPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "YMZ280B_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x89:
@@ -1937,7 +1951,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x68)
                     {
                         uint YMZ280Bclock = getLE32(0x68);
-                        if (YMZ280Bclock != 0) chips.Add("YMZ280B");
+                        if (YMZ280Bclock != 0)
+                        {
+                            YMZ280BClockValue = YMZ280Bclock & 0x3fffffff;
+                            YMZ280BDualChipFlag = (YMZ280Bclock & 0x40000000) != 0;
+                            if (YMZ280BDualChipFlag) chips.Add("YMZ280Bx2");
+                            else chips.Add("YMZ280B");
+                        }
                     }
 
                     if (vgmDataOffset > 0x6c)

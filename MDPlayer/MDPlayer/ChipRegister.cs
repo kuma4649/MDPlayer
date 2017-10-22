@@ -37,6 +37,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF278B = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scYMZ280B = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctYMZ280B = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2413 = new NScci.NSoundChip[2] { null, null };
@@ -137,6 +139,8 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYMF278B = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
+        public int[][] YMZ280BRegister = new int[][] { null, null };
+
         public int[][] sn76489Register = new int[][] { null, null };
         public int[] sn76489RegisterGGPan = new int[] { 0xff,0xff};
         public int[][][] sn76489Vol = new int[][][] {
@@ -193,6 +197,7 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYMF262
             , NScci.NSoundChip[] scYMF271
             , NScci.NSoundChip[] scYMF278B
+            , NScci.NSoundChip[] scYMZ280B
             , NScci.NSoundChip[] scAY8910
             , NScci.NSoundChip[] scYM2413
             , NScci.NSoundChip[] scHuC6280
@@ -205,6 +210,7 @@ namespace MDPlayer
             , Setting.ChipType[] ctYMF262
             , Setting.ChipType[] ctYMF271
             , Setting.ChipType[] ctYMF278B
+            , Setting.ChipType[] ctYMZ280B
             , Setting.ChipType[] ctAY8910
             , Setting.ChipType[] ctYM2413
             , Setting.ChipType[] ctHuC6280
@@ -232,6 +238,7 @@ namespace MDPlayer
             this.ctYMF262 = ctYMF262;
             this.ctYMF271 = ctYMF271;
             this.ctYMF278B = ctYMF278B;
+            this.ctYMZ280B = ctYMZ280B;
             this.ctAY8910 = ctAY8910;
             this.ctYM2413 = ctYM2413;
             this.ctHuC6280 = ctHuC6280;
@@ -316,6 +323,12 @@ namespace MDPlayer
                     fmRegisterYMF278B[chipID][0][i] = 0;
                     fmRegisterYMF278B[chipID][1][i] = 0;
                     fmRegisterYMF278B[chipID][2][i] = 0;
+                }
+
+                YMZ280BRegister[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    YMZ280BRegister[chipID][i] = 0;
                 }
 
                 fmRegisterYM2151[chipID] = new int[0x100];
@@ -1362,6 +1375,30 @@ namespace MDPlayer
 
         }
 
+        public void setYMZ280BRegister(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (ctYMZ280B == null) return;
+
+            if (chipID == 0) chipLED.PriYMZ = 2;
+            else chipLED.SecYMZ = 2;
+
+            if (model == enmModel.VirtualModel) YMZ280BRegister[chipID][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYMZ280B[chipID].UseScci)
+                {
+                    mds.WriteYMZ280B((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYMZ280B[chipID] == null) return;
+                scYMZ280B[chipID].setRegister(dAddr, dData);
+            }
+
+        }
+
         public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, enmModel model, long vgmFrameCounter)
         {
             if (ctYM2612 == null) return;
@@ -2259,6 +2296,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteYMF278BPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeYMZ280BPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriYMZ = 2;
+            else chipLED.SecYMZ = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteYMZ280BPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)

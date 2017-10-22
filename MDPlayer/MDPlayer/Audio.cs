@@ -69,6 +69,7 @@ namespace MDPlayer
         private static NSoundChip[] scYMF262 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYMF271 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYMF278B = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYMZ280B = new NSoundChip[2] { null, null };
         private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
@@ -919,6 +920,8 @@ namespace MDPlayer
             if (scYMF271[0] != null) scYMF271[0].init();
             scYMF278B[0] = getChip(Audio.setting.YMF278BType);
             if (scYMF278B[0] != null) scYMF278B[0].init();
+            scYMZ280B[0] = getChip(Audio.setting.YMZ280BType);
+            if (scYMZ280B[0] != null) scYMZ280B[0].init();
             scAY8910[0] = getChip(Audio.setting.AY8910Type);
             if (scAY8910[0] != null) scAY8910[0].init();
             scYM2413[0] = getChip(Audio.setting.YM2413Type);
@@ -944,6 +947,8 @@ namespace MDPlayer
             if (scYMF271[1] != null) scYMF271[1].init();
             scYMF278B[1] = getChip(Audio.setting.YMF278BSType);
             if (scYMF278B[1] != null) scYMF278B[1].init();
+            scYMZ280B[1] = getChip(Audio.setting.YMZ280BSType);
+            if (scYMZ280B[1] != null) scYMZ280B[1].init();
             scAY8910[1] = getChip(Audio.setting.AY8910SType);
             if (scAY8910[1] != null) scAY8910[1].init();
             scYM2413[1] = getChip(Audio.setting.YM2413SType);
@@ -961,6 +966,7 @@ namespace MDPlayer
                 , scYMF262
                 , scYMF271
                 , scYMF278B
+                , scYMZ280B
                 , scAY8910
                 , scYM2413
                 , scHuC6280
@@ -973,6 +979,7 @@ namespace MDPlayer
                 , new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType }
                 , new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType }
                 , new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType }
+                , new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType }
                 , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
                 , new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
                 , new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType }
@@ -2881,6 +2888,33 @@ namespace MDPlayer
 
                         if (i == 0) chipLED.PriOPL4 = 1;
                         else chipLED.SecOPL4 = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
+                if (((vgm)driverVirtual).YMZ280BClockValue != 0)
+                {
+                    MDSound.ymz280b ymz280b = new MDSound.ymz280b();
+                    for (int i = 0; i < (((vgm)driverVirtual).YMZ280BDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YMZ280B;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ymz280b;
+                        chip.Update = ymz280b.Update;
+                        chip.Start = ymz280b.Start;
+                        chip.Stop = ymz280b.Stop;
+                        chip.Reset = ymz280b.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.YMZ280BVolume;
+                        chip.Clock = ((vgm)driverVirtual).YMZ280BClockValue & 0x7fffffff;
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriYMZ = 1;
+                        else chipLED.SecYMZ = 1;
 
                         lstChips.Add(chip);
                     }
