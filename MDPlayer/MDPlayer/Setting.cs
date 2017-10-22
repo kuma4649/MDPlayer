@@ -170,6 +170,20 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YMF271Type = new ChipType();
+        public ChipType YMF271Type
+        {
+            get
+            {
+                return _YMF271Type;
+            }
+
+            set
+            {
+                _YMF271Type = value;
+            }
+        }
+
         private ChipType _YMF278BType = new ChipType();
         public ChipType YMF278BType
         {
@@ -293,6 +307,20 @@ namespace MDPlayer
             set
             {
                 _YMF262SType = value;
+            }
+        }
+
+        private ChipType _YMF271SType = new ChipType();
+        public ChipType YMF271SType
+        {
+            get
+            {
+                return _YMF271SType;
+            }
+
+            set
+            {
+                _YMF271SType = value;
             }
         }
 

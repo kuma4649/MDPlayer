@@ -38,6 +38,7 @@ namespace MDPlayer
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
         public uint YMF262ClockValue;
+        public uint YMF271ClockValue;
         public uint YMF278BClockValue;
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
@@ -56,6 +57,7 @@ namespace MDPlayer
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
         public bool YMF262DualChipFlag;
+        public bool YMF271DualChipFlag;
         public bool YMF278BDualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
@@ -464,7 +466,7 @@ namespace MDPlayer
             vgmCmdTbl[0xcf] = vcDummy3Ope;
 
             vgmCmdTbl[0xd0] = vcYMF278B;
-            vgmCmdTbl[0xd1] = vcDummy3Ope;
+            vgmCmdTbl[0xd1] = vcYMF271;
             vgmCmdTbl[0xd2] = vcK051649;
             vgmCmdTbl[0xd3] = vcK054539;
             vgmCmdTbl[0xd4] = vcC140;
@@ -668,6 +670,17 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcYMF271()
+        {
+            chipRegister.setYMF271Register(
+                (vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1
+                , vgmBuf[vgmAdr + 1] & 0x7f
+                , vgmBuf[vgmAdr + 2]
+                , vgmBuf[vgmAdr + 3]
+                , model);
+            vgmAdr += 4;
+        }
+
         private void vcYMF278B()
         {
             chipRegister.setYMF278BRegister(
@@ -843,6 +856,12 @@ namespace MDPlayer
                             // YMF278B
                             chipRegister.writeYMF278BPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "YMF278B_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x85:
+                            // YMF271
+                            chipRegister.writeYMF271PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "YMF271_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x89:
@@ -1906,7 +1925,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x64)
                     {
                         uint YMF271clock = getLE32(0x64);
-                        if (YMF271clock != 0) chips.Add("YMF271");
+                        if (YMF271clock != 0)
+                        {
+                            YMF271ClockValue = YMF271clock & 0x3fffffff;
+                            YMF271DualChipFlag = (YMF271clock & 0x40000000) != 0;
+                            if (YMF271DualChipFlag) chips.Add("YMF271x2");
+                            else chips.Add("YMF271");
+                        }
                     }
 
                     if (vgmDataOffset > 0x68)

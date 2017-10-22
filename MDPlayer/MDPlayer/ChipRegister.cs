@@ -33,6 +33,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF262 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scYMF271 = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF278B = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
@@ -131,6 +133,8 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYMF262 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
+        public int[][][] fmRegisterYMF271 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+
         public int[][][] fmRegisterYMF278B = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
         public int[][] sn76489Register = new int[][] { null, null };
@@ -187,6 +191,7 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
             , NScci.NSoundChip[] scYMF262
+            , NScci.NSoundChip[] scYMF271
             , NScci.NSoundChip[] scYMF278B
             , NScci.NSoundChip[] scAY8910
             , NScci.NSoundChip[] scYM2413
@@ -198,6 +203,7 @@ namespace MDPlayer
             , Setting.ChipType[] ctYM2203
             , Setting.ChipType[] ctYM2610
             , Setting.ChipType[] ctYMF262
+            , Setting.ChipType[] ctYMF271
             , Setting.ChipType[] ctYMF278B
             , Setting.ChipType[] ctAY8910
             , Setting.ChipType[] ctYM2413
@@ -224,6 +230,7 @@ namespace MDPlayer
             this.ctYM2203 = ctYM2203;
             this.ctYM2610 = ctYM2610;
             this.ctYMF262 = ctYMF262;
+            this.ctYMF271 = ctYMF271;
             this.ctYMF278B = ctYMF278B;
             this.ctAY8910 = ctAY8910;
             this.ctYM2413 = ctYM2413;
@@ -289,6 +296,18 @@ namespace MDPlayer
                 {
                     fmRegisterYMF262[chipID][0][i] = 0;
                     fmRegisterYMF262[chipID][1][i] = 0;
+                }
+
+                fmRegisterYMF271[chipID] = new int[7][] { new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100]};
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYMF271[chipID][0][i] = 0;
+                    fmRegisterYMF271[chipID][1][i] = 0;
+                    fmRegisterYMF271[chipID][2][i] = 0;
+                    fmRegisterYMF271[chipID][3][i] = 0;
+                    fmRegisterYMF271[chipID][4][i] = 0;
+                    fmRegisterYMF271[chipID][5][i] = 0;
+                    fmRegisterYMF271[chipID][6][i] = 0;
                 }
 
                 fmRegisterYMF278B[chipID] = new int[3][] { new int[0x100], new int[0x100], new int[0x100] };
@@ -1295,6 +1314,30 @@ namespace MDPlayer
 
         }
 
+        public void setYMF271Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
+        {
+            if (ctYMF271 == null) return;
+
+            if (chipID == 0) chipLED.PriOPX = 2;
+            else chipLED.SecOPX = 2;
+
+            if (model == enmModel.VirtualModel) fmRegisterYMF271[chipID][dPort][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYMF271[chipID].UseScci)
+                {
+                    mds.WriteYMF271((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYMF271[chipID] == null) return;
+                scYMF271[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+
+        }
+
         public void setYMF278BRegister(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
             if (ctYMF278B == null) return;
@@ -2198,6 +2241,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteMultiPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeYMF271PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriOPX = 2;
+            else chipLED.SecOPX = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteYMF271PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeYMF278BPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
