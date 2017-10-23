@@ -49,6 +49,7 @@ namespace MDPlayer
         public uint K054539ClockValue;
         public byte K054539Flags;
         public uint K051649ClockValue;
+        public uint DMGClockValue;
         public uint NESClockValue;
         public uint MultiPCMClockValue;
 
@@ -70,6 +71,7 @@ namespace MDPlayer
         public bool C352DualChipFlag;
         public bool K054539DualChipFlag;
         public bool K051649DualChipFlag;
+        public bool DMGDualChipFlag;
         public bool NESDualChipFlag;
         public bool MultiPCMDualChipFlag;
 
@@ -435,7 +437,7 @@ namespace MDPlayer
             //{
                 vgmCmdTbl[0xb2] = vcDummy2Ope;
             //}
-            vgmCmdTbl[0xb3] = vcDummy2Ope;
+            vgmCmdTbl[0xb3] = vcDMG;
             vgmCmdTbl[0xb4] = vcNES;
             vgmCmdTbl[0xb5] = vcMultiPCM;
             vgmCmdTbl[0xb6] = vcDummy2Ope;
@@ -562,6 +564,13 @@ namespace MDPlayer
         private void vcAY8910()
         {
             chipRegister.setAY8910Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcDMG()
+        {
+            chipRegister.setDMGRegister((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
@@ -2002,13 +2011,27 @@ namespace MDPlayer
 
                 if (version >= 0x0161)
                 {
+                    if (vgmDataOffset > 0x80)
+                    {
+                        uint DMGclock = getLE32(0x80);
+                        if (DMGclock != 0)
+                        {
+                            DMGClockValue = DMGclock & 0x3fffffff;
+                            DMGDualChipFlag = (DMGclock & 0x40000000) != 0;
+                            if (DMGDualChipFlag) chips.Add("DMGx2");
+                            else chips.Add("DMG");
+                        }
+                    }
+
                     if (vgmDataOffset > 0x84)
                     {
                         uint NESclock = getLE32(0x84);
                         if (NESclock != 0)
                         {
-                            chips.Add("NES_APU");
-                            NESClockValue = NESclock;
+                            NESClockValue = NESclock & 0x3fffffff;
+                            NESDualChipFlag = (NESclock & 0x40000000) != 0;
+                            if (NESDualChipFlag) chips.Add("NES_APUx2");
+                            else chips.Add("NES_APU");
                         }
                     }
 

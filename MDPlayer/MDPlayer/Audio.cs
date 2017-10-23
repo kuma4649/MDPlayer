@@ -3083,6 +3083,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).DMGClockValue != 0)
+                {
+                    MDSound.gb dmg = new MDSound.gb();
+
+                    for (int i = 0; i < (((vgm)driverVirtual).DMGDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.DMG;
+                        chip.ID = (byte)i;
+                        chip.Instrument = dmg;
+                        chip.Update = dmg.Update;
+                        chip.Start = dmg.Start;
+                        chip.Stop = dmg.Stop;
+                        chip.Reset = dmg.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.DMGVolume;
+                        chip.Clock = ((vgm)driverVirtual).DMGClockValue;
+                        chip.Option = null;
+                        if (i == 0) chipLED.PriDMG = 1;
+                        else chipLED.SecDMG = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).NESClockValue != 0)
                 {
                     MDSound.nes_intf nes = new MDSound.nes_intf();

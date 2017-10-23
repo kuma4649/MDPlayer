@@ -699,6 +699,26 @@ namespace MDPlayer
             }
         }
 
+        public void setDMGRegister(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriDMG = 2;
+            else chipLED.SecDMG = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctNES[chipID].UseScci)
+                //{
+                mds.WriteDMG((byte)chipID, (byte)dAddr, (byte)dData);
+                //}
+            }
+            else
+            {
+                //if (scNES[chipID] == null) return;
+
+                //scNES[chipID].setRegister(dAddr, dData);
+            }
+        }
+
         public void setNESRegister(int chipID, int dAddr, int dData, enmModel model)
         {
             if (chipID == 0) chipLED.PriNES = 2;
