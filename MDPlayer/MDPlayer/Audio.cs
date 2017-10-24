@@ -3002,6 +3002,31 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).QSoundClockValue != 0)
+                {
+                    MDSound.qsound qsound = new MDSound.qsound();
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.QSound;
+                        chip.ID = (byte)0;
+                        chip.Instrument = qsound;
+                        chip.Update = qsound.Update;
+                        chip.Start = qsound.Start;
+                        chip.Stop = qsound.Stop;
+                        chip.Reset = qsound.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = 0;// setting.balance.QSoundVolume;
+                    chip.Clock = (((vgm)driverVirtual).QSoundClockValue);// & 0x7fffffff);
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        //if (i == 0) chipLED.PriHuC = 1;
+                        //else chipLED.SecHuC = 1;
+                    chipLED.PriQsnd = 1;
+
+                    lstChips.Add(chip);
+                }
+
                 if (((vgm)driverVirtual).C352ClockValue != 0)
                 {
                     MDSound.c352 c352 = new c352();

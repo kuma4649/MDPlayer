@@ -826,6 +826,21 @@ namespace MDPlayer
             }
         }
 
+        public void setQSoundRegister(int chipID, byte mm, byte ll,byte rr, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriQsnd = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteQSound((byte)chipID, 0, mm);
+                mds.WriteQSound((byte)chipID, 1, ll);
+                mds.WriteQSound((byte)chipID, 2, rr);
+            }
+            else
+            {
+            }
+        }
+
         public void setYM2413Register(int chipID, int dAddr, int dData, enmModel model)
         {
             if (ctYM2413 == null) return;
@@ -2227,6 +2242,14 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeQSoundPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriQsnd = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteQSoundPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeC352(byte chipid, uint adr, uint data, enmModel model)

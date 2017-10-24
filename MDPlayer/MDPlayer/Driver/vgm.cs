@@ -44,6 +44,7 @@ namespace MDPlayer
         public uint AY8910ClockValue;
         public uint YM2413ClockValue;
         public uint HuC6280ClockValue;
+        public uint QSoundClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
         public uint K054539ClockValue;
@@ -455,7 +456,7 @@ namespace MDPlayer
             vgmCmdTbl[0xc0] = vcSEGAPCM;
             vgmCmdTbl[0xc1] = vcDummy3Ope;
             vgmCmdTbl[0xc3] = vcMultiPCMSetBank;
-            vgmCmdTbl[0xc4] = vcDummy3Ope;
+            vgmCmdTbl[0xc4] = vcQSound;
             vgmCmdTbl[0xc5] = vcDummy3Ope;
             vgmCmdTbl[0xc6] = vcDummy3Ope;
             vgmCmdTbl[0xc7] = vcDummy3Ope;
@@ -578,21 +579,24 @@ namespace MDPlayer
         private void vcNES()
         {
             chipRegister.setNESRegister((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
-            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
         private void vcMultiPCM()
         {
             chipRegister.setMultiPCMRegister((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
-            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
         private void vcMultiPCMSetBank()
         {
             chipRegister.setMultiPCMSetBank((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2] + vgmBuf[vgmAdr + 3] * 0x100, model);
-            //chipRegister.setAY8910Register(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 4;
+        }
+
+        private void vcQSound()
+        {
+            chipRegister.setQSoundRegister(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], model);
             vgmAdr += 4;
         }
 
@@ -912,6 +916,13 @@ namespace MDPlayer
                             chipRegister.writeC140PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "C140_PCMData", vgmAdr + 15, bLen - 8);
                             break;
+
+                        case 0x8f:
+                            // QSound
+                            chipRegister.writeQSoundPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "QSound_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
                         case 0x92:
                             // C352
                             chipRegister.writeC352PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
@@ -2118,6 +2129,17 @@ namespace MDPlayer
                         {
                             chips.Add("HuC6280");
                             HuC6280ClockValue = HuC6280clock;
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xb4)
+                    {
+
+                        uint QSoundclock = getLE32(0xb4);
+                        if (QSoundclock != 0)
+                        {
+                            chips.Add("QSound");
+                            QSoundClockValue = QSoundclock;
                         }
                     }
 

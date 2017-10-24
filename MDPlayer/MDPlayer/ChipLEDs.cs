@@ -26,6 +26,7 @@ namespace MDPlayer
         public byte PriAY10 = 0;
         public byte PriOPLL = 0;
         public byte PriHuC = 0;
+        public byte PriQsnd = 0;
         public byte PriC352 = 0;
         public byte PriK054539 = 0;
         public byte PriK051649 = 0;
