@@ -16,10 +16,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
 [対応フォーマット]  
   .VGM (所謂vgmファイル)  
   .VGZ (vgmファイルをgzipしたもの)  
-  .NRD (NRTDRV)  
+  .NRD (NRTDRV X1でOPM2個鳴らしちゃうドライバの演奏ファイル)  
   .XGM (MegaDrive向けファイル)  
   .S98 (S98ファイル)  
-  .MID (所謂StandardMIDIファイル。フォーマット0/1対応)  
+  .MID (StandardMIDIファイル。フォーマット0/1対応)  
   .RCP (レコポンファイル)  
   .NSF (NES Sound Format)  
   
@@ -29,7 +29,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
       AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140     , OKIM6258 , OKIM6295  
       , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2610/B , HuC6280  , C352  
       , K054539 , NES_APU  , NES_DMC , NES_FDS , MMC5    , FME7     , N160     , VRC6  
-      , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B  
+      , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B , YMZ280B  , DMG      , QSound  
   
   ・現在、以下の鍵盤表示が可能です。  
      
@@ -56,10 +56,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     右クリックすると全チャンネルのマスクを解除します。  
     (いろいろなレベルで対応していないのもあり)  
   
-  ・OPN,OPM系の音色パラメーターを左クリックするとクリップボードに音色パラメーターをテキストとしてコピーします。  
+  ・OPN,OPM,OPL系の音色パラメーターを左クリックするとクリップボードに音色パラメーターをテキストとしてコピーします。  
   パラメーターの形式はオプション設定から変更可能です。  
      
-      FMP7 , MDX , MUSIC LALF , NRTDRV , HuSIC , MML2VGM , .TFI
+      FMP7 , MDX , MUSIC LALF , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
   
   に対応しており、.TFIを選んだ場合はクリップボードの代わりにファイルに出力します。  
   
