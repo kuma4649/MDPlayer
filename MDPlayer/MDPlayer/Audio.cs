@@ -3054,6 +3054,32 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).GA20ClockValue != 0)
+                {
+                    MDSound.iremga20 ga20 = new iremga20();
+                    for (int i = 0; i < (((vgm)driverVirtual).GA20DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.GA20;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ga20;
+                        chip.Update = ga20.Update;
+                        chip.Start = ga20.Start;
+                        chip.Stop = ga20.Stop;
+                        chip.Reset = ga20.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.GA20Volume;
+                        chip.Clock = (((vgm)driverVirtual).GA20ClockValue & 0x7fffffff);
+                        chip.Option = null;
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriGA20 = 1;
+                        else chipLED.SecGA20 = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).K054539ClockValue != 0)
                 {
                     MDSound.K054539 k054539 = new MDSound.K054539();

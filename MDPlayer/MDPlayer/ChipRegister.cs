@@ -826,7 +826,7 @@ namespace MDPlayer
             }
         }
 
-        public void setQSoundRegister(int chipID, byte mm, byte ll,byte rr, enmModel model)
+        public void setQSoundRegister(int chipID, byte mm, byte ll, byte rr, enmModel model)
         {
             if (chipID == 0) chipLED.PriQsnd = 2;
 
@@ -835,6 +835,20 @@ namespace MDPlayer
                 mds.WriteQSound((byte)chipID, 0, mm);
                 mds.WriteQSound((byte)chipID, 1, ll);
                 mds.WriteQSound((byte)chipID, 2, rr);
+            }
+            else
+            {
+            }
+        }
+
+        public void setGA20Register(int chipID, Int32 Adr, byte Dat, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriGA20 = 2;
+            else chipLED.SecGA20 = 2;
+
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteGA20((byte)chipID,(byte)Adr,Dat);
             }
             else
             {
@@ -2268,6 +2282,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteC352PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeGA20PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriGA20 = 2;
+            else chipLED.SecGA20 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteGA20PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeOKIM6258(byte ChipID, byte Port, byte Data, enmModel model)

@@ -47,6 +47,7 @@ namespace MDPlayer
         public uint QSoundClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
+        public uint GA20ClockValue;
         public uint K054539ClockValue;
         public byte K054539Flags;
         public uint K051649ClockValue;
@@ -70,6 +71,7 @@ namespace MDPlayer
         public bool YM2413DualChipFlag;
         public bool HuC6280DualChipFlag;
         public bool C352DualChipFlag;
+        public bool GA20DualChipFlag;
         public bool K054539DualChipFlag;
         public bool K051649DualChipFlag;
         public bool DMGDualChipFlag;
@@ -451,7 +453,7 @@ namespace MDPlayer
             vgmCmdTbl[0xbc] = vcDummy2Ope;
             vgmCmdTbl[0xbd] = vcDummy2Ope;
             vgmCmdTbl[0xbe] = vcDummy2Ope;
-            vgmCmdTbl[0xbf] = vcDummy2Ope;
+            vgmCmdTbl[0xbf] = vcGA20;
 
             vgmCmdTbl[0xc0] = vcSEGAPCM;
             vgmCmdTbl[0xc1] = vcDummy3Ope;
@@ -609,6 +611,12 @@ namespace MDPlayer
         private void vcHuC6280()
         {
             chipRegister.setHuC6280Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcGA20()
+        {
+            chipRegister.setGA20Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -927,6 +935,12 @@ namespace MDPlayer
                             // C352
                             chipRegister.writeC352PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "C352_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x93:
+                            // GA20
+                            chipRegister.writeGA20PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "GA20_PCMData", vgmAdr + 15, bLen - 8);
                             break;
                     }
                     vgmAdr += (uint)bLen + 7;
@@ -2147,7 +2161,6 @@ namespace MDPlayer
                     {
                         uint OKIM6295clock = getLE32(0x98);
                         if (OKIM6295clock != 0)
-
                         {
                             OKIM6295DualChipFlag = (OKIM6295clock & 0x40000000) != 0;
                             if (OKIM6295DualChipFlag)
@@ -2175,6 +2188,26 @@ namespace MDPlayer
                             chips.Add("C352");
                             C352ClockValue = C352clock;
                             C352ClockDivider = vgmBuf[0xd6];
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xe0)
+                    {
+
+                        uint GA20clock = getLE32(0xe0);
+                        if (GA20clock != 0)
+                        {
+                            GA20DualChipFlag = (GA20clock & 0x40000000) != 0;
+                            if (GA20DualChipFlag)
+                            {
+                                GA20ClockValue = GA20clock & 0x3fffffff;
+                                chips.Add("GA20x2");
+                            }
+                            else
+                            {
+                                GA20ClockValue = GA20clock & 0xbfffffff;
+                                chips.Add("GA20");
+                            }
                         }
                     }
 

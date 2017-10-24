@@ -28,6 +28,7 @@ namespace MDPlayer
         public byte PriHuC = 0;
         public byte PriQsnd = 0;
         public byte PriC352 = 0;
+        public byte PriGA20 = 0;
         public byte PriK054539 = 0;
         public byte PriK051649 = 0;
         public byte PriDMG = 0;
@@ -62,6 +63,7 @@ namespace MDPlayer
         public byte SecOPLL = 0;
         public byte SecHuC = 0;
         public byte SecC352 = 0;
+        public byte SecGA20 = 0;
         public byte SecK054539 = 0;
         public byte SecK051649 = 0;
         public byte SecDMG = 0;
