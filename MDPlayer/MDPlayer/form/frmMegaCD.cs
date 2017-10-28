@@ -94,14 +94,16 @@ namespace MDPlayer.form
             MDSound.scd_pcm.pcm_chip_ rf5c164Register = Audio.GetRf5c164Register(chipID);
             if (rf5c164Register != null)
             {
-                int[][] rf5c164Vol = Audio.GetRf5c164Volume(chipID);
+                //int[][] rf5c164Vol = Audio.GetRf5c164Volume(chipID);
                 for (int ch = 0; ch < 8; ch++)
                 {
                     if (rf5c164Register.Channel[ch].Enable != 0)
                     {
                         newParam.channels[ch].note = searchRf5c164Note(rf5c164Register.Channel[ch].Step_B);
-                        newParam.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
-                        newParam.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                        //newParam.channels[ch].volumeL = Math.Min(Math.Max(rf5c164Vol[ch][0] / 400, 0), 19);
+                        //newParam.channels[ch].volumeR = Math.Min(Math.Max(rf5c164Vol[ch][1] / 400, 0), 19);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((int)rf5c164Register.Channel[ch].MUL_L / 3, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((int)rf5c164Register.Channel[ch].MUL_R / 3, 0), 19);
                     }
                     else
                     {

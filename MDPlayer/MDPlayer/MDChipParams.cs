@@ -318,6 +318,15 @@ namespace MDPlayer
             public VolumeInfo VRC6 = new VolumeInfo();
             public VolumeInfo VRC7 = new VolumeInfo();
             public VolumeInfo FME7 = new VolumeInfo();
+            public VolumeInfo DMG = new VolumeInfo();
+            public VolumeInfo GA20 = new VolumeInfo();
+            public VolumeInfo YMZ280B = new VolumeInfo();//YMZ
+            public VolumeInfo YMF271 = new VolumeInfo();//OPX
+            public VolumeInfo YMF262 = new VolumeInfo();//OPL3
+            public VolumeInfo YMF278B = new VolumeInfo();//OPL4
+            public VolumeInfo MultiPCM = new VolumeInfo();//MPCM
+            public VolumeInfo QSound = new VolumeInfo();//QSND
+            public VolumeInfo K051649 = new VolumeInfo();//K051
         }
         public Mixer mixer = new Mixer();
 

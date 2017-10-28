@@ -144,6 +144,16 @@ namespace MDPlayer.form
             newParam.VRC6.Volume = parent.setting.balance.VRC6Volume;
             newParam.VRC7.Volume = parent.setting.balance.VRC7Volume;
             newParam.FME7.Volume = parent.setting.balance.FME7Volume;
+            newParam.DMG.Volume = parent.setting.balance.DMGVolume;
+            newParam.GA20.Volume = parent.setting.balance.GA20Volume;
+            newParam.YMZ280B.Volume = parent.setting.balance.YMZ280BVolume;
+            newParam.YMF271.Volume = parent.setting.balance.YMF271Volume;
+            newParam.YMF262.Volume = parent.setting.balance.YMF262Volume;
+            newParam.YMF278B.Volume = parent.setting.balance.YMF278BVolume;
+            newParam.MultiPCM.Volume = parent.setting.balance.MultiPCMVolume;
+            newParam.QSound.Volume = parent.setting.balance.QSoundVolume;
+            newParam.K051649.Volume = parent.setting.balance.K051649Volume;
+
 
             newParam.Master.Volume = parent.setting.balance.MasterVolume;
             newParam.Master.VisVolume1 = common.Range(Audio.visVolume.master / 250, 0, 44);//(short.MaxValue / 44);
@@ -426,7 +436,9 @@ namespace MDPlayer.form
             DrawBuff.drawFader(frameBuffer, 5 + 8 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.C140.Volume, newParam.C140.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 9 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.SEGAPCM.Volume, newParam.SEGAPCM.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.C352.Volume, newParam.C352.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 11 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.K051649.Volume, newParam.K051649.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 14 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.K054539.Volume, newParam.K054539.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 15 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.QSound.Volume, newParam.QSound.Volume);
 
             DrawBuff.drawFader(frameBuffer, 5 + 0 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.APU.Volume, newParam.APU.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 1 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.DMC.Volume, newParam.DMC.Volume);
@@ -436,6 +448,13 @@ namespace MDPlayer.form
             DrawBuff.drawFader(frameBuffer, 5 + 5 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.VRC6.Volume, newParam.VRC6.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 6 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.VRC7.Volume, newParam.VRC7.Volume);
             DrawBuff.drawFader(frameBuffer, 5 + 7 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.FME7.Volume, newParam.FME7.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 8 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.DMG.Volume, newParam.DMG.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 9 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.GA20.Volume, newParam.GA20.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 10 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMZ280B.Volume, newParam.YMZ280B.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 11 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF271.Volume, newParam.YMF271.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 13 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF262.Volume, newParam.YMF262.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 14 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF278B.Volume, newParam.YMF278B.Volume);
+            DrawBuff.drawFader(frameBuffer, 5 + 15 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.MultiPCM.Volume, newParam.MultiPCM.Volume);
 
             newParam.Master.VisVol2Cnt--;
             if (newParam.Master.VisVol2Cnt == 0)
@@ -803,6 +822,7 @@ namespace MDPlayer.form
                     Audio.SetC352Volume(parent.setting.balance.C352Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.C352Volume + delta)), 20), -192)));
                     break;
                 case 27://K051
+                    Audio.SetK051649Volume(parent.setting.balance.K051649Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.K051649Volume + delta)), 20), -192)));
                     break;
                 case 28://K052
                     break;
@@ -812,6 +832,7 @@ namespace MDPlayer.form
                     Audio.SetK054539Volume(parent.setting.balance.K054539Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.K054539Volume + delta)), 20), -192)));
                     break;
                 case 31://QSND
+                    Audio.SetQSoundVolume(parent.setting.balance.QSoundVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.QSoundVolume + delta)), 20), -192)));
                     break;
 
                 case 32://NES(APU)
@@ -839,6 +860,25 @@ namespace MDPlayer.form
                     Audio.SetFME7Volume(parent.setting.balance.FME7Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.FME7Volume + delta)), 20), -192)));
                     break;
                 case 40://DMG
+                    Audio.SetDMGVolume(parent.setting.balance.DMGVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.DMGVolume + delta)), 20), -192)));
+                    break;
+                case 41://GA20
+                    Audio.SetGA20Volume(parent.setting.balance.GA20Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.GA20Volume + delta)), 20), -192)));
+                    break;
+                case 42://YMZ
+                    Audio.SetYMZ280BVolume(parent.setting.balance.YMZ280BVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMZ280BVolume + delta)), 20), -192)));
+                    break;
+                case 43://OPX
+                    Audio.SetYMF271Volume(parent.setting.balance.YMF271Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF271Volume + delta)), 20), -192)));
+                    break;
+                case 45://OPL3
+                    Audio.SetYMF262Volume(parent.setting.balance.YMF262Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF262Volume + delta)), 20), -192)));
+                    break;
+                case 46://OPL4
+                    Audio.SetYMF278BVolume(parent.setting.balance.YMF278BVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF278BVolume + delta)), 20), -192)));
+                    break;
+                case 47://MPCM
+                    Audio.SetMultiPCMVolume(parent.setting.balance.MultiPCMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.MultiPCMVolume + delta)), 20), -192)));
                     break;
 
             }

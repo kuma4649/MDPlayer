@@ -1646,6 +1646,150 @@ namespace MDPlayer
                 }
             }
 
+            private int _DMGVolume = 0;
+            public int DMGVolume
+            {
+                get
+                {
+                    if (_DMGVolume > 20 || _DMGVolume < -192) _DMGVolume = 0;
+                    return _DMGVolume;
+                }
+
+                set
+                {
+                    _DMGVolume = value;
+                    if (_DMGVolume > 20 || _DMGVolume < -192) _DMGVolume = 0;
+                }
+            }
+
+            private int _GA20Volume = 0;
+            public int GA20Volume
+            {
+                get
+                {
+                    if (_GA20Volume > 20 || _GA20Volume < -192) _GA20Volume = 0;
+                    return _GA20Volume;
+                }
+
+                set
+                {
+                    _GA20Volume = value;
+                    if (_GA20Volume > 20 || _GA20Volume < -192) _GA20Volume = 0;
+                }
+            }
+
+            private int _YMZ280BVolume = 0;
+            public int YMZ280BVolume
+            {
+                get
+                {
+                    if (_YMZ280BVolume > 20 || _YMZ280BVolume < -192) _YMZ280BVolume = 0;
+                    return _YMZ280BVolume;
+                }
+
+                set
+                {
+                    _YMZ280BVolume = value;
+                    if (_YMZ280BVolume > 20 || _YMZ280BVolume < -192) _YMZ280BVolume = 0;
+                }
+            }
+
+            private int _YMF271Volume = 0;
+            public int YMF271Volume
+            {
+                get
+                {
+                    if (_YMF271Volume > 20 || _YMF271Volume < -192) _YMF271Volume = 0;
+                    return _YMF271Volume;
+                }
+
+                set
+                {
+                    _YMF271Volume = value;
+                    if (_YMF271Volume > 20 || _YMF271Volume < -192) _YMF271Volume = 0;
+                }
+            }
+
+            private int _YMF262Volume = 0;
+            public int YMF262Volume
+            {
+                get
+                {
+                    if (_YMF262Volume > 20 || _YMF262Volume < -192) _YMF262Volume = 0;
+                    return _YMF262Volume;
+                }
+
+                set
+                {
+                    _YMF262Volume = value;
+                    if (_YMF262Volume > 20 || _YMF262Volume < -192) _YMF262Volume = 0;
+                }
+            }
+
+            private int _YMF278BVolume = 0;
+            public int YMF278BVolume
+            {
+                get
+                {
+                    if (_YMF278BVolume > 20 || _YMF278BVolume < -192) _YMF278BVolume = 0;
+                    return _YMF278BVolume;
+                }
+
+                set
+                {
+                    _YMF278BVolume = value;
+                    if (_YMF278BVolume > 20 || _YMF278BVolume < -192) _YMF278BVolume = 0;
+                }
+            }
+
+            private int _MultiPCMVolume = 0;
+            public int MultiPCMVolume
+            {
+                get
+                {
+                    if (_MultiPCMVolume > 20 || _MultiPCMVolume < -192) _MultiPCMVolume = 0;
+                    return _MultiPCMVolume;
+                }
+
+                set
+                {
+                    _MultiPCMVolume = value;
+                    if (_MultiPCMVolume > 20 || _MultiPCMVolume < -192) _MultiPCMVolume = 0;
+                }
+            }
+
+            private int _QSoundVolume = 0;
+            public int QSoundVolume
+            {
+                get
+                {
+                    if (_QSoundVolume > 20 || _QSoundVolume < -192) _QSoundVolume = 0;
+                    return _QSoundVolume;
+                }
+
+                set
+                {
+                    _QSoundVolume = value;
+                    if (_QSoundVolume > 20 || _QSoundVolume < -192) _QSoundVolume = 0;
+                }
+            }
+
+            private int _K051649Volume = 0;
+            public int K051649Volume
+            {
+                get
+                {
+                    if (_K051649Volume > 20 || _K051649Volume < -192) _K051649Volume = 0;
+                    return _K051649Volume;
+                }
+
+                set
+                {
+                    _K051649Volume = value;
+                    if (_K051649Volume > 20 || _K051649Volume < -192) _K051649Volume = 0;
+                }
+            }
+
 
             public Balance Copy()
             {

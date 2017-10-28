@@ -39,11 +39,11 @@ namespace MDPlayer
         private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMZ280B = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYMZ280B = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
+        //private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scYM2413 = new NScci.NSoundChip[2] { null, null };
+        //private NScci.NSoundChip[] scYM2413 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scHuC6280 = new NScci.NSoundChip[2] { null, null };
+        //private NScci.NSoundChip[] scHuC6280 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
@@ -194,26 +194,26 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2151
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
-            , NScci.NSoundChip[] scYMF262
-            , NScci.NSoundChip[] scYMF271
-            , NScci.NSoundChip[] scYMF278B
-            , NScci.NSoundChip[] scYMZ280B
-            , NScci.NSoundChip[] scAY8910
-            , NScci.NSoundChip[] scYM2413
-            , NScci.NSoundChip[] scHuC6280
-            , Setting.ChipType[] ctYM2612
-            , Setting.ChipType[] ctSN76489
-            , Setting.ChipType[] ctYM2608
-            , Setting.ChipType[] ctYM2151
-            , Setting.ChipType[] ctYM2203
-            , Setting.ChipType[] ctYM2610
-            , Setting.ChipType[] ctYMF262
-            , Setting.ChipType[] ctYMF271
-            , Setting.ChipType[] ctYMF278B
-            , Setting.ChipType[] ctYMZ280B
-            , Setting.ChipType[] ctAY8910
-            , Setting.ChipType[] ctYM2413
-            , Setting.ChipType[] ctHuC6280
+            //, NScci.NSoundChip[] scYMF262
+            //, NScci.NSoundChip[] scYMF271
+            //, NScci.NSoundChip[] scYMF278B
+            //, NScci.NSoundChip[] scYMZ280B
+            //, NScci.NSoundChip[] scAY8910
+            //, NScci.NSoundChip[] scYM2413
+            //, NScci.NSoundChip[] scHuC6280
+            //, Setting.ChipType[] ctYM2612
+            //, Setting.ChipType[] ctSN76489
+            //, Setting.ChipType[] ctYM2608
+            //, Setting.ChipType[] ctYM2151
+            //, Setting.ChipType[] ctYM2203
+            //, Setting.ChipType[] ctYM2610
+            //, Setting.ChipType[] ctYMF262
+            //, Setting.ChipType[] ctYMF271
+            //, Setting.ChipType[] ctYMF278B
+            //, Setting.ChipType[] ctYMZ280B
+            //, Setting.ChipType[] ctAY8910
+            //, Setting.ChipType[] ctYM2413
+            //, Setting.ChipType[] ctHuC6280
             )
         {
             this.setting = setting;
@@ -225,23 +225,37 @@ namespace MDPlayer
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
             this.scYM2610 = scYM2610;
-            this.scAY8910 = scAY8910;
-            this.scYM2413 = scYM2413;
-            this.scHuC6280 = scHuC6280;
+            //this.scAY8910 = scAY8910;
+            //this.scYM2413 = scYM2413;
+            //this.scHuC6280 = scHuC6280;
 
-            this.ctYM2612 = ctYM2612;
-            this.ctYM2608 = ctYM2608;
-            this.ctYM2151 = ctYM2151;
-            this.ctSN76489 = ctSN76489;
-            this.ctYM2203 = ctYM2203;
-            this.ctYM2610 = ctYM2610;
-            this.ctYMF262 = ctYMF262;
-            this.ctYMF271 = ctYMF271;
-            this.ctYMF278B = ctYMF278B;
-            this.ctYMZ280B = ctYMZ280B;
-            this.ctAY8910 = ctAY8910;
-            this.ctYM2413 = ctYM2413;
-            this.ctHuC6280 = ctHuC6280;
+            //this.ctYM2612 = ctYM2612;
+            //this.ctYM2608 = ctYM2608;
+            //this.ctYM2151 = ctYM2151;
+            //this.ctSN76489 = ctSN76489;
+            //this.ctYM2203 = ctYM2203;
+            //this.ctYM2610 = ctYM2610;
+            //this.ctYMF262 = ctYMF262;
+            //this.ctYMF271 = ctYMF271;
+            //this.ctYMF278B = ctYMF278B;
+            //this.ctYMZ280B = ctYMZ280B;
+            //this.ctAY8910 = ctAY8910;
+            //this.ctYM2413 = ctYM2413;
+            //this.ctHuC6280 = ctHuC6280;
+
+            this.ctYM2612 = new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType };
+            this.ctSN76489 = new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType };
+            this.ctYM2608 = new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType };
+            this.ctYM2151 = new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType };
+            this.ctYM2203 = new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType };
+            this.ctYM2610 = new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType };
+            this.ctYMF262 = new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType };
+            this.ctYMF271 = new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType };
+            this.ctYMF278B = new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType };
+            this.ctYMZ280B = new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType };
+            this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
+            this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
+            this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
 
             initChipRegister();
 
@@ -693,8 +707,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scAY8910[chipID] == null) return;
-
+                //if (scAY8910[chipID] == null) return;
                 //scAY8910[chipID].setRegister(dAddr, dData);
             }
         }
@@ -892,8 +905,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2413[chipID] == null) return;
-
+                //if (scYM2413[chipID] == null) return;
                 //scYM2413[chipID].setRegister(dAddr, dData);
             }
 
@@ -932,8 +944,7 @@ namespace MDPlayer
             }
             else
             {
-                if (scHuC6280[chipID] == null) return;
-
+                //if (scHuC6280[chipID] == null) return;
             }
         }
 
@@ -2192,7 +2203,9 @@ namespace MDPlayer
             else chipLED.SecRF5C = 2;
 
             if (model == enmModel.VirtualModel)
+            {
                 mds.WriteRF5C164(chipid, adr, data);
+            }
         }
 
         public void writeRF5C164MemW(byte chipid, uint offset, byte data, enmModel model)

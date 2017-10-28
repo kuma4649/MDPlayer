@@ -66,13 +66,13 @@ namespace MDPlayer
         private static NSoundChip[] scYM2608 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYMF262 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYMF271 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYMF278B = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYMZ280B = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scYMF262 = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scYMF271 = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scYMF278B = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scYMZ280B = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
+        //private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -914,20 +914,20 @@ namespace MDPlayer
             if (scYM2203[0] != null) scYM2203[0].init();
             scYM2610[0] = getChip(Audio.setting.YM2610Type);
             if (scYM2610[0] != null) scYM2610[0].init();
-            scYMF262[0] = getChip(Audio.setting.YMF262Type);
-            if (scYMF262[0] != null) scYMF262[0].init();
-            scYMF271[0] = getChip(Audio.setting.YMF271Type);
-            if (scYMF271[0] != null) scYMF271[0].init();
-            scYMF278B[0] = getChip(Audio.setting.YMF278BType);
-            if (scYMF278B[0] != null) scYMF278B[0].init();
-            scYMZ280B[0] = getChip(Audio.setting.YMZ280BType);
-            if (scYMZ280B[0] != null) scYMZ280B[0].init();
-            scAY8910[0] = getChip(Audio.setting.AY8910Type);
-            if (scAY8910[0] != null) scAY8910[0].init();
-            scYM2413[0] = getChip(Audio.setting.YM2413Type);
-            if (scYM2413[0] != null) scYM2413[0].init();
-            scHuC6280[0] = getChip(Audio.setting.HuC6280Type);
-            if (scHuC6280[0] != null) scHuC6280[0].init();
+            //scYMF262[0] = getChip(Audio.setting.YMF262Type);
+            //if (scYMF262[0] != null) scYMF262[0].init();
+            //scYMF271[0] = getChip(Audio.setting.YMF271Type);
+            //if (scYMF271[0] != null) scYMF271[0].init();
+            //scYMF278B[0] = getChip(Audio.setting.YMF278BType);
+            //if (scYMF278B[0] != null) scYMF278B[0].init();
+            //scYMZ280B[0] = getChip(Audio.setting.YMZ280BType);
+            //if (scYMZ280B[0] != null) scYMZ280B[0].init();
+            //scAY8910[0] = getChip(Audio.setting.AY8910Type);
+            //if (scAY8910[0] != null) scAY8910[0].init();
+            //scYM2413[0] = getChip(Audio.setting.YM2413Type);
+            //if (scYM2413[0] != null) scYM2413[0].init();
+            //scHuC6280[0] = getChip(Audio.setting.HuC6280Type);
+            //if (scHuC6280[0] != null) scHuC6280[0].init();
 
             scYM2612[1] = getChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
@@ -941,18 +941,18 @@ namespace MDPlayer
             if (scYM2203[1] != null) scYM2203[1].init();
             scYM2610[1] = getChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
-            scYMF262[1] = getChip(Audio.setting.YMF262SType);
-            if (scYMF262[1] != null) scYMF262[1].init();
-            scYMF271[1] = getChip(Audio.setting.YMF271SType);
-            if (scYMF271[1] != null) scYMF271[1].init();
-            scYMF278B[1] = getChip(Audio.setting.YMF278BSType);
-            if (scYMF278B[1] != null) scYMF278B[1].init();
-            scYMZ280B[1] = getChip(Audio.setting.YMZ280BSType);
-            if (scYMZ280B[1] != null) scYMZ280B[1].init();
-            scAY8910[1] = getChip(Audio.setting.AY8910SType);
-            if (scAY8910[1] != null) scAY8910[1].init();
-            scYM2413[1] = getChip(Audio.setting.YM2413SType);
-            if (scYM2413[1] != null) scYM2413[1].init();
+            //scYMF262[1] = getChip(Audio.setting.YMF262SType);
+            //if (scYMF262[1] != null) scYMF262[1].init();
+            //scYMF271[1] = getChip(Audio.setting.YMF271SType);
+            //if (scYMF271[1] != null) scYMF271[1].init();
+            //scYMF278B[1] = getChip(Audio.setting.YMF278BSType);
+            //if (scYMF278B[1] != null) scYMF278B[1].init();
+            //scYMZ280B[1] = getChip(Audio.setting.YMZ280BSType);
+            //if (scYMZ280B[1] != null) scYMZ280B[1].init();
+            //scAY8910[1] = getChip(Audio.setting.AY8910SType);
+            //if (scAY8910[1] != null) scAY8910[1].init();
+            //scYM2413[1] = getChip(Audio.setting.YM2413SType);
+            //if (scYM2413[1] != null) scYM2413[1].init();
 
             chipRegister = new ChipRegister(
                 setting
@@ -963,26 +963,26 @@ namespace MDPlayer
                 , scYM2151
                 , scYM2203
                 , scYM2610
-                , scYMF262
-                , scYMF271
-                , scYMF278B
-                , scYMZ280B
-                , scAY8910
-                , scYM2413
-                , scHuC6280
-                , new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
-                , new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
-                , new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
-                , new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType }
-                , new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
-                , new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
-                , new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType }
-                , new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType }
-                , new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType }
-                , new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType }
-                , new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
-                , new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
-                , new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType }
+                //, scYMF262
+                //, scYMF271
+                //, scYMF278B
+                //, scYMZ280B
+                //, scAY8910
+                //, scYM2413
+                //, scHuC6280
+                //, new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
+                //, new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
+                //, new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
+                //, new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType }
+                //, new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
+                //, new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
+                //, new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType }
+                //, new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType }
+                //, new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType }
+                //, new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType }
+                //, new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
+                //, new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
+                //, new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType }
                 );
             chipRegister.initChipRegister();
 
@@ -1366,7 +1366,6 @@ namespace MDPlayer
 
         public static bool Play(Setting setting)
         {
-
             waveWriter.Open(PlayingFileName);
 
             if (PlayingFileFormat == enmFileFormat.NRT)
@@ -1425,16 +1424,21 @@ namespace MDPlayer
                 return nsfPlay(setting);
             }
 
-            driverVirtual = new vgm();
-            driverReal = new vgm();
-            driverVirtual.setting = setting;
-            driverReal.setting = setting;
-            ((vgm)driverVirtual).dacControl.chipRegister = chipRegister;
-            ((vgm)driverVirtual).dacControl.model = enmModel.VirtualModel;
-            ((vgm)driverReal).dacControl.chipRegister = chipRegister;
-            ((vgm)driverReal).dacControl.model = enmModel.RealModel;
+            if (PlayingFileFormat == enmFileFormat.VGM)
+            {
+                driverVirtual = new vgm();
+                driverReal = new vgm();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+                ((vgm)driverVirtual).dacControl.chipRegister = chipRegister;
+                ((vgm)driverVirtual).dacControl.model = enmModel.VirtualModel;
+                ((vgm)driverReal).dacControl.chipRegister = chipRegister;
+                ((vgm)driverReal).dacControl.model = enmModel.RealModel;
 
-            return vgmPlay(setting);
+                return vgmPlay(setting);
+            }
+
+            return false;
         }
 
         public static bool nrdPlay(Setting setting)
@@ -2614,7 +2618,7 @@ namespace MDPlayer
                         chip.Stop = multipcm.Stop;
                         chip.Reset = multipcm.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.MultiPCMVolume;
+                        chip.Volume = setting.balance.MultiPCMVolume;
                         chip.Clock = ((vgm)driverVirtual).MultiPCMClockValue;
                         chip.Option = null;
 
@@ -2826,7 +2830,7 @@ namespace MDPlayer
                         chip.Stop = ymf262.Stop;
                         chip.Reset = ymf262.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YMF262Volume;
+                        chip.Volume = setting.balance.YMF262Volume;
                         chip.Clock = ((vgm)driverVirtual).YMF262ClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -2853,7 +2857,7 @@ namespace MDPlayer
                         chip.Stop = ymf271.Stop;
                         chip.Reset = ymf271.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YMF271Volume;
+                        chip.Volume = setting.balance.YMF271Volume;
                         chip.Clock = ((vgm)driverVirtual).YMF271ClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -2880,7 +2884,7 @@ namespace MDPlayer
                         chip.Stop = ymf278b.Stop;
                         chip.Reset = ymf278b.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YMF278BVolume;
+                        chip.Volume =  setting.balance.YMF278BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMF278BClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -2907,7 +2911,7 @@ namespace MDPlayer
                         chip.Stop = ymz280b.Stop;
                         chip.Reset = ymz280b.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YMZ280BVolume;
+                        chip.Volume = setting.balance.YMZ280BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMZ280BClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -3014,7 +3018,7 @@ namespace MDPlayer
                         chip.Stop = qsound.Stop;
                         chip.Reset = qsound.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                    chip.Volume = 0;// setting.balance.QSoundVolume;
+                    chip.Volume = setting.balance.QSoundVolume;
                     chip.Clock = (((vgm)driverVirtual).QSoundClockValue);// & 0x7fffffff);
                         chip.Option = null;
 
@@ -3068,7 +3072,7 @@ namespace MDPlayer
                         chip.Stop = ga20.Stop;
                         chip.Reset = ga20.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.GA20Volume;
+                        chip.Volume = setting.balance.GA20Volume;
                         chip.Clock = (((vgm)driverVirtual).GA20ClockValue & 0x7fffffff);
                         chip.Option = null;
                         hiyorimiDeviceFlag |= 0x2;
@@ -3122,7 +3126,7 @@ namespace MDPlayer
                         chip.Stop = k051649.Stop;
                         chip.Reset = k051649.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.K051649Volume;
+                        chip.Volume = setting.balance.K051649Volume;
                         chip.Clock = ((vgm)driverVirtual).K051649ClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriK051649 = 1;
@@ -3149,7 +3153,7 @@ namespace MDPlayer
                         chip.Stop = dmg.Stop;
                         chip.Reset = dmg.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.DMGVolume;
+                        chip.Volume = setting.balance.DMGVolume;
                         chip.Clock = ((vgm)driverVirtual).DMGClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriDMG = 1;
@@ -4668,6 +4672,15 @@ namespace MDPlayer
             catch { }
         }
 
+        public static void SetK051649Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeK051649(volume);
+            }
+            catch { }
+        }
+
         public static void SetK054539Volume(int volume)
         {
             try
@@ -4676,6 +4689,80 @@ namespace MDPlayer
             }
             catch { }
         }
+
+        public static void SetQSoundVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeQSound(volume);
+            }
+            catch { }
+        }
+
+        public static void SetDMGVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeDMG(volume);
+            }
+            catch { }
+        }
+
+        public static void SetGA20Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeGA20(volume);
+            }
+            catch { }
+        }
+
+        public static void SetYMZ280BVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMZ280B(volume);
+            }
+            catch { }
+        }
+
+        public static void SetYMF271Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF271(volume);
+            }
+            catch { }
+        }
+
+        public static void SetYMF262Volume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF262(volume);
+            }
+            catch { }
+        }
+
+        public static void SetYMF278BVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF278B(volume);
+            }
+            catch { }
+        }
+
+        public static void SetMultiPCMVolume(int volume)
+        {
+            try
+            {
+                mds.SetVolumeMultiPCM(volume);
+            }
+            catch { }
+        }
+
+
 
         public static void SetAPUVolume(int volume)
         {
@@ -4820,10 +4907,10 @@ namespace MDPlayer
             return chipRegister.GetPSGVolume(chipID);
         }
 
-        public static int[][] GetRf5c164Volume(int chipID)
-        {
-            return mds.ReadRf5c164Volume(chipID);
-        }
+        //public static int[][] GetRf5c164Volume(int chipID)
+        //{
+            //return mds.ReadRf5c164Volume(chipID);
+        //}
 
 
         public static void setSN76489Mask(int chipID, int ch)
