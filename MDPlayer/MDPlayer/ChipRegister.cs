@@ -2235,6 +2235,15 @@ namespace MDPlayer
                 mds.WriteK051649(chipid, (int)adr, data);
         }
 
+        public void writeK053260(byte chipid, uint adr, byte data, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriK053260 = 2;
+            else chipLED.SecK053260 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteK053260(chipid, (byte)adr, data);
+        }
+
         public void writeK054539(byte chipid, uint adr, byte data, enmModel model)
         {
             if (chipid == 0) chipLED.PriK054539 = 2;
@@ -2242,6 +2251,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteK054539(chipid, (int)adr, data);
+        }
+
+        public void writeK053260PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriK053260 = 2;
+            else chipLED.SecK053260 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteK053260PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeK054539PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)

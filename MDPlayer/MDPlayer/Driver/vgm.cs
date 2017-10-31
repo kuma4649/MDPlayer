@@ -48,6 +48,7 @@ namespace MDPlayer
         public uint C352ClockValue;
         public byte C352ClockDivider;
         public uint GA20ClockValue;
+        public uint K053260ClockValue;
         public uint K054539ClockValue;
         public byte K054539Flags;
         public uint K051649ClockValue;
@@ -72,6 +73,7 @@ namespace MDPlayer
         public bool HuC6280DualChipFlag;
         public bool C352DualChipFlag;
         public bool GA20DualChipFlag;
+        public bool K053260DualChipFlag;
         public bool K054539DualChipFlag;
         public bool K051649DualChipFlag;
         public bool DMGDualChipFlag;
@@ -448,7 +450,7 @@ namespace MDPlayer
 
             vgmCmdTbl[0xb8] = vcOKIM6295;
             vgmCmdTbl[0xb9] = vcHuC6280;
-            vgmCmdTbl[0xba] = vcDummy2Ope;
+            vgmCmdTbl[0xba] = vcK053260;
             vgmCmdTbl[0xbb] = vcDummy2Ope;
             vgmCmdTbl[0xbc] = vcDummy2Ope;
             vgmCmdTbl[0xbd] = vcDummy2Ope;
@@ -925,6 +927,12 @@ namespace MDPlayer
                             dumpData(model, "C140_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
+                        case 0x8e:
+                            // K053260
+                            chipRegister.writeK053260PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "K053260_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
                         case 0x8f:
                             // QSound
                             chipRegister.writeQSoundPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
@@ -1304,6 +1312,15 @@ namespace MDPlayer
             chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x00), scc1_offset, model);
             chipRegister.writeK051649(scc1_chipid, (uint)((scc1_port << 1) | 0x01), rDat, model);
 
+        }
+
+        private void vcK053260()
+        {
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            uint adr = (uint)(vgmBuf[vgmAdr + 1] & 0x7f);
+            byte data = vgmBuf[vgmAdr + 2];
+            chipRegister.writeK053260(id, adr, data, model);
+            vgmAdr += 3;
         }
 
         private void vcK054539()
@@ -2108,6 +2125,17 @@ namespace MDPlayer
                         }
                     }
 
+                    if (vgmDataOffset > 0xa4)
+                    {
+
+                        uint HuC6280clock = getLE32(0xa4);
+                        if (HuC6280clock != 0)
+                        {
+                            chips.Add("HuC6280");
+                            HuC6280ClockValue = HuC6280clock;
+                        }
+                    }
+
                     if (vgmDataOffset > 0xa8)
                     {
 
@@ -2135,14 +2163,16 @@ namespace MDPlayer
                         }
                     }
 
-                    if (vgmDataOffset > 0xa4)
+                    if (vgmDataOffset > 0xac)
                     {
 
-                        uint HuC6280clock = getLE32(0xa4);
-                        if (HuC6280clock != 0)
+                        uint K053260clock = getLE32(0xac);
+                        if (K053260clock != 0)
                         {
-                            chips.Add("HuC6280");
-                            HuC6280ClockValue = HuC6280clock;
+                            K053260ClockValue = K053260clock & 0x3fffffff;
+                            K053260DualChipFlag = (K053260clock & 0x40000000) != 0;
+                            if (K053260DualChipFlag) chips.Add("K053260x2");
+                            else chips.Add("K053260");
                         }
                     }
 
