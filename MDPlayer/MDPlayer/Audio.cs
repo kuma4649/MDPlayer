@@ -3165,6 +3165,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).Y8950ClockValue != 0)
+                {
+                    MDSound.y8950 y8950 = new MDSound.y8950();
+
+                    for (int i = 0; i < (((vgm)driverVirtual).Y8950DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.Y8950;
+                        chip.ID = (byte)i;
+                        chip.Instrument = y8950;
+                        chip.Update = y8950.Update;
+                        chip.Start = y8950.Start;
+                        chip.Stop = y8950.Stop;
+                        chip.Reset = y8950.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.Y8950Volume;
+                        chip.Clock = ((vgm)driverVirtual).Y8950ClockValue;
+                        chip.Option = null;
+                        if (i == 0) chipLED.PriY895 = 1;
+                        else chipLED.SecY895 = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).DMGClockValue != 0)
                 {
                     MDSound.gb dmg = new MDSound.gb();

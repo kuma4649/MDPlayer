@@ -45,6 +45,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
         //private NScci.NSoundChip[] scHuC6280 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
+        //private NScci.NSoundChip[] scY8950 = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -140,6 +142,8 @@ namespace MDPlayer
         public int[][][] fmRegisterYMF278B = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
+
+        public int[][] Y8950Register = new int[][] { null, null };
 
         public int[][] sn76489Register = new int[][] { null, null };
         public int[] sn76489RegisterGGPan = new int[] { 0xff,0xff};
@@ -256,6 +260,7 @@ namespace MDPlayer
             this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
             this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
+            this.ctY8950 = new Setting.ChipType[] { setting.Y8950Type, setting.Y8950SType };
 
             initChipRegister();
 
@@ -337,6 +342,12 @@ namespace MDPlayer
                     fmRegisterYMF278B[chipID][0][i] = 0;
                     fmRegisterYMF278B[chipID][1][i] = 0;
                     fmRegisterYMF278B[chipID][2][i] = 0;
+                }
+
+                Y8950Register[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    Y8950Register[chipID][i] = 0;
                 }
 
                 YMZ280BRegister[chipID] = new int[0x100];
@@ -1435,6 +1446,28 @@ namespace MDPlayer
 
         }
 
+        public void setY8950Register(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (ctY8950 == null) return;
+
+            if (chipID == 0) chipLED.PriY895 = 2;
+            else chipLED.SecY895 = 2;
+
+            if (model == enmModel.VirtualModel) Y8950Register[chipID][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctY8950[chipID].UseScci)
+                {
+                    mds.WriteY8950((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+            }
+
+        }
+
         public void setYMZ280BRegister(int chipID, int dAddr, int dData, enmModel model)
         {
             if (ctYMZ280B == null) return;
@@ -2402,6 +2435,15 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteYMZ280BPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeY8950PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipid == 0) chipLED.PriY895 = 2;
+            else chipLED.SecY895 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteY8950PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)

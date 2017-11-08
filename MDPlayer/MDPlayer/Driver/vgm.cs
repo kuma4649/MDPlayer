@@ -37,6 +37,7 @@ namespace MDPlayer
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
+        public uint Y8950ClockValue;
         public uint YMF262ClockValue;
         public uint YMF271ClockValue;
         public uint YMF278BClockValue;
@@ -61,6 +62,7 @@ namespace MDPlayer
         public bool YM2203DualChipFlag;
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
+        public bool Y8950DualChipFlag;
         public bool YMF262DualChipFlag;
         public bool YMF271DualChipFlag;
         public bool YMF278BDualChipFlag;
@@ -347,7 +349,7 @@ namespace MDPlayer
             vgmCmdTbl[0x59] = vcYM2610Port1;
             vgmCmdTbl[0x5a] = vcDummy2Ope;
             vgmCmdTbl[0x5b] = vcDummy2Ope;
-            vgmCmdTbl[0x5c] = vcDummy2Ope;
+            vgmCmdTbl[0x5c] = vcY8950;
             vgmCmdTbl[0x5d] = vcYMZ280B;
             vgmCmdTbl[0x5e] = vcYMF262Port0;
             vgmCmdTbl[0x5f] = vcYMF262Port1;
@@ -695,6 +697,12 @@ namespace MDPlayer
             vgmAdr += 3;
         }
 
+        private void vcY8950()
+        {
+            chipRegister.setY8950Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
         private void vcYMZ280B()
         {
             chipRegister.setYMZ280BRegister((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
@@ -899,6 +907,12 @@ namespace MDPlayer
                             // YMZ280B
                             chipRegister.writeYMZ280BPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "YMZ280B_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x88:
+                            // Y8950
+                            chipRegister.writeY8950PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "Y8950_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x89:
@@ -1960,7 +1974,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x58)
                     {
                         uint Y8950clock = getLE32(0x58);
-                        if (Y8950clock != 0) chips.Add("Y8950");
+                        if (Y8950clock != 0)
+                        {
+                            Y8950ClockValue = Y8950clock & 0x3fffffff;
+                            Y8950DualChipFlag = (Y8950clock & 0x40000000) != 0;
+                            if (Y8950DualChipFlag) chips.Add("Y8950x2");
+                            else chips.Add("Y8950");
+                        }
                     }
 
                     if (vgmDataOffset > 0x5c)

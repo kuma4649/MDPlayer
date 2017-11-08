@@ -394,6 +394,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _Y8950Type = new ChipType();
+        public ChipType Y8950Type
+        {
+            get
+            {
+                return _Y8950Type;
+            }
+
+            set
+            {
+                _Y8950Type = value;
+            }
+        }
+
+        private ChipType _Y8950SType = new ChipType();
+        public ChipType Y8950SType
+        {
+            get
+            {
+                return _Y8950SType;
+            }
+
+            set
+            {
+                _Y8950SType = value;
+            }
+        }
+
 
 
         private int _LatencyEmulation = 0;
