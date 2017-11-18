@@ -190,6 +190,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mid") != -1) return enmFileFormat.MID;
             if (filename.ToLower().LastIndexOf(".nrd") != -1) return enmFileFormat.NRT;
             if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
+            if (filename.ToLower().LastIndexOf(".hes") != -1) return enmFileFormat.HES;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
@@ -338,8 +339,9 @@ namespace MDPlayer
         MID = 5,
         RCP = 6,
         NSF = 7,
-        ZIP = 8,
-        M3U = 9
+        HES = 8,
+        ZIP = 9,
+        M3U = 10
     }
 
 

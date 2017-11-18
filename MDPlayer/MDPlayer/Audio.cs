@@ -375,8 +375,8 @@ namespace MDPlayer
                         music.format = enmFileFormat.NSF;
                         music.fileName = file;
                         music.zipFileName = zipFile;
-                        music.title = string.Format("{0} - Trk {1}", gd3.GameName, s+1);
-                        music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s+1);
+                        music.title = string.Format("{0} - Trk {1}", gd3.GameName, s + 1);
+                        music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s + 1);
                         music.game = gd3.GameName;
                         music.gameJ = gd3.GameNameJ;
                         music.composer = gd3.Composer;
@@ -400,6 +400,34 @@ namespace MDPlayer
                     music.type = "-";
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
+
+            }
+            else if (file.ToLower().LastIndexOf(".hes") != -1)
+            {
+                hes hes = new hes();
+                GD3 gd3 = hes.getGD3Info(buf, 0);
+
+                for (int s = 0; s < 256; s++)
+                {
+                    music = new PlayList.music();
+                    music.format = enmFileFormat.HES;
+                    music.fileName = file;
+                    music.zipFileName = zipFile;
+                    music.title = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
+                    music.titleJ = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
+                    music.game = "";
+                    music.gameJ = "";
+                    music.composer = "";
+                    music.composerJ = "";
+                    music.vgmby = "";
+                    music.converted = "";
+                    music.notes = "";
+                    music.songNo = s;
+
+                    musics.Add(music);
+                }
+
+                return musics;
 
             }
             else if (file.ToLower().LastIndexOf(".mid") != -1)
@@ -1424,6 +1452,16 @@ namespace MDPlayer
                 return nsfPlay(setting);
             }
 
+            if (PlayingFileFormat == enmFileFormat.HES)
+            {
+                driverVirtual = new hes();
+                driverReal = new hes();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+
+                return hesPlay(setting);
+            }
+
             if (PlayingFileFormat == enmFileFormat.VGM)
             {
                 driverVirtual = new vgm();
@@ -2328,6 +2366,106 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
+                //Play
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool hesPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                chipRegister.initChipRegister();
+
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                chipLED = new ChipLEDs();
+                chipLED.PriHuC = 1;
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                //((hes)driverVirtual).song = (byte)SongNo;
+                //((hes)driverReal).song = (byte)SongNo;
+                //if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                //if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+
+                MDSound.MDSound.Chip chip;
+                MDSound.Ootake_PSG huc = new Ootake_PSG();
+
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = 0;
+                chip.type = MDSound.MDSound.enmInstrumentType.HuC6280;
+                chip.Instrument = huc;
+                chip.Update = huc.Update;
+                chip.Start = huc.Start;
+                chip.Stop = huc.Stop;
+                chip.Reset = huc.Reset;
+                chip.SamplingRate = (UInt32)common.SampleRate;
+                chip.Volume = setting.balance.APUVolume;
+                chip.Clock = 3579545;
+                chip.Option = null;
+                lstChips.Add(chip);
+                ((hes)driverVirtual).c6280 = chip;
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                ((hes)driverVirtual).song = (byte)SongNo;
+                ((hes)driverReal).song = (byte)SongNo;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
                 //Play
 
                 Paused = false;

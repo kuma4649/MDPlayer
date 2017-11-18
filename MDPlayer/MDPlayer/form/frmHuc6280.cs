@@ -102,11 +102,13 @@ namespace MDPlayer.form
             MDSound.Ootake_PSG.huc6280_state chip = Audio.GetHuC6280Register(chipID);
             if (chip == null) return;
 
+            //Console.WriteLine("{0}  {1}", chip.MainVolumeL,chip.MainVolumeR);
             for (int ch = 0; ch < 6; ch++)
             {
                 MDSound.Ootake_PSG.PSG psg = chip.Psg[ch];
                 if (psg == null) continue;
                 MDChipParams.Channel channel = newParam.channels[ch];
+                //Console.WriteLine("{0}  {1}",psg.outVolumeL, psg.outVolumeR);
                 channel.volumeL = (psg.outVolumeL >> 10);
                 channel.volumeR = (psg.outVolumeR >> 10);
                 channel.volumeL = Math.Min(channel.volumeL, 19);
