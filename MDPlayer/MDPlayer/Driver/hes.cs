@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MDSound;
 
 namespace MDPlayer
 {
@@ -53,6 +54,7 @@ namespace MDPlayer
             vgmFrameCounter = 0;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
+            silent_length = 0;
 
             GD3 = getGD3Info(vgmBuf, 0);
 
@@ -84,5 +86,26 @@ namespace MDPlayer
         public m_hes m_hes;
         public m_hes.NEZ_PLAY nez_play;
         public MDSound.MDSound.Chip c6280;
+
+        private int last_out = 0;
+        private int silent_length = 0;
+
+        internal void AdditionalUpdate(MDSound.MDSound.Chip sender, byte ChipID, int[][] Buffer, int Length)
+        {
+            for(int i = 0; i < Length; i++)
+            {
+                int m = Buffer[0][i] + Buffer[1][i];
+                if (m == last_out) silent_length++;
+                else silent_length = 0;
+                last_out = m;
+            }
+
+            if (silent_length > common.SampleRate * 3)
+            {
+                LoopCounter = 0;
+                Stopped = true;
+            }
+
+        }
     }
 }
