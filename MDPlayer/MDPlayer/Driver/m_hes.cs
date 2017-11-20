@@ -37,7 +37,9 @@ namespace MDPlayer
             if (p.Length <= ptr+3) return 0;
             return (UInt32)p[ptr + 0] | ((UInt32)p[ptr + 1] << 8) | ((UInt32)p[ptr + 2] << 16) | ((UInt32)p[ptr + 3] << 24);
         }
+
         public ChipRegister chipRegister;
+        public hes.HESDetector ld;
 
         //# include "neserr.h"
         //# include "handler.h"
@@ -337,6 +339,7 @@ namespace MDPlayer
                     //    (Int32)v
                     //    );
                     chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v, enmModel.VirtualModel);
+                    ld.Write((UInt32)(a & 0xf), (UInt32)v, 0);
                     //THIS_.hessnd.write(THIS_.hessnd.ctx, a & 0xf, v);
                     break;
                 case 3: /* TIMER */
