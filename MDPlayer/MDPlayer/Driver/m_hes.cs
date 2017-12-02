@@ -92,7 +92,7 @@ namespace MDPlayer
         {
             public km6280.K6280_Context ctx;
             //public KMIF_SOUND_DEVICE hessnd;
-            //public KMIF_SOUND_DEVICE hespcm;
+            public KMIF_SOUND_DEVICE hespcm;
             public kmevent.KMEVENT kme=new kmevent.KMEVENT();
             public UInt32 vsync;
             public UInt32 timer;
@@ -203,10 +203,10 @@ namespace MDPlayer
             return 0;
         }
 
-        private void synth(HESHES THIS_, Int32[] d)
+        public void synth(HESHES THIS_, Int32[] d)
         {
             //THIS_.hessnd.synth(THIS_.hessnd.ctx, d);
-            //THIS_.hespcm.synth(THIS_.hespcm.ctx, d);
+            THIS_.hespcm.synth(THIS_.hespcm.ctx, d);
         }
 
         private void volume(HESHES THIS_, UInt32 v)
@@ -315,8 +315,7 @@ namespace MDPlayer
                         case 0x0d:
                         case 0x0e://デバッグ用
                         case 0x0f://デバッグ用
-                            //return THIS_.hespcm.read(THIS_.hespcm.ctx, a & 0xf);
-                            return 0xff;
+                            return THIS_.hespcm.read(THIS_.hespcm.ctx, a & 0xf);
                     }
                     return 0xff;
                 default:
@@ -380,7 +379,7 @@ namespace MDPlayer
                         case 0x0d:
                         case 0x0e:
                         case 0x0f:
-                            //THIS_.hespcm.write(THIS_.hespcm.ctx, a & 0xf, v);
+                            THIS_.hespcm.write(THIS_.hespcm.ctx, a & 0xf, v);
                             break;
                     }
                     break;
@@ -559,7 +558,7 @@ namespace MDPlayer
             UInt32 freq = 44100;
 
             //THIS_.hessnd.reset(THIS_.hessnd.ctx, HES_BASECYCLES, freq);
-            //THIS_.hespcm.reset(THIS_.hespcm.ctx, HES_BASECYCLES, freq);
+            THIS_.hespcm.reset(THIS_.hespcm.ctx, HES_BASECYCLES, freq);
             kmevent.kmevent_init(THIS_.kme);
 
             /* RAM CLEAR */
@@ -657,7 +656,7 @@ namespace MDPlayer
             //ここまでダンプ設定
 
             //if (THIS_.hessnd!=null) THIS_.hessnd.release(THIS_.hessnd.ctx);
-            //if (THIS_.hespcm != null) THIS_.hespcm.release(THIS_.hespcm.ctx);
+            if (THIS_.hespcm != null) THIS_.hespcm.release(THIS_.hespcm.ctx);
             for (i = 0; i < 0x100; i++) if (THIS_.memmap[i] != null) THIS_.memmap = null;// XFREE(THIS_.memmap[i]);
             //XFREE(THIS_);
             THIS_ = null;
@@ -793,8 +792,8 @@ First Mapper 7 : {0:X2}"
             }
             //THIS_.hessnd = HESSoundAlloc();
             //if (THIS_.hessnd == 0) return NESERR_SHORTOFMEMORY;
-            //THIS_.hespcm = HESAdPcmAlloc();
-            //if (THIS_.hespcm == 0) return NESERR_SHORTOFMEMORY;
+            THIS_.hespcm = (new s_hesad()).HESAdPcmAlloc();
+            if (THIS_.hespcm == null) return (UInt32)NESERR.SHORTOFMEMORY;
 
             return (UInt32)NESERR.NOERROR;
 

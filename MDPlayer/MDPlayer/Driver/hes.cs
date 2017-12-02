@@ -120,38 +120,55 @@ namespace MDPlayer
         private double time_in_ms;
         public bool playtime_detected = false;
 
+        private int[] buf = new int[2];
+
         internal void AdditionalUpdate(MDSound.MDSound.Chip sender, byte ChipID, int[][] Buffer, int Length)
         {
-            for(int i = 0; i < Length; i++)
+            try
             {
+                for (int i = 0; i < Length; i++)
+                {
 
-                int m = Buffer[0][i] + Buffer[1][i];
-                if (m == last_out) silent_length++;
-                else silent_length = 0;
-                last_out = m;
+                    int m = Buffer[0][i] + Buffer[1][i];
+                    if (m == last_out) silent_length++;
+                    else silent_length = 0;
+                    last_out = m;
+
+                    if (nez_play != null && nez_play.heshes!=null)
+                    {
+                        buf[0] = 0;buf[1] = 0;
+                        m_hes.synth(nez_play.heshes, buf);
+                        Buffer[0][i] += buf[0];
+                        Buffer[1][i] += buf[1];
+                    }
+                }
+
+                if (!playtime_detected && silent_length > common.SampleRate * 3)
+                {
+                    playtime_detected = true;
+                    LoopCounter = 0;
+                    Stopped = true;
+                }
+
+                time_in_ms += (1000 * Length / (double)common.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
+                if (!playtime_detected && ld.IsLooped((int)time_in_ms, 30000, 5000))
+                {
+                    playtime_detected = true;
+                    TotalCounter = (long)ld.GetLoopEnd() * (long)common.SampleRate / 1000L;
+                    if (TotalCounter == 0) TotalCounter = Counter;
+                    LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)common.SampleRate / 1000L);
+                }
+
+                if (!playtime_detected) vgmCurLoop = 0;
+                else
+                {
+                    if (TotalCounter != 0) vgmCurLoop = (uint)(Counter / TotalCounter);
+                    else Stopped = true;
+                }
             }
-
-            if ( !playtime_detected && silent_length > common.SampleRate * 3)
+            catch(Exception ex)
             {
-                playtime_detected = true;
-                LoopCounter = 0;
-                Stopped = true;
-            }
-
-            time_in_ms += (1000 * Length / (double)common.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
-            if (!playtime_detected && ld.IsLooped((int)time_in_ms, 30000, 5000) )
-            {
-                playtime_detected = true;
-                TotalCounter = (long)ld.GetLoopEnd() * (long)common.SampleRate / 1000L;
-                if (TotalCounter == 0) TotalCounter = Counter;
-                LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)common.SampleRate / 1000L);
-            }
-
-            if (!playtime_detected) vgmCurLoop = 0;
-            else
-            {
-                if (TotalCounter != 0) vgmCurLoop = (uint)(Counter / TotalCounter);
-                else Stopped = true;
+                log.Write(string.Format("Exception message:{0} StackTrace:{1}",ex.Message,ex.StackTrace));
             }
 
         }

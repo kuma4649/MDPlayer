@@ -133,6 +133,8 @@
     <Compile Include="Driver\RCP\MIDITrack.cs" />
     <Compile Include="Driver\RCP.cs" />
     <Compile Include="Driver\S98.cs" />
+    <Compile Include="Driver\s_deltat.cs" />
+    <Compile Include="Driver\s_hesad.cs" />
     <Compile Include="Driver\xgm.cs" />
     <Compile Include="form\frmAY8910.cs">
       <SubType>Form</SubType>
