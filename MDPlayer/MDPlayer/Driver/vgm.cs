@@ -442,7 +442,7 @@ namespace MDPlayer
             //}
             //else
             //{
-                vgmCmdTbl[0xb2] = vcDummy2Ope;
+                //vgmCmdTbl[0xb2] = vcDummy2Ope;
             //}
             vgmCmdTbl[0xb3] = vcDMG;
             vgmCmdTbl[0xb4] = vcNES;
@@ -2215,14 +2215,15 @@ namespace MDPlayer
                             OKIM6295DualChipFlag = (OKIM6295clock & 0x40000000) != 0;
                             if (OKIM6295DualChipFlag)
                             {
-                                OKIM6295ClockValue = OKIM6295clock & 0x3fffffff;
+                                //OKIM6295ClockValue = OKIM6295clock & 0x3fffffff;
                                 chips.Add("OKIM6295x2");
                             }
                             else
                             {
-                                OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
+                                //OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
                                 chips.Add("OKIM6295");
                             }
+                            OKIM6295ClockValue = OKIM6295clock & 0xbfffffff;
                         }
                     }
 
