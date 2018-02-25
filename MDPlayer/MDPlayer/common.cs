@@ -12,6 +12,19 @@ namespace MDPlayer
         public static Int32 SampleRate = 44100;
         public static Int32 NsfClock = 1789773;
 
+        public static UInt32 getBE16(byte[] buf, UInt32 adr)
+        {
+            if (buf == null || buf.Length - 1 < adr + 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            UInt32 dat;
+            dat = (UInt32)buf[adr] * 0x100 + (UInt32)buf[adr + 1];
+
+            return dat;
+        }
+
         public static UInt32 getLE16(byte[] buf, UInt32 adr)
         {
             if (buf == null || buf.Length - 1 < adr + 1)
@@ -191,6 +204,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".nrd") != -1) return enmFileFormat.NRT;
             if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
             if (filename.ToLower().LastIndexOf(".hes") != -1) return enmFileFormat.HES;
+            if (filename.ToLower().LastIndexOf(".sid") != -1) return enmFileFormat.SID;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
@@ -341,7 +355,8 @@ namespace MDPlayer
         NSF = 7,
         HES = 8,
         ZIP = 9,
-        M3U = 10
+        M3U = 10,
+        SID = 11
     }
 
 

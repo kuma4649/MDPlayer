@@ -215,7 +215,7 @@ namespace MDPlayer.form
                     ucSI.cmbYM2203P_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                     ucSI.cmbYM2203S_SCCI.Items.Add(string.Format("({0}:{1}:{2}){3}", ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
                 }
-                ucSI.cmbYM2203P_SCCI.SelectedIndex = 0; 
+                ucSI.cmbYM2203P_SCCI.SelectedIndex = 0;
                 ucSI.rbYM2203P_SCCI.Enabled = true;
                 ucSI.cmbYM2203P_SCCI.Enabled = true;
                 ucSI.cmbYM2203S_SCCI.SelectedIndex = 0;
@@ -713,7 +713,7 @@ namespace MDPlayer.form
             cbUseGetInst.Checked = setting.other.UseGetInst;
             cbUseGetInst_CheckedChanged(null, null);
             tbDataPath.Text = setting.other.DefaultDataPath;
-            cmbInstFormat.SelectedIndex=(int)setting.other.InstFormat;
+            cmbInstFormat.SelectedIndex = (int)setting.other.InstFormat;
             tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
             cbAutoOpen.Checked = setting.other.AutoOpen;
             cbDumpSwitch.Checked = setting.other.DumpSwitch;
@@ -730,17 +730,17 @@ namespace MDPlayer.form
             cbMIDIYM2151.Checked = setting.midiExport.UseYM2151Export;
             cbMIDIYM2612.Checked = setting.midiExport.UseYM2612Export;
 
-            tbCCChCopy.Text   = setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 == -1 ? "" : setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1.ToString();
-            tbCCCopyLog.Text  = setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd == -1 ? "" : setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd.ToString();
-            tbCCDelLog.Text   = setting.midiKbd.MidiCtrl_DelOneLog == -1 ? "" : setting.midiKbd.MidiCtrl_DelOneLog.ToString();
-            tbCCFadeout.Text  = setting.midiKbd.MidiCtrl_Fadeout == -1 ? "" : setting.midiKbd.MidiCtrl_Fadeout.ToString();
-            tbCCFast.Text     = setting.midiKbd.MidiCtrl_Fast == -1 ? "" : setting.midiKbd.MidiCtrl_Fast.ToString();
-            tbCCNext.Text     = setting.midiKbd.MidiCtrl_Next == -1 ? "" : setting.midiKbd.MidiCtrl_Next.ToString();
-            tbCCPause.Text    = setting.midiKbd.MidiCtrl_Pause == -1 ? "" : setting.midiKbd.MidiCtrl_Pause.ToString();
-            tbCCPlay.Text     = setting.midiKbd.MidiCtrl_Play == -1 ? "" : setting.midiKbd.MidiCtrl_Play.ToString();
+            tbCCChCopy.Text = setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1 == -1 ? "" : setting.midiKbd.MidiCtrl_CopyToneFromYM2612Ch1.ToString();
+            tbCCCopyLog.Text = setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd == -1 ? "" : setting.midiKbd.MidiCtrl_CopySelecttingLogToClipbrd.ToString();
+            tbCCDelLog.Text = setting.midiKbd.MidiCtrl_DelOneLog == -1 ? "" : setting.midiKbd.MidiCtrl_DelOneLog.ToString();
+            tbCCFadeout.Text = setting.midiKbd.MidiCtrl_Fadeout == -1 ? "" : setting.midiKbd.MidiCtrl_Fadeout.ToString();
+            tbCCFast.Text = setting.midiKbd.MidiCtrl_Fast == -1 ? "" : setting.midiKbd.MidiCtrl_Fast.ToString();
+            tbCCNext.Text = setting.midiKbd.MidiCtrl_Next == -1 ? "" : setting.midiKbd.MidiCtrl_Next.ToString();
+            tbCCPause.Text = setting.midiKbd.MidiCtrl_Pause == -1 ? "" : setting.midiKbd.MidiCtrl_Pause.ToString();
+            tbCCPlay.Text = setting.midiKbd.MidiCtrl_Play == -1 ? "" : setting.midiKbd.MidiCtrl_Play.ToString();
             tbCCPrevious.Text = setting.midiKbd.MidiCtrl_Previous == -1 ? "" : setting.midiKbd.MidiCtrl_Previous.ToString();
-            tbCCSlow.Text     = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
-            tbCCStop.Text     = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
+            tbCCSlow.Text = setting.midiKbd.MidiCtrl_Slow == -1 ? "" : setting.midiKbd.MidiCtrl_Slow.ToString();
+            tbCCStop.Text = setting.midiKbd.MidiCtrl_Stop == -1 ? "" : setting.midiKbd.MidiCtrl_Stop.ToString();
 
 
             if (setting.midiOut.lstMidiOutInfo != null && setting.midiOut.lstMidiOutInfo.Count > 0)
@@ -791,8 +791,8 @@ namespace MDPlayer.form
             {
                 //if (!midioutNotFound.Contains(i))
                 //{
-                    NAudio.Midi.MidiOutCapabilities moc = NAudio.Midi.MidiOut.DeviceInfo(i);
-                    dgvMIDIoutPallet.Rows.Add(i, moc.ProductName, moc.Manufacturer.ToString() != "-1" ? moc.Manufacturer.ToString() : "Unknown");
+                NAudio.Midi.MidiOutCapabilities moc = NAudio.Midi.MidiOut.DeviceInfo(i);
+                dgvMIDIoutPallet.Rows.Add(i, moc.ProductName, moc.Manufacturer.ToString() != "-1" ? moc.Manufacturer.ToString() : "Unknown");
                 //}
             }
 
@@ -819,6 +819,11 @@ namespace MDPlayer.form
             cbNSFMmc5_PhaseRefresh.Checked = setting.nsf.MMC5PhaseRefresh;
 
             cbNSFN160_Serial.Checked = setting.nsf.N160Serial;
+
+            tbSIDKernal.Text = setting.sid.RomKernalPath;
+            tbSIDBasic.Text = setting.sid.RomBasicPath;
+            tbSIDCharacter.Text = setting.sid.RomCharacterPath;
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1219,6 +1224,11 @@ namespace MDPlayer.form
 
             setting.nsf.N160Serial = cbNSFN160_Serial.Checked;
 
+            setting.sid = new Setting.SID();
+            setting.sid.RomKernalPath = tbSIDKernal.Text;
+            setting.sid.RomBasicPath = tbSIDBasic.Text;
+            setting.sid.RomCharacterPath = tbSIDCharacter.Text;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -1571,6 +1581,54 @@ namespace MDPlayer.form
                 , "GM"
                 , s.vendorName);
 
+        }
+
+        private void btnSIDKernal_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
+            ofd.RestoreDirectory = true;
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = false;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            tbSIDKernal.Text = ofd.FileName;
+        }
+
+        private void btnSIDBasic_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
+            ofd.RestoreDirectory = true;
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = false;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            tbSIDBasic.Text = ofd.FileName;
+        }
+
+        private void btnSIDCharacter_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "すべてのファイル(*.*)|*.*";
+            ofd.Title = "ファイルを選択してください";
+            ofd.RestoreDirectory = true;
+            ofd.CheckPathExists = true;
+            ofd.Multiselect = false;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            tbSIDCharacter.Text = ofd.FileName;
         }
     }
 

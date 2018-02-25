@@ -320,6 +320,17 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.tpSID = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tbSIDKernal = new System.Windows.Forms.TextBox();
+            this.tbSIDBasic = new System.Windows.Forms.TextBox();
+            this.tbSIDCharacter = new System.Windows.Forms.TextBox();
+            this.btnSIDKernal = new System.Windows.Forms.Button();
+            this.btnSIDBasic = new System.Windows.Forms.Button();
+            this.btnSIDCharacter = new System.Windows.Forms.Button();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -383,6 +394,8 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.tpSID.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -626,6 +639,7 @@
             this.tcSetting.Controls.Add(this.tpOutput);
             this.tcSetting.Controls.Add(this.tpModule);
             this.tcSetting.Controls.Add(this.tpNSF);
+            this.tcSetting.Controls.Add(this.tpSID);
             this.tcSetting.Controls.Add(this.tpMIDIOut);
             this.tcSetting.Controls.Add(this.tabMIDIExp);
             this.tcSetting.Controls.Add(this.tpMIDIKBD);
@@ -634,7 +648,6 @@
             this.tcSetting.Controls.Add(this.tpAbout);
             this.tcSetting.HotTrack = true;
             this.tcSetting.Location = new System.Drawing.Point(1, 3);
-            this.tcSetting.Multiline = true;
             this.tcSetting.Name = "tcSetting";
             this.tcSetting.SelectedIndex = 0;
             this.tcSetting.Size = new System.Drawing.Size(451, 397);
@@ -3510,6 +3523,114 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // tpSID
+            // 
+            this.tpSID.Controls.Add(this.groupBox13);
+            this.tpSID.Location = new System.Drawing.Point(4, 22);
+            this.tpSID.Name = "tpSID";
+            this.tpSID.Size = new System.Drawing.Size(443, 371);
+            this.tpSID.TabIndex = 10;
+            this.tpSID.Text = "SID";
+            this.tpSID.UseVisualStyleBackColor = true;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox13.Controls.Add(this.btnSIDCharacter);
+            this.groupBox13.Controls.Add(this.btnSIDBasic);
+            this.groupBox13.Controls.Add(this.btnSIDKernal);
+            this.groupBox13.Controls.Add(this.tbSIDCharacter);
+            this.groupBox13.Controls.Add(this.tbSIDBasic);
+            this.groupBox13.Controls.Add(this.tbSIDKernal);
+            this.groupBox13.Controls.Add(this.label24);
+            this.groupBox13.Controls.Add(this.label23);
+            this.groupBox13.Controls.Add(this.label22);
+            this.groupBox13.Location = new System.Drawing.Point(7, 3);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(245, 100);
+            this.groupBox13.TabIndex = 0;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "ROM Image";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 24);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(37, 12);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Kernal";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 49);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(34, 12);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "Basic";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 74);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(55, 12);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Character";
+            // 
+            // tbSIDKernal
+            // 
+            this.tbSIDKernal.Location = new System.Drawing.Point(67, 21);
+            this.tbSIDKernal.Name = "tbSIDKernal";
+            this.tbSIDKernal.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDKernal.TabIndex = 1;
+            // 
+            // tbSIDBasic
+            // 
+            this.tbSIDBasic.Location = new System.Drawing.Point(67, 46);
+            this.tbSIDBasic.Name = "tbSIDBasic";
+            this.tbSIDBasic.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDBasic.TabIndex = 1;
+            // 
+            // tbSIDCharacter
+            // 
+            this.tbSIDCharacter.Location = new System.Drawing.Point(67, 71);
+            this.tbSIDCharacter.Name = "tbSIDCharacter";
+            this.tbSIDCharacter.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDCharacter.TabIndex = 1;
+            // 
+            // btnSIDKernal
+            // 
+            this.btnSIDKernal.Location = new System.Drawing.Point(214, 19);
+            this.btnSIDKernal.Name = "btnSIDKernal";
+            this.btnSIDKernal.Size = new System.Drawing.Size(23, 23);
+            this.btnSIDKernal.TabIndex = 2;
+            this.btnSIDKernal.Text = "...";
+            this.btnSIDKernal.UseVisualStyleBackColor = true;
+            this.btnSIDKernal.Click += new System.EventHandler(this.btnSIDKernal_Click);
+            // 
+            // btnSIDBasic
+            // 
+            this.btnSIDBasic.Location = new System.Drawing.Point(214, 44);
+            this.btnSIDBasic.Name = "btnSIDBasic";
+            this.btnSIDBasic.Size = new System.Drawing.Size(23, 23);
+            this.btnSIDBasic.TabIndex = 2;
+            this.btnSIDBasic.Text = "...";
+            this.btnSIDBasic.UseVisualStyleBackColor = true;
+            this.btnSIDBasic.Click += new System.EventHandler(this.btnSIDBasic_Click);
+            // 
+            // btnSIDCharacter
+            // 
+            this.btnSIDCharacter.Location = new System.Drawing.Point(214, 69);
+            this.btnSIDCharacter.Name = "btnSIDCharacter";
+            this.btnSIDCharacter.Size = new System.Drawing.Size(23, 23);
+            this.btnSIDCharacter.TabIndex = 2;
+            this.btnSIDCharacter.Text = "...";
+            this.btnSIDCharacter.UseVisualStyleBackColor = true;
+            this.btnSIDCharacter.Click += new System.EventHandler(this.btnSIDCharacter_Click);
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3617,6 +3738,9 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.tpSID.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3915,5 +4039,16 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox tbNSFFds_LPF;
         private System.Windows.Forms.CheckBox cbNFSFds_4085Reset;
+        private System.Windows.Forms.TabPage tpSID;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnSIDCharacter;
+        private System.Windows.Forms.Button btnSIDBasic;
+        private System.Windows.Forms.Button btnSIDKernal;
+        private System.Windows.Forms.TextBox tbSIDCharacter;
+        private System.Windows.Forms.TextBox tbSIDBasic;
+        private System.Windows.Forms.TextBox tbSIDKernal;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
     }
 }

@@ -430,6 +430,34 @@ namespace MDPlayer
                 return musics;
 
             }
+            else if (file.ToLower().LastIndexOf(".sid") != -1)
+            {
+                Driver.SID.sid sid = new Driver.SID.sid();
+                GD3 gd3 = sid.getGD3Info(buf, 0);
+
+                for (int s = 0; s < sid.songs; s++)
+                {
+                    music = new PlayList.music();
+                    music.format = enmFileFormat.SID;
+                    music.fileName = file;
+                    music.zipFileName = zipFile;
+                    music.title = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
+                    music.titleJ = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
+                    music.game = "";
+                    music.gameJ = "";
+                    music.composer = gd3.Composer;
+                    music.composerJ = gd3.Composer;
+                    music.vgmby = "";
+                    music.converted = "";
+                    music.notes = gd3.Notes;
+                    music.songNo = s;
+
+                    musics.Add(music);
+                }
+
+                return musics;
+
+            }
             else if (file.ToLower().LastIndexOf(".mid") != -1)
             {
                 music.format = enmFileFormat.MID;
@@ -1462,6 +1490,16 @@ namespace MDPlayer
                 return hesPlay(setting);
             }
 
+            if (PlayingFileFormat == enmFileFormat.SID)
+            {
+                driverVirtual = new Driver.SID.sid();
+                driverReal = new Driver.SID.sid();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+
+                return sidPlay(setting);
+            }
+
             if (PlayingFileFormat == enmFileFormat.VGM)
             {
                 driverVirtual = new vgm();
@@ -2468,6 +2506,74 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
                 if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
                 //Play
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool sidPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                chipRegister.initChipRegister();
+
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                chipLED = new ChipLEDs();
+                chipLED.PriHuC = 1;
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                ((Driver.SID.sid)driverVirtual).song = (byte)SongNo+1;
+                ((Driver.SID.sid)driverReal).song = (byte)SongNo+1;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
 
                 Paused = false;
                 Stopped = false;
@@ -4147,7 +4253,21 @@ namespace MDPlayer
                 int i;
                 int cnt = 0;
 
-                if (!(driverVirtual is nsf))
+                if (driverVirtual is nsf)
+                {
+                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
+
+                    driverVirtual.vstDelta = 0;
+                    cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount / 2, offset) * 2;
+                }
+                else if(driverVirtual is Driver.SID.sid)
+                {
+                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
+
+                    driverVirtual.vstDelta = 0;
+                    cnt = (Int32)((Driver.SID.sid)driverVirtual).Render(buffer, (UInt32)sampleCount );
+                }
+                else
                 {
                     if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
 
@@ -4166,14 +4286,6 @@ namespace MDPlayer
 
                     driverVirtual.vstDelta = 0;
                     cnt = mds.Update(buffer, offset, sampleCount, driverVirtual.oneFrameProc);
-                }
-                else
-                {
-                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
-                    if ((driverReal is vgm) && ((vgm)driverReal).isDataBlock) return mds.Update(buffer, offset, sampleCount, null);
-
-                    driverVirtual.vstDelta = 0;
-                    cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount / 2, offset) * 2;
                 }
 
                 //for (i = 0; i < sampleCount; i++)

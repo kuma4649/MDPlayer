@@ -3039,6 +3039,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".sid") != -1)
+            {
+                format = enmFileFormat.SID;
+                return buf;
+            }
+
             if (filename.ToLower().LastIndexOf(".mid") != -1)
             {
                 format = enmFileFormat.MID;

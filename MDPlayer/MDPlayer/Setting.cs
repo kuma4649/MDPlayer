@@ -592,6 +592,20 @@ namespace MDPlayer
             }
         }
 
+        private SID _sid = new SID();
+        public SID sid
+        {
+            get
+            {
+                return _sid;
+            }
+
+            set
+            {
+                _sid = value;
+            }
+        }
+
 
         [Serializable]
         public class OutputDevice
@@ -3410,7 +3424,26 @@ namespace MDPlayer
 
         }
 
-        public Setting Copy()
+        [Serializable]
+        public class SID
+        {
+            public string RomKernalPath = "";
+            public string RomBasicPath = "";
+            public string RomCharacterPath = "";
+
+            public SID Copy()
+            {
+                SID SID = new SID();
+
+                SID.RomKernalPath = this.RomKernalPath;
+                SID.RomBasicPath = this.RomBasicPath;
+                SID.RomCharacterPath = this.RomCharacterPath;
+
+                return SID;
+            }
+        }
+
+            public Setting Copy()
         {
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
@@ -3441,6 +3474,7 @@ namespace MDPlayer
             setting.vst = this.vst.Copy();
             setting.midiOut = this.midiOut.Copy();
             setting.nsf = this.nsf.Copy();
+            setting.sid = this.sid.Copy();
 
             return setting;
         }

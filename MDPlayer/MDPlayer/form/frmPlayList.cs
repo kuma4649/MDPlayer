@@ -660,14 +660,15 @@ namespace MDPlayer.form
                 + "S98ファイル(*.s98)|*.s98|"
                 + "NSFファイル(*.nsf)|*.nsf|"
                 + "HESファイル(*.hes)|*.hes|"
+                + "SIDファイル(*.sid)|*.sid|"
                 + "StandardMIDIファイル(*.mid)|*.mid|"
                 + "RCPファイル(*.rcp)|*.rcp|"
                 + "M3Uファイル(*.m3u)|*.m3u|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.mid;*.rcp;*.m3u|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mid;*.rcp;*.m3u|"
                 + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
-            ofd.FilterIndex=setting.other.FilterIndex;
+            ofd.FilterIndex = setting.other.FilterIndex;
 
             if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
@@ -694,7 +695,6 @@ namespace MDPlayer.form
             {
                 foreach (string fn in ofd.FileNames)
                 {
-                    //                    AddList(fn);
                     playList.AddFile(fn);
                 }
             }
@@ -704,6 +704,50 @@ namespace MDPlayer.form
             }
 
             //Play();
+        }
+
+        private void tsbAddFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            fbd.Description = "フォルダーを指定してください。";
+            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath))
+            {
+                fbd.SelectedPath = frmMain.setting.other.DefaultDataPath;
+            }
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            Stop();
+
+            try
+            {
+                string[] files = System.IO.Directory.GetFiles(fbd.SelectedPath, "*", System.IO.SearchOption.TopDirectoryOnly);
+                foreach (string fn in files)
+                {
+                    string ext = System.IO.Path.GetExtension(fn).ToUpper();
+                    if (
+                           ext == ".VGM" || ext == ".VGZ" || ext == ".ZIP" || ext == ".NRD" 
+                        || ext == ".XGM" || ext == ".S98" || ext == ".NSF" || ext == ".HES"
+                        || ext == ".SID" || ext == ".MID" || ext == ".RCP" || ext == ".M3U"
+                        )
+                    {
+                        playList.AddFile(fn);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+
+            frmMain.oldParam = new MDChipParams();
+
+            Play();
+
         }
 
         private void tsbUp_Click(object sender, EventArgs e)
@@ -753,47 +797,6 @@ namespace MDPlayer.form
 
             playList.lstMusic.Insert(ind, mus);
             dgvList.Rows.Insert(ind, row);
-
-        }
-
-        private void tsbAddFolder_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-
-            fbd.Description = "フォルダーを指定してください。";
-            if (frmMain.setting.other.DefaultDataPath != "" && Directory.Exists(frmMain.setting.other.DefaultDataPath))
-            {
-                fbd.SelectedPath = frmMain.setting.other.DefaultDataPath;
-            }
-
-            if (fbd.ShowDialog(this) != DialogResult.OK)
-            {
-                return;
-            }
-
-            Stop();
-
-            try
-            {
-                string[] files = System.IO.Directory.GetFiles(fbd.SelectedPath, "*", System.IO.SearchOption.TopDirectoryOnly);
-                foreach (string fn in files)
-                {
-                    string ext1 = System.IO.Path.GetExtension(fn).ToUpper();
-                    if (ext1 == ".VGM" || ext1 == ".VGZ" || ext1 == ".NRD" || ext1 == ".XGM")
-                    {
-                        playList.AddFile(fn);
-                        //AddList(fn);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-
-            frmMain.oldParam = new MDChipParams();
-
-            Play();
 
         }
 

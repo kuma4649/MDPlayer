@@ -247,6 +247,9 @@ namespace MDPlayer
                 case enmFileFormat.HES:
                     AddFileHES(mc, entry);
                     break;
+                case enmFileFormat.SID:
+                    AddFileSID(mc, entry);
+                    break;
                 case enmFileFormat.RCP:
                     AddFileRCP(mc, entry);
                     break;
@@ -427,6 +430,56 @@ namespace MDPlayer
         }
 
         private void AddFileHES(music mc, ZipArchiveEntry entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    using (BinaryReader reader = new BinaryReader(entry.Open()))
+                    {
+                        buf = reader.ReadBytes((int)entry.Length);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.zipFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.music music in musics) lstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileSID(music mc, ZipArchiveEntry entry = null)
         {
             try
             {
