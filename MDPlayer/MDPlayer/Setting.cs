@@ -3430,6 +3430,7 @@ namespace MDPlayer
             public string RomKernalPath = "";
             public string RomBasicPath = "";
             public string RomCharacterPath = "";
+            public int Quality = 1;
 
             public SID Copy()
             {
@@ -3438,6 +3439,7 @@ namespace MDPlayer
                 SID.RomKernalPath = this.RomKernalPath;
                 SID.RomBasicPath = this.RomBasicPath;
                 SID.RomCharacterPath = this.RomCharacterPath;
+                SID.Quality = this.Quality;
 
                 return SID;
             }

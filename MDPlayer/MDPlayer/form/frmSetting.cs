@@ -823,7 +823,21 @@ namespace MDPlayer.form
             tbSIDKernal.Text = setting.sid.RomKernalPath;
             tbSIDBasic.Text = setting.sid.RomBasicPath;
             tbSIDCharacter.Text = setting.sid.RomCharacterPath;
-
+            switch (setting.sid.Quality)
+            {
+                case 0:
+                    rdSIDQ1.Checked = true;
+                    break;
+                case 1:
+                    rdSIDQ2.Checked = true;
+                    break;
+                case 2:
+                    rdSIDQ3.Checked = true;
+                    break;
+                case 3:
+                    rdSIDQ4.Checked = true;
+                    break;
+            }
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1228,6 +1242,10 @@ namespace MDPlayer.form
             setting.sid.RomKernalPath = tbSIDKernal.Text;
             setting.sid.RomBasicPath = tbSIDBasic.Text;
             setting.sid.RomCharacterPath = tbSIDCharacter.Text;
+            if (rdSIDQ1.Checked) setting.sid.Quality = 0;
+            if (rdSIDQ2.Checked) setting.sid.Quality = 1;
+            if (rdSIDQ3.Checked) setting.sid.Quality = 2;
+            if (rdSIDQ4.Checked) setting.sid.Quality = 3;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

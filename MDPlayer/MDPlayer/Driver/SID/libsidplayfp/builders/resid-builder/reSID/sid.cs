@@ -154,8 +154,8 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
         protected Voice[] voice = new Voice[3] { new Voice(), new Voice(), new Voice() };
         protected Filter filter=new Filter();
         protected ExternalFilter extfilt=new ExternalFilter();
-        protected Potentiometer potx;
-        protected Potentiometer poty;
+        protected Potentiometer potx=new Potentiometer();
+        protected Potentiometer poty=new Potentiometer();
 
         protected UInt32 bus_value;
         protected Int32 bus_value_ttl;

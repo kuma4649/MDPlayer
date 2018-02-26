@@ -107,6 +107,7 @@ namespace MDPlayer.Driver.SID
             }
 
             m_engine.play(b, length);
+            for (int i = 0; i < length/2; i++) oneFrameProc();
 
             return length;
         }
@@ -164,8 +165,8 @@ namespace MDPlayer.Driver.SID
 
             SidConfig cfg = new SidConfig();
             cfg.frequency = (uint)common.SampleRate;
-            cfg.samplingMethod = SidConfig.sampling_method_t.INTERPOLATE;
-            cfg.fastSampling = true;
+            cfg.samplingMethod = (setting.sid.Quality & 2) == 0 ? SidConfig.sampling_method_t.INTERPOLATE : SidConfig.sampling_method_t.RESAMPLE_INTERPOLATE;
+            cfg.fastSampling = (setting.sid.Quality & 1) == 0;
             cfg.playback = SidConfig.playback_t.STEREO;
             cfg.sidEmulation = rs;
             
