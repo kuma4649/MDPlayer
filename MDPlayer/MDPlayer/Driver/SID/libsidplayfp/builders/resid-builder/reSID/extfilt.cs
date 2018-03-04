@@ -145,10 +145,10 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         // Audio output (16 bits).
         // ----------------------------------------------------------------------------
+        const Int32 half = 1 << 15;
         public short output()
         {
             // Saturated arithmetics to guard against 16 bit sample overflow.
-            Int32 half = 1 << 15;
             Int32 Vo = (Vlp - Vhp) >> 11;
             if (Vo >= half)
             {

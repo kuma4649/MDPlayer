@@ -106,7 +106,7 @@ namespace MDPlayer.form
 
                 bool t = (AY8910Register[0x07] & (0x1 << ch)) == 0;
                 bool n = (AY8910Register[0x07] & (0x8 << ch)) == 0;
-
+                //Console.WriteLine("r[8]={0:x} r[9]={1:x} r[10]={2:x}", AY8910Register[0x8], AY8910Register[0x9], AY8910Register[0xa]);
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
                 newParam.nfrq = AY8910Register[0x06] & 0x1f;
                 newParam.efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];

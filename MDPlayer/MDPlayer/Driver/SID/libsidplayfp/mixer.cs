@@ -66,6 +66,7 @@ namespace sidplayFpNET.libsidplayfp
 
         private mixer_func_t[] m_mix=new mixer_func_t[1];//std::vector<mixer_func_t> m_mix;
 
+        System.Random r = new System.Random((int)DateTime.Now.Ticks);
         private Int32 oldRandomValue;
         private Int32 m_fastForwardFactor;
 
@@ -81,7 +82,6 @@ namespace sidplayFpNET.libsidplayfp
         private int triangularDithering()
         {
             Int32 prevValue = oldRandomValue;
-            System.Random r = new System.Random(1000);
             oldRandomValue = r.Next(0,1024) & (VOLUME_MAX - 1);
             return oldRandomValue - prevValue;
         }
@@ -112,24 +112,27 @@ namespace sidplayFpNET.libsidplayfp
         //Int32 mono() const
         private Int32 mono1()
         {
-            Int32 res = 0;
-            for (int i = 0; i < 1; i++)
-                res += m_iSamples[i];
-            return res /= 1;
+            //Int32 res = 0;
+            //for (int i = 0; i < 1; i++)
+            //    res += m_iSamples[i];
+            //return res /= 1;
+            return m_iSamples[0];
         }
         private Int32 mono2()
         {
-            Int32 res = 0;
-            for (int i = 0; i < 2; i++)
-                res += m_iSamples[i];
-            return res /= 2;
+            //Int32 res = 0;
+            //for (int i = 0; i < 2; i++)
+            //    res += m_iSamples[i];
+            //return res /= 2;
+            return (m_iSamples[0] + m_iSamples[1]) >> 1;
         }
         private Int32 mono3()
         {
-            Int32 res = 0;
-            for (int i = 0; i < 3; i++)
-                res += m_iSamples[i];
-            return res /= 3;
+            //Int32 res = 0;
+            //for (int i = 0; i < 3; i++)
+            //    res += m_iSamples[i];
+            //return res /= 3;
+            return (m_iSamples[0] + m_iSamples[1] + m_iSamples[2]) /3;
         }
 
         // Stereo mixing
@@ -312,7 +315,8 @@ namespace sidplayFpNET.libsidplayfp
             //std::for_each(m_chips.begin(), m_chips.end(), clockChip);
             foreach (sidemu i in m_chips)
             {
-                clockChip(i);
+                //clockChip(i);
+                i.clock();
             }
         }
 
@@ -327,7 +331,7 @@ namespace sidplayFpNET.libsidplayfp
 
         public void doMix()
         {
-            Ptr<Int16> buf = new Ptr<Int16>(m_sampleBuffer, (Int32)m_sampleIndex);
+            //Ptr<Int16> buf = new Ptr<Int16>(m_sampleBuffer, (Int32)m_sampleIndex);
 
             // extract buffer info now that the SID is updated.
             // clock() may update bufferpos.
@@ -335,6 +339,7 @@ namespace sidplayFpNET.libsidplayfp
             Int32 sampleCount = m_chips[0].bufferpos();
 
             Int32 i = 0;
+            Int32 channels = m_stereo ? 2 : 1;
             while (i < sampleCount)
             {
                 // Handle whatever output the sid has generated so far
@@ -353,10 +358,14 @@ namespace sidplayFpNET.libsidplayfp
                 for (Int32 k = 0; k < m_buffers.Count; k++)
                 {
                     Int32 sample = 0;
-                    Ptr<Int16> buffer = new Ptr<Int16>(m_buffers[k], i);
+                    //Ptr<Int16> buffer = new Ptr<Int16>(m_buffers[k], i);
+                    //for (int j = 0; j < m_fastForwardFactor; j++)
+                    //{
+                    //    sample += buffer[j];
+                    //}
                     for (int j = 0; j < m_fastForwardFactor; j++)
                     {
-                        sample += buffer[j];
+                        sample += m_buffers[k][i + j];
                     }
 
                     m_iSamples[k] = sample / m_fastForwardFactor;
@@ -366,14 +375,16 @@ namespace sidplayFpNET.libsidplayfp
                 i += m_fastForwardFactor;
 
                 Int32 dither = triangularDithering();
+                //Int32 dither = 0;//ディザリングの付加なし。(付加するとノイズが乗るが、割り算後の値を平均した際に、原音により近い波形を保つことができる)
 
-                UInt32 channels = (UInt32)(m_stereo ? 2 : 1);
-                for (UInt32 ch = 0; ch < channels; ch++)
+                //Int32 channels = m_stereo ? 2 : 1;
+                for (Int32 ch = 0; ch < channels; ch++)
                 {
-                    Int32 tmp = (this.m_mix[(Int32)ch]() * m_volume[(Int32)ch] + dither) / VOLUME_MAX;
+                    Int32 tmp = (this.m_mix[ch]() * m_volume[ch] + dither) / VOLUME_MAX;
                     //assert(tmp >= -32768 && tmp <= 32767);
-                    buf.buf[buf.ptr] = (Int16)tmp;
-                    buf.AddPtr(1);
+                    //buf.buf[buf.ptr] = (Int16)tmp;
+                    //buf.AddPtr(1);
+                    m_sampleBuffer[m_sampleIndex] = (Int16)tmp;
                     m_sampleIndex++;
                 }
             }
@@ -383,14 +394,21 @@ namespace sidplayFpNET.libsidplayfp
             //std::for_each(m_buffers.begin(), m_buffers.end(), bufferMove(i, samplesLeft));
             for (int ind = 0; ind < m_buffers.Count; ind++)
             {
-                bufferMove bm = new bufferMove(i, samplesLeft);
-                bm.opeKakko(m_buffers, ind);
+                //bufferMove bm = new bufferMove(i, samplesLeft);
+                //bm.opeKakko(m_buffers, ind);
+
+                for (int j = 0; j < samplesLeft; j++)
+                {
+                    m_buffers[ind][j] = m_buffers[ind][j + i];
+                }
             }
             //std::for_each(m_chips.begin(), m_chips.end(), bufferPos(samplesLeft));
             for (int ind = 0; ind < m_chips.Count; ind++)
             {
-                bufferPos bp = new bufferPos(samplesLeft);
-                bp.opeKakko(m_chips, ind);
+                //bufferPos bp = new bufferPos(samplesLeft);
+                //bp.opeKakko(m_chips, ind);
+
+                m_chips[ind].bufferpos(samplesLeft);
             }
         }
 
@@ -406,16 +424,43 @@ namespace sidplayFpNET.libsidplayfp
             switch (m_buffers.Count)
             {
                 case 1:
-                    m_mix[0] = m_stereo ? (mixer_func_t)stereo_OneChip : (mixer_func_t)mono1;
-                    if (m_stereo) m_mix[1] = stereo_OneChip;
+                    //m_mix[0] = m_stereo ? (mixer_func_t)stereo_OneChip : (mixer_func_t)mono1;
+                    //if (m_stereo) m_mix[1] = stereo_OneChip;
+                    if (m_stereo)
+                    {
+                        m_mix[0] = stereo_OneChip;
+                        m_mix[1] = stereo_OneChip;
+                    }
+                    else
+                    {
+                        m_mix[0] = mono1;
+                    }
                     break;
                 case 2:
-                    m_mix[0] = m_stereo ? (mixer_func_t)stereo_ch1_TwoChips : (mixer_func_t)mono2;
-                    if (m_stereo) m_mix[1] = (mixer_func_t)stereo_ch2_TwoChips;
+                    //m_mix[0] = m_stereo ? (mixer_func_t)stereo_ch1_TwoChips : (mixer_func_t)mono2;
+                    //if (m_stereo) m_mix[1] = (mixer_func_t)stereo_ch2_TwoChips;
+                    if (m_stereo)
+                    {
+                        m_mix[0] = stereo_ch1_TwoChips;
+                        m_mix[1] = stereo_ch2_TwoChips;
+                    }
+                    else
+                    {
+                        m_mix[0] = mono2;
+                    }
                     break;
                 case 3:
-                    m_mix[0] = m_stereo ? (mixer_func_t)stereo_ch1_ThreeChips : (mixer_func_t)mono3;
-                    if (m_stereo) m_mix[1] = (mixer_func_t)stereo_ch2_ThreeChips;
+                    //m_mix[0] = m_stereo ? (mixer_func_t)stereo_ch1_ThreeChips : (mixer_func_t)mono3;
+                    //if (m_stereo) m_mix[1] = (mixer_func_t)stereo_ch2_ThreeChips;
+                    if (m_stereo)
+                    {
+                        m_mix[0] = stereo_ch1_ThreeChips;
+                        m_mix[1] = stereo_ch2_ThreeChips;
+                    }
+                    else
+                    {
+                        m_mix[0] = mono3;
+                    }
                     break;
             }
         }

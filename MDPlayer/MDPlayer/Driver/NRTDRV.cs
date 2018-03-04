@@ -705,6 +705,7 @@ namespace MDPlayer
 
             work.PLYFLG &= 0xc0;
             work.COUNT = 0;
+            work.TOTALCOUNT = 0;
 
             //EI
         }
@@ -953,12 +954,13 @@ namespace MDPlayer
             public byte PLYFLG = 0;
             public byte COUNT = 0;
             public byte ZCOUNT = 0;
+            public UInt16 TOTALCOUNT = 0;
             public byte FFFLG = 0;
             public byte PFLG = 0x38;
             public byte MVOL = 0;
             public byte FCOUNT = 0;
             public byte FSPEED = 5;
-            public byte VER = 1;
+            public byte VER = 2;
 
             public Ch[] OPM1Chs = new Ch[8] { new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch()};
             public Ch[] OPM2Chs = new Ch[8] { new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch(), new Ch() };
@@ -1062,6 +1064,8 @@ namespace MDPlayer
             {
                 return;
             }
+
+            work.TOTALCOUNT += 1;//0 - 65535 (short)
 
             //OPM1
             if ((work.ctcflg & 0x1) != 0)
@@ -2409,8 +2413,11 @@ namespace MDPlayer
         private void PSGRR(Ch wch)
         {
 
-            wch.PSGRRCounter--;
-            if (wch.PSGRRCounter >= 0) return;
+            if (wch.PSGRRCounter != 0)
+            {
+                wch.PSGRRCounter--;
+                return;
+            }
 
             wch.PSGRRCounter = wch.PSGRR;
             wch.PSGRRVolOffset++;

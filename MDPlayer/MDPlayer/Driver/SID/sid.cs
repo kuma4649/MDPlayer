@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using sidplayFpNET.libsidplayfp.builders.resid_builder;
 using sidplayFpNET.libsidplayfp.sidplayfp;
-using sidplayFpNET.libsidplayfp.builders.resid_builder;
+using System;
+using System.Text;
+using System.IO;
 
 namespace MDPlayer.Driver.SID
 {
@@ -106,6 +104,7 @@ namespace MDPlayer.Driver.SID
                 return length;
             }
 
+            m_engine.fastForward(50);
             m_engine.play(b, length);
             for (int i = 0; i < length/2; i++) oneFrameProc();
 
@@ -117,20 +116,20 @@ namespace MDPlayer.Driver.SID
             byte[] aryKernal = null;
             byte[] aryBasic = null;
             byte[] aryCharacter = null;
-            if (System.IO.File.Exists(setting.sid.RomKernalPath))
-                using (System.IO.FileStream fs = new System.IO.FileStream(setting.sid.RomKernalPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            if (File.Exists(setting.sid.RomKernalPath))
+                using (FileStream fs = new FileStream(setting.sid.RomKernalPath, FileMode.Open, FileAccess.Read))
                 {
                     aryKernal = new byte[fs.Length];
                     fs.Read(aryKernal, 0, aryKernal.Length);
                 }
-            if (System.IO.File.Exists(setting.sid.RomBasicPath))
-                using (System.IO.FileStream fs = new System.IO.FileStream(setting.sid.RomBasicPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            if (File.Exists(setting.sid.RomBasicPath))
+                using (FileStream fs = new FileStream(setting.sid.RomBasicPath, FileMode.Open, FileAccess.Read))
                 {
                     aryBasic = new byte[fs.Length];
                     fs.Read(aryBasic, 0, aryBasic.Length);
                 }
-            if (System.IO.File.Exists(setting.sid.RomCharacterPath))
-                using (System.IO.FileStream fs = new System.IO.FileStream(setting.sid.RomCharacterPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            if (File.Exists(setting.sid.RomCharacterPath))
+                using (FileStream fs = new FileStream(setting.sid.RomCharacterPath, FileMode.Open, FileAccess.Read))
                 {
                     aryCharacter = new byte[fs.Length];
                     fs.Read(aryCharacter, 0, aryCharacter.Length);

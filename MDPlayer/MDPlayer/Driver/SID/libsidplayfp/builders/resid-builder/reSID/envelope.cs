@@ -237,7 +237,7 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
             // envelope can finally be stepped.
             // This has been verified by sampling ENV3.
             //
-            if ((++rate_counter & 0x8000)!=0)
+            if ((++rate_counter & 0x8000) != 0)
             {
                 ++rate_counter;
                 rate_counter &= 0x7fff;

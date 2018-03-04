@@ -1149,7 +1149,8 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
                 }
 
                 sample_offset = (next_sample_offset & Fixp_mask) - Fixp_shiftS15;
-                buf[s * interleave + ptrBuf] = output();
+                //buf[s * interleave + ptrBuf] = output();
+                buf[s * interleave + ptrBuf] = extfilt.output();
             }
 
             return s;
@@ -1223,7 +1224,8 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
                     if ((i <= 2))
                     {
                         sample_prev = sample_now;
-                        sample_now = output();
+                        //sample_now = output();
+                        sample_now = extfilt.output();
                     }
                 }
 
@@ -1384,7 +1386,8 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
                 for (i = 0; i < delta_t_sample; i++)
                 {
                     clock();
-                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = output();
+                    //sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = output();
+                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] =extfilt.output();
                     ++sample_index;
                     sample_index &= (Int32)enmSID.RINGMASK;
                 }
@@ -1533,7 +1536,8 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
                 for (int i = 0; i < delta_t_sample; i++)
                 {
                     clock();
-                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = output();
+                    //sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = output();
+                    sample[sample_index] = sample[sample_index + (Int32)enmSID.RINGSIZE] = extfilt.output();
                     ++sample_index;
                     sample_index &= (Int32)enmSID.RINGMASK;
                 }
@@ -1547,14 +1551,15 @@ namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
                 sample_offset = next_sample_offset & (Int32)enmSID.FIXP_MASK;
 
                 int fir_offset = sample_offset * fir_RES >> (Int32)enmSID.FIXP_SHIFT;
-                Ptr<Int16> fir_start = new Ptr<short>(fir, fir_offset * fir_N);
-                Ptr<Int16> sample_start = new Ptr<short>(sample, sample_index - fir_N + (Int32)enmSID.RINGSIZE);
+                //Ptr<Int16> fir_start = new Ptr<short>(fir, fir_offset * fir_N);
+                //Ptr<Int16> sample_start = new Ptr<short>(sample, sample_index - fir_N + (Int32)enmSID.RINGSIZE);
 
                 // Convolution with filter impulse response.
                 int v = 0;
                 for (int j = 0; j < fir_N; j++)
                 {
-                    v += sample_start[j] * fir_start[j];
+                    //v += sample_start[j] * fir_start[j];
+                    v += sample[sample_index - fir_N + (Int32)enmSID.RINGSIZE + j] * fir[fir_offset * fir_N + j];
                 }
 
                 v >>= (Int32)enmSID.FIR_SHIFT;
