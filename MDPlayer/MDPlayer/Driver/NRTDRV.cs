@@ -11,7 +11,7 @@ namespace MDPlayer
     {
 
         private byte[] ram;
-        private Work work = new Work();
+        public Work work = new Work();
 
         private byte[] KTABLE = new byte[] {
             // C    C+   D    D+   E    F    F+   G    G+   A    A+   B
@@ -114,7 +114,6 @@ namespace MDPlayer
             vgmFrameCounter = 0;
             vgmSpeed = 1;
 
-
             try
             {
                 ram = new byte[65536];
@@ -170,6 +169,21 @@ namespace MDPlayer
             gd3.ComposerJ = gd3.Composer;
             gd3.VGMBy = getNRDString(buf, ref vgmGd3);
             gd3.Notes = getNRDString(buf, ref vgmGd3);
+
+            if ((buf[2] & 0x08) != 0)
+            {
+                gd3.Lylics = new List<Tuple<int, int, string>>();
+                int adr = (int)vgmGd3;
+                while (buf[adr] != 0xff || buf[adr + 1] != 0xff)
+                {
+                    int cnt = buf[adr] + buf[adr + 1] * 0x100;
+                    uint sAdr = (uint)(buf[adr + 2] + buf[adr + 3] * 0x100);
+                    string msg = getNRDString(buf, ref sAdr);
+                    gd3.Lylics.Add(new Tuple<int, int, string>(cnt, (int)sAdr, msg));
+                    adr += 4;
+                }
+            }
+
 
             if ( (((buf[2] & 0x80) != 0) && buf[41] != 2) || (buf[2] & 0x80) == 0)
             {
@@ -937,7 +951,7 @@ namespace MDPlayer
             }
         }
 
-        private class Work
+        public class Work
         {
             public ushort ctcflg=0;
             public ushort ctc3io = 0;
@@ -989,7 +1003,7 @@ namespace MDPlayer
             public bool PSGRestEnable = true;
         }
 
-        private class Ch
+        public class Ch
         {
             public ushort ptrData = 0;//(IX,IX+1)
             public byte loopCounter = 0;//IX+2
@@ -1051,7 +1065,7 @@ namespace MDPlayer
             public repBuf[] repBuf = new repBuf[6] { new repBuf(), new repBuf(), new repBuf(), new repBuf(), new repBuf(), new repBuf() };
         }
 
-        private class repBuf
+        public class repBuf
         {
             public byte count=0;
             public ushort startAdr=0;

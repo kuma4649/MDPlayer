@@ -17,6 +17,8 @@ namespace MDPlayer.form
         public int y = -1;
         public frmMain parent = null;
         public Setting setting = null;
+        public List<Tuple<int, int, string>> lylics = null;
+        public int lylicsIndex=0;
 
         public frmInfo(frmMain frm)
         {
@@ -40,6 +42,8 @@ namespace MDPlayer.form
             lblNotes.Text = "";
             lblVersion.Text = "";
             lblUsedChips.Text = "";
+            lblLylics.Text = "";
+            lylicsIndex = 0;
 
             GD3 gd3 = Audio.GetGD3();
             if (gd3 == null) return;
@@ -57,6 +61,16 @@ namespace MDPlayer.form
             lblNotes.Text = gd3.Notes;
             lblVersion.Text = gd3.Version;
             lblUsedChips.Text = gd3.UsedChips;
+
+            if (gd3.Lylics == null)
+            {
+                timer.Enabled = false;
+            }
+            else
+            {
+                lylics = gd3.Lylics;
+                timer.Enabled = true;
+            }
         }
 
         protected override bool ShowWithoutActivation
@@ -88,5 +102,23 @@ namespace MDPlayer.form
             base.WndProc(ref m);
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (lylics == null) return;
+
+            long cnt=Audio.GetDriverCounter();
+
+            if (cnt >= lylics[lylicsIndex].Item1)
+            {
+
+                lblLylics.Text = lylics[lylicsIndex].Item3;
+                lylicsIndex++;
+
+                if (lylicsIndex == lylics.Count)
+                {
+                    timer.Enabled = false;
+                }
+            }
+        }
     }
 }

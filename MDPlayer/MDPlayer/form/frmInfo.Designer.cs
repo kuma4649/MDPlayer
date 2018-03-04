@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInfo));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblTitleJ = new System.Windows.Forms.Label();
@@ -42,6 +43,8 @@
             this.lblUsedChips = new System.Windows.Forms.Label();
             this.lblSystemJ = new System.Windows.Forms.Label();
             this.lblComposerJ = new System.Windows.Forms.Label();
+            this.lblLylics = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lblTitle
@@ -213,6 +216,24 @@
             this.lblComposerJ.TabIndex = 14;
             this.lblComposerJ.Text = "01234567890123456789012345678901234567890123456789";
             // 
+            // lblLylics
+            // 
+            this.lblLylics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLylics.BackColor = System.Drawing.Color.Black;
+            this.lblLylics.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblLylics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblLylics.Location = new System.Drawing.Point(40, 208);
+            this.lblLylics.Name = "lblLylics";
+            this.lblLylics.Size = new System.Drawing.Size(284, 16);
+            this.lblLylics.TabIndex = 15;
+            this.lblLylics.Text = "01234567890123456789012345678901234567890123456789";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 10;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // frmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -220,7 +241,8 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::MDPlayer.Properties.Resources.planeB;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(324, 213);
+            this.ClientSize = new System.Drawing.Size(324, 229);
+            this.Controls.Add(this.lblLylics);
             this.Controls.Add(this.lblComposerJ);
             this.Controls.Add(this.lblSystemJ);
             this.Controls.Add(this.lblUsedChips);
@@ -236,8 +258,8 @@
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(800, 252);
-            this.MinimumSize = new System.Drawing.Size(252, 252);
+            this.MaximumSize = new System.Drawing.Size(800, 268);
+            this.MinimumSize = new System.Drawing.Size(252, 268);
             this.Name = "frmInfo";
             this.Text = "Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmInfo_FormClosed);
@@ -261,5 +283,7 @@
         private System.Windows.Forms.Label lblUsedChips;
         private System.Windows.Forms.Label lblSystemJ;
         private System.Windows.Forms.Label lblComposerJ;
+        private System.Windows.Forms.Label lblLylics;
+        private System.Windows.Forms.Timer timer;
     }
 }

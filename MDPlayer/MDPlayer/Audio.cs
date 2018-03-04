@@ -3815,6 +3815,32 @@ namespace MDPlayer
             return driverVirtual.TotalCounter;
         }
 
+        public static long GetDriverCounter()
+        {
+            if (driverVirtual == null && driverReal == null) return -1;
+
+
+            if (driverVirtual == null)
+            {
+                if (driverReal is NRTDRV) return ((NRTDRV)driverReal).work.TOTALCOUNT;
+                else return 0;
+            }
+            if (driverReal == null)
+            {
+                if (driverVirtual is NRTDRV) return ((NRTDRV)driverVirtual).work.TOTALCOUNT;
+                else return 0;
+            }
+
+            if (driverVirtual is NRTDRV && driverReal is NRTDRV)
+            {
+                return ((NRTDRV)driverVirtual).work.TOTALCOUNT > ((NRTDRV)driverReal).work.TOTALCOUNT ? ((NRTDRV)driverVirtual).work.TOTALCOUNT : ((NRTDRV)driverReal).work.TOTALCOUNT;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public static long GetLoopCounter()
         {
             if (driverVirtual == null) return -1;
