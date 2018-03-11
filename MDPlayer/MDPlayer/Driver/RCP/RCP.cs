@@ -104,6 +104,8 @@ namespace MDPlayer
         };
         private Tick tick = new RCP.Tick();
 
+        public string filePath = "";
+
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
@@ -172,6 +174,12 @@ namespace MDPlayer
 
             if (!getInformationHeader()) return false;
 
+            //ファイルパスが設定されている場合はコントロールファイルを読み込む処理を実施
+            if (filePath != "")
+            {
+                GetControlFile(filePath);
+            }
+
             if (model == enmModel.RealModel)
             {
                 chipRegister.setYM2612SyncWait(0, 1);
@@ -213,8 +221,8 @@ namespace MDPlayer
         private bool IsG36 = false;
         private int ptr = 0;
         private int trkLen = 0;
-        private int TimeBase = 0;
-        private double nowTempo = 0;
+        private int TimeBase = 1;
+        private double nowTempo = 120;
         private double Tempo = 0;
         private int BeatDen = 0;
         private int BeatMol = 0;
@@ -272,7 +280,8 @@ namespace MDPlayer
             {
                 Header_RCP();
             }
-
+            nowTempo = nowTempo == 0 ? 1 : nowTempo;
+            TimeBase = TimeBase == 0 ? 1 : TimeBase;
             oneSyncTime = 60.0 / nowTempo / TimeBase;
 
             Rythm();
@@ -382,6 +391,7 @@ namespace MDPlayer
             ptr++;
             //Timebase
             TimeBase = vgmBuf[ptr] + (vgmBuf[ptr + 1] * 0x100);
+            TimeBase = TimeBase == 0 ? 1 : TimeBase;
             ptr += 2;
             //Tempo
             nowTempo = vgmBuf[ptr++];
@@ -469,6 +479,7 @@ namespace MDPlayer
             }
             //Timebase上位
             TimeBase += vgmBuf[ptr++] * 0x100;
+            TimeBase = TimeBase == 0 ? 1 : TimeBase;
             //dummy Skip
             //無視
             //TONENAME.TB?
@@ -1081,14 +1092,14 @@ namespace MDPlayer
 
                 if (musicDownCounter <= 0.0)
                 {
-                    //if (model != enmModel.VirtualModel)
-                    //{
+                    if (cCM6Buf != null || cGSDBuf != null || cGSD2Buf != null)
+                    {
+                        sendControl();
+                    }
+                    else
+                    {
                         oneFrameRCP();
-                    //}
-                    //else
-                    //{
-                    //    Stopped = true;
-                    //}
+                    }
                     musicDownCounter += musicStep;
                 }
                 musicDownCounter -= 1.0;
@@ -1906,6 +1917,480 @@ namespace MDPlayer
             PutMIDIMessage((int)trk.OutDeviceNumber, msgBuf, i);
         }
 
+
+
+        public class CtlSysex
+        {
+            public CtlSysex(int d, byte[] dat)
+            {
+                delta = d;
+                data = dat;
+            }
+
+            public int delta = 0;
+            public byte[] data = null;
+        }
+
+        private byte[] GetSysEx(params byte[] buf)
+        {
+            List<byte> ret = new List<byte>();
+            int chksum = 0;
+
+            ret.Add(0xf0);
+
+            for (int i = 0; i < buf.Length; i++)
+            {
+                byte? n = buf[i];
+                switch (n)
+                {
+                    //case 0x82:
+                    //  n = (byte)trk.OutChannel;
+                    //break;
+                    case 0x83:
+                        chksum = 0;
+                        n = null;
+                        break;
+                    case 0x84:
+                        n = (byte)((128 - (chksum % 128)) & 0x7f);
+                        break;
+                }
+                if (n != null)
+                {
+                    ret.Add((byte)n);
+                    chksum += (byte)n;
+                }
+            }
+
+            ret.Add(0xf7);
+
+            return ret.ToArray();
+        }
+
+        private List<CtlSysex> cCM6Buf = new List<CtlSysex>();
+        private List<CtlSysex> cGSDBuf = new List<CtlSysex>();
+        private List<CtlSysex> cGSD2Buf = new List<CtlSysex>();
+        private int sendControlIndex = 0;
+        private int sendControlDelta = 0;
+
+        private void GetControlFile(string filePath)
+        {
+            cCM6Buf = null;
+            cGSDBuf = null;
+            cGSD2Buf=null;
+            sendControlIndex = 0;
+            sendControlDelta = 0;
+
+            string path = System.IO.Path.GetDirectoryName(filePath);
+
+            if (ControlFileCM6 != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileCM6)))
+            {
+                //cCM6Buf = new List<CtlSysex>();
+                //GetCM6Buf(ref cCM6Buf);
+            }
+
+            if (ControlFileGSD != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileGSD)))
+            {
+                cGSDBuf = new List<CtlSysex>();
+                GetGSDBuf(ref cGSDBuf,System.IO.Path.Combine(path, ControlFileGSD));
+
+#if DEBUG
+                foreach(CtlSysex ex in cGSDBuf)
+                {
+                    Console.WriteLine("delta:{0:D10}",ex.delta);
+                    foreach(byte b in ex.data)
+                    {
+                        Console.Write("{0:X02} ", b);
+                    }
+                    Console.WriteLine("");
+                }
+#endif
+            }
+
+            if (ControlFileGSD2 != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileGSD2)))
+            {
+                //cGSD2Buf = new List<CtlSysex>();
+                //GetGSDBuf(ref cGSD2Buf);
+            }
+
+        }
+
+
+        private void GetGSDBuf(ref List<CtlSysex> DBuf, string fn)
+        {
+
+            byte[] buf = System.IO.File.ReadAllBytes(fn);
+
+            if (buf == null || buf.Length < 1 || buf.Length != 0xa71) return;
+
+            int adr;
+
+            for (int ch = 0; ch < 16; ch++)
+            {
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x65, 0x00 })); //RPN Master fine tuning
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x64, 0x01 }));
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x06, (byte)((buf[0xa6f] * 0x100 + buf[0xa6e]) >> 7) }));
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x26, (byte)((buf[0xa6f] * 0x100 + buf[0xa6e]) & 0x7f) }));
+            }
+
+            //Master Volume
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83, 0x40, 0x00, 0x04, buf[0x24], 0x84)));
+            DBuf.Add(new CtlSysex(4, GetSysEx(0x7F, 0x7F, 0x04, 0x01, (byte)((buf[0x24] * 0x81) & 0x7F), (byte)(((buf[0x24] * 0x81) >> 7) & 0x7f))));
+
+            for (int ch = 0; ch < 16; ch++)
+            {
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x65, 0x00 })); //RPN Master Coarse tuning
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x64, 0x02 }));
+                DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x06, (byte)(buf[0xa70] & 0x7f) }));
+            }
+
+            //Master Pan
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83, 0x40, 0x00, 0x06, buf[0x26], 0x84)));
+            //Master Balance
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x7f, 0x7f, 0x04, 0x02, (byte)((buf[0x26] * 0x80) & 0x7F), (byte)(((buf[0x26] * 0x80) >> 7) & 0x7f))));
+
+            //Voice Reserve Loc:Ch partdata - 1 Len:1
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
+                , 0x40, 0x01, 0x10
+                , buf[0x4f9], buf[0x0af], buf[0x129], buf[0x1a3] //10ch  1ch  2ch  3ch
+                , buf[0x21d], buf[0x297], buf[0x311], buf[0x38b] // 4ch  5ch  6ch  7ch
+                , buf[0x405], buf[0x47f], buf[0x573], buf[0x5ed] // 8ch  9ch 11ch 12ch
+                , buf[0x667], buf[0x6e1], buf[0x75b], buf[0x7d5] //13ch 14ch 15ch 16ch
+                , 0x84)));
+
+            //Reverb Loc:0x27 Len:7
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
+                , 0x40, 0x01, 0x30
+                , buf[0x27], buf[0x28], buf[0x29], buf[0x2a]
+                , buf[0x2b], buf[0x2c], buf[0x2d]
+                , 0x84)));
+
+            //Chorus Loc:0x2E Len:8
+            DBuf.Add(new CtlSysex(1, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
+                , 0x40, 0x01, 0x38
+                , buf[0x2e], buf[0x2f], buf[0x30], buf[0x31]
+                , buf[0x32], buf[0x33], buf[0x34], buf[0x35]
+                , 0x84)));
+
+            for (int i = 0; i < 16; i++)
+            {
+                adr = i * 0x7a + 0x36;
+                byte ch = buf[adr + 0x2]; // MIDI CH
+                byte iAdrMm;
+                byte iAdrLl;
+
+                makeGSDBufPtn_0(DBuf, buf, adr, ch);
+
+                if (i < 9)
+                {
+                    iAdrMm = (byte)((i * 0xe0 + 0x170) >> 7);
+                    iAdrLl = (byte)((i * 0xe0 + 0x170) & 0x7f);
+                }
+                else if (i == 9)
+                {
+                    iAdrMm = 0x01;
+                    iAdrLl = 0x10;
+                }
+                else
+                {
+                    iAdrMm = (byte)(((i - 1) * 0xe0 + 0x170) >> 7);
+                    iAdrLl = (byte)(((i - 1) * 0xe0 + 0x170) & 0x7f);
+                }
+                makeGSDBufPtn_1(DBuf, buf, adr, iAdrMm, iAdrLl);
+
+                if (i < 9)
+                {
+                    iAdrMm = (byte)((i * 0xe0 + 0x1f0) >> 7);
+                    iAdrLl = (byte)((i * 0xe0 + 0x1f0) & 0x7f);
+                }
+                else if (i == 9)
+                {
+                    iAdrMm = 0x02;
+                    iAdrLl = 0x10;
+                }
+                else
+                {
+                    iAdrMm = (byte)(((i - 1) * 0xe0 + 0x1f0) >> 7);
+                    iAdrLl = (byte)(((i - 1) * 0xe0 + 0x1f0) & 0x7f);
+                }
+                makeGSDBufPtn_2(DBuf, buf, adr, iAdrMm, iAdrLl);
+
+            }
+
+            adr = 0x7d6;
+            makeGSDBufPtn_3(DBuf, buf, adr,0x00);
+            adr = 0x922;
+            makeGSDBufPtn_3(DBuf, buf, adr,0x10);
+
+        }
+
+        private void makeGSDBufPtn_0(List<CtlSysex> DBuf, byte[] buf, int adr, byte ch)
+        {
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x00, buf[adr + 0x00] })); //Bank mm
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x20, 0 })); //Bank ll
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xc0 + ch), buf[adr + 0x01] })); //Program Change
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x07, buf[adr + 0x19] })); //Volume
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x65, 0 })); //RPN PITCH BEND 
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x64, 0 })); //
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x06, 2 })); // ? 
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x26, 0 })); // ?
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x5b, buf[adr + 0x22] })); // Reverb Send Level
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x5d, buf[adr + 0x21] })); // Chorus Send Level
+            DBuf.Add(new CtlSysex(1, new byte[] { (byte)(0xb0 + ch), 0x0a, buf[adr + 0x1c] })); // Panpot
+        }
+
+        private void makeGSDBufPtn_1(List<CtlSysex> DBuf, byte[] buf, int adr, byte iAdrMm,byte iAdrLl)
+        {
+            DBuf.Add(new CtlSysex(5, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
+                , 0x48, iAdrMm, iAdrLl
+                , (byte)(buf[adr + 0x00] >> 4), (byte)(buf[adr + 0x00] & 0xf) // BANK(LSB) 0 1
+                , (byte)(buf[adr + 0x01] >> 4), (byte)(buf[adr + 0x01] & 0xf) // PROGRAM CHANGE 2 3
+                , (byte)(((buf[adr + 0x03] & 1) << 3) | ((buf[adr + 0x04] & 1) << 2) | ((buf[adr + 0x05] & 1) << 1) | ((buf[adr + 0x06] & 1) << 0)) //PITCH BEND + CH PRESSURE + PROGRAM CHANGE + CONTROL CHANGE 4
+                , (byte)(((buf[adr + 0x07] & 1) << 3) | ((buf[adr + 0x08] & 1) << 2) | ((buf[adr + 0x09] & 1) << 1) | ((buf[adr + 0x0a] & 1) << 0)) //POLY PRESSURE + NOTE MESSAGE + RPN + NRPN 5
+                , (byte)(((buf[adr + 0x0b] & 1) << 3) | ((buf[adr + 0x0c] & 1) << 2) | ((buf[adr + 0x0d] & 1) << 1) | ((buf[adr + 0x0e] & 1) << 0)) //MODURATION + VOLUME + PANPOT + EXPRESSION 6
+                , (byte)(((buf[adr + 0x0f] & 1) << 3) | ((buf[adr + 0x10] & 1) << 2) | ((buf[adr + 0x11] & 1) << 1) | ((buf[adr + 0x12] & 1) << 0)) //HOLD1 + PORTMENT + SOSTENUTE + SOFT 7
+                , (byte)(buf[adr + 0x02] >> 4), (byte)(buf[adr + 0x02] & 0xf) // MIDI CH 8 9
+                , (byte)(((buf[adr + 0x13] & 1) << 3) | ((buf[adr + 0x15] & 3) << 1) | ((buf[adr + 0x15] & 3) != 0 ? 1 : 0)) //MONO/PORY MODE + ASSIGN MODE  10 
+                , (byte)(((buf[adr + 0x14] & 3))) //USE FOR RHYTHM PART 11
+                , (byte)(buf[adr + 0x16] >> 4), (byte)(buf[adr + 0x16] & 0xf) // PITCH KEY SHIFT 12,13
+                , buf[adr + 0x17] // PITCH OFFSET FINE              14
+                , buf[adr + 0x18] // PITCH OFFSET FINE  (NIBBLIZED) 15
+                , (byte)(buf[adr + 0x19] >> 4), (byte)(buf[adr + 0x19] & 0xf) //PART LEVEL 16,17
+                , (byte)(buf[adr + 0x1c] >> 4), (byte)(buf[adr + 0x1c] & 0xf) //PART PANPOT 18,19
+                , (byte)(buf[adr + 0x1a] >> 4), (byte)(buf[adr + 0x1a] & 0xf) //VELOCITY SENSE DEPTH 22,23 (20,21 ?)
+                , (byte)(buf[adr + 0x1b] >> 4), (byte)(buf[adr + 0x1b] & 0xf) //VELOCITY SENSE OFFSET 20,21 (22,23 ?)
+                , (byte)(buf[adr + 0x1d] >> 4), (byte)(buf[adr + 0x1d] & 0xf) //KEY RANGE LOW 24,25
+                , (byte)(buf[adr + 0x1e] >> 4), (byte)(buf[adr + 0x1e] & 0xf) //KEY RANGE HIGH 26,27
+                , (byte)(buf[adr + 0x21] >> 4), (byte)(buf[adr + 0x21] & 0xf) //CHOURS SEND DEPTH 28,29
+                , (byte)(buf[adr + 0x22] >> 4), (byte)(buf[adr + 0x22] & 0xf) //REVERB SEND DEPTH 30,31
+
+                , (byte)(buf[adr + 0x23] >> 4), (byte)(buf[adr + 0x23] & 0xf) //TONE MODEFY 1 32,33
+                , (byte)(buf[adr + 0x24] >> 4), (byte)(buf[adr + 0x24] & 0xf) //TONE MODEFY 2 34,35
+                , (byte)(buf[adr + 0x25] >> 4), (byte)(buf[adr + 0x25] & 0xf) //TONE MODEFY 3 36,37
+                , (byte)(buf[adr + 0x26] >> 4), (byte)(buf[adr + 0x26] & 0xf) //TONE MODEFY 4 38,39
+                , (byte)(buf[adr + 0x27] >> 4), (byte)(buf[adr + 0x27] & 0xf) //TONE MODEFY 5 40,41
+                , (byte)(buf[adr + 0x28] >> 4), (byte)(buf[adr + 0x28] & 0xf) //TONE MODEFY 6 42,43
+                , (byte)(buf[adr + 0x29] >> 4), (byte)(buf[adr + 0x29] & 0xf) //TONE MODEFY 7 44,45
+                , (byte)(buf[adr + 0x2a] >> 4), (byte)(buf[adr + 0x2a] & 0xf) //TONE MODEFY 8 46,47
+                , 0, 0, 0, 0 //(DATA 48,49,50,51の値は0)
+                , (byte)(buf[adr + 0x2b] >> 4), (byte)(buf[adr + 0x2b] & 0xf) //SCALE TUNIG C  52,53
+                , (byte)(buf[adr + 0x2c] >> 4), (byte)(buf[adr + 0x2c] & 0xf) //SCALE TUNIG C# 54,55
+                , (byte)(buf[adr + 0x2d] >> 4), (byte)(buf[adr + 0x2d] & 0xf) //SCALE TUNIG D  56,57
+                , (byte)(buf[adr + 0x2e] >> 4), (byte)(buf[adr + 0x2e] & 0xf) //SCALE TUNIG D# 58,59
+                , (byte)(buf[adr + 0x2f] >> 4), (byte)(buf[adr + 0x2f] & 0xf) //SCALE TUNIG E  60,61
+                , (byte)(buf[adr + 0x30] >> 4), (byte)(buf[adr + 0x30] & 0xf) //SCALE TUNIG F  62,63
+                , (byte)(buf[adr + 0x31] >> 4), (byte)(buf[adr + 0x31] & 0xf) //SCALE TUNIG F# 64,65
+                , (byte)(buf[adr + 0x32] >> 4), (byte)(buf[adr + 0x32] & 0xf) //SCALE TUNIG G  66,67
+                , (byte)(buf[adr + 0x33] >> 4), (byte)(buf[adr + 0x33] & 0xf) //SCALE TUNIG G# 68,69
+                , (byte)(buf[adr + 0x34] >> 4), (byte)(buf[adr + 0x34] & 0xf) //SCALE TUNIG A  70,71
+                , (byte)(buf[adr + 0x35] >> 4), (byte)(buf[adr + 0x35] & 0xf) //SCALE TUNIG A# 72,73
+                , (byte)(buf[adr + 0x36] >> 4), (byte)(buf[adr + 0x36] & 0xf) //SCALE TUNIG B  74,75
+
+                , (byte)(buf[adr + 0x1f] >> 4), (byte)(buf[adr + 0x1f] & 0xf) //CC1 CONTROLLER NUMBER 76,77
+                , (byte)(buf[adr + 0x20] >> 4), (byte)(buf[adr + 0x20] & 0xf) //CC2 CONTROLLER NUMBER 78,79
+
+                , (byte)(buf[adr + 0x37] >> 4), (byte)(buf[adr + 0x37] & 0xf) //MOD  PITCH CONTROL      80,81
+                , (byte)(buf[adr + 0x38] >> 4), (byte)(buf[adr + 0x38] & 0xf) //MOD  TVF CUTOFF CONTROL 82,83
+                , (byte)(buf[adr + 0x39] >> 4), (byte)(buf[adr + 0x39] & 0xf) //MOD  AMPLITUDE CONTROL  84,85
+                , 0, 0 //(DATA 86, 87の値は0)
+                , (byte)(buf[adr + 0x3a] >> 4), (byte)(buf[adr + 0x3a] & 0xf) //MOD  LFO1 RATE CONTROL  90,91
+                , (byte)(buf[adr + 0x3b] >> 4), (byte)(buf[adr + 0x3b] & 0xf) //MOD  LFO1 PITCH DEPTH   92,93
+                , (byte)(buf[adr + 0x3c] >> 4), (byte)(buf[adr + 0x3c] & 0xf) //MOD  LFO1 TVF DEPTH     94,95
+                , (byte)(buf[adr + 0x3d] >> 4), (byte)(buf[adr + 0x3d] & 0xf) //MOD  LFO2 TVA DEPTH     96,97
+                , (byte)(buf[adr + 0x3e] >> 4), (byte)(buf[adr + 0x3e] & 0xf) //MOD  LFO2 RATE CONTROL  98,99
+                , (byte)(buf[adr + 0x3f] >> 4), (byte)(buf[adr + 0x3f] & 0xf) //MOD  LFO2 PITCH DEPTH   100,101
+                , (byte)(buf[adr + 0x40] >> 4), (byte)(buf[adr + 0x40] & 0xf) //MOD  LFO2 TVF DEPTH     102,103
+                , (byte)(buf[adr + 0x41] >> 4), (byte)(buf[adr + 0x41] & 0xf) //MOD  LFO2 TVA DEPTH     104,105
+                , (byte)(buf[adr + 0x42] >> 4), (byte)(buf[adr + 0x42] & 0xf) //BEND PITCH CONTROL      106,107
+                , (byte)(buf[adr + 0x43] >> 4), (byte)(buf[adr + 0x43] & 0xf) //BEND TVF CUTOFF CONTROL 108,109
+                , (byte)(buf[adr + 0x44] >> 4), (byte)(buf[adr + 0x44] & 0xf) //BEND AMPLITUDE CONTROL  110,111 
+                , 0, 0 //(DATA 112,113の値は0)
+                , (byte)(buf[adr + 0x45] >> 4), (byte)(buf[adr + 0x45] & 0xf) //BEND LFO1 RATE CONTROL  114,115
+                , (byte)(buf[adr + 0x46] >> 4), (byte)(buf[adr + 0x46] & 0xf) //BEND LFO1 PITCH DEPTH   116,117
+                , (byte)(buf[adr + 0x47] >> 4), (byte)(buf[adr + 0x47] & 0xf) //BEND LFO1 TVF DEPTH     118,119
+                , (byte)(buf[adr + 0x48] >> 4), (byte)(buf[adr + 0x48] & 0xf) //BEND LFO1 TVA DEPTH     120,121
+                , (byte)(buf[adr + 0x49] >> 4), (byte)(buf[adr + 0x49] & 0xf) //BEND LFO2 RATE CONTROL  122,123
+                , (byte)(buf[adr + 0x4a] >> 4), (byte)(buf[adr + 0x4a] & 0xf) //BEND LFO2 PITCH DEPTH   124,125
+                , (byte)(buf[adr + 0x4b] >> 4), (byte)(buf[adr + 0x4b] & 0xf) //BEND LFO2 TVF DEPTH     126,127
+                , (byte)(buf[adr + 0x4c] >> 4), (byte)(buf[adr + 0x4c] & 0xf) //BEND LFO2 TVA DEPTH     126,127
+
+                , 0x84)));
+        }
+
+        private void makeGSDBufPtn_2(List<CtlSysex> DBuf, byte[] buf, int adr, byte iAdrMm, byte iAdrLl)
+        {
+            DBuf.Add(new CtlSysex(4, GetSysEx(0x41, 0x10, 0x42, 0x12, 0x83
+                , 0x48, iAdrMm,iAdrLl
+                , (byte)(buf[adr + 0x4d] >> 4), (byte)(buf[adr + 0x4d] & 0xf) //CAf  PITCH CONTROL      0,1
+                , (byte)(buf[adr + 0x4e] >> 4), (byte)(buf[adr + 0x4e] & 0xf) //CAf  TVF CUTOFF CONTROL 2,3
+                , (byte)(buf[adr + 0x4f] >> 4), (byte)(buf[adr + 0x4f] & 0xf) //CAf  AMPLITUDE CONTROL  4,5
+                , (byte)(buf[adr + 0x50] >> 4), (byte)(buf[adr + 0x50] & 0xf) //CAf  LFO1 RATE CONTROL  6,7
+                , 4, 0//8, 9       
+                , (byte)(buf[adr + 0x51] >> 4), (byte)(buf[adr + 0x51] & 0xf) //CAf  LFO1 PITCH DEPTH   10,11 
+                , (byte)(buf[adr + 0x52] >> 4), (byte)(buf[adr + 0x52] & 0xf) //CAf  LFO1 TVF DEPTH     12,13
+                , (byte)(buf[adr + 0x53] >> 4), (byte)(buf[adr + 0x53] & 0xf) //CAf  LFO1 TVA DEPTH     14,15
+                , (byte)(buf[adr + 0x54] >> 4), (byte)(buf[adr + 0x54] & 0xf) //CAf  LFO2 RATE CONTROL  16,17
+                , (byte)(buf[adr + 0x55] >> 4), (byte)(buf[adr + 0x55] & 0xf) //CAf  LFO2 PITCH DEPTH   18,19
+                , (byte)(buf[adr + 0x56] >> 4), (byte)(buf[adr + 0x56] & 0xf) //CAf  LFO2 TVF DEPTH     20,21
+                , (byte)(buf[adr + 0x57] >> 4), (byte)(buf[adr + 0x57] & 0xf) //CAf  LFO2 TVA DEPTH     22,23
+                , (byte)(buf[adr + 0x58] >> 4), (byte)(buf[adr + 0x58] & 0xf) //PAf  PITCH CONTROL      24,25
+                , (byte)(buf[adr + 0x59] >> 4), (byte)(buf[adr + 0x59] & 0xf) //PAf  TVF CUTOFF CONTROL 26,27
+                , (byte)(buf[adr + 0x5a] >> 4), (byte)(buf[adr + 0x5a] & 0xf) //PAf  AMPLITUDE CONTROL  28,29
+                , (byte)(buf[adr + 0x5b] >> 4), (byte)(buf[adr + 0x5b] & 0xf) //PAf  LFO1 RATE CONTROL  30,31
+                , 4, 0//32,33      
+                , (byte)(buf[adr + 0x5c] >> 4), (byte)(buf[adr + 0x5c] & 0xf) //PAf  LFO1 PITCH DEPTH   34,35
+                , (byte)(buf[adr + 0x5d] >> 4), (byte)(buf[adr + 0x5d] & 0xf) //PAf  LFO1 TVF DEPTH     36,37
+                , (byte)(buf[adr + 0x5e] >> 4), (byte)(buf[adr + 0x5e] & 0xf) //PAf  LFO1 TVA DEPTH     38,39
+                , (byte)(buf[adr + 0x5f] >> 4), (byte)(buf[adr + 0x5f] & 0xf) //PAf  LFO2 RATE CONTROL  40,41
+                , (byte)(buf[adr + 0x60] >> 4), (byte)(buf[adr + 0x60] & 0xf) //PAf  LFO2 PITCH DEPTH   42,43
+                , (byte)(buf[adr + 0x61] >> 4), (byte)(buf[adr + 0x61] & 0xf) //PAf  LFO2 TVF DEPTH     44,45
+                , (byte)(buf[adr + 0x62] >> 4), (byte)(buf[adr + 0x62] & 0xf) //PAf  LFO2 TVA DEPTH     46,47
+                , (byte)(buf[adr + 0x63] >> 4), (byte)(buf[adr + 0x63] & 0xf) //CC1  PITCH CONTROL      48,49
+                , (byte)(buf[adr + 0x64] >> 4), (byte)(buf[adr + 0x64] & 0xf) //CC1  TVF CUTOFF CONTROL 50,51
+                , (byte)(buf[adr + 0x65] >> 4), (byte)(buf[adr + 0x65] & 0xf) //CC1  AMPLITUDE CONTROL  52,53
+                , 0, 0//54,55      
+                , (byte)(buf[adr + 0x66] >> 4), (byte)(buf[adr + 0x66] & 0xf) //CC1  LFO1 RATE CONTROL  56,57
+                , (byte)(buf[adr + 0x67] >> 4), (byte)(buf[adr + 0x67] & 0xf) //CC1  LFO1 PITCH DEPTH   58,59
+                , (byte)(buf[adr + 0x68] >> 4), (byte)(buf[adr + 0x68] & 0xf) //CC1  LFO1 TVF DEPTH     60,61
+                , (byte)(buf[adr + 0x69] >> 4), (byte)(buf[adr + 0x69] & 0xf) //CC1  LFO1 TVA DEPTH     62,63
+                , (byte)(buf[adr + 0x6a] >> 4), (byte)(buf[adr + 0x6a] & 0xf) //CC1  LFO2 RATE CONTROL  64,65
+                , (byte)(buf[adr + 0x6b] >> 4), (byte)(buf[adr + 0x6b] & 0xf) //CC1  LFO2 PITCH DEPTH   66,67
+                , (byte)(buf[adr + 0x6c] >> 4), (byte)(buf[adr + 0x6c] & 0xf) //CC1  LFO2 TVF DEPTH     68,69
+                , (byte)(buf[adr + 0x6d] >> 4), (byte)(buf[adr + 0x6d] & 0xf) //CC1  LFO2 TVA DEPTH     70,71
+                , (byte)(buf[adr + 0x6e] >> 4), (byte)(buf[adr + 0x6e] & 0xf) //CC2  PITCH CONTROL      72,73
+                , (byte)(buf[adr + 0x6f] >> 4), (byte)(buf[adr + 0x6f] & 0xf) //CC2  TVF CUTOFF CONTROL 74,75
+                , (byte)(buf[adr + 0x70] >> 4), (byte)(buf[adr + 0x70] & 0xf) //CC2  AMPLITUDE CONTROL  76,77
+                , 0, 0//78,79      
+                , (byte)(buf[adr + 0x71] >> 4), (byte)(buf[adr + 0x71] & 0xf) //CC2  LFO1 RATE CONTROL  80,81
+                , (byte)(buf[adr + 0x72] >> 4), (byte)(buf[adr + 0x72] & 0xf) //CC2  LFO1 PITCH DEPTH   82,83
+                , (byte)(buf[adr + 0x73] >> 4), (byte)(buf[adr + 0x73] & 0xf) //CC2  LFO1 TVF DEPTH     84,85
+                , (byte)(buf[adr + 0x74] >> 4), (byte)(buf[adr + 0x74] & 0xf) //CC2  LFO1 TVA DEPTH     86,87
+                , (byte)(buf[adr + 0x75] >> 4), (byte)(buf[adr + 0x75] & 0xf) //CC2  LFO2 RATE CONTROL  88,89
+                , (byte)(buf[adr + 0x76] >> 4), (byte)(buf[adr + 0x76] & 0xf) //CC2  LFO2 PITCH DEPTH   90,91
+                , (byte)(buf[adr + 0x77] >> 4), (byte)(buf[adr + 0x77] & 0xf) //CC2  LFO2 TVF DEPTH     92,93
+                , (byte)(buf[adr + 0x78] >> 4), (byte)(buf[adr + 0x78] & 0xf) //CC2  LFO2 TVA DEPTH     94,95
+
+                , 0x84)));
+        }
+
+        private void makeGSDBufPtn_3(List<CtlSysex> DBuf, byte[] buf, int adr, int adr2)
+        {
+            List<byte> level = new List<byte>();
+            List<byte> panpot = new List<byte>();
+            List<byte> reverb = new List<byte>();
+            List<byte> chorus = new List<byte>();
+
+            for (int i = 0; i < 27; i++)
+            {
+                level.Add(0); level.Add(0);
+                panpot.Add(0); panpot.Add(0);
+                reverb.Add(0); reverb.Add(0);
+                chorus.Add(0); chorus.Add(0);
+            }
+
+            for (int i = 0; i < 82; i++)
+            {
+                level.Add((byte)(buf[adr + i * 4 + 0] >> 4)); level.Add((byte)(buf[adr + i * 4 + 0] & 0xf));
+                panpot.Add((byte)(buf[adr + i * 4 + 1] >> 4)); panpot.Add((byte)(buf[adr + i * 4 + 1] & 0xf));
+                reverb.Add((byte)(buf[adr + i * 4 + 2] >> 4)); reverb.Add((byte)(buf[adr + i * 4 + 2] & 0xf));
+                chorus.Add((byte)(buf[adr + i * 4 + 3] >> 4)); chorus.Add((byte)(buf[adr + i * 4 + 3] & 0xf));
+            }
+
+            for (int i = 0; i < 19; i++)
+            {
+                level.Add(0); level.Add(0);
+                panpot.Add(0); panpot.Add(0);
+                reverb.Add(0); reverb.Add(0);
+                chorus.Add(0); chorus.Add(0);
+            }
+
+            byte[] pac0, pac1;
+
+            makeGSDBufPtn_4(level, (byte)(0x02 + adr2), out pac0, out pac1);
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac0)));
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac1)));
+
+            makeGSDBufPtn_4(panpot, (byte)(0x06 + adr2), out pac0, out pac1);
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac0)));
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac1)));
+
+            makeGSDBufPtn_4(reverb, (byte)(0x08 + adr2), out pac0, out pac1);
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac0)));
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac1)));
+
+            makeGSDBufPtn_4(chorus, (byte)(0x0a + adr2), out pac0, out pac1);
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac0)));
+            DBuf.Add(new CtlSysex(5, GetSysEx(pac1)));
+        }
+
+        private static void makeGSDBufPtn_4(List<byte> s, byte iAdr_mm, out byte[] pac0, out byte[] pac1)
+        {
+            pac0 = new byte[128 + 9];
+            pac0[0] = 0x41; pac0[1] = 0x10; pac0[2] = 0x42; pac0[3] = 0x12;
+            pac0[4] = 0x83; pac0[5] = 0x49; pac0[6] = iAdr_mm; pac0[7] = 0x00;
+            for (int i = 0; i < 128; i++)
+            {
+                pac0[i + 8] = s[i];
+            }
+            pac0[128 + 9 - 1] = 0x84;
+            pac1 = new byte[128 + 9];
+            pac1[0] = 0x41; pac1[1] = 0x10; pac1[2] = 0x42; pac1[3] = 0x12;
+            pac1[4] = 0x83; pac1[5] = 0x49; pac1[6] = (byte)(iAdr_mm + 1); pac1[7] = 0x00;
+            for (int i = 0; i < 128; i++)
+            {
+                pac1[i + 8] = s[i + 128];
+            }
+            pac1[128 + 9 - 1] = 0x84;
+        }
+
+
+        private void sendControl()
+        {
+            List<CtlSysex> trg = null;
+
+            if (cCM6Buf != null)
+            {
+                trg = cCM6Buf;
+                if (cCM6Buf.Count == sendControlIndex)
+                {
+                    cCM6Buf = null;
+                    sendControlIndex = 0;
+                    return;
+                }
+            }
+            else if (cGSDBuf != null)
+            {
+                trg = cGSDBuf;
+                if (cGSDBuf.Count == sendControlIndex)
+                {
+                    cGSDBuf = null;
+                    sendControlIndex = 0;
+                    return;
+                }
+            }
+            else if (cGSD2Buf != null)
+            {
+                trg = cGSD2Buf;
+                if (cGSD2Buf.Count == sendControlIndex)
+                {
+                    cGSD2Buf = null;
+                    sendControlIndex = 0;
+                    return;
+                }
+            }
+
+            if (sendControlDelta > 0)
+            {
+                sendControlDelta--;
+                return;
+            }
+
+            CtlSysex csx = trg[sendControlIndex];
+            sendControlDelta = csx.delta;
+            chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
+            sendControlIndex++;
+
+            return;
+        }
 
     }
 }

@@ -1467,6 +1467,8 @@ namespace MDPlayer
                 driverReal = new RCP();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
+                ((RCP)driverVirtual).filePath = PlayingFileName;
+                ((RCP)driverReal).filePath = PlayingFileName;
                 return rcpPlay(setting);
             }
 

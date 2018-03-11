@@ -172,14 +172,14 @@ namespace MDPlayer
 
             if ((buf[2] & 0x08) != 0)
             {
-                gd3.Lylics = new List<Tuple<int, int, string>>();
+                gd3.Lyrics = new List<Tuple<int, int, string>>();
                 int adr = (int)vgmGd3;
                 while (buf[adr] != 0xff || buf[adr + 1] != 0xff)
                 {
                     int cnt = buf[adr] + buf[adr + 1] * 0x100;
                     uint sAdr = (uint)(buf[adr + 2] + buf[adr + 3] * 0x100);
                     string msg = getNRDString(buf, ref sAdr);
-                    gd3.Lylics.Add(new Tuple<int, int, string>(cnt, (int)sAdr, msg));
+                    gd3.Lyrics.Add(new Tuple<int, int, string>(cnt, (int)sAdr, msg));
                     adr += 4;
                 }
             }

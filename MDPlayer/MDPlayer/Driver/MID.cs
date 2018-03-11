@@ -283,6 +283,9 @@ namespace MDPlayer
 
         private void oneFrameMID()
         {
+#if DEBUG
+            if (model == enmModel.RealModel) return;
+#endif
             bool trksEnd = true;
             for (int trk = 0; trk < trkCount; trk++)
             {
@@ -296,52 +299,66 @@ namespace MDPlayer
                 {
                     uint ptr = musicPtr[trk];
                     int delta = 0;
-                    //Console.Write("[{0:X8}]:[{1:D2}] ", ptr, trk);
+#if DEBUG
+                    Console.WriteLine("");
+                    Console.Write("ptr:[{0:X8}] trk:[{1:D2}] ", ptr, trk);
+#endif
 
                     if (isDelta[trk])
                     {
                         delta = common.getDelta(ref ptr, vgmBuf);
                         midWaitCounter[trk] = delta;
 
-                        //Console.WriteLine("delta:{0:D10} ", delta);
+#if DEBUG
+                        Console.Write("delta:{0:D10} ", delta);
+#endif
                     }
                     else
                     {
                         byte cmd = vgmBuf[ptr++];
 
+#if DEBUG
                         //Console.Write("cmd:{1:X2} ", delta, cmd);
+#endif
 
                         if (cmd == 0xf0 || cmd == 0xf7)
                         {
                             uint eventLen = (uint)common.getDelta(ref ptr, vgmBuf);
+#if DEBUG
                             //Console.Write("evntLen:{0:D10} ", eventLen);
+                            Console.Write("{0:X2} ", cmd);
+#endif
                             List<byte> eventData = new List<byte>();
                             eventData.Add(cmd);
-                            //Console.Write("{0:X2} ", cmd);
                             for (int j = 0; j < eventLen; j++)
                             {
                                 eventData.Add(vgmBuf[ptr + j]);
-                                //Console.Write("{0:X2} ", vgmBuf[ptr + j]);
+#if DEBUG
+                                Console.Write("{0:X2} ", vgmBuf[ptr + j]);
+#endif
                             }
 
                             chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray(),vstDelta);
 
                             ptr = ptr + eventLen;
-                            //Console.WriteLine("");
+
                         }
                         else if (cmd == 0xff)
                         {
                             byte eventType = vgmBuf[ptr++];
-                            //uint bAdr = ptr - 1;
                             uint eventLen = (uint)common.getDelta(ref ptr, vgmBuf);
 
-                            //Console.Write("evntTyp:{0:X2} evntLen:{1:D10} ", eventType, eventLen);
+#if DEBUG
+                            Console.Write("evntTyp:{0:X2} evntLen:{1:D10} ", eventType, eventLen);
+#endif
 
                             List<byte> eventData = new List<byte>();
                             for (int j = 0; j < eventLen; j++)
                             {
                                 eventData.Add(vgmBuf[ptr + j]);
-                                //Console.Write("{0:X2} ", vgmBuf[ptr + j]);
+#if DEBUG
+                                Console.Write("{0:X2} ", vgmBuf[ptr + j]);
+#endif
                             }
                             ptr = ptr + eventLen;
                             if (eventData.Count > 0)
@@ -361,59 +378,95 @@ namespace MDPlayer
                                 {
                                     case 0x01:
                                         eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventText:{0}", eventText);
+#endif
                                         break;
                                     case 0x02:
                                         eventCopyrightNotice = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventCopyrightNotice:{0}", eventCopyrightNotice);
+#endif
                                         break;
                                     case 0x03:
                                         eventSequenceTrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventSequenceTrackName:{0}", eventSequenceTrackName);
+#endif
                                         break;
                                     case 0x04:
                                         eventInstrumentName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventInstrumentName:{0}", eventInstrumentName);
+#endif
                                         break;
                                     case 0x05:
                                         eventLyric = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventLyric:{0}", eventLyric);
+#endif
                                         chipRegister.midiParams[trkPort[trk]].Lyric = eventLyric;
                                         break;
                                     case 0x06:
                                         eventMarker = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventMarker:{0}", eventMarker);
+#endif
                                         break;
                                     case 0x07:
                                         eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+#if DEBUG
+                                        Console.Write("eventText:{0}", eventText);
+#endif
                                         break;
                                     case 0x21:
                                         trkPort[trk] = eventData[0];
-                                        //Console.Write("PortPrefix:{0}", eventData[0]);
+#if DEBUG
+                                        Console.Write("PortPrefix:{0}", trkPort[trk]);
+#endif
                                         break;
                                     case 0x2f:
                                         ptr = trkEndAdr[trk];
-                                        //Console.Write("End of Track");
+#if DEBUG
+                                        Console.Write("End of Track:{0}", ptr);
+#endif
                                         break;
                                     case 0x51:
                                         int Tempo = eventData[0] * 0x10000 + eventData[1] * 0x100 + eventData[2];
                                         // reso 4分音符当たりの分解能
                                         // tempo 4分音符当たりのマイクロ秒
                                         oneSyncTime = (double)(Tempo / reso) * 0.000001;
-                                        //Console.Write("Set Tempo:{0}", Tempo);
+#if DEBUG
+                                        Console.Write("Set Tempo:{0}", Tempo);
+#endif
                                         break;
                                     case 0x54:
-                                        //Console.Write("SMPTE Offset ");
+#if DEBUG
+                                        Console.Write("SMPTE Offset ");
+#endif
                                         break;
                                     case 0x58:
-                                        //Console.Write("Time Signature");
+#if DEBUG
+                                        Console.Write("Time Signature");
+#endif
                                         break;
                                     case 0x59:
-                                        //Console.Write("Key Signature");
+#if DEBUG
+                                        Console.Write("Key Signature");
+#endif
                                         break;
                                     case 0x7f:
-                                        //Console.Write("Sequencer Specific Meta-Event ");
+#if DEBUG
+                                        Console.Write("Sequencer Specific Meta-Event ");
+#endif
                                         break;
                                     default:
-                                        //Console.Write("!! Unknown Meta Event !! eventType:{0:X2} Adr:{1:X}", eventType, ptr);
+#if DEBUG
+                                        Console.Write("!! Unknown Meta Event !! eventType:{0:X2} Adr:{1:X}", eventType, ptr);
+#endif
                                         break;
                                 }
                             }
-                            //Console.WriteLine("");
                         }
                         else
                         {
@@ -427,13 +480,19 @@ namespace MDPlayer
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
                                     chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1], vstDelta);
-                                    //Console.WriteLine("V1:{0:X2} V2:{1:X2} ", vgmBuf[ptr], vgmBuf[ptr + 1]);
+#if DEBUG
+                                    //Console.Write("V1:{0:X2} V2:{1:X2} ", vgmBuf[ptr], vgmBuf[ptr + 1]);
+                                    Console.Write("{0:X2} {1:X2} {2:X2}",cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);
+#endif
                                     ptr += 2;
                                 }
                                 else
                                 {
                                     chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vstDelta);
-                                    //Console.WriteLine("V1:{0:X2} V2:-- ", vgmBuf[ptr]);
+#if DEBUG
+                                    //Console.Write("V1:{0:X2} V2:-- ", vgmBuf[ptr]);
+                                    Console.Write("{0:X2} {1:X2}", cmd, vgmBuf[ptr]);
+#endif
                                     ptr++;
                                 }
                             }
@@ -446,11 +505,19 @@ namespace MDPlayer
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
                                     chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vgmBuf[ptr], vstDelta);
+#if DEBUG
+                                    //Console.Write("RunSta V1:{0:X2} V2:{1:X2} ", cmd, vgmBuf[ptr]);
+                                    Console.Write("{0:X2} {1:X2} {2:X2}", midiEvent, cmd, vgmBuf[ptr]);
+#endif
                                     ptr++;
                                 }
                                 else
                                 {
                                     chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vstDelta);
+#if DEBUG
+                                    //Console.Write("RunSta V1:{0:X2} V2:-- ", cmd);
+                                    Console.Write("{0:X2} {1:X2} ", midiEvent, cmd);
+#endif
                                 }
                             }
 

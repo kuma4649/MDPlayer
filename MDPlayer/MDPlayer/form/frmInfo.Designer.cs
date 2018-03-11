@@ -43,7 +43,7 @@
             this.lblUsedChips = new System.Windows.Forms.Label();
             this.lblSystemJ = new System.Windows.Forms.Label();
             this.lblComposerJ = new System.Windows.Forms.Label();
-            this.lblLylics = new System.Windows.Forms.Label();
+            this.lblLyrics = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -216,18 +216,18 @@
             this.lblComposerJ.TabIndex = 14;
             this.lblComposerJ.Text = "01234567890123456789012345678901234567890123456789";
             // 
-            // lblLylics
+            // lblLyrics
             // 
-            this.lblLylics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblLyrics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLylics.BackColor = System.Drawing.Color.Black;
-            this.lblLylics.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblLylics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblLylics.Location = new System.Drawing.Point(40, 208);
-            this.lblLylics.Name = "lblLylics";
-            this.lblLylics.Size = new System.Drawing.Size(284, 16);
-            this.lblLylics.TabIndex = 15;
-            this.lblLylics.Text = "01234567890123456789012345678901234567890123456789";
+            this.lblLyrics.BackColor = System.Drawing.Color.Black;
+            this.lblLyrics.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblLyrics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblLyrics.Location = new System.Drawing.Point(40, 208);
+            this.lblLyrics.Name = "lblLyrics";
+            this.lblLyrics.Size = new System.Drawing.Size(284, 16);
+            this.lblLyrics.TabIndex = 15;
+            this.lblLyrics.Text = "01234567890123456789012345678901234567890123456789";
             // 
             // timer
             // 
@@ -242,7 +242,7 @@
             this.BackgroundImage = global::MDPlayer.Properties.Resources.planeB;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(324, 229);
-            this.Controls.Add(this.lblLylics);
+            this.Controls.Add(this.lblLyrics);
             this.Controls.Add(this.lblComposerJ);
             this.Controls.Add(this.lblSystemJ);
             this.Controls.Add(this.lblUsedChips);
@@ -283,7 +283,7 @@
         private System.Windows.Forms.Label lblUsedChips;
         private System.Windows.Forms.Label lblSystemJ;
         private System.Windows.Forms.Label lblComposerJ;
-        private System.Windows.Forms.Label lblLylics;
+        private System.Windows.Forms.Label lblLyrics;
         private System.Windows.Forms.Timer timer;
     }
 }

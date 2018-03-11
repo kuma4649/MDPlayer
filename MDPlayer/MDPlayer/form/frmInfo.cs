@@ -17,8 +17,8 @@ namespace MDPlayer.form
         public int y = -1;
         public frmMain parent = null;
         public Setting setting = null;
-        public List<Tuple<int, int, string>> lylics = null;
-        public int lylicsIndex=0;
+        public List<Tuple<int, int, string>> lyrics = null;
+        public int lyricsIndex=0;
 
         public frmInfo(frmMain frm)
         {
@@ -42,8 +42,8 @@ namespace MDPlayer.form
             lblNotes.Text = "";
             lblVersion.Text = "";
             lblUsedChips.Text = "";
-            lblLylics.Text = "";
-            lylicsIndex = 0;
+            lblLyrics.Text = "";
+            lyricsIndex = 0;
 
             GD3 gd3 = Audio.GetGD3();
             if (gd3 == null) return;
@@ -62,13 +62,13 @@ namespace MDPlayer.form
             lblVersion.Text = gd3.Version;
             lblUsedChips.Text = gd3.UsedChips;
 
-            if (gd3.Lylics == null)
+            if (gd3.Lyrics == null)
             {
                 timer.Enabled = false;
             }
             else
             {
-                lylics = gd3.Lylics;
+                lyrics = gd3.Lyrics;
                 timer.Enabled = true;
             }
         }
@@ -104,17 +104,17 @@ namespace MDPlayer.form
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (lylics == null) return;
+            if (lyrics == null) return;
 
             long cnt=Audio.GetDriverCounter();
 
-            if (cnt >= lylics[lylicsIndex].Item1)
+            if (cnt >= lyrics[lyricsIndex].Item1)
             {
 
-                lblLylics.Text = lylics[lylicsIndex].Item3;
-                lylicsIndex++;
+                lblLyrics.Text = lyrics[lyricsIndex].Item3;
+                lyricsIndex++;
 
-                if (lylicsIndex == lylics.Count)
+                if (lyricsIndex == lyrics.Count)
                 {
                     timer.Enabled = false;
                 }
