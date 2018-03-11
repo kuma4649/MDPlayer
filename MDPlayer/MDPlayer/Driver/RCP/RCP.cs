@@ -1984,8 +1984,20 @@ namespace MDPlayer
 
             if (ControlFileCM6 != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileCM6)))
             {
-                //cCM6Buf = new List<CtlSysex>();
-                //GetCM6Buf(ref cCM6Buf);
+                cCM6Buf = new List<CtlSysex>();
+                GetCM6Buf(ref cCM6Buf, System.IO.Path.Combine(path,ControlFileCM6));
+
+#if DEBUG
+                foreach (CtlSysex ex in cCM6Buf)
+                {
+                    Console.WriteLine("delta:{0:D10}", ex.delta);
+                    foreach (byte b in ex.data)
+                    {
+                        Console.Write("{0:X02} ", b);
+                    }
+                    Console.WriteLine("");
+                }
+#endif
             }
 
             if (ControlFileGSD != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileGSD)))
@@ -2322,7 +2334,7 @@ namespace MDPlayer
             DBuf.Add(new CtlSysex(5, GetSysEx(pac1)));
         }
 
-        private static void makeGSDBufPtn_4(List<byte> s, byte iAdr_mm, out byte[] pac0, out byte[] pac1)
+        private void makeGSDBufPtn_4(List<byte> s, byte iAdr_mm, out byte[] pac0, out byte[] pac1)
         {
             pac0 = new byte[128 + 9];
             pac0[0] = 0x41; pac0[1] = 0x10; pac0[2] = 0x42; pac0[3] = 0x12;
@@ -2342,6 +2354,67 @@ namespace MDPlayer
             pac1[128 + 9 - 1] = 0x84;
         }
 
+
+        private void GetCM6Buf(ref List<CtlSysex> DBuf, string fn)
+        {
+
+            byte[] buf = System.IO.File.ReadAllBytes(fn);
+
+            if (buf == null || buf.Length < 1 || buf.Length != 0x5849) return;
+
+            //System Area
+            DBuf.Add(new CtlSysex(2, GetSysEx(makeCM6Ptn_0(buf, 0x0080, 0x017, 0x10, 0x00, 0x00))));
+            //Timbre Memory #1～ (User 128)
+            for (int adr = 0x0e34, i=0; adr <= 0x4d34; adr += 0x100,i+=2)
+            {
+                DBuf.Add(new CtlSysex(9, GetSysEx(makeCM6Ptn_0(buf, adr, 0x100, 0x08, (byte)(0x00 + i), 0x00))));
+            }
+
+            DBuf.Add(new CtlSysex(9, GetSysEx(makeCM6Ptn_0(buf, 0x0130, 0x100, 0x03, 0x01, 0x10))));
+            DBuf.Add(new CtlSysex(3, GetSysEx(makeCM6Ptn_0(buf, 0x0230, 0x054, 0x03, 0x03, 0x10))));
+            DBuf.Add(new CtlSysex(5, GetSysEx(makeCM6Ptn_0(buf, 0x00a0, 0x090, 0x03, 0x00, 0x00))));
+
+            for (int adr = 0x0284, i = 0; adr <= 0x093e; adr += 0xf6, i += 0xf6)
+            {
+                DBuf.Add(new CtlSysex(9, GetSysEx(makeCM6Ptn_0(buf, adr, 0xf6, 0x04, (byte)(i >> 7), (byte)(i & 0x7f)))));
+            }
+
+            for (int adr = 0x0a34, i = 0; adr <= 0x0db4; adr += 0x80, i += 0x80)
+            {
+                DBuf.Add(new CtlSysex(5, GetSysEx(makeCM6Ptn_0(buf, adr, 0x80, 0x05, (byte)(i >> 7), (byte)(i & 0x7f)))));
+            }
+
+            DBuf.Add(new CtlSysex(7, GetSysEx(makeCM6Ptn_0(buf, 0x4e34, 0xbd, 0x50, 0x00, 0x00))));
+
+            for (int adr = 0x4eb2, i = 0; adr <= 0x579a; adr += 0x98, i += 0x98)
+            {
+                DBuf.Add(new CtlSysex(6, GetSysEx(makeCM6Ptn_0(buf, adr, 0x98, 0x51, (byte)(i >> 7), (byte)(i & 0x7f)))));
+            }
+
+            DBuf.Add(new CtlSysex(6, GetSysEx(makeCM6Ptn_0(buf, 0x5832, 0x11, 0x52, 0x00, 0x00))));
+        }
+
+        private byte[] makeCM6Ptn_0(byte[] buf, int adr,int len, byte hh, byte mm, byte ll)
+        {
+            List<byte> lst;
+
+            lst = new List<byte>();
+            lst.Add(0x41);
+            lst.Add(0x10);
+            lst.Add(0x16);
+            lst.Add(0x12);
+            lst.Add(0x83);
+            lst.Add(hh);
+            lst.Add(mm);
+            lst.Add(ll);
+            for (int i = 0; i < len; i++)
+            {
+                lst.Add(buf[adr + i]);
+            }
+            lst.Add(0x84);
+
+            return lst.ToArray();
+        }
 
         private void sendControl()
         {
