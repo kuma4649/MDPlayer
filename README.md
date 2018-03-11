@@ -135,6 +135,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・hex125 さん  
     ・Kitao Nakamura さん  
     ・くろま さん  
+    ・かきうち さん  
      
     ・Visual Studio Community 2015  
     ・MinGW/msys  
@@ -150,6 +151,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・NAUDIO  
     ・VST.NET  
     ・NSFPlay  
+    ・CVS.EXE  
      
     ・SMS Power!  
     ・DOBON.NET  
