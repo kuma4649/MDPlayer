@@ -45,6 +45,7 @@ namespace MDPlayer
         public byte PriMPCM = 0;
         public byte PriYMZ = 0;
         public byte PriY895 = 0;
+        public byte PriSID = 0;
 
         public byte SecOPN = 0;
         public byte SecOPN2 = 0;
@@ -82,6 +83,7 @@ namespace MDPlayer
         public byte SecMPCM = 0;
         public byte SecYMZ = 0;
         public byte SecY895 = 0;
+        public byte SecSID = 0;
 
     }
 }

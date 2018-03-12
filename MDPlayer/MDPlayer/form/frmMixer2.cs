@@ -678,7 +678,7 @@ namespace MDPlayer.form
                 newParam.K054539.VisVol2Cnt = 1;
                 if (newParam.K054539.VisVolume2 > 0) newParam.K054539.VisVolume2--;
             }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 14 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
+            DrawBuff.MixerVolume(frameBuffer, 2 + 13 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
         }
 
 

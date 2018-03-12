@@ -2568,7 +2568,7 @@ namespace MDPlayer
                 hiyorimiNecessary = setting.HiyorimiMode;
 
                 chipLED = new ChipLEDs();
-                chipLED.PriHuC = 1;
+                chipLED.PriSID = 1;
 
                 MasterVolume = setting.balance.MasterVolume;
 

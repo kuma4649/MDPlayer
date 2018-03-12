@@ -1031,9 +1031,14 @@ namespace MDPlayer
             //prj.RelativeTempoChangeNowTempo = prj.Information.Tempo;
             //prj.RelativeTempoChangeSW = false;
 
+            int minSt = int.MaxValue;
+            foreach (MIDITrack tk in trk)
+            {
+                minSt = Math.Min(tk.St, minSt);
+            }
 
-            //トラック毎の初期化
-            foreach(MIDITrack tk in trk)
+                //トラック毎の初期化
+            foreach (MIDITrack tk in trk)
             {
                 tk.NowPart = tk.getStartPart();
                 tk.NowTick = 0;
@@ -1054,6 +1059,7 @@ namespace MDPlayer
                 while (true)
                 {
                     if (prt == null) break;
+                    prt.StartTick = tk.St + minSt;
                     prt.eNowIndex = prt.eStartIndex;
                     prt = tk.getNextPart(prt);
                 }
@@ -1216,7 +1222,8 @@ namespace MDPlayer
             {
                 if (trk.NoteGateTime[n] != int.MaxValue)
                 {
-                    if (trk.NoteGateTime[n] <= trk.NowTick + trk.NowPart.StartTick)
+                    //if (trk.NoteGateTime[n] <= trk.NowTick + trk.NowPart.StartTick)
+                    if (trk.NoteGateTime[n] <= trk.NowTick)
                     {
                         int key = (n + ((trk.Key != null) ? (int)trk.Key : 0));
                         if (key < 0) key = 0;
@@ -1226,7 +1233,7 @@ namespace MDPlayer
                             msgBuf[0] = (byte)((int)MIDIEventType.NoteOff + trk.OutChannel);
                             msgBuf[1] = (byte)key;
                             msgBuf[2] = 127;
-                            PutMIDIMessage((int)trk.OutDeviceNumber, msgBuf,3);
+                            PutMIDIMessage((int)trk.OutDeviceNumber, msgBuf, 3);
                         }
                         trk.NoteGateTime[n] = int.MaxValue;
                         flg = true;
@@ -1448,7 +1455,8 @@ namespace MDPlayer
             {
                 bool flg = false;
                 // Key Off
-                if (trk.NoteGateTime[okey] <= trk.NextEventTick + trk.NowPart.StartTick)
+                //if (trk.NoteGateTime[okey] <= trk.NextEventTick + trk.NowPart.StartTick)
+                if (trk.NoteGateTime[okey] <= trk.NextEventTick)
                 {
                     msgBuf[0] = (byte)((int)MIDIEventType.NoteOff + trk.OutChannel);
                     msgBuf[1] = (byte)key;

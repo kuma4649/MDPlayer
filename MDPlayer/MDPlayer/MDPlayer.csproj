@@ -126,6 +126,7 @@
     <Compile Include="Driver\HES\km6280.cs" />
     <Compile Include="Driver\HES\kmevent.cs" />
     <Compile Include="Driver\HES\m_hes.cs" />
+    <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\MID.cs" />
     <Compile Include="Driver\RCP\MIDIEvent.cs" />
