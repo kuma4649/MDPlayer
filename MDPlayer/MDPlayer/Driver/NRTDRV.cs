@@ -96,7 +96,7 @@ namespace MDPlayer
             ,214,0                  //+2
         };
 
-        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
+        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = nrdFileData;
@@ -104,6 +104,7 @@ namespace MDPlayer
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+            this.waitTime = waitTime;
 
             GD3 = getGD3Info(nrdFileData, 42);
             Counter = 0;
@@ -111,7 +112,7 @@ namespace MDPlayer
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = 0;
+            vgmFrameCounter = -latency - waitTime;
             vgmSpeed = 1;
 
             try

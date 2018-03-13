@@ -639,6 +639,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _WaitTime = 500;
+            public int WaitTime
+            {
+                get
+                {
+                    return _WaitTime;
+                }
+
+                set
+                {
+                    _WaitTime = value;
+                }
+            }
+
             private string _WaveOutDeviceName = "";
             public string WaveOutDeviceName
             {
@@ -714,6 +728,7 @@ namespace MDPlayer
                 OutputDevice outputDevice = new OutputDevice();
                 outputDevice.DeviceType = this.DeviceType;
                 outputDevice.Latency = this.Latency;
+                outputDevice.WaitTime = this.WaitTime;
                 outputDevice.WaveOutDeviceName = this.WaveOutDeviceName;
                 outputDevice.DirectSoundDeviceName = this.DirectSoundDeviceName;
                 outputDevice.WasapiDeviceName = this.WasapiDeviceName;

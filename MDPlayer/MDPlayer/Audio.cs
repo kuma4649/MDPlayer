@@ -1634,8 +1634,12 @@ namespace MDPlayer
                 SetYM2151Volume(setting.balance.YM2151Volume);
                 SetAY8910Volume(setting.balance.AY8910Volume);
 
-                driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }, 0);
-                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }, 0);
+                driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
                 ((NRTDRV)driverVirtual).Call(0);//
                 ((NRTDRV)driverVirtual).Call(1);//MPLAY
                 ((NRTDRV)driverReal).Call(0);//
@@ -1747,8 +1751,12 @@ namespace MDPlayer
                 SetYM2612Volume(setting.balance.YM2612Volume);
                 SetSN76489Volume(setting.balance.SN76489Volume);
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 //Play
 
@@ -1813,8 +1821,12 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2203 }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel,new enmUseChip[] { enmUseChip.YM2203 }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2203 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel,new enmUseChip[] { enmUseChip.YM2203 }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 List<S98.S98DevInfo> s98DInfo = ((S98)driverVirtual).s98Info.DeviceInfos;
 
@@ -2109,11 +2121,17 @@ namespace MDPlayer
                 hiyorimiNecessary = setting.HiyorimiMode;
 
                 chipLED = new ChipLEDs();
+                chipLED.PriMID = 1;
+                chipLED.SecMID = 1;
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2182,6 +2200,8 @@ namespace MDPlayer
                 hiyorimiNecessary = setting.HiyorimiMode;
 
                 chipLED = new ChipLEDs();
+                chipLED.PriMID = 1;
+                chipLED.SecMID = 1;
 
                 MasterVolume = setting.balance.MasterVolume;
 
@@ -2190,8 +2210,12 @@ namespace MDPlayer
                 MakeMIDIout(setting, MidiMode);
                 chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2264,8 +2288,12 @@ namespace MDPlayer
 
                 ((nsf)driverVirtual).song = SongNo;
                 ((nsf)driverReal).song = SongNo;
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
                 if (((nsf)driverVirtual).use_fme7) chipLED.PriFME7 = 1;
@@ -2505,8 +2533,12 @@ namespace MDPlayer
 
                 ((hes)driverVirtual).song = (byte)SongNo;
                 ((hes)driverReal).song = (byte)SongNo;
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 //Play
 
                 Paused = false;
@@ -2574,8 +2606,12 @@ namespace MDPlayer
 
                 ((Driver.SID.sid)driverVirtual).song = (byte)SongNo+1;
                 ((Driver.SID.sid)driverReal).song = (byte)SongNo+1;
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }, 0)) return false;
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
                 Paused = false;
                 Stopped = false;
@@ -2626,8 +2662,8 @@ namespace MDPlayer
                     , chipRegister
                     , enmModel.VirtualModel
                     , usechip.ToArray()
-                    , (UInt32)common.SampleRate * (uint)setting.LatencyEmulation / 1000
-                    ))
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)))
                     return false;
 
                 usechip.Clear();
@@ -2645,8 +2681,8 @@ namespace MDPlayer
                     , chipRegister
                     , enmModel.RealModel
                     , usechip.ToArray()
-                    , (UInt32)common.SampleRate * (uint)setting.LatencySCCI / 1000
-                    ))
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)))
                     return false;
 
                 vgmFadeout = false;
@@ -2681,42 +2717,7 @@ namespace MDPlayer
                 hiyorimiNecessary = setting.HiyorimiMode;
                 int hiyorimiDeviceFlag = 0;
 
-                chipLED.PriOPN = 0;
-                chipLED.PriOPN2 = 0;
-                chipLED.PriOPNA = 0;
-                chipLED.PriOPNB = 0;
-                chipLED.PriOPM = 0;
-                chipLED.PriDCSG = 0;
-                chipLED.PriRF5C = 0;
-                chipLED.PriPWM = 0;
-                chipLED.PriOKI5 = 0;
-                chipLED.PriOKI9 = 0;
-                chipLED.PriC140 = 0;
-                chipLED.PriSPCM = 0;
-                chipLED.PriAY10 = 0;
-                chipLED.PriOPLL = 0;
-                //chipLED.PriPSG = 0;
-                chipLED.PriHuC = 0;
-                chipLED.PriC352 = 0;
-                chipLED.PriK054539 = 0;
-
-                chipLED.SecOPN = 0;
-                chipLED.SecOPN2 = 0;
-                chipLED.SecOPNA = 0;
-                chipLED.SecOPNB = 0;
-                chipLED.SecOPM = 0;
-                chipLED.SecDCSG = 0;
-                chipLED.SecRF5C = 0;
-                chipLED.SecPWM = 0;
-                chipLED.SecOKI5 = 0;
-                chipLED.SecOKI9 = 0;
-                chipLED.SecC140 = 0;
-                chipLED.SecSPCM = 0;
-                chipLED.SecAY10 = 0;
-                chipLED.SecOPLL = 0;
-                chipLED.SecHuC = 0;
-                chipLED.SecC352 = 0;
-                chipLED.SecK054539 = 0;
+                chipLED = new ChipLEDs();
 
                 MasterVolume = setting.balance.MasterVolume;
 

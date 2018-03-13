@@ -29,8 +29,9 @@ namespace MDPlayer
         protected enmModel model = enmModel.VirtualModel;
         protected enmUseChip[] useChip = new enmUseChip[] { enmUseChip.Unuse };
         protected uint latency = 1000;
+        protected uint waitTime = 0;
 
-        public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency);
+        public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime);
         public abstract void oneFrameProc();
         public abstract GD3 getGD3Info(byte[] buf, uint vgmGd3);
 

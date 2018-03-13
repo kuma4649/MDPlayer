@@ -464,8 +464,8 @@ namespace MDPlayer
 
         //ここからメモリービュアー設定
         public delegate UInt32 memview_memread(UInt32 a);
-        private HESHES memview_context;
-        private Int32 MEM_MAX, MEM_IO, MEM_RAM, MEM_ROM;
+        private HESHES memview_context=null;
+        //private Int32 MEM_MAX, MEM_IO, MEM_RAM, MEM_ROM;
         private UInt32 memview_memread_hes(UInt32 a)
         {
             if (a >= 0x1800 && a < 0x1c00 && (a & 0xf) == 0xa) return 0xff;
@@ -474,7 +474,7 @@ namespace MDPlayer
         //ここまでメモリービュアー設定
 
         //ここからダンプ設定
-        private NEZ_PLAY pNezPlayDump;
+        //private NEZ_PLAY pNezPlayDump;
         public delegate UInt32 dump_MEM_PCE(UInt32 a, byte[] mem);
         private UInt32 dump_MEM_PCE_bf(UInt32 menu, byte[] mem)
         {

@@ -147,20 +147,21 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+            this.waitTime = waitTime;
 
             Counter = 0;
             TotalCounter = 0;
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = 0;
+            vgmFrameCounter = -latency - waitTime;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
 

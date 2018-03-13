@@ -2873,6 +2873,9 @@ namespace MDPlayer.form
                 if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
                 if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
 
+                if (Audio.chipLED.PriMID != 0) OpenFormMIDI(0, true); else CloseFormMIDI(0);
+                if (Audio.chipLED.SecMID != 0) OpenFormMIDI(1, true); else CloseFormMIDI(1);
+
                 if (Audio.chipLED.PriNES != 0 || Audio.chipLED.PriDMC != 0) OpenFormNESDMC(0, true); else CloseFormNESDMC(0);
                 if (Audio.chipLED.SecNES != 0 || Audio.chipLED.SecDMC != 0) OpenFormNESDMC(1, true); else CloseFormNESDMC(1);
 

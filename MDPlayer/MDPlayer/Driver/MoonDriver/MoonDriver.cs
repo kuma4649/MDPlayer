@@ -13,7 +13,7 @@ namespace MDPlayer.Driver.MoonDriver
             throw new NotImplementedException();
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +38,7 @@ namespace MDPlayer.Driver.MoonDriver
         private const UInt16 MOON_WREG = 0x7E;
         private const UInt16 MOON_WDAT = MOON_WREG + 1;
 
-        private const UInt16 RAM_PAGE3 = 0xFE;
+        private const byte RAM_PAGE3 = 0xFE;
 
 
         private const UInt16 USE_CH = 24 + 18;
@@ -91,40 +91,44 @@ namespace MDPlayer.Driver.MoonDriver
             //Workarea for channels in the driver
             //
             //seq_work:
-            public byte seq_ch1_dsel = 0x00;
-            public byte seq_ch1_opsel = 0x00;
-            public byte seq_ch1_synth = 0x00;
-            public byte seq_ch1_efx1 = 0x00;
-            public byte seq_ch1_cnt = 0x00;
-            public byte seq_ch1_loop = 0x00;
-            public byte seq_ch1_bank = 0x00;
-            public UInt16 seq_ch1_addr = 0x0000;
-            public UInt16 seq_ch1_tadr = 0x0000;
-            public UInt16 seq_ch1_tone = 0x0000;
-            public byte seq_ch1_key = 0x00;
-            public byte seq_ch1_damp = 0x00;
-            public byte seq_ch1_lfo = 0x00;
-            public byte seq_ch1_lfo_vib = 0x00;
-            public byte seq_ch1_ar_d1r = 0x00;
-            public byte seq_ch1_dl_d2r = 0x00;
-            public byte seq_ch1_rc_rr = 0x00;
-            public byte seq_ch1_am = 0x00;
-            public byte seq_ch1_note = 0x00;
-            public UInt16 seq_ch1_pitch = 0x0000;
-            public UInt16 seq_ch1_p_ofs = 0x0000;
-            public byte seq_ch1_oct = 0x00;
-            public UInt16 seq_ch1_fnum = 0x0000;
-            public byte seq_ch1_reverb = 0x00;
-            public byte seq_ch1_vol = 0x00;
-            public byte seq_ch1_pan = 0x00;
-            public byte seq_ch1_detune = 0x00;
-            public byte seq_ch1_venv = 0x00;
-            public byte seq_ch1_nenv = 0x00;
-            public byte seq_ch1_penv = 0x00;
-            public UInt16 seq_ch1_nenv_adr = 0x0000;
-            public UInt16 seq_ch1_penv_adr = 0x0000;
-            public UInt16 seq_ch1_venv_adr = 0x0000;
+            public class Ch
+            {
+                public byte dsel = 0x00;
+                public byte opsel = 0x00;
+                public byte synth = 0x00;
+                public byte efx1 = 0x00;
+                public byte cnt = 0x00;
+                public byte loop = 0x00;
+                public byte bank = 0x00;
+                public UInt16 addr = 0x0000;
+                public UInt16 tadr = 0x0000;
+                public UInt16 tone = 0x0000;
+                public byte key = 0x00;
+                public byte damp = 0x00;
+                public byte lfo = 0x00;
+                public byte lfo_vib = 0x00;
+                public byte ar_d1r = 0x00;
+                public byte dl_d2r = 0x00;
+                public byte rc_rr = 0x00;
+                public byte am = 0x00;
+                public byte note = 0x00;
+                public UInt16 pitch = 0x0000;
+                public UInt16 p_ofs = 0x0000;
+                public byte oct = 0x00;
+                public UInt16 fnum = 0x0000;
+                public byte reverb = 0x00;
+                public byte vol = 0x00;
+                public byte pan = 0x00;
+                public byte detune = 0x00;
+                public byte venv = 0x00;
+                public byte nenv = 0x00;
+                public byte penv = 0x00;
+                public UInt16 nenv_adr = 0x0000;
+                public UInt16 penv_adr = 0x0000;
+                public UInt16 venv_adr = 0x0000;
+            }
             //seq_work_end:
+            public Ch[] ch;
 
             public int IDX_DSEL = 0;//equ(seq_ch1_dsel    - seq_work); Device Select
             public int IDX_OPSEL = 1;//equ(seq_ch1_opsel   - seq_work); Operator Select
@@ -178,12 +182,65 @@ namespace MDPlayer.Driver.MoonDriver
 
 
         }
-        private Work[] work = null;
+        private Work work = null;
+
+        private byte[] fm_testtone = new byte[] {
+             0x00 // FBS
+            ,0x00 // FBS2
+            ,0x00 // BD
+            
+            ,0x01 // TREMOLO VIB SUS KSR MUL
+            ,0x00 // KSL OL
+            ,0x11 // AR DR
+            ,0x13 // SL RR
+            ,0x01 // WF
+            
+            ,0x04 //
+            ,0x00 //
+            ,0x11 //
+            ,0x18 //
+            ,0x00 // WF
+            
+            ,0x01
+            ,0x3f
+            ,0x55
+            ,0x55
+            ,0x00
+
+            ,0x01
+            ,0x3f
+            ,0x55
+            ,0x55
+            ,0x00
+        };
+
+        private byte[] fm_opbtbl = new byte[] {
+            0x00 // CH0
+            ,0x01 // CH1
+            ,0x02 // CH2
+            ,0x06 // CH3
+            ,0x07 // CH4
+            ,0x08 // CH5
+            ,0x0c // CH6
+            ,0x0d // CH7
+            ,0x0e // CH8
+            ,0x12 // CH9
+            ,0x13 // CH10
+            ,0x14 // CH11
+            ,0x18 // CH12
+            ,0x19 // CH13
+            ,0x1a // CH14
+            ,0x1e // CH15
+            ,0x1f // CH16
+            ,0x20 // CH17
+        };
 
         private void moon_init_all()
         {
-            work = new Work[USE_CH];
+            work = new Work();
+            work.ch = new Work.Ch[USE_CH];
             moon_init();
+            moon_seq_init();
         }
 
         private void moon_init()
@@ -202,6 +259,152 @@ namespace MDPlayer.Driver.MoonDriver
 
         }
 
+        private void moon_seq_init()
+        {
+            a = 0;
+            work.seq_use_ch = a;
+            work.seq_cur_ch = a;
+            change_page3(a); //Page to Top
+
+
+            a = ReadMemory(S_DEVICE_FLAGS);
+            if (a == 0) a = 1;//OPL4 by default
+            b = a;
+            iy = 0;// fm_opbtbl;
+            ix = 0;// seq_work;
+
+            d = 0x00;
+            e = 0x18;//24channels; OPL4
+            if ((b & 1) != 0)
+            {
+                seq_init_chan();
+            }
+
+            d = 0x01;
+            e = 0x12;//18channels
+            if ((b & 2) != 0)
+            {
+                seq_init_chan();
+            }
+
+            ix = 0;// seq_work;
+        }
+
+        private void seq_init_chan()
+        {
+            if (d != 0)
+            {
+                work.seq_start_fm = work.seq_use_ch;
+            }
+            work.seq_use_ch += e;
+
+            //seq_init_chan_lp
+            do
+            {
+                work.ch[ix].cnt = 0;
+                work.ch[ix].dsel = d;
+                work.ch[ix].venv = 0xff;
+                work.ch[ix].penv = 0xff;
+                work.ch[ix].nenv = 0xff;
+                work.ch[ix].detune = 0xff;
+
+                if (work.ch[ix].dsel != 0)
+                {
+                    //init_fmtone:
+                    work.ch[ix].tadr = 0;// fm_testtone;
+                    work.ch[ix].pan = 0x30;
+                    work.ch[ix].reverb = 0x02;//IDX_VOLOP
+                    work.ch[ix].vol = 0x3f;
+                    work.ch[ix].opsel = fm_opbtbl[iy];
+                    iy++;
+                }
+                else
+                {
+                    //init_op4tone:
+                    work.ch[ix].tadr = 0;// fm_testtone;
+                    work.ch[ix].pan = 0x00;
+                }
+
+                //init_tone_fin:
+
+                hl = S_TRACK_TABLE;
+                get_hl_table();
+                work.ch[ix].addr = hl;
+
+                hl = S_TRACK_BANK;
+                get_a_table();
+                work.ch[ix].bank = a;
+
+                //next work
+                ix++;
+
+                //next channel
+                work.seq_cur_ch += 1;
+
+                e--;
+            } while (e > 0);
+
+        }
+
+        //********************************************
+        // get_hl_table
+        // in   : HL = address
+        // out  : HL = (HL + (cur_ch* 2) )
+        // dest : AF,DE
+        private void get_hl_table()
+        {
+            a = work.seq_cur_ch;
+
+            e = a;
+            d = 0x00;
+
+            //get_table_hl_2de:
+            a = ReadMemory(hl);
+            hl++;
+            hl = (UInt16)(ReadMemory(hl) * 0x100 + a);
+
+            hl += e;
+            hl += e;
+
+            a = ReadMemory(hl);
+            hl++;
+            hl = (UInt16)(ReadMemory(hl) * 0x100 + a);
+        }
+
+        //********************************************
+        // get_a_table
+        // in   : HL = address
+        // out  : A = (HL + (cur_ch* 2) )
+        // dest : HL,DE
+        private void get_a_table()
+        {
+            a = work.seq_cur_ch;
+            e = a;
+            d = 0x00;
+            a = ReadMemory(hl);
+            hl++;
+
+            hl = (UInt16)(ReadMemory(hl) * 0x100 + a);
+            hl += e;
+
+            a = ReadMemory(hl);
+        }
+
+        private void change_page3(byte a)
+        {
+            //srl a
+            a >>= 1;
+            //add a, $04; The system uses 4pages for initial work area
+            a &= 4;
+            //out	(RAM_PAGE3), a
+            outport(RAM_PAGE3, a);
+        }
+
+        private void moon_wait(UInt16 de)
+        {
+
+        }
+
         private void moon_fm1_out(UInt16 de)
         {
 
@@ -215,6 +418,62 @@ namespace MDPlayer.Driver.MoonDriver
         private void moon_wave_out(UInt16 de)
         {
 
+        }
+
+
+        private void outport(byte adr,byte data)
+        {
+            if (adr == 0xfe)
+            {
+                seg0x8000 = data;
+            }
+        }
+
+        private byte[] mem = new byte[1024 * 64];
+        private byte[][] extMem = new byte[256][];
+        private byte? seg0x0000 = null;
+        private byte? seg0x4000 = null;
+        private byte? seg0x8000 = null;
+        private byte? seg0xc000 = null;
+        private byte a = 0;
+        private byte b = 0;
+        private byte d = 0;
+        private byte e = 0;
+        private UInt16 hl = 0;
+        private UInt16 ix = 0;
+        private UInt16 iy = 0;
+
+        private byte ReadMemory(UInt16 adr)
+        {
+            adr &= 0xffff;
+            switch (adr >> 30)
+            {
+                case 0://0x0000 - 0x3fff
+                default:
+                    if (seg0x0000 == null)
+                        return mem[adr];
+                    if (extMem[(byte)seg0x0000] == null)
+                        extMem[(byte)seg0x0000] = new byte[1024 * 16];
+                    return extMem[(byte)seg0x0000][adr & 0x3fff];
+                case 1://0x4000 - 0x7fff
+                    if (seg0x4000 == null)
+                        return mem[adr];
+                    if (extMem[(byte)seg0x4000] == null)
+                        extMem[(byte)seg0x4000] = new byte[1024 * 16];
+                    return extMem[(byte)seg0x4000][adr & 0x3fff];
+                case 2://0x8000 - 0xbfff
+                    if (seg0x8000 == null)
+                        return mem[adr];
+                    if (extMem[(byte)seg0x8000] == null)
+                        extMem[(byte)seg0x8000] = new byte[1024 * 16];
+                    return extMem[(byte)seg0x8000][adr & 0x3fff];
+                case 3://0xc000 - 0xffff
+                    if (seg0xc000 == null)
+                        return mem[adr];
+                    if (extMem[(byte)seg0xc000] == null)
+                        extMem[(byte)seg0xc000] = new byte[1024 * 16];
+                    return extMem[(byte)seg0xc000][adr & 0x3fff];
+            }
         }
     }
 }

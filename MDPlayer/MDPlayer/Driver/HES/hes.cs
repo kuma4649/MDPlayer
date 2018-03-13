@@ -30,7 +30,7 @@ namespace MDPlayer
             return null;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
@@ -38,6 +38,7 @@ namespace MDPlayer
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+            this.waitTime = waitTime;
 
             if (model == enmModel.RealModel)
             {
@@ -51,7 +52,7 @@ namespace MDPlayer
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = 0;
+            vgmFrameCounter = -latency - waitTime;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
             silent_length = 0;
@@ -130,7 +131,7 @@ namespace MDPlayer
                 {
 
                     int m = Buffer[0][i] + Buffer[1][i];
-                    if (m == last_out) silent_length++;
+                    if (m == last_out && vgmFrameCounter >= 0) silent_length++;
                     else silent_length = 0;
                     last_out = m;
 

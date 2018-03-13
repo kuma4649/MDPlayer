@@ -42,6 +42,7 @@ namespace MDPlayer.form
             this.textBoxDescription.Text = Properties.Resources.cntDescription;
 
             this.cmbLatency.SelectedIndex = 5;
+            this.cmbWaitTime.SelectedIndex = 0;
 
             //ASIOサポートチェック
             if (!AsioOut.isSupported())
@@ -321,6 +322,11 @@ namespace MDPlayer.form
             if (cmbLatency.Items.Contains(setting.outputDevice.Latency.ToString()))
             {
                 cmbLatency.SelectedItem = setting.outputDevice.Latency.ToString();
+            }
+
+            if (cmbWaitTime.Items.Contains(setting.outputDevice.WaitTime.ToString()))
+            {
+                cmbWaitTime.SelectedItem = setting.outputDevice.WaitTime.ToString();
             }
 
             if (!setting.YM2612Type.UseScci)
@@ -873,6 +879,7 @@ namespace MDPlayer.form
 
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
+            setting.outputDevice.WaitTime = int.Parse(cmbWaitTime.SelectedItem.ToString());
 
             setting.YM2612Type = new Setting.ChipType();
             setting.YM2612Type.UseScci = ucSI.rbYM2612P_SCCI.Checked;

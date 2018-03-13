@@ -38,13 +38,14 @@ namespace MDPlayer.Driver.SID
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+            this.waitTime = waitTime;
 
             if (model == enmModel.RealModel)
             {
@@ -58,7 +59,7 @@ namespace MDPlayer.Driver.SID
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = 0;
+            vgmFrameCounter = -latency - waitTime;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
 
@@ -101,6 +102,11 @@ namespace MDPlayer.Driver.SID
         {
             if (!initial)
             {
+                return length;
+            }
+            if (vgmFrameCounter < 0)
+            {
+                vgmFrameCounter += length/2;
                 return length;
             }
 

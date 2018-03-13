@@ -111,13 +111,14 @@ namespace MDPlayer
         private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
         private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip,uint latency)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip,uint latency,uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
             this.model = model;
             this.useChip = useChip;
             this.latency = latency;
+            this.waitTime = waitTime;
 
             dumpCounter = 0;
 
@@ -130,7 +131,7 @@ namespace MDPlayer
             vgmWait = 0;
             vgmAnalyze = true;
             Counter = 0;
-            vgmFrameCounter = -latency;
+            vgmFrameCounter = -latency - waitTime;
             vgmCurLoop = 0;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;

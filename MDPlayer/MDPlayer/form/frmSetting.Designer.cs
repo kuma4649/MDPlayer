@@ -51,8 +51,11 @@
             this.cmbDirectSoundDevice = new System.Windows.Forms.ComboBox();
             this.tcSetting = new System.Windows.Forms.TabControl();
             this.tpOutput = new System.Windows.Forms.TabPage();
+            this.lblWaitTime = new System.Windows.Forms.Label();
             this.lblLatencyUnit = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.lblLatency = new System.Windows.Forms.Label();
+            this.cmbWaitTime = new System.Windows.Forms.ComboBox();
             this.cmbLatency = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -92,6 +95,14 @@
             this.cbNFSFds_4085Reset = new System.Windows.Forms.CheckBox();
             this.cbNSFFDSWriteDisable8000 = new System.Windows.Forms.CheckBox();
             this.tpSID = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.rdSIDQ1 = new System.Windows.Forms.RadioButton();
+            this.rdSIDQ3 = new System.Windows.Forms.RadioButton();
+            this.rdSIDQ2 = new System.Windows.Forms.RadioButton();
+            this.rdSIDQ4 = new System.Windows.Forms.RadioButton();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.btnSIDBasic = new System.Windows.Forms.Button();
             this.btnSIDCharacter = new System.Windows.Forms.Button();
@@ -331,14 +342,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.rdSIDQ4 = new System.Windows.Forms.RadioButton();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.rdSIDQ3 = new System.Windows.Forms.RadioButton();
-            this.rdSIDQ2 = new System.Windows.Forms.RadioButton();
-            this.rdSIDQ1 = new System.Windows.Forms.RadioButton();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -355,6 +358,7 @@
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.tpSID.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tpMIDIOut.SuspendLayout();
             this.tbcMIDIoutList.SuspendLayout();
@@ -404,7 +408,6 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.groupBox14.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -664,8 +667,11 @@
             // 
             // tpOutput
             // 
+            this.tpOutput.Controls.Add(this.lblWaitTime);
             this.tpOutput.Controls.Add(this.lblLatencyUnit);
+            this.tpOutput.Controls.Add(this.label28);
             this.tpOutput.Controls.Add(this.lblLatency);
+            this.tpOutput.Controls.Add(this.cmbWaitTime);
             this.tpOutput.Controls.Add(this.cmbLatency);
             this.tpOutput.Controls.Add(this.rbDirectSoundOut);
             this.tpOutput.Controls.Add(this.rbWaveOut);
@@ -683,23 +689,62 @@
             this.tpOutput.Text = "出力";
             this.tpOutput.UseVisualStyleBackColor = true;
             // 
+            // lblWaitTime
+            // 
+            this.lblWaitTime.AutoSize = true;
+            this.lblWaitTime.Location = new System.Drawing.Point(242, 305);
+            this.lblWaitTime.Name = "lblWaitTime";
+            this.lblWaitTime.Size = new System.Drawing.Size(20, 12);
+            this.lblWaitTime.TabIndex = 9;
+            this.lblWaitTime.Text = "ms";
+            // 
             // lblLatencyUnit
             // 
             this.lblLatencyUnit.AutoSize = true;
-            this.lblLatencyUnit.Location = new System.Drawing.Point(213, 348);
+            this.lblLatencyUnit.Location = new System.Drawing.Point(242, 279);
             this.lblLatencyUnit.Name = "lblLatencyUnit";
             this.lblLatencyUnit.Size = new System.Drawing.Size(20, 12);
             this.lblLatencyUnit.TabIndex = 9;
             this.lblLatencyUnit.Text = "ms";
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(11, 305);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(98, 12);
+            this.label28.TabIndex = 9;
+            this.label28.Text = "演奏開始待ち時間";
+            // 
             // lblLatency
             // 
             this.lblLatency.AutoSize = true;
-            this.lblLatency.Location = new System.Drawing.Point(11, 348);
+            this.lblLatency.Location = new System.Drawing.Point(11, 279);
             this.lblLatency.Name = "lblLatency";
             this.lblLatency.Size = new System.Drawing.Size(53, 12);
             this.lblLatency.TabIndex = 9;
             this.lblLatency.Text = "遅延時間";
+            // 
+            // cmbWaitTime
+            // 
+            this.cmbWaitTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWaitTime.FormattingEnabled = true;
+            this.cmbWaitTime.Items.AddRange(new object[] {
+            "0",
+            "500",
+            "1000",
+            "1500",
+            "2000",
+            "2500",
+            "3000",
+            "3500",
+            "4000",
+            "4500",
+            "5000"});
+            this.cmbWaitTime.Location = new System.Drawing.Point(115, 302);
+            this.cmbWaitTime.Name = "cmbWaitTime";
+            this.cmbWaitTime.Size = new System.Drawing.Size(121, 20);
+            this.cmbWaitTime.TabIndex = 8;
             // 
             // cmbLatency
             // 
@@ -714,7 +759,7 @@
             "300",
             "400",
             "500"});
-            this.cmbLatency.Location = new System.Drawing.Point(86, 345);
+            this.cmbLatency.Location = new System.Drawing.Point(115, 276);
             this.cmbLatency.Name = "cmbLatency";
             this.cmbLatency.Size = new System.Drawing.Size(121, 20);
             this.cmbLatency.TabIndex = 8;
@@ -1109,6 +1154,91 @@
             this.tpSID.TabIndex = 10;
             this.tpSID.Text = "SID";
             this.tpSID.UseVisualStyleBackColor = true;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.label27);
+            this.groupBox14.Controls.Add(this.label26);
+            this.groupBox14.Controls.Add(this.label25);
+            this.groupBox14.Controls.Add(this.rdSIDQ1);
+            this.groupBox14.Controls.Add(this.rdSIDQ3);
+            this.groupBox14.Controls.Add(this.rdSIDQ2);
+            this.groupBox14.Controls.Add(this.rdSIDQ4);
+            this.groupBox14.Location = new System.Drawing.Point(7, 109);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(214, 111);
+            this.groupBox14.TabIndex = 2;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Quality";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(132, 86);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(58, 12);
+            this.label27.TabIndex = 2;
+            this.label27.Text = "Low(Light)";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(132, 54);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(38, 12);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "Middle";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(132, 20);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(68, 12);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "High(Heavy)";
+            // 
+            // rdSIDQ1
+            // 
+            this.rdSIDQ1.AutoSize = true;
+            this.rdSIDQ1.Checked = true;
+            this.rdSIDQ1.Location = new System.Drawing.Point(6, 84);
+            this.rdSIDQ1.Name = "rdSIDQ1";
+            this.rdSIDQ1.Size = new System.Drawing.Size(111, 16);
+            this.rdSIDQ1.TabIndex = 1;
+            this.rdSIDQ1.TabStop = true;
+            this.rdSIDQ1.Text = "Interpolate - fast";
+            this.rdSIDQ1.UseVisualStyleBackColor = true;
+            // 
+            // rdSIDQ3
+            // 
+            this.rdSIDQ3.AutoSize = true;
+            this.rdSIDQ3.Location = new System.Drawing.Point(6, 40);
+            this.rdSIDQ3.Name = "rdSIDQ3";
+            this.rdSIDQ3.Size = new System.Drawing.Size(107, 16);
+            this.rdSIDQ3.TabIndex = 1;
+            this.rdSIDQ3.Text = "Resample - fast";
+            this.rdSIDQ3.UseVisualStyleBackColor = true;
+            // 
+            // rdSIDQ2
+            // 
+            this.rdSIDQ2.AutoSize = true;
+            this.rdSIDQ2.Location = new System.Drawing.Point(6, 62);
+            this.rdSIDQ2.Name = "rdSIDQ2";
+            this.rdSIDQ2.Size = new System.Drawing.Size(77, 16);
+            this.rdSIDQ2.TabIndex = 1;
+            this.rdSIDQ2.Text = "Interpolate";
+            this.rdSIDQ2.UseVisualStyleBackColor = true;
+            // 
+            // rdSIDQ4
+            // 
+            this.rdSIDQ4.AutoSize = true;
+            this.rdSIDQ4.Location = new System.Drawing.Point(6, 18);
+            this.rdSIDQ4.Name = "rdSIDQ4";
+            this.rdSIDQ4.Size = new System.Drawing.Size(73, 16);
+            this.rdSIDQ4.TabIndex = 1;
+            this.rdSIDQ4.Text = "Resample";
+            this.rdSIDQ4.UseVisualStyleBackColor = true;
             // 
             // groupBox13
             // 
@@ -3639,91 +3769,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // rdSIDQ4
-            // 
-            this.rdSIDQ4.AutoSize = true;
-            this.rdSIDQ4.Location = new System.Drawing.Point(6, 18);
-            this.rdSIDQ4.Name = "rdSIDQ4";
-            this.rdSIDQ4.Size = new System.Drawing.Size(73, 16);
-            this.rdSIDQ4.TabIndex = 1;
-            this.rdSIDQ4.Text = "Resample";
-            this.rdSIDQ4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.label27);
-            this.groupBox14.Controls.Add(this.label26);
-            this.groupBox14.Controls.Add(this.label25);
-            this.groupBox14.Controls.Add(this.rdSIDQ1);
-            this.groupBox14.Controls.Add(this.rdSIDQ3);
-            this.groupBox14.Controls.Add(this.rdSIDQ2);
-            this.groupBox14.Controls.Add(this.rdSIDQ4);
-            this.groupBox14.Location = new System.Drawing.Point(7, 109);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(214, 111);
-            this.groupBox14.TabIndex = 2;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Quality";
-            // 
-            // rdSIDQ3
-            // 
-            this.rdSIDQ3.AutoSize = true;
-            this.rdSIDQ3.Location = new System.Drawing.Point(6, 40);
-            this.rdSIDQ3.Name = "rdSIDQ3";
-            this.rdSIDQ3.Size = new System.Drawing.Size(107, 16);
-            this.rdSIDQ3.TabIndex = 1;
-            this.rdSIDQ3.Text = "Resample - fast";
-            this.rdSIDQ3.UseVisualStyleBackColor = true;
-            // 
-            // rdSIDQ2
-            // 
-            this.rdSIDQ2.AutoSize = true;
-            this.rdSIDQ2.Location = new System.Drawing.Point(6, 62);
-            this.rdSIDQ2.Name = "rdSIDQ2";
-            this.rdSIDQ2.Size = new System.Drawing.Size(77, 16);
-            this.rdSIDQ2.TabIndex = 1;
-            this.rdSIDQ2.Text = "Interpolate";
-            this.rdSIDQ2.UseVisualStyleBackColor = true;
-            // 
-            // rdSIDQ1
-            // 
-            this.rdSIDQ1.AutoSize = true;
-            this.rdSIDQ1.Checked = true;
-            this.rdSIDQ1.Location = new System.Drawing.Point(6, 84);
-            this.rdSIDQ1.Name = "rdSIDQ1";
-            this.rdSIDQ1.Size = new System.Drawing.Size(111, 16);
-            this.rdSIDQ1.TabIndex = 1;
-            this.rdSIDQ1.TabStop = true;
-            this.rdSIDQ1.Text = "Interpolate - fast";
-            this.rdSIDQ1.UseVisualStyleBackColor = true;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(132, 20);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(68, 12);
-            this.label25.TabIndex = 2;
-            this.label25.Text = "High(Heavy)";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(132, 54);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(38, 12);
-            this.label26.TabIndex = 2;
-            this.label26.Text = "Middle";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(132, 86);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(58, 12);
-            this.label27.TabIndex = 2;
-            this.label27.Text = "Low(Light)";
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3768,6 +3813,8 @@
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tpSID.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.tpMIDIOut.ResumeLayout(false);
@@ -3834,8 +3881,6 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4153,5 +4198,8 @@
         private System.Windows.Forms.RadioButton rdSIDQ3;
         private System.Windows.Forms.RadioButton rdSIDQ2;
         private System.Windows.Forms.RadioButton rdSIDQ4;
+        private System.Windows.Forms.Label lblWaitTime;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox cmbWaitTime;
     }
 }
