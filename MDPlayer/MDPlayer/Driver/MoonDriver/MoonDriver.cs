@@ -214,6 +214,28 @@ namespace MDPlayer.Driver.MoonDriver
             ,0x00
         };
 
+
+        private byte[] fm_op2reg_tbl = new byte[] {
+            0x00 // 0
+            ,0x01 //
+            ,0x02 // 2
+            ,0x03 //
+            ,0x04 // 4
+            ,0x05 //
+            ,0x08 // 6
+            ,0x09 //
+            ,0x0A // 8
+            ,0x0B //
+            ,0x0C // 10
+            ,0x0D //
+            ,0x10 // 12
+            ,0x11 //
+            ,0x12 // 14
+            ,0x13 //
+            ,0x14 // 16
+            ,0x15 // 17
+        };
+
         private byte[] fm_opbtbl = new byte[] {
             0x00 // CH0
             ,0x01 // CH1
@@ -235,6 +257,86 @@ namespace MDPlayer.Driver.MoonDriver
             ,0x20 // CH17
         };
 
+        //********************************************
+        // Entry points
+        //********************************************
+        public void EntryPoints(UInt16 adr)
+        {
+            switch (adr)
+            {
+                //	; $4000 Initialize
+                case 0x4000:
+                    moon_init_all();
+                    break;
+
+                //	; $4003 Execute 1frame(1/60)
+                case 0x4003:
+                    moon_proc_tracks();
+                    break;
+
+                //    ; $4006 All key-off
+                case 0x4006:
+                    moon_seq_all_keyoff();
+                    break;
+
+                //	; $4009 Set H.TIMI for timing
+                case 0x4009:
+                    //    ret
+                    //    ret
+                    //    ret
+                    break;
+
+                //    ; $400C Restore H.TIMI
+                case 0x400c:
+                    //    ret
+                    //    ret
+                    //    ret
+                    break;
+
+                //    ; $400F MOONDRIVER version number
+                case 0x400f:
+                    //    dw  MOON_VERNUM
+                    break;
+                //	; $4011 MOONDRIVER version string
+                case 0x4011:
+                    //    dw  str_moondrv
+                    break;
+
+                //	; $4013 LoadPCM
+                case 0x4013:
+                    moon_load_pcm();
+                    break;
+            }
+        }
+
+        private void moon_load_pcm()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void moon_proc_tracks()
+        {
+            throw new NotImplementedException();
+        }
+
+        //    org	$4020
+
+        //str_moondrv:
+        private string str_moondrv = "MOONDRIVER "
+        + "VER 160305"
+        + "\0d\0a$";
+
+        //********************************************
+        // work for debug
+#if MOON_HOOT
+        private UInt16 MDB_BASE=0x2F0;
+#else
+        private byte[] MDB_BASE = new byte[0x008];
+#endif
+
+        //********************************************
+        // Initialises all driver things
+        //
         private void moon_init_all()
         {
             work = new Work();
@@ -243,6 +345,10 @@ namespace MDPlayer.Driver.MoonDriver
             moon_seq_init();
         }
 
+        //********************************************
+        // moon_init
+        // initialize MoonSound
+        //
         private void moon_init()
         {
             // CONNECTION SEL
@@ -298,7 +404,7 @@ namespace MDPlayer.Driver.MoonDriver
             }
             work.seq_use_ch += e;
 
-            //seq_init_chan_lp
+            //seq_init_chan_lp:
             do
             {
                 work.ch[ix].cnt = 0;
@@ -345,6 +451,86 @@ namespace MDPlayer.Driver.MoonDriver
             } while (e > 0);
 
         }
+
+
+        //********************************************
+        //seq_all_keyoff
+        //this makes all keys off
+        //
+        private void moon_seq_all_keyoff()
+        {
+
+            moon_seq_all_release_fm();
+
+            ix = 0;// seq_work;
+            work.seq_cur_ch = 0;
+
+            //seq_all_keyoff_lp:
+            do
+            {
+                moon_key_off();
+
+                //de = SEQ_WORKSIZE;
+                ix++;//+= de;
+                work.seq_cur_ch++;
+
+            } while (work.seq_cur_ch < work.seq_use_ch);
+            //seq_all_keyoff_end:
+
+        }
+
+        private void moon_key_off()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //
+        // set RR to all fm channnels.
+        private void moon_seq_all_release_fm()
+        {
+            // D = $80(reg adrs) E = (sl = $00, rr = $0f)
+            d = 0x80;
+            e = 0x0f;
+
+            b = 18;
+
+            hl = 0;// fm_opbtbl;
+
+            // channel loop
+            //moon_set_rr_ch_lp:
+            do
+            {
+                // read opsel tbl
+                a = fm_opbtbl[hl];
+                work.seq_opsel = a;
+                hl++;
+
+                byte c = 4;
+                //moon_set_rr_op_lp:
+                do
+                {
+                    // write fm op
+                    UInt16 de = (UInt16)(d * 0x100 + e);
+                    moon_write_fmop();
+                    d = (byte)(de >> 8);
+                    e = (byte)(de & 0xff);
+
+                    // add opsel
+
+                    a = work.seq_opsel;
+                    a += 3;
+                    work.seq_opsel = a;
+
+                    //
+                    c--;
+                } while (c > 0);
+
+                b--;
+            } while (b>0);
+
+        }
+
 
         //********************************************
         // get_hl_table
@@ -420,6 +606,43 @@ namespace MDPlayer.Driver.MoonDriver
 
         }
 
+
+        //********************************************
+        // moon_write_fmop
+        // Write an OPL3 reg for op
+        // (opsel)
+        // in   : seq_opsel, D = addr, E = data
+        // dest : AF, DE
+        private void moon_write_fmop()
+        {
+
+            a = work.seq_opsel;
+            if (a >= 12)
+            {
+                a -= 12;
+            }
+
+            //skip_sub_a:
+            UInt16 hl2 = 0;//fm_op2reg_tbl; HL = HL + A
+            hl2 += a;
+            //add_hl_fin:
+
+            a = fm_op2reg_tbl[hl2];
+            a += d;
+            d = a;
+
+
+            a = work.seq_opsel;
+            if (a - 12 < 0)
+            {
+                moon_fm1_out((UInt16)(d * 0x100 + e));
+            }
+            else
+            {
+                moon_fm2_out((UInt16)(d * 0x100 + e));
+            }
+            //moon_write_fmop_1:
+        }
 
         private void outport(byte adr,byte data)
         {

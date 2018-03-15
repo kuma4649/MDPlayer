@@ -546,7 +546,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    trkNumber = vgmBuf[ptr++] - 1;
+                    trkNumber = i;ptr++;// vgmBuf[ptr++] - 1;
                     if (trkNumber < 0)
                         trkNumber = i;
                 }
@@ -582,7 +582,7 @@ namespace MDPlayer
 
                 if ((trk[trkNumber].Key & 0x80) == 0x80)
                 {
-                    trk[trkNumber].Key = null;
+                    trk[trkNumber].Key = 0;
                 }
                 else
                 {
@@ -1227,7 +1227,8 @@ namespace MDPlayer
                     //if (trk.NoteGateTime[n] <= trk.NowTick + trk.NowPart.StartTick)
                     if (trk.NoteGateTime[n] <= trk.NowTick)
                     {
-                        int key = (n + ((trk.Key != null) ? (int)trk.Key : 0));
+                        //int key = (n + ((trk.Key != null) ? (int)trk.Key : 0));
+                        int key = n + trk.Key;
                         if (key < 0) key = 0;
                         else if (key > 127) key = 127;
                         if (trk.OutChannel != null)
@@ -1449,7 +1450,8 @@ namespace MDPlayer
         {
             if (eve.Gate == 0) return;
             int okey = eve.MIDIMessage[1];
-            int key = (okey + ((trk.Key != null) ? (int)trk.Key : 0));
+            //int key = (okey + ((trk.Key != null) ? (int)trk.Key : 0));
+            int key = okey + trk.Key;
             if (key < 0) key = 0;
             if (key > 127) key = 127;
 

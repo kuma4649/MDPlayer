@@ -32,7 +32,7 @@ namespace MDPlayer
         private List<MIDIPart> _Part = new List<MIDIPart>();
         private List<MIDIRythm> _Rythm = new List<MIDIRythm>();
         private bool _RythmMode = false;
-        private int? _Key = 0;
+        private int _Key = 0;
         private int _St = 0;
         private int? _StartPartIndex = null;
         private int? _EndPartIndex = null;
@@ -306,7 +306,7 @@ namespace MDPlayer
                 return _RythmMode;
             }
         }
-        public int? Key
+        public int Key
         {
             set
             {
