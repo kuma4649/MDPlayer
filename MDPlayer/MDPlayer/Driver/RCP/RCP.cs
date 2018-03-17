@@ -2439,6 +2439,7 @@ namespace MDPlayer
                 {
                     cCM6Buf = null;
                     sendControlIndex = 0;
+                    oneSyncTime= 60.0 / nowTempo / TimeBase;
                     return;
                 }
             }
@@ -2449,6 +2450,7 @@ namespace MDPlayer
                 {
                     cGSDBuf = null;
                     sendControlIndex = 0;
+                    oneSyncTime = 60.0 / nowTempo / TimeBase;
                     return;
                 }
             }
@@ -2459,6 +2461,7 @@ namespace MDPlayer
                 {
                     cGSD2Buf = null;
                     sendControlIndex = 0;
+                    oneSyncTime = 60.0 / nowTempo / TimeBase;
                     return;
                 }
             }
@@ -2469,6 +2472,7 @@ namespace MDPlayer
                 return;
             }
 
+            oneSyncTime = 60.0 / 29.0 / 192.0;
             CtlSysex csx = trg[sendControlIndex];
             sendControlDelta = csx.delta;
             chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
