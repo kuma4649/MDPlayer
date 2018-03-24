@@ -54,10 +54,16 @@ namespace MDPlayer.Driver.MoonDriver
             try
             {
                 a = 0;
-                change_page3();
-                for (UInt16 i = 0; i < vgmBuf.Length; i++)
+                for (int i = 0; i < vgmBuf.Length;i++)
                 {
-                    WriteMemory((UInt16)(0x8000 + i), vgmBuf[i]);
+                    if (i % 0x4000 == 0)
+                    {
+                        byte af = a;
+                        change_page3();
+                        a = af;
+                        a += 2;
+                    }
+                    WriteMemory((UInt16)(0x8000 + (i % 0x4000)), vgmBuf[i]);
                 }
             }
             catch (Exception ex)
@@ -290,42 +296,42 @@ namespace MDPlayer.Driver.MoonDriver
             //seq_work_end:
             public Ch[] ch;
 
-            public int IDX_DSEL = 0;//equ(seq_ch1_dsel    - seq_work); Device Select
-            public int IDX_OPSEL = 1;//equ(seq_ch1_opsel   - seq_work); Operator Select
-            public int IDX_SYNTH = 2;//equ(seq_ch1_synth   - seq_work); FeedBack,Synth and OpMode
-            public int IDX_EFX1 = 3;//equ(seq_ch1_efx1    - seq_work); Effect flags
-            public int IDX_CNT = 4;//equ(seq_ch1_cnt     - seq_work); Counter
-            public int IDX_LOOP = 5;//equ(seq_ch1_loop    - seq_work); Loop
-            public int IDX_BANK = 6;//equ(seq_ch1_bank    - seq_work); Which bank
-            public int IDX_ADDR = 7;//equ(seq_ch1_addr    - seq_work); Address to data
-            public int IDX_TADR = 9;//equ(seq_ch1_tadr    - seq_work); Address of a Tone Table
-            public int IDX_TONE = 11;//equ(seq_ch1_tone    - seq_work); Tone number in OPL4
-            public int IDX_KEY = 13;//equ(seq_ch1_key     - seq_work); data in Key register
-            public int IDX_DAMP = 14;//equ(seq_ch1_damp    - seq_work); Damp switch
-            public int IDX_LFO = 15;//equ(seq_ch1_lfo     - seq_work); LFO switch
-            public int IDX_LFO_VIB = 16;//equ(seq_ch1_lfo_vib - seq_work); LFO and VIB
-            public int IDX_AR_D1R = 17;//equ(seq_ch1_ar_d1r  - seq_work); AR and D1R
-            public int IDX_DL_D2R = 18;//equ(seq_ch1_dl_d2r  - seq_work); DL and D2R
-            public int IDX_RC_RR = 19;//equ(seq_ch1_rc_rr   - seq_work); RC and RR
-            public int IDX_AM = 20;//equ(seq_ch1_am      - seq_work); AM
-            public int IDX_NOTE = 21;//equ(seq_ch1_note    - seq_work); Note data
-            public int IDX_PITCH = 22;//equ(seq_ch1_pitch   - seq_work); Pitch data
-            public int IDX_P_OFS = 24;//equ(seq_ch1_p_ofs   - seq_work); Offset for pitch
-            public int IDX_OCT = 26;//equ(seq_ch1_oct     - seq_work); Octave in OPL4
-            public int IDX_FNUM = 27;//equ(seq_ch1_fnum    - seq_work); F-number in OPL4
-            public int IDX_REVERB = 29;//equ(seq_ch1_reverb  - seq_work); Pseudo reverb
-            public int IDX_VOL = 30;//equ(seq_ch1_vol     - seq_work); Volume in OPL4
-            public int IDX_PAN = 31;//equ(seq_ch1_pan     - seq_work); Pan in OPL4
-            public int IDX_DETUNE = 32;//equ(seq_ch1_detune  - seq_work); Detune
-            public int IDX_VENV = 33;//equ(seq_ch1_venv    - seq_work); Volume envelope in data
-            public int IDX_NENV = 34;//equ(seq_ch1_nenv    - seq_work); Vote envelope  in data
-            public int IDX_PENV = 35;//equ(seq_ch1_penv    - seq_work); Pitch envelope in data
-            public int IDX_NENV_ADR = 36;//equ(seq_ch1_nenv_adr - seq_work)
-            public int IDX_PENV_ADR = 38;//equ(seq_ch1_penv_adr - seq_work)
-            public int IDX_VENV_ADR = 40;//equ(seq_ch1_venv_adr - seq_work)
+            //public int IDX_DSEL = 0;//equ(seq_ch1_dsel    - seq_work); Device Select
+            //public int IDX_OPSEL = 1;//equ(seq_ch1_opsel   - seq_work); Operator Select
+            //public int IDX_SYNTH = 2;//equ(seq_ch1_synth   - seq_work); FeedBack,Synth and OpMode
+            //public int IDX_EFX1 = 3;//equ(seq_ch1_efx1    - seq_work); Effect flags
+            //public int IDX_CNT = 4;//equ(seq_ch1_cnt     - seq_work); Counter
+            //public int IDX_LOOP = 5;//equ(seq_ch1_loop    - seq_work); Loop
+            //public int IDX_BANK = 6;//equ(seq_ch1_bank    - seq_work); Which bank
+            //public int IDX_ADDR = 7;//equ(seq_ch1_addr    - seq_work); Address to data
+            //public int IDX_TADR = 9;//equ(seq_ch1_tadr    - seq_work); Address of a Tone Table
+            //public int IDX_TONE = 11;//equ(seq_ch1_tone    - seq_work); Tone number in OPL4
+            //public int IDX_KEY = 13;//equ(seq_ch1_key     - seq_work); data in Key register
+            //public int IDX_DAMP = 14;//equ(seq_ch1_damp    - seq_work); Damp switch
+            //public int IDX_LFO = 15;//equ(seq_ch1_lfo     - seq_work); LFO switch
+            //public int IDX_LFO_VIB = 16;//equ(seq_ch1_lfo_vib - seq_work); LFO and VIB
+            //public int IDX_AR_D1R = 17;//equ(seq_ch1_ar_d1r  - seq_work); AR and D1R
+            //public int IDX_DL_D2R = 18;//equ(seq_ch1_dl_d2r  - seq_work); DL and D2R
+            //public int IDX_RC_RR = 19;//equ(seq_ch1_rc_rr   - seq_work); RC and RR
+            //public int IDX_AM = 20;//equ(seq_ch1_am      - seq_work); AM
+            //public int IDX_NOTE = 21;//equ(seq_ch1_note    - seq_work); Note data
+            //public int IDX_PITCH = 22;//equ(seq_ch1_pitch   - seq_work); Pitch data
+            //public int IDX_P_OFS = 24;//equ(seq_ch1_p_ofs   - seq_work); Offset for pitch
+            //public int IDX_OCT = 26;//equ(seq_ch1_oct     - seq_work); Octave in OPL4
+            //public int IDX_FNUM = 27;//equ(seq_ch1_fnum    - seq_work); F-number in OPL4
+            //public int IDX_REVERB = 29;//equ(seq_ch1_reverb  - seq_work); Pseudo reverb
+            //public int IDX_VOL = 30;//equ(seq_ch1_vol     - seq_work); Volume in OPL4
+            //public int IDX_PAN = 31;//equ(seq_ch1_pan     - seq_work); Pan in OPL4
+            //public int IDX_DETUNE = 32;//equ(seq_ch1_detune  - seq_work); Detune
+            //public int IDX_VENV = 33;//equ(seq_ch1_venv    - seq_work); Volume envelope in data
+            //public int IDX_NENV = 34;//equ(seq_ch1_nenv    - seq_work); Vote envelope  in data
+            //public int IDX_PENV = 35;//equ(seq_ch1_penv    - seq_work); Pitch envelope in data
+            //public int IDX_NENV_ADR = 36;//equ(seq_ch1_nenv_adr - seq_work)
+            //public int IDX_PENV_ADR = 38;//equ(seq_ch1_penv_adr - seq_work)
+            //public int IDX_VENV_ADR = 40;//equ(seq_ch1_venv_adr - seq_work)
 
-            public int IDX_VOLOP = 29;//equ(seq_ch1_reverb  - seq_work); Volume Operator in connect
-            public int IDX_OLDAT1 = 17;//equ(seq_ch1_ar_d1r  - seq_work); Volume Data for 1stOP
+            //public int IDX_VOLOP = 29;//equ(seq_ch1_reverb  - seq_work); Volume Operator in connect
+            //public int IDX_OLDAT1 = 17;//equ(seq_ch1_ar_d1r  - seq_work); Volume Data for 1stOP
 
             //;
             //; Note : IDX_SYNTH OxxFFFSS
@@ -2440,10 +2446,11 @@ namespace MDPlayer.Driver.MoonDriver
             d = 0x00;
             e = a;
 
-            a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
-            a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
-            a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
-            a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
+            //a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
+            //a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
+            //a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
+            //a = (byte)((a >> 1) + ((a & 1) != 0 ? 0x80 : 0));
+            a >>= 4;
             a &= 0xf;
             d = a;
             if (a != 0)
@@ -2480,7 +2487,7 @@ namespace MDPlayer.Driver.MoonDriver
             do
             {
                 int ac = a + 0xfa;
-                a = (byte)(ac & 0xff);
+                a = (byte)(ac);
                 if (ac < 0x100) return;
                 byte l = (byte)(hl & 0xff);
                 l++;
@@ -2505,8 +2512,8 @@ namespace MDPlayer.Driver.MoonDriver
             do
             {
                 hlc = hl + ((d << 8) + e);
-                hl = (UInt16)(hlc & 0xffff);
-            } while (hlc >= 0x10000);
+                hl = (UInt16)(hlc);
+            } while (hlc > 0xffff);
 
             d = 0x06;
             e = 0;
@@ -2753,14 +2760,14 @@ namespace MDPlayer.Driver.MoonDriver
             work.ch[ix].tone = a;
             hl++;
             a = ReadMemory(hl);
-            work.ch[ix].tone += (UInt16)(a * 0x100);
+            work.ch[ix].tone += (UInt16)(a << 8);
             hl++;
 
             a = ReadMemory(hl);
             work.ch[ix].p_ofs = a;
             hl++;
             a = ReadMemory(hl);
-            work.ch[ix].p_ofs += (UInt16)(a * 0x100);
+            work.ch[ix].p_ofs += (UInt16)(a << 8);
             hl++;
 
             a = ReadMemory(hl);
@@ -2816,12 +2823,13 @@ namespace MDPlayer.Driver.MoonDriver
         {
             a += 0xc4;// a -= $3c
             hl &= 0xff00;
+            bool cry = (a & 1) != 0;
             a >>= 1;
             hl = (UInt16)((hl & 0xff) + (a << 8));
             byte l = (byte)(hl & 0xff);
-            bool cry = (l & 0x1) != 0;
-            l >>= 1;
-            if (cry) l |= 0x80;
+            bool cry2 = (l & 0x1) != 0;
+            l =(byte)((l >> 1) + (cry ? 0x80 : 0));
+            if (cry2) l |= 0x80;
             hl = (UInt16)((hl & 0xff00) + l);
 
             a &= 0x40;
