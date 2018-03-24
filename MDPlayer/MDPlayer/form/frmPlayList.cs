@@ -661,11 +661,12 @@ namespace MDPlayer.form
                 + "NSFファイル(*.nsf)|*.nsf|"
                 + "HESファイル(*.hes)|*.hes|"
                 + "SIDファイル(*.sid)|*.sid|"
+                + "MDRファイル(*.mdr)|*.mdr|"
                 + "StandardMIDIファイル(*.mid)|*.mid|"
                 + "RCPファイル(*.rcp)|*.rcp|"
                 + "M3Uファイル(*.m3u)|*.m3u|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mid;*.rcp;*.m3u|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u|"
                 + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;
@@ -733,6 +734,7 @@ namespace MDPlayer.form
                            ext == ".VGM" || ext == ".VGZ" || ext == ".ZIP" || ext == ".NRD" 
                         || ext == ".XGM" || ext == ".S98" || ext == ".NSF" || ext == ".HES"
                         || ext == ".SID" || ext == ".MID" || ext == ".RCP" || ext == ".M3U"
+                        || ext == ".MDR"
                         )
                     {
                         playList.AddFile(fn);

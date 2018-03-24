@@ -3018,6 +3018,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".mdr") != -1)
+            {
+                format = enmFileFormat.MDR;
+                return buf;
+            }
+
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
                 format = enmFileFormat.XGM;

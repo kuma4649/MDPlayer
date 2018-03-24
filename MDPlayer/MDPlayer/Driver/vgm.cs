@@ -729,6 +729,10 @@ namespace MDPlayer
                 , vgmBuf[vgmAdr + 2]
                 , vgmBuf[vgmAdr + 3]
                 , model);
+            Console.WriteLine("fm:{0:x02}:{1:x02}:{2:x02}:", vgmBuf[vgmAdr + 1] & 0x7f
+                , vgmBuf[vgmAdr + 2]
+                , vgmBuf[vgmAdr + 3]
+);
             vgmAdr += 4;
         }
 

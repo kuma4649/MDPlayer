@@ -164,12 +164,12 @@ namespace MDPlayer
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             GD3 gd3 = new GD3();
-            gd3.TrackName = getNRDString(buf, ref vgmGd3);
-            gd3.TrackNameJ = getNRDString(buf, ref vgmGd3);
-            gd3.Composer = getNRDString(buf, ref vgmGd3);
+            gd3.TrackName = common.getNRDString(buf, ref vgmGd3);
+            gd3.TrackNameJ = common.getNRDString(buf, ref vgmGd3);
+            gd3.Composer = common.getNRDString(buf, ref vgmGd3);
             gd3.ComposerJ = gd3.Composer;
-            gd3.VGMBy = getNRDString(buf, ref vgmGd3);
-            gd3.Notes = getNRDString(buf, ref vgmGd3);
+            gd3.VGMBy = common.getNRDString(buf, ref vgmGd3);
+            gd3.Notes = common.getNRDString(buf, ref vgmGd3);
 
             if ((buf[2] & 0x08) != 0)
             {
@@ -179,7 +179,7 @@ namespace MDPlayer
                 {
                     int cnt = buf[adr] + buf[adr + 1] * 0x100;
                     uint sAdr = (uint)(buf[adr + 2] + buf[adr + 3] * 0x100);
-                    string msg = getNRDString(buf, ref sAdr);
+                    string msg = common.getNRDString(buf, ref sAdr);
                     gd3.Lyrics.Add(new Tuple<int, int, string>(cnt, (int)sAdr, msg));
                     adr += 4;
                 }
@@ -590,30 +590,6 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
 
             }
-        }
-
-        private static string getNRDString(byte[] buf, ref uint index)
-        {
-            if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
-
-            try
-            {
-                List<byte> lst = new List<byte>();
-                for (; buf[index] != 0; index++)
-                {
-                    lst.Add(buf[index]);
-                }
-
-                string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
-                index++;
-
-                return n;
-            }
-            catch (Exception e)
-            {
-                log.ForcedWrite(e);
-            }
-            return "";
         }
 
         private void drvini()

@@ -250,6 +250,9 @@ namespace MDPlayer
                 case enmFileFormat.SID:
                     AddFileSID(mc, entry);
                     break;
+                case enmFileFormat.MDR:
+                    AddFileMDR(mc, entry);
+                    break;
                 case enmFileFormat.RCP:
                     AddFileRCP(mc, entry);
                     break;
@@ -527,6 +530,11 @@ namespace MDPlayer
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        private void AddFileMDR(music mc, ZipArchiveEntry entry = null)
+        {
+            AddFilexxx(mc, entry);
         }
 
         private void AddFileZIP(music mc, ZipArchiveEntry entry = null)

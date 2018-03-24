@@ -130,6 +130,30 @@ namespace MDPlayer
             return GD3;
         }
 
+        public static string getNRDString(byte[] buf, ref uint index)
+        {
+            if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
+
+            try
+            {
+                List<byte> lst = new List<byte>();
+                for (; buf[index] != 0; index++)
+                {
+                    lst.Add(buf[index]);
+                }
+
+                string n = System.Text.Encoding.GetEncoding(932).GetString(lst.ToArray());
+                index++;
+
+                return n;
+            }
+            catch (Exception e)
+            {
+                log.ForcedWrite(e);
+            }
+            return "";
+        }
+
         public static string AssemblyTitle
         {
             get
@@ -205,6 +229,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
             if (filename.ToLower().LastIndexOf(".hes") != -1) return enmFileFormat.HES;
             if (filename.ToLower().LastIndexOf(".sid") != -1) return enmFileFormat.SID;
+            if (filename.ToLower().LastIndexOf(".mdr") != -1) return enmFileFormat.MDR;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
@@ -356,7 +381,8 @@ namespace MDPlayer
         HES = 8,
         ZIP = 9,
         M3U = 10,
-        SID = 11
+        SID = 11,
+        MDR = 12
     }
 
 
