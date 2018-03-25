@@ -3154,8 +3154,11 @@ namespace MDPlayer.Driver.MoonDriver
             //out	(MOON_WDAT),a
             //ret
             chipRegister.setYMF278BRegister(0, 2, d, e, model);
+            backDat = e;
             //Console.WriteLine("wave out:{0:x02}:{1:x02}:", d, e);
         }
+
+        private byte backDat=0;
 
         private byte moon_wave_in()
         {
@@ -3165,6 +3168,7 @@ namespace MDPlayer.Driver.MoonDriver
             //call    moon_wait
             //in	a, (MOON_WDAT)
             //ret
+            a = backDat;
             return a;
         }
 
@@ -3746,26 +3750,30 @@ namespace MDPlayer.Driver.MoonDriver
 
             // check loop
             //moon_check_rom_lp:
-            do
-            {
-                a = (byte)str_romchk[hl];
-                e = a;
 
-                // A<- (SRAM)
-                d = 0x06;
-                moon_wave_in();
+            //スキップ
+            //do
+            //{
+            //    a = (byte)str_romchk[hl];
+            //    e = a;
 
-                MDB_BASE[MDB_ROM] = a;
-                if (a - e != 0) return;
-                hl++;
-                b--;
-            } while (b > 0);// djnz moon_check_rom_lp
+            //    // A<- (SRAM)
+            //    d = 0x06;
+            //    moon_wave_in();
 
+            //    MDB_BASE[MDB_ROM] = a;
+            //    if (a - e != 0) return;
+            //    hl++;
+            //    b--;
+            //} while (b > 0);// djnz moon_check_rom_lp
+            a = 0;
         }
 
         // check SRAM
         private bool moon_check_sram()
         {
+            //スキップ
+            return false;
             // $77-> ($200000)
             moon_reset_sram_adrs();
 
@@ -3980,8 +3988,8 @@ namespace MDPlayer.Driver.MoonDriver
 
                     // loop if BC > 0
                     a = b;
-
-                } while (c != 0);
+                    a |= c;
+                } while (a != 0);
 
                 // end if count is 0
                 a = moon_pcm_bank_count;

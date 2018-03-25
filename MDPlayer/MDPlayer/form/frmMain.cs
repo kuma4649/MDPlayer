@@ -3980,14 +3980,14 @@ namespace MDPlayer.form
             {
                 if (archive == null)
                 {
-                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
+                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn).Trim();
                     if (!System.IO.File.Exists(trgFn)) return null;
                     return System.IO.File.ReadAllBytes(trgFn);
                 }
                 else
                 {
                     string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
-                    trgFn = trgFn.Replace("\\", "/");
+                    trgFn = trgFn.Replace("\\", "/").Trim();
                     ZipArchiveEntry entry = archive.GetEntry(trgFn);
                     if (entry == null) return null;
                     string arcFn = "";
