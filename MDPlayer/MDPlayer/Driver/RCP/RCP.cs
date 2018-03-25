@@ -104,24 +104,50 @@ namespace MDPlayer
         };
         private Tick tick = new RCP.Tick();
 
-        public string filePath = "";
-
+        public List<Tuple<string, byte[]>> ExtendFile = null;
+        
+        public static void getControlFileName(byte[] buf,out string CM6,out string GSD,out string GSD2)
+        {
+            CM6 = null;
+            GSD = null;
+            GSD2 = null;
+            bool? ret = CheckHeadString(buf);
+            if (ret == null) return;
+            bool IsG36 = (bool)ret;
+            int ptr = 96;
+            if (IsG36)
+            {
+                ptr += 568;
+                //.GSD
+                GSD = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 12)).Replace("\0", "");
+                ptr += 16;
+                //.GSD
+                GSD2 = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 12)).Replace("\0", "");
+                ptr += 16;
+                //.CM6
+                CM6 = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 12)).Replace("\0", "");
+            }
+            else
+            {
+                ptr += 358;
+                //.CM6
+                CM6 = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 12)).Replace("\0", "");
+                ptr += 16;
+                //.GSD
+                GSD = (Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 12)).Replace("\0", "");
+            }
+        }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             if (buf == null) return null;
+            bool? ret = CheckHeadString(buf);
+            if (ret == null) return null;
+            bool IsG36 = (bool)ret;
 
             GD3 gd3 = new GD3();
-            int ptr = 0;
-            bool IsG36 = false;
-
-            string str = Encoding.GetEncoding("Shift_JIS").GetString(buf, ptr, 32);
-            if (str != "RCM-PC98V2.0(C)COME ON MUSIC\r\n\0\0")
-            {
-                if (str != "COME ON MUSIC RECOMPOSER RCP3.0\0") return null;
-                else IsG36 = true;
-            }
-            ptr += 32;
+            int ptr = 32;
+            string str;
 
             List<byte> title = new List<byte>();
             for (int i = 0; i < 64; i++)
@@ -176,9 +202,9 @@ namespace MDPlayer
             if (!getInformationHeader()) return false;
 
             //ファイルパスが設定されている場合はコントロールファイルを読み込む処理を実施
-            if (filePath != "")
+            if (ExtendFile != null)
             {
-                GetControlFile(filePath);
+                GetControlFile();
             }
 
             if (model == enmModel.RealModel)
@@ -257,20 +283,27 @@ namespace MDPlayer
         private double RelativeTempoChangeTickSlice;
         private bool RelativeTempoChangeSW = false;
 
+        private static bool? CheckHeadString(byte[] buf)
+        {
+            if (buf == null || buf.Length < 32) return null;
+
+            string str = Encoding.GetEncoding("Shift_JIS").GetString(buf, 0, 32);
+            if (str != "RCM-PC98V2.0(C)COME ON MUSIC\r\n\0\0")
+            {
+                if (str != "COME ON MUSIC RECOMPOSER RCP3.0\0") return null;
+                else return true;
+            }
+
+            return false;
+        }
 
         private bool getInformationHeader()
         {
-            ptr = 0;
-            IsG36 = false;
+            bool? ret = CheckHeadString(vgmBuf);
+            if (ret == null) return false;
+            IsG36 = (bool)ret;
 
-            string str = Encoding.GetEncoding("Shift_JIS").GetString(vgmBuf, ptr, 32);
-            if (str != "RCM-PC98V2.0(C)COME ON MUSIC\r\n\0\0")
-            {
-                if (str != "COME ON MUSIC RECOMPOSER RCP3.0\0") return false;
-                else IsG36 = true;
-            }
-            ptr += 32;
-
+            ptr = 32;
             ptr += 64;
 
             if (IsG36)
@@ -281,6 +314,7 @@ namespace MDPlayer
             {
                 Header_RCP();
             }
+
             nowTempo = nowTempo == 0 ? 1 : nowTempo;
             TimeBase = TimeBase == 0 ? 1 : TimeBase;
             oneSyncTime = 60.0 / nowTempo / TimeBase;
@@ -1984,7 +2018,7 @@ namespace MDPlayer
         private int sendControlIndex = 0;
         private int sendControlDelta = 0;
 
-        private void GetControlFile(string filePath)
+        private void GetControlFile()
         {
             cCM6Buf = null;
             cGSDBuf = null;
@@ -1992,12 +2026,10 @@ namespace MDPlayer
             sendControlIndex = 0;
             sendControlDelta = 0;
 
-            string path = System.IO.Path.GetDirectoryName(filePath);
-
-            if (ControlFileCM6 != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileCM6)))
+            if (ControlFileCM6 != "")
             {
                 cCM6Buf = new List<CtlSysex>();
-                GetCM6Buf(ref cCM6Buf, System.IO.Path.Combine(path,ControlFileCM6));
+                GetCM6Buf(ref cCM6Buf);
 
 #if DEBUG
                 foreach (CtlSysex ex in cCM6Buf)
@@ -2012,10 +2044,10 @@ namespace MDPlayer
 #endif
             }
 
-            if (ControlFileGSD != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileGSD)))
+            if (ControlFileGSD != "" )
             {
                 cGSDBuf = new List<CtlSysex>();
-                GetGSDBuf(ref cGSDBuf,System.IO.Path.Combine(path, ControlFileGSD));
+                GetGSDBuf(ref cGSDBuf);
 
 #if DEBUG
                 foreach(CtlSysex ex in cGSDBuf)
@@ -2030,7 +2062,7 @@ namespace MDPlayer
 #endif
             }
 
-            if (ControlFileGSD2 != "" && System.IO.File.Exists(System.IO.Path.Combine(path, ControlFileGSD2)))
+            if (ControlFileGSD2 != "" )
             {
                 //cGSD2Buf = new List<CtlSysex>();
                 //GetGSDBuf(ref cGSD2Buf);
@@ -2039,10 +2071,16 @@ namespace MDPlayer
         }
 
 
-        private void GetGSDBuf(ref List<CtlSysex> DBuf, string fn)
+        private void GetGSDBuf(ref List<CtlSysex> DBuf)
         {
-
-            byte[] buf = System.IO.File.ReadAllBytes(fn);
+            byte[] buf = null;
+            foreach (Tuple<string, byte[]> trg in ExtendFile)
+            {
+                if (System.IO.Path.GetExtension(trg.Item1).ToUpper() == ".GSD")
+                {
+                    buf = trg.Item2;
+                }
+            }
 
             if (buf == null || buf.Length < 1 || buf.Length != 0xa71) return;
 
@@ -2367,10 +2405,17 @@ namespace MDPlayer
         }
 
 
-        private void GetCM6Buf(ref List<CtlSysex> DBuf, string fn)
+        private void GetCM6Buf(ref List<CtlSysex> DBuf)
         {
 
-            byte[] buf = System.IO.File.ReadAllBytes(fn);
+            byte[] buf=null;
+            foreach(Tuple<string,byte[]> trg in ExtendFile)
+            {
+                if (System.IO.Path.GetExtension(trg.Item1).ToUpper() == ".CM6")
+                {
+                    buf = trg.Item2;
+                }
+            }
 
             if (buf == null || buf.Length < 1 || buf.Length != 0x5849) return;
 

@@ -130,6 +130,7 @@ namespace MDPlayer
         private static string PlayingFileName;
         private static int MidiMode = 0;
         private static int SongNo = 0;
+        private static List<Tuple<string, byte[]>> ExtendFile = null;
         private static enmFileFormat PlayingFileFormat;
         public static cNscci cnscci;
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
@@ -1426,17 +1427,17 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode,int songNo)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode,int songNo,List<Tuple<string,byte[]>> extFile)
         {
             Stop();
             PlayingFileFormat = format;
             vgmBuf = srcBuf;
-            PlayingFileName = playingFileName;
+            PlayingFileName = playingFileName;//WaveWriter向け
             MidiMode = midiMode;
             SongNo = songNo;
-            chipRegister.SetFileName(playingFileName);
+            chipRegister.SetFileName(playingFileName);//ExportMIDI向け
+            ExtendFile = extFile;//追加ファイル
         }
-
 
         public static bool Play(Setting setting)
         {
@@ -1457,6 +1458,8 @@ namespace MDPlayer
                 driverReal = new Driver.MoonDriver.MoonDriver();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
+                ((Driver.MoonDriver.MoonDriver)driverVirtual).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
+                ((Driver.MoonDriver.MoonDriver)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
                 return mdrPlay(setting);
             }
 
@@ -1494,8 +1497,8 @@ namespace MDPlayer
                 driverReal = new RCP();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
-                ((RCP)driverVirtual).filePath = PlayingFileName;
-                ((RCP)driverReal).filePath = PlayingFileName;
+                ((RCP)driverVirtual).ExtendFile=ExtendFile;
+                ((RCP)driverReal).ExtendFile = ExtendFile;
                 return rcpPlay(setting);
             }
 

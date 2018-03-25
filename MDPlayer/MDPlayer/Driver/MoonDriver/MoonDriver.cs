@@ -71,6 +71,50 @@ namespace MDPlayer.Driver.MoonDriver
                 throw new Exception("Driverの初期化に失敗しました。", ex);
             }
 
+            a = 0;
+            change_page3();
+            a = ReadMemory(MDR_PACKED);
+            if (a == 0)
+            {
+                if (ExtendFile != null)
+                {
+                    d = 0x05;
+                    e = 0x03;
+                    moon_fm2_out();
+                    //memory write mode
+                    d = 0x02;
+                    e = 0x11;
+                    moon_wave_out();
+                    d = 0x03;
+                    e = 0x20;
+                    moon_wave_out();
+                    d = 0x04;
+                    e = 0x00;
+                    moon_wave_out();
+                    d = 0x05;
+                    e = 0x00;
+                    moon_wave_out();
+
+                    foreach(byte dat in ExtendFile.Item2)
+                    {
+                        d = 0x06;
+                        e = dat;
+                        moon_wave_out();
+                    }
+
+                    //normal mode
+                    d = 0x02;
+                    e = 0x10;
+                    moon_wave_out();
+
+                }
+            }
+            else
+            {
+                //LoadPackedPCM
+                EntryPoints(0x4013);
+            }
+
             //Driverの初期化
             EntryPoints(0x4000);
 
@@ -161,8 +205,8 @@ namespace MDPlayer.Driver.MoonDriver
 
         private double ntscStep = 0.0;
         private double ntscCounter = 0.0;
-
         private bool nextFlg = false;
+        public Tuple<string, byte[]> ExtendFile = null;
 
         private void oneFrameMain()
         {

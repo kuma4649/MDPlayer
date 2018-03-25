@@ -3891,12 +3891,14 @@ namespace MDPlayer.form
                     Audio.Pause();
                 }
 
-                string outMIDIFn = fn;
+                string playingFileName = fn;
                 enmFileFormat format = enmFileFormat.unknown;
+                List<Tuple<string, byte[]>> extFile = null;
 
                 if (zfn == null || zfn == "")
                 {
                     srcBuf = getAllBytes(fn, out format);
+                    extFile = getExtendFile(fn, srcBuf, format);
                 }
                 else
                 {
@@ -3909,12 +3911,13 @@ namespace MDPlayer.form
                         if (format != enmFileFormat.unknown)
                         {
                             srcBuf = getBytesFromZipFile(entry, out arcFn);
-                            if (arcFn != "") outMIDIFn = arcFn;
+                            if (arcFn != "") playingFileName = arcFn;
+                            extFile = getExtendFile(fn, srcBuf, format, archive);
                         }
                     }
                 }
 
-                Audio.SetVGMBuffer(format, srcBuf, outMIDIFn, m, songNo);
+                Audio.SetVGMBuffer(format, srcBuf, playingFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
                 newParam.ym2612[1].fileFormat = format;
 
@@ -3933,6 +3936,68 @@ namespace MDPlayer.form
             }
 
             return true;
+        }
+
+        private List<Tuple<string, byte[]>> getExtendFile(string fn,byte[] srcBuf,enmFileFormat format,ZipArchive archive= null)
+        {
+            List<Tuple<string, byte[]>> ret = new List<Tuple<string, byte[]>>();
+            byte[] buf;
+            switch (format)
+            {
+                case enmFileFormat.RCP:
+                    string CM6, GSD, GSD2;
+                    RCP.getControlFileName(srcBuf, out CM6, out GSD, out GSD2);
+                    if (!string.IsNullOrEmpty(CM6))
+                    {
+                        buf = getExtendFileAllBytes(fn, CM6, archive);
+                        if (buf != null) ret.Add(new Tuple<string, byte[]>(".CM6", buf));
+                    }
+                    if (!string.IsNullOrEmpty(GSD))
+                    {
+                        buf = getExtendFileAllBytes(fn, GSD, archive);
+                        if (buf != null) ret.Add(new Tuple<string, byte[]>(".GSD", buf));
+                    }
+                    if (!string.IsNullOrEmpty(GSD2))
+                    {
+                        buf = getExtendFileAllBytes(fn, GSD2, archive);
+                        if (buf != null) ret.Add(new Tuple<string, byte[]>(".GSD", buf));
+                    }
+                    break;
+                case enmFileFormat.MDR:
+                    buf = getExtendFileAllBytes(fn, System.IO.Path.GetFileNameWithoutExtension(fn) + ".PCM", archive);
+                    if (buf != null) ret.Add(new Tuple<string, byte[]>(".PCM", buf));
+                    break;
+                default:
+                    return null;
+            }
+
+            return ret;
+        }
+
+        private byte[] getExtendFileAllBytes(string srcFn,string extFn, ZipArchive archive)
+        {
+            try
+            {
+                if (archive == null)
+                {
+                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
+                    if (!System.IO.File.Exists(trgFn)) return null;
+                    return System.IO.File.ReadAllBytes(trgFn);
+                }
+                else
+                {
+                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
+                    trgFn = trgFn.Replace("\\", "/");
+                    ZipArchiveEntry entry = archive.GetEntry(trgFn);
+                    if (entry == null) return null;
+                    string arcFn = "";
+                    return getBytesFromZipFile(entry, out arcFn);
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public byte[] getBytesFromZipFile(ZipArchiveEntry entry, out string arcFn)
