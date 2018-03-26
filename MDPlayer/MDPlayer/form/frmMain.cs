@@ -3902,17 +3902,31 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    using (ZipArchive archive = ZipFile.OpenRead(zfn))
+                    if (Path.GetExtension(zfn).ToUpper() == ".ZIP")
                     {
-                        ZipArchiveEntry entry = archive.GetEntry(fn);
-                        string arcFn = "";
+                        using (ZipArchive archive = ZipFile.OpenRead(zfn))
+                        {
+                            ZipArchiveEntry entry = archive.GetEntry(fn);
+                            string arcFn = "";
 
+                            format = common.CheckExt(fn);
+                            if (format != enmFileFormat.unknown)
+                            {
+                                srcBuf = getBytesFromZipFile(entry, out arcFn);
+                                if (arcFn != "") playingFileName = arcFn;
+                                extFile = getExtendFile(fn, srcBuf, format, archive);
+                            }
+                        }
+                    }
+                    else
+                    {
                         format = common.CheckExt(fn);
                         if (format != enmFileFormat.unknown)
                         {
-                            srcBuf = getBytesFromZipFile(entry, out arcFn);
-                            if (arcFn != "") playingFileName = arcFn;
-                            extFile = getExtendFile(fn, srcBuf, format, archive);
+                            UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                            srcBuf = cmd.GetFileByte(zfn, fn);
+                            playingFileName = fn;
+                            extFile = getExtendFile(fn, srcBuf, format, new Tuple<string, string>(zfn, fn));
                         }
                     }
                 }
@@ -3938,7 +3952,7 @@ namespace MDPlayer.form
             return true;
         }
 
-        private List<Tuple<string, byte[]>> getExtendFile(string fn,byte[] srcBuf,enmFileFormat format,ZipArchive archive= null)
+        private List<Tuple<string, byte[]>> getExtendFile(string fn,byte[] srcBuf,enmFileFormat format,object archive= null)
         {
             List<Tuple<string, byte[]>> ret = new List<Tuple<string, byte[]>>();
             byte[] buf;
@@ -3974,7 +3988,7 @@ namespace MDPlayer.form
             return ret;
         }
 
-        private byte[] getExtendFileAllBytes(string srcFn,string extFn, ZipArchive archive)
+        private byte[] getExtendFileAllBytes(string srcFn,string extFn, object archive)
         {
             try
             {
@@ -3988,10 +4002,17 @@ namespace MDPlayer.form
                 {
                     string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
                     trgFn = trgFn.Replace("\\", "/").Trim();
-                    ZipArchiveEntry entry = archive.GetEntry(trgFn);
-                    if (entry == null) return null;
-                    string arcFn = "";
-                    return getBytesFromZipFile(entry, out arcFn);
+                    if (archive is ZipArchive) {
+                        ZipArchiveEntry entry = ((ZipArchive)archive).GetEntry(trgFn);
+                        if (entry == null) return null;
+                        string arcFn = "";
+                        return getBytesFromZipFile(entry, out arcFn);
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        return cmd.GetFileByte(((Tuple<string, string>)archive).Item1, trgFn);
+                    }
                 }
             }
             catch

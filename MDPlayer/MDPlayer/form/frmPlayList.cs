@@ -62,7 +62,7 @@ namespace MDPlayer.form
             updatePlayingIndex(n);
 
             string fn = playList.lstMusic[playIndex].fileName;
-            string zfn = playList.lstMusic[playIndex].zipFileName;
+            string zfn = playList.lstMusic[playIndex].arcFileName;
             int m = 0;
             int songNo = playList.lstMusic[playIndex].songNo;
             if (playList.lstMusic[playIndex].type != null && playList.lstMusic[playIndex].type != "-")
@@ -253,7 +253,7 @@ namespace MDPlayer.form
                 row.Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
                 row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
                 row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
-                row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.zipFileName;
+                row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.arcFileName;
                 row.Cells[dgvList.Columns["clmEXT"].Index].Value = Path.GetExtension(music.fileName).ToUpper();
                 row.Cells[dgvList.Columns["clmType"].Index].Value = music.type;
                 row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
@@ -654,7 +654,7 @@ namespace MDPlayer.form
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|"
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|"
                 + "NRDファイル(*.nrd)|*.nrd|"
                 + "XGMファイル(*.xgm)|*.xgm|"
                 + "S98ファイル(*.s98)|*.s98|"
@@ -665,8 +665,9 @@ namespace MDPlayer.form
                 + "StandardMIDIファイル(*.mid)|*.mid|"
                 + "RCPファイル(*.rcp)|*.rcp|"
                 + "M3Uファイル(*.m3u)|*.m3u|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u|"
+                + "アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u|"
                 + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;

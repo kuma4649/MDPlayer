@@ -236,6 +236,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".vgz") != -1) return enmFileFormat.VGM;
             if (filename.ToLower().LastIndexOf(".xgm") != -1) return enmFileFormat.XGM;
             if (filename.ToLower().LastIndexOf(".zip") != -1) return enmFileFormat.ZIP;
+            if (filename.ToLower().LastIndexOf(".lzh") != -1) return enmFileFormat.LZH;
 
             return enmFileFormat.unknown;
         }
@@ -382,7 +383,15 @@ namespace MDPlayer
         ZIP = 9,
         M3U = 10,
         SID = 11,
-        MDR = 12
+        MDR = 12,
+        LZH = 13
+    }
+
+    public enum enmArcType : int
+    {
+        unknown = 0,
+        ZIP = 1,
+        LZH = 2
     }
 
 

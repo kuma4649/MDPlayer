@@ -290,14 +290,14 @@ namespace MDPlayer
             return true;
         }
 
-        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null,ZipArchiveEntry entry=null)
+        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null,object entry=null)
         {
             List<PlayList.music> musics = new List<PlayList.music>();
             PlayList.music music = new PlayList.music();
 
             music.format = enmFileFormat.unknown;
             music.fileName = file;
-            music.zipFileName = zipFile;
+            music.arcFileName = zipFile;
             music.title = "unknown";
             music.game = "unknown";
             music.type = "-";
@@ -393,7 +393,7 @@ namespace MDPlayer
                         music = new PlayList.music();
                         music.format = enmFileFormat.NSF;
                         music.fileName = file;
-                        music.zipFileName = zipFile;
+                        music.arcFileName = zipFile;
                         music.title = string.Format("{0} - Trk {1}", gd3.GameName, s + 1);
                         music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s + 1);
                         music.game = gd3.GameName;
@@ -414,7 +414,7 @@ namespace MDPlayer
                 {
                     music.format = enmFileFormat.NSF;
                     music.fileName = file;
-                    music.zipFileName = zipFile;
+                    music.arcFileName = zipFile;
                     music.game = "unknown";
                     music.type = "-";
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
@@ -431,7 +431,7 @@ namespace MDPlayer
                     music = new PlayList.music();
                     music.format = enmFileFormat.HES;
                     music.fileName = file;
-                    music.zipFileName = zipFile;
+                    music.arcFileName = zipFile;
                     music.title = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
                     music.titleJ = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
                     music.game = "";
@@ -459,7 +459,7 @@ namespace MDPlayer
                     music = new PlayList.music();
                     music.format = enmFileFormat.SID;
                     music.fileName = file;
-                    music.zipFileName = zipFile;
+                    music.arcFileName = zipFile;
                     music.title = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
                     music.titleJ = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
                     music.game = "";
@@ -550,34 +550,42 @@ namespace MDPlayer
                         int num;
                         buf = new byte[1024]; // 1Kbytesずつ処理する
 
-                        Stream inStream; // 入力ストリーム
-                        if (entry == null)
+                        if (entry == null || entry is ZipArchiveEntry)
                         {
-                            inStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                            Stream inStream; // 入力ストリーム
+                            if (entry == null)
+                            {
+                                inStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                            }
+                            else
+                            {
+                                inStream = ((ZipArchiveEntry)entry).Open();
+                            }
+                            GZipStream decompStream // 解凍ストリーム
+                              = new GZipStream(
+                                inStream, // 入力元となるストリームを指定
+                                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                            MemoryStream outStream // 出力ストリーム
+                              = new MemoryStream();
+
+                            using (inStream)
+                            using (outStream)
+                            using (decompStream)
+                            {
+                                while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
+                                {
+                                    outStream.Write(buf, 0, num);
+                                }
+                            }
+
+                            buf = outStream.ToArray();
                         }
                         else
                         {
-                            inStream = entry.Open();
+                            UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                            buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
                         }
-                        GZipStream decompStream // 解凍ストリーム
-                          = new GZipStream(
-                            inStream, // 入力元となるストリームを指定
-                            CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                        MemoryStream outStream // 出力ストリーム
-                          = new MemoryStream();
-
-                        using (inStream)
-                        using (outStream)
-                        using (decompStream)
-                        {
-                            while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                            {
-                                outStream.Write(buf, 0, num);
-                            }
-                        }
-
-                        buf = outStream.ToArray();
                     }
                     catch
                     {
@@ -643,7 +651,7 @@ namespace MDPlayer
 
             music.format = enmFileFormat.unknown;
             music.fileName = ms.fileName;
-            music.zipFileName = zipFile;
+            music.arcFileName = zipFile;
             music.title = "unknown";
             music.game = "unknown";
             music.type = "-";
@@ -723,7 +731,7 @@ namespace MDPlayer
                             music = new PlayList.music();
                             music.format = enmFileFormat.NSF;
                             music.fileName = ms.fileName;
-                            music.zipFileName = zipFile;
+                            music.arcFileName = zipFile;
                             music.title = string.Format("{0} - Trk {1}", gd3.GameName, s);
                             music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s);
                             music.game = gd3.GameName;
@@ -745,7 +753,7 @@ namespace MDPlayer
                     {
                         music.format = enmFileFormat.NSF;
                         music.fileName = ms.fileName;
-                        music.zipFileName = zipFile;
+                        music.arcFileName = zipFile;
                         music.title = ms.title;
                         music.titleJ = ms.titleJ;
                         music.game = gd3.GameName;
@@ -762,7 +770,7 @@ namespace MDPlayer
                 {
                     music.format = enmFileFormat.NSF;
                     music.fileName = ms.fileName;
-                    music.zipFileName = zipFile;
+                    music.arcFileName = zipFile;
                     music.game = "unknown";
                     music.type = "-";
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(ms.fileName));

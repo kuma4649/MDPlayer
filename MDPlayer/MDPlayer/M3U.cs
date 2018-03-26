@@ -44,7 +44,13 @@ namespace MDPlayer
             }
         }
 
-        public static PlayList LoadM3U(ZipArchiveEntry entry,string zipFileName)
+        public static PlayList LoadM3U(object entry, string zipFileName)
+        {
+            if (entry is ZipArchiveEntry) return LoadM3U((ZipArchiveEntry)entry, zipFileName);
+            else return LoadM3U(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2, zipFileName);
+        }
+
+        private static PlayList LoadM3U(ZipArchiveEntry entry, string zipFileName)
         {
             try
             {
@@ -62,10 +68,42 @@ namespace MDPlayer
 
                         PlayList.music ms = analyzeLine(line, "");
                         ms.format = common.CheckExt(ms.fileName);
-                        ms.zipFileName = zipFileName;
+                        ms.arcFileName = zipFileName;
                         if (ms != null) pl.lstMusic.Add(ms);
 
                     }
+                }
+
+                return pl;
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return new PlayList();
+            }
+        }
+
+        private static PlayList LoadM3U(string archiveFile, string fileName, string zipFileName)
+        {
+            try
+            {
+                PlayList pl = new PlayList();
+                UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                byte[] buf = cmd.GetFileByte(archiveFile, fileName);
+                string[] text=Encoding.GetEncoding(932).GetString(buf).Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+                foreach (string txt in text)
+                {
+                    string line = txt.Trim();
+                    if (line == "") continue;
+                    if (line[0] == '#') continue;
+
+                    PlayList.music ms = analyzeLine(line, "");
+                    ms.format = common.CheckExt(ms.fileName);
+                    ms.arcFileName = zipFileName;
+                    if (ms != null) pl.lstMusic.Add(ms);
+
                 }
 
                 return pl;
