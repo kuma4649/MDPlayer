@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SIDファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDRファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -25,6 +25,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .NSF (NES Sound Format)  
   .HES (HESファイル)  
   .SID (コモドール向けファイル)  
+  .MDR (MoonDriver MSX,MoonSoundでOPL4を鳴らすドライバの演奏ファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -38,8 +39,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・現在、以下の鍵盤表示が可能です。  
      
-      AY8910    , YM2612   , SN76489 , RF5C164 , C140        , SEGAPCM  , YM2151   , YM2203  
-      , YM2608  , YM2610/B , HuC6280 , MIDI    , NES_APU&DMC , NES_FDS  , MMC5  
+      AY8910    , YM2612   , SN76489  , RF5C164 , C140 , SEGAPCM     , YM2151  , YM2203  
+      , YM2413  , YM2608   , YM2610/B , HuC6280 , MIDI , NES_APU&DMC , NES_FDS , MMC5  
   
   ・C#で作成されています。  
   
@@ -54,6 +55,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・libsidplayfpのソースを参考、移植しています。  
   
   ・sidplayfpのソースを参考、移植しています。  
+  
+  ・NRTDRVのソースを参考、移植しています。  
+  
+  ・MoonDriverのソースを参考、移植しています。  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -97,6 +102,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・Microsoft Visual C++ 2015 Redistributable(x86) - 14.0.23026をインストールしている必要あり。  
   
+  ・LZHファイルを使用する場合はUNLHA32.DLL(Ver3.0以降)をインストールしている必要あり。  
+  
   ・音声を再生できるオーディオデバイスが必須。  
   そこそこ性能があるものが必要です。UMX250のおまけでついてたUCA222でも十分いけます。私はこれ使ってます。  
   
@@ -138,6 +145,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・Kitao Nakamura さん  
     ・くろま さん  
     ・かきうち さん  
+    ・ぼう☆きち さん  
+    ・dj.tuBIG/MaliceX さん  
      
     ・Visual Studio Community 2015  
     ・MinGW/msys  
@@ -148,6 +157,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・さくらエディター  
     ・VOPMex  
     ・NRTDRV  
+    ・MoonDriver  
     ・hoot  
     ・ASLPLAY  
     ・NAUDIO  
