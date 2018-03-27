@@ -131,7 +131,12 @@ namespace MDPlayer.Driver.MoonDriver
 
         public override void oneFrameProc()
         {
-            if (model == enmModel.RealModel) return;
+            if (model == enmModel.RealModel)
+            {
+                Stopped = true;
+                vgmCurLoop = int.MaxValue;
+                return;
+            }
 
             try
             {
@@ -148,7 +153,6 @@ namespace MDPlayer.Driver.MoonDriver
                         vgmFrameCounter++;
                     }
                 }
-                Stopped = !IsPlaying();
             }
             catch (Exception ex)
             {
@@ -196,11 +200,6 @@ namespace MDPlayer.Driver.MoonDriver
             };
 
 
-        }
-
-        public bool IsPlaying()
-        {
-            return true;
         }
 
         private double ntscStep = 0.0;
@@ -305,6 +304,7 @@ namespace MDPlayer.Driver.MoonDriver
                 public byte efx1 = 0x00;
                 public byte cnt = 0x00;
                 public byte loop = 0x00;
+                public int loopCnt = 0x00;
                 public byte bank = 0x00;
                 public UInt16 addr = 0x0000;
                 public byte stBank = 0x00;
@@ -1120,10 +1120,14 @@ namespace MDPlayer.Driver.MoonDriver
 
                 work.seq_cur_ch = a;
                 //proc_tracks_lp:
+                int endCnt = 0;
+                int loop = int.MaxValue;
+
                 do
                 {
                     if (work.ch[ix].endFlg)
                     {
+                        endCnt++;
                         ix++;
                         work.seq_cur_ch++;
                         a = work.seq_cur_ch;
@@ -1153,7 +1157,20 @@ namespace MDPlayer.Driver.MoonDriver
                         work.seq_cur_ch = a;
                     }
                     //Console.WriteLine("a:{0}", a);
+
+                    if (ix<work.ch.Length && !work.ch[ix].endFlg)
+                    {
+                        loop = Math.Min(work.ch[ix].loopCnt, loop);
+                    }
+
                 } while (CP_CF(e));
+
+                if (endCnt == ix)
+                {
+                    Stopped = true;
+                }
+
+                vgmCurLoop = (uint)loop;
 
                 //proc_tracks_end:
                 a = work.seq_jump_flag;
@@ -1793,6 +1810,17 @@ namespace MDPlayer.Driver.MoonDriver
         {
             moon_key_off();
             read_cmd_length();
+
+            if (work.ch[ix].cnt == 255)
+            {
+                byte vee = ReadMemory(hl);
+                byte v00 = ReadMemory((UInt16)(hl+1));
+                UInt16 adr = (UInt16)(ReadMemory((UInt16)(hl + 2)) + ReadMemory((UInt16)(hl + 3)) * 0x100);
+                if (vee==0xee && v00==0x00 && hl - 2 == adr)
+                {
+                    work.ch[ix].endFlg = true;
+                }
+            }
         }
 
         private void seq_detune()
@@ -2202,15 +2230,20 @@ namespace MDPlayer.Driver.MoonDriver
             hl++;
             hl = (UInt16)(ReadMemory(hl) * 0x100 + a);
 
+            a=0;
+            change_page3();
+            UInt16 ltbl = (UInt16)(ReadMemory(S_LOOP_TABLE) + ReadMemory(S_LOOP_TABLE + 1) * 0x100 + ix * 2);
+            ltbl = (UInt16)(ReadMemory(ltbl) + ReadMemory((UInt16)(ltbl + 1)) * 0x100);
+            if (hl == ltbl)
+            {
+                work.ch[ix].loopCnt += (work.ch[ix].loopCnt == int.MaxValue) ? 0 : 1;
+            }
+
             a = af;
 
             work.ch[ix].bank = a;
             change_page3();
 
-            if (work.ch[ix].stBank == work.ch[ix].bank && work.ch[ix].stAddr == hl)
-            {
-                work.ch[ix].endFlg = true;
-            }
         }
 
         private void seq_damp()
