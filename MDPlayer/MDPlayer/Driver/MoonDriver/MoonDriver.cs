@@ -1144,6 +1144,11 @@ namespace MDPlayer.Driver.MoonDriver
 
                     seq_track();
 
+                    if (ix < work.ch.Length && !work.ch[ix].endFlg && work.ch[ix].addr != 0x0)
+                    {
+                        loop = Math.Min(work.ch[ix].loopCnt, loop);
+                    }
+
                     //ld de, SEQ_WORKSIZE
                     ix++;//add ix, de
 
@@ -1157,11 +1162,6 @@ namespace MDPlayer.Driver.MoonDriver
                         work.seq_cur_ch = a;
                     }
                     //Console.WriteLine("a:{0}", a);
-
-                    if (ix<work.ch.Length && !work.ch[ix].endFlg)
-                    {
-                        loop = Math.Min(work.ch[ix].loopCnt, loop);
-                    }
 
                 } while (CP_CF(e));
 

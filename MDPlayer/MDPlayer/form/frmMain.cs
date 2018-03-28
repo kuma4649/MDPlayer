@@ -2940,9 +2940,24 @@ namespace MDPlayer.form
         private string[] fileOpen(bool flg)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz;*.zip)|*.vgm;*.vgz;*.zip|NRDファイル(*.nrd)|*.nrd|XGMファイル(*.xgm)|*.xgm|すべてのファイル(*.*)|*.*";
+            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|"
+                + "NRDファイル(*.nrd)|*.nrd|"
+                + "XGMファイル(*.xgm)|*.xgm|"
+                + "S98ファイル(*.s98)|*.s98|"
+                + "NSFファイル(*.nsf)|*.nsf|"
+                + "HESファイル(*.hes)|*.hes|"
+                + "SIDファイル(*.sid)|*.sid|"
+                + "MDRファイル(*.mdr)|*.mdr|"
+                + "StandardMIDIファイル(*.mid)|*.mid|"
+                + "RCPファイル(*.rcp)|*.rcp|"
+                + "M3Uファイル(*.m3u)|*.m3u|"
+                + "アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mdr;*.mid;*.rcp;*.m3u|"
+                + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;
+
             if (setting.other.DefaultDataPath != "" && Directory.Exists(setting.other.DefaultDataPath) && IsInitialOpenFolder)
             {
                 ofd.InitialDirectory = setting.other.DefaultDataPath;

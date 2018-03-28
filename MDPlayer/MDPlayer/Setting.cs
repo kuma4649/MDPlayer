@@ -3519,6 +3519,7 @@ namespace MDPlayer
                 if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
                 fullPath = System.IO.Path.Combine(fullPath, "Setting.xml");
 
+                if (!System.IO.File.Exists(fullPath)) { return new Setting(); }
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Setting));
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(fullPath, new UTF8Encoding(false)))
                 {

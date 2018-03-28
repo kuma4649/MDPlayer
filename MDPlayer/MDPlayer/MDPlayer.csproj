@@ -127,6 +127,8 @@
     <Compile Include="Driver\HES\kmevent.cs" />
     <Compile Include="Driver\HES\m_hes.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
+    <Compile Include="Driver\MXDRV\MXDRV.cs" />
+    <Compile Include="Driver\MXDRV\MXDRVh.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\MID.cs" />
     <Compile Include="Driver\RCP\MIDIEvent.cs" />
@@ -656,7 +658,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Driver\MNDRV\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"
