@@ -32,6 +32,7 @@ namespace MDPlayer
         private static byte[][] rMIDILCD_Font;
         public static byte[][] rPlane_MIDI;
         private static byte[] rNESDMC;
+        private static byte[] rKakko;
         private static Bitmap[] bitmapMIDILyric = null;
         private static Graphics[] gMIDILyric = null;
         private static Font[] fntMIDILyric = null;
@@ -95,6 +96,8 @@ namespace MDPlayer
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
             rFader = getByteArray(Properties.Resources.rFader);
             rNESDMC = getByteArray(Properties.Resources.rNESDMC);
+
+            rKakko = getByteArray(Properties.Resources.rKakko_00);
 
             rMIDILCD_Fader = new byte[3][];
             rMIDILCD_Fader[0] = getByteArray(Properties.Resources.rMIDILCD_Fader_01);
@@ -499,6 +502,48 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitYMF278B(FrameBuffer screen, int tp)
+        {
+            for (int y = 0; y < 18; y++)
+            {
+                //Note
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                Volume(screen, y, 0, ref d, 19, tp);
+            }
+
+            for (int y = 19; y < 19+24; y++)
+            {
+                //Note
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 15*12; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8 , kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                VolumeSt(screen, 512 - 4 * 15, y, 1, ref d, 19);
+                d = 99;
+                VolumeSt(screen, 512 - 4 * 15, y+4, 1, ref d, 19);
+            }
+
+        }
+
         public static void screenInitYM2612MIDI(FrameBuffer screen)
         {
             if (screen == null) return;
@@ -680,6 +725,31 @@ namespace MDPlayer
             for (int i = 0; i <= nv; i++)
             {
                 VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
+            }
+
+            ov = nv;
+
+        }
+
+        public static void VolumeSt(FrameBuffer screen,int x, int y, int c, ref int ov, int nv)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+            y = (y + 1) * 8;
+
+            //x=256
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, (1 + t), 0);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
             }
 
             ov = nv;
@@ -1729,12 +1799,27 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public static void SUSFlag(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        public static void SUSFlag(FrameBuffer screen, int x, int y,int t, ref int oi, int ni)
         {
             if (oi != ni)
             {
-                drawFont4(screen, x * 4, y * 4, 0, ni == 0 ? "-" : "*");
+                drawFont4(screen, x * 4, y * 4, t, ni == 0 ? "-" : "*");
                 oi = ni;
+            }
+        }
+
+        public static void Kakko(FrameBuffer screen,int x,int y,int t,ref int ot,int nt)
+        {
+            if (ot != nt)
+            {
+                screen.drawByteArray(x, y, rKakko, 16, nt * 4, 0, 4, 8);
+                for(int n = 0; n < t; n++)
+                {
+                    screen.drawByteArray(x, y + n * 8 + 8, rKakko, 16, nt * 4, 8, 4, 8);
+                }
+                screen.drawByteArray(x, y + t * 8 + 8, rKakko, 16, nt * 4, 16, 4, 8);
+
+                ot = nt;
             }
         }
 
@@ -2325,7 +2410,7 @@ namespace MDPlayer
                 n = num / 100;
                 num -= n * 100;
                 n = (n > 9) ? 0 : n;
-                screen.drawByteArray(x, y, rFont2[t], 128, 0, 0, 4, 8);
+                screen.drawByteArray(x, y, rFont2[t], 128,(n * 4 + 64), 0, 4, 8);
 
                 n = num / 10;
                 num -= n * 10;

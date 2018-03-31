@@ -25,7 +25,7 @@ namespace MDPlayer.form
         private MDChipParams.YM2413 oldParam = new MDChipParams.YM2413();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2413(frmMain frm, int chipID, int zoom,MDChipParams.YM2413 newParam)
+        public frmYM2413(frmMain frm, int chipID, int zoom, MDChipParams.YM2413 newParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -223,7 +223,7 @@ namespace MDPlayer.form
         }
 
 
-    public void screenDrawParams()
+        public void screenDrawParams()
         {
             int tp = parent.setting.YM2413Type.UseScci ? 1 : 0;
 
@@ -240,8 +240,8 @@ namespace MDPlayer.form
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
 
                 DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 37, (c / 3) * 2 + 24, ref oyc.inst[0], nyc.inst[0]);
-                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 41, (c / 3) * 2 + 24, ref oyc.inst[1], nyc.inst[1]);
-                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 44, (c / 3) * 2 + 24, ref oyc.inst[2], nyc.inst[2]);
+                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 41, (c / 3) * 2 + 24,0, ref oyc.inst[1], nyc.inst[1]);
+                DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 44, (c / 3) * 2 + 24,0, ref oyc.inst[2], nyc.inst[2]);
                 DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 46, (c / 3) * 2 + 24, ref oyc.inst[3], nyc.inst[3]);
 
                 DrawBuff.ChYM2413(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
@@ -271,7 +271,7 @@ namespace MDPlayer.form
             }
         }
 
-    private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;
             int px = e.Location.X / zoom;

@@ -4738,6 +4738,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2610[chipID];
         }
 
+        public static int[][] GetYMF278BRegister(int chipID)
+        {
+            return chipRegister.fmRegisterYMF278B[chipID];
+        }
+
         public static int[] GetPSGRegister(int chipID)
         {
             return chipRegister.sn76489Register[chipID];
@@ -4911,6 +4916,16 @@ namespace MDPlayer
         public static void resetYM2413RyhthmKeyON(int chipID)
         {
             chipRegister.resetYM2413RyhthmKeyON(chipID);
+        }
+
+        public static int getYMF278BPCMKeyON(int chipID)
+        {
+            return chipRegister.getYMF278BPCMKeyON(chipID);
+        }
+
+        public static void resetYMF278BPCMKeyON(int chipID)
+        {
+            chipRegister.resetYMF278BPCMKeyON(chipID);
         }
 
 

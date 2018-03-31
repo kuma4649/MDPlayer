@@ -140,6 +140,7 @@ namespace MDPlayer
         public int[][][] fmRegisterYMF271 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
         public int[][][] fmRegisterYMF278B = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+        private int[] fmRegisterYMF278BPCM = new int[2] { 0, 0 };
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
 
@@ -937,6 +938,15 @@ namespace MDPlayer
             fmRegisterYM2413Ryhthm[chipID] = 0;
         }
 
+        public int getYMF278BPCMKeyON(int chipID)
+        {
+            return fmRegisterYMF278BPCM[chipID];
+        }
+
+        public void resetYMF278BPCMKeyON(int chipID)
+        {
+            fmRegisterYMF278BPCM[chipID]=0;
+        }
 
         public void setHuC6280Register(int chipID, int dAddr, int dData, enmModel model)
         {
@@ -1429,7 +1439,23 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPL4 = 2;
             else chipLED.SecOPL4 = 2;
 
-            if (model == enmModel.VirtualModel) fmRegisterYMF278B[chipID][dPort][dAddr] = dData;
+            if (model == enmModel.VirtualModel)
+            {
+                fmRegisterYMF278B[chipID][dPort][dAddr] = dData;
+
+                if(dPort==2 && (dAddr >= 0x68 && dAddr<=0x7f))
+                {
+                    int k = dData >> 7;
+                    if (k == 0)
+                    {
+                        fmRegisterYMF278BPCM[chipID] &= ~(1 << (dAddr - 0x68));
+                    }
+                    else
+                    {
+                        fmRegisterYMF278BPCM[chipID] |= (1 << (dAddr - 0x68));
+                    }
+                }
+            }
 
             if (model == enmModel.VirtualModel)
             {

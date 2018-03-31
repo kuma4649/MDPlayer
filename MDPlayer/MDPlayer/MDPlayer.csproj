@@ -396,6 +396,12 @@
     <Compile Include="form\frmYM2612MIDI.Designer.cs">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmYMF278B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmYMF278B.Designer.cs">
+      <DependentUpon>frmYMF278B.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrameBuffer.cs" />
     <Compile Include="HostCommandStub.cs" />
     <Compile Include="log.cs" />
@@ -510,6 +516,9 @@
     <EmbeddedResource Include="form\frmYM2612MIDI.resx">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmYMF278B.resx">
+      <DependentUpon>frmYMF278B.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -587,6 +596,7 @@
     <Content Include="Resources\planeYM2610.png" />
     <Content Include="Resources\planeYM2612.png" />
     <Content Include="Resources\planeYM2612MIDI.png" />
+    <Content Include="Resources\planeYMF278B.png" />
     <Content Include="Resources\rChipName_01.png" />
     <Content Include="Resources\rChipName_02.png" />
     <Content Include="Resources\rChipName_03.png" />
@@ -597,6 +607,7 @@
     <Content Include="Resources\rFont_04.png" />
     <Content Include="Resources\rFont_05.png" />
     <Content Include="Resources\rFont_06.png" />
+    <Content Include="Resources\rKakko_00.png" />
     <Content Include="Resources\rKBD_01.png" />
     <Content Include="Resources\rKBD_02.png" />
     <Content Include="Resources\rMenuButtons_01.png" />

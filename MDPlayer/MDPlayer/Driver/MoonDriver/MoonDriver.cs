@@ -1576,7 +1576,6 @@ namespace MDPlayer.Driver.MoonDriver
         private void proc_nenv_start()
         {
             hl = work.ch[ix].nenv_adr;
-
             read_effect_value();
 
             if (CP_ZF(0xff))
@@ -1588,12 +1587,16 @@ namespace MDPlayer.Driver.MoonDriver
             hl++;
             work.ch[ix].nenv_adr = hl;
 
-            if (work.ch[ix].dsel != 0)
+            byte af = a;//  push    af
+            a = work.ch[ix].dsel;
+            if (a != 0)
             {
+                a = af;
                 proc_nenv_fm();
             }
             else
             {
+                a = af;
                 proc_nenv_opl4();
             }
         }
@@ -1690,8 +1693,9 @@ namespace MDPlayer.Driver.MoonDriver
 
             a = work.ch[ix].note;
             a &= 0xf;
-            a -= c;
-            if (a < 0)
+            int ai = a - c;
+            a = (byte)ai;
+            if (ai < 0)
             {
                 a -= 0x04;
                 a &= 0xf;

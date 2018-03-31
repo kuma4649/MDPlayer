@@ -226,6 +226,25 @@ namespace MDPlayer
         }
         public YM2612MIDI ym2612Midi = new YM2612MIDI();
 
+        public class YMF278B
+        {
+
+            public Channel[] channels = new Channel[18+5+24] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel() //FM 18
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel() //PCM 24
+            };
+
+        }
+        public YMF278B[] ymf278b = new YMF278B[] { new YMF278B(), new YMF278B() };
+
         public MIDIParam[] midi = new MIDIParam[] { new MIDIParam(), new MIDIParam() };
 
         public class NESDMC
