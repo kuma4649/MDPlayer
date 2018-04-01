@@ -3155,10 +3155,10 @@ namespace MDPlayer
             private string _GMReset = "30:F0,7E,7F,09,01,F7";
             public string GMReset { get => _GMReset; set => _GMReset = value; }
 
-            private string _XGReset = "30:F0,41,20,42,12,40,00,7F,00,41,F7";
+            private string _XGReset = "30:F0,43,10,4C,00,00,7E,00,F7";
             public string XGReset { get => _XGReset; set => _XGReset = value; }
 
-            private string _GSReset = "30:F0,43,10,4C,00,00,7E,00,F7";
+            private string _GSReset = "30:F0,41,10,42,12,40,00,7F,00,41,F7";
             public string GSReset { get => _GSReset; set => _GSReset = value; }
 
             private string _Custom = "";
