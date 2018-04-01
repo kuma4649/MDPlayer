@@ -18,8 +18,7 @@ namespace MDPlayer.UnlhaWrap
             IntPtr pathPtr;
             if (UnlhaAPI.SearchPath(null, dllName, null, 0, null, out pathPtr) == 0)
             {
-                throw new ApplicationException(
-                    dllName + "が見つかりません。");
+                throw new ApplicationException("unlha32.dllが見つかりません。");
             }
 
             //DLLをロード
@@ -37,8 +36,7 @@ namespace MDPlayer.UnlhaWrap
                 funcAddr = UnlhaAPI.GetProcAddress(hmod, "UnlhaGetVersion");
                 if (funcAddr == IntPtr.Zero)
                 {
-                    throw new ApplicationException(
-                        dllName + "がインストールされていません。");
+                    throw new ApplicationException("unlha32.dllがインストールされていません。");
                 }
                 UnlhaAPI.GetVersionDelegate getVersion =
                     (UnlhaAPI.GetVersionDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -46,7 +44,7 @@ namespace MDPlayer.UnlhaWrap
                 ushort ver = getVersion();
                 if (ver < 300)
                 {
-                    throw new ApplicationException(string.Format(dllName + "はバージョン3.00を要求。Ver{0:0.00}", ver / 100f));
+                    throw new ApplicationException(string.Format("unlha32.dllはバージョン3.00を要求。Ver{0:0.00}", ver / 100f));
                 }
 
                 //動作中かチェック
@@ -58,8 +56,7 @@ namespace MDPlayer.UnlhaWrap
                         funcAddr, typeof(UnlhaAPI.GetRunningDelegate));
                     if (getRunning())
                     {
-                        throw new ApplicationException(
-                            dllName + "が現在動作中です。");
+                        throw new ApplicationException("unlha32.dllが現在動作中です。");
                     }
                 }
 
@@ -67,16 +64,14 @@ namespace MDPlayer.UnlhaWrap
                 funcAddr = UnlhaAPI.GetProcAddress(hmod, "UnlhaCheckArchive");
                 if (funcAddr == IntPtr.Zero)
                 {
-                    throw new ApplicationException(
-                       "UnlhaCheckArchiveのアドレスを取得できませんでした。");
+                    throw new ApplicationException(                       "UnlhaCheckArchiveのアドレスを取得できませんでした。");
                 }
                 UnlhaAPI.CheckArchiveDelegate checkArchive =
                     (UnlhaAPI.CheckArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
                     funcAddr, typeof(UnlhaAPI.CheckArchiveDelegate));
                 if (!checkArchive(archiveFile, 0))
                 {
-                    throw new ApplicationException(
-                        dllName + "では展開できません。");
+                    throw new ApplicationException(                         "unlha32.dllでは展開できません。");
                 }
 
             }
@@ -103,7 +98,7 @@ namespace MDPlayer.UnlhaWrap
                 if (funcAddr == IntPtr.Zero)
                 {
                     throw new ApplicationException(
-                       "Unlhaのアドレスを取得できませんでした。");
+                       "UnlhaOpenArchiveの処理に失敗しました。");
                 }
                 UnlhaAPI.OpenArchiveDelegate openArchive =
                     (UnlhaAPI.OpenArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -117,7 +112,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaFindFirstの処理に失敗しました。");
                     }
                     UnlhaAPI.FindFirstDelegate findFirst =
                         (UnlhaAPI.FindFirstDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -134,7 +129,7 @@ namespace MDPlayer.UnlhaWrap
                         if (funcAddr == IntPtr.Zero)
                         {
                             throw new ApplicationException(
-                               "Unlhaのアドレスを取得できませんでした。");
+                               "UnlhaGetFileNameの処理に失敗しました。");
                         }
                         UnlhaAPI.GetFileNameDelegate getFileName =
                             (UnlhaAPI.GetFileNameDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -147,7 +142,7 @@ namespace MDPlayer.UnlhaWrap
                         if (funcAddr == IntPtr.Zero)
                         {
                             throw new ApplicationException(
-                               "Unlhaのアドレスを取得できませんでした。");
+                               "UnlhaGetOriginalSizeExの処理に失敗しました。");
                         }
                         UnlhaAPI.GetOriginalSizeExDelegate getOriginalSizeEx =
                             (UnlhaAPI.GetOriginalSizeExDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -163,7 +158,7 @@ namespace MDPlayer.UnlhaWrap
                         if (funcAddr == IntPtr.Zero)
                         {
                             throw new ApplicationException(
-                               "Unlhaのアドレスを取得できませんでした。");
+                               "UnlhaFindNextの処理に失敗しました。");
                         }
                         UnlhaAPI.FindNextDelegate findNext =
                             (UnlhaAPI.FindNextDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -185,7 +180,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaCloseArchiveの処理に失敗しました。");
                     }
                     UnlhaAPI.CloseArchiveDelegate closeArchive =
                         (UnlhaAPI.CloseArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -202,7 +197,6 @@ namespace MDPlayer.UnlhaWrap
                 UnlhaAPI.FreeLibrary(hmod);
             }
 
-            return null;
         }
 
         public byte[] GetFileByte(string archiveFile, string fileName)
@@ -220,7 +214,7 @@ namespace MDPlayer.UnlhaWrap
                 if (funcAddr == IntPtr.Zero)
                 {
                     throw new ApplicationException(
-                       "Unlhaのアドレスを取得できませんでした。");
+                       "UnlhaOpenArchiveの処理に失敗しました。");
                 }
                 UnlhaAPI.OpenArchiveDelegate openArchive =
                     (UnlhaAPI.OpenArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -234,7 +228,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaFindFirstの処理に失敗しました。");
                     }
                     UnlhaAPI.FindFirstDelegate findFirst =
                         (UnlhaAPI.FindFirstDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -246,7 +240,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaGetFileNameの処理に失敗しました。");
                     }
                     UnlhaAPI.GetFileNameDelegate getFileName =
                         (UnlhaAPI.GetFileNameDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -259,7 +253,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaGetOriginalSizeExの処理に失敗しました。");
                     }
                     UnlhaAPI.GetOriginalSizeExDelegate getOriginalSizeEx =
                         (UnlhaAPI.GetOriginalSizeExDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -281,7 +275,7 @@ namespace MDPlayer.UnlhaWrap
                     if (funcAddr == IntPtr.Zero)
                     {
                         throw new ApplicationException(
-                           "Unlhaのアドレスを取得できませんでした。");
+                           "UnlhaCloseArchiveの処理に失敗しました。");
                     }
                     UnlhaAPI.CloseArchiveDelegate closeArchive =
                         (UnlhaAPI.CloseArchiveDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -295,7 +289,7 @@ namespace MDPlayer.UnlhaWrap
                 if (funcAddr == IntPtr.Zero)
                 {
                     throw new ApplicationException(
-                       "Unlhaのアドレスを取得できませんでした。");
+                       "UnlhaExtractMemの処理に失敗しました。");
                 }
                 UnlhaAPI.ExtractMemDelegate extractMem =
                     (UnlhaAPI.ExtractMemDelegate)Marshal.GetDelegateForFunctionPointer(
@@ -312,14 +306,13 @@ namespace MDPlayer.UnlhaWrap
             }
             catch
             {
-
+                throw;
             }
             finally
             {
                 UnlhaAPI.FreeLibrary(hmod);
             }
 
-            return null;
         }
     }
 }

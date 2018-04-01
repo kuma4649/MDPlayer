@@ -4043,7 +4043,7 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite(ex);
                 srcBuf = null;
-                MessageBox.Show("ファイルの読み込みに失敗しました。", "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}",ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 

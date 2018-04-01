@@ -219,12 +219,23 @@ namespace MDPlayer
 
         public void AddFile(string filename)
         {
-            music mc = new music();
-            mc.format = common.CheckExt(filename);
-            mc.fileName = filename;
-            rootPath = Path.GetDirectoryName(filename);
+            try
+            {
+                music mc = new music();
+                mc.format = common.CheckExt(filename);
+                mc.fileName = filename;
+                rootPath = Path.GetDirectoryName(filename);
 
-            AddFileLoop(mc);
+                AddFileLoop(mc);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("ファイル追加に失敗しました。\r\n詳細\r\nMessage={0}", ex.Message)
+                    , "エラー"
+                    , MessageBoxButtons.OK
+                    , MessageBoxIcon.Error);
+                log.ForcedWrite(ex);
+            }
         }
 
         private void AddFileLoop(music mc, object entry = null)
