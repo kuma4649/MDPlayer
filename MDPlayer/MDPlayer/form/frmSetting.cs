@@ -1597,7 +1597,7 @@ namespace MDPlayer.form
                     }
                 }
 
-                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, false, "", row.Cells[1].Value, "GM", row.Cells[2].Value);
+                if (!found) dgv[p].Rows.Add(row.Cells[0].Value, false, "", row.Cells[1].Value, "GM","None", row.Cells[2].Value);
             }
         }
 
@@ -1681,6 +1681,7 @@ namespace MDPlayer.form
                 , s.fileName
                 , s.effectName
                 , "GM"
+                ,"None"
                 , s.vendorName);
 
         }
