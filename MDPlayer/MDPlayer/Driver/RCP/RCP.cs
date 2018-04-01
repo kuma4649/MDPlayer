@@ -14,6 +14,11 @@ namespace MDPlayer
         private double musicStep = common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
+        private List<CtlSysex>[] beforeSend = null;
+        private int[] sendControlDelta = null;
+        private int[] sendControlIndex = null;
+
+
 
         public class MIDIRythm
         {
@@ -192,7 +197,9 @@ namespace MDPlayer
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = -latency - waitTime;
+            //コントロールを送信してからウェイトするためここでは0をセットする
+            //vgmFrameCounter = -latency - waitTime;
+            vgmFrameCounter = 0;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
 
@@ -201,11 +208,8 @@ namespace MDPlayer
 
             if (!getInformationHeader()) return false;
 
-            //ファイルパスが設定されている場合はコントロールファイルを読み込む処理を実施
-            if (ExtendFile != null)
-            {
-                GetControlFile();
-            }
+            //ポートごとに事前に送信するコマンドを作成する
+            if (!MakeBeforeSendCommand()) return false;
 
             if (model == enmModel.RealModel)
             {
@@ -1134,7 +1138,7 @@ namespace MDPlayer
 
                 if (musicDownCounter <= 0.0)
                 {
-                    if (cCM6Buf != null || cGSDBuf != null || cGSD2Buf != null)
+                    if (beforeSend != null)
                     {
                         sendControl();
                     }
@@ -2012,66 +2016,21 @@ namespace MDPlayer
             return ret.ToArray();
         }
 
-        private List<CtlSysex> cCM6Buf = new List<CtlSysex>();
-        private List<CtlSysex> cGSDBuf = new List<CtlSysex>();
-        private List<CtlSysex> cGSD2Buf = new List<CtlSysex>();
-        private int sendControlIndex = 0;
-        private int sendControlDelta = 0;
-
-        private void GetControlFile()
+        private void GetGSD1Buf(ref List<CtlSysex> DBuf)
         {
-            cCM6Buf = null;
-            cGSDBuf = null;
-            cGSD2Buf=null;
-            sendControlIndex = 0;
-            sendControlDelta = 0;
-
-            if (ControlFileCM6 != "")
+            byte[] buf = null;
+            foreach (Tuple<string, byte[]> trg in ExtendFile)
             {
-                cCM6Buf = new List<CtlSysex>();
-                GetCM6Buf(ref cCM6Buf);
-
-#if DEBUG
-                foreach (CtlSysex ex in cCM6Buf)
+                if (System.IO.Path.GetExtension(trg.Item1).ToUpper() == ".GSD")
                 {
-                    Console.WriteLine("delta:{0:D10}", ex.delta);
-                    foreach (byte b in ex.data)
-                    {
-                        Console.Write("{0:X02} ", b);
-                    }
-                    Console.WriteLine("");
+                    buf = trg.Item2;
+                    break;
                 }
-#endif
             }
-
-            if (ControlFileGSD != "" )
-            {
-                cGSDBuf = new List<CtlSysex>();
-                GetGSDBuf(ref cGSDBuf);
-
-#if DEBUG
-                foreach(CtlSysex ex in cGSDBuf)
-                {
-                    Console.WriteLine("delta:{0:D10}",ex.delta);
-                    foreach(byte b in ex.data)
-                    {
-                        Console.Write("{0:X02} ", b);
-                    }
-                    Console.WriteLine("");
-                }
-#endif
-            }
-
-            if (ControlFileGSD2 != "" )
-            {
-                //cGSD2Buf = new List<CtlSysex>();
-                //GetGSDBuf(ref cGSD2Buf);
-            }
-
+            GetGSDBuf(ref DBuf, buf);
         }
 
-
-        private void GetGSDBuf(ref List<CtlSysex> DBuf)
+        private void GetGSD2Buf(ref List<CtlSysex> DBuf)
         {
             byte[] buf = null;
             foreach (Tuple<string, byte[]> trg in ExtendFile)
@@ -2081,7 +2040,11 @@ namespace MDPlayer
                     buf = trg.Item2;
                 }
             }
+            GetGSDBuf(ref DBuf, buf);
+        }
 
+        private void GetGSDBuf(ref List<CtlSysex> DBuf ,byte[] buf)
+        {
             if (buf == null || buf.Length < 1 || buf.Length != 0xa71) return;
 
             int adr;
@@ -2475,56 +2438,165 @@ namespace MDPlayer
 
         private void sendControl()
         {
-            List<CtlSysex> trg = null;
 
-            if (cCM6Buf != null)
+            int endFlg = 0;
+
+            for(int i = 0; i < beforeSend.Length; i++)
             {
-                trg = cCM6Buf;
-                if (cCM6Buf.Count == sendControlIndex)
+                if (beforeSend[i] != null)
                 {
-                    cCM6Buf = null;
-                    sendControlIndex = 0;
-                    oneSyncTime= 60.0 / nowTempo / TimeBase;
-                    return;
+                    if (sendControlDelta[i] > 0)
+                    {
+                        sendControlDelta[i]--;
+                        continue;
+                    }
+                    if (beforeSend[i].Count == sendControlIndex[i])
+                    {
+                        beforeSend[i] = null;
+                        endFlg++;
+                        continue;
+                    }
+
+                    oneSyncTime = 60.0 / 29.0 / 192.0;
+
+                    CtlSysex csx = beforeSend[i][sendControlIndex[i]];
+                    sendControlDelta[i] = csx.delta;
+                    chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
+
+                    sendControlIndex[i]++;
                 }
-            }
-            else if (cGSDBuf != null)
-            {
-                trg = cGSDBuf;
-                if (cGSDBuf.Count == sendControlIndex)
+                else
                 {
-                    cGSDBuf = null;
-                    sendControlIndex = 0;
-                    oneSyncTime = 60.0 / nowTempo / TimeBase;
-                    return;
+                    endFlg++;
                 }
-            }
-            else if (cGSD2Buf != null)
-            {
-                trg = cGSD2Buf;
-                if (cGSD2Buf.Count == sendControlIndex)
-                {
-                    cGSD2Buf = null;
-                    sendControlIndex = 0;
-                    oneSyncTime = 60.0 / nowTempo / TimeBase;
-                    return;
-                }
+
             }
 
-            if (sendControlDelta > 0)
+            if (endFlg == beforeSend.Length)
             {
-                sendControlDelta--;
+                beforeSend = null;
+                oneSyncTime = 60.0 / nowTempo / TimeBase;
+                vgmFrameCounter = -latency - waitTime;
                 return;
             }
 
-            oneSyncTime = 60.0 / 29.0 / 192.0;
-            CtlSysex csx = trg[sendControlIndex];
-            sendControlDelta = csx.delta;
-            chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
-            sendControlIndex++;
-
             return;
         }
+
+        private bool MakeBeforeSendCommand()
+        {
+            try
+            {
+                midiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
+                if (infos == null || infos.Length < 1) return true;
+
+                beforeSend = new List<CtlSysex>[infos.Length];
+                sendControlIndex = new int[infos.Length];
+                sendControlDelta = new int[infos.Length];
+                for (int i = 0; i < beforeSend.Length; i++)
+                {
+                    beforeSend[i] = new List<CtlSysex>();
+
+                    //リセットを生成
+                    switch (infos[i].beforeSendType)
+                    {
+                        case 0://None
+                            break;
+                        case 1://GM Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.GMReset);
+                            break;
+                        case 2://XG Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.XGReset);
+                            break;
+                        case 3://GS Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.GSReset);
+                            break;
+                        case 4://Custom
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.Custom);
+                            break;
+                    }
+
+                    //ファイルパスが設定されている場合はコントロールファイルを読み込む処理を実施
+                    if (ExtendFile != null)
+                    {
+                        GetControlFile(beforeSend[i],infos[i].type);
+                    }
+
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void GetCtlSysexFromText(List<CtlSysex> buf, string text)
+        {
+            if (text == null || text.Length < 1) return;
+
+            string[] cmds = text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach(string cmd in cmds)
+            {
+                string[] com = cmd.Split(new string[] { ":" }, StringSplitOptions.None);
+                int delay = int.Parse(com[0]);
+                string[] dats = com[1].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                byte[] dat = new byte[dats.Length];
+                for(int i=0;i<dats.Length;i++)
+                {
+                    dat[i] = (byte)Convert.ToInt16(dats[i], 16);
+                }
+                buf.Add(new CtlSysex(delay, dat));
+            }
+        }
+
+        private void GetControlFile(List<CtlSysex> buf,int instType)
+        {
+
+            //GM / XG / GS / LA / GS(SC - 55_1) / GS(SC - 55_2)
+            switch (instType)
+            {
+                case 0://GM
+                case 1://XG
+                case 2://GS
+                    //Control なし
+                    break;
+                case 3://LA
+                    if (ControlFileCM6 != "")
+                    {
+                        GetCM6Buf(ref buf);
+                    }
+                    break;
+                case 4://GS(SC - 55_1)
+                    if (ControlFileGSD != "")
+                    {
+                        GetGSD1Buf(ref buf);
+                    }
+                    break;
+                case 5://GS(SC - 55_2)
+                    if (ControlFileGSD2 != "")
+                    {
+                        GetGSD2Buf(ref buf);
+                    }
+                    break;
+            }
+
+#if DEBUG
+            foreach (CtlSysex ex in buf)
+            {
+                Console.WriteLine("delta:{0:D10}", ex.delta);
+                foreach (byte b in ex.data)
+                {
+                    Console.Write("{0:X02} ", b);
+                }
+                Console.WriteLine("");
+            }
+#endif
+
+        }
+
 
     }
 }

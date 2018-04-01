@@ -3152,18 +3152,17 @@ namespace MDPlayer
         [Serializable]
         public class MidiOut
         {
-            //private midiOutInfo[] _MidiOutInfo = null;
-            //public midiOutInfo[] MidiOutInfo
-            //{
-            //    get
-            //    {
-            //        return _MidiOutInfo;
-            //    }
-            //    set
-            //    {
-            //        _MidiOutInfo = value;
-            //    }
-            //}
+            private string _GMReset = "30:F0,7E,7F,09,01,F7";
+            public string GMReset { get => _GMReset; set => _GMReset = value; }
+
+            private string _XGReset = "30:F0,41,20,42,12,40,00,7F,00,41,F7";
+            public string XGReset { get => _XGReset; set => _XGReset = value; }
+
+            private string _GSReset = "30:F0,43,10,4C,00,00,7E,00,F7";
+            public string GSReset { get => _GSReset; set => _GSReset = value; }
+
+            private string _Custom = "";
+            public string Custom { get => _Custom; set => _Custom = value; }
 
             private List<midiOutInfo[]> _lstMidiOutInfo = null;
             public List<midiOutInfo[]> lstMidiOutInfo
@@ -3182,7 +3181,10 @@ namespace MDPlayer
             {
                 MidiOut MidiOut = new MidiOut();
 
-                //MidiOut.MidiOutInfo = this.MidiOutInfo;
+                MidiOut.GMReset = this.GMReset;
+                MidiOut.XGReset = this.XGReset;
+                MidiOut.GSReset = this.GSReset;
+                MidiOut.Custom = this.Custom;
                 MidiOut.lstMidiOutInfo = this.lstMidiOutInfo;
 
                 return MidiOut;

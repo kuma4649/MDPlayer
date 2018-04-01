@@ -99,6 +99,7 @@ namespace MDPlayer.form
 
         private int[] slot1Tbl = new int[] { 0, 6, 1, 7, 2, 8, 12, 13, 14, 18, 24, 19, 25, 20, 26, 30, 31, 32 };
         private int[] slot2Tbl = new int[] { 3, 9, 4, 10, 5, 11, 15, 16, 17, 21, 27, 22, 28, 23, 29, 33, 34, 35 };
+        private int[] chTbl = new int[] { 0, 3, 1, 4, 2, 5, 6, 7, 8 };
 
         public void screenChangeParams()
         {
@@ -126,17 +127,6 @@ namespace MDPlayer.form
                     }
                     slot = (slot % 6) + 8 * (slot / 6);
 
-                    //CN
-                    nyc.inst[14 + i * 17] = (ymf278bRegister[slotP][0xc0 + slot] & 1);
-
-                    if (i == 0)
-                    {
-                        //modFlg
-                        int n = ymf278bRegister[slotP][0xc0 + slot] & 1;
-                        nyc.inst[16] = n == 0 ? 0 : 1;
-                        nyc.inst[33] = 1;
-                    }
-
                     //AR
                     nyc.inst[0 + i * 17] = ymf278bRegister[slotP][0x60 + slot] >> 4;
                     //DR
@@ -159,15 +149,8 @@ namespace MDPlayer.form
                     nyc.inst[9 + i * 17] = (ymf278bRegister[slotP][0x20 + slot] >> 5) & 1;
                     //KR
                     nyc.inst[10 + i * 17] = (ymf278bRegister[slotP][0x20 + slot] >> 4) & 1;
-                    //BL
-                    nyc.inst[11 + i * 17] = (ymf278bRegister[slotP][0xb0 + slot] >> 2) & 7;
-                    //FNUM
-                    nyc.inst[12 + i * 17] = ymf278bRegister[slotP][0xa0 + slot]
-                        + ((ymf278bRegister[slotP][0xb0 + slot] & 3) << 8);
                     //WS
                     nyc.inst[13 + i * 17] = (ymf278bRegister[slotP][0xe0 + slot] & 7);
-                    //FB
-                    nyc.inst[15 + i * 17] = (ymf278bRegister[slotP][0xc0 + slot] >> 1) & 7;
                 }
             }
 
@@ -216,6 +199,38 @@ namespace MDPlayer.form
                     }
                 }
             }
+
+            for (int c = 0; c < 18; c++)
+            {
+                nyc = newParam.channels[c];
+
+                int p = c / 9;
+                bool isOp4 = false;
+                int adr = c % 9;
+                if (adr < 6)
+                {
+                    if (newParam.channels[(adr / 2) + p * 3].dda) isOp4 = true;
+                }
+                adr = isOp4 ? (adr / 2) : adr;
+                adr = chTbl[adr];
+
+                //BL
+                nyc.inst[11] = (ymf278bRegister[p][0xb0 + adr] >> 2) & 7;
+                //FNUM
+                nyc.inst[12] = ymf278bRegister[p][0xa0 + adr]
+                    + ((ymf278bRegister[p][0xb0 + adr] & 3) << 8);
+                //FB
+                nyc.inst[15] = (ymf278bRegister[p][0xc0 + adr] >> 1) & 7;
+                //CN
+                nyc.inst[14] = (ymf278bRegister[p][0xc0 + adr] & 1);
+
+                //modFlg
+                int n = ymf278bRegister[p][0xc0 + adr] & 1;
+                nyc.inst[16] = n == 0 ? 0 : 1;
+                nyc.inst[33] = 1;
+
+            }
+
 
             //PCM
             int pcmKey = Audio.getYMF278BPCMKeyON(chipID);
@@ -292,24 +307,28 @@ namespace MDPlayer.form
 
                 for (int i = 0; i < 2; i++)
                 {
-                    DrawBuff.SUSFlag(frameBuffer, 81 + i * 41, c * 2 + 2, 1, ref oyc.inst[16 + i * 17], nyc.inst[16 + i * 17]);
-                    DrawBuff.font4Int2(frameBuffer, 336 + 0 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[0 + i * 17], nyc.inst[0 + i * 17]);//AR
-                    DrawBuff.font4Int2(frameBuffer, 336 + 8 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[1 + i * 17], nyc.inst[1 + i * 17]);//DR
-                    DrawBuff.font4Int2(frameBuffer, 336 + 16 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[2 + i * 17], nyc.inst[2 + i * 17]);//SL
-                    DrawBuff.font4Int2(frameBuffer, 336 + 24 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[3 + i * 17], nyc.inst[3 + i * 17]);//RR
-                    DrawBuff.font4Int2(frameBuffer, 336 + 32 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[4 + i * 17], nyc.inst[4 + i * 17]);//KL
-                    DrawBuff.font4Int2(frameBuffer, 336 + 40 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[5 + i * 17], nyc.inst[5 + i * 17]);//TL
-                    DrawBuff.font4Int2(frameBuffer, 336 + 48 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[6 + i * 17], nyc.inst[6 + i * 17]);//MT
-                    DrawBuff.font4Int2(frameBuffer, 336 + 56 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[7 + i * 17], nyc.inst[7 + i * 17]);//AM
-                    DrawBuff.font4Int2(frameBuffer, 336 + 64 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[8 + i * 17], nyc.inst[8 + i * 17]);//VB
-                    DrawBuff.font4Int2(frameBuffer, 336 + 72 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[9 + i * 17], nyc.inst[9 + i * 17]);//EG
-                    DrawBuff.font4Int2(frameBuffer, 336 + 80 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[10 + i * 17], nyc.inst[10 + i * 17]);//KR
-                    DrawBuff.font4Int2(frameBuffer, 336 + 88 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[11 + i * 17], nyc.inst[11 + i * 17]);//BL
-                    DrawBuff.font4Hex12Bit(frameBuffer, 336 + 104 + i * 164, c * 8 + 8, 0, ref oyc.inst[12 + i * 17], nyc.inst[12 + i * 17]);//F-Num
-                    DrawBuff.font4Int2(frameBuffer, 336 + 116 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[13 + i * 17], nyc.inst[13 + i * 17]);//WS
-                    DrawBuff.font4Int2(frameBuffer, 336 + 124 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[14 + i * 17], nyc.inst[14 + i * 17]);//CN
-                    DrawBuff.font4Int2(frameBuffer, 336 + 132 + i * 164, c * 8 + 8, 0, 0, ref oyc.inst[15 + i * 17], nyc.inst[15 + i * 17]);//FB
+                    DrawBuff.SUSFlag(frameBuffer, 81 + i * 34, c * 2 + 2, 1, ref oyc.inst[16 + i * 17], nyc.inst[16 + i * 17]);
+                    DrawBuff.font4Int2(frameBuffer, 336 + 4 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[0 + i * 17], nyc.inst[0 + i * 17]);//AR
+                    DrawBuff.font4Int2(frameBuffer, 336 + 12 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[1 + i * 17], nyc.inst[1 + i * 17]);//DR
+                    DrawBuff.font4Int2(frameBuffer, 336 + 20 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[2 + i * 17], nyc.inst[2 + i * 17]);//SL
+                    DrawBuff.font4Int2(frameBuffer, 336 + 28 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[3 + i * 17], nyc.inst[3 + i * 17]);//RR
+
+                    DrawBuff.font4Int2(frameBuffer, 336 + 40 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[4 + i * 17], nyc.inst[4 + i * 17]);//KL
+                    DrawBuff.font4Int2(frameBuffer, 336 + 48 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[5 + i * 17], nyc.inst[5 + i * 17]);//TL
+
+                    DrawBuff.font4Int2(frameBuffer, 336 + 60 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[6 + i * 17], nyc.inst[6 + i * 17]);//MT
+
+                    DrawBuff.font4Int2(frameBuffer, 336 + 72 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[7 + i * 17], nyc.inst[7 + i * 17]);//AM
+                    DrawBuff.font4Int2(frameBuffer, 336 + 80 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[8 + i * 17], nyc.inst[8 + i * 17]);//VB
+                    DrawBuff.font4Int2(frameBuffer, 336 + 88 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[9 + i * 17], nyc.inst[9 + i * 17]);//EG
+                    DrawBuff.font4Int2(frameBuffer, 336 + 96 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[10 + i * 17], nyc.inst[10 + i * 17]);//KR
+                    DrawBuff.font4Int2(frameBuffer, 336 + 108 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[13 + i * 17], nyc.inst[13 + i * 17]);//WS
                 }
+
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 65 , c * 8 + 8, 0, 0, ref oyc.inst[11], nyc.inst[11]);//BL
+                DrawBuff.font4Hex12Bit(frameBuffer, 336 + 4 * 69 , c * 8 + 8, 0, ref oyc.inst[12], nyc.inst[12]);//F-Num
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 73 , c * 8 + 8, 0, 0, ref oyc.inst[14], nyc.inst[14]);//CN
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 76 , c * 8 + 8, 0, 0, ref oyc.inst[15], nyc.inst[15]);//FB
 
                 //DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
                 //DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
@@ -326,8 +345,8 @@ namespace MDPlayer.form
                 //CS
                 DrawBuff.drawNESSw(frameBuffer, 79 * 4 + c * 4, 19 * 8, ref oldParam.channels[c].dda, newParam.channels[c].dda);
                 int ch = (c < 3) ? c * 2 : ((c - 3) * 2 + 9);
-                DrawBuff.Kakko(frameBuffer, 4 * 80, (c < 3 ? 0 : 24)+c * 16 + 8, 0, ref oldParam.channels[c].inst[34], newParam.channels[c].inst[34]);
-                DrawBuff.Kakko(frameBuffer, 4*160, (c < 3 ? 0 : 24)+c *16+8, 0, ref oldParam.channels[c].inst[35], newParam.channels[c].inst[35]);
+                DrawBuff.Kakko(frameBuffer, 4 * 80, (c < 3 ? 0 : 24) + c * 16 + 8, 0, ref oldParam.channels[c].inst[34], newParam.channels[c].inst[34]);
+                DrawBuff.Kakko(frameBuffer, 4 * 162, (c < 3 ? 0 : 24) + c * 16 + 8, 0, ref oldParam.channels[c].inst[35], newParam.channels[c].inst[35]);
             }
             DrawBuff.drawNESSw(frameBuffer, 88 * 4 , 19 * 8, ref oldParam.channels[18].dda, newParam.channels[18].dda);//DA
             DrawBuff.drawNESSw(frameBuffer, 92 * 4 , 19 * 8, ref oldParam.channels[19].dda, newParam.channels[19].dda);//DV

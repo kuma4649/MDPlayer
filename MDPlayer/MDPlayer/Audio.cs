@@ -2287,7 +2287,7 @@ namespace MDPlayer
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
 
-                chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
+                chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
                 //Play
 
@@ -2355,7 +2355,7 @@ namespace MDPlayer
                 chipRegister.initChipRegister();
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
-                chipRegister.setMIDIout(midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
+                chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)

@@ -231,6 +231,16 @@ namespace MDPlayer.form
                 ucSI.cmbYM2203S_SCCI.Enabled = false;
             }
 
+            copyFromMIDIoutListA(dgvMIDIoutListB);
+            copyFromMIDIoutListA(dgvMIDIoutListC);
+            copyFromMIDIoutListA(dgvMIDIoutListD);
+            copyFromMIDIoutListA(dgvMIDIoutListE);
+            copyFromMIDIoutListA(dgvMIDIoutListF);
+            copyFromMIDIoutListA(dgvMIDIoutListG);
+            copyFromMIDIoutListA(dgvMIDIoutListH);
+            copyFromMIDIoutListA(dgvMIDIoutListI);
+            copyFromMIDIoutListA(dgvMIDIoutListJ);
+
             //設定内容をコントロールへ適用
 
             switch (setting.outputDevice.DeviceType)
@@ -775,8 +785,41 @@ namespace MDPlayer.form
                             moi.id = found;
 
                             string stype = "GM";
-                            if (moi.type == 1) stype = "XG";
-                            if (moi.type == 2) stype = "GS";
+                            switch (moi.type)
+                            {
+                                case 1:
+                                    stype = "XG";
+                                    break;
+                                case 2:
+                                    stype = "GS";
+                                    break;
+                                case 3:
+                                    stype = "LA";
+                                    break;
+                                case 4:
+                                    stype = "GS(SC-55_1)";
+                                    break;
+                                case 5:
+                                    stype = "GS(SC-55_2)";
+                                    break;
+                            }
+
+                            string sbeforeSend = "None";
+                            switch (moi.beforeSendType)
+                            {
+                                case 1:
+                                    sbeforeSend = "GM Reset";
+                                    break;
+                                case 2:
+                                    sbeforeSend = "XG Reset";
+                                    break;
+                                case 3:
+                                    sbeforeSend = "GS Reset";
+                                    break;
+                                case 4:
+                                    sbeforeSend = "Custom";
+                                    break;
+                            }
 
                             dgv[i].Rows.Add(
                                 moi.id
@@ -784,6 +827,7 @@ namespace MDPlayer.form
                                 , moi.fileName
                                 , moi.name
                                 , stype
+                                , sbeforeSend
                                 , moi.isVST ? moi.vendor : (moi.manufacturer != -1 ? ((NAudio.Manufacturers)moi.manufacturer).ToString() : "Unknown")
                                 );
 
@@ -791,6 +835,11 @@ namespace MDPlayer.form
                     }
                 }
             }
+
+            tbBeforeSend_GMReset.Text = setting.midiOut.GMReset;
+            tbBeforeSend_XGReset.Text = setting.midiOut.XGReset;
+            tbBeforeSend_GSReset.Text = setting.midiOut.GSReset;
+            tbBeforeSend_Custom.Text = setting.midiOut.Custom;
 
             dgvMIDIoutPallet.Rows.Clear();
             for (int i = 0; i < NAudio.Midi.MidiOut.NumberOfDevices; i++)
@@ -844,6 +893,18 @@ namespace MDPlayer.form
                     rdSIDQ4.Checked = true;
                     break;
             }
+        }
+
+        private void copyFromMIDIoutListA(DataGridView dgv)
+        {
+
+            dgv.Columns.Clear();
+
+            foreach(DataGridViewColumn col in dgvMIDIoutListA.Columns)
+            {
+                dgv.Columns.Add((DataGridViewColumn)col.Clone());
+            }
+
         }
 
         private void btnASIOControlPanel_Click(object sender, EventArgs e)
@@ -1197,10 +1258,21 @@ namespace MDPlayer.form
                         moi.fileName = (string)d.Rows[i].Cells[2].Value;
                         moi.name = (string)d.Rows[i].Cells[3].Value;
                         string stype = (string)d.Rows[i].Cells[4].Value;
+                        //GM / XG / GS / LA / GS(SC - 55_1) / GS(SC - 55_2)
                         moi.type = 0;
                         if (stype == "XG") moi.type = 1;
                         if (stype == "GS") moi.type = 2;
-                        string mn = (string)d.Rows[i].Cells[5].Value;
+                        if (stype == "LA") moi.type = 3;
+                        if (stype == "GS(SC - 55_1)") moi.type = 4;
+                        if (stype == "GS(SC - 55_2)") moi.type = 5;
+                        string sbeforeSend = (string)d.Rows[i].Cells[5].Value;
+                        moi.beforeSendType = 0;
+                        if (sbeforeSend == "GM Reset") moi.beforeSendType = 1;
+                        if (sbeforeSend == "XG Reset") moi.beforeSendType = 2;
+                        if (sbeforeSend == "GS Reset") moi.beforeSendType = 3;
+                        if (sbeforeSend == "Custom") moi.beforeSendType = 4;
+
+                        string mn = (string)d.Rows[i].Cells[6].Value;
                         if (moi.isVST)
                         {
                             moi.vendor = mn;
@@ -1221,6 +1293,11 @@ namespace MDPlayer.form
                     setting.midiOut.lstMidiOutInfo.Add(null);
                 }
             }
+
+            setting.midiOut.GMReset= tbBeforeSend_GMReset.Text;
+            setting.midiOut.XGReset = tbBeforeSend_XGReset.Text;
+            setting.midiOut.GSReset = tbBeforeSend_GSReset.Text;
+            setting.midiOut.Custom = tbBeforeSend_Custom.Text;
 
             setting.nsf.NESUnmuteOnReset = cbNFSNes_UnmuteOnReset.Checked;
             setting.nsf.NESNonLinearMixer = cbNFSNes_NonLinearMixer.Checked;
@@ -1654,6 +1731,15 @@ namespace MDPlayer.form
                 return;
             }
             tbSIDCharacter.Text = ofd.FileName;
+        }
+
+        private void btnBeforeSend_Default_Click(object sender, EventArgs e)
+        {
+            Setting.MidiOut mo=new Setting.MidiOut();
+            tbBeforeSend_GMReset.Text = mo.GMReset;
+            tbBeforeSend_XGReset.Text = mo.XGReset;
+            tbBeforeSend_GSReset.Text = mo.GSReset;
+            tbBeforeSend_Custom.Text = mo.Custom;
         }
     }
 

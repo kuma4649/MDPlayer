@@ -18,6 +18,10 @@ namespace MDPlayer
         private double musicStep = common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
+        private List<RCP.CtlSysex>[] beforeSend = null;
+        private int[] sendControlDelta = null;
+        private int[] sendControlIndex = null;
+
         private List<uint> musicPtr = null;
         private List<uint> trkEndAdr = null;
         private List<int> trkPort = null;
@@ -173,7 +177,9 @@ namespace MDPlayer
             LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
-            vgmFrameCounter = -latency - waitTime;
+            //コントロールを送信してからウェイトするためここでは0をセットする
+            //vgmFrameCounter = -latency - waitTime;
+            vgmFrameCounter = 0;
             vgmSpeed = 1;
             vgmSpeedCounter = 0;
 
@@ -181,6 +187,9 @@ namespace MDPlayer
             //if (GD3 == null) return false;
 
             if (!getInformationHeader()) return false;
+
+            //ポートごとに事前に送信するコマンドを作成する
+            if (!MakeBeforeSendCommand()) return false;
 
             if (model == enmModel.RealModel)
             {
@@ -268,9 +277,14 @@ namespace MDPlayer
 
                 if (musicDownCounter <= 0.0)
                 {
-                    //midWaitCounter--;
-                    //if (midWaitCounter <= 0) 
-                    oneFrameMID();
+                    if (beforeSend != null)
+                    {
+                        sendControl();
+                    }
+                    else
+                    {
+                        oneFrameMID();
+                    }
                     musicDownCounter += musicStep;
                 }
                 musicDownCounter -= 1.0;
@@ -545,6 +559,118 @@ namespace MDPlayer
                 Stopped = true;
             }
         }
+
+        private void sendControl()
+        {
+
+            int endFlg = 0;
+
+            for (int i = 0; i < beforeSend.Length; i++)
+            {
+                if (beforeSend[i] != null)
+                {
+                    if (sendControlDelta[i] > 0)
+                    {
+                        sendControlDelta[i]--;
+                        continue;
+                    }
+                    if (beforeSend[i].Count == sendControlIndex[i])
+                    {
+                        beforeSend[i] = null;
+                        endFlg++;
+                        continue;
+                    }
+
+                    oneSyncTime = 60.0 / 29.0 / 192.0;
+
+                    RCP.CtlSysex csx = beforeSend[i][sendControlIndex[i]];
+                    sendControlDelta[i] = csx.delta;
+                    chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
+
+                    sendControlIndex[i]++;
+                }
+                else
+                {
+                    endFlg++;
+                }
+
+            }
+
+            if (endFlg == beforeSend.Length)
+            {
+                beforeSend = null;
+                vgmFrameCounter = -latency - waitTime;
+                return;
+            }
+
+            return;
+        }
+
+        private bool MakeBeforeSendCommand()
+        {
+            try
+            {
+                midiOutInfo[] infos = chipRegister.GetMIDIoutInfo();
+                if (infos == null || infos.Length < 1) return true;
+
+                beforeSend = new List<RCP.CtlSysex>[infos.Length];
+                sendControlIndex = new int[infos.Length];
+                sendControlDelta = new int[infos.Length];
+
+                for (int i = 0; i < beforeSend.Length; i++)
+                {
+                    beforeSend[i] = new List<RCP.CtlSysex>();
+
+                    //リセットを生成
+                    switch (infos[i].beforeSendType)
+                    {
+                        case 0://None
+                            break;
+                        case 1://GM Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.GMReset);
+                            break;
+                        case 2://XG Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.XGReset);
+                            break;
+                        case 3://GS Reset
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.GSReset);
+                            break;
+                        case 4://Custom
+                            GetCtlSysexFromText(beforeSend[i], setting.midiOut.Custom);
+                            break;
+                    }
+
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void GetCtlSysexFromText(List<RCP.CtlSysex> buf, string text)
+        {
+            if (text == null || text.Length < 1) return;
+
+            string[] cmds = text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string cmd in cmds)
+            {
+                string[] com = cmd.Split(new string[] { ":" }, StringSplitOptions.None);
+                int delay = int.Parse(com[0]);
+                string[] dats = com[1].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                byte[] dat = new byte[dats.Length];
+                for (int i = 0; i < dats.Length; i++)
+                {
+                    dat[i] = (byte)Convert.ToInt16(dats[i], 16);
+                }
+                buf.Add(new RCP.CtlSysex(delay, dat));
+            }
+        }
+
+
 
     }
 }

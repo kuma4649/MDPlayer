@@ -14,6 +14,7 @@ namespace MDPlayer
 
         private Setting setting = null;
         private MDSound.MDSound mds = null;
+        private midiOutInfo[] midiOutInfos = null;
         private List<NAudio.Midi.MidiOut> midiOuts = null;
         private List<int> midiOutsType = null;
         private List<vstInfo2> vstMidiOuts = null;
@@ -411,8 +412,25 @@ namespace MDPlayer
             midiExport.Close();
         }
 
-        public void setMIDIout(List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType, List<vstInfo2> vstMidiOuts, List<int> vstMidiOutsType)
+        public void setMIDIout(midiOutInfo[] midiOutInfos, List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType, List<vstInfo2> vstMidiOuts, List<int> vstMidiOutsType)
         {
+            this.midiOutInfos = null;
+            if (midiOutInfos!=null && midiOutInfos.Length > 0)
+            {
+                this.midiOutInfos = new midiOutInfo[midiOutInfos.Length];
+                for (int i = 0; i < midiOutInfos.Length; i++)
+                {
+                    this.midiOutInfos[i] = new midiOutInfo();
+                    this.midiOutInfos[i].beforeSendType = midiOutInfos[i].beforeSendType;
+                    this.midiOutInfos[i].fileName = midiOutInfos[i].fileName;
+                    this.midiOutInfos[i].id = midiOutInfos[i].id;
+                    this.midiOutInfos[i].isVST = midiOutInfos[i].isVST;
+                    this.midiOutInfos[i].manufacturer = midiOutInfos[i].manufacturer;
+                    this.midiOutInfos[i].name = midiOutInfos[i].name;
+                    this.midiOutInfos[i].type = midiOutInfos[i].type;
+                    this.midiOutInfos[i].vendor = midiOutInfos[i].vendor;
+                }
+            }
             this.midiOuts = midiOuts;
             this.midiOutsType = midiOutsType;
             this.vstMidiOuts = vstMidiOuts;
@@ -422,16 +440,16 @@ namespace MDPlayer
             if (midiOutsType == null && vstMidiOutsType == null) return;
             if (midiOuts == null && vstMidiOuts == null) return;
 
-            if (midiOutsType.Count > 0) midiParams[0].MIDIModule = midiOutsType[0];
-            if (midiOutsType.Count > 1) midiParams[1].MIDIModule = midiOutsType[1];
+            if (midiOutsType.Count > 0) midiParams[0].MIDIModule = Math.Min(midiOutsType[0], 2);
+            if (midiOutsType.Count > 1) midiParams[1].MIDIModule = Math.Min(midiOutsType[1], 2);
 
             if (vstMidiOutsType.Count > 0)
             {
-                if (midiOutsType.Count < 1 || (midiOutsType.Count > 0 && midiOuts[0] == null)) midiParams[0].MIDIModule = vstMidiOutsType[0];
+                if (midiOutsType.Count < 1 || (midiOutsType.Count > 0 && midiOuts[0] == null)) midiParams[0].MIDIModule = Math.Min(vstMidiOutsType[0], 2);
             }
             if (vstMidiOutsType.Count > 1)
             {
-                if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = vstMidiOutsType[1];
+                if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = Math.Min(vstMidiOutsType[1], 2);
             }
         }
 
@@ -2254,6 +2272,11 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteNESRam(chipid, (int)stAdr, (int)dataSize, vgmBuf, (int)vgmAdr);
+        }
+
+        public midiOutInfo[] GetMIDIoutInfo()
+        {
+            return midiOutInfos;
         }
 
         public void writeRF5C164(byte chipid, byte adr, byte data, enmModel model)
