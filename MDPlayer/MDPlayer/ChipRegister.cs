@@ -141,7 +141,10 @@ namespace MDPlayer
         public int[][][] fmRegisterYMF271 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
 
         public int[][][] fmRegisterYMF278B = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
-        private int[] fmRegisterYMF278BPCM = new int[2] { 0, 0 };
+        private int[] fmRegisterYMF278BFM = new int[2] { 0, 0 };
+        private int[][] fmRegisterYMF278BPCM = new int[2][] { new int[24], new int[24] };
+        private int[] fmRegisterYMF278BRyhthmB = new int[2] { 0, 0 };
+        private int[] fmRegisterYMF278BRyhthm = new int[2] { 0, 0 };
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
 
@@ -345,6 +348,10 @@ namespace MDPlayer
                     fmRegisterYMF278B[chipID][1][i] = 0;
                     fmRegisterYMF278B[chipID][2][i] = 0;
                 }
+                fmRegisterYMF278BRyhthm[0] = 0;
+                fmRegisterYMF278BRyhthm[1] = 0;
+                fmRegisterYMF278BRyhthmB[0] = 0;
+                fmRegisterYMF278BRyhthmB[1] = 0;
 
                 Y8950Register[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
@@ -956,14 +963,35 @@ namespace MDPlayer
             fmRegisterYM2413Ryhthm[chipID] = 0;
         }
 
-        public int getYMF278BPCMKeyON(int chipID)
+        public int getYMF278BRyhthmKeyON(int chipID)
+        {
+            return fmRegisterYMF278BRyhthm[chipID];
+        }
+
+        public void resetYMF278BRyhthmKeyON(int chipID)
+        {
+            fmRegisterYMF278BRyhthm[chipID] = 0;
+        }
+
+        public int[] getYMF278BPCMKeyON(int chipID)
         {
             return fmRegisterYMF278BPCM[chipID];
         }
 
         public void resetYMF278BPCMKeyON(int chipID)
         {
-            fmRegisterYMF278BPCM[chipID]=0;
+            for (int i = 0; i < 24; i++)
+                fmRegisterYMF278BPCM[chipID][i] = 0;
+        }
+
+        public int getYMF278BFMKeyON(int chipID)
+        {
+            return fmRegisterYMF278BFM[chipID];
+        }
+
+        public void resetYMF278BFMKeyON(int chipID)
+        {
+            fmRegisterYMF278BFM[chipID] = 0;
         }
 
         public void setHuC6280Register(int chipID, int dAddr, int dData, enmModel model)
@@ -1461,18 +1489,43 @@ namespace MDPlayer
             {
                 fmRegisterYMF278B[chipID][dPort][dAddr] = dData;
 
-                if(dPort==2 && (dAddr >= 0x68 && dAddr<=0x7f))
+                //if (dPort == 2)
+                //{
+                    //Console.WriteLine("p=2:adr{0:x02} dat{1:x02}", dAddr, dData);
+                //}
+
+                if (dAddr >= 0xb0 && dAddr <= 0xb8)
+                {
+                    int k = dData >> 5;
+                    if (k == 0)
+                    {
+                        fmRegisterYMF278BFM[chipID] &= ~(1 << (dAddr - 0xb0 + dPort * 9));
+                    }
+                    else
+                    {
+                        fmRegisterYMF278BFM[chipID] |= (1 << (dAddr - 0xb0 + dPort * 9));
+                    }
+                }
+
+                if (dAddr == 0xbd)
+                {
+                    fmRegisterYMF278BRyhthm[chipID] = (fmRegisterYMF278BRyhthmB[chipID] ^ dData) & 0x1f;
+                    fmRegisterYMF278BRyhthmB[chipID] = dData;
+                }
+
+                if (dPort == 2 && (dAddr >= 0x68 && dAddr <= 0x7f))
                 {
                     int k = dData >> 7;
                     if (k == 0)
                     {
-                        fmRegisterYMF278BPCM[chipID] &= ~(1 << (dAddr - 0x68));
+                        fmRegisterYMF278BPCM[chipID][dAddr-0x68] = 2;
                     }
                     else
                     {
-                        fmRegisterYMF278BPCM[chipID] |= (1 << (dAddr - 0x68));
+                        fmRegisterYMF278BPCM[chipID][dAddr - 0x68] = 1;
                     }
                 }
+
             }
 
             if (model == enmModel.VirtualModel)

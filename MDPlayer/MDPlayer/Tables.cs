@@ -66,6 +66,24 @@ namespace MDPlayer
             ,1.887776163901842f
         };
 
+        public static int[] pcmpitchTbl = new int[]
+        {
+            //0-1023
+            0 
+            ,61
+            ,125
+            ,194
+            ,266
+            ,343
+            ,424
+            ,510
+            ,602
+            ,698
+            ,801
+            ,909
+        };
+
+
         public static string[][] tblMIDIEffectGS = new string[4][] {
             new string[] { "Room 1         " , "Room 2         " , "Room 3         " , "Hall 1         "
                          , "Hall 2         " , "Plate          " , "Delay          " , "Panning Delay  " },
@@ -184,7 +202,7 @@ namespace MDPlayer
         public static string[] kbn = new string[] { "C ", "C#", "D ", "D#", "E ", "F ", "F#", "G ", "G#", "A ", "A#", "B " };
         public static string[] kbns = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         public static string[] kbnp = new string[] { "C ", "C+", "D ", "D+", "E ", "F ", "F+", "G ", "G+", "A ", "A+", "B " };
-        public static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A" };
+        public static string[] kbo = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
         public static int[] kbl2 = new int[] { 0, 12, 4, 12, 8, 0, 12, 4, 12, 4, 12, 8 };
         public static int[] kbdl = new int[] { 0, 2, 4, 6, 8, 12, 14, 16, 18, 20, 22, 24 };
 

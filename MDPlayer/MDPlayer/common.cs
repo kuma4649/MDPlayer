@@ -293,6 +293,23 @@ namespace MDPlayer
             return n;
         }
 
+        public static int searchPCMNote(int ml)
+        {
+            int m = int.MaxValue;
+            ml = ml % 1024;
+            int n = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                int a = Math.Abs(ml - Tables.pcmpitchTbl[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
+
         public static int searchYM2608Adpcm(float freq)
         {
             float m = float.MaxValue;

@@ -959,6 +959,44 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardToYMF278BPCM(FrameBuffer screen, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0 && ot < 12 * 15)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 15)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 300+8*24, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 300+8*24, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 15)
+                {
+                    drawFont8(screen, 300+8*26, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
+
         public static void Pan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
         {
 
@@ -2057,6 +2095,14 @@ namespace MDPlayer
             os = ns;
         }
 
+        public static void font4Int1(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Int1(screen, x, y, t, nn);
+            on = nn;
+        }
+
         public static void font4Int2(FrameBuffer screen, int x, int y, int t, int k, ref int on, int nn)
         {
             if (on == nn) return;
@@ -2400,6 +2446,15 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 1, 4, 7);
         }
 
+        public static void drawFont4Int1(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            n = num % 10;
+            screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
+        }
+
         public static void drawFont4Int2(FrameBuffer screen, int x, int y, int t, int k, int num)
         {
             if (screen == null) return;
@@ -2410,7 +2465,7 @@ namespace MDPlayer
                 n = num / 100;
                 num -= n * 100;
                 n = (n > 9) ? 0 : n;
-                screen.drawByteArray(x, y, rFont2[t], 128,(n * 4 + 64), 0, 4, 8);
+                screen.drawByteArray(x, y, rFont2[t], 128, (n * 4 + 64), 0, 4, 8);
 
                 n = num / 10;
                 num -= n * 10;

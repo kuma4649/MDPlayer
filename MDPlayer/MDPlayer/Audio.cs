@@ -4743,6 +4743,15 @@ namespace MDPlayer
             return chipRegister.fmRegisterYMF278B[chipID];
         }
 
+        public static int[] GetMoonDriverPCMKeyOn()
+        {
+            if(driverVirtual is Driver.MoonDriver.MoonDriver)
+            {
+                if (driverVirtual != null) return ((Driver.MoonDriver.MoonDriver)driverVirtual).GetPCMKeyOn();
+            }
+            return null;
+        }
+
         public static int[] GetPSGRegister(int chipID)
         {
             return chipRegister.sn76489Register[chipID];
@@ -4918,7 +4927,27 @@ namespace MDPlayer
             chipRegister.resetYM2413RyhthmKeyON(chipID);
         }
 
-        public static int getYMF278BPCMKeyON(int chipID)
+        public static int getYMF278BFMKeyON(int chipID)
+        {
+            return chipRegister.getYMF278BFMKeyON(chipID);
+        }
+
+        public static void resetYMF278BFMKeyON(int chipID)
+        {
+            chipRegister.resetYMF278BFMKeyON(chipID);
+        }
+
+        public static int getYMF278BRyhthmKeyON(int chipID)
+        {
+            return chipRegister.getYMF278BRyhthmKeyON(chipID);
+        }
+
+        public static void resetYMF278BRyhthmKeyON(int chipID)
+        {
+            chipRegister.resetYMF278BRyhthmKeyON(chipID);
+        }
+
+        public static int[] getYMF278BPCMKeyON(int chipID)
         {
             return chipRegister.getYMF278BPCMKeyON(chipID);
         }

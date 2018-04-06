@@ -206,6 +206,24 @@ namespace MDPlayer.Driver.MoonDriver
         private double ntscCounter = 0.0;
         private bool nextFlg = false;
         public Tuple<string, byte[]> ExtendFile = null;
+        private int[] pcmKeyon = new int[24] {
+         -1, -1, -1, -1, -1, -1,
+         -1, -1, -1, -1, -1, -1,
+         -1, -1, -1, -1, -1, -1,
+         -1, -1, -1, -1, -1, -1
+        };
+        private int[] pcmKeyonB = new int[24];
+        public int[] GetPCMKeyOn()
+        {
+            for(int i = 0; i < pcmKeyonB.Length; i++)
+            {
+                pcmKeyonB[i] = pcmKeyon[i];
+                pcmKeyon[i] = -2;
+            }
+            return pcmKeyonB;
+        }
+
+
 
         private void oneFrameMain()
         {
@@ -3477,6 +3495,7 @@ namespace MDPlayer.Driver.MoonDriver
             work.ch[ix].key = e;
             moon_add_reg_ch();
             moon_wave_out();// key - off
+            pcmKeyon[ix] = -1;
         }
 
         //********************************************
@@ -3624,6 +3643,7 @@ namespace MDPlayer.Driver.MoonDriver
 
             moon_add_reg_ch();
             moon_wave_out();// key-on
+            pcmKeyon[ix] = work.ch[ix].note +12*2;
             return;
 
         }

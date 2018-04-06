@@ -2475,6 +2475,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 if (frmYM2612[i] != null) frmYM2612[i].screenInit();
+                if (frmYMF278B[i] != null) frmYMF278B[i].screenInit();
 
             }
         }
