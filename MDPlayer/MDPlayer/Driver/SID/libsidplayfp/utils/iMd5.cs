@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.utils
+namespace Driver.libsidplayfp.utils
 {
     public class iMd5
     {

@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.c64.CPU
+namespace Driver.libsidplayfp.c64.CPU
 {
     /**
      * Cycle-exact 6502/6510 emulation core.

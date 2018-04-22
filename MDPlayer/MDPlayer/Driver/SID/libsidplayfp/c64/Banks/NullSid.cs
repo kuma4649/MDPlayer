@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace sidplayFpNET.libsidplayfp.c64.Banks
+namespace Driver.libsidplayfp.c64.Banks
 {
     /**
      * SID chip placeholder which does nothing and returns 0xff on reading.

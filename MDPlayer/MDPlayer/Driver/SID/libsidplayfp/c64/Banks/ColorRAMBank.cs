@@ -20,7 +20,7 @@
  */
 using System;
 
-namespace sidplayFpNET.libsidplayfp.c64.Banks
+namespace Driver.libsidplayfp.c64.Banks
 {
     /**
      * Color RAM.

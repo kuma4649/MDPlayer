@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.sidplayfp
+namespace Driver.libsidplayfp.sidplayfp
 {
     /**
      * Base class for sid builders.

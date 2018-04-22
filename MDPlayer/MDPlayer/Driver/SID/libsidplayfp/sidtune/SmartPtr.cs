@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.sidtune
+namespace Driver.libsidplayfp.sidtune
 {
     public class SmartPtrBase_sidtt<T>
     {

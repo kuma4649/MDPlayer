@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.c64.Banks
+namespace Driver.libsidplayfp.c64.Banks
 {
 
 

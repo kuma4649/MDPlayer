@@ -131,9 +131,9 @@ namespace MDPlayer.form
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
                 int hosei = 0;
-                if (Audio.driverVirtual is vgm)
+                if (Audio.driverVirtual !=null)//is vgm)
                 {
-                    hosei = ((vgm)Audio.driverVirtual).YM2151Hosei[chipID];
+                    hosei = (Audio.driverVirtual).YM2151Hosei[chipID];
                 }
                 newParam.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
 

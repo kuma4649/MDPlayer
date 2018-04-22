@@ -21,7 +21,7 @@
  */
 using System;
 
-namespace sidplayFpNET.libsidplayfp.c64.CIA
+namespace Driver.libsidplayfp.c64.CIA
 {
     /**
      * This is the base class for the MOS6526 timers.

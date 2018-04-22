@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp
+namespace Driver.libsidplayfp
 {
     /**
      * An Event object that can be inserted in the Event Scheduler.

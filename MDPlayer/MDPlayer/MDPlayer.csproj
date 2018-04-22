@@ -127,8 +127,12 @@
     <Compile Include="Driver\HES\kmevent.cs" />
     <Compile Include="Driver\HES\m_hes.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
+    <Compile Include="Driver\MXDRV\depend.cs" />
     <Compile Include="Driver\MXDRV\MXDRV.cs" />
     <Compile Include="Driver\MXDRV\MXDRVh.cs" />
+    <Compile Include="Driver\MXDRV\sound_iocs.cs" />
+    <Compile Include="Driver\MXDRV\x68sound.cs" />
+    <Compile Include="Driver\MXDRV\xReg.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\MID.cs" />
     <Compile Include="Driver\RCP\MIDIEvent.cs" />
@@ -222,7 +226,7 @@
     <Compile Include="Driver\SID\libsidplayfp\utils\STILview\stil.cs" />
     <Compile Include="Driver\SID\libsidplayfp\utils\STILview\stildefs.cs" />
     <Compile Include="Driver\SID\mem.cs" />
-    <Compile Include="Driver\SID\Ptr.cs" />
+    <Compile Include="Driver\Ptr.cs" />
     <Compile Include="Driver\HES\s_deltat.cs" />
     <Compile Include="Driver\HES\s_hesad.cs" />
     <Compile Include="Driver\SID\sid.cs" />

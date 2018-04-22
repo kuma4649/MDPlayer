@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using sidplayFpNET.libsidplayfp.sidplayfp;
+using Driver.libsidplayfp.sidplayfp;
 
-namespace sidplayFpNET.libsidplayfp.sidtune
+namespace Driver.libsidplayfp.sidtune
 {
 
 

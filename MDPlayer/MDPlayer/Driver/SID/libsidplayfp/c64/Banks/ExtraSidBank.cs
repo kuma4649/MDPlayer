@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace sidplayFpNET.libsidplayfp.c64.Banks
+namespace Driver.libsidplayfp.c64.Banks
 {
     /**
      * Extra SID bank.

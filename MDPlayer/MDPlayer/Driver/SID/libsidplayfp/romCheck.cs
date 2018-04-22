@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp
+namespace Driver.libsidplayfp
 {
     /**
      * Utility class to identify known ROM images through their md5 checksum.

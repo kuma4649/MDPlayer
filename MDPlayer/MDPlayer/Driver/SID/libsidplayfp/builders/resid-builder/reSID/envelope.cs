@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
+namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
     // ----------------------------------------------------------------------------
     // A 15 bit counter is used to implement the envelope rates, in effect

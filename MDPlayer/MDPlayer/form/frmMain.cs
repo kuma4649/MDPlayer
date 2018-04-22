@@ -3123,6 +3123,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".mdx") != -1)
+            {
+                format = enmFileFormat.MDX;
+                return buf;
+            }
+
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
                 format = enmFileFormat.XGM;
@@ -4079,6 +4085,19 @@ namespace MDPlayer.form
                 case enmFileFormat.MDR:
                     buf = getExtendFileAllBytes(fn, System.IO.Path.GetFileNameWithoutExtension(fn) + ".PCM", archive);
                     if (buf != null) ret.Add(new Tuple<string, byte[]>(".PCM", buf));
+                    break;
+                case enmFileFormat.MDX:
+                    string PDX;
+                    Driver.MXDRV.MXDRV.getPDXFileName(srcBuf, out PDX);
+                    if (!string.IsNullOrEmpty(PDX))
+                    {
+                        buf = getExtendFileAllBytes(fn, PDX, archive);
+                        if (buf == null)
+                        {
+                            buf = getExtendFileAllBytes(fn, PDX+".PDX", archive);
+                        }
+                        if (buf != null) ret.Add(new Tuple<string, byte[]>(".PDX", buf));
+                    }
                     break;
                 default:
                     return null;

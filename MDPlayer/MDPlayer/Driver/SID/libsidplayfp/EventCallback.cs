@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp
+namespace Driver.libsidplayfp
 {
     //template< class This >
     public sealed class EventCallback<This> : Event

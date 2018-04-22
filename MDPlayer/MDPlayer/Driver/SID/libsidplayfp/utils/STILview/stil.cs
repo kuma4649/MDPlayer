@@ -24,7 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.utils.STILview
+namespace Driver.libsidplayfp.utils.STILview
 {
     public class STIL
     {

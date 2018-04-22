@@ -1,5 +1,5 @@
-﻿using sidplayFpNET.libsidplayfp.builders.resid_builder;
-using sidplayFpNET.libsidplayfp.sidplayfp;
+﻿using Driver.libsidplayfp.builders.resid_builder;
+using Driver.libsidplayfp.sidplayfp;
 using System;
 using System.Text;
 using System.IO;
@@ -160,7 +160,7 @@ namespace MDPlayer.Driver.SID
             }
 
             // Get tune details
-            sidplayFpNET.libsidplayfp.sidplayfp.SidTuneInfo tuneInfo = tune.getInfo();
+            global::Driver.libsidplayfp.sidplayfp.SidTuneInfo tuneInfo = tune.getInfo();
             //if (!m_track.single)
             //    m_track.songs = (UInt16)tuneInfo.songs();
             //if (!createOutput(m_driver.output, tuneInfo))

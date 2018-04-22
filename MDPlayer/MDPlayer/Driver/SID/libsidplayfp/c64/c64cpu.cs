@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.c64
+namespace Driver.libsidplayfp.c64
 {
     public sealed class c64cpu : CPU.MOS6510
     {

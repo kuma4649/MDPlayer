@@ -34,7 +34,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.utils.MD5
+namespace Driver.libsidplayfp.utils.MD5
 {
     public class MD5
     {

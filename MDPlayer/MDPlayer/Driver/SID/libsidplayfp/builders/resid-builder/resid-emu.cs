@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.builders.resid_builder
+namespace Driver.libsidplayfp.builders.resid_builder
 {
 
 

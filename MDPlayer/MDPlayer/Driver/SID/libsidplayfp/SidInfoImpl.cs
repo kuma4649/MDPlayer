@@ -25,12 +25,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp
+namespace Driver.libsidplayfp
 {
     /**
      * The implementation of the SidInfo interface.
      */
-    public sealed class SidInfoImpl : sidplayFpNET.libsidplayfp.sidplayfp.SidInfo
+    public sealed class SidInfoImpl : Driver.libsidplayfp.sidplayfp.SidInfo
     {
 
 

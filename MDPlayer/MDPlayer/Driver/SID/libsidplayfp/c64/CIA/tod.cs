@@ -22,7 +22,7 @@
  */
 using System;
 
-namespace sidplayFpNET.libsidplayfp.c64.CIA
+namespace Driver.libsidplayfp.c64.CIA
 {
     public enum timeUnit
     {

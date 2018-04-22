@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.c64.VIC_II
+namespace Driver.libsidplayfp.c64.VIC_II
 {
     /**
      * MOS 6567/6569/6572 emulation.

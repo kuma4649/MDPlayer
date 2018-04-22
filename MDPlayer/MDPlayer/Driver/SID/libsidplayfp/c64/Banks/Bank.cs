@@ -21,7 +21,7 @@
 
 using System;
 
-namespace sidplayFpNET.libsidplayfp.c64.Banks
+namespace Driver.libsidplayfp.c64.Banks
 {
     /**
      * Base interface for memory and I/O banks.

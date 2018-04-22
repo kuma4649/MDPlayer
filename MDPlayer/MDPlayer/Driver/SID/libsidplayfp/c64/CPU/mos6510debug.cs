@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.c64.CPU
+namespace Driver.libsidplayfp.c64.CPU
 {
     public partial class MOS6510 //mos6510debug
     {

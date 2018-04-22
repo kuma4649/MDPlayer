@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sidplayFpNET.libsidplayfp.builders.resid_builder.reSID
+namespace Driver.libsidplayfp.builders.resid_builder.reSID
 {
     public class dac
     {
