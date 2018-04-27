@@ -2178,6 +2178,9 @@ namespace MDPlayer
                                     C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
                                     break;
                                 case 0x02:
+                                    C140Type = MDSound.c140.C140_TYPE.SYSTEM21;
+                                    break;
+                                case 0x03:
                                 default:
                                     C140Type = MDSound.c140.C140_TYPE.ASIC219;
                                     break;

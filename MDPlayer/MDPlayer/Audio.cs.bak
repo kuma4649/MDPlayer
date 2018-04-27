@@ -4329,17 +4329,9 @@ namespace MDPlayer
 
                     double el1 = sw.ElapsedTicks / swFreq;
                     if (el1 - o < step) continue;
-                    if (el1 - o >= step * common.SampleRate/100.0)//閾値10ms
-                    {
-                        do
-                        {
-                            o += step;
-                        } while (el1 - o >= step);
-                    }
-                    else
-                    {
-                        o += step;
-                    }
+
+                    o += step;
+                    //while (el1 - o >= step) o += step;
 
                     if (Stopped || Paused)
                     {

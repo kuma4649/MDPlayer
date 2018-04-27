@@ -557,7 +557,7 @@ namespace MDPlayer.Driver
             }
         }
 
-        public new void setinst(object sndp, UInt32 n, byte[] p, UInt32 l)
+        public void setinst(object sndp, UInt32 n, byte[] p, UInt32 l)
         {
             YMDELTATPCMSOUND_ s = (YMDELTATPCMSOUND_)sndp;
             if (n != 0) return;

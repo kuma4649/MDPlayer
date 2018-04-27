@@ -126,12 +126,12 @@ namespace MDPlayer.Driver.MXDRV
 
         public override void oneFrameProc()
         {
-            //if (model == enmModel.RealModel)
-            //{
-            //    Stopped = true;
-            //    vgmCurLoop = int.MaxValue;
-            //    return;
-            //}
+            if (model == enmModel.RealModel)
+            {
+                Stopped = true;
+                vgmCurLoop = int.MaxValue;
+                return;
+            }
 
             //Tb(ms)=(1024*(256-CLKB))/4MHz=0.065536
             double tb = (1024 * (256 - TimerB)) / 4000.0;// 000000.0;

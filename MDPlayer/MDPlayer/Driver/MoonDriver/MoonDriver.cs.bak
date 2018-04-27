@@ -777,9 +777,9 @@ namespace MDPlayer.Driver.MoonDriver
         //    org	$4020
 
         //str_moondrv:
-        //private string str_moondrv = "MOONDRIVER "
-        //+ "VER 160305"
-        //+ "\0d\0a$";
+        private string str_moondrv = "MOONDRIVER "
+        + "VER 160305"
+        + "\0d\0a$";
 
         //********************************************
         // work for debug
@@ -3802,7 +3802,7 @@ namespace MDPlayer.Driver.MoonDriver
 
             b = 0x08;
 
-            //string str_romchk = "Copyright";
+            string str_romchk = "Copyright";
             hl = 0;
 
             // check loop
@@ -3831,65 +3831,65 @@ namespace MDPlayer.Driver.MoonDriver
         {
             //スキップ
             return false;
-            //// $77-> ($200000)
-            //moon_reset_sram_adrs();
+            // $77-> ($200000)
+            moon_reset_sram_adrs();
 
-            //d = 0x06;
-            //e = 0x77;
-            //moon_wave_out();
+            d = 0x06;
+            e = 0x77;
+            moon_wave_out();
 
-            //// ok if $77 < -($200000)
-            //moon_set_sram_adrs();
+            // ok if $77 < -($200000)
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //moon_wave_in();
+            d = 0x06;
+            moon_wave_in();
 
-            //if (!CP_ZF(0x77)) return true;
+            if (!CP_ZF(0x77)) return true;
 
-            //// $88-> ($200000)
-            //moon_set_sram_adrs();
+            // $88-> ($200000)
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //e = 0x88;
-            //moon_wave_out();
+            d = 0x06;
+            e = 0x88;
+            moon_wave_out();
 
-            //// ok if $88 < -($200000)
-            //moon_set_sram_adrs();
+            // ok if $88 < -($200000)
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //moon_wave_in();
+            d = 0x06;
+            moon_wave_in();
 
-            //if (!CP_ZF(0x88)) return true;
+            if (!CP_ZF(0x88)) return true;
 
-            //// $99-> ($200001)
-            //a = 0x01;
+            // $99-> ($200001)
+            a = 0x01;
 
-            //MDB_BASE[MDB_ADRLO] = a;
-            //moon_set_sram_adrs();
+            MDB_BASE[MDB_ADRLO] = a;
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //e = 0x99;
-            //moon_wave_out();
+            d = 0x06;
+            e = 0x99;
+            moon_wave_out();
 
-            //// ok if $99 < -($200001)
-            //moon_set_sram_adrs();
+            // ok if $99 < -($200001)
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //moon_wave_in();
+            d = 0x06;
+            moon_wave_in();
 
-            //if (!CP_ZF(0x99)) return true;
+            if (!CP_ZF(0x99)) return true;
 
-            //// ok if $88 < -($200000)
-            //a = 0;
+            // ok if $88 < -($200000)
+            a = 0;
 
-            //MDB_BASE[MDB_ADRLO] = a;
-            //moon_set_sram_adrs();
+            MDB_BASE[MDB_ADRLO] = a;
+            moon_set_sram_adrs();
 
-            //d = 0x06;
-            //moon_wave_in();
+            d = 0x06;
+            moon_wave_in();
 
-            //if (!CP_ZF(0x88)) return true;
-            //return false;
+            if (!CP_ZF(0x88)) return true;
+            return false;
         }
 
 
