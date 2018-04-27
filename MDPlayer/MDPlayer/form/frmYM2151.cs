@@ -25,7 +25,8 @@ namespace MDPlayer.form
         private MDChipParams.YM2151 oldParam = new MDChipParams.YM2151();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2151(frmMain frm,int chipID, int zoom,MDChipParams.YM2151 newParam)
+
+        public frmYM2151(frmMain frm, int chipID, int zoom, MDChipParams.YM2151 newParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -34,9 +35,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeE, null, zoom);
-            bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
-            int tp = YM2151Type ? 1 : 0;
-            DrawBuff.screenInitYM2151(frameBuffer, tp);
+            screenInit();
             update();
         }
 
@@ -75,8 +74,7 @@ namespace MDPlayer.form
             this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeE.Width * zoom, frameSizeH + Properties.Resources.planeE.Height * zoom);
             frmYM2151_Resize(null, null);
         }
-
-
+        
         private void frmYM2151_Resize(object sender, EventArgs e)
         {
 
@@ -93,6 +91,66 @@ namespace MDPlayer.form
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);
+            }
+        }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
+
+            int ch = (py / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch < 8)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    parent.SetChannelMask(enmUseChip.YM2151, chipID, ch);
+                    return;
+                }
+
+                for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(enmUseChip.YM2151, chipID, ch);
+                return;
+
+            }
+
+            // 音色表示欄の判定
+
+            int h = (py - 9 * 8) / (6 * 8);
+            int w = Math.Min(px / (13 * 8), 2);
+            int instCh = h * 3 + w;
+
+            if (instCh < 8)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(enmUseChip.YM2151, instCh, chipID);
+            }
+        }
+
+        public void screenInit()
+        {
+            bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
+            int tp = YM2151Type ? 1 : 0;
+            for (int ch = 0; ch < 8; ch++)
+            {
+
+                DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
+
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+
+                DrawBuff.ChYM2151_P(frameBuffer, 0, ch * 8 + 8, ch, false, tp);
+                DrawBuff.drawPanP(frameBuffer, 24, ch * 8 + 8, 3, tp);
+                int d = 99;
+                DrawBuff.Volume(frameBuffer, ch, 1, ref d, 0, tp);
+                d = 99;
+                DrawBuff.Volume(frameBuffer, ch, 2, ref d, 0, tp);
+
             }
         }
 
@@ -131,7 +189,7 @@ namespace MDPlayer.form
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
                 int hosei = 0;
-                if (Audio.driverVirtual !=null)//is vgm)
+                if (Audio.driverVirtual != null)//is vgm)
                 {
                     hosei = (Audio.driverVirtual).YM2151Hosei[chipID];
                 }
@@ -152,7 +210,6 @@ namespace MDPlayer.form
             newParam.lfosync = ((ym2151Register[0x01] & 0x02) >> 1);
 
         }
-
 
         public void screenDrawParams()
         {
@@ -186,38 +243,5 @@ namespace MDPlayer.form
 
         }
 
-    private void pbScreen_MouseClick(object sender, MouseEventArgs e)
-        {
-            int px = e.Location.X / zoom;
-            int py = e.Location.Y / zoom;
-
-            int ch = (py / 8) - 1;
-            if (ch < 0) return;
-
-            if (ch < 8)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    parent.SetChannelMask(enmUseChip.YM2151,chipID, ch);
-                    return;
-                }
-
-                for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(enmUseChip.YM2151,chipID, ch);
-                return;
-
-            }
-
-            // 音色表示欄の判定
-
-            int h = (py - 9 * 8) / (6 * 8);
-            int w = Math.Min(px / (13 * 8), 2);
-            int instCh = h * 3 + w;
-
-            if (instCh < 8)
-            {
-                //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2151, instCh, chipID);
-            }
-        }
     }
 }

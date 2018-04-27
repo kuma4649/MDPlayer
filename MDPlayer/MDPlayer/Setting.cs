@@ -422,6 +422,61 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _C140Type = new ChipType();
+        public ChipType C140Type
+        {
+            get
+            {
+                return _C140Type;
+            }
+
+            set
+            {
+                _C140Type = value;
+            }
+        }
+
+        private ChipType _C140SType = new ChipType();
+        public ChipType C140SType
+        {
+            get
+            {
+                return _C140SType;
+            }
+
+            set
+            {
+                _C140SType = value;
+            }
+        }
+
+        private ChipType _SEGAPCMType = new ChipType();
+        public ChipType SEGAPCMType
+        {
+            get
+            {
+                return _SEGAPCMType;
+            }
+
+            set
+            {
+                _SEGAPCMType = value;
+            }
+        }
+
+        private ChipType _SEGAPCMSType = new ChipType();
+        public ChipType SEGAPCMSType
+        {
+            get
+            {
+                return _SEGAPCMSType;
+            }
+
+            set
+            {
+                _SEGAPCMSType = value;
+            }
+        }
 
 
         private int _LatencyEmulation = 0;
@@ -756,6 +811,7 @@ namespace MDPlayer
                 }
             }
 
+
             private bool _UseScci = false;
             public bool UseScci
             {
@@ -825,6 +881,134 @@ namespace MDPlayer
                     _ChipName = value;
                 }
             }
+
+
+            private bool _UseScci2 = false;
+            public bool UseScci2
+            {
+                get
+                {
+                    return _UseScci2;
+                }
+
+                set
+                {
+                    _UseScci2 = value;
+                }
+            }
+
+            private int _SoundLocation2A = -1;
+            public int SoundLocation2A
+            {
+                get
+                {
+                    return _SoundLocation2A;
+                }
+
+                set
+                {
+                    _SoundLocation2A = value;
+                }
+            }
+
+            private int _BusID2A = -1;
+            public int BusID2A
+            {
+                get
+                {
+                    return _BusID2A;
+                }
+
+                set
+                {
+                    _BusID2A = value;
+                }
+            }
+
+            private int _SoundChip2A = -1;
+            public int SoundChip2A
+            {
+                get
+                {
+                    return _SoundChip2A;
+                }
+
+                set
+                {
+                    _SoundChip2A = value;
+                }
+            }
+
+            private string _ChipName2A = "";
+            public string ChipName2A
+            {
+                get
+                {
+                    return _ChipName2A;
+                }
+
+                set
+                {
+                    _ChipName2A = value;
+                }
+            }
+
+            private int _SoundLocation2B = -1;
+            public int SoundLocation2B
+            {
+                get
+                {
+                    return _SoundLocation2B;
+                }
+
+                set
+                {
+                    _SoundLocation2B = value;
+                }
+            }
+
+            private int _BusID2B = -1;
+            public int BusID2B
+            {
+                get
+                {
+                    return _BusID2B;
+                }
+
+                set
+                {
+                    _BusID2B = value;
+                }
+            }
+
+            private int _SoundChip2B = -1;
+            public int SoundChip2B
+            {
+                get
+                {
+                    return _SoundChip2B;
+                }
+
+                set
+                {
+                    _SoundChip2B = value;
+                }
+            }
+
+            private string _ChipName2B = "";
+            public string ChipName2B
+            {
+                get
+                {
+                    return _ChipName2B;
+                }
+
+                set
+                {
+                    _ChipName2B = value;
+                }
+            }
+
 
             private bool _UseWait = true;
             public bool UseWait
@@ -905,6 +1089,16 @@ namespace MDPlayer
                 ct.SoundLocation = this.SoundLocation;
                 ct.BusID = this.BusID;
                 ct.SoundChip = this.SoundChip;
+                ct.ChipName = this.ChipName;
+                ct.UseScci2 = this.UseScci2;
+                ct.SoundLocation2A = this.SoundLocation2A;
+                ct.BusID2A = this.BusID2A;
+                ct.SoundChip2A = this.SoundChip2A;
+                ct.ChipName2A = this.ChipName2A;
+                ct.SoundLocation2B = this.SoundLocation2B;
+                ct.BusID2B = this.BusID2B;
+                ct.SoundChip2B = this.SoundChip2B;
+                ct.ChipName2B = this.ChipName2B;
                 ct.UseWait = this.UseWait;
                 ct.UseWaitBoost = this.UseWaitBoost;
                 ct.OnlyPCMEmulation = this.OnlyPCMEmulation;
@@ -3503,6 +3697,8 @@ namespace MDPlayer
             setting.YM2610Type = this.YM2610Type.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();
             setting.SN76489Type = this.SN76489Type.Copy();
+            setting.C140Type = this.C140Type.Copy();
+            setting.SEGAPCMType = this.SEGAPCMType.Copy();
 
             setting.YM2151SType = this.YM2151SType.Copy();
             setting.YM2203SType = this.YM2203SType.Copy();
@@ -3510,6 +3706,8 @@ namespace MDPlayer
             setting.YM2610SType = this.YM2610SType.Copy();
             setting.YM2612SType = this.YM2612SType.Copy();
             setting.SN76489SType = this.SN76489SType.Copy();
+            setting.C140SType = this.C140SType.Copy();
+            setting.SEGAPCMSType = this.SEGAPCMSType.Copy();
 
             setting.other = this.other.Copy();
             setting.balance = this.balance.Copy();

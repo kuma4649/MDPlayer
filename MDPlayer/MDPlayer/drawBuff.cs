@@ -152,23 +152,6 @@ namespace MDPlayer
             }
         }
 
-        public static void screenInitC140(FrameBuffer screen)
-        {
-            //C140
-            for (int ch = 0; ch < 24; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(screen, 24, ch * 8 + 8, 0);
-                ChC140_P(screen, 0, 8 + ch * 8, ch, false, 0);
-            }
-        }
-
         public static void screenInitHuC6280(FrameBuffer screen)
         {
             for (int ch = 0; ch < 6; ch++)
@@ -195,7 +178,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(screen, 24, ch * 8 + 8, 0);
+                drawPanType2P(screen, 24, ch * 8 + 8, 0,0);
             }
         }
 
@@ -230,22 +213,6 @@ namespace MDPlayer
         {
         }
 
-        public static void screenInitSegaPCM(FrameBuffer screen)
-        {
-            for (int ch = 0; ch < 16; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-                drawPanType2P(screen, 24, ch * 8 + 8, 0);
-                ChSegaPCM_P(screen, 0, 8 + ch * 8, ch, false, 0);
-            }
-        }
-
         public static void screenInitSN76489(FrameBuffer screen,int tp)
         {
 
@@ -269,31 +236,6 @@ namespace MDPlayer
 
                 int d = 99;
                 DrawBuff.Volume(screen, ch, 0, ref d, 0, tp);
-            }
-        }
-
-        public static void screenInitYM2151(FrameBuffer screen, int tp)
-        {
-            //YM2151
-            for (int ch = 0; ch < 8; ch++)
-            {
-
-                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
-                }
-
-                ChYM2151_P(screen, 0, ch * 8 + 8, ch, false, tp);
-                drawPanP(screen, 24, ch * 8 + 8, 3, tp);
-                int d = 99;
-                Volume(screen, ch, 1, ref d, 0, tp);
-                d = 99;
-                Volume(screen, ch, 2, ref d, 0, tp);
-
             }
         }
 
@@ -385,55 +327,6 @@ namespace MDPlayer
                 d = 99;
                 VolumeYM2608Rhythm(screen, y, 2, ref d, 0, tp);
             }
-        }
-
-        public static void screenInitYM2610(FrameBuffer screen, int tp)
-        {
-            //YM2610
-            for (int y = 0; y < 14; y++)
-            {
-                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                if (y < 13)
-                {
-                    ChYM2610_P(screen, 0, y * 8 + 8, y, false, tp);
-                }
-
-                if (y < 6 || y == 13)
-                {
-                    drawPanP(screen, 24, y * 8 + 8, 3, tp);
-                }
-
-                int d = 99;
-                if (y > 5 && y < 9)
-                {
-                    Volume(screen, y, 0, ref d, 0, tp);
-                }
-                else
-                {
-                    Volume(screen, y, 1, ref d, 0, tp);
-                    d = 99;
-                    Volume(screen, y, 2, ref d, 0, tp);
-                }
-            }
-
-            for (int y = 0; y < 6; y++)
-            {
-                int d = 99;
-                PanYM2610Rhythm(screen, y, ref d, 3, ref d, tp);
-                d = 99;
-                DrawBuff.VolumeYM2610Rhythm(screen, y, 1, ref d, 0, tp);
-                d = 99;
-                DrawBuff.VolumeYM2610Rhythm(screen, y, 2, ref d, 0, tp);
-            }
-            bool f = true;
-            ChYM2610Rhythm(screen, 0, ref f, false, tp);
         }
 
         public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM,bool isXGM)
@@ -707,7 +600,7 @@ namespace MDPlayer
 
         }
 
-        public static void VolumeToC140(FrameBuffer screen, int y, int c, ref int ov, int nv)
+        public static void VolumeToC140(FrameBuffer screen, int y, int c, ref int ov, int nv,int tp)
         {
             if (ov == nv) return;
 
@@ -719,12 +612,12 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, (1 + t), 0);
+                VolumeP(screen, 256 + i * 2, y + sy, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
+                VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -924,7 +817,7 @@ namespace MDPlayer
             ot = nt;
         }
 
-        public static void KeyBoardToC140(FrameBuffer screen, int y, ref int ot, int nt)
+        public static void KeyBoardToC140(FrameBuffer screen, int y, ref int ot, int nt,int tp)
         {
             if (ot == nt) return;
 
@@ -937,14 +830,14 @@ namespace MDPlayer
             {
                 kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = Tables.kbl[(ot % 12) * 2 + 1];
-                drawKbn(screen, 32 + kx, y, kt, 0);
+                drawKbn(screen, 32 + kx, y, kt, tp);
             }
 
             if (nt >= 0)
             {
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
-                drawKbn(screen, 32 + kx, y, kt, 0);
+                drawKbn(screen, 32 + kx, y, kt, tp);
                 drawFont8(screen, 296, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
@@ -1010,7 +903,7 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public static void PanType2(FrameBuffer screen, int c, ref int ot, int nt)
+        public static void PanType2(FrameBuffer screen, int c, ref int ot, int nt, int tp)
         {
 
             if (ot == nt)
@@ -1018,7 +911,7 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanType2P(screen, 24, 8 + c * 8, nt);
+            drawPanType2P(screen, 24, 8 + c * 8, nt, tp);
             ot = nt;
         }
 
@@ -1426,6 +1319,7 @@ namespace MDPlayer
                 oi[i] = ni[i];
             }
         }
+
         public static void DDAToHuC6280(FrameBuffer screen, int c, ref bool od, bool nd)
         {
             if (od == nd) return;
@@ -2156,7 +2050,7 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rVol[tp], 32, 2 * t, 0, 2, 8 - (t / 4) * 4);
         }
 
-        private static void drawKbn(FrameBuffer screen, int x, int y, int t, int tp)
+        public static void drawKbn(FrameBuffer screen, int x, int y, int t, int tp)
         {
             if (screen == null)
             {
@@ -2583,13 +2477,13 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rPSGEnv, 64, 8 * t, 0, 8, 8);
         }
 
-        private static void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)
+        public static void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)
         {
             if (screen == null) return;
             screen.drawByteArray(x, y, rPan[tp], 32, 8 * t, 0, 8, 8);
         }
 
-        private static void drawPanType2P(FrameBuffer screen, int x, int y, int t)
+        public static void drawPanType2P(FrameBuffer screen, int x, int y, int t, int tp)
         {
             if (screen == null)
             {
@@ -2598,10 +2492,10 @@ namespace MDPlayer
 
             int p = (t & 0x0f);
             p = p == 0 ? 0 : (1 + p / 4);
-            screen.drawByteArray(x, y, rPan2[0], 32, p * 4, 0, 4, 8);
+            screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
             p = ((t & 0xf0) >> 4);
             p = p == 0 ? 0 : (1 + p / 4);
-            screen.drawByteArray(x + 4, y, rPan2[0], 32, p * 4, 0, 4, 8);
+            screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
 
         }
 
@@ -2623,7 +2517,7 @@ namespace MDPlayer
             drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
-        private static void ChC140_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        public static void ChC140_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 
@@ -2655,7 +2549,7 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 8 * 8, 0, 24, 8);
         }
 
-        private static void ChSegaPCM_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        public static void ChSegaPCM_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 
@@ -2672,7 +2566,7 @@ namespace MDPlayer
             drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
-        private static void ChYM2151_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        public static void ChYM2151_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 
@@ -2774,7 +2668,7 @@ namespace MDPlayer
             drawFont4(screen, x + 66 * 4, y, mask ? 1 : 0, "R");
         }
 
-        private static void ChYM2610_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        public static void ChYM2610_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 

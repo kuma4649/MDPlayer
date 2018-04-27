@@ -66,6 +66,10 @@ namespace MDPlayer
         private static NSoundChip[] scYM2608 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2610EA = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scYM2610EB = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scC140 = new NSoundChip[2] { null, null };
+        private static NSoundChip[] scSEGAPCM = new NSoundChip[2] { null, null };
         //private static NSoundChip[] scYMF262 = new NSoundChip[2] { null, null };
         //private static NSoundChip[] scYMF271 = new NSoundChip[2] { null, null };
         //private static NSoundChip[] scYMF278B = new NSoundChip[2] { null, null };
@@ -1015,20 +1019,14 @@ namespace MDPlayer
             if (scYM2203[0] != null) scYM2203[0].init();
             scYM2610[0] = getChip(Audio.setting.YM2610Type);
             if (scYM2610[0] != null) scYM2610[0].init();
-            //scYMF262[0] = getChip(Audio.setting.YMF262Type);
-            //if (scYMF262[0] != null) scYMF262[0].init();
-            //scYMF271[0] = getChip(Audio.setting.YMF271Type);
-            //if (scYMF271[0] != null) scYMF271[0].init();
-            //scYMF278B[0] = getChip(Audio.setting.YMF278BType);
-            //if (scYMF278B[0] != null) scYMF278B[0].init();
-            //scYMZ280B[0] = getChip(Audio.setting.YMZ280BType);
-            //if (scYMZ280B[0] != null) scYMZ280B[0].init();
-            //scAY8910[0] = getChip(Audio.setting.AY8910Type);
-            //if (scAY8910[0] != null) scAY8910[0].init();
-            //scYM2413[0] = getChip(Audio.setting.YM2413Type);
-            //if (scYM2413[0] != null) scYM2413[0].init();
-            //scHuC6280[0] = getChip(Audio.setting.HuC6280Type);
-            //if (scHuC6280[0] != null) scHuC6280[0].init();
+            scYM2610EA[0] = getChip(Audio.setting.YM2610Type, 1);
+            if (scYM2610EA[0] != null) scYM2610EA[0].init();
+            scYM2610EB[0] = getChip(Audio.setting.YM2610Type, 2);
+            if (scYM2610EB[0] != null) scYM2610EB[0].init();
+            scSEGAPCM[0] = getChip(Audio.setting.SEGAPCMType);
+            if (scSEGAPCM[0] != null) scSEGAPCM[0].init();
+            scC140[0] = getChip(Audio.setting.C140Type);
+            if (scC140[0] != null) scC140[0].init();
 
             scYM2612[1] = getChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
@@ -1042,18 +1040,14 @@ namespace MDPlayer
             if (scYM2203[1] != null) scYM2203[1].init();
             scYM2610[1] = getChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
-            //scYMF262[1] = getChip(Audio.setting.YMF262SType);
-            //if (scYMF262[1] != null) scYMF262[1].init();
-            //scYMF271[1] = getChip(Audio.setting.YMF271SType);
-            //if (scYMF271[1] != null) scYMF271[1].init();
-            //scYMF278B[1] = getChip(Audio.setting.YMF278BSType);
-            //if (scYMF278B[1] != null) scYMF278B[1].init();
-            //scYMZ280B[1] = getChip(Audio.setting.YMZ280BSType);
-            //if (scYMZ280B[1] != null) scYMZ280B[1].init();
-            //scAY8910[1] = getChip(Audio.setting.AY8910SType);
-            //if (scAY8910[1] != null) scAY8910[1].init();
-            //scYM2413[1] = getChip(Audio.setting.YM2413SType);
-            //if (scYM2413[1] != null) scYM2413[1].init();
+            scYM2610EA[1] = getChip(Audio.setting.YM2610SType, 1);
+            if (scYM2610EA[1] != null) scYM2610EA[1].init();
+            scYM2610EB[1] = getChip(Audio.setting.YM2610SType, 2);
+            if (scYM2610EB[1] != null) scYM2610EB[1].init();
+            scC140[1] = getChip(Audio.setting.C140SType);
+            if (scC140[1] != null) scC140[1].init();
+            scSEGAPCM[1] = getChip(Audio.setting.SEGAPCMSType);
+            if (scSEGAPCM[1] != null) scSEGAPCM[1].init();
 
             chipRegister = new ChipRegister(
                 setting
@@ -1064,26 +1058,10 @@ namespace MDPlayer
                 , scYM2151
                 , scYM2203
                 , scYM2610
-                //, scYMF262
-                //, scYMF271
-                //, scYMF278B
-                //, scYMZ280B
-                //, scAY8910
-                //, scYM2413
-                //, scHuC6280
-                //, new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType }
-                //, new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType }
-                //, new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType }
-                //, new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType }
-                //, new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType }
-                //, new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType }
-                //, new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType }
-                //, new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType }
-                //, new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType }
-                //, new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType }
-                //, new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType }
-                //, new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType }
-                //, new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType }
+                , scYM2610EA
+                , scYM2610EB
+                , scC140
+                , scSEGAPCM
                 );
             chipRegister.initChipRegister();
 
@@ -1424,7 +1402,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private static NSoundChip getChip(Setting.ChipType ct)
+        private static NSoundChip getChip(Setting.ChipType ct, int ind = 0)
         {
             for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
             {
@@ -1432,11 +1410,32 @@ namespace MDPlayer
                 {
                     NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
                     NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
-                    if (0 == ct.SoundLocation
-                        && i == ct.BusID
-                        && j == ct.SoundChip)
+                    switch (ind)
                     {
-                        return sc;
+                        case 0:
+                            if (0 == ct.SoundLocation
+                                && i == ct.BusID
+                                && j == ct.SoundChip)
+                            {
+                                return sc;
+                            }
+                            break;
+                        case 1:
+                            if (0 == ct.SoundLocation2A
+                                && i == ct.BusID2A
+                                && j == ct.SoundChip2A)
+                            {
+                                return sc;
+                            }
+                            break;
+                        case 2:
+                            if (0 == ct.SoundLocation2B
+                                && i == ct.BusID2B
+                                && j == ct.SoundChip2B)
+                            {
+                                return sc;
+                            }
+                            break;
                     }
                 }
             }
@@ -3823,6 +3822,9 @@ namespace MDPlayer
                 SetYM2610AdpcmBVolume(setting.balance.YM2610AdpcmBVolume);
 
 
+                chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, enmModel.RealModel);
+                chipRegister.writeSEGAPCMClock(0, (int)((vgm)driverVirtual).SEGAPCMClockValue, enmModel.RealModel);
+
                 Paused = false;
                 Stopped = false;
                 oneTimeReset = false;
@@ -3964,7 +3966,10 @@ namespace MDPlayer
                     if (timeout < 1) break;
                 };
                 //if (scYM2612 != null) scYM2612.init();
-                if (nscci != null) nscci.reset();
+                if (nscci != null)
+                {
+                    nscci.reset();
+                }
                 //chipRegister.outMIDIData_Close();
 
                 waveWriter.Close();
@@ -4361,12 +4366,14 @@ namespace MDPlayer
                             chipRegister.setFadeoutVolYM2151(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2203(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2610(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolSN76489(0, vgmRealFadeoutVol);
 
                             chipRegister.setFadeoutVolYM2151(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2203(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
+                            chipRegister.setFadeoutVolYM2610(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
                             chipRegister.setFadeoutVolSN76489(1, vgmRealFadeoutVol);
 
@@ -4948,9 +4955,24 @@ namespace MDPlayer
             return mds.ReadRf5c164Register(chipID);
         }
 
-        public static c140.c140_state GetC140Register(int chipID)
+        public static byte[] GetC140Register(int chipID)
         {
-            return mds.ReadC140Register(chipID);
+            return chipRegister.pcmRegisterC140[chipID];
+        }
+
+        public static bool[] GetC140KeyOn(int chipID)
+        {
+            return chipRegister.pcmKeyOnC140[chipID];
+        }
+
+        public static byte[] GetSEGAPCMRegister(int chipID)
+        {
+            return chipRegister.pcmRegisterSEGAPCM[chipID];
+        }
+
+        public static bool[] GetSEGAPCMKeyOn(int chipID)
+        {
+            return chipRegister.pcmKeyOnSEGAPCM[chipID];
         }
 
         public static okim6258.okim6258_state GetOKIM6258Register(int chipID)

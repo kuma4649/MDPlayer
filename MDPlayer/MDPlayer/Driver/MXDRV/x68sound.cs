@@ -71,10 +71,10 @@ namespace MDPlayer.Driver.MXDRV
         public byte AdpcmPeek() { return 0; }
         public void AdpcmPoke(byte a) { }
         public byte PpiPeek() { return 0; }
-        public void PpiPoke(byte a) { }
+        public void PpiPoke(byte a) {  }
         public void PpiCtrl(byte a) { }
         public byte DmaPeek(byte a) { return 0; }
-        public void DmaPoke(byte a, byte b) { }
+        public void DmaPoke(byte a, byte b) {  }
         public void DmaInt(dlgCallBack cb) { }
         public void DmaErrInt(dlgCallBack cb) { }
         public delegate Int32 dlgCB1(byte[] a);

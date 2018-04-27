@@ -373,6 +373,9 @@ namespace MDPlayer
         , YM2203 = 4
         , YM2612 = 5
         , SN76489 = 7
+        , SPPCM = 42
+        , C140 = 43
+        , SEGAPCM = 44
     }
 
     public enum enmInstFormat : int

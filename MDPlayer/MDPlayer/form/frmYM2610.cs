@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MDPlayer.form
@@ -34,9 +28,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM2610, null, zoom);
-            bool YM2610Type = (chipID == 0) ? parent.setting.YM2610Type.UseScci : parent.setting.YM2610SType.UseScci;
-            int tp = YM2610Type ? 1 : 0;
-            DrawBuff.screenInitYM2610(frameBuffer, tp);
+            screenInit();
             update();
         }
 
@@ -95,6 +87,91 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
+
+            int ch = (py / 8) - 1;
+
+            if (ch < 0) return;
+
+            if (ch < 14)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    parent.SetChannelMask(enmUseChip.YM2610, chipID, ch);
+                    return;
+                }
+
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(enmUseChip.YM2610, chipID, ch);
+                return;
+            }
+
+            // 音色表示欄の判定
+
+            int h = (py - 15 * 8) / (6 * 8);
+            int w = Math.Min(px / (13 * 8), 2);
+            int instCh = h * 3 + w;
+
+            if (instCh < 6)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(enmUseChip.YM2610, instCh, chipID);
+            }
+        }
+
+
+        public void screenInit()
+        {
+            int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
+
+            for (int y = 0; y < 14; y++)
+            {
+                DrawBuff.drawFont8(frameBuffer, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    DrawBuff.drawKbn(frameBuffer, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                if (y < 13)
+                {
+                    DrawBuff.ChYM2610_P(frameBuffer, 0, y * 8 + 8, y, false, tp);
+                }
+
+                if (y < 6 || y == 13)
+                {
+                    DrawBuff.drawPanP(frameBuffer, 24, y * 8 + 8, 3, tp);
+                }
+
+                int d = 99;
+                if (y > 5 && y < 9)
+                {
+                    DrawBuff.Volume(frameBuffer, y, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    DrawBuff.Volume(frameBuffer, y, 1, ref d, 0, tp);
+                    d = 99;
+                    DrawBuff.Volume(frameBuffer, y, 2, ref d, 0, tp);
+                }
+            }
+
+            for (int y = 0; y < 6; y++)
+            {
+                int d = 99;
+                DrawBuff.PanYM2610Rhythm(frameBuffer, y, ref d, 3, ref d, tp);
+                d = 99;
+                DrawBuff.VolumeYM2610Rhythm(frameBuffer, y, 1, ref d, 0, tp);
+                d = 99;
+                DrawBuff.VolumeYM2610Rhythm(frameBuffer, y, 2, ref d, 0, tp);
+            }
+            bool f = true;
+            DrawBuff.ChYM2610Rhythm(frameBuffer, 0, ref f, false, tp);
         }
 
         public void screenChangeParams()
@@ -245,7 +322,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.YM2610Type.UseScci ? 1 : 0;
+            int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
 
             for (int c = 0; c < 9; c++)
             {
@@ -309,38 +386,5 @@ namespace MDPlayer.form
             DrawBuff.Etype(frameBuffer, 53, 54, ref oldParam.etype, newParam.etype);
         }
 
-        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
-        {
-            int px = e.Location.X / zoom;
-            int py = e.Location.Y / zoom;
-
-            int ch = (py / 8) - 1;
-
-            if (ch < 0) return;
-
-            if (ch < 14)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    parent.SetChannelMask(enmUseChip.YM2610, chipID, ch);
-                    return;
-                }
-
-                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(enmUseChip.YM2610, chipID, ch);
-                return;
-            }
-
-            // 音色表示欄の判定
-
-            int h = (py - 15 * 8) / (6 * 8);
-            int w = Math.Min(px / (13 * 8), 2);
-            int instCh = h * 3 + w;
-
-            if (instCh < 6)
-            {
-                //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2610, instCh, chipID);
-            }
-        }
     }
 }

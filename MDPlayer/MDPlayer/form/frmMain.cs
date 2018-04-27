@@ -2474,8 +2474,12 @@ namespace MDPlayer.form
 
             for (int i = 0; i < 2; i++)
             {
+                if (frmYM2151[i] != null) frmYM2151[i].screenInit();
+                if (frmYM2610[i] != null) frmYM2610[i].screenInit();
                 if (frmYM2612[i] != null) frmYM2612[i].screenInit();
                 if (frmYMF278B[i] != null) frmYMF278B[i].screenInit();
+                if (frmC140[i] != null) frmC140[i].screenInit();
+                if (frmSegaPCM[i] != null) frmSegaPCM[i].screenInit();
 
             }
         }

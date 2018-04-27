@@ -155,7 +155,7 @@ namespace MDPlayer.form
 
                 DrawBuff.VolumeToHuC6280(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL);
                 DrawBuff.VolumeToHuC6280(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR);
-                DrawBuff.PanType2(frameBuffer, c, ref oyc.pan, nyc.pan);
+                DrawBuff.PanType2(frameBuffer, c, ref oyc.pan, nyc.pan, tp);
 
                 DrawBuff.WaveFormToHuC6280(frameBuffer, c, ref oyc.inst, nyc.inst);
                 DrawBuff.DDAToHuC6280(frameBuffer, c, ref oyc.dda, nyc.dda);

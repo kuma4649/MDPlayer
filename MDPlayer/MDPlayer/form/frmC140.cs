@@ -34,7 +34,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeF, null, zoom);
-            DrawBuff.screenInitC140(frameBuffer);
+            screenInit();
             update();
         }
 
@@ -95,50 +95,6 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
-        {
-            MDSound.c140.c140_state c140State = Audio.GetC140Register(chipID);
-            if (c140State != null)
-            {
-                for (int ch = 0; ch < 24; ch++)
-                {
-                    int frequency = c140State.REG[ch * 16 + 2] * 256 + c140State.REG[ch * 16 + 3];
-                    int l = c140State.REG[ch * 16 + 1];
-                    int r = c140State.REG[ch * 16 + 0];
-                    int vdt = Math.Abs((int)c140State.voi[ch].prevdt);
-
-                    if (c140State.voi[ch].key == 0) frequency = 0;
-                    if (frequency == 0)
-                    {
-                        l = 0;
-                        r = 0;
-                    }
-
-                    newParam.channels[ch].note = frequency == 0 ? -1 : (searchC140Note(frequency) + 1);
-                    newParam.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 7, 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 7, 0), 19);
-                }
-            }
-        }
-
-        public void screenDrawParams()
-        {
-            for (int c = 0; c < 24; c++)
-            {
-
-                MDChipParams.Channel orc = oldParam.channels[c];
-                MDChipParams.Channel nrc = newParam.channels[c];
-
-                DrawBuff.VolumeToC140(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL);
-                DrawBuff.VolumeToC140(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR);
-                DrawBuff.KeyBoardToC140(frameBuffer, c, ref orc.note, nrc.note);
-                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan);
-
-                DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, 0);
-            }
-        }
-
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             //int px = e.Location.X / zoom;
@@ -176,6 +132,84 @@ namespace MDPlayer.form
                 }
             }
             return n;
+        }
+
+
+        public void screenInit()
+        {
+            bool C140Type = (chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci;
+            int tp = C140Type ? 1 : 0;
+            for (int ch = 0; ch < 24; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+                DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
+                DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
+                DrawBuff.ChC140_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
+                int d = 99;
+                DrawBuff.Volume(frameBuffer, ch, 1, ref d, 0, tp);
+                d = 99;
+                DrawBuff.Volume(frameBuffer, ch, 2, ref d, 0, tp);
+            }
+        }
+
+        public void screenChangeParams()
+        {
+            byte[] c140State = Audio.GetC140Register(chipID);
+            bool[] c140KeyOn = Audio.GetC140KeyOn(chipID);
+            if (c140State != null)
+            {
+                for (int ch = 0; ch < 24; ch++)
+                {
+                    int frequency = c140State[ch * 16 + 2] * 256 + c140State[ch * 16 + 3];
+                    int l = c140State[ch * 16 + 1];
+                    int r = c140State[ch * 16 + 0];
+
+                    if (c140KeyOn[ch])
+                    {
+                        newParam.channels[ch].note = searchC140Note(frequency) + 1;
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 2, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 2, 0), 19);
+                    }
+                    else
+                    {
+                        newParam.channels[ch].volumeL -= newParam.channels[ch].volumeL > 0 ? 1 : 0;
+                        newParam.channels[ch].volumeR -= newParam.channels[ch].volumeR > 0 ? 1 : 0;
+                        if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
+                        {
+                            newParam.channels[ch].note = -1;
+                            newParam.channels[ch].volumeL = 0;
+                            newParam.channels[ch].volumeR = 0;
+                        }
+                    }
+                    newParam.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
+
+                    c140KeyOn[ch] = false;
+                }
+            }
+        }
+
+        public void screenDrawParams()
+        {
+            int tp = ((chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci) ? 1 : 0;
+
+            for (int c = 0; c < 24; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.channels[c];
+                MDChipParams.Channel nrc = newParam.channels[c];
+
+                DrawBuff.VolumeToC140(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, tp);
+                DrawBuff.VolumeToC140(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, tp);
+                DrawBuff.KeyBoardToC140(frameBuffer, c, ref orc.note, nrc.note, tp);
+                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan, tp);
+
+                DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, tp);
+            }
         }
 
     }

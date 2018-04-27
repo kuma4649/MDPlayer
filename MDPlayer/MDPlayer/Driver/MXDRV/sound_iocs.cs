@@ -9,7 +9,19 @@ namespace MDPlayer.Driver.MXDRV
 {
     public class sound_iocs
     {
-        public static X68Sound x68Sound=null;
+        private int[] YM2151Hosei = new int[2] { 0, 0 };
+        private ChipRegister chipRegister = null;
+        private enmModel model = enmModel.VirtualModel;
+        private X68Sound x68Sound = null;
+
+        public sound_iocs(ChipRegister chipRegister, enmModel model, int[] YM2151Hosei, X68Sound x68Sound)
+        {
+            this.chipRegister = chipRegister;
+            this.model = model;
+            this.YM2151Hosei = YM2151Hosei;
+            this.x68Sound = x68Sound;
+        }
+
 
         // 16bit値のバイトの並びを逆にして返す
         public static UInt16 bswapw(UInt16 data)
@@ -47,10 +59,13 @@ namespace MDPlayer.Driver.MXDRV
                 OpmReg1B = (byte)((OpmReg1B & 0xC0) | (data & 0x3F));
                 data = OpmReg1B;
             }
+
             OpmWait();
             x68Sound.OpmReg((byte)addr);
             OpmWait();
             x68Sound.OpmPoke((byte)data);
+
+            chipRegister.setYM2151Register(0, 0, (byte)addr, (byte)data, model, YM2151Hosei[0], 0);
         }
 
         // IOCS _OPMSNS ($69) の処理

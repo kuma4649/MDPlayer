@@ -35,7 +35,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeSEGAPCM, null, zoom);
-            DrawBuff.screenInitSegaPCM(frameBuffer);
+            screenInit();
             update();
         }
 
@@ -96,64 +96,6 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
-        {
-            MDSound.segapcm.segapcm_state segapcmState = Audio.GetSegaPCMRegister(chipID);
-            if (segapcmState != null && segapcmState.ram != null && segapcmState.rom != null)
-            {
-                for (int ch = 0; ch < 16; ch++)
-                {
-                    int l = segapcmState.ram[ch * 8 + 2] & 0x7f;
-                    int r = segapcmState.ram[ch * 8 + 3] & 0x7f;
-                    int dt = segapcmState.ram[ch * 8 + 7];
-                    double ml = dt / 256.0;
-
-                    int ptrRom = segapcmState.ptrRom + ((segapcmState.ram[ch * 8 + 0x86] & segapcmState.bankmask) << segapcmState.bankshift);
-                    uint addr = (uint)((segapcmState.ram[ch * 8 + 0x85] << 16) | (segapcmState.ram[ch * 8 + 0x84] << 8) | segapcmState.low[ch]);
-                    int vdt = 0;
-                    if (ptrRom + ((addr >> 8) & segapcmState.rgnmask) < segapcmState.rom.Length)
-                    {
-                        vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
-                    }
-                    byte end = (byte)(segapcmState.ram[ch * 8 + 6] + 1);
-                    if ((segapcmState.ram[ch * 8 + 0x86] & 1) != 0) vdt = 0;
-                    if ((addr >> 16) == end)
-                    {
-                        if ((segapcmState.ram[ch * 8 + 0x86] & 2) == 0)
-                            ml = 0;
-                    }
-
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 8, 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 8, 0), 19);
-                    if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
-                    {
-                        ml = 0;
-                    }
-                    newParam.channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (common.searchSegaPCMNote(ml));
-                    newParam.channels[ch].pan = (r >> 3) * 0x10 + (l >> 3);
-                }
-            }
-        }
-
-
-        public void screenDrawParams()
-        {
-            for (int c = 0; c < 16; c++)
-            {
-
-                MDChipParams.Channel orc = oldParam.channels[c];
-                MDChipParams.Channel nrc = newParam.channels[c];
-
-                DrawBuff.Volume(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, 0);
-                DrawBuff.Volume(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, 0);
-                DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, 0);
-                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan);
-
-                DrawBuff.ChSegaPCM(frameBuffer, c, ref orc.mask, nrc.mask, 0);
-            }
-        }
-
-
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             //int px = e.Location.X / zoom;
@@ -176,6 +118,123 @@ namespace MDPlayer.form
             }
 
         }
+
+
+        public void screenInit()
+        {
+            bool SEGAPCMType = (chipID == 0) ? parent.setting.SEGAPCMType.UseScci : parent.setting.SEGAPCMSType.UseScci;
+            int tp = SEGAPCMType ? 1 : 0;
+            for (int ch = 0; ch < 16; ch++)
+            {
+                int o = -1;
+                DrawBuff.Volume(frameBuffer, ch, 1, ref o, 0, tp);
+                o = -1;
+                DrawBuff.Volume(frameBuffer, ch, 2, ref o, 0, tp);
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+                DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
+                DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
+                DrawBuff.ChSegaPCM_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
+            }
+        }
+
+        public void screenChangeParams()
+        {
+            //MDSound.segapcm.segapcm_state segapcmState = Audio.GetSegaPCMRegister(chipID);
+            //if (segapcmState != null && segapcmState.ram != null && segapcmState.rom != null)
+            //{
+            //    for (int ch = 0; ch < 16; ch++)
+            //    {
+            //        int l = segapcmState.ram[ch * 8 + 2] & 0x7f;
+            //        int r = segapcmState.ram[ch * 8 + 3] & 0x7f;
+            //        int dt = segapcmState.ram[ch * 8 + 7];
+            //        double ml = dt / 256.0;
+
+            //        int ptrRom = segapcmState.ptrRom + ((segapcmState.ram[ch * 8 + 0x86] & segapcmState.bankmask) << segapcmState.bankshift);
+            //        uint addr = (uint)((segapcmState.ram[ch * 8 + 0x85] << 16) | (segapcmState.ram[ch * 8 + 0x84] << 8) | segapcmState.low[ch]);
+            //        int vdt = 0;
+            //        if (ptrRom + ((addr >> 8) & segapcmState.rgnmask) < segapcmState.rom.Length)
+            //        {
+            //            vdt = Math.Abs((sbyte)(segapcmState.rom[ptrRom + ((addr >> 8) & segapcmState.rgnmask)]) - 0x80);
+            //        }
+            //        byte end = (byte)(segapcmState.ram[ch * 8 + 6] + 1);
+            //        if ((segapcmState.ram[ch * 8 + 0x86] & 1) != 0) vdt = 0;
+            //        if ((addr >> 16) == end)
+            //        {
+            //            if ((segapcmState.ram[ch * 8 + 0x86] & 2) == 0)
+            //                ml = 0;
+            //        }
+
+            //        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * vdt) >> 8, 0), 19);
+            //        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * vdt) >> 8, 0), 19);
+            //        if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
+            //        {
+            //            ml = 0;
+            //        }
+            //        newParam.channels[ch].note = (ml == 0 || vdt == 0) ? -1 : (common.searchSegaPCMNote(ml));
+            //        newParam.channels[ch].pan = (r >> 3) * 0x10 + (l >> 3);
+            //    }
+            //}
+
+            byte[] segapcmReg = Audio.GetSEGAPCMRegister(chipID);
+            bool[] segapcmKeyOn = Audio.GetSEGAPCMKeyOn(chipID);
+            if (segapcmReg != null)
+            {
+                for (int ch = 0; ch < 16; ch++)
+                {
+                    int l = segapcmReg[ch * 8 + 2] & 0x7f;
+                    int r = segapcmReg[ch * 8 + 3] & 0x7f;
+                    int dt = segapcmReg[ch * 8 + 7];
+                    double ml = dt / 256.0;
+
+                    if (segapcmKeyOn[ch])
+                    {
+                        newParam.channels[ch].note = common.searchSegaPCMNote(ml);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 1, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 1, 0), 19);
+                    }
+                    else
+                    {
+                        newParam.channels[ch].volumeL -= newParam.channels[ch].volumeL > 0 ? 1 : 0;
+                        newParam.channels[ch].volumeR -= newParam.channels[ch].volumeR > 0 ? 1 : 0;
+
+                        if(newParam.channels[ch].volumeL==0 && newParam.channels[ch].volumeR == 0)
+                        {
+                            newParam.channels[ch].note = -1;
+                        }
+                    }
+
+                    newParam.channels[ch].pan = ((l >> 3) & 0xf) | (((r >> 3) & 0xf) << 4);
+
+                    segapcmKeyOn[ch] = false;
+                }
+            }
+
+        }
+
+        public void screenDrawParams()
+        {
+            int tp = ((chipID == 0) ? parent.setting.SEGAPCMType.UseScci : parent.setting.SEGAPCMSType.UseScci) ? 1 : 0;
+
+            for (int c = 0; c < 16; c++)
+            {
+
+                MDChipParams.Channel orc = oldParam.channels[c];
+                MDChipParams.Channel nrc = newParam.channels[c];
+
+                DrawBuff.Volume(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, tp);
+                DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, tp);
+                DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan, tp);
+
+                DrawBuff.ChSegaPCM(frameBuffer, c, ref orc.mask, nrc.mask, tp);
+            }
+        }
+
 
 
     }

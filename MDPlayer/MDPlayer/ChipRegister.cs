@@ -31,6 +31,8 @@ namespace MDPlayer
         private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2610EA = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2610EB = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF262 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
@@ -48,6 +50,10 @@ namespace MDPlayer
         private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
         //private NScci.NSoundChip[] scY8950 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scSEGAPCM = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
+        private NScci.NSoundChip[] scC140 = new NScci.NSoundChip[2] { null, null };
+        private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -174,6 +180,12 @@ namespace MDPlayer
         private bool[] maskOKIM6258 = new bool[2] { false, false };
         public bool[] okim6258Keyon = new bool[2] { false, false };
 
+        public byte[][] pcmRegisterC140 = new byte[2][] { null, null };
+        public bool[][] pcmKeyOnC140 = new bool[2][] { null, null };
+
+        public byte[][] pcmRegisterSEGAPCM = new byte[2][] { null, null };
+        public bool[][] pcmKeyOnSEGAPCM = new bool[2][] { null, null };
+
         public MIDIParam[] midiParams = new MIDIParam[] { null, null };
 
         public nes_bank nes_bank = null;
@@ -203,26 +215,10 @@ namespace MDPlayer
             , NScci.NSoundChip[] scYM2151
             , NScci.NSoundChip[] scYM2203
             , NScci.NSoundChip[] scYM2610
-            //, NScci.NSoundChip[] scYMF262
-            //, NScci.NSoundChip[] scYMF271
-            //, NScci.NSoundChip[] scYMF278B
-            //, NScci.NSoundChip[] scYMZ280B
-            //, NScci.NSoundChip[] scAY8910
-            //, NScci.NSoundChip[] scYM2413
-            //, NScci.NSoundChip[] scHuC6280
-            //, Setting.ChipType[] ctYM2612
-            //, Setting.ChipType[] ctSN76489
-            //, Setting.ChipType[] ctYM2608
-            //, Setting.ChipType[] ctYM2151
-            //, Setting.ChipType[] ctYM2203
-            //, Setting.ChipType[] ctYM2610
-            //, Setting.ChipType[] ctYMF262
-            //, Setting.ChipType[] ctYMF271
-            //, Setting.ChipType[] ctYMF278B
-            //, Setting.ChipType[] ctYMZ280B
-            //, Setting.ChipType[] ctAY8910
-            //, Setting.ChipType[] ctYM2413
-            //, Setting.ChipType[] ctHuC6280
+            , NScci.NSoundChip[] scYM2610EA
+            , NScci.NSoundChip[] scYM2610EB
+            , NScci.NSoundChip[] scC140
+            , NScci.NSoundChip[] scSEGAPCM
             )
         {
             this.setting = setting;
@@ -234,23 +230,10 @@ namespace MDPlayer
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
             this.scYM2610 = scYM2610;
-            //this.scAY8910 = scAY8910;
-            //this.scYM2413 = scYM2413;
-            //this.scHuC6280 = scHuC6280;
-
-            //this.ctYM2612 = ctYM2612;
-            //this.ctYM2608 = ctYM2608;
-            //this.ctYM2151 = ctYM2151;
-            //this.ctSN76489 = ctSN76489;
-            //this.ctYM2203 = ctYM2203;
-            //this.ctYM2610 = ctYM2610;
-            //this.ctYMF262 = ctYMF262;
-            //this.ctYMF271 = ctYMF271;
-            //this.ctYMF278B = ctYMF278B;
-            //this.ctYMZ280B = ctYMZ280B;
-            //this.ctAY8910 = ctAY8910;
-            //this.ctYM2413 = ctYM2413;
-            //this.ctHuC6280 = ctHuC6280;
+            this.scYM2610EA = scYM2610EA;
+            this.scYM2610EB = scYM2610EB;
+            this.scC140 = scC140;
+            this.scSEGAPCM = scSEGAPCM;
 
             this.ctYM2612 = new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType };
             this.ctSN76489 = new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType };
@@ -266,6 +249,8 @@ namespace MDPlayer
             this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
             this.ctY8950 = new Setting.ChipType[] { setting.Y8950Type, setting.Y8950SType };
+            this.ctC140 = new Setting.ChipType[] { setting.C140Type, setting.C140SType };
+            this.ctSEGAPCM = new Setting.ChipType[] { setting.SEGAPCMType, setting.SEGAPCMSType };
 
             initChipRegister();
 
@@ -398,7 +383,22 @@ namespace MDPlayer
                 }
                 psgKeyOnAY8910[chipID] = new int[3] { 0, 0, 0 };
 
+                pcmRegisterC140[chipID] = new byte[0x200];
+                pcmKeyOnC140[chipID] = new bool[24];
+
+                pcmRegisterSEGAPCM[chipID] = new byte[0x200];
+                pcmKeyOnSEGAPCM[chipID] = new bool[16];
+
                 midiParams[chipID] = new MIDIParam();
+
+                nowAY8910FadeoutVol[chipID] = 0;
+                nowSN76489FadeoutVol[chipID] = 0;
+                nowYM2151FadeoutVol[chipID] = 0;
+                nowYM2203FadeoutVol[chipID] = 0;
+                nowYM2608FadeoutVol[chipID] = 0;
+                nowYM2610FadeoutVol[chipID] = 0;
+                nowYM2612FadeoutVol[chipID] = 0;
+                
             }
             nes_bank = null;
             nes_mem = null;
@@ -592,7 +592,10 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPM = 2;
             else chipLED.SecOPM = 2;
 
-            if (model == enmModel.VirtualModel)
+            if (
+                (model == enmModel.VirtualModel && (ctYM2151[chipID] == null || !ctYM2151[chipID].UseScci))
+                || (model == enmModel.RealModel && (scYM2151 != null && scYM2151[chipID] != null))
+                )
             {
                 fmRegisterYM2151[chipID][dAddr] = dData;
                 midiExport.outMIDIData(enmUseChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
@@ -1111,7 +1114,13 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPNA = 2;
             else chipLED.SecOPNA = 2;
 
-            if (model == enmModel.VirtualModel) fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+            if (
+                (model == enmModel.VirtualModel && (ctYM2608[chipID] == null || !ctYM2608[chipID].UseScci))
+                || (model == enmModel.RealModel && (scYM2608 != null && scYM2608[chipID] != null))
+                )
+            {
+                fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+            }
 
             if ((model == enmModel.RealModel && ctYM2608[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2608[chipID].UseScci))
             {
@@ -1267,7 +1276,14 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPNB = 2;
             else chipLED.SecOPNB = 2;
 
-            if (model == enmModel.VirtualModel) fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+
+            if (
+                (model == enmModel.VirtualModel && (ctYM2610[chipID] == null || !ctYM2610[chipID].UseScci))
+                || (model == enmModel.RealModel && (scYM2610 != null && scYM2610[chipID] != null))
+                )
+            {
+                fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+            }
 
             if ((model == enmModel.RealModel && ctYM2610[chipID].UseScci) || (model == enmModel.VirtualModel && !ctYM2610[chipID].UseScci))
             {
@@ -1336,6 +1352,7 @@ namespace MDPlayer
                 }
 
             }
+
 
 
             if ((dAddr & 0xf0) == 0x40)//TL
@@ -1415,20 +1432,230 @@ namespace MDPlayer
                 }
             }
 
+
+
             if (model == enmModel.VirtualModel)
             {
-                if (!ctYM2610[chipID].UseScci)
+                if (!ctYM2610[chipID].UseScci && !ctYM2610[chipID].UseScci2)
                 {
                     mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
             {
-                if (scYM2610[chipID] == null) return;
-                scYM2610[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                if (scYM2610[chipID] != null) scYM2610[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+                if (scYM2610EA[chipID] != null)
+                {
+                    int dReg = (dPort << 8) | dAddr;
+                    bool bSend = true;
+                    // レジスタをマスクして送信する
+                    if (dReg >= 0x100 && dReg <= 0x12d)
+                    {
+                        // ADPCM-A
+                        bSend = false;
+                    }
+                    else if (dReg >= 0x010 && dReg <= 0x01c)
+                    {
+                        // ADPCM-B
+                        bSend = false;
+                    }
+                    if (bSend)
+                    {
+                        scYM2610EA[chipID].setRegister((dPort << 8) | dAddr, dData);
+                    }
+                }
+                if (scYM2610EB[chipID] != null)
+                {
+                    scYM2610EB[chipID].setRegister((dPort << 8) | dAddr | 0x10000, dData);
+                }
             }
 
         }
+
+        public void WriteYM2610_SetAdpcmA(int chipID, byte[] ym2610AdpcmA, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteYM2610_SetAdpcmA((byte)chipID, ym2610AdpcmA);
+            }
+            else
+            {
+                if (scYM2610[chipID] != null)
+                {
+                    byte dPort = 2;
+                    int startAddr = 0;
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x01);
+                    // データ転送
+                    for (int cnt = 0; cnt < ym2610AdpcmA.Length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmA[cnt]);
+                    }
+                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+                if (scYM2610EB[chipID] != null)
+                {
+                    byte dPort = 2;
+                    int startAddr = 0;
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x01);
+                    // データ転送
+                    for (int cnt = 0; cnt < ym2610AdpcmA.Length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmA[cnt]);
+                    }
+                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
+        public void WriteYM2610_SetAdpcmA(int chipID, enmModel model, int startAddr, int length, byte[] buf, int srcStartAddr)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                return;
+            }
+            else
+            {
+                if (scYM2610[chipID] != null)
+                {
+                    byte dPort = 2;
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x01);
+                    // データ転送
+                    for (int cnt = 0; cnt < length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
+                    }
+                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+                if (scYM2610EB[chipID] != null)
+                {
+                    byte dPort = 2;
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x01);
+                    // データ転送
+                    for (int cnt = 0; cnt < length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
+                    }
+                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
+        public void WriteYM2610_SetAdpcmB(int chipID, byte[] ym2610AdpcmB, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteYM2610_SetAdpcmB((byte)chipID, ym2610AdpcmB);
+            }
+            else
+            {
+                if (scYM2610[chipID] != null)
+                {
+                    byte dPort = 2;
+                    int startAddr = 0;
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x00);
+                    // データ転送
+                    for (int cnt = 0; cnt < ym2610AdpcmB.Length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmB[cnt]);
+                    }
+                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+                if (scYM2610EB[chipID] != null)
+                {
+                    byte dPort = 2;
+                    int startAddr = 0;
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x00);
+                    // データ転送
+                    for (int cnt = 0; cnt < ym2610AdpcmB.Length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmB[cnt]);
+                    }
+                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
+        public void WriteYM2610_SetAdpcmB(int chipID, enmModel model, int startAddr, int length, byte[] buf, int srcStartAddr)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                return;
+            }
+            else
+            {
+                if (scYM2610[chipID] != null)
+                {
+                    byte dPort = 2;
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x00, 0x00);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x01, (startAddr >> 8) & 0xff);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x02, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610[chipID].setRegister((dPort << 8) | 0x03, 0x00);
+                    // データ転送
+                    for (int cnt = 0; cnt < length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
+                    }
+                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+                if (scYM2610EB[chipID] != null)
+                {
+                    byte dPort = 2;
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10000, 0x00);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10001, (startAddr >> 8) & 0xff);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10002, (startAddr >> 16) & 0xff);
+
+                    // pushReg(CMD_YM2610|0x02,0x03,0x01);
+                    scYM2610EB[chipID].setRegister((dPort << 8) | 0x10003, 0x00);
+                    // データ転送
+                    for (int cnt = 0; cnt < length; cnt++)
+                    {
+                        // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
+                        scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
+                    }
+                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
 
         public void setYMF262Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
@@ -2121,23 +2348,6 @@ namespace MDPlayer
         }
 
 
-        public void WriteYM2610_SetAdpcmA(int chipID, byte[] ym2610AdpcmA, enmModel model)
-        {
-            if (model == enmModel.VirtualModel)
-            {
-                mds.WriteYM2610_SetAdpcmA((byte)chipID, ym2610AdpcmA);
-            }
-        }
-
-        public void WriteYM2610_SetAdpcmB(int chipID, byte[] ym2610AdpcmB, enmModel model)
-        {
-            if (model == enmModel.VirtualModel)
-            {
-                mds.WriteYM2610_SetAdpcmB((byte)chipID, ym2610AdpcmB);
-            }
-        }
-
-
         public int getYM2151Clock(byte chipID)
         {
             if (scYM2151[chipID] == null) return -1;
@@ -2406,24 +2616,6 @@ namespace MDPlayer
                 mds.WriteK054539PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
-        public void writeC140(byte chipid, uint adr, byte data, enmModel model)
-        {
-            if (chipid == 0) chipLED.PriC140 = 2;
-            else chipLED.SecC140 = 2;
-
-            if (model == enmModel.VirtualModel)
-                mds.WriteC140(chipid, adr, data);
-        }
-
-        public void writeC140PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
-        {
-            if (chipid == 0) chipLED.PriC140 = 2;
-            else chipLED.SecC140 = 2;
-
-            if (model == enmModel.VirtualModel)
-                mds.WriteC140PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
-        }
-
         public void writeQSoundPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
             if (chipid == 0) chipLED.PriQsnd = 2;
@@ -2548,26 +2740,161 @@ namespace MDPlayer
                 mds.WriteY8950PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
-        public void writeSEGAPCM(byte ChipID, int Offset, byte Data, enmModel model)
+        public void writeSEGAPCM(byte chipID, int offset, byte data, enmModel model)
         {
-            if (ChipID == 0) chipLED.PriSPCM = 2;
+            if (chipID == 0) chipLED.PriSPCM = 2;
             else chipLED.SecSPCM = 2;
+
+            if (
+                (model == enmModel.VirtualModel && (ctSEGAPCM[chipID] == null || !ctSEGAPCM[chipID].UseScci))
+                || (model == enmModel.RealModel && (scSEGAPCM != null && scSEGAPCM[chipID] != null))
+                )
+            {
+                pcmRegisterSEGAPCM[chipID][offset & 0x1ff] = data;
+
+                if ((offset & 0x87) == 0x86)
+                {
+                    byte ch = (byte)((offset >> 3) & 0xf);
+                    if ((data & 0x01) == 0) pcmKeyOnSEGAPCM[chipID][ch] = true;
+                }
+            }
 
             if (model == enmModel.VirtualModel)
             {
-                mds.WriteSEGAPCM(ChipID, Offset, Data);
+                if (!ctSEGAPCM[chipID].UseScci)
+                    mds.WriteSEGAPCM(chipID, offset, data);
                 //System.Console.WriteLine("ChipID={0} Offset={1:X} Data={2:X} ", ChipID, Offset, Data);
+            }
+            else
+            {
+                if (scSEGAPCM != null && scSEGAPCM[chipID] != null) scSEGAPCM[chipID].setRegister(offset, data);
             }
         }
 
-        public void writeSEGAPCMPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        public void writeSEGAPCMPCMData(byte chipID, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) chipLED.PriSPCM = 2;
+            if (chipID == 0) chipLED.PriSPCM = 2;
             else chipLED.SecSPCM = 2;
 
             if (model == enmModel.VirtualModel)
             {
-                mds.WriteSEGAPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+                mds.WriteSEGAPCMPCMData(chipID, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+            }
+            else
+            {
+                if (scSEGAPCM != null && scSEGAPCM[chipID] != null)
+                {
+                    // スタートアドレス設定
+                    scSEGAPCM[chipID].setRegister(0x10000, (byte)(DataStart));
+                    scSEGAPCM[chipID].setRegister(0x10001, (byte)(DataStart >> 8));
+                    scSEGAPCM[chipID].setRegister(0x10002, (byte)(DataStart >> 16));
+                    // データ転送
+                    for (int cnt = 0; cnt < DataLength; cnt++)
+                    {
+                        scSEGAPCM[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
+                    }
+                    scSEGAPCM[chipID].setRegister(0x10006, (int)ROMSize);
+                    scSEGAPCM[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
+        public void writeSEGAPCMClock(byte chipID, int clock, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scSEGAPCM != null && scSEGAPCM[chipID] != null)
+                {
+                    scSEGAPCM[chipID].setRegister(0x10005, (int)clock);
+                }
+            }
+        }
+
+        public void writeC140(byte chipID, uint adr, byte data, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriC140 = 2;
+            else chipLED.SecC140 = 2;
+
+            if (
+                (model == enmModel.VirtualModel && (ctC140[chipID] == null || !ctC140[chipID].UseScci))
+                || (model == enmModel.RealModel && (scC140 != null && scC140[chipID] != null))
+                )
+            {
+                pcmRegisterC140[chipID][adr] = data;
+                byte ch = (byte)(adr >> 4);
+                switch(adr & 0xf)
+                {
+                    case 0x05:
+                        if((data & 0x80) != 0)
+                        {
+                            pcmKeyOnC140[chipID][ch] = true;
+                        }
+                        break;
+                }
+            }
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (ctC140[chipID] == null || !ctC140[chipID].UseScci)
+                    mds.WriteC140(chipID, adr, data);
+            }
+            else
+            {
+                if (scC140 != null && scC140[chipID] != null) scC140[chipID].setRegister((int)adr, data);
+            }
+        }
+
+        public void writeC140PCMData(byte chipID, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
+        {
+            if (chipID == 0) chipLED.PriC140 = 2;
+            else chipLED.SecC140 = 2;
+
+            if (model == enmModel.VirtualModel)
+                mds.WriteC140PCMData(chipID, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+            else
+            {
+                if (scC140 != null && scC140[chipID] != null)
+                {
+                    // スタートアドレス設定
+                    scC140[chipID].setRegister(0x10000, (byte)(DataStart));
+                    scC140[chipID].setRegister(0x10001, (byte)(DataStart >> 8));
+                    scC140[chipID].setRegister(0x10002, (byte)(DataStart >> 16));
+                    // データ転送
+                    for (int cnt = 0; cnt < DataLength; cnt++)
+                    {
+                        scC140[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
+                    }
+                    //scC140[chipID].setRegister(0x10006, (int)ROMSize);
+                    scC140[chipID].parentSoundInterface.parentNScci.sendData();
+                }
+            }
+        }
+
+        public void writeC140Type(byte chipID, MDSound.c140.C140_TYPE type, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scC140 != null && scC140[chipID] != null)
+                {
+                    switch (type)
+                    {
+                        case MDSound.c140.C140_TYPE.SYSTEM2:
+                            scC140[chipID].setRegister(0x10008, 0);
+                            break;
+                        case MDSound.c140.C140_TYPE.SYSTEM21:
+                            scC140[chipID].setRegister(0x10008, 1);
+                            break;
+                        case MDSound.c140.C140_TYPE.ASIC219:
+                            scC140[chipID].setRegister(0x10008, 2);
+                            break;
+                    }
+                }
             }
         }
 

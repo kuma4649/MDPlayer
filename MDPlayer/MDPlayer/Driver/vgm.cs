@@ -883,7 +883,8 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmA[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
+                            if(model== enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
+                            else chipRegister.WriteYM2610_SetAdpcmA(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
                             dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             break;
                         case 0x83:
@@ -892,7 +893,8 @@ namespace MDPlayer
                             {
                                 ym2610AdpcmB[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                             }
-                            chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
+                            if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
+                            else chipRegister.WriteYM2610_SetAdpcmB(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
                             dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             break;
 

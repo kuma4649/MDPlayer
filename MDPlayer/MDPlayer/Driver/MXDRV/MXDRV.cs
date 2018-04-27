@@ -62,6 +62,9 @@ namespace MDPlayer.Driver.MXDRV
             this.latency = latency;
             this.waitTime = waitTime;
 
+            x68Sound = new X68Sound();
+            sound_iocs = new sound_iocs(chipRegister, model, YM2151Hosei, x68Sound);
+
             GD3 = getGD3Info(vgmBuf, 0);
             Counter = 0;
             TotalCounter = 0;
@@ -135,9 +138,9 @@ namespace MDPlayer.Driver.MXDRV
 
             //Tb(ms)=(1024*(256-CLKB))/4MHz=0.065536
             double tb = (1024 * (256 - TimerB)) / 4000.0;// 000000.0;
-            double delta = 1000.0/common.SampleRate;//0.023ms
+            double delta = 1000.0 / common.SampleRate;//0.023ms
             deltaCnt = deltaCnt + delta;
-            while (deltaCnt> tb)
+            while (deltaCnt > tb)
             {
                 deltaCnt -= tb;
                 OPMINTFUNC();
@@ -148,7 +151,6 @@ namespace MDPlayer.Driver.MXDRV
 
         public MXDRV()
         {
-            sound_iocs.x68Sound = x68Sound;
             ini();
         }
 
@@ -261,8 +263,8 @@ namespace MDPlayer.Driver.MXDRV
         }
 
 
-        private X68Sound x68Sound = new X68Sound();
-        private sound_iocs sound_iocs = new sound_iocs();
+        private X68Sound x68Sound = null;
+        private sound_iocs sound_iocs = null;
         private xMemory mm = null;
         public string PlayingFileName = "";
         public Tuple<string, byte[]> ExtendFile = null;
@@ -879,9 +881,8 @@ namespace MDPlayer.Driver.MXDRV
             if (MeasurePlayTime) return;
 
             //Console.WriteLine("{0:x02} {1:x02}", D1 & 0xff, D2 & 0xff);
-            //sound_iocs._iocs_opmset((byte)D1, (byte)D2);
+            sound_iocs._iocs_opmset((byte)D1, (byte)D2);
             
-            chipRegister.setYM2151Register(0, 0, (byte)D1, (byte)D2, model, YM2151Hosei[0], 0);
             if (D1 == 0x10)
             {
                 TimerA = ((byte)D2 << 2) + (TimerA & 0x3);

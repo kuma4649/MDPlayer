@@ -503,7 +503,7 @@ namespace MDPlayer.form
             {
                 oyc = oldParam.channels[c];
                 nyc = newParam.channels[c];
-                DrawBuff.PanType2(frameBuffer, c - 4, ref oyc.pan, nyc.pan);
+                DrawBuff.PanType2(frameBuffer, c - 4, ref oyc.pan, nyc.pan,0);
                 DrawBuff.font4Int2(frameBuffer, 516 + 0, (c - 3) * 8, 0, 0, ref oyc.inst[0], nyc.inst[0]);//AR
                 DrawBuff.font4Int2(frameBuffer, 516 + 8, (c - 3) * 8, 0, 0, ref oyc.inst[1], nyc.inst[1]);//D1
                 DrawBuff.font4Int2(frameBuffer, 516 + 16, (c - 3) * 8, 0, 0, ref oyc.inst[2], nyc.inst[2]);//DL
