@@ -24,7 +24,6 @@ namespace MDPlayer
 
         public uint SN76489ClockValue = 3579545;
         public uint YM2612ClockValue = 7670454;
-        public uint RF5C68ClockValue = 12500000;
         public uint RF5C164ClockValue = 12500000;
         public uint PWMClockValue = 23011361;
         public uint C140ClockValue = 21390;
@@ -70,7 +69,6 @@ namespace MDPlayer
         public bool YMZ280BDualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
-        public bool RF5C68DualChipFlag;
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
         public bool YM2413DualChipFlag;
@@ -427,12 +425,11 @@ namespace MDPlayer
             vgmCmdTbl[0xae] = vcDummy2Ope;
             vgmCmdTbl[0xaf] = vcDummy2Ope;
 
+            vgmCmdTbl[0xb0] = vcDummy2Ope;
             //if ((useChip & enmUseChip.RF5C164) == enmUseChip.RF5C164)
             //{
-            vgmCmdTbl[0xb0] = vcRf5c68;
-            vgmCmdTbl[0xc1] = vcRf5c68MemoryWrite;
-            vgmCmdTbl[0xb1] = vcRf5c164;
-            vgmCmdTbl[0xc2] = vcRf5c164MemoryWrite;
+                vgmCmdTbl[0xb1] = vcRf5c164;
+                vgmCmdTbl[0xc2] = vcRf5c164MemoryWrite;
             //}
             //else
             //{
@@ -442,7 +439,7 @@ namespace MDPlayer
 
             //if ((useChip & enmUseChip.PWM) == enmUseChip.PWM)
             //{
-            vgmCmdTbl[0xb2] = vcPWM;
+                vgmCmdTbl[0xb2] = vcPWM;
             //}
             //else
             //{
@@ -464,6 +461,7 @@ namespace MDPlayer
             vgmCmdTbl[0xbf] = vcGA20;
 
             vgmCmdTbl[0xc0] = vcSEGAPCM;
+            vgmCmdTbl[0xc1] = vcDummy3Ope;
             vgmCmdTbl[0xc3] = vcMultiPCMSetBank;
             vgmCmdTbl[0xc4] = vcQSound;
             vgmCmdTbl[0xc5] = vcDummy3Ope;
@@ -989,10 +987,6 @@ namespace MDPlayer
 
                     switch (bType)
                     {
-                        case 0xc0:
-                            chipRegister.writeRF5C68PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
-                            dumpData(model, "RF5C68_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
-                            break;
                         case 0xc1:
                             chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
                             dumpData(model, "RF5C164_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
@@ -1115,16 +1109,9 @@ namespace MDPlayer
             uint bSize = getLE24(vgmAdr + 9);
             if (bSize == 0) bSize = 0x1000000;
             uint? pcmAdr = GetPCMAddressFromPCMBank(bType, bReadOffset);
-            if (pcmAdr != null)
+            if (pcmAdr != null && bType == 0x02)
             {
-                if (bType == 0x01)
-                {
-                    chipRegister.writeRF5C68PCMData(0, bWriteOffset, bSize, PCMBank[bType].Data, (uint)pcmAdr, model);
-                }
-                if (bType == 0x02)
-                {
-                    chipRegister.writeRF5C164PCMData(0, bWriteOffset, bSize, PCMBank[bType].Data, (uint)pcmAdr, model);
-                }
+                chipRegister.writeRF5C164PCMData(0, bWriteOffset, bSize, PCMBank[bType].Data, (uint)pcmAdr, model);
             }
 
             vgmAdr += 12;
@@ -1311,21 +1298,6 @@ namespace MDPlayer
         {
             PCMBank[0x00].DataPos = getLE32(vgmAdr + 1);
             vgmAdr += 5;
-        }
-
-        private void vcRf5c68()
-        {
-            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
-            byte cmd = (byte)(vgmBuf[vgmAdr + 1] & 0x7f);
-            chipRegister.writeRF5C68(id, cmd, vgmBuf[vgmAdr + 2], model);
-            vgmAdr += 3;
-        }
-
-        private void vcRf5c68MemoryWrite()
-        {
-            uint offset = getLE16(vgmAdr + 1);
-            chipRegister.writeRF5C68MemW(0, offset, vgmBuf[vgmAdr + 3], model);
-            vgmAdr += 4;
         }
 
         private void vcRf5c164()
@@ -1834,7 +1806,6 @@ namespace MDPlayer
             YM2608ClockValue = 0;
             YM2610ClockValue = 0;
             YMF262ClockValue = 0;
-            RF5C68ClockValue = 0;
             RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
             PWMClockValue = 0;// defaultPWMClockValue;
             OKIM6258ClockValue = 0;// defaultOKIM6258ClockValue;
@@ -1956,13 +1927,7 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x40)
                     {
                         uint RF5C68clock = getLE32(0x40);
-                        if (RF5C68clock != 0)
-                        {
-                            RF5C68ClockValue = RF5C68clock & 0x3fffffff;
-                            RF5C68DualChipFlag = (RF5C68clock & 0x40000000) != 0;
-                            if (RF5C68DualChipFlag) chips.Add("RF5C68x2");
-                            else chips.Add("RF5C68");
-                        }
+                        if (RF5C68clock != 0) chips.Add("RF5C68");
                     }
 
                     if (vgmDataOffset > 0x44)

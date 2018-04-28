@@ -3082,31 +3082,6 @@ namespace MDPlayer
                     }
                 }
 
-                if (((vgm)driverVirtual).RF5C68ClockValue != 0)
-                {
-                    MDSound.rf5c68 rf5c68 = new MDSound.rf5c68();
-
-                    for (int i = 0; i < (((vgm)driverVirtual).RF5C68DualChipFlag ? 2 : 1); i++)
-                    {
-                        chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.RF5C68;
-                        chip.ID = (byte)i;
-                        chip.Instrument = rf5c68;
-                        chip.Update = rf5c68.Update;
-                        chip.Start = rf5c68.Start;
-                        chip.Stop = rf5c68.Stop;
-                        chip.Reset = rf5c68.Reset;
-                        chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = setting.balance.RF5C68Volume;
-                        chip.Clock = ((vgm)driverVirtual).RF5C68ClockValue;
-                        chip.Option = null;
-
-                        hiyorimiDeviceFlag |= 0x2;
-
-                        lstChips.Add(chip);
-                    }
-                }
-
                 if (((vgm)driverVirtual).RF5C164ClockValue != 0)
                 {
                     MDSound.scd_pcm rf5c164 = new MDSound.scd_pcm();

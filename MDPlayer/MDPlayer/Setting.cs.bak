@@ -1369,22 +1369,6 @@ namespace MDPlayer
                 }
             }
 
-            private int _RF5C68Volume = 0;
-            public int RF5C68Volume
-            {
-                get
-                {
-                    if (_RF5C68Volume > 20 || _RF5C68Volume < -192) _RF5C68Volume = 0;
-                    return _RF5C68Volume;
-                }
-
-                set
-                {
-                    _RF5C68Volume = value;
-                    if (_RF5C68Volume > 20 || _RF5C68Volume < -192) _RF5C68Volume = 0;
-                }
-            }
-
             private int _RF5C164Volume = 0;
             public int RF5C164Volume
             {

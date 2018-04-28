@@ -2519,15 +2519,6 @@ namespace MDPlayer
             midiExport.PlayingFileName = fn;
         }
 
-        public void writeRF5C68PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
-        {
-            //if (chipid == 0) chipLED.PriRF5C = 2;
-            //else chipLED.SecRF5C = 2;
-
-            if (model == enmModel.VirtualModel)
-                mds.WriteRF5C68PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
-        }
-
         public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
         {
             if (chipid == 0) chipLED.PriRF5C = 2;
@@ -2569,21 +2560,6 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164MemW(chipid, offset, data);
-        }
-
-        public void writeRF5C68(byte chipid, byte adr, byte data, enmModel model)
-        {
-
-            if (model == enmModel.VirtualModel)
-            {
-                mds.WriteRF5C68(chipid, adr, data);
-            }
-        }
-
-        public void writeRF5C68MemW(byte chipid, uint offset, byte data, enmModel model)
-        {
-            if (model == enmModel.VirtualModel)
-                mds.WriteRF5C68MemW(chipid, offset, data);
         }
 
         public void writePWM(byte chipid, byte adr, uint data, enmModel model)
