@@ -345,8 +345,8 @@ namespace MDPlayer.Driver.MXDRV
 
         private byte? DisposeStack_L00122e;
 
-        private X68Sound.dlgCallBack OPMINT_FUNC;
-        private X68Sound.dlgCallBack MXCALLBACK_OPMINT;
+        private Action OPMINT_FUNC;
+        private Action MXCALLBACK_OPMINT;
 
         private bool MeasurePlayTime;
 
@@ -390,16 +390,16 @@ namespace MDPlayer.Driver.MXDRV
         };
 
         private uint L0019b2;
-        X68Sound.dlgCallBack[] L001252;
-        X68Sound.dlgCallBack[] jumptable;
-        X68Sound.dlgCallBack[] L0016aa;
-        X68Sound.dlgCallBack[] L0010b4_Table;
-        X68Sound.dlgCallBack[] L001116Table;
+        Action[] L001252;
+        Action[] jumptable;
+        Action[] L0016aa;
+        Action[] L0010b4_Table;
+        Action[] L001116Table;
 
         private void ini()
         {
 
-            L001252 = new X68Sound.dlgCallBack[]{
+            L001252 = new Action[]{
             L001292,	// @@ @t
         	L0012a6,
             L0012be,	// @@ @
@@ -434,7 +434,7 @@ namespace MDPlayer.Driver.MXDRV
             L001442,
             };
 
-            jumptable = new X68Sound.dlgCallBack[] {
+            jumptable = new Action[] {
                 L_FREE,
                 L_ERROR,
                 L_SETMDX,
@@ -469,7 +469,7 @@ namespace MDPlayer.Driver.MXDRV
                 L_1F,
             };
 
-            L0016aa = new X68Sound.dlgCallBack[]
+            L0016aa = new Action[]
             {
                 L001442,
                 L0016b8,
@@ -480,7 +480,7 @@ namespace MDPlayer.Driver.MXDRV
                 L0017a0,
             };
 
-            L0010b4_Table = new X68Sound.dlgCallBack[]
+            L0010b4_Table = new Action[]
             {
                 L00095a,
                 L0010be,
@@ -489,7 +489,7 @@ namespace MDPlayer.Driver.MXDRV
                 L001100,
             };
 
-            L001116Table = new X68Sound.dlgCallBack[] {
+            L001116Table = new Action[] {
                 L00095a,
                 L001120,
                 L001138,
@@ -542,7 +542,7 @@ namespace MDPlayer.Driver.MXDRV
             mm.Write(L0019b2 + 1, 0xf1);
             mm.Write(L0019b2 + 2, 0x00);
 
-            ret = x68Sound.Load();
+            ret = 0;// x68Sound.Load();
             if (ret != 0)
             {
                 switch (ret)
@@ -744,7 +744,7 @@ namespace MDPlayer.Driver.MXDRV
         )
         {
             X68REG reg = new X68REG();
-            X68Sound.dlgCallBack opmintback;
+            Action opmintback;
 
             x68Sound.OpmInt(null);
 
@@ -799,7 +799,7 @@ namespace MDPlayer.Driver.MXDRV
         )
         {
             X68REG reg = new X68REG();
-            X68Sound.dlgCallBack opmintback;
+            Action opmintback;
             UInt16 chmaskback;
             Int32 opmwaitback;
 
@@ -844,13 +844,14 @@ namespace MDPlayer.Driver.MXDRV
             switch (D0 & 0xfff0)
             {
                 case 0x0000:
-                    x68Sound.Pcm8_Out(D0 & 0xff, A1, D1, D2);
+                    //x68Sound.Pcm8_Out((int)D0 & 0xff, A1, (int)D1, (int)D2);
+                    x68Sound.Pcm8_Out((uint)D0 & 0xff, null, (uint)D1, (uint)D2);
                     break;
                 case 0x0100:
                     switch (D0 & 0xffff)
                     {
                         case 0x0100:
-                            x68Sound.Pcm8_Out(D0 & 0xff, 0, 0, 0);
+                            x68Sound.Pcm8_Out((uint)D0 & 0xff, null, 0, 0);
                             break;
                         case 0x0101:
                             x68Sound.Pcm8_Abort();
@@ -934,7 +935,7 @@ namespace MDPlayer.Driver.MXDRV
 
         }
 
-        private void SETOPMINT(X68Sound.dlgCallBack func)
+        private void SETOPMINT(Action func)
         {
             OPMINT_FUNC = func;
             x68Sound.OpmInt(OPMINTFUNC);

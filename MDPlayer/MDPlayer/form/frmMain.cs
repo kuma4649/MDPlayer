@@ -12,6 +12,7 @@ namespace MDPlayer.form
 {
     public partial class frmMain : Form
     {
+
         private PictureBox pbRf5c164Screen;
         private DoubleBuffer screen;
         private int pWidth = 0;
@@ -68,8 +69,6 @@ namespace MDPlayer.form
         private MidiIn midiin = null;
         private bool forcedExit = false;
         private YM2612MIDI YM2612MIDI = null;
-
-
 
         public frmMain()
         {

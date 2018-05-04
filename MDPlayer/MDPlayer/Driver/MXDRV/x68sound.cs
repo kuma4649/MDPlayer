@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MXDRV
 {
-    public class X68Sound
+    public class X68Sound //: NX68Sound.NX68Sound
     {
         public enum X68SNDERR
         {
@@ -64,17 +64,17 @@ namespace MDPlayer.Driver.MXDRV
         public byte OpmPeek() { return 0; }
         public void OpmReg(byte a) { }
         public void OpmPoke(byte a) { }
-        public void OpmInt(dlgCallBack cb) { }
+        public void OpmInt(Action cb) { }
         public Int32 OpmWait(Int32 a) { return 0; }
         public Int32 OpmClock(Int32 a) { return 0; }
 
         public byte AdpcmPeek() { return 0; }
         public void AdpcmPoke(byte a) { }
         public byte PpiPeek() { return 0; }
-        public void PpiPoke(byte a) {  }
+        public void PpiPoke(byte a) { }
         public void PpiCtrl(byte a) { }
         public byte DmaPeek(byte a) { return 0; }
-        public void DmaPoke(byte a, byte b) {  }
+        public void DmaPoke(byte a, byte b) { }
         public void DmaInt(dlgCallBack cb) { }
         public void DmaErrInt(dlgCallBack cb) { }
         public delegate Int32 dlgCB1(byte[] a);

@@ -78,7 +78,7 @@ namespace MDPlayer.Driver.MXDRV
             return x68Sound.OpmPeek();
         }
 
-        public X68Sound.dlgCallBack OpmIntProc=null;		// OPMのタイマー割り込み処理アドレス
+        public Action OpmIntProc =null;		// OPMのタイマー割り込み処理アドレス
 
         // IOCS _OPMINTST ($6A) の処理
         // [引数]
@@ -87,7 +87,7 @@ namespace MDPlayer.Driver.MXDRV
         // [戻り値]
         //   割り込みが設定された場合は 0
         //   既に割り込みが設定されている場合はその割り込み処理アドレスを返す
-        public X68Sound.dlgCallBack _iocs_opmintst(X68Sound.dlgCallBack addr)
+        public Action _iocs_opmintst(Action addr)
         {
             if (addr == null)
             {               // 引数が0の時は割り込みを禁止する

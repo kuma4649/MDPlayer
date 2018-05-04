@@ -811,6 +811,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _UseEmu2 = false;
+            public bool UseEmu2
+            {
+                get
+                {
+                    return _UseEmu2;
+                }
+
+                set
+                {
+                    _UseEmu2 = value;
+                }
+            }
+
 
             private bool _UseScci = false;
             public bool UseScci
@@ -1085,6 +1099,7 @@ namespace MDPlayer
             {
                 ChipType ct = new ChipType();
                 ct.UseEmu = this.UseEmu;
+                ct.UseEmu2 = this.UseEmu2;
                 ct.UseScci = this.UseScci;
                 ct.SoundLocation = this.SoundLocation;
                 ct.BusID = this.BusID;

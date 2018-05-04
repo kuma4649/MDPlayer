@@ -15,7 +15,7 @@ namespace MDPlayer
         [STAThread]
         static void Main()
         {
-            string fn = checkFiles();
+        string fn = checkFiles();
             if (fn != null)
             {
                 MessageBox.Show(string.Format("動作に必要なファイル({0})がみつかりません。", fn), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);

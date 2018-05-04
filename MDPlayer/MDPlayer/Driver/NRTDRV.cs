@@ -1349,7 +1349,7 @@ namespace MDPlayer
                 a = ram[hl];
                 hl++;
                 wopm(d, a);
-                d += 8;
+                d += (byte)(d < 248 ? 8 : 0);
             }
             wch.OP1TL = ram[hl];
             hl++;

@@ -1638,7 +1638,8 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                MDSound.ym2151 ym2151 = null;
+                MDSound.ym2151_mame ym2151_mame = null;
                 for (int i = 0; i < 2; i++)
                 {
                     if ((i == 0 && (r & 0x3) != 0) || (i == 1 && (r & 0x2) != 0))
@@ -1646,11 +1647,26 @@ namespace MDPlayer
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                         chip.ID = (byte)i;
-                        chip.Instrument = ym2151;
-                        chip.Update = ym2151.Update;
-                        chip.Start = ym2151.Start;
-                        chip.Stop = ym2151.Stop;
-                        chip.Reset = ym2151.Reset;
+
+                        if ((i == 0 && setting.YM2151Type.UseEmu) || (i == 1 && setting.YM2151SType.UseEmu))
+                        {
+                            if (ym2151 == null) ym2151 = new MDSound.ym2151();
+                            chip.Instrument = ym2151;
+                            chip.Update = ym2151.Update;
+                            chip.Start = ym2151.Start;
+                            chip.Stop = ym2151.Stop;
+                            chip.Reset = ym2151.Reset;
+                        }
+                        else if ((i == 0 && setting.YM2151Type.UseEmu2) || (i == 1 && setting.YM2151SType.UseEmu2))
+                        {
+                            if (ym2151_mame == null) ym2151_mame = new MDSound.ym2151_mame();
+                            chip.Instrument = ym2151_mame;
+                            chip.Update = ym2151_mame.Update;
+                            chip.Start = ym2151_mame.Start;
+                            chip.Stop = ym2151_mame.Stop;
+                            chip.Reset = ym2151_mame.Reset;
+                        }
+
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = 4000000;
@@ -3313,17 +3329,33 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).YM2151ClockValue != 0)
                 {
-                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                    MDSound.ym2151 ym2151 = null;
+                    MDSound.ym2151_mame ym2151_mame = null;
                     for (int i = 0; i < (((vgm)driverVirtual).YM2151DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                         chip.ID = (byte)i;
-                        chip.Instrument = ym2151;
-                        chip.Update = ym2151.Update;
-                        chip.Start = ym2151.Start;
-                        chip.Stop = ym2151.Stop;
-                        chip.Reset = ym2151.Reset;
+
+                        if ((i == 0 && setting.YM2151Type.UseEmu) || (i == 1 && setting.YM2151SType.UseEmu))
+                        {
+                            if (ym2151 == null) ym2151 = new MDSound.ym2151();
+                            chip.Instrument = ym2151;
+                            chip.Update = ym2151.Update;
+                            chip.Start = ym2151.Start;
+                            chip.Stop = ym2151.Stop;
+                            chip.Reset = ym2151.Reset;
+                        }
+                        else if ((i == 0 && setting.YM2151Type.UseEmu2) || (i == 1 && setting.YM2151SType.UseEmu2))
+                        {
+                            if (ym2151_mame == null) ym2151_mame = new MDSound.ym2151_mame();
+                            chip.Instrument = ym2151_mame;
+                            chip.Update = ym2151_mame.Update;
+                            chip.Start = ym2151_mame.Start;
+                            chip.Stop = ym2151_mame.Stop;
+                            chip.Reset = ym2151_mame.Reset;
+                        }
+
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2151ClockValue;

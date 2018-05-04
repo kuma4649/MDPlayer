@@ -62,12 +62,20 @@
             this.rbYM2610BP_SCCI = new System.Windows.Forms.RadioButton();
             this.rbYM2610BP_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbYM2610BEP_SCCI = new System.Windows.Forms.ComboBox();
+            this.cmbSPPCMP_SCCI = new System.Windows.Forms.ComboBox();
+            this.rbYM2610BEP_SCCI = new System.Windows.Forms.RadioButton();
             this.rbYM2610BP_Silent = new System.Windows.Forms.RadioButton();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.cmbYM2610BS_SCCI = new System.Windows.Forms.ComboBox();
+            this.cmbYM2610BES_SCCI = new System.Windows.Forms.ComboBox();
             this.rbYM2610BS_SCCI = new System.Windows.Forms.RadioButton();
+            this.cmbSPPCMS_SCCI = new System.Windows.Forms.ComboBox();
             this.rbYM2610BS_Silent = new System.Windows.Forms.RadioButton();
             this.rbYM2610BS_Emu = new System.Windows.Forms.RadioButton();
+            this.rbYM2610BES_SCCI = new System.Windows.Forms.RadioButton();
             this.cbEmulationPCMOnly = new System.Windows.Forms.CheckBox();
             this.cbTwice = new System.Windows.Forms.CheckBox();
             this.cbSendWait = new System.Windows.Forms.CheckBox();
@@ -112,14 +120,8 @@
             this.rbSEGAPCMP_SCCI = new System.Windows.Forms.RadioButton();
             this.rbSEGAPCMP_Silent = new System.Windows.Forms.RadioButton();
             this.rbSEGAPCMP_Emu = new System.Windows.Forms.RadioButton();
-            this.cmbSPPCMP_SCCI = new System.Windows.Forms.ComboBox();
-            this.cmbYM2610BEP_SCCI = new System.Windows.Forms.ComboBox();
-            this.rbYM2610BEP_SCCI = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rbYM2610BES_SCCI = new System.Windows.Forms.RadioButton();
-            this.cmbSPPCMS_SCCI = new System.Windows.Forms.ComboBox();
-            this.cmbYM2610BES_SCCI = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.rbYM2151P_EmuMame = new System.Windows.Forms.RadioButton();
+            this.rbYM2151S_EmuMame = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -143,7 +145,7 @@
             // 
             this.cmbYM2151P_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151P_SCCI.FormattingEnabled = true;
-            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(214, 12);
+            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(214, 34);
             this.cmbYM2151P_SCCI.Name = "cmbYM2151P_SCCI";
             this.cmbYM2151P_SCCI.Size = new System.Drawing.Size(114, 20);
             this.cmbYM2151P_SCCI.TabIndex = 2;
@@ -151,7 +153,7 @@
             // rbYM2151P_SCCI
             // 
             this.rbYM2151P_SCCI.AutoSize = true;
-            this.rbYM2151P_SCCI.Location = new System.Drawing.Point(159, 13);
+            this.rbYM2151P_SCCI.Location = new System.Drawing.Point(159, 35);
             this.rbYM2151P_SCCI.Name = "rbYM2151P_SCCI";
             this.rbYM2151P_SCCI.Size = new System.Drawing.Size(49, 16);
             this.rbYM2151P_SCCI.TabIndex = 1;
@@ -174,10 +176,9 @@
             this.rbYM2151P_Emu.Checked = true;
             this.rbYM2151P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151P_Emu.Name = "rbYM2151P_Emu";
-            this.rbYM2151P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2151P_Emu.Size = new System.Drawing.Size(130, 16);
             this.rbYM2151P_Emu.TabIndex = 0;
-            this.rbYM2151P_Emu.TabStop = true;
-            this.rbYM2151P_Emu.Text = "エミュレーション";
+            this.rbYM2151P_Emu.Text = "エミュレーション(fmgen)";
             this.rbYM2151P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -185,10 +186,11 @@
             this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_Silent);
+            this.groupBox1.Controls.Add(this.rbYM2151P_EmuMame);
             this.groupBox1.Controls.Add(this.rbYM2151P_Emu);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(331, 38);
+            this.groupBox1.Size = new System.Drawing.Size(331, 60);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "YM2151(Primary)";
@@ -198,10 +200,11 @@
             this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_Silent);
+            this.groupBox2.Controls.Add(this.rbYM2151S_EmuMame);
             this.groupBox2.Controls.Add(this.rbYM2151S_Emu);
-            this.groupBox2.Location = new System.Drawing.Point(3, 47);
+            this.groupBox2.Location = new System.Drawing.Point(3, 69);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(331, 38);
+            this.groupBox2.Size = new System.Drawing.Size(331, 60);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YM2151(Secondary)";
@@ -210,7 +213,7 @@
             // 
             this.cmbYM2151S_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151S_SCCI.FormattingEnabled = true;
-            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(214, 12);
+            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(214, 34);
             this.cmbYM2151S_SCCI.Name = "cmbYM2151S_SCCI";
             this.cmbYM2151S_SCCI.Size = new System.Drawing.Size(114, 20);
             this.cmbYM2151S_SCCI.TabIndex = 2;
@@ -218,7 +221,7 @@
             // rbYM2151S_SCCI
             // 
             this.rbYM2151S_SCCI.AutoSize = true;
-            this.rbYM2151S_SCCI.Location = new System.Drawing.Point(159, 13);
+            this.rbYM2151S_SCCI.Location = new System.Drawing.Point(159, 35);
             this.rbYM2151S_SCCI.Name = "rbYM2151S_SCCI";
             this.rbYM2151S_SCCI.Size = new System.Drawing.Size(49, 16);
             this.rbYM2151S_SCCI.TabIndex = 1;
@@ -241,10 +244,10 @@
             this.rbYM2151S_Emu.Checked = true;
             this.rbYM2151S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151S_Emu.Name = "rbYM2151S_Emu";
-            this.rbYM2151S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2151S_Emu.Size = new System.Drawing.Size(130, 16);
             this.rbYM2151S_Emu.TabIndex = 0;
             this.rbYM2151S_Emu.TabStop = true;
-            this.rbYM2151S_Emu.Text = "エミュレーション";
+            this.rbYM2151S_Emu.Text = "エミュレーション(fmgen)";
             this.rbYM2151S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbYM2203P_SCCI
@@ -284,7 +287,7 @@
             this.groupBox3.Controls.Add(this.rbYM2203P_SCCI);
             this.groupBox3.Controls.Add(this.rbYM2203P_Silent);
             this.groupBox3.Controls.Add(this.rbYM2203P_Emu);
-            this.groupBox3.Location = new System.Drawing.Point(3, 91);
+            this.groupBox3.Location = new System.Drawing.Point(3, 135);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(331, 38);
             this.groupBox3.TabIndex = 1;
@@ -307,7 +310,7 @@
             this.groupBox4.Controls.Add(this.rbYM2203S_SCCI);
             this.groupBox4.Controls.Add(this.rbYM2203S_Silent);
             this.groupBox4.Controls.Add(this.rbYM2203S_Emu);
-            this.groupBox4.Location = new System.Drawing.Point(3, 135);
+            this.groupBox4.Location = new System.Drawing.Point(3, 179);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(331, 38);
             this.groupBox4.TabIndex = 1;
@@ -392,7 +395,7 @@
             this.groupBox5.Controls.Add(this.rbYM2608P_SCCI);
             this.groupBox5.Controls.Add(this.rbYM2608P_Silent);
             this.groupBox5.Controls.Add(this.rbYM2608P_Emu);
-            this.groupBox5.Location = new System.Drawing.Point(3, 179);
+            this.groupBox5.Location = new System.Drawing.Point(3, 223);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(331, 38);
             this.groupBox5.TabIndex = 2;
@@ -415,7 +418,7 @@
             this.groupBox6.Controls.Add(this.rbYM2608S_SCCI);
             this.groupBox6.Controls.Add(this.rbYM2608S_Silent);
             this.groupBox6.Controls.Add(this.rbYM2608S_Emu);
-            this.groupBox6.Location = new System.Drawing.Point(3, 223);
+            this.groupBox6.Location = new System.Drawing.Point(3, 267);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(331, 38);
             this.groupBox6.TabIndex = 2;
@@ -504,12 +507,49 @@
             this.groupBox7.Controls.Add(this.rbYM2610BP_SCCI);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Silent);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Emu);
-            this.groupBox7.Location = new System.Drawing.Point(3, 267);
+            this.groupBox7.Location = new System.Drawing.Point(3, 311);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(331, 64);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "YM2610/B(Primary)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(197, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(11, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "+";
+            // 
+            // cmbYM2610BEP_SCCI
+            // 
+            this.cmbYM2610BEP_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2610BEP_SCCI.FormattingEnabled = true;
+            this.cmbYM2610BEP_SCCI.Location = new System.Drawing.Point(77, 38);
+            this.cmbYM2610BEP_SCCI.Name = "cmbYM2610BEP_SCCI";
+            this.cmbYM2610BEP_SCCI.Size = new System.Drawing.Size(114, 20);
+            this.cmbYM2610BEP_SCCI.TabIndex = 2;
+            // 
+            // cmbSPPCMP_SCCI
+            // 
+            this.cmbSPPCMP_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSPPCMP_SCCI.FormattingEnabled = true;
+            this.cmbSPPCMP_SCCI.Location = new System.Drawing.Point(214, 38);
+            this.cmbSPPCMP_SCCI.Name = "cmbSPPCMP_SCCI";
+            this.cmbSPPCMP_SCCI.Size = new System.Drawing.Size(114, 20);
+            this.cmbSPPCMP_SCCI.TabIndex = 2;
+            // 
+            // rbYM2610BEP_SCCI
+            // 
+            this.rbYM2610BEP_SCCI.AutoSize = true;
+            this.rbYM2610BEP_SCCI.Location = new System.Drawing.Point(11, 39);
+            this.rbYM2610BEP_SCCI.Name = "rbYM2610BEP_SCCI";
+            this.rbYM2610BEP_SCCI.Size = new System.Drawing.Size(59, 16);
+            this.rbYM2610BEP_SCCI.TabIndex = 1;
+            this.rbYM2610BEP_SCCI.Text = "SCCI_2";
+            this.rbYM2610BEP_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2610BP_Silent
             // 
@@ -531,12 +571,21 @@
             this.groupBox8.Controls.Add(this.rbYM2610BS_Silent);
             this.groupBox8.Controls.Add(this.rbYM2610BS_Emu);
             this.groupBox8.Controls.Add(this.rbYM2610BES_SCCI);
-            this.groupBox8.Location = new System.Drawing.Point(3, 337);
+            this.groupBox8.Location = new System.Drawing.Point(3, 381);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(331, 64);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "YM2610/B(Secondary)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(197, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(11, 12);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "+";
             // 
             // cmbYM2610BS_SCCI
             // 
@@ -547,6 +596,15 @@
             this.cmbYM2610BS_SCCI.Size = new System.Drawing.Size(114, 20);
             this.cmbYM2610BS_SCCI.TabIndex = 2;
             // 
+            // cmbYM2610BES_SCCI
+            // 
+            this.cmbYM2610BES_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2610BES_SCCI.FormattingEnabled = true;
+            this.cmbYM2610BES_SCCI.Location = new System.Drawing.Point(77, 38);
+            this.cmbYM2610BES_SCCI.Name = "cmbYM2610BES_SCCI";
+            this.cmbYM2610BES_SCCI.Size = new System.Drawing.Size(114, 20);
+            this.cmbYM2610BES_SCCI.TabIndex = 2;
+            // 
             // rbYM2610BS_SCCI
             // 
             this.rbYM2610BS_SCCI.AutoSize = true;
@@ -556,6 +614,15 @@
             this.rbYM2610BS_SCCI.TabIndex = 1;
             this.rbYM2610BS_SCCI.Text = "SCCI";
             this.rbYM2610BS_SCCI.UseVisualStyleBackColor = true;
+            // 
+            // cmbSPPCMS_SCCI
+            // 
+            this.cmbSPPCMS_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSPPCMS_SCCI.FormattingEnabled = true;
+            this.cmbSPPCMS_SCCI.Location = new System.Drawing.Point(214, 38);
+            this.cmbSPPCMS_SCCI.Name = "cmbSPPCMS_SCCI";
+            this.cmbSPPCMS_SCCI.Size = new System.Drawing.Size(114, 20);
+            this.cmbSPPCMS_SCCI.TabIndex = 2;
             // 
             // rbYM2610BS_Silent
             // 
@@ -578,6 +645,16 @@
             this.rbYM2610BS_Emu.TabStop = true;
             this.rbYM2610BS_Emu.Text = "エミュレーション";
             this.rbYM2610BS_Emu.UseVisualStyleBackColor = true;
+            // 
+            // rbYM2610BES_SCCI
+            // 
+            this.rbYM2610BES_SCCI.AutoSize = true;
+            this.rbYM2610BES_SCCI.Location = new System.Drawing.Point(11, 39);
+            this.rbYM2610BES_SCCI.Name = "rbYM2610BES_SCCI";
+            this.rbYM2610BES_SCCI.Size = new System.Drawing.Size(59, 16);
+            this.rbYM2610BES_SCCI.TabIndex = 1;
+            this.rbYM2610BES_SCCI.Text = "SCCI_2";
+            this.rbYM2610BES_SCCI.UseVisualStyleBackColor = true;
             // 
             // cbEmulationPCMOnly
             // 
@@ -647,7 +724,7 @@
             this.groupBox9.Controls.Add(this.cmbYM2612P_SCCI);
             this.groupBox9.Controls.Add(this.rbYM2612P_SCCI);
             this.groupBox9.Controls.Add(this.rbYM2612P_Emu);
-            this.groupBox9.Location = new System.Drawing.Point(3, 407);
+            this.groupBox9.Location = new System.Drawing.Point(3, 451);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(331, 40);
             this.groupBox9.TabIndex = 4;
@@ -670,7 +747,7 @@
             this.groupBox10.Controls.Add(this.cmbYM2612S_SCCI);
             this.groupBox10.Controls.Add(this.rbYM2612S_SCCI);
             this.groupBox10.Controls.Add(this.rbYM2612S_Emu);
-            this.groupBox10.Location = new System.Drawing.Point(3, 453);
+            this.groupBox10.Location = new System.Drawing.Point(3, 497);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(331, 40);
             this.groupBox10.TabIndex = 4;
@@ -755,7 +832,7 @@
             this.groupBox11.Controls.Add(this.rbSN76489P_SCCI);
             this.groupBox11.Controls.Add(this.rbSN76489P_Silent);
             this.groupBox11.Controls.Add(this.rbSN76489P_Emu);
-            this.groupBox11.Location = new System.Drawing.Point(3, 564);
+            this.groupBox11.Location = new System.Drawing.Point(3, 608);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(331, 40);
             this.groupBox11.TabIndex = 5;
@@ -778,7 +855,7 @@
             this.groupBox12.Controls.Add(this.rbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_Silent);
             this.groupBox12.Controls.Add(this.rbSN76489S_Emu);
-            this.groupBox12.Location = new System.Drawing.Point(3, 610);
+            this.groupBox12.Location = new System.Drawing.Point(3, 654);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(331, 40);
             this.groupBox12.TabIndex = 5;
@@ -831,7 +908,7 @@
             this.groupBox13.Controls.Add(this.cbSendWait);
             this.groupBox13.Controls.Add(this.cbEmulationPCMOnly);
             this.groupBox13.Controls.Add(this.cbTwice);
-            this.groupBox13.Location = new System.Drawing.Point(3, 499);
+            this.groupBox13.Location = new System.Drawing.Point(3, 543);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(331, 59);
             this.groupBox13.TabIndex = 6;
@@ -844,7 +921,7 @@
             this.groupBox14.Controls.Add(this.rbC140S_SCCI);
             this.groupBox14.Controls.Add(this.rbC140S_Silent);
             this.groupBox14.Controls.Add(this.rbC140S_Emu);
-            this.groupBox14.Location = new System.Drawing.Point(3, 702);
+            this.groupBox14.Location = new System.Drawing.Point(3, 746);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(331, 40);
             this.groupBox14.TabIndex = 6;
@@ -898,7 +975,7 @@
             this.groupBox15.Controls.Add(this.rbC140P_SCCI);
             this.groupBox15.Controls.Add(this.rbC140P_Silent);
             this.groupBox15.Controls.Add(this.rbC140P_Emu);
-            this.groupBox15.Location = new System.Drawing.Point(3, 656);
+            this.groupBox15.Location = new System.Drawing.Point(3, 700);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(331, 40);
             this.groupBox15.TabIndex = 7;
@@ -952,7 +1029,7 @@
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_SCCI);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Silent);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Emu);
-            this.groupBox16.Location = new System.Drawing.Point(3, 794);
+            this.groupBox16.Location = new System.Drawing.Point(3, 838);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(331, 40);
             this.groupBox16.TabIndex = 8;
@@ -1006,7 +1083,7 @@
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_SCCI);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Silent);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Emu);
-            this.groupBox17.Location = new System.Drawing.Point(3, 748);
+            this.groupBox17.Location = new System.Drawing.Point(3, 792);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(331, 40);
             this.groupBox17.TabIndex = 9;
@@ -1054,79 +1131,27 @@
             this.rbSEGAPCMP_Emu.Text = "エミュレーション";
             this.rbSEGAPCMP_Emu.UseVisualStyleBackColor = true;
             // 
-            // cmbSPPCMP_SCCI
+            // rbYM2151P_EmuMame
             // 
-            this.cmbSPPCMP_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSPPCMP_SCCI.FormattingEnabled = true;
-            this.cmbSPPCMP_SCCI.Location = new System.Drawing.Point(214, 38);
-            this.cmbSPPCMP_SCCI.Name = "cmbSPPCMP_SCCI";
-            this.cmbSPPCMP_SCCI.Size = new System.Drawing.Size(114, 20);
-            this.cmbSPPCMP_SCCI.TabIndex = 2;
+            this.rbYM2151P_EmuMame.AutoSize = true;
+            this.rbYM2151P_EmuMame.Location = new System.Drawing.Point(198, 13);
+            this.rbYM2151P_EmuMame.Name = "rbYM2151P_EmuMame";
+            this.rbYM2151P_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2151P_EmuMame.TabIndex = 0;
+            this.rbYM2151P_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2151P_EmuMame.UseVisualStyleBackColor = true;
             // 
-            // cmbYM2610BEP_SCCI
+            // rbYM2151S_EmuMame
             // 
-            this.cmbYM2610BEP_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2610BEP_SCCI.FormattingEnabled = true;
-            this.cmbYM2610BEP_SCCI.Location = new System.Drawing.Point(77, 38);
-            this.cmbYM2610BEP_SCCI.Name = "cmbYM2610BEP_SCCI";
-            this.cmbYM2610BEP_SCCI.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2610BEP_SCCI.TabIndex = 2;
-            // 
-            // rbYM2610BEP_SCCI
-            // 
-            this.rbYM2610BEP_SCCI.AutoSize = true;
-            this.rbYM2610BEP_SCCI.Location = new System.Drawing.Point(11, 39);
-            this.rbYM2610BEP_SCCI.Name = "rbYM2610BEP_SCCI";
-            this.rbYM2610BEP_SCCI.Size = new System.Drawing.Size(59, 16);
-            this.rbYM2610BEP_SCCI.TabIndex = 1;
-            this.rbYM2610BEP_SCCI.Text = "SCCI_2";
-            this.rbYM2610BEP_SCCI.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(197, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(11, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "+";
-            // 
-            // rbYM2610BES_SCCI
-            // 
-            this.rbYM2610BES_SCCI.AutoSize = true;
-            this.rbYM2610BES_SCCI.Location = new System.Drawing.Point(11, 39);
-            this.rbYM2610BES_SCCI.Name = "rbYM2610BES_SCCI";
-            this.rbYM2610BES_SCCI.Size = new System.Drawing.Size(59, 16);
-            this.rbYM2610BES_SCCI.TabIndex = 1;
-            this.rbYM2610BES_SCCI.Text = "SCCI_2";
-            this.rbYM2610BES_SCCI.UseVisualStyleBackColor = true;
-            // 
-            // cmbSPPCMS_SCCI
-            // 
-            this.cmbSPPCMS_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSPPCMS_SCCI.FormattingEnabled = true;
-            this.cmbSPPCMS_SCCI.Location = new System.Drawing.Point(214, 38);
-            this.cmbSPPCMS_SCCI.Name = "cmbSPPCMS_SCCI";
-            this.cmbSPPCMS_SCCI.Size = new System.Drawing.Size(114, 20);
-            this.cmbSPPCMS_SCCI.TabIndex = 2;
-            // 
-            // cmbYM2610BES_SCCI
-            // 
-            this.cmbYM2610BES_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbYM2610BES_SCCI.FormattingEnabled = true;
-            this.cmbYM2610BES_SCCI.Location = new System.Drawing.Point(77, 38);
-            this.cmbYM2610BES_SCCI.Name = "cmbYM2610BES_SCCI";
-            this.cmbYM2610BES_SCCI.Size = new System.Drawing.Size(114, 20);
-            this.cmbYM2610BES_SCCI.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 12);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "+";
+            this.rbYM2151S_EmuMame.AutoSize = true;
+            this.rbYM2151S_EmuMame.Checked = true;
+            this.rbYM2151S_EmuMame.Location = new System.Drawing.Point(198, 13);
+            this.rbYM2151S_EmuMame.Name = "rbYM2151S_EmuMame";
+            this.rbYM2151S_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2151S_EmuMame.TabIndex = 0;
+            this.rbYM2151S_EmuMame.TabStop = true;
+            this.rbYM2151S_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2151S_EmuMame.UseVisualStyleBackColor = true;
             // 
             // ucSettingInstruments
             // 
@@ -1151,7 +1176,7 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Name = "ucSettingInstruments";
-            this.Size = new System.Drawing.Size(368, 843);
+            this.Size = new System.Drawing.Size(368, 884);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1283,5 +1308,7 @@
         public System.Windows.Forms.ComboBox cmbYM2610BES_SCCI;
         public System.Windows.Forms.ComboBox cmbSPPCMS_SCCI;
         public System.Windows.Forms.RadioButton rbYM2610BES_SCCI;
+        public System.Windows.Forms.RadioButton rbYM2151P_EmuMame;
+        public System.Windows.Forms.RadioButton rbYM2151S_EmuMame;
     }
 }
