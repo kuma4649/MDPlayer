@@ -650,9 +650,10 @@ namespace MDPlayer
                         {
                             if (model == enmModel.VirtualModel)
                             {
-                                if (!ctYM2151[chipID].UseScci && (ctYM2151[chipID].UseEmu || ctYM2151[chipID].UseEmu2))
+                                if (!ctYM2151[chipID].UseScci)
                                 {
-                                    mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                 }
                             }
                             else
@@ -675,9 +676,10 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
             {
-                if (!ctYM2151[chipID].UseScci && (ctYM2151[chipID].UseEmu || ctYM2151[chipID].UseEmu2))
+                if (!ctYM2151[chipID].UseScci)
                 {
-                    mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else

@@ -1645,12 +1645,12 @@ namespace MDPlayer
                     if ((i == 0 && (r & 0x3) != 0) || (i == 1 && (r & 0x2) != 0))
                     {
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                         chip.ID = (byte)i;
 
                         if ((i == 0 && setting.YM2151Type.UseEmu) || (i == 1 && setting.YM2151SType.UseEmu))
                         {
                             if (ym2151 == null) ym2151 = new MDSound.ym2151();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                             chip.Instrument = ym2151;
                             chip.Update = ym2151.Update;
                             chip.Start = ym2151.Start;
@@ -1660,6 +1660,7 @@ namespace MDPlayer
                         else if ((i == 0 && setting.YM2151Type.UseEmu2) || (i == 1 && setting.YM2151SType.UseEmu2))
                         {
                             if (ym2151_mame == null) ym2151_mame = new MDSound.ym2151_mame();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
                             chip.Instrument = ym2151_mame;
                             chip.Update = ym2151_mame.Update;
                             chip.Start = ym2151_mame.Start;
@@ -1677,7 +1678,8 @@ namespace MDPlayer
                         if (i == 0) chipLED.PriOPM = 1;
                         else chipLED.SecOPM = 1;
 
-                        lstChips.Add(chip);
+                        if (chip.Start != null)
+                            lstChips.Add(chip);
                     }
                 }
 
@@ -2155,6 +2157,7 @@ namespace MDPlayer
                 ym2612 ym2612 = null;
                 ym2608 ym2608 = null;
                 ym2151 ym2151 = null;
+                ym2151_mame ym2151mame = null;
                 ym2413 ym2413 = null;
                 ay8910 ay8910 = null;
                 foreach (S98.S98DevInfo dInfo in s98DInfo)
@@ -2269,9 +2272,8 @@ namespace MDPlayer
                             break;
                         case 5:
                             chip = new MDSound.MDSound.Chip();
-                            if (ym2151 == null)
+                            if (ym2151 == null && ym2151mame == null)
                             {
-                                ym2151 = new ym2151();
                                 chip.ID = 0;
                                 chipLED.PriOPM = 1;
                             }
@@ -2280,18 +2282,35 @@ namespace MDPlayer
                                 chip.ID = 1;
                                 chipLED.SecOPM = 1;
                             }
-                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
-                            chip.Instrument = ym2151;
-                            chip.Update = ym2151.Update;
-                            chip.Start = ym2151.Start;
-                            chip.Stop = ym2151.Stop;
-                            chip.Reset = ym2151.Reset;
+
+                            if ((chip.ID == 0 && setting.YM2151Type.UseEmu) || (chip.ID == 1 && setting.YM2151SType.UseEmu))
+                            {
+                                if (ym2151 == null) ym2151 = new MDSound.ym2151();
+                                chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                                chip.Instrument = ym2151;
+                                chip.Update = ym2151.Update;
+                                chip.Start = ym2151.Start;
+                                chip.Stop = ym2151.Stop;
+                                chip.Reset = ym2151.Reset;
+                            }
+                            else if ((chip.ID == 0 && setting.YM2151Type.UseEmu2) || (chip.ID == 1 && setting.YM2151SType.UseEmu2))
+                            {
+                                if (ym2151mame == null) ym2151mame = new MDSound.ym2151_mame();
+                                chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
+                                chip.Instrument = ym2151mame;
+                                chip.Update = ym2151mame.Update;
+                                chip.Start = ym2151mame.Start;
+                                chip.Stop = ym2151mame.Stop;
+                                chip.Reset = ym2151mame.Reset;
+                            }
+
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.YM2151Volume;
                             chip.Clock = dInfo.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
-                            lstChips.Add(chip);
+                            if (chip.Start != null)
+                                lstChips.Add(chip);
 
                             break;
                         case 6:
@@ -3334,12 +3353,12 @@ namespace MDPlayer
                     for (int i = 0; i < (((vgm)driverVirtual).YM2151DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                         chip.ID = (byte)i;
 
                         if ((i == 0 && setting.YM2151Type.UseEmu) || (i == 1 && setting.YM2151SType.UseEmu))
                         {
                             if (ym2151 == null) ym2151 = new MDSound.ym2151();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
                             chip.Instrument = ym2151;
                             chip.Update = ym2151.Update;
                             chip.Start = ym2151.Start;
@@ -3349,6 +3368,7 @@ namespace MDPlayer
                         else if ((i == 0 && setting.YM2151Type.UseEmu2) || (i == 1 && setting.YM2151SType.UseEmu2))
                         {
                             if (ym2151_mame == null) ym2151_mame = new MDSound.ym2151_mame();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
                             chip.Instrument = ym2151_mame;
                             chip.Update = ym2151_mame.Update;
                             chip.Start = ym2151_mame.Start;
@@ -3366,7 +3386,8 @@ namespace MDPlayer
                         if (i == 0) chipLED.PriOPM = 1;
                         else chipLED.SecOPM = 1;
 
-                        lstChips.Add(chip);
+                        if (chip.Start != null)
+                            lstChips.Add(chip);
                     }
                 }
 
@@ -5222,6 +5243,7 @@ namespace MDPlayer
             try
             {
                 mds.SetVolumeYM2151(volume);
+                mds.SetVolumeYM2151mame(volume);
             }
             catch { }
         }
