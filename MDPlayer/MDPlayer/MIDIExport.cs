@@ -776,8 +776,8 @@ namespace MDPlayer
             if (ch >= chip.oldFrameCounter.Length) return;
 
             long sub = NewFrameCounter - chip.oldFrameCounter[ch];
-            long step = (long)(sub / common.SampleRate * 960.0);
-            chip.oldFrameCounter[ch] += (long)(step * common.SampleRate / 960.0);
+            long step = (long)(sub / (double)common.SampleRate * 960.0);
+            chip.oldFrameCounter[ch] += (long)(step * (double)common.SampleRate / 960.0);
 
             bool flg = true;
             for (int i = 0; i < 4; i++)

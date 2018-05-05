@@ -185,6 +185,7 @@ namespace MDPlayer.form
             if (setting.location.OpenYm2608[0]) tsmiPOPNA_Click(null, null);
             if (setting.location.OpenYm2610[0]) tsmiPOPNB_Click(null, null);
             if (setting.location.OpenYm2612[0]) tsmiPOPN2_Click(null, null);
+            if (setting.location.OpenYmf278b[0]) tsmiPOPL4_Click(null, null);
 
             if (setting.location.OpenAY8910[1]) tsmiSAY8910_Click(null, null);
             if (setting.location.OpenC140[1]) tsmiSC140_Click(null, null);
@@ -204,6 +205,7 @@ namespace MDPlayer.form
             if (setting.location.OpenYm2608[1]) tsmiSOPNA_Click(null, null);
             if (setting.location.OpenYm2610[1]) tsmiSOPNB_Click(null, null);
             if (setting.location.OpenYm2612[1]) tsmiSOPN2_Click(null, null);
+            if (setting.location.OpenYmf278b[1]) tsmiSOPL4_Click(null, null);
 
             log.ForcedWrite("frmMain_Load:STEP 08");
 
@@ -609,6 +611,11 @@ namespace MDPlayer.form
                 {
                     setting.location.PosYm2612[chipID] = frmYM2612[chipID].Location;
                     setting.location.OpenYm2612[chipID] = true;
+                }
+                if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed)
+                {
+                    setting.location.PosYmf278b[chipID] = frmYMF278B[chipID].Location;
+                    setting.location.OpenYmf278b[chipID] = true;
                 }
                 if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed)
                 {
@@ -2971,6 +2978,9 @@ namespace MDPlayer.form
 
                 if (Audio.chipLED.PriMMC5 != 0) OpenFormMMC5(0, true); else CloseFormMMC5(0);
                 if (Audio.chipLED.SecMMC5 != 0) OpenFormMMC5(1, true); else CloseFormMMC5(1);
+
+                if (Audio.chipLED.PriOPL4 != 0) OpenFormYMF278B(0, true); else CloseFormYMF278B(0);
+                if (Audio.chipLED.SecOPL4 != 0) OpenFormYMF278B(1, true); else CloseFormYMF278B(1);
 
             }
         }
