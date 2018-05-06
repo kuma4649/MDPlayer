@@ -20,45 +20,47 @@ namespace MDPlayer
         private List<vstInfo2> vstMidiOuts = null;
         private List<int> vstMidiOutsType = null;
 
-        private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scYM2612 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scYM2608 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2608 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scYM2151 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2151 = new Setting.ChipType[2] { null, null };
-        private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
         private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYMZ280B = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
+
+        private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2612 = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2608 = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2151 = new NScci.NSoundChip[2] { null, null };
+        private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
         private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
         private NScci.NSoundChip[] scYM2610EA = new NScci.NSoundChip[2] { null, null };
         private NScci.NSoundChip[] scYM2610EB = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF262 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF271 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMF278B = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scYMZ280B = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYMZ280B = new Setting.ChipType[2] { null, null };
-        //private NScci.NSoundChip[] scAY8910 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
-        //private NScci.NSoundChip[] scYM2413 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
-        //private NScci.NSoundChip[] scHuC6280 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
-        //private NScci.NSoundChip[] scY8950 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scSEGAPCM = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
         private NScci.NSoundChip[] scC140 = new NScci.NSoundChip[2] { null, null };
-        private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
         private int[] noteTbl = new int[] { 2, 4, 5, -1, 6, 8, 9, -1, 10, 12, 13, -1, 14, 0, 1, -1 };
         private int[] noteTbl2 = new int[] { 13, 14, 0, -1, 1, 2, 4, -1, 5, 6, 8, -1, 9, 10, 12, -1 };
+
+        private int nsfAPUmask = 0;
+        private int nsfDMCmask = 0;
+        private int nsfFDSmask = 0;
+        private int nsfMMC5mask = 0;
 
         public ChipLEDs chipLED = new ChipLEDs();
 
@@ -419,6 +421,94 @@ namespace MDPlayer
             midiExport.Close();
         }
 
+        public void resetChips()
+        {
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                for (int p = 0; p < 2; p++)
+                {
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel, -1);
+                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel, -1);
+                    }
+                }
+
+
+                for (int c = 0; c < 4; c++)
+                {
+                    setSN76489Register(chipID, 0x90 + (c << 5) + 0xf, enmModel.RealModel);
+                }
+
+                for (int p = 0; p < 2; p++)
+                {
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2608Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
+                        setYM2608Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
+                    }
+                }
+
+                //ssg
+                setYM2608Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
+                setYM2608Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
+
+                //rhythm
+                setYM2608Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
+
+                //adpcm
+                setYM2608Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
+
+
+                for (int p = 0; p < 2; p++)
+                {
+                    for (int c = 0; c < 3; c++)
+                    {
+                        setYM2610Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
+                        setYM2610Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
+                    }
+                }
+
+                //ssg
+                setYM2610Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
+                setYM2610Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
+
+                //rhythm
+                setYM2610Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
+
+                //adpcm
+                setYM2610Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
+
+
+                for (int c = 0; c < 8; c++)
+                {
+                    setYM2151Register((byte)chipID, 0, 0x60 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x68 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x70 + c, 127, enmModel.RealModel, 0, -1);
+                    setYM2151Register((byte)chipID, 0, 0x78 + c, 127, enmModel.RealModel, 0, -1);
+                }
+            }
+
+        }
+
+        internal void SetFileName(string fn)
+        {
+            midiExport.PlayingFileName = fn;
+        }
+
+        public midiOutInfo[] GetMIDIoutInfo()
+        {
+            return midiOutInfos;
+        }
+
         public void setMIDIout(midiOutInfo[] midiOutInfos, List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType, List<vstInfo2> vstMidiOuts, List<int> vstMidiOutsType)
         {
             this.midiOutInfos = null;
@@ -584,6 +674,7 @@ namespace MDPlayer
                 }
             }
         }
+
 
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, enmModel model, int hosei, long vgmFrameCounter)
         {
@@ -1658,7 +1749,6 @@ namespace MDPlayer
             }
         }
 
-
         public void setYMF262Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
             if (ctYMF262 == null) return;
@@ -1908,8 +1998,13 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
             {
+
+                //仮想音源の処理
+
                 if (ctYM2612[chipID].UseScci)
                 {
+                    //Scciを使用する場合でも
+                    //PCM(6Ch)だけエミュで発音するとき
                     if (ctYM2612[chipID].OnlyPCMEmulation)
                     {
                         if (dPort == 0 && dAddr == 0x2b)
@@ -1931,16 +2026,22 @@ namespace MDPlayer
                 }
                 else
                 {
+                    //エミュを使用する場合のみMDSoundへデータを送る
                     if (ctYM2612[chipID].UseEmu)
                         mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
             {
+
+                //実音源(Scci)
+
                 if (scYM2612[chipID] == null) return;
 
+                //PCM(6Ch)だけエミュで発音するとき
                 if (ctYM2612[chipID].OnlyPCMEmulation)
                 {
+                    //アドレスを調べてPCMにはデータを送らない
                     if (dPort == 0 && dAddr == 0x2b)
                     {
                         scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
@@ -1955,13 +2056,15 @@ namespace MDPlayer
                 }
                 else
                 {
+                    //Scciへデータを送る
                     scYM2612[chipID].setRegister(dPort * 0x100 + dAddr, dData);
                 }
             }
 
         }
 
-        internal void setMaskSN76489(int chipID, int ch, bool mask)
+
+        public void setMaskSN76489(int chipID, int ch, bool mask)
         {
             maskChSN76489[chipID][ch] = mask;
         }
@@ -2136,11 +2239,6 @@ namespace MDPlayer
             writeOKIM6258((byte)chipID, 0, 1, enmModel.VirtualModel);
             writeOKIM6258((byte)chipID, 0, 1, enmModel.RealModel);
         }
-
-        private int nsfAPUmask = 0;
-        private int nsfDMCmask = 0;
-        private int nsfFDSmask = 0;
-        private int nsfMMC5mask = 0;
 
         public void setNESMask(int chipID, int ch)
         {
@@ -2438,88 +2536,42 @@ namespace MDPlayer
             }
         }
 
-        public void resetChips()
+        private void SN76489_Write(int chipID, int data)
         {
-            for (int chipID = 0; chipID < 2; chipID++)
+            if ((data & 0x80) > 0)
             {
-                for (int p = 0; p < 2; p++)
-                {
-                    for (int c = 0; c < 3; c++)
-                    {
-                        setYM2612Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel, -1);
-                        setYM2612Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel, -1);
-                    }
-                }
-
-
-                for (int c = 0; c < 4; c++)
-                {
-                    setSN76489Register(chipID, 0x90 + (c << 5) + 0xf, enmModel.RealModel);
-                }
-
-                for (int p = 0; p < 2; p++)
-                {
-                    for (int c = 0; c < 3; c++)
-                    {
-                        setYM2608Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
-                        setYM2608Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
-                    }
-                }
-
-                //ssg
-                setYM2608Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
-                setYM2608Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
-
-                //rhythm
-                setYM2608Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
-
-                //adpcm
-                setYM2608Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
-
-
-                for (int p = 0; p < 2; p++)
-                {
-                    for (int c = 0; c < 3; c++)
-                    {
-                        setYM2610Register((byte)chipID, p, 0x40 + c, 127, enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x44 + c, 127, enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x48 + c, 127, enmModel.RealModel);
-                        setYM2610Register((byte)chipID, p, 0x4c + c, 127, enmModel.RealModel);
-                    }
-                }
-
-                //ssg
-                setYM2610Register((byte)chipID, 0, 0x08, 0, enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x09, 0, enmModel.RealModel);
-                setYM2610Register((byte)chipID, 0, 0x0a, 0, enmModel.RealModel);
-
-                //rhythm
-                setYM2610Register((byte)chipID, 0, 0x11, 0, enmModel.RealModel);
-
-                //adpcm
-                setYM2610Register((byte)chipID, 1, 0x0b, 0, enmModel.RealModel);
-
-
-                for (int c = 0; c < 8; c++)
-                {
-                    setYM2151Register((byte)chipID, 0, 0x60 + c, 127, enmModel.RealModel, 0, -1);
-                    setYM2151Register((byte)chipID, 0, 0x68 + c, 127, enmModel.RealModel, 0, -1);
-                    setYM2151Register((byte)chipID, 0, 0x70 + c, 127, enmModel.RealModel, 0, -1);
-                    setYM2151Register((byte)chipID, 0, 0x78 + c, 127, enmModel.RealModel, 0, -1);
-                }
+                /* Latch/data byte  %1 cc t dddd */
+                LatchedRegister[chipID] = (data >> 4) & 0x07;
+                sn76489Register[chipID][LatchedRegister[chipID]] =
+                    (sn76489Register[chipID][LatchedRegister[chipID]] & 0x3f0) /* zero low 4 bits */
+                    | (data & 0xf);                            /* and replace with data */
             }
-
+            else
+            {
+                /* Data byte        %0 - dddddd */
+                if ((LatchedRegister[chipID] % 2) == 0 && (LatchedRegister[chipID] < 5))
+                    /* Tone register */
+                    sn76489Register[chipID][LatchedRegister[chipID]] =
+                        (sn76489Register[chipID][LatchedRegister[chipID]] & 0x00f) /* zero high 6 bits */
+                        | ((data & 0x3f) << 4);                 /* and replace with data */
+                else
+                    /* Other register */
+                    sn76489Register[chipID][LatchedRegister[chipID]] = data & 0x0f; /* Replace with data */
+            }
+            switch (LatchedRegister[chipID])
+            {
+                case 0:
+                case 2:
+                case 4: /* Tone channels */
+                    if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
+                        sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
+                    break;
+                case 6: /* Noise */
+                    NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
+                    break;
+            }
         }
 
-        internal void SetFileName(string fn)
-        {
-            midiExport.PlayingFileName = fn;
-        }
 
         public void writeRF5C68PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
         {
@@ -2528,6 +2580,21 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C68PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
+        }
+
+        public void writeRF5C68(byte chipid, byte adr, byte data, enmModel model)
+        {
+
+            if (model == enmModel.VirtualModel)
+            {
+                mds.WriteRF5C68(chipid, adr, data);
+            }
+        }
+
+        public void writeRF5C68MemW(byte chipid, uint offset, byte data, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+                mds.WriteRF5C68MemW(chipid, offset, data);
         }
 
         public void writeRF5C164PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, enmModel model)
@@ -2548,11 +2615,6 @@ namespace MDPlayer
                 mds.WriteNESRam(chipid, (int)stAdr, (int)dataSize, vgmBuf, (int)vgmAdr);
         }
 
-        public midiOutInfo[] GetMIDIoutInfo()
-        {
-            return midiOutInfos;
-        }
-
         public void writeRF5C164(byte chipid, byte adr, byte data, enmModel model)
         {
             if (chipid == 0) chipLED.PriRF5C = 2;
@@ -2571,21 +2633,6 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
                 mds.WriteRF5C164MemW(chipid, offset, data);
-        }
-
-        public void writeRF5C68(byte chipid, byte adr, byte data, enmModel model)
-        {
-
-            if (model == enmModel.VirtualModel)
-            {
-                mds.WriteRF5C68(chipid, adr, data);
-            }
-        }
-
-        public void writeRF5C68MemW(byte chipid, uint offset, byte data, enmModel model)
-        {
-            if (model == enmModel.VirtualModel)
-                mds.WriteRF5C68MemW(chipid, offset, data);
         }
 
         public void writePWM(byte chipid, byte adr, uint data, enmModel model)
@@ -2925,6 +2972,13 @@ namespace MDPlayer
         }
 
 
+        //
+        // 鍵盤のボリューム表示のため音量を取得する
+        //
+
+        /// <summary>
+        /// ボリューム情報の更新
+        /// </summary>
         public void updateVol()
         {
             volF--;
@@ -2996,7 +3050,6 @@ namespace MDPlayer
 
         }
 
-
         public int[][] GetYM2151Volume(int chipID)
         {
             return fmVolYM2151[chipID];
@@ -3021,7 +3074,6 @@ namespace MDPlayer
         {
             return fmVolYM2612[chipID];
         }
-
 
         public int[] GetYM2203Ch3SlotVolume(int chipID)
         {
@@ -3055,7 +3107,6 @@ namespace MDPlayer
             return fmCh3SlotVolYM2612[chipID];
         }
 
-
         public int[][] GetYM2608RhythmVolume(int chipID)
         {
             return fmVolYM2608Rhythm[chipID];
@@ -3065,7 +3116,6 @@ namespace MDPlayer
         {
             return fmVolYM2610Rhythm[chipID];
         }
-
 
         public int[] GetYM2608AdpcmVolume(int chipID)
         {
@@ -3077,7 +3127,6 @@ namespace MDPlayer
             return fmVolYM2610Adpcm[chipID];
         }
 
-
         public int[][] GetPSGVolume(int chipID)
         {
 
@@ -3085,42 +3134,6 @@ namespace MDPlayer
 
         }
 
-
-        private void SN76489_Write(int chipID, int data)
-        {
-            if ((data & 0x80) > 0)
-            {
-                /* Latch/data byte  %1 cc t dddd */
-                LatchedRegister[chipID] = (data >> 4) & 0x07;
-                sn76489Register[chipID][LatchedRegister[chipID]] =
-                    (sn76489Register[chipID][LatchedRegister[chipID]] & 0x3f0) /* zero low 4 bits */
-                    | (data & 0xf);                            /* and replace with data */
-            }
-            else
-            {
-                /* Data byte        %0 - dddddd */
-                if ((LatchedRegister[chipID] % 2) == 0 && (LatchedRegister[chipID] < 5))
-                    /* Tone register */
-                    sn76489Register[chipID][LatchedRegister[chipID]] =
-                        (sn76489Register[chipID][LatchedRegister[chipID]] & 0x00f) /* zero high 6 bits */
-                        | ((data & 0x3f) << 4);                 /* and replace with data */
-                else
-                    /* Other register */
-                    sn76489Register[chipID][LatchedRegister[chipID]] = data & 0x0f; /* Replace with data */
-            }
-            switch (LatchedRegister[chipID])
-            {
-                case 0:
-                case 2:
-                case 4: /* Tone channels */
-                    if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
-                        sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
-                    break;
-                case 6: /* Noise */
-                    NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
-                    break;
-            }
-        }
 
 
 

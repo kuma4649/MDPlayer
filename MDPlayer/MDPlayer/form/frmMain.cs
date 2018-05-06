@@ -166,46 +166,31 @@ namespace MDPlayer.form
 
             if (setting.location.OPlayList) dispPlayList();
             if (setting.location.OInfo) openInfo();
+            if (setting.location.OMixer) openMixer();
+            if (setting.location.OpenYm2612MIDI) openMIDIKeyboard();
 
-            if (setting.location.OpenAY8910[0]) tsmiPAY8910_Click(null, null);
-            if (setting.location.OpenC140[0]) tsmiPC140_Click(null, null);
-            if (setting.location.OpenHuC6280[0]) tsmiPHuC6280_Click(null, null);
-            if (setting.location.OpenMIDI[0]) tsmiPMIDI_Click(null, null);
-            if (setting.location.OpenNESDMC[0]) tsmiPNESDMC_Click(null, null);
-            if (setting.location.OpenFDS[0]) tsmiPFDS_Click(null, null);
-            if (setting.location.OpenMMC5[0]) tsmiPMMC5_Click(null, null);
-            if (setting.location.OpenOKIM6258[0]) tsmiPOKIM6258_Click(null, null);
-            if (setting.location.OpenOKIM6295[0]) tsmiPOKIM6258_Click(null, null);
-            if (setting.location.OpenRf5c164[0]) tsmiPRF5C164_Click(null, null);
-            if (setting.location.OpenSegaPCM[0]) tsmiPSegaPCM_Click(null, null);
-            if (setting.location.OpenSN76489[0]) tsmiPDCSG_Click(null, null);
-            if (setting.location.OpenYm2151[0]) tsmiPOPM_Click(null, null);
-            if (setting.location.OpenYm2203[0]) tsmiPOPN_Click(null, null);
-            if (setting.location.OpenYm2413[0]) tsmiPOPLL_Click(null, null);
-            if (setting.location.OpenYm2608[0]) tsmiPOPNA_Click(null, null);
-            if (setting.location.OpenYm2610[0]) tsmiPOPNB_Click(null, null);
-            if (setting.location.OpenYm2612[0]) tsmiPOPN2_Click(null, null);
-            if (setting.location.OpenYmf278b[0]) tsmiPOPL4_Click(null, null);
-
-            if (setting.location.OpenAY8910[1]) tsmiSAY8910_Click(null, null);
-            if (setting.location.OpenC140[1]) tsmiSC140_Click(null, null);
-            if (setting.location.OpenHuC6280[1]) tsmiSHuC6280_Click(null, null);
-            if (setting.location.OpenMIDI[1]) tsmiSMIDI_Click(null, null);
-            if (setting.location.OpenNESDMC[1]) tsmiSNESDMC_Click(null, null);
-            if (setting.location.OpenFDS[1]) tsmiSFDS_Click(null, null);
-            if (setting.location.OpenMMC5[1]) tsmiSMMC5_Click(null, null);
-            if (setting.location.OpenOKIM6258[1]) tsmiSOKIM6258_Click(null, null);
-            if (setting.location.OpenOKIM6295[1]) tsmiSOKIM6258_Click(null, null);
-            if (setting.location.OpenRf5c164[1]) tsmiSRF5C164_Click(null, null);
-            if (setting.location.OpenSN76489[1]) tsmiSDCSG_Click(null, null);
-            if (setting.location.OpenSegaPCM[1]) tsmiSSegaPCM_Click(null, null);
-            if (setting.location.OpenYm2151[1]) tsmiSOPM_Click(null, null);
-            if (setting.location.OpenYm2203[1]) tsmiSOPN_Click(null, null);
-            if (setting.location.OpenYm2413[1]) tsmiSOPLL_Click(null, null);
-            if (setting.location.OpenYm2608[1]) tsmiSOPNA_Click(null, null);
-            if (setting.location.OpenYm2610[1]) tsmiSOPNB_Click(null, null);
-            if (setting.location.OpenYm2612[1]) tsmiSOPN2_Click(null, null);
-            if (setting.location.OpenYmf278b[1]) tsmiSOPL4_Click(null, null);
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                if (setting.location.OpenAY8910[chipID]) OpenFormAY8910(chipID);
+                if (setting.location.OpenC140[chipID]) OpenFormC140(chipID);
+                if (setting.location.OpenHuC6280[chipID]) OpenFormHuC6280(chipID);
+                if (setting.location.OpenMIDI[chipID]) OpenFormMIDI(chipID);
+                if (setting.location.OpenNESDMC[chipID]) OpenFormNESDMC(chipID);
+                if (setting.location.OpenFDS[chipID]) OpenFormFDS(chipID);
+                if (setting.location.OpenMMC5[chipID]) OpenFormMMC5(chipID);
+                if (setting.location.OpenOKIM6258[chipID]) OpenFormOKIM6258(chipID);
+                if (setting.location.OpenOKIM6295[chipID]) OpenFormOKIM6295(chipID);
+                if (setting.location.OpenRf5c164[chipID]) OpenFormMegaCD(chipID);
+                if (setting.location.OpenSN76489[chipID]) OpenFormSN76489(chipID);
+                if (setting.location.OpenSegaPCM[chipID]) OpenFormSegaPCM(chipID);
+                if (setting.location.OpenYm2151[chipID]) OpenFormYM2151(chipID);
+                if (setting.location.OpenYm2203[chipID]) OpenFormYM2203(chipID);
+                if (setting.location.OpenYm2413[chipID]) OpenFormYM2413(chipID);
+                if (setting.location.OpenYm2608[chipID]) OpenFormYM2608(chipID);
+                if (setting.location.OpenYm2610[chipID]) OpenFormYM2610(chipID);
+                if (setting.location.OpenYm2612[chipID]) OpenFormYM2612(chipID);
+                if (setting.location.OpenYmf278b[chipID]) OpenFormYMF278B(chipID);
+            }
 
             log.ForcedWrite("frmMain_Load:STEP 08");
 
@@ -530,117 +515,71 @@ namespace MDPlayer.form
             setting.location.OInfo = false;
             setting.location.OPlayList = false;
             setting.location.OMixer = false;
+            setting.location.OpenYm2612MIDI = false;
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                setting.location.OpenRf5c164[chipID] = false;
-                setting.location.OpenC140[chipID] = false;
-                setting.location.OpenYm2151[chipID] = false;
-                setting.location.OpenYm2608[chipID] = false;
-                setting.location.OpenYm2203[chipID] = false;
-                setting.location.OpenYm2413[chipID] = false;
-                setting.location.OpenYm2610[chipID] = false;
-                setting.location.OpenYm2612[chipID] = false;
-                setting.location.OpenOKIM6258[chipID] = false;
-                setting.location.OpenOKIM6295[chipID] = false;
-                setting.location.OpenSN76489[chipID] = false;
-                setting.location.OpenSegaPCM[chipID] = false;
                 setting.location.OpenAY8910[chipID] = false;
+                setting.location.OpenC140[chipID] = false;
                 setting.location.OpenHuC6280[chipID] = false;
                 setting.location.OpenMIDI[chipID] = false;
                 setting.location.OpenNESDMC[chipID] = false;
                 setting.location.OpenFDS[chipID] = false;
+                setting.location.OpenMMC5[chipID] = false;
+                setting.location.OpenOKIM6258[chipID] = false;
+                setting.location.OpenOKIM6295[chipID] = false;
+                setting.location.OpenRf5c164[chipID] = false;
+                setting.location.OpenSegaPCM[chipID] = false;
+                setting.location.OpenSN76489[chipID] = false;
+                setting.location.OpenYm2151[chipID] = false;
+                setting.location.OpenYm2203[chipID] = false;
+                setting.location.OpenYm2413[chipID] = false;
+                setting.location.OpenYm2608[chipID] = false;
+                setting.location.OpenYm2610[chipID] = false;
+                setting.location.OpenYm2612[chipID] = false;
+                setting.location.OpenYmf278b[chipID] = false;
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
 
             setting.location.PMain = this.Location;
-            if (frmInfo != null && !frmInfo.isClosed)
-            {
-                setting.location.PInfo = frmInfo.Location;
-                setting.location.OInfo = true;
-            }
             if (frmPlayList != null && !frmPlayList.isClosed)
             {
                 setting.location.PPlayList = frmPlayList.Location;
                 setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
                 setting.location.OPlayList = true;
             }
+            if (frmInfo != null && !frmInfo.isClosed)
+            {
+                setting.location.PInfo = frmInfo.Location;
+                setting.location.OInfo = true;
+            }
+            if (frmMixer2 != null && !frmMixer2.isClosed)
+            {
+                setting.location.PMixer = frmMixer2.Location;
+                setting.location.OMixer = true;
+            }
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
+            {
+                setting.location.PosYm2612MIDI = frmYM2612MIDI.Location;
+                setting.location.OpenYm2612MIDI = true;
+            }
             if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
             {
                 setting.location.PosVSTeffectList = frmVSTeffectList.Location;
                 setting.location.OpenVSTeffectList = true;
             }
+
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed)
+                if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
                 {
-                    setting.location.PosRf5c164[chipID] = frmMCD[chipID].Location;
-                    setting.location.OpenRf5c164[chipID] = true;
+                    setting.location.PosAY8910[chipID] = frmAY8910[chipID].Location;
+                    setting.location.OpenAY8910[chipID] = true;
                 }
                 if (frmC140[chipID] != null && !frmC140[chipID].isClosed)
                 {
                     setting.location.PosC140[chipID] = frmC140[chipID].Location;
                     setting.location.OpenC140[chipID] = true;
-                }
-                if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed)
-                {
-                    setting.location.PosYm2151[chipID] = frmYM2151[chipID].Location;
-                    setting.location.OpenYm2151[chipID] = true;
-                }
-                if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed)
-                {
-                    setting.location.PosYm2608[chipID] = frmYM2608[chipID].Location;
-                    setting.location.OpenYm2608[chipID] = true;
-                }
-                if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed)
-                {
-                    setting.location.PosYm2203[chipID] = frmYM2203[chipID].Location;
-                    setting.location.OpenYm2203[chipID] = true;
-                }
-                if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed)
-                {
-                    setting.location.PosYm2413[chipID] = frmYM2413[chipID].Location;
-                    setting.location.OpenYm2413[chipID] = true;
-                }
-                if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed)
-                {
-                    setting.location.PosYm2610[chipID] = frmYM2610[chipID].Location;
-                    setting.location.OpenYm2610[chipID] = true;
-                }
-                if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed)
-                {
-                    setting.location.PosYm2612[chipID] = frmYM2612[chipID].Location;
-                    setting.location.OpenYm2612[chipID] = true;
-                }
-                if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed)
-                {
-                    setting.location.PosYmf278b[chipID] = frmYMF278B[chipID].Location;
-                    setting.location.OpenYmf278b[chipID] = true;
-                }
-                if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed)
-                {
-                    setting.location.PosOKIM6258[chipID] = frmOKIM6258[chipID].Location;
-                    setting.location.OpenOKIM6258[chipID] = true;
-                }
-                if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed)
-                {
-                    setting.location.PosOKIM6295[chipID] = frmOKIM6295[chipID].Location;
-                    setting.location.OpenOKIM6295[chipID] = true;
-                }
-                if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed)
-                {
-                    setting.location.PosSN76489[chipID] = frmSN76489[chipID].Location;
-                    setting.location.OpenSN76489[chipID] = true;
-                }
-                if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed)
-                {
-                    setting.location.PosSegaPCM[chipID] = frmSegaPCM[chipID].Location;
-                    setting.location.OpenSegaPCM[chipID] = true;
-                }
-                if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
-                {
-                    setting.location.PosAY8910[chipID] = frmAY8910[chipID].Location;
-                    setting.location.OpenAY8910[chipID] = true;
                 }
                 if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed)
                 {
@@ -657,11 +596,6 @@ namespace MDPlayer.form
                     setting.location.PosNESDMC[chipID] = frmNESDMC[chipID].Location;
                     setting.location.OpenNESDMC[chipID] = true;
                 }
-                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
-                {
-                    setting.location.PosYm2612MIDI = frmYM2612MIDI.Location;
-                    setting.location.OpenYm2612MIDI = true;
-                }
                 if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed)
                 {
                     setting.location.PosFDS[chipID] = frmFDS[chipID].Location;
@@ -671,6 +605,66 @@ namespace MDPlayer.form
                 {
                     setting.location.PosMMC5[chipID] = frmMMC5[chipID].Location;
                     setting.location.OpenMMC5[chipID] = true;
+                }
+                if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed)
+                {
+                    setting.location.PosOKIM6258[chipID] = frmOKIM6258[chipID].Location;
+                    setting.location.OpenOKIM6258[chipID] = true;
+                }
+                if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed)
+                {
+                    setting.location.PosOKIM6295[chipID] = frmOKIM6295[chipID].Location;
+                    setting.location.OpenOKIM6295[chipID] = true;
+                }
+                if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed)
+                {
+                    setting.location.PosRf5c164[chipID] = frmMCD[chipID].Location;
+                    setting.location.OpenRf5c164[chipID] = true;
+                }
+                if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed)
+                {
+                    setting.location.PosSegaPCM[chipID] = frmSegaPCM[chipID].Location;
+                    setting.location.OpenSegaPCM[chipID] = true;
+                }
+                if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed)
+                {
+                    setting.location.PosSN76489[chipID] = frmSN76489[chipID].Location;
+                    setting.location.OpenSN76489[chipID] = true;
+                }
+                if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed)
+                {
+                    setting.location.PosYm2151[chipID] = frmYM2151[chipID].Location;
+                    setting.location.OpenYm2151[chipID] = true;
+                }
+                if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed)
+                {
+                    setting.location.PosYm2203[chipID] = frmYM2203[chipID].Location;
+                    setting.location.OpenYm2203[chipID] = true;
+                }
+                if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed)
+                {
+                    setting.location.PosYm2413[chipID] = frmYM2413[chipID].Location;
+                    setting.location.OpenYm2413[chipID] = true;
+                }
+                if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed)
+                {
+                    setting.location.PosYm2608[chipID] = frmYM2608[chipID].Location;
+                    setting.location.OpenYm2608[chipID] = true;
+                }
+                if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed)
+                {
+                    setting.location.PosYm2610[chipID] = frmYM2610[chipID].Location;
+                    setting.location.OpenYm2610[chipID] = true;
+                }
+                if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed)
+                {
+                    setting.location.PosYm2612[chipID] = frmYM2612[chipID].Location;
+                    setting.location.OpenYm2612[chipID] = true;
+                }
+                if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed)
+                {
+                    setting.location.PosYmf278b[chipID] = frmYMF278B[chipID].Location;
+                    setting.location.OpenYmf278b[chipID] = true;
                 }
             }
 
@@ -1065,6 +1059,7 @@ namespace MDPlayer.form
         {
             OpenFormMMC5(1);
         }
+
         private void tsmiSOPN_Click(object sender, EventArgs e)
         {
             OpenFormYM2203(1);

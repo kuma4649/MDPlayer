@@ -70,13 +70,6 @@ namespace MDPlayer
         private static NSoundChip[] scYM2610EB = new NSoundChip[2] { null, null };
         private static NSoundChip[] scC140 = new NSoundChip[2] { null, null };
         private static NSoundChip[] scSEGAPCM = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scYMF262 = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scYMF271 = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scYMF278B = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scYMZ280B = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scAY8910 = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scYM2413 = new NSoundChip[2] { null, null };
-        //private static NSoundChip[] scHuC6280 = new NSoundChip[2] { null, null };
 
         private static ChipRegister chipRegister = null;
 
@@ -1005,6 +998,7 @@ namespace MDPlayer
             {
                 nscci = new NScci.NScci();
                 getScciInstances();
+                nscci.setLevelDisp(false);
             }
 
             scYM2612[0] = getChip(Audio.setting.YM2612Type);
@@ -1905,20 +1899,40 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                if (setting.YM2151Type.UseEmu)
+                {
+                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
 
-                chip = new MDSound.MDSound.Chip();
-                chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
-                chip.ID = (byte)0;
-                chip.Instrument = ym2151;
-                chip.Update = ym2151.Update;
-                chip.Start = ym2151.Start;
-                chip.Stop = ym2151.Stop;
-                chip.Reset = ym2151.Reset;
-                chip.SamplingRate = (UInt32)common.SampleRate;
-                chip.Volume = setting.balance.YM2151Volume;
-                chip.Clock = 4000000;
-                chip.Option = null;
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                    chip.ID = (byte)0;
+                    chip.Instrument = ym2151;
+                    chip.Update = ym2151.Update;
+                    chip.Start = ym2151.Start;
+                    chip.Stop = ym2151.Stop;
+                    chip.Reset = ym2151.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = null;
+                }
+                else
+                {
+                    MDSound.ym2151_mame ym2151mame = new MDSound.ym2151_mame();
+
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
+                    chip.ID = (byte)0;
+                    chip.Instrument = ym2151mame;
+                    chip.Update = ym2151mame.Update;
+                    chip.Start = ym2151mame.Start;
+                    chip.Stop = ym2151mame.Stop;
+                    chip.Reset = ym2151mame.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = null;
+                }
 
                 hiyorimiDeviceFlag |= 0x2;
 
