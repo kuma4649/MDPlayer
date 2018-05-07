@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDRファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDXファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -45,7 +45,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・C#で作成されています。  
   
-  ・VGMPlayのソースを参考、移植しています。  
+  ・VGMPlay,MAMEのソースを参考、移植しています。  
   
   ・FMGenのソースを参考、移植しています。  
   
@@ -156,6 +156,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
      
     ・Visual Studio Community 2015  
     ・MinGW/msys  
+    ・gcc  
     ・SGDK  
     ・VGM Player  
     ・Git  

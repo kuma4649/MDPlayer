@@ -3587,6 +3587,7 @@ namespace MDPlayer.Driver.MoonDriver
 
         private void moon_key_opl4on()
         {
+            pcmKeyon[ix] = work.ch[ix].note + 12 * 2;
             if ((work.ch[ix].efx1 & 1) != 0)
             {
                 //slar_opl4_on:
@@ -3643,7 +3644,6 @@ namespace MDPlayer.Driver.MoonDriver
 
             moon_add_reg_ch();
             moon_wave_out();// key-on
-            pcmKeyon[ix] = work.ch[ix].note +12*2;
             return;
 
         }

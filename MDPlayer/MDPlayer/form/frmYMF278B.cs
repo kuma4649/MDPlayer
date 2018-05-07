@@ -247,7 +247,7 @@ namespace MDPlayer.form
                 nyc.inst[33] = 1;
 
                 int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
-                if ((ko & (1 << c)) != 0)
+                if ((ko & (1 << c)) != 0 )
                 {
                     if (nyc.note != nt)
                     {
@@ -358,6 +358,7 @@ namespace MDPlayer.form
                 nyc.inst[14] = (ymf278bRegister[2][0x20 + (c - 23)] >> 1) + ((ymf278bRegister[2][0x38 + (c - 23)] & 0x7) << 7);
                 if (mdPCMKey == null)
                 {
+                    //moonDriver以外
                     //Volume
                     if (pcmKey[c - 23] == 1)
                     {
@@ -381,7 +382,8 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    if (mdPCMKey[c - 23] > -1)
+                    //moonDriverの場合
+                    if (mdPCMKey[c - 23] > -1 )
                     {
                         //note
                         nyc.note = mdPCMKey[c - 23];
