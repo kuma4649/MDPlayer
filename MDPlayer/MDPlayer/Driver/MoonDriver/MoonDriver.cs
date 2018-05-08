@@ -13,21 +13,23 @@ namespace MDPlayer.Driver.MoonDriver
 
             GD3 gd3 = new GD3();
 
-            uint adr;
-            adr = (UInt16)(buf[9] + buf[10] * 0x100);
-            if (adr != 0)
+            uint adrTag;
+            adrTag = (UInt16)(buf[0x2e] + buf[0x2f] * 0x100);
+            if (adrTag != 0)
             {
-                gd3.TrackName = common.getNRDString(buf, ref adr);
-                gd3.TrackNameJ = gd3.TrackName;
+                adrTag -= 0x8000;
+                gd3.TrackName = common.getNRDString(buf, ref adrTag);
+                gd3.TrackNameJ = common.getNRDString(buf, ref adrTag);
+                gd3.GameName = common.getNRDString(buf, ref adrTag);
+                gd3.GameNameJ = common.getNRDString(buf, ref adrTag);
+                gd3.SystemName = common.getNRDString(buf, ref adrTag);
+                gd3.SystemNameJ = common.getNRDString(buf, ref adrTag);
+                gd3.Composer = common.getNRDString(buf, ref adrTag);//Track author
+                gd3.ComposerJ = common.getNRDString(buf, ref adrTag);//Track author(jp)
+                gd3.Version = common.getNRDString(buf, ref adrTag);//Release date
+                gd3.Converted = common.getNRDString(buf, ref adrTag);//Programmer
+                gd3.Notes = common.getNRDString(buf, ref adrTag);//Notes
             }
-            adr = (UInt16)(buf[11] + buf[12] * 0x100);
-            if (adr != 0)
-            {
-                gd3.Composer = common.getNRDString(buf, ref adr);
-                gd3.ComposerJ = gd3.Composer;
-            }
-            adr = (UInt16)(buf[13] + buf[14] * 0x100);
-            if (adr != 0) gd3.Notes = common.getNRDString(buf, ref adr);
 
             return gd3;
         }
