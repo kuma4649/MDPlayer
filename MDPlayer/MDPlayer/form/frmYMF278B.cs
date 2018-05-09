@@ -212,7 +212,7 @@ namespace MDPlayer.form
                 }
             }
 
-            int ko=Audio.getYMF278BFMKeyON(chipID);
+            int ko = Audio.getYMF278BFMKeyON(chipID);
 
             for (int c = 0; c < 18; c++)
             {
@@ -240,14 +240,14 @@ namespace MDPlayer.form
                 nyc.inst[14] = (ymf278bRegister[p][0xc0 + adr] & 1);
                 //PAN
                 nyc.inst[36] = ymf278bRegister[p][0xc0 + adr] & 0x30;
-                nyc.inst[36] = ((nyc.inst[36] >> 5)&1) | ((nyc.inst[36] >> 3)&2); //00RL0000 -> 000000LR
+                nyc.inst[36] = ((nyc.inst[36] >> 5) & 1) | ((nyc.inst[36] >> 3) & 2); //00RL0000 -> 000000LR
                 //modFlg
                 int n = ymf278bRegister[p][0xc0 + adr] & 1;
                 nyc.inst[16] = n == 0 ? 0 : 1;
                 nyc.inst[33] = 1;
 
                 int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
-                if ((ko & (1 << c)) != 0 )
+                if ((ko & (1 << (adr +p*9))) != 0)
                 {
                     if (nyc.note != nt)
                     {
@@ -282,10 +282,16 @@ namespace MDPlayer.form
 
             int r = Audio.getYMF278BRyhthmKeyON(chipID);
 
+            //slot14 TL 0x51 HH
+            //slot15 TL 0x52 TOM
+            //slot16 TL 0x53 BD
+            //slot17 TL 0x54 SD
+            //slot18 TL 0x55 CYM
+
             //BD
             if ((r & 0x10) != 0)
             {
-                newParam.channels[18].volume = (19 - (ymf278bRegister[0][0xbd] & 0x0f));
+                newParam.channels[18].volume = 19 - ((ymf278bRegister[0][0x53] & 0x3f) >> 2);
             }
             else
             {
@@ -296,7 +302,7 @@ namespace MDPlayer.form
             //SD
             if ((r & 0x08) != 0)
             {
-                newParam.channels[19].volume = (19 - (ymf278bRegister[0][0xbd] & 0x0f));
+                newParam.channels[19].volume = 19 - ((ymf278bRegister[0][0x54] & 0x3f)>>2);
             }
             else
             {
@@ -307,7 +313,7 @@ namespace MDPlayer.form
             //TOM
             if ((r & 0x04) != 0)
             {
-                newParam.channels[20].volume = 19 - ((ymf278bRegister[0][0xbd] & 0xf0) >> 4);
+                newParam.channels[20].volume = 19 - ((ymf278bRegister[0][0x52] & 0x3f) >> 2);
             }
             else
             {
@@ -318,7 +324,7 @@ namespace MDPlayer.form
             //CYM
             if ((r & 0x02) != 0)
             {
-                newParam.channels[21].volume = 19 - ((ymf278bRegister[0][0xbd] & 0x0f) >> 0);
+                newParam.channels[21].volume = 19 - ((ymf278bRegister[0][0x55] & 0x3f) >> 2);
             }
             else
             {
@@ -329,7 +335,7 @@ namespace MDPlayer.form
             //HH
             if ((r & 0x01) != 0)
             {
-                newParam.channels[22].volume = 19 - ((ymf278bRegister[0][0xbd] & 0xf0) >> 4);
+                newParam.channels[22].volume = 19 - ((ymf278bRegister[0][0x51] & 0x3f) >> 2);
             }
             else
             {

@@ -1815,7 +1815,7 @@ namespace MDPlayer
 
                 if (dAddr >= 0xb0 && dAddr <= 0xb8)
                 {
-                    int k = dData >> 5;
+                    int k = (dData >> 5) & 1;
                     if (k == 0)
                     {
                         fmRegisterYMF278BFM[chipID] &= ~(1 << (dAddr - 0xb0 + dPort * 9));
@@ -1824,9 +1824,10 @@ namespace MDPlayer
                     {
                         fmRegisterYMF278BFM[chipID] |= (1 << (dAddr - 0xb0 + dPort * 9));
                     }
+                    fmRegisterYMF278BFM[chipID] &= 0x3ffff;
                 }
 
-                if (dAddr == 0xbd)
+                if (dAddr == 0xbd && dPort==0)
                 {
                     fmRegisterYMF278BRyhthm[chipID] = (fmRegisterYMF278BRyhthmB[chipID] ^ dData) & 0x1f;
                     fmRegisterYMF278BRyhthmB[chipID] = dData;
