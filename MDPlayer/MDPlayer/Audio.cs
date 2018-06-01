@@ -4045,6 +4045,11 @@ namespace MDPlayer
                 }
                 trdClosed = true;
 
+                if (nscci != null)
+                {
+                    nscci.init();
+                }
+
                 int timeout = 5000;
                 while (!trdStopped)
                 {
@@ -4058,10 +4063,10 @@ namespace MDPlayer
                     if (timeout < 1) break;
                 };
                 //if (scYM2612 != null) scYM2612.init();
-                if (nscci != null)
-                {
-                    nscci.reset();
-                }
+                //if (nscci != null)
+                //{
+                //    nscci.reset();
+                //}
                 //chipRegister.outMIDIData_Close();
 
                 waveWriter.Close();

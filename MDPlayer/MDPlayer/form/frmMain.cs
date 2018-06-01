@@ -2996,6 +2996,7 @@ namespace MDPlayer.form
             {
                 Audio.Pause();
             }
+            Audio.Stop();
 
             frmPlayList.nextPlay();
         }

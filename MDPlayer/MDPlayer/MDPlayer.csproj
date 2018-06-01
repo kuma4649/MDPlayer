@@ -93,10 +93,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="NScci, Version=1.0.6016.37071, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

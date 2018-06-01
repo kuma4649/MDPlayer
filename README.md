@@ -25,8 +25,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .NSF (NES Sound Format)  
   .HES (HESファイル)  
   .SID (コモドール向けファイル)  
-  .MDR (MoonDriver MSX,MoonSoundでOPL4を鳴らすドライバの演奏ファイル)  
-  .MDX (MXDRV向けファイル)
+  .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
+  .MDX (MXDRV向けファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -40,8 +40,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・現在、以下の鍵盤表示が可能です。  
      
-      AY8910    , YM2612   , SN76489  , RF5C164 , C140(C219) , SEGAPCM     , YM2151  , YM2203  
-      , YM2413  , YM2608   , YM2610/B , HuC6280 , MIDI       , NES_APU&DMC , NES_FDS , MMC5  
+      AY8910    , YM2612   , SN76489  , RF5C164 , C140(C219) , SEGAPCM , YM2151      , YM2203  
+      , YM2413  , YM2608   , YM2610/B 、YMF278B , HuC6280    , MIDI    , NES_APU&DMC , NES_FDS  
+      , MMC5  
   
   ・C#で作成されています。  
   
@@ -113,7 +114,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・音声を再生できるオーディオデバイスが必須。  
   そこそこ性能があるものが必要です。UMX250のおまけでついてたUCA222でも十分いけます。私はこれ使ってます。  
   
-  ・もしあれば、SPFM Light＋YM2612＋YM2608＋YM2151  
+  ・もしあれば、SPFM Light＋YM2612＋YM2608＋YM2151＋SPPCM  
   
   ・YM2608のエミュレーション時、リズム音を鳴らすために以下の音声ファイルが必要です。  
   作成方法は申し訳ありませんがお任せします。  
