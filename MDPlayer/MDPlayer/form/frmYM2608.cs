@@ -53,12 +53,6 @@ namespace MDPlayer.form
             }
         }
 
-        private void frmYM2608_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            parent.setting.location.PosYm2608[chipID] = Location;
-            isClosed = true;
-        }
-
         private void frmYM2608_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
@@ -66,6 +60,12 @@ namespace MDPlayer.form
             frameSizeH = this.Height - this.ClientSize.Height;
 
             changeZoom();
+        }
+
+        private void frmYM2608_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            parent.setting.location.PosYm2608[chipID] = Location;
+            isClosed = true;
         }
 
         public void changeZoom()
@@ -94,6 +94,17 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        public void screenInit()
+        {
+            for (int c = 0; c < newParam.channels.Length; c++)
+            {
+                newParam.channels[c].note = -1;
+            }
+            bool YM2608Type = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
+            int tp = YM2608Type ? 1 : 0;
+            DrawBuff.screenInitYM2608(frameBuffer, tp);
         }
 
         public void screenChangeParams()
@@ -342,5 +353,6 @@ namespace MDPlayer.form
                 parent.getInstCh(enmUseChip.YM2608, instCh, chipID);
             }
         }
+
     }
 }

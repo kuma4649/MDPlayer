@@ -4062,11 +4062,11 @@ namespace MDPlayer
                     timeout--;
                     if (timeout < 1) break;
                 };
-                //if (scYM2612 != null) scYM2612.init();
-                //if (nscci != null)
-                //{
-                //    nscci.reset();
-                //}
+                
+                if (nscci != null)
+                {
+                    nscci.init();//.reset();
+                }
                 //chipRegister.outMIDIData_Close();
 
                 waveWriter.Close();
