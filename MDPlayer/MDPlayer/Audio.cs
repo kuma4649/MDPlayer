@@ -1856,9 +1856,6 @@ namespace MDPlayer
 
                 Stop();
 
-                chipRegister.setFadeoutVolYM2151(0, 0);
-                chipRegister.setFadeoutVolYM2151(1, 0);
-
                 chipRegister.resetChips();
 
                 vgmFadeout = false;
@@ -1867,7 +1864,6 @@ namespace MDPlayer
                 vgmSpeed = 1;
                 vgmRealFadeoutVol = 0;
                 vgmRealFadeoutVolWait = 4;
-
                 chipRegister.setFadeoutVolYM2203(0, 0);
                 chipRegister.setFadeoutVolYM2203(1, 0);
                 chipRegister.setFadeoutVolYM2608(0, 0);
@@ -1878,7 +1874,6 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolYM2612(1, 0);
                 chipRegister.setFadeoutVolSN76489(0, 0);
                 chipRegister.setFadeoutVolSN76489(1, 0);
-
                 chipRegister.resetChips();
 
                 trdClosed = false;
@@ -1888,9 +1883,9 @@ namespace MDPlayer
                 trdMain.Name = "trdVgmReal";
                 trdMain.Start();
 
-                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+                //List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
-                MDSound.MDSound.Chip chip;
+                //MDSound.MDSound.Chip chip;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
                 int hiyorimiDeviceFlag = 0;
@@ -1899,74 +1894,74 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (setting.YM2151Type.UseEmu)
-                {
-                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                //if (setting.YM2151Type.UseEmu)
+                //{
+                //    MDSound.ym2151 ym2151 = new MDSound.ym2151();
 
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
-                    chip.ID = (byte)0;
-                    chip.Instrument = ym2151;
-                    chip.Update = ym2151.Update;
-                    chip.Start = ym2151.Start;
-                    chip.Stop = ym2151.Stop;
-                    chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = (UInt32)common.SampleRate;
-                    chip.Volume = setting.balance.YM2151Volume;
-                    chip.Clock = 4000000;
-                    chip.Option = null;
-                }
-                else
-                {
-                    MDSound.ym2151_mame ym2151mame = new MDSound.ym2151_mame();
+                //    chip = new MDSound.MDSound.Chip();
+                //    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                //    chip.ID = (byte)0;
+                //    chip.Instrument = ym2151;
+                //    chip.Update = ym2151.Update;
+                //    chip.Start = ym2151.Start;
+                //    chip.Stop = ym2151.Stop;
+                //    chip.Reset = ym2151.Reset;
+                //    chip.SamplingRate = (UInt32)common.SampleRate;
+                //    chip.Volume = setting.balance.YM2151Volume;
+                //    chip.Clock = 4000000;
+                //    chip.Option = null;
+                //}
+                //else
+                //{
+                //    MDSound.ym2151_mame ym2151mame = new MDSound.ym2151_mame();
 
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
-                    chip.ID = (byte)0;
-                    chip.Instrument = ym2151mame;
-                    chip.Update = ym2151mame.Update;
-                    chip.Start = ym2151mame.Start;
-                    chip.Stop = ym2151mame.Stop;
-                    chip.Reset = ym2151mame.Reset;
-                    chip.SamplingRate = (UInt32)common.SampleRate;
-                    chip.Volume = setting.balance.YM2151Volume;
-                    chip.Clock = 4000000;
-                    chip.Option = null;
-                }
+                //    chip = new MDSound.MDSound.Chip();
+                //    chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
+                //    chip.ID = (byte)0;
+                //    chip.Instrument = ym2151mame;
+                //    chip.Update = ym2151mame.Update;
+                //    chip.Start = ym2151mame.Start;
+                //    chip.Stop = ym2151mame.Stop;
+                //    chip.Reset = ym2151mame.Reset;
+                //    chip.SamplingRate = (UInt32)common.SampleRate;
+                //    chip.Volume = setting.balance.YM2151Volume;
+                //    chip.Clock = 4000000;
+                //    chip.Option = null;
+                //}
 
                 hiyorimiDeviceFlag |= 0x2;
 
                 chipLED.PriOPM = 1;
-                lstChips.Add(chip);
+                //lstChips.Add(chip);
 
-                chip = new MDSound.MDSound.Chip();
-                chip.type = MDSound.MDSound.enmInstrumentType.OKIM6258;
-                chip.ID = 0;
-                MDSound.okim6258 okim6258 = new MDSound.okim6258();
-                chip.Instrument = okim6258;
-                chip.Update = okim6258.Update;
-                chip.Start = okim6258.Start;
-                chip.Stop = okim6258.Stop;
-                chip.Reset = okim6258.Reset;
-                chip.SamplingRate = (UInt32)common.SampleRate;
-                chip.Volume = setting.balance.OKIM6258Volume;
-                chip.Clock = 8000000;
-                chip.Option = new object[1] { 6 };
-                okim6258.okim6258_set_srchg_cb(0, ChangeChipSampleRate, chip);
+                //chip = new MDSound.MDSound.Chip();
+                //chip.type = MDSound.MDSound.enmInstrumentType.OKIM6258;
+                //chip.ID = 0;
+                //MDSound.okim6258 okim6258 = new MDSound.okim6258();
+                //chip.Instrument = okim6258;
+                //chip.Update = okim6258.Update;
+                //chip.Start = okim6258.Start;
+                //chip.Stop = okim6258.Stop;
+                //chip.Reset = okim6258.Reset;
+                //chip.SamplingRate = (UInt32)common.SampleRate;
+                //chip.Volume = setting.balance.OKIM6258Volume;
+                //chip.Clock = 8000000;
+                //chip.Option = new object[1] { 6 };
+                //okim6258.okim6258_set_srchg_cb(0, ChangeChipSampleRate, chip);
 
                 hiyorimiDeviceFlag |= 0x2;
 
                 chipLED.PriOKI5 = 1;
 
-                lstChips.Add(chip);
+                //lstChips.Add(chip);
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
 
-                if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
-                else
-                    mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+                //if (mds == null)
+                //    mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+                //else
+                //    mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister();
 
@@ -4706,12 +4701,20 @@ namespace MDPlayer
                     driverVirtual.vstDelta = 0;
                     cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount / 2, offset) * 2;
                 }
-                else if(driverVirtual is Driver.SID.sid)
+                else if (driverVirtual is Driver.SID.sid)
                 {
                     if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
 
                     driverVirtual.vstDelta = 0;
-                    cnt = (Int32)((Driver.SID.sid)driverVirtual).Render(buffer, (UInt32)sampleCount );
+                    cnt = (Int32)((Driver.SID.sid)driverVirtual).Render(buffer, (UInt32)sampleCount);
+                }
+                else if (driverVirtual is Driver.MXDRV.MXDRV)
+                {
+                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
+
+                    driverVirtual.vstDelta = 0;
+                    cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).x68Sound.X68Sound_GetPcm(buffer, (int)sampleCount);
+                    cnt = sampleCount;
                 }
                 else
                 {

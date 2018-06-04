@@ -434,6 +434,14 @@
     <Compile Include="VisVolume.cs" />
     <Compile Include="vstInfo.cs" />
     <Compile Include="WaveWriter.cs" />
+    <Compile Include="X68Sound\adpcm.cs" />
+    <Compile Include="X68Sound\global.cs" />
+    <Compile Include="X68Sound\lfo.cs" />
+    <Compile Include="X68Sound\NX68Sound.cs" />
+    <Compile Include="X68Sound\op.cs" />
+    <Compile Include="X68Sound\opm.cs" />
+    <Compile Include="X68Sound\Pcm8.cs" />
+    <Compile Include="X68Sound\sound_iocs.cs" />
     <Compile Include="YM2612MIDI.cs" />
     <EmbeddedResource Include="form\frmAY8910.resx">
       <DependentUpon>frmAY8910.cs</DependentUpon>

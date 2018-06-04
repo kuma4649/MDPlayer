@@ -62,8 +62,8 @@ namespace MDPlayer.Driver.MXDRV
             this.latency = latency;
             this.waitTime = waitTime;
 
-            x68Sound = new X68Sound();
-            sound_iocs = new sound_iocs(chipRegister, model, YM2151Hosei, x68Sound);
+            x68Sound = new NX68Sound.X68Sound();
+            sound_iocs = new NX68Sound.sound_iocs(x68Sound);// (chipRegister, model, YM2151Hosei, x68Sound);
 
             GD3 = getGD3Info(vgmBuf, 0);
             Counter = 0;
@@ -107,7 +107,7 @@ namespace MDPlayer.Driver.MXDRV
             if (!string.IsNullOrEmpty(pdxFileName) && pdx == null) return false;
 
             int ret;
-            ret = MXDRV_Start(0, 0, 0, 0, 64 * 1024, 1024 * 1024, 0);
+            ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0);
 
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
@@ -117,6 +117,8 @@ namespace MDPlayer.Driver.MXDRV
             mm.realloc(memind);
             for (UInt32 i = 0; i < mdxsize; i++) mm.Write(mdxPtr + i, mdx[i]);
             for (UInt32 i = 0; i < pdxsize; i++) mm.Write(pdxPtr + i, pdx[i]);
+
+            x68Sound.MountMemory(mm.mm);
 
             //uint playtime=MXDRV_MeasurePlayTime(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr, 1, depend.TRUE);
             //Console.WriteLine("({0}:{1:d02}) {2}", playtime / 1000 / 60, playtime / 1000 % 60, "");
@@ -263,8 +265,8 @@ namespace MDPlayer.Driver.MXDRV
         }
 
 
-        private X68Sound x68Sound = null;
-        private sound_iocs sound_iocs = null;
+        public NX68Sound.X68Sound x68Sound = null;
+        private NX68Sound.sound_iocs sound_iocs = null;
         private xMemory mm = null;
         public string PlayingFileName = "";
         public Tuple<string, byte[]> ExtendFile = null;
@@ -319,7 +321,7 @@ namespace MDPlayer.Driver.MXDRV
 
         //        static  byte MXWORK_PCM8;
         //private MXWORK_PCM8 PCM8 = null;
-        private UInt32 PCM8 = 0;
+        private UInt32 PCM8 = 1;
 
         //        /***************************************************************/
 
@@ -547,8 +549,8 @@ namespace MDPlayer.Driver.MXDRV
             {
                 switch (ret)
                 {
-                    case (int)X68Sound.X68SNDERR.DLL:
-                    case (int)X68Sound.X68SNDERR.FUNC:
+                    case (int)NX68Sound.X68Sound.X68SNDERR_DLL:
+                    case (int)NX68Sound.X68Sound.X68SNDERR_FUNC:
                     default:
                         return (10000 + ret);
                 }
@@ -559,19 +561,19 @@ namespace MDPlayer.Driver.MXDRV
 
             if (betw != 0)
             {
-                ret = x68Sound.Start(samprate, opmmode + 1, 1, betw, pcmbuf, late, 1.0);
+                ret = x68Sound.X68Sound_Start(samprate, opmmode + 1, 1, betw, pcmbuf, late, 1.0);
             }
             else
             {
-                ret = x68Sound.StartPcm(samprate, 1, 1, pcmbuf);
+                ret = x68Sound.X68Sound_StartPcm(samprate, 1, 1, pcmbuf);
             }
             if (ret != 0)
             {
                 switch (ret)
                 {
-                    case (int)X68Sound.X68SNDERR.PCMOUT:
-                    case (int)X68Sound.X68SNDERR.TIMER:
-                    case (int)X68Sound.X68SNDERR.MEMORY:
+                    case (int)NX68Sound.X68Sound.X68SNDERR_PCMOUT:
+                    case (int)NX68Sound.X68Sound.X68SNDERR_TIMER:
+                    case (int)NX68Sound.X68Sound.X68SNDERR_MEMORY:
                         return (10100 + ret);
                 }
             }
@@ -588,7 +590,7 @@ namespace MDPlayer.Driver.MXDRV
 
         private void MXDRV_End()
         {
-            x68Sound.OpmInt(null);
+            x68Sound.X68Sound_OpmInt(null);
             MXCALLBACK_OPMINT = null;
             OPMINT_FUNC = null;
 
@@ -619,17 +621,17 @@ namespace MDPlayer.Driver.MXDRV
 
             CS_OPMINT = null;
 
-            x68Sound.Free();
+            x68Sound.X68Sound_Free();
         }
 
-        private Int32 MXDRV_GetPCM(ref byte[] buf, Int32 len)
+        private Int32 MXDRV_GetPCM(short[] buf, Int32 len)
         {
-            return x68Sound.GetPcm(ref buf, len);
+            return x68Sound.X68Sound_GetPcm(buf, len);
         }
 
         private Int32 MXDRV_TotalVolume(Int32 vol)
         {
-            return x68Sound.TotalVolume(vol);
+            return x68Sound.X68Sound_TotalVolume(vol);
         }
 
         private void MXDRV_Play(
@@ -746,7 +748,7 @@ namespace MDPlayer.Driver.MXDRV
             X68REG reg = new X68REG();
             Action opmintback;
 
-            x68Sound.OpmInt(null);
+            x68Sound.X68Sound_OpmInt(null);
 
             MeasurePlayTime = true;
             TerminatePlay = false;
@@ -785,7 +787,7 @@ namespace MDPlayer.Driver.MXDRV
 
             MXCALLBACK_OPMINT = opmintback;
             MeasurePlayTime = false;
-            x68Sound.OpmInt(OPMINTFUNC);
+            x68Sound.X68Sound_OpmInt(OPMINTFUNC);
 
             return ((UInt32)(mm.ReadUInt32(G + MXWORK_GLOBAL.PLAYTIME) * (Int64)1024 / 4000 + (1 - double.Epsilon)) + 2000);
         }
@@ -803,7 +805,7 @@ namespace MDPlayer.Driver.MXDRV
             UInt16 chmaskback;
             Int32 opmwaitback;
 
-            x68Sound.OpmInt(null);
+            x68Sound.X68Sound_OpmInt(null);
 
             TerminatePlay = false;
             LoopCount = 0;
@@ -821,18 +823,18 @@ namespace MDPlayer.Driver.MXDRV
             reg.d1 = 0xffffffff;
             MXDRV_(reg);
 
-            opmwaitback = x68Sound.OpmWait(-1);
-            x68Sound.OpmWait(1);
+            opmwaitback = x68Sound.X68Sound_OpmWait(-1);
+            x68Sound.X68Sound_OpmWait(1);
             while (mm.ReadUInt32(G + MXWORK_GLOBAL.PLAYTIME) < playat)
             {
                 if (TerminatePlay) break;
                 OPMINTFUNC();
             }
-            x68Sound.OpmWait(opmwaitback);
+            x68Sound.X68Sound_OpmWait(opmwaitback);
 
             mm.Write(G + MXWORK_GLOBAL.L001e1c, chmaskback);
             MXCALLBACK_OPMINT = opmintback;
-            x68Sound.OpmInt(OPMINTFUNC);
+            x68Sound.X68Sound_OpmInt(OPMINTFUNC);
         }
 
         /***************************************************************/
@@ -845,16 +847,16 @@ namespace MDPlayer.Driver.MXDRV
             {
                 case 0x0000:
                     //x68Sound.Pcm8_Out((int)D0 & 0xff, A1, (int)D1, (int)D2);
-                    x68Sound.Pcm8_Out((uint)D0 & 0xff, null, (uint)D1, (uint)D2);
+                    x68Sound.X68Sound_Pcm8_Out((int)D0 & 0xff, null, A1, (int)D1, (int)D2);
                     break;
                 case 0x0100:
                     switch (D0 & 0xffff)
                     {
                         case 0x0100:
-                            x68Sound.Pcm8_Out((uint)D0 & 0xff, null, 0, 0);
+                            x68Sound.X68Sound_Pcm8_Out((int)D0 & 0xff, null, 0, 0, 0);
                             break;
                         case 0x0101:
-                            x68Sound.Pcm8_Abort();
+                            x68Sound.X68Sound_Pcm8_Abort();
                             break;
                     }
                     break;
@@ -938,7 +940,7 @@ namespace MDPlayer.Driver.MXDRV
         private void SETOPMINT(Action func)
         {
             OPMINT_FUNC = func;
-            x68Sound.OpmInt(OPMINTFUNC);
+            x68Sound.X68Sound_OpmInt(OPMINTFUNC);
         }
 
         /***************************************************************/
@@ -4732,7 +4734,7 @@ namespace MDPlayer.Driver.MXDRV
             D1 += D1;
             D0 += D1;
             D0 <<= 3;
-            A1 =mm.ReadUInt32(G+MXWORK_GLOBAL.L00222c);
+            A1 = mm.ReadUInt32(G+MXWORK_GLOBAL.L00222c);
             A0 = A1 + D0;
             D3 =depend.GETBLONG(mm,A0 + 4);
             if (D3 == 0) goto L000f26;
