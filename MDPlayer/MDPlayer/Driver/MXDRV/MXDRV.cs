@@ -237,8 +237,10 @@ namespace MDPlayer.Driver.MXDRV
             pdx[1] = 0x00;
             pdx[2] = 0x00;
             pdx[3] = 0x00;
-            pdx[4] = (byte)(((8 + pdxFileName.Length + 1) & 0xfffffffe) >> 8);
-            pdx[5] = (byte)((8 + pdxFileName.Length + 1) & 0xfffffffe);
+            pdx[4] = (byte)(((8 + pdxFileName.Length + 2) & 0xfffffffe) >> 8);
+            pdx[5] = (byte)((8 + pdxFileName.Length + 2) & 0xfffffffe);
+            pdx[4] = (byte)((8 + pdxFileName.Length + 1) >> 8);
+            pdx[5] = (byte)(8 + pdxFileName.Length + 1);
             pdx[6] = (byte)((pdxFileName.Length + 1) >> 8);
             pdx[7] = (byte)(pdxFileName.Length + 1);
             pdxsize = (UInt32)pdx.Length;
@@ -4647,8 +4649,8 @@ namespace MDPlayer.Driver.MXDRV
             D2 &= 0x001c;
             D2 <<= 6;
             D2 |= D1;
-            if (mm.ReadByte(G+MXWORK_GLOBAL.L001df4)!=0) goto L000f28;
-            if (mm.ReadByte(G+MXWORK_GLOBAL.L001e15) == 0) goto L000ef4;
+            if (mm.ReadByte(G + MXWORK_GLOBAL.L001df4) != 0) goto L000f28;
+            if (mm.ReadByte(G + MXWORK_GLOBAL.L001e15) == 0) goto L000ef4;
             D2 &= 0xfc;
 
             L000ef4:;
@@ -4729,18 +4731,18 @@ namespace MDPlayer.Driver.MXDRV
             */
             D1 = 0x00;
             D1 = mm.ReadByte(A6 + MXWORK_CH.S0004_b);
-            D1 <<= 0x05;
+            D1 <<= 5;
             D0 += D1;
             D1 += D1;
             D0 += D1;
             D0 <<= 3;
-            A1 = mm.ReadUInt32(G+MXWORK_GLOBAL.L00222c);
+            A1 = mm.ReadUInt32(G + MXWORK_GLOBAL.L00222c);
             A0 = A1 + D0;
-            D3 =depend.GETBLONG(mm,A0 + 4);
+            D3 = depend.GETBLONG(mm, A0 + 4);
             if (D3 == 0) goto L000f26;
             A1 += depend.GETBLONG(mm, A0);
-            D0 = mm.ReadByte(A6+MXWORK_CH.S0018);
-            D0 &= 0x0007;
+            D0 = (D0 & 0xffffff00) + mm.ReadByte(A6 + MXWORK_CH.S0018);
+            D0 &= 0xffff0007;
             D1 = 0x00;
             D1 = mm.ReadByte(A6 + MXWORK_CH.S0022);
             c0 = (byte)(D1 & (1 << 7));
@@ -4797,12 +4799,12 @@ namespace MDPlayer.Driver.MXDRV
             D1 |= (D2 & 0xffff);
             D2 = 0x00;
             PCM8_SUB();
-            D0 =mm.ReadByte(A6+MXWORK_CH.S0018);
-            D0 &= 0x07;
+            D0 = (D0 & 0xffffff00) + mm.ReadByte(A6 + MXWORK_CH.S0018);
+            D0 &= 0xffff0007;
             D2 = D3;
             D2 &= 0xffffff;
             PCM8_SUB();
-            A2 = G+MXWORK_GLOBAL.L00223c+0;
+            A2 = G + MXWORK_GLOBAL.L00223c + 0;
             mm.Write(A2 + 0x0008, (byte)depend.CLR);
             A2 = G + MXWORK_GLOBAL.L001bb4 + 0;
             mm.Write(A2 + D7, (byte)depend.CLR);
@@ -5670,7 +5672,7 @@ namespace MDPlayer.Driver.MXDRV
                                                                     move.b  (a4)+,$0004_b(a6)
                                                                     rts
             */
-            mm.Write(A6 + MXWORK_CH.S0004_b, mm.ReadByte(A0++));
+            mm.Write(A6 + MXWORK_CH.S0004_b, mm.ReadByte(A4++));
 
         }
 
