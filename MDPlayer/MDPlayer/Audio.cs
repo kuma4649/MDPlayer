@@ -4713,7 +4713,7 @@ namespace MDPlayer
                     if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
 
                     driverVirtual.vstDelta = 0;
-                    cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).x68Sound.X68Sound_GetPcm(buffer, (int)sampleCount);
+                    cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).Render(buffer, sampleCount);//.x68Sound.X68Sound_GetPcm(buffer, (int)sampleCount);
                     cnt = sampleCount;
                 }
                 else

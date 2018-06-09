@@ -19,6 +19,8 @@ namespace MDPlayer
         private List<int> midiOutsType = null;
         private List<vstInfo2> vstMidiOuts = null;
         private List<int> vstMidiOutsType = null;
+        private NX68Sound.X68Sound x68Sound = null;
+        private NX68Sound.sound_iocs sound_iocs = null;
 
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
@@ -70,6 +72,7 @@ namespace MDPlayer
             new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
             , new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
         };
+
         private int[] nowYM2151FadeoutVol = new int[] { 0, 0 };
         private bool[][] maskFMChYM2151 = new bool[][] {
             new bool[8] { false, false, false, false, false, false, false, false }
@@ -159,7 +162,7 @@ namespace MDPlayer
         public int[][] Y8950Register = new int[][] { null, null };
 
         public int[][] sn76489Register = new int[][] { null, null };
-        public int[] sn76489RegisterGGPan = new int[] { 0xff,0xff};
+        public int[] sn76489RegisterGGPan = new int[] { 0xff, 0xff };
         public int[][][] sn76489Vol = new int[][][] {
             new int[4][] { new int[2], new int[2], new int[2], new int[2] }
             ,new int[4][] { new int[2], new int[2], new int[2], new int[2] }
@@ -256,6 +259,9 @@ namespace MDPlayer
 
             initChipRegister();
 
+            x68Sound = new NX68Sound.X68Sound();
+            sound_iocs = new NX68Sound.sound_iocs(x68Sound);
+
             midiExport = new MIDIExport(setting);
             midiExport.fmRegisterYM2612 = fmRegisterYM2612;
             midiExport.fmRegisterYM2151 = fmRegisterYM2151;
@@ -316,7 +322,7 @@ namespace MDPlayer
                     fmRegisterYMF262[chipID][1][i] = 0;
                 }
 
-                fmRegisterYMF271[chipID] = new int[7][] { new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100]};
+                fmRegisterYMF271[chipID] = new int[7][] { new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
                     fmRegisterYMF271[chipID][0][i] = 0;
@@ -400,7 +406,7 @@ namespace MDPlayer
                 nowYM2608FadeoutVol[chipID] = 0;
                 nowYM2610FadeoutVol[chipID] = 0;
                 nowYM2612FadeoutVol[chipID] = 0;
-                
+
             }
             nes_bank = null;
             nes_mem = null;
@@ -499,11 +505,6 @@ namespace MDPlayer
 
         }
 
-        internal void SetFileName(string fn)
-        {
-            midiExport.PlayingFileName = fn;
-        }
-
         public midiOutInfo[] GetMIDIoutInfo()
         {
             return midiOutInfos;
@@ -512,7 +513,7 @@ namespace MDPlayer
         public void setMIDIout(midiOutInfo[] midiOutInfos, List<NAudio.Midi.MidiOut> midiOuts, List<int> midiOutsType, List<vstInfo2> vstMidiOuts, List<int> vstMidiOutsType)
         {
             this.midiOutInfos = null;
-            if (midiOutInfos!=null && midiOutInfos.Length > 0)
+            if (midiOutInfos != null && midiOutInfos.Length > 0)
             {
                 this.midiOutInfos = new midiOutInfo[midiOutInfos.Length];
                 for (int i = 0; i < midiOutInfos.Length; i++)
@@ -548,6 +549,11 @@ namespace MDPlayer
             {
                 if (midiOutsType.Count < 2 || (midiOutsType.Count > 1 && midiOuts[1] == null)) midiParams[1].MIDIModule = Math.Min(vstMidiOutsType[1], 2);
             }
+        }
+
+        internal void SetFileName(string fn)
+        {
+            midiExport.PlayingFileName = fn;
         }
 
         public int getMIDIoutCount()
@@ -994,7 +1000,7 @@ namespace MDPlayer
 
             if (model == enmModel.VirtualModel)
             {
-                mds.WriteGA20((byte)chipID,(byte)Adr,Dat);
+                mds.WriteGA20((byte)chipID, (byte)Adr, Dat);
             }
             else
             {
@@ -1810,7 +1816,7 @@ namespace MDPlayer
 
                 //if (dPort == 2)
                 //{
-                    //Console.WriteLine("p=2:adr{0:x02} dat{1:x02}", dAddr, dData);
+                //Console.WriteLine("p=2:adr{0:x02} dat{1:x02}", dAddr, dData);
                 //}
 
                 if (dAddr >= 0xb0 && dAddr <= 0xb8)
@@ -1827,7 +1833,7 @@ namespace MDPlayer
                     fmRegisterYMF278BFM[chipID] &= 0x3ffff;
                 }
 
-                if (dAddr == 0xbd && dPort==0)
+                if (dAddr == 0xbd && dPort == 0)
                 {
                     fmRegisterYMF278BRyhthm[chipID] = (fmRegisterYMF278BRyhthmB[chipID] ^ dData) & 0x1f;
                     fmRegisterYMF278BRyhthmB[chipID] = dData;
@@ -1838,7 +1844,7 @@ namespace MDPlayer
                     int k = dData >> 7;
                     if (k == 0)
                     {
-                        fmRegisterYMF278BPCM[chipID][dAddr-0x68] = 2;
+                        fmRegisterYMF278BPCM[chipID][dAddr - 0x68] = 2;
                     }
                     else
                     {
@@ -2899,10 +2905,10 @@ namespace MDPlayer
             {
                 pcmRegisterC140[chipID][adr] = data;
                 byte ch = (byte)(adr >> 4);
-                switch(adr & 0xf)
+                switch (adr & 0xf)
                 {
                     case 0x05:
-                        if((data & 0x80) != 0)
+                        if ((data & 0x80) != 0)
                         {
                             pcmKeyOnC140[chipID][ch] = true;
                         }
@@ -3136,6 +3142,92 @@ namespace MDPlayer
         }
 
 
+
+        public int x68Sound_TotalVolume(int vol, enmModel model)
+        {
+            if (model == enmModel.RealModel) return 0;
+
+            return x68Sound.X68Sound_TotalVolume(vol);
+        }
+
+        public int x68Sound_GetPcm(short[] buf, int len, enmModel model, Action<Action, bool> oneFrameProc = null)
+        {
+            if (model == enmModel.RealModel) return 0;
+            return x68Sound.X68Sound_GetPcm(buf, len, oneFrameProc);
+        }
+
+        public void x68Sound_Free(enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            x68Sound.X68Sound_Free();
+        }
+
+        public void x68Sound_OpmInt(Action p, enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            x68Sound.X68Sound_OpmInt(p);
+        }
+
+        public int x68Sound_StartPcm(int samprate, int v1, int v2, int pcmbuf, enmModel model)
+        {
+            if (model == enmModel.RealModel) return 0;
+            return x68Sound.X68Sound_StartPcm(samprate, v1, v2, pcmbuf);
+        }
+
+        public int x68Sound_Start(int samprate, int v1, int v2, int betw, int pcmbuf, int late, double v3, enmModel model)
+        {
+            if (model == enmModel.RealModel) return 0;
+            return x68Sound.X68Sound_Start(samprate, v1, v2, betw, pcmbuf, late, v3);
+        }
+
+        public int x68Sound_OpmWait(int v, enmModel model)
+        {
+            if (model == enmModel.RealModel) return 0;
+            return x68Sound.X68Sound_OpmWait(v);
+        }
+
+        public void x68Sound_Pcm8_Out(int v, byte[] p, uint a1, int d1, int d2, enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            x68Sound.X68Sound_Pcm8_Out(v, p, a1, d1, d2);
+        }
+
+        public void x68Sound_Pcm8_Abort(enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            x68Sound.X68Sound_Pcm8_Abort();
+        }
+
+        internal void x68Sound_MountMemory(byte[] mm, enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            x68Sound.MountMemory(mm);
+        }
+
+        public void sound_iocs_init(enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            sound_iocs.init();
+        }
+
+        public void sound_iocs_iocs_adpcmmod(int v, enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            sound_iocs._iocs_adpcmmod(v);
+        }
+
+        public void sound_iocs_iocs_adpcmout(uint a1, int d1, int d2, enmModel model)
+        {
+            if (model == enmModel.RealModel) return;
+            sound_iocs._iocs_adpcmout(a1, d1, d2);
+        }
+
+        public void sound_iocs_iocs_opmset(byte d1, byte d2, enmModel model)
+        {
+            //if (model == enmModel.RealModel) return;
+            setYM2151Register(0, 0, d1, d2, model, 0, 0);
+            sound_iocs._iocs_opmset(d1, d2);
+        }
 
 
     }

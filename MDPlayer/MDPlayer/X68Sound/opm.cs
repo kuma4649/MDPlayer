@@ -1228,7 +1228,7 @@ pGimic->Release();
         }
 
         static int rate = 0;
-        public void pcmset62(short[] buffer, int offset, int ndata)
+        public void pcmset62(short[] buffer, int offset, int ndata, Action<Action, bool> oneFrameProc = null)
         //public void pcmset62(int ndata)
         {
 
@@ -1240,6 +1240,7 @@ pGimic->Release();
             {
                 int[] Out = new int[2];
                 Out[0] = Out[1] = 0;
+                bool firstFlg = true;
 
                 OpmLPFidx += global.Samprate;
                 while (OpmLPFidx >= global.WaveOutSamp)
@@ -1256,7 +1257,15 @@ pGimic->Release();
                         {
                             rate += global.OpmRate;
 
-                            timer();
+                            if (oneFrameProc != null)
+                            {
+                                oneFrameProc(timer,firstFlg);
+                                firstFlg = false;
+                            }
+                            else
+                            {
+                                timer();
+                            }
                             ExecuteCmnd();
                             if ((--EnvCounter2) == 0)
                             {
@@ -1823,7 +1832,7 @@ pGimic->Release();
             }
         }
 
-        public int GetPcm(short[] buf, int ndata)
+        public int GetPcm(short[] buf, int ndata, Action<Action, bool> oneFrameProc = null)
         {
             if (Dousa_mode != 2)
             {
@@ -1834,7 +1843,7 @@ pGimic->Release();
             PcmBufPtr = 0;
             if (global.WaveOutSamp == 44100 || global.WaveOutSamp == 48000)
             {
-                pcmset62(PcmBuf, 0, ndata);
+                pcmset62(PcmBuf, 0, ndata, oneFrameProc);
             }
             else
             {

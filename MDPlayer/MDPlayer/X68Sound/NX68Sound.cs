@@ -89,9 +89,9 @@ namespace NX68Sound
             return opm.StartPcm(samprate, opmflag, adpcmflag, pcmbuf);
         }
 
-        public int X68Sound_GetPcm(short[] buf, int len)
+        public int X68Sound_GetPcm(short[] buf, int len, Action<Action, bool> oneFrameProc = null)
         {
-            return opm.GetPcm(buf, len);
+            return opm.GetPcm(buf, len, oneFrameProc);
         }
 
         public byte X68Sound_OpmPeek()
