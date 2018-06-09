@@ -1911,23 +1911,14 @@ namespace MDPlayer
 
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
-                    YM2151Hosei[chipID] = 0;
+                    YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, 3579545);
                     if (model == enmModel.RealModel)
                     {
+                        YM2151Hosei[chipID] = 0;
                         int clock = chipRegister.getYM2151Clock((byte)chipID);
                         if (clock != -1)
                         {
-                            float delta = (float)YM2151ClockValue / clock;
-                            float d;
-                            float oldD = float.MaxValue;
-                            for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
-                            {
-                                d = Math.Abs(delta - Tables.pcmMulTbl[i]);
-                                YM2151Hosei[chipID] = i;
-                                if (d > oldD) break;
-                                oldD = d;
-                            }
-                            YM2151Hosei[chipID] -= 12;
+                            YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, clock);
                         }
                     }
                 }

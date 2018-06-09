@@ -76,22 +76,16 @@ namespace MDPlayer.Driver.MXDRV
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = 0;
-                float delta = (float)4000000 / 3579545;
+                YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, 3579545);
                 if (model == enmModel.RealModel)
                 {
-                    delta = (float)4000000 / chipRegister.getYM2151Clock((byte)chipID);
+                    YM2151Hosei[chipID] = 0;
+                    int clock = chipRegister.getYM2151Clock((byte)chipID);
+                    if (clock != -1)
+                    {
+                        YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, clock);
+                    }
                 }
-                float d;
-                float oldD = float.MaxValue;
-                for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
-                {
-                    d = Math.Abs(delta - Tables.pcmMulTbl[i]);
-                    YM2151Hosei[chipID] = i;
-                    if (d > oldD) break;
-                    oldD = d;
-                }
-                YM2151Hosei[chipID] -= 13;
             }
 
 

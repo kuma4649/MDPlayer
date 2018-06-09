@@ -331,6 +331,24 @@ namespace MDPlayer
             return n + 1;
         }
 
+        public static int GetYM2151Hosei(float YM2151ClockValue,float baseClock)
+        {
+            int ret = 0;
+
+            float delta = (float)YM2151ClockValue / baseClock;
+            float d;
+            float oldD = float.MaxValue;
+            for (int i = 0; i < Tables.pcmMulTbl.Length; i++)
+            {
+                d = Math.Abs(delta - Tables.pcmMulTbl[i]);
+                ret = i;
+                if (d > oldD) break;
+                oldD = d;
+            }
+            ret -= 12;
+
+            return ret;
+        }
 
     }
 
