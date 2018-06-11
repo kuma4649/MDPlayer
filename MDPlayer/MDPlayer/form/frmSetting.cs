@@ -325,14 +325,16 @@ namespace MDPlayer.form
                 , ucSI.rbYM2151P_SCCI
                 , ucSI.cmbYM2151P_SCCI
                 , null , null , null
-                , ucSI.rbYM2151P_EmuMame);
+                , ucSI.rbYM2151P_EmuMame
+                , ucSI.rbYM2151P_EmuX68Sound);
             SetSCCIParam(setting.YM2151SType
                 , ucSI.rbYM2151S_Silent
                 , ucSI.rbYM2151S_Emu
                 , ucSI.rbYM2151S_SCCI
                 , ucSI.cmbYM2151S_SCCI
                 , null, null, null
-                , ucSI.rbYM2151S_EmuMame);
+                , ucSI.rbYM2151S_EmuMame
+                , ucSI.rbYM2151S_EmuX68Sound);
 
             SetSCCIParam(setting.YM2203Type
                 , ucSI.rbYM2203P_Silent
@@ -600,7 +602,7 @@ namespace MDPlayer.form
         }
 
         private void SetSCCIParam(Setting.ChipType chipType, RadioButton rbSilent, RadioButton rbEmu, RadioButton rbSCCI, ComboBox cmbP
-            , RadioButton rbSCCI2 = null, ComboBox cmbP2A = null, ComboBox cmbP2B = null,RadioButton rbEmu2=null)
+            , RadioButton rbSCCI2 = null, ComboBox cmbP2A = null, ComboBox cmbP2B = null, RadioButton rbEmu2 = null, RadioButton rbEmu3 = null)
         {
             string n = string.Format("({0}:{1}:{2})"
                 , chipType.SoundLocation, chipType.BusID, chipType.SoundChip);
@@ -650,6 +652,12 @@ namespace MDPlayer.form
             if (chipType.UseEmu2)
             {
                 rbEmu2.Checked = true;
+                return;
+            }
+
+            if (chipType.UseEmu3)
+            {
+                rbEmu3.Checked = true;
                 return;
             }
 
@@ -952,6 +960,7 @@ namespace MDPlayer.form
             }
             setting.YM2151Type.UseEmu = ucSI.rbYM2151P_Emu.Checked;
             setting.YM2151Type.UseEmu2 = ucSI.rbYM2151P_EmuMame.Checked;
+            setting.YM2151Type.UseEmu3 = ucSI.rbYM2151P_EmuX68Sound.Checked;
 
             setting.YM2151SType = new Setting.ChipType();
             setting.YM2151SType.UseScci = ucSI.rbYM2151S_SCCI.Checked;
@@ -969,6 +978,7 @@ namespace MDPlayer.form
             }
             setting.YM2151SType.UseEmu = ucSI.rbYM2151S_Emu.Checked;
             setting.YM2151SType.UseEmu2 = ucSI.rbYM2151S_EmuMame.Checked;
+            setting.YM2151SType.UseEmu3 = ucSI.rbYM2151S_EmuX68Sound.Checked;
 
             setting.YM2203Type = new Setting.ChipType();
             setting.YM2203Type.UseScci = ucSI.rbYM2203P_SCCI.Checked;

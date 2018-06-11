@@ -31,32 +31,32 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.gbWaveOut = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.cmbWaveOutDevice = new System.Windows.Forms.ComboBox();
             this.rbWaveOut = new System.Windows.Forms.RadioButton();
             this.rbAsioOut = new System.Windows.Forms.RadioButton();
             this.rbWasapiOut = new System.Windows.Forms.RadioButton();
             this.gbAsioOut = new System.Windows.Forms.GroupBox();
             this.btnASIOControlPanel = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.cmbAsioDevice = new System.Windows.Forms.ComboBox();
             this.rbDirectSoundOut = new System.Windows.Forms.RadioButton();
             this.gbWasapiOut = new System.Windows.Forms.GroupBox();
             this.rbExclusive = new System.Windows.Forms.RadioButton();
             this.rbShare = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.cmbWasapiDevice = new System.Windows.Forms.ComboBox();
             this.gbDirectSound = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.cmbDirectSoundDevice = new System.Windows.Forms.ComboBox();
             this.tcSetting = new System.Windows.Forms.TabControl();
             this.tpOutput = new System.Windows.Forms.TabPage();
+            this.label36 = new System.Windows.Forms.Label();
             this.lblWaitTime = new System.Windows.Forms.Label();
             this.lblLatencyUnit = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.lblLatency = new System.Windows.Forms.Label();
             this.cmbWaitTime = new System.Windows.Forms.ComboBox();
             this.cmbLatency = new System.Windows.Forms.ComboBox();
+            this.rbSPPCM = new System.Windows.Forms.RadioButton();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ucSI = new MDPlayer.form.ucSettingInstruments();
@@ -298,6 +298,7 @@
             this.gbDirectSound.SuspendLayout();
             this.tcSetting.SuspendLayout();
             this.tpOutput.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.tpModule.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -389,22 +390,12 @@
             this.gbWaveOut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbWaveOut.Controls.Add(this.label1);
             this.gbWaveOut.Controls.Add(this.cmbWaveOutDevice);
-            this.gbWaveOut.Location = new System.Drawing.Point(7, 6);
+            this.gbWaveOut.Location = new System.Drawing.Point(7, 31);
             this.gbWaveOut.Name = "gbWaveOut";
             this.gbWaveOut.Size = new System.Drawing.Size(429, 48);
             this.gbWaveOut.TabIndex = 1;
             this.gbWaveOut.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "出力デバイス";
             // 
             // cmbWaveOutDevice
             // 
@@ -412,16 +403,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWaveOutDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWaveOutDevice.FormattingEnabled = true;
-            this.cmbWaveOutDevice.Location = new System.Drawing.Point(79, 18);
+            this.cmbWaveOutDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbWaveOutDevice.Name = "cmbWaveOutDevice";
-            this.cmbWaveOutDevice.Size = new System.Drawing.Size(344, 20);
+            this.cmbWaveOutDevice.Size = new System.Drawing.Size(417, 20);
             this.cmbWaveOutDevice.TabIndex = 0;
             // 
             // rbWaveOut
             // 
             this.rbWaveOut.AutoSize = true;
             this.rbWaveOut.Checked = true;
-            this.rbWaveOut.Location = new System.Drawing.Point(13, 3);
+            this.rbWaveOut.Location = new System.Drawing.Point(13, 28);
             this.rbWaveOut.Name = "rbWaveOut";
             this.rbWaveOut.Size = new System.Drawing.Size(68, 16);
             this.rbWaveOut.TabIndex = 0;
@@ -433,7 +424,7 @@
             // rbAsioOut
             // 
             this.rbAsioOut.AutoSize = true;
-            this.rbAsioOut.Location = new System.Drawing.Point(13, 185);
+            this.rbAsioOut.Location = new System.Drawing.Point(13, 192);
             this.rbAsioOut.Name = "rbAsioOut";
             this.rbAsioOut.Size = new System.Drawing.Size(64, 16);
             this.rbAsioOut.TabIndex = 6;
@@ -444,7 +435,7 @@
             // rbWasapiOut
             // 
             this.rbWasapiOut.AutoSize = true;
-            this.rbWasapiOut.Location = new System.Drawing.Point(13, 111);
+            this.rbWasapiOut.Location = new System.Drawing.Point(13, 136);
             this.rbWasapiOut.Name = "rbWasapiOut";
             this.rbWasapiOut.Size = new System.Drawing.Size(77, 16);
             this.rbWasapiOut.TabIndex = 4;
@@ -458,33 +449,23 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbAsioOut.Controls.Add(this.btnASIOControlPanel);
-            this.gbAsioOut.Controls.Add(this.label4);
             this.gbAsioOut.Controls.Add(this.cmbAsioDevice);
-            this.gbAsioOut.Location = new System.Drawing.Point(7, 188);
+            this.gbAsioOut.Location = new System.Drawing.Point(7, 195);
             this.gbAsioOut.Name = "gbAsioOut";
-            this.gbAsioOut.Size = new System.Drawing.Size(429, 71);
+            this.gbAsioOut.Size = new System.Drawing.Size(429, 50);
             this.gbAsioOut.TabIndex = 7;
             this.gbAsioOut.TabStop = false;
             // 
             // btnASIOControlPanel
             // 
             this.btnASIOControlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnASIOControlPanel.Location = new System.Drawing.Point(279, 42);
+            this.btnASIOControlPanel.Location = new System.Drawing.Point(342, 8);
             this.btnASIOControlPanel.Name = "btnASIOControlPanel";
-            this.btnASIOControlPanel.Size = new System.Drawing.Size(144, 23);
+            this.btnASIOControlPanel.Size = new System.Drawing.Size(81, 39);
             this.btnASIOControlPanel.TabIndex = 8;
             this.btnASIOControlPanel.Text = "ASIO Control Panel";
             this.btnASIOControlPanel.UseVisualStyleBackColor = true;
             this.btnASIOControlPanel.Click += new System.EventHandler(this.btnASIOControlPanel_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 12);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "出力デバイス";
             // 
             // cmbAsioDevice
             // 
@@ -492,15 +473,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbAsioDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAsioDevice.FormattingEnabled = true;
-            this.cmbAsioDevice.Location = new System.Drawing.Point(79, 18);
+            this.cmbAsioDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbAsioDevice.Name = "cmbAsioDevice";
-            this.cmbAsioDevice.Size = new System.Drawing.Size(344, 20);
+            this.cmbAsioDevice.Size = new System.Drawing.Size(330, 20);
             this.cmbAsioDevice.TabIndex = 6;
             // 
             // rbDirectSoundOut
             // 
             this.rbDirectSoundOut.AutoSize = true;
-            this.rbDirectSoundOut.Location = new System.Drawing.Point(13, 57);
+            this.rbDirectSoundOut.Location = new System.Drawing.Point(13, 82);
             this.rbDirectSoundOut.Name = "rbDirectSoundOut";
             this.rbDirectSoundOut.Size = new System.Drawing.Size(85, 16);
             this.rbDirectSoundOut.TabIndex = 2;
@@ -515,18 +496,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbWasapiOut.Controls.Add(this.rbExclusive);
             this.gbWasapiOut.Controls.Add(this.rbShare);
-            this.gbWasapiOut.Controls.Add(this.label3);
             this.gbWasapiOut.Controls.Add(this.cmbWasapiDevice);
-            this.gbWasapiOut.Location = new System.Drawing.Point(7, 114);
+            this.gbWasapiOut.Location = new System.Drawing.Point(7, 139);
             this.gbWasapiOut.Name = "gbWasapiOut";
-            this.gbWasapiOut.Size = new System.Drawing.Size(429, 68);
+            this.gbWasapiOut.Size = new System.Drawing.Size(429, 50);
             this.gbWasapiOut.TabIndex = 5;
             this.gbWasapiOut.TabStop = false;
             // 
             // rbExclusive
             // 
             this.rbExclusive.AutoSize = true;
-            this.rbExclusive.Location = new System.Drawing.Point(376, 45);
+            this.rbExclusive.Location = new System.Drawing.Point(342, 31);
             this.rbExclusive.Name = "rbExclusive";
             this.rbExclusive.Size = new System.Drawing.Size(47, 16);
             this.rbExclusive.TabIndex = 7;
@@ -537,7 +517,7 @@
             // rbShare
             // 
             this.rbShare.AutoSize = true;
-            this.rbShare.Location = new System.Drawing.Point(323, 45);
+            this.rbShare.Location = new System.Drawing.Point(342, 9);
             this.rbShare.Name = "rbShare";
             this.rbShare.Size = new System.Drawing.Size(47, 16);
             this.rbShare.TabIndex = 6;
@@ -545,24 +525,15 @@
             this.rbShare.Text = "共有";
             this.rbShare.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "出力デバイス";
-            // 
             // cmbWasapiDevice
             // 
             this.cmbWasapiDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWasapiDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWasapiDevice.FormattingEnabled = true;
-            this.cmbWasapiDevice.Location = new System.Drawing.Point(79, 19);
+            this.cmbWasapiDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbWasapiDevice.Name = "cmbWasapiDevice";
-            this.cmbWasapiDevice.Size = new System.Drawing.Size(344, 20);
+            this.cmbWasapiDevice.Size = new System.Drawing.Size(330, 20);
             this.cmbWasapiDevice.TabIndex = 4;
             // 
             // gbDirectSound
@@ -570,22 +541,12 @@
             this.gbDirectSound.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbDirectSound.Controls.Add(this.label2);
             this.gbDirectSound.Controls.Add(this.cmbDirectSoundDevice);
-            this.gbDirectSound.Location = new System.Drawing.Point(7, 60);
+            this.gbDirectSound.Location = new System.Drawing.Point(7, 85);
             this.gbDirectSound.Name = "gbDirectSound";
             this.gbDirectSound.Size = new System.Drawing.Size(429, 48);
             this.gbDirectSound.TabIndex = 3;
             this.gbDirectSound.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 12);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "出力デバイス";
             // 
             // cmbDirectSoundDevice
             // 
@@ -593,9 +554,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDirectSoundDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDirectSoundDevice.FormattingEnabled = true;
-            this.cmbDirectSoundDevice.Location = new System.Drawing.Point(79, 19);
+            this.cmbDirectSoundDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbDirectSoundDevice.Name = "cmbDirectSoundDevice";
-            this.cmbDirectSoundDevice.Size = new System.Drawing.Size(344, 20);
+            this.cmbDirectSoundDevice.Size = new System.Drawing.Size(417, 20);
             this.cmbDirectSoundDevice.TabIndex = 2;
             // 
             // tcSetting
@@ -620,17 +581,20 @@
             // 
             // tpOutput
             // 
+            this.tpOutput.Controls.Add(this.label36);
             this.tpOutput.Controls.Add(this.lblWaitTime);
             this.tpOutput.Controls.Add(this.lblLatencyUnit);
             this.tpOutput.Controls.Add(this.label28);
             this.tpOutput.Controls.Add(this.lblLatency);
             this.tpOutput.Controls.Add(this.cmbWaitTime);
             this.tpOutput.Controls.Add(this.cmbLatency);
+            this.tpOutput.Controls.Add(this.rbSPPCM);
             this.tpOutput.Controls.Add(this.rbDirectSoundOut);
             this.tpOutput.Controls.Add(this.rbWaveOut);
             this.tpOutput.Controls.Add(this.rbAsioOut);
             this.tpOutput.Controls.Add(this.gbWaveOut);
             this.tpOutput.Controls.Add(this.rbWasapiOut);
+            this.tpOutput.Controls.Add(this.groupBox16);
             this.tpOutput.Controls.Add(this.gbAsioOut);
             this.tpOutput.Controls.Add(this.gbDirectSound);
             this.tpOutput.Controls.Add(this.gbWasapiOut);
@@ -642,10 +606,19 @@
             this.tpOutput.Text = "出力";
             this.tpOutput.UseVisualStyleBackColor = true;
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(7, 7);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(67, 12);
+            this.label36.TabIndex = 3;
+            this.label36.Text = "出力デバイス";
+            // 
             // lblWaitTime
             // 
             this.lblWaitTime.AutoSize = true;
-            this.lblWaitTime.Location = new System.Drawing.Point(242, 305);
+            this.lblWaitTime.Location = new System.Drawing.Point(238, 347);
             this.lblWaitTime.Name = "lblWaitTime";
             this.lblWaitTime.Size = new System.Drawing.Size(20, 12);
             this.lblWaitTime.TabIndex = 9;
@@ -654,7 +627,7 @@
             // lblLatencyUnit
             // 
             this.lblLatencyUnit.AutoSize = true;
-            this.lblLatencyUnit.Location = new System.Drawing.Point(242, 279);
+            this.lblLatencyUnit.Location = new System.Drawing.Point(238, 321);
             this.lblLatencyUnit.Name = "lblLatencyUnit";
             this.lblLatencyUnit.Size = new System.Drawing.Size(20, 12);
             this.lblLatencyUnit.TabIndex = 9;
@@ -663,7 +636,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(11, 305);
+            this.label28.Location = new System.Drawing.Point(7, 347);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(98, 12);
             this.label28.TabIndex = 9;
@@ -672,7 +645,7 @@
             // lblLatency
             // 
             this.lblLatency.AutoSize = true;
-            this.lblLatency.Location = new System.Drawing.Point(11, 279);
+            this.lblLatency.Location = new System.Drawing.Point(7, 321);
             this.lblLatency.Name = "lblLatency";
             this.lblLatency.Size = new System.Drawing.Size(53, 12);
             this.lblLatency.TabIndex = 9;
@@ -694,7 +667,7 @@
             "4000",
             "4500",
             "5000"});
-            this.cmbWaitTime.Location = new System.Drawing.Point(115, 302);
+            this.cmbWaitTime.Location = new System.Drawing.Point(111, 344);
             this.cmbWaitTime.Name = "cmbWaitTime";
             this.cmbWaitTime.Size = new System.Drawing.Size(121, 20);
             this.cmbWaitTime.TabIndex = 8;
@@ -712,10 +685,46 @@
             "300",
             "400",
             "500"});
-            this.cmbLatency.Location = new System.Drawing.Point(115, 276);
+            this.cmbLatency.Location = new System.Drawing.Point(111, 318);
             this.cmbLatency.Name = "cmbLatency";
             this.cmbLatency.Size = new System.Drawing.Size(121, 20);
             this.cmbLatency.TabIndex = 8;
+            // 
+            // rbSPPCM
+            // 
+            this.rbSPPCM.AutoSize = true;
+            this.rbSPPCM.Enabled = false;
+            this.rbSPPCM.Location = new System.Drawing.Point(13, 248);
+            this.rbSPPCM.Name = "rbSPPCM";
+            this.rbSPPCM.Size = new System.Drawing.Size(61, 16);
+            this.rbSPPCM.TabIndex = 2;
+            this.rbSPPCM.Text = "SPPCM";
+            this.rbSPPCM.UseVisualStyleBackColor = true;
+            this.rbSPPCM.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox16.Controls.Add(this.cmbSPPCMDevice);
+            this.groupBox16.Enabled = false;
+            this.groupBox16.Location = new System.Drawing.Point(7, 251);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(429, 48);
+            this.groupBox16.TabIndex = 3;
+            this.groupBox16.TabStop = false;
+            // 
+            // cmbSPPCMDevice
+            // 
+            this.cmbSPPCMDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSPPCMDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSPPCMDevice.FormattingEnabled = true;
+            this.cmbSPPCMDevice.Location = new System.Drawing.Point(6, 19);
+            this.cmbSPPCMDevice.Name = "cmbSPPCMDevice";
+            this.cmbSPPCMDevice.Size = new System.Drawing.Size(417, 20);
+            this.cmbSPPCMDevice.TabIndex = 2;
             // 
             // tpModule
             // 
@@ -1119,7 +1128,7 @@
             this.groupBox14.Controls.Add(this.rdSIDQ4);
             this.groupBox14.Location = new System.Drawing.Point(7, 109);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(214, 111);
+            this.groupBox14.Size = new System.Drawing.Size(280, 111);
             this.groupBox14.TabIndex = 2;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Quality";
@@ -1127,7 +1136,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(132, 86);
+            this.label27.Location = new System.Drawing.Point(162, 86);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(58, 12);
             this.label27.TabIndex = 2;
@@ -1136,7 +1145,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(132, 54);
+            this.label26.Location = new System.Drawing.Point(162, 54);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(38, 12);
             this.label26.TabIndex = 2;
@@ -1145,7 +1154,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(132, 20);
+            this.label25.Location = new System.Drawing.Point(162, 20);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(68, 12);
             this.label25.TabIndex = 2;
@@ -1206,14 +1215,14 @@
             this.groupBox13.Controls.Add(this.label22);
             this.groupBox13.Location = new System.Drawing.Point(7, 3);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(248, 100);
+            this.groupBox13.Size = new System.Drawing.Size(433, 100);
             this.groupBox13.TabIndex = 0;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ROM Image";
             // 
             // btnSIDBasic
             // 
-            this.btnSIDBasic.Location = new System.Drawing.Point(214, 44);
+            this.btnSIDBasic.Location = new System.Drawing.Point(404, 44);
             this.btnSIDBasic.Name = "btnSIDBasic";
             this.btnSIDBasic.Size = new System.Drawing.Size(23, 23);
             this.btnSIDBasic.TabIndex = 2;
@@ -1223,7 +1232,7 @@
             // 
             // btnSIDCharacter
             // 
-            this.btnSIDCharacter.Location = new System.Drawing.Point(214, 69);
+            this.btnSIDCharacter.Location = new System.Drawing.Point(404, 69);
             this.btnSIDCharacter.Name = "btnSIDCharacter";
             this.btnSIDCharacter.Size = new System.Drawing.Size(23, 23);
             this.btnSIDCharacter.TabIndex = 2;
@@ -1233,7 +1242,7 @@
             // 
             // btnSIDKernal
             // 
-            this.btnSIDKernal.Location = new System.Drawing.Point(214, 19);
+            this.btnSIDKernal.Location = new System.Drawing.Point(404, 19);
             this.btnSIDKernal.Name = "btnSIDKernal";
             this.btnSIDKernal.Size = new System.Drawing.Size(23, 23);
             this.btnSIDKernal.TabIndex = 2;
@@ -1245,21 +1254,21 @@
             // 
             this.tbSIDCharacter.Location = new System.Drawing.Point(67, 71);
             this.tbSIDCharacter.Name = "tbSIDCharacter";
-            this.tbSIDCharacter.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDCharacter.Size = new System.Drawing.Size(331, 19);
             this.tbSIDCharacter.TabIndex = 1;
             // 
             // tbSIDBasic
             // 
             this.tbSIDBasic.Location = new System.Drawing.Point(67, 46);
             this.tbSIDBasic.Name = "tbSIDBasic";
-            this.tbSIDBasic.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDBasic.Size = new System.Drawing.Size(331, 19);
             this.tbSIDBasic.TabIndex = 1;
             // 
             // tbSIDKernal
             // 
             this.tbSIDKernal.Location = new System.Drawing.Point(67, 21);
             this.tbSIDKernal.Name = "tbSIDKernal";
-            this.tbSIDKernal.Size = new System.Drawing.Size(147, 19);
+            this.tbSIDKernal.Size = new System.Drawing.Size(331, 19);
             this.tbSIDKernal.TabIndex = 1;
             // 
             // label24
@@ -2315,7 +2324,7 @@
             // 
             // btnMIDIOutputPath
             // 
-            this.btnMIDIOutputPath.Location = new System.Drawing.Point(332, 64);
+            this.btnMIDIOutputPath.Location = new System.Drawing.Point(404, 64);
             this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
             this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
             this.btnMIDIOutputPath.TabIndex = 19;
@@ -2336,7 +2345,7 @@
             // 
             this.tbMIDIOutputPath.Location = new System.Drawing.Point(78, 66);
             this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
-            this.tbMIDIOutputPath.Size = new System.Drawing.Size(248, 19);
+            this.tbMIDIOutputPath.Size = new System.Drawing.Size(320, 19);
             this.tbMIDIOutputPath.TabIndex = 18;
             // 
             // tpMIDIKBD
@@ -2399,7 +2408,7 @@
             // pictureBox8
             // 
             this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
-            this.pictureBox8.Location = new System.Drawing.Point(323, 257);
+            this.pictureBox8.Location = new System.Drawing.Point(371, 257);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(16, 16);
             this.pictureBox8.TabIndex = 4;
@@ -2408,7 +2417,7 @@
             // pictureBox7
             // 
             this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
-            this.pictureBox7.Location = new System.Drawing.Point(229, 257);
+            this.pictureBox7.Location = new System.Drawing.Point(261, 257);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(16, 16);
             this.pictureBox7.TabIndex = 4;
@@ -2417,7 +2426,7 @@
             // pictureBox6
             // 
             this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
-            this.pictureBox6.Location = new System.Drawing.Point(136, 258);
+            this.pictureBox6.Location = new System.Drawing.Point(152, 258);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(16, 16);
             this.pictureBox6.TabIndex = 4;
@@ -2444,7 +2453,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::MDPlayer.Properties.Resources.ccPause;
-            this.pictureBox3.Location = new System.Drawing.Point(136, 234);
+            this.pictureBox3.Location = new System.Drawing.Point(152, 234);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.TabIndex = 4;
@@ -2453,7 +2462,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::MDPlayer.Properties.Resources.ccPrevious;
-            this.pictureBox2.Location = new System.Drawing.Point(323, 234);
+            this.pictureBox2.Location = new System.Drawing.Point(371, 234);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.TabIndex = 4;
@@ -2462,7 +2471,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MDPlayer.Properties.Resources.ccFadeout;
-            this.pictureBox1.Location = new System.Drawing.Point(229, 234);
+            this.pictureBox1.Location = new System.Drawing.Point(261, 234);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.TabIndex = 4;
@@ -2470,7 +2479,7 @@
             // 
             // tbCCFadeout
             // 
-            this.tbCCFadeout.Location = new System.Drawing.Point(193, 232);
+            this.tbCCFadeout.Location = new System.Drawing.Point(225, 232);
             this.tbCCFadeout.MaxLength = 3;
             this.tbCCFadeout.Name = "tbCCFadeout";
             this.tbCCFadeout.Size = new System.Drawing.Size(30, 19);
@@ -2478,7 +2487,7 @@
             // 
             // tbCCPause
             // 
-            this.tbCCPause.Location = new System.Drawing.Point(100, 232);
+            this.tbCCPause.Location = new System.Drawing.Point(116, 232);
             this.tbCCPause.MaxLength = 3;
             this.tbCCPause.Name = "tbCCPause";
             this.tbCCPause.Size = new System.Drawing.Size(30, 19);
@@ -2494,7 +2503,7 @@
             // 
             // tbCCPrevious
             // 
-            this.tbCCPrevious.Location = new System.Drawing.Point(287, 232);
+            this.tbCCPrevious.Location = new System.Drawing.Point(335, 232);
             this.tbCCPrevious.MaxLength = 3;
             this.tbCCPrevious.Name = "tbCCPrevious";
             this.tbCCPrevious.Size = new System.Drawing.Size(30, 19);
@@ -2502,7 +2511,7 @@
             // 
             // tbCCNext
             // 
-            this.tbCCNext.Location = new System.Drawing.Point(287, 257);
+            this.tbCCNext.Location = new System.Drawing.Point(335, 257);
             this.tbCCNext.MaxLength = 3;
             this.tbCCNext.Name = "tbCCNext";
             this.tbCCNext.Size = new System.Drawing.Size(30, 19);
@@ -2510,7 +2519,7 @@
             // 
             // tbCCFast
             // 
-            this.tbCCFast.Location = new System.Drawing.Point(193, 257);
+            this.tbCCFast.Location = new System.Drawing.Point(225, 257);
             this.tbCCFast.MaxLength = 3;
             this.tbCCFast.Name = "tbCCFast";
             this.tbCCFast.Size = new System.Drawing.Size(30, 19);
@@ -2526,7 +2535,7 @@
             // 
             // tbCCPlay
             // 
-            this.tbCCPlay.Location = new System.Drawing.Point(100, 257);
+            this.tbCCPlay.Location = new System.Drawing.Point(116, 257);
             this.tbCCPlay.MaxLength = 3;
             this.tbCCPlay.Name = "tbCCPlay";
             this.tbCCPlay.Size = new System.Drawing.Size(30, 19);
@@ -2795,7 +2804,7 @@
             this.cmbMIDIIN.FormattingEnabled = true;
             this.cmbMIDIIN.Location = new System.Drawing.Point(72, 18);
             this.cmbMIDIIN.Name = "cmbMIDIIN";
-            this.cmbMIDIIN.Size = new System.Drawing.Size(290, 20);
+            this.cmbMIDIIN.Size = new System.Drawing.Size(359, 20);
             this.cmbMIDIIN.TabIndex = 1;
             // 
             // label5
@@ -2851,7 +2860,7 @@
             this.groupBox4.Controls.Add(this.lblInstFormat);
             this.groupBox4.Location = new System.Drawing.Point(7, 31);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(358, 45);
+            this.groupBox4.Size = new System.Drawing.Size(433, 45);
             this.groupBox4.TabIndex = 23;
             this.groupBox4.TabStop = false;
             // 
@@ -2868,7 +2877,7 @@
             "MML2VGM",
             "NRTDRV",
             "HuSIC"});
-            this.cmbInstFormat.Location = new System.Drawing.Point(223, 19);
+            this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
             this.cmbInstFormat.TabIndex = 18;
@@ -2876,7 +2885,7 @@
             // lblInstFormat
             // 
             this.lblInstFormat.AutoSize = true;
-            this.lblInstFormat.Location = new System.Drawing.Point(162, 22);
+            this.lblInstFormat.Location = new System.Drawing.Point(237, 22);
             this.lblInstFormat.Name = "lblInstFormat";
             this.lblInstFormat.Size = new System.Drawing.Size(55, 12);
             this.lblInstFormat.TabIndex = 17;
@@ -2911,13 +2920,13 @@
             this.gbWav.Controls.Add(this.tbWavPath);
             this.gbWav.Location = new System.Drawing.Point(7, 205);
             this.gbWav.Name = "gbWav";
-            this.gbWav.Size = new System.Drawing.Size(358, 45);
+            this.gbWav.Size = new System.Drawing.Size(433, 45);
             this.gbWav.TabIndex = 22;
             this.gbWav.TabStop = false;
             // 
             // btnWavPath
             // 
-            this.btnWavPath.Location = new System.Drawing.Point(329, 16);
+            this.btnWavPath.Location = new System.Drawing.Point(404, 16);
             this.btnWavPath.Name = "btnWavPath";
             this.btnWavPath.Size = new System.Drawing.Size(23, 23);
             this.btnWavPath.TabIndex = 16;
@@ -2938,7 +2947,7 @@
             // 
             this.tbWavPath.Location = new System.Drawing.Point(73, 18);
             this.tbWavPath.Name = "tbWavPath";
-            this.tbWavPath.Size = new System.Drawing.Size(250, 19);
+            this.tbWavPath.Size = new System.Drawing.Size(325, 19);
             this.tbWavPath.TabIndex = 15;
             // 
             // gbDump
@@ -2948,13 +2957,13 @@
             this.gbDump.Controls.Add(this.tbDumpPath);
             this.gbDump.Location = new System.Drawing.Point(7, 154);
             this.gbDump.Name = "gbDump";
-            this.gbDump.Size = new System.Drawing.Size(358, 45);
+            this.gbDump.Size = new System.Drawing.Size(433, 45);
             this.gbDump.TabIndex = 22;
             this.gbDump.TabStop = false;
             // 
             // btnDumpPath
             // 
-            this.btnDumpPath.Location = new System.Drawing.Point(329, 16);
+            this.btnDumpPath.Location = new System.Drawing.Point(404, 16);
             this.btnDumpPath.Name = "btnDumpPath";
             this.btnDumpPath.Size = new System.Drawing.Size(23, 23);
             this.btnDumpPath.TabIndex = 16;
@@ -2975,7 +2984,7 @@
             // 
             this.tbDumpPath.Location = new System.Drawing.Point(73, 18);
             this.tbDumpPath.Name = "tbDumpPath";
-            this.tbDumpPath.Size = new System.Drawing.Size(250, 19);
+            this.tbDumpPath.Size = new System.Drawing.Size(325, 19);
             this.tbDumpPath.TabIndex = 15;
             // 
             // label30
@@ -3014,7 +3023,7 @@
             // 
             // btnDataPath
             // 
-            this.btnDataPath.Location = new System.Drawing.Point(336, 102);
+            this.btnDataPath.Location = new System.Drawing.Point(411, 102);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
             this.btnDataPath.TabIndex = 16;
@@ -3033,7 +3042,7 @@
             // 
             this.tbDataPath.Location = new System.Drawing.Point(80, 104);
             this.tbDataPath.Name = "tbDataPath";
-            this.tbDataPath.Size = new System.Drawing.Size(250, 19);
+            this.tbDataPath.Size = new System.Drawing.Size(325, 19);
             this.tbDataPath.TabIndex = 15;
             // 
             // label19
@@ -3112,7 +3121,7 @@
             // 
             // btVST
             // 
-            this.btVST.Location = new System.Drawing.Point(344, 54);
+            this.btVST.Location = new System.Drawing.Point(417, 54);
             this.btVST.Name = "btVST";
             this.btVST.Size = new System.Drawing.Size(23, 23);
             this.btVST.TabIndex = 18;
@@ -3125,7 +3134,7 @@
             // 
             this.tbVST.Location = new System.Drawing.Point(88, 56);
             this.tbVST.Name = "tbVST";
-            this.tbVST.Size = new System.Drawing.Size(250, 19);
+            this.tbVST.Size = new System.Drawing.Size(323, 19);
             this.tbVST.TabIndex = 17;
             this.tbVST.Visible = false;
             // 
@@ -3263,7 +3272,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(464, 441);
+            this.ClientSize = new System.Drawing.Size(464, 442);
             this.Controls.Add(this.tcSetting);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -3276,16 +3285,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "オプション";
             this.gbWaveOut.ResumeLayout(false);
-            this.gbWaveOut.PerformLayout();
             this.gbAsioOut.ResumeLayout(false);
-            this.gbAsioOut.PerformLayout();
             this.gbWasapiOut.ResumeLayout(false);
             this.gbWasapiOut.PerformLayout();
             this.gbDirectSound.ResumeLayout(false);
-            this.gbDirectSound.PerformLayout();
             this.tcSetting.ResumeLayout(false);
             this.tpOutput.ResumeLayout(false);
             this.tpOutput.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
             this.tpModule.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -3389,14 +3396,10 @@
         private System.Windows.Forms.RadioButton rbDirectSoundOut;
         private System.Windows.Forms.GroupBox gbWasapiOut;
         private System.Windows.Forms.GroupBox gbDirectSound;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbWaveOutDevice;
         private System.Windows.Forms.Button btnASIOControlPanel;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbAsioDevice;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbWasapiDevice;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbDirectSoundDevice;
         private System.Windows.Forms.TabControl tcSetting;
         private System.Windows.Forms.TabPage tpOutput;
@@ -3643,5 +3646,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.RadioButton rbSPPCM;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.ComboBox cmbSPPCMDevice;
     }
 }

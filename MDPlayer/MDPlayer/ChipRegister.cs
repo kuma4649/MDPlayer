@@ -228,7 +228,7 @@ namespace MDPlayer
         {
             this.setting = setting;
             this.mds = mds;
-
+            
             this.scYM2612 = scYM2612;
             this.scYM2608 = scYM2608;
             this.scYM2151 = scYM2151;
@@ -777,6 +777,8 @@ namespace MDPlayer
                 {
                     if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
                     if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
+                    //if (ctYM2151[chipID].UseEmu3)
+                        mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -3143,91 +3145,91 @@ namespace MDPlayer
 
 
 
-        public int x68Sound_TotalVolume(int vol, enmModel model)
-        {
-            if (model == enmModel.RealModel) return 0;
+        //public int x68Sound_TotalVolume(int vol, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return 0;
 
-            return x68Sound.X68Sound_TotalVolume(vol);
-        }
+        //    return x68Sound.X68Sound_TotalVolume(vol);
+        //}
 
-        public int x68Sound_GetPcm(short[] buf, int len, enmModel model, Action<Action, bool> oneFrameProc = null)
-        {
-            if (model == enmModel.RealModel) return 0;
-            return x68Sound.X68Sound_GetPcm(buf, len, oneFrameProc);
-        }
+        //public int x68Sound_GetPcm(short[] buf, int len, enmModel model, Action<Action, bool> oneFrameProc = null)
+        //{
+        //    if (model == enmModel.RealModel) return 0;
+        //    return x68Sound.X68Sound_GetPcm(buf, len, oneFrameProc);
+        //}
 
-        public void x68Sound_Free(enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            x68Sound.X68Sound_Free();
-        }
+        //public void x68Sound_Free(enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    x68Sound.X68Sound_Free();
+        //}
 
-        public void x68Sound_OpmInt(Action p, enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            x68Sound.X68Sound_OpmInt(p);
-        }
+        //public void x68Sound_OpmInt(Action p, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    x68Sound.X68Sound_OpmInt(p);
+        //}
 
-        public int x68Sound_StartPcm(int samprate, int v1, int v2, int pcmbuf, enmModel model)
-        {
-            if (model == enmModel.RealModel) return 0;
-            return x68Sound.X68Sound_StartPcm(samprate, v1, v2, pcmbuf);
-        }
+        //public int x68Sound_StartPcm(int samprate, int v1, int v2, int pcmbuf, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return 0;
+        //    return x68Sound.X68Sound_StartPcm(samprate, v1, v2, pcmbuf);
+        //}
 
-        public int x68Sound_Start(int samprate, int v1, int v2, int betw, int pcmbuf, int late, double v3, enmModel model)
-        {
-            if (model == enmModel.RealModel) return 0;
-            return x68Sound.X68Sound_Start(samprate, v1, v2, betw, pcmbuf, late, v3);
-        }
+        //public int x68Sound_Start(int samprate, int v1, int v2, int betw, int pcmbuf, int late, double v3, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return 0;
+        //    return x68Sound.X68Sound_Start(samprate, v1, v2, betw, pcmbuf, late, v3);
+        //}
 
-        public int x68Sound_OpmWait(int v, enmModel model)
-        {
-            if (model == enmModel.RealModel) return 0;
-            return x68Sound.X68Sound_OpmWait(v);
-        }
+        //public int x68Sound_OpmWait(int v, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return 0;
+        //    return x68Sound.X68Sound_OpmWait(v);
+        //}
 
-        public void x68Sound_Pcm8_Out(int v, byte[] p, uint a1, int d1, int d2, enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            x68Sound.X68Sound_Pcm8_Out(v, p, a1, d1, d2);
-        }
+        //public void x68Sound_Pcm8_Out(int v, byte[] p, uint a1, int d1, int d2, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    x68Sound.X68Sound_Pcm8_Out(v, p, a1, d1, d2);
+        //}
 
-        public void x68Sound_Pcm8_Abort(enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            x68Sound.X68Sound_Pcm8_Abort();
-        }
+        //public void x68Sound_Pcm8_Abort(enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    x68Sound.X68Sound_Pcm8_Abort();
+        //}
 
-        internal void x68Sound_MountMemory(byte[] mm, enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            x68Sound.MountMemory(mm);
-        }
+        //internal void x68Sound_MountMemory(byte[] mm, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    x68Sound.MountMemory(mm);
+        //}
 
-        public void sound_iocs_init(enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            sound_iocs.init();
-        }
+        //public void sound_iocs_init(enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    sound_iocs.init();
+        //}
 
-        public void sound_iocs_iocs_adpcmmod(int v, enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            sound_iocs._iocs_adpcmmod(v);
-        }
+        //public void sound_iocs_iocs_adpcmmod(int v, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    sound_iocs._iocs_adpcmmod(v);
+        //}
 
-        public void sound_iocs_iocs_adpcmout(uint a1, int d1, int d2, enmModel model)
-        {
-            if (model == enmModel.RealModel) return;
-            sound_iocs._iocs_adpcmout(a1, d1, d2);
-        }
+        //public void sound_iocs_iocs_adpcmout(uint a1, int d1, int d2, enmModel model)
+        //{
+        //    if (model == enmModel.RealModel) return;
+        //    sound_iocs._iocs_adpcmout(a1, d1, d2);
+        //}
 
-        public void sound_iocs_iocs_opmset(byte d1, byte d2, enmModel model)
-        {
-            //if (model == enmModel.RealModel) return;
-            setYM2151Register(0, 0, d1, d2, model, 0, 0);
-            sound_iocs._iocs_opmset(d1, d2);
-        }
+        //public void sound_iocs_iocs_opmset(byte d1, byte d2, enmModel model)
+        //{
+        //    //if (model == enmModel.RealModel) return;
+        //    setYM2151Register(0, 0, d1, d2, model, 0, 0);
+        //    sound_iocs._iocs_opmset(d1, d2);
+        //}
 
 
     }
