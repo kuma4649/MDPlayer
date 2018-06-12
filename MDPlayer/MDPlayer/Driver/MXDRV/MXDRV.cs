@@ -165,7 +165,8 @@ namespace MDPlayer.Driver.MXDRV
             if (!string.IsNullOrEmpty(pdxFileName) && pdx == null) return false;
 
             int ret;
-            ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0);
+            //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
+            ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
 
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
@@ -187,8 +188,10 @@ namespace MDPlayer.Driver.MXDRV
             return true;
         }
 
+        short[] dummyBuf = new short[2];
         public override void oneFrameProc()
         {
+            Render(dummyBuf, 0, 2);
         }
 
         public void oneFrameProc2(Action timer, bool firstFlg)
@@ -221,6 +224,11 @@ namespace MDPlayer.Driver.MXDRV
                 log.ForcedWrite(ex);
 
             }
+        }
+
+        internal int Render(short[] buffer, int offset, int sampleCount)
+        {
+            return mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
         }
 
         public MXDRV()
@@ -584,7 +592,9 @@ namespace MDPlayer.Driver.MXDRV
             Int32 late,
             UInt32 mdxbuf,
             UInt32 pdxbuf,
-            Int32 opmmode
+            Int32 opmmode,
+            int opmflag=1,
+            int adpcmflag=1
         )
         {
             Int32 ret;
@@ -639,7 +649,7 @@ namespace MDPlayer.Driver.MXDRV
             }
             else
             {
-                ret = mdxPCM.x68sound[0].X68Sound_StartPcm(samprate, -1, 1, pcmbuf);
+                ret = mdxPCM.x68sound[0].X68Sound_StartPcm(samprate, opmflag, adpcmflag, pcmbuf);
             }
             if (ret != 0)
             {
@@ -4886,11 +4896,6 @@ namespace MDPlayer.Driver.MXDRV
             /*
                                                                     rts
             */
-        }
-
-        internal int Render(short[] buffer,int offset, int sampleCount)
-        {
-            return mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
         }
 
 

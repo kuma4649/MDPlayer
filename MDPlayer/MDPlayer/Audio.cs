@@ -1957,9 +1957,12 @@ namespace MDPlayer
                 if (chip != null) lstChips.Add(chip);
 
 
-                MDSound.ym2151_x68sound mdxPCM = new MDSound.ym2151_x68sound();
-                mdxPCM.x68sound[0] = new MDSound.NX68Sound.X68Sound();
-                mdxPCM.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM.x68sound[0]);
+                MDSound.ym2151_x68sound mdxPCM_V = new MDSound.ym2151_x68sound();
+                mdxPCM_V.x68sound[0] = new MDSound.NX68Sound.X68Sound();
+                mdxPCM_V.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
+                MDSound.ym2151_x68sound mdxPCM_R = new MDSound.ym2151_x68sound();
+                mdxPCM_R.x68sound[0] = new MDSound.NX68Sound.X68Sound();
+                mdxPCM_R.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
                 chipLED.PriOKI5 = 1;
 
 
@@ -1979,10 +1982,11 @@ namespace MDPlayer
                 bool retV = ((MDPlayer.Driver.MXDRV.MXDRV)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
-                    , mdxPCM);
-                bool retR = driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                    , mdxPCM_V);
+                bool retR = ((MDPlayer.Driver.MXDRV.MXDRV)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                    , mdxPCM_R);
 
                 if (!retV || !retR) return false;
 
