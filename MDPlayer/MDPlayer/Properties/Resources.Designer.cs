@@ -200,9 +200,29 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap imgPL {
+            get {
+                object obj = ResourceManager.GetObject("imgPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap japPL {
             get {
                 object obj = ResourceManager.GetObject("japPL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap mmlPL {
+            get {
+                object obj = ResourceManager.GetObject("mmlPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -504,6 +524,16 @@ namespace MDPlayer.Properties {
             get {
                 object obj = ResourceManager.GetObject("rChipName_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static byte[] README {
+            get {
+                object obj = ResourceManager.GetObject("README", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -963,6 +993,16 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap savePL {
             get {
                 object obj = ResourceManager.GetObject("savePL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap txtPL {
+            get {
+                object obj = ResourceManager.GetObject("txtPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

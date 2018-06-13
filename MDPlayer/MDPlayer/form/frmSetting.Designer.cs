@@ -59,7 +59,6 @@
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -292,6 +291,14 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.tbTextExt = new System.Windows.Forms.TextBox();
+            this.tbMMLExt = new System.Windows.Forms.TextBox();
+            this.tbImageExt = new System.Windows.Forms.TextBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -361,6 +368,7 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -746,15 +754,6 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -2818,6 +2817,7 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.groupBox17);
             this.tpOther.Controls.Add(this.cbUseGetInst);
             this.tpOther.Controls.Add(this.groupBox4);
             this.tpOther.Controls.Add(this.cbWavSwitch);
@@ -3267,6 +3267,78 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Text";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "MML";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Image";
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.tbImageExt);
+            this.groupBox17.Controls.Add(this.tbMMLExt);
+            this.groupBox17.Controls.Add(this.tbTextExt);
+            this.groupBox17.Controls.Add(this.label1);
+            this.groupBox17.Controls.Add(this.label3);
+            this.groupBox17.Controls.Add(this.label2);
+            this.groupBox17.Location = new System.Drawing.Point(7, 256);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(433, 83);
+            this.groupBox17.TabIndex = 1;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "File Extension";
+            // 
+            // tbTextExt
+            // 
+            this.tbTextExt.Location = new System.Drawing.Point(52, 12);
+            this.tbTextExt.Name = "tbTextExt";
+            this.tbTextExt.Size = new System.Drawing.Size(346, 19);
+            this.tbTextExt.TabIndex = 1;
+            // 
+            // tbMMLExt
+            // 
+            this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
+            this.tbMMLExt.Name = "tbMMLExt";
+            this.tbMMLExt.Size = new System.Drawing.Size(346, 19);
+            this.tbMMLExt.TabIndex = 1;
+            // 
+            // tbImageExt
+            // 
+            this.tbImageExt.Location = new System.Drawing.Point(52, 58);
+            this.tbImageExt.Name = "tbImageExt";
+            this.tbImageExt.Size = new System.Drawing.Size(346, 19);
+            this.tbImageExt.TabIndex = 1;
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3284,6 +3356,7 @@
             this.Name = "frmSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "オプション";
+            this.Load += new System.EventHandler(this.frmSetting_Load);
             this.gbWaveOut.ResumeLayout(false);
             this.gbAsioOut.ResumeLayout(false);
             this.gbWasapiOut.ResumeLayout(false);
@@ -3380,6 +3453,8 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3650,5 +3725,12 @@
         private System.Windows.Forms.RadioButton rbSPPCM;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.ComboBox cmbSPPCMDevice;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.TextBox tbImageExt;
+        private System.Windows.Forms.TextBox tbMMLExt;
+        private System.Windows.Forms.TextBox tbTextExt;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

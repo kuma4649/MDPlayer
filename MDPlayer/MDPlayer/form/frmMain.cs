@@ -4007,6 +4007,7 @@ namespace MDPlayer.form
                 }
 
                 string playingFileName = fn;
+                string playingArcFileName = "";
                 enmFileFormat format = enmFileFormat.unknown;
                 List<Tuple<string, byte[]>> extFile = null;
 
@@ -4017,6 +4018,9 @@ namespace MDPlayer.form
                 }
                 else
                 {
+
+                    playingArcFileName = zfn;
+
                     if (Path.GetExtension(zfn).ToUpper() == ".ZIP")
                     {
                         using (ZipArchive archive = ZipFile.OpenRead(zfn))
@@ -4046,7 +4050,7 @@ namespace MDPlayer.form
                     }
                 }
 
-                Audio.SetVGMBuffer(format, srcBuf, playingFileName, m, songNo, extFile);
+                Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
                 newParam.ym2612[1].fileFormat = format;
 

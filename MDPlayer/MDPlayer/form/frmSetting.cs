@@ -411,6 +411,9 @@ namespace MDPlayer.form
             cbWavSwitch.Checked = setting.other.WavSwitch;
             gbWav.Enabled = cbWavSwitch.Checked;
             tbWavPath.Text = setting.other.WavPath;
+            tbTextExt.Text = setting.other.TextExt;
+            tbMMLExt.Text = setting.other.MMLExt;
+            tbImageExt.Text = setting.other.ImageExt;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1141,6 +1144,9 @@ namespace MDPlayer.form
             setting.other.DumpPath = tbDumpPath.Text;
             setting.other.WavSwitch = cbWavSwitch.Checked;
             setting.other.WavPath = tbWavPath.Text;
+            setting.other.TextExt = tbTextExt.Text;
+            setting.other.MMLExt = tbMMLExt.Text;
+            setting.other.ImageExt = tbImageExt.Text;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -1797,6 +1803,11 @@ namespace MDPlayer.form
             tbBeforeSend_XGReset.Text = mo.XGReset;
             tbBeforeSend_GSReset.Text = mo.GSReset;
             tbBeforeSend_Custom.Text = mo.Custom;
+        }
+
+        private void frmSetting_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

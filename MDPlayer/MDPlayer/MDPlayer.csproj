@@ -561,6 +561,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="README.md" />
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
@@ -571,6 +572,10 @@
     <Content Include="lib\NScci.dll" />
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
+    <Content Include="licenses\GPL.txt" />
+    <Content Include="licenses\List.txt" />
+    <Content Include="licenses\mame_license.txt" />
+    <Content Include="licenses\readme.txt" />
     <Content Include="Resources\addFolderPL.png" />
     <Content Include="Resources\addPL.png" />
     <Content Include="Resources\ccFadeout.png" />
@@ -582,7 +587,9 @@
     <Content Include="Resources\ccSlow.png" />
     <Content Include="Resources\ccStop.png" />
     <Content Include="Resources\downPL.png" />
+    <Content Include="Resources\imgPL.png" />
     <Content Include="Resources\japPL.png" />
+    <Content Include="Resources\mmlPL.png" />
     <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeAY8910.png" />
     <Content Include="Resources\planeB.png" />
@@ -632,6 +639,7 @@
     <Content Include="Resources\rMIDILCD_Font_01.png" />
     <Content Include="Resources\rMIDILCD_Font_02.png" />
     <Content Include="Resources\rMIDILCD_Font_03.png" />
+    <None Include="Resources\README.md" />
     <None Include="Resources\rMIDILCD_Font_04.png" />
     <None Include="Resources\rMIDILCD_Font_05.png" />
     <None Include="Resources\rMIDILCD_Font_06.png" />
@@ -657,6 +665,7 @@
     <Content Include="Resources\rVol_02.png" />
     <Content Include="Resources\rWavGraph.png" />
     <Content Include="Resources\savePL.png" />
+    <Content Include="Resources\txtPL.png" />
     <Content Include="Resources\upPL.png" />
     <Content Include="Resources\フェーリ.ico" />
     <Content Include="Resources\フェーリ.png" />

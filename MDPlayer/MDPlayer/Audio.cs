@@ -125,6 +125,7 @@ namespace MDPlayer
         private static int MasterVolume = 0;
         private static byte[] chips = new byte[256];
         private static string PlayingFileName;
+        private static string PlayingArcFileName;
         private static int MidiMode = 0;
         private static int SongNo = 0;
         private static List<Tuple<string, byte[]>> ExtendFile = null;
@@ -1446,16 +1447,23 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName,int midiMode,int songNo,List<Tuple<string,byte[]>> extFile)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName, string playingArcFileName, int midiMode,int songNo,List<Tuple<string,byte[]>> extFile)
         {
             Stop();
             PlayingFileFormat = format;
             vgmBuf = srcBuf;
             PlayingFileName = playingFileName;//WaveWriter向け
+            PlayingArcFileName = playingArcFileName;
             MidiMode = midiMode;
             SongNo = songNo;
             chipRegister.SetFileName(playingFileName);//ExportMIDI向け
             ExtendFile = extFile;//追加ファイル
+        }
+
+        public static void getPlayingFileName(out string playingFileName,out string playingArcFileName)
+        {
+            playingFileName = PlayingFileName;
+            playingArcFileName = PlayingArcFileName;
         }
 
         public static bool Play(Setting setting)

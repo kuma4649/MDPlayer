@@ -1325,6 +1325,15 @@ namespace MDPlayer
                 }
             }
 
+            private string _TextExt = "txt;doc;hed";
+            public string TextExt { get => _TextExt; set => _TextExt = value; }
+
+            private string _MMLExt = "mml;gwi";
+            public string MMLExt { get => _MMLExt; set => _MMLExt = value; }
+
+            private string _ImageExt = "jpg;gif;png;mag";
+            public string ImageExt { get => _ImageExt; set => _ImageExt = value; }
+
 
             public Other Copy()
             {
@@ -1342,6 +1351,9 @@ namespace MDPlayer
                 other.WavSwitch = this.WavSwitch;
                 other.WavPath = this.WavPath;
                 other.FilterIndex = this.FilterIndex;
+                other.TextExt = this.TextExt;
+                other.MMLExt = this.MMLExt;
+                other.ImageExt = this.ImageExt;
 
                 return other;
             }

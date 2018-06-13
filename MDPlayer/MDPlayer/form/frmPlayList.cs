@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -912,6 +913,83 @@ namespace MDPlayer.form
                 playList.lstMusic[r.Index].type= ((ToolStripMenuItem)sender).Text;
                 r.Cells["clmType"].Value = ((ToolStripMenuItem)sender).Text;
             }
+        }
+
+        string ofn = "";
+        string oafn = "";
+        string[][] exts = new string[3][];
+        string text = "";
+        string mml = "";
+        string img = "";
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!playing) return;
+
+            string fn = "";
+            string arcFn = "";
+
+            Audio.getPlayingFileName(out fn, out arcFn);
+
+            if (fn == ofn && arcFn == oafn) return;
+            ofn = fn;
+            oafn = arcFn;
+
+            exts[0] = setting.other.TextExt.Split(';');
+            exts[1] = setting.other.MMLExt.Split(';');
+            exts[2] = setting.other.ImageExt.Split(';');
+
+            string bfn = Path.Combine(Path.GetDirectoryName(fn), Path.GetFileNameWithoutExtension(fn));
+
+            text = "";
+            foreach (string ext in exts[0])
+            {
+                if (File.Exists(bfn + "." + ext))
+                {
+                    text = bfn + "." + ext;
+                    break;
+                }
+            }
+            mml = "";
+            foreach (string ext in exts[1])
+            {
+                if (File.Exists(bfn + "." + ext))
+                {
+                    mml = bfn + "." + ext;
+                    break;
+                }
+            }
+            img = "";
+            foreach (string ext in exts[2])
+            {
+                if (File.Exists(bfn + "." + ext))
+                {
+                    img = bfn + "." + ext;
+                    break;
+                }
+            }
+
+            tsbTextExt.Enabled = (text != "");
+            tsbMMLExt.Enabled = (mml != "");
+            tsbImgExt.Enabled = (img != "");
+        }
+
+        private void tsbTextExt_Click(object sender, EventArgs e)
+        {
+            if (text == "") return;
+            Process.Start(text);
+        }
+
+        private void tsbMMLExt_Click(object sender, EventArgs e)
+        {
+            if (mml == "") return;
+            Process.Start(mml);
+        }
+
+        private void tsbImgExt_Click(object sender, EventArgs e)
+        {
+            if (img == "") return;
+            Process.Start(img);
         }
     }
 }
