@@ -1903,7 +1903,7 @@ namespace MDPlayer
                 trdMain.Start();
 
                 hiyorimiNecessary = setting.HiyorimiMode;
-                int hiyorimiDeviceFlag = 0;
+                int hiyorimiDeviceFlag = 3;
 
                 chipLED = new ChipLEDs();
 
@@ -1970,7 +1970,7 @@ namespace MDPlayer
                 mdxPCM_V.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
                 MDSound.ym2151_x68sound mdxPCM_R = new MDSound.ym2151_x68sound();
                 mdxPCM_R.x68sound[0] = new MDSound.NX68Sound.X68Sound();
-                mdxPCM_R.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_V.x68sound[0]);
+                mdxPCM_R.sound_Iocs[0] = new MDSound.NX68Sound.sound_iocs(mdxPCM_R.x68sound[0]);
                 chipLED.PriOKI5 = 1;
 
 
@@ -4532,22 +4532,32 @@ namespace MDPlayer
 
                     if (hiyorimiNecessary)
                     {
-                        long v;
-                        v = driverReal.vgmFrameCounter - driverVirtual.vgmFrameCounter;
-                        long d = common.SampleRate * (setting.LatencySCCI - common.SampleRate * setting.LatencyEmulation) / 1000;
-                        long l = getLatency() / 4;
+                        //long v;
+                        //v = driverReal.vgmFrameCounter - driverVirtual.vgmFrameCounter;
+                        //long d = common.SampleRate * (setting.LatencySCCI - common.SampleRate * setting.LatencyEmulation) / 1000;
+                        //long l = getLatency() / 4;
 
+                        //int m = 0;
+                        //if (d >= 0)
+                        //{
+                        //    if (v >= d - l && v <= d + l) m = 0;
+                        //    else m = (v + d > l) ? 1 : 2;
+                        //}
+                        //else
+                        //{
+                        //    d = Math.Abs(common.SampleRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
+                        //    if (v >= d - l && v <= d + l) m = 0;
+                        //    else m = (v - d > l) ? 1 : 2;
+                        //}
+
+                        double dEMU = common.SampleRate * setting.LatencyEmulation / 1000.0;
+                        double dSCCI = common.SampleRate * setting.LatencySCCI / 1000.0;
+                        double abs = Math.Abs((driverReal.vgmFrameCounter - dSCCI) - (driverVirtual.vgmFrameCounter - dEMU));
                         int m = 0;
-                        if (d >= 0)
+                        long l = getLatency()/10;
+                        if (abs >= l)
                         {
-                            if (v >= d - l && v <= d + l) m = 0;
-                            else m = (v + d > l) ? 1 : 2;
-                        }
-                        else
-                        {
-                            d = Math.Abs(common.SampleRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
-                            if (v >= d - l && v <= d + l) m = 0;
-                            else m = (v - d > l) ? 1 : 2;
+                            m = ((driverReal.vgmFrameCounter - dSCCI) > (driverVirtual.vgmFrameCounter - dEMU)) ? 1 : 2;
                         }
 
                         switch (m)

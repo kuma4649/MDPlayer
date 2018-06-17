@@ -23,6 +23,7 @@
 using Driver;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -165,9 +166,15 @@ namespace MDPlayer.Driver.MXDRV
             if (!string.IsNullOrEmpty(pdxFileName) && pdx == null) return false;
 
             int ret;
-            //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
-            ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
-
+            if (model == enmModel.VirtualModel)
+            {
+                //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
+                ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
+            }
+            else
+            {
+                ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
+            }
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
             memind += mdxsize;
@@ -196,6 +203,7 @@ namespace MDPlayer.Driver.MXDRV
 
         public void oneFrameProc2(Action timer, bool firstFlg)
         {
+
             try
             {
                 vgmSpeedCounter += vgmSpeed;
@@ -633,8 +641,8 @@ namespace MDPlayer.Driver.MXDRV
             {
                 switch (ret)
                 {
-                    case (int)NX68Sound.X68Sound.X68SNDERR_DLL:
-                    case (int)NX68Sound.X68Sound.X68SNDERR_FUNC:
+                    case (int)MDSound.NX68Sound.X68Sound.X68SNDERR_DLL:
+                    case (int)MDSound.NX68Sound.X68Sound.X68SNDERR_FUNC:
                     default:
                         return (10000 + ret);
                 }
@@ -655,9 +663,9 @@ namespace MDPlayer.Driver.MXDRV
             {
                 switch (ret)
                 {
-                    case (int)NX68Sound.X68Sound.X68SNDERR_PCMOUT:
-                    case (int)NX68Sound.X68Sound.X68SNDERR_TIMER:
-                    case (int)NX68Sound.X68Sound.X68SNDERR_MEMORY:
+                    case (int)MDSound.NX68Sound.X68Sound.X68SNDERR_PCMOUT:
+                    case (int)MDSound.NX68Sound.X68Sound.X68SNDERR_TIMER:
+                    case (int)MDSound.NX68Sound.X68Sound.X68SNDERR_MEMORY:
                         return (10100 + ret);
                 }
             }
@@ -967,7 +975,8 @@ namespace MDPlayer.Driver.MXDRV
 #endif
             if (MeasurePlayTime) return;
 
-            //Console.WriteLine("{0:x02} {1:x02}", D1 & 0xff, D2 & 0xff);
+            //Debug.WriteLine("{0:x02} {1:x02}", D1 & 0xff, D2 & 0xff);
+
             mdxPCM.sound_Iocs[0]._iocs_opmset((byte)D1, (byte)D2);
             chipRegister.setYM2151Register(0, 0, (int)D1, (int)D2, model, YM2151Hosei[0], 0);
 

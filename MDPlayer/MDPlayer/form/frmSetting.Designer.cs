@@ -59,6 +59,7 @@
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -251,6 +252,13 @@
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.tbImageExt = new System.Windows.Forms.TextBox();
+            this.tbMMLExt = new System.Windows.Forms.TextBox();
+            this.tbTextExt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
@@ -291,14 +299,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.tbTextExt = new System.Windows.Forms.TextBox();
-            this.tbMMLExt = new System.Windows.Forms.TextBox();
-            this.tbImageExt = new System.Windows.Forms.TextBox();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -360,6 +360,7 @@
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tpOther.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.gbWav.SuspendLayout();
             this.gbDump.SuspendLayout();
@@ -368,7 +369,6 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -626,7 +626,7 @@
             // lblWaitTime
             // 
             this.lblWaitTime.AutoSize = true;
-            this.lblWaitTime.Location = new System.Drawing.Point(238, 347);
+            this.lblWaitTime.Location = new System.Drawing.Point(285, 347);
             this.lblWaitTime.Name = "lblWaitTime";
             this.lblWaitTime.Size = new System.Drawing.Size(20, 12);
             this.lblWaitTime.TabIndex = 9;
@@ -635,7 +635,7 @@
             // lblLatencyUnit
             // 
             this.lblLatencyUnit.AutoSize = true;
-            this.lblLatencyUnit.Location = new System.Drawing.Point(238, 321);
+            this.lblLatencyUnit.Location = new System.Drawing.Point(285, 321);
             this.lblLatencyUnit.Name = "lblLatencyUnit";
             this.lblLatencyUnit.Size = new System.Drawing.Size(20, 12);
             this.lblLatencyUnit.TabIndex = 9;
@@ -655,9 +655,9 @@
             this.lblLatency.AutoSize = true;
             this.lblLatency.Location = new System.Drawing.Point(7, 321);
             this.lblLatency.Name = "lblLatency";
-            this.lblLatency.Size = new System.Drawing.Size(53, 12);
+            this.lblLatency.Size = new System.Drawing.Size(145, 12);
             this.lblLatency.TabIndex = 9;
-            this.lblLatency.Text = "遅延時間";
+            this.lblLatency.Text = "遅延時間(レンダリングバッファ)";
             // 
             // cmbWaitTime
             // 
@@ -675,7 +675,7 @@
             "4000",
             "4500",
             "5000"});
-            this.cmbWaitTime.Location = new System.Drawing.Point(111, 344);
+            this.cmbWaitTime.Location = new System.Drawing.Point(158, 344);
             this.cmbWaitTime.Name = "cmbWaitTime";
             this.cmbWaitTime.Size = new System.Drawing.Size(121, 20);
             this.cmbWaitTime.TabIndex = 8;
@@ -693,7 +693,7 @@
             "300",
             "400",
             "500"});
-            this.cmbLatency.Location = new System.Drawing.Point(111, 318);
+            this.cmbLatency.Location = new System.Drawing.Point(158, 318);
             this.cmbLatency.Name = "cmbLatency";
             this.cmbLatency.Size = new System.Drawing.Size(121, 20);
             this.cmbLatency.TabIndex = 8;
@@ -755,6 +755,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
             // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
@@ -766,7 +775,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Location = new System.Drawing.Point(3, 289);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(181, 79);
+            this.groupBox3.Size = new System.Drawing.Size(434, 79);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "遅延演奏";
@@ -776,9 +785,9 @@
             this.cbHiyorimiMode.AutoSize = true;
             this.cbHiyorimiMode.Location = new System.Drawing.Point(8, 59);
             this.cbHiyorimiMode.Name = "cbHiyorimiMode";
-            this.cbHiyorimiMode.Size = new System.Drawing.Size(88, 16);
+            this.cbHiyorimiMode.Size = new System.Drawing.Size(335, 16);
             this.cbHiyorimiMode.TabIndex = 6;
-            this.cbHiyorimiMode.Text = "日和見モード";
+            this.cbHiyorimiMode.Text = "日和見モード(出力タブ：遅延時間100ms以下の時、使用を推奨)";
             this.cbHiyorimiMode.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -2843,6 +2852,69 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.tbImageExt);
+            this.groupBox17.Controls.Add(this.tbMMLExt);
+            this.groupBox17.Controls.Add(this.tbTextExt);
+            this.groupBox17.Controls.Add(this.label1);
+            this.groupBox17.Controls.Add(this.label3);
+            this.groupBox17.Controls.Add(this.label2);
+            this.groupBox17.Location = new System.Drawing.Point(7, 256);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(433, 83);
+            this.groupBox17.TabIndex = 1;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "File Extension";
+            // 
+            // tbImageExt
+            // 
+            this.tbImageExt.Location = new System.Drawing.Point(52, 58);
+            this.tbImageExt.Name = "tbImageExt";
+            this.tbImageExt.Size = new System.Drawing.Size(346, 19);
+            this.tbImageExt.TabIndex = 1;
+            // 
+            // tbMMLExt
+            // 
+            this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
+            this.tbMMLExt.Name = "tbMMLExt";
+            this.tbMMLExt.Size = new System.Drawing.Size(346, 19);
+            this.tbMMLExt.TabIndex = 1;
+            // 
+            // tbTextExt
+            // 
+            this.tbTextExt.Location = new System.Drawing.Point(52, 12);
+            this.tbTextExt.Name = "tbTextExt";
+            this.tbTextExt.Size = new System.Drawing.Size(346, 19);
+            this.tbTextExt.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Text";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Image";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "MML";
+            // 
             // cbUseGetInst
             // 
             this.cbUseGetInst.AutoSize = true;
@@ -3267,78 +3339,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Text";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "MML";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Image";
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.tbImageExt);
-            this.groupBox17.Controls.Add(this.tbMMLExt);
-            this.groupBox17.Controls.Add(this.tbTextExt);
-            this.groupBox17.Controls.Add(this.label1);
-            this.groupBox17.Controls.Add(this.label3);
-            this.groupBox17.Controls.Add(this.label2);
-            this.groupBox17.Location = new System.Drawing.Point(7, 256);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(433, 83);
-            this.groupBox17.TabIndex = 1;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "File Extension";
-            // 
-            // tbTextExt
-            // 
-            this.tbTextExt.Location = new System.Drawing.Point(52, 12);
-            this.tbTextExt.Name = "tbTextExt";
-            this.tbTextExt.Size = new System.Drawing.Size(346, 19);
-            this.tbTextExt.TabIndex = 1;
-            // 
-            // tbMMLExt
-            // 
-            this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
-            this.tbMMLExt.Name = "tbMMLExt";
-            this.tbMMLExt.Size = new System.Drawing.Size(346, 19);
-            this.tbMMLExt.TabIndex = 1;
-            // 
-            // tbImageExt
-            // 
-            this.tbImageExt.Location = new System.Drawing.Point(52, 58);
-            this.tbImageExt.Name = "tbImageExt";
-            this.tbImageExt.Size = new System.Drawing.Size(346, 19);
-            this.tbImageExt.TabIndex = 1;
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3439,6 +3439,8 @@
             this.groupBox2.PerformLayout();
             this.tpOther.ResumeLayout(false);
             this.tpOther.PerformLayout();
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.gbWav.ResumeLayout(false);
@@ -3453,8 +3455,6 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -19,8 +19,8 @@ namespace MDPlayer
         private List<int> midiOutsType = null;
         private List<vstInfo2> vstMidiOuts = null;
         private List<int> vstMidiOutsType = null;
-        private NX68Sound.X68Sound x68Sound = null;
-        private NX68Sound.sound_iocs sound_iocs = null;
+        //private NX68Sound.X68Sound x68Sound = null;
+        //private NX68Sound.sound_iocs sound_iocs = null;
 
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
@@ -259,8 +259,8 @@ namespace MDPlayer
 
             initChipRegister();
 
-            x68Sound = new NX68Sound.X68Sound();
-            sound_iocs = new NX68Sound.sound_iocs(x68Sound);
+            //x68Sound = new NX68Sound.X68Sound();
+            //sound_iocs = new NX68Sound.sound_iocs(x68Sound);
 
             midiExport = new MIDIExport(setting);
             midiExport.fmRegisterYM2612 = fmRegisterYM2612;
@@ -751,6 +751,7 @@ namespace MDPlayer
                                 {
                                     if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                     if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                 }
                             }
                             else
@@ -777,8 +778,7 @@ namespace MDPlayer
                 {
                     if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
                     if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
-                    //if (ctYM2151[chipID].UseEmu3)
-                        mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
