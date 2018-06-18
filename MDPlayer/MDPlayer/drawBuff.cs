@@ -2459,7 +2459,7 @@ namespace MDPlayer
             return;
         }
 
-        private static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
+        public static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
 

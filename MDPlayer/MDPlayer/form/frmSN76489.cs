@@ -125,6 +125,7 @@ namespace MDPlayer.form
 
                 //Noise Ch
                 newParam.channels[3].note = psgRegister[6];
+                newParam.channels[3].freq = psgRegister[4];//ch3Freq
                 newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
                 newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol[3][1]) / (15.0 / 19.0)), 0), 19);
                 newParam.channels[3].pan = (psgRegisterPan >> 3) & 0x11;
@@ -159,6 +160,11 @@ namespace MDPlayer.form
             DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
             DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
             DrawBuff.Pan(frameBuffer, 3, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+            if (osc.freq != nsc.freq)
+            {
+                DrawBuff.drawFont4(frameBuffer, 172, 32, 0, nsc.freq.ToString("0000"));
+                osc.freq = nsc.freq;
+            }
 
         }
 
