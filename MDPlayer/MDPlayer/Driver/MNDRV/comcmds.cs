@@ -11,17 +11,20 @@ namespace MDPlayer.Driver.MNDRV
     //
     public class comcmds
     {
-        public MXDRV.X68REG reg;
+        public reg reg;
         public MXDRV.xMemory mm;
+
+        // 未解決ジャンプアドレス
+        public Action _OPN_WRITE;
+        public Action _init_lfo2;
+        public Action[] jsr_w_we_reset;
+        public Action SUBEVENT;
+
 
         //	タイ
         //		[$81]
         public void _COM_81()
         {
-            //	    btst.b	#6,w_flag3(a5)
-            //	    bne 	1f
-            //      bclr.b	#6,w_flag(a5)
-            //1:	rts
             if ((mm.ReadByte(reg.a5 + w.flag3) & 0x40) != 0) return;
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x40));
         }
@@ -30,9 +33,6 @@ namespace MDPlayer.Driver.MNDRV
         //		[$83]
         public void _COM_83()
         {
-            //	bset.b	#6,w_flag(a5)
-            //	bset.b	#6,w_flag3(a5)
-            //	rts
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x40));
             mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) | 0x40));
         }
@@ -41,31 +41,18 @@ namespace MDPlayer.Driver.MNDRV
         //		[$86] + [track] b
         public void _COM_86()
         {
-            //	moveq.l	#0,d0
-            //	lea.l   TRACKWORKADR(a6), a0
-            reg.d0 = 0;
+            reg.D0_L = 0;
             reg.a0 = dw.TRACKWORKADR + reg.a6;
 
-            //    move.b  (a1)+, d0
-            reg.d0 = mm.ReadByte(reg.a1++);
+            reg.D0_L = mm.ReadByte(reg.a1++);
             while (true)
             {
-                //1:	subq.w	#1,d0
-                //	    beq	2f
-                //      lea.l _track_work_size(a0), a0
-                //      bra	1b
-                reg.d0--;
-                if (reg.d0 == 0) break;
+                reg.D0_L--;
+                if (reg.D0_L == 0) break;
 
                 reg.a0 = w._work_size + reg.a0;
             }
-            //2:
 
-            //  bclr.b	#7,w_flag4(a0)
-            //	bne	1f
-            //  bset.b	#6,w_flag4(a0)
-            //1:
-            //  rts
             int a = mm.ReadByte(reg.a0 + w.flag4) & 0x80;
             mm.Write(reg.a0 + w.flag4, (byte)(mm.ReadByte(reg.a0 + w.flag4) & 0x7f));
             if (a == 0)
@@ -79,21 +66,14 @@ namespace MDPlayer.Driver.MNDRV
         //		[$87]
         public void _COM_87()
         {
-            //	bclr.b	#6,w_flag4(a5)
-            //	bne	9f
             int a = mm.ReadByte(reg.a5 + w.flag4) & 0x40;
             mm.Write(reg.a5 + w.flag4, (byte)(mm.ReadByte(reg.a5 + w.flag4) & 0xbf));
             if (a != 0) return;
 
-            //    move.l a1, w_dataptr(a5)
             mm.Write(reg.a5 + w.dataptr, (uint)reg.a1);
 
-            //  ori.b	#$80,w_flag4(a5)
-            //	move.b	#1,w_len(a5)
             mm.Write(reg.a6 + w.flag4, (byte)(mm.ReadByte(reg.a6 + w.flag4) | 0x80));
             mm.Write(reg.a5 + w.len, (byte)1);
-            //9:
-            //	rts
         }
 
         //	q 設定
@@ -101,2269 +81,2308 @@ namespace MDPlayer.Driver.MNDRV
         //				$1 ～ $10 まで[16段階]
         public void _COM_90()
         {
-            //	moveq.l	#0,d0
-            //	move.b	(a1)+,d0
-            //	move.b	d0,w_q(a5)
-            //	bclr.b	#6,w_flag2(a5)
-            //	bset.b	#5,w_flag3(a5)
-            reg.d0 = 0;
-            reg.d0 = mm.ReadByte(reg.a1++);
-            mm.Write(reg.a5 + w.q, (byte)reg.d0);
+            reg.D0_L = 0;
+            reg.D0_L = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a5 + w.q, (byte)reg.D0_L);
             mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) & 0xbf));
             mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) | 0x20));
 
-            //	cmpi.b	#8,MND_VER(a6)
-            //	bcc	1f
             if (mm.ReadByte(reg.a6 + dw.MND_VER) < 8)
             {
-                //	lea.l	_atq_old(pc),a0
-                //	move.l	a0,w_qtjob(a5)
-                //	rts
                 mm.Write(reg.a5 + w.qtjob, 0);//_atq_old = 0 とする
                 return;
             }
 
-            //1:
-            //	add.w	d0,d0
-            //	move.w	_com_90_table(pc,d0.w),d0
-            //	lea.l	_com_90_table(pc,d0.w),a0
-            //	move.l	a0,w_qtjob(a5)
-            //	rts
-            mm.Write(reg.a5 + w.qtjob, reg.d0);//d0(q:0x01-0x10)
-        
-            //_com_90_table:
-            //	.dc.w	0
-            //	.dc.w	_atq_01-_com_90_table
-            //	.dc.w	_atq_02-_com_90_table
-            //	.dc.w	_atq_03-_com_90_table
-            //	.dc.w	_atq_04-_com_90_table
-            //	.dc.w	_atq_05-_com_90_table
-            //	.dc.w	_atq_06-_com_90_table
-            //	.dc.w	_atq_07-_com_90_table
-            //	.dc.w	_atq_08-_com_90_table
-            //	.dc.w	_atq_09-_com_90_table
-            //	.dc.w	_atq_10-_com_90_table
-            //	.dc.w	_atq_11-_com_90_table
-            //	.dc.w	_atq_12-_com_90_table
-            //	.dc.w	_atq_13-_com_90_table
-            //	.dc.w	_atq_14-_com_90_table
-            //	.dc.w	_atq_15-_com_90_table
-            //	.dc.w	_atq_16-_com_90_table
+            mm.Write(reg.a5 + w.qtjob, reg.D0_L);//d0(q:0x01-0x10)
+
         }
 
         public void _atq_01()
         {
-            //	move.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W = reg.D1_W >> 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_02()
         {
-            //	move.w	d0,d1
-            //	lsr.w	#3,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 >>= 3;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W = reg.D1_W >> 3;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_03()
         {
-            //	move.w	d0,d1
-            //	add.w	d1,d1
-            //	add.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_04()
         {
-            //	move.w	d0,d1
-            //	lsr.w	#2,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 >>= 2;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W >>= 2;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_05()
         {
-            //	move.w	d0,d1
-            //	add.w	d1,d1
-            //	add.w	d1,d1
-            //	add.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_06()
         {
-            //	move.w	d0,d1
-            //	add.w	d1,d1
-            //	add.w	d0,d1
-            //	lsr.w	#3,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d0;
-            reg.d1 >>= 3;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D0_W;
+            reg.D1_W >>= 3;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_07()
         {
-            //	move.w	d0,d1
-            //	lsl.w	#3,d1
-            //	sub.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 <<= 3;
-            reg.d1 -= (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W <<= 3;
+            reg.D1_W -= reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_08()
         {
-            //	move.w	d0,d1
-            //	lsr.w	#1,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 >>= 1;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W >>= 1;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_09()
         {
-            //	move.w	d0,d1
-            //	lsl.w	#3,d1
-            //	add.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 <<= 3;
-            reg.d1 += (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W <<= 3;
+            reg.D1_W += reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_10()
         {
-            //	move.w	d0,d1
-            //	add.w	d1,d1
-            //	add.w	d1,d1
-            //	add.w	d0,d1
-            //	lsr.w	#3,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d1;
-            reg.d1 += (ushort)reg.d0;
-            reg.d1 >>= 3;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D1_W;
+            reg.D1_W += reg.D0_W;
+            reg.D1_W >>= 3;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_11()
         {
-            //	move.w	d0,d1
-            //	swap	d0
-            //	move.w	d1,d0
-            //	lsl.w	#4,d1
-            //	add.w	d0,d0
-            //	add.w	d0,d0
-            //	sub.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d0 = (reg.d0 >> 8) + (reg.d0 << 8);
-            reg.d0 = (ushort)reg.d1;
-            reg.d1 <<= 4;
-            reg.d0 += (ushort)reg.d0;
-            reg.d0 += (ushort)reg.d0;
-            reg.d1 -= (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D0_L = (reg.D0_L >> 8) + (reg.D0_L << 8);
+            reg.D0_W = reg.D1_W;
+            reg.D1_W <<= 4;
+            reg.D0_W += reg.D0_W;
+            reg.D0_W += reg.D0_W;
+            reg.D1_W -= reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_12()
         {
-            //	move.w	d0,d1
-            //	add.w	d1,d1
-            //	add.w	d0,d1
-            //	lsr.w	#2,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 += (ushort)reg.d1;
-            reg.d0 += (ushort)reg.d1;
-            reg.d1 >>= 2;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_L;
+            reg.D1_W += reg.D1_W;
+            reg.D0_W += reg.D1_W;
+            reg.D1_W >>= 2;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_13()
         {
-            //	move.w	d0,d1
-            //	swap	d0
-            //	move.w	d1,d0
-            //	lsl.w	#4,d1
-            //	add.w	d0,d0
-            //	sub.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d0 = (reg.d0 >> 8) + (reg.d0 << 8);
-            reg.d0 = (ushort)reg.d1;
-            reg.d1 <<= 4;
-            reg.d0 += (ushort)reg.d0;
-            reg.d1 -= (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_L;
+            reg.D0_L = (reg.D0_L >> 8) + (reg.D0_L << 8);
+            reg.D0_W = reg.D1_W;
+            reg.D1_W <<= 4;
+            reg.D0_W += reg.D0_W;
+            reg.D1_W -= reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_14()
         {
-            //	move.w	d0,d1
-            //	lsl.w	#3,d1
-            //	sub.w	d0,d1
-            //	lsr.w	#3,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 <<= 3;
-            reg.d1 -= (ushort)reg.d0;
-            reg.d1 >>= 3;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W <<= 3;
+            reg.D1_W -= reg.D0_W;
+            reg.D1_W >>= 3;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_15()
         {
-            //	move.w	d0,d1
-            //	lsl.w	#4,d1
-            //	sub.w	d0,d1
-            //	lsr.w	#4,d1
-            //	move.b	d1,w_at_q_work(a5)
-            //	rts
-            reg.d1 = (ushort)reg.d0;
-            reg.d1 <<= 4;
-            reg.d1 -= (ushort)reg.d0;
-            reg.d1 >>= 4;
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d1);
+            reg.D1_W = reg.D0_W;
+            reg.D1_W <<= 4;
+            reg.D1_W -= reg.D0_W;
+            reg.D1_W >>= 4;
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
         public void _atq_16()
         {
-            //	move.b	d0,w_at_q_work(a5)
-            //	rts
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d0);
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
         }
 
         public void _atq_old()
         {
-            //	move.b	d0,d3
-            //	moveq.l	#$10,d1
-            //	moveq.l	#0,d2
-            //	sub.b	w_q(a5),d1
-            //	beq	2f
-            //	lsr.b	#4,d3
-            //1:	add.b	d3,d2
-            //	dbra	d1,1b
-            //2:
-            //	sub.b	d2,d0
-            //	move.b	d0,w_at_q(a5)
-            //	move.b	d0,w_at_q_work(a5)
-            //	rts
-            reg.d3 = (byte)reg.d0;
-            reg.d1 = 0x10;
-            reg.d2 = 0;
-            reg.d1 -= mm.ReadByte(reg.a5 + w.q);
-            if (reg.d1 != 0)
+            reg.D3_B = reg.D0_B;
+            reg.D1_L = 0x10;
+            reg.D2_L = 0;
+            reg.D1_B -= mm.ReadByte(reg.a5 + w.q);
+            if (reg.D1_B != 0)
             {
-                reg.d3 = (byte)(reg.d3 >> 4);
+                reg.D3_B >>= 4;
                 do
                 {
-                    reg.d2 += (byte)reg.d3;
-                    reg.d1--;
-                } while (reg.d1 != 0);
+                    reg.D2_B += reg.D3_B;
+                    reg.D1_B--;
+                } while (reg.D1_B != 0);
             }
-            reg.d0 -= (byte)reg.d2;
-            mm.Write(reg.a5 + w.at_q, (byte)reg.d0);
-            mm.Write(reg.a5 + w.at_q_work, (byte)reg.d0);
+            reg.D0_B -= reg.D2_B;
+            mm.Write(reg.a5 + w.at_q, (byte)reg.D0_B);
+            mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
         }
 
         //	@q 設定
         //			[$91] + [DATA]b
         public void _COM_91()
         {
-            //	move.b	(a1)+,w_at_q(a5)
-            //	bset.b	#6,w_flag2(a5)
-            //	bclr.b	#5,w_flag3(a5)
-            //	rts
-            mm.Write(reg.a5 + w.at_q, mm.ReadByte(reg.a1));
+            mm.Write(reg.a5 + w.at_q, mm.ReadByte(reg.a1++));
             mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | 0x40));
             mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) & 0xdf));
         }
 
-        //;─────────────────────────────────────
-        //;	ネガティブ @q 設定
-        //;			[$93] + [DATA]b
-        //;
-        //_COM_93:
-        //	move.b	(a1)+,w_at_q(a5)
-        //	bset.b	#6,w_flag2(a5)
-        //	bset.b	#5,w_flag3(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	キーオフモード
-        //;			[$94] + [switch]b
-        //;
-        //_COM_94:
-        //	clr.b	w_kom(a5)
-        //	move.b	(a1)+,d0
-        //	sne.b	w_kom(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	擬似リバーブ
-        //;		switch = $80 = ON
-        //;			 $81 = OFF
-        //;			 $82 = volume を直接指定にする
-        //;			 $83 = volume を相対指定にする
-        //;			 $84 = リバーブ動作は相対音量モードに依存する
-        //;			 $85 = リバーブ動作は常に @v 単位
-        //;
-        //;			 $00 = + [volume]b
-        //;			 $01 = + [volume]b + [pan]b
-        //;			 $02 = + [volume]b + [tone]b
-        //;			 $03 = + [volume]b + [panpot]b + [tone]b
-        //;			 $04 = + [volume]b ( 微調整 )
-        //;	work
-        //;		bit4 1:常に @v
-        //;		bit3 1:@v直接
-        //;		bit2 1:微調整
-        //;		bit1 1:音色変更
-        //;		bit0 1:定位変更
-        //;
-        //_COM_98:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_COM_98_onoff
-        //;	andi.b	#8,w_reverb(a5)		; Thu Jun 29 17:39 JST 2000 (saori)
-        //	andi.b	#$10,w_reverb(a5)
-        //	addq.b	#1,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_98_table(pc,d0.w),d0
-        //	jmp	_COM_98_table(pc,d0.w)
-
-        //_COM_98_onoff:
-        //	andi.b	#$F,d0
-        //	addq.b	#1,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_98_table2(pc,d0.w),d0
-        //	jmp	_COM_98_table2(pc,d0.w)
-
-        //_COM_98_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_98_0-_COM_98_table
-        //	.dc.w	_COM_98_1-_COM_98_table
-        //	.dc.w	_COM_98_2-_COM_98_table
-        //	.dc.w	_COM_98_3-_COM_98_table
-        //	.dc.w	_COM_98_4-_COM_98_table
-
-        //_COM_98_table2:
-        //	.dc.w	0
-        //	.dc.w	_COM_98_80-_COM_98_table2
-        //	.dc.w	_COM_98_81-_COM_98_table2
-        //	.dc.w	_COM_98_82-_COM_98_table2
-        //	.dc.w	_COM_98_83-_COM_98_table2
-        //	.dc.w	_COM_98_84-_COM_98_table2
-        //	.dc.w	_COM_98_85-_COM_98_table2
-
-        //_COM_98_80:
-        //	bset.b	#7,w_reverb(a5)
-        //	rts
-
-        //_COM_98_81:
-        //	bclr.b	#7,w_reverb(a5)
-        //	rts
-
-        //_COM_98_82:
-        //	bset.b	#3,w_reverb(a5)
-        //	rts
-
-        //_COM_98_83:
-        //	bclr.b	#3,w_reverb(a5)
-        //	rts
-
-        //_COM_98_84:
-        //	bclr.b	#4,w_reverb(a5)
-        //	rts
-
-        //_COM_98_85:
-        //	bset.b	#4,w_reverb(a5)
-        //	rts
-
-        //;
-        //; volume
-        //;
-        //_COM_98_0:
-        //	move.b	(a1)+,w_reverb_vol(a5)
-        //	ori.b	#$80,w_reverb(a5)
-        //	rts
-
-        //;
-        //; volume + pan
-        //;
-        //_COM_98_1:
-        //	move.b	(a1)+,w_reverb_vol(a5)
-        //	move.b	(a1)+,w_reverb_pan(a5)
-        //	ori.b	#$81,w_reverb(a5)
-        //	rts
-
-        //;
-        //; volume + tone
-        //;
-        //_COM_98_2:
-        //	move.b	(a1)+,w_reverb_vol(a5)
-        //	move.b	(a1)+,w_reverb_tone(a5)
-        //	ori.b	#$82,w_reverb(a5)
-        //	rts
-
-        //;
-        //; volume + panpot + tone
-        //;
-        //_COM_98_3:
-        //	move.b	(a1)+,w_reverb_vol(a5)
-        //	move.b	(a1)+,w_reverb_pan(a5)
-        //	move.b	(a1)+,w_reverb_tone(a5)
-        //	ori.b	#$83,w_reverb(a5)
-        //	rts
-
-        //;
-        //; volume
-        //;
-        //_COM_98_4:
-        //	move.b	(a1)+,w_reverb_vol(a5)
-        //	ori.b	#$84,w_reverb(a5)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	擬似エコー
-        //;
-        //_COM_99:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_COM_99_onoff
-        //	add.w	d0,d0
-        //	move.w	_COM_99_table(pc,d0.w),d0
-        //	jmp	_COM_99_table(pc,d0.w)
-
-        //_COM_99_onoff:
-        //	cmpi.b	#$80,d0
-        //	bne	1f
-        //				; on
-        //	rts
-
-        //1:				; off
-        //	rts
-
-        //_COM_99_table:
-        //	.dc.w	_COM_99_0-_COM_99_table		; one shot
-        //	.dc.w	_COM_99_1-_COM_99_table		; continue
-
-        //_COM_99_0:
-        //	rts
-
-        //_COM_99_1:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	擬似動作 step time
-        //;
-        //_COM_9A:
-        //	move.b	(a1)+,w_reverb_time(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	音量テーブル切り替え
-        //;
-        //_COM_A3:
-        //	move.b	(a1)+,d1
-        //	move.b	(a1)+,d5
-
-        //	move.l	VOL_PTR(a6),d0
-        //	beq	_com_a3_exit
-
-        //	movea.l	d0,a2
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	move.l	d0,d2
-        //	beq	_com_a3_exit
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d4
-        //	move.b	(a2)+,d4
-
-        //_com_a3_ana_loop:
-        //	cmp.b	2(a2),d1
-        //	bne	1f
-        //	cmp.b	3(a2),d5
-        //	beq	_com_a3_set
-        //1:
-        //	subq.w	#1,d4
-        //	beq	_com_a3_exit
-        //	move.b	(a2),-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	1(a2),d0
-        //	lea.l	(a2,d0.w),a2
-        //	bra	_com_a3_ana_loop
-
-        //_com_a3_exit:
-        //	rts
-
-        //_com_a3_set:
-        //	addq.w	#4,a2
-        //	moveq.l	#$7F,d0
-        //	and.b	(a2),d0
-        //	move.b	d0,w_volcount(a5)
-        //	addq.w	#2,a2
-
-        //	lea.l	w_voltable(a5),a0
-        //1:	move.b	(a2)+,(a0)+
-        //	dbra	d0,1b
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	相対音量モード
-        //;
-        //_COM_A8:
-        //	move.b	(a1)+,w_volmode(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	ドライバ動作モード変更
-        //;
-        //_COM_B0:
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_B0_table(pc,d0.w),d0
-        //	jmp	_COM_B0_table(pc,d0.w)
-
-        //_COM_B0_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_B0_0-_COM_B0_table
-        //	.dc.w	_COM_B0_1-_COM_B0_table
-        //	.dc.w	_COM_B0_2-_COM_B0_table
-        //	.dc.w	_COM_B0_3-_COM_B0_table
-
-        //_COM_B0_0:
-        //	bclr.b	#7,DRV_FLAG2(a6)
-        //	move.b	(a1)+,d0
-        //	beq	1f
-        //	bset.b	#7,DRV_FLAG2(a6)
-        //1:
-        //	rts
-
-        //_COM_B0_1:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_B0_1_0
-        //	subq.b	#1,d0
-        //	beq	_COM_B0_1_1
-        //	subq.b	#1,d0
-        //	beq	_COM_B0_1_2
-        //	bset.b	#6,DRV_FLAG3(a6)
-        //	bra	_COM_B0_start_timer_a
-
-        //_COM_B0_1_0:
-        //	andi.b	#$7F,DRV_FLAG3(a6)
-        //	rts
-
-        //_COM_B0_1_1:
-        //	ori.b	#$80,DRV_FLAG3(a6)
-        //	bra	_COM_B0_start_timer_a
-
-        //_COM_B0_1_2:
-        //	bclr.b	#6,DRV_FLAG3(a6)
-        //	rts
-
-        //_COM_B0_start_timer_a:
-        //	move.l	d7,-(sp)
-        //	moveq.l	#3,d7
-        //	moveq.l	#$10,d1
-        //	moveq.l	#$1C,d0
-        //	bsr	_OPN_WRITE
-        //	move.l	(sp)+,d7
-        //	rts
-
-
-
-        //_COM_B0_2:
-        //	clr.b	VOLMODE(a6)
-        //	move.b	(a1)+,d0
-        //	sne.b	VOLMODE(a6)
-        //	rts
-
-        //; PSG LFO MODE
-        //_COM_B0_3:
-        //	andi.b	#$FC,DRV_FLAG2(a6)
-        //	move.b	(a1)+,d0
-        //	beq	_COM_B0_3_0
-        //	subq.b	#1,d0
-        //	beq	_COM_B0_3_1
-        //	subq.b	#1,d0
-        //	beq	_COM_B0_3_2
-        //_COM_B0_3_0:
-        //	rts
-
-        //; mako
-        //_COM_B0_3_1:
-        //	addq.b	#1,DRV_FLAG2(a6)
-        //	rts
-
-        //; old pmd
-        //_COM_B0_3_2:
-        //	addq.b	#2,DRV_FLAG2(a6)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	トラックジャンプ
-        //;
-        //_COM_BE:
-        //	bchg.b	#3,DRV_STATUS(a6)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	フェードアウト
-        //;
-        //_COM_BF_exit:
-        //	addq.w	#1,a1
-        //	rts
-
-        //_COM_BF:
-        //	bset.b	#4,DRV_STATUS(a6)
-        //	bne	_COM_BF_exit
-        //	move.b	#1,FADEFLAG(a6)
-        //	move.b	#3,FADECOUNT(a6)
-
-        //	btst.b	#0,DRV_FLAG(a6)
-        //	bne	_COM_BF_no_opn
-        //	move.l	d7,-(sp)
-        //	moveq.l	#3,d7
-        //	moveq.l	#$10,d1
-        //	moveq.l	#$1C,d0
-        //	bsr	_OPN_WRITE
-        //	move.l	(sp)+,d7
-        //_COM_BF_no_opn:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_BF_normal
-        //	move.b	d0,FADESPEED(a6)
-        //	move.b	d0,FADESPEED_WORK(a6)
-        //	rts
-
-        //_COM_BF_normal:
-        //	move.b	#7,FADESPEED(a6)
-        //	move.b	#7,FADESPEED_WORK(a6)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	ソフトウェアエンベロープ
-        //;		[$C0] + [SV]b + [AR]b + [DR]b + [SL]b + [SR]b + [RR]b
-        //;
-        //_COM_C0:
-        //	move.b	(a1)+,w_e_sv(a5)
-        //	move.b	(a1)+,w_e_ar(a5)
-        //	move.b	(a1)+,w_e_dr(a5)
-        //	move.b	(a1)+,w_e_sl(a5)
-        //	move.b	(a1)+,w_e_sr(a5)
-        //	move.b	(a1)+,w_e_rr(a5)
-        //	clr.b	w_e_sub(a5)
-        //	move.b	#4,w_e_p(a5)
-        //	ori.b	#$80,w_e_sw(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	ソフトウェアエンベロープ 2
-        //;		[$C1] + [AL]b + [DD]b + [SR]b + [RR]b
-        //;
-        //_COM_C1:
-        //	move.b	(a1)+,w_e_al(a5)
-        //	move.b	(a1)+,w_e_dd(a5)
-        //	move.b	(a1)+,w_e_sr(a5)
-        //	move.b	(a1)+,w_e_rr(a5)
-        //	ori.b	#$81,w_e_sw(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	・ソフトウェアエンベロープスイッチ
-        //;		[$C3] + [switch]
-        //;
-        //_COM_C3:
-        //	move.b	(a1)+,d0
-        //	beq	1f
-        //	ori.b	#$80,w_e_sw(a5)
-        //	rts
-        //1:
-        //	bclr.b	#7,w_e_sw(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	・エンベロープ切り替え
-        //;		[$C4] + [num]
-        //;
-        //_COM_C4:
-        //	move.b	(a1)+,d5
-        //	move.b	d5,w_envnum(a5)
-
-        //	move.l	ENV_PTR(a6),d0
-        //	beq	_com_c4_exit
-
-        //	movea.l	d0,a2
-        //	addq.w	#6,a2
-        //	move.w	ENVNUM(a6),d4
-        //	beq	_com_c4_exit
-
-        //	move.b	w_envbank(a5),d1
-        //_COM_C4_ana_loop:
-        //	cmp.b	2(a2),d1
-        //	bne	1f
-        //	cmp.b	3(a2),d5
-        //	beq	_COM_C4_set
-        //1:
-        //	subq.w	#1,d4
-        //	beq	_com_c4_exit
-        //	move.b	(a2),-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	1(a2),d0
-        //	lea.l	(a2,d0.w),a2
-        //	bra	_COM_C4_ana_loop
-
-        //_COM_C4_set:
-        //	addq.w	#4,a2
-
-        //	move.b	3(a2),w_e_sv(a5)
-        //	move.b	(a2),w_e_ar(a5)
-        //	move.b	4(a2),w_e_dr(a5)
-        //	move.b	6(a2),w_e_sl(a5)
-        //	move.b	8(a2),w_e_sr(a5)
-        //	move.b	12(a2),w_e_rr(a5)
-        //	ori.b	#$80,w_e_sw(a5)
-        //	btst.b	#5,w_flag(a5)
-        //	bne	_com_c4_exit
-        //	clr.b	w_e_sub(a5)
-        //	move.b	#4,w_e_p(a5)
-        //_com_c4_exit:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	・バンク&エンベロープ切り替え
-        //;		[$C5] + [bank] + [num]
-        //;
-        //_COM_C5:
-        //	move.b	(a1)+,d1
-        //	move.b	d1,w_envbank(a5)
-        //	move.b	(a1)+,d5
-        //	move.b	d5,w_envnum(a5)
-
-        //	move.l	ENV_PTR(a6),d0
-        //	beq	_com_c5_exit
-
-        //	movea.l	d0,a2
-        //	addq.w	#6,a2
-        //	move.w	ENVNUM(a6),d4
-        //	beq	_com_c5_exit
-
-        //_COM_C5_ana_loop:
-        //	cmp.b	2(a2),d1
-        //	bne	1f
-        //	cmp.b	3(a2),d5
-        //	beq	_COM_C5_set
-        //1:
-        //	subq.w	#1,d4
-        //	beq	_com_c5_exit
-        //	move.b	(a2),-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	1(a2),d0
-        //	lea.l	(a2,d0.w),a2
-        //	bra	_COM_C5_ana_loop
-
-        //_COM_C5_set:
-        //	addq.w	#4,a2
-
-        //	move.b	3(a2),w_e_sv(a5)
-        //	move.b	(a2),w_e_ar(a5)
-        //	move.b	4(a2),w_e_dr(a5)
-        //	move.b	6(a2),w_e_sl(a5)
-        //	move.b	8(a2),w_e_sr(a5)
-        //	move.b	12(a2),w_e_rr(a5)
-        //	clr.b	w_e_sub(a5)
-        //	move.b	#4,w_e_p(a5)
-        //	ori.b	#$80,w_e_sw(a5)
-        //_com_c5_exit:
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	キートランスポーズ
-        //;
-        //_COM_D0:
-        //	move.b	(a1)+,w_key_trans(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	相対キートランスポーズ
-        //;
-        //_COM_D1:
-        //	move.b	(a1)+,d0
-        //	add.b	d0,w_key_trans(a5)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	detune 設定
-        //;
-        //_COM_D8:
-        //	bset.b	#1,w_flag(a5)
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	move.w	d0,w_detune(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	detune 設定
-        //;
-        //_COM_D9:
-        //	bset.b	#1,w_flag(a5)
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	add.w	d0,w_detune(a5)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	pitch LFO
-        //;
-        //;	$E2,num,wave,speed,count,delay,henka_w
-        //;
-        //_COM_E2:
-        //	bset.b	#1,w_flag(a5)
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_E2_table(pc,d0.w),d0
-        //	jmp	_COM_E2_table(pc,d0.w)
-
-        //_COM_E2_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_E2_0-_COM_E2_table
-        //	.dc.w	_COM_E2_1-_COM_E2_table
-        //	.dc.w	_COM_E2_2-_COM_E2_table
-        //	.dc.w	_COM_E2_3-_COM_E2_table
-
-        //;─────────────────────────────────────
-        //;	pitch LFO ALL
-        //_COM_E2_0:
-        //	or.b	#$E,w_lfo(a5)
-        //	movea.l	a1,a0
-        //	lea.l	w_p_pattern1(a5),a4
-        //	lea.l	w_wp_pattern1(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#1,w_lfo(a5)
-        //1:
-        //	movea.l	a0,a1
-        //	lea.l	w_p_pattern2(a5),a4
-        //	lea.l	w_wp_pattern2(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#2,w_lfo(a5)
-        //1:
-        //	movea.l	a0,a1
-        //	lea.l	w_p_pattern3(a5),a4
-        //	lea.l	w_wp_pattern3(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#3,w_lfo(a5)
-        //1:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 1
-        //_COM_E2_1:
-        //	bset.b	#1,w_lfo(a5)
-
-        //	lea.l	w_p_pattern1(a5),a4
-        //	lea.l	w_wp_pattern1(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#1,w_lfo(a5)
-        //1:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 2
-        //_COM_E2_2:
-        //	bset.b	#2,w_lfo(a5)
-
-        //	lea.l	w_p_pattern2(a5),a4
-        //	lea.l	w_wp_pattern2(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#2,w_lfo(a5)
-        //1:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 3
-        //_COM_E2_3:
-        //	bset.b	#3,w_lfo(a5)
-
-        //	lea.l	w_p_pattern3(a5),a4
-        //	lea.l	w_wp_pattern3(a5),a3
-        //	bsr	_COM_E2_common
-        //	tst.l	d2
-        //	bpl	1f
-        //	bclr.b	#3,w_lfo(a5)
-        //1:
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	LFO SET COMMON
-        //;
-        //_COM_E2_common:
-        //	clr.w	w_l_bendwork(a4)
-        //	clr.b	w_w_use_flag(a3)
-        //	move.b	(a1)+,d0
-        //	move.b	d0,w_l_pattern(a4)
-        //	bmi	_COM_E2_wavememory
-        //	cmpi.b	#$10,d0
-        //	bcc	_COM_E2_compatible
-
-        //	move.b	(a1)+,d1
-        //	move.b	d1,w_l_lfo_sp(a4)
-        //	move.b	(a1)+,w_l_count(a4)
-        //	move.b	(a1)+,d0
-        //	cmpi.b	#$FF,d0
-        //	beq	1f
-        //	move.b	d0,w_l_keydelay(a4)
-        //	add.b	d0,d1
-        //	move.b	d1,w_l_delay_work(a4)
-        //1:
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	move.w	d0,w_l_henka(a4)
-        //	move.w	d0,w_l_henka_work(a4)
-        //	move.b	w_l_count(a4),d0
-        //	lsr.b	#1,d0
-        //	move.b	d0,w_l_count_work(a4)
-
-        //	andi.w	#$DFFF,w_l_flag(a4)
-        //	moveq.l	#0,d2
-        //	rts
-
-        //;─────────────────────────────────────
-        //_COM_E2_compatible:
-        //	move.b	#1,w_w_use_flag(a3)
-        //	st.b	w_l_pattern(a4)
-
-        //	andi.b	#7,d0
-        //	move.b	d0,d1
-        //	andi.b	#3,d1
-        //	move.b	d1,d2
-        //	add.b	#$10,d1
-        //	move.b	d1,w_w_type(a3)
-
-        //	move.b	(a1)+,w_l_lfo_sp(a4)
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a1)+,d1
-        //	move.w	d1,w_w_start(a3)	; 周期1
-
-        //	cmpi.b	#1,d2
-        //	beq	1f
-        //	lsr.w	#1,d1
-        //	bra	1f
-        //	cmpi.b	#3,d2
-        //	bne	1f
-        //	moveq.l	#1,d1
-        //1:
-        //	move.w	d1,w_w_loop_start(a3)	; 周期2
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a1)+,d1
-        //	ext.l	d1
-        //	asl.l	#8,d1
-        //	cmpi.b	#4,d0
-        //	bcs	1f
-        //	asl.l	#8,d1
-        //1:
-        //	move.l	d1,w_w_loop_end(a3)	; 増減1
-        //	cmpi.b	#2,d2			; wave2
-        //	beq	1f
-        //	moveq.l	#0,d1
-        //1:
-        //	move.l	d1,w_w_loop_count(a3)	; 増減2
-        //	moveq.l	#0,d2
-        //	rts
-
-        //;─────────────────────────────────────
-        //_COM_E2_wavememory:
-        //	andi.w	#$7F,d0
-        //	bsr	_get_wave_memory_e2
-
-        //	move.b	(a1)+,d1
-        //	move.b	d1,w_l_lfo_sp(a4)
-        //	move.b	(a1)+,d0
-        //	move.b	d0,w_w_depth(a3)
-        //	move.b	d0,w_l_count(a4)
-        //	move.b	(a1)+,d0
-        //	cmpi.b	#$FF,d0
-        //	beq	1f
-        //	move.b	d0,w_l_keydelay(a4)
-        //	add.b	d0,d1
-        //	move.b	d1,w_l_delay_work(a4)
-        //1:
-        //	move.b	(a1)+,d0
-        //	move.b	(a1)+,d0
-        //	clr.w	w_l_flag(a4)
-        //	rts
-
-        //;─────────────────────────────────────
-        //_get_wave_memory_e2:
-        //	move.l	WAVE_PTR(a6),d1
-        //	beq	_com_e2_wm_err_exit
-        //	movea.l	d1,a2
-        //	move.l	d1,d5
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	swap	d1
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	tst.l	d1
-        //	beq	_com_e2_wm_err_exit
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	tst.w	d1
-        //	beq	_com_e2_wm_err_exit
-
-        //_com_e2_wm10:
-        //	move.b	(a2),-(sp)
-        //	move.w	(sp)+,d2
-        //	move.b	1(a2),d2
-        //	swap	d2
-        //	move.b	2(a2),-(sp)
-        //	move.w	(sp)+,d2
-        //	move.b	3(a2),d2
-        //	cmp.w	4(a2),d0
-        //	beq	_com_e2_wm20
-        //	lea.l	(a2,d2.l),a2
-        //	dbra	d1,_com_e2_wm10
-        //	bra	_com_e2_wm_err_exit
-
-        //_com_e2_wm20:
-        //	addq.w	#6,a2
-
-        //	move.b	(a2)+,d0
-        //	move.b	d0,d1
-        //	andi.b	#$F,d1
-        //	move.b	d1,w_w_type(a3)
-        //	lsr.b	#4,d0
-        //	move.b	d0,w_w_ko_flag(a3)
-
-        //	move.b	(a2)+,d0
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_loop_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_loop_end(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	move.l	d0,w_w_loop_count(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_ko_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_ko_loop_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_w_ko_loop_end(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	move.l	d0,w_w_ko_loop_count(a3)
-
-        //	st.b	w_w_use_flag(a3)
-        //	moveq.l	#0,d2
-        //	rts
-
-        //_com_e2_wm_err_exit:
-        //	moveq.l	#-1,d2
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	pitch LFO on /off
-        //;
-        //;	$E3,num,switch
-        //;
-        //_COM_E3:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	move.l	d0,d1
-        //	add.w	d0,d0
-        //	move.w	_COM_E3_table(pc,d0.w),d0
-        //	jmp	_COM_E3_table(pc,d0.w)
-
-        //_COM_E3_table:
-        //	.dc.w	_COM_E3_0-_COM_E3_table
-        //	.dc.w	_COM_E3_1-_COM_E3_table
-        //	.dc.w	_COM_E3_2-_COM_E3_table
-        //	.dc.w	_COM_E3_3-_COM_E3_table
-
-        //; bit15		0:enable 1:disable
-        //; bit1 keyoff	0:enable 1:disable
-        //; bit0 keyon	0:enable 1:disable
-        //; $80  = at keyon
-        //; $81  = at keyoff
-        //; $82  = always
-        //; $83  = async
-        //; $84  = stop & init
-        //;
-        //_COM_E3_0:
-        //	andi.b	#$F1,w_lfo(a5)
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E3_ALL_OFF
-        //	bpl	_COM_E3_ALL_ON
-
-        //	cmpi.b	#$82,d0
-        //	beq	2f
-        //	cmpi.b	#$83,d0
-        //	beq	3f
-        //	cmpi.b	#$84,d0
-        //	beq	4f
-
-        //	lsr.b	#1,d0
-        //	bcc	1f
-        //	lea.l	w_p_pattern1(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	lea.l	w_p_pattern2(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	lea.l	w_p_pattern3(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	bra	_COM_E3_ALL_ON
-        //1:
-        //	lea.l	w_p_pattern1(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	lea.l	w_p_pattern2(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	lea.l	w_p_pattern3(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	bra	_COM_E3_ALL_ON
-        //2:
-        //	lea.l	w_p_pattern1(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	lea.l	w_p_pattern2(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	lea.l	w_p_pattern3(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	bra	_COM_E3_ALL_ON
-        //3:
-        //	lea.l	w_p_pattern1(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-        //	lea.l	w_p_pattern2(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-        //	lea.l	w_p_pattern3(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-        //	bra	_COM_E3_ALL_ON
-        //4:
-        //	bsr	_init_lfo2
-        //	bra	_COM_E3_ALL_OFF
-
-        //_COM_E3_ALL_ON:
-        //	bset.b	#1,w_flag(a5)
-        //	ori.b	#$E,w_lfo(a5)
-        //_COM_E3_ALL_OFF:
-        //	rts
-
-        //_COM_E3_1:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E3_OFF
-        //	bpl	_COM_E3_ON
-        //	lea.l	w_p_pattern1(a5),a4
-        //	bra	_COM_E3_common
-
-        //_COM_E3_2:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E3_OFF
-        //	bpl	_COM_E3_ON
-        //	lea.l	w_p_pattern2(a5),a4
-        //	bra	_COM_E3_common
-
-        //_COM_E3_3:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E3_OFF
-        //	bpl	_COM_E3_ON
-        //	lea.l	w_p_pattern3(a5),a4
-        //;	bra	_COM_E3_common
-
-        //_COM_E3_common:
-        //	cmpi.b	#$82,d0
-        //	beq	2f
-        //	cmpi.b	#$83,d0
-        //	beq	3f
-        //	cmpi.b	#$84,d0
-        //	beq	4f
-
-        //	lsr.b	#1,d0
-        //	bcc	1f
-        //	move.w	#$8002,w_l_flag(a4)
-        //	bra	_COM_E3_ON
-        //1:
-        //	move.w	#$8001,w_l_flag(a4)
-        //	bra	_COM_E3_ON
-        //2:
-        //	clr.w	w_l_flag(a4)
-        //	bra	_COM_E3_ON
-        //3:
-        //	move.w	#$4000,w_l_flag(a4)
-        //	bra	_COM_E3_ON
-        //4:
-        //	bsr	_init_lfo2
-        //	bra	_COM_E3_OFF
-
-        //_COM_E3_ON:
-        //	bset.b	#1,w_flag(a5)
-        //	move.b	w_lfo(a5),d0
-        //	bset.l	d1,d0
-        //	move.b	d0,w_lfo(a5)
-        //	rts
-
-        //_COM_E3_OFF:
-        //	move.b	w_lfo(a5),d0
-        //	bclr.l	d1,d0
-        //	move.b	d0,w_lfo(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	pitch LFO delay
-        //;
-        //;	$E4,num,delay
-        //;
-        //_COM_E4:
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_E4_table(pc,d0.w),d0
-        //	jmp	_COM_E4_table(pc,d0.w)
-
-        //_COM_E4_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_E4_0-_COM_E4_table
-        //	.dc.w	_COM_E4_1-_COM_E4_table
-        //	.dc.w	_COM_E4_2-_COM_E4_table
-        //	.dc.w	_COM_E4_3-_COM_E4_table
-
-        //;─────────────────────────────────────
-        //;	pitch LFO ALL
-        //_COM_E4_0:
-        //;	or.b	#$E,w_lfo(a5)
-        //	movea.l	a1,a0
-        //	lea.l	w_p_pattern1(a5),a4
-        //	bsr	_COM_E49_common
-        //	movea.l	a0,a1
-        //	lea.l	w_p_pattern2(a5),a4
-        //	bsr	_COM_E49_common
-        //	movea.l	a0,a1
-        //	lea.l	w_p_pattern3(a5),a4
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 1
-        //_COM_E4_1:
-        //	lea.l	w_p_pattern1(a5),a4
-        //;	bset.b	#1,w_lfo(a5)
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 2
-        //_COM_E4_2:
-        //	lea.l	w_p_pattern2(a5),a4
-        //;	bset.b	#2,w_lfo(a5)
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	pitch LFO 3
-        //_COM_E4_3:
-        //	lea.l	w_p_pattern3(a5),a4
-        //;	bset.b	#3,w_lfo(a5)
-
-        //_COM_E49_common:
-        //	move.b	(a1)+,d0
-        //	cmpi.b	#$FF,d0
-        //	beq	_COM_E49_add
-        //	move.b	d0,w_l_keydelay(a4)
-        //	add.b	w_l_lfo_sp(a4),d0
-        //	move.b	d0,w_l_delay_work(a4)
-        //	rts
-
-        //_COM_E49_add:
-        //	move.b	(a1)+,d0
-        //	add.b	w_l_keydelay(a4),d0
-        //	add.b	w_l_lfo_sp(a4),d0
-        //	move.b	d0,w_l_keydelay(a4)
-        //	move.b	d0,w_l_delay_work(a4)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	音量 LFO
-        //;
-        //;	$E7,num,wave,delay,count,speed,henka_w
-        //;
-        //_COM_E7:
-        //	bset.b	#1,w_flag(a5)
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_E7_table(pc,d0.w),d0
-        //	jmp	_COM_E7_table(pc,d0.w)
-
-        //_COM_E7_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_E7_0-_COM_E7_table
-        //	.dc.w	_COM_E7_1-_COM_E7_table
-        //	.dc.w	_COM_E7_2-_COM_E7_table
-        //	.dc.w	_COM_E7_3-_COM_E7_table
-
-        //;─────────────────────────────────────
-        //;	音量 LFO
-        //;
-        //_COM_E7_0:
-        //	movea.l	a1,a0
-        //	or.b	#$70,w_lfo(a5)
-        //	lea.l	w_v_pattern1(a5),a4
-        //	lea.l	w_wv_pattern1(a5),a3
-        //	bsr	_COM_E7_common
-        //	movea.l	a0,a1
-        //	lea.l	w_v_pattern2(a5),a4
-        //	lea.l	w_wv_pattern2(a5),a3
-        //	bsr	_COM_E7_common
-        //	movea.l	a0,a1
-        //	lea.l	w_v_pattern3(a5),a4
-        //	lea.l	w_wv_pattern3(a5),a3
-        //	bra	_COM_E7_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 1
-        //;
-        //_COM_E7_1:
-        //	bset.b	#4,w_lfo(a5)
-        //	lea.l	w_v_pattern1(a5),a4
-        //	lea.l	w_wv_pattern1(a5),a3
-        //	bra	_COM_E7_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 2
-        //;
-        //_COM_E7_2:
-        //	bset.b	#5,w_lfo(a5)
-
-        //	lea.l	w_v_pattern2(a5),a4
-        //	lea.l	w_wv_pattern2(a5),a3
-        //	bra	_COM_E7_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 3
-        //;
-        //_COM_E7_3:
-        //	bset.b	#6,w_lfo(a5)
-        //	lea.l	w_v_pattern3(a5),a4
-        //	lea.l	w_wv_pattern3(a5),a3
-        //;	bra	_COM_E7_common
-
-        //;─────────────────────────────────────
-        //;	LFO SET COMMON
-        //;
-        //_COM_E7_common:
-        //	clr.w	w_l_bendwork(a4)
-        //	clr.b	w_w_use_flag(a3)
-        //	move.b	(a1)+,d0
-        //	move.b	d0,w_l_pattern(a4)
-        //	bmi	_COM_E2_wavememory
-        //	cmpi.b	#$10,d0
-        //	bcc	_COM_E7_compatible
-
-        //	move.b	(a1)+,d1
-        //	move.b	d1,w_l_lfo_sp(a4)
-        //	move.b	(a1)+,w_l_count(a4)
-        //	move.b	(a1)+,d0
-        //	cmpi.b	#$FF,d0
-        //	beq	1f
-        //	move.b	d0,w_l_keydelay(a4)
-        //	add.b	d0,d1
-        //	move.b	d1,w_l_delay_work(a4)
-        //1:
-        //	addq.w	#1,a1
-        //	move.b	(a1)+,d0
-        //	ext.w	d0
-        //	move.w	d0,w_l_henka(a4)
-        //	move.w	d0,w_l_henka_work(a4)
-        //	rts
-
-        //;─────────────────────────────────────
-        //_COM_E7_compatible:
-        //	move.b	#1,w_w_use_flag(a3)
-        //	st.b	w_l_pattern(a4)
-
-        //	andi.b	#7,d0
-        //	move.b	d0,d1
-        //	andi.b	#3,d1
-        //	move.b	d1,d2
-        //	add.b	#$14,d1
-        //	move.b	d1,w_w_type(a3)
-
-        //	move.b	(a1)+,w_l_lfo_sp(a4)
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a1)+,d1
-        //	move.w	d1,w_w_start(a3)	; 周期
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	move.w	d0,w_w_loop_start(a3)	; 増減
-        //	lsr.b	#1,d2
-        //	bcs	1f
-        //	muls.w	d1,d0
-        //1:
-        //	neg.w	d0
-        //	bpl	1f
-        //	moveq.l	#0,d0
-        //1:
-        //	move.w	d0,w_w_loop_end(a3)	; 最大振幅
-
-        //	move.w	w_w_start(a3),w_w_ko_start(a3)
-        //	move.w	w_w_loop_start(a3),w_w_ko_loop_start(a3)
-        //	move.w	w_w_loop_end(a3),w_w_ko_loop_end(a3)
-        //	moveq.l	#0,d2
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	音量 LFO on /off
-        //;
-        //;	$E8,num,switch
-        //_COM_E8:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	move.l	d0,d1
-        //	addq.b	#3,d1
-        //	add.w	d0,d0
-        //	move.w	_COM_E8_table(pc,d0.w),d0
-        //	jmp	_COM_E8_table(pc,d0.w)
-
-        //_COM_E8_table:
-        //	.dc.w	_COM_E8_0-_COM_E8_table
-        //	.dc.w	_COM_E8_1-_COM_E8_table
-        //	.dc.w	_COM_E8_2-_COM_E8_table
-        //	.dc.w	_COM_E8_3-_COM_E8_table
-
-
-        //_COM_E8_0:
-        //	andi.b	#$8F,w_lfo(a5)
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E8_ALL_OFF
-        //	bpl	_COM_E8_ALL_ON
-
-        //	cmpi.b	#$82,d0
-        //	beq	2f
-        //	cmpi.b	#$83,d0
-        //	beq	3f
-
-        //	lsr.b	#1,d0
-        //	bcc	1f
-        //	lea.l	w_v_pattern1(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	lea.l	w_v_pattern2(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	lea.l	w_v_pattern3(a5),a4
-        //	move.w	#$8002,w_l_flag(a4)
-        //	bra	_COM_E8_ALL_ON
-        //1:
-        //	lea.l	w_v_pattern1(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	lea.l	w_v_pattern2(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	lea.l	w_v_pattern3(a5),a4
-        //	move.w	#$8001,w_l_flag(a4)
-        //	bra	_COM_E8_ALL_ON
-        //2:
-        //	lea.l	w_v_pattern1(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	lea.l	w_v_pattern2(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	lea.l	w_v_pattern3(a5),a4
-        //	clr.w	w_l_flag(a4)
-        //	bra	_COM_E8_ALL_ON
-        //3:
-        //	lea.l	w_v_pattern1(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-        //	lea.l	w_v_pattern2(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-        //	lea.l	w_v_pattern3(a5),a4
-        //	move.w	#$4000,w_l_flag(a4)
-
-        //_COM_E8_ALL_ON:
-        //	bset.b	#1,w_flag(a5)
-        //	ori.b	#$70,w_lfo(a5)
-        //_COM_E8_ALL_OFF:
-        //	rts
-
-        //_COM_E8_1:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E8_OFF
-        //	bpl	_COM_E8_ON
-        //	lea.l	w_v_pattern1(a5),a4
-        //	bra	_COM_E8_common
-
-        //_COM_E8_2:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E8_OFF
-        //	bpl	_COM_E8_ON
-        //	lea.l	w_v_pattern2(a5),a4
-        //	bra	_COM_E8_common
-
-        //_COM_E8_3:
-        //	move.b	(a1)+,d0
-        //	beq	_COM_E8_OFF
-        //	bpl	_COM_E8_ON
-        //	lea.l	w_v_pattern3(a5),a4
-        //;	bra	_COM_E8_common
-
-        //_COM_E8_common:
-        //	cmpi.b	#$82,d0
-        //	beq	2f
-        //	cmpi.b	#$83,d0
-        //	beq	3f
-
-        //	lsr.b	#1,d0
-        //	bcc	1f
-        //	move.w	#$8002,w_l_flag(a4)
-        //	bra	_COM_E8_ON
-        //1:
-        //	move.w	#$8001,w_l_flag(a4)
-        //	bra	_COM_E8_ON
-        //2:
-        //	clr.w	w_l_flag(a4)
-        //	bra	_COM_E8_ON
-        //3:
-        //	move.w	#$4000,w_l_flag(a4)
-
-        //_COM_E8_ON:
-        //	bset.b	#1,w_flag(a5)
-        //	move.b	w_lfo(a5),d0
-        //	bset.l	d1,d0
-        //	move.b	d0,w_lfo(a5)
-        //	rts
-
-        //_COM_E8_OFF:
-        //	move.b	w_lfo(a5),d0
-        //	bclr.l	d1,d0
-        //	move.b	d0,w_lfo(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	音量 LFO delay
-        //;
-        //_COM_E9:
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_E9_table(pc,d0.w),d0
-        //	jmp	_COM_E9_table(pc,d0.w)
-
-        //_COM_E9_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_E9_0-_COM_E9_table
-        //	.dc.w	_COM_E9_1-_COM_E9_table
-        //	.dc.w	_COM_E9_2-_COM_E9_table
-        //	.dc.w	_COM_E9_3-_COM_E9_table
-
-        //;─────────────────────────────────────
-        //;	音量 LFO
-        //;
-        //_COM_E9_0:
-        //	movea.l	a1,a0
-        //;	or.b	#$70,w_lfo(a5)
-        //	lea.l	w_v_pattern1(a5),a4
-        //	bsr	_COM_E49_common
-        //	movea.l	a0,a1
-        //	lea.l	w_v_pattern2(a5),a4
-        //	bsr	_COM_E49_common
-        //	movea.l	a0,a1
-        //	lea.l	w_v_pattern3(a5),a4
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 1
-        //_COM_E9_1:
-        //	lea.l	w_v_pattern1(a5),a4
-        //;	bset.b	#4,w_lfo(a5)
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 2
-        //_COM_E9_2:
-        //	lea.l	w_v_pattern2(a5),a4
-        //;	bset.b	#5,w_lfo(a5)
-        //	bra	_COM_E49_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 3
-        //_COM_E9_3:
-        //	lea.l	w_v_pattern3(a5),a4
-        //;	bset.b	#6,w_lfo(a5)
-        //	bra	_COM_E49_common
-
-
-        //;─────────────────────────────────────
-        //;	音量 LFO switch 2
-        //;
-        //_COM_EA:
-        //	moveq.l	#1,d0
-        //	add.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	move.w	_COM_EA_table(pc,d0.w),d0
-        //	jmp	_COM_EA_table(pc,d0.w)
-
-        //_COM_EA_table:
-        //	.dc.w	0
-        //	.dc.w	_COM_EA_0-_COM_EA_table
-        //	.dc.w	_COM_EA_1-_COM_EA_table
-        //	.dc.w	_COM_EA_2-_COM_EA_table
-        //	.dc.w	_COM_EA_3-_COM_EA_table
-
-        //;─────────────────────────────────────
-        //;	音量 LFO
-        //;
-        //_COM_EA_0:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	beq	1f
-        //	ori.b	#$80,d0
-        //1:
-        //	lea.l	w_wv_pattern1(a5),a3
-        //	move.b	d0,w_w_slot(a3)
-        //	lea.l	w_wv_pattern2(a5),a3
-        //	move.b	d0,w_w_slot(a3)
-        //	lea.l	w_wv_pattern3(a5),a3
-        //	move.b	d0,w_w_slot(a3)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 1
-        //_COM_EA_1:
-        //	lea.l	w_wv_pattern1(a5),a3
-        //	bra	_COM_EA_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 2
-        //_COM_EA_2:
-        //	lea.l	w_wv_pattern2(a5),a3
-        //	bra	_COM_EA_common
-
-        //;─────────────────────────────────────
-        //;	音量 LFO 3
-        //_COM_EA_3:
-        //	lea.l	w_wv_pattern3(a5),a3
-        //_COM_EA_common:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	beq	1f
-        //	ori.b	#$80,d0
-        //1:
-        //	move.b	d0,w_w_slot(a3)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	わうわう
-        //;
-        //_COM_EB:
-        //	lea.l	w_ww_pattern1(a5),a4
-
-        //	move.b	(a1)+,d0
-        //	beq	_COM_EB_END
-        //	bmi	_COM_EB_ON
-
-        //	move.b	(a1)+,w_ww_delay(a4)
-        //	move.b	(a1)+,w_ww_speed(a4)
-        //	move.b	(a1)+,w_ww_rate(a4)
-        //	move.b	(a1)+,w_ww_depth(a4)
-        //	move.b	(a1)+,w_ww_slot(a4)
-
-        //_COM_EB_ON:
-        //	clr.b	w_ww_sync(a4)
-        //	bset.b	#5,w_effect(a5)
-
-        //	move.b	w_ww_speed(a4),d0
-        //	add.b	w_ww_delay(a4),d0
-        //	move.b	d0,w_ww_delay_work(a4)
-        //	move.b	w_ww_rate(a4),w_ww_rate_work(a4)
-        //	move.b	w_ww_depth(a4),w_ww_depth_work(a4)
-        //	clr.b	w_ww_work(a4)
-
-        //	tst.b	w_ww_slot(a4)
-        //	smi.b	w_ww_sync(a4)
-        //	rts
-
-        //_COM_EB_END:
-        //	bclr.b	#5,w_effect(a5)
-        //	rts
-
-
-
-        //;─────────────────────────────────────
-        //;	wavememory effect
-        //;
-        //;	[$ED] + [num]b + [switch]b ...
-        //;	num
-        //;		$00 ～ $03
-        //;	switch
-        //;	minus
-        //;		$80 = ON
-        //;		$81 = OFF
-        //;		$82 = always
-        //;		$83 = at keyon
-        //;		$84 = at keyoff
-        //;	plus = + [switch2]b + [wave]w + [delay]b + [speed]b + [sync]b + [reset]w
-        //;	$00 = y command
-        //;		波形データの上位バイトのレジスタに
-        //;		下位バイトのデータを書き込む
-        //;	$01 = tone
-        //;	$02 = panpot
-        //;
-        //_COM_ED:
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	add.w	d0,d0
-        //	lea.l	_com_ed_num_table(pc),a0
-        //	move.w	(a0,d0.w),d0
-        //	jmp	(a0,d0.w)
-
-        //_com_ed_num_table:
-        //	.dc.w	0
-        //	.dc.w	_com_ed_1-_com_ed_num_table
-        //	.dc.w	_com_ed_2-_com_ed_num_table
-        //	.dc.w	_com_ed_3-_com_ed_num_table
-        //	.dc.w	_com_ed_4-_com_ed_num_table
-
-        //_com_ed_1:
-        //	lea.l	w_we_pattern1(a5),a3
-        //	clr.b	w_we_exec(a3)
-        //	moveq.l	#0,d1
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_com_ed_sw_common
-
-        //	bsr	_com_ed_common
-        //	bmi	1f
-        //	ori.b	#$81,w_weffect(a5)
-        //	rts
-        //1:
-        //	andi.b	#$FE,w_weffect(a5)
-        //	rts
-
-        //_com_ed_2:
-        //	lea.l	w_we_pattern2(a5),a3
-        //	clr.b	w_we_exec(a3)
-        //	moveq.l	#1,d1
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_com_ed_sw_common
-
-        //	bsr	_com_ed_common
-        //	tst.l	d2
-        //	bmi	1f
-        //	ori.b	#$82,w_weffect(a5)
-        //	rts
-        //1:
-        //	andi.b	#$FD,w_weffect(a5)
-        //	rts
-
-        //_com_ed_3:
-        //	lea.l	w_we_pattern3(a5),a3
-        //	clr.b	w_we_exec(a3)
-        //	moveq.l	#2,d1
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_com_ed_sw_common
-
-        //	bsr	_com_ed_common
-        //	tst.l	d2
-        //	bmi	1f
-        //	ori.b	#$84,w_weffect(a5)
-        //	rts
-        //1:
-        //	andi.b	#$FB,w_weffect(a5)
-        //	rts
-
-        //_com_ed_4:
-        //	lea.l	w_we_pattern4(a5),a3
-        //	clr.b	w_we_exec(a3)
-        //	moveq.l	#3,d1
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	bmi	_com_ed_sw_common
-
-        //	bsr	_com_ed_common
-        //	tst.l	d2
-        //	bmi	1f
-        //	ori.b	#$88,w_weffect(a5)
-        //	rts
-        //1:
-        //	andi.b	#$F7,w_weffect(a5)
-        //	rts
-
-        //_com_ed_sw_common:
-        //	andi.w	#7,d0
-        //	addq.w	#1,d0
-        //	add.w	d0,d0
-        //	lea.l	_com_ed_sw_table(pc),a0
-        //	move.w	(a0,d0.w),d0
-        //	jmp	(a0,d0.w)
-
-        //_com_ed_sw_table:
-        //	.dc.w	0
-        //	.dc.w	_com_ed_80-_com_ed_sw_table
-        //	.dc.w	_com_ed_81-_com_ed_sw_table
-        //	.dc.w	_com_ed_82-_com_ed_sw_table
-        //	.dc.w	_com_ed_83-_com_ed_sw_table
-        //	.dc.w	_com_ed_84-_com_ed_sw_table
-
-        //;
-        //;	ON
-        //;
-        //_com_ed_80:
-        //	moveq.l	#1,d0
-        //	lsl.l	d1,d0
-        //	ori.b	#$80,d0
-        //	or.b	d0,w_weffect(a5)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //;
-        //;	OFF
-        //;
-        //_com_ed_81:
-        //	moveq.l	#1,d0
-        //	lsl.l	d1,d0
-        //	not.b	d0
-        //	and.b	d0,w_weffect(a5)
-
-        //	lea.l	w_we_ycom_adrs(a5),a0
-        //	andi.w	#3,d0
-        //	add.w	d0,d0
-        //	add.w	d0,d0
-        //	lea.l	(a0,d0.w),a0
-        //	movea.l	(a0),a0
-        //	move.w	w_we_reset(a3),d0
-        //	jsr	(a0)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //;
-        //;	always
-        //;
-        //_com_ed_82:
-        //	clr.b	w_we_exec(a3)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //;
-        //;	at keyon
-        //;
-        //_com_ed_83:
-        //	move.b	#$81,w_we_exec(a3)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //;
-        //;	at keyoff
-        //;
-        //_com_ed_84:
-        //	move.b	#$82,w_we_exec(a3)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //_com_ed_common:
-        //	lea.l	w_we_ycom_adrs(a5),a0
-        //	andi.w	#3,d0
-        //	add.w	d0,d0
-        //	add.w	d0,d0
-        //	lea.l	(a0,d0.w),a0
-        //	movea.l	(a0),a0
-        //	move.l	a0,w_we_exec_adrs(a3)
-
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	bsr	_get_wave_memory_ed
-
-        //	move.b	(a1)+,w_we_delay(a3)
-        //	move.b	(a1)+,d1
-        //	move.b	d1,w_we_speed(a3)
-
-        //	moveq.l	#0,d0
-        //	move.b	(a1)+,d0
-        //	move.b	_com_ed_sync_table(pc,d0.w),w_we_mode(a3)
-
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	move.w	d0,w_we_reset(a3)
-
-        //	clr.b	w_we_exec_flag(a3)
-        //	clr.b	w_we_loop_flag(a3)
-        //	move.b	w_we_delay(a3),d0
-        //	add.b	d1,d0
-        //	move.b	d0,w_we_delay_work(a3)
-        //	move.l	w_we_start(a3),w_we_adrs_work(a3)
-        //	move.l	w_we_loop_start(a3),w_we_start_adrs_work(a3)
-        //	move.l	w_we_loop_end(a3),w_we_end_adrs_work(a3)
-        //	move.l	w_we_loop_count(a3),w_we_lp_cnt_work(a3)
-        //	moveq.l	#0,d0
-        //	rts
-
-        //_com_ed_sync_table:
-        //	.dc.b	$80,$00,$01,$02
-
-        //	.quad
-        //;─────────────────────────────────────
-        //_get_wave_memory_ed:
-        //	move.l	WAVE_PTR(a6),d1
-        //	beq	_com_ed_wm_err_exit
-        //	movea.l	d1,a2
-        //	move.l	d1,d5
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	swap	d1
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	tst.l	d1
-        //	beq	_com_ed_wm_err_exit
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d1
-        //	move.b	(a2)+,d1
-        //	tst.w	d1
-        //	beq	_com_ed_wm_err_exit
-
-        //_com_ed_wm10:
-        //	move.b	(a2),-(sp)
-        //	move.w	(sp)+,d2
-        //	move.b	1(a2),d2
-        //	swap	d2
-        //	move.b	2(a2),-(sp)
-        //	move.w	(sp)+,d2
-        //	move.b	3(a2),d2
-        //	cmp.w	4(a2),d0
-        //	beq	_com_ed_wm20
-        //	lea.l	(a2,d2.l),a2
-        //	dbra	d1,_com_ed_wm10
-        //	bra	_com_ed_wm_err_exit
-
-        //_com_ed_wm20:
-        //	addq.w	#6,a2
-
-        //	move.b	(a2)+,d0
-        //	move.b	d0,d1
-        //	andi.b	#$F,d1
-        //	move.b	d1,w_we_count(a3)
-        //	lsr.b	#4,d0
-        //	move.b	d0,w_we_ko_flag(a3)
-
-        //	move.b	(a2)+,d0
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_loop_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_loop_end(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	move.l	d0,w_we_loop_count(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_ko_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_ko_loop_start(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	add.l	d5,d0
-        //	move.l	d0,w_we_ko_loop_end(a3)
-
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	swap	d0
-        //	move.b	(a2)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a2)+,d0
-        //	move.l	d0,w_we_ko_loop_count(a3)
-        //	moveq.l	#0,d2
-        //	rts
-
-        //_com_ed_wm_err_exit:
-        //	moveq.l	#-1,d2
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	hardware LFO delay
-        //;		[$EF] + [delay]b
-        //;
-        //_COM_EF:
-        //	bset.b	#1,w_flag(a5)
-        //	bset.b	#2,w_flag2(a5)
-        //	lea.l	w_v_pattern4(a5),a4
-        //	move.b	(a1)+,d0
-        //	cmpi.b	#$FF,d0
-        //	beq	_COM_EF_add
-
-        //	move.b	d0,w_l_keydelay(a4)
-        //	add.b	w_l_lfo_sp(a4),d0
-        //	move.b	d0,w_l_delay_work(a4)
-        //	rts
-
-        //_COM_EF_add:
-        //	move.b	(a1)+,d0
-        //	move.b	w_l_keydelay(a4),d1
-        //	add.b	d0,d1
-        //	add.b	w_l_lfo_sp(a4),d1
-        //	move.b	d1,w_l_keydelay(a4)
-        //	move.b	d1,w_l_delay_work(a4)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //;	永久ループポイントマーク
-        //;			[$F9]
-        //_COM_F9:
-        //	move.l	a1,w_loop(a5)
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	リピート抜け出し
-        //;			[$FB] + [終端コマンドへのオフセット]w
-        //_COM_FB:
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	lea.l	1(a1,d0.w),a0
-        //	move.b	(a0)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a0)+,d0
-        //	cmpi.b	#1,2(a0,d0.w)
-        //	bne	1f
-        //	movea.l	a0,a1
-        //1:	rts
-
-        //;─────────────────────────────────────
-        //;	リピート開始
-        //;			[$FC] + [リピート回数]b + [$00]b
-        //_COM_FC:
-        //	move.b	(a1)+,(a1)+
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	リピート終端
-        //;			[$FD] + [開始コマンドへのオフセット]w
-        //_COM_FD:
-        //	move.b	(a1)+,-(sp)
-        //	move.w	(sp)+,d0
-        //	move.b	(a1)+,d0
-        //	tst.b	1(a1,d0.w)
-        //	beq	1f
-        //	subq.b	#1,2(a1,d0.w)
-        //	bne	1f
-        //	rts
-        //1:	lea.l	3(a1,d0.w),a1
-        //	rts
-
-        //;─────────────────────────────────────
-        //;	tempo 設定
-        //;
-        //_COM_FE:
-        //	move.b	(a1)+,TEMPO(a6)
-        //	rts
-
-
-        //;─────────────────────────────────────
-        //_all_end_check:
-        //	move.w	USE_TRACK(a6),d0
-        //	lea.l	TRACKWORKADR(a6),a0
-        //1:	tst.b	w_flag(a0)
-        //	bmi	2f
-        //	lea.l	_track_work_size(a0),a0
-        //	subq.w	#1,d0
-        //	bne	1b
-        //	move.b	#$20,DRV_STATUS(a6)
-        //	move.w	#-1,LOOP_COUNTER(a6)
-        //	moveq.l	#2,d0
-        //	bra	SUBEVENT
-        //2:
-        //	rts
-
-        //	.quad
+        //	ネガティブ @q 設定
+        //			[$93] + [DATA]b
+        public void _COM_93()
+        {
+            mm.Write(reg.a5 + w.at_q, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | 0x40));
+            mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) | 0x20));
+        }
+
+        //	キーオフモード
+        //			[$94] + [switch]b
+        public void _COM_94()
+        {
+            mm.Write(reg.a5 + w.kom, 0);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B != 0) mm.Write(reg.a5 + w.kom, (byte)0xff);
+        }
+
+        //	擬似リバーブ
+        //		switch = $80 = ON
+        //			 $81 = OFF
+        //			 $82 = volume を直接指定にする
+        //			 $83 = volume を相対指定にする
+        //			 $84 = リバーブ動作は相対音量モードに依存する
+        //			 $85 = リバーブ動作は常に @v 単位
+        //
+        //			 $00 = + [volume]b
+        //			 $01 = + [volume]b + [pan]b
+        //			 $02 = + [volume]b + [tone]b
+        //			 $03 = + [volume]b + [panpot]b + [tone]b
+        //			 $04 = + [volume]b ( 微調整 )
+        //	work
+        //		bit4 1:常に @v
+        //		bit3 1:@v直接
+        //		bit2 1:微調整
+        //		bit1 1:音色変更
+        //		bit0 1:定位変更
+        //
+        public void _COM_98()
+        {
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) & 0x10));
+                reg.D0_B += 1;
+                reg.D0_B += reg.D0_B;
+                switch (reg.D0_B)
+                {
+                    case 2:
+                        _COM_98_0();
+                        break;
+                    case 4:
+                        _COM_98_1();
+                        break;
+                    case 6:
+                        _COM_98_2();
+                        break;
+                    case 8:
+                        _COM_98_3();
+                        break;
+                    case 10:
+                        _COM_98_4();
+                        break;
+                }
+                return;
+            }
+
+            reg.D0_B &= 0xf;
+            reg.D0_B += 1;
+            reg.D0_B += reg.D0_B;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_98_80();
+                    break;
+                case 4:
+                    _COM_98_81();
+                    break;
+                case 6:
+                    _COM_98_82();
+                    break;
+                case 8:
+                    _COM_98_83();
+                    break;
+                case 10:
+                    _COM_98_84();
+                    break;
+                case 12:
+                    _COM_98_85();
+                    break;
+            }
+        }
+
+        public void _COM_98_80()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x80));
+        }
+
+        public void _COM_98_81()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) & 0x7f));
+        }
+
+        public void _COM_98_82()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x08));
+        }
+
+        public void _COM_98_83()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) & 0xf7));
+        }
+
+        public void _COM_98_84()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) & 0xef));
+        }
+
+        public void _COM_98_85()
+        {
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x10));
+        }
+
+        // volume
+        public void _COM_98_0()
+        {
+            mm.Write(reg.a5 + w.reverb_vol, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x80));
+        }
+
+        // volume + pan
+        public void _COM_98_1()
+        {
+            mm.Write(reg.a5 + w.reverb_vol, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb_pan, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x81));
+        }
+
+        // volume + tone
+        public void _COM_98_2()
+        {
+            mm.Write(reg.a5 + w.reverb_vol, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb_tone, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x82));
+        }
+
+        // volume + panpot + tone
+        public void _COM_98_3()
+        {
+            mm.Write(reg.a5 + w.reverb_vol, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb_pan, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb_tone, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x83));
+        }
+
+        // volume
+        public void _COM_98_4()
+        {
+            mm.Write(reg.a5 + w.reverb_vol, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.reverb, (byte)(mm.ReadByte(reg.a5 + w.reverb) | 0x84));
+        }
+
+        //	擬似エコー(廃止コマンド？)
+        public void _COM_99()
+        {
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                reg.D0_W += reg.D0_W;
+                return;
+            }
+
+            if (reg.D0_B == 0x80)
+            {
+                return;
+            }
+
+        }
+
+        //	擬似動作 step time
+        public void _COM_9A()
+        {
+            mm.Write(reg.a5 + w.reverb_time, mm.ReadByte(reg.a1++));
+        }
+
+        //	音量テーブル切り替え
+        public void _COM_A3()
+        {
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            reg.D5_B = mm.ReadByte(reg.a1++);
+
+            reg.D0_L = mm.ReadUInt32(reg.a6 + dw.VOL_PTR);
+            if (reg.D0_L == 0) return;
+
+            reg.a2 = reg.D0_L;
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 8) | (reg.D0_L >> 8);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D2_L = reg.D0_L;
+            if (reg.D2_L == 0) return;
+
+            reg.D4_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+
+            //_com_a3_ana_loop:
+            while (true)
+            {
+                if (mm.ReadByte(reg.a2 + 2) == reg.D1_B)
+                {
+                    if (mm.ReadByte(reg.a2 + 3) == reg.D5_B)
+                    {
+                        _com_a3_set();
+                        return;
+                    }
+                }
+                reg.D4_W -= 1;
+                if (reg.D4_W == 0)
+                {
+                    return;
+                }
+                reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 1;
+                reg.a2 = (reg.a2 + reg.D0_W) & 0x00ffffff;
+            }
+        }
+
+        public void _com_a3_set()
+        {
+            reg.a2 += 4;
+            reg.D0_L = 0x7f;
+            reg.D0_B &= mm.ReadByte(reg.a2);
+            mm.Write(reg.a5 + w.volcount, (byte)reg.D0_B);
+            reg.a2 = (reg.a2 & 0xffff0000) + (ushort)((ushort)reg.a2 + 2);
+
+            reg.a0 = reg.a5 + w.voltable;
+            do
+            {
+                mm.Write(reg.a0, mm.ReadByte(reg.a2)); reg.a0++; reg.a2++;
+            } while ((reg.D0_L) != 0);
+        }
+
+        //	相対音量モード
+        public void _COM_A8()
+        {
+            mm.Write(reg.a5 + w.volmode, mm.ReadByte(reg.a1++));
+        }
+
+        //	ドライバ動作モード変更
+        public void _COM_B0()
+        {
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_B0_0();
+                    break;
+                case 4:
+                    _COM_B0_1();
+                    break;
+                case 6:
+                    _COM_B0_2();
+                    break;
+                case 8:
+                    _COM_B0_3();
+                    break;
+            }
+            return;
+        }
+
+        public void _COM_B0_0()
+        {
+            mm.Write(reg.a6 + dw.DRV_FLAG2, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG2) & 0x7f));
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0) return;
+            mm.Write(reg.a6 + dw.DRV_FLAG2, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG2) | 0x80));
+        }
+
+        public void _COM_B0_1()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a6 + dw.DRV_FLAG3, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG3) & 0x7f));
+                return;
+            }
+            reg.D0_B -= 1;
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a6 + dw.DRV_FLAG3, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG3) | 0x80));
+                _COM_B0_start_timer_a();
+                return;
+            }
+            reg.D0_B -= 1;
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a6 + dw.DRV_FLAG3, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG3) & 0xbf));
+                return;
+            }
+            mm.Write(reg.a6 + dw.DRV_FLAG3, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG3) | 0x40));
+            _COM_B0_start_timer_a();
+        }
+
+        public void _COM_B0_start_timer_a()
+        {
+            UInt32 sd = reg.D7_L;
+            reg.D7_L = 3;
+            reg.D1_L = 0x10;
+            reg.D0_L = 0x1c;
+            _OPN_WRITE();
+            reg.D7_L = sd;
+        }
+
+        public void _COM_B0_2()
+        {
+            mm.Write(reg.a6 + dw.VOLMODE, 0);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B != 0) mm.Write(reg.a6 + dw.VOLMODE, (byte)0xff);
+        }
+
+        // PSG LFO MODE
+        public void _COM_B0_3()
+        {
+            mm.Write(reg.a6 + dw.DRV_FLAG2, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG2) & 0xfc));
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0) return;
+            reg.D0_B -= 1;
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a6 + dw.DRV_FLAG2, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG2) + 1));
+                return;
+            }
+            reg.D0_B -= 1;
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a6 + dw.DRV_FLAG2, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG2) + 2));
+                return;
+            }
+        }
+
+
+
+        //	トラックジャンプ
+        public void _COM_BE()
+        {
+            mm.Write(reg.a6 + dw.DRV_STATUS, (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) ^ 0x08));
+        }
+
+        //	フェードアウト
+        public void _COM_BF_exit()
+        {
+            reg.a1++;
+        }
+
+        public void _COM_BF()
+        {
+            byte b = (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x10);
+            mm.Write(reg.a6 + dw.DRV_STATUS, (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) | 0x10));
+            if (b != 0)
+            {
+                _COM_BF_exit();
+                return;
+            }
+            mm.Write(reg.a6 + dw.FADESPEED, 1);
+            mm.Write(reg.a6 + dw.FADESPEED_WORK, 3);
+
+            b = (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 0x01);
+            if (b != 0)
+            {
+                _COM_BF_no_opn();
+                return;
+            }
+            UInt32 sd = reg.D7_L;
+            reg.D7_L = 3;
+            reg.D1_L = 0x10;
+            reg.D0_L = 0x1c;
+            _OPN_WRITE();
+            reg.D7_L = sd;
+            _COM_BF_no_opn();
+        }
+
+        public void _COM_BF_no_opn()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_BF_normal();
+                return;
+            }
+            mm.Write(reg.a6 + dw.FADESPEED, (byte)reg.D0_B);
+            mm.Write(reg.a6 + dw.FADESPEED_WORK, (byte)reg.D0_B);
+        }
+
+        public void _COM_BF_normal()
+        {
+            mm.Write(reg.a6 + dw.FADESPEED, 7);
+            mm.Write(reg.a6 + dw.FADESPEED_WORK, 7);
+        }
+
+        //	ソフトウェアエンベロープ
+        //		[$C0] + [SV]b + [AR]b + [DR]b + [SL]b + [SR]b + [RR]b
+        public void _COM_C0()
+        {
+            mm.Write(reg.a5 + w.e_sv, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_ar, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_dr, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_sl, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_sr, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_rr, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_sub, (byte)0);
+            mm.Write(reg.a5 + w.e_p, (byte)4);
+            mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
+        }
+
+        //	ソフトウェアエンベロープ 2
+        //		[$C1] + [AL]b + [DD]b + [SR]b + [RR]b
+        public void _COM_C1()
+        {
+            mm.Write(reg.a5 + w.e_al, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_dd, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_sr, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_rr, mm.ReadByte(reg.a1++));
+            mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x81));
+        }
+
+        //	・ソフトウェアエンベロープスイッチ
+        //		[$C3] + [switch]
+        public void _COM_C3()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) & 0x7f));
+                return;
+            }
+            mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
+        }
+
+        //	・エンベロープ切り替え
+        //		[$C4] + [num]
+        public void _COM_C4()
+        {
+            reg.D5_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a5 + w.envnum, (byte)reg.D0_B);
+            reg.D0_L = mm.ReadUInt32(reg.a6 + dw.ENV_PTR);
+            if (reg.D0_L == 0) return;
+
+            reg.a2 = reg.D0_L;
+            reg.a2 += 6;
+            reg.D4_W = mm.ReadUInt16(reg.a6 + dw.ENVNUM);
+            if (reg.D4_W == 0) return;
+
+            reg.D1_B = mm.ReadByte(reg.a5 + w.envbank);
+            while (true)
+            {
+                if (mm.ReadByte(reg.a2 + 2) == reg.D1_B)
+                {
+                    if (mm.ReadByte(reg.a2 + 3) == reg.D5_B)
+                    {
+                        _COM_C4_set();
+                        return;
+                    }
+                }
+                reg.D4_W -= 1;
+                if (reg.D4_W == 0) return;
+
+                reg.D0_W = mm.ReadUInt16(reg.a2);
+                reg.a2 = (reg.a2 + reg.D0_W) & 0x00ffffff;
+            }
+        }
+
+        public void _COM_C4_set()
+        {
+            reg.a2 += 4;
+            mm.Write(reg.a5 + w.e_sv, mm.ReadByte(reg.a2 + 3));
+            mm.Write(reg.a5 + w.e_ar, mm.ReadByte(reg.a2 + 0));
+            mm.Write(reg.a5 + w.e_dr, mm.ReadByte(reg.a2 + 4));
+            mm.Write(reg.a5 + w.e_sl, mm.ReadByte(reg.a2 + 6));
+            mm.Write(reg.a5 + w.e_sr, mm.ReadByte(reg.a2 + 8));
+            mm.Write(reg.a5 + w.e_rr, mm.ReadByte(reg.a2 + 12));
+            mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
+
+            byte b = (byte)(mm.ReadByte(reg.a5 + w.flag) & 0x20);
+            if (b != 0) return;
+
+            mm.Write(reg.a5 + w.e_sub, 0);
+            mm.Write(reg.a5 + w.e_p, 4);
+        }
+
+        //	・バンク&エンベロープ切り替え
+        //		[$C5] + [bank] + [num]
+        public void _COM_C5()
+        {
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a5 + w.envbank, (byte)reg.D1_B);
+            reg.D5_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a5 + w.envbank, (byte)reg.D5_B);
+            reg.D0_L = mm.ReadUInt32(reg.a6 + dw.ENV_PTR);
+            if (reg.D0_L == 0) return;
+            reg.a2 = reg.D0_L;
+            reg.a2 += 6;
+            reg.D4_W = mm.ReadUInt16(reg.a6 + dw.ENVNUM);
+            if (reg.D4_W == 0) return;
+            while (true)
+            {
+                if (mm.ReadByte(reg.a2 + 2) == reg.D1_B)
+                {
+                    if (mm.ReadByte(reg.a2 + 3) == reg.D5_B)
+                    {
+                        _COM_C5_set();
+                        return;
+                    }
+                }
+                reg.D4_W -= 1;
+                if (reg.D4_W == 0) return;
+                reg.D0_W = mm.ReadUInt16(reg.a2);
+                reg.a2 = (reg.a2 + reg.D0_W) & 0x00ffffff;
+            }
+        }
+
+        public void _COM_C5_set()
+        {
+            reg.a2 += 4;
+            mm.Write(reg.a5 + w.e_sv, mm.ReadByte(reg.a2 + 3));
+            mm.Write(reg.a5 + w.e_ar, mm.ReadByte(reg.a2 + 0));
+            mm.Write(reg.a5 + w.e_dr, mm.ReadByte(reg.a2 + 4));
+            mm.Write(reg.a5 + w.e_sl, mm.ReadByte(reg.a2 + 6));
+            mm.Write(reg.a5 + w.e_sr, mm.ReadByte(reg.a2 + 8));
+            mm.Write(reg.a5 + w.e_rr, mm.ReadByte(reg.a2 + 12));
+            mm.Write(reg.a5 + w.e_sub, 0);
+            mm.Write(reg.a5 + w.e_p, 4);
+            mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
+        }
+
+        //	キートランスポーズ
+        public void _COM_D0()
+        {
+            mm.Write(reg.a5 + w.key_trans, mm.ReadByte(reg.a1++));
+        }
+
+        //	相対キートランスポーズ
+        public void _COM_D1()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a5 + w.key_trans, (byte)(mm.ReadByte(reg.a5 + w.key_trans) + reg.D0_B));
+        }
+
+        //	detune 設定
+        public void _COM_D8()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            mm.Write(reg.a5 + w.detune, reg.D0_W);
+        }
+
+        //	detune 設定
+        public void _COM_D9()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            mm.Write(reg.a5 + w.detune, (UInt16)(mm.ReadUInt16(reg.a5 + w.detune) + reg.D0_W));
+        }
+
+        //	pitch LFO
+        //
+        //	$E2,num,wave,speed,count,delay,henka_w
+        public void _COM_E2()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_E2_0();
+                    break;
+                case 4:
+                    _COM_E2_1();
+                    break;
+                case 6:
+                    _COM_E2_2();
+                    break;
+                case 8:
+                    _COM_E2_3();
+                    break;
+            }
+            return;
+        }
+
+        //	pitch LFO ALL
+        public void _COM_E2_0()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0xe));
+            reg.a0 = reg.a1;
+            reg.a4 = w.p_pattern1 + reg.a5;
+            reg.a3 = w.wp_pattern1 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xfd));
+            }
+            reg.a1 = reg.a0;
+            reg.a4 = w.p_pattern2 + reg.a5;
+            reg.a3 = w.wp_pattern2 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xfb));
+            }
+            reg.a1 = reg.a0;
+            reg.a4 = w.p_pattern3 + reg.a5;
+            reg.a3 = w.wp_pattern3 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xf7));
+            }
+        }
+
+        //	pitch LFO 1
+        public void _COM_E2_1()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x02));
+
+            reg.a4 = w.p_pattern1 + reg.a5;
+            reg.a3 = w.wp_pattern1 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xfd));
+            }
+        }
+
+        //	pitch LFO 2
+        public void _COM_E2_2()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x04));
+
+            reg.a4 = w.p_pattern2 + reg.a5;
+            reg.a3 = w.wp_pattern2 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xfb));
+            }
+        }
+
+        //	pitch LFO 3
+        public void _COM_E2_3()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x08));
+
+            reg.a4 = w.p_pattern3 + reg.a5;
+            reg.a3 = w.wp_pattern3 + reg.a5;
+            _COM_E2_common();
+            if ((Int32)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xf7));
+            }
+        }
+
+        //	LFO SET COMMON
+        public void _COM_E2_common()
+        {
+            mm.Write(reg.a4 + w_l.bendwork, (UInt16)0);
+            mm.Write(reg.a3 + w_w.use_flag, (byte)0);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.pattern, (byte)reg.D0_B);
+            if (reg.D0_B < 0)
+            {
+                _COM_E2_wavememory();
+                return;
+            }
+            if (reg.D0_B - 0x10 >= 0)
+            {
+                _COM_E2_compatible();
+                return;
+            }
+
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.lfo_sp, (byte)reg.D1_B);
+            mm.Write(reg.a4 + w_l.count, mm.ReadByte(reg.a1++));
+            reg.D0_B = mm.ReadByte(reg.a1++);
+
+            if (reg.D0_B - 0xff != 0)
+            {
+                mm.Write(reg.a4 + w_l.keydelay, (byte)reg.D0_B);
+                reg.D1_B += reg.D0_B;
+                mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D1_B);
+            }
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+
+            mm.Write(reg.a4 + w_l.henka, (UInt16)reg.D0_W);
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)reg.D0_W);
+            reg.D0_B = mm.ReadByte(reg.a4 + w_l.count);
+            reg.D0_B >>= 1;
+            mm.Write(reg.a4 + w_l.count_work, (byte)reg.D0_B);
+            mm.Write(reg.a4 + w_l.flag, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.flag) & 0xdfff));
+            reg.D2_L = 0;
+        }
+
+        public void _COM_E2_compatible()
+        {
+            mm.Write(reg.a3 + w_w.use_flag, (byte)1);
+            mm.Write(reg.a4 + w_l.pattern, (byte)0xff);
+
+            reg.D0_B &= 7;
+            reg.D1_B = reg.D0_B;
+            reg.D1_B &= 3;
+            reg.D2_B = reg.D1_B;
+            reg.D1_B += 0x10;
+            mm.Write(reg.a3 + w_w.type, (byte)reg.D1_B);
+
+            mm.Write(reg.a4 + w_l.lfo_sp, (byte)mm.ReadByte(reg.a1++));
+
+            reg.D1_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            mm.Write(reg.a3 + w_w.start, reg.D1_W);//周期1
+
+            if (reg.D2_B != 0)
+            {
+                reg.D1_W >>= 1;
+            }
+            mm.Write(reg.a3 + w_w.loop_start, reg.D1_W);//周期2
+
+            reg.D1_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            reg.D1_L &= 0xffff;
+            reg.D1_L <<= 8;
+            if (reg.D0_B >= 4)
+            {
+                reg.D1_L <<= 8;
+            }
+            mm.Write(reg.a3 + w_w.loop_end, reg.D1_L);//増減1
+            if (reg.D2_B != 2)
+            {
+                reg.D1_L = 0;
+            }
+            mm.Write(reg.a3 + w_w.loop_count, reg.D1_L);//増減2
+            reg.D2_L = 0;
+        }
+
+        public void _COM_E2_wavememory()
+        {
+            reg.D0_W &= 0x7f;
+            _get_wave_memory_e2();
+
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.lfo_sp, (byte)reg.D1_B);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a3 + w_w.depth, (byte)reg.D0_B);
+            mm.Write(reg.a4 + w_l.count, (byte)reg.D0_B);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B != 0xff)
+            {
+                mm.Write(reg.a4 + w_l.keydelay, (byte)reg.D0_B);
+                reg.D1_B += reg.D0_B;
+                mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D1_B);
+            }
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+        }
+
+        public void _get_wave_memory_e2()
+        {
+            reg.D1_L = mm.ReadUInt32(reg.a6 + dw.WAVE_PTR);
+            if (reg.D1_L == 0)
+            {
+                reg.D2_L = 0xffffffff;//-1;
+                return;
+            }
+            reg.a2 = reg.D1_L;
+            reg.D5_L = reg.D1_L;
+
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D1_L = (reg.D1_L << 16) + (reg.D1_L >> 16);
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            if (reg.D1_L == 0)
+            {
+                reg.D2_L = 0xffffffff;//-1;
+                return;
+            }
+
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            if (reg.D1_W == 0)
+            {
+                reg.D2_L = 0xffffffff;//-1;
+                return;
+            }
+
+            _com_e2_wm10:
+            reg.D2_W = mm.ReadUInt16(reg.a2);
+            reg.D2_L = (reg.D2_L << 16) + (reg.D2_L >> 16);
+            reg.D2_W = mm.ReadUInt16(reg.a2 + 2);
+            if (mm.ReadUInt16(reg.a2 + 4) != 0)
+            {
+                reg.a2 = (reg.a2 + reg.D2_L) & 0xffffff;
+                if ((reg.D1_L--) != 0) goto _com_e2_wm10;
+                reg.D2_L = 0xffffffff;//-1;
+                return;
+            }
+
+            reg.a2 += 6;
+
+            reg.D0_B = mm.ReadByte(reg.a2++);
+            reg.D1_B = reg.D0_B;
+            reg.D1_B &= 0xf;
+            mm.Write(reg.a3 + w_w.type, (byte)reg.D1_B);
+            reg.D0_B >>= 4;
+            mm.Write(reg.a3 + w_w.ko_flag, (byte)reg.D0_B);
+
+            reg.D0_B = mm.ReadByte(reg.a2++);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.loop_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.loop_end, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            mm.Write(reg.a3 + w_w.loop_count, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.ko_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.ko_loop_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_w.ko_loop_end, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L << 16) + (reg.D0_L >> 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            mm.Write(reg.a3 + w_w.ko_loop_count, reg.D0_L);
+
+            mm.Write(reg.a3 + w_w.use_flag, (byte)0xff);
+            reg.D2_L = 0;
+
+        }
+
+        //	pitch LFO on /off
+        //
+        //	$E3,num,switch
+        public void _COM_E3()
+        {
+            reg.D0_L = 0;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 0:
+                    _COM_E3_0();
+                    break;
+                case 2:
+                    _COM_E3_1();
+                    break;
+                case 4:
+                    _COM_E3_2();
+                    break;
+                case 6:
+                    _COM_E3_3();
+                    break;
+            }
+        }
+
+        // bit15		0:enable 1:disable
+        // bit1 keyoff	0:enable 1:disable
+        // bit0 keyon	0:enable 1:disable
+        // $80  = at keyon
+        // $81  = at keyoff
+        // $82  = always
+        // $83  = async
+        // $84  = stop & init
+        //
+        public void _COM_E3_0()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)0xf1);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0) return;
+            if (reg.D0_B >= 0)
+            {
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x0e));
+                return;
+            }
+
+            if (reg.D0_B == 0x82)
+            {
+                reg.a4 = w.p_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                reg.a4 = w.p_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                reg.a4 = w.p_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x0e));
+                return;
+            }
+            if (reg.D0_B == 0x83)
+            {
+                reg.a4 = w.p_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                reg.a4 = w.p_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                reg.a4 = w.p_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x0e));
+                return;
+            }
+            if (reg.D0_B == 0x84)
+            {
+                _init_lfo2();
+                return;
+            }
+
+            reg.D0_B >>= 1;
+            if (reg.D0_B >= 0)
+            {
+                reg.a4 = w.p_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                reg.a4 = w.p_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                reg.a4 = w.p_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x0e));
+                return;
+            }
+
+            reg.a4 = w.p_pattern1 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            reg.a4 = w.p_pattern2 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            reg.a4 = w.p_pattern3 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x0e));
+
+        }
+
+        public void _COM_E3_1()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E3_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E3_ON();
+                return;
+            }
+            reg.a4 = w.p_pattern1 + reg.a5;
+            _COM_E3_common();
+        }
+
+        public void _COM_E3_2()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E3_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E3_ON();
+                return;
+            }
+            reg.a4 = w.p_pattern2 + reg.a5;
+            _COM_E3_common();
+        }
+
+        public void _COM_E3_3()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E3_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E3_ON();
+                return;
+            }
+            reg.a4 = w.p_pattern3 + reg.a5;
+            _COM_E3_common();
+        }
+
+        public void _COM_E3_common()
+        {
+            if (reg.D0_B == 0x82)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                _COM_E3_ON();
+                return;
+            }
+            if (reg.D0_B == 0x83)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                _COM_E3_ON();
+                return;
+            }
+            if (reg.D0_B == 0x84)
+            {
+                _init_lfo2();
+                _COM_E3_OFF();
+                return;
+            }
+            reg.D0_B >>= 1;
+            if (reg.D0_B >= 0)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                _COM_E3_ON();
+                return;
+            }
+
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            _COM_E3_ON();
+        }
+
+
+        public void _COM_E3_ON()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
+            reg.D0_L |= (UInt32)(1 << (Int32)reg.D1_L);
+            mm.Write(reg.a5 + w.lfo, reg.D0_B);
+        }
+
+        public void _COM_E3_OFF()
+        {
+            reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
+            reg.D0_L &= ~(UInt32)(1 << (Int32)reg.D1_L);
+            mm.Write(reg.a5 + w.lfo, reg.D0_B);
+        }
+
+        //	pitch LFO delay
+        //
+        //	$E4,num,delay
+        public void _COM_E4()
+        {
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_E4_0();
+                    break;
+                case 4:
+                    _COM_E4_1();
+                    break;
+                case 6:
+                    _COM_E4_2();
+                    break;
+                case 8:
+                    _COM_E4_3();
+                    break;
+            }
+        }
+
+        //	pitch LFO ALL
+        public void _COM_E4_0()
+        {
+            reg.a0 = reg.a1;
+            reg.a4 = w.p_pattern1 + reg.a5;
+            _COM_E49_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.p_pattern2 + reg.a5;
+            _COM_E49_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.p_pattern3 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //	pitch LFO 1
+        public void _COM_E4_1()
+        {
+            reg.a4 = w.p_pattern1 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //	pitch LFO 2
+        public void _COM_E4_2()
+        {
+            reg.a4 = w.p_pattern2 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //	pitch LFO 3
+        public void _COM_E4_3()
+        {
+            reg.a4 = w.p_pattern3 + reg.a5;
+            _COM_E49_common();
+        }
+
+        public void _COM_E49_common()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0xff)
+            {
+                _COM_E49_add();
+                return;
+            }
+            mm.Write(reg.a4 + w_l.keydelay, reg.D0_B);
+            reg.D0_B += mm.ReadByte(reg.a4 + w_l.lfo_sp);
+            mm.Write(reg.a4 + w_l.delay_work, reg.D0_B);
+        }
+
+        public void _COM_E49_add()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            reg.D0_B += mm.ReadByte(reg.a4 + w_l.keydelay);
+            reg.D0_B += mm.ReadByte(reg.a4 + w_l.lfo_sp);
+            mm.Write(reg.a4 + w_l.keydelay, reg.D0_B);
+            mm.Write(reg.a4 + w_l.delay_work, reg.D0_B);
+        }
+
+        //	音量 LFO
+        //
+        //	$E7,num,wave,delay,count,speed,henka_w
+        public void _COM_E7()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_E7_0();
+                    break;
+                case 4:
+                    _COM_E7_1();
+                    break;
+                case 6:
+                    _COM_E7_2();
+                    break;
+                case 8:
+                    _COM_E7_3();
+                    break;
+            }
+        }
+
+        //	音量 LFO
+        public void _COM_E7_0()
+        {
+            reg.a0 = reg.a1;
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+            reg.a4 = w.v_pattern1 + reg.a5;
+            reg.a3 = w.wv_pattern1 + reg.a5;
+            _COM_E7_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.v_pattern2 + reg.a5;
+            reg.a3 = w.wv_pattern2 + reg.a5;
+            _COM_E7_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.v_pattern3 + reg.a5;
+            reg.a3 = w.wv_pattern3 + reg.a5;
+            _COM_E7_common();
+        }
+
+        //	音量 LFO 1
+        public void _COM_E7_1()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x10));
+            reg.a4 = w.v_pattern1 + reg.a5;
+            reg.a3 = w.wv_pattern1 + reg.a5;
+            _COM_E7_common();
+        }
+
+        //	音量 LFO 2
+        public void _COM_E7_2()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x20));
+            reg.a4 = w.v_pattern2 + reg.a5;
+            reg.a3 = w.wv_pattern2 + reg.a5;
+            _COM_E7_common();
+        }
+
+        //	音量 LFO 3
+        public void _COM_E7_3()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x40));
+            reg.a4 = w.v_pattern3 + reg.a5;
+            reg.a3 = w.wv_pattern3 + reg.a5;
+            _COM_E7_common();
+        }
+
+        //	LFO SET COMMON
+        public void _COM_E7_common()
+        {
+            mm.Write(reg.a4 + w_l.bendwork, (UInt16)0);
+            mm.Write(reg.a3 + w_w.use_flag, (byte)0);
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.pattern, (byte)reg.D0_B);
+            if ((sbyte)reg.D0_B < 0)
+            {
+                _COM_E2_wavememory();
+                return;
+            }
+            if (reg.D0_B - 0x10 >= 0)
+            {
+                _COM_E7_compatible();
+                return;
+            }
+
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a4 + w_l.lfo_sp, (byte)reg.D1_B);
+            mm.Write(reg.a4 + w_l.count, mm.ReadByte(reg.a1++));
+            mm.Write(reg.D0_B, mm.ReadByte(reg.a1++));
+            if (reg.D0_B - 0xff != 0)
+            {
+                mm.Write(reg.a4 + w_l.keydelay, (byte)reg.D0_B);
+                reg.D1_B += reg.D0_B;
+                mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D1_B);
+            }
+            reg.a1++;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            reg.D0_W = (UInt16)(Int16)reg.D0_B; //byte to short cast(signed)
+            mm.Write(reg.a4 + w_l.henka, (UInt16)reg.D0_W);
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)reg.D0_W);
+        }
+
+        public void _COM_E7_compatible()
+        {
+            mm.Write(reg.a3 + w_w.use_flag, (byte)1);
+            mm.Write(reg.a4 + w_l.pattern, (byte)0xff);
+            reg.D0_B &= 7;
+            reg.D1_B = reg.D0_B;
+            reg.D1_B &= 3;
+            reg.D2_B = reg.D1_B;
+            reg.D1_B += 0x14;
+            mm.Write(reg.a3 + w_w.type, (byte)reg.D1_B);
+            mm.Write(reg.a4 + w_l.lfo_sp, (byte)mm.ReadByte(reg.a1++));
+            reg.D1_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            mm.Write(reg.a3 + w_w.start, reg.D1_W);//周期
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            mm.Write(reg.a3 + w_w.loop_start, reg.D0_W);//増減
+
+            reg.D2_B >>= 1;
+            if (reg.D2_B >= 0)
+            {
+                reg.D0_L = reg.D1_W * reg.D0_W;
+            }
+            reg.D0_W = (UInt16)(-((Int16)reg.D0_W));
+            if ((Int16)reg.D0_W < 0)
+            {
+                reg.D0_L = 0;
+            }
+            mm.Write(reg.a3 + w_w.loop_end, reg.D0_W);//最大振幅
+
+            mm.Write(reg.a3 + w_w.ko_start, mm.ReadUInt16(reg.a3 + w_w.start));
+            mm.Write(reg.a3 + w_w.ko_loop_start, mm.ReadUInt16(reg.a3 + w_w.loop_start));
+            mm.Write(reg.a3 + w_w.ko_loop_end, mm.ReadUInt16(reg.a3 + w_w.loop_end));
+            reg.D2_L = 0;
+        }
+
+        //	音量 LFO on /off
+        //
+        //	$E8,num,switch
+        public void _COM_E8()
+        {
+
+            reg.D0_L = 0;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D1_L = reg.D0_L;
+            reg.D1_B += 3;
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 0:
+                    _COM_E8_0();
+                    break;
+                case 2:
+                    _COM_E8_1();
+                    break;
+                case 4:
+                    _COM_E8_2();
+                    break;
+                case 6:
+                    _COM_E8_3();
+                    break;
+            }
+        }
+
+        public void _COM_E8_0()
+        {
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0x8f));
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                return;
+            }
+            if (reg.D0_B >= 0)
+            {
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+                return;
+            }
+
+            if (reg.D0_B == 0x82)
+            {
+                reg.a4 = w.v_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                reg.a4 = w.v_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                reg.a4 = w.v_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+                return;
+            }
+            if (reg.D0_B == 0x83)
+            {
+                reg.a4 = w.v_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                reg.a4 = w.v_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                reg.a4 = w.v_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+                return;
+            }
+
+            reg.D0_B >>= 1;
+            if (reg.D0_B >= 0)
+            {
+                reg.a4 = w.v_pattern1 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                reg.a4 = w.v_pattern2 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                reg.a4 = w.v_pattern3 + reg.a5;
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+                mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+                return;
+            }
+
+            reg.a4 = w.v_pattern1 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            reg.a4 = w.v_pattern2 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            reg.a4 = w.v_pattern3 + reg.a5;
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x70));
+
+        }
+
+        public void _COM_E8_1()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E8_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E8_ON();
+                return;
+            }
+            reg.a4 = w.v_pattern1 + reg.a5;
+            _COM_E8_common();
+        }
+
+        public void _COM_E8_2()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E8_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E8_ON();
+                return;
+            }
+            reg.a4 = w.v_pattern2 + reg.a5;
+            _COM_E8_common();
+        }
+
+        public void _COM_E8_3()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                _COM_E8_OFF();
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                _COM_E8_ON();
+                return;
+            }
+            reg.a4 = w.v_pattern3 + reg.a5;
+            _COM_E8_common();
+        }
+
+        public void _COM_E8_common()
+        {
+            if (reg.D0_B == 0x82)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0);
+                _COM_E8_ON();
+                return;
+            }
+            if (reg.D0_B == 0x83)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x4000);
+                _COM_E8_ON();
+                return;
+            }
+            reg.D0_B >>= 1;
+            if (reg.D0_B >= 0)
+            {
+                mm.Write(reg.a4 + w_l.flag, (UInt16)0x8001);
+                _COM_E8_ON();
+                return;
+            }
+            mm.Write(reg.a4 + w_l.flag, (UInt16)0x8002);
+            _COM_E8_ON();
+        }
+
+        public void _COM_E8_ON()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
+            reg.D0_L |= (UInt32)(1 << (Int32)reg.D1_L);
+            mm.Write(reg.a5 + w.lfo, (byte)reg.D0_B);
+        }
+
+        public void _COM_E8_OFF()
+        {
+            reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
+            reg.D0_L &= ~(UInt32)(1 << (Int32)reg.D1_L);
+            mm.Write(reg.a5 + w.lfo, (byte)reg.D0_B);
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO delay
+        //
+        public void _COM_E9()
+        {
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_E9_0();
+                    break;
+                case 4:
+                    _COM_E9_1();
+                    break;
+                case 6:
+                    _COM_E9_2();
+                    break;
+                case 8:
+                    _COM_E9_3();
+                    break;
+            }
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO
+        //
+        public void _COM_E9_0()
+        {
+            reg.a0 = reg.a1;
+            reg.a4 = w.v_pattern1 + reg.a5;
+            _COM_E49_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.v_pattern2 + reg.a5;
+            _COM_E49_common();
+            reg.a1 = reg.a0;
+            reg.a4 = w.v_pattern3 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 1
+        public void _COM_E9_1()
+        {
+            reg.a4 = w.v_pattern1 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 2
+        public void _COM_E9_2()
+        {
+            reg.a4 = w.v_pattern2 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 3
+        public void _COM_E9_3()
+        {
+            reg.a4 = w.v_pattern3 + reg.a5;
+            _COM_E49_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO switch 2
+        //
+        public void _COM_EA()
+        {
+            reg.D0_L = 1;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _COM_EA_0();
+                    break;
+                case 4:
+                    _COM_EA_1();
+                    break;
+                case 6:
+                    _COM_EA_2();
+                    break;
+                case 8:
+                    _COM_EA_3();
+                    break;
+            }
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO
+        //
+        public void _COM_EA_0()
+        {
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B != 0)
+            {
+                reg.D0_B |= 0x80;
+            }
+            reg.a3 = w.wv_pattern1 + reg.a5;
+            mm.Write(reg.a3 + w_w.slot, (byte)reg.D0_B);
+            reg.a3 = w.wv_pattern2 + reg.a5;
+            mm.Write(reg.a3 + w_w.slot, (byte)reg.D0_B);
+            reg.a3 = w.wv_pattern3 + reg.a5;
+            mm.Write(reg.a3 + w_w.slot, (byte)reg.D0_B);
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 1
+        public void _COM_EA_1()
+        {
+            reg.a3 = w.wv_pattern1 + reg.a5;
+            _COM_EA_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 2
+        public void _COM_EA_2()
+        {
+            reg.a3 = w.wv_pattern2 + reg.a5;
+            _COM_EA_common();
+        }
+
+        //─────────────────────────────────────
+        //	音量 LFO 3
+        public void _COM_EA_3()
+        {
+            reg.a3 = w.wv_pattern3 + reg.a5;
+            _COM_EA_common();
+        }
+
+        public void _COM_EA_common()
+        {
+            reg.D0_L = 0;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            if (reg.D0_B != 0)
+            {
+                reg.D0_B |= 0x80;
+            }
+            mm.Write(reg.a3 + w_w.slot, (byte)reg.D0_B);
+        }
+
+        //─────────────────────────────────────
+        //	わうわう
+        //
+        public void _COM_EB()
+        {
+            reg.a4 = w.ww_pattern1 + reg.a5;
+
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0)
+            {
+                mm.Write(reg.a5 + w.effect, (byte)(mm.ReadByte(reg.a5 + w.effect) & 0xdf));
+                return;
+            }
+            if ((sbyte)reg.D0_B >= 0)
+            {
+                mm.Write(reg.a4 + w_ww.delay, mm.ReadByte(reg.a1++));
+                mm.Write(reg.a4 + w_ww.speed, mm.ReadByte(reg.a1++));
+                mm.Write(reg.a4 + w_ww.rate, mm.ReadByte(reg.a1++));
+                mm.Write(reg.a4 + w_ww.depth, mm.ReadByte(reg.a1++));
+                mm.Write(reg.a4 + w_ww.slot, mm.ReadByte(reg.a1++));
+            }
+            mm.Write(reg.a4 + w_ww.sync, (byte)0);
+            mm.Write(reg.a5 + w.effect, (byte)(mm.ReadByte(reg.a5 + w.effect) | 0x20));
+
+            reg.D0_B = mm.ReadByte(reg.a4 + w_ww.speed);
+            reg.D0_B += mm.ReadByte(reg.a4 + w_ww.delay);
+            mm.Write(reg.a4 + w_ww.delay_work, (byte)reg.D0_B);
+            mm.Write(reg.a4 + w_ww.rate_work, mm.ReadByte(reg.a4 + w_ww.rate));
+            mm.Write(reg.a4 + w_ww.depth_work, mm.ReadByte(reg.a4 + w_ww.depth));
+            mm.Write(reg.a4 + w_ww.work, (byte)0);
+
+            if ((sbyte)mm.ReadByte(reg.a4 + w_ww.slot) < 0)
+            {
+                mm.Write(reg.a4 + w_ww.sync, (byte)0xff);
+            }
+
+
+        }
+
+        //─────────────────────────────────────
+        //	wavememory effect
+        //
+        //	[$ED] + [num]b + [switch]b ...
+        //	num
+        //		$00 ～ $03
+        //	switch
+        //	minus
+        //		$80 = ON
+        //		$81 = OFF
+        //		$82 = always
+        //		$83 = at keyon
+        //		$84 = at keyoff
+        //	plus = + [switch2]b + [wave]w + [delay]b + [speed]b + [sync]b + [reset]w
+        //	$00 = y command
+        //		波形データの上位バイトのレジスタに
+        //		下位バイトのデータを書き込む
+        //	$01 = tone
+        //	$02 = panpot
+        //
+        public void _COM_ED()
+        {
+            reg.D0_L = 0;
+            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _com_ed_1();
+                    break;
+                case 4:
+                    _com_ed_2();
+                    break;
+                case 6:
+                    _com_ed_3();
+                    break;
+                case 8:
+                    _com_ed_4();
+                    break;
+            }
+        }
+
+        public void _com_ed_1()
+        {
+            reg.a3 = w.we_pattern1 + reg.a5;
+            mm.Write(reg.a3 + w_we.exec, (byte)0);
+            reg.D1_L = 0;
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B < 0)
+            {
+                _com_ed_sw_common();
+                return;
+            }
+
+            if ((sbyte)_com_ed_common() < 0)
+            {
+                mm.Write(reg.a5 + w.effect, (byte)(mm.ReadByte(reg.a5 + w.effect) & 0xfe));
+                return;
+            }
+            mm.Write(reg.a5 + w.effect, (byte)(mm.ReadByte(reg.a5 + w.effect) | 0x81));
+        }
+
+        public void _com_ed_2()
+        {
+            reg.a3 = w.we_pattern2 + reg.a5;
+            mm.Write(reg.a3 + w_we.exec, (byte)0);
+            reg.D1_L = 1;
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B < 0)
+            {
+                _com_ed_sw_common();
+                return;
+            }
+
+            _com_ed_common();
+            if ((sbyte)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) & 0xfd));
+                return;
+            }
+            mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) | 0x82));
+        }
+
+        public void _com_ed_3()
+        {
+            reg.a3 = w.we_pattern3 + reg.a5;
+            mm.Write(reg.a3 + w_we.exec, (byte)0);
+            reg.D1_L = 2;
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B < 0)
+            {
+                _com_ed_sw_common();
+                return;
+            }
+
+            _com_ed_common();
+            if ((sbyte)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) & 0xfb));
+                return;
+            }
+            mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) | 0x84));
+        }
+
+        public void _com_ed_4()
+        {
+            reg.a3 = w.we_pattern4 + reg.a5;
+            mm.Write(reg.a3 + w_we.exec, (byte)0);
+            reg.D1_L = 3;
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if ((sbyte)reg.D0_B < 0)
+            {
+                _com_ed_sw_common();
+                return;
+            }
+
+            _com_ed_common();
+            if ((sbyte)reg.D2_L < 0)
+            {
+                mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) & 0xf7));
+                return;
+            }
+            mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) | 0x88));
+        }
+
+        public void _com_ed_sw_common()
+        {
+            reg.D0_W &= 0x7;
+            reg.D0_W += 1;
+            reg.D0_W += reg.D0_W;
+            switch (reg.D0_B)
+            {
+                case 2:
+                    _com_ed_80();
+                    break;
+                case 4:
+                    _com_ed_81();
+                    break;
+                case 6:
+                    _com_ed_82();
+                    break;
+                case 8:
+                    _com_ed_83();
+                    break;
+                case 10:
+                    _com_ed_84();
+                    break;
+            }
+        }
+
+        //
+        //	ON
+        //
+        public void _com_ed_80()
+        {
+            reg.D0_L = 1;
+            reg.D0_L <<= (int)reg.D1_L;
+            reg.D0_B |= 0x80;
+            mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) | reg.D0_B));
+            reg.D0_L = 0;
+        }
+
+        //
+        //	OFF
+        //
+        public void _com_ed_81()
+        {
+            reg.D0_L = 1;
+            reg.D0_L <<= (int)reg.D1_L;
+            reg.D0_B = ~reg.D0_B;
+            mm.Write(reg.a5 + w.weffect, (byte)(mm.ReadByte(reg.a5 + w.weffect) & reg.D0_B));
+
+            reg.a0 = reg.a5 + w.we_ycom_adrs;
+            reg.D0_W &= 3;
+            reg.D0_W += reg.D0_W;
+            reg.D0_W += reg.D0_W;
+            reg.a0 = reg.a0 + reg.D0_W;
+            reg.a0 = mm.ReadUInt32(reg.a0);
+            reg.D0_W = mm.ReadUInt16(reg.a3 + w_we.reset);
+            jsr_w_we_reset[reg.a0]();
+            reg.D0_L = 0;
+        }
+
+        //
+        //	always
+        //
+        public void _com_ed_82()
+        {
+            mm.Write(reg.a3 + w_we.exec, (byte)0);
+            reg.D0_L = 0;
+        }
+
+        //
+        //	at keyon
+        //
+        public void _com_ed_83()
+        {
+            mm.Write(reg.a3 + w_we.exec, (byte)0x81);
+            reg.D0_L = 0;
+        }
+
+        //
+        //	at keyoff
+        //
+        public void _com_ed_84()
+        {
+            mm.Write(reg.a3 + w_we.exec, (byte)0x82);
+            reg.D0_L = 0;
+        }
+
+        public UInt32 _com_ed_common()
+        {
+            reg.a0 = reg.a5 + w.we_ycom_adrs;
+            reg.D0_W &= 3;
+            reg.D0_W += reg.D0_W;
+            reg.D0_W += reg.D0_W;
+            reg.a0 = mm.ReadUInt32(reg.a0 + reg.D0_W);
+            reg.a0 = mm.ReadUInt32(reg.a0);
+            mm.Write(reg.a3 + w_we.exec_adrs, reg.a0);
+
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            _get_wave_memory_ed();
+
+            mm.Write(reg.a3 + w_we.delay, mm.ReadByte(reg.a1++));
+            reg.D1_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a3 + w_we.speed, (byte)reg.D1_B);
+
+            reg.D0_L = 0;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            mm.Write(reg.a3 + w_we.mode, _com_ed_sync_table[reg.D0_W]);
+
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            reg.D0_W = mm.ReadByte(reg.a3 + w_we.reset);
+
+            mm.Write(reg.a3 + w_we.exec_flag, (byte)0x00);
+            mm.Write(reg.a3 + w_we.loop_flag, (byte)0x00);
+            reg.D0_B = mm.ReadByte(reg.a3 + w_we.delay);
+            reg.D0_B += reg.D1_B;
+            mm.Write(reg.a3 + w_we.delay_work, (byte)reg.D0_B);
+            mm.Write(reg.a3 + w_we.adrs_work, mm.ReadUInt32(reg.a3 + w_we.start));
+            mm.Write(reg.a3 + w_we.start_adrs_work, mm.ReadUInt32(reg.a3 + w_we.loop_start));
+            mm.Write(reg.a3 + w_we.end_adrs_work, mm.ReadUInt32(reg.a3 + w_we.loop_end));
+            mm.Write(reg.a3 + w_we.lp_cnt_work, mm.ReadUInt32(reg.a3 + w_we.loop_count));
+            reg.D0_L = 0;
+
+            return reg.D0_L;
+        }
+
+        private byte[] _com_ed_sync_table = new byte[]
+        {
+            0x80,0x00,0x01,0x02
+        };
+
+        public void _get_wave_memory_ed()
+        {
+            reg.D0_L = mm.ReadUInt32(reg.a6 + dw.WAVE_PTR);
+            if (reg.D0_L == 0)
+            {
+                _com_ed_wm_err_exit();
+                return;
+            }
+            reg.a2 = reg.D1_L;
+            reg.D5_L = reg.D1_L;
+
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D1_L = (reg.D1_L >> 16) + (reg.D1_L << 16);
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            if (reg.D1_L == 0)
+            {
+                _com_ed_wm_err_exit();
+                return;
+            }
+
+            reg.D1_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            if (reg.D1_L == 0)
+            {
+                _com_ed_wm_err_exit();
+            }
+        }
+
+        public void _com_ed_wm10()
+        {
+            do
+            {
+                reg.D2_W = mm.ReadUInt16(reg.a2);
+                reg.D2_L = (reg.D2_L >> 16) + (reg.D2_L << 16);
+                reg.D2_W = mm.ReadUInt16(reg.a2 + 2);
+                if (reg.D0_W - mm.ReadUInt16(reg.a2 + 4) == 0)
+                {
+                    _com_ed_wm20();
+                    return;
+                }
+                reg.a2 = mm.ReadUInt32(reg.a2 + reg.D2_L);
+                reg.D1_B--;
+            } while (reg.D1_B != 0);
+            _com_ed_wm_err_exit();
+        }
+
+        public void _com_ed_wm20()
+        {
+            reg.a2 += 6;
+
+            reg.D0_B = mm.ReadByte(reg.a2++);
+            reg.D1_B = reg.D0_B;
+            reg.D1_B &= 0xf;
+            mm.Write(reg.a3 + w_we.count, (byte)reg.D1_B);
+            reg.D0_B >>= 4;
+            mm.Write(reg.a3 + w_we.ko_flag, (byte)reg.D1_B);
+
+            reg.D0_B = mm.ReadByte(reg.a2++);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.loop_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.loop_end, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            mm.Write(reg.a3 + w_we.loop_count, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.ko_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.ko_loop_start, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L += reg.D5_L;
+            mm.Write(reg.a3 + w_we.ko_loop_end, reg.D0_L);
+
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            reg.D0_L = (reg.D0_L >> 16) + (reg.D0_L << 16);
+            reg.D0_W = mm.ReadUInt16(reg.a2); reg.a2 += 2;
+            mm.Write(reg.a3 + w_we.ko_loop_count, reg.D0_L);
+        }
+
+        public void _com_ed_wm_err_exit()
+        {
+            reg.D2_L = 0xffffffff;// -1;
+        }
+
+        //─────────────────────────────────────
+        //	hardware LFO delay
+        //		[$EF] + [delay]b
+        //
+        public void _COM_EF()
+        {
+            mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x02));
+            mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | 0x04));
+            reg.a4 = reg.a5 + w.v_pattern4;
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B - 0xff == 0)
+            {
+                _COM_EF_add();
+                return;
+            }
+
+            mm.Write(reg.a4 + w_l.keydelay, (byte)reg.D0_B);
+            reg.D0_B += mm.ReadByte(reg.a4 + w_l.lfo_sp);
+            mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D0_B);
+        }
+
+        public void _COM_EF_add()
+        {
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            reg.D1_B = mm.ReadByte(reg.a4 + w_l.keydelay);
+            reg.D1_B += reg.D0_B;
+            reg.D1_B += mm.ReadByte(reg.a4 + w_l.lfo_sp);
+            mm.Write(reg.a4 + w_l.keydelay, (byte)reg.D1_B);
+            mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D1_B);
+        }
+
+        //─────────────────────────────────────
+        //	永久ループポイントマーク
+        //			[$F9]
+        public void _COM_F9()
+        {
+            mm.Write(reg.a5 + w.loop, reg.a1);
+        }
+
+        //─────────────────────────────────────
+        //	リピート抜け出し
+        //			[$FB] + [終端コマンドへのオフセット]w
+        public void _COM_FB()
+        {
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            reg.a0 = mm.ReadUInt32(reg.a1 + reg.D0_W + 1);
+            reg.D0_W = mm.ReadUInt16(reg.a0); reg.a0 += 2;
+            if (mm.ReadByte(reg.a0 + reg.D0_W + 2) != 0) return;
+            reg.a1 = reg.a0;
+        }
+
+        //─────────────────────────────────────
+        //	リピート開始
+        //			[$FC] + [リピート回数]b + [$00]b
+        public void _COM_FC()
+        {
+            byte a = mm.ReadByte(reg.a1);
+            reg.a1++;
+            mm.Write(reg.a1, a);
+            reg.a1++;
+        }
+
+        //─────────────────────────────────────
+        //	リピート終端
+        //			[$FD] + [開始コマンドへのオフセット]w
+        public void _COM_FD()
+        {
+            reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
+            if (mm.ReadByte(reg.a1 + reg.D0_W + 1) == 0)
+            {
+                reg.a1 = reg.a1 + reg.D0_W + 3;
+                return;
+            }
+            mm.Write(reg.a1 + reg.D0_W + 2, (byte)(mm.ReadByte(reg.a1 + reg.D0_W + 2) - 1));
+            if (mm.ReadByte(reg.a1 + reg.D0_W + 2) != 0)
+            {
+                reg.a1 = reg.a1 + reg.D0_W + 3;
+            }
+        }
+
+        //─────────────────────────────────────
+        //	tempo 設定
+        //
+        public void _COM_FE()
+        {
+            mm.Write(reg.a6 + dw.TEMPO, mm.ReadByte(reg.a1));
+        }
+
+        //─────────────────────────────────────
+        public void _all_end_check()
+        {
+            reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
+            reg.a0 = reg.a6 + dw.TRACKWORKADR;
+            do
+            {
+                if ((sbyte)mm.ReadByte(reg.a0 + w.flag) < 0)
+                {
+                    return;
+                }
+                reg.a0 = reg.a0 + w._work_size;
+                reg.D0_W -= 1;
+            } while (reg.D0_W != 0);
+            mm.Write(reg.a6 + dw.DRV_STATUS, (byte)0x20);
+            mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)0xffff);// -1
+            reg.D0_L = 2;
+            SUBEVENT();
+        }
 
 
     }

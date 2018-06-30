@@ -186,8 +186,10 @@ namespace MDPlayer.Driver.MXDRV
 
             mdxPCM.x68sound[0].MountMemory(mm.mm);
 
-            //uint playtime=MXDRV_MeasurePlayTime(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr, 1, depend.TRUE);
+            uint playtime=MXDRV_MeasurePlayTime(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr, 1, depend.TRUE);
             //Console.WriteLine("({0}:{1:d02}) {2}", playtime / 1000 / 60, playtime / 1000 % 60, "");
+            TotalCounter = playtime * common.SampleRate/1000;
+            TerminatePlay = false;
             MXDRV_Play(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr);
 
             //Console.WriteLine("********************");
@@ -225,7 +227,13 @@ namespace MDPlayer.Driver.MXDRV
                         vgmFrameCounter++;
                     }
                 }
-                //Stopped = !IsPlaying();
+
+                MXDRV_MeasurePlayTime_OPMINT();
+                vgmCurLoop = (uint)LoopCount;
+                if (TerminatePlay)
+                {
+                    Stopped = true;
+                }
             }
             catch (Exception ex)
             {
