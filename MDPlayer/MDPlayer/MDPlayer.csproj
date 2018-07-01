@@ -127,6 +127,7 @@
     <Compile Include="Driver\HES\m_hes.cs" />
     <Compile Include="Driver\MNDRV\comanalyze.cs" />
     <Compile Include="Driver\MNDRV\comcmds.cs" />
+    <Compile Include="Driver\MNDRV\comlfo.cs" />
     <Compile Include="Driver\MNDRV\mnwork.cs" />
     <Compile Include="Driver\MNDRV\reg.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />

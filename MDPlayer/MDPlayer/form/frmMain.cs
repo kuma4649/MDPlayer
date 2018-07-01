@@ -2909,8 +2909,12 @@ namespace MDPlayer.form
                 {
                     log.ForcedWrite(ex);
                 }
-                throw new Exception();
-                //return;
+                if(Audio.errMsg=="")                throw new Exception();
+                else
+                {
+                    MessageBox.Show(Audio.errMsg,"エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             if (frmInfo != null)

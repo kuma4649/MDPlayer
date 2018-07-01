@@ -163,7 +163,11 @@ namespace MDPlayer.Driver.MXDRV
             string pdxFileName;
             MakeMdxBuf(vgmBuf, out mdx, out mdxsize, out pdxFileName);
             MakePdxBuf(pdxFileName, out pdx, out pdxsize);
-            if (!string.IsNullOrEmpty(pdxFileName) && pdx == null) return false;
+            if (!string.IsNullOrEmpty(pdxFileName) && pdx == null)
+            {
+                errMsg = string.Format("PCMファイル[{0}]の読み込みに失敗しました。",pdxFileName);
+                return false;
+            }
 
             int ret;
             if (model == enmModel.VirtualModel)

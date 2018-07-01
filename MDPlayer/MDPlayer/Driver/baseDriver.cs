@@ -31,6 +31,8 @@ namespace MDPlayer
         protected uint latency = 1000;
         protected uint waitTime = 0;
 
+        public string errMsg { get; internal set; }
+
         public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime);
         public abstract void oneFrameProc();
         public abstract GD3 getGD3Info(byte[] buf, uint vgmGd3);

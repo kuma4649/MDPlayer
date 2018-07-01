@@ -141,7 +141,7 @@ namespace MDPlayer
         private static List<int> midiOutsType = new List<int>();
         private static List<vstInfo2> vstMidiOuts = new List<vstInfo2>();
         private static List<int> vstMidiOutsType = new List<int>();
-
+        public static string errMsg = "";
 
 
         public static List<vstInfo2> getVSTInfos()
@@ -1468,6 +1468,8 @@ namespace MDPlayer
 
         public static bool Play(Setting setting)
         {
+            errMsg = "";
+
             waveWriter.Open(PlayingFileName);
 
             if (PlayingFileFormat == enmFileFormat.NRT)
@@ -1996,7 +1998,11 @@ namespace MDPlayer
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
                     , mdxPCM_R);
 
-                if (!retV || !retR) return false;
+                if (!retV || !retR)
+                {
+                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : driverReal.errMsg;
+                    return false;
+                }
 
                 Paused = false;
                 Stopped = false;
