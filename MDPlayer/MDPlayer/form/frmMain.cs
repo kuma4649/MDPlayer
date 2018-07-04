@@ -69,6 +69,8 @@ namespace MDPlayer.form
         private MidiIn midiin = null;
         private bool forcedExit = false;
         private YM2612MIDI YM2612MIDI = null;
+        private bool flgReinit = false;
+
 
         public frmMain()
         {
@@ -2321,34 +2323,49 @@ namespace MDPlayer.form
             frmSetting frm = new frmSetting(setting);
             if (frm.ShowDialog() == DialogResult.OK)
             {
-
-                StopMIDIInMonitoring();
-                frmPlayList.Stop();
-                Audio.Stop();
-                Audio.Close();
-
-                setting = frm.setting;
-                setting.Save();
-
-                screen.setting = setting;
-                //oldParam = new MDChipParams();
-                //newParam = new MDChipParams();
-                allScreenInit();
-                //screen.screenInitAll();
-
-                log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
-
-                Audio.Init(setting);
-
-                log.ForcedWrite("Audio初期化処理完了");
-                log.debug = setting.Debug_DispFrameCounter;
-
-                frmVSTeffectList.dispPluginList();
-                StartMIDIInMonitoring();
-
-                IsInitialOpenFolder = true;
+                flgReinit = true;
+                reinit(frm.setting);
 
             }
+        }
+
+        private void reinit(Setting setting)
+        {
+            if (!flgReinit) return;
+
+            StopMIDIInMonitoring();
+            frmPlayList.Stop();
+            Audio.Stop();
+            Audio.Close();
+
+            this.setting = setting;
+            this.setting.Save();
+
+            screen.setting = this.setting;
+            //oldParam = new MDChipParams();
+            //newParam = new MDChipParams();
+            allScreenInit();
+            //screen.screenInitAll();
+
+            log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
+
+            Audio.Init(this.setting);
+
+            log.ForcedWrite("Audio初期化処理完了");
+            log.debug =this.setting.Debug_DispFrameCounter;
+
+            frmVSTeffectList.dispPluginList();
+            StartMIDIInMonitoring();
+
+            IsInitialOpenFolder = true;
+            flgReinit = false;
+
+            for (int i = 0; i < 5; i++)
+            {
+                System.Threading.Thread.Sleep(100);
+                Application.DoEvents();
+            }
+
         }
 
         private void openMixer()
@@ -2827,6 +2844,7 @@ namespace MDPlayer.form
 
         public void play()
         {
+
             if (Audio.isPaused)
             {
                 Audio.Pause();
@@ -4005,6 +4023,10 @@ namespace MDPlayer.form
         {
             try
             {
+                if (Audio.flgReinit) flgReinit = true;
+                if (setting.other.InitAlways) flgReinit = true;
+                reinit(setting);
+
                 if (Audio.isPaused)
                 {
                     Audio.Pause();

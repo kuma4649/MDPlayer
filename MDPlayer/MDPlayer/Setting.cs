@@ -1334,6 +1334,8 @@ namespace MDPlayer
             private string _ImageExt = "jpg;gif;png;mag";
             public string ImageExt { get => _ImageExt; set => _ImageExt = value; }
 
+            private bool _InitAlways = false;
+            public bool InitAlways { get => _InitAlways; set => _InitAlways = value; }
 
             public Other Copy()
             {
@@ -1354,6 +1356,7 @@ namespace MDPlayer
                 other.TextExt = this.TextExt;
                 other.MMLExt = this.MMLExt;
                 other.ImageExt = this.ImageExt;
+                other.InitAlways = this.InitAlways;
 
                 return other;
             }

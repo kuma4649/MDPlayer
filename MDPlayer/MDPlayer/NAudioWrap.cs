@@ -42,6 +42,14 @@ namespace MDPlayer
         public void Start(Setting setting)
         {
             this.setting = setting;
+            if (waveOut != null) waveOut.Dispose();
+            waveOut = null;
+            if (wasapiOut != null) wasapiOut.Dispose();
+            wasapiOut = null;
+            if (dsOut != null) dsOut.Dispose();
+            dsOut = null;
+            if (asioOut != null) asioOut.Dispose();
+            asioOut = null;
 
             try
             {

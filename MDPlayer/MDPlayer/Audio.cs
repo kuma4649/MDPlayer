@@ -142,6 +142,7 @@ namespace MDPlayer
         private static List<vstInfo2> vstMidiOuts = new List<vstInfo2>();
         private static List<int> vstMidiOutsType = new List<int>();
         public static string errMsg = "";
+        public static bool flgReinit = false;
 
 
         public static List<vstInfo2> getVSTInfos()
@@ -2513,6 +2514,11 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
+                chipRegister.initChipRegister();
+                ReleaseAllMIDIout();
+                MakeMIDIout(setting, MidiMode);
+                chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
+
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
@@ -2523,11 +2529,6 @@ namespace MDPlayer
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
 
-                chipRegister.initChipRegister();
-                ReleaseAllMIDIout();
-                MakeMIDIout(setting, MidiMode);
-
-                chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
                 //Play
 
@@ -4443,6 +4444,8 @@ namespace MDPlayer
                     , "エラー"
                     , System.Windows.Forms.MessageBoxButtons.OK
                     , System.Windows.Forms.MessageBoxIcon.Error);
+                flgReinit = true;
+
                 try
                 {
                     naudioWrap.Stop();
@@ -4451,6 +4454,7 @@ namespace MDPlayer
                 {
                     log.ForcedWrite(ex);
                 }
+                
             }
             else
             {

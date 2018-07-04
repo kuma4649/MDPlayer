@@ -299,6 +299,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbInitAlways = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -2843,6 +2844,7 @@
             this.tpOther.Controls.Add(this.label19);
             this.tpOther.Controls.Add(this.btnResetPosition);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
+            this.tpOther.Controls.Add(this.cbInitAlways);
             this.tpOther.Controls.Add(this.cbAutoOpen);
             this.tpOther.Controls.Add(this.cbUseLoopTimes);
             this.tpOther.Location = new System.Drawing.Point(4, 22);
@@ -2862,7 +2864,7 @@
             this.groupBox17.Controls.Add(this.label2);
             this.groupBox17.Location = new System.Drawing.Point(7, 256);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(433, 83);
+            this.groupBox17.Size = new System.Drawing.Size(227, 83);
             this.groupBox17.TabIndex = 1;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "File Extension";
@@ -2871,21 +2873,21 @@
             // 
             this.tbImageExt.Location = new System.Drawing.Point(52, 58);
             this.tbImageExt.Name = "tbImageExt";
-            this.tbImageExt.Size = new System.Drawing.Size(346, 19);
+            this.tbImageExt.Size = new System.Drawing.Size(164, 19);
             this.tbImageExt.TabIndex = 1;
             // 
             // tbMMLExt
             // 
             this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
             this.tbMMLExt.Name = "tbMMLExt";
-            this.tbMMLExt.Size = new System.Drawing.Size(346, 19);
+            this.tbMMLExt.Size = new System.Drawing.Size(164, 19);
             this.tbMMLExt.TabIndex = 1;
             // 
             // tbTextExt
             // 
             this.tbTextExt.Location = new System.Drawing.Point(52, 12);
             this.tbTextExt.Name = "tbTextExt";
-            this.tbTextExt.Size = new System.Drawing.Size(346, 19);
+            this.tbTextExt.Size = new System.Drawing.Size(164, 19);
             this.tbTextExt.TabIndex = 1;
             // 
             // label1
@@ -3339,6 +3341,16 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // cbInitAlways
+            // 
+            this.cbInitAlways.Location = new System.Drawing.Point(240, 263);
+            this.cbInitAlways.Name = "cbInitAlways";
+            this.cbInitAlways.Size = new System.Drawing.Size(194, 39);
+            this.cbInitAlways.TabIndex = 0;
+            this.cbInitAlways.Text = "再生開始時に必ずデバイスを初期化する。";
+            this.cbInitAlways.UseVisualStyleBackColor = true;
+            this.cbInitAlways.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3732,5 +3744,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox cbInitAlways;
     }
 }

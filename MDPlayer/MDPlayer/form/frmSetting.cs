@@ -414,6 +414,7 @@ namespace MDPlayer.form
             tbTextExt.Text = setting.other.TextExt;
             tbMMLExt.Text = setting.other.MMLExt;
             tbImageExt.Text = setting.other.ImageExt;
+            cbInitAlways.Checked = setting.other.InitAlways;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1147,6 +1148,7 @@ namespace MDPlayer.form
             setting.other.TextExt = tbTextExt.Text;
             setting.other.MMLExt = tbMMLExt.Text;
             setting.other.ImageExt = tbImageExt.Text;
+            setting.other.InitAlways = cbInitAlways.Checked;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -1195,7 +1197,7 @@ namespace MDPlayer.form
                         else
                         {
                             moi.vendor = "";
-                            moi.manufacturer = mn == "Unknown" ? -1 : (int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
+                            moi.manufacturer = (mn==null || mn == "Unknown") ? -1 : (int)(Enum.Parse(typeof(NAudio.Manufacturers), mn));
                         }
 
                         lstMoi.Add(moi);
