@@ -624,7 +624,7 @@ namespace MDPlayer.Driver.MNDRV
                     _com_wave_nop();  		// $0E
                     break;
                 case 32:
-                    _com_wave_konami();	    // $0F
+                    _com_wave_lw();	    // $0F
                     break;
 
                 case 34:
@@ -724,7 +724,7 @@ namespace MDPlayer.Driver.MNDRV
         }
 
         //─────────────────────────────────────
-        public void _com_wave_konami()
+        public void _com_wave_lw()
         {
             mm.Write(reg.a4 + w_l.delay_work, (byte)(mm.ReadByte(reg.a4 + w_l.delay_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.delay_work) != 0) goto _com_wave_k_exit;
