@@ -2666,7 +2666,15 @@ namespace MDPlayer
             byte d = (byte)(e << 1);
 
             byte b = 0;
-            byte c = (byte)(PTABLE[bc]);
+            byte c;
+            if (bc < PTABLE.Length) //180303 未満のバージョンで配列を超える場合あり。よってインデックスをチェックするコードを追加
+            {
+                c = (byte)(PTABLE[bc]);
+            }
+            else
+            {
+                c = 0;
+            }
             a = wch.Detune;
             a = (byte)(~a+1); //NEG
             if (a-129 < 0)
@@ -2696,7 +2704,14 @@ namespace MDPlayer
             }
             //PKON5
             c = a;
-            a = (byte)(PTABLE[bc] >> 8);
+            if (bc < PTABLE.Length) //180303 未満のバージョンで配列を超える場合あり。よってインデックスをチェックするコードを追加
+            {
+                a = (byte)(PTABLE[bc] >> 8);
+            }
+            else
+            {
+                a = 0;
+            }
             b += a;
 
             a = wch.GlideFlg;
