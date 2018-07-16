@@ -2505,7 +2505,6 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _OPM_WRITE4()
         {
-            //	add.b	w_dev(a5),d1
             reg.D1_B += mm.ReadByte(reg.a5 + w.dev);
             _OPM_WRITE4();
         }
@@ -3271,8 +3270,6 @@ namespace MDPlayer.Driver.MNDRV
         //
         public int _opm_check()
         {
-            //	cmpi.b	#$43,$10C.w
-            //	rts
             return mm.ReadByte(0x10c) - 0x43;
         }
 
@@ -3387,7 +3384,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = 0xecc080;
             if (_bus_check() != 0) goto _unit_check_notmerc;
             reg.a0 = 0xecc100;
-            if (_bus_check() != 0) goto _unit_check_notmerc;
+            if (_bus_check() == 0) goto _unit_check_notmerc;
             return 0;// ccr ?
 
             _unit_check_notmerc:
@@ -3397,8 +3394,10 @@ namespace MDPlayer.Driver.MNDRV
 
         public int _bus_check()
         {
-            //mercがない場合だけL1以降が実行され処理終了?
-            return 0;
+            // 0xecc080 -> mercがない 場合だけL1以降が実行
+            // 0xecc100 -> mercがある 場合だけL1以降が実行
+            if (reg.a0==0xecc080) return 0;
+            return -1;
 
             //reg.D6_L = sp;
             //reg.a1 = L1;
