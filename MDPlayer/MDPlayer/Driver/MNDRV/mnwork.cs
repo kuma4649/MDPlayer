@@ -129,7 +129,7 @@ namespace MDPlayer.Driver.MNDRV
         public const int LOOP_START = 14;       //.ds.l	1		* ループ開始点
         public const int LOOP_END = 18;         //.ds.l	1		* ループ終了点
         public const int LOOP_COUNT = 22;       //.ds.l	1		* ループ回数
-        public const int _work_size = 26;       //_pcm_work_size:
+        public const int _pcm_work_size = 26;       //_pcm_work_size:
 
     }
 
@@ -197,7 +197,7 @@ namespace MDPlayer.Driver.MNDRV
         public const int envbank = 144;             //.ds.b	1			    * $90
         public const int envnum = 145;              //.ds.b	1			    * $91
 
-                                                    //	                      * $92
+        //	                      * $92
         public const int octave = 146;              //			            * PSG octave
         public const int ch3mode = 146;             //				        * bit7 効果音モード
         public const int pcm_tone = 146;            //.ds.b	1			    * MPCM TONE MODE
@@ -277,7 +277,7 @@ namespace MDPlayer.Driver.MNDRV
                                                     //		                * bit1 tone
                                                     //		                * bit0 panpot
 
-                                                    //		                * default	volume
+        //		                * default	volume
         public const int reverb_vol = 184;          //.ds.b	1			    * 擬似動作用 volume
         public const int reverb_tone = 185;         //.ds.b	1			    * 擬似動作用 tone
         public const int reverb_pan = 186;          //.ds.b	1			    * 擬似動作用 panpot
@@ -325,71 +325,71 @@ namespace MDPlayer.Driver.MNDRV
         public const int e_srw = 208;               //.ds.b	1
         public const int e_rrw = 209;               //.ds.b	1
 
-        public const int voltable = 210;            //.ds.b	128			    * volume table
+        public const int voltable = e_rrw + 1;                  //.ds.b	128			    * volume table
 
         // 以下は参照禁止
         //
-        public const int eenv_volume = 211;         //.ds.b	1
-        public const int eenv_ar = 212;             //.ds.b	1
-        public const int eenv_arc = 213;            //.ds.b	1
-        public const int eenv_dr = 214;             //.ds.b	1
-        public const int eenv_drc = 215;            //.ds.b	1
-        public const int eenv_sr = 216;             //.ds.b	1
-        public const int eenv_src = 217;            //.ds.b	1
-        public const int eenv_rr = 218;             //.ds.b	1
-        public const int eenv_rrc = 219;            //.ds.b	1
-        public const int eenv_al = 220;             //.ds.b	1
-        public const int eenv_sl = 221;             //.ds.b	1
+        public const int eenv_volume = voltable + 128;          //.ds.b	1
+        public const int eenv_ar = eenv_volume + 1;             //.ds.b	1
+        public const int eenv_arc = eenv_ar + 1;                //.ds.b	1
+        public const int eenv_dr = eenv_arc + 1;                //.ds.b	1
+        public const int eenv_drc = eenv_dr + 1;                //.ds.b	1
+        public const int eenv_sr = eenv_drc + 1;                //.ds.b	1
+        public const int eenv_src = eenv_sr + 1;                //.ds.b	1
+        public const int eenv_rr = eenv_src + 1;                //.ds.b	1
+        public const int eenv_rrc = eenv_rr + 1;                //.ds.b	1
+        public const int eenv_al = eenv_rrc + 1;                //.ds.b	1
+        public const int eenv_sl = eenv_al + 1;                 //.ds.b	1
 
-        public const int eenv_limit = 222;          //.ds.b	1
+        public const int eenv_limit = eenv_sl + 1;              //.ds.b	1
 
-                                                    //.even
-        public const int keycode3 = 223;            //.ds.w	1			    * for LFO
-        public const int addkeycode = 225;          //.ds.w	1			    * for LFO
-        public const int addkeycode2 = 227;         //.ds.w	1			    * for LFO
-        public const int addvolume = 229;           //.ds.w	1			    * for LFO
-        public const int addvolume2 = 231;          //.ds.w	1			    * for LFO
-        public const int keycode_s1 = 233;          //.ds.w	1
-        public const int keycode2_s1 = 235;         //.ds.w	1			    * slot keycode
-        public const int keycode2_s2 = 237;         //.ds.w	1			    * slot keycode
-        public const int keycode2_s3 = 239;         //.ds.w	1			    * slot keycode
-        public const int keycode2_s4 = 241;         //.ds.w	1			    * slot keycode
-        public const int keycode3_s1 = 243;         //.ds.w	1			    * slot keycode
-        public const int keycode3_s2 = 245;         //.ds.w	1			    * slot keycode
-        public const int keycode3_s3 = 247;         //.ds.w	1			    * slot keycode
-        public const int keycode3_s4 = 249;         //.ds.w	1			    * slot keycode
+        //.even
+        public const int keycode3 = eenv_limit + 1;             //.ds.w	1			    * for LFO
+        public const int addkeycode = keycode3 + 2;             //.ds.w	1			    * for LFO
+        public const int addkeycode2 = addkeycode + 2;          //.ds.w	1			    * for LFO
+        public const int addvolume = addkeycode2 + 2;           //.ds.w	1			    * for LFO
+        public const int addvolume2 = addvolume + 2;            //.ds.w	1			    * for LFO
+        public const int keycode_s1 = addvolume2 + 2;           //.ds.w	1
+        public const int keycode2_s1 = keycode_s1 + 2;          //.ds.w	1			    * slot keycode
+        public const int keycode2_s2 = keycode2_s1 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode2_s3 = keycode2_s2 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode2_s4 = keycode2_s3 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode3_s1 = keycode2_s4 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode3_s2 = keycode3_s1 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode3_s3 = keycode3_s2 + 2;         //.ds.w	1			    * slot keycode
+        public const int keycode3_s4 = keycode3_s3 + 2;         //.ds.w	1			    * slot keycode
 
-        public const int wp_pattern1 = 251;         //.ds.b _wave_work_size
-        public const int wp_pattern2 = 322;         //.ds.b _wave_work_size
-        public const int wp_pattern3 = 393;         //.ds.b _wave_work_size
-        public const int wp_pattern4 = 464;         //.ds.b _wave_work_size
-        public const int wv_pattern1 = 535;         //.ds.b _wave_work_size
-        public const int wv_pattern2 = 606;         //.ds.b _wave_work_size
-        public const int wv_pattern3 = 677;         //.ds.b _wave_work_size
-        public const int wv_pattern4 = 748;         //.ds.b _wave_work_size
-        public const int ww_pattern1 = 819;         //.ds.b _ww_work_size
-        public const int we_pattern1 = 829;         //.ds.b _wave_effect_work_size
-        public const int we_pattern2 = 895;         //.ds.b _wave_effect_work_size
-        public const int we_pattern3 = 961;         //.ds.b _wave_effect_work_size
-        public const int we_pattern4 = 1027;        //.ds.b _wave_effect_work_size
+        public const int wp_pattern1 = keycode3_s4 + 2;         //.ds.b _wave_work_size
+        public const int wp_pattern2 = wp_pattern1 + 1;         //.ds.b _wave_work_size
+        public const int wp_pattern3 = wp_pattern2 + 1;         //.ds.b _wave_work_size
+        public const int wp_pattern4 = wp_pattern3 + 1;         //.ds.b _wave_work_size
+        public const int wv_pattern1 = wp_pattern4 + 1;         //.ds.b _wave_work_size
+        public const int wv_pattern2 = wv_pattern1 + 1;         //.ds.b _wave_work_size
+        public const int wv_pattern3 = wv_pattern2 + 1;         //.ds.b _wave_work_size
+        public const int wv_pattern4 = wv_pattern3 + 1;         //.ds.b _wave_work_size
+        public const int ww_pattern1 = wv_pattern4 + 1;         //.ds.b _ww_work_size
+        public const int we_pattern1 = ww_pattern1 + 1;         //.ds.b _wave_effect_work_size
+        public const int we_pattern2 = we_pattern1 + 1;         //.ds.b _wave_effect_work_size
+        public const int we_pattern3 = we_pattern2 + 1;         //.ds.b _wave_effect_work_size
+        public const int we_pattern4 = we_pattern3 + 1;         //.ds.b _wave_effect_work_size
 
-                                                    //.quad
-        public const int mmljob_adrs = 1093;        //.ds.l   1			    * mml analyze
-        public const int softenv_adrs = 1097;       //.ds.l   1			    * software envelope
-        public const int lfojob_adrs = 1101;        //.ds.l   1			    * LFO JOB
-        public const int psgenv_adrs = 1105;        //.ds.l   1			    * PSG ENV PATTERN
-        public const int qtjob = 1109;              //.ds.l   1			    * address work
-        public const int rrcut_adrs = 1113;         //.ds.l   1			    * RR cut job
-        public const int echo_adrs = 1117;          //.ds.l   1			    * reverb
-        public const int keyoff_adrs = 1121;        //.ds.l   1			    * keyoff
-        public const int keyoff_adrs2 = 1125;       //.ds.l   1			    * keyoff
-        public const int subcmd_adrs = 1129;        //.ds.l   1			    * sub command
-        public const int setnote_adrs = 1133;       //.ds.l   1			    * note
-        public const int inithlfo_adrs = 1137;      //.ds.l   1			    * for KONAMI LFO
-        public const int we_ycom_adrs = 1141;       //.ds.l   1			    * effect ycommand
-        public const int we_tone_adrs = 1145;       //.ds.l   1			    * effect tone
-        public const int we_pan_adrs = 1149;        //.ds.l   1			    * effect panpot
-        public const int _work_size = 1153;         //_track_work_size:
+        //.quad
+        public const int mmljob_adrs = we_pattern4 + 1;         //.ds.l   1			    * mml analyze
+        public const int softenv_adrs = mmljob_adrs + 4;        //.ds.l   1			    * software envelope
+        public const int lfojob_adrs = softenv_adrs + 4;        //.ds.l   1			    * LFO JOB
+        public const int psgenv_adrs = lfojob_adrs + 4;         //.ds.l   1			    * PSG ENV PATTERN
+        public const int qtjob = psgenv_adrs + 4;               //.ds.l   1			    * address work
+        public const int rrcut_adrs = qtjob + 4;                //.ds.l   1			    * RR cut job
+        public const int echo_adrs = rrcut_adrs + 4;            //.ds.l   1			    * reverb
+        public const int keyoff_adrs = echo_adrs + 4;           //.ds.l   1			    * keyoff
+        public const int keyoff_adrs2 = keyoff_adrs + 4;        //.ds.l   1			    * keyoff
+        public const int subcmd_adrs = keyoff_adrs2 + 4;        //.ds.l   1			    * sub command
+        public const int setnote_adrs = subcmd_adrs + 4;        //.ds.l   1			    * note
+        public const int inithlfo_adrs = setnote_adrs + 4;      //.ds.l   1			    * for KONAMI LFO
+        public const int we_ycom_adrs = inithlfo_adrs + 4;      //.ds.l   1			    * effect ycommand
+        public const int we_tone_adrs = we_ycom_adrs + 4;       //.ds.l   1			    * effect tone
+        public const int we_pan_adrs = we_tone_adrs + 4;        //.ds.l   1			    * effect panpot
+        public const int _track_work_size = we_pan_adrs + 4;          //_track_work_size:
 
     }
 
@@ -513,6 +513,7 @@ namespace MDPlayer.Driver.MNDRV
         public const int FREQ_KC_TABLE = 5260;      //.ds.b	8192
                                                     //.even
         public const int TRKANA_RESTADR = 13452;	//.ds.l	1
+        public const Action TRKANA_RESTADRact = null;
         public const int PCMBUF_ENDADR = 13456;     //.ds.l	1
         public const int MMLBUFADR = 13460;         //.ds.l	1
         public const int PCMBUFADR = 13464;         //.ds.l	1
@@ -532,5 +533,11 @@ namespace MDPlayer.Driver.MNDRV
         public const int _trackworksize = 73792;    //.equ _track_work_size*TRACK
         //     .text
 
+    }
+
+    //
+    public struct cw
+    {
+        public const int _ch_table = 0;
     }
 }

@@ -58,6 +58,27 @@ namespace MDPlayer.Driver.MNDRV
         public void SetD5_L(int v) { D5_L = (uint)v; }
         public void SetD6_L(int v) { D6_L = (uint)v; }
         public void SetD7_L(int v) { D7_L = (uint)v; }
-
     }
+
+    public class ab
+    {
+        public const UInt32 dummyAddress = 0xffffffff;
+        public static Dictionary<UInt32, Action> hlTRKANA_RESTADR = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_qtjob = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_mmljob_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_lfojob_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_psgenv_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_softenv_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_rrcut_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_echo_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_keyoff_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_keyoff_adrs2 = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_subcmd_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_setnote_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_inithlfo_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_we_ycom_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_we_tone_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_we_pan_adrs = new Dictionary<uint, Action>();
+    }
+
 }

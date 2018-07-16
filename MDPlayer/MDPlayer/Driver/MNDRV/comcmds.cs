@@ -11,8 +11,8 @@ namespace MDPlayer.Driver.MNDRV
     //
     public class comcmds
     {
-        public reg reg;
-        public MXDRV.xMemory mm;
+        public static reg reg;
+        public static MXDRV.xMemory mm;
 
         // 未解決ジャンプアドレス
         public Action _OPN_WRITE;
@@ -50,7 +50,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_L--;
                 if (reg.D0_L == 0) break;
 
-                reg.a0 = w._work_size + reg.a0;
+                reg.a0 = dw._work_size + reg.a0;
             }
 
             int a = mm.ReadByte(reg.a0 + w.flag4) & 0x80;
@@ -218,7 +218,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W >>= 4;
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D1_B);
         }
-        public void _atq_16()
+        public static void _atq_16()
         {
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
         }
@@ -2375,7 +2375,7 @@ namespace MDPlayer.Driver.MNDRV
                 {
                     return;
                 }
-                reg.a0 = reg.a0 + w._work_size;
+                reg.a0 = reg.a0 + dw._work_size;
                 reg.D0_W -= 1;
             } while (reg.D0_W != 0);
             mm.Write(reg.a6 + dw.DRV_STATUS, (byte)0x20);

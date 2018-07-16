@@ -8,8 +8,8 @@ namespace MDPlayer.Driver.MNDRV
 {
     public class comanalyze
     {
-        public reg reg;
-        public MXDRV.xMemory mm;
+        public static reg reg;
+        public static MXDRV.xMemory mm;
 
         // 未解決ジャンプアドレス
         public Action[] jsr_w_echo_adrs;
@@ -22,7 +22,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action[] jsr_w_setnote_adrs;
         public Action[] jsr_w_inithlfo_adrs;
         public Action[] jmp_w_qtjob;
-        public Action[] jmp_dw_TRKANA_RESTADR;
 
 
         //
@@ -414,10 +413,10 @@ namespace MDPlayer.Driver.MNDRV
             }
             mm.Write(reg.a5 + w.len, (byte)reg.D0_B);
             reg.a0 = mm.ReadUInt32(reg.a6 + dw.TRKANA_RESTADR);
-            jmp_dw_TRKANA_RESTADR[reg.a0]();
+            ab.hlTRKANA_RESTADR[reg.a6]();//a6の位置にあるActionを実行
         }
 
-        public void _track_ana_rest_old()
+        public static void _track_ana_rest_old()
         {
             if ((byte)(mm.ReadByte(reg.a5 + w.flag2) & 0x40) == 0)
             {
@@ -437,7 +436,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dataptr, reg.a1);
         }
 
-        public void _track_ana_rest_new()
+        public static void _track_ana_rest_new()
         {
             if ((byte)(mm.ReadByte(reg.a5 + w.flag2) & 0x40) == 0)
             {
