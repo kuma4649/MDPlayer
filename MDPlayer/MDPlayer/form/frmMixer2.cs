@@ -882,6 +882,9 @@ namespace MDPlayer.form
             }
         }
 
-
+        private void pbScreen_MouseEnter(object sender, EventArgs e)
+        {
+            pbScreen.Focus();
+        }
     }
 }

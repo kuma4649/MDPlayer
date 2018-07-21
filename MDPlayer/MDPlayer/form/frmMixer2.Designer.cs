@@ -43,6 +43,7 @@
             this.pbScreen.TabStop = false;
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
             this.pbScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseDown);
+            this.pbScreen.MouseEnter += new System.EventHandler(this.pbScreen_MouseEnter);
             this.pbScreen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmMixer2_MouseMove);
             // 
             // frmMixer2

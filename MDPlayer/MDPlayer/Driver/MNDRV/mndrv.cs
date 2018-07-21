@@ -2685,7 +2685,7 @@ namespace MDPlayer.Driver.MNDRV
 
         //─────────────────────────────────────
         public uint _data_work_size = 384 * 1024;
-        public uint _work_top = 0;
+        public static uint _work_top = 0;
         public uint _buffer_top = 0;
         public uint _old_trap4_vec = 0;
         public uint _old_opn_vec = 0;
