@@ -83,7 +83,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_W &= reg.D0_W;
 
             reg.D0_L = 7;
-            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 引数としてスタックに値が積まれていると思われる
+            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
             reg.D0_W += reg.D0_W;
             reg.D4_W = reg.SR_W;
             reg.D4_W &= 0xf8ff;
@@ -232,7 +232,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_W &= reg.D0_W;
 
             reg.D0_L = 7;
-            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 引数としてスタックに値が積まれていると思われる
+            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
             reg.D0_W += reg.D0_W;
             reg.D4_W = reg.SR_W;
             reg.D4_W &= 0xf8ff;
