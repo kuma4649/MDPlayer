@@ -87,6 +87,8 @@ namespace MDPlayer.Driver.MNDRV
         public static Dictionary<UInt32, Action> hlw_we_tone_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_we_pan_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlINTEXECBUF = new Dictionary<uint, Action>();
+        public static UInt16[] _ch_psg_plfo_table;
+        public static Dictionary<UInt32, Action> hl_ch_psg_plfo_table = new Dictionary<uint, Action>();
     }
 
 }
