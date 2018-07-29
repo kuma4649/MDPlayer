@@ -11,20 +11,20 @@ namespace MDPlayer.Driver.MNDRV
         public reg reg;
         public MXDRV.xMemory mm;
         public mndrv mndrv;
+        public comanalyze comanalyze;
         public comcmds comcmds;
         public comlfo comlfo;
+        public comwave comwave;
+        public devpsg devpsg;
 
         // 未解決ジャンプアドレス
         public Action _opm_keyon;
         public Action _OPM_82;
-        public Action _PSG_88;
-        public Action _PSG_89;
         public Action _OPM_92;
         public Action _OPM_98;
         public Action _OPM_99;
         public Action _OPM_F0;
         public Action _OPM_A1;
-        public Action _PSG_A2;
         public Action _OPM_A3;
         public Action _OPM_F2;
         public Action _OPM_F5;
@@ -33,16 +33,10 @@ namespace MDPlayer.Driver.MNDRV
         public Action _OPM_E0;
         public Action _OPM_E1;
         public Action _OPM_E8;
-        public Action _PSG_C8;
-        public Action _PSG_C9;
         public Action _OPM_F4;
         public Action _OPM_F8;
         public Action _OPM_FA;
         public Action _OPM_FF;
-        public Action _ch_effect;
-        public Action _track_analyze;
-        // 未解決テーブル
-        public UInt16[] _psg_table;
 
         //
         //	part of YM2608 - PSG emulation
@@ -73,7 +67,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.octave, reg.D1_B);
             reg.D0_W += reg.D0_W;
             reg.a0 = ab.dummyAddress;// _psg_table;
-            reg.D0_W = _psg_table[reg.D0_W / 2];
+            reg.D0_W = devpsg._psg_table[reg.D0_W / 2];
             mm.Write(reg.a5 + w.makotune, reg.D0_W);
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG2) & 1) == 0)
             {
@@ -148,8 +142,8 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x05: _PSGE_NOP(); break;// 85
                 case 0x06: comcmds._COM_86(); break;// 86	同期信号送信
                 case 0x07: comcmds._COM_87(); break;// 87	同期信号待ち
-                case 0x08: _PSG_88(); break;// 88	ぴっちべんど
-                case 0x09: _PSG_89(); break;// 89	ぽるためんと
+                case 0x08: devpsg._PSG_88(); break;// 88	ぴっちべんど
+                case 0x09: devpsg._PSG_89(); break;// 89	ぽるためんと
                 case 0x0a: _PSGE_NOP(); break;// 8A
                 case 0x0b: _PSGE_NOP(); break;// 8B
                 case 0x0c: _PSGE_NOP(); break;// 8C
@@ -176,7 +170,7 @@ namespace MDPlayer.Driver.MNDRV
 
                 case 0x20: _OPM_F0(); break;// A0 音色切り替え
                 case 0x21: _OPM_A1(); break;// A1 バンク&音色切り替え
-                case 0x22: _PSG_A2(); break;// A2
+                case 0x22: devpsg._PSG_A2(); break;// A2
                 case 0x23: _OPM_A3(); break;// A3 音量テーブル切り替え
                 case 0x24: _OPM_F2(); break;// A4 音量
                 case 0x25: _OPM_F5(); break;// A5
@@ -259,8 +253,8 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x6b: comcmds._COM_EB(); break;// EB
                 case 0x6c: _PSGE_NOP(); break;// EC
                 case 0x6d: comcmds._COM_ED(); break;// ED
-                case 0x6e: _PSG_C8(); break;// EE LW type LFO
-                case 0x6f: _PSG_C9(); break;// EF hardware LFO delay
+                case 0x6e: devpsg._PSG_C8(); break;// EE LW type LFO
+                case 0x6f: devpsg._PSG_C9(); break;// EF hardware LFO delay
 
                 // システコル系              
                 case 0x70: _OPM_F0(); break;// F0	@
@@ -301,7 +295,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _ch_psge_lfo_job()
         {
-            _ch_effect();
+            comwave._ch_effect();
             //_ch_psge_lfo:
             mm.Write(reg.a5 + w.addkeycode, (UInt16)0);
             mm.Write(reg.a5 + w.addvolume, (UInt16)0);
@@ -344,7 +338,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public void _ch_psge_mml_job()
         {
-            _track_analyze();
+            comanalyze._track_analyze();
             //_ch_psge_bend_job:
             reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
             if ((sbyte)reg.D0_B >= 0) return;

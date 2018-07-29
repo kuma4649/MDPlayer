@@ -129,6 +129,7 @@
     <Compile Include="Driver\MNDRV\comcmds.cs" />
     <Compile Include="Driver\MNDRV\comlfo.cs" />
     <Compile Include="Driver\MNDRV\comwave.cs" />
+    <Compile Include="Driver\MNDRV\devpsg.cs" />
     <Compile Include="Driver\MNDRV\devpsgemu.cs" />
     <Compile Include="Driver\MNDRV\devrhy.cs" />
     <Compile Include="Driver\MNDRV\interrupt.cs" />

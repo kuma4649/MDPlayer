@@ -10,9 +10,11 @@ namespace MDPlayer.Driver.MNDRV
     {
         public reg reg;
         public MXDRV.xMemory mm;
+        public devpsg devpsg;
+        public devpsgemu devpsgemu;
+        public devrhy devrhy;
 
         // 未解決ジャンプアドレス
-        public Action _ch_rhythm;
         public Action _ch_fm_mml_job;
         public Action _ch_fm_lfo_job;
         public Action _ch_fm_softenv_job;
@@ -27,20 +29,12 @@ namespace MDPlayer.Driver.MNDRV
         public Action _fm_effect_pan;
         public Action _ch_psg_mml_job;
         public Action _ch_psg_lfo_job;
-        public Action _psg_env;
-        public Action _psg_echo;
-        public Action _psg_env_keyoff;
-        public Action _psg_keyoff;
-        public Action _psg_command;
-        public Action _psg_note_set;
         public Action _ch_fme_mml_job;
         public Action _ch_fme_lfo_job;
         public Action _fme_command;
         public Action _fme_note_set;
         public Action _ch_psge_mml_job;
         public Action _ch_psge_lfo_job;
-        public Action _psge_command;
-        public Action _psge_note_set;
         public Action _ch_opm_mml_job;
         public Action _ch_opm_lfo_job;
         public Action _opm_command;
@@ -64,7 +58,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action _mpcm_effect_tone;
         public Action _mpcm_effect_pan;
         public Action _FM_F2_set;
-        public Action _psg_volume_set2;
         public Action _OPM_F2_set;
 
         public Action<int> trap;
@@ -1117,7 +1110,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.pan_ampm, 0xc0);
 
             reg.a3 = ab.dummyAddress;
-            Action act = _ch_rhythm;
+            Action act = devrhy._ch_rhythm;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
@@ -1231,7 +1224,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
-            act = _psg_env;
+            act = devpsg._psg_env;
             mm.Write(reg.a5 + w.softenv_adrs, reg.a3);
             ab.hlw_softenv_adrs.Add(reg.a5, act);
 
@@ -1239,23 +1232,23 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.rrcut_adrs, reg.a3);
             ab.hlw_rrcut_adrs.Add(reg.a5, act);
 
-            act = _psg_echo;
+            act = devpsg._psg_echo;
             mm.Write(reg.a5 + w.echo_adrs, reg.a3);
             ab.hlw_echo_adrs.Add(reg.a5, act);
 
-            act = _psg_env_keyoff;
+            act = devpsg._psg_env_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs, reg.a3);
             ab.hlw_keyoff_adrs.Add(reg.a5, act);
 
-            act = _psg_keyoff;
+            act = devpsg._psg_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs2, reg.a3);
             ab.hlw_keyoff_adrs2.Add(reg.a5, act);
 
-            act = _psg_command;
+            act = devpsg._psg_command;
             mm.Write(reg.a5 + w.subcmd_adrs, reg.a3);
             ab.hlw_subcmd_adrs.Add(reg.a5, act);
 
-            act = _psg_note_set;
+            act = devpsg._psg_note_set;
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
@@ -1368,11 +1361,11 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
-            act = _psge_command;
+            act = devpsgemu._psge_command;
             mm.Write(reg.a5 + w.subcmd_adrs, reg.a3);
             ab.hlw_subcmd_adrs.Add(reg.a5, act);
 
-            act = _psge_note_set;
+            act = devpsgemu._psge_note_set;
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
@@ -1765,7 +1758,7 @@ namespace MDPlayer.Driver.MNDRV
 
             L1:
             reg.D0_L = 0;
-            _psg_volume_set2();
+            devpsg._psg_volume_set2();
             goto L9;
 
             L2:
@@ -1805,7 +1798,7 @@ namespace MDPlayer.Driver.MNDRV
 
             L1b:
             reg.D0_B = mm.ReadByte(reg.a5 + w.e_ini);
-            _psg_volume_set2();
+            devpsg._psg_volume_set2();
             goto L9b;
 
             L2b:
@@ -1955,7 +1948,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((sbyte)(mm.ReadByte(reg.a5 + w.ch) - 0x40) >= 0) return;
             if ((sbyte)(mm.ReadByte(reg.a5 + w.ch) - 0x20) >= 0)
             {
-                _psg_env_keyoff();
+                devpsg._psg_env_keyoff();
                 return;
             }
             _fm_keyoff();

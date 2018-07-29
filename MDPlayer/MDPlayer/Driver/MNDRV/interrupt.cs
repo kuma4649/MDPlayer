@@ -11,13 +11,13 @@ namespace MDPlayer.Driver.MNDRV
         public reg reg;
         public MXDRV.xMemory mm;
         public mndrv mndrv;
+        public devpsg devpsg;
 
         // 未解決ジャンプアドレス
         public Action _t_play_music;
         public Action _t_pause;
         public Action _d_stop_music;
         public Action _FM_F2_softenv;
-        public Action _psg_lfo;
         public Action _OPM_F2_softenv;
         public Action _MPCM_F2_softenv;
 
@@ -859,7 +859,7 @@ namespace MDPlayer.Driver.MNDRV
                 {
                     reg.D0_L = 0;
                 }
-                _psg_lfo();
+                devpsg._psg_lfo();
             }
             reg.a5 = reg.a5 + dw._trackworksize;
             reg.D7_W--;
