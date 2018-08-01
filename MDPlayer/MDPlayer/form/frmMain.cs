@@ -145,7 +145,7 @@ namespace MDPlayer.form
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            allScreenInit();
+            reqAllScreenInit = true;
 
             log.ForcedWrite("frmMain_Load:STEP 07");
 
@@ -424,6 +424,7 @@ namespace MDPlayer.form
             log.ForcedWrite("frmMain_Shown:STEP 09");
 
             System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
+            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
             trd.Start();
             string[] args = Environment.GetCommandLineArgs();
 
@@ -477,7 +478,7 @@ namespace MDPlayer.form
 
             screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, setting.other.Zoom);
             screen.setting = setting;
-            allScreenInit();
+            reqAllScreenInit = true;
             //screen.screenInitAll();
         }
 
@@ -2344,7 +2345,7 @@ namespace MDPlayer.form
             screen.setting = this.setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            allScreenInit();
+            reqAllScreenInit = true;
             //screen.screenInitAll();
 
             log.ForcedWrite("設定が変更されたため、再度Audio初期化処理開始");
@@ -2482,6 +2483,7 @@ namespace MDPlayer.form
         }
 
 
+        public bool reqAllScreenInit = true;
 
         private void allScreenInit()
         {
@@ -2499,8 +2501,10 @@ namespace MDPlayer.form
                 if (frmYMF278B[i] != null) frmYMF278B[i].screenInit();
                 if (frmC140[i] != null) frmC140[i].screenInit();
                 if (frmSegaPCM[i] != null) frmSegaPCM[i].screenInit();
+                if (frmMIDI[i] != null) frmMIDI[i].screenInit();
 
             }
+            reqAllScreenInit = false;
         }
 
         private void screenMainLoop()
@@ -2511,6 +2515,12 @@ namespace MDPlayer.form
 
             while (isRunning)
             {
+
+                if (reqAllScreenInit)
+                {
+                    allScreenInit();
+                }
+
                 float period = 1000f / (float)setting.other.ScreenFrameRate;
                 double tickCount = (double)System.Environment.TickCount;
 
@@ -2705,6 +2715,7 @@ namespace MDPlayer.form
             }
 
             stopped = true;
+
         }
 
         private void screenChangeParams()
@@ -2870,7 +2881,7 @@ namespace MDPlayer.form
                 playFn = frmPlayList.setStart(-2);//first 
             }
 
-            allScreenInit();
+            reqAllScreenInit = true;
 
             loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3,playFn.Item4);
             frmPlayList.Play();
@@ -2913,7 +2924,7 @@ namespace MDPlayer.form
 
             oldParam = new MDChipParams();
             //newParam = new MDChipParams();
-            allScreenInit();
+            reqAllScreenInit = true;
 
             if (!Audio.Play(setting))
             {

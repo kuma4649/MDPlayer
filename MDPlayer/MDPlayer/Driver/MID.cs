@@ -299,7 +299,7 @@ namespace MDPlayer
         private void oneFrameMID()
         {
 #if DEBUG
-            if (model == enmModel.RealModel) return;
+            //if (model == enmModel.RealModel) return;
 #endif
             bool trksEnd = true;
             for (int trk = 0; trk < trkCount; trk++)

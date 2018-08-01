@@ -32,6 +32,8 @@ namespace MDPlayer
         public byte[] nrpnEGRls = null;
         public byte[] LCDDisplay = null;
         public int LCDDisplayTime = 0;
+        public byte[] LCD8850Display = null;
+        public int LCD8850DisplayTime = 0;
         public int LCDDisplayTimeXG = 0;
         public byte[] LCDDisplayLetter = null;
         public int LCDDisplayLetterTime = 0;
@@ -183,7 +185,9 @@ namespace MDPlayer
             nrpnEGDecay = new byte[16];
             nrpnEGRls = new byte[16];
             LCDDisplay = new byte[64];
+            LCD8850Display = new byte[27 * 4 * 16];// 160*8];
             LCDDisplayTime = 0;
+            LCD8850DisplayTime = 0;
             LCDDisplayTimeXG = 0;
 
             LCDDisplayLetter = new byte[32];
@@ -504,6 +508,18 @@ namespace MDPlayer
                         if (adr == 0x10013f)
                         {
                             LCDDisplayTime = 400;
+                        }
+                    }
+                    else if (adr >= 0x200000 && adr <0x201000)
+                    {
+                        //8850Display Dot Data(160px x 64 px) ((27byte x 4row) x 16set)
+                        if ((adr & 0x7f) < 108)
+                        {
+                            LCD8850Display[((adr & 0xf00) >> 8) * 108 + (adr & 0x7f)] = dat;// % (27*4)] = dat;
+                        }
+                        if (adr == 0x200000 + 0xf00 + 108-1)
+                        {
+                            LCD8850DisplayTime = 400;
                         }
                     }
                     else if (adr == 0x400130)

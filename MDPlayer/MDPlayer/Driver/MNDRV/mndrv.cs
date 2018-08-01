@@ -33,8 +33,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action _ch_fme_lfo_job;
         public Action _fme_command;
         public Action _fme_note_set;
-        public Action _ch_psge_mml_job;
-        public Action _ch_psge_lfo_job;
         public Action _ch_opm_mml_job;
         public Action _ch_opm_lfo_job;
         public Action _opm_command;
@@ -1352,12 +1350,12 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.smask, (byte)4);
             mm.Write(reg.a5 + w.pan_ampm, (byte)0xc0);
 
-            act = _ch_psge_mml_job;
+            act = devpsgemu._ch_psge_mml_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _ch_psge_lfo_job;
+            act = devpsgemu._ch_psge_lfo_job;
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 

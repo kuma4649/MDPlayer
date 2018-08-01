@@ -13,12 +13,11 @@ namespace MDPlayer.Driver.MNDRV
     {
         public static reg reg;
         public static MXDRV.xMemory mm;
+        public mndrv mndrv;
+        public comlfo comlfo;
 
         // 未解決ジャンプアドレス
-        public Action _OPN_WRITE;
-        public Action _init_lfo2;
         public Action[] jsr_w_we_reset;
-        public Action SUBEVENT;
 
 
         //	タイ
@@ -562,7 +561,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D7_L = 3;
             reg.D1_L = 0x10;
             reg.D0_L = 0x1c;
-            _OPN_WRITE();
+            mndrv._OPN_WRITE();
             reg.D7_L = sd;
         }
 
@@ -629,7 +628,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D7_L = 3;
             reg.D1_L = 0x10;
             reg.D0_L = 0x1c;
-            _OPN_WRITE();
+            mndrv._OPN_WRITE();
             reg.D7_L = sd;
             _COM_BF_no_opn();
         }
@@ -1189,7 +1188,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             if (reg.D0_B == 0x84)
             {
-                _init_lfo2();
+                comlfo._init_lfo2();
                 return;
             }
 
@@ -1285,7 +1284,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             if (reg.D0_B == 0x84)
             {
-                _init_lfo2();
+                comlfo._init_lfo2();
                 _COM_E3_OFF();
                 return;
             }
@@ -2381,7 +2380,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a6 + dw.DRV_STATUS, (byte)0x20);
             mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)0xffff);// -1
             reg.D0_L = 2;
-            SUBEVENT();
+            mndrv.SUBEVENT();
         }
 
 

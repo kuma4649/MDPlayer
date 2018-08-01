@@ -15,7 +15,6 @@ namespace MDPlayer.Driver.MNDRV
 
         // 未解決ジャンプアドレス
         public Action _FM_FA;
-        public Action _all_end_check;
 
         //
         //	part of YM2608 - RHYTHM
@@ -515,7 +514,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) & 0x77));
             mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) & 0xfe));
             mm.Write(reg.a5 + w.weffect, 0);
-            _all_end_check();
+            comcmds._all_end_check();
             return;
             L2:
             reg.a1 = mm.ReadUInt32(reg.a5 + w.loop);

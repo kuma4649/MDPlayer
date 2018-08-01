@@ -10,13 +10,13 @@ namespace MDPlayer.Driver.MNDRV
     {
         public reg reg;
         public MXDRV.xMemory mm;
+        public comlfo comlfo;
 
         private UInt32 cf = 0;
         private byte val = 0;
 
         // 未解決ジャンプアドレス
         public Action[] jsr_w_we_exec_adrs;
-        public Action GETRND;
 
         //
         //	part of wavememory
@@ -863,7 +863,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadUInt16(reg.a3 + w_w.ko_loop_start) == 0)
             {
                 mm.Write(reg.a3 + w_w.ko_loop_start, mm.ReadUInt16(reg.a3 + w_w.start));
-                GETRND();
+                comlfo.GETRND();
                 reg.D1_L = mm.ReadUInt32(reg.a3 + w_w.ko_loop_end);
                 reg.D0_L = (UInt16)((Int16)reg.D1_W * (Int16)reg.D0_W);
                 mm.Write(reg.a3 + w_w.ko_loop_count, reg.D0_L);
@@ -958,7 +958,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadUInt16(reg.a3 + w_w.ko_start) == 0)
             {
                 mm.Write(reg.a3 + w_w.ko_start, mm.ReadUInt16(reg.a3 + w_w.start));
-                GETRND();
+                comlfo.GETRND();
                 reg.D1_W = mm.ReadUInt16(reg.a3 + w_w.ko_loop_start);
                 reg.D0_L = (UInt16)((Int16)reg.D1_W * (Int16)reg.D0_W);
                 mm.Write(reg.a3 + w_w.ko_loop_end, (UInt16)reg.D0_W);

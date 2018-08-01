@@ -127,8 +127,8 @@ namespace MDPlayer
             rPlane_MIDI[2] = getByteArray(Properties.Resources.planeMIDI_GS);
 
             bitmapMIDILyric = new Bitmap[2];
-            bitmapMIDILyric[0] = new Bitmap(232, 24);
-            bitmapMIDILyric[1] = new Bitmap(232, 24);
+            bitmapMIDILyric[0] = new Bitmap(200, 24);
+            bitmapMIDILyric[1] = new Bitmap(200, 24);
             gMIDILyric = new Graphics[2];
             gMIDILyric[0] = Graphics.FromImage(bitmapMIDILyric[0]);
             gMIDILyric[1] = Graphics.FromImage(bitmapMIDILyric[1]);
@@ -678,14 +678,17 @@ namespace MDPlayer
             if (oldValue1 == value1 && oldValue2 == value2) return;
 
             int s = 0;
+            int vy = y;
             //for (int n = (Math.Min(oldValue1, value1) / 8); n < 16; n++)
             for (int n = 0; n < 16; n++)
             {
                 s = (value1 / 8) < n ? 8 : 0;
-                screen.drawByteArray(x, y - (n * 3), rMIDILCD[MIDImodule], 136, 8 * 16, s, 8, 2);
+                screen.drawByteArray(x, vy, rMIDILCD[MIDImodule], 136, 8 * 16, s, 8, (n % 2 == 0 ? 2 : 3));
+                vy -= (n % 2 == 0 ? 4 : 3);
             }
 
-            screen.drawByteArray(x, y - (value2 / 8 * 3), rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, 2);
+            s = value2 / 8;
+            screen.drawByteArray(x, y - s * 3 - (s + 1) / 2, rMIDILCD[MIDImodule], 136, 8 * 16, 0, 8, (s % 2 == 0 ? 2 : 3));
 
             oldValue1 = value1;
             oldValue2 = value2;
@@ -1450,7 +1453,7 @@ namespace MDPlayer
             gMIDILyric[chipID].Clear(Color.Black);
             System.Windows.Forms.TextRenderer.DrawText(gMIDILyric[chipID], value1, fntMIDILyric[chipID], new Point(0, 0), Color.White);
             byte[] bit = getByteArray(bitmapMIDILyric[chipID]);
-            screen.drawByteArray(x, y, bit, 232, 0, 0, 232, 24);
+            screen.drawByteArray(x, y, bit, 200, 0, 0, 200, 24);
 
             oldValue1 = value1;
         }
@@ -1493,7 +1496,7 @@ namespace MDPlayer
 
         public static void drawMIDILCD_Letter(FrameBuffer screen, int MIDImodule, int x, int y, ref byte[] oldValue, byte[] value, int len)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 20; i++)
             {
                 if (oldValue[i] == value[i]) continue;
                 oldValue[i] = value[i];

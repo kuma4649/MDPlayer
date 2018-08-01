@@ -11,19 +11,6 @@ namespace MDPlayer.Driver.MNDRV
         public static reg reg;
         public static MXDRV.xMemory mm;
 
-        // 未解決ジャンプアドレス
-        public Action[] jsr_w_echo_adrs;
-        public Action[] jsr_w_keyoff_adrs2;
-        public Action[] jmp_w_echo_adrs;
-        public Action[] jsr_w_rrcut_adrs;
-        public Action[] jmp_w_keyoff_adrs;
-        public Action[] jsr_w_keyoff_adrs;
-        public Action[] jmp_w_subcmd_adrs;
-        public Action[] jsr_w_setnote_adrs;
-        public Action[] jsr_w_inithlfo_adrs;
-        public Action[] jmp_w_qtjob;
-
-
         //
         //	part of track analyze
         //
@@ -77,8 +64,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = mm.ReadUInt32(reg.a5 + w.rrcut_adrs);
-            jsr_w_rrcut_adrs[reg.a0]();
-
+            ab.hlw_rrcut_adrs[reg.a0]();
             _track_ana_echo_atq();
         }
 
@@ -90,7 +76,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_B != 0) goto L2;
             L1:
             reg.a0 = reg.a5 + w.echo_adrs;
-            jsr_w_echo_adrs[reg.a0]();
+            ab.hlw_echo_adrs[reg.a0]();
             reg.D0_L = 0xffffffff;// -1;
             L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
@@ -106,7 +92,7 @@ namespace MDPlayer.Driver.MNDRV
                 if (reg.D0_B == 0)
                 {
                     reg.a0 = reg.a5 + w.keyoff_adrs2;
-                    jsr_w_keyoff_adrs2[reg.a0]();
+                    ab.hlw_keyoff_adrs2[reg.a0]();
                     reg.D0_L = 0;
                 }
                 mm.Write(reg.a5 + w.reverb_time_work, (byte)reg.D0_B);
@@ -125,7 +111,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.a0 = reg.a5 + w.echo_adrs;
-            jmp_w_echo_adrs[reg.a0]();
+            ab.hlw_echo_adrs[reg.a0]();
             _track_ana_fetch();
         }
 
@@ -152,8 +138,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = mm.ReadUInt32(reg.a5 + w.rrcut_adrs);
-            jsr_w_rrcut_adrs[reg.a0]();
-
+            ab.hlw_rrcut_adrs[reg.a0]();
             _track_ana_normal_atq();
         }
 
@@ -165,7 +150,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_B != 0) goto L2;
             L1:
             reg.a0 = reg.a5 + w.keyoff_adrs;
-            jsr_w_keyoff_adrs[reg.a0]();
+            ab.hlw_keyoff_adrs[reg.a0]();
             reg.D0_L = 0xffffffff;// -1;
             L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
@@ -186,7 +171,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) & (~(1 << (int)reg.D0_B))));
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) & (~(1 << (int)reg.D0_B))));
             reg.a0 = reg.a5 + w.keyoff_adrs;
-            jmp_w_keyoff_adrs[reg.a0]();
+            ab.hlw_keyoff_adrs[reg.a0]();
             _track_ana_fetch();
             return;
 
@@ -197,7 +182,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = reg.a5 + w.keyoff_adrs;
-            jsr_w_keyoff_adrs[reg.a0]();
+            ab.hlw_keyoff_adrs[reg.a0]();
         }
 
         //─────────────────────────────────────
@@ -237,7 +222,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = mm.ReadUInt32(reg.a5 + w.subcmd_adrs);
-            jmp_w_subcmd_adrs[reg.a0]();
+            ab.hlw_subcmd_adrs[reg.a0]();
             _track_loop();
         }
 
@@ -309,13 +294,13 @@ namespace MDPlayer.Driver.MNDRV
         public void _track_ana_mml1()
         {
             reg.a0 = mm.ReadUInt32(reg.a5 + w.setnote_adrs);
-            jsr_w_setnote_adrs[reg.a0]();
+            ab.hlw_setnote_adrs[reg.a0]();
             _track_ana_exit();
         }
         public void _track_ana_exit()
         {
             reg.a0 = mm.ReadUInt32(reg.a5 + w.inithlfo_adrs);
-            jsr_w_inithlfo_adrs[reg.a0]();
+            ab.hlw_inithlfo_adrs[reg.a0]();
             _track_ana_exit_jump();
         }
 
@@ -336,7 +321,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.a0 = mm.ReadUInt32(reg.a5 + w.qtjob);
-            jmp_w_qtjob[reg.a0]();
+            ab.hlw_qtjob[reg.a0]();
             _track_ana_exit_();
         }
 
@@ -403,7 +388,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((sbyte)reg.D0_B < 0) goto L1;
             if ((reg.D0_L & 0x40) != 0) goto L1;
             reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
-            jsr_w_keyoff_adrs[reg.a0]();
+            ab.hlw_keyoff_adrs[reg.a0]();
             L1:
             reg.D0_B = mm.ReadByte(reg.a1++);
             if (reg.D0_B == 0)
