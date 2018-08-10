@@ -271,6 +271,51 @@ namespace MDPlayer.form
             }
         }
 
+        public void screenInit()
+        {
+            for (int ch = 0; ch < 9; ch++)
+            {
+                newParam.channels[ch].inst[0] = 0;
+                newParam.channels[ch].inst[1] = 0;
+                newParam.channels[ch].inst[2] = 0;
+                newParam.channels[ch].inst[3] = 0;
+                newParam.channels[ch].note = -1;
+                newParam.channels[ch].volumeL = 0;
+            }
+
+            newParam.channels[9].volume = 0;
+            newParam.channels[10].volume = 0;
+            newParam.channels[11].volume = 0;
+            newParam.channels[12].volume = 0;
+            newParam.channels[13].volume = 0;
+
+            newParam.channels[0].inst[4] = 0;
+            newParam.channels[0].inst[5] = 0;
+            newParam.channels[0].inst[6] = 0;
+            newParam.channels[0].inst[7] = 0;
+            newParam.channels[0].inst[8] = 0;
+            newParam.channels[0].inst[9] = 0;
+            newParam.channels[0].inst[10] = 0;
+            newParam.channels[0].inst[11] = 0;
+            newParam.channels[0].inst[12] = 0;
+            newParam.channels[0].inst[13] = 0;
+            newParam.channels[0].inst[14] = 0;
+            newParam.channels[0].inst[15] = 0;
+            newParam.channels[0].inst[16] = 0;
+            newParam.channels[0].inst[17] = 0;
+            newParam.channels[0].inst[18] = 0;
+            newParam.channels[0].inst[19] = 0;
+            newParam.channels[0].inst[20] = 0;
+            newParam.channels[0].inst[21] = 0;
+            newParam.channels[0].inst[22] = 0;
+            newParam.channels[0].inst[23] = 0;
+            newParam.channels[0].inst[24] = 0;
+            newParam.channels[0].inst[25] = 0;
+            newParam.channels[0].inst[26] = 0;
+            newParam.channels[0].inst[27] = 0;
+
+        }
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;

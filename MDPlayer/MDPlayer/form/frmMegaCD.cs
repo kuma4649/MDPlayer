@@ -167,6 +167,15 @@ namespace MDPlayer.form
             return n;
         }
 
-
+        public void screenInit()
+        {
+            for (int c = 0; c < newParam.channels.Length; c++)
+            {
+                newParam.channels[c].note = -1;
+                newParam.channels[c].volumeL = -1;
+                newParam.channels[c].volumeR = -1;
+                newParam.channels[c].pan = -1;
+            }
+        }
     }
 }

@@ -266,18 +266,6 @@ namespace MDPlayer.Driver.MNDRV
         }
 
         //─────────────────────────────────────
-        //	part of LFO
-        //
-        //_pitch_extend:
-        //	.dc.w	0
-        //	.dc.w _com_lfo_saw-_pitch_extend
-        //  .dc.w _com_lfo_portament-_pitch_extend
-        //.dc.w _com_lfo_triangle-_pitch_extend
-        //.dc.w _com_lfo_oneshot-_pitch_extend
-        //.dc.w _com_lfo_square-_pitch_extend
-        //.dc.w _com_lfo_randome-_pitch_extend
-
-        //─────────────────────────────────────
         //	LFO 鋸波
         //
         public void _com_lfo_saw()
@@ -505,7 +493,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 reg.D0_W += reg.D2_W;
-            } while ((reg.D1_L--) != 0);
+            } while ((reg.D1_W--) != 0);
 
             _soft1_vol_ok:
             reg.D0_W &= 0xff;

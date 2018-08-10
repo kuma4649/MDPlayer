@@ -13,26 +13,11 @@ namespace MDPlayer.Driver.MNDRV
         public devpsg devpsg;
         public devpsgemu devpsgemu;
         public devrhy devrhy;
+        public devopn devopn;
+        public devopnemu devopnemu;
 
         // 未解決ジャンプアドレス
-        public Action _ch_fm_mml_job;
-        public Action _ch_fm_lfo_job;
-        public Action _ch_fm_softenv_job;
-        public Action _FM_RR_cut;
-        public Action _FM_echo;
-        public Action _fm_keyoff;
-        public Action _fm_command;
-        public Action _fm_note_set;
         public Action _init_hlfo;
-        public Action _fm_effect_ycommand;
-        public Action _fm_effect_tone;
-        public Action _fm_effect_pan;
-        public Action _ch_psg_mml_job;
-        public Action _ch_psg_lfo_job;
-        public Action _ch_fme_mml_job;
-        public Action _ch_fme_lfo_job;
-        public Action _fme_command;
-        public Action _fme_note_set;
         public Action _ch_opm_mml_job;
         public Action _ch_opm_lfo_job;
         public Action _opm_command;
@@ -55,7 +40,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action _opm_effect_ycommand;
         public Action _mpcm_effect_tone;
         public Action _mpcm_effect_pan;
-        public Action _FM_F2_set;
         public Action _OPM_F2_set;
 
         public Action<int> trap;
@@ -526,7 +510,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a1, mm.ReadUInt32(reg.a0));
             reg.a1++; reg.a0++;
             hscopy28:
-            if ((reg.D0_L--) != 0) goto hscopy20;
+            if ((reg.D0_W--) != 0) goto hscopy20;
             goto hscopy90;// 転送終了
 
 
@@ -542,7 +526,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a1--; reg.a0--;// 余り128バイトをコピーする
             mm.Write(reg.a1, mm.ReadUInt32(reg.a0));
             hscopy68:
-            if ((reg.D0_L--) != 0) goto hscopy60;
+            if ((reg.D0_W--) != 0) goto hscopy60;
 
             goto hscopy58;
 
@@ -1112,7 +1096,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _fm_effect_ycommand;
+            act = devopn._fm_effect_ycommand;
             mm.Write(reg.a5 + w.we_ycom_adrs, reg.a3);
             ab.hlw_we_ycom_adrs.Add(reg.a5, act);
 
@@ -1136,40 +1120,40 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.smask, 0xf0);
             mm.Write(reg.a5 + w.pan_ampm, 0xc0);
 
-            Action act = _ch_fm_mml_job;
+            Action act = devopn. _ch_fm_mml_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _ch_fm_lfo_job;
+            act = devopn._ch_fm_lfo_job;
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
-            act = _ch_fm_softenv_job;
+            act = devopn._ch_fm_softenv_job;
             mm.Write(reg.a5 + w.softenv_adrs, reg.a3);
             ab.hlw_softenv_adrs.Add(reg.a5, act);
 
-            act = _FM_RR_cut;
+            act = devopn._FM_RR_cut;
             mm.Write(reg.a5 + w.rrcut_adrs, reg.a3);
             ab.hlw_rrcut_adrs.Add(reg.a5, act);
 
-            act = _FM_echo;
+            act = devopn._FM_echo;
             mm.Write(reg.a5 + w.echo_adrs, reg.a3);
             ab.hlw_echo_adrs.Add(reg.a5, act);
 
-            act = _fm_keyoff;
+            act = devopn._fm_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs, reg.a3);
             ab.hlw_keyoff_adrs.Add(reg.a5, act);
 
-            act = _fm_keyoff;
+            act = devopn._fm_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs2, reg.a3);
             ab.hlw_keyoff_adrs2.Add(reg.a5, act);
 
-            act = _fm_command;
+            act = devopn._fm_command;
             mm.Write(reg.a5 + w.subcmd_adrs, reg.a3);
             ab.hlw_subcmd_adrs.Add(reg.a5, act);
 
-            act = _fm_note_set;
+            act = devopn._fm_note_set;
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
@@ -1177,15 +1161,15 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.inithlfo_adrs, reg.a3);
             ab.hlw_inithlfo_adrs.Add(reg.a5, act);
 
-            act = _fm_effect_ycommand;
+            act = devopn._fm_effect_ycommand;
             mm.Write(reg.a5 + w.we_ycom_adrs, reg.a3);
             ab.hlw_we_ycom_adrs.Add(reg.a5, act);
 
-            act = _fm_effect_tone;
+            act = devopn._fm_effect_tone;
             mm.Write(reg.a5 + w.we_tone_adrs, reg.a3);
             ab.hlw_we_tone_adrs.Add(reg.a5, act);
 
-            act = _fm_effect_pan;
+            act = devopn._fm_effect_pan;
             mm.Write(reg.a5 + w.we_pan_adrs, reg.a3);
             ab.hlw_we_pan_adrs.Add(reg.a5, act);
 
@@ -1197,8 +1181,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a3++, _fm_volume_table[i++]);
-                reg.D1_L--;
-            } while (reg.D1_L > 0);
+            } while (reg.D1_W-- > 0);
             mm.Write(reg.a5 + w.volcount, 16);
 
         }
@@ -1213,12 +1196,12 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.vol2, (byte)reg.D2_B);
             mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
 
-            Action act = _ch_psg_mml_job;
+            Action act =devpsg. _ch_psg_mml_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _ch_psg_lfo_job;
+            act = devpsg._ch_psg_lfo_job;
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
@@ -1254,7 +1237,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.inithlfo_adrs, reg.a3);
             ab.hlw_inithlfo_adrs.Add(reg.a5, act);
 
-            act = _fm_effect_ycommand;
+            act = devopn._fm_effect_ycommand;
             mm.Write(reg.a5 + w.we_ycom_adrs, reg.a3);
             ab.hlw_we_ycom_adrs.Add(reg.a5, act);
 
@@ -1282,8 +1265,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a3++, _psg_volume_table[i++]);
-                reg.D1_L--;
-            } while (reg.D1_L > 0);
+            } while (reg.D1_W-- > 0);
             mm.Write(reg.a5 + w.volcount, 16);
 
         }
@@ -1321,20 +1303,20 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.smask, (byte)4);
             mm.Write(reg.a5 + w.pan_ampm, (byte)0xc0);
 
-            Action act = _ch_fme_mml_job;
+            Action act =devopnemu._ch_fme_mml_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _ch_fme_lfo_job;
+            act = devopnemu._ch_fme_lfo_job;
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
-            act = _fme_command;
+            act = devopnemu._fme_command;
             mm.Write(reg.a5 + w.subcmd_adrs, reg.a3);
             ab.hlw_subcmd_adrs.Add(reg.a5, act);
 
-            act = _fme_note_set;
+            act = devopnemu._fme_note_set;
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
@@ -1402,8 +1384,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a3++, _fm_volume_table[i++]);
-                reg.D1_L--;
-            } while (reg.D1_L > 0);
+            } while (reg.D1_W-- > 0);
             mm.Write(reg.a5 + w.volcount, 16);
 
             act = _ch_opm_softenv_job;
@@ -1513,8 +1494,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a3++, _mpcm_vol_table[i++]);
-                reg.D1_L--;
-            } while (reg.D1_L > 0);
+            } while (reg.D1_W-- > 0);
             mm.Write(reg.a5 + w.volcount, 16);
 
         }
@@ -1751,7 +1731,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((sbyte)(mm.ReadByte(reg.a5 + w.ch) - 0x20) >= 0) goto L1;
 
             reg.D4_L = 0x7f;
-            _FM_F2_set();
+            devopn._FM_F2_set();
             goto L9;
 
             L1:
@@ -1765,8 +1745,7 @@ namespace MDPlayer.Driver.MNDRV
 
             L9:
             reg.a5 = reg.a5 + dw._trackworksize;
-            reg.D7_W--;
-            if (reg.D7_W > 0) goto _pause_loop;
+            if (reg.D7_W-- > 0) goto _pause_loop;
 
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 0x40) == 0) return;
 
@@ -1791,7 +1770,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((sbyte)reg.D4_B >= 0) goto L8b;
             reg.D4_L = 0x7f;
             L8b:
-            _FM_F2_set();
+            devopn._FM_F2_set();
             goto L9b;
 
             L1b:
@@ -1810,8 +1789,7 @@ namespace MDPlayer.Driver.MNDRV
 
             L9b:
             reg.a5 = reg.a5 + dw._trackworksize;
-            reg.D7_B--;
-            if (reg.D7_B != 0) goto _pause_rel_loop;
+            if (reg.D7_W-- != 0) goto _pause_rel_loop;
 
         }
 
@@ -1935,8 +1913,7 @@ namespace MDPlayer.Driver.MNDRV
             L1:
             if (reg.D1_B == 0) goto L2;
             reg.a5 = reg.a5 + dw._trackworksize;
-            reg.D1_W--;
-            if (reg.D1_W != 0) goto L1;
+            if (reg.D1_W-- != 0) goto L1;
 
             L2:
             int v = mm.ReadByte(reg.a5 + w.flag2) & 0x80;
@@ -1949,7 +1926,7 @@ namespace MDPlayer.Driver.MNDRV
                 devpsg._psg_env_keyoff();
                 return;
             }
-            _fm_keyoff();
+            devopn._fm_keyoff();
             return;
         }
 
@@ -2250,8 +2227,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = reg.D6_L;
             actSUBEVENT(reg.a0);// サブルーチンコール
             subevent20:
-            reg.D7_W--;
-            if (reg.D7_W > 0) goto subevent10;
+            if (reg.D7_W-- > 0) goto subevent10;
 
             subevent90:
             reg.D6_L = spReg.D6_L;
@@ -2833,12 +2809,11 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a0, reg.a1);
 
             reg.a0 = _work_top;
-            reg.D1_L >>= 1;
+            reg.D1_W >>= 1;
             do
             {
                 mm.Write(reg.a0, (UInt16)0); reg.a0 += 2;
-                reg.D1_L--;
-            } while (reg.D1_L != 0);
+            } while (reg.D1_W-- != 0);
 
             // make memory block
             reg.D0_L = 0;
@@ -3016,8 +2991,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a5, reg.D0_W); reg.a5 += 2;
-                reg.D1_W--;
-            } while (reg.D1_W != 0);
+            } while (reg.D1_W-- != 0);
             _work_init_env_();
         }
 
@@ -3033,8 +3007,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a5, reg.D0_W); reg.a5 += 2;
-                reg.D1_W--;
-            } while (reg.D1_W != 0);
+            } while (reg.D1_W-- != 0);
             mm.Write(reg.a6 + dw.RANDOMESEED, 0x12345678);
             _work_init_env_();
         }
@@ -3052,10 +3025,8 @@ namespace MDPlayer.Driver.MNDRV
                 {
                     mm.Write(reg.a5, _psg_env_pattern[reg.a4]);// mm.ReadByte(reg.a4));
                     reg.a4++; reg.a5++;
-                    reg.D0_L--;
-                } while (reg.D0_L != 0);
-                reg.D1_L--;
-            } while (reg.D1_L != 0);
+                } while (reg.D0_W-- != 0);
+            } while (reg.D1_W-- != 0);
 
             reg.D0_L = mnwork.TRACK - 1;
             reg.a5 = reg.a6 + dw.TRACKWORKADR;
@@ -3120,7 +3091,7 @@ namespace MDPlayer.Driver.MNDRV
                 ab.hlw_we_tone_adrs.Add(reg.a5, _work_init_nop);
 
                 reg.a5 = reg.a5 + w._track_work_size;
-            } while (reg.D0_L != 0);
+            } while (reg.D0_W-- != 0);
 
             mm.Write(reg.a6 + dw.TRKANA_RESTADR, reg.a4);
         }

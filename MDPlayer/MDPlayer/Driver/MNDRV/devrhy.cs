@@ -12,9 +12,9 @@ namespace MDPlayer.Driver.MNDRV
         public MXDRV.xMemory mm;
         public mndrv mndrv;
         public comcmds comcmds;
+        public devopn devopn;
 
         // 未解決ジャンプアドレス
-        public Action _FM_FA;
 
         //
         //	part of YM2608 - RHYTHM
@@ -247,7 +247,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x77: _RHY_NOP(); break;//F7
                 case 0x78: _RHY_NOP(); break;//F8
                 case 0x79: comcmds._COM_F9(); break;//F9 永久ループポイントマーク
-                case 0x7a: _FM_FA(); break;//FA Y COMMAND
+                case 0x7a: devopn._FM_FA(); break;//FA Y COMMAND
                 case 0x7b: comcmds._COM_FB(); break;//FB リピート抜け出し
                 case 0x7c: comcmds._COM_FC(); break;//FC リピート開始
                 case 0x7d: comcmds._COM_FD(); break;//FD リピート終端

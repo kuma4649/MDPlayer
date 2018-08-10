@@ -234,8 +234,7 @@ namespace MDPlayer.Driver.MNDRV
                 do
                 {
                     reg.D2_B += reg.D3_B;
-                    reg.D1_B--;
-                } while (reg.D1_B != 0);
+                } while (reg.D1_W-- != 0);
             }
             reg.D0_B -= reg.D2_B;
             mm.Write(reg.a5 + w.at_q, (byte)reg.D0_B);
@@ -489,7 +488,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a0, mm.ReadByte(reg.a2)); reg.a0++; reg.a2++;
-            } while ((reg.D0_L) != 0);
+            } while (reg.D0_W-- != 0);
         }
 
         //	相対音量モード
@@ -1049,7 +1048,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadUInt16(reg.a2 + 4) != 0)
             {
                 reg.a2 = (reg.a2 + reg.D2_L) & 0xffffff;
-                if ((reg.D1_L--) != 0) goto _com_e2_wm10;
+                if ((reg.D1_W--) != 0) goto _com_e2_wm10;
                 reg.D2_L = 0xffffffff;//-1;
                 return;
             }
@@ -2205,8 +2204,7 @@ namespace MDPlayer.Driver.MNDRV
                     return;
                 }
                 reg.a2 = mm.ReadUInt32(reg.a2 + reg.D2_L);
-                reg.D1_B--;
-            } while (reg.D1_B != 0);
+            } while (reg.D1_W-- != 0);
             _com_ed_wm_err_exit();
         }
 

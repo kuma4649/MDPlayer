@@ -140,8 +140,7 @@ namespace MDPlayer.form
                 newParam.volumeR--;
             }
         }
-
-
+        
         public void screenDrawParams()
         {
             MDChipParams.OKIM6258 ost = oldParam;
@@ -174,6 +173,15 @@ namespace MDPlayer.form
 
         }
 
+        public void screenInit()
+        {
+            newParam.pan = 3;
+            newParam.masterFreq = 0;
+            newParam.divider = 0;
+            newParam.pbFreq = 0;
+            newParam.volumeL = 0;
+            newParam.volumeR = 0;
+        }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {

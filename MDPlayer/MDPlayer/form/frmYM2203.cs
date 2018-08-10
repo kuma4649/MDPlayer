@@ -261,8 +261,58 @@ namespace MDPlayer.form
 
         }
 
+        public void screenInit()
+        {
+            for (int ch = 0; ch < 3; ch++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    newParam.channels[ch].inst[i * 11 + 0] = 0;
+                    newParam.channels[ch].inst[i * 11 + 1] = 0;
+                    newParam.channels[ch].inst[i * 11 + 2] = 0;
+                    newParam.channels[ch].inst[i * 11 + 3] = 0;
+                    newParam.channels[ch].inst[i * 11 + 4] = 0;
+                    newParam.channels[ch].inst[i * 11 + 5] = 0;
+                    newParam.channels[ch].inst[i * 11 + 6] = 0;
+                    newParam.channels[ch].inst[i * 11 + 7] = 0;
+                    newParam.channels[ch].inst[i * 11 + 8] = 0;
+                    newParam.channels[ch].inst[i * 11 + 9] = 0;
+                    newParam.channels[ch].inst[i * 11 + 10] = 0;
+                }
+                newParam.channels[ch].inst[44] = 0;
+                newParam.channels[ch].inst[45] = 0;
+                newParam.channels[ch].inst[46] = 0;
+                newParam.channels[ch].inst[47] = 0;
+                newParam.channels[ch].pan = 3;
+                newParam.channels[ch].volumeL = 0;
+                newParam.channels[ch].note = -1;
+            }
 
-    private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+            for (int ch = 3; ch < 6; ch++) //FM EX
+            {
+                newParam.channels[ch].pan = 0;
+                newParam.channels[ch].note = -1;
+                newParam.channels[ch].volumeL = 0;
+                newParam.channels[ch].note = -1;
+            }
+
+            for (int ch = 0; ch < 3; ch++) //SSG
+            {
+                MDChipParams.Channel channel = newParam.channels[ch + 6];
+                channel.tn = 0;
+                channel.volume = 0;
+                channel.note = -1;
+            }
+
+            newParam.nfrq = 0;
+            newParam.efrq = 0;
+            newParam.etype = 0;
+
+        }
+
+
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;
 

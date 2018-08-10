@@ -133,7 +133,6 @@ namespace MDPlayer.form
             }
         }
 
-
         public void screenDrawParams()
         {
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
@@ -168,6 +167,23 @@ namespace MDPlayer.form
 
         }
 
+        public void screenInit()
+        {
+            for (int ch = 0; ch < 3; ch++)
+            {
+                    newParam.channels[ch].note = -1;
+
+                newParam.channels[ch].volumeL = 0;
+                newParam.channels[ch].volumeR = 0;
+                newParam.channels[ch].pan = 0;
+            }
+
+            newParam.channels[3].note = 0;
+            newParam.channels[3].freq = 0;
+            newParam.channels[3].volumeL = 0;
+            newParam.channels[3].volumeR = 0;
+            newParam.channels[3].pan = 0;
+        }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {

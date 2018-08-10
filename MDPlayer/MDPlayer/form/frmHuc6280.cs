@@ -237,6 +237,27 @@ namespace MDPlayer.form
             return n;
         }
 
+        public void screenInit()
+        {
+            for (int c = 0; c < newParam.channels.Length; c++)
+            {
+                newParam.channels[c].note = -1;
+                newParam.channels[c].volumeL = -1;
+                newParam.channels[c].volumeR = -1;
+                newParam.channels[c].pan = -1;
+                for (int i = 0; i < newParam.channels[c].inst.Length; i++)
+                {
+                    newParam.channels[c].inst[i] = 0;
+                }
+                newParam.channels[c].dda = false;
+                newParam.channels[c].noise = false;
+                newParam.channels[c].nfrq = 0;
+            }
+            newParam.mvolL = 0;
+            newParam.mvolR = 0;
+            newParam.LfoCtrl = 0;
+            newParam.LfoFrq = 0;
+        }
 
     }
 }

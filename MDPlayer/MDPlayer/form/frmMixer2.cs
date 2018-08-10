@@ -681,6 +681,45 @@ namespace MDPlayer.form
             DrawBuff.MixerVolume(frameBuffer, 2 + 13 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
         }
 
+        public void screenInit()
+        {
+            Audio.visVolume.APU = -1;
+            Audio.visVolume.ay8910 = -1;
+            Audio.visVolume.c140 = -1;
+            Audio.visVolume.c352 = -1;
+            Audio.visVolume.DMC = -1;
+            Audio.visVolume.FDS = -1;
+            Audio.visVolume.FME7 = -1;
+            Audio.visVolume.huc6280 = -1;
+            Audio.visVolume.k054539 = -1;
+            Audio.visVolume.master = -1;
+            Audio.visVolume.MMC5 = -1;
+            Audio.visVolume.N160 = -1;
+            Audio.visVolume.okim6258 = -1;
+            Audio.visVolume.okim6295 = -1;
+            Audio.visVolume.pwm = -1;
+            Audio.visVolume.rf5c164 = -1;
+            Audio.visVolume.segaPCM = -1;
+            Audio.visVolume.sn76489 = -1;
+            Audio.visVolume.VRC6 = -1;
+            Audio.visVolume.VRC7 = -1;
+            Audio.visVolume.ym2151 = -1;
+            Audio.visVolume.ym2203 = -1;
+            Audio.visVolume.ym2203FM = -1;
+            Audio.visVolume.ym2203SSG = -1;
+            Audio.visVolume.ym2413 = -1;
+            Audio.visVolume.ym2608 = -1;
+            Audio.visVolume.ym2608APCM = -1;
+            Audio.visVolume.ym2608FM = -1;
+            Audio.visVolume.ym2608Rtm = -1;
+            Audio.visVolume.ym2608SSG = -1;
+            Audio.visVolume.ym2610 = -1;
+            Audio.visVolume.ym2610APCMA = -1;
+            Audio.visVolume.ym2610APCMB = -1;
+            Audio.visVolume.ym2610FM = -1;
+            Audio.visVolume.ym2610SSG = -1;
+            Audio.visVolume.ym2612 = -1;
+        }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {

@@ -15,6 +15,7 @@ namespace MDPlayer.Driver.MNDRV
         public comcmds comcmds;
         public comlfo comlfo;
         public comwave comwave;
+        public devopn devopn;
 
         // 未解決ジャンプアドレス
         public Action _init_lfo_fm;
@@ -38,8 +39,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action _OPM_F8;
         public Action _OPM_FA;
         public Action _OPM_FF;
-        public Action _FM_88;
-        public Action _FM_89;
         public Action _ch_opm_ww;
         public Action _ch_opm_HLFO;
         public Action _ch_opm_alfo_1;
@@ -49,18 +48,6 @@ namespace MDPlayer.Driver.MNDRV
         public Action _ch_opm_alfo_5;
         public Action _ch_opm_alfo_6;
         public Action _ch_opm_alfo_7;
-        public Action _ch_fm_p_com_exec;
-        public Action _ch_fm_explfo_1;
-        public Action _ch_fm_explfo_2;
-        public Action _ch_fm_explfo_3;
-        public Action _ch_fm_explfo_4;
-        public Action _ch_fm_explfo_5;
-        public Action _ch_fm_explfo_6;
-        public Action _ch_fm_explfo_7;
-        public Action _ex_slot_calc;
-        public Action _ex_slot_calc2;
-        public Action _ch_fm_porta_calc;
-        public Action _set_fnum2;
 
         // 未解決変数
         public uint _fnum_table;
@@ -161,8 +148,8 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x05: _FME_NOP(); break;// 85
                 case 0x06: comcmds._COM_86(); break;// 86	同期信号送信
                 case 0x07: comcmds._COM_87(); break;// 87	同期信号待ち
-                case 0x08: _FM_88(); break;// 88	ぴっちべんど
-                case 0x09: _FM_89(); break;// 89	ぽるためんと
+                case 0x08: devopn._FM_88(); break;// 88	ぴっちべんど
+                case 0x09: devopn._FM_89(); break;// 89	ぽるためんと
                 case 0x0a: _FME_NOP(); break;// 8A
                 case 0x0b: _FME_NOP(); break;// 8B
                 case 0x0c: _FME_NOP(); break;// 8C
@@ -478,7 +465,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_W = mm.ReadByte(reg.a4 + w_l.flag);
             if ((Int16)reg.D4_W >= 0)
             {
-                _ch_fm_p_com_exec();
+                devopn._ch_fm_p_com_exec();
                 return;
             }
             uint f = reg.D4_B & 1;
@@ -551,25 +538,25 @@ namespace MDPlayer.Driver.MNDRV
                 switch (reg.D1_W / 2)
                 {
                     case 1:
-                        _ch_fm_explfo_1();
+                        devopn._ch_fm_explfo_1();
                         break;
                     case 2:
-                        _ch_fm_explfo_2();
+                        devopn._ch_fm_explfo_2();
                         break;
                     case 3:
-                        _ch_fm_explfo_3();
+                        devopn._ch_fm_explfo_3();
                         break;
                     case 4:
-                        _ch_fm_explfo_4();
+                        devopn._ch_fm_explfo_4();
                         break;
                     case 5:
-                        _ch_fm_explfo_5();
+                        devopn._ch_fm_explfo_5();
                         break;
                     case 6:
-                        _ch_fm_explfo_6();
+                        devopn._ch_fm_explfo_6();
                         break;
                     case 7:
-                        _ch_fm_explfo_7();
+                        devopn._ch_fm_explfo_7();
                         break;
                 }
                 reg.D0_W = sp;
@@ -606,7 +593,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             //	pea	_emu_set_fnum2(pc)
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            _ex_slot_calc();
+            devopn._ex_slot_calc();
             _emu_set_fnum2();
         }
 
@@ -646,7 +633,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((sbyte)reg.D1_W >= 0)
             {
                 reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-                _ch_fm_porta_calc();
+                devopn._ch_fm_porta_calc();
                 if ((Int16)(reg.D2_W - mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) >= 0)
                 {
                     _ch_fme_bend_end();
@@ -657,7 +644,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            _ch_fm_porta_calc();
+            devopn._ch_fm_porta_calc();
             if ((Int16)(reg.D2_W - mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) < 0)
             {
                 _ch_fme_bend_end();
@@ -727,7 +714,7 @@ namespace MDPlayer.Driver.MNDRV
                 _emu_set_fnum();
                 return;
             }
-            _ch_fm_porta_calc();
+            devopn._ch_fm_porta_calc();
             mm.Write(reg.a5 + w.keycode3, (UInt16)reg.D2_W);
             _emu_set_fnum2();
         }
@@ -830,7 +817,7 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write(reg.a5 + w.keycode_s3, (UInt16)(mm.ReadUInt16(reg.a5 + w.keycode_s3) + reg.D1_W));
                 mm.Write(reg.a5 + w.keycode_s4, (UInt16)(mm.ReadUInt16(reg.a5 + w.keycode_s4) + reg.D1_W));
             }
-            _set_fnum2();
+            devopn._set_fnum2();
             mm.Write(reg.a4 + w_l.count_work, (byte)(mm.ReadByte(reg.a4 + w_l.count_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.count_work) != 0) return;
             mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
@@ -896,7 +883,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             //	pea	_emu_set_fnum2(pc)
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            _ex_slot_calc();
+            devopn._ex_slot_calc();
             _emu_set_fnum2();
         }
 
@@ -904,7 +891,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             //	pea	_emu_set_fnum2(pc)
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            _ex_slot_calc2();
+            devopn._ex_slot_calc2();
             _emu_set_fnum2();
         }
 

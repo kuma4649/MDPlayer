@@ -153,6 +153,24 @@ namespace MDPlayer.form
 
         }
 
+        public void screenInit()
+        {
+            for (int c = 0; c < newParam.sqrChannels.Length; c++)
+            {
+                newParam.sqrChannels[c].note = -1;
+                newParam.sqrChannels[c].volume = 0;
+                newParam.sqrChannels[c].pantp = 0;
+                newParam.sqrChannels[c].kf = 0;
+                newParam.sqrChannels[c].dda = false;
+                newParam.sqrChannels[c].noise = false;
+            }
+            newParam.pcmChannel.dda = false;
+            newParam.pcmChannel.noise = false;
+            newParam.pcmChannel.note = -1;
+            newParam.pcmChannel.volume = 0;
+
+        }
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;

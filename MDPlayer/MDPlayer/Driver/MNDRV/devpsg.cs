@@ -15,9 +15,9 @@ namespace MDPlayer.Driver.MNDRV
         public comcmds comcmds;
         public comlfo comlfo;
         public comwave comwave;
+        public devopn devopn;
 
         // 未解決ジャンプアドレス
-        public Action _FM_FA;
 
 
         //
@@ -740,7 +740,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x77: _PSG_NOP();break;// F7
                 case 0x78: _PSG_NOP();break;// F8
                 case 0x79: comcmds._COM_F9 ();break;// F9	永久ループポイントマーク
-                case 0x7a: _FM_FA  ();break;// FA	Y command
+                case 0x7a: devopn._FM_FA(); break;// FA	Y command
                 case 0x7b: comcmds._COM_FB ();break;// FB	リピート抜け出し
                 case 0x7c: comcmds._COM_FC ();break;// FC	リピート開始
                 case 0x7d: comcmds._COM_FD ();break;// FD	リピート終端
@@ -918,7 +918,7 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 mm.Write(reg.a0, mm.ReadByte(reg.a2)); reg.a2++; reg.a0++;
-            } while (reg.D0_L-- != 0);
+            } while (reg.D0_W-- != 0);
 
             mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
 
@@ -1031,7 +1031,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a2, _psg_env_default[reg.a0]);// mm.ReadByte(reg.a0));
                 reg.a2++; reg.a0++;
-            } while (reg.D0_L-- != 0);
+            } while (reg.D0_W-- != 0);
 
             reg.a0 = mm.ReadUInt32(reg.a5 + w.psgenv_adrs);
             reg.a2 = 0;// _psg_env_default;
@@ -1041,7 +1041,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a0, _psg_env_default[reg.a2]);// mm.ReadByte(reg.a2));
                 reg.a2++; reg.a0++;
-            } while (reg.D0_L-- != 0);
+            } while (reg.D0_W-- != 0);
 
             mm.Write(reg.a5 + w.e_sw, (byte)(mm.ReadByte(reg.a5 + w.e_sw) | 0x80));
             reg.a0 = mm.ReadUInt32(reg.a5 + w.psgenv_adrs);
@@ -1087,7 +1087,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a0, _psg_env_default[reg.a2]);// mm.ReadByte(reg.a2));
                 reg.a2++; reg.a0++;
-            } while (reg.D0_L-- != 0);
+            } while (reg.D0_W-- != 0);
 
             mm.Write(reg.a5 + w.e_sw, 0x80);
             reg.a0 = mm.ReadUInt32(reg.a5 + w.psgenv_adrs);

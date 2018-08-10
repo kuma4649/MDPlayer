@@ -221,6 +221,44 @@ namespace MDPlayer.form
             DrawBuff.ChNESDMC(frameBuffer, 4, ref oldParam.dmcChannel.mask, newParam.dmcChannel.mask, 0);
         }
 
+        public void screenInit()
+        {
+            for (int c = 0; c < newParam.sqrChannels.Length; c++)
+            {
+                newParam.sqrChannels[c].note = -1;
+                newParam.sqrChannels[c].volume = 0;
+                newParam.sqrChannels[c].pan = 0;
+                newParam.sqrChannels[c].pantp = 0;
+                newParam.sqrChannels[c].kf = 0;
+                newParam.sqrChannels[c].dda = false;
+                newParam.sqrChannels[c].noise = false;
+                newParam.sqrChannels[c].volumeL = 0;
+                newParam.sqrChannels[c].volumeR = 0;
+            }
+            newParam.triChannel.dda = false;
+            newParam.triChannel.note = -1;
+            newParam.triChannel.volume = 0;
+            newParam.triChannel.nfrq = 0;
+            newParam.triChannel.pantp = 0;
+
+            newParam.noiseChannel.volume = 0;
+            newParam.noiseChannel.dda = false;
+            newParam.noiseChannel.noise = false;
+            newParam.noiseChannel.volumeL = 0;
+            newParam.noiseChannel.volumeR = 0;
+            newParam.noiseChannel.nfrq = 0;
+            newParam.noiseChannel.volume = 0;
+
+            newParam.dmcChannel.dda = false;
+            newParam.dmcChannel.noise = false;
+            newParam.dmcChannel.volumeL = 0;
+            newParam.dmcChannel.volumeR = 0;
+            newParam.dmcChannel.nfrq = 0;
+            newParam.dmcChannel.pantp = 0;
+            newParam.dmcChannel.volume = 0;
+
+        }
+
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int py = e.Location.Y / zoom;

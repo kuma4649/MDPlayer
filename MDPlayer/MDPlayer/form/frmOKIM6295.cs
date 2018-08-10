@@ -103,5 +103,10 @@ namespace MDPlayer.form
         public void screenDrawParams()
         {
         }
+
+        public void screenInit()
+        {
+        }
+
     }
 }

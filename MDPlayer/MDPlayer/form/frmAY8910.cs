@@ -207,5 +207,17 @@ namespace MDPlayer.form
             return n;
         }
 
+        internal void screenInit()
+        {
+            for (int c = 0; c < newParam.channels.Length; c++)
+            {
+                newParam.channels[c].note = -1;
+                newParam.channels[c].volume = -1;
+                newParam.channels[c].tn = -1;
+            }
+            newParam.nfrq = 0;
+            newParam.efrq = 0;
+            newParam.etype = 0;
+        }
     }
 }
