@@ -868,7 +868,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.reverb_time_work, 0);
 
             _fm_keyoff_direct();
-            if (mm.ReadByte(reg.a5 + w.reverb) != 0)
+            if ((mm.ReadByte(reg.a5 + w.reverb) & 0x02) != 0)
             {
                 reg.D5_B = mm.ReadByte(reg.a5 + w.program2);
                 _fm_echo_tone_change();
@@ -1086,7 +1086,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x6b: comcmds._COM_EB(); break;// EB
                 case 0x6c: _FM_NOP(); break;// EC
                 case 0x6d: comcmds._COM_ED(); break;// ED
-                case 0x6e: _FM_EE(); break;// EE	KONAMI type LFO
+                case 0x6e: _FM_EE(); break;// EE	LW type LFO
                 case 0x6f: comcmds._COM_EF(); break;// EF	hardware LFO delay
 
                 // システムコントール系
@@ -1131,7 +1131,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _FM_88()
         {
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x80));
-            mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) & 0xfe));
+            mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) & 0xfd));
             reg.a4 = reg.a5 + w.p_pattern4;
 
             reg.D0_L = 0;
@@ -1595,7 +1595,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_W--;
             if (reg.D4_W != 0)
             {
-                reg.D0_W = mm.ReadUInt16(reg.a2++);
+                reg.D0_W = mm.ReadUInt16(reg.a2);
                 reg.a2 = reg.a2 + reg.D0_W;
                 _voice_ana_loop();
             }
@@ -1617,7 +1617,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mndrv._OPN_WRITE2();
                 reg.D1_B -= 4;
-            } while (reg.D2_L-- != 0);
+            } while (reg.D2_W-- != 0);
 
             reg.D1_L = 0x4c;
             reg.D1_B += reg.D3_B;
@@ -2101,7 +2101,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D4_B = mm.ReadByte(reg.a5 + w.volcount);
                 reg.D4_B--;
             }
-            mm.Write(reg.a5 + w.volume, reg.D4_B);
+            mm.Write(reg.a5 + w.volume, (byte)reg.D4_B);
             reg.a2 = reg.a5 + w.voltable;
             reg.D4_B = mm.ReadByte(reg.a2 + reg.D4_W);
             _FM_F2_v();
@@ -2323,8 +2323,8 @@ namespace MDPlayer.Driver.MNDRV
                         mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | 0x01));
                     }
                     reg.a0 = reg.a0 + dw._trackworksize;
-                    reg.D0_L--;
-                } while (reg.D0_L != 0);
+                    reg.D0_W--;
+                } while (reg.D0_W != 0);
             }
 
             reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
@@ -3280,7 +3280,7 @@ namespace MDPlayer.Driver.MNDRV
         }
 
         //─────────────────────────────────────
-        //	HARD WARE LFO delay & KONAMI type modulation
+        //	HARD WARE LFO delay & LW type modulation
         //
         public void _ch_fm_HLFO()
         {
@@ -3324,7 +3324,6 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
 
-            //	move.b	w_l_lfo_sp(a4),w_l_delay_work(a4)
             mm.Write(reg.a4 + w_l.delay_work, mm.ReadByte(reg.a4 + w_l.lfo_sp));
             if ((reg.D0_L & 8) != 0)
             {
@@ -4016,7 +4015,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_B += mm.ReadByte(reg.a4 + w_ww.rate_work);
             mm.Write(reg.a4 + w_ww.work, (byte)reg.D4_B);
 
-            reg.a2 = reg.a5 + w.voiceptr;
+            reg.a2 = mm.ReadUInt32(reg.a5 + w.voiceptr);
             reg.D1_L = 0x40;
             reg.D1_B += mm.ReadByte(reg.a5 + w.dev);
             reg.D3_B = mm.ReadByte(reg.a4 + w_ww.slot);
@@ -4118,7 +4117,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B = _fm_effect_pan_table[reg.D0_W];
             reg.D1_L = 0x3f;
             reg.D1_B &= mm.ReadByte(reg.a5 + w.pan_ampm);
-            reg.D0_B &= reg.D1_B;
+            reg.D0_B |= reg.D1_B;
             mm.Write(reg.a5 + w.pan_ampm, (byte)reg.D0_B);
             mm.Write(reg.a5 + w.reverb_pan_work, (byte)reg.D0_B);
             reg.D1_L = 0x84;

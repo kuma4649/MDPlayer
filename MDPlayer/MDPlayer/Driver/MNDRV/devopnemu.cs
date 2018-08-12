@@ -259,7 +259,7 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x6b: comcmds._COM_EB(); break;// EB
                 case 0x6c: _FME_NOP(); break;// EC
                 case 0x6d: comcmds._COM_ED(); break;// ED
-                case 0x6e: _OPM_EE(); break;// EE KONAMI type LFO
+                case 0x6e: _OPM_EE(); break;// EE LW type LFO
                 case 0x6f: comcmds._COM_EF(); break;// EF hardware LFO delay
 
                 // システムコントール系

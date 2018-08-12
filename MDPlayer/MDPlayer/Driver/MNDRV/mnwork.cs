@@ -212,8 +212,8 @@ namespace MDPlayer.Driver.MNDRV
                                                     //                        * bit7 mask
                                                     //                        * bit6 set @q
                                                     //		                * bit5 set slot mask
-                                                    //		                * bit4 set KONAMI portament
-                                                    //		                * bit3 set KONAMI LFO
+                                                    //		                * bit4 set LW portament
+                                                    //		                * bit3 set LW LFO
                                                     //		                * bit2 set HLFO delay
                                                     //		                * bit1 set portament
                                                     //                        * bit0 track end
@@ -385,7 +385,7 @@ namespace MDPlayer.Driver.MNDRV
         public const int keyoff_adrs2 = keyoff_adrs + 4;        //.ds.l   1			    * keyoff
         public const int subcmd_adrs = keyoff_adrs2 + 4;        //.ds.l   1			    * sub command
         public const int setnote_adrs = subcmd_adrs + 4;        //.ds.l   1			    * note
-        public const int inithlfo_adrs = setnote_adrs + 4;      //.ds.l   1			    * for KONAMI LFO
+        public const int inithlfo_adrs = setnote_adrs + 4;      //.ds.l   1			    * for LW LFO
         public const int we_ycom_adrs = inithlfo_adrs + 4;      //.ds.l   1			    * effect ycommand
         public const int we_tone_adrs = we_ycom_adrs + 4;       //.ds.l   1			    * effect tone
         public const int we_pan_adrs = we_tone_adrs + 4;        //.ds.l   1			    * effect panpot

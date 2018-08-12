@@ -1849,7 +1849,7 @@ namespace MDPlayer.Driver.MNDRV
             switch (reg.D0_W)
             {
                 case 2:
-                comlfo._com_lfo_saw();
+                    comlfo._com_lfo_saw();
                     break;
                 case 4:
                     comlfo._com_lfo_portament();
