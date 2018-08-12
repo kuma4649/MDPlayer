@@ -16,41 +16,11 @@ namespace MDPlayer.Driver.MNDRV
         public comlfo comlfo;
         public comwave comwave;
         public devopn devopn;
+        public devopm devopm;
 
         // 未解決ジャンプアドレス
-        public Action _init_lfo_fm;
-        public Action _opm_keyon;
-        public Action _opm_keyoff;
-        public Action _OPM_82;
-        public Action _OPM_92;
-        public Action _OPM_98;
-        public Action _OPM_99;
-        public Action _OPM_F0;
-        public Action _OPM_A1;
-        public Action _OPM_A3;
-        public Action _OPM_F2;
-        public Action _OPM_F5;
-        public Action _OPM_F6;
-        public Action _OPM_E0;
-        public Action _OPM_E1;
-        public Action _OPM_E8;
-        public Action _OPM_EE;
-        public Action _OPM_F4;
-        public Action _OPM_F8;
-        public Action _OPM_FA;
-        public Action _OPM_FF;
-        public Action _ch_opm_ww;
-        public Action _ch_opm_HLFO;
-        public Action _ch_opm_alfo_1;
-        public Action _ch_opm_alfo_2;
-        public Action _ch_opm_alfo_3;
-        public Action _ch_opm_alfo_4;
-        public Action _ch_opm_alfo_5;
-        public Action _ch_opm_alfo_6;
-        public Action _ch_opm_alfo_7;
 
         // 未解決変数
-        public uint _fnum_table;
 
         //
         //	part of YM2608 - FM emulation
@@ -77,13 +47,13 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.D0_W += reg.D0_W;
-            reg.a0 = _fnum_table;
-            reg.D2_W |= mm.ReadUInt16(reg.a0 + reg.D0_W);
+            reg.a0 = ab.dummyAddress;// devopn._fnum_table;
+            reg.D2_W |= devopn._fnum_table[reg.D0_W/2];// mm.ReadUInt16(reg.a0 + reg.D0_W);
             //    pea _opm_keyon(pc)
             _emu_set_fnum();
             comlfo._init_lfo();
-            _init_lfo_fm();
-            _opm_keyon();
+            devopn._init_lfo_fm();
+            devopm._opm_keyon();
         }
 
         //─────────────────────────────────────
@@ -142,7 +112,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 case 0x00: break;
                 case 0x01: comcmds._COM_81(); break;// 81
-                case 0x02: _OPM_82(); break;// 82	key off
+                case 0x02: devopm._OPM_82(); break;// 82	key off
                 case 0x03: comcmds._COM_83(); break;// 83	すらー
                 case 0x04: _FME_NOP(); break;// 84
                 case 0x05: _FME_NOP(); break;// 85
@@ -159,14 +129,14 @@ namespace MDPlayer.Driver.MNDRV
 
                 case 0x10: comcmds._COM_90(); break;// 90	q
                 case 0x11: comcmds._COM_91(); break;// 91	@q
-                case 0x12: _OPM_92(); break;// 92	keyoff rr cut switch
+                case 0x12: devopm._OPM_92(); break;// 92	keyoff rr cut switch
                 case 0x13: comcmds._COM_93(); break;// 93	neg @q
                 case 0x14: comcmds._COM_94(); break;// 94	keyoff mode
                 case 0x15: _FME_NOP(); break;// 95
                 case 0x16: _FME_NOP(); break;// 96
                 case 0x17: _FME_NOP(); break;// 97
-                case 0x18: _OPM_98(); break;// 98	擬似リバーブ
-                case 0x19: _OPM_99(); break;// 99	擬似エコー
+                case 0x18: devopm._OPM_98(); break;// 98	擬似リバーブ
+                case 0x19: devopm._OPM_99(); break;// 99	擬似エコー
                 case 0x1a: comcmds._COM_9A(); break;// 9A 擬似step time
                 case 0x1b: _FME_NOP(); break;// 9B
                 case 0x1c: _FME_NOP(); break;// 9C
@@ -174,13 +144,13 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x1e: _FME_NOP(); break;// 9E
                 case 0x1f: _FME_NOP(); break;// 9F
 
-                case 0x20: _OPM_F0(); break;// A0 音色切り替え
-                case 0x21: _OPM_A1(); break;// A1 バンク&音色切り替え
+                case 0x20: devopm._OPM_F0(); break;// A0 音色切り替え
+                case 0x21: devopm._OPM_A1(); break;// A1 バンク&音色切り替え
                 case 0x22: _FME_NOP(); break;// A2
-                case 0x23: _OPM_A3(); break;// A3 音量テーブル切り替え
-                case 0x24: _OPM_F2(); break;// A4 音量
-                case 0x25: _OPM_F5(); break;// A5
-                case 0x26: _OPM_F6(); break;// A6
+                case 0x23: devopm._OPM_A3(); break;// A3 音量テーブル切り替え
+                case 0x24: devopm._OPM_F2(); break;// A4 音量
+                case 0x25: devopm._OPM_F5(); break;// A5
+                case 0x26: devopm._OPM_F6(); break;// A6
                 case 0x27: _FME_NOP(); break;// A7
                 case 0x28: comcmds._COM_A8(); break;// A8 相対音量モード
                 case 0x29: _FME_NOP(); break;// A9
@@ -245,40 +215,40 @@ namespace MDPlayer.Driver.MNDRV
                 case 0x5f: _FME_NOP(); break;// DF
 
                 // LFO 系           
-                case 0x60: _OPM_E0(); break;// E0 hardware LFO
-                case 0x61: _OPM_E1(); break;// E1 hardware LFO switch
+                case 0x60: devopm._OPM_E0(); break;// E0 hardware LFO
+                case 0x61: devopm._OPM_E1(); break;// E1 hardware LFO switch
                 case 0x62: comcmds._COM_E2(); break;// E2 pitch LFO
                 case 0x63: comcmds._COM_E3(); break;// E3 pitch LFO switch
                 case 0x64: comcmds._COM_E4(); break;// E4 pitch LFO delay
                 case 0x65: _FME_NOP(); break;// E5
                 case 0x66: _FME_NOP(); break;// E6
                 case 0x67: comcmds._COM_E7(); break;// E7 amp LFO
-                case 0x68: _OPM_E8(); break;// E8 amp LFO switch
+                case 0x68: devopm._OPM_E8(); break;// E8 amp LFO switch
                 case 0x69: comcmds._COM_E9(); break;// E9 amp LFO delay
                 case 0x6a: comcmds._COM_EA(); break;// EA amp switch 2
                 case 0x6b: comcmds._COM_EB(); break;// EB
                 case 0x6c: _FME_NOP(); break;// EC
                 case 0x6d: comcmds._COM_ED(); break;// ED
-                case 0x6e: _OPM_EE(); break;// EE LW type LFO
+                case 0x6e: devopm._OPM_EE(); break;// EE LW type LFO
                 case 0x6f: comcmds._COM_EF(); break;// EF hardware LFO delay
 
                 // システムコントール系
-                case 0x70: _OPM_F0(); break;// F0	@
+                case 0x70: devopm._OPM_F0(); break;// F0	@
                 case 0x71: comcmds._COM_D8(); break;// F1
-                case 0x72: _OPM_F2(); break;// F2 volume
+                case 0x72: devopm._OPM_F2(); break;// F2 volume
                 case 0x73: comcmds._COM_91(); break;// F3
-                case 0x74: _OPM_F4(); break;// F4 pan
-                case 0x75: _OPM_F5(); break;// F5	) volup
-                case 0x76: _OPM_F6(); break;// F6(voldown
+                case 0x74: devopm._OPM_F4(); break;// F4 pan
+                case 0x75: devopm._OPM_F5(); break;// F5	) volup
+                case 0x76: devopm._OPM_F6(); break;// F6(voldown
                 case 0x77: _FME_NOP(); break;// F7 効果音モード切り替え
-                case 0x78: _OPM_F8(); break;// F8 スロットマスク変更
+                case 0x78: devopm._OPM_F8(); break;// F8 スロットマスク変更
                 case 0x79: comcmds._COM_F9(); break;// F9 永久ループポイントマーク
-                case 0x7a: _OPM_FA(); break;// FA y command
+                case 0x7a: devopm._OPM_FA(); break;// FA y command
                 case 0x7b: comcmds._COM_FB(); break;// FB リピート抜け出し
                 case 0x7c: comcmds._COM_FC(); break;// FC リピート開始
                 case 0x7d: comcmds._COM_FD(); break;// FD リピート終端
                 case 0x7e: comcmds._COM_FE(); break;// FE tempo
-                case 0x7f: _OPM_FF(); break;// FF end of data
+                case 0x7f: devopm._OPM_FF(); break;// FF end of data
             }
         }
 
@@ -287,7 +257,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _FME_NOP()
         {
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) & 0x7f));
-            _opm_keyoff();
+            devopm._opm_keyoff();
         }
 
         //─────────────────────────────────────
@@ -303,7 +273,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((mm.ReadByte(reg.a5 + w.effect) & 0x20) != 0)
             {
                 reg.a4 = reg.a5 + w.ww_pattern1;
-                _ch_opm_ww();
+                devopm._ch_opm_ww();
             }
             reg.D0_B = mm.ReadByte(reg.a5 + w.lfo);
             if (reg.D0_B == 0) return;
@@ -313,7 +283,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B >>= 1;
             if (f != 0)
             {
-                _ch_opm_HLFO();
+                devopm._ch_opm_HLFO();
             }
             //_ch_fme_p1:
             if ((sbyte)mm.ReadByte(reg.a6 + dw.LFO_FLAG) < 0)
@@ -362,25 +332,25 @@ namespace MDPlayer.Driver.MNDRV
                 switch (reg.D0_W / 2)
                 {
                     case 1:
-                        _ch_opm_alfo_1();
+                        devopm._ch_opm_alfo_1();
                         break;
                     case 2:
-                        _ch_opm_alfo_2();
+                        devopm._ch_opm_alfo_2();
                         break;
                     case 3:
-                        _ch_opm_alfo_3();
+                        devopm._ch_opm_alfo_3();
                         break;
                     case 4:
-                        _ch_opm_alfo_4();
+                        devopm._ch_opm_alfo_4();
                         break;
                     case 5:
-                        _ch_opm_alfo_5();
+                        devopm._ch_opm_alfo_5();
                         break;
                     case 6:
-                        _ch_opm_alfo_6();
+                        devopm._ch_opm_alfo_6();
                         break;
                     case 7:
-                        _ch_opm_alfo_7();
+                        devopm._ch_opm_alfo_7();
                         break;
                 }
             }
@@ -569,25 +539,25 @@ namespace MDPlayer.Driver.MNDRV
                 switch (reg.D0_W / 2)
                 {
                     case 1:
-                        _ch_opm_alfo_1();
+                        devopm._ch_opm_alfo_1();
                         break;
                     case 2:
-                        _ch_opm_alfo_2();
+                        devopm._ch_opm_alfo_2();
                         break;
                     case 3:
-                        _ch_opm_alfo_3();
+                        devopm._ch_opm_alfo_3();
                         break;
                     case 4:
-                        _ch_opm_alfo_4();
+                        devopm._ch_opm_alfo_4();
                         break;
                     case 5:
-                        _ch_opm_alfo_5();
+                        devopm._ch_opm_alfo_5();
                         break;
                     case 6:
-                        _ch_opm_alfo_6();
+                        devopm._ch_opm_alfo_6();
                         break;
                     case 7:
-                        _ch_opm_alfo_7();
+                        devopm._ch_opm_alfo_7();
                         break;
                 }
             }
@@ -672,8 +642,8 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D1_W += reg.D2_W;
             }
             reg.D0_W += reg.D0_W;
-            reg.a4 = _fnum_table;
-            reg.D2_W = mm.ReadUInt16(reg.a4 + reg.D0_W);
+            reg.a4 = ab.dummyAddress;// _fnum_table;
+            reg.D2_W = devopn._fnum_table[reg.D0_W / 2];// mm.ReadUInt16(reg.a4 + reg.D0_W);
             reg.D2_W |= reg.D1_W;
             _emu_set_fnum();
 
@@ -707,8 +677,8 @@ namespace MDPlayer.Driver.MNDRV
                     reg.D1_W += reg.D2_W;
                 }
                 reg.D0_W += reg.D0_W;
-                reg.a4 = _fnum_table;
-                reg.D2_W = mm.ReadUInt16(reg.a4 + reg.D0_W);
+                reg.a4 = ab.dummyAddress;// _fnum_table;
+                reg.D2_W = devopn._fnum_table[reg.D0_W / 2];// mm.ReadUInt16(reg.a4 + reg.D0_W);
                 reg.D2_W |= reg.D1_W;
                 mm.Write(reg.a5 + w.keycode3, (UInt16)reg.D2_W);
                 _emu_set_fnum();

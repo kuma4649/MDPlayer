@@ -14,21 +14,10 @@ namespace MDPlayer.Driver.MNDRV
         public devpsgemu devpsgemu;
         public devrhy devrhy;
         public devopn devopn;
+        public devopm devopm;
         public devopnemu devopnemu;
 
         // 未解決ジャンプアドレス
-        public Action _init_hlfo;
-        public Action _ch_opm_mml_job;
-        public Action _ch_opm_lfo_job;
-        public Action _opm_command;
-        public Action _opm_note_set;
-        public Action _ch_opm_softenv_job;
-        public Action _OPM_RR_cut;
-        public Action _OPM_echo;
-        public Action _opm_keyoff;
-        public Action _init_opm_hlfo;
-        public Action _opm_effect_tone;
-        public Action _opm_effect_pan;
         public Action _ch_mpcm_mml_job;
         public Action _ch_mpcm_lfo_job;
         public Action _ch_mpcm_softenv_job;
@@ -37,10 +26,8 @@ namespace MDPlayer.Driver.MNDRV
         public Action _mpcm_keyoff2;
         public Action _mpcm_command;
         public Action _mpcm_note_set;
-        public Action _opm_effect_ycommand;
         public Action _mpcm_effect_tone;
         public Action _mpcm_effect_pan;
-        public Action _OPM_F2_set;
 
         public Action<int> trap;
         public Action<uint> actSUBEVENT;
@@ -50,12 +37,12 @@ namespace MDPlayer.Driver.MNDRV
         //	mndrv music driver
         //	Copyright(C)1997,1998,1999,2000 S.Tsuyuzaki
         //
-        //	参考:	SORCERIAN for X680x0		- PROPN
-        //		music creative driver		- MCDRV
-        //		FMP SYSTEM			- FMP
-        //		Professional Music Driver	- PMD
-        //		Z-MUSIC PERFORMANCE MANAGER	- ZMSC3
-        //		MXDRV music driver		- mxdrv16y
+        //	参考:	SORCERIAN for X680x0        - PROPN
+        //		    music creative driver       - MCDRV
+        //		    FMP SYSTEM                  - FMP
+        //		    Professional Music Driver   - PMD
+        //		    Z-MUSIC PERFORMANCE MANAGER - ZMSC3
+        //		    MXDRV music driver          - mxdrv16y
         //
 
         public const int MNDVER = 17 + 1;
@@ -1157,7 +1144,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
-            act = _init_hlfo;
+            act = devopn._init_hlfo;
             mm.Write(reg.a5 + w.inithlfo_adrs, reg.a3);
             ab.hlw_inithlfo_adrs.Add(reg.a5, act);
 
@@ -1359,20 +1346,20 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.smask, (byte)4);
             mm.Write(reg.a5 + w.pan_ampm, (byte)0xc0);
 
-            act = _ch_opm_mml_job;
+            act = devopm._ch_opm_mml_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.mmljob_adrs, reg.a3);
             ab.hlw_mmljob_adrs.Add(reg.a5, act);
 
-            act = _ch_opm_lfo_job;
+            act = devopm._ch_opm_lfo_job;
             mm.Write(reg.a5 + w.lfojob_adrs, reg.a3);
             ab.hlw_lfojob_adrs.Add(reg.a5, act);
 
-            act = _opm_command;
+            act = devopm._opm_command;
             mm.Write(reg.a5 + w.subcmd_adrs, reg.a3);
             ab.hlw_subcmd_adrs.Add(reg.a5, act);
 
-            act = _opm_note_set;
+            act = devopm._opm_note_set;
             mm.Write(reg.a5 + w.setnote_adrs, reg.a3);
             ab.hlw_setnote_adrs.Add(reg.a5, act);
 
@@ -1387,40 +1374,40 @@ namespace MDPlayer.Driver.MNDRV
             } while (reg.D1_W-- > 0);
             mm.Write(reg.a5 + w.volcount, 16);
 
-            act = _ch_opm_softenv_job;
+            act = devopm._ch_opm_softenv_job;
             reg.a3 = ab.dummyAddress;
             mm.Write(reg.a5 + w.softenv_adrs, reg.a3);
             ab.hlw_softenv_adrs.Add(reg.a5, act);
 
-            act = _OPM_RR_cut;
+            act = devopm._OPM_RR_cut;
             mm.Write(reg.a5 + w.rrcut_adrs, reg.a3);
             ab.hlw_rrcut_adrs.Add(reg.a5, act);
 
-            act = _OPM_echo;
+            act = devopm._OPM_echo;
             mm.Write(reg.a5 + w.echo_adrs, reg.a3);
             ab.hlw_echo_adrs.Add(reg.a5, act);
 
-            act = _opm_keyoff;
+            act = devopm._opm_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs, reg.a3);
             ab.hlw_keyoff_adrs.Add(reg.a5, act);
 
-            act = _opm_keyoff;
+            act = devopm._opm_keyoff;
             mm.Write(reg.a5 + w.keyoff_adrs2, reg.a3);
             ab.hlw_keyoff_adrs2.Add(reg.a5, act);
 
-            act = _init_opm_hlfo;
+            act = devopm._init_opm_hlfo;
             mm.Write(reg.a5 + w.inithlfo_adrs, reg.a3);
             ab.hlw_inithlfo_adrs.Add(reg.a5, act);
 
-            act = _opm_effect_tone;
+            act = devopm._opm_effect_tone;
             mm.Write(reg.a5 + w.we_tone_adrs, reg.a3);
             ab.hlw_we_tone_adrs.Add(reg.a5, act);
 
-            act = _opm_effect_pan;
+            act = devopm._opm_effect_pan;
             mm.Write(reg.a5 + w.we_pan_adrs, reg.a3);
             ab.hlw_we_pan_adrs.Add(reg.a5, act);
 
-            act = _opm_effect_ycommand;
+            act = devopm._opm_effect_ycommand;
             mm.Write(reg.a5 + w.we_ycom_adrs, reg.a3);
             ab.hlw_we_ycom_adrs.Add(reg.a5, act);
         }
@@ -1475,7 +1462,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.inithlfo_adrs, reg.a3);
             ab.hlw_inithlfo_adrs.Add(reg.a5, act);
 
-            act = _opm_effect_ycommand;
+            act = devopm._opm_effect_ycommand;
             mm.Write(reg.a5 + w.we_ycom_adrs, reg.a3);
             ab.hlw_we_ycom_adrs.Add(reg.a5, act);
 
@@ -1741,7 +1728,7 @@ namespace MDPlayer.Driver.MNDRV
 
             L2:
             reg.D4_L = 0x7f;
-            _OPM_F2_set();
+            devopm._OPM_F2_set();
 
             L9:
             reg.a5 = reg.a5 + dw._trackworksize;
@@ -1785,7 +1772,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D4_L = 0x7f;
             }
-            _OPM_F2_set();
+            devopm._OPM_F2_set();
 
             L9b:
             reg.a5 = reg.a5 + dw._trackworksize;

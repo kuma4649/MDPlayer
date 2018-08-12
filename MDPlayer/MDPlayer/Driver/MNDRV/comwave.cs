@@ -16,7 +16,6 @@ namespace MDPlayer.Driver.MNDRV
         private byte val = 0;
 
         // 未解決ジャンプアドレス
-        public Action[] jsr_w_we_exec_adrs;
 
         //
         //	part of wavememory
@@ -535,7 +534,7 @@ namespace MDPlayer.Driver.MNDRV
             _weffect_10:
             mm.Write(reg.a3 + w_we.adrs_work, reg.a0);
             reg.a0 = mm.ReadUInt32(reg.a3 + w_we.exec_adrs);
-            jsr_w_we_exec_adrs[reg.a0]();
+            ab.hlw_we_exec_adrs[reg.a0]();
 
             _weffect_exit:
             reg.D0_W = sp;

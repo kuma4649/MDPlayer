@@ -83,6 +83,7 @@ namespace MDPlayer.Driver.MNDRV
         public static Dictionary<UInt32, Action> hlw_subcmd_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_setnote_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_inithlfo_adrs = new Dictionary<uint, Action>();
+        public static Dictionary<UInt32, Action> hlw_we_exec_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_we_ycom_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_we_tone_adrs = new Dictionary<uint, Action>();
         public static Dictionary<UInt32, Action> hlw_we_pan_adrs = new Dictionary<uint, Action>();

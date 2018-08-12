@@ -13,12 +13,9 @@ namespace MDPlayer.Driver.MNDRV
         public mndrv mndrv;
         public devpsg devpsg;
         public devopn devopn;
+        public devopm devopm;
 
         // 未解決ジャンプアドレス
-        public Action _t_play_music;
-        public Action _t_pause;
-        public Action _d_stop_music;
-        public Action _OPM_F2_softenv;
         public Action _MPCM_F2_softenv;
 
 
@@ -582,7 +579,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a6 + dw.SP_KEY, 0xff);
                 _get_track_mask();
-                _t_play_music();
+                mndrv._t_play_music();
                 _set_track_mask();
                 reg.D0_B = mm.ReadByte(reg.a6 + dw.TEMPO);
                 reg.D3_L = 0;
@@ -594,7 +591,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
             {
                 mm.Write(reg.a6 + dw.SP_KEY, 0xff);
-                _t_play_music();
+                mndrv._t_play_music();
                 reg.D0_B = mm.ReadByte(reg.a6 + dw.TEMPO);
                 reg.D3_L = 0;
             }
@@ -604,7 +601,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
             {
-                _t_pause();
+                mndrv._t_pause();
                 reg.D3_L = 0;
                 mm.Write(reg.a6 + dw.SP_KEY, 0xff);
             }
@@ -739,7 +736,7 @@ namespace MDPlayer.Driver.MNDRV
             if ((mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x20) == 0) return;
 
             mm.Write(reg.a6 + dw.FADEFLAG, 0);
-            _d_stop_music();
+            mndrv._d_stop_music();
             reg.D0_L = 5;
             mndrv.SUBEVENT();
             mm.Write(reg.a6 + dw.DRV_STATUS, 0x20);
@@ -888,7 +885,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             reg.D4_L = 0x7f;
             L2b:
-            _OPM_F2_softenv();
+            devopm._OPM_F2_softenv();
             reg.a5 = reg.a5 + dw._trackworksize;
             if (reg.D7_W-- != 0) goto _ch_fade_loop;
             return;

@@ -10,11 +10,11 @@ namespace MDPlayer.Driver.MNDRV
     {
         public reg reg;
         public MXDRV.xMemory mm;
+        public devopm devopm;
 
         private UInt32 sp1 = 0;
 
         // 未解決ジャンプアドレス
-        public Action _set_kckf;
 
         //
         //	part of LFO
@@ -38,7 +38,7 @@ namespace MDPlayer.Driver.MNDRV
 
             mm.Write(reg.a5 + w.addkeycode, (UInt16)0);
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
-            _set_kckf();
+            devopm._set_kckf();
             _init_lfo2_exit();
         }
 

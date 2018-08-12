@@ -17,7 +17,6 @@ namespace MDPlayer.Driver.MNDRV
         public comlfo comlfo;
 
         // 未解決ジャンプアドレス
-        public Action[] jsr_w_we_reset;
 
 
         //	タイ
@@ -2087,7 +2086,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = reg.a0 + reg.D0_W;
             reg.a0 = mm.ReadUInt32(reg.a0);
             reg.D0_W = mm.ReadUInt16(reg.a3 + w_we.reset);
-            jsr_w_we_reset[reg.a0]();
+            ab.hlw_we_ycom_adrs[reg.a0]();
             reg.D0_L = 0;
         }
 
@@ -2127,6 +2126,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = mm.ReadUInt32(reg.a0 + reg.D0_W);
             reg.a0 = mm.ReadUInt32(reg.a0);
             mm.Write(reg.a3 + w_we.exec_adrs, reg.a0);
+            ab.hlw_we_exec_adrs.Add(reg.a0, null);
 
             reg.D0_L = 0;
             reg.D0_B = mm.ReadByte(reg.a1++);
@@ -2143,7 +2143,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a3 + w_we.mode, _com_ed_sync_table[reg.D0_W]);
 
             reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
-            reg.D0_W = mm.ReadByte(reg.a3 + w_we.reset);
+            reg.D0_W = mm.ReadUInt16(reg.a3 + w_we.reset);
 
             mm.Write(reg.a3 + w_we.exec_flag, (byte)0x00);
             mm.Write(reg.a3 + w_we.loop_flag, (byte)0x00);
