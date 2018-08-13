@@ -299,7 +299,7 @@ namespace MDPlayer.form
                 DrawBuff.VolumeToMIDILCD(frameBuffer, module, 388, ch * 16 + 16, ref oldParam.level[ch][0], newParam.level[ch][0]);
                 DrawBuff.VolumeToMIDILCD(frameBuffer, module, 388, ch * 16 + 24, ref oldParam.level[ch][2], newParam.level[ch][2]);
 
-                L1:
+                //L1:
                 if (newParam.LCDDisplayTime == 0 && newParam.LCD8850DisplayTime == 0 && newParam.LCDDisplayTimeXG == 0)
                 {
                     DrawBuff.VolumeLCDToMIDILCD(frameBuffer

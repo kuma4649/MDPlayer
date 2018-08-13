@@ -1460,7 +1460,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _ch_psg_lfo_job()
         {
             comwave._ch_effect();
-            _ch_psg_lfo:
+            //_ch_psg_lfo:
             mm.Write(reg.a5 + w.addkeycode, 0);
             mm.Write(reg.a5 + w.addvolume, 0);
 
@@ -2277,7 +2277,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B = mm.ReadByte(reg.a5 + w.e_p);
             if (reg.D0_B == 0) goto _ex_soft4_end;
 
-            _ex_soft4_ar:				// 1
+            //_ex_soft4_ar:				// 1
             reg.D0_B--;
             if (reg.D0_B != 0) goto _ex_soft4_dr;
 

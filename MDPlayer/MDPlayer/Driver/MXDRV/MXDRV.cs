@@ -367,7 +367,7 @@ namespace MDPlayer.Driver.MXDRV
         }
 
 
-        private double deltaCnt = 0;
+        //private double deltaCnt = 0;
         private xMemory mm = null;
         public string PlayingFileName = "";
         public Tuple<string, byte[]> ExtendFile = null;

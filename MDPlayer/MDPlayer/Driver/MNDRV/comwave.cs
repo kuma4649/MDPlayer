@@ -734,7 +734,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D0_B - 0x80 == 0) goto _com_wave_k_loop;
             if ((Int16)reg.D0_B - 0xf0 >= 0) goto _com_wave_k_command;
 
-            _com_wave_k1:
+            //_com_wave_k1:
             mm.Write(reg.a4 + w_l.delay_work, mm.ReadByte(reg.a4 + w_l.lfo_sp));
             reg.D1_B = reg.D0_B;
             reg.D0_W &= 0x7f;
