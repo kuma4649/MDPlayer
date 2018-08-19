@@ -65,31 +65,166 @@ namespace MDPlayer.Driver.MNDRV
         public void SetD6_L(int v) { D6_L = (uint)v; }
         public void SetD7_L(int v) { D7_L = (uint)v; }
         public void SetSR(int v) { SR = (uint)v; }
+
+        public bool cryADD(byte a, byte b)
+        {
+            return a + b > 0xff;
+        }
+
+        public bool cryADD(UInt16 a, UInt16 b)
+        {
+            return a + b > 0xffff;
+        }
+
+        public bool cryADD(UInt32 a, UInt32 b)
+        {
+            return (Int64)a + (Int64)b > (Int64)0xffffffff;
+        }
+
     }
 
     public class ab
     {
         public const UInt32 dummyAddress = 0xffffffff;
-        public static Dictionary<UInt32, Action> hlTRKANA_RESTADR = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_qtjob = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_mmljob_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_lfojob_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_psgenv_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_softenv_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_rrcut_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_echo_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_keyoff_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_keyoff_adrs2 = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_subcmd_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_setnote_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_inithlfo_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_we_exec_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_we_ycom_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_we_tone_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlw_we_pan_adrs = new Dictionary<uint, Action>();
-        public static Dictionary<UInt32, Action> hlINTEXECBUF = new Dictionary<uint, Action>();
-        public static UInt16[] _ch_psg_plfo_table;
-        public static Dictionary<UInt32, Action> hl_ch_psg_plfo_table = new Dictionary<uint, Action>();
+
+        public Dictionary<UInt32, Action> hlTRKANA_RESTADR = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_qtjob = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_mmljob_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_lfojob_adrs = new Dictionary<uint, Action>();
+        //public Dictionary<UInt32, Action> hlw_psgenv_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_softenv_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_rrcut_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_echo_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_keyoff_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_keyoff_adrs2 = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_subcmd_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_setnote_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_inithlfo_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_we_exec_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_we_ycom_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_we_tone_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlw_we_pan_adrs = new Dictionary<uint, Action>();
+        public Dictionary<UInt32, Action> hlINTEXECBUF = new Dictionary<uint, Action>();
     }
 
+    public class FMTimer
+    {
+        private int TimerAregH;     // タイマーAの上位8ビット
+        private int TimerAregL;     // タイマーAの下位2ビット
+        private int TimerA;         // タイマーAのオーバーフロー設定値
+        private double TimerAcounter;  // タイマーAのカウンター値
+        private int TimerB;         // タイマーBのオーバーフロー設定値
+        private double TimerBcounter;  // タイマーBのカウンター値
+        private int TimerReg;       // タイマー制御レジスタ (下位4ビット+7ビット)
+        private int StatReg;        // ステータスレジスタ (下位2ビット)
+        private bool isOPM = false;
+        private Action CsmKeyOn;
+        private double step = 0.0;
+        private double MasterClock = 3579545.0;
+
+        public FMTimer(bool isOPM,Action CsmKeyOn,double MasterClock)
+        {
+            this.isOPM = isOPM;
+            this.CsmKeyOn = CsmKeyOn;
+            this.MasterClock = MasterClock;
+            if (isOPM)
+            {
+                step = MasterClock / 64.0 * 2.0 / (double)common.SampleRate;
+            }
+            else
+            {
+                step = MasterClock / 72.0 / 2.0 / (double)common.SampleRate;
+            }
+        }
+
+        public void timer()
+        {
+            int flag_set = 0;
+
+            if ((TimerReg & 0x01) != 0)
+            {   // TimerA 動作中
+                TimerAcounter+=step;
+                if (TimerAcounter >= TimerA)
+                {
+                    flag_set |= ((TimerReg >> 2) & 0x01);
+                    TimerAcounter -= TimerA;
+                    if ((TimerReg & 0x80) != 0) CsmKeyOn?.Invoke();
+                }
+            }
+
+            if ((TimerReg & 0x02) != 0)
+            {   // TimerB 動作中
+                TimerBcounter+=step;
+                if (TimerBcounter >= TimerB)
+                {
+                    flag_set |= ((TimerReg >> 2) & 0x02);
+                    TimerBcounter -= TimerB;
+                }
+            }
+
+            StatReg |= flag_set;
+        }
+
+        public void WriteReg(byte adr, byte data)
+        {
+            if (isOPM) WriteRegOPM(adr, data);
+            else WriteRegOPN(adr, data);
+        }
+
+        private void WriteRegOPM(byte adr, byte data)
+        {
+            switch (adr)
+            {
+                case 0x10:
+                case 0x11:
+                    // TimerA
+                    if (adr == 0x10) TimerAregH = data;
+                    else TimerAregL = data & 3;
+                    TimerA = 1024 - ((TimerAregH << 2) + TimerAregL);
+                    break;
+
+                case 0x12:
+                    // TimerB
+                    TimerB = (256 - (int)data) << (10 - 6);
+                    break;
+
+                case 0x14:
+                    // タイマー制御レジスタ
+                    TimerReg = data & 0x8F;
+                    StatReg &= 0xFF - ((data >> 4) & 3);
+                    break;
+            }
+        }
+
+        private void WriteRegOPN(byte adr, byte data)
+        {
+            switch (adr)
+            {
+                case 0x24:
+                case 0x25:
+                    // TimerA
+                    if (adr == 0x24) TimerAregH = data;
+                    else TimerAregL = data & 3;
+                    TimerA = 1024 - ((TimerAregH << 2) + TimerAregL);
+                    break;
+
+                case 0x26:
+                    // TimerB
+                    TimerB = (256 - (int)data) << (10 - 6);
+                    break;
+
+                case 0x27:
+                    // タイマー制御レジスタ
+                    TimerReg = data & 0x8F;
+                    StatReg &= 0xFF - ((data >> 4) & 3);
+                    break;
+            }
+        }
+
+        public int ReadStatus()
+        {
+            return StatReg;
+        }
+
+    }
 }

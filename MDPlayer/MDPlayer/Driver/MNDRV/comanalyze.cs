@@ -8,8 +8,9 @@ namespace MDPlayer.Driver.MNDRV
 {
     public class comanalyze
     {
-        public static reg reg;
-        public static MXDRV.xMemory mm;
+        public reg reg;
+        public MXDRV.xMemory mm;
+        public ab ab;
 
         //
         //	part of track analyze
@@ -64,7 +65,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = mm.ReadUInt32(reg.a5 + w.rrcut_adrs);
-            ab.hlw_rrcut_adrs[reg.a0]();
+            ab.hlw_rrcut_adrs[reg.a5]();
             _track_ana_echo_atq();
         }
 
@@ -75,8 +76,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B -= 1;
             if (reg.D0_B != 0) goto L2;
             L1:
-            reg.a0 = reg.a5 + w.echo_adrs;
-            ab.hlw_echo_adrs[reg.a0]();
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.echo_adrs);
+            ab.hlw_echo_adrs[reg.a5]();
             reg.D0_L = 0xffffffff;// -1;
             L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
@@ -91,8 +92,8 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_B -= 1;
                 if (reg.D0_B == 0)
                 {
-                    reg.a0 = reg.a5 + w.keyoff_adrs2;
-                    ab.hlw_keyoff_adrs2[reg.a0]();
+                    reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs2);
+                    ab.hlw_keyoff_adrs2[reg.a5]();
                     reg.D0_L = 0;
                 }
                 mm.Write(reg.a5 + w.reverb_time_work, (byte)reg.D0_B);
@@ -110,8 +111,8 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
 
-            reg.a0 = reg.a5 + w.echo_adrs;
-            ab.hlw_echo_adrs[reg.a0]();
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.echo_adrs);
+            ab.hlw_echo_adrs[reg.a5]();
             _track_ana_fetch();
         }
 
@@ -138,7 +139,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.a0 = mm.ReadUInt32(reg.a5 + w.rrcut_adrs);
-            ab.hlw_rrcut_adrs[reg.a0]();
+            ab.hlw_rrcut_adrs[reg.a5]();
             _track_ana_normal_atq();
         }
 
@@ -149,8 +150,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B -= 1;
             if (reg.D0_B != 0) goto L2;
             L1:
-            reg.a0 = reg.a5 + w.keyoff_adrs;
-            ab.hlw_keyoff_adrs[reg.a0]();
+            reg.a0 =mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
+            ab.hlw_keyoff_adrs[reg.a5]();
             reg.D0_L = 0xffffffff;// -1;
             L2:
             mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
@@ -170,8 +171,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 6;
             mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) & (~(1 << (int)reg.D0_B))));
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) & (~(1 << (int)reg.D0_B))));
-            reg.a0 = reg.a5 + w.keyoff_adrs;
-            ab.hlw_keyoff_adrs[reg.a0]();
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
+            ab.hlw_keyoff_adrs[reg.a5]();
             _track_ana_fetch();
             return;
 
@@ -181,137 +182,98 @@ namespace MDPlayer.Driver.MNDRV
                 _track_ana_fetch();
                 return;
             }
-            reg.a0 = reg.a5 + w.keyoff_adrs;
-            ab.hlw_keyoff_adrs[reg.a0]();
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
+            ab.hlw_keyoff_adrs[reg.a5]();
+            _track_ana_fetch();
         }
 
         //─────────────────────────────────────
         public void _track_ana_fetch()
         {
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0x7f));
-            reg.a1 = reg.a5 + w.dataptr;
-            _track_ana_fetch_L1();
-        }
+            reg.a1 = mm.ReadUInt32(reg.a5 + w.dataptr);
+            //goto _track_ana_fetch_L1;
+            bool dmyFlg = true;
 
-        public void _track_loop()
-        {
-            if ((sbyte)mm.ReadByte(reg.a5 + w.flag4) < 0)
-            {
-                return;
-            }
-            if ((sbyte)mm.ReadByte(reg.a5 + w.flag) >= 0)
-            {
-                return;
-            }
-            _track_ana_fetch_L1();
-        }
+            _track_loop:
 
-        public void _track_ana_fetch_L1()
-        {
-            reg.D0_L = 0;
-            reg.D0_B = mm.ReadByte(reg.a1++);
-            if ((sbyte)reg.D0_B >= 0)
+            do
             {
-                _track_ana_mml();
-                return;
-            }
-            reg.D0_B -= 0x80;
-            if (reg.D0_B == 0)
-            {
-                _track_ana_rest_exit();
-                return;
-            }
-            reg.a0 = mm.ReadUInt32(reg.a5 + w.subcmd_adrs);
-            ab.hlw_subcmd_adrs[reg.a0]();
-            _track_loop();
-        }
+                if (!dmyFlg)
+                {
+                    if ((sbyte)mm.ReadByte(reg.a5 + w.flag4) < 0)
+                    {
+                        return;
+                    }
+                    if ((sbyte)mm.ReadByte(reg.a5 + w.flag) >= 0)
+                    {
+                        return;
+                    }
+                }
 
-        public void _track_ana_mml()
-        {
-            if ((byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x8) != 0)
-            {
-                _track_ana_exit_jump();
-                return;
-            }
+                //L1:
+
+                dmyFlg = false;
+                reg.D0_L = 0;
+                reg.D0_B = mm.ReadByte(reg.a1++);
+                if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml;
+
+                reg.D0_B -= 0x80;
+                if (reg.D0_B == 0) goto _track_ana_rest_exit;
+
+                reg.a0 = mm.ReadUInt32(reg.a5 + w.subcmd_adrs);
+                ab.hlw_subcmd_adrs[reg.a5]();
+            } while (true);
+            //_track_loop();
+
+
+            _track_ana_mml:
+
+            if ((byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x8) != 0) goto _track_ana_exit_jump;
+
             reg.D1_B = mm.ReadByte(reg.a5 + w.key_trans);
-            if ((sbyte)reg.D0_B >= 0)
-            {
-                _track_ana_mml_plus();
-                return;
-            }
-            reg.D0_B += reg.D1_B;
-            if ((sbyte)reg.D0_B >= 0)
-            {
-                _track_ana_mml_();
-                return;
-            }
-            reg.D0_B = 0;
-            if ((sbyte)reg.D0_B >= 0)
-            {
-                _track_ana_mml_();
-            }
-        }
+            if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_plus;
 
-        public void _track_ana_mml_plus()
-        {
             reg.D0_B += reg.D1_B;
-            if ((sbyte)reg.D0_B >= 0)
-            {
-                _track_ana_mml_();
-                return;
-            }
+            if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_;
+            reg.D0_L = 0;
+            goto _track_ana_mml_;
+
+
+            _track_ana_mml_plus:
+
+            reg.D0_B += reg.D1_B;
+            if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_;
             reg.D0_L = 0x7f;
-            _track_ana_mml_();
-        }
 
-        public void _track_ana_mml_()
-        {
-            if ((byte)(mm.ReadByte(reg.a5 + w.flag3) & 0x40) != 0)
-            {
-                _track_ana_mml1();
-                return;
-            }
+
+            _track_ana_mml_:
+
+            if ((byte)(mm.ReadByte(reg.a5 + w.flag3) & 0x40) != 0) goto _track_ana_mml1;
             reg.D1_B = mm.ReadByte(reg.a5 + w.flag);
-            if ((reg.D1_L & 0x40) == 0)
-            {
-                _track_ana_mml1();
-                return;
-            }
-            if ((reg.D1_L & 0x02) != 0)
-            {
-                _track_ana_mml1();
-                return;
-            }
-            if (reg.D0_B - mm.ReadByte(reg.a5 + w.key) == 0)
-            {
-                _track_ana_exit();
-                return;
-            }
+            if ((reg.D1_L & 0x40) == 0) goto _track_ana_mml1;
+            if ((reg.D1_L & 0x02) != 0) goto _track_ana_mml1;
+            if (reg.D0_B - mm.ReadByte(reg.a5 + w.key) == 0) goto _track_ana_exit;
             mm.Write(reg.a5 + w.flag, (byte)(mm.ReadByte(reg.a5 + w.flag) | 0x1));
-            _track_ana_mml1();
-        }
 
-        public void _track_ana_mml1()
-        {
+            _track_ana_mml1:
             reg.a0 = mm.ReadUInt32(reg.a5 + w.setnote_adrs);
-            ab.hlw_setnote_adrs[reg.a0]();
-            _track_ana_exit();
-        }
-        public void _track_ana_exit()
-        {
-            reg.a0 = mm.ReadUInt32(reg.a5 + w.inithlfo_adrs);
-            ab.hlw_inithlfo_adrs[reg.a0]();
-            _track_ana_exit_jump();
-        }
+            ab.hlw_setnote_adrs[reg.a5]();
 
-        public void _track_ana_exit_jump()
-        {
+            _track_ana_exit:
+
+
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.inithlfo_adrs);
+            ab.hlw_inithlfo_adrs[reg.a5]();
+
+
+            _track_ana_exit_jump:
+
             reg.D0_L = 0;
             reg.D0_B = mm.ReadByte(reg.a1++);
             if (reg.D0_B == 0)
             {
-                _track_loop();
-                return;
+                goto _track_loop;
             }
             mm.Write(reg.a5 + w.len, (byte)reg.D0_B);
             if ((byte)(mm.ReadByte(reg.a5 + w.flag2) & 0x40) != 0)
@@ -321,8 +283,26 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.a0 = mm.ReadUInt32(reg.a5 + w.qtjob);
-            ab.hlw_qtjob[reg.a0]();
+            ab.hlw_qtjob[reg.a5]();
             _track_ana_exit_();
+
+            return;
+
+
+            _track_ana_rest_exit:
+
+            reg.D0_B = mm.ReadByte(reg.a6 + dw.DRV_FLAG2);
+            if ((sbyte)reg.D0_B < 0) goto L1;
+            if ((reg.D0_L & 0x40) != 0) goto L1;
+            reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
+            ab.hlw_keyoff_adrs[reg.a5]();
+            L1:
+            reg.D0_B = mm.ReadByte(reg.a1++);
+            if (reg.D0_B == 0) goto _track_loop;
+            mm.Write(reg.a5 + w.len, (byte)reg.D0_B);
+            reg.a0 = mm.ReadUInt32(reg.a6 + dw.TRKANA_RESTADR);
+            ab.hlTRKANA_RESTADR[reg.a6]();//a6の位置にあるActionを実行
+            return;
         }
 
         public void _track_ana_exit_atq()
@@ -348,11 +328,11 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W -= reg.D1_W;
             if ((sbyte)reg.D0_W > 0)
             {
-                mm.Write(reg.a5 + w.at_q_work, reg.D0_B);
+                mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
             }
             else
             {
-                mm.Write(reg.a5 + w.at_q_work, 1);
+                mm.Write(reg.a5 + w.at_q_work, (byte)1);
             }
             _track_ana_exit_atq_final();
         }
@@ -382,26 +362,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dataptr, reg.a1);
         }
 
-        public void _track_ana_rest_exit()
-        {
-            reg.D0_B = mm.ReadByte(reg.a6 + dw.DRV_FLAG2);
-            if ((sbyte)reg.D0_B < 0) goto L1;
-            if ((reg.D0_L & 0x40) != 0) goto L1;
-            reg.a0 = mm.ReadUInt32(reg.a5 + w.keyoff_adrs);
-            ab.hlw_keyoff_adrs[reg.a0]();
-            L1:
-            reg.D0_B = mm.ReadByte(reg.a1++);
-            if (reg.D0_B == 0)
-            {
-                _track_loop();
-                return;
-            }
-            mm.Write(reg.a5 + w.len, (byte)reg.D0_B);
-            reg.a0 = mm.ReadUInt32(reg.a6 + dw.TRKANA_RESTADR);
-            ab.hlTRKANA_RESTADR[reg.a6]();//a6の位置にあるActionを実行
-        }
-
-        public static void _track_ana_rest_old()
+        public void _track_ana_rest_old()
         {
             if ((byte)(mm.ReadByte(reg.a5 + w.flag2) & 0x40) == 0)
             {
@@ -421,12 +382,12 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dataptr, reg.a1);
         }
 
-        public static void _track_ana_rest_new()
+        public void _track_ana_rest_new()
         {
             if ((byte)(mm.ReadByte(reg.a5 + w.flag2) & 0x40) == 0)
             {
-                mm.Write(reg.a5 + w.at_q, reg.D0_B);
-                mm.Write(reg.a5 + w.at_q_work, reg.D0_B);
+                mm.Write(reg.a5 + w.at_q, (byte)reg.D0_B);
+                mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
             }
             if (mm.ReadByte(reg.a1) - 0x81 != 0)
             {

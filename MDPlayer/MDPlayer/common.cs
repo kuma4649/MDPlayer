@@ -229,6 +229,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
             if (filename.ToLower().LastIndexOf(".hes") != -1) return enmFileFormat.HES;
             if (filename.ToLower().LastIndexOf(".sid") != -1) return enmFileFormat.SID;
+            if (filename.ToLower().LastIndexOf(".mnd") != -1) return enmFileFormat.MND;
             if (filename.ToLower().LastIndexOf(".mdr") != -1) return enmFileFormat.MDR;
             if (filename.ToLower().LastIndexOf(".mdx") != -1) return enmFileFormat.MDX;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
@@ -424,7 +425,8 @@ namespace MDPlayer
         SID = 11,
         MDR = 12,
         LZH = 13,
-        MDX = 14
+        MDX = 14,
+        MND = 15
     }
 
     public enum enmArcType : int

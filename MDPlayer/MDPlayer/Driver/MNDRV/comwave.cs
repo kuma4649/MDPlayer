@@ -9,13 +9,12 @@ namespace MDPlayer.Driver.MNDRV
     public class comwave
     {
         public reg reg;
+        public ab ab;
         public MXDRV.xMemory mm;
         public comlfo comlfo;
 
         private UInt32 cf = 0;
         private byte val = 0;
-
-        // 未解決ジャンプアドレス
 
         //
         //	part of wavememory
@@ -732,7 +731,7 @@ namespace MDPlayer.Driver.MNDRV
             _com_wave_k_loop:
             reg.D0_B = mm.ReadByte(reg.a0++);
             if (reg.D0_B - 0x80 == 0) goto _com_wave_k_loop;
-            if ((Int16)reg.D0_B - 0xf0 >= 0) goto _com_wave_k_command;
+            if (reg.D0_B >= 0xf0) goto _com_wave_k_command;
 
             //_com_wave_k1:
             mm.Write(reg.a4 + w_l.delay_work, mm.ReadByte(reg.a4 + w_l.lfo_sp));

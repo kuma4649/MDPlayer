@@ -355,6 +355,24 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
+            else if (file.ToLower().LastIndexOf(".mnd") != -1)
+            {
+
+                music.format = enmFileFormat.MND;
+                uint index = 0;
+                GD3 gd3 = (new Driver.MNDRV.mndrv()).getGD3Info(buf, index);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
             else if (file.ToLower().LastIndexOf(".xgm") != -1)
             {
                 music.format = enmFileFormat.XGM;
@@ -1504,6 +1522,17 @@ namespace MDPlayer
                 return mdxPlay(setting);
             }
 
+            if (PlayingFileFormat == enmFileFormat.MND)
+            {
+                driverVirtual = new Driver.MNDRV.mndrv();
+                driverReal = new Driver.MNDRV.mndrv();
+                driverVirtual.setting = setting;
+                driverReal.setting = setting;
+
+
+                return mndPlay(setting);
+            }
+
             if (PlayingFileFormat == enmFileFormat.XGM)
             {
                 driverVirtual = new xgm();
@@ -1998,6 +2027,185 @@ namespace MDPlayer
                     , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
                     , mdxPCM_R);
+
+                if (!retV || !retR)
+                {
+                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : driverReal.errMsg;
+                    return false;
+                }
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool mndPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                trdClosed = false;
+                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+                trdMain.Priority = ThreadPriority.Highest;
+                trdMain.IsBackground = true;
+                trdMain.Name = "trdVgmReal";
+                trdMain.Start();
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+                int hiyorimiDeviceFlag = 3;
+
+                chipLED = new ChipLEDs();
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+                MDSound.MDSound.Chip chip = null;
+
+                if (setting.YM2151Type.UseEmu)
+                {
+                    MDSound.ym2151 ym2151 = new MDSound.ym2151();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                    chip.ID = (byte)0;
+                    chip.Instrument = ym2151;
+                    chip.Update = ym2151.Update;
+                    chip.Start = ym2151.Start;
+                    chip.Stop = ym2151.Stop;
+                    chip.Reset = ym2151.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = null;
+                }
+                else if (setting.YM2151Type.UseEmu2)
+                {
+                    MDSound.ym2151_mame ym2151mame = new MDSound.ym2151_mame();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151mame;
+                    chip.ID = (byte)0;
+                    chip.Instrument = ym2151mame;
+                    chip.Update = ym2151mame.Update;
+                    chip.Start = ym2151mame.Start;
+                    chip.Stop = ym2151mame.Stop;
+                    chip.Reset = ym2151mame.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = null;
+                }
+                else if (setting.YM2151Type.UseEmu3)
+                {
+                    MDSound.ym2151_x68sound mdxOPM = new MDSound.ym2151_x68sound();
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151x68sound;
+                    chip.ID = (byte)0;
+                    chip.Instrument = mdxOPM;
+                    chip.Update = mdxOPM.Update;
+                    chip.Start = mdxOPM.Start;
+                    chip.Stop = mdxOPM.Stop;
+                    chip.Reset = mdxOPM.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = 4000000;
+                    chip.Option = new object[3] { 1, 0, 0 };
+                }
+                chipLED.PriOPM = 1;
+                if (chip != null) lstChips.Add(chip);
+
+                MDSound.ym2608 opna = new ym2608();
+                if (setting.YM2608Type.UseEmu)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                    chip.ID = (byte)0;
+                    chip.Instrument = opna;
+                    chip.Update = opna.Update;
+                    chip.Start = opna.Start;
+                    chip.Stop = opna.Stop;
+                    chip.Reset = opna.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2608Volume;
+                    chip.Clock = 7987200;
+                    chipLED.PriOPNA = 1;
+                    lstChips.Add(chip);
+                }
+
+                if (setting.YM2608SType.UseEmu)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                    chip.ID = (byte)1;
+                    chip.Instrument = opna;
+                    chip.Update = opna.Update;
+                    chip.Start = opna.Start;
+                    chip.Stop = opna.Stop;
+                    chip.Reset = opna.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip.Volume = setting.balance.YM2608Volume;
+                    chip.Clock = 7987200;
+                    chipLED.SecOPNA = 1;
+                    lstChips.Add(chip);
+                }
+
+                if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister();
+
+                SetYM2151Volume(setting.balance.YM2151Volume);
+                SetYM2608Volume(setting.balance.YM2608Volume);
+                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+
+                bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151,enmUseChip.YM2608 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                    );
+                bool retR = ((MDPlayer.Driver.MNDRV.mndrv)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.YM2608 }
+                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                    );
 
                 if (!retV || !retR)
                 {

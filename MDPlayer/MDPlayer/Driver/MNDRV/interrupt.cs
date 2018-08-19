@@ -14,10 +14,10 @@ namespace MDPlayer.Driver.MNDRV
         public devpsg devpsg;
         public devopn devopn;
         public devopm devopm;
-
-        // 未解決ジャンプアドレス
-        public Action _MPCM_F2_softenv;
-
+        public devmpcm devmpcm;
+        public ab ab;
+        public FMTimer timerOPM;
+        public FMTimer timerOPN;
 
         //
         //	part of INTERRUPT MAIN
@@ -45,7 +45,7 @@ namespace MDPlayer.Driver.MNDRV
 
             uint spA6 = reg.a6;
 
-            reg.a6 = mndrv._work_top;
+            reg.a6 = mndrv._work_top;// mm.ReadUInt32(mndrv._work_top);//
             byte f = (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 1);
             mm.Write(reg.a6 + dw.DRV_STATUS, (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) | 1));
             if (f != 0)
@@ -75,12 +75,14 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 3;
             do
             {
-                reg.D3_B = mm.ReadByte(reg.a0);
+                //reg.D3_B = mm.ReadByte(reg.a0);
+                reg.D3_B = (byte)timerOPN.ReadStatus();
             } while ((sbyte)reg.D3_B < 0);
+            
             reg.D3_W &= reg.D0_W;
 
             reg.D0_L = 7;
-            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
+            reg.D0_L &= 0;// reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
             reg.D0_W += reg.D0_W;
             reg.D4_W = reg.SR_W;
             reg.D4_W &= 0xf8ff;
@@ -116,7 +118,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B = mm.ReadByte(reg.a6 + dw.TEMPO3);
             if (mm.ReadByte(reg.a6 + dw.TEMPO2) - reg.D0_B != 0)
             {
-                mm.Write(reg.a6 + dw.TEMPO2, reg.D0_B);
+                mm.Write(reg.a6 + dw.TEMPO2, (byte)reg.D0_B);
                 reg.D7_L = 0;
                 reg.D1_L = 0x26;
                 mndrv._OPN_WRITE();
@@ -127,7 +129,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 3;
             do
             {
-                reg.D3_B = mm.ReadByte(reg.a0);
+                //reg.D3_B = mm.ReadByte(reg.a0);
+                reg.D3_B = (byte)timerOPN.ReadStatus();
             } while ((sbyte)reg.D3_B < 0);
             reg.D3_W &= reg.D0_W;
             if (reg.D3_W != 0) goto _opn_recall;
@@ -139,7 +142,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D7_W != 0)
             {
                 reg.a0 = reg.a6 + dw.INTEXECBUF;
-                mm.Write(reg.a6 + dw.INTEXECNUM, 0);
+                mm.Write(reg.a6 + dw.INTEXECNUM, (UInt16)0);
                 reg.D7_W -= 1;
                 do
                 {
@@ -193,7 +196,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.SR |= 0x700;
             uint spA6 = reg.a6;
-            reg.a6 = mndrv._work_top;
+            reg.a6 = mndrv._work_top;// mm.ReadUInt32(mndrv._work_top);
             byte f = (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 1);
             mm.Write(reg.a6 + dw.DRV_STATUS, (byte)(mm.ReadByte(reg.a6 + dw.DRV_STATUS) | 1));
             if (f != 0)
@@ -223,12 +226,13 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 3;
             do
             {
-                reg.D3_B = mm.ReadByte(reg.a0);
+                //reg.D3_B = mm.ReadByte(reg.a0);
+                reg.D3_B = (byte)timerOPM.ReadStatus();
             } while ((sbyte)reg.D3_B < 0);
             reg.D3_W &= reg.D0_W;
 
             reg.D0_L = 7;
-            reg.D0_L &= reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
+            reg.D0_L &= 0;// reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
             reg.D0_W += reg.D0_W;
             reg.D4_W = reg.SR_W;
             reg.D4_W &= 0xf8ff;
@@ -262,7 +266,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B = mm.ReadByte(reg.a6 + dw.TEMPO3);
             if (mm.ReadByte(reg.a6 + dw.TEMPO2) - reg.D0_B != 0)
             {
-                mm.Write(reg.a6 + dw.TEMPO2, reg.D0_B);
+                mm.Write(reg.a6 + dw.TEMPO2, (byte)reg.D0_B);
                 reg.D1_L = 0x12;
                 mndrv._OPM_WRITE();
             }
@@ -272,7 +276,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 3;
             do
             {
-                reg.D3_B = mm.ReadByte(reg.a0);
+                //reg.D3_B = mm.ReadByte(reg.a0);
+                reg.D3_B = (byte)timerOPM.ReadStatus();
             } while ((sbyte)reg.D3_B < 0);
             reg.D3_W &= reg.D0_W;
             if (reg.D3_W != 0) goto _opm_recall;
@@ -284,7 +289,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D7_W != 0)
             {
                 reg.a0 = reg.a6 + dw.INTEXECBUF;
-                mm.Write(reg.a6 + dw.INTEXECNUM, 0);
+                mm.Write(reg.a6 + dw.INTEXECNUM, (UInt16)0);
                 reg.D7_W -= 1;
                 do
                 {
@@ -417,7 +422,7 @@ namespace MDPlayer.Driver.MNDRV
                     _key_COPT2();
                     break;
             }
-            mm.Write(reg.a6 + dw.TEMPO3, reg.D0_B);
+            mm.Write(reg.a6 + dw.TEMPO3, (byte)reg.D0_B);
 
             reg.D1_B = mm.ReadByte(reg.a6 + dw.DRV_STATUS);
             if ((sbyte)reg.D1_B >= 0) return;
@@ -450,7 +455,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public void _key_ctrl_disable()
         {
-            mm.Write(reg.a6 + dw.TEMPO3, reg.D0_B);
+            mm.Write(reg.a6 + dw.TEMPO3, (byte)reg.D0_B);
             mm.Write(reg.a6 + dw.SP_KEY, 0);
             if (mm.ReadByte(reg.a6 + dw.MUTE) == 0)
             {
@@ -641,8 +646,9 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_B = mm.ReadByte(reg.a5 + w.flag2);
                 reg.D0_B &= 0x80;
                 mm.Write(reg.a0++, (byte)reg.D0_B);
-                reg.a5 = reg.a5 + dw._trackworksize;
-            } while (reg.D1_W-- != 0);
+                reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+                reg.D1_W--;
+            } while (reg.D1_W != 0);
         }
 
         public void _set_track_mask()
@@ -656,8 +662,9 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_B = mm.ReadByte(reg.a0++);
                 mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | reg.D0_B));
-                reg.a5 = reg.a5 + dw._trackworksize;
-            } while (reg.D1_W-- != 0);
+                reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+                reg.D1_W--;
+            } while (reg.D1_W != 0);
         }
 
         public void _ff_mute()
@@ -687,10 +694,10 @@ namespace MDPlayer.Driver.MNDRV
             spReg.D0_L = reg.D0_L;
             spReg.D3_L = reg.D3_L;
             reg.D0_L = 0;
-            mm.Write(reg.a6 + dw.MASTER_VOL_FM, reg.D0_B);
-            mm.Write(reg.a6 + dw.MASTER_VOL_PCM, reg.D0_B);
-            mm.Write(reg.a6 + dw.MASTER_VOL_RHY, reg.D0_B);
-            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_FM, (byte)reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_PCM, (byte)reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_RHY, (byte)reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, (byte)reg.D0_B);
             _ch_fade();
             reg.D0_L = spReg.D0_L;
             reg.D3_L = spReg.D3_L;
@@ -765,7 +772,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a6 + dw.DRV_STATUS, 0x20);
             }
-            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, (byte)reg.D0_B);
         }
 
         //─────────────────────────────────────
@@ -777,7 +784,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_L = 0;
             }
-            mm.Write(reg.a6 + dw.MASTER_VOL_FM, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_FM, (byte)reg.D0_B);
 
             reg.D0_B = mm.ReadByte(reg.a6 + dw.MASTER_VOL_PCM);
             reg.D0_B -= 2;
@@ -785,7 +792,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_L = 0;
             }
-            mm.Write(reg.a6 + dw.MASTER_VOL_PCM, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_PCM, (byte)reg.D0_B);
 
             reg.D0_B = mm.ReadByte(reg.a6 + dw.MASTER_VOL_RHY);
             reg.D0_B -= 1;
@@ -793,7 +800,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_L = 0;
             }
-            mm.Write(reg.a6 + dw.MASTER_VOL_RHY, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_RHY, (byte)reg.D0_B);
 
             mm.Write(reg.a6 + dw.FADECOUNT , (byte)(mm.ReadByte(reg.a6 + dw.FADECOUNT) - 1));
             if (mm.ReadByte(reg.a6 + dw.FADECOUNT) != 0) return;
@@ -805,7 +812,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_L = 0;
             }
-            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, reg.D0_B);
+            mm.Write(reg.a6 + dw.MASTER_VOL_PSG, (byte)reg.D0_B);
         }
 
         //─────────────────────────────────────
@@ -819,8 +826,8 @@ namespace MDPlayer.Driver.MNDRV
 
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 1) != 0) goto _ch_fade_next;
 
-            if ((sbyte)(reg.D0_B - 0x40) >= 0) goto _ch_fade_loop_rhythm;
-            if ((sbyte)(reg.D0_B - 0x20) >= 0) goto _ch_fade_loop_psg;
+            if (reg.D0_B >= 0x40) goto _ch_fade_loop_rhythm;
+            if (reg.D0_B >= 0x20) goto _ch_fade_loop_psg;
 
             reg.D4_B = mm.ReadByte(reg.a6 + dw.MUTE);
             reg.D4_B |= mm.ReadByte(reg.a5 + w.flag);
@@ -837,8 +844,9 @@ namespace MDPlayer.Driver.MNDRV
             devopn._FM_F2_softenv();
 
             _ch_fade_next:
-            reg.a5 = reg.a5 + dw._trackworksize;
-            if (reg.D7_W-- != 0) goto _ch_fade_loop;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+            reg.D7_W--;
+            if (reg.D7_W != 0) goto _ch_fade_loop;
             return;
 
             _ch_fade_loop_psg:
@@ -853,7 +861,7 @@ namespace MDPlayer.Driver.MNDRV
                 }
                 devpsg._psg_lfo();
             }
-            reg.a5 = reg.a5 + dw._trackworksize;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
             if (reg.D7_W-- != 0) goto _ch_fade_loop;
             return;
 
@@ -866,12 +874,12 @@ namespace MDPlayer.Driver.MNDRV
             }
             reg.D1_L = 0x11;
             mndrv._OPN_WRITE2();
-            reg.a5 = reg.a5 + dw._trackworksize;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
             if (reg.D7_W-- != 0) goto _ch_fade_loop;
             return;
 
             _ch_fade_loop_check:
-            if ((sbyte)(reg.D0_B - 0xa0) >= 0) goto _ch_fade_loop_pcm;
+            if (reg.D0_B >= 0xa0) goto _ch_fade_loop_pcm;
 
             reg.D4_B = mm.ReadByte(reg.a6 + dw.MUTE);
             reg.D4_B |= mm.ReadByte(reg.a5 + w.flag);
@@ -886,7 +894,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_L = 0x7f;
             L2b:
             devopm._OPM_F2_softenv();
-            reg.a5 = reg.a5 + dw._trackworksize;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
             if (reg.D7_W-- != 0) goto _ch_fade_loop;
             return;
 
@@ -905,9 +913,9 @@ namespace MDPlayer.Driver.MNDRV
             }
             reg.D4_L = 0;
             L2c:
-            _MPCM_F2_softenv();
+            devmpcm._MPCM_F2_softenv();
             L9:
-            reg.a5 = reg.a5 + dw._trackworksize;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
             if (reg.D7_W-- != 0) goto _ch_fade_loop;
         }
 
@@ -923,7 +931,7 @@ namespace MDPlayer.Driver.MNDRV
 
             if ((sbyte)mm.ReadByte(reg.a6 + dw.DRV_FLAG3) >= 0)
             {
-                reg.a0 = reg.a5 + w.lfojob_adrs;
+                reg.a0 = mm.ReadUInt32(reg.a5 + w.lfojob_adrs);
                 ab.hlw_lfojob_adrs[reg.a5]();
             }
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG3) & 0x40) == 0)
@@ -933,13 +941,15 @@ namespace MDPlayer.Driver.MNDRV
                     reg.D0_B = mm.ReadByte(reg.a5 + w.e_sw);
                     if ((sbyte)reg.D0_B < 0)
                     {
-                        reg.a0 = reg.a5 + w.softenv_adrs;
+                        reg.a0 = mm.ReadUInt32(reg.a5 + w.softenv_adrs);
                         ab.hlw_softenv_adrs[reg.a5]();
                     }
                 }
             }
-            reg.a5 = reg.a5 + dw._trackworksize;
-            if (reg.D7_W-- != 0) goto _ch_ana_loop;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+
+            reg.D7_W--;
+            if (reg.D7_W != 0) goto _ch_ana_loop;
         }
 
         //─────────────────────────────────────
@@ -953,8 +963,9 @@ namespace MDPlayer.Driver.MNDRV
             _ch_ana_tma_lfo_loop:
             reg.a0 = mm.ReadUInt32(reg.a5 + w.lfojob_adrs);
             ab.hlw_lfojob_adrs[reg.a5]();
-            reg.a5 = reg.a5 + dw._trackworksize;
-            if (reg.D7_W-- != 0) goto _ch_ana_tma_lfo_loop;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+            reg.D7_W--;
+            if (reg.D7_W != 0) goto _ch_ana_tma_lfo_loop;
         }
 
         //─────────────────────────────────────
@@ -965,16 +976,17 @@ namespace MDPlayer.Driver.MNDRV
             reg.D7_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
             reg.a5 = reg.a6 + dw.TRACKWORKADR;
             _ch_ana_tma_env_loop:
-            if (mm.ReadByte(reg.a5 + w.revexec) >= 0)
+            if ((sbyte)mm.ReadByte(reg.a5 + w.revexec) >= 0)
             {
                 if ((sbyte)mm.ReadByte(reg.a5 + w.e_sw) < 0)
                 {
-                    reg.a0 = reg.a5 + w.softenv_adrs;
+                    reg.a0 = mm.ReadUInt32(reg.a5 + w.softenv_adrs);
                     ab.hlw_softenv_adrs[reg.a5]();
                 }
             }
-            reg.a5 = reg.a5 + dw._trackworksize;
-            if (reg.D7_W-- != 0) goto _ch_ana_tma_env_loop;
+            reg.a5 = reg.a5 + w._track_work_size;// dw._trackworksize;
+            reg.D7_W--;
+            if (reg.D7_W != 0) goto _ch_ana_tma_env_loop;
         }
 
     }

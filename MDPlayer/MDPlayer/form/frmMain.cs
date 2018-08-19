@@ -2952,10 +2952,10 @@ namespace MDPlayer.form
                 {
                     log.ForcedWrite(ex);
                 }
-                if(Audio.errMsg=="")                throw new Exception();
+                if (Audio.errMsg == "") throw new Exception();
                 else
                 {
-                    MessageBox.Show(Audio.errMsg,"エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Audio.errMsg, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -3183,6 +3183,12 @@ namespace MDPlayer.form
             if (filename.ToLower().LastIndexOf(".mdx") != -1)
             {
                 format = enmFileFormat.MDX;
+                return buf;
+            }
+
+            if (filename.ToLower().LastIndexOf(".mnd") != -1)
+            {
+                format = enmFileFormat.MND;
                 return buf;
             }
 

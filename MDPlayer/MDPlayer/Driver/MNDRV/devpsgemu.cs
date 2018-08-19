@@ -18,8 +18,6 @@ namespace MDPlayer.Driver.MNDRV
         public devpsg devpsg;
         public devopm devopm;
 
-        // 未解決ジャンプアドレス
-
         //
         //	part of YM2608 - PSG emulation
         //
@@ -27,7 +25,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public void _psge_note_set()
         {
-            mm.Write(reg.a5 + w.key, reg.D0_B);
+            mm.Write(reg.a5 + w.key, (byte)reg.D0_B);
 
             //    pea _opm_keyon(pc)
             _emu_psg_freq();
@@ -46,11 +44,11 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D1_B++;
             }
 
-            mm.Write(reg.a5 + w.octave, reg.D1_B);
+            mm.Write(reg.a5 + w.octave, (byte)reg.D1_B);
             reg.D0_W += reg.D0_W;
             reg.a0 = ab.dummyAddress;// _psg_table;
             reg.D0_W = devpsg._psg_table[reg.D0_W / 2];
-            mm.Write(reg.a5 + w.makotune, reg.D0_W);
+            mm.Write(reg.a5 + w.makotune, (UInt16)reg.D0_W);
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG2) & 1) == 0)
             {
                 _emu_set_psg_();
@@ -61,7 +59,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.freqwork, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
             reg.D1_W = mm.ReadUInt16(reg.a5 + w.detune);
-            if ((sbyte)reg.D1_W < 0)
+            if ((Int16)reg.D1_W < 0)
             {
                 reg.D1_L = 0;
             }
@@ -70,35 +68,35 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
             reg.D0_W += reg.D1_W;
-            mm.Write(reg.a5 + w.keycode2, reg.D0_W);
+            mm.Write(reg.a5 + w.keycode2, (UInt16)reg.D0_W);
             _emu_set_psg_bend();
         }
 
         public void _emu_set_psg_()
         {
             reg.D0_W += mm.ReadUInt16(reg.a5 + w.detune);
-            if ((sbyte)reg.D0_W < 0)
+            if ((Int16)reg.D0_W < 0)
             {
                 reg.D0_L = 0;
             }
 
-            mm.Write(reg.a5 + w.freqbase, reg.D0_W);
-            mm.Write(reg.a5 + w.freqwork, reg.D0_W);
+            mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
+            mm.Write(reg.a5 + w.freqwork, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
-            mm.Write(reg.a5 + w.keycode2, reg.D0_W);
+            mm.Write(reg.a5 + w.keycode2, (UInt16)reg.D0_W);
 
             _emu_set_psg_bend();
         }
 
         public void _emu_set_psg_bend()
         {
-            mm.Write(reg.a5 + w.keycode, reg.D0_W);
+            mm.Write(reg.a5 + w.keycode, (UInt16)reg.D0_W);
             reg.D0_W &= 0xfff;
             reg.D0_W += reg.D0_W;
             reg.D0_W += reg.D0_W;
             reg.a0 = reg.a6 + dw.FREQ_KC_TABLE;
-            reg.D2_B = mm.ReadByte(reg.a0 + reg.D0_W + 1);
-            reg.D0_B = mm.ReadByte(reg.a0 + reg.D0_W );
+            reg.D2_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D0_W + 1);
+            reg.D0_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D0_W );
             reg.D1_L = 0x28;
             mndrv._OPM_WRITE4();
             reg.D1_L = 0x30;
@@ -289,8 +287,30 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D1_B != 0)
             {
                 reg.a4 = ab.dummyAddress;
-                reg.D1_W = ab._ch_psg_plfo_table[reg.D1_W]; //D1:範囲 0 - 14(偶数のみ) 本来、奇数の場合は代入ができないが無視
-                ab.hl_ch_psg_plfo_table[reg.D1_W]();
+                switch (reg.D1_W)
+                {
+                    case 2:
+                        devpsg._ch_psg_plfo_1();
+                        break;
+                    case 4:
+                        devpsg._ch_psg_plfo_2();
+                        break;
+                    case 6:
+                        devpsg._ch_psg_plfo_3();
+                        break;
+                    case 8:
+                        devpsg._ch_psg_plfo_4();
+                        break;
+                    case 10:
+                        devpsg._ch_psg_plfo_5();
+                        break;
+                    case 12:
+                        devpsg._ch_psg_plfo_6();
+                        break;
+                    case 14:
+                        devpsg._ch_psg_plfo_7();
+                        break;
+                }
             }
 
             //_ch_psge_lfo_end:
@@ -309,8 +329,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_L = 0;
             reg.D1_B = mm.ReadByte(reg.a5 + w.octave);
             reg.D0_W >>= (int)reg.D1_W;
-            reg.D1_W = mm.ReadByte(reg.a5 + w.detune);
-            reg.D1_W += mm.ReadByte(reg.a5 + w.addkeycode);
+            reg.D1_W = mm.ReadUInt16(reg.a5 + w.detune);
+            reg.D1_W += mm.ReadUInt16(reg.a5 + w.addkeycode);
             reg.D1_W = (UInt16)(-reg.D1_W);
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
             reg.D0_W += reg.D1_W;
@@ -350,7 +370,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) - reg.D2_W));
             reg.D0_W -= reg.D2_W;
 
-            mm.Write(reg.a5 + w.freqbase, reg.D0_W);
+            mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
             if ((Int16)(reg.D0_W - w_l.mokuhyou) < 0) goto _ch_psge_bend_end;
             _emu_set_psg_bend();
@@ -359,19 +379,19 @@ namespace MDPlayer.Driver.MNDRV
             _ch_psge_bend_minus:
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) - reg.D2_W));
             reg.D0_W -= reg.D2_W;
-            mm.Write(reg.a5 + w.freqbase, reg.D0_W);
+            mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
-            if ((Int16)(reg.D0_W - w_l.mokuhyou) >= 0) goto _ch_psge_bend_end;
+            if (reg.D0_W < w_l.mokuhyou) goto _ch_psge_bend_end;
             _emu_set_psg_bend();
             return;
 
             _ch_psge_bend_end:
-            mm.Write(reg.a4 + w_l.bendwork, 0);
+            mm.Write(reg.a4 + w_l.bendwork, (UInt16)0);
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0x7f));
 
             reg.D0_L = 0;
             reg.D0_B = mm.ReadByte(reg.a5 + w.key2);
-            mm.Write(reg.a5 + w.key, reg.D0_B);
+            mm.Write(reg.a5 + w.key, (byte)reg.D0_B);
             _emu_psg_freq();
         }
 
@@ -398,7 +418,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B = mm.ReadByte(reg.a5 + w.octave);
             reg.D2_W = reg.D0_W;
             reg.D2_W <<= (int)reg.D1_W;
-            mm.Write(reg.a5 + w.freqbase, reg.D2_W);
+            mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D2_W);
             _emu_set_psg_bend();
         }
     }

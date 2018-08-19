@@ -18,9 +18,6 @@ namespace MDPlayer.Driver.MNDRV
         public devopn devopn;
         public devopm devopm;
 
-        // 未解決ジャンプアドレス
-
-        // 未解決変数
 
         //
         //	part of YM2608 - FM emulation
@@ -40,7 +37,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_L = 0;
             reg.D3_L = 12;
 
-            while ((sbyte)(reg.D0_B - reg.D3_B) < 0)
+            while (reg.D0_B >= reg.D3_B)
             {
                 reg.D0_B -= reg.D3_B;
                 reg.D2_W += reg.D1_W;
@@ -62,7 +59,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _emu_set_fnum()
         {
             reg.D2_W += mm.ReadUInt16(reg.a5 + w.detune);
-            if (reg.D2_W >= 0)
+            if ((Int16)reg.D2_W >= 0)
             {
                 reg.D2_L = 0;
             }
@@ -90,8 +87,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W &= 0x7ff;
             reg.D2_W += reg.D2_W;
             reg.a0 = reg.a6 + dw.FNUM_KC_TABLE;
-            reg.D0_B = mm.ReadByte(reg.a0 + reg.D2_W);
-            reg.D3_B = mm.ReadByte(reg.a0 + reg.D2_W + 1);
+            reg.D0_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D2_W);
+            reg.D3_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D2_W + 1);
             reg.D0_B += reg.D1_B;
             reg.D0_W &= 0x7f;
             reg.D1_L = 0x28;
@@ -432,7 +429,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
 
-            reg.D4_W = mm.ReadByte(reg.a4 + w_l.flag);
+            reg.D4_W = mm.ReadUInt16(reg.a4 + w_l.flag);
             if ((Int16)reg.D4_W >= 0)
             {
                 devopn._ch_fm_p_com_exec();
@@ -600,11 +597,11 @@ namespace MDPlayer.Driver.MNDRV
             }
             mm.Write(reg.a4 + w_l.delay_work, mm.ReadByte(reg.a4 + w_l.lfo_sp));
             reg.D1_W = mm.ReadUInt16(reg.a4 + w_l.henka);
-            if ((sbyte)reg.D1_W >= 0)
+            if ((Int16)reg.D1_W >= 0)
             {
                 reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
                 devopn._ch_fm_porta_calc();
-                if ((Int16)(reg.D2_W - mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) >= 0)
+                if (reg.D2_W >= mm.ReadUInt16(reg.a4 + w_l.mokuhyou))
                 {
                     _ch_fme_bend_end();
                     return;
@@ -821,7 +818,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _ch_fme_p_wavememory()
         {
             reg.D4_W = mm.ReadUInt16(reg.a4 + w_l.flag);
-            if ((sbyte)reg.D4_W >= 0)
+            if ((Int16)reg.D4_W >= 0)
             {
                 _fm_pe_wave_exec();
                 return;

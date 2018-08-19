@@ -265,6 +265,9 @@ namespace MDPlayer
                 case enmFileFormat.MDR:
                     AddFileMDR(mc, entry);
                     break;
+                case enmFileFormat.MND:
+                    AddFileMND(mc, entry);
+                    break;
                 case enmFileFormat.MDX:
                     AddFileMDX(mc, entry);
                     break;
@@ -587,6 +590,11 @@ namespace MDPlayer
         }
 
         private void AddFileMDR(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMND(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
         }
