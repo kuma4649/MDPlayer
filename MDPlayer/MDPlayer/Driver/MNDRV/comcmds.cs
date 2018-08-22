@@ -1034,11 +1034,11 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a3 + w_w.loop_start, (UInt16)reg.D1_W);//周期2
 
             reg.D1_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
-            reg.D1_L &= 0xffff;
-            reg.D1_L <<= 8;
+            reg.D1_L = (UInt32)(Int16)reg.D1_W;
+            reg.D1_L = (UInt32)((Int16)reg.D1_L << 8);
             if (reg.D0_B >= 4)
             {
-                reg.D1_L <<= 8;
+                reg.D1_L = (UInt32)((Int16)reg.D1_L << 8);
             }
             mm.Write(reg.a3 + w_w.loop_end, reg.D1_L);//増減1
             if (reg.D2_B != 2)

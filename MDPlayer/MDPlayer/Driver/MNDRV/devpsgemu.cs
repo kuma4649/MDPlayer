@@ -38,7 +38,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.D1_L = 0;
             reg.D2_L = 12;
-            while ((sbyte)(reg.D0_B - reg.D2_B) >= 0)
+            while (reg.D0_B >= reg.D2_B) 
             {
                 reg.D0_B -= reg.D2_B;
                 reg.D1_B++;
@@ -372,7 +372,7 @@ namespace MDPlayer.Driver.MNDRV
 
             mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
-            if ((Int16)(reg.D0_W - w_l.mokuhyou) < 0) goto _ch_psge_bend_end;
+            if (reg.D0_W < mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) goto _ch_psge_bend_end;
             _emu_set_psg_bend();
             return;
 
@@ -381,7 +381,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W -= reg.D2_W;
             mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
-            if (reg.D0_W < w_l.mokuhyou) goto _ch_psge_bend_end;
+            if (reg.D0_W >= mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) goto _ch_psge_bend_end;
             _emu_set_psg_bend();
             return;
 

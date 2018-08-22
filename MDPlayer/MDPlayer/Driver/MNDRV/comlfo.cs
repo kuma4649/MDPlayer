@@ -171,7 +171,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.D0_B = mm.ReadByte(reg.a4 + w_l.lfo_sp);
-            if ((mm.ReadByte(reg.a5 + w_l.flag) & 0x01) == 0)
+            if ((mm.ReadByte(reg.a5 + w.flag) & 0x01) == 0)
             {
                 mm.Write(reg.a4 + w_l.henka_work, mm.ReadUInt16(reg.a4 + w_l.henka));
                 reg.D0_B += mm.ReadByte(reg.a4 + w_l.keydelay);
@@ -179,7 +179,7 @@ namespace MDPlayer.Driver.MNDRV
 
             mm.Write(reg.a4 + w_l.delay_work, (byte)reg.D0_B);
             reg.D0_B = mm.ReadByte(reg.a4 + w_l.count);
-            reg.D0_B = 1;
+            reg.D0_B >>= 1;
             mm.Write(reg.a4 + w_l.count_work, (byte)reg.D0_B);
         }
 
@@ -231,7 +231,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.D0_B = mm.ReadByte(reg.a4 + w_l.lfo_sp);
-            if ((mm.ReadByte(reg.a5 + w_l.flag) & 0x01) == 0)
+            if ((mm.ReadByte(reg.a5 + w.flag) & 0x01) == 0)
             {
                 mm.Write(reg.a4 + w_l.henka_work, mm.ReadUInt16(reg.a4 + w_l.henka));
                 reg.D0_B += mm.ReadByte(reg.a4 + w_l.keydelay);
@@ -308,6 +308,8 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _com_lfo_triangle()
         {
+            //if(reg.a4 == 0x14cf0)            log.Write(string.Format("adr:{0:x} bendwork:{1}",reg.a4, mm.ReadUInt16(reg.a4 + w_l.bendwork)));
+
             mm.Write(reg.a4 + w_l.delay_work, (byte)(mm.ReadByte(reg.a4 + w_l.delay_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.delay_work) != 0) goto _com_lfo_triangle_end;
 

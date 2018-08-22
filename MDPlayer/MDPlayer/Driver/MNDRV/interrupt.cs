@@ -568,7 +568,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _key_OPT2_XF3()
         {
-            if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
+            if (mm.ReadByte(reg.a6 + dw.SP_KEY) == 0)
             {
                 mm.Write(reg.a6 + dw.FADEFLAG, 0xff);
                 mm.Write(reg.a6 + dw.FADESPEED, 5);
@@ -580,7 +580,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _key_OPT1_XF4()
         {
-            if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
+            if (mm.ReadByte(reg.a6 + dw.SP_KEY) == 0)
             {
                 mm.Write(reg.a6 + dw.SP_KEY, 0xff);
                 _get_track_mask();
@@ -593,7 +593,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _key_OPT1_XF5()
         {
-            if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
+            if (mm.ReadByte(reg.a6 + dw.SP_KEY) == 0)
             {
                 mm.Write(reg.a6 + dw.SP_KEY, 0xff);
                 mndrv._t_play_music();
@@ -604,7 +604,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _key_OPT2_XF5()
         {
-            if (mm.ReadByte(reg.a5 + dw.SP_KEY) == 0)
+            if (mm.ReadByte(reg.a6 + dw.SP_KEY) == 0)
             {
                 mndrv._t_pause();
                 reg.D3_L = 0;
@@ -768,7 +768,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D0_B = mm.ReadByte(reg.a6 + dw.MASTER_VOL_PSG);
             reg.D0_B += 1;
-            if ((sbyte)(reg.D0_B - 25) >= 0)
+            if (reg.D0_B >= 25)
             {
                 mm.Write(reg.a6 + dw.DRV_STATUS, 0x20);
             }

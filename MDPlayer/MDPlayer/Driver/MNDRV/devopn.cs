@@ -34,7 +34,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_L = 0;
             reg.D3_L = 12;
 
-            while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+            while (reg.D0_B >= reg.D3_B)
             {
                 reg.D0_B -= reg.D3_B;
                 reg.D2_W += reg.D1_W;
@@ -734,7 +734,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D4_L = 0x7f;
             }
-            if ((sbyte)(reg.D4_B - mm.ReadByte(reg.a5 + w.volcount)) >= 0)
+            if (reg.D4_B >= mm.ReadByte(reg.a5 + w.volcount))
             {
                 reg.D4_B = mm.ReadByte(reg.a5 + w.volcount);
                 reg.D4_B--;
@@ -933,7 +933,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             reg.D5_B = mm.ReadByte(reg.a5 + w.lfo);
-            uint f = reg.D5_B & 0xc0;
+            uint f = reg.D5_B & 0x40; //lsl.b #2
             reg.D5_B <<= 2;
             if (f != 0)
             {
@@ -1188,7 +1188,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D5_B -= reg.D2_B;
             if (reg.D5_B != 0)
             {
-                reg.D5_W = (UInt16)(byte)reg.D5_B;
+                reg.D5_W = (UInt16)(sbyte)reg.D5_B;
                 reg.D5_L = (UInt32)((Int16)reg.D5_W * 0x26a);
             }
             //_non_oct:
@@ -1202,7 +1202,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_B = mm.ReadByte(reg.a1 + 1);
             mm.Write(reg.a4 + w_l.count, (byte)reg.D2_B);
 
-            reg.D5_L = (UInt32)(UInt16)reg.D5_W;
+            reg.D5_L = (UInt32)(Int16)reg.D5_W;
             reg.D5_L = (UInt32)((Int16)reg.D5_W / (Int16)reg.D2_W);
             mm.Write(reg.a4 + w_l.henka, (UInt16)reg.D5_W);
             reg.D5_L = (reg.D5_L >> 16) | (reg.D5_L << 16);
@@ -1222,7 +1222,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W = 0x800;
             reg.D2_L = 0;
             reg.D3_L = 12;
-            while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+            while (reg.D0_B >= reg.D3_B)
             {
                 reg.D0_B -= reg.D3_B;
                 reg.D2_W += reg.D1_W;
@@ -1725,7 +1725,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D2_W = sp;
 
-            if ((Int16)(reg.D2_W - 0x21) >= 0)
+            if (reg.D2_W >= 0x21)
             {
                 reg.D1_W += 4;
                 reg.D0_B = mm.ReadByte(reg.a2++);
@@ -1894,7 +1894,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_W = sp;
 
             reg.D5_L = 4 - 1;
-            if ((Int16)(reg.D3_W - 0x21) >= 0)
+            if (reg.D3_W >= 0x21)
             {
                 reg.D5_L = 5 - 1;
             }
@@ -1943,7 +1943,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 mm.Write(reg.a5 + w.flag3, (byte)(mm.ReadByte(reg.a5 + w.flag3) | 0x10));
             }
-            if ((sbyte)(reg.D4_B - mm.ReadByte(reg.a5 + w.volcount)) >= 0)
+            if (reg.D4_B >= mm.ReadByte(reg.a5 + w.volcount))
             {
                 reg.D4_B = mm.ReadByte(reg.a5 + w.volcount);
                 reg.D4_B--;
@@ -2036,8 +2036,8 @@ namespace MDPlayer.Driver.MNDRV
             do
             {
                 reg.D0_B = mm.ReadByte(reg.a2++);
-                uint f = reg.D3_B & 1;
-                reg.D3_B >>= 1;
+                uint f = reg.D5_B & 1;
+                reg.D5_B >>= 1;
                 if (f == 0)
                 {
                     reg.D3_B >>= 1;
@@ -2095,7 +2095,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_L = 0;
             reg.D4_B = mm.ReadByte(reg.a5 + w.volume);
             reg.D4_B += mm.ReadByte(reg.a1++);
-            if ((sbyte)(reg.D4_B - mm.ReadByte(reg.a5 + w.volcount)) >= 0)
+            if (reg.D4_B >= mm.ReadByte(reg.a5 + w.volcount))
             {
                 reg.D4_B = mm.ReadByte(reg.a5 + w.volcount);
                 reg.D4_B--;
@@ -2319,7 +2319,7 @@ namespace MDPlayer.Driver.MNDRV
                 {
                     if ((sbyte)mm.ReadByte(reg.a0 + w.flag) < 0)
                     {
-                        mm.Write(reg.a5 + w.flag2, (byte)(mm.ReadByte(reg.a5 + w.flag2) | 0x01));
+                        mm.Write(reg.a0 + w.flag2, (byte)(mm.ReadByte(reg.a0 + w.flag2) | 0x01));
                     }
                     reg.a0 = reg.a0 + dw._trackworksize;
                     reg.D0_W--;
@@ -2460,8 +2460,8 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _ch_fm_plfo_2()
         {
-            reg.a4 = reg.a5 + w.p_pattern1;
-            reg.a3 = reg.a5 + w.wp_pattern1;
+            reg.a4 = reg.a5 + w.p_pattern2;
+            reg.a3 = reg.a5 + w.wp_pattern2;
             _ch_fm_p_common();
         }
 
@@ -2921,7 +2921,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D0_W = sp;
             }
 
-            reg.D0_B >>= 2;
+            reg.D0_B >>= 3;
             reg.D0_W &= 7;
             if (reg.D0_W != 0)
             {
@@ -3044,7 +3044,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.D2_W += reg.D1_W;
-            if ((Int16)(reg.D2_W - 0x4000) >= 0)
+            if (reg.D2_W >= 0x4000)
             {
                 reg.D2_W = 0x3fff;
             }
@@ -3141,20 +3141,20 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W = 0x4000;
 
             L1a:
-            if ((Int16)(reg.D1_W - reg.D4_W) >= 0)
+            if (reg.D1_W >= reg.D4_W)
             {
                 reg.D1_W -= reg.D4_W;
                 reg.D3_W += reg.D5_W;
-                if ((Int16)(reg.D3_W - reg.D0_W) < 0) goto L1a;
+                if (reg.D3_W < reg.D0_W) goto L1a;
                 reg.D2_W = 0x3fff;
                 goto _ex_slot_calc2_exit;
             }
             reg.D2_W += reg.D1_W;
-            if ((Int16)(reg.D2_W - reg.D4_W) >= 0)
+            if (reg.D2_W >= reg.D4_W)
             {
                 reg.D2_W -= reg.D4_W;
                 reg.D3_W += reg.D5_W;
-                if ((Int16)(reg.D3_W - reg.D0_W) >= 0)
+                if (reg.D3_W >= reg.D0_W)
                 {
                     reg.D2_W = 0x3fff;
                     goto _ex_slot_calc2_exit;
@@ -3180,7 +3180,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W = (UInt16)(Int16)(-reg.D1_W);
 
             L1b:
-            if ((Int16)(reg.D1_W - reg.D4_W) >= 0)
+            if (reg.D1_W >= reg.D4_W)
             {
                 reg.D1_W -= reg.D4_W;
                 reg.D3_W -= reg.D5_W;
@@ -3549,7 +3549,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_L = 0;
             reg.D2_W = 0x800;
             reg.D3_L = 12;
-            while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+            while (reg.D0_B >= reg.D3_B)
             {
                 reg.D0_B -= reg.D3_B;
                 reg.D1_W += reg.D2_W;
@@ -3571,7 +3571,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D5_B = mm.ReadByte(reg.a5 + w.ch3);
             if (reg.D5_B == 0) goto _ch_fm_porta_normal;
 
-            uint f = reg.D5_B & 0x1f;
+            uint f = reg.D5_B & 0x10;
             reg.D5_B >>= 5;
             if (f != 0)
             {
@@ -3632,7 +3632,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D1_L = 0;
                 reg.D2_W = 0x800;
                 reg.D3_L = 12;
-                while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+                while (reg.D0_B >= reg.D3_B)
                 {
                     reg.D0_B -= reg.D3_B;
                     reg.D1_W += reg.D2_W;
@@ -3686,7 +3686,7 @@ namespace MDPlayer.Driver.MNDRV
 
             _ch_fm_porta_calc_plus:
 
-            if ((Int16)(reg.D2_W - 0x4d4) < 0) goto _ch_fm_porta_calc_common;
+            if (reg.D2_W < 0x4d4) goto _ch_fm_porta_calc_common;
             if (reg.D3_W >= 0x4000) return;
             reg.D4_W = reg.D2_W;
             reg.D4_W -= 0x4d4;
@@ -3829,13 +3829,13 @@ namespace MDPlayer.Driver.MNDRV
             reg.D4_B >>= 1;
             if (f == 0)
             {
-                if ((mm.ReadByte(reg.a4 + w.flag) & 0x20) == 0)
+                if ((mm.ReadByte(reg.a5 + w.flag) & 0x20) == 0)
                 {
                     _fm_p_wave_exec();
                 }
                 return;
             }
-            if ((mm.ReadByte(reg.a4 + w.flag) & 0x20) != 0)
+            if ((mm.ReadByte(reg.a5 + w.flag) & 0x20) != 0)
             {
                 _fm_p_wave_exec();
             }

@@ -612,7 +612,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             reg.D2_W = mm.ReadUInt16(reg.a5 + w.keycode3);
             devopn._ch_fm_porta_calc();
-            if ((Int16)(reg.D2_W - mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) < 0)
+            if (reg.D2_W < mm.ReadUInt16(reg.a4 + w_l.mokuhyou))
             {
                 _ch_fme_bend_end();
                 return;
@@ -633,7 +633,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_L = 0;
             reg.D2_W = 0x800;
             reg.D3_L = 12;
-            while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+            while (reg.D0_B >= reg.D3_B) 
             {
                 reg.D0_B -= reg.D3_B;
                 reg.D1_W += reg.D2_W;
@@ -668,7 +668,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D1_L = 0;
                 reg.D2_W = 0x800;
                 reg.D3_L = 12;
-                while ((sbyte)(reg.D0_B - reg.D3_B) >= 0)
+                while (reg.D0_B >= reg.D3_B)
                 {
                     reg.D0_B -= reg.D3_B;
                     reg.D1_W += reg.D2_W;

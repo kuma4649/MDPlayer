@@ -951,7 +951,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.dev, _ch_table[reg.D1_W]);
 
             reg.D2_B = mm.ReadByte(reg.a2++);
-            if ((sbyte)(reg.D3_B - 7) >= 0)
+            if (reg.D3_B >= 7)
             {
                 mm.Write(reg.a5 + w.track_vol, (byte)reg.D2_B);
             }
@@ -2317,9 +2317,9 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D3_B != 0) goto cmpadpn80;
             if ((sbyte)reg.D4_B >= 0)
             {
-                if ((sbyte)(reg.D1_B - 0x61) >= 0)
+                if (reg.D1_B >= 0x61)
                 {
-                    if ((sbyte)(reg.D1_B - 0x7a) <= 0)
+                    if (reg.D1_B <= 0x7a)
                     {
                         reg.D1_B &= reg.D7_B;
                         reg.D2_B &= reg.D7_B;
@@ -2603,7 +2603,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.a0 = 0xecc0c1;
             reg.D6_L = 0;
-            if ((sbyte)(mm.ReadByte(reg.a5 + w.ch) - 6) < 0)
+            if (mm.ReadByte(reg.a5 + w.ch) < 6)
             {
                 _opn_write_direct();
                 return;
@@ -3074,12 +3074,13 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B = mm.ReadByte(reg.a2++);
             if (reg.D0_B == 0) goto getnum20;
             if (reg.D0_B - ':' == 0) goto getnum10;
+            bool cf = reg.D0_B < 0x30;
             reg.D0_B -= 0x30;
-            if ((sbyte)reg.D0_B < 0) goto getnum20;
-            if ((sbyte)(reg.D0_B - 10) >= 0) goto getnum20;
+            if (cf) goto getnum20;
+            if (reg.D0_B >= 10) goto getnum20;
             reg.D1_L *= 10;
             reg.D1_L += reg.D0_L;
-            if ((Int32)(reg.D1_L - 65535) < 0) goto getnum10;
+            if (reg.D1_L < 65535) goto getnum10;
             _numover();
             return;
             getnum20:
@@ -3742,7 +3743,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W += 1;
 
             MAKE_FNUMTBL6:
-            mm.Write(reg.a2++, (UInt16)reg.D0_W);
+            mm.Write(reg.a2, (UInt16)reg.D0_W);reg.a2 += 2;
             reg.D1_W += 1;
             if (reg.D1_W - 0x0800 != 0) goto MAKE_FNUMTBL6;
 

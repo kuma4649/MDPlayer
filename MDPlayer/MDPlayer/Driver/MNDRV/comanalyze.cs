@@ -59,7 +59,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
 
-            if (reg.D4_B - mm.ReadByte(reg.a5 - w.rct) != 0)
+            if (reg.D4_B - mm.ReadByte(reg.a5 + w.rct) != 0)
             {
                 _track_ana_echo_atq();
                 return;
@@ -133,7 +133,7 @@ namespace MDPlayer.Driver.MNDRV
                 _track_ana_normal_atq();
                 return;
             }
-            if (reg.D4_B - mm.ReadByte(reg.a5 - w.rct) != 0)
+            if (reg.D4_B - mm.ReadByte(reg.a5 + w.rct) != 0)
             {
                 _track_ana_normal_atq();
                 return;
