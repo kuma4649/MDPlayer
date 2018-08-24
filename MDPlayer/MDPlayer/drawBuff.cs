@@ -1089,6 +1089,29 @@ namespace MDPlayer
             om = nm;
         }
 
+        private static byte[] YMF278BCh = new byte[]
+        {
+                0,3,1,4,2,5,6,7,8,9,12,10,13,11,14,15,16,17,
+                18,19,20,21,22,
+                23,24,25,26,27,28, 29,30,31,32,33,34,
+                35,36,37,38,39,40, 41,42,43,44,45,46
+        };
+        public static void ChYMF278B(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+            ChYMF278B_P(screen, 0
+                , ch < 18 
+                    ? (8 + ch * 8) 
+                    : (ch < 23 
+                        ? (8 + 18 * 8) 
+                        : (8 + (ch - 4) * 8)), YMF278BCh[ch], nm, tp);
+            om = nm;
+        }
+
         public static void ChYM2608(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -2631,6 +2654,46 @@ namespace MDPlayer
                         drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "HH");
                         break;
                 }
+            }
+        }
+
+        private static void ChYMF278B_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 18)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+                else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 23)
+            {
+                switch (ch)
+                {
+                    case 18:
+                        drawFont4(screen, (ch - 18) * 4 * 13 + 10 * 4, y, mask ? 1 : 0, "BD");
+                        break;
+                    case 19:
+                        drawFont4(screen, (ch - 18) * 4 * 13 + 10 * 4, y, mask ? 1 : 0, "SD");
+                        break;
+                    case 20:
+                        drawFont4(screen, (ch - 18) * 4 * 13 + 10 * 4, y, mask ? 1 : 0, "TM");
+                        break;
+                    case 21:
+                        drawFont4(screen, (ch - 18) * 4 * 13 + 9 * 4, y, mask ? 1 : 0, "CYM");// 3 character
+                        break;
+                    case 22:
+                        drawFont4(screen, (ch - 18) * 4 * 13 + 10 * 4, y, mask ? 1 : 0, "HH");
+                        break;
+                }
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+                ch -= 23;
+                if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+                else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
             }
         }
 

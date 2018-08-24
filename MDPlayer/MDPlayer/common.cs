@@ -382,6 +382,7 @@ namespace MDPlayer
         , DMC
         , FDS
         , MMC5
+        , YMF278B
     }
 
     public enum enmScciChipType : int

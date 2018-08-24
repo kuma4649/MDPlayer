@@ -103,7 +103,7 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            for(int c = 0; c < newParam.channels.Length; c++)
+            for (int c = 0; c < newParam.channels.Length; c++)
             {
                 newParam.channels[c].note = -1;
             }
@@ -247,7 +247,7 @@ namespace MDPlayer.form
                 nyc.inst[33] = 1;
 
                 int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
-                if ((ko & (1 << (adr +p*9))) != 0)
+                if ((ko & (1 << (adr + p * 9))) != 0)
                 {
                     if (nyc.note != nt)
                     {
@@ -302,7 +302,7 @@ namespace MDPlayer.form
             //SD
             if ((r & 0x08) != 0)
             {
-                newParam.channels[19].volume = 19 - ((ymf278bRegister[0][0x54] & 0x3f)>>2);
+                newParam.channels[19].volume = 19 - ((ymf278bRegister[0][0x54] & 0x3f) >> 2);
             }
             else
             {
@@ -389,7 +389,7 @@ namespace MDPlayer.form
                 else
                 {
                     //moonDriverの場合
-                    if (mdPCMKey[c - 23] > -1 )
+                    if (mdPCMKey[c - 23] > -1)
                     {
                         //note
                         nyc.note = mdPCMKey[c - 23];
@@ -469,15 +469,16 @@ namespace MDPlayer.form
                     DrawBuff.font4Int2(frameBuffer, 336 + 108 + i * 136, c * 8 + 8, 0, 0, ref oyc.inst[13 + i * 17], nyc.inst[13 + i * 17]);//WS
                 }
 
-                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 65 , c * 8 + 8, 0, 0, ref oyc.inst[11], nyc.inst[11]);//BL
-                DrawBuff.font4Hex12Bit(frameBuffer, 336 + 4 * 69 , c * 8 + 8, 0, ref oyc.inst[12], nyc.inst[12]);//F-Num
-                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 73 , c * 8 + 8, 0, 0, ref oyc.inst[14], nyc.inst[14]);//CN
-                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 76 , c * 8 + 8, 0, 0, ref oyc.inst[15], nyc.inst[15]);//FB
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 65, c * 8 + 8, 0, 0, ref oyc.inst[11], nyc.inst[11]);//BL
+                DrawBuff.font4Hex12Bit(frameBuffer, 336 + 4 * 69, c * 8 + 8, 0, ref oyc.inst[12], nyc.inst[12]);//F-Num
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 73, c * 8 + 8, 0, 0, ref oyc.inst[14], nyc.inst[14]);//CN
+                DrawBuff.font4Int2(frameBuffer, 336 + 4 * 76, c * 8 + 8, 0, 0, ref oyc.inst[15], nyc.inst[15]);//FB
                 int dmy = 99;
                 DrawBuff.Pan(frameBuffer, c, ref oyc.inst[36], nyc.inst[36], ref dmy, 0);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, tp);
+                DrawBuff.ChYMF278B(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
                 //DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 37, (c / 3) * 2 + 24, ref oyc.inst[0], nyc.inst[0]);
                 //DrawBuff.SUSFlag(frameBuffer, (c % 3) * 16 + 41, (c / 3) * 2 + 24, ref oyc.inst[1], nyc.inst[1]);
@@ -494,16 +495,17 @@ namespace MDPlayer.form
                 DrawBuff.Kakko(frameBuffer, 4 * 80, (c < 3 ? 0 : 24) + c * 16 + 8, 0, ref oldParam.channels[c].inst[34], newParam.channels[c].inst[34]);
                 DrawBuff.Kakko(frameBuffer, 4 * 162, (c < 3 ? 0 : 24) + c * 16 + 8, 0, ref oldParam.channels[c].inst[35], newParam.channels[c].inst[35]);
             }
-            DrawBuff.drawNESSw(frameBuffer, 88 * 4 , 19 * 8, ref oldParam.channels[18].dda, newParam.channels[18].dda);//DA
-            DrawBuff.drawNESSw(frameBuffer, 92 * 4 , 19 * 8, ref oldParam.channels[19].dda, newParam.channels[19].dda);//DV
-            DrawBuff.font4Int1(frameBuffer, 109 * 4, 19 * 8 , 0,  ref oldParam.channels[20].freq, newParam.channels[20].freq);//FM MIX_L
-            DrawBuff.font4Int1(frameBuffer, 111 * 4, 19 * 8 , 0,  ref oldParam.channels[21].freq, newParam.channels[21].freq);//FM_MI_R
-            DrawBuff.font4Int1(frameBuffer, 100 * 4, 19 * 8 , 0,  ref oldParam.channels[22].freq, newParam.channels[22].freq);//PCM MIX_L
-            DrawBuff.font4Int1(frameBuffer, 102 * 4, 19 * 8 , 0,  ref oldParam.channels[23].freq, newParam.channels[23].freq);//PCM_MI_R
+            DrawBuff.drawNESSw(frameBuffer, 88 * 4, 19 * 8, ref oldParam.channels[18].dda, newParam.channels[18].dda);//DA
+            DrawBuff.drawNESSw(frameBuffer, 92 * 4, 19 * 8, ref oldParam.channels[19].dda, newParam.channels[19].dda);//DV
+            DrawBuff.font4Int1(frameBuffer, 109 * 4, 19 * 8, 0, ref oldParam.channels[20].freq, newParam.channels[20].freq);//FM MIX_L
+            DrawBuff.font4Int1(frameBuffer, 111 * 4, 19 * 8, 0, ref oldParam.channels[21].freq, newParam.channels[21].freq);//FM_MI_R
+            DrawBuff.font4Int1(frameBuffer, 100 * 4, 19 * 8, 0, ref oldParam.channels[22].freq, newParam.channels[22].freq);//PCM MIX_L
+            DrawBuff.font4Int1(frameBuffer, 102 * 4, 19 * 8, 0, ref oldParam.channels[23].freq, newParam.channels[23].freq);//PCM_MI_R
 
             for (int c = 18; c < 23; c++)
             {
-                DrawBuff.VolumeXY(frameBuffer, 12+(c-18)*13, 19*2, 0, ref oldParam.channels[c].volume, newParam.channels[c].volume, tp);
+                DrawBuff.ChYMF278B(frameBuffer, c, ref oldParam.channels[c].mask, newParam.channels[c].mask, tp);
+                DrawBuff.VolumeXY(frameBuffer, 12 + (c - 18) * 13, 19 * 2, 0, ref oldParam.channels[c].volume, newParam.channels[c].volume, tp);
             }
 
             //PCM
@@ -511,7 +513,7 @@ namespace MDPlayer.form
             {
                 oyc = oldParam.channels[c];
                 nyc = newParam.channels[c];
-                DrawBuff.PanType2(frameBuffer, c - 4, ref oyc.pan, nyc.pan,0);
+                DrawBuff.PanType2(frameBuffer, c - 4, ref oyc.pan, nyc.pan, 0);
                 DrawBuff.font4Int2(frameBuffer, 516 + 0, (c - 3) * 8, 0, 0, ref oyc.inst[0], nyc.inst[0]);//AR
                 DrawBuff.font4Int2(frameBuffer, 516 + 8, (c - 3) * 8, 0, 0, ref oyc.inst[1], nyc.inst[1]);//D1
                 DrawBuff.font4Int2(frameBuffer, 516 + 16, (c - 3) * 8, 0, 0, ref oyc.inst[2], nyc.inst[2]);//DL
@@ -528,6 +530,7 @@ namespace MDPlayer.form
                 DrawBuff.font4Int2(frameBuffer, 516 + 112, (c - 3) * 8, 0, 0, ref oyc.inst[13], nyc.inst[13]);//Oct
                 DrawBuff.font4Hex12Bit(frameBuffer, 516 + 128, (c - 3) * 8, 0, ref oyc.inst[14], nyc.inst[14]);//F-Num
 
+                DrawBuff.ChYMF278B(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 DrawBuff.VolumeXY(frameBuffer, 113, (c - 3) * 2 + 0, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 DrawBuff.VolumeXY(frameBuffer, 113, (c - 3) * 2 + 1, 1, ref oyc.volumeR, nyc.volumeR, tp);
                 DrawBuff.KeyBoardToYMF278BPCM(frameBuffer, c - 4, ref oyc.note, nyc.note, tp);
@@ -537,8 +540,39 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            int py = e.Location.Y / zoom;
+            int px = e.Location.X / zoom;
 
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
+
+            //鍵盤 FM & RHM
+            int ch = (py / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch == 18)
+            {
+                int x = (px / 4 - 10);
+                if (x < 0) return;
+                x /= 13;
+                if (x > 4) return;
+                ch += x;
+            }
+            else if (ch > 18)
+            {
+                ch += 4;
+            }
+
+            if (e.Button == MouseButtons.Left)
+            {
+                //マスク
+                parent.SetChannelMask(enmUseChip.YMF278B, chipID, ch);
+                return;
+            }
+
+            //マスク解除
+            for (ch = 0; ch < 47; ch++) parent.ResetChannelMask(enmUseChip.YMF278B, chipID, ch);
+            return;
         }
-
     }
 }

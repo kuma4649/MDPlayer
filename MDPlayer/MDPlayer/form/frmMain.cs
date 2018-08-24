@@ -4298,6 +4298,18 @@ namespace MDPlayer.form
                         newParam.ym2413[chipID].channels[ch].mask = !newParam.ym2413[chipID].channels[ch].mask;
                     }
                     break;
+                case enmUseChip.YMF278B:
+                    if (ch >= 0 && ch < 47)
+                    {
+                        if (!newParam.ymf278b[chipID].channels[ch].mask)
+                            Audio.setYMF278BMask(chipID, ch);
+                        else
+                            Audio.resetYMF278BMask(chipID, ch);
+
+                        newParam.ymf278b[chipID].channels[ch].mask = !newParam.ymf278b[chipID].channels[ch].mask;
+
+                    }
+                    break;
                 case enmUseChip.YM2608:
                     if (ch >= 0 && ch < 14)
                     {
@@ -4554,6 +4566,10 @@ namespace MDPlayer.form
                         newParam.ym2612[chipID].channels[8].mask = false;
                     }
                     if (ch < 6) Audio.resetYM2612Mask(chipID, ch);
+                    break;
+                case enmUseChip.YMF278B:
+                    newParam.ymf278b[chipID].channels[ch].mask = false;
+                    Audio.resetYMF278BMask(chipID, ch);
                     break;
                 case enmUseChip.C140:
                     newParam.c140[chipID].channels[ch].mask = false;

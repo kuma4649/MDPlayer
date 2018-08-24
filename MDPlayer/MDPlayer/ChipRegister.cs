@@ -156,6 +156,23 @@ namespace MDPlayer
         private int[][] fmRegisterYMF278BPCM = new int[2][] { new int[24], new int[24] };
         private int[] fmRegisterYMF278BRyhthmB = new int[2] { 0, 0 };
         private int[] fmRegisterYMF278BRyhthm = new int[2] { 0, 0 };
+        private bool[][] maskFMChYMF278B = new bool[][] {
+            new bool[47] {
+                false, false, false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false  }
+            , new bool[47] {
+                false, false, false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false  }
+        };
+        private byte[] YMF278BCh = new byte[]
+        {
+                0,3,1,4,2,5,6,7,8,9,12,10,13,11,14,15,16,17,
+                18,19,20,21,22,
+                23,24,25,26,27,28, 29,30,31,32,33,34,
+                35,36,37,38,39,40, 41,42,43,44,45,46
+        };
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
 
@@ -1823,22 +1840,29 @@ namespace MDPlayer
 
                 if (dAddr >= 0xb0 && dAddr <= 0xb8)
                 {
+                    int ch = dAddr - 0xb0 + dPort * 9;
                     int k = (dData >> 5) & 1;
                     if (k == 0)
                     {
-                        fmRegisterYMF278BFM[chipID] &= ~(1 << (dAddr - 0xb0 + dPort * 9));
+                        fmRegisterYMF278BFM[chipID] &= ~(1 << ch);
                     }
                     else
                     {
-                        fmRegisterYMF278BFM[chipID] |= (1 << (dAddr - 0xb0 + dPort * 9));
+                        fmRegisterYMF278BFM[chipID] |= (1 << ch);
                     }
                     fmRegisterYMF278BFM[chipID] &= 0x3ffff;
+                    if (maskFMChYMF278B[chipID][ch]) dData &= 0x1f;
                 }
 
                 if (dAddr == 0xbd && dPort == 0)
                 {
                     fmRegisterYMF278BRyhthm[chipID] = (fmRegisterYMF278BRyhthmB[chipID] ^ dData) & 0x1f;
                     fmRegisterYMF278BRyhthmB[chipID] = dData;
+                    if (maskFMChYMF278B[chipID][18]) dData &= 0xef;
+                    if (maskFMChYMF278B[chipID][19]) dData &= 0xf7;
+                    if (maskFMChYMF278B[chipID][20]) dData &= 0xfb;
+                    if (maskFMChYMF278B[chipID][21]) dData &= 0xfd;
+                    if (maskFMChYMF278B[chipID][22]) dData &= 0xfe;
                 }
 
                 if (dPort == 2 && (dAddr >= 0x68 && dAddr <= 0x7f))
@@ -1852,6 +1876,7 @@ namespace MDPlayer
                     {
                         fmRegisterYMF278BPCM[chipID][dAddr - 0x68] = 1;
                     }
+                    if (maskFMChYMF278B[chipID][dAddr - 0x68 + 23]) dData &= 0x7f;
                 }
 
             }
@@ -2131,6 +2156,11 @@ namespace MDPlayer
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.VirtualModel);
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.RealModel);
             }
+        }
+
+        public void setMaskYMF278B(int chipID, int ch, bool mask)
+        {
+            maskFMChYMF278B[chipID][YMF278BCh[ch]] = mask;
         }
 
         public void setMaskYM2608(int chipID, int ch, bool mask)

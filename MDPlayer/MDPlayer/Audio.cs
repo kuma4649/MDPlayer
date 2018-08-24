@@ -6050,6 +6050,11 @@ namespace MDPlayer
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
+        public static void setYMF278BMask(int chipID, int ch)
+        {
+            chipRegister.setMaskYMF278B(chipID, ch, true);
+        }
+
         public static void setC140Mask(int chipID, int ch)
         {
             mds.setC140Mask(chipID, 1 << ch);
@@ -6173,6 +6178,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM2610(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYMF278BMask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYMF278B(chipID, ch, false);
             }
             catch { }
         }
