@@ -1490,7 +1490,7 @@ namespace MDPlayer.Driver.MNDRV
 
         public void _track_opm()
         {
-            reg.D2_B = mm.ReadByte(reg.a2 + dw.EMUMODE);
+            reg.D2_B = mm.ReadByte(reg.a6 + dw.EMUMODE);
             if (reg.D2_B == 0) goto _track_opm_normal;
 
             reg.D2_B -= 3;

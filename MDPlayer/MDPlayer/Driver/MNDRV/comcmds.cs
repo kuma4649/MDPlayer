@@ -1182,16 +1182,16 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_W += reg.D0_W;
             switch (reg.D0_B)
             {
-                case 0:
+                case 2:
                     _COM_E3_0();
                     break;
-                case 2:
+                case 4:
                     _COM_E3_1();
                     break;
-                case 4:
+                case 6:
                     _COM_E3_2();
                     break;
-                case 6:
+                case 8:
                     _COM_E3_3();
                     break;
             }

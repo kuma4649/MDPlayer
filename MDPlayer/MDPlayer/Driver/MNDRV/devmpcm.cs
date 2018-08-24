@@ -1229,7 +1229,7 @@ namespace MDPlayer.Driver.MNDRV
             L1:
             if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) == 0)
             {
-                reg.a0 = reg.a0 + dw._trackworksize;
+                reg.a0 = reg.a0 + w._track_work_size;
                 reg.D0_W--;
                 if (reg.D0_W != 0) goto L1;
 
@@ -1251,7 +1251,7 @@ namespace MDPlayer.Driver.MNDRV
                     {
                         mm.Write(reg.a0 + w.flag2, (byte)(mm.ReadByte(reg.a0 + w.flag2) | 0x01));
                     }
-                    reg.a0 = reg.a0 + dw._trackworksize;
+                    reg.a0 = reg.a0 + w._track_work_size;
                     reg.D0_W--;
                 } while (reg.D0_W != 0);
             }
