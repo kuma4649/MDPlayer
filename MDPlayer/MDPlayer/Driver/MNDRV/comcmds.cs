@@ -751,7 +751,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _COM_C4()
         {
             reg.D5_B = mm.ReadByte(reg.a1++);
-            mm.Write(reg.a5 + w.envnum, (byte)reg.D0_B);
+            mm.Write(reg.a5 + w.envnum, (byte)reg.D5_B);
             reg.D0_L = mm.ReadUInt32(reg.a6 + dw.ENV_PTR);
             if (reg.D0_L == 0) return;
 
@@ -1208,7 +1208,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _COM_E3_0()
         {
-            mm.Write(reg.a5 + w.lfo, (byte)0xf1);
+            mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0xf1));
             reg.D0_B = mm.ReadByte(reg.a1++);
             if (reg.D0_B == 0) return;
             if ((sbyte)reg.D0_B >= 0)
@@ -1934,7 +1934,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.a4 = w.ww_pattern1 + reg.a5;
 
-            reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D0_B = mm.ReadByte(reg.a1++);
             if (reg.D0_B == 0)
             {
                 mm.Write(reg.a5 + w.effect, (byte)(mm.ReadByte(reg.a5 + w.effect) & 0xdf));

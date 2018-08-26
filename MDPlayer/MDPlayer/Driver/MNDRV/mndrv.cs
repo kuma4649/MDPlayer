@@ -943,6 +943,11 @@ namespace MDPlayer.Driver.MNDRV
             reg.a3 = reg.a0 + reg.D1_L;
             mm.Write(reg.a5 + w.dataptr, reg.a3);
 
+#if DEBUG
+            log.Write(string.Format("TrackWorkAdr:{0:x}", reg.a5));
+            log.Write(string.Format("DataPtr:{0:x}", reg.a3));
+#endif
+
             reg.D1_L = 0;
             reg.D1_B = mm.ReadByte(reg.a2++);
             mm.Write(reg.a5 + w.ch, (byte)reg.D1_B);

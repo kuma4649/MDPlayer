@@ -3534,7 +3534,7 @@ namespace MDPlayer.Driver.MNDRV
             }
 
             _set_fnum2();
-            _ch_fm_bend_end();
+            //_ch_fm_bend_end();
         }
 
         public void _ch_fm_bend_end()

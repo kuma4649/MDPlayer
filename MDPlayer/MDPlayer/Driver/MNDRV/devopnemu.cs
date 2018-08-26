@@ -59,7 +59,7 @@ namespace MDPlayer.Driver.MNDRV
         public void _emu_set_fnum()
         {
             reg.D2_W += mm.ReadUInt16(reg.a5 + w.detune);
-            if ((Int16)reg.D2_W >= 0)
+            if ((Int16)reg.D2_W < 0)
             {
                 reg.D2_L = 0;
             }

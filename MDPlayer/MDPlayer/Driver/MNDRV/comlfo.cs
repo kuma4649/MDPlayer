@@ -498,7 +498,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D0_W += reg.D2_W;
             } while ((reg.D1_W--) != 0);
-
+            reg.D0_B = reg.D0_W >> 8;
             _soft1_vol_ok:
             reg.D0_W &= 0xff;
             reg.a2 = reg.a5 + w.voltable;
