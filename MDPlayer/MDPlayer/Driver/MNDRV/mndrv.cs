@@ -1076,6 +1076,9 @@ namespace MDPlayer.Driver.MNDRV
                 case 20:
                 case 22:
                 case 24:
+#if DEBUG
+                    log.Write(string.Format("Track : OPN {0}", reg.D1_W / 2));
+#endif
                     _track_opn();
                     break;
                 case 26:
@@ -1108,6 +1111,9 @@ namespace MDPlayer.Driver.MNDRV
                 case 72:
                 case 74:
                 case 76:
+#if DEBUG
+                    log.Write(string.Format("Track : PSG {0}", (reg.D1_W - 64) / 2));
+#endif
                     _track_psg();
                     break;
                 case 78:
@@ -1142,6 +1148,9 @@ namespace MDPlayer.Driver.MNDRV
                     break;
                 case 130:
                 case 132:
+#if DEBUG
+                    log.Write(string.Format("Track : RHY {0}", (reg.D1_W - 128) / 2));
+#endif
                     _track_rhy();
                     break;
                 case 134:
@@ -1222,6 +1231,9 @@ namespace MDPlayer.Driver.MNDRV
                 case 268:
                 case 270:
                 case 272:
+#if DEBUG
+                    log.Write(string.Format("Track : OPM {0}", (reg.D1_W - 256) / 2));
+#endif
                     _track_opm();
                     break;
                 case 274:
@@ -1268,6 +1280,9 @@ namespace MDPlayer.Driver.MNDRV
                 case 348:
                 case 350:
                 case 352:
+#if DEBUG
+                    log.Write(string.Format("Track : PCM {0}", (reg.D1_W - 320) / 2));
+#endif
                     _track_pcm();
                     break;
             }

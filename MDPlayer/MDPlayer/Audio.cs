@@ -1856,7 +1856,7 @@ namespace MDPlayer
                 chip.SamplingRate = (UInt32)common.SampleRate;
                 chip.Volume = setting.balance.YMF278BVolume;
                 chip.Clock = 33868800;// 4000000;
-                chip.Option = null;
+                chip.Option = new object[] { common.GetApplicationFolder() };
 
                 hiyorimiDeviceFlag |= 0x2;
 
@@ -2160,6 +2160,7 @@ namespace MDPlayer
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 7987200;
+                    chip.Option = new object[] { common.GetApplicationFolder() };
                     chipLED.PriOPNA = 1;
                     lstChips.Add(chip);
                 }
@@ -2177,6 +2178,7 @@ namespace MDPlayer
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 7987200;
+                    chip.Option = new object[] { common.GetApplicationFolder() };
                     chipLED.SecOPNA = 1;
                     lstChips.Add(chip);
                 }
@@ -2512,7 +2514,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.YM2608Volume;
                             chip.Clock = dInfo.Clock;
-                            chip.Option = null;
+                            chip.Option = new object[] { common.GetApplicationFolder() };
                             //hiyorimiDeviceFlag |= 0x2;
                             lstChips.Add(chip);
 
@@ -3592,8 +3594,7 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.YM2608Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2608ClockValue;
-                        chip.Option = null;
-
+                        chip.Option = new object[] { common.GetApplicationFolder() };
                         hiyorimiDeviceFlag |= 0x2;
 
                         if (i == 0) chipLED.PriOPNA = 1;
@@ -3785,7 +3786,7 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume =  setting.balance.YMF278BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMF278BClockValue & 0x7fffffff;
-                        chip.Option = null;
+                        chip.Option = new object[] { common.GetApplicationFolder() };
 
                         hiyorimiDeviceFlag |= 0x2;
 

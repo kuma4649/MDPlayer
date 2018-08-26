@@ -190,6 +190,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public void _track_ana_fetch()
         {
+            ///HACK: (MNDRV) トラックフェッチ
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) & 0x7f));
             reg.a1 = mm.ReadUInt32(reg.a5 + w.dataptr);
             //goto _track_ana_fetch_L1;

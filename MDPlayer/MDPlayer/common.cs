@@ -351,6 +351,15 @@ namespace MDPlayer
             return ret;
         }
 
+        public static string GetApplicationFolder()
+        {
+            string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (!string.IsNullOrEmpty(path))
+            {
+                path += path[path.Length - 1] == '\\' ? "" : "\\";
+            }
+            return path;
+        }
     }
 
     public enum enmModel

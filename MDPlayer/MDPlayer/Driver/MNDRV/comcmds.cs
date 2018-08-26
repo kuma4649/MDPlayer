@@ -1179,19 +1179,20 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.D0_L = 0;
             reg.D0_B += mm.ReadByte(reg.a1++);
+            reg.D1_L = reg.D0_L;
             reg.D0_W += reg.D0_W;
             switch (reg.D0_B)
             {
-                case 2:
+                case 0:
                     _COM_E3_0();
                     break;
-                case 4:
+                case 2:
                     _COM_E3_1();
                     break;
-                case 6:
+                case 4:
                     _COM_E3_2();
                     break;
-                case 8:
+                case 6:
                     _COM_E3_3();
                     break;
             }

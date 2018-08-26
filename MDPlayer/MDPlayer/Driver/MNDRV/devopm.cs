@@ -572,14 +572,30 @@ namespace MDPlayer.Driver.MNDRV
         {
             if ((mm.ReadByte(reg.a5 + w.lfo) & 1) != 0)
             {
+
+
+                ///HACK MNDRV:LFO syncの適用
                 reg.D0_B = mm.ReadByte(reg.a5 + w.sdetune2);
+                ////////
+                //original Code
+                //if (reg.D0_B != 0)
+                //{
+                //    reg.D1_L = 0x01;
+                //    mndrv._OPM_WRITE();
+                //    reg.D0_L = 0;
+                //    mndrv._OPM_WRITE();
+                //}
+                //kuma Code
+                reg.D1_L = 0x01;
+                mndrv._OPM_WRITE();
+                reg.D0_L = 0;
                 if (reg.D0_B != 0)
                 {
-                    reg.D1_L = 0x01;
-                    mndrv._OPM_WRITE();
-                    reg.D0_L = 0;
-                    mndrv._OPM_WRITE();
+                    reg.D0_L = 2;
                 }
+                mndrv._OPM_WRITE();
+                ////////
+
                 reg.D0_L = 0xc;
                 reg.D0_B &= mm.ReadByte(reg.a5 + w.flag2);
                 if (reg.D0_B != 0)
@@ -1007,19 +1023,40 @@ namespace MDPlayer.Driver.MNDRV
         public void _OPM_E0()
         {
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x01));
+
+            ///HACK MNDRV:syncの保存できてない?
+            //original code
+            //reg.D1_B = mm.ReadByte(reg.a1++);
+            //reg.D2_L = 3;
+            //reg.D2_B &= reg.D1_B;
+            //uint sp = reg.SR_W;
+            //reg.SR_W |= 0x700;
+            //reg.D0_B = mm.ReadByte(0x9da);
+            //reg.D0_B &= 0xc0;
+            //reg.D0_B += reg.D2_B;
+            //mm.Write(0x9da, (byte)reg.D0_B);
+            //reg.SR_W = sp;
+            //reg.D1_L = 0x1b;
+            //mndrv._OPM_WRITE();
+
+            //kuma code
             reg.D1_B = mm.ReadByte(reg.a1++);
+            byte sync = (byte)(reg.D1_B >> 4);
+            sync <<= 5;
             reg.D2_L = 3;
             reg.D2_B &= reg.D1_B;
-
             uint sp = reg.SR_W;
             reg.SR_W |= 0x700;
-            mm.Write(reg.D0_B, mm.ReadUInt16(0x9da));
+            reg.D0_B = mm.ReadByte(0x9da);
             reg.D0_B &= 0xc0;
-            reg.D0_B &= reg.D2_B;
+            reg.D0_B += reg.D2_B;
             mm.Write(0x9da, (byte)reg.D0_B);
             reg.SR_W = sp;
             reg.D1_L = 0x1b;
             mndrv._OPM_WRITE();
+
+            reg.D2_B = sync;
+            ////////
 
             reg.D2_B >>= 4;
             reg.D2_B &= 2;
@@ -1068,7 +1105,7 @@ namespace MDPlayer.Driver.MNDRV
                 _OPM_E1_time();
                 return;
             }
-            if (reg.D0_B - 0x82 == 0)
+            if (reg.D0_B - 0x82 != 0)
             {
                 uint f = reg.D0_B & 1;
                 reg.D0_B >>= 1;
@@ -1159,8 +1196,23 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.lfo, (byte)(mm.ReadByte(reg.a5 + w.lfo) | 0x01));
 
             reg.D1_L = 0x03;
-            reg.D1_B &= mm.ReadByte(reg.a1);
+            reg.D1_B &= mm.ReadByte(reg.a1++);
 
+            ///HACK MNDRV:syncの保存できてない?
+            //original code
+            //uint sp = reg.SR_W;
+            //reg.SR_W |= 0x700;
+            //reg.D0_B = mm.ReadByte(0x9da);
+            //reg.D0_B &= 0xc0;
+            //reg.D0_B += reg.D1_B;
+            //mm.Write(0x9da, (byte)reg.D0_B);
+            //reg.SR_W = sp;
+            //reg.D1_L = 0x1b;
+            //mndrv._OPM_WRITE();
+
+            //kuma code
+            byte sync = (byte)(reg.D1_B >> 4);
+            sync <<= 5;
             uint sp = reg.SR_W;
             reg.SR_W |= 0x700;
             reg.D0_B = mm.ReadByte(0x9da);
@@ -1168,9 +1220,10 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_B += reg.D1_B;
             mm.Write(0x9da, (byte)reg.D0_B);
             reg.SR_W = sp;
-
             reg.D1_L = 0x1b;
             mndrv._OPM_WRITE();
+            reg.D0_B = sync;
+            ////////
 
             reg.D0_B >>= 4;
             reg.D0_B &= 2;

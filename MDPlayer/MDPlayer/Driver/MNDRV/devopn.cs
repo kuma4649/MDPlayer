@@ -961,6 +961,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _fm_command()
         {
+            ///HACK: (MNDRV) MML コマンド処理(OPN)
             reg.D0_W += reg.D0_W;
             //_fmc:
             switch (reg.D0_W / 2)

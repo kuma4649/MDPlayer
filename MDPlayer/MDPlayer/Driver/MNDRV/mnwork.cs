@@ -137,148 +137,148 @@ namespace MDPlayer.Driver.MNDRV
     public struct w
     {
         public const int dataptr = 0;                                           //.ds.l	1			    * $00 ! data pointer
-        public const int voiceptr = dataptr + 4;                                          //.ds.l	1			    * $04 ! 現在の音色のポインタ
-        public const int detune = voiceptr + 4;                                            //.ds.w	1			    * $08 ! detune
-        public const int keycode2 = detune + 2;                                         //.ds.w	1			    * $0A ! 元
-        public const int keycode = keycode2 + 2;                                          //.ds.w	1			    * $0C ! 最終
+        public const int voiceptr = dataptr + 4;                                //.ds.l	1			    * $04 ! 現在の音色のポインタ
+        public const int detune = voiceptr + 4;                                 //.ds.w	1			    * $08 ! detune
+        public const int keycode2 = detune + 2;                                 //.ds.w	1			    * $0A ! 元
+        public const int keycode = keycode2 + 2;                                //.ds.w	1			    * $0C ! 最終
 
-        public const int len = keycode + 2;                                              //.ds.b	1			    * $0E step
-        public const int program = len + 1;                                          //.ds.b	1			    * $0F ! voice number
+        public const int len = keycode + 2;                                     //.ds.b	1			    * $0E step
+        public const int program = len + 1;                                     //.ds.b	1			    * $0F ! voice number
 
-        public const int smask = program + 1;                                            //.ds.b	1			    * $10 slot mask
-        public const int at_q = smask + 1;                                             //.ds.b	1			    * $11 ! @q
+        public const int smask = program + 1;                                   //.ds.b	1			    * $10 slot mask
+        public const int at_q = smask + 1;                                      //.ds.b	1			    * $11 ! @q
 
-        public const int vol = at_q + 1;                                              //.ds.b	1			    * $12 ! volume
-        public const int vol2 = vol + 1;                                             //.ds.b	1			    * $13 ! 最終 volume
+        public const int vol = at_q + 1;                                        //.ds.b	1			    * $12 ! volume
+        public const int vol2 = vol + 1;                                        //.ds.b	1			    * $13 ! 最終 volume
 
-        public const int pan_ampm = vol2 + 1;                                         //.ds.b	1			    * $14 ! panpot(OPM pan/fl/con)
-        public const int ch = pan_ampm + 1;                                               //.ds.b	1			    * $15 ! channel
+        public const int pan_ampm = vol2 + 1;                                   //.ds.b	1			    * $14 ! panpot(OPM pan/fl/con)
+        public const int ch = pan_ampm + 1;                                     //.ds.b	1			    * $15 ! channel
 
-        public const int fbcon = ch + 1;                                            //.ds.b	1			    * $16 FB/CON(OPM ams/pms)
-        public const int volume = fbcon + 1;                                           //.ds.b	1			    * $17 v保存用
+        public const int fbcon = ch + 1;                                        //.ds.b	1			    * $16 FB/CON(OPM ams/pms)
+        public const int volume = fbcon + 1;                                    //.ds.b	1			    * $17 v保存用
 
-        public const int key = volume + 1;                                              //.ds.b	1			    * $18 ! 前回 key
-        public const int rct = key + 1;                                              //.ds.b	1			    * $19 release cut time
+        public const int key = volume + 1;                                      //.ds.b	1			    * $18 ! 前回 key
+        public const int rct = key + 1;                                         //.ds.b	1			    * $19 release cut time
 
-        public const int flag = rct + 1;                                             //.ds.b	1			    * $1A トラック各種フラグ
-                                                                                     //		                * bit7 トラック使用
-                                                                                     //		                * bit6 tie
-                                                                                     //		                * bit5 key on
-                                                                                     //                        * bit4  bend 2
-                                                                                     //		                * bit3 bend 1
-                                                                                     //		                * bit2 keyon / off で clear
-                                                                                     //                        * bit1  LFO SET
-                                                                                     //		                * bit0 tie だが前回とキーが違う
+        public const int flag = rct + 1;                                        //.ds.b	1			    * $1A トラック各種フラグ
+                                                                                //		                * bit7 トラック使用
+                                                                                //		                * bit6 tie
+                                                                                //		                * bit5 key on
+                                                                                //                      * bit4  bend 2
+                                                                                //		                * bit3 bend 1
+                                                                                //		                * bit2 keyon / off で clear
+                                                                                //                      * bit1  LFO SET
+                                                                                //		                * bit0 tie だが前回とキーが違う
 
-        public const int lfo = flag + 1;                                              //.ds.b	1			    * $1B LFO 制御フラグ
-                                                                                      //                        * bit7  pitch bend / portament
-                                                                                      //                        * bit6  velocity 3
-                                                                                      //		                * bit5 velocity 2
-                                                                                      //		                * bit4 velocity 1
-                                                                                      //		                * bit3 pitch 3
-                                                                                      //		                * bit2 pitch 2
-                                                                                      //		                * bit1 pitch 1
-                                                                                      //		                * bit0 HARD LFO
+        public const int lfo = flag + 1;                                        //.ds.b	1			    * $1B LFO 制御フラグ
+                                                                                //                      * bit7  pitch bend / portament
+                                                                                //                      * bit6  velocity 3
+                                                                                //		                * bit5 velocity 2
+                                                                                //		                * bit4 velocity 1
+                                                                                //		                * bit3 pitch 3
+                                                                                //		                * bit2 pitch 2
+                                                                                //		                * bit1 pitch 1
+                                                                                //		                * bit0 HARD LFO
 
-        public const int p_pattern1 = lfo + 1;                                       //.ds.b _lfo_work_size	* $1C LFO 1
-        public const int p_pattern2 = p_pattern1 + w_l._work_size;                                       //.ds.b _lfo_work_size	* $2A LFO 2
-        public const int p_pattern3 = p_pattern2 + w_l._work_size;                                       //.ds.b _lfo_work_size	* $38 LFO 3
-        public const int p_pattern4 = p_pattern3 + w_l._work_size;                                       //.ds.b _lfo_work_size	* $46 LFO 4 (for bend)
+        public const int p_pattern1 = lfo + 1;                                  //.ds.b _lfo_work_size	* $1C LFO 1
+        public const int p_pattern2 = p_pattern1 + w_l._work_size;              //.ds.b _lfo_work_size	* $2A LFO 2
+        public const int p_pattern3 = p_pattern2 + w_l._work_size;              //.ds.b _lfo_work_size	* $38 LFO 3
+        public const int p_pattern4 = p_pattern3 + w_l._work_size;              //.ds.b _lfo_work_size	* $46 LFO 4 (for bend)
 
-        public const int v_pattern1 = p_pattern4 + w_l._work_size;                                       //.ds.b _lfo_work_size	* $54 LFO 1
-        public const int v_pattern2 = v_pattern1 + w_l._work_size;                                       //.ds.b _lfo_work_size	* $62 LFO 2
-        public const int v_pattern3 = v_pattern2 + w_l._work_size;                                      //.ds.b _lfo_work_size	* $70 LFO 3
-        public const int v_pattern4 = v_pattern3 + w_l._work_size;                                      //.ds.b _lfo_work_size	* $7E LFO 4 (for hardware LFO)
+        public const int v_pattern1 = p_pattern4 + w_l._work_size;              //.ds.b _lfo_work_size	* $54 LFO 1
+        public const int v_pattern2 = v_pattern1 + w_l._work_size;              //.ds.b _lfo_work_size	* $62 LFO 2
+        public const int v_pattern3 = v_pattern2 + w_l._work_size;              //.ds.b _lfo_work_size	* $70 LFO 3
+        public const int v_pattern4 = v_pattern3 + w_l._work_size;              //.ds.b _lfo_work_size	* $7E LFO 4 (for hardware LFO)
 
-        public const int revexec = v_pattern4 + w_l._work_size;                                         //.ds.b	1			    * $8C リバーブ実行したか
-        public const int pcmmode = revexec + 1;                                         //.ds.b	1			    * $8D PCMの種類
-        public const int volmode = pcmmode + 1;                                         //.ds.b	1			    * $8E 相対音量モード
-        public const int kom = volmode + 1;                                             //.ds.b	1			    * $8F
-        public const int envbank = kom + 1;                                         //.ds.b	1			    * $90
-        public const int envnum = envbank + 1;                                          //.ds.b	1			    * $91
+        public const int revexec = v_pattern4 + w_l._work_size;                 //.ds.b	1			    * $8C リバーブ実行したか
+        public const int pcmmode = revexec + 1;                                 //.ds.b	1			    * $8D PCMの種類
+        public const int volmode = pcmmode + 1;                                 //.ds.b	1			    * $8E 相対音量モード
+        public const int kom = volmode + 1;                                     //.ds.b	1			    * $8F
+        public const int envbank = kom + 1;                                     //.ds.b	1			    * $90
+        public const int envnum = envbank + 1;                                  //.ds.b	1			    * $91
 
         //	                      * $92
-        public const int octave = envnum + 1;                                          //			            * PSG octave
-        public const int ch3mode = octave + 0;                                         //				        * bit7 効果音モード
-        public const int pcm_tone = ch3mode + 0;                                        //.ds.b	1			    * MPCM TONE MODE
-                                                                                        //                        * 0 : tone mode
-                                                                                        //		                * 1 : timbre mode
-        public const int bank = pcm_tone + 1;                                            //.ds.b	1			    * $93 program bank
+        public const int octave = envnum + 1;                                   //			            * PSG octave
+        public const int ch3mode = octave + 0;                                  //				        * bit7 効果音モード
+        public const int pcm_tone = ch3mode + 0;                                //.ds.b	1			    * MPCM TONE MODE
+                                                                                //                      * 0 : tone mode
+                                                                                //		                * 1 : timbre mode
+        public const int bank = pcm_tone + 1;                                   //.ds.b	1			    * $93 program bank
 
-        public const int tone_rr = bank + 1;                                         //.ds.b	4			    * $94 NOW TONE RR
+        public const int tone_rr = bank + 1;                                    //.ds.b	4			    * $94 NOW TONE RR
 
-        public const int key_trans = tone_rr + 4;                                       //.ds.b	1			    * $98 key transpose
-        public const int flag2 = key_trans + 1;                                           //.ds.b	1			    * $99 トラックフラグ2
-                                                                                          //                        * bit7 mask
-                                                                                          //                        * bit6 set @q
-                                                                                          //		                * bit5 set slot mask
-                                                                                          //		                * bit4 set LW portament
-                                                                                          //		                * bit3 set LW LFO
-                                                                                          //		                * bit2 set HLFO delay
-                                                                                          //		                * bit1 set portament
-                                                                                          //                        * bit0 track end
+        public const int key_trans = tone_rr + 4;                               //.ds.b	1			    * $98 key transpose
+        public const int flag2 = key_trans + 1;                                 //.ds.b	1			    * $99 トラックフラグ2
+                                                                                //                      * bit7 mask
+                                                                                //                      * bit6 set @q
+                                                                                //		                * bit5 set slot mask
+                                                                                //		                * bit4 set LW portament
+                                                                                //		                * bit3 set LW LFO
+                                                                                //		                * bit2 set HLFO delay
+                                                                                //		                * bit1 set portament
+                                                                                //                      * bit0 track end
 
-        public const int q = flag2 + 1;                                               //.ds.b	1			    * $9A q
-        public const int ch3 = q + 1;                                             //.ds.b	1			    * $9B ch3
+        public const int q = flag2 + 1;                                         //.ds.b	1			    * $9A q
+        public const int ch3 = q + 1;                                           //.ds.b	1			    * $9B ch3
 
-        public const int loop = ch3 + 1;                                            //.ds.l	1			    * $9C 永久ループポイント
+        public const int loop = ch3 + 1;                                        //.ds.l	1			    * $9C 永久ループポイント
 
-        public const int sdetune1 = loop + 4;                                        //.ds.w	1			    * $A0 slot detune
-        public const int sdetune2 = sdetune1 + 2;                                        //.ds.w	1			    * $A2 slot detune
-        public const int sdetune3 = sdetune2 + 2;                                        //.ds.w	1			    * $A4 slot detune
-        public const int sdetune4 = sdetune3 + 2;                                        //.ds.w	1			    * $A6 slot detune
+        public const int sdetune1 = loop + 4;                                   //.ds.w	1			    * $A0 slot detune
+        public const int sdetune2 = sdetune1 + 2;                               //.ds.w	1			    * $A2 slot detune
+        public const int sdetune3 = sdetune2 + 2;                               //.ds.w	1			    * $A4 slot detune
+        public const int sdetune4 = sdetune3 + 2;                               //.ds.w	1			    * $A6 slot detune
 
-        public const int freqwork = sdetune4 + 2;                                        //				        * $A8 psg work(相対値)
-        public const int keycode_s2 = freqwork + 0;                                      //.ds.w	1			    *     slot keycode
-        public const int freqbase = keycode_s2 + 2;                                        //				        * $AA psg work(元値)
-        public const int keycode_s3 = freqbase + 0;                                      //.ds.w	1			    *     slot keycode
-        public const int makotune = keycode_s3 + 2;                                        //				        * $AC psg work
-        public const int keycode_s4 = makotune + 0;                                      //.ds.w	1			    *     slot keycode
+        public const int freqwork = sdetune4 + 2;                               //				        * $A8 psg work(相対値)
+        public const int keycode_s2 = freqwork + 0;                             //.ds.w	1			    *     slot keycode
+        public const int freqbase = keycode_s2 + 2;                             //				        * $AA psg work(元値)
+        public const int keycode_s3 = freqbase + 0;                             //.ds.w	1			    *     slot keycode
+        public const int makotune = keycode_s3 + 2;                             //				        * $AC psg work
+        public const int keycode_s4 = makotune + 0;                             //.ds.w	1			    *     slot keycode
 
-        public const int banktone = keycode_s4 + 2;                                        //.ds.w	1			    * $AE bank / tone work
-        public const int tune = banktone + 2;                                            //.ds.w	1			    * $B0
+        public const int banktone = keycode_s4 + 2;                             //.ds.w	1			    * $AE bank / tone work
+        public const int tune = banktone + 2;                                   //.ds.w	1			    * $B0
 
-        public const int program2 = tune + 2;                                        //.ds.b	1			    * $B2 内部音色番号
-        public const int dev = program2 + 1;                                             //.ds.b	1			    * $B3 デバイス番号
+        public const int program2 = tune + 2;                                   //.ds.b	1			    * $B2 内部音色番号
+        public const int dev = program2 + 1;                                    //.ds.b	1			    * $B3 デバイス番号
 
-        public const int effect = dev + 1;                                          //.ds.b	1			    * $B4
-                                                                                    //                        *
-                                                                                    //                        * bit5 わうわう
-                                                                                    //                        * bit3 擬似エコー
-                                                                                    //                        * bit2 擬似リバーブ
-                                                                                    //                        * bit1 RR cut
-                                                                                    //		                * bit0 RR cut
-                                                                                    //                        *	 00 = normal
-                                                                                    //                        *	 01 = gate time(keyoff)
-                                                                                    //		                *	 10 = step time
-                                                                                    //		                *	 11 = with keyon
+        public const int effect = dev + 1;                                      //.ds.b	1			    * $B4
+                                                                                //                      *
+                                                                                //                      * bit5 わうわう
+                                                                                //                      * bit3 擬似エコー
+                                                                                //                      * bit2 擬似リバーブ
+                                                                                //                      * bit1 RR cut
+                                                                                //		                * bit0 RR cut
+                                                                                //                      *	 00 = normal
+                                                                                //                      *	 01 = gate time(keyoff)
+                                                                                //		                *	 10 = step time
+                                                                                //		                *	 11 = with keyon
 
-        public const int flag3 = effect + 1;                                           //.ds.b	1			    * $B5
-                                                                                       //                        * flag3
-                                                                                       //		                * bit6 スラー
-                                                                                       //		                * bit5 ネガティブ @q mode
-                                                                                       //		                * bit4 0 = @v / 1 = v
-                                                                                       //                        * bit3 0:normal 1:rest
-                                                                                       //                        * bit2 0:normal 1:portament2
-                                                                                       //                        * bit1 0:opn    1:psg
-                                                                                       //                        * bit0 0:normal 1:emulation
+        public const int flag3 = effect + 1;                                    //.ds.b	1			    * $B5
+                                                                                //                      * flag3
+                                                                                //		                * bit6 スラー
+                                                                                //		                * bit5 ネガティブ @q mode
+                                                                                //  	                * bit4 0 = @v / 1 = v
+                                                                                //                      * bit3 0:normal 1:rest
+                                                                                //                      * bit2 0:normal 1:portament2
+                                                                                //                      * bit1 0:opn    1:psg
+                                                                                //                      * bit0 0:normal 1:emulation
 
-        public const int weffect = flag3 + 1;                                         //.ds.b	1			    * 波形エフェクト
-                                                                                      //                        * bit7  effect on
-                                                                                      //		                * bit3 effect 4
-                                                                                      //		                * bit2 effect 3
-                                                                                      //		                * bit1 effect 2
-                                                                                      //		                * bit0 effect 1
+        public const int weffect = flag3 + 1;                                   //.ds.b	1			    * 波形エフェクト
+                                                                                //                      * bit7  effect on
+                                                                                //		                * bit3 effect 4
+                                                                                //		                * bit2 effect 3
+                                                                                //		                * bit1 effect 2
+                                                                                //		                * bit0 effect 1
 
-        public const int reverb = weffect + 1;                                          //.ds.b	1			    * bit7		1=擬似動作ON
-                                                                                        //                        * bit4      常に @v
-                                                                                        //		                * bit3 直接音量
-                                                                                        //		                * bit2 微調整
-                                                                                        //		                * bit1 tone
-                                                                                        //		                * bit0 panpot
+        public const int reverb = weffect + 1;                                  //.ds.b	1			    * bit7		1=擬似動作ON
+                                                                                //                      * bit4      常に @v
+                                                                                //		                * bit3 直接音量
+                                                                                //		                * bit2 微調整
+                                                                                //		                * bit1 tone
+                                                                                //		                * bit0 panpot
 
-        //		                * default	volume
-        public const int reverb_vol = reverb + 1;                                      //.ds.b	1			    * 擬似動作用 volume
+        　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　//		                * default	volume
+        public const int reverb_vol = reverb + 1;                               //.ds.b	1			    * 擬似動作用 volume
         public const int reverb_tone = 185;                                     //.ds.b	1			    * 擬似動作用 tone
         public const int reverb_pan = 186;                                      //.ds.b	1			    * 擬似動作用 panpot
 
@@ -321,9 +321,9 @@ namespace MDPlayer.Driver.MNDRV
         public const int e_sr = 205;                                            //.ds.b	1
         public const int e_rr = 206;                                            //.ds.b	1
 
-        public const int e_alw = e_rr + 1;                                           //.ds.b	1
-        public const int e_srw = e_alw + 1;                                           //.ds.b	1
-        public const int e_rrw = e_srw + 1;                                           //.ds.b	1
+        public const int e_alw = e_rr + 1;                                      //.ds.b	1
+        public const int e_srw = e_alw + 1;                                     //.ds.b	1
+        public const int e_rrw = e_srw + 1;                                     //.ds.b	1
 
         public const int voltable = e_rrw + 1;                                  //.ds.b	128			    * volume table
 
