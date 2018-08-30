@@ -570,6 +570,17 @@ namespace MDPlayer.form
                     rdSIDQ4.Checked = true;
                     break;
             }
+
+            cbAutoBalanceUseThis.Checked = setting.autoBalance.UseThis;
+            rbAutoBalanceLoadSongBalance.Checked = setting.autoBalance.LoadSongBalance;
+            rbAutoBalanceNotLoadSongBalance.Checked = !setting.autoBalance.LoadSongBalance;
+            rbAutoBalanceLoadDriverBalance.Checked = setting.autoBalance.LoadDriverBalance;
+            rbAutoBalanceNotLoadDriverBalance.Checked = !setting.autoBalance.LoadDriverBalance;
+            rbAutoBalanceSaveSongBalance.Checked = setting.autoBalance.SaveSongBalance;
+            rbAutoBalanceNotSaveSongBalance.Checked = !setting.autoBalance.SaveSongBalance;
+            rbAutoBalanceSamePositionAsSongData.Checked = setting.autoBalance.SamePositionAsSongData;
+            rbAutoBalanceNotSamePositionAsSongData.Checked = !setting.autoBalance.SamePositionAsSongData;
+
         }
 
         private void SetSCCICombo(enmScciChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
@@ -1246,6 +1257,13 @@ namespace MDPlayer.form
             if (rdSIDQ2.Checked) setting.sid.Quality = 1;
             if (rdSIDQ3.Checked) setting.sid.Quality = 2;
             if (rdSIDQ4.Checked) setting.sid.Quality = 3;
+
+            setting.autoBalance = new Setting.AutoBalance();
+            setting.autoBalance.UseThis = cbAutoBalanceUseThis.Checked;
+            setting.autoBalance.LoadSongBalance = rbAutoBalanceLoadSongBalance.Checked;
+            setting.autoBalance.LoadDriverBalance= rbAutoBalanceLoadDriverBalance.Checked;
+            setting.autoBalance.SaveSongBalance = rbAutoBalanceSaveSongBalance.Checked;
+            setting.autoBalance.SamePositionAsSongData= rbAutoBalanceSamePositionAsSongData.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

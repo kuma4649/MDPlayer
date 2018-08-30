@@ -405,7 +405,6 @@ namespace MDPlayer.form
             }
         }
 
-
         public void screenDrawParams()
         {
             DrawBuff.drawFader(frameBuffer, 5, 16, 0, ref oldParam.Master.Volume, newParam.Master.Volume);

@@ -111,7 +111,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _rhythm_command()
         {
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
 
             //_rhyc:
             switch (reg.D0_W / 2)
@@ -291,12 +291,12 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B = mm.ReadByte(reg.a5 + w.track_vol);
             if ((sbyte)reg.D1_B < 0)
             {
-                reg.D0_B += reg.D1_B;
+                reg.D0_B += (UInt32)(sbyte)reg.D1_B;
                 if ((sbyte)reg.D0_B >= 0) goto L2;
                 reg.D0_L = 0;
                 goto L2;
             }
-            reg.D0_B += reg.D1_B;
+            reg.D0_B += (UInt32)(sbyte)reg.D1_B;
             if (reg.D0_B >= 0x40)
             {
                 reg.D0_L = 0x3f;
@@ -334,7 +334,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B = mm.ReadByte(reg.a5 + w.track_vol);
             if ((sbyte)reg.D1_B < 0)
             {
-                reg.D0_B += reg.D1_B;
+                reg.D0_B += (UInt32)(sbyte)reg.D1_B;
                 if ((sbyte)reg.D0_B < 0)
                 {
                     reg.D0_L = 0;
@@ -342,7 +342,7 @@ namespace MDPlayer.Driver.MNDRV
             }
             else
             {
-                reg.D0_B += reg.D1_B;
+                reg.D0_B += (UInt32)(sbyte)reg.D1_B;
                 if (reg.D0_B >= 0x40)
                 {
                     reg.D0_L = 0x3f;
@@ -421,7 +421,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_B = reg.D0_B;
             reg.D0_B &= 0x1f;
             reg.D3_B &= 0xc0;
-            reg.D0_B += reg.D2_B;
+            reg.D0_B += (UInt32)(sbyte)reg.D2_B;
             if (reg.D0_B >= 0x20) 
             {
                 reg.D0_L = 0x1f;
@@ -451,7 +451,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_B = reg.D0_B;
             reg.D0_B &= 0x1f;
             reg.D3_B &= 0xc0;
-            reg.D0_B -= reg.D2_B;
+            reg.D0_B -= (UInt32)(sbyte)reg.D2_B;
             if ((sbyte)reg.D0_B < 0)
             {
                 reg.D0_L = 0;

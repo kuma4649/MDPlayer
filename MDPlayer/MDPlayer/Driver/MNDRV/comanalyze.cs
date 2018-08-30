@@ -235,7 +235,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B = mm.ReadByte(reg.a5 + w.key_trans);
             if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_plus;
 
-            reg.D0_B += reg.D1_B;
+            reg.D0_B += (UInt32)(sbyte)reg.D1_B;
             if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_;
             reg.D0_L = 0;
             goto _track_ana_mml_;
@@ -243,7 +243,7 @@ namespace MDPlayer.Driver.MNDRV
 
             _track_ana_mml_plus:
 
-            reg.D0_B += reg.D1_B;
+            reg.D0_B += (UInt32)(sbyte)reg.D1_B;
             if ((sbyte)reg.D0_B >= 0) goto _track_ana_mml_;
             reg.D0_L = 0x7f;
 
@@ -326,8 +326,8 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.D1_L = 0;
             reg.D1_B = mm.ReadByte(reg.a5 + w.at_q);
-            reg.D0_W -= reg.D1_W;
-            if ((sbyte)reg.D0_W > 0)
+            reg.D0_W -= (UInt32)(Int16)reg.D1_W;
+            if ((Int16)reg.D0_W > 0)
             {
                 mm.Write(reg.a5 + w.at_q_work, (byte)reg.D0_B);
             }

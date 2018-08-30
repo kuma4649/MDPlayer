@@ -83,7 +83,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D0_L = 7;
             reg.D0_L &= 0;// reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
             reg.D4_W = reg.SR_W;
             reg.D4_W &= 0xf8ff;
             reg.D4_W |= _opn_intmask[reg.D0_W / 2];
@@ -98,7 +98,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.SR_W = reg.D4_W;
 
             UInt32 sp = reg.D4_W;
-            reg.D3_W += reg.D3_W;
+            reg.D3_W += (UInt32)(Int16)reg.D3_W;
             switch (reg.D3_W)
             {
                 case 0:
@@ -233,8 +233,8 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D0_L = 7;
             reg.D0_L &= 0;// reg.Arg[0];//4*15(sp) -> 割り込みレベルの調整(下げている)を行っている(再現不要箇所)
-            reg.D0_W += reg.D0_W;
-            reg.D4_W = reg.SR_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
+            reg.D4_W = (UInt32)(Int16)reg.SR_W;
             reg.D4_W &= 0xf8ff;
             reg.D4_W |= _intmask[reg.D0_W / 2];
 
@@ -343,7 +343,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B = mm.ReadByte(reg.a6 + dw.DRV_STATUS);
             if ((sbyte)reg.D1_B < 0)
             {
-                reg.D1_B += reg.D1_B;
+                reg.D1_B += (UInt32)(sbyte)reg.D1_B;
                 if ((sbyte)reg.D1_B >= 0)
                 {
                     if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG3) & 0x40) != 0)
@@ -365,7 +365,7 @@ namespace MDPlayer.Driver.MNDRV
         {
             reg.D1_B = mm.ReadByte(reg.a6 + dw.DRV_STATUS);
             if ((sbyte)reg.D1_B >= 0) goto _timer_b_job_pause;
-            reg.D1_B += reg.D1_B;
+            reg.D1_B += (UInt32)(sbyte)reg.D1_B;
             if ((sbyte)reg.D1_B < 0) goto _timer_b_job_pause;
             do
             {
@@ -388,7 +388,7 @@ namespace MDPlayer.Driver.MNDRV
                 _key_ctrl_disable();
                 return;
             }
-            reg.D2_W += reg.D2_W;
+            reg.D2_W += (UInt32)(Int16)reg.D2_W;
             switch (reg.D2_W)
             {
                 case 0:
@@ -426,7 +426,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D1_B = mm.ReadByte(reg.a6 + dw.DRV_STATUS);
             if ((sbyte)reg.D1_B >= 0) return;
-            reg.D1_B += reg.D1_B;
+            reg.D1_B += (UInt32)(sbyte)reg.D1_B;
             if ((sbyte)reg.D1_B < 0) return;
 
             if (reg.D3_W != 0)

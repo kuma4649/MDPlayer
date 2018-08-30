@@ -28,8 +28,7 @@ namespace MDPlayer
                 _outputDevice = value;
             }
         }
-
-
+        
         private ChipType _AY8910Type = new ChipType();
         public ChipType AY8910Type
         {
@@ -661,6 +660,10 @@ namespace MDPlayer
             }
         }
 
+        private AutoBalance _autoBalance = new AutoBalance();
+        public AutoBalance autoBalance {
+            get => _autoBalance; set => _autoBalance = value;
+        }
 
         [Serializable]
         public class OutputDevice
@@ -1199,7 +1202,7 @@ namespace MDPlayer
                 }
             }
 
-            private enmInstFormat _InstFormat= enmInstFormat.MML2VGM;
+            private enmInstFormat _InstFormat = enmInstFormat.MML2VGM;
             public enmInstFormat InstFormat
             {
                 get
@@ -3747,7 +3750,35 @@ namespace MDPlayer
             }
         }
 
-            public Setting Copy()
+        [Serializable]
+        public class AutoBalance
+        {
+            private bool _UseThis = true;
+            private bool _LoadSongBalance = false;
+            private bool _LoadDriverBalance = false;
+            private bool _SaveSongBalance = false;
+            private bool _SamePositionAsSongData = false;
+
+            public bool UseThis { get => _UseThis; set => _UseThis = value; }
+            public bool LoadSongBalance { get => _LoadSongBalance; set => _LoadSongBalance = value; }
+            public bool LoadDriverBalance { get => _LoadDriverBalance; set => _LoadDriverBalance = value; }
+            public bool SaveSongBalance { get => _SaveSongBalance; set => _SaveSongBalance = value; }
+            public bool SamePositionAsSongData { get => _SamePositionAsSongData; set => _SamePositionAsSongData = value; }
+
+            public AutoBalance Copy()
+            {
+                AutoBalance AutoBalance = new AutoBalance();
+                AutoBalance.UseThis = this.UseThis;
+                AutoBalance.LoadSongBalance = this.LoadSongBalance;
+                AutoBalance.LoadDriverBalance = this.LoadDriverBalance;
+                AutoBalance.SaveSongBalance = this.SaveSongBalance;
+                AutoBalance.SamePositionAsSongData = this.SamePositionAsSongData;
+
+                return AutoBalance;
+            }
+        }
+
+        public Setting Copy()
         {
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
@@ -3783,15 +3814,16 @@ namespace MDPlayer
             setting.midiOut = this.midiOut.Copy();
             setting.nsf = this.nsf.Copy();
             setting.sid = this.sid.Copy();
+            setting.autoBalance = this.autoBalance.Copy();
 
             return setting;
         }
 
         public void Save()
         {
-            string fullPath= Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            fullPath = System.IO.Path.Combine(fullPath, "KumaApp",AssemblyTitle);
-            if(!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
+            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
             fullPath = System.IO.Path.Combine(fullPath, "Setting.xml");
 
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Setting));

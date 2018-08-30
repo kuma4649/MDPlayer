@@ -49,9 +49,8 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write((uint)(0x9_0000 + i), vgmBuf[i]);
             }
             
-            //デバッグ向け
-            if (model == enmModel.RealModel) return true;
-            log.debug = true;
+            ////デバッグ向け
+            //if (model == enmModel.RealModel) return true;
 
             //mndrvの起動
             start();
@@ -71,8 +70,8 @@ namespace MDPlayer.Driver.MNDRV
 
         public override void oneFrameProc()
         {
-            //デバッグ向け
-            if (model == enmModel.RealModel) return;
+            ////デバッグ向け
+            //if (model == enmModel.RealModel) return;
 
             if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 0x20) == 0)
             {
@@ -84,6 +83,7 @@ namespace MDPlayer.Driver.MNDRV
                 timerOPM.timer();
                 if ((timerOPM.ReadStatus() & 3) != 0) interrupt._opm_entry();
             }
+
         }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
@@ -279,7 +279,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a6 + dw.DRV_FLAG, (byte)(mm.ReadByte(reg.a6 + dw.DRV_FLAG) | 0x04));
             reg.D0_W &= 0xff;
             reg.D0_W += 1;
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
 
             //_trap_table
             switch (reg.D0_W)
@@ -545,7 +545,7 @@ namespace MDPlayer.Driver.MNDRV
 
             mm.Write(reg.a6 + dw.PCMBUFADR, reg.D0_L);
             mm.Write(reg.a6 + dw.PCMBUF_ENDADR, reg.D0_L);
-            mm.Write(reg.a6 + dw.PCMBUF_ENDADR, (UInt32)(mm.ReadUInt32(reg.a6 + dw.PCMBUF_ENDADR) + reg.D1_L));
+            mm.Write(reg.a6 + dw.PCMBUF_ENDADR, (UInt32)(mm.ReadUInt32(reg.a6 + dw.PCMBUF_ENDADR) + (Int32)reg.D1_L));
             sp = reg.a1;
             reg.a0 = reg.a1;
             reg.a1 = reg.D0_L;
@@ -703,8 +703,8 @@ namespace MDPlayer.Driver.MNDRV
 
 
             hscopy_rf:
-            reg.a0 += reg.D0_L;// ブロック後方から転送をする
-            reg.a1 += reg.D0_L;
+            reg.a0 += (UInt32)(Int32)reg.D0_L;// ブロック後方から転送をする
+            reg.a1 += (UInt32)(Int32)reg.D0_L;
             reg.D0_W &= 0x7f;// 余り128バイトの転送準備
             reg.D1_L >>= 7;// 128バイト単位の転送準備
 
@@ -1061,7 +1061,7 @@ namespace MDPlayer.Driver.MNDRV
                 return;
             }
             reg.D1_W += 1;
-            reg.D1_W += reg.D1_W;
+            reg.D1_W += (UInt32)(Int16)reg.D1_W;
             switch (reg.D1_W)
             {
                 case 2:
@@ -1792,7 +1792,7 @@ namespace MDPlayer.Driver.MNDRV
                 reg.D4_L = 0;
                 reg.D4_B = mm.ReadByte(reg.a2++);
                 if (reg.D4_B == 0) return;
-                reg.D4_W += reg.D4_W;
+                reg.D4_W += (UInt32)(Int16)reg.D4_W;
 
                 switch (reg.D4_W)
                 {
@@ -2162,8 +2162,8 @@ namespace MDPlayer.Driver.MNDRV
         public void _t_set_master_vol()
         {
             reg.D6_L = 1;
-            reg.D6_B += reg.D1_B;
-            reg.D6_W += reg.D6_W;
+            reg.D6_B += (UInt32)(sbyte)reg.D1_B;
+            reg.D6_W += (UInt32)(Int16)reg.D6_W;
             switch (reg.D6_W)
             {
                 case 2:
@@ -2384,8 +2384,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 0xffffffff;
             if (reg.D1_W - 8 != 0)
             {
-                reg.D1_W += reg.D1_W;
-                reg.D1_W += reg.D1_W;
+                reg.D1_W += (UInt32)(Int16)reg.D1_W;
+                reg.D1_W += (UInt32)(Int16)reg.D1_W;
                 reg.a5 = reg.a6 + dw.INTEXECBUF;
                 mm.Write(reg.a5 + (UInt32)(Int16)reg.D1_W, reg.a1);
                 mm.Write(reg.a6 + dw.INTEXECNUM, (UInt16)(mm.ReadUInt16(reg.a6 + dw.INTEXECNUM) + 1));
@@ -2399,7 +2399,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _t_set_subevent()
         {
-            reg.D1_W += reg.D1_W;
+            reg.D1_W += (UInt32)(Int16)reg.D1_W;
             switch (reg.D1_W)
             {
                 case 0:
@@ -2523,7 +2523,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _t_unremove()
         {
-            mm.Write(reg.a6 + dw.UNREMOVE, (UInt16)(mm.ReadUInt16(reg.a6 + dw.UNREMOVE) + reg.D1_W));
+            mm.Write(reg.a6 + dw.UNREMOVE, (UInt16)(mm.ReadUInt16(reg.a6 + dw.UNREMOVE) + (Int16)reg.D1_W));
             reg.D0_W = mm.ReadUInt16(reg.a6 + dw.UNREMOVE);
             reg.D0_L = (UInt32)(Int16)reg.D0_W;
         }
@@ -2647,11 +2647,11 @@ namespace MDPlayer.Driver.MNDRV
         }
         public void _OPN_WRITE_()
         {
-            reg.D6_W += reg.D6_W;
+            reg.D6_W += (UInt32)(Int16)reg.D6_W;
             reg.D6_W = _reg_table[reg.D6_W / 2];
             reg.a0 = reg.D5_L;
             reg.D5_L = 0xecc0c0;
-            reg.D5_B += reg.D6_B;
+            reg.D5_B += (UInt32)(sbyte)reg.D6_B;
             uint a = reg.a0;
             reg.a0 = reg.D5_L;
             reg.D5_L = a;
@@ -3099,7 +3099,7 @@ namespace MDPlayer.Driver.MNDRV
             if (cf) goto getnum20;
             if (reg.D0_B >= 10) goto getnum20;
             reg.D1_L *= 10;
-            reg.D1_L += reg.D0_L;
+            reg.D1_L += (UInt32)(Int32)reg.D0_L;
             if (reg.D1_L < 65535) goto getnum10;
             _numover();
             return;
@@ -3158,7 +3158,7 @@ namespace MDPlayer.Driver.MNDRV
             {
                 reg.D1_L++;//そうなら +1
             }
-            bufferPtr += reg.D1_L;
+            bufferPtr += (UInt32)(Int32)reg.D1_L;
             return 0;
 
             //reg spReg = new reg();
@@ -3235,7 +3235,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.a6 = _buffer_top;
             reg.a0 = unchecked((UInt32)(-16));
-            reg.a0 += reg.D1_L;
+            reg.a0 += (UInt32)(Int32)reg.D1_L;
             if (mm.ReadByte(reg.a0 + 12) != 0) goto mcmfree80;//ロック状態ならエラー
             reg.D1_L = 0;
             //mcmfree10:
@@ -3261,7 +3261,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.a0 - reg.D0_L != 0) goto mcmfree40;//また連続のブロックであるか？
             reg.D0_L = 0x16;//空ならくっつける
             reg.D0_L += mm.ReadUInt32(reg.a0 + 8);
-            mm.Write(reg.a1 + 8, mm.ReadUInt32(reg.a1 + 8) + reg.D0_L);//サイズを足す
+            mm.Write(reg.a1 + 8, (UInt32)(mm.ReadUInt32(reg.a1 + 8) + (Int32)reg.D0_L));//サイズを足す
             reg.a0 = mm.ReadUInt32(reg.a0 + 4);
             mm.Write(reg.a1 + 4, reg.a0);//リンク
             reg.D0_L = reg.a0;
@@ -3280,7 +3280,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.a1 - reg.D0_L != 0) goto mcmfree50;//また連続のブロックであるか？
             reg.D0_L = 16;//空ならくっつける
             reg.D0_L += mm.ReadUInt32(reg.a1 + 8);
-            mm.Write(reg.a1 + 8, mm.ReadUInt32(reg.a1 + 8) + reg.D0_L);//サイズを足す
+            mm.Write(reg.a1 + 8, (UInt32)(mm.ReadUInt32(reg.a1 + 8) + (Int32)reg.D0_L));//サイズを足す
             reg.a1 = mm.ReadUInt32(reg.a1 + 4);
             mm.Write(reg.a0 + 4, reg.a1);//リンク
             reg.D0_L = reg.a1;
@@ -3730,7 +3730,7 @@ namespace MDPlayer.Driver.MNDRV
 
             MAKE_FNUMTBL3:
             reg.D6_B = FNUM_KC_BASE[reg.a1 + reg.D5_W];//mm.ReadByte(reg.a1 + reg.D5_W);
-            reg.D5_B += reg.D5_B;
+            reg.D5_B += (UInt32)(sbyte)reg.D5_B;
             reg.D1_W = FNUM_BASE[reg.a0 + (reg.D5_W) / 2]; //mm.ReadUInt16(reg.a0 + reg.D5_W);
             reg.D3_W = reg.D1_W;
             reg.D2_W = FNUM_BASE[reg.a0 + (reg.D5_W + 2) / 2]; //mm.ReadUInt16(reg.a0 + reg.D5_W + 2);
@@ -3738,7 +3738,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D2_W >= 0x0800) goto MAKE_FNUMTBL5;
 
             reg.D5_B >>= 1;
-            reg.D2_W -= reg.D1_W;
+            reg.D2_W -= (UInt32)(Int16)reg.D1_W;
             reg.D1_L = 0;
 
             MAKE_FNUMTBL4:
@@ -3786,7 +3786,7 @@ namespace MDPlayer.Driver.MNDRV
 
             MAKE_FREQTBL3:
             reg.D6_B = FREQ_KC_BASE[reg.a1 + reg.D5_W];//mm.ReadByte(reg.a1 + reg.D5_W);
-            reg.D5_W += reg.D5_W;
+            reg.D5_W += (UInt32)(Int16)reg.D5_W;
             reg.D1_W = FREQ_BASE[reg.a0 + reg.D5_W / 2];//mm.ReadUInt16(reg.a0 + reg.D5_W);
             reg.D3_W = reg.D1_W;
             reg.D2_W = FREQ_BASE[reg.a0 + (reg.D5_W + 2) / 2];//mm.ReadUInt16(reg.a0 + reg.D5_W + 2);
@@ -3794,7 +3794,7 @@ namespace MDPlayer.Driver.MNDRV
             if (reg.D2_W >= 0x1000) goto MAKE_FREQTBL6;
 
             reg.D5_W >>= 1;
-            reg.D2_W -= reg.D1_W;
+            reg.D2_W -= (UInt32)(Int16)reg.D1_W;
             reg.D1_L = 0;
             mm.Write(reg.a2++, (byte)reg.D6_B);
             mm.Write(reg.a2++, (byte)reg.D1_B);

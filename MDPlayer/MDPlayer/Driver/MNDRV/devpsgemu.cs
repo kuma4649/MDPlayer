@@ -40,12 +40,12 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_L = 12;
             while (reg.D0_B >= reg.D2_B) 
             {
-                reg.D0_B -= reg.D2_B;
+                reg.D0_B -= (UInt32)(sbyte)reg.D2_B;
                 reg.D1_B++;
             }
 
             mm.Write(reg.a5 + w.octave, (byte)reg.D1_B);
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
             reg.a0 = ab.dummyAddress;// _psg_table;
             reg.D0_W = devpsg._psg_table[reg.D0_W / 2];
             mm.Write(reg.a5 + w.makotune, (UInt16)reg.D0_W);
@@ -67,7 +67,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W = (UInt16)(-reg.D1_W);
 
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
-            reg.D0_W += reg.D1_W;
+            reg.D0_W += (UInt32)(Int16)reg.D1_W;
             mm.Write(reg.a5 + w.keycode2, (UInt16)reg.D0_W);
             _emu_set_psg_bend();
         }
@@ -92,8 +92,8 @@ namespace MDPlayer.Driver.MNDRV
         {
             mm.Write(reg.a5 + w.keycode, (UInt16)reg.D0_W);
             reg.D0_W &= 0xfff;
-            reg.D0_W += reg.D0_W;
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
             reg.a0 = reg.a6 + dw.FREQ_KC_TABLE;
             reg.D2_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D0_W + 1);
             reg.D0_B = mm.ReadByte(reg.a0 + (UInt32)(Int16)reg.D0_W );
@@ -109,7 +109,7 @@ namespace MDPlayer.Driver.MNDRV
         //
         public void _psge_command()
         {
-            reg.D0_W += reg.D0_W;
+            reg.D0_W += (UInt32)(Int16)reg.D0_W;
 
             //_psgec:
             switch (reg.D0_W / 2)
@@ -333,7 +333,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_W += mm.ReadUInt16(reg.a5 + w.addkeycode);
             reg.D1_W = (UInt16)(-reg.D1_W);
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
-            reg.D0_W += reg.D1_W;
+            reg.D0_W += (UInt32)(Int16)reg.D1_W;
             _emu_set_psg_bend();
         }
 
@@ -368,7 +368,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W = mm.ReadUInt16(reg.a4 + w_l.henka);
             if ((Int16)(reg.D2_W) < 0) goto _ch_psge_bend_minus;
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) - reg.D2_W));
-            reg.D0_W -= reg.D2_W;
+            reg.D0_W -= (UInt32)(Int16)reg.D2_W;
 
             mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
@@ -378,7 +378,7 @@ namespace MDPlayer.Driver.MNDRV
 
             _ch_psge_bend_minus:
             mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) - reg.D2_W));
-            reg.D0_W -= reg.D2_W;
+            reg.D0_W -= (UInt32)(Int16)reg.D2_W;
             mm.Write(reg.a5 + w.freqbase, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
             if (reg.D0_W >= mm.ReadUInt16(reg.a4 + w_l.mokuhyou)) goto _ch_psge_bend_end;
@@ -412,8 +412,8 @@ namespace MDPlayer.Driver.MNDRV
             reg.D2_W = mm.ReadUInt16(reg.a4 + w_l.henka_work);
             L1:
             reg.D0_W = mm.ReadUInt16(reg.a5 + w.keycode);
-            mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) + reg.D2_W));
-            reg.D0_W += reg.D2_W;
+            mm.Write(reg.a4 + w_l.bendwork, (UInt16)(mm.ReadUInt16(reg.a4 + w_l.bendwork) + (Int16)reg.D2_W));
+            reg.D0_W += (UInt32)(Int16)reg.D2_W;
             reg.D1_L = 0;
             reg.D1_B = mm.ReadByte(reg.a5 + w.octave);
             reg.D2_W = reg.D0_W;

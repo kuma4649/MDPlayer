@@ -448,7 +448,7 @@ namespace MDPlayer.form
                     //frmPlayList.AddList(args[1]);
                 }
 
-                if (!loadAndPlay(0, 0,args[1], ""))
+                if (!loadAndPlay(0, 0, args[1], ""))
                 {
                     frmPlayList.Stop();
                     Audio.Stop();
@@ -1190,7 +1190,7 @@ namespace MDPlayer.form
                     return;
             }
 
-            frmMCD[chipID] = new frmMegaCD(this, chipID, setting.other.Zoom,newParam.rf5c164[chipID]);
+            frmMCD[chipID] = new frmMegaCD(this, chipID, setting.other.Zoom, newParam.rf5c164[chipID]);
             if (setting.location.PosRf5c164[chipID] == System.Drawing.Point.Empty)
             {
                 frmMCD[chipID].x = this.Location.X;
@@ -1245,7 +1245,7 @@ namespace MDPlayer.form
                     return;
             }
 
-            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom,newParam.ym2608[chipID]);
+            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom, newParam.ym2608[chipID]);
 
             if (setting.location.PosYm2608[chipID] == System.Drawing.Point.Empty)
             {
@@ -1462,7 +1462,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom,newParam.ym2610[chipID]);
+            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom, newParam.ym2610[chipID]);
 
             if (setting.location.PosYm2610[chipID] == System.Drawing.Point.Empty)
             {
@@ -1675,7 +1675,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom,newParam.sn76489[chipID]);
+            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom, newParam.sn76489[chipID]);
 
             if (setting.location.PosSN76489[chipID] == System.Drawing.Point.Empty)
             {
@@ -1729,7 +1729,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmSegaPCM[chipID] = new frmSegaPCM(this, chipID, setting.other.Zoom,newParam.segaPcm[chipID]);
+            frmSegaPCM[chipID] = new frmSegaPCM(this, chipID, setting.other.Zoom, newParam.segaPcm[chipID]);
 
             if (setting.location.PosSegaPCM[chipID] == System.Drawing.Point.Empty)
             {
@@ -1837,7 +1837,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmHuC6280[chipID] = new frmHuC6280(this, chipID, setting.other.Zoom,newParam.huc6280[chipID]);
+            frmHuC6280[chipID] = new frmHuC6280(this, chipID, setting.other.Zoom, newParam.huc6280[chipID]);
 
             if (setting.location.PosHuC6280[chipID] == System.Drawing.Point.Empty)
             {
@@ -2355,7 +2355,7 @@ namespace MDPlayer.form
             Audio.Init(this.setting);
 
             log.ForcedWrite("Audio初期化処理完了");
-            log.debug =this.setting.Debug_DispFrameCounter;
+            log.debug = this.setting.Debug_DispFrameCounter;
 
             frmVSTeffectList.dispPluginList();
             StartMIDIInMonitoring();
@@ -2461,7 +2461,7 @@ namespace MDPlayer.form
 
                     if (filename.ToLower().LastIndexOf(".zip") == -1)
                     {
-                        loadAndPlay(0,0,filename);
+                        loadAndPlay(0, 0, filename);
                         frmPlayList.setStart(-1);
                         oldParam = new MDChipParams();
 
@@ -2515,7 +2515,7 @@ namespace MDPlayer.form
                 if (frmYMF278B[i] != null) frmYMF278B[i].screenInit();
 
             }
-            if (frmMixer2!=null) frmMixer2.screenInit();
+            if (frmMixer2 != null) frmMixer2.screenInit();
             //if (frmYM2612MIDI != null) frmYM2612MIDI.screenInit();
 
             reqAllScreenInit = false;
@@ -2773,36 +2773,36 @@ namespace MDPlayer.form
             DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
             byte[] chips = Audio.GetChipStatus();
-            DrawBuff.drawChipName(screen.mainScreen,14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
-            DrawBuff.drawChipName(screen.mainScreen,18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
-            DrawBuff.drawChipName(screen.mainScreen,23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
-            DrawBuff.drawChipName(screen.mainScreen,28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
-            DrawBuff.drawChipName(screen.mainScreen,33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
-            DrawBuff.drawChipName(screen.mainScreen,37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
-            DrawBuff.drawChipName(screen.mainScreen,42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
-            DrawBuff.drawChipName(screen.mainScreen,47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
-            DrawBuff.drawChipName(screen.mainScreen,51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
-            DrawBuff.drawChipName(screen.mainScreen,56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
-            DrawBuff.drawChipName(screen.mainScreen,61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
-            DrawBuff.drawChipName(screen.mainScreen,66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
-            DrawBuff.drawChipName(screen.mainScreen,4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
-            DrawBuff.drawChipName(screen.mainScreen,9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
 
-            DrawBuff.drawChipName(screen.mainScreen,14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
-            DrawBuff.drawChipName(screen.mainScreen,18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
-            DrawBuff.drawChipName(screen.mainScreen,23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
-            DrawBuff.drawChipName(screen.mainScreen,28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
-            DrawBuff.drawChipName(screen.mainScreen,33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
-            DrawBuff.drawChipName(screen.mainScreen,37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
-            DrawBuff.drawChipName(screen.mainScreen,42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
-            DrawBuff.drawChipName(screen.mainScreen,47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
-            DrawBuff.drawChipName(screen.mainScreen,51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
-            DrawBuff.drawChipName(screen.mainScreen,56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
-            DrawBuff.drawChipName(screen.mainScreen,61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
-            DrawBuff.drawChipName(screen.mainScreen,66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
-            DrawBuff.drawChipName(screen.mainScreen,4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
-            DrawBuff.drawChipName(screen.mainScreen,9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
             DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
@@ -2897,7 +2897,7 @@ namespace MDPlayer.form
 
             reqAllScreenInit = true;
 
-            loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3,playFn.Item4);
+            loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3, playFn.Item4);
             frmPlayList.Play();
 
         }
@@ -2920,15 +2920,15 @@ namespace MDPlayer.form
             {
                 for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.AY8910, chipID, ch);
                 for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203 , chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2413 , chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2608 , chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask( enmUseChip.YM2610 , chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612 , chipID, ch);
-                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489 , chipID, ch);
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164 , chipID, ch);
-                for (int ch = 0; ch < 24; ch++) ResetChannelMask( enmUseChip.C140 , chipID, ch);
-                for (int ch = 0; ch < 16; ch++) ResetChannelMask( enmUseChip.SEGAPCM , chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
+                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
+                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
+                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
+                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
+                for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
+                for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
                 for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
                 for (int ch = 0; ch < 2; ch++) ResetChannelMask(enmUseChip.NES, chipID, ch);
                 for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.DMC, chipID, ch);
@@ -2939,6 +2939,8 @@ namespace MDPlayer.form
             oldParam = new MDChipParams();
             //newParam = new MDChipParams();
             reqAllScreenInit = true;
+
+
 
             if (!Audio.Play(setting))
             {
@@ -3016,8 +3018,8 @@ namespace MDPlayer.form
                 if (Audio.chipLED.PriNES != 0 || Audio.chipLED.PriDMC != 0) OpenFormNESDMC(0, true); else CloseFormNESDMC(0);
                 if (Audio.chipLED.SecNES != 0 || Audio.chipLED.SecDMC != 0) OpenFormNESDMC(1, true); else CloseFormNESDMC(1);
 
-                if (Audio.chipLED.PriFDS != 0 ) OpenFormFDS(0, true); else CloseFormFDS(0);
-                if (Audio.chipLED.SecFDS != 0 ) OpenFormFDS(1, true); else CloseFormFDS(1);
+                if (Audio.chipLED.PriFDS != 0) OpenFormFDS(0, true); else CloseFormFDS(0);
+                if (Audio.chipLED.SecFDS != 0) OpenFormFDS(1, true); else CloseFormFDS(1);
 
                 if (Audio.chipLED.PriMMC5 != 0) OpenFormMMC5(0, true); else CloseFormMMC5(0);
                 if (Audio.chipLED.SecMMC5 != 0) OpenFormMMC5(1, true); else CloseFormMMC5(1);
@@ -3975,7 +3977,7 @@ namespace MDPlayer.form
                         //frmPlayList.AddList(sParam);
                     }
 
-                    if (!loadAndPlay(0,0, sParam))
+                    if (!loadAndPlay(0, 0, sParam))
                     {
                         frmPlayList.Stop();
                         Audio.Stop();
@@ -4107,6 +4109,9 @@ namespace MDPlayer.form
                     }
                 }
 
+                //再生前に音量のバランスを設定する
+                PresetMixerBalance(playingFileName, format);
+
                 Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
                 newParam.ym2612[1].fileFormat = format;
@@ -4121,14 +4126,14 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite(ex);
                 srcBuf = null;
-                MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}",ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}", ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
         }
 
-        private List<Tuple<string, byte[]>> getExtendFile(string fn,byte[] srcBuf,enmFileFormat format,object archive= null)
+        private List<Tuple<string, byte[]>> getExtendFile(string fn, byte[] srcBuf, enmFileFormat format, object archive = null)
         {
             List<Tuple<string, byte[]>> ret = new List<Tuple<string, byte[]>>();
             byte[] buf;
@@ -4165,7 +4170,7 @@ namespace MDPlayer.form
                         buf = getExtendFileAllBytes(fn, PDX, archive);
                         if (buf == null)
                         {
-                            buf = getExtendFileAllBytes(fn, PDX+".PDX", archive);
+                            buf = getExtendFileAllBytes(fn, PDX + ".PDX", archive);
                         }
                         if (buf != null) ret.Add(new Tuple<string, byte[]>(".PDX", buf));
                     }
@@ -4177,7 +4182,7 @@ namespace MDPlayer.form
             return ret;
         }
 
-        private byte[] getExtendFileAllBytes(string srcFn,string extFn, object archive)
+        private byte[] getExtendFileAllBytes(string srcFn, string extFn, object archive)
         {
             try
             {
@@ -4191,7 +4196,8 @@ namespace MDPlayer.form
                 {
                     string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn);
                     trgFn = trgFn.Replace("\\", "/").Trim();
-                    if (archive is ZipArchive) {
+                    if (archive is ZipArchive)
+                    {
                         ZipArchiveEntry entry = ((ZipArchive)archive).GetEntry(trgFn);
                         if (entry == null) return null;
                         string arcFn = "";
@@ -4473,7 +4479,8 @@ namespace MDPlayer.form
                     newParam.nesdmc[chipID].sqrChannels[ch].mask = !newParam.nesdmc[chipID].sqrChannels[ch].mask;
                     break;
                 case enmUseChip.DMC:
-                    switch (ch) {
+                    switch (ch)
+                    {
                         case 0:
                             if (!newParam.nesdmc[chipID].triChannel.mask) Audio.setDMCMask(chipID, ch);
                             else Audio.resetDMCMask(chipID, ch);
@@ -4511,7 +4518,7 @@ namespace MDPlayer.form
                             break;
                         case 2:
                             if (!newParam.mmc5[chipID].pcmChannel.mask) Audio.setMMC5Mask(chipID, ch);
-                            else Audio.resetMMC5Mask(chipID,ch);
+                            else Audio.resetMMC5Mask(chipID, ch);
                             newParam.mmc5[chipID].pcmChannel.mask = !newParam.mmc5[chipID].pcmChannel.mask;
                             break;
                     }
@@ -4592,7 +4599,8 @@ namespace MDPlayer.form
                     Audio.resetOKIM6258Mask(chipID);
                     break;
                 case enmUseChip.NES:
-                    switch(ch) {
+                    switch (ch)
+                    {
                         case 0:
                         case 1:
                             newParam.nesdmc[chipID].sqrChannels[ch].mask = false;
@@ -4797,7 +4805,7 @@ namespace MDPlayer.form
             else
             {
                 List<int> uc = new List<int>();
-                for(int i=0;i<setting.midiKbd.UseChannel.Length;i++)
+                for (int i = 0; i < setting.midiKbd.UseChannel.Length; i++)
                 {
                     if (setting.midiKbd.UseChannel[i]) uc.Add(i);
                 }
@@ -4851,6 +4859,10 @@ namespace MDPlayer.form
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
 
+        private void PresetMixerBalance(string playingFileName, enmFileFormat format)
+        {
+            //throw new NotImplementedException();
+        }
+
     }
 }
-
