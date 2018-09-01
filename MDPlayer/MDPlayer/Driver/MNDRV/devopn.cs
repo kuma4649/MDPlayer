@@ -1867,7 +1867,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.vol2, (byte)reg.D4_B);
             reg.D1_L = 0x42;
             reg.D2_L = 4 - 1;
-            reg.D3_B += mm.ReadByte(reg.a5 + w.ch3tl);
+            reg.D3_B = mm.ReadByte(reg.a5 + w.ch3tl);
             do
             {
                 reg.D0_B = mm.ReadByte(reg.a2++);
@@ -2300,35 +2300,34 @@ namespace MDPlayer.Driver.MNDRV
             reg.a0 = reg.a6 + dw.TRACKWORKADR;
 
             L1:
-            if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) == 0)
+            if ((mm.ReadByte(reg.a0 + w.flag2) & 0x01) != 0) goto L3;
+            reg.a0 = reg.a0 + w._track_work_size;
+            reg.D0_W--;
+            if (reg.D0_W != 0) goto L1;
+
+            mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)(mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER) + 1));
+            reg.D1_W = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
+            if (reg.D1_W - 0xffff == 0)
             {
+                reg.D1_L = 0;
+                mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)reg.D1_W);
+            }
+            reg.D0_L = 1;
+            mndrv.SUBEVENT();
+
+            reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
+            reg.a0 = reg.a6 + dw.TRACKWORKADR;
+            do
+            {
+                if ((sbyte)mm.ReadByte(reg.a0 + w.flag) < 0)
+                {
+                    mm.Write(reg.a0 + w.flag2, (byte)(mm.ReadByte(reg.a0 + w.flag2) | 0x01));
+                }
                 reg.a0 = reg.a0 + w._track_work_size;
                 reg.D0_W--;
-                if (reg.D0_W != 0) goto L1;
+            } while (reg.D0_W != 0);
 
-                mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)(mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER) + 1));
-                reg.D1_W = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
-                if (reg.D1_W - (-1) == 0)
-                {
-                    reg.D1_L = 0;
-                    mm.Write(reg.a6 + dw.LOOP_COUNTER, (UInt16)reg.D1_W);
-                }
-                reg.D0_L = 1;
-                mndrv.SUBEVENT();
-
-                reg.D0_W = mm.ReadUInt16(reg.a6 + dw.USE_TRACK);
-                reg.a0 = reg.a6 + dw.TRACKWORKADR;
-                do
-                {
-                    if ((sbyte)mm.ReadByte(reg.a0 + w.flag) < 0)
-                    {
-                        mm.Write(reg.a0 + w.flag2, (byte)(mm.ReadByte(reg.a0 + w.flag2) | 0x01));
-                    }
-                    reg.a0 = reg.a0 + w._track_work_size;
-                    reg.D0_W--;
-                } while (reg.D0_W != 0);
-            }
-
+            L3:
             reg.D0_W = mm.ReadUInt16(reg.a1); reg.a1 += 2;
             if (reg.D0_W != 0)
             {

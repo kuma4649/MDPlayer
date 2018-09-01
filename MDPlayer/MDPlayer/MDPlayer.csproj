@@ -591,6 +591,16 @@
     <Content Include="Resources\ccPrevious.png" />
     <Content Include="Resources\ccSlow.png" />
     <Content Include="Resources\ccStop.png" />
+    <Content Include="Resources\DefaultVolumeBalance_HES.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MDR.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MDX.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MND.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_NRT.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_NSF.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_S98.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_SID.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_VGM.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_XGM.xml" />
     <Content Include="Resources\downPL.png" />
     <Content Include="Resources\imgPL.png" />
     <Content Include="Resources\japPL.png" />

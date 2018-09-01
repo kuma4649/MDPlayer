@@ -719,4 +719,49 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="txtPL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\txtPL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cntExceptionFormat" xml:space="preserve">
+    <value>例外発生:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n</value>
+  </data>
+  <data name="cntInnerExceptionFormat" xml:space="preserve">
+    <value>内部例外:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n</value>
+  </data>
+  <data name="cntLogFilename" xml:space="preserve">
+    <value>log.txt</value>
+  </data>
+  <data name="cntSettingFileName" xml:space="preserve">
+    <value>Setting.xml</value>
+  </data>
+  <data name="cntTimeFormat" xml:space="preserve">
+    <value>yyyy/MM/dd HH:mm:ss\t</value>
+  </data>
+  <data name="DefaultVolumeBalance_MND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mnd.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_VGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_vgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_MDR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mdr.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_MDX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_mdx.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_NRT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_nrt.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_XGM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_xgm.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_HES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_hes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_NSF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_nsf.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_S98" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_s98.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="DefaultVolumeBalance_SID" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\defaultvolumebalance_sid.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
 </root>

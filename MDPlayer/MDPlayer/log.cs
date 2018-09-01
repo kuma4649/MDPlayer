@@ -9,6 +9,8 @@ namespace MDPlayer
     {
         public static string path = "";
         public static bool debug = false;
+        public static bool consoleEchoBack = false;
+        private static Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
 
         public static void ForcedWrite(string msg)
         {
@@ -16,20 +18,16 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    fullPath = Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-                    if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
-                    path = Path.Combine(fullPath, "log.txt");
+                    string fullPath = common.GetApplicationDataFolder(true);
+                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
+                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
-                DateTime dtNow = DateTime.Now;
-                string timefmt = dtNow.ToString("yyyy/MM/dd HH:mm:ss\t");
-
-                Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
                     writer.WriteLine(timefmt + msg);
+                    if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
             }
             catch
@@ -43,29 +41,24 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    fullPath = Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-                    if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
-                    path = Path.Combine(fullPath, "log.txt");
+                    string fullPath = common.GetApplicationDataFolder(true);
+                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
+                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
-                DateTime dtNow = DateTime.Now;
-                string timefmt = dtNow.ToString("yyyy/MM/dd HH:mm:ss\t");
-
-                Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
-                    string msg = string.Format("例外発生:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n",e.GetType().Name, e.Message, e.Source, e.StackTrace);
+                    string msg = string.Format(Properties.Resources.cntExceptionFormat, e.GetType().Name, e.Message, e.Source, e.StackTrace);
                     Exception ie = e;
                     while (ie.InnerException != null)
                     {
                         ie = ie.InnerException;
-                        msg += string.Format("内部例外:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n", ie.GetType().Name, ie.Message, ie.Source, ie.StackTrace);
+                        msg += string.Format(Properties.Resources.cntInnerExceptionFormat, ie.GetType().Name, ie.Message, ie.Source, ie.StackTrace);
                     }
 
                     writer.WriteLine(timefmt + msg);
-                    System.Console.WriteLine(msg);
+                    if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
             }
             catch
@@ -75,29 +68,22 @@ namespace MDPlayer
 
         public static void Write(string msg)
         {
-            if (!debug)
-            {
-                return;
-            }
+            if (!debug) return;
 
             try
             {
                 if (path == "")
                 {
-                    string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    fullPath = Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-                    if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
-                    path = Path.Combine(fullPath, "log.txt");
+                    string fullPath = common.GetApplicationDataFolder(true);
+                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
+                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
-                DateTime dtNow = DateTime.Now;
-                string timefmt = dtNow.ToString("yyyy/MM/dd HH:mm:ss\t");
-
-                Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
                     writer.WriteLine(timefmt + msg);
+                    if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
             }
             catch
@@ -105,21 +91,5 @@ namespace MDPlayer
             }
         }
 
-        public static string AssemblyTitle
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
-                    {
-                        return titleAttribute.Title;
-                    }
-                }
-                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
-            }
-        }
     }
 }

@@ -11,6 +11,7 @@ namespace MDPlayer
     {
         public static Int32 SampleRate = 44100;
         public static Int32 NsfClock = 1789773;
+       
 
         public static UInt32 getBE16(byte[] buf, UInt32 adr)
         {
@@ -359,6 +360,15 @@ namespace MDPlayer
                 path += path[path.Length - 1] == '\\' ? "" : "\\";
             }
             return path;
+        }
+
+        public static string GetApplicationDataFolder(bool make = false)
+        {
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
+            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+
+            return fullPath;
         }
     }
 

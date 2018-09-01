@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDXファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MNDファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -27,6 +27,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .SID (コモドール向けファイル)  
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
+  .MND (MNDRV X68000(OPM,OKIM6258) & まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -66,7 +67,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・MXDRVのソースを参考、移植しています。  
   
+  ・MNDRVのソースを参考、移植しています。  
+  
   ・X68Soundのソースを参考、移植しています。  
+  (m_puusanさん/rururutanさん版両方)
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -156,6 +160,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・かきうち さん  
     ・ぼう☆きち さん  
     ・dj.tuBIG/MaliceX さん  
+    ・じごふりん さん  
      
     ・Visual Studio Community 2015  
     ・MinGW/msys  
@@ -170,8 +175,11 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・MoonDriver  
     ・MXP  
     ・MXDRV  
+    ・MNDRV  
+    ・MPCM  
     ・X68Sound  
     ・hoot  
+    ・XM6 TypeG  
     ・ASLPLAY  
     ・NAUDIO  
     ・VST.NET  

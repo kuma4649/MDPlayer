@@ -256,8 +256,10 @@
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.rbAutoBalanceNotSaveSongBalance = new System.Windows.Forms.RadioButton();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.rbAutoBalanceNotSamePositionAsSongData = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceSamePositionAsSongData = new System.Windows.Forms.RadioButton();
+            this.rbAutoBalanceNotSaveSongBalance = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceSaveSongBalance = new System.Windows.Forms.RadioButton();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -317,8 +319,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.rbAutoBalanceNotSamePositionAsSongData = new System.Windows.Forms.RadioButton();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -383,6 +383,7 @@
             this.groupBox18.SuspendLayout();
             this.groupBox24.SuspendLayout();
             this.groupBox21.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.groupBox22.SuspendLayout();
             this.groupBox23.SuspendLayout();
             this.groupBox19.SuspendLayout();
@@ -397,7 +398,6 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.groupBox25.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -2872,9 +2872,9 @@
             this.cbAutoBalanceUseThis.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAutoBalanceUseThis.Location = new System.Drawing.Point(13, 3);
             this.cbAutoBalanceUseThis.Name = "cbAutoBalanceUseThis";
-            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(160, 16);
+            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(208, 16);
             this.cbAutoBalanceUseThis.TabIndex = 1;
-            this.cbAutoBalanceUseThis.Text = "音量バランス機能を使用する";
+            this.cbAutoBalanceUseThis.Text = "音量バランス自動設定機能を使用する";
             this.cbAutoBalanceUseThis.UseVisualStyleBackColor = true;
             // 
             // groupBox18
@@ -2910,6 +2910,39 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "曲データ毎";
             // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
+            this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
+            this.groupBox25.Location = new System.Drawing.Point(34, 40);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(369, 41);
+            this.groupBox25.TabIndex = 1;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "保存先フォルダー";
+            // 
+            // rbAutoBalanceNotSamePositionAsSongData
+            // 
+            this.rbAutoBalanceNotSamePositionAsSongData.AutoSize = true;
+            this.rbAutoBalanceNotSamePositionAsSongData.Checked = true;
+            this.rbAutoBalanceNotSamePositionAsSongData.Location = new System.Drawing.Point(6, 18);
+            this.rbAutoBalanceNotSamePositionAsSongData.Name = "rbAutoBalanceNotSamePositionAsSongData";
+            this.rbAutoBalanceNotSamePositionAsSongData.Size = new System.Drawing.Size(110, 16);
+            this.rbAutoBalanceNotSamePositionAsSongData.TabIndex = 0;
+            this.rbAutoBalanceNotSamePositionAsSongData.TabStop = true;
+            this.rbAutoBalanceNotSamePositionAsSongData.Text = "設定ファイルと同じ";
+            this.rbAutoBalanceNotSamePositionAsSongData.UseVisualStyleBackColor = true;
+            // 
+            // rbAutoBalanceSamePositionAsSongData
+            // 
+            this.rbAutoBalanceSamePositionAsSongData.AutoSize = true;
+            this.rbAutoBalanceSamePositionAsSongData.Location = new System.Drawing.Point(122, 18);
+            this.rbAutoBalanceSamePositionAsSongData.Name = "rbAutoBalanceSamePositionAsSongData";
+            this.rbAutoBalanceSamePositionAsSongData.Size = new System.Drawing.Size(92, 16);
+            this.rbAutoBalanceSamePositionAsSongData.TabIndex = 0;
+            this.rbAutoBalanceSamePositionAsSongData.Text = "曲データと同じ";
+            this.rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = true;
+            // 
             // rbAutoBalanceNotSaveSongBalance
             // 
             this.rbAutoBalanceNotSaveSongBalance.AutoSize = true;
@@ -2921,16 +2954,6 @@
             this.rbAutoBalanceNotSaveSongBalance.TabStop = true;
             this.rbAutoBalanceNotSaveSongBalance.Text = "保存しない(手動保存のみ)";
             this.rbAutoBalanceNotSaveSongBalance.UseVisualStyleBackColor = true;
-            // 
-            // rbAutoBalanceSamePositionAsSongData
-            // 
-            this.rbAutoBalanceSamePositionAsSongData.AutoSize = true;
-            this.rbAutoBalanceSamePositionAsSongData.Location = new System.Drawing.Point(122, 18);
-            this.rbAutoBalanceSamePositionAsSongData.Name = "rbAutoBalanceSamePositionAsSongData";
-            this.rbAutoBalanceSamePositionAsSongData.Size = new System.Drawing.Size(92, 16);
-            this.rbAutoBalanceSamePositionAsSongData.TabIndex = 0;
-            this.rbAutoBalanceSamePositionAsSongData.Text = "曲データと同じ";
-            this.rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceSaveSongBalance
             // 
@@ -3564,29 +3587,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // groupBox25
-            // 
-            this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
-            this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
-            this.groupBox25.Location = new System.Drawing.Point(34, 40);
-            this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(369, 41);
-            this.groupBox25.TabIndex = 1;
-            this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "保存先フォルダー";
-            // 
-            // rbAutoBalanceNotSamePositionAsSongData
-            // 
-            this.rbAutoBalanceNotSamePositionAsSongData.AutoSize = true;
-            this.rbAutoBalanceNotSamePositionAsSongData.Checked = true;
-            this.rbAutoBalanceNotSamePositionAsSongData.Location = new System.Drawing.Point(6, 18);
-            this.rbAutoBalanceNotSamePositionAsSongData.Name = "rbAutoBalanceNotSamePositionAsSongData";
-            this.rbAutoBalanceNotSamePositionAsSongData.Size = new System.Drawing.Size(110, 16);
-            this.rbAutoBalanceNotSamePositionAsSongData.TabIndex = 0;
-            this.rbAutoBalanceNotSamePositionAsSongData.TabStop = true;
-            this.rbAutoBalanceNotSamePositionAsSongData.Text = "設定ファイルと同じ";
-            this.rbAutoBalanceNotSamePositionAsSongData.UseVisualStyleBackColor = true;
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3691,6 +3691,8 @@
             this.groupBox24.ResumeLayout(false);
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox23.ResumeLayout(false);
@@ -3716,8 +3718,6 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace MDPlayer
 {
@@ -2145,6 +2144,34 @@ namespace MDPlayer
 
                 return Balance;
             }
+
+            public void Save(string fullPath)
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Balance));
+                using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
+                {
+                    serializer.Serialize(sw, this);
+                }
+            }
+
+            public static Balance Load(string fullPath)
+            {
+                try
+                {
+                    if (!File.Exists(fullPath)) return null;
+                    XmlSerializer serializer = new XmlSerializer(typeof(Balance));
+                    using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
+                    {
+                        return (Balance)serializer.Deserialize(sr);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                    return null;
+                }
+            }
+
         }
 
         [Serializable]
@@ -3753,7 +3780,7 @@ namespace MDPlayer
         [Serializable]
         public class AutoBalance
         {
-            private bool _UseThis = true;
+            private bool _UseThis = false;
             private bool _LoadSongBalance = false;
             private bool _LoadDriverBalance = false;
             private bool _SaveSongBalance = false;
@@ -3821,13 +3848,11 @@ namespace MDPlayer
 
         public void Save()
         {
-            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
-            fullPath = System.IO.Path.Combine(fullPath, "Setting.xml");
+            string fullPath = common.GetApplicationDataFolder(true);
+            fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Setting));
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fullPath, false, new UTF8Encoding(false)))
+            XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+            using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
             {
                 serializer.Serialize(sw, this);
             }
@@ -3837,14 +3862,12 @@ namespace MDPlayer
         {
             try
             {
-                string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-                if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
-                fullPath = System.IO.Path.Combine(fullPath, "Setting.xml");
+                string fullPath = common.GetApplicationDataFolder(true);
+                fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
-                if (!System.IO.File.Exists(fullPath)) { return new Setting(); }
-                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Setting));
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(fullPath, new UTF8Encoding(false)))
+                if (!File.Exists(fullPath)) { return new Setting(); }
+                XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+                using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
                 {
                     return (Setting)serializer.Deserialize(sr);
                 }
@@ -3853,23 +3876,6 @@ namespace MDPlayer
             {
                 log.ForcedWrite(ex);
                 return new Setting();
-            }
-        }
-
-        public static string AssemblyTitle
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
-                    {
-                        return titleAttribute.Title;
-                    }
-                }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 

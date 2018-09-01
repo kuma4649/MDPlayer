@@ -49,8 +49,8 @@ namespace MDPlayer.Driver.MNDRV
                 mm.Write((uint)(0x9_0000 + i), vgmBuf[i]);
             }
             
-            ////デバッグ向け
-            //if (model == enmModel.RealModel) return true;
+            //デバッグ向け
+            if (model == enmModel.RealModel) return true;
 
             //mndrvの起動
             start();
@@ -59,31 +59,59 @@ namespace MDPlayer.Driver.MNDRV
             reg.a1 = 0x09_0000;
             reg.D1_L = (uint)vgmBuf.Length;
             _trap4_entry();
-            if ((Int32)reg.D0_L < 0) return false;
+            if ((Int32)reg.D0_L < 0)
+            {
+                Stopped = true;
+                return false;
+            }
 
             reg.D0_B = 0x03;//MND 演奏開始
             _trap4_entry();
-            if ((Int32)reg.D0_L < 0) return false;
+            if ((Int32)reg.D0_L < 0)
+            {
+                Stopped = true;
+                return false;
+            }
 
             return true;
         }
 
         public override void oneFrameProc()
         {
-            ////デバッグ向け
-            //if (model == enmModel.RealModel) return;
+            //デバッグ向け
+            if (model == enmModel.RealModel) return;
 
-            if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 0x20) == 0)
+            try
             {
-                timerOPN.timer();
-                if ((timerOPN.ReadStatus() & 3) != 0) interrupt._opn_entry();
-            }
-            else
-            {
-                timerOPM.timer();
-                if ((timerOPM.ReadStatus() & 3) != 0) interrupt._opm_entry();
-            }
+                vgmSpeedCounter += vgmSpeed;
+                while (vgmSpeedCounter >= 1.0)
+                {
+                    vgmSpeedCounter -= 1.0;
 
+                    if ((mm.ReadByte(reg.a6 + dw.DRV_FLAG) & 0x20) == 0)
+                    {
+                        timerOPN.timer();
+                        if ((timerOPN.ReadStatus() & 3) != 0) interrupt._opn_entry();
+                    }
+                    else
+                    {
+                        timerOPM.timer();
+                        if ((timerOPM.ReadStatus() & 3) != 0) interrupt._opm_entry();
+                    }
+                    Counter++;
+                    vgmFrameCounter++;
+                }
+
+                if ((mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x20) != 0)
+                {
+                    Stopped = true;
+                }
+                vgmCurLoop = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)

@@ -129,6 +129,7 @@ namespace MDPlayer.form
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+
             log.ForcedWrite("frmMain_Load:STEP 05");
 
             if (setting.location.PMain != System.Drawing.Point.Empty)
@@ -4110,7 +4111,7 @@ namespace MDPlayer.form
                 }
 
                 //再生前に音量のバランスを設定する
-                PresetMixerBalance(playingFileName, format);
+                PresetMixerBalance(playingFileName, playingArcFileName, format);
 
                 Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
@@ -4859,9 +4860,115 @@ namespace MDPlayer.form
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
 
-        private void PresetMixerBalance(string playingFileName, enmFileFormat format)
+        private void PresetMixerBalance(string playingFileName,string playingArcFileName, enmFileFormat format)
         {
-            //throw new NotImplementedException();
+            if (!setting.autoBalance.UseThis) return;
+
+            try
+            {
+                Setting.Balance balance = null;
+                string fullPath = common.GetApplicationDataFolder(true);
+                fullPath = Path.Combine(fullPath, "MixerBalance");
+                if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+                string fn = "";
+                string defMbc = "";
+
+                //曲ごとのプリセットを読み込むモード
+                if (setting.autoBalance.LoadSongBalance)
+                {
+                    if (setting.autoBalance.SamePositionAsSongData)
+                    {
+                        fullPath = Path.GetDirectoryName(playingFileName);
+                        if (!string.IsNullOrEmpty(playingArcFileName))
+                        {
+                            fullPath = Path.GetDirectoryName(playingArcFileName);
+                        }
+                    }
+                    fn = Path.GetFileName(playingFileName);
+                    if (!string.IsNullOrEmpty(playingArcFileName))
+                    {
+                        fn = Path.GetFileName(playingArcFileName) + "_" + fn;
+                    }
+                    fn += ".mbc";
+                    if (!File.Exists(Path.Combine(fullPath, fn)))
+                    {
+                        fn = "";
+                        fullPath = common.GetApplicationDataFolder(true);
+                        fullPath = Path.Combine(fullPath, "MixerBalance");
+                    }
+                }
+
+                //ドライバごとのプリセットを読み込むモード
+                if (setting.autoBalance.LoadDriverBalance && fn == "")
+                {
+                    switch (format)
+                    {
+                        case enmFileFormat.VGM:
+                            fn = "DriverBalance_VGM.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_VGM;
+                            break;
+                        case enmFileFormat.XGM:
+                            fn = "DriverBalance_XGM.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_XGM;
+                            break;
+                        case enmFileFormat.HES:
+                            fn = "DriverBalance_HES.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_HES;
+                            break;
+                        case enmFileFormat.NSF:
+                            fn = "DriverBalance_NSF.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_NSF;
+                            break;
+                        case enmFileFormat.NRT:
+                            fn = "DriverBalance_NRT.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_NRT;
+                            break;
+                        case enmFileFormat.MDR:
+                            fn = "DriverBalance_MDR.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_MDR;
+                            break;
+                        case enmFileFormat.MDX:
+                            fn = "DriverBalance_MDX.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_MDX;
+                            break;
+                        case enmFileFormat.MND:
+                            fn = "DriverBalance_MND.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_MND;
+                            break;
+                        case enmFileFormat.S98:
+                            fn = "DriverBalance_S98.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_S98;
+                            break;
+                        case enmFileFormat.SID:
+                            fn = "DriverBalance_SID.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_SID;
+                            break;
+                    }
+
+                    fullPath = Path.Combine(fullPath, fn);
+
+                }
+
+                if (fn == "") return;
+
+
+                //存在確認。無い場合は作成。
+                if (!File.Exists(fullPath) && defMbc != "") File.WriteAllText(fullPath, defMbc);
+                //データフォルダに存在するファイルを読み込む
+                balance = Setting.Balance.Load(fullPath);
+
+                if (balance == null) return;
+
+                //ミキサーバランス変更処理
+                setting.balance = balance;
+                frmMixer2.update();
+                Application.DoEvents();
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
     }

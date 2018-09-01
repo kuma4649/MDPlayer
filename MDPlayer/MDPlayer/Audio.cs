@@ -3115,7 +3115,7 @@ namespace MDPlayer
                 chip.Reset = huc.Reset;
                 chip.AdditionalUpdate = ((hes)driverVirtual).AdditionalUpdate;
                 chip.SamplingRate = (UInt32)common.SampleRate;
-                chip.Volume = setting.balance.APUVolume;
+                chip.Volume = setting.balance.HuC6280Volume;
                 chip.Clock = 3579545;
                 chip.Option = null;
                 lstChips.Add(chip);
