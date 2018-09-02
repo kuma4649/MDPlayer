@@ -297,6 +297,8 @@ namespace MDPlayer
             music.format = enmFileFormat.unknown;
             music.fileName = file;
             music.arcFileName = zipFile;
+            music.arcType = enmArcType.unknown;
+            if (!string.IsNullOrEmpty(zipFile)) music.arcType = zipFile.ToLower().LastIndexOf(".zip") != -1 ? enmArcType.ZIP : enmArcType.LZH;
             music.title = "unknown";
             music.game = "unknown";
             music.type = "-";
@@ -429,6 +431,8 @@ namespace MDPlayer
                         music.format = enmFileFormat.NSF;
                         music.fileName = file;
                         music.arcFileName = zipFile;
+                        music.arcType = enmArcType.unknown;
+                        if (!string.IsNullOrEmpty(zipFile)) music.arcType = zipFile.ToLower().LastIndexOf(".zip") != -1 ? enmArcType.ZIP : enmArcType.LZH;
                         music.title = string.Format("{0} - Trk {1}", gd3.GameName, s + 1);
                         music.titleJ = string.Format("{0} - Trk {1}", gd3.GameNameJ, s + 1);
                         music.game = gd3.GameName;
@@ -467,6 +471,8 @@ namespace MDPlayer
                     music.format = enmFileFormat.HES;
                     music.fileName = file;
                     music.arcFileName = zipFile;
+                    music.arcType = enmArcType.unknown;
+                    if (!string.IsNullOrEmpty(zipFile)) music.arcType = zipFile.ToLower().LastIndexOf(".zip") != -1 ? enmArcType.ZIP : enmArcType.LZH;
                     music.title = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
                     music.titleJ = string.Format("{0} - Trk {1}", System.IO.Path.GetFileName(file), s + 1);
                     music.game = "";
@@ -495,6 +501,8 @@ namespace MDPlayer
                     music.format = enmFileFormat.SID;
                     music.fileName = file;
                     music.arcFileName = zipFile;
+                    music.arcType = enmArcType.unknown;
+                    if (!string.IsNullOrEmpty(zipFile)) music.arcType = zipFile.ToLower().LastIndexOf(".zip") != -1 ? enmArcType.ZIP : enmArcType.LZH;
                     music.title = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
                     music.titleJ = string.Format("{0} - Trk {1}", gd3.TrackName, s + 1);
                     music.game = "";
@@ -1528,8 +1536,8 @@ namespace MDPlayer
                 driverReal = new Driver.MNDRV.mndrv();
                 driverVirtual.setting = setting;
                 driverReal.setting = setting;
-
-
+                ((Driver.MNDRV.mndrv)driverVirtual).ExtendFile = ExtendFile;
+                ((Driver.MNDRV.mndrv)driverReal).ExtendFile = ExtendFile;
                 return mndPlay(setting);
             }
 
@@ -2183,6 +2191,23 @@ namespace MDPlayer
                     lstChips.Add(chip);
                 }
 
+                MDSound.mpcmX68k mpcm = new mpcmX68k();
+                chip = new MDSound.MDSound.Chip();
+                chip.type = MDSound.MDSound.enmInstrumentType.mpcmX68k;
+                chip.ID = (byte)0;
+                chip.Instrument = mpcm;
+                chip.Update = mpcm.Update;
+                chip.Start = mpcm.Start;
+                chip.Stop = mpcm.Stop;
+                chip.Reset = mpcm.Reset;
+                chip.SamplingRate = (UInt32)common.SampleRate;
+                chip.Volume = 0;
+                chip.Clock = 15600;
+                chip.Option = new object[] { common.GetApplicationFolder() };
+                chipLED.PriOKI5 = 1;
+                lstChips.Add(chip);
+
+
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
 
@@ -2214,6 +2239,8 @@ namespace MDPlayer
                     errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : driverReal.errMsg;
                     return false;
                 }
+
+                ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).m_MPCM = mpcm;
 
                 Paused = false;
                 Stopped = false;

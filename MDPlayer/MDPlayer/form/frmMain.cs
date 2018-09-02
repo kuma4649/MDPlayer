@@ -2695,7 +2695,8 @@ namespace MDPlayer.form
 
                 if (frmPlayList.isPlaying())
                 {
-                    if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1) || Audio.GetVGMStopped())
+                    if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1)
+                        || Audio.GetVGMStopped())
                     {
                         fadeout();
                     }
@@ -4111,7 +4112,7 @@ namespace MDPlayer.form
                 }
 
                 //再生前に音量のバランスを設定する
-                PresetMixerBalance(playingFileName, playingArcFileName, format);
+                LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
 
                 Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
@@ -4174,6 +4175,20 @@ namespace MDPlayer.form
                             buf = getExtendFileAllBytes(fn, PDX + ".PDX", archive);
                         }
                         if (buf != null) ret.Add(new Tuple<string, byte[]>(".PDX", buf));
+                    }
+                    break;
+                case enmFileFormat.MND:
+                    uint pcmptr = (uint)((srcBuf[0x14] << 24) + (srcBuf[0x15] << 16) + (srcBuf[0x16] << 8) + srcBuf[0x17]);
+                    if (pcmptr != 0)
+                    {
+                        int pcmnum = (srcBuf[pcmptr] << 8) + srcBuf[pcmptr + 1];
+                        pcmptr += 2;
+                        for (int i = 0; i < pcmnum; i++)
+                        {
+                            string mndPcmFn = common.getNRDString(srcBuf, ref pcmptr);
+                            buf = getExtendFileAllBytes(fn, mndPcmFn, archive);
+                            if (buf != null) ret.Add(new Tuple<string, byte[]>(".PND", buf));
+                        }
                     }
                     break;
                 default:
@@ -4860,7 +4875,7 @@ namespace MDPlayer.form
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
 
-        private void PresetMixerBalance(string playingFileName,string playingArcFileName, enmFileFormat format)
+        private void LoadPresetMixerBalance(string playingFileName,string playingArcFileName, enmFileFormat format)
         {
             if (!setting.autoBalance.UseThis) return;
 
@@ -4969,6 +4984,83 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        private void ManualSavePresetMixerBalance(bool isDriverBalance, string playingFileName, string playingArcFileName, enmFileFormat format, Setting.Balance balance)
+        {
+            if (!setting.autoBalance.UseThis) return;
+
+            try
+            {
+                string fullPath = common.GetApplicationDataFolder(true);
+                fullPath = Path.Combine(fullPath, "MixerBalance");
+                if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+                string fn = "";
+
+                if (isDriverBalance)
+                {
+                    switch (format)
+                    {
+                        case enmFileFormat.VGM:
+                            fn = "DriverBalance_VGM.mbc";
+                            break;
+                        case enmFileFormat.XGM:
+                            fn = "DriverBalance_XGM.mbc";
+                            break;
+                        case enmFileFormat.HES:
+                            fn = "DriverBalance_HES.mbc";
+                            break;
+                        case enmFileFormat.NSF:
+                            fn = "DriverBalance_NSF.mbc";
+                            break;
+                        case enmFileFormat.NRT:
+                            fn = "DriverBalance_NRT.mbc";
+                            break;
+                        case enmFileFormat.MDR:
+                            fn = "DriverBalance_MDR.mbc";
+                            break;
+                        case enmFileFormat.MDX:
+                            fn = "DriverBalance_MDX.mbc";
+                            break;
+                        case enmFileFormat.MND:
+                            fn = "DriverBalance_MND.mbc";
+                            break;
+                        case enmFileFormat.S98:
+                            fn = "DriverBalance_S98.mbc";
+                            break;
+                        case enmFileFormat.SID:
+                            fn = "DriverBalance_SID.mbc";
+                            break;
+                    }
+
+                    fullPath = Path.Combine(fullPath, fn);
+
+                }
+                else
+                {
+
+                }
+
+                balance.Save(fullPath);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        public string SaveDriverBalance(Setting.Balance balance)
+        {
+            PlayList.music music = frmPlayList.getPlayingSongInfo();
+            if(music==null)
+            {
+                throw new Exception("演奏情報が取得できませんでした。\r\n演奏中又は演奏完了直後に再度お試しください。");
+            }
+
+            enmFileFormat fmt = music.format;
+            ManualSavePresetMixerBalance(true, "", "", fmt, balance);
+
+            return fmt.ToString();
         }
 
     }

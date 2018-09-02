@@ -8,6 +8,7 @@ namespace MDPlayer.Driver.MNDRV
 {
     public class mndrv : baseDriver
     {
+        public List<Tuple<string, byte[]>> ExtendFile = null;
 
 
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
@@ -63,6 +64,28 @@ namespace MDPlayer.Driver.MNDRV
             {
                 Stopped = true;
                 return false;
+            }
+
+            //pcm転送
+            if (ExtendFile != null)
+            {
+                for (int j = 0; j < ExtendFile.Count; j++)
+                {
+                    //pcmファイルをx68メモリにコピー
+                    for (int i = 0; i < ExtendFile[j].Item2.Length; i++)
+                    {
+                        mm.Write((uint)(0x9_0000 + i), ExtendFile[j].Item2[i]);
+                    }
+                    reg.D0_B = 0x02;//PCM データ転送
+                    reg.a1 = 0x09_0000;
+                    reg.D1_L = (uint)ExtendFile[j].Item2.Length;
+                    _trap4_entry();
+                    if ((Int32)reg.D0_L < 0)
+                    {
+                        Stopped = true;
+                        return false;
+                    }
+                }
             }
 
             reg.D0_B = 0x03;//MND 演奏開始
@@ -256,10 +279,63 @@ namespace MDPlayer.Driver.MNDRV
         public FMTimer timerOPM;
         public FMTimer timerOPN;
 
+        MDSound.mpcmX68k.SETPCM tbl = new MDSound.mpcmX68k.SETPCM();
+        UInt16[] vtbl = new UInt16[128];
+        public MDSound.mpcmX68k m_MPCM;
+
         //トラップ処理(実質MPCM制御)
         public void trap(int n)
         {
+            if (model == enmModel.RealModel) return;
 
+            int ch = (int)reg.D0_B;
+
+            if (m_MPCM == null) return;
+
+            switch ((reg.D0_W >> 8) & 0xff)
+            {
+                case 0x00:
+                    m_MPCM.KeyOn(0,ch);
+                    break;
+                case 0x01:
+                    m_MPCM.KeyOff(0,ch);
+                    break;
+                case 0x02:
+                    tbl.type = mm.ReadByte(0x00 + reg.a1);
+                    tbl.orig = mm.ReadByte(0x01 + reg.a1);
+                    tbl.adrs_buf = mm.mm;
+                    tbl.adrs_ptr = (int)mm.ReadUInt32(0x04 + reg.a1);
+                    tbl.size = mm.ReadUInt32(0x08 + reg.a1);
+                    tbl.start = mm.ReadUInt32(0x0c + reg.a1);
+                    tbl.end = mm.ReadUInt32(0x10 + reg.a1);
+                    tbl.count = mm.ReadUInt32(0x14 + reg.a1);
+                    m_MPCM.SetPcm(0, ch, tbl);
+                    break;
+                case 0x04:
+                    m_MPCM.SetPitch(0,ch, (int)reg.D1_L);
+                    break;
+                case 0x05:
+                    m_MPCM.SetVol(0, ch, (int)(reg.D1_B));
+                    break;
+                case 0x06:
+                    m_MPCM.SetPan(0, ch, (int)(reg.D1_B));
+                    break;
+                case 0x80:
+                    switch (reg.D0_B)
+                    {
+                        case 0x02:
+                            m_MPCM.Reset(0);
+                            break;
+                        case 0x05:
+                            for (int i = 0; i < 128; i++)
+                            {
+                                vtbl[i] = mm.ReadUInt16((uint)(reg.a1 + (i * 2)));
+                            }
+                            m_MPCM.SetVolTable(0, (int)reg.D1_L, vtbl);
+                            break;
+                    }
+                    break;
+            }
         }
 
         //
@@ -2990,7 +3066,7 @@ namespace MDPlayer.Driver.MNDRV
         //─────────────────────────────────────
         public uint _data_work_size = 384 * 1024;
         public uint _work_top = 0x01_0000;
-        public uint _buffer_top = 0x08_0000;
+        public uint _buffer_top = 0x03_0000;
         public uint _old_trap4_vec = 0;
         public uint _old_opn_vec = 0;
         public uint _old_opm_vec = 0;

@@ -924,5 +924,40 @@ namespace MDPlayer.form
         {
             pbScreen.Focus();
         }
+
+        private void tsmiLoadDriverBalance_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiLoadSongBalance_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiSaveDriverBalance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string retMsg = parent.SaveDriverBalance(parent.setting.balance.Copy());
+                if (retMsg != "")
+                {
+                    MessageBox.Show(string.Format("ドライバーバランス[{0}]を設定フォルダーに保存しました。", retMsg), "保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                MessageBox.Show(string.Format("{0}",ex.Message), "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void tsmiSaveSongBalance_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

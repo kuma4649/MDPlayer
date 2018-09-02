@@ -2908,7 +2908,7 @@
             this.groupBox21.Size = new System.Drawing.Size(409, 109);
             this.groupBox21.TabIndex = 0;
             this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "曲データ毎";
+            this.groupBox21.Text = "ソングバランス(曲データ毎)";
             // 
             // groupBox25
             // 
@@ -2973,7 +2973,7 @@
             this.groupBox22.Size = new System.Drawing.Size(409, 35);
             this.groupBox22.TabIndex = 0;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "ドライバ毎";
+            this.groupBox22.Text = "ドライババランス(ドライバ毎)";
             // 
             // label4
             // 
@@ -3004,7 +3004,7 @@
             this.groupBox19.Size = new System.Drawing.Size(409, 63);
             this.groupBox19.TabIndex = 0;
             this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "曲データ毎";
+            this.groupBox19.Text = "ソングバランス(曲データ毎)";
             // 
             // rbAutoBalanceNotLoadSongBalance
             // 
@@ -3037,7 +3037,7 @@
             this.groupBox20.Size = new System.Drawing.Size(409, 63);
             this.groupBox20.TabIndex = 0;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "ドライバ毎";
+            this.groupBox20.Text = "ドライババランス(ドライバ毎)";
             // 
             // rbAutoBalanceNotLoadDriverBalance
             // 

@@ -177,7 +177,7 @@ namespace MDPlayer
             }
         }
 
-        private List<DataGridViewRow> makeRow(List<PlayList.music> musics)
+        public List<DataGridViewRow> makeRow(List<PlayList.music> musics)
         {
             List<DataGridViewRow> ret = new List<DataGridViewRow>();
 
@@ -203,6 +203,7 @@ namespace MDPlayer
                 row.Cells[dgvList.Columns["clmDuration"].Index].Value = music.duration;
                 row.Cells[dgvList.Columns["clmVGMby"].Index].Value = music.vgmby;
                 row.Cells[dgvList.Columns["clmSongNo"].Index].Value = music.songNo;
+                row.Tag = music;
 
                 ret.Add(row);
             }
@@ -657,6 +658,7 @@ namespace MDPlayer
                         music zmc = new music();
                         zmc.fileName = zm;
                         zmc.arcFileName = mc.arcFileName;
+                        zmc.arcType = mc.arcType;
                         mMember.Add(zmc);
                     }
                 }
@@ -673,6 +675,7 @@ namespace MDPlayer
                         {
                             m.format = common.CheckExt(m.fileName);
                             m.arcFileName = mc.arcFileName;
+                            m.arcType = mc.arcType;
                             AddFileLoop(m, ent);
                         }
                     }
@@ -734,6 +737,7 @@ namespace MDPlayer
                     music zmc = new music();
                     zmc.fileName = zm;
                     zmc.arcFileName = mc.arcFileName;
+                    zmc.arcType = mc.arcType;
                     mMember.Add(zmc);
                 }
             }
@@ -750,6 +754,7 @@ namespace MDPlayer
                     {
                         m.format = common.CheckExt(m.fileName);
                         m.arcFileName = mc.arcFileName;
+                        m.arcType = mc.arcType;
                         AddFileLoop(m, new Tuple<string, string>(m.arcFileName, ent.Item1));
                     }
                 }

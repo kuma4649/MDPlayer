@@ -139,6 +139,7 @@
     <Compile Include="Driver\MNDRV\interrupt.cs" />
     <Compile Include="Driver\MNDRV\mndrv.cs" />
     <Compile Include="Driver\MNDRV\mnwork.cs" />
+    <Compile Include="Driver\MNDRV\mpcm.cs" />
     <Compile Include="Driver\MNDRV\reg.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
     <Compile Include="Driver\MXDRV\depend.cs" />

@@ -2383,6 +2383,7 @@ namespace MDPlayer
         public string VGMBy = "";
         public string Version = "";
         public string UsedChips = "";
+
         public List<Tuple<int,int, string>> Lyrics = null;
     }
 
