@@ -4178,7 +4178,9 @@ namespace MDPlayer.form
                     }
                     break;
                 case enmFileFormat.MND:
+                    uint hs=(uint)((srcBuf[0x06] << 8) + srcBuf[0x07]);
                     uint pcmptr = (uint)((srcBuf[0x14] << 24) + (srcBuf[0x15] << 16) + (srcBuf[0x16] << 8) + srcBuf[0x17]);
+                    if (hs < 0x18) pcmptr = 0;
                     if (pcmptr != 0)
                     {
                         int pcmnum = (srcBuf[pcmptr] << 8) + srcBuf[pcmptr + 1];

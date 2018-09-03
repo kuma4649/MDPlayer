@@ -43,21 +43,21 @@ namespace MDPlayer.Driver.MNDRV
                 }
             }
 
-
-            mm.alloc(0x10_0000);
+            uint memPtr = (uint)(0x03_0000);
+            mm.alloc((int)(memPtr + vgmBuf.Length * 2 + 4));
             for (int i = 0; i < vgmBuf.Length; i++)
             {
-                mm.Write((uint)(0x9_0000 + i), vgmBuf[i]);
+                mm.Write((uint)(memPtr + vgmBuf.Length + i), vgmBuf[i]);
             }
             
             //デバッグ向け
-            if (model == enmModel.RealModel) return true;
+            //if (model == enmModel.RealModel) return true;
 
             //mndrvの起動
             start();
 
             reg.D0_B = 0x01;//MND データ転送
-            reg.a1 = 0x09_0000;
+            reg.a1 = (uint)(memPtr + vgmBuf.Length);
             reg.D1_L = (uint)vgmBuf.Length;
             _trap4_entry();
             if ((Int32)reg.D0_L < 0)
@@ -65,19 +65,21 @@ namespace MDPlayer.Driver.MNDRV
                 Stopped = true;
                 return false;
             }
+            memPtr += (uint)vgmBuf.Length;
 
             //pcm転送
-            if (ExtendFile != null)
+            if (ExtendFile != null && model!= enmModel.RealModel)
             {
                 for (int j = 0; j < ExtendFile.Count; j++)
                 {
+                    mm.realloc((uint)(memPtr + ExtendFile[j].Item2.Length * 2 + 4));
                     //pcmファイルをx68メモリにコピー
                     for (int i = 0; i < ExtendFile[j].Item2.Length; i++)
                     {
-                        mm.Write((uint)(0x9_0000 + i), ExtendFile[j].Item2[i]);
+                        mm.Write((uint)(memPtr + ExtendFile[j].Item2.Length + i), ExtendFile[j].Item2[i]);
                     }
                     reg.D0_B = 0x02;//PCM データ転送
-                    reg.a1 = 0x09_0000;
+                    reg.a1 = (uint)(memPtr + ExtendFile[j].Item2.Length);
                     reg.D1_L = (uint)ExtendFile[j].Item2.Length;
                     _trap4_entry();
                     if ((Int32)reg.D0_L < 0)
@@ -85,6 +87,7 @@ namespace MDPlayer.Driver.MNDRV
                         Stopped = true;
                         return false;
                     }
+                    memPtr += (uint)ExtendFile[j].Item2.Length;
                 }
             }
 
@@ -102,7 +105,7 @@ namespace MDPlayer.Driver.MNDRV
         public override void oneFrameProc()
         {
             //デバッグ向け
-            if (model == enmModel.RealModel) return;
+            //if (model == enmModel.RealModel) return;
 
             try
             {
@@ -3850,7 +3853,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 0;
             reg.D0_W = reg.D1_W;
             reg.D0_L <<= 8;
-            reg.D0_W /= reg.D2_W;
+            reg.D0_L = (UInt32)((UInt16)((Int32)reg.D0_L / (Int16)reg.D2_W) | (UInt32)(((UInt16)((Int32)reg.D0_L % (Int16)reg.D2_W)) << 16));
             mm.Write(reg.a2, (byte)reg.D0_B); reg.a2++;
             reg.D1_W += 1;
 
@@ -3914,7 +3917,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D0_L = 0;
             reg.D0_W = reg.D1_W;
             reg.D0_L <<= 8;
-            reg.D0_W /= reg.D2_W;
+            reg.D0_L = (UInt32)((UInt16)((Int32)reg.D0_L / (Int16)reg.D2_W) | (UInt32)(((UInt16)((Int32)reg.D0_L % (Int16)reg.D2_W)) << 16));
             mm.Write(reg.a2, (byte)reg.D0_B); reg.a2++;
             MAKE_FREQTBL5:
             reg.D1_W -= 1;

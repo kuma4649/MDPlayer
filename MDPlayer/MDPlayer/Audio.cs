@@ -2201,7 +2201,7 @@ namespace MDPlayer
                 chip.Stop = mpcm.Stop;
                 chip.Reset = mpcm.Reset;
                 chip.SamplingRate = (UInt32)common.SampleRate;
-                chip.Volume = 0;
+                chip.Volume = setting.balance.OKIM6258Volume;
                 chip.Clock = 15600;
                 chip.Option = new object[] { common.GetApplicationFolder() };
                 chipLED.PriOKI5 = 1;
@@ -5753,6 +5753,7 @@ namespace MDPlayer
             try
             {
                 mds.SetVolumeOKIM6258(volume);
+                mds.SetVolumeMpcmX68k(volume);
             }
             catch { }
         }

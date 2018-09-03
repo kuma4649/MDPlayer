@@ -789,7 +789,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadByte(reg.a4 + w_l.count_work) != 0) return;
             mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
             //	neg.w	w_l_henka_work(a4)
-            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(Int16)(-mm.ReadUInt16(reg.a4 + w_l.henka_work)));
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-(Int16)mm.ReadUInt16(reg.a4 + w_l.henka_work)));
         }
 
         //─────────────────────────────────────

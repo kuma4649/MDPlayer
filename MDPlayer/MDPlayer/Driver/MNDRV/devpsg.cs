@@ -84,7 +84,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a5 + w.freqwork, (UInt16)reg.D0_W);
             reg.D0_W >>= (int)reg.D1_W;
             reg.D1_W = mm.ReadUInt16(reg.a5 + w.detune);
-            reg.D1_W = (UInt16)(Int16)(-reg.D1_W);
+            reg.D1_W = (UInt16)(-(Int16)reg.D1_W);
 
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
             reg.D0_W += (UInt32)(Int16)reg.D1_W;
@@ -822,7 +822,7 @@ namespace MDPlayer.Driver.MNDRV
 
             reg.D1_W -= (UInt32)(Int16)reg.D0_W;
             reg.D1_L = (UInt32)(Int16)reg.D1_W;
-            reg.D1_W = (UInt16)((Int16)reg.D1_W / (Int16)reg.D2_W);
+            reg.D1_L = (UInt32)((UInt16)((Int32)reg.D1_L / (Int16)reg.D2_W) | (UInt32)(((UInt16)((Int32)reg.D1_L % (Int16)reg.D2_W)) << 16));
             mm.Write(reg.a4 + w_l.henka, (UInt16)reg.D1_W);
             reg.D1_L = (reg.D1_L << 16) | (reg.D1_L >> 16);
             mm.Write(reg.a4 + w_l.henka_work, (UInt16)reg.D1_W);
@@ -1313,6 +1313,7 @@ namespace MDPlayer.Driver.MNDRV
             reg.D1_B++;
             reg.D0_W <<= 8;
             reg.D0_W /= reg.D1_W;
+            reg.D0_L = (UInt32)((UInt16)((UInt32)reg.D0_L / (UInt16)reg.D1_W) | (UInt32)(((UInt16)((UInt32)reg.D0_L % (UInt16)reg.D1_W)) << 16));
             mm.Write(reg.a5 + w.eenv_limit, reg.D0_B);
 #endif
         }
@@ -1587,7 +1588,7 @@ namespace MDPlayer.Driver.MNDRV
 #endif
 
             reg.D1_W += mm.ReadUInt16(reg.a5 + w.addkeycode);
-            reg.D1_W = (UInt16)(Int16)(-reg.D1_W);
+            reg.D1_W = (UInt16)(-(Int16)reg.D1_W);
             reg.D1_W = (UInt16)((Int16)reg.D1_W >> 2);
             reg.D0_W += (UInt32)(Int16)reg.D1_W;
             _set_psg_bend();

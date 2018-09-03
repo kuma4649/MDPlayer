@@ -1206,7 +1206,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.count, (byte)reg.D2_B);
 
             reg.D5_L = (UInt32)(Int16)reg.D5_W;
-            reg.D5_L = (UInt32)((Int16)reg.D5_W / (Int16)reg.D2_W);
+            reg.D5_L = (UInt32)((UInt16)((Int32)reg.D5_L / (Int16)reg.D2_W) | (UInt32)(((UInt16)((Int32)reg.D5_L % (Int16)reg.D2_W)) << 16));
             mm.Write(reg.a4 + w_l.henka, (UInt16)reg.D5_W);
             reg.D5_L = (reg.D5_L >> 16) | (reg.D5_L << 16);
             mm.Write(reg.a4 + w_l.henka_work, (UInt16)reg.D5_W);
@@ -3175,27 +3175,27 @@ namespace MDPlayer.Driver.MNDRV
             reg.D3_W = reg.D2_W;
             reg.D3_W &= 0x3800;
             reg.D2_W &= 0x7ff;
-            reg.D2_W -= mm.ReadUInt16(reg.a5 + w.detune);
+            reg.D2_W = (UInt16)((Int16)reg.D2_W-(Int16)mm.ReadUInt16(reg.a5 + w.detune));
             reg.D4_W = 0x26a;
-            reg.D2_W -= (UInt32)(Int16)reg.D4_W;
+            reg.D2_W = (UInt16)((Int16)reg.D2_W-(Int16)reg.D4_W);
             reg.D5_W = 0x800;
-            reg.D1_W = (UInt16)(Int16)(-reg.D1_W);
+            reg.D1_W = (UInt16)(-(Int16)reg.D1_W);
 
             L1b:
             if (reg.D1_W >= reg.D4_W)
             {
-                reg.D1_W -= (UInt32)(Int16)reg.D4_W;
-                reg.D3_W -= (UInt32)(Int16)reg.D5_W;
+                reg.D1_W = (UInt16)((Int16)reg.D1_W - (Int16)reg.D4_W);
+                reg.D3_W = (UInt16)((Int16)reg.D3_W - (Int16)reg.D5_W);
                 if ((Int16)reg.D3_W >= 0) goto L1b;
                 reg.D2_W = reg.D4_W;
                 goto _ex_slot_calc2_exit;
             }
 
-            reg.D2_W -= (UInt32)(Int16)reg.D1_W;
+            reg.D2_W = (UInt16)((Int16)reg.D2_W - (Int16)reg.D1_W);
             if ((Int16)reg.D2_W < 0)
             {
                 reg.D2_W += (UInt32)(Int16)reg.D4_W;
-                reg.D3_W -= (UInt32)(Int16)reg.D5_W;
+                reg.D3_W = (UInt16)((Int16)reg.D3_W - (Int16)reg.D5_W);
                 if ((Int16)reg.D3_W < 0)
                 {
                     reg.D2_W = reg.D4_W;
@@ -3792,7 +3792,7 @@ namespace MDPlayer.Driver.MNDRV
             if (mm.ReadByte(reg.a4 + w_l.count_work) == 0)
             {
                 mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
-                mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-mm.ReadUInt16(reg.a4 + w_l.henka_work)));
+                mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-(Int16)mm.ReadUInt16(reg.a4 + w_l.henka_work)));
             }
         }
 
@@ -4041,7 +4041,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_ww.depth_work, (byte)(mm.ReadByte(reg.a4 + w_ww.depth_work) - 1));
             if (mm.ReadByte(reg.a4 + w_ww.depth_work) != 0) return;
             mm.Write(reg.a4 + w_ww.depth_work, mm.ReadByte(reg.a4 + w_ww.depth));
-            mm.Write(reg.a4 + w_ww.rate_work, (byte)(-mm.ReadByte(reg.a4 + w_ww.rate_work)));
+            mm.Write(reg.a4 + w_ww.rate_work, (byte)(-(sbyte)mm.ReadByte(reg.a4 + w_ww.rate_work)));
         }
 
         //─────────────────────────────────────

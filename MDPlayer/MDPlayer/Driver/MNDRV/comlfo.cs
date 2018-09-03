@@ -320,7 +320,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.count_work, (byte)(mm.ReadByte(reg.a4 + w_l.count_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.count_work) != 0) goto _com_lfo_triangle_end;
             mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
-            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-mm.ReadUInt16(reg.a4 + w_l.henka_work)));
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-(Int16)mm.ReadUInt16(reg.a4 + w_l.henka_work)));
 
             _com_lfo_triangle_end:
             reg.D1_W = mm.ReadUInt16(reg.a4 + w_l.bendwork);
@@ -363,7 +363,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.count_work, (byte)(mm.ReadByte(reg.a4 + w_l.count_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.count_work) != 0) goto _com_lfo_square_end;
             mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
-            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-mm.ReadUInt16(reg.a4 + w_l.henka_work)));
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-(Int16)mm.ReadUInt16(reg.a4 + w_l.henka_work)));
 
             _com_lfo_square_end:
             reg.D1_W = mm.ReadUInt16(reg.a4 + w_l.henka_work);
@@ -388,7 +388,7 @@ namespace MDPlayer.Driver.MNDRV
             mm.Write(reg.a4 + w_l.count_work, (byte)(mm.ReadByte(reg.a4 + w_l.count_work) - 1));
             if (mm.ReadByte(reg.a4 + w_l.count_work) != 0) goto _com_lfo_randome_end;
             mm.Write(reg.a4 + w_l.count_work, mm.ReadByte(reg.a4 + w_l.count));
-            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-mm.ReadUInt16(reg.a4 + w_l.henka_work)));
+            mm.Write(reg.a4 + w_l.henka_work, (UInt16)(-(Int16)mm.ReadUInt16(reg.a4 + w_l.henka_work)));
 
             _com_lfo_randome_end:
             reg.D1_W = mm.ReadUInt16(reg.a4 + w_l.henka_work);
