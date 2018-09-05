@@ -166,7 +166,7 @@ namespace MDPlayer.Driver.MXDRV
             if (!string.IsNullOrEmpty(pdxFileName) && pdx == null)
             {
                 errMsg = string.Format("PCMファイル[{0}]の読み込みに失敗しました。",pdxFileName);
-                //return false;
+                return false;
             }
 
             int ret;

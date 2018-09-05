@@ -1497,7 +1497,15 @@ namespace MDPlayer
         {
             errMsg = "";
 
-            waveWriter.Open(PlayingFileName);
+            try
+            {
+                waveWriter.Open(PlayingFileName);
+            }
+            catch
+            {
+                errMsg = "wave file open error.";
+                return false;
+            }
 
             if (PlayingFileFormat == enmFileFormat.NRT)
             {

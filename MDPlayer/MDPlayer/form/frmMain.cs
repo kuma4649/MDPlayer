@@ -2899,136 +2899,174 @@ namespace MDPlayer.form
 
             reqAllScreenInit = true;
 
-            loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3, playFn.Item4);
-            frmPlayList.Play();
+            if (loadAndPlay(playFn.Item1, playFn.Item2, playFn.Item3, playFn.Item4))
+            {
+                frmPlayList.Play();
+            }
 
         }
 
         private void playdata()
         {
-
-            if (srcBuf == null)
+            try
             {
-                return;
-            }
 
-            if (Audio.isPaused)
-            {
-                Audio.Pause();
-            }
-            stop();
-
-            for (int chipID = 0; chipID < 2; chipID++)
-            {
-                for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.AY8910, chipID, ch);
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
-                for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
-                for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
-                for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
-                for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
-                for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
-                for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
-                for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
-                for (int ch = 0; ch < 2; ch++) ResetChannelMask(enmUseChip.NES, chipID, ch);
-                for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.DMC, chipID, ch);
-                for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.MMC5, chipID, ch);
-                ResetChannelMask(enmUseChip.FDS, chipID, 0);
-            }
-
-            oldParam = new MDChipParams();
-            //newParam = new MDChipParams();
-            reqAllScreenInit = true;
-
-
-
-            if (!Audio.Play(setting))
-            {
-                //MessageBox.Show("再生に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                try
+                if (srcBuf == null)
                 {
-                    frmPlayList.Stop();
-                    Audio.Stop();
-                }
-                catch (Exception ex)
-                {
-                    log.ForcedWrite(ex);
-                }
-                if (Audio.errMsg == "") throw new Exception();
-                else
-                {
-                    MessageBox.Show(Audio.errMsg, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Audio.errMsg = "cancel";
                     return;
                 }
+
+                if (Audio.isPaused)
+                {
+                    Audio.Pause();
+                }
+                stop();
+
+                for (int chipID = 0; chipID < 2; chipID++)
+                {
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.AY8910, chipID, ch);
+                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
+                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
+                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
+                    for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
+                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
+                    for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
+                    for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
+                    for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
+                    for (int ch = 0; ch < 2; ch++) ResetChannelMask(enmUseChip.NES, chipID, ch);
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.DMC, chipID, ch);
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.MMC5, chipID, ch);
+                    ResetChannelMask(enmUseChip.FDS, chipID, 0);
+                }
+
+                oldParam = new MDChipParams();
+                //newParam = new MDChipParams();
+                reqAllScreenInit = true;
+
+                if (setting.other.WavSwitch)
+                {
+                    if (!System.IO.Directory.Exists(setting.other.WavPath))
+                    {
+                        DialogResult res = MessageBox.Show(
+                            "wavファイル出力先に設定されたパスが存在しません。作成し演奏を続けますか。"
+                            , "パス作成確認"
+                            , MessageBoxButtons.YesNo
+                            , MessageBoxIcon.Information);
+                        if (res == DialogResult.No)
+                        {
+                            Audio.errMsg = "cancel";
+                            return;
+                        }
+                        try
+                        {
+                            Directory.CreateDirectory(setting.other.WavPath);
+                        }
+                        catch
+                        {
+                            MessageBox.Show(
+                               "パスの作成に失敗しました。演奏を停止します。"
+                               , "作成失敗"
+                               , MessageBoxButtons.OK
+                               , MessageBoxIcon.Error);
+                            Audio.errMsg = "cancel";
+                            return;
+                        }
+                    }
+                }
+
+                if (!Audio.Play(setting))
+                {
+                    try
+                    {
+                        frmPlayList.Stop();
+                        Audio.Stop();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                    }
+                    if (Audio.errMsg == "") throw new Exception();
+                    else
+                    {
+                        MessageBox.Show(Audio.errMsg, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                if (frmInfo != null)
+                {
+                    frmInfo.update();
+                }
+
+                if (setting.other.AutoOpen)
+                {
+
+                    if (Audio.chipLED.PriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
+                    if (Audio.chipLED.SecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);
+
+                    if (Audio.chipLED.PriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
+                    if (Audio.chipLED.SecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
+
+                    if (Audio.chipLED.PriOPLL != 0) OpenFormYM2413(0, true); else CloseFormYM2413(0);
+                    if (Audio.chipLED.SecOPLL != 0) OpenFormYM2413(1, true); else CloseFormYM2413(1);
+
+                    if (Audio.chipLED.PriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
+                    if (Audio.chipLED.SecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
+
+                    if (Audio.chipLED.PriOPNB != 0) OpenFormYM2610(0, true); else CloseFormYM2610(0);
+                    if (Audio.chipLED.SecOPNB != 0) OpenFormYM2610(1, true); else CloseFormYM2610(1);
+
+                    if (Audio.chipLED.PriOPN2 != 0) OpenFormYM2612(0, true); else CloseFormYM2612(0);
+                    if (Audio.chipLED.SecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
+
+                    if (Audio.chipLED.PriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
+                    if (Audio.chipLED.SecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
+
+                    if (Audio.chipLED.PriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
+                    if (Audio.chipLED.SecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
+
+                    if (Audio.chipLED.PriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
+                    if (Audio.chipLED.SecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
+
+                    if (Audio.chipLED.PriOKI9 != 0) OpenFormOKIM6295(0, true); else CloseFormOKIM6295(0);
+                    if (Audio.chipLED.SecOKI9 != 0) OpenFormOKIM6295(1, true); else CloseFormOKIM6295(1);
+
+                    if (Audio.chipLED.PriC140 != 0) OpenFormC140(0, true); else CloseFormC140(0);
+                    if (Audio.chipLED.SecC140 != 0) OpenFormC140(1, true); else CloseFormC140(1);
+
+                    if (Audio.chipLED.PriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
+                    if (Audio.chipLED.SecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
+
+                    if (Audio.chipLED.PriAY10 != 0) OpenFormAY8910(0, true); else CloseFormAY8910(0);
+                    if (Audio.chipLED.SecAY10 != 0) OpenFormAY8910(1, true); else CloseFormAY8910(1);
+
+                    if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
+                    if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
+
+                    if (Audio.chipLED.PriMID != 0) OpenFormMIDI(0, true); else CloseFormMIDI(0);
+                    if (Audio.chipLED.SecMID != 0) OpenFormMIDI(1, true); else CloseFormMIDI(1);
+
+                    if (Audio.chipLED.PriNES != 0 || Audio.chipLED.PriDMC != 0) OpenFormNESDMC(0, true); else CloseFormNESDMC(0);
+                    if (Audio.chipLED.SecNES != 0 || Audio.chipLED.SecDMC != 0) OpenFormNESDMC(1, true); else CloseFormNESDMC(1);
+
+                    if (Audio.chipLED.PriFDS != 0) OpenFormFDS(0, true); else CloseFormFDS(0);
+                    if (Audio.chipLED.SecFDS != 0) OpenFormFDS(1, true); else CloseFormFDS(1);
+
+                    if (Audio.chipLED.PriMMC5 != 0) OpenFormMMC5(0, true); else CloseFormMMC5(0);
+                    if (Audio.chipLED.SecMMC5 != 0) OpenFormMMC5(1, true); else CloseFormMMC5(1);
+
+                    if (Audio.chipLED.PriOPL4 != 0) OpenFormYMF278B(0, true); else CloseFormYMF278B(0);
+                    if (Audio.chipLED.SecOPL4 != 0) OpenFormYMF278B(1, true); else CloseFormYMF278B(1);
+
+                }
             }
-
-            if (frmInfo != null)
+            catch(Exception e)
             {
-                frmInfo.update();
-            }
-
-            if (setting.other.AutoOpen)
-            {
-
-                if (Audio.chipLED.PriOPM != 0) OpenFormYM2151(0, true); else CloseFormYM2151(0);
-                if (Audio.chipLED.SecOPM != 0) OpenFormYM2151(1, true); else CloseFormYM2151(1);
-
-                if (Audio.chipLED.PriOPN != 0) OpenFormYM2203(0, true); else CloseFormYM2203(0);
-                if (Audio.chipLED.SecOPN != 0) OpenFormYM2203(1, true); else CloseFormYM2203(1);
-
-                if (Audio.chipLED.PriOPLL != 0) OpenFormYM2413(0, true); else CloseFormYM2413(0);
-                if (Audio.chipLED.SecOPLL != 0) OpenFormYM2413(1, true); else CloseFormYM2413(1);
-
-                if (Audio.chipLED.PriOPNA != 0) OpenFormYM2608(0, true); else CloseFormYM2608(0);
-                if (Audio.chipLED.SecOPNA != 0) OpenFormYM2608(1, true); else CloseFormYM2608(1);
-
-                if (Audio.chipLED.PriOPNB != 0) OpenFormYM2610(0, true); else CloseFormYM2610(0);
-                if (Audio.chipLED.SecOPNB != 0) OpenFormYM2610(1, true); else CloseFormYM2610(1);
-
-                if (Audio.chipLED.PriOPN2 != 0) OpenFormYM2612(0, true); else CloseFormYM2612(0);
-                if (Audio.chipLED.SecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
-
-                if (Audio.chipLED.PriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
-                if (Audio.chipLED.SecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
-
-                if (Audio.chipLED.PriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
-                if (Audio.chipLED.SecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
-
-                if (Audio.chipLED.PriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
-                if (Audio.chipLED.SecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
-
-                if (Audio.chipLED.PriOKI9 != 0) OpenFormOKIM6295(0, true); else CloseFormOKIM6295(0);
-                if (Audio.chipLED.SecOKI9 != 0) OpenFormOKIM6295(1, true); else CloseFormOKIM6295(1);
-
-                if (Audio.chipLED.PriC140 != 0) OpenFormC140(0, true); else CloseFormC140(0);
-                if (Audio.chipLED.SecC140 != 0) OpenFormC140(1, true); else CloseFormC140(1);
-
-                if (Audio.chipLED.PriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
-                if (Audio.chipLED.SecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
-
-                if (Audio.chipLED.PriAY10 != 0) OpenFormAY8910(0, true); else CloseFormAY8910(0);
-                if (Audio.chipLED.SecAY10 != 0) OpenFormAY8910(1, true); else CloseFormAY8910(1);
-
-                if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
-                if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
-
-                if (Audio.chipLED.PriMID != 0) OpenFormMIDI(0, true); else CloseFormMIDI(0);
-                if (Audio.chipLED.SecMID != 0) OpenFormMIDI(1, true); else CloseFormMIDI(1);
-
-                if (Audio.chipLED.PriNES != 0 || Audio.chipLED.PriDMC != 0) OpenFormNESDMC(0, true); else CloseFormNESDMC(0);
-                if (Audio.chipLED.SecNES != 0 || Audio.chipLED.SecDMC != 0) OpenFormNESDMC(1, true); else CloseFormNESDMC(1);
-
-                if (Audio.chipLED.PriFDS != 0) OpenFormFDS(0, true); else CloseFormFDS(0);
-                if (Audio.chipLED.SecFDS != 0) OpenFormFDS(1, true); else CloseFormFDS(1);
-
-                if (Audio.chipLED.PriMMC5 != 0) OpenFormMMC5(0, true); else CloseFormMMC5(0);
-                if (Audio.chipLED.SecMMC5 != 0) OpenFormMMC5(1, true); else CloseFormMMC5(1);
-
-                if (Audio.chipLED.PriOPL4 != 0) OpenFormYMF278B(0, true); else CloseFormYMF278B(0);
-                if (Audio.chipLED.SecOPL4 != 0) OpenFormYMF278B(1, true); else CloseFormYMF278B(1);
-
+                Audio.errMsg = e.Message;
             }
         }
 
@@ -4121,6 +4159,7 @@ namespace MDPlayer.form
                 if (srcBuf != null)
                 {
                     this.Invoke((Action)playdata);
+                    if (Audio.errMsg != "") return false;
                 }
 
             }
@@ -4904,7 +4943,7 @@ namespace MDPlayer.form
                     fn = Path.GetFileName(playingFileName);
                     if (!string.IsNullOrEmpty(playingArcFileName))
                     {
-                        fn = Path.GetFileName(playingArcFileName) + "_" + fn;
+                        fn = Path.GetFileName(playingArcFileName);
                     }
                     fn += ".mbc";
                     if (!File.Exists(Path.Combine(fullPath, fn)))
@@ -4912,6 +4951,10 @@ namespace MDPlayer.form
                         fn = "";
                         fullPath = common.GetApplicationDataFolder(true);
                         fullPath = Path.Combine(fullPath, "MixerBalance");
+                    }
+                    else
+                    {
+                        fullPath = Path.Combine(fullPath, fn);
                     }
                 }
 
@@ -4978,7 +5021,7 @@ namespace MDPlayer.form
 
                 //ミキサーバランス変更処理
                 setting.balance = balance;
-                frmMixer2.update();
+                if (frmMixer2 != null) frmMixer2.update();
                 Application.DoEvents();
 
             }
@@ -5065,5 +5108,10 @@ namespace MDPlayer.form
             return fmt.ToString();
         }
 
+        public PlayList.music GetPlayingMusicInfo()
+        {
+            PlayList.music music = frmPlayList.getPlayingSongInfo();
+            return music;
+        }
     }
 }

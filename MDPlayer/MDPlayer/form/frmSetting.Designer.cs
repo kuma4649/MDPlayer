@@ -252,13 +252,13 @@
             this.cmbMIDIIN = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tpBalance = new System.Windows.Forms.TabPage();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.rbAutoBalanceNotSamePositionAsSongData = new System.Windows.Forms.RadioButton();
+            this.rbAutoBalanceSamePositionAsSongData = new System.Windows.Forms.RadioButton();
             this.cbAutoBalanceUseThis = new System.Windows.Forms.CheckBox();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.rbAutoBalanceNotSamePositionAsSongData = new System.Windows.Forms.RadioButton();
-            this.rbAutoBalanceSamePositionAsSongData = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceNotSaveSongBalance = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceSaveSongBalance = new System.Windows.Forms.RadioButton();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
@@ -380,10 +380,10 @@
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tpBalance.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.groupBox24.SuspendLayout();
             this.groupBox21.SuspendLayout();
-            this.groupBox25.SuspendLayout();
             this.groupBox22.SuspendLayout();
             this.groupBox23.SuspendLayout();
             this.groupBox19.SuspendLayout();
@@ -2856,70 +2856,26 @@
             // 
             // tpBalance
             // 
+            this.tpBalance.Controls.Add(this.groupBox25);
             this.tpBalance.Controls.Add(this.cbAutoBalanceUseThis);
             this.tpBalance.Controls.Add(this.groupBox18);
             this.tpBalance.Location = new System.Drawing.Point(4, 22);
             this.tpBalance.Name = "tpBalance";
             this.tpBalance.Size = new System.Drawing.Size(443, 371);
             this.tpBalance.TabIndex = 12;
-            this.tpBalance.Text = "バランス";
+            this.tpBalance.Text = "ミキサーバランス";
             this.tpBalance.UseVisualStyleBackColor = true;
-            // 
-            // cbAutoBalanceUseThis
-            // 
-            this.cbAutoBalanceUseThis.AutoSize = true;
-            this.cbAutoBalanceUseThis.Checked = true;
-            this.cbAutoBalanceUseThis.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAutoBalanceUseThis.Location = new System.Drawing.Point(13, 3);
-            this.cbAutoBalanceUseThis.Name = "cbAutoBalanceUseThis";
-            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(208, 16);
-            this.cbAutoBalanceUseThis.TabIndex = 1;
-            this.cbAutoBalanceUseThis.Text = "音量バランス自動設定機能を使用する";
-            this.cbAutoBalanceUseThis.UseVisualStyleBackColor = true;
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.groupBox24);
-            this.groupBox18.Controls.Add(this.groupBox23);
-            this.groupBox18.Location = new System.Drawing.Point(7, 3);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(433, 365);
-            this.groupBox18.TabIndex = 0;
-            this.groupBox18.TabStop = false;
-            // 
-            // groupBox24
-            // 
-            this.groupBox24.Controls.Add(this.groupBox21);
-            this.groupBox24.Controls.Add(this.groupBox22);
-            this.groupBox24.Location = new System.Drawing.Point(6, 185);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(421, 174);
-            this.groupBox24.TabIndex = 1;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "保存";
-            // 
-            // groupBox21
-            // 
-            this.groupBox21.Controls.Add(this.groupBox25);
-            this.groupBox21.Controls.Add(this.rbAutoBalanceNotSaveSongBalance);
-            this.groupBox21.Controls.Add(this.rbAutoBalanceSaveSongBalance);
-            this.groupBox21.Location = new System.Drawing.Point(6, 18);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(409, 109);
-            this.groupBox21.TabIndex = 0;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "ソングバランス(曲データ毎)";
             // 
             // groupBox25
             // 
             this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
             this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
-            this.groupBox25.Location = new System.Drawing.Point(34, 40);
+            this.groupBox25.Location = new System.Drawing.Point(7, 327);
             this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(369, 41);
+            this.groupBox25.Size = new System.Drawing.Size(433, 41);
             this.groupBox25.TabIndex = 1;
             this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "保存先フォルダー";
+            this.groupBox25.Text = "ソングミキサーバランス参照フォルダー";
             // 
             // rbAutoBalanceNotSamePositionAsSongData
             // 
@@ -2943,11 +2899,55 @@
             this.rbAutoBalanceSamePositionAsSongData.Text = "曲データと同じ";
             this.rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
+            // cbAutoBalanceUseThis
+            // 
+            this.cbAutoBalanceUseThis.AutoSize = true;
+            this.cbAutoBalanceUseThis.Checked = true;
+            this.cbAutoBalanceUseThis.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAutoBalanceUseThis.Location = new System.Drawing.Point(13, 3);
+            this.cbAutoBalanceUseThis.Name = "cbAutoBalanceUseThis";
+            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(221, 16);
+            this.cbAutoBalanceUseThis.TabIndex = 1;
+            this.cbAutoBalanceUseThis.Text = "ミキサーバランス自動設定機能を使用する";
+            this.cbAutoBalanceUseThis.UseVisualStyleBackColor = true;
+            // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.groupBox24);
+            this.groupBox18.Controls.Add(this.groupBox23);
+            this.groupBox18.Location = new System.Drawing.Point(7, 3);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(433, 318);
+            this.groupBox18.TabIndex = 0;
+            this.groupBox18.TabStop = false;
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.groupBox21);
+            this.groupBox24.Controls.Add(this.groupBox22);
+            this.groupBox24.Location = new System.Drawing.Point(6, 185);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(421, 127);
+            this.groupBox24.TabIndex = 1;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "保存";
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.rbAutoBalanceNotSaveSongBalance);
+            this.groupBox21.Controls.Add(this.rbAutoBalanceSaveSongBalance);
+            this.groupBox21.Location = new System.Drawing.Point(6, 18);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(409, 62);
+            this.groupBox21.TabIndex = 0;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "ソングミキサーバランス(曲データ毎)";
+            // 
             // rbAutoBalanceNotSaveSongBalance
             // 
             this.rbAutoBalanceNotSaveSongBalance.AutoSize = true;
             this.rbAutoBalanceNotSaveSongBalance.Checked = true;
-            this.rbAutoBalanceNotSaveSongBalance.Location = new System.Drawing.Point(6, 87);
+            this.rbAutoBalanceNotSaveSongBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotSaveSongBalance.Name = "rbAutoBalanceNotSaveSongBalance";
             this.rbAutoBalanceNotSaveSongBalance.Size = new System.Drawing.Size(153, 16);
             this.rbAutoBalanceNotSaveSongBalance.TabIndex = 0;
@@ -2968,12 +2968,12 @@
             // groupBox22
             // 
             this.groupBox22.Controls.Add(this.label4);
-            this.groupBox22.Location = new System.Drawing.Point(6, 133);
+            this.groupBox22.Location = new System.Drawing.Point(6, 86);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(409, 35);
             this.groupBox22.TabIndex = 0;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "ドライババランス(ドライバ毎)";
+            this.groupBox22.Text = "ドライバーミキサーバランス(ドライバ毎)";
             // 
             // label4
             // 
@@ -3004,7 +3004,7 @@
             this.groupBox19.Size = new System.Drawing.Size(409, 63);
             this.groupBox19.TabIndex = 0;
             this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "ソングバランス(曲データ毎)";
+            this.groupBox19.Text = "ソングミキサーバランス(曲データ毎)";
             // 
             // rbAutoBalanceNotLoadSongBalance
             // 
@@ -3012,10 +3012,10 @@
             this.rbAutoBalanceNotLoadSongBalance.Checked = true;
             this.rbAutoBalanceNotLoadSongBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotLoadSongBalance.Name = "rbAutoBalanceNotLoadSongBalance";
-            this.rbAutoBalanceNotLoadSongBalance.Size = new System.Drawing.Size(87, 16);
+            this.rbAutoBalanceNotLoadSongBalance.Size = new System.Drawing.Size(102, 16);
             this.rbAutoBalanceNotLoadSongBalance.TabIndex = 0;
             this.rbAutoBalanceNotLoadSongBalance.TabStop = true;
-            this.rbAutoBalanceNotLoadSongBalance.Text = "読み込まない";
+            this.rbAutoBalanceNotLoadSongBalance.Text = "手動で読み込む";
             this.rbAutoBalanceNotLoadSongBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadSongBalance
@@ -3037,16 +3037,16 @@
             this.groupBox20.Size = new System.Drawing.Size(409, 63);
             this.groupBox20.TabIndex = 0;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "ドライババランス(ドライバ毎)";
+            this.groupBox20.Text = "ドライバーミキサーバランス(ドライバ毎)";
             // 
             // rbAutoBalanceNotLoadDriverBalance
             // 
             this.rbAutoBalanceNotLoadDriverBalance.AutoSize = true;
             this.rbAutoBalanceNotLoadDriverBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotLoadDriverBalance.Name = "rbAutoBalanceNotLoadDriverBalance";
-            this.rbAutoBalanceNotLoadDriverBalance.Size = new System.Drawing.Size(87, 16);
+            this.rbAutoBalanceNotLoadDriverBalance.Size = new System.Drawing.Size(102, 16);
             this.rbAutoBalanceNotLoadDriverBalance.TabIndex = 0;
-            this.rbAutoBalanceNotLoadDriverBalance.Text = "読み込まない";
+            this.rbAutoBalanceNotLoadDriverBalance.Text = "手動で読み込む";
             this.rbAutoBalanceNotLoadDriverBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadDriverBalance
@@ -3687,12 +3687,12 @@
             this.groupBox2.PerformLayout();
             this.tpBalance.ResumeLayout(false);
             this.tpBalance.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.groupBox18.ResumeLayout(false);
             this.groupBox24.ResumeLayout(false);
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox23.ResumeLayout(false);

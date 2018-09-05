@@ -378,6 +378,11 @@ namespace MDPlayer.form
             }
 
             frmMain.loadAndPlay(m, songNo, fn, zfn);
+            if (Audio.errMsg != "")
+            {
+                playing = false;
+                return;
+            }
             updatePlayingIndex(pi);
             playing = true;
 
@@ -433,7 +438,11 @@ namespace MDPlayer.form
                 songNo = 0;
             }
 
-            frmMain.loadAndPlay(m, songNo, fn, zfn);
+            if(!frmMain.loadAndPlay(m, songNo, fn, zfn))
+            {
+                playing = false;
+                return;
+            }
             updatePlayingIndex(pi);
             playing = true;
         }
@@ -494,7 +503,7 @@ namespace MDPlayer.form
                 if (m < 0 || m > 9) m = 0;
             }
 
-            frmMain.loadAndPlay(m, songNo, fn, zfn);
+            if (!frmMain.loadAndPlay(m, songNo, fn, zfn)) return;
             updatePlayingIndex(e.RowIndex);
 
             playing = true;
@@ -933,6 +942,7 @@ namespace MDPlayer.form
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!playing) return;
+            if (setting == null) return;
 
             string fn = "";
             string arcFn = "";

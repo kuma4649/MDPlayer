@@ -942,7 +942,7 @@ namespace MDPlayer.form
                 string retMsg = parent.SaveDriverBalance(parent.setting.balance.Copy());
                 if (retMsg != "")
                 {
-                    MessageBox.Show(string.Format("ドライバーバランス[{0}]を設定フォルダーに保存しました。", retMsg), "保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(string.Format("ドライバーのミキサーバランス[{0}]を設定フォルダーに保存しました。", retMsg), "保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }
@@ -956,7 +956,38 @@ namespace MDPlayer.form
 
         private void tsmiSaveSongBalance_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Setting.Balance bln = parent.setting.balance.Copy();
+                PlayList.music ms = parent.GetPlayingMusicInfo();
+                if (ms == null)
+                {
+                    MessageBox.Show("演奏情報が取得できませんでした。\r\n演奏中又は演奏完了直後に再度お試しください。", "情報取得失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "ミキサーバランス(*.mbc)|*.mbc";
+                sfd.Title = "ミキサーバランスを保存";
+                sfd.InitialDirectory = System.IO.Path.GetDirectoryName(string.IsNullOrEmpty(ms.arcFileName) ? ms.fileName : ms.arcFileName);
+                if (!parent.setting.autoBalance.SamePositionAsSongData) sfd.InitialDirectory = System.IO.Path.Combine(common.GetApplicationDataFolder(true), "MixerBalance");
+
+                sfd.RestoreDirectory = false;
+                sfd.FileName = System.IO.Path.GetFileName(string.IsNullOrEmpty(ms.arcFileName) ? ms.fileName : ms.arcFileName) + ".mbc";
+                sfd.CheckPathExists = true;
+
+                if (sfd.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                bln.Save(sfd.FileName);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                MessageBox.Show(string.Format("{0}", ex.Message), "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

@@ -64,42 +64,41 @@
             this.tsmiSaveDriverBalance,
             this.tsmiSaveSongBalance});
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(221, 120);
+            this.ctxtMenu.Size = new System.Drawing.Size(269, 120);
             // 
             // tsmiLoadDriverBalance
             // 
             this.tsmiLoadDriverBalance.Enabled = false;
             this.tsmiLoadDriverBalance.Name = "tsmiLoadDriverBalance";
-            this.tsmiLoadDriverBalance.Size = new System.Drawing.Size(220, 22);
-            this.tsmiLoadDriverBalance.Text = "読込　ドライバーバランス";
+            this.tsmiLoadDriverBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiLoadDriverBalance.Text = "読込　ドライバーミキサーバランス";
             this.tsmiLoadDriverBalance.Click += new System.EventHandler(this.tsmiLoadDriverBalance_Click);
             // 
             // tsmiLoadSongBalance
             // 
             this.tsmiLoadSongBalance.Enabled = false;
             this.tsmiLoadSongBalance.Name = "tsmiLoadSongBalance";
-            this.tsmiLoadSongBalance.Size = new System.Drawing.Size(220, 22);
-            this.tsmiLoadSongBalance.Text = "読込　ソングバランス";
+            this.tsmiLoadSongBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiLoadSongBalance.Text = "読込　ソングミキサーバランス";
             this.tsmiLoadSongBalance.Click += new System.EventHandler(this.tsmiLoadSongBalance_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(265, 6);
             // 
             // tsmiSaveDriverBalance
             // 
             this.tsmiSaveDriverBalance.Name = "tsmiSaveDriverBalance";
-            this.tsmiSaveDriverBalance.Size = new System.Drawing.Size(220, 22);
-            this.tsmiSaveDriverBalance.Text = "保存　ドライバーバランス";
+            this.tsmiSaveDriverBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiSaveDriverBalance.Text = "保存　ドライバーミキサーバランス";
             this.tsmiSaveDriverBalance.Click += new System.EventHandler(this.tsmiSaveDriverBalance_Click);
             // 
             // tsmiSaveSongBalance
             // 
-            this.tsmiSaveSongBalance.Enabled = false;
             this.tsmiSaveSongBalance.Name = "tsmiSaveSongBalance";
-            this.tsmiSaveSongBalance.Size = new System.Drawing.Size(220, 22);
-            this.tsmiSaveSongBalance.Text = "保存　ソングバランス";
+            this.tsmiSaveSongBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiSaveSongBalance.Text = "保存　ソングミキサーバランス";
             this.tsmiSaveSongBalance.Click += new System.EventHandler(this.tsmiSaveSongBalance_Click);
             // 
             // frmMixer2
