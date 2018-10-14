@@ -121,11 +121,24 @@ namespace MDPlayer.form
         private int searchC140Note(int freq)
         {
             double m = double.MaxValue;
+
+            int clock = Audio.clockC140;
+            if (clock >= 1000000)
+                clock = (int)clock / 384;
+
             int n = 0;
             for (int i = 0; i < 12 * 8; i++)
             {
-                double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
-                if (m > a)
+                //double a = Math.Abs(freq - ((0x0800 << 2) * Tables.pcmMulTbl[i % 12 + 12] * Math.Pow(2, ((int)(i / 12) - 4))));
+                int a = (int)(
+                    65536.0 
+                    / 2.0 
+                    / clock 
+                    * 8000.0
+                    * Tables.pcmMulTbl[i % 12 + 12]
+                    * Math.Pow(2, (i / 12 - 3))
+                    );
+                if (freq > a)
                 {
                     m = a;
                     n = i;
@@ -169,11 +182,11 @@ namespace MDPlayer.form
                     int l = c140State[ch * 16 + 1];
                     int r = c140State[ch * 16 + 0];
 
+                    newParam.channels[ch].note = searchC140Note(frequency) + 1;
                     if (c140KeyOn[ch])
                     {
-                        newParam.channels[ch].note = searchC140Note(frequency) + 1;
-                        newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 2, 0), 19);
-                        newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 2, 0), 19);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((int)(l / 13.4)*3, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((int)(r / 13.4)*3, 0), 19);
                     }
                     else
                     {
@@ -181,12 +194,15 @@ namespace MDPlayer.form
                         newParam.channels[ch].volumeR -= newParam.channels[ch].volumeR > 0 ? 1 : 0;
                         if (newParam.channels[ch].volumeL == 0 && newParam.channels[ch].volumeR == 0)
                         {
-                            newParam.channels[ch].note = -1;
+                            if (c140State[ch * 16 + 5] == 0)
+                            {
+                                newParam.channels[ch].note = -1;
+                            }
                             newParam.channels[ch].volumeL = 0;
                             newParam.channels[ch].volumeR = 0;
                         }
                     }
-                    newParam.channels[ch].pan = ((l >> 2) & 0xf) | (((r >> 2) & 0xf) << 4);
+                    newParam.channels[ch].pan = ((l >> 4) & 0xf) | (((r >> 4) & 0xf) << 4);
 
                     c140KeyOn[ch] = false;
                 }

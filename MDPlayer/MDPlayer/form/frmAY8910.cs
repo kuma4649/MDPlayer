@@ -130,7 +130,7 @@ namespace MDPlayer.form
                     int ct = AY8910Register[0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    float ftone = Audio.clockAY8910 / (8.0f * (float)tp); 
                     channel.note = searchSSGNote(ftone);
                 }
 

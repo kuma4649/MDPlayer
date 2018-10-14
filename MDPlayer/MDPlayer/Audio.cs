@@ -31,6 +31,24 @@ namespace MDPlayer
             public NSCCI_SOUND_CHIP_INFO info;
         }
 
+        public static int clockAY8910 = 1789750;
+        public static int clockC140 = 21390;
+        public static int clockFDS = 0;
+        public static int clockHuC6280 = 0;
+        public static int clockRF5C164 = 0;
+        public static int clockMMC5 = 0;
+        public static int clockNESDMC = 0;
+        public static int clockOKIM6258 = 0;
+        public static int clockOKIM6295 = 0;
+        public static int clockSegaPCM = 0;
+        public static int clockSN76489 = 0;
+        public static int clockYM2151 = 0;
+        public static int clockYM2203 = 0;
+        public static int clockYM2413 = 0;
+        public static int clockYM2608 = 0;
+        public static int clockYM2610 = 0;
+        public static int clockYM2612 = 0;
+        public static int clockYMF278B = 0;
 
         private static object lockObj = new object();
         private static bool _fatalError = false;
@@ -1758,6 +1776,7 @@ namespace MDPlayer
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.AY8910Volume;
                     chip.Clock = 2000000 / 2;
+                    clockAY8910 = (int)chip.Clock;
                     chip.Option = null;
 
                     hiyorimiDeviceFlag |= 0x1;
@@ -2470,6 +2489,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.AY8910Volume;
                             chip.Clock = dInfo.Clock/4;
+                            clockAY8910 = (int)chip.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
                             lstChips.Add(chip);
@@ -2656,6 +2676,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.AY8910Volume;
                             chip.Clock = dInfo.Clock;
+                            clockAY8910 = (int)chip.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
                             lstChips.Add(chip);
@@ -3501,6 +3522,7 @@ namespace MDPlayer
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.C140Volume;
                     chip.Clock = ((vgm)driverVirtual).C140ClockValue;
+                    clockC140 = (int)chip.Clock;
                     chip.Option = new object[1] { ((vgm)driverVirtual).C140Type };
 
                     hiyorimiDeviceFlag |= 0x2;
@@ -3875,6 +3897,7 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.AY8910Volume;
                         chip.Clock = (((vgm)driverVirtual).AY8910ClockValue & 0x7fffffff) / 2;
+                        clockAY8910 = (int)chip.Clock;
                         chip.Option = null;
 
                         hiyorimiDeviceFlag |= 0x2;
