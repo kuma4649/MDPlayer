@@ -5547,11 +5547,6 @@ namespace MDPlayer
             return chipRegister.getYM2413RyhthmKeyON(chipID);
         }
 
-        public static void resetYM2413RyhthmKeyON(int chipID)
-        {
-            chipRegister.resetYM2413RyhthmKeyON(chipID);
-        }
-
         public static int getYMF278BFMKeyON(int chipID)
         {
             return chipRegister.getYMF278BFMKeyON(chipID);

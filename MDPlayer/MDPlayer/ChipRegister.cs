@@ -1069,19 +1069,20 @@ namespace MDPlayer
 
             if (dAddr == 0x0e)
             {
-                fmRegisterYM2413Ryhthm[chipID] = (fmRegisterYM2413RyhthmB[chipID] ^ dData) & 0x1f;
+                if ((fmRegisterYM2413RyhthmB[chipID] & 0x10) == 0 && (dData & 0x10) != 0) fmRegisterYM2413Ryhthm[chipID] |= 0x10;
+                if ((fmRegisterYM2413RyhthmB[chipID] & 0x08) == 0 && (dData & 0x08) != 0) fmRegisterYM2413Ryhthm[chipID] |= 0x08;
+                if ((fmRegisterYM2413RyhthmB[chipID] & 0x04) == 0 && (dData & 0x04) != 0) fmRegisterYM2413Ryhthm[chipID] |= 0x04;
+                if ((fmRegisterYM2413RyhthmB[chipID] & 0x02) == 0 && (dData & 0x02) != 0) fmRegisterYM2413Ryhthm[chipID] |= 0x02;
+                if ((fmRegisterYM2413RyhthmB[chipID] & 0x01) == 0 && (dData & 0x01) != 0) fmRegisterYM2413Ryhthm[chipID] |= 0x01;
                 fmRegisterYM2413RyhthmB[chipID] = dData;
             }
         }
 
         public int getYM2413RyhthmKeyON(int chipID)
         {
-            return fmRegisterYM2413Ryhthm[chipID];
-        }
-
-        public void resetYM2413RyhthmKeyON(int chipID)
-        {
+            int r = fmRegisterYM2413Ryhthm[chipID];
             fmRegisterYM2413Ryhthm[chipID] = 0;
+            return r;
         }
 
         public int getYMF278BRyhthmKeyON(int chipID)

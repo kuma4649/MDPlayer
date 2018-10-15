@@ -343,7 +343,7 @@ namespace MDPlayer.form
                 if (newParam.channels[22].volume < 0) newParam.channels[22].volume = 0;
             }
 
-            Audio.resetYM2413RyhthmKeyON(chipID);
+            Audio.resetYMF278BRyhthmKeyON(chipID);
 
             //PCM
             int[] pcmKey = Audio.getYMF278BPCMKeyON(chipID);

@@ -185,8 +185,8 @@ namespace MDPlayer.form
                     newParam.channels[ch].note = searchC140Note(frequency) + 1;
                     if (c140KeyOn[ch])
                     {
-                        newParam.channels[ch].volumeL = Math.Min(Math.Max((int)(l / 13.4)*3, 0), 19);
-                        newParam.channels[ch].volumeR = Math.Min(Math.Max((int)(r / 13.4)*3, 0), 19);
+                        newParam.channels[ch].volumeL = Math.Min(Math.Max((int)(l / 13.4) * 3, 0), 19);
+                        newParam.channels[ch].volumeR = Math.Min(Math.Max((int)(r / 13.4) * 3, 0), 19);
                     }
                     else
                     {

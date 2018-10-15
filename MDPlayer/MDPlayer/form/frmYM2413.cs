@@ -191,8 +191,6 @@ namespace MDPlayer.form
                 if (newParam.channels[13].volume < 0) newParam.channels[13].volume = 0;
             }
 
-            Audio.resetYM2413RyhthmKeyON(chipID);
-
 
             newParam.channels[0].inst[4] = (ym2413Register[0x02] & 0x3f);//TL
             newParam.channels[0].inst[5] = (ym2413Register[0x03] & 0x07);//FB
