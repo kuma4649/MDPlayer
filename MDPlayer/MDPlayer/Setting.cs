@@ -2957,6 +2957,33 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosVrc7 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosVrc7
+            {
+                get
+                {
+                    return _PosVrc7;
+                }
+
+                set
+                {
+                    _PosVrc7 = value;
+                }
+            }
+
+            private bool[] _OpenVrc7 = new bool[2] { false, false };
+            public bool[] OpenVrc7
+            {
+                get
+                {
+                    return _OpenVrc7;
+                }
+
+                set
+                {
+                    _OpenVrc7 = value;
+                }
+            }
 
 
 
@@ -3007,6 +3034,8 @@ namespace MDPlayer
                 Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
                 Location.PosVSTeffectList = this.PosVSTeffectList;
                 Location.OpenVSTeffectList = this.OpenVSTeffectList;
+                Location.PosVrc7 = this.PosVrc7;
+                Location.OpenVrc7 = this.OpenVrc7;
                 Location.PosMIDI = this.PosMIDI;
                 Location.OpenMIDI = this.OpenMIDI;
 

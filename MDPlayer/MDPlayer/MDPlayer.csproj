@@ -359,6 +359,12 @@
     <Compile Include="form\frmTPPut.Designer.cs">
       <DependentUpon>frmTPPut.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmVRC7.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmVRC7.Designer.cs">
+      <DependentUpon>frmVRC7.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmVST.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -506,6 +512,9 @@
     <EmbeddedResource Include="form\frmTPPut.resx">
       <DependentUpon>frmTPPut.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmVRC7.resx">
+      <DependentUpon>frmVRC7.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmVST.resx">
       <DependentUpon>frmVST.cs</DependentUpon>
     </EmbeddedResource>
@@ -625,6 +634,7 @@
     <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
+    <Content Include="Resources\planeVRC7.png" />
     <Content Include="Resources\planeYM2203.png" />
     <Content Include="Resources\planeYM2413.png" />
     <Content Include="Resources\planeYM2610.png" />

@@ -43,6 +43,7 @@ namespace MDPlayer.form
         private frmNESDMC[] frmNESDMC = new frmNESDMC[2] { null, null };
         private frmFDS[] frmFDS = new frmFDS[2] { null, null };
         private frmMMC5[] frmMMC5 = new frmMMC5[2] { null, null };
+        private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
 
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
@@ -194,6 +195,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenYm2610[chipID]) OpenFormYM2610(chipID);
                 if (setting.location.OpenYm2612[chipID]) OpenFormYM2612(chipID);
                 if (setting.location.OpenYmf278b[chipID]) OpenFormYMF278B(chipID);
+                if (setting.location.OpenVrc7[chipID]) OpenFormVRC7(chipID);
             }
 
             log.ForcedWrite("frmMain_Load:STEP 08");
@@ -410,6 +412,30 @@ namespace MDPlayer.form
             {
                 OpenFormMIDI(1);
                 OpenFormMIDI(1);
+            }
+
+            if (frmVRC7[0] != null && !frmVRC7[0].isClosed)
+            {
+                OpenFormVRC7(0);
+                OpenFormVRC7(0);
+            }
+
+            if (frmVRC7[1] != null && !frmVRC7[1].isClosed)
+            {
+                OpenFormVRC7(1);
+                OpenFormVRC7(1);
+            }
+
+            if (frmNESDMC[0] != null && !frmNESDMC[0].isClosed)
+            {
+                OpenFormNESDMC(0);
+                OpenFormNESDMC(0);
+            }
+
+            if (frmNESDMC[1] != null && !frmNESDMC[1].isClosed)
+            {
+                OpenFormNESDMC(1);
+                OpenFormNESDMC(1);
             }
 
             if (frmMixer2 != null && !frmMixer2.isClosed)
@@ -1176,6 +1202,15 @@ namespace MDPlayer.form
             OpenFormFDS(1);
         }
 
+        private void tsmiPVRC7_Click(object sender, EventArgs e)
+        {
+            OpenFormVRC7(0);
+        }
+
+        private void tsmiSVRC7_Click(object sender, EventArgs e)
+        {
+            OpenFormVRC7(1);
+        }
 
 
         private void OpenFormMegaCD(int chipID, bool force = false)
@@ -2150,6 +2185,60 @@ namespace MDPlayer.form
             frmFDS[chipID] = null;
         }
 
+        private void OpenFormVRC7(int chipID, bool force = false)
+        {
+            if (frmVRC7[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormVRC7(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmVRC7[chipID] = new frmVRC7(this, chipID, setting.other.Zoom, newParam.vrc7[chipID]);
+
+            if (setting.location.PosVrc7[chipID] == System.Drawing.Point.Empty)
+            {
+                frmVRC7[chipID].x = this.Location.X;
+                frmVRC7[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmVRC7[chipID].x = setting.location.PosVrc7[chipID].X;
+                frmVRC7[chipID].y = setting.location.PosVrc7[chipID].Y;
+            }
+
+            frmVRC7[chipID].Show();
+            frmVRC7[chipID].update();
+            frmVRC7[chipID].Text = string.Format("VRC7 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            oldParam.vrc7[chipID] = new MDChipParams.VRC7();
+        }
+
+        private void CloseFormVRC7(int chipID)
+        {
+            if (frmVRC7[chipID] == null) return;
+
+            try
+            {
+                frmVRC7[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmVRC7[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmVRC7[chipID] = null;
+        }
+
         private void OpenFormMMC5(int chipID, bool force = false)
         {
             if (frmMMC5[chipID] != null)// && frmInfo.isClosed)
@@ -2612,6 +2701,9 @@ namespace MDPlayer.form
                     if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) frmMMC5[chipID].screenChangeParams();
                     else frmMMC5[chipID] = null;
 
+                    if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) frmVRC7[chipID].screenChangeParams();
+                    else frmVRC7[chipID] = null;
+
                 }
                 if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
                 else frmYM2612MIDI = null;
@@ -2678,6 +2770,9 @@ namespace MDPlayer.form
 
                     if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) { frmNESDMC[chipID].screenDrawParams(); frmNESDMC[chipID].update(); }
                     else frmNESDMC[chipID] = null;
+
+                    if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) { frmVRC7[chipID].screenDrawParams(); frmVRC7[chipID].update(); }
+                    else frmVRC7[chipID] = null;
 
                     if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed) { frmFDS[chipID].screenDrawParams(); frmFDS[chipID].update(); }
                     else frmFDS[chipID] = null;
@@ -3056,6 +3151,9 @@ namespace MDPlayer.form
                     if (Audio.chipLED.PriFDS != 0) OpenFormFDS(0, true); else CloseFormFDS(0);
                     if (Audio.chipLED.SecFDS != 0) OpenFormFDS(1, true); else CloseFormFDS(1);
 
+                    if (Audio.chipLED.PriVRC7 != 0) OpenFormVRC7(0, true); else CloseFormVRC7(0);
+                    if (Audio.chipLED.SecVRC7 != 0) OpenFormVRC7(1, true); else CloseFormVRC7(1);
+
                     if (Audio.chipLED.PriMMC5 != 0) OpenFormMMC5(0, true); else CloseFormMMC5(0);
                     if (Audio.chipLED.SecMMC5 != 0) OpenFormMMC5(1, true); else CloseFormMMC5(1);
 
@@ -3316,6 +3414,11 @@ namespace MDPlayer.form
         public void getInstCh(enmUseChip chip, int ch, int chipID)
         {
             if (chip == enmUseChip.YM2413)
+            {
+                getInstChForMGSC(chip, ch, chipID);
+                return;
+            }
+            if (chip == enmUseChip.VRC7)
             {
                 getInstChForMGSC(chip, ch, chipID);
                 return;
@@ -3832,49 +3935,61 @@ namespace MDPlayer.form
         {
 
             string n = "";
+            int[] Register=null;
 
             if (chip == enmUseChip.YM2413)
             {
-                int[] Register = Audio.GetYM2413Register(chipID);
-                if (Register == null) return;
-
-                n = "@vXX = { \r\n";
-                n += "   ;       TL FB\r\n";
-                n += string.Format("           {0:d2},{1:d2},\r\n"
-                    , Register[0x02] & 0x3f
-                    , Register[0x03] & 0x7
-                    );
-                n += "   ;       AR DR SL RR KL MT AM VB EG KR DT\r\n";
-
-                n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2},\r\n"
-                    , (Register[0x04] & 0xf0) >> 4
-                    , (Register[0x04] & 0x0f)
-                    , (Register[0x06] & 0xf0) >> 4
-                    , (Register[0x06] & 0x0f)
-                    , (Register[0x02] & 0xc0) >> 6
-                    , (Register[0x00] & 0x0f)
-                    , (Register[0x00] & 0x80) >> 7
-                    , (Register[0x00] & 0x40) >> 6
-                    , (Register[0x00] & 0x20) >> 5
-                    , (Register[0x00] & 0x10) >> 4
-                    , (Register[0x03] & 0x08) >> 3
-                    );
-
-                n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2} }}\r\n"
-                    , (Register[0x05] & 0xf0) >> 4
-                    , (Register[0x05] & 0x0f)
-                    , (Register[0x07] & 0xf0) >> 4
-                    , (Register[0x07] & 0x0f)
-                    , (Register[0x03] & 0xc0) >> 6
-                    , (Register[0x01] & 0x0f)
-                    , (Register[0x01] & 0x80) >> 7
-                    , (Register[0x01] & 0x40) >> 6
-                    , (Register[0x01] & 0x20) >> 5
-                    , (Register[0x01] & 0x10) >> 4
-                    , (Register[0x03] & 0x10) >> 4
-                    );
-
+                Register = Audio.GetYM2413Register(chipID);
             }
+            else if (chip == enmUseChip.VRC7)
+            {
+                byte[] r = Audio.GetVRC7Register(chipID);
+                if (r == null) return;
+                Register = new int[r.Length];
+                for (int i = 0; i < r.Length; i++)
+                {
+                    Register[i] = r[i];
+                }
+            }
+
+            if (Register == null) return;
+            n = "@vXX = { \r\n";
+            n += "   ;       TL FB\r\n";
+            n += string.Format("           {0:d2},{1:d2},\r\n"
+                , Register[0x02] & 0x3f
+                , Register[0x03] & 0x7
+                );
+            n += "   ;       AR DR SL RR KL MT AM VB EG KR DT\r\n";
+
+            n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2},\r\n"
+                , (Register[0x04] & 0xf0) >> 4
+                , (Register[0x04] & 0x0f)
+                , (Register[0x06] & 0xf0) >> 4
+                , (Register[0x06] & 0x0f)
+                , (Register[0x02] & 0xc0) >> 6
+                , (Register[0x00] & 0x0f)
+                , (Register[0x00] & 0x80) >> 7
+                , (Register[0x00] & 0x40) >> 6
+                , (Register[0x00] & 0x20) >> 5
+                , (Register[0x00] & 0x10) >> 4
+                , (Register[0x03] & 0x08) >> 3
+                );
+
+            n += string.Format("           {0:d2},{1:d2},{2:d2},{3:d2},{4:d2},{5:d2},{6:d2},{7:d2},{8:d2},{9:d2},{10:d2} }}\r\n"
+                , (Register[0x05] & 0xf0) >> 4
+                , (Register[0x05] & 0x0f)
+                , (Register[0x07] & 0xf0) >> 4
+                , (Register[0x07] & 0x0f)
+                , (Register[0x03] & 0xc0) >> 6
+                , (Register[0x01] & 0x0f)
+                , (Register[0x01] & 0x80) >> 7
+                , (Register[0x01] & 0x40) >> 6
+                , (Register[0x01] & 0x20) >> 5
+                , (Register[0x01] & 0x10) >> 4
+                , (Register[0x03] & 0x10) >> 4
+                );
+
+
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
@@ -4580,6 +4695,17 @@ namespace MDPlayer.form
                             break;
                     }
                     break;
+                case enmUseChip.VRC7:
+                    if (ch >= 0 && ch < 6)
+                    {
+                        if (!newParam.vrc7[chipID].channels[ch].mask)
+                            Audio.setVRC7Mask(chipID, ch);
+                        else
+                            Audio.resetVRC7Mask(chipID, ch);
+
+                        newParam.vrc7[chipID].channels[ch].mask = !newParam.vrc7[chipID].channels[ch].mask;
+                    }
+                    break;
             }
         }
 
@@ -4606,6 +4732,10 @@ namespace MDPlayer.form
                 case enmUseChip.YM2413:
                     newParam.ym2413[chipID].channels[ch].mask = false;
                     Audio.resetYM2413Mask(chipID, ch);
+                    break;
+                case enmUseChip.VRC7:
+                    newParam.vrc7[chipID].channels[ch].mask = false;
+                    Audio.resetVRC7Mask(chipID, ch);
                     break;
                 case enmUseChip.YM2608:
                     newParam.ym2608[chipID].channels[ch].mask = false;
@@ -5113,5 +5243,6 @@ namespace MDPlayer.form
             PlayList.music music = frmPlayList.getPlayingSongInfo();
             return music;
         }
+
     }
 }

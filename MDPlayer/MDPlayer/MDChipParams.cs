@@ -292,6 +292,17 @@ namespace MDPlayer
         }
         public MMC5[] mmc5 = new MMC5[] { new MMC5(), new MMC5() };
 
+        public class VRC7
+        {
+
+            public Channel[] channels = new Channel[6] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //FM 6
+            };
+
+        }
+        public VRC7[] vrc7 = new VRC7[] { new VRC7(), new VRC7() };
+
+
         public class Mixer
         {
             public class VolumeInfo

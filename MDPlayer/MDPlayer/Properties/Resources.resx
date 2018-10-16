@@ -764,4 +764,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="DefaultVolumeBalance_SID" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\defaultvolumebalance_sid.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
+  <data name="planeVRC7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeVRC7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

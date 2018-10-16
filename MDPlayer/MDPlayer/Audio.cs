@@ -5338,6 +5338,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2413[chipID];
         }
 
+        public static byte[] GetVRC7Register(int chipID)
+        {
+            return chipRegister.getVRC7Register(chipID);
+        }
+
         public static int[][] GetYM2608Register(int chipID)
         {
             return chipRegister.fmRegisterYM2608[chipID];
@@ -6155,6 +6160,11 @@ namespace MDPlayer
             chipRegister.setMMC5Mask(chipID, ch);
         }
 
+        public static void setVRC7Mask(int chipID, int ch)
+        {
+            chipRegister.setVRC7Mask(chipID, ch);
+        }
+
 
         public static void resetOKIM6258Mask(int chipID)
         {
@@ -6284,6 +6294,11 @@ namespace MDPlayer
         public static void resetMMC5Mask(int chipID, int ch)
         {
             chipRegister.resetMMC5Mask(chipID, ch);
+        }
+
+        public static void resetVRC7Mask(int chipID, int ch)
+        {
+            chipRegister.resetVRC7Mask(chipID, ch);
         }
 
     }

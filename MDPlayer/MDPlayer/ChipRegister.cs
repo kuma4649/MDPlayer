@@ -63,6 +63,7 @@ namespace MDPlayer
         private int nsfDMCmask = 0;
         private int nsfFDSmask = 0;
         private int nsfMMC5mask = 0;
+        private int nsfVRC7mask = 0;
 
         public ChipLEDs chipLED = new ChipLEDs();
 
@@ -2344,6 +2345,18 @@ namespace MDPlayer
             if (nes_mmc5 != null) nes_mmc5.SetMask(nsfMMC5mask);
         }
 
+        public void setVRC7Mask(int chipID, int ch)
+        {
+            nsfVRC7mask |= 1 << ch;
+            if (nes_vrc7 != null) nes_vrc7.SetMask(nsfVRC7mask);
+        }
+
+        public void resetVRC7Mask(int chipID, int ch)
+        {
+            nsfVRC7mask &= ~(1 << ch);
+            if (nes_vrc7 != null) nes_vrc7.SetMask(nsfVRC7mask);
+        }
+
 
 
         public void setFadeoutVolYM2151(int chipID, int v)
@@ -3172,6 +3185,14 @@ namespace MDPlayer
 
             return sn76489Vol[chipID];
 
+        }
+
+        internal byte[] getVRC7Register(int chipID)
+        {
+            if (nes_vrc7 == null) return null;
+            if (chipID != 0) return null;
+
+            return nes_vrc7.GetVRC7regs();
         }
 
 
