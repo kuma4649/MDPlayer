@@ -1800,6 +1800,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _YM3812Volume = 0;
+            public int YM3812Volume
+            {
+                get
+                {
+                    if (_YM3812Volume > 20 || _YM3812Volume < -192) _YM3812Volume = 0;
+                    return _YM3812Volume;
+                }
+
+                set
+                {
+                    _YM3812Volume = value;
+                    if (_YM3812Volume > 20 || _YM3812Volume < -192) _YM3812Volume = 0;
+                }
+            }
+
             private int _C352Volume = 0;
             public int C352Volume
             {

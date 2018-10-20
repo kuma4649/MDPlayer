@@ -3774,6 +3774,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).YM3812ClockValue != 0)
+                {
+                    MDSound.ym3812 ym3812 = new MDSound.ym3812();
+                    for (int i = 0; i < (((vgm)driverVirtual).YM3812DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM3812;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ym3812;
+                        chip.Update = ym3812.Update;
+                        chip.Start = ym3812.Start;
+                        chip.Stop = ym3812.Stop;
+                        chip.Reset = ym3812.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.YM3812Volume;
+                        chip.Clock = ((vgm)driverVirtual).YM3812ClockValue & 0x7fffffff;
+                        chip.Option = null;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriOPL2 = 1;
+                        else chipLED.SecOPL2 = 1;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).YMF262ClockValue != 0)
                 {
                     MDSound.ymf262 ymf262 = new MDSound.ymf262();

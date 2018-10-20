@@ -38,6 +38,7 @@ namespace MDPlayer
         public uint YM2608ClockValue;
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
+        public uint YM3812ClockValue;
         public uint Y8950ClockValue;
         public uint YMF262ClockValue;
         public uint YMF271ClockValue;
@@ -63,6 +64,7 @@ namespace MDPlayer
         public bool YM2203DualChipFlag;
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
+        public bool YM3812DualChipFlag;
         public bool Y8950DualChipFlag;
         public bool YMF262DualChipFlag;
         public bool YMF271DualChipFlag;
@@ -350,7 +352,7 @@ namespace MDPlayer
 
             vgmCmdTbl[0x58] = vcYM2610Port0;
             vgmCmdTbl[0x59] = vcYM2610Port1;
-            vgmCmdTbl[0x5a] = vcDummy2Ope;
+            vgmCmdTbl[0x5a] = vcYM3812;
             vgmCmdTbl[0x5b] = vcDummy2Ope;
             vgmCmdTbl[0x5c] = vcY8950;
             vgmCmdTbl[0x5d] = vcYMZ280B;
@@ -410,7 +412,7 @@ namespace MDPlayer
                 vgmCmdTbl[0x95] = vcStartStreamFastCall;
 
             vgmCmdTbl[0xa0] = vcAY8910;
-            vgmCmdTbl[0xa1] = vcDummy2Ope;
+            vgmCmdTbl[0xa1] = vcYM2413;
             vgmCmdTbl[0xa2] = vcYM2612Port0;
             vgmCmdTbl[0xa3] = vcYM2612Port1;
             vgmCmdTbl[0xa4] = vcYM2151;
@@ -420,12 +422,12 @@ namespace MDPlayer
 
             vgmCmdTbl[0xa8] = vcYM2610Port0;
             vgmCmdTbl[0xa9] = vcYM2610Port1;
-            vgmCmdTbl[0xaa] = vcDummy2Ope;
+            vgmCmdTbl[0xaa] = vcYM3812;
             vgmCmdTbl[0xab] = vcDummy2Ope;
-            vgmCmdTbl[0xac] = vcDummy2Ope;
-            vgmCmdTbl[0xad] = vcDummy2Ope;
-            vgmCmdTbl[0xae] = vcDummy2Ope;
-            vgmCmdTbl[0xaf] = vcDummy2Ope;
+            vgmCmdTbl[0xac] = vcY8950;
+            vgmCmdTbl[0xad] = vcYMZ280B;
+            vgmCmdTbl[0xae] = vcYMF262Port0;
+            vgmCmdTbl[0xaf] = vcYMF262Port1;
 
             //if ((useChip & enmUseChip.RF5C164) == enmUseChip.RF5C164)
             //{
@@ -611,7 +613,13 @@ namespace MDPlayer
 
         private void vcYM2413()
         {
-            chipRegister.setYM2413Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            chipRegister.setYM2413Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] , vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM3812()
+        {
+            chipRegister.setYM3812Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] , vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1833,6 +1841,7 @@ namespace MDPlayer
             YM2203ClockValue = 0;
             YM2608ClockValue = 0;
             YM2610ClockValue = 0;
+            YM3812ClockValue = 0;
             YMF262ClockValue = 0;
             RF5C68ClockValue = 0;
             RF5C164ClockValue = 0;// defaultRF5C164ClockValue;
@@ -1998,7 +2007,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x50)
                     {
                         uint YM3812clock = getLE32(0x50);
-                        if (YM3812clock != 0) chips.Add("YM3812");
+                        if (YM3812clock != 0)
+                        {
+                            YM3812ClockValue = YM3812clock & 0x3fffffff;
+                            YM3812DualChipFlag = (YM3812clock & 0x40000000) != 0;
+                            if (YM2610DualChipFlag) chips.Add("YM3812x2");
+                            else chips.Add("YM3812");
+                        }
                     }
 
                     if (vgmDataOffset > 0x54)

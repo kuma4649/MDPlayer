@@ -1094,6 +1094,28 @@ namespace MDPlayer
             }
         }
 
+        public void setYM3812Register(int chipID, int dAddr, int dData, enmModel model)
+        {
+            //if (ctYM3812 == null) return;
+
+            if (chipID == 0) chipLED.PriOPL2 = 2;
+            else chipLED.SecOPL2 = 2;
+
+            //if (model == enmModel.VirtualModel) fmRegisterYM3812[chipID][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctYM3812[chipID].UseScci)
+                {
+                    mds.WriteYM3812((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+            }
+
+        }
+
         public int getYM2413RyhthmKeyON(int chipID)
         {
             int r = fmRegisterYM2413Ryhthm[chipID];
