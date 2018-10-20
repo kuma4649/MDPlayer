@@ -53,6 +53,7 @@
             this.tsmiPPWM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,8 +75,9 @@
             this.tsmiSPWM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPL3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPL3 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -118,6 +120,7 @@
             this.tsmiPOKIM6258,
             this.tsmiPOKIM6295,
             this.tsmiPOPLL,
+            this.tsmiPOPL3,
             this.tsmiPOPL4,
             this.tsmiPOPM,
             this.tsmiPOPN,
@@ -272,6 +275,13 @@
             this.tsmiPSegaPCM.Text = "SEGA PCM";
             this.tsmiPSegaPCM.Click += new System.EventHandler(this.tsmiPSegaPCM_Click);
             // 
+            // tsmiPVRC7
+            // 
+            this.tsmiPVRC7.Name = "tsmiPVRC7";
+            this.tsmiPVRC7.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPVRC7.Text = "VRC7";
+            this.tsmiPVRC7.Click += new System.EventHandler(this.tsmiPVRC7_Click);
+            // 
             // sencondryToolStripMenuItem
             // 
             this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -286,6 +296,7 @@
             this.tsmiSOKIM6258,
             this.tsmiSOKIM6295,
             this.tsmiSOPLL,
+            this.tsmiSOPL3,
             this.tsmiSOPL4,
             this.tsmiSOPM,
             this.tsmiSOPN,
@@ -440,19 +451,26 @@
             this.tsmiSSegaPCM.Text = "SEGA PCM";
             this.tsmiSSegaPCM.Click += new System.EventHandler(this.tsmiSSegaPCM_Click);
             // 
-            // tsmiPVRC7
-            // 
-            this.tsmiPVRC7.Name = "tsmiPVRC7";
-            this.tsmiPVRC7.Size = new System.Drawing.Size(180, 22);
-            this.tsmiPVRC7.Text = "VRC7";
-            this.tsmiPVRC7.Click += new System.EventHandler(this.tsmiPVRC7_Click);
-            // 
             // tsmiSVRC7
             // 
             this.tsmiSVRC7.Name = "tsmiSVRC7";
             this.tsmiSVRC7.Size = new System.Drawing.Size(180, 22);
             this.tsmiSVRC7.Text = "VRC7";
             this.tsmiSVRC7.Click += new System.EventHandler(this.tsmiSVRC7_Click);
+            // 
+            // tsmiPOPL3
+            // 
+            this.tsmiPOPL3.Name = "tsmiPOPL3";
+            this.tsmiPOPL3.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPOPL3.Text = "OPL3";
+            this.tsmiPOPL3.Click += new System.EventHandler(this.tsmiPOPL3_Click);
+            // 
+            // tsmiSOPL3
+            // 
+            this.tsmiSOPL3.Name = "tsmiSOPL3";
+            this.tsmiSOPL3.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSOPL3.Text = "OPL3";
+            this.tsmiSOPL3.Click += new System.EventHandler(this.tsmiSOPL3_Click);
             // 
             // frmMain
             // 
@@ -525,6 +543,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPL4;
         private System.Windows.Forms.ToolStripMenuItem tsmiPVRC7;
         private System.Windows.Forms.ToolStripMenuItem tsmiSVRC7;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPOPL3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSOPL3;
     }
 }
 

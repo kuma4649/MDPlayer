@@ -112,6 +112,7 @@ namespace MDPlayer
             }
         }
         private static Stopwatch sw = Stopwatch.StartNew();
+
         private static double swFreq = Stopwatch.Frequency;
 
         private static byte[] vgmBuf = null;
@@ -5353,6 +5354,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2610[chipID];
         }
 
+        public static int[][] GetYMF262Register(int chipID)
+        {
+            return chipRegister.fmRegisterYMF262[chipID];
+        }
+
         public static int[][] GetYMF278BRegister(int chipID)
         {
             return chipRegister.fmRegisterYMF278B[chipID];
@@ -5550,6 +5556,16 @@ namespace MDPlayer
         public static int getYM2413RyhthmKeyON(int chipID)
         {
             return chipRegister.getYM2413RyhthmKeyON(chipID);
+        }
+
+        public static int getYMF262FMKeyON(int chipID)
+        {
+            return chipRegister.getYMF262FMKeyON(chipID);
+        }
+
+        public static int getYMF262RyhthmKeyON(int chipID)
+        {
+            return chipRegister.getYMF262RyhthmKeyON(chipID);
         }
 
         public static int getYMF278BFMKeyON(int chipID)
@@ -6110,6 +6126,11 @@ namespace MDPlayer
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
+        public static void setYMF262Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYMF262(chipID, ch, true);
+        }
+
         public static void setYMF278BMask(int chipID, int ch)
         {
             chipRegister.setMaskYMF278B(chipID, ch, true);
@@ -6243,6 +6264,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM2610(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYMF262Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYMF262(chipID, ch, false);
             }
             catch { }
         }

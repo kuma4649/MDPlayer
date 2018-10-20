@@ -2761,6 +2761,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosYmf2762 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosYmf262
+            {
+                get
+                {
+                    return _PosYmf278b;
+                }
+
+                set
+                {
+                    _PosYmf278b = value;
+                }
+            }
+
+            private bool[] _OpenYmf262 = new bool[2] { false, false };
+            public bool[] OpenYmf262
+            {
+                get
+                {
+                    return _OpenYmf262;
+                }
+
+                set
+                {
+                    _OpenYmf262 = value;
+                }
+            }
+
             private Point[] _PosYmf278b = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosYmf278b
             {
@@ -3016,6 +3044,8 @@ namespace MDPlayer
                 Location.OpenYm2610 = this.OpenYm2610;
                 Location.PosYm2612 = this.PosYm2612;
                 Location.OpenYm2612 = this.OpenYm2612;
+                Location.PosYmf262 = this.PosYmf262;
+                Location.OpenYmf262 = this.OpenYmf262;
                 Location.PosYmf278b = this.PosYmf278b;
                 Location.OpenYmf278b = this.OpenYmf278b;
                 Location.PosOKIM6258 = this.PosOKIM6258;

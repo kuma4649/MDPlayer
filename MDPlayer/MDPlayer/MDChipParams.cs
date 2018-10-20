@@ -226,10 +226,24 @@ namespace MDPlayer
         }
         public YM2612MIDI ym2612Midi = new YM2612MIDI();
 
+        public class YMF262
+        {
+
+            public Channel[] channels = new Channel[18 + 5 ] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel() //FM 18
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
+            };
+
+        }
+        public YMF262[] ymf262 = new YMF262[] { new YMF262(), new YMF262() };
+
         public class YMF278B
         {
 
-            public Channel[] channels = new Channel[18+5+24] {
+            public Channel[] channels = new Channel[18 + 5 + 24] {
                 new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
                 ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
                 ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel()

@@ -395,6 +395,28 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitYMF262(FrameBuffer screen, int tp)
+        {
+            for (int y = 0; y < 18; y++)
+            {
+                //Note
+                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                Volume(screen, y, 0, ref d, 19, tp);
+            }
+
+        }
+
         public static void screenInitYMF278B(FrameBuffer screen, int tp)
         {
             for (int y = 0; y < 18; y++)
@@ -415,24 +437,24 @@ namespace MDPlayer
                 Volume(screen, y, 0, ref d, 19, tp);
             }
 
-            for (int y = 19; y < 19+24; y++)
+            for (int y = 19; y < 19 + 24; y++)
             {
                 //Note
                 drawFont8(screen, 296, y * 8 + 8, 1, "   ");
 
                 //Keyboard
-                for (int i = 0; i < 15*12; i++)
+                for (int i = 0; i < 15 * 12; i++)
                 {
                     int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
                     int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y * 8 + 8 , kt, tp);
+                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
                 //Volume
                 int d = 99;
                 VolumeSt(screen, 512 - 4 * 15, y, 1, ref d, 19);
                 d = 99;
-                VolumeSt(screen, 512 - 4 * 15, y+4, 1, ref d, 19);
+                VolumeSt(screen, 512 - 4 * 15, y + 4, 1, ref d, 19);
             }
 
         }
@@ -1110,6 +1132,26 @@ namespace MDPlayer
             om = nm;
         }
 
+        private static byte[] YMF262Ch = new byte[]
+        {
+                0,3,1,4,2,5,6,7,8,9,12,10,13,11,14,15,16,17,
+                18,19,20,21,22
+        };
+        public static void ChYMF262(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+            ChYMF262_P(screen, 0
+                , ch < 18
+                    ? (8 + ch * 8)
+                    : (8 + 18 * 8)
+                , YMF262Ch[ch], nm, tp);
+            om = nm;
+        }
+
         private static byte[] YMF278BCh = new byte[]
         {
                 0,3,1,4,2,5,6,7,8,9,12,10,13,11,14,15,16,17,
@@ -1125,10 +1167,10 @@ namespace MDPlayer
                 return;
             }
             ChYMF278B_P(screen, 0
-                , ch < 18 
-                    ? (8 + ch * 8) 
-                    : (ch < 23 
-                        ? (8 + 18 * 8) 
+                , ch < 18
+                    ? (8 + ch * 8)
+                    : (ch < 23
+                        ? (8 + 18 * 8)
                         : (8 + (ch - 4) * 8)), YMF278BCh[ch], nm, tp);
             om = nm;
         }
@@ -2673,6 +2715,39 @@ namespace MDPlayer
                         break;
                     case 13:
                         drawFont4(screen, (ch - 9) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "HH");
+                        break;
+                }
+            }
+        }
+
+        private static void ChYMF262_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            if (ch < 18)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+                else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            }
+            else if (ch < 23)
+            {
+                switch (ch)
+                {
+                    case 18:
+                        drawFont4(screen, (ch - 18) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "BD");
+                        break;
+                    case 19:
+                        drawFont4(screen, (ch - 18) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "SD");
+                        break;
+                    case 20:
+                        drawFont4(screen, (ch - 18) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "TM");
+                        break;
+                    case 21:
+                        drawFont4(screen, (ch - 18) * 4 * 15 + 3 * 4, y, mask ? 1 : 0, "CYM");// 3 character
+                        break;
+                    case 22:
+                        drawFont4(screen, (ch - 18) * 4 * 15 + 4 * 4, y, mask ? 1 : 0, "HH");
                         break;
                 }
             }
