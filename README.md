@@ -33,21 +33,22 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
 [機能、特徴]  
   ・現在、以下の主にメガドライブ系音源チップのエミュレーションによる再生が可能です。  
      
-      AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140(C219) , OKIM6258 , OKIM6295  
+      AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140(C219) , OKIM6295 , OKIM6258(PCM8,MPCM含)  
       , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2610/B   , HuC6280  , C352  
       , K054539 , NES_APU  , NES_DMC , NES_FDS , MMC5    , FME7       , N160     , VRC6  
       , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B , YMZ280B    , DMG      , QSound  
-      , RF5C68  , SID  
+      , S5B     , GA20  
+      , RF5C68  , SID      , Y8950   , YM3812  , K053260 , K051649(K052539)  
   
   ・現在、以下の鍵盤表示が可能です。  
      
       AY8910    , YM2612   , SN76489  , RF5C164 , C140(C219) , SEGAPCM , YM2151      , YM2203  
-      , YM2413  , YM2608   , YM2610/B 、YMF278B , HuC6280    , MIDI    , NES_APU&DMC , NES_FDS  
-      , MMC5  
+      , YM2413  , YM2608   , YM2610/B , YMF278B , HuC6280    , MIDI    , NES_APU&DMC , NES_FDS  
+      , MMC5    , VRC7     , YM3812   
   
   ・C#で作成されています。  
   
-  ・VGMPlay,MAMEのソースを参考、移植しています。  
+  ・VGMPlay,MAME,DOSBOXのソースを参考、移植しています。  
   
   ・FMGenのソースを参考、移植しています。  
   
