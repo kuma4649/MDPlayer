@@ -643,7 +643,7 @@ namespace MDPlayer
 
         }
 
-        public static void VolumeToC140(FrameBuffer screen, int y, int c, ref int ov, int nv,int tp)
+        public static void VolumeToC140(FrameBuffer screen, int y, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
 
@@ -655,12 +655,12 @@ namespace MDPlayer
 
             for (int i = 0; i <= 19; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, (1 + t), tp);
+                VolumeP(screen, 356 + i * 2, y + sy, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+                VolumeP(screen, 356 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -884,15 +884,15 @@ namespace MDPlayer
                 kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
                 kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
                 drawKbn(screen, 32 + kx, y, kt, tp);
-                drawFont8(screen, 296, y, 1, Tables.kbn[nt % 12]);
+                drawFont8(screen, 396, y, 1, Tables.kbn[nt % 12]);
                 if (nt / 12 < 8)
                 {
-                    drawFont8(screen, 312, y, 1, Tables.kbo[nt / 12]);
+                    drawFont8(screen, 412, y, 1, Tables.kbo[nt / 12]);
                 }
             }
             else
             {
-                drawFont8(screen, 296, y, 1, "   ");
+                drawFont8(screen, 396, y, 1, "   ");
             }
 
             ot = nt;

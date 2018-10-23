@@ -154,13 +154,13 @@ namespace MDPlayer.form
                     int kt = Tables.kbl[(ot % 12) * 2 + 1];
                     DrawBuff.drawKbn(frameBuffer, 32 + kx, ch * 8 + 8, kt, tp);
                 }
-                DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
+                DrawBuff.drawFont8(frameBuffer, 396, ch * 8 + 8, 1, "   ");
                 DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
                 DrawBuff.ChC140_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
                 int d = 99;
-                DrawBuff.Volume(frameBuffer, ch, 1, ref d, 0, tp);
+                DrawBuff.VolumeToC140(frameBuffer, ch, 1, ref d,0, tp);
                 d = 99;
-                DrawBuff.Volume(frameBuffer, ch, 2, ref d, 0, tp);
+                DrawBuff.VolumeToC140(frameBuffer, ch, 2, ref d,0, tp);
             }
         }
 
@@ -199,6 +199,16 @@ namespace MDPlayer.form
                     newParam.channels[ch].pan = ((l >> 4) & 0xf) | (((r >> 4) & 0xf) << 4);
 
                     c140KeyOn[ch] = false;
+
+                    newParam.channels[ch].freq = (c140State[ch * 16 + 2] << 8) | c140State[ch * 16 + 3];
+                    newParam.channels[ch].bank = c140State[ch * 16 + 4];
+                    byte d = c140State[ch * 16 + 5];
+                    newParam.channels[ch].bit[0] = (d & 0x10) != 0;
+                    newParam.channels[ch].bit[1] = (d & 0x08) != 0;
+                    newParam.channels[ch].sadr = (c140State[ch * 16 + 6] << 8) | c140State[ch * 16 + 7];
+                    newParam.channels[ch].eadr = (c140State[ch * 16 + 8] << 8) | c140State[ch * 16 + 9];
+                    newParam.channels[ch].ladr = (c140State[ch * 16 + 10] << 8) | c140State[ch * 16 + 11];
+
                 }
             }
         }
@@ -219,6 +229,14 @@ namespace MDPlayer.form
                 DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan, tp);
 
                 DrawBuff.ChC140(frameBuffer, c, ref orc.mask, nrc.mask, tp);
+
+                DrawBuff.drawNESSw(frameBuffer, 64 * 4, c * 8 + 8, ref oldParam.channels[c].bit[0], newParam.channels[c].bit[0]);
+                DrawBuff.drawNESSw(frameBuffer, 65 * 4, c * 8 + 8, ref oldParam.channels[c].bit[1], newParam.channels[c].bit[1]);
+                DrawBuff.font4Hex16Bit(frameBuffer, 4 * 67, c * 8 + 8, 0, ref orc.freq, nrc.freq);
+                DrawBuff.font4HexByte(frameBuffer, 4 * 72, c * 8 + 8, 0, ref orc.bank, nrc.bank);
+                DrawBuff.font4Hex16Bit(frameBuffer, 4 * 75, c * 8 + 8, 0, ref orc.sadr, nrc.sadr);
+                DrawBuff.font4Hex16Bit(frameBuffer, 4 * 80, c * 8 + 8, 0, ref orc.eadr, nrc.eadr);
+                DrawBuff.font4Hex16Bit(frameBuffer, 4 * 85, c * 8 + 8, 0, ref orc.ladr, nrc.ladr);
             }
         }
 
