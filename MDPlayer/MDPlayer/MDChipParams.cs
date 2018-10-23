@@ -33,7 +33,14 @@ namespace MDPlayer
             public int volume = -1;
             public int volumeL = -1;
             public int volumeR = -1;
+            public int volumeRL = -1;
+            public int volumeRR = -1;
+            public int flg16 = -1;
             public int freq = -1;
+            public int bank = -1;
+            public int sadr = -1;
+            public int eadr = -1;
+            public int ladr = -1;
             public int pcmMode = -1;
             public int pcmBuff = 0;
             public bool mask = false;
@@ -47,6 +54,7 @@ namespace MDPlayer
 
             public int[] inst = new int[48];
             public int[] typ = new int[48];
+            public bool[] bit = new bool[48];
 
             public Channel()
             {
@@ -54,6 +62,7 @@ namespace MDPlayer
                 {
                     inst[i] = -1;
                     typ[i] = 0;
+                    bit[i] = false;
                 }
             }
         }
@@ -101,6 +110,22 @@ namespace MDPlayer
             public Channel[] channels = new Channel[24] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
         }
         public C140[] c140 = new C140[] { new C140(), new C140() };
+
+        public class C352
+        {
+            public Channel[] channels = new Channel[32] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel()
+            };
+        }
+        public C352[] c352 = new C352[] { new C352(), new C352() };
 
         public class OKIM6258
         {

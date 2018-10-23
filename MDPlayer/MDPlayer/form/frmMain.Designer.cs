@@ -44,6 +44,7 @@
             this.tsmiPOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPL3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPL4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPN = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +67,7 @@
             this.tsmiSOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPL3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPL4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPN = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +78,8 @@
             this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPOPL3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPC352 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSC352 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -111,6 +113,7 @@
             this.primaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiPAY8910,
             this.tsmiPC140,
+            this.tsmiPC352,
             this.tsmiPDCSG,
             this.tsmiPFDS,
             this.tsmiPHuC6280,
@@ -212,6 +215,13 @@
             this.tsmiPOPLL.Text = "OPLL";
             this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
             // 
+            // tsmiPOPL3
+            // 
+            this.tsmiPOPL3.Name = "tsmiPOPL3";
+            this.tsmiPOPL3.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPOPL3.Text = "OPL3";
+            this.tsmiPOPL3.Click += new System.EventHandler(this.tsmiPOPL3_Click);
+            // 
             // tsmiPOPL4
             // 
             this.tsmiPOPL4.Name = "tsmiPOPL4";
@@ -287,6 +297,7 @@
             this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiSAY8910,
             this.tsmiSC140,
+            this.tsmiSC352,
             this.tsmiSDCSG,
             this.tsmiSFDS,
             this.tsmiSHuC6280,
@@ -388,6 +399,13 @@
             this.tsmiSOPLL.Text = "OPLL";
             this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
             // 
+            // tsmiSOPL3
+            // 
+            this.tsmiSOPL3.Name = "tsmiSOPL3";
+            this.tsmiSOPL3.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSOPL3.Text = "OPL3";
+            this.tsmiSOPL3.Click += new System.EventHandler(this.tsmiSOPL3_Click);
+            // 
             // tsmiSOPL4
             // 
             this.tsmiSOPL4.Name = "tsmiSOPL4";
@@ -458,19 +476,19 @@
             this.tsmiSVRC7.Text = "VRC7";
             this.tsmiSVRC7.Click += new System.EventHandler(this.tsmiSVRC7_Click);
             // 
-            // tsmiPOPL3
+            // tsmiPC352
             // 
-            this.tsmiPOPL3.Name = "tsmiPOPL3";
-            this.tsmiPOPL3.Size = new System.Drawing.Size(180, 22);
-            this.tsmiPOPL3.Text = "OPL3";
-            this.tsmiPOPL3.Click += new System.EventHandler(this.tsmiPOPL3_Click);
+            this.tsmiPC352.Name = "tsmiPC352";
+            this.tsmiPC352.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPC352.Text = "C352";
+            this.tsmiPC352.Click += new System.EventHandler(this.tsmiPC352_Click);
             // 
-            // tsmiSOPL3
+            // tsmiSC352
             // 
-            this.tsmiSOPL3.Name = "tsmiSOPL3";
-            this.tsmiSOPL3.Size = new System.Drawing.Size(180, 22);
-            this.tsmiSOPL3.Text = "OPL3";
-            this.tsmiSOPL3.Click += new System.EventHandler(this.tsmiSOPL3_Click);
+            this.tsmiSC352.Name = "tsmiSC352";
+            this.tsmiSC352.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSC352.Text = "C352";
+            this.tsmiSC352.Click += new System.EventHandler(this.tsmiSC352_Click);
             // 
             // frmMain
             // 
@@ -545,6 +563,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSVRC7;
         private System.Windows.Forms.ToolStripMenuItem tsmiPOPL3;
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPL3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPC352;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSC352;
     }
 }
 

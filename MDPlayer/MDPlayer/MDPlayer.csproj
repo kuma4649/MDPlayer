@@ -256,6 +256,12 @@
     <Compile Include="form\frmC140.Designer.cs">
       <DependentUpon>frmC140.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmC352.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmC352.Designer.cs">
+      <DependentUpon>frmC352.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmFDS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -467,6 +473,9 @@
     <EmbeddedResource Include="form\frmC140.resx">
       <DependentUpon>frmC140.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmC352.resx">
+      <DependentUpon>frmC352.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmFDS.resx">
       <DependentUpon>frmFDS.cs</DependentUpon>
     </EmbeddedResource>
@@ -627,6 +636,7 @@
     <Content Include="Resources\openPL.png" />
     <Content Include="Resources\planeAY8910.png" />
     <Content Include="Resources\planeB.png" />
+    <Content Include="Resources\planeC352.png" />
     <Content Include="Resources\planeControl.png" />
     <Content Include="Resources\planeD.png" />
     <Content Include="Resources\planeE.png" />

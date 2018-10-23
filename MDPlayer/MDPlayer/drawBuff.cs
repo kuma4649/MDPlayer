@@ -898,6 +898,41 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardToC352(FrameBuffer screen, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            if (nt >= 0)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, 32 + kx, y, kt, tp);
+                drawFont8(screen, 500 , y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 8)
+                {
+                    drawFont8(screen, 516, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+            else
+            {
+                drawFont8(screen, 500, y, 1, "   ");
+            }
+
+            ot = nt;
+        }
+
         public static void KeyBoardToYMF278BPCM(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
@@ -1023,6 +1058,18 @@ namespace MDPlayer
             }
 
             ChC140_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChC352(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChC352_P(screen, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
@@ -1820,7 +1867,31 @@ namespace MDPlayer
             otp = ntp;
         }
 
-        public static void SUSFlag(FrameBuffer screen, int x, int y,int t, ref int oi, int ni)
+        public static void flag16Bit(FrameBuffer screen, int x, int y, int t, ref int oi, int ni)
+        {
+            if (oi != ni)
+            {
+                drawFont4(screen, x + 0, y, t, (ni & 0x8000) == 0 ? "-" : "*");
+                drawFont4(screen, x + 4, y, t, (ni & 0x4000) == 0 ? "-" : "*");
+                drawFont4(screen, x + 8, y, t, (ni & 0x2000) == 0 ? "-" : "*");
+                drawFont4(screen, x + 12, y, t, (ni & 0x1000) == 0 ? "-" : "*");
+                drawFont4(screen, x + 16, y, t, (ni & 0x0800) == 0 ? "-" : "*");
+                drawFont4(screen, x + 20, y, t, (ni & 0x0400) == 0 ? "-" : "*");
+                drawFont4(screen, x + 24, y, t, (ni & 0x0200) == 0 ? "-" : "*");
+                drawFont4(screen, x + 28, y, t, (ni & 0x0100) == 0 ? "-" : "*");
+                drawFont4(screen, x + 32, y, t, (ni & 0x0080) == 0 ? "-" : "*");
+                drawFont4(screen, x + 36, y, t, (ni & 0x0040) == 0 ? "-" : "*");
+                drawFont4(screen, x + 40, y, t, (ni & 0x0020) == 0 ? "-" : "*");
+                drawFont4(screen, x + 44, y, t, (ni & 0x0010) == 0 ? "-" : "*");
+                drawFont4(screen, x + 48, y, t, (ni & 0x0008) == 0 ? "-" : "*");
+                drawFont4(screen, x + 52, y, t, (ni & 0x0004) == 0 ? "-" : "*");
+                drawFont4(screen, x + 56, y, t, (ni & 0x0002) == 0 ? "-" : "*");
+                drawFont4(screen, x + 60, y, t, (ni & 0x0001) == 0 ? "-" : "*");
+                oi = ni;
+            }
+        }
+
+        public static void SUSFlag(FrameBuffer screen, int x, int y, int t, ref int oi, int ni)
         {
             if (oi != ni)
             {
@@ -2115,6 +2186,14 @@ namespace MDPlayer
             if (on == nn) return;
 
             drawFont4Hex12Bit(screen, x, y, t, nn);
+            on = nn;
+        }
+
+        public static void font4Hex16Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex16Bit(screen, x, y, t, nn);
             on = nn;
         }
 
@@ -2548,6 +2627,37 @@ namespace MDPlayer
             return;
         }
 
+        public static void drawFont4Hex16Bit(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = common.Range(num, 0, 0xffff);
+
+            n = num / 0x1000;
+            num -= n * 0x1000;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x100;
+            num -= n * 0x100;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
         public static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
@@ -2607,6 +2717,15 @@ namespace MDPlayer
         }
 
         public static void ChC140_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+            if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        public static void ChC352_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
         {
             if (screen == null) return;
 

@@ -33,6 +33,7 @@ namespace MDPlayer
 
         public static int clockAY8910 = 1789750;
         public static int clockC140 = 21390;
+        public static int clockC352 = 24192000;
         public static int clockFDS = 0;
         public static int clockHuC6280 = 0;
         public static int clockRF5C164 = 0;
@@ -4034,6 +4035,8 @@ namespace MDPlayer
                         chip.Volume = setting.balance.C352Volume;
                         chip.Clock = (((vgm)driverVirtual).C352ClockValue & 0x7fffffff);
                         chip.Option = new object[1] { (((vgm)driverVirtual).C352ClockDivider) };
+                        int divider = (ushort)((((vgm)driverVirtual).C352ClockDivider) != 0 ? (((vgm)driverVirtual).C352ClockDivider) : 288);
+                        clockC352 = (int)(chip.Clock / divider);
                         c352.c352_set_options((byte)(((vgm)driverVirtual).C352ClockValue >> 31));
                         hiyorimiDeviceFlag |= 0x2;
 
@@ -5440,6 +5443,16 @@ namespace MDPlayer
             return chipRegister.pcmKeyOnC140[chipID];
         }
 
+        public static ushort[] GetC352Register(int chipID)
+        {
+            return chipRegister.pcmRegisterC352[chipID];
+        }
+
+        public static ushort[] GetC352KeyOn(int chipID)
+        {
+            return chipRegister.readC352((byte)chipID);
+        }
+
         public static byte[] GetSEGAPCMRegister(int chipID)
         {
             return chipRegister.pcmRegisterSEGAPCM[chipID];
@@ -6168,6 +6181,11 @@ namespace MDPlayer
             mds.setC140Mask(chipID, 1 << ch);
         }
 
+        public static void setC352Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskC352(chipID, ch, true);
+        }
+
         public static void setSegaPCMMask(int chipID, int ch)
         {
             mds.setSegaPcmMask(chipID, 1 << ch);
@@ -6316,6 +6334,15 @@ namespace MDPlayer
         public static void resetC140Mask(int chipID, int ch)
         {
             mds.resetC140Mask(chipID, 1 << ch);
+        }
+
+        public static void resetC352Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskC352(chipID, ch, false);
+            }
+            catch { }
         }
 
         public static void resetSegaPCMMask(int chipID, int ch)

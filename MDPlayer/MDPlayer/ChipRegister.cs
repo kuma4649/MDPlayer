@@ -221,6 +221,19 @@ namespace MDPlayer
         public byte[][] pcmRegisterC140 = new byte[2][] { null, null };
         public bool[][] pcmKeyOnC140 = new bool[2][] { null, null };
 
+        public ushort[][] pcmRegisterC352 = new ushort[2][] { null, null };
+        public ushort[][] pcmKeyOnC352 = new ushort[2][] { null, null };
+        private bool[][] maskChC352 = new bool[][] {
+            new bool[32] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false
+            }
+            ,new bool[32] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false
+            }
+        };
+
         public byte[][] pcmRegisterSEGAPCM = new byte[2][] { null, null };
         public bool[][] pcmKeyOnSEGAPCM = new bool[2][] { null, null };
 
@@ -426,6 +439,9 @@ namespace MDPlayer
 
                 pcmRegisterC140[chipID] = new byte[0x200];
                 pcmKeyOnC140[chipID] = new bool[24];
+
+                pcmRegisterC352[chipID] = new ushort[0x203];
+                pcmKeyOnC352[chipID] = new ushort[32];
 
                 pcmRegisterSEGAPCM[chipID] = new byte[0x200];
                 pcmKeyOnSEGAPCM[chipID] = new bool[16];
@@ -2257,6 +2273,11 @@ namespace MDPlayer
             maskFMChYMF278B[chipID][YMF278BCh[ch]] = mask;
         }
 
+        public void setMaskC352(int chipID, int ch, bool mask)
+        {
+            maskChC352[chipID][ch] = mask;
+        }
+
         public void setMaskYM2608(int chipID, int ch, bool mask)
         {
             maskFMChYM2608[chipID][ch] = mask;
@@ -2847,8 +2868,19 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriC352 = 2;
             else chipLED.SecC352 = 2;
 
+            pcmRegisterC352[chipid][adr] = (ushort)data;
+            int c = (int)adr / 8;
+            if (adr < 0x100 && (adr % 8) == 3 && maskChC352[chipid][adr / 8])
+            {
+                data &= 0xbfff;
+            }
             if (model == enmModel.VirtualModel)
                 mds.WriteC352(chipid, adr, data);
+        }
+
+        public ushort[] readC352(byte chipid)
+        {
+            return mds.ReadC352Flag(chipid);
         }
 
         public void writeC352PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
