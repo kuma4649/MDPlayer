@@ -73,13 +73,13 @@ namespace MDPlayer.form
             }
         }
 
-        protected override bool ShowWithoutActivation
-        {
-            get
-            {
-                return true;
-            }
-        }
+        //protected override bool ShowWithoutActivation
+        //{
+        //    get
+        //    {
+        //        return true;
+        //    }
+        //}
 
         private void frmInfo_FormClosed(object sender, FormClosedEventArgs e)
         {

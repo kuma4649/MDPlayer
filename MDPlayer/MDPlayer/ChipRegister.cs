@@ -148,6 +148,23 @@ namespace MDPlayer
             , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
         };
 
+        public int[][] fmRegisterYM3812 = new int[][] { null, null };
+        private int[] fmRegisterYM3812KO = new int[2] { 0, 0 };
+        private int[] fmRegisterYM3812Ryhthm = new int[2] { 0, 0 };
+        private int[] fmRegisterYM3812RyhthmB = new int[2] { 0, 0 };
+        private bool[][] maskFMChYM3812 = new bool[2][] {
+            new bool[9 + 5]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+            },
+            new bool[9 + 5]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+            }
+        };
+
         public int[][][] fmRegisterYMF262 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         private int[] fmRegisterYMF262FM = new int[2] { 0, 0 };
         private int[] fmRegisterYMF262RyhthmB = new int[2] { 0, 0 };
@@ -360,6 +377,13 @@ namespace MDPlayer
                 fmRegisterYM2610[chipID][1][0xb5] = 0xc0;
                 fmRegisterYM2610[chipID][1][0xb6] = 0xc0;
                 fmKeyOnYM2610[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM3812[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM3812[chipID][i] = 0;
+                    fmRegisterYM3812[chipID][i] = 0;
+                }
 
                 fmRegisterYMF262[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
@@ -1117,7 +1141,44 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPL2 = 2;
             else chipLED.SecOPL2 = 2;
 
-            //if (model == enmModel.VirtualModel) fmRegisterYM3812[chipID][dAddr] = dData;
+            if (model == enmModel.VirtualModel)
+            {
+                fmRegisterYM3812[chipID][dAddr] = dData;
+
+                if (dAddr >= 0xb0 && dAddr <= 0xb8)
+                {
+                    int ch = dAddr - 0xb0;
+                    int k = (dData >> 5) & 1;
+                    if (k == 0)
+                    {
+                        fmRegisterYM3812KO[chipID] &= ~(1 << ch);
+                    }
+                    else
+                    {
+                        fmRegisterYM3812KO[chipID] |= (1 << ch);
+                    }
+                    fmRegisterYM3812KO[chipID] &= 0x001ff;
+                    if (maskFMChYM3812[chipID][ch]) dData &= 0x1f;
+                }
+
+                if (dAddr == 0xbd)
+                {
+                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x10) == 0 && (dData & 0x10) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x10;
+                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x08) == 0 && (dData & 0x08) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x08;
+                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x04) == 0 && (dData & 0x04) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x04;
+                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x02) == 0 && (dData & 0x02) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x02;
+                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x01) == 0 && (dData & 0x01) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x01;
+                    fmRegisterYM3812RyhthmB[chipID] = dData;
+
+                    if (maskFMChYM3812[chipID][9]) dData &= 0xef;
+                    if (maskFMChYM3812[chipID][10]) dData &= 0xf7;
+                    if (maskFMChYM3812[chipID][11]) dData &= 0xfb;
+                    if (maskFMChYM3812[chipID][12]) dData &= 0xfd;
+                    if (maskFMChYM3812[chipID][13]) dData &= 0xfe;
+
+                }
+
+            }
 
             if (model == enmModel.VirtualModel)
             {
@@ -1130,6 +1191,18 @@ namespace MDPlayer
             {
             }
 
+        }
+
+        public int getYM3812KeyON(int chipID)
+        {
+            return fmRegisterYM3812KO[chipID];
+        }
+
+        public int getYM3812RyhthmKeyON(int chipID)
+        {
+            int r = fmRegisterYM3812Ryhthm[chipID];
+            fmRegisterYM3812Ryhthm[chipID] = 0;
+            return r;
         }
 
         public int getYM2413RyhthmKeyON(int chipID)
@@ -2261,6 +2334,11 @@ namespace MDPlayer
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.VirtualModel);
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.RealModel);
             }
+        }
+
+        public void setMaskYM3812(int chipID, int ch, bool mask)
+        {
+            maskFMChYM3812[chipID][ch] = mask;
         }
 
         public void setMaskYMF262(int chipID, int ch, bool mask)

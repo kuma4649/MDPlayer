@@ -212,6 +212,7 @@ namespace MDPlayer.form
                 newParam.channels[ch].inst[3] = 0;
                 newParam.channels[ch].note = -1;
                 newParam.channels[ch].volumeL = 0;
+                newParam.channels[ch].mask = false;
             }
 
             newParam.channels[0].inst[4] = 0;

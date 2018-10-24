@@ -5384,6 +5384,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2610[chipID];
         }
 
+        public static int[] GetYM3812Register(int chipID)
+        {
+            return chipRegister.fmRegisterYM3812[chipID];
+        }
+
         public static int[][] GetYMF262Register(int chipID)
         {
             return chipRegister.fmRegisterYMF262[chipID];
@@ -5493,18 +5498,24 @@ namespace MDPlayer
         public static byte[] GetDMCRegister(int chipID)
         {
             byte[] reg = null;
+            try
+            {
+                //nsf向け
+                if (chipRegister == null) reg = null;
+                else if (chipRegister.nes_apu == null) reg = null;
+                else if (chipRegister.nes_apu.chip == null) reg = null;
+                else if (chipID == 1) reg = null;
+                else reg = chipRegister.nes_dmc.chip.reg;
 
-            //nsf向け
-            if (chipRegister == null) reg = null;
-            else if (chipRegister.nes_apu == null) reg = null;
-            else if (chipRegister.nes_apu.chip == null) reg = null;
-            else if (chipID == 1) reg = null;
-            else reg = chipRegister.nes_dmc.chip.reg;
+                //vgm向け
+                //if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
 
-            //vgm向け
-            //if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
-
-            return reg;
+                return reg;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static MDSound.np.np_nes_fds.NES_FDS GetFDSRegister(int chipID)
@@ -5596,6 +5607,16 @@ namespace MDPlayer
         public static int getYM2413RyhthmKeyON(int chipID)
         {
             return chipRegister.getYM2413RyhthmKeyON(chipID);
+        }
+
+        public static int getYM3812KeyON(int chipID)
+        {
+            return chipRegister.getYM3812KeyON(chipID);
+        }
+
+        public static int getYM3812RyhthmKeyON(int chipID)
+        {
+            return chipRegister.getYM3812RyhthmKeyON(chipID);
         }
 
         public static int getYMF262FMKeyON(int chipID)
@@ -6166,6 +6187,11 @@ namespace MDPlayer
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
+        public static void setYM3812Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYM3812(chipID, ch, true);
+        }
+
         public static void setYMF262Mask(int chipID, int ch)
         {
             chipRegister.setMaskYMF262(chipID, ch, true);
@@ -6309,6 +6335,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM2610(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYM3812Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYM3812(chipID, ch, false);
             }
             catch { }
         }
