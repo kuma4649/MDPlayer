@@ -3589,7 +3589,7 @@ namespace MDPlayer
                 if (((vgm)driverVirtual).OKIM6295ClockValue != 0)
                 {
                     MDSound.okim6295 okim6295 = new MDSound.okim6295();
-                    for (int i = 0; i < (((vgm)driverVirtual).OKIM6295DualChipFlag ? 2 : 1); i++)
+                    for (byte i = 0; i < (((vgm)driverVirtual).OKIM6295DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.OKIM6295;
@@ -3603,7 +3603,7 @@ namespace MDPlayer
                         chip.Volume = setting.balance.OKIM6295Volume;
                         chip.Clock = ((vgm)driverVirtual).OKIM6295ClockValue;
                         chip.Option = null;
-                        okim6295.okim6295_set_srchg_cb(0, ChangeChipSampleRate, chip);
+                        okim6295.okim6295_set_srchg_cb(i, ChangeChipSampleRate, chip);
 
                         hiyorimiDeviceFlag |= 0x2;
 
@@ -5609,14 +5609,9 @@ namespace MDPlayer
             return chipRegister.getYM2413RyhthmKeyON(chipID);
         }
 
-        public static int getYM3812KeyON(int chipID)
+        public static ChipKeyInfo getYM3812KeyInfo(int chipID)
         {
-            return chipRegister.getYM3812KeyON(chipID);
-        }
-
-        public static int getYM3812RyhthmKeyON(int chipID)
-        {
-            return chipRegister.getYM3812RyhthmKeyON(chipID);
+            return chipRegister.getYM3812KeyInfo(chipID);
         }
 
         public static int getYMF262FMKeyON(int chipID)

@@ -132,9 +132,7 @@ namespace MDPlayer.form
                 //DrawBuff.drawFont8(frameBuffer, 296, ch * 8 + 8, 1, "   ");
                 DrawBuff.drawPanType2P(frameBuffer, 24, ch * 8 + 8, 0, tp);
                 DrawBuff.ChC140_P(frameBuffer, 0, 8 + ch * 8, ch, false, tp);
-                int d = 99;
                 //DrawBuff.Volume(frameBuffer, ch, 1, ref d, 0, tp);
-                d = 99;
                 //DrawBuff.Volume(frameBuffer, ch, 2, ref d, 0, tp);
             }
         }

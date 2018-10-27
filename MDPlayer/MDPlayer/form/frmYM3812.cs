@@ -139,13 +139,14 @@ namespace MDPlayer.form
 
         private int[] slot1Tbl = new int[] { 0, 1, 2, 6, 7, 8, 12, 13, 14 };
         private int[] slot2Tbl = new int[] { 3, 4, 5, 9, 10, 11, 15, 16, 17 };
+        private static byte[] rhythmAdr = new byte[] { 0x53, 0x54, 0x52, 0x55, 0x51 };
 
         public void screenChangeParams()
         {
             int[] ym3812Register = Audio.GetYM3812Register(chipID);
             MDChipParams.Channel nyc;
             int slot = 0;
-            int ko = Audio.getYM3812KeyON(chipID);
+            ChipKeyInfo ki = Audio.getYM3812KeyInfo(chipID);
 
             //FM
             for (int c = 0; c < 9; c++)
@@ -202,9 +203,9 @@ namespace MDPlayer.form
                 nyc.inst[14] = (ym3812Register[0xc0 + c] & 1);
 
                 int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
-                if ((ko & (1 << c)) != 0)
+                if (ki.On[c] || ki.Off[c])
                 {
-                    if (nyc.note != nt)
+                    if (nyc.note != nt || ki.Off[c])
                     {
                         nyc.note = nt;
                         int tl1 = nyc.inst[5 + 0 * 17];
@@ -214,20 +215,17 @@ namespace MDPlayer.form
                         {
                             tl = Math.Min(tl1, tl2);
                         }
-                        nyc.volumeL = (nyc.inst[36] & 2) != 0 ? (19 * (64 - tl) / 64) : 0;
-                        nyc.volumeR = (nyc.inst[36] & 1) != 0 ? (19 * (64 - tl) / 64) : 0;
+                        nyc.volume = (19 * (64 - tl) / 64);
                     }
                     else
                     {
-                        nyc.volumeL--; if (nyc.volumeL < 0) nyc.volumeL = 0;
-                        nyc.volumeR--; if (nyc.volumeR < 0) nyc.volumeR = 0;
+                        nyc.volume--; if (nyc.volume < 0) nyc.volume = 0;
                     }
                 }
                 else
                 {
                     nyc.note = -1;
-                    nyc.volumeL--; if (nyc.volumeL < 0) { nyc.volumeL = 0; }
-                    nyc.volumeR--; if (nyc.volumeR < 0) { nyc.volumeR = 0; }
+                    nyc.volume--; if (nyc.volume < 0) nyc.volume = 0;
                 }
 
 
@@ -237,67 +235,23 @@ namespace MDPlayer.form
 
             #region リズム情報の取得
 
-            int r = Audio.getYM3812RyhthmKeyON(chipID);
-
             //slot14 TL 0x51 HH
             //slot15 TL 0x52 TOM
             //slot16 TL 0x53 BD
             //slot17 TL 0x54 SD
             //slot18 TL 0x55 CYM
 
-            //BD
-            if ((r & 0x10) != 0)
+            for (int i = 0; i < 5; i++)
             {
-                newParam.channels[9].volume = 19 - ((ym3812Register[0x53] & 0x3f) >> 2);
-            }
-            else
-            {
-                newParam.channels[9].volume--;
-                if (newParam.channels[9].volume < 0) newParam.channels[9].volume = 0;
-            }
-
-            //SD
-            if ((r & 0x08) != 0)
-            {
-                newParam.channels[10].volume = 19 - ((ym3812Register[0x54] & 0x3f) >> 2);
-            }
-            else
-            {
-                newParam.channels[10].volume--;
-                if (newParam.channels[10].volume < 0) newParam.channels[10].volume = 0;
-            }
-
-            //TOM
-            if ((r & 0x04) != 0)
-            {
-                newParam.channels[11].volume = 19 - ((ym3812Register[0x52] & 0x3f) >> 2);
-            }
-            else
-            {
-                newParam.channels[11].volume--;
-                if (newParam.channels[11].volume < 0) newParam.channels[11].volume = 0;
-            }
-
-            //CYM
-            if ((r & 0x02) != 0)
-            {
-                newParam.channels[12].volume = 19 - ((ym3812Register[0x55] & 0x3f) >> 2);
-            }
-            else
-            {
-                newParam.channels[12].volume--;
-                if (newParam.channels[12].volume < 0) newParam.channels[12].volume = 0;
-            }
-
-            //HH
-            if ((r & 0x01) != 0)
-            {
-                newParam.channels[13].volume = 19 - ((ym3812Register[0x51] & 0x3f) >> 2);
-            }
-            else
-            {
-                newParam.channels[13].volume--;
-                if (newParam.channels[13].volume < 0) newParam.channels[13].volume = 0;
+                if (ki.On[i + 9] || ki.Off[i + 9])
+                {
+                    newParam.channels[i + 9].volume = 19 - ((ym3812Register[rhythmAdr[i]] & 0x3f) >> 2);
+                }
+                else
+                {
+                    newParam.channels[i + 9].volume--;
+                    if (newParam.channels[i + 9].volume < 0) newParam.channels[i + 9].volume = 0;
+                }
             }
 
             #endregion
@@ -340,7 +294,7 @@ namespace MDPlayer.form
                 DrawBuff.font4Int2(frameBuffer, 16 + 4 * 72, c * 8 + 96, 0, 0, ref oyc.inst[14], nyc.inst[14]);//CN
                 DrawBuff.font4Int2(frameBuffer, 16 + 4 * 75, c * 8 + 96, 0, 0, ref oyc.inst[15], nyc.inst[15]);//FB
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
-                DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.ChYM3812(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
             }

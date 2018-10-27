@@ -149,9 +149,8 @@ namespace MDPlayer
         };
 
         public int[][] fmRegisterYM3812 = new int[][] { null, null };
-        private int[] fmRegisterYM3812KO = new int[2] { 0, 0 };
-        private int[] fmRegisterYM3812Ryhthm = new int[2] { 0, 0 };
-        private int[] fmRegisterYM3812RyhthmB = new int[2] { 0, 0 };
+        private ChipKeyInfo[] kiYM3812 = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
+        private ChipKeyInfo[] kiYM3812ret = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
         private bool[][] maskFMChYM3812 = new bool[2][] {
             new bool[9 + 5]
             {
@@ -1151,24 +1150,31 @@ namespace MDPlayer
                     int k = (dData >> 5) & 1;
                     if (k == 0)
                     {
-                        fmRegisterYM3812KO[chipID] &= ~(1 << ch);
+                        kiYM3812[chipID].On[ch] = false;
+                        kiYM3812[chipID].Off[ch] = true;
                     }
                     else
                     {
-                        fmRegisterYM3812KO[chipID] |= (1 << ch);
+                        kiYM3812[chipID].On[ch] = true;
                     }
-                    fmRegisterYM3812KO[chipID] &= 0x001ff;
                     if (maskFMChYM3812[chipID][ch]) dData &= 0x1f;
                 }
 
                 if (dAddr == 0xbd)
                 {
-                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x10) == 0 && (dData & 0x10) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x10;
-                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x08) == 0 && (dData & 0x08) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x08;
-                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x04) == 0 && (dData & 0x04) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x04;
-                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x02) == 0 && (dData & 0x02) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x02;
-                    if ((fmRegisterYM3812RyhthmB[chipID] & 0x01) == 0 && (dData & 0x01) != 0) fmRegisterYM3812Ryhthm[chipID] |= 0x01;
-                    fmRegisterYM3812RyhthmB[chipID] = dData;
+
+                    for (int c = 0; c < 5; c++)
+                    {
+                        if ((dData & (0x10 >> c)) != 0)
+                        {
+                            kiYM3812[chipID].On[c + 9] = true;
+                        }
+                        else
+                        {
+                            kiYM3812[chipID].On[c + 9] = false;
+                            //kiYM3812[chipID].Off[c + 9] = true;
+                        }
+                    }
 
                     if (maskFMChYM3812[chipID][9]) dData &= 0xef;
                     if (maskFMChYM3812[chipID][10]) dData &= 0xf7;
@@ -1193,16 +1199,15 @@ namespace MDPlayer
 
         }
 
-        public int getYM3812KeyON(int chipID)
+        public ChipKeyInfo getYM3812KeyInfo(int chipID)
         {
-            return fmRegisterYM3812KO[chipID];
-        }
-
-        public int getYM3812RyhthmKeyON(int chipID)
-        {
-            int r = fmRegisterYM3812Ryhthm[chipID];
-            fmRegisterYM3812Ryhthm[chipID] = 0;
-            return r;
+            for (int ch = 0; ch < kiYM3812[chipID].Off.Length; ch++)
+            {
+                kiYM3812ret[chipID].On[ch] = kiYM3812[chipID].On[ch];
+                kiYM3812ret[chipID].Off[ch] = kiYM3812[chipID].Off[ch];
+                kiYM3812[chipID].Off[ch] = false;
+            }
+            return kiYM3812ret[chipID];
         }
 
         public int getYM2413RyhthmKeyON(int chipID)
@@ -3487,4 +3492,18 @@ namespace MDPlayer
 
 
     }
+
+    public class ChipKeyInfo
+    {
+        public bool[] On = null;
+        public bool[] Off = null;
+
+        public ChipKeyInfo(int n)
+        {
+            On = new bool[n];
+            Off = new bool[n];
+            for (int i = 0; i < n; i++) Off[i] = true;
+        }
+    }
+
 }
