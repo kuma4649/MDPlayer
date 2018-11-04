@@ -889,23 +889,29 @@ namespace MDPlayer
 
                         case 0x82:
                             if (ym2610AdpcmA[chipID] == null || ym2610AdpcmA[chipID].Length != romSize) ym2610AdpcmA[chipID] = new byte[romSize];
-                            for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            if (ym2610AdpcmA[chipID].Length > 0)
                             {
-                                ym2610AdpcmA[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                for (int cnt = 0; cnt < bLen - 8; cnt++)
+                                {
+                                    ym2610AdpcmA[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                }
+                                if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
+                                else chipRegister.WriteYM2610_SetAdpcmA(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
+                                dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             }
-                            if(model== enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
-                            else chipRegister.WriteYM2610_SetAdpcmA(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
-                            dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             break;
                         case 0x83:
                             if (ym2610AdpcmB[chipID] == null || ym2610AdpcmB[chipID].Length != romSize) ym2610AdpcmB[chipID] = new byte[romSize];
-                            for (int cnt = 0; cnt < bLen - 8; cnt++)
+                            if (ym2610AdpcmB[chipID].Length > 0)
                             {
-                                ym2610AdpcmB[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                for (int cnt = 0; cnt < bLen - 8; cnt++)
+                                {
+                                    ym2610AdpcmB[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
+                                }
+                                if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
+                                else chipRegister.WriteYM2610_SetAdpcmB(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
+                                dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             }
-                            if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
-                            else chipRegister.WriteYM2610_SetAdpcmB(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
-                            dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x84:
@@ -995,20 +1001,27 @@ namespace MDPlayer
                         ROMData = vgmAdr + 11;
                     }
 
-                    switch (bType)
+                    try
                     {
-                        case 0xc0:
-                            chipRegister.writeRF5C68PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
-                            dumpData(model, "RF5C68_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
-                            break;
-                        case 0xc1:
-                            chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
-                            dumpData(model, "RF5C164_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
-                            break;
-                        case 0xc2:
-                            chipRegister.writeNESPCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
-                            dumpData(model, "NES_PCMData", vgmAdr + 9, dataSize);
-                            break;
+                        switch (bType)
+                        {
+                            case 0xc0:
+                                chipRegister.writeRF5C68PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                                dumpData(model, "RF5C68_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
+                                break;
+                            case 0xc1:
+                                chipRegister.writeRF5C164PCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                                dumpData(model, "RF5C164_PCMData(8BitMonoSigned)", vgmAdr + 9, dataSize);
+                                break;
+                            case 0xc2:
+                                chipRegister.writeNESPCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
+                                dumpData(model, "NES_PCMData", vgmAdr + 9, dataSize);
+                                break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        log.ForcedWrite(e);
                     }
 
                     vgmAdr += bLen + 7;

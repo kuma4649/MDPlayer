@@ -4578,17 +4578,23 @@ namespace MDPlayer
             if (driverVirtual == null)
             {
                 if (driverReal is NRTDRV) return ((NRTDRV)driverReal).work.TOTALCOUNT;
+                else if (driverReal is vgm) return ((vgm)driverReal).vgmFrameCounter;
                 else return 0;
             }
             if (driverReal == null)
             {
                 if (driverVirtual is NRTDRV) return ((NRTDRV)driverVirtual).work.TOTALCOUNT;
+                else if (driverVirtual is vgm) return ((vgm)driverVirtual).vgmFrameCounter;
                 else return 0;
             }
 
             if (driverVirtual is NRTDRV && driverReal is NRTDRV)
             {
                 return ((NRTDRV)driverVirtual).work.TOTALCOUNT > ((NRTDRV)driverReal).work.TOTALCOUNT ? ((NRTDRV)driverVirtual).work.TOTALCOUNT : ((NRTDRV)driverReal).work.TOTALCOUNT;
+            }
+            else if (driverVirtual is vgm && driverReal is vgm)
+            {
+                return ((vgm)driverVirtual).vgmFrameCounter > ((vgm)driverReal).vgmFrameCounter ? ((vgm)driverVirtual).vgmFrameCounter : ((vgm)driverReal).vgmFrameCounter;
             }
             else
             {

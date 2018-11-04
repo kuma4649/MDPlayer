@@ -67,6 +67,8 @@ namespace MDPlayer
 
         public static byte[] getByteArray(byte[] buf, ref uint adr)
         {
+            if (adr >= buf.Length) return null;
+
             List<byte> ary = new List<byte>();
             while (buf[adr] != 0 || buf[adr + 1] != 0)
             {
@@ -122,6 +124,37 @@ namespace MDPlayer
                 GD3.VGMBy = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
                 //Notes
                 GD3.Notes = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                //Lyric(独自拡張)
+                byte[] bLyric = common.getByteArray(buf, ref adr);
+                if (bLyric != null)
+                {
+                    GD3.Lyrics = new List<Tuple<int, int, string>>();
+                    int i = 0;
+                    int st = 0;
+                    while (i < bLyric.Length)
+                    {
+                        byte h = bLyric[i];
+                        byte l = bLyric[i + 1];
+                        if ((h == 0x5b && l == 0x00 && i != 0) || i >= bLyric.Length - 2)
+                        {
+                            if ((i >= bLyric.Length - 2) || (bLyric[i + 2] != 0x5b || bLyric[i + 3] != 0x00))
+                            {
+                                string m = Encoding.Unicode.GetString(bLyric, st, i - st + ((i >= bLyric.Length - 2) ? 2 : 0));
+                                st = i;
+
+                                int cnt = int.Parse(m.Substring(1, m.IndexOf("]")-1));
+                                m = m.Substring(m.IndexOf("]") + 1);
+                                GD3.Lyrics.Add(new Tuple<int, int, string>(cnt, cnt, m));
+                            }
+                        }
+                        i += 2;
+                    }
+                }
+                else
+                {
+                    GD3.Lyrics = null;
+                }
+
             }
             catch (Exception ex)
             {
