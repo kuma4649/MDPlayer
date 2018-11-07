@@ -392,6 +392,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM3526Type = new ChipType();
+        public ChipType YM3526Type
+        {
+            get
+            {
+                return _YM3526Type;
+            }
+
+            set
+            {
+                _YM3526Type = value;
+            }
+        }
+
+        private ChipType _YM3526SType = new ChipType();
+        public ChipType YM3526SType
+        {
+            get
+            {
+                return _YM3526SType;
+            }
+
+            set
+            {
+                _YM3526SType = value;
+            }
+        }
+
         private ChipType _Y8950Type = new ChipType();
         public ChipType Y8950Type
         {

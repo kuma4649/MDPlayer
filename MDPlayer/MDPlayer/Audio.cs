@@ -4154,6 +4154,33 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).YM3526ClockValue != 0)
+                {
+                    MDSound.ym3526 ym3526 = new MDSound.ym3526();
+
+                    for (int i = 0; i < (((vgm)driverVirtual).YM3526DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM3526;
+                        chip.ID = (byte)i;
+                        chip.Instrument = ym3526;
+                        chip.Update = ym3526.Update;
+                        chip.Start = ym3526.Start;
+                        chip.Stop = ym3526.Stop;
+                        chip.Reset = ym3526.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = 0;// setting.balance.YM3526Volume;
+                        chip.Clock = ((vgm)driverVirtual).YM3526ClockValue;
+                        chip.Option = null;
+                        if (i == 0) chipLED.PriOPL = 1;
+                        else chipLED.SecOPL = 1;
+
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        lstChips.Add(chip);
+                    }
+                }
+
                 if (((vgm)driverVirtual).Y8950ClockValue != 0)
                 {
                     MDSound.y8950 y8950 = new MDSound.y8950();
@@ -4257,7 +4284,6 @@ namespace MDPlayer
                 SetYM2610PSGVolume(setting.balance.YM2610PSGVolume);
                 SetYM2610AdpcmAVolume(setting.balance.YM2610AdpcmAVolume);
                 SetYM2610AdpcmBVolume(setting.balance.YM2610AdpcmBVolume);
-
 
                 chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, enmModel.RealModel);
                 chipRegister.writeSEGAPCMClock(0, (int)((vgm)driverVirtual).SEGAPCMClockValue, enmModel.RealModel);

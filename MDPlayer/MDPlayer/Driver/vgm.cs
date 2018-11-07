@@ -39,6 +39,7 @@ namespace MDPlayer
         public uint YM2203ClockValue;
         public uint YM2610ClockValue;
         public uint YM3812ClockValue;
+        public uint YM3526ClockValue;
         public uint Y8950ClockValue;
         public uint YMF262ClockValue;
         public uint YMF271ClockValue;
@@ -65,6 +66,7 @@ namespace MDPlayer
         public bool YM2608DualChipFlag;
         public bool YM2610DualChipFlag;
         public bool YM3812DualChipFlag;
+        public bool YM3526DualChipFlag;
         public bool Y8950DualChipFlag;
         public bool YMF262DualChipFlag;
         public bool YMF271DualChipFlag;
@@ -353,7 +355,7 @@ namespace MDPlayer
             vgmCmdTbl[0x58] = vcYM2610Port0;
             vgmCmdTbl[0x59] = vcYM2610Port1;
             vgmCmdTbl[0x5a] = vcYM3812;
-            vgmCmdTbl[0x5b] = vcDummy2Ope;
+            vgmCmdTbl[0x5b] = vcYM3526;
             vgmCmdTbl[0x5c] = vcY8950;
             vgmCmdTbl[0x5d] = vcYMZ280B;
             vgmCmdTbl[0x5e] = vcYMF262Port0;
@@ -705,6 +707,12 @@ namespace MDPlayer
             int adr = vgmBuf[vgmAdr + 1];
             int dat = vgmBuf[vgmAdr + 2];
             chipRegister.setYMF262Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 1, adr, dat, model);
+            vgmAdr += 3;
+        }
+
+        private void vcYM3526()
+        {
+            chipRegister.setYM3526Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -2032,7 +2040,13 @@ namespace MDPlayer
                     if (vgmDataOffset > 0x54)
                     {
                         uint YM3526clock = getLE32(0x54);
-                        if (YM3526clock != 0) chips.Add("YM3526");
+                        if (YM3526clock != 0)
+                        {
+                            YM3526ClockValue = YM3526clock & 0x3fffffff;
+                            YM3526DualChipFlag = (YM3526clock & 0x40000000) != 0;
+                            if (YM3526DualChipFlag) chips.Add("YM3526x2");
+                            else chips.Add("YM3526");
+                        }
                     }
 
                     if (vgmDataOffset > 0x58)

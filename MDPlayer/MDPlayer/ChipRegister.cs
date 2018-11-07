@@ -35,6 +35,7 @@ namespace MDPlayer
         private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYM3526 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
@@ -208,6 +209,8 @@ namespace MDPlayer
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
 
+        public int[][] YM3526Register = new int[][] { null, null };
+
         public int[][] Y8950Register = new int[][] { null, null };
 
         public int[][] sn76489Register = new int[][] { null, null };
@@ -315,6 +318,7 @@ namespace MDPlayer
             this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
             this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
+            this.ctYM3526 = new Setting.ChipType[] { setting.YM3526Type, setting.YM3526SType };
             this.ctY8950 = new Setting.ChipType[] { setting.Y8950Type, setting.Y8950SType };
             this.ctC140 = new Setting.ChipType[] { setting.C140Type, setting.C140SType };
             this.ctSEGAPCM = new Setting.ChipType[] { setting.SEGAPCMType, setting.SEGAPCMSType };
@@ -414,6 +418,12 @@ namespace MDPlayer
                 fmRegisterYMF278BRyhthm[1] = 0;
                 fmRegisterYMF278BRyhthmB[0] = 0;
                 fmRegisterYMF278BRyhthmB[1] = 0;
+
+                YM3526Register[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    YM3526Register[chipID][i] = 0;
+                }
 
                 Y8950Register[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
@@ -2075,6 +2085,28 @@ namespace MDPlayer
             {
                 if (scYMF278B[chipID] == null) return;
                 scYMF278B[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+
+        }
+
+        public void setYM3526Register(int chipID, int dAddr, int dData, enmModel model)
+        {
+            if (ctYM3526 == null) return;
+
+            if (chipID == 0) chipLED.PriOPL = 2;
+            else chipLED.SecOPL = 2;
+
+            if (model == enmModel.VirtualModel) YM3526Register[chipID][dAddr] = dData;
+
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYM3526[chipID].UseScci)
+                {
+                    mds.WriteYM3526((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
             }
 
         }
