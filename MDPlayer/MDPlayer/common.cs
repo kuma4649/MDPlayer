@@ -438,6 +438,7 @@ namespace MDPlayer
         , YMF278B
         , VRC7
         , C352
+        , YM3526
         , YM3812
     }
 

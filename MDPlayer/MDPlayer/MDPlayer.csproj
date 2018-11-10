@@ -425,6 +425,12 @@
     <Compile Include="form\frmYM2612MIDI.Designer.cs">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmYM3526.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmYM3526.Designer.cs">
+      <DependentUpon>frmYM3526.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM3812.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -564,6 +570,9 @@
     <EmbeddedResource Include="form\frmYM2612MIDI.resx">
       <DependentUpon>frmYM2612MIDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmYM3526.resx">
+      <DependentUpon>frmYM3526.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM3812.resx">
       <DependentUpon>frmYM3812.cs</DependentUpon>
     </EmbeddedResource>
@@ -669,6 +678,7 @@
     <Content Include="Resources\planeYM2610.png" />
     <Content Include="Resources\planeYM2612.png" />
     <Content Include="Resources\planeYM2612MIDI.png" />
+    <Content Include="Resources\planeYM3526.png" />
     <Content Include="Resources\planeYM3812.png" />
     <Content Include="Resources\planeYMF262.png" />
     <Content Include="Resources\planeYMF278B.png" />

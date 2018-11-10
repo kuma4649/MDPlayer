@@ -251,6 +251,17 @@ namespace MDPlayer
         }
         public YM2612MIDI ym2612Midi = new YM2612MIDI();
 
+        public class YM3526
+        {
+            public Channel[] channels = new Channel[9 + 5] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel() //FM 9
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
+            };
+
+        }
+        public YM3526[] ym3526 = new YM3526[] { new YM3526(), new YM3526() };
+
         public class YM3812
         {
             public Channel[] channels = new Channel[9 + 5] {

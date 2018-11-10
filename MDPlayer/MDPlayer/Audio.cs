@@ -5461,6 +5461,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2610[chipID];
         }
 
+        public static int[] GetYM3526Register(int chipID)
+        {
+            return chipRegister.fmRegisterYM3526[chipID];
+        }
+
         public static int[] GetYM3812Register(int chipID)
         {
             return chipRegister.fmRegisterYM3812[chipID];
@@ -5684,6 +5689,11 @@ namespace MDPlayer
         public static int getYM2413RyhthmKeyON(int chipID)
         {
             return chipRegister.getYM2413RyhthmKeyON(chipID);
+        }
+
+        public static ChipKeyInfo getYM3526KeyInfo(int chipID)
+        {
+            return chipRegister.getYM3526KeyInfo(chipID);
         }
 
         public static ChipKeyInfo getYM3812KeyInfo(int chipID)
@@ -6360,6 +6370,11 @@ namespace MDPlayer
             chipRegister.setMaskYM2612(chipID, ch, true);
         }
 
+        public static void setYM3526Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskYM3526(chipID, ch, true);
+        }
+
         public static void setYM3812Mask(int chipID, int ch)
         {
             chipRegister.setMaskYM3812(chipID, ch, true);
@@ -6508,6 +6523,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM2610(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetYM3526Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskYM3526(chipID, ch, false);
             }
             catch { }
         }

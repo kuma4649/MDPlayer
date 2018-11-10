@@ -149,6 +149,22 @@ namespace MDPlayer
             , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false }
         };
 
+        public int[][] fmRegisterYM3526 = new int[][] { null, null };
+        private ChipKeyInfo[] kiYM3526 = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
+        private ChipKeyInfo[] kiYM3526ret = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
+        private bool[][] maskFMChYM3526 = new bool[2][] {
+            new bool[9 + 5]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+            },
+            new bool[9 + 5]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+            }
+        };
+
         public int[][] fmRegisterYM3812 = new int[][] { null, null };
         private ChipKeyInfo[] kiYM3812 = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
         private ChipKeyInfo[] kiYM3812ret = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
@@ -208,8 +224,6 @@ namespace MDPlayer
         };
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
-
-        public int[][] YM3526Register = new int[][] { null, null };
 
         public int[][] Y8950Register = new int[][] { null, null };
 
@@ -381,6 +395,13 @@ namespace MDPlayer
                 fmRegisterYM2610[chipID][1][0xb6] = 0xc0;
                 fmKeyOnYM2610[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 
+                fmRegisterYM3526[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM3526[chipID][i] = 0;
+                    fmRegisterYM3526[chipID][i] = 0;
+                }
+
                 fmRegisterYM3812[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
                 {
@@ -418,12 +439,6 @@ namespace MDPlayer
                 fmRegisterYMF278BRyhthm[1] = 0;
                 fmRegisterYMF278BRyhthmB[0] = 0;
                 fmRegisterYMF278BRyhthmB[1] = 0;
-
-                YM3526Register[chipID] = new int[0x100];
-                for (int i = 0; i < 0x100; i++)
-                {
-                    YM3526Register[chipID][i] = 0;
-                }
 
                 Y8950Register[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
@@ -2096,11 +2111,54 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPL = 2;
             else chipLED.SecOPL = 2;
 
-            if (model == enmModel.VirtualModel) YM3526Register[chipID][dAddr] = dData;
+            if (model == enmModel.VirtualModel)
+            {
+                fmRegisterYM3526[chipID][dAddr] = dData;
+                if (dAddr >= 0xb0 && dAddr <= 0xb8)
+                {
+                    int ch = dAddr - 0xb0;
+                    int k = (dData >> 5) & 1;
+                    if (k == 0)
+                    {
+                        kiYM3526[chipID].On[ch] = false;
+                        kiYM3526[chipID].Off[ch] = true;
+                    }
+                    else
+                    {
+                        kiYM3526[chipID].On[ch] = true;
+                    }
+                    if (maskFMChYM3526[chipID][ch]) dData &= 0x1f;
+                }
+
+                if (dAddr == 0xbd)
+                {
+
+                    for (int c = 0; c < 5; c++)
+                    {
+                        if ((dData & (0x10 >> c)) != 0)
+                        {
+                            kiYM3526[chipID].On[c + 9] = true;
+                        }
+                        else
+                        {
+                            kiYM3526[chipID].On[c + 9] = false;
+                            //kiYM3526[chipID].Off[c + 9] = true;
+                        }
+                    }
+
+                    if (maskFMChYM3526[chipID][9]) dData &= 0xef;
+                    if (maskFMChYM3526[chipID][10]) dData &= 0xf7;
+                    if (maskFMChYM3526[chipID][11]) dData &= 0xfb;
+                    if (maskFMChYM3526[chipID][12]) dData &= 0xfd;
+                    if (maskFMChYM3526[chipID][13]) dData &= 0xfe;
+
+                }
+
+            }
 
             if (model == enmModel.VirtualModel)
             {
-                if (!ctYM3526[chipID].UseScci)
+                //if (!ctYM3526[chipID].UseScci)
                 {
                     mds.WriteYM3526((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -2109,6 +2167,17 @@ namespace MDPlayer
             {
             }
 
+        }
+
+        public ChipKeyInfo getYM3526KeyInfo(int chipID)
+        {
+            for (int ch = 0; ch < kiYM3526[chipID].Off.Length; ch++)
+            {
+                kiYM3526ret[chipID].On[ch] = kiYM3526[chipID].On[ch];
+                kiYM3526ret[chipID].Off[ch] = kiYM3526[chipID].Off[ch];
+                kiYM3526[chipID].Off[ch] = false;
+            }
+            return kiYM3526ret[chipID];
         }
 
         public void setY8950Register(int chipID, int dAddr, int dData, enmModel model)
@@ -2371,6 +2440,11 @@ namespace MDPlayer
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.VirtualModel);
                 setYM2413Register((byte)chipID, 0x0e, fmRegisterYM2413[chipID][0x0e], enmModel.RealModel);
             }
+        }
+
+        public void setMaskYM3526(int chipID, int ch, bool mask)
+        {
+            maskFMChYM3526[chipID][ch] = mask;
         }
 
         public void setMaskYM3812(int chipID, int ch, bool mask)
