@@ -46,7 +46,8 @@ namespace MDPlayer.form
             chipn = px / 20 + (py / 72) * 16;
             int delta = Math.Sign(e.Delta);
 
-            fader(chipn, false, delta, 0);
+            if (chipn < 0 || chipn >= SetVolume.Length) return;
+            SetVolume[chipn]?.Invoke(false, delta);
         }
 
         public void update()
@@ -109,33 +110,50 @@ namespace MDPlayer.form
         public void screenChangeParams()
         {
 
-            newParam.AY8910.Volume = parent.setting.balance.AY8910Volume;
-            newParam.C140.Volume = parent.setting.balance.C140Volume;
-            newParam.HuC6280.Volume = parent.setting.balance.HuC6280Volume;
-            newParam.OKIM6258.Volume = parent.setting.balance.OKIM6258Volume;
-            newParam.OKIM6295.Volume = parent.setting.balance.OKIM6295Volume;
-            newParam.PWM.Volume = parent.setting.balance.PWMVolume;
-            newParam.RF5C164.Volume = parent.setting.balance.RF5C164Volume;
-            newParam.SEGAPCM.Volume = parent.setting.balance.SEGAPCMVolume;
-            newParam.SN76489.Volume = parent.setting.balance.SN76489Volume;
+            newParam.Master.Volume = parent.setting.balance.MasterVolume;
             newParam.YM2151.Volume = parent.setting.balance.YM2151Volume;
+            newParam.YM2203.Volume = parent.setting.balance.YM2203Volume;
             newParam.YM2203FM.Volume = parent.setting.balance.YM2203FMVolume;
             newParam.YM2203PSG.Volume = parent.setting.balance.YM2203PSGVolume;
-            newParam.YM2203.Volume = parent.setting.balance.YM2203Volume;
-            newParam.YM2413.Volume = parent.setting.balance.YM2413Volume;
-            newParam.YM2608Adpcm.Volume = parent.setting.balance.YM2608AdpcmVolume;
+            newParam.YM2612.Volume = parent.setting.balance.YM2612Volume;
+            newParam.YM2608.Volume = parent.setting.balance.YM2608Volume;
             newParam.YM2608FM.Volume = parent.setting.balance.YM2608FMVolume;
             newParam.YM2608PSG.Volume = parent.setting.balance.YM2608PSGVolume;
             newParam.YM2608Rhythm.Volume = parent.setting.balance.YM2608RhythmVolume;
-            newParam.YM2608.Volume = parent.setting.balance.YM2608Volume;
-            newParam.YM2610AdpcmA.Volume = parent.setting.balance.YM2610AdpcmAVolume;
-            newParam.YM2610AdpcmB.Volume = parent.setting.balance.YM2610AdpcmBVolume;
+            newParam.YM2608Adpcm.Volume = parent.setting.balance.YM2608AdpcmVolume;
+            newParam.YM2610.Volume = parent.setting.balance.YM2610Volume;
             newParam.YM2610FM.Volume = parent.setting.balance.YM2610FMVolume;
             newParam.YM2610PSG.Volume = parent.setting.balance.YM2610PSGVolume;
-            newParam.YM2610.Volume = parent.setting.balance.YM2610Volume;
-            newParam.YM2612.Volume = parent.setting.balance.YM2612Volume;
+            newParam.YM2610AdpcmA.Volume = parent.setting.balance.YM2610AdpcmAVolume;
+            newParam.YM2610AdpcmB.Volume = parent.setting.balance.YM2610AdpcmBVolume;
+
+            newParam.YM2413.Volume = parent.setting.balance.YM2413Volume;
+            newParam.YM3526.Volume = parent.setting.balance.YM3526Volume;
+            newParam.Y8950.Volume = parent.setting.balance.Y8950Volume;
+            newParam.YM3812.Volume = parent.setting.balance.YM3812Volume;
+            newParam.YMF262.Volume = parent.setting.balance.YMF262Volume;
+            newParam.YMF278B.Volume = parent.setting.balance.YMF278BVolume;
+            newParam.YMZ280B.Volume = parent.setting.balance.YMZ280BVolume;
+            newParam.YMF271.Volume = parent.setting.balance.YMF271Volume;
+            newParam.AY8910.Volume = parent.setting.balance.AY8910Volume;
+            newParam.SN76489.Volume = parent.setting.balance.SN76489Volume;
+            newParam.HuC6280.Volume = parent.setting.balance.HuC6280Volume;
+
+            newParam.RF5C164.Volume = parent.setting.balance.RF5C164Volume;
+            newParam.RF5C68.Volume = parent.setting.balance.RF5C68Volume;
+            newParam.PWM.Volume = parent.setting.balance.PWMVolume;
+            newParam.OKIM6258.Volume = parent.setting.balance.OKIM6258Volume;
+            newParam.OKIM6295.Volume = parent.setting.balance.OKIM6295Volume;
+            newParam.C140.Volume = parent.setting.balance.C140Volume;
             newParam.C352.Volume = parent.setting.balance.C352Volume;
+            newParam.SEGAPCM.Volume = parent.setting.balance.SEGAPCMVolume;
+            newParam.MultiPCM.Volume = parent.setting.balance.MultiPCMVolume;
+            newParam.K051649.Volume = parent.setting.balance.K051649Volume;
+            newParam.K053260.Volume = parent.setting.balance.K053260Volume;
             newParam.K054539.Volume = parent.setting.balance.K054539Volume;
+            newParam.QSound.Volume = parent.setting.balance.QSoundVolume;
+            newParam.GA20.Volume = parent.setting.balance.GA20Volume;
+
             newParam.APU.Volume = parent.setting.balance.APUVolume;
             newParam.DMC.Volume = parent.setting.balance.DMCVolume;
             newParam.FDS.Volume = parent.setting.balance.FDSVolume;
@@ -145,60 +163,49 @@ namespace MDPlayer.form
             newParam.VRC7.Volume = parent.setting.balance.VRC7Volume;
             newParam.FME7.Volume = parent.setting.balance.FME7Volume;
             newParam.DMG.Volume = parent.setting.balance.DMGVolume;
-            newParam.GA20.Volume = parent.setting.balance.GA20Volume;
-            newParam.YMZ280B.Volume = parent.setting.balance.YMZ280BVolume;
-            newParam.YMF271.Volume = parent.setting.balance.YMF271Volume;
-            newParam.YMF262.Volume = parent.setting.balance.YMF262Volume;
-            newParam.YMF278B.Volume = parent.setting.balance.YMF278BVolume;
-            newParam.MultiPCM.Volume = parent.setting.balance.MultiPCMVolume;
-            newParam.QSound.Volume = parent.setting.balance.QSoundVolume;
-            newParam.K051649.Volume = parent.setting.balance.K051649Volume;
 
 
-            newParam.Master.Volume = parent.setting.balance.MasterVolume;
-            newParam.Master.VisVolume1 = common.Range(Audio.visVolume.master / 250, 0, 44);//(short.MaxValue / 44);
+            newParam.Master.VisVolume1 = common.Range(Audio.visVolume.master / 250, 0, 44);
             if (newParam.Master.VisVolume2 <= newParam.Master.VisVolume1)
             {
                 newParam.Master.VisVolume2 = newParam.Master.VisVolume1;
                 newParam.Master.VisVol2Cnt = 30;
             }
 
-            newParam.YM2151.VisVolume1 = common.Range(Audio.visVolume.ym2151 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.YM2151.VisVolume1 = common.Range(Audio.visVolume.ym2151 / 200, 0, 44);
             if (newParam.YM2151.VisVolume2 <= newParam.YM2151.VisVolume1)
             {
                 newParam.YM2151.VisVolume2 = newParam.YM2151.VisVolume1;
                 newParam.YM2151.VisVol2Cnt = 30;
             }
 
-            newParam.YM2203.VisVolume1 = common.Range(Audio.visVolume.ym2203 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.YM2203.VisVolume1 = common.Range(Audio.visVolume.ym2203 / 200, 0, 44);
             if (newParam.YM2203.VisVolume2 <= newParam.YM2203.VisVolume1)
             {
                 newParam.YM2203.VisVolume2 = newParam.YM2203.VisVolume1;
                 newParam.YM2203.VisVol2Cnt = 30;
             }
 
-            newParam.YM2203FM.VisVolume1 = common.Range(Audio.visVolume.ym2203FM / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.YM2203FM.VisVolume1 = common.Range(Audio.visVolume.ym2203FM / 200, 0, 44);
             if (newParam.YM2203FM.VisVolume2 <= newParam.YM2203FM.VisVolume1)
             {
                 newParam.YM2203FM.VisVolume2 = newParam.YM2203FM.VisVolume1;
                 newParam.YM2203FM.VisVol2Cnt = 30;
             }
 
-            newParam.YM2203PSG.VisVolume1 = common.Range(Audio.visVolume.ym2203SSG / 120, 0, 44);//(short.MaxValue / 44);
+            newParam.YM2203PSG.VisVolume1 = common.Range(Audio.visVolume.ym2203SSG / 120, 0, 44);
             if (newParam.YM2203PSG.VisVolume2 <= newParam.YM2203PSG.VisVolume1)
             {
                 newParam.YM2203PSG.VisVolume2 = newParam.YM2203PSG.VisVolume1;
                 newParam.YM2203PSG.VisVol2Cnt = 30;
             }
 
-
-            newParam.YM2413.VisVolume1 = common.Range(Audio.visVolume.ym2413 / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.YM2413.VisVolume2 <= newParam.YM2413.VisVolume1)
+            newParam.YM2612.VisVolume1 = common.Range(Audio.visVolume.ym2612 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.YM2612.VisVolume2 <= newParam.YM2612.VisVolume1)
             {
-                newParam.YM2413.VisVolume2 = newParam.YM2413.VisVolume1;
-                newParam.YM2413.VisVol2Cnt = 30;
+                newParam.YM2612.VisVolume2 = newParam.YM2612.VisVolume1;
+                newParam.YM2612.VisVol2Cnt = 30;
             }
-
 
             newParam.YM2608.VisVolume1 = common.Range(Audio.visVolume.ym2608 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.YM2608.VisVolume2 <= newParam.YM2608.VisVolume1)
@@ -235,7 +242,6 @@ namespace MDPlayer.form
                 newParam.YM2608Adpcm.VisVol2Cnt = 30;
             }
 
-
             newParam.YM2610.VisVolume1 = common.Range(Audio.visVolume.ym2610 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.YM2610.VisVolume2 <= newParam.YM2610.VisVolume1)
             {
@@ -271,11 +277,63 @@ namespace MDPlayer.form
                 newParam.YM2610AdpcmB.VisVol2Cnt = 30;
             }
 
-            newParam.YM2612.VisVolume1 = common.Range(Audio.visVolume.ym2612 / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.YM2612.VisVolume2 <= newParam.YM2612.VisVolume1)
+
+
+
+            newParam.YM2413.VisVolume1 = common.Range(Audio.visVolume.ym2413 / 200, 0, 44);
+            if (newParam.YM2413.VisVolume2 <= newParam.YM2413.VisVolume1)
             {
-                newParam.YM2612.VisVolume2 = newParam.YM2612.VisVolume1;
-                newParam.YM2612.VisVol2Cnt = 30;
+                newParam.YM2413.VisVolume2 = newParam.YM2413.VisVolume1;
+                newParam.YM2413.VisVol2Cnt = 30;
+            }
+
+            newParam.YM3526.VisVolume1 = common.Range(Audio.visVolume.ym3526 / 200, 0, 44);
+            if (newParam.YM3526.VisVolume2 <= newParam.YM3526.VisVolume1)
+            {
+                newParam.YM3526.VisVolume2 = newParam.YM3526.VisVolume1;
+                newParam.YM3526.VisVol2Cnt = 30;
+            }
+
+            newParam.Y8950.VisVolume1 = common.Range(Audio.visVolume.y8950 / 200, 0, 44);
+            if (newParam.Y8950.VisVolume2 <= newParam.Y8950.VisVolume1)
+            {
+                newParam.Y8950.VisVolume2 = newParam.Y8950.VisVolume1;
+                newParam.Y8950.VisVol2Cnt = 30;
+            }
+
+            newParam.YM3812.VisVolume1 = common.Range(Audio.visVolume.ym3812 / 200, 0, 44);
+            if (newParam.YM3812.VisVolume2 <= newParam.YM3812.VisVolume1)
+            {
+                newParam.YM3812.VisVolume2 = newParam.YM3812.VisVolume1;
+                newParam.YM3812.VisVol2Cnt = 30;
+            }
+
+            newParam.YMF262.VisVolume1 = common.Range(Audio.visVolume.ymf262 / 200, 0, 44);
+            if (newParam.YMF262.VisVolume2 <= newParam.YMF262.VisVolume1)
+            {
+                newParam.YMF262.VisVolume2 = newParam.YMF262.VisVolume1;
+                newParam.YMF262.VisVol2Cnt = 30;
+            }
+
+            newParam.YMF278B.VisVolume1 = common.Range(Audio.visVolume.ymf278b / 200, 0, 44);
+            if (newParam.YMF278B.VisVolume2 <= newParam.YMF278B.VisVolume1)
+            {
+                newParam.YMF278B.VisVolume2 = newParam.YMF278B.VisVolume1;
+                newParam.YMF278B.VisVol2Cnt = 30;
+            }
+
+            newParam.YMZ280B.VisVolume1 = common.Range(Audio.visVolume.ymz280b / 200, 0, 44);
+            if (newParam.YMZ280B.VisVolume2 <= newParam.YMZ280B.VisVolume1)
+            {
+                newParam.YMZ280B.VisVolume2 = newParam.YMZ280B.VisVolume1;
+                newParam.YMZ280B.VisVol2Cnt = 30;
+            }
+
+            newParam.YMF271.VisVolume1 = common.Range(Audio.visVolume.ymf271 / 200, 0, 44);
+            if (newParam.YMF271.VisVolume2 <= newParam.YMF271.VisVolume1)
+            {
+                newParam.YMF271.VisVolume2 = newParam.YMF271.VisVolume1;
+                newParam.YMF271.VisVol2Cnt = 30;
             }
 
             newParam.AY8910.VisVolume1 = common.Range(Audio.visVolume.ay8910 / 120, 0, 44);//(short.MaxValue / 44);
@@ -299,11 +357,21 @@ namespace MDPlayer.form
                 newParam.HuC6280.VisVol2Cnt = 30;
             }
 
+
+
+
             newParam.RF5C164.VisVolume1 = common.Range(Audio.visVolume.rf5c164 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.RF5C164.VisVolume2 <= newParam.RF5C164.VisVolume1)
             {
                 newParam.RF5C164.VisVolume2 = newParam.RF5C164.VisVolume1;
                 newParam.RF5C164.VisVol2Cnt = 30;
+            }
+
+            newParam.RF5C68.VisVolume1 = common.Range(Audio.visVolume.rf5c68 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.RF5C68.VisVolume2 <= newParam.RF5C68.VisVolume1)
+            {
+                newParam.RF5C68.VisVolume2 = newParam.RF5C68.VisVolume1;
+                newParam.RF5C68.VisVol2Cnt = 30;
             }
 
             newParam.PWM.VisVolume1 = common.Range(Audio.visVolume.pwm / 200, 0, 44);//(short.MaxValue / 44);
@@ -334,6 +402,13 @@ namespace MDPlayer.form
                 newParam.C140.VisVol2Cnt = 30;
             }
 
+            newParam.C352.VisVolume1 = common.Range(Audio.visVolume.c352 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.C352.VisVolume2 <= newParam.C352.VisVolume1)
+            {
+                newParam.C352.VisVolume2 = newParam.C352.VisVolume1;
+                newParam.C352.VisVol2Cnt = 30;
+            }
+
             newParam.SEGAPCM.VisVolume1 = common.Range(Audio.visVolume.segaPCM / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.SEGAPCM.VisVolume2 <= newParam.SEGAPCM.VisVolume1)
             {
@@ -341,11 +416,25 @@ namespace MDPlayer.form
                 newParam.SEGAPCM.VisVol2Cnt = 30;
             }
 
-            newParam.C352.VisVolume1 = common.Range(Audio.visVolume.c352 / 200, 0, 44);//(short.MaxValue / 44);
-            if (newParam.C352.VisVolume2 <= newParam.C352.VisVolume1)
+            newParam.MultiPCM.VisVolume1 = common.Range(Audio.visVolume.multiPCM / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.MultiPCM.VisVolume2 <= newParam.MultiPCM.VisVolume1)
             {
-                newParam.C352.VisVolume2 = newParam.C352.VisVolume1;
-                newParam.C352.VisVol2Cnt = 30;
+                newParam.MultiPCM.VisVolume2 = newParam.MultiPCM.VisVolume1;
+                newParam.MultiPCM.VisVol2Cnt = 30;
+            }
+
+            newParam.K051649.VisVolume1 = common.Range(Audio.visVolume.k051649 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.K051649.VisVolume2 <= newParam.K051649.VisVolume1)
+            {
+                newParam.K051649.VisVolume2 = newParam.K051649.VisVolume1;
+                newParam.K051649.VisVol2Cnt = 30;
+            }
+
+            newParam.K053260.VisVolume1 = common.Range(Audio.visVolume.k053260 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.K053260.VisVolume2 <= newParam.K053260.VisVolume1)
+            {
+                newParam.K053260.VisVolume2 = newParam.K053260.VisVolume1;
+                newParam.K053260.VisVol2Cnt = 30;
             }
 
             newParam.K054539.VisVolume1 = common.Range(Audio.visVolume.k054539 / 200, 0, 44);//(short.MaxValue / 44);
@@ -355,30 +444,48 @@ namespace MDPlayer.form
                 newParam.K054539.VisVol2Cnt = 30;
             }
 
+            newParam.QSound.VisVolume1 = common.Range(Audio.visVolume.qSound / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.QSound.VisVolume2 <= newParam.QSound.VisVolume1)
+            {
+                newParam.QSound.VisVolume2 = newParam.QSound.VisVolume1;
+                newParam.QSound.VisVol2Cnt = 30;
+            }
+
+            newParam.GA20.VisVolume1 = common.Range(Audio.visVolume.ga20 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.GA20.VisVolume2 <= newParam.GA20.VisVolume1)
+            {
+                newParam.GA20.VisVolume2 = newParam.GA20.VisVolume1;
+                newParam.GA20.VisVol2Cnt = 30;
+            }
+
             newParam.APU.VisVolume1 = common.Range(Audio.visVolume.APU / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.APU.VisVolume2 <= newParam.APU.VisVolume1)
             {
                 newParam.APU.VisVolume2 = newParam.APU.VisVolume1;
                 newParam.APU.VisVol2Cnt = 30;
             }
+
             newParam.DMC.VisVolume1 = common.Range(Audio.visVolume.DMC / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.DMC.VisVolume2 <= newParam.DMC.VisVolume1)
             {
                 newParam.DMC.VisVolume2 = newParam.DMC.VisVolume1;
                 newParam.DMC.VisVol2Cnt = 30;
             }
+
             newParam.FDS.VisVolume1 = common.Range(Audio.visVolume.FDS / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.FDS.VisVolume2 <= newParam.FDS.VisVolume1)
             {
                 newParam.FDS.VisVolume2 = newParam.FDS.VisVolume1;
                 newParam.FDS.VisVol2Cnt = 30;
             }
+
             newParam.MMC5.VisVolume1 = common.Range(Audio.visVolume.MMC5 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.MMC5.VisVolume2 <= newParam.K054539.VisVolume1)
             {
                 newParam.MMC5.VisVolume2 = newParam.MMC5.VisVolume1;
                 newParam.MMC5.VisVol2Cnt = 30;
             }
+
             newParam.N160.VisVolume1 = common.Range(Audio.visVolume.N160 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.N160.VisVolume2 <= newParam.N160.VisVolume1)
             {
@@ -391,322 +498,137 @@ namespace MDPlayer.form
                 newParam.VRC6.VisVolume2 = newParam.VRC6.VisVolume1;
                 newParam.VRC6.VisVol2Cnt = 30;
             }
+
             newParam.VRC7.VisVolume1 = common.Range(Audio.visVolume.VRC7 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.VRC7.VisVolume2 <= newParam.VRC7.VisVolume1)
             {
                 newParam.VRC7.VisVolume2 = newParam.VRC7.VisVolume1;
                 newParam.VRC7.VisVol2Cnt = 30;
             }
+
             newParam.FME7.VisVolume1 = common.Range(Audio.visVolume.FME7 / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.FME7.VisVolume2 <= newParam.FME7.VisVolume1)
             {
                 newParam.FME7.VisVolume2 = newParam.FME7.VisVolume1;
                 newParam.FME7.VisVol2Cnt = 30;
             }
+
+            newParam.DMG.VisVolume1 = common.Range(Audio.visVolume.DMG / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.DMG.VisVolume2 <= newParam.DMG.VisVolume1)
+            {
+                newParam.DMG.VisVolume2 = newParam.DMG.VisVolume1;
+                newParam.DMG.VisVol2Cnt = 30;
+            }
         }
 
         public void screenDrawParams()
         {
-            DrawBuff.drawFader(frameBuffer, 5, 16, 0, ref oldParam.Master.Volume, newParam.Master.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 1 * 20, 16, 1, ref oldParam.YM2151.Volume, newParam.YM2151.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 2 * 20, 16, 1, ref oldParam.YM2203.Volume, newParam.YM2203.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 3 * 20, 16, 1, ref oldParam.YM2203FM.Volume, newParam.YM2203FM.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 4 * 20, 16, 1, ref oldParam.YM2203PSG.Volume, newParam.YM2203PSG.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 5 * 20, 16, 1, ref oldParam.YM2413.Volume, newParam.YM2413.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 6 * 20, 16, 1, ref oldParam.YM2608.Volume, newParam.YM2608.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 7 * 20, 16, 1, ref oldParam.YM2608FM.Volume, newParam.YM2608FM.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 8 * 20, 16, 1, ref oldParam.YM2608PSG.Volume, newParam.YM2608PSG.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 9 * 20, 16, 1, ref oldParam.YM2608Rhythm.Volume, newParam.YM2608Rhythm.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 10 * 20, 16, 1, ref oldParam.YM2608Adpcm.Volume, newParam.YM2608Adpcm.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 11 * 20, 16, 1, ref oldParam.YM2610.Volume, newParam.YM2610.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 12 * 20, 16, 1, ref oldParam.YM2610FM.Volume, newParam.YM2610FM.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 13 * 20, 16, 1, ref oldParam.YM2610PSG.Volume, newParam.YM2610PSG.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 14 * 20, 16, 1, ref oldParam.YM2610AdpcmA.Volume, newParam.YM2610AdpcmA.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 15 * 20, 16, 1, ref oldParam.YM2610AdpcmB.Volume, newParam.YM2610AdpcmB.Volume);
+            int num;
+            MDChipParams.Mixer.VolumeInfo oVI, nVI;
 
-            DrawBuff.drawFader(frameBuffer, 5 + 0 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.YM2612.Volume, newParam.YM2612.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 1 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.AY8910.Volume, newParam.AY8910.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 2 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.SN76489.Volume, newParam.SN76489.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 3 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.HuC6280.Volume, newParam.HuC6280.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 4 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.RF5C164.Volume, newParam.RF5C164.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 5 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.PWM.Volume, newParam.PWM.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 6 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.OKIM6258.Volume, newParam.OKIM6258.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 7 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.OKIM6295.Volume, newParam.OKIM6295.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 8 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.C140.Volume, newParam.C140.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 9 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.SEGAPCM.Volume, newParam.SEGAPCM.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 10 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.C352.Volume, newParam.C352.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 11 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.K051649.Volume, newParam.K051649.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 13 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.K054539.Volume, newParam.K054539.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 14 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.QSound.Volume, newParam.QSound.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 15 * 20, 16 + 1 * 8 * 9, 1, ref oldParam.MultiPCM.Volume, newParam.MultiPCM.Volume);
+            num = 0; oVI = oldParam.Master; nVI = newParam.Master; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2151; nVI = newParam.YM2151; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2203; nVI = newParam.YM2203; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2203FM; nVI = newParam.YM2203FM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2203PSG; nVI = newParam.YM2203PSG; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2612; nVI = newParam.YM2612; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2608; nVI = newParam.YM2608; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2608FM; nVI = newParam.YM2608FM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2608PSG; nVI = newParam.YM2608PSG; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2608Rhythm; nVI = newParam.YM2608Rhythm; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2608Adpcm; nVI = newParam.YM2608Adpcm; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2610; nVI = newParam.YM2610; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2610FM; nVI = newParam.YM2610FM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2610PSG; nVI = newParam.YM2610PSG; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2610AdpcmA; nVI = newParam.YM2610AdpcmA; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM2610AdpcmB; nVI = newParam.YM2610AdpcmB; drawVolAndFader(num, oVI, nVI);
 
-            DrawBuff.drawFader(frameBuffer, 5 + 0 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.APU.Volume, newParam.APU.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 1 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.DMC.Volume, newParam.DMC.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 2 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.FDS.Volume, newParam.FDS.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 3 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.MMC5.Volume, newParam.MMC5.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 4 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.N160.Volume, newParam.N160.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 5 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.VRC6.Volume, newParam.VRC6.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 6 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.VRC7.Volume, newParam.VRC7.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 7 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.FME7.Volume, newParam.FME7.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 8 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.DMG.Volume, newParam.DMG.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 9 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.GA20.Volume, newParam.GA20.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 10 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMZ280B.Volume, newParam.YMZ280B.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 11 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF271.Volume, newParam.YMF271.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 14 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF262.Volume, newParam.YMF262.Volume);
-            DrawBuff.drawFader(frameBuffer, 5 + 15 * 20, 16 + 2 * 8 * 9, 1, ref oldParam.YMF278B.Volume, newParam.YMF278B.Volume);
+            num++; oVI = oldParam.YM2413; nVI = newParam.YM2413; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM3526; nVI = newParam.YM3526; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.Y8950; nVI = newParam.Y8950; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YM3812; nVI = newParam.YM3812; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YMF262; nVI = newParam.YMF262; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YMF278B; nVI = newParam.YMF278B; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YMZ280B; nVI = newParam.YMZ280B; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.YMF271; nVI = newParam.YMF271; drawVolAndFader(num, oVI, nVI);
+            num++; 
+            num++; oVI = oldParam.AY8910; nVI = newParam.AY8910; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.SN76489; nVI = newParam.SN76489; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.HuC6280; nVI = newParam.HuC6280; drawVolAndFader(num, oVI, nVI);
+            num++; 
+            num++; 
+            num++; 
+            num++;
 
-            newParam.Master.VisVol2Cnt--;
-            if (newParam.Master.VisVol2Cnt == 0)
+            num++; 
+            num++; 
+            num++; oVI = oldParam.RF5C164; nVI = newParam.RF5C164; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.RF5C68; nVI = newParam.RF5C68; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.PWM; nVI = newParam.PWM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.OKIM6258; nVI = newParam.OKIM6258; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.OKIM6295; nVI = newParam.OKIM6295; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.C140; nVI = newParam.C140; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.C352; nVI = newParam.C352; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.SEGAPCM; nVI = newParam.SEGAPCM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.MultiPCM; nVI = newParam.MultiPCM; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.K051649; nVI = newParam.K051649; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.K053260; nVI = newParam.K053260; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.K054539; nVI = newParam.K054539; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.QSound; nVI = newParam.QSound; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.GA20; nVI = newParam.GA20; drawVolAndFader(num, oVI, nVI);
+
+            num++; oVI = oldParam.APU; nVI = newParam.APU; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.DMC; nVI = newParam.DMC; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.FDS; nVI = newParam.FDS; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.MMC5; nVI = newParam.MMC5; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.N160; nVI = newParam.N160; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.VRC6; nVI = newParam.VRC6; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.VRC7; nVI = newParam.VRC7; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.FME7; nVI = newParam.FME7; drawVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.DMG; nVI = newParam.DMG; drawVolAndFader(num, oVI, nVI);
+            num++;
+            num++;
+            num++;
+            num++;
+            num++;
+            num++;
+            num++;
+
+        }
+
+        private void drawVolAndFader(int num, MDChipParams.Mixer.VolumeInfo oVI, MDChipParams.Mixer.VolumeInfo nVI)
+        {
+            DrawBuff.drawFader(
+                frameBuffer
+                , 5 + (num % 16) * 20
+                , 16 + (num / 16) * 8 * 9
+                , num == 0 ? 0 : 1
+                , ref oVI.Volume
+                , nVI.Volume);
+            nVI.VisVol2Cnt--;
+            if (nVI.VisVol2Cnt == 0)
             {
-                newParam.Master.VisVol2Cnt = 1;
-                if (newParam.Master.VisVolume2 > 0) newParam.Master.VisVolume2--;
+                nVI.VisVol2Cnt = 1;
+                if (nVI.VisVolume2 > 0) nVI.VisVolume2--;
             }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 0 * 20, 10 + 0 * 8 * 9, ref oldParam.Master.VisVolume1, newParam.Master.VisVolume1, ref oldParam.Master.VisVolume2, newParam.Master.VisVolume2);
-
-            newParam.YM2151.VisVol2Cnt--;
-            if (newParam.YM2151.VisVol2Cnt == 0)
-            {
-                newParam.YM2151.VisVol2Cnt = 1;
-                if (newParam.YM2151.VisVolume2 > 0) newParam.YM2151.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 1 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2151.VisVolume1, newParam.YM2151.VisVolume1, ref oldParam.YM2151.VisVolume2, newParam.YM2151.VisVolume2);
-
-            newParam.YM2203.VisVol2Cnt--;
-            if (newParam.YM2203.VisVol2Cnt == 0)
-            {
-                newParam.YM2203.VisVol2Cnt = 1;
-                if (newParam.YM2203.VisVolume2 > 0) newParam.YM2203.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 2 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203.VisVolume1, newParam.YM2203.VisVolume1, ref oldParam.YM2203.VisVolume2, newParam.YM2203.VisVolume2);
-
-            newParam.YM2203FM.VisVol2Cnt--;
-            if (newParam.YM2203FM.VisVol2Cnt == 0)
-            {
-                newParam.YM2203FM.VisVol2Cnt = 1;
-                if (newParam.YM2203FM.VisVolume2 > 0) newParam.YM2203FM.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 3 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203FM.VisVolume1, newParam.YM2203FM.VisVolume1, ref oldParam.YM2203FM.VisVolume2, newParam.YM2203FM.VisVolume2);
-
-            newParam.YM2203PSG.VisVol2Cnt--;
-            if (newParam.YM2203PSG.VisVol2Cnt == 0)
-            {
-                newParam.YM2203PSG.VisVol2Cnt = 1;
-                if (newParam.YM2203PSG.VisVolume2 > 0) newParam.YM2203PSG.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 4 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2203PSG.VisVolume1, newParam.YM2203PSG.VisVolume1, ref oldParam.YM2203PSG.VisVolume2, newParam.YM2203PSG.VisVolume2);
-
-            newParam.YM2413.VisVol2Cnt--;
-            if (newParam.YM2413.VisVol2Cnt == 0)
-            {
-                newParam.YM2413.VisVol2Cnt = 1;
-                if (newParam.YM2413.VisVolume2 > 0) newParam.YM2413.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 5 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2413.VisVolume1, newParam.YM2413.VisVolume1, ref oldParam.YM2413.VisVolume2, newParam.YM2413.VisVolume2);
-
-            newParam.YM2608.VisVol2Cnt--;
-            if (newParam.YM2608.VisVol2Cnt == 0)
-            {
-                newParam.YM2608.VisVol2Cnt = 1;
-                if (newParam.YM2608.VisVolume2 > 0) newParam.YM2608.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 6 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608.VisVolume1, newParam.YM2608.VisVolume1, ref oldParam.YM2608.VisVolume2, newParam.YM2608.VisVolume2);
-
-            newParam.YM2608FM.VisVol2Cnt--;
-            if (newParam.YM2608FM.VisVol2Cnt == 0)
-            {
-                newParam.YM2608FM.VisVol2Cnt = 1;
-                if (newParam.YM2608FM.VisVolume2 > 0) newParam.YM2608FM.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 7 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608FM.VisVolume1, newParam.YM2608FM.VisVolume1, ref oldParam.YM2608FM.VisVolume2, newParam.YM2608FM.VisVolume2);
-
-            newParam.YM2608PSG.VisVol2Cnt--;
-            if (newParam.YM2608PSG.VisVol2Cnt == 0)
-            {
-                newParam.YM2608PSG.VisVol2Cnt = 1;
-                if (newParam.YM2608PSG.VisVolume2 > 0) newParam.YM2608PSG.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 8 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608PSG.VisVolume1, newParam.YM2608PSG.VisVolume1, ref oldParam.YM2608PSG.VisVolume2, newParam.YM2608PSG.VisVolume2);
-
-            newParam.YM2608Rhythm.VisVol2Cnt--;
-            if (newParam.YM2608Rhythm.VisVol2Cnt == 0)
-            {
-                newParam.YM2608Rhythm.VisVol2Cnt = 1;
-                if (newParam.YM2608Rhythm.VisVolume2 > 0) newParam.YM2608Rhythm.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 9 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Rhythm.VisVolume1, newParam.YM2608Rhythm.VisVolume1, ref oldParam.YM2608Rhythm.VisVolume2, newParam.YM2608Rhythm.VisVolume2);
-
-            newParam.YM2608Adpcm.VisVol2Cnt--;
-            if (newParam.YM2608Adpcm.VisVol2Cnt == 0)
-            {
-                newParam.YM2608Adpcm.VisVol2Cnt = 1;
-                if (newParam.YM2608Adpcm.VisVolume2 > 0) newParam.YM2608Adpcm.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 10 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2608Adpcm.VisVolume1, newParam.YM2608Adpcm.VisVolume1, ref oldParam.YM2608Adpcm.VisVolume2, newParam.YM2608Adpcm.VisVolume2);
-
-            newParam.YM2610.VisVol2Cnt--;
-            if (newParam.YM2610.VisVol2Cnt == 0)
-            {
-                newParam.YM2610.VisVol2Cnt = 1;
-                if (newParam.YM2610.VisVolume2 > 0) newParam.YM2610.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 11 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610.VisVolume1, newParam.YM2610.VisVolume1, ref oldParam.YM2610.VisVolume2, newParam.YM2610.VisVolume2);
-
-            newParam.YM2610FM.VisVol2Cnt--;
-            if (newParam.YM2610FM.VisVol2Cnt == 0)
-            {
-                newParam.YM2610FM.VisVol2Cnt = 1;
-                if (newParam.YM2610FM.VisVolume2 > 0) newParam.YM2610FM.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 12 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610FM.VisVolume1, newParam.YM2610FM.VisVolume1, ref oldParam.YM2610FM.VisVolume2, newParam.YM2610FM.VisVolume2);
-
-            newParam.YM2610PSG.VisVol2Cnt--;
-            if (newParam.YM2610PSG.VisVol2Cnt == 0)
-            {
-                newParam.YM2610PSG.VisVol2Cnt = 1;
-                if (newParam.YM2610PSG.VisVolume2 > 0) newParam.YM2610PSG.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 13 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610PSG.VisVolume1, newParam.YM2610PSG.VisVolume1, ref oldParam.YM2610PSG.VisVolume2, newParam.YM2610PSG.VisVolume2);
-
-            newParam.YM2610AdpcmA.VisVol2Cnt--;
-            if (newParam.YM2610AdpcmA.VisVol2Cnt == 0)
-            {
-                newParam.YM2610AdpcmA.VisVol2Cnt = 1;
-                if (newParam.YM2610AdpcmA.VisVolume2 > 0) newParam.YM2610AdpcmA.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 14 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmA.VisVolume1, newParam.YM2610AdpcmA.VisVolume1, ref oldParam.YM2610AdpcmA.VisVolume2, newParam.YM2610AdpcmA.VisVolume2);
-
-            newParam.YM2610AdpcmB.VisVol2Cnt--;
-            if (newParam.YM2610AdpcmB.VisVol2Cnt == 0)
-            {
-                newParam.YM2610AdpcmB.VisVol2Cnt = 1;
-                if (newParam.YM2610AdpcmB.VisVolume2 > 0) newParam.YM2610AdpcmB.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 15 * 20, 10 + 0 * 8 * 9, ref oldParam.YM2610AdpcmB.VisVolume1, newParam.YM2610AdpcmB.VisVolume1, ref oldParam.YM2610AdpcmB.VisVolume2, newParam.YM2610AdpcmB.VisVolume2);
-
-            newParam.YM2612.VisVol2Cnt--;
-            if (newParam.YM2612.VisVol2Cnt == 0)
-            {
-                newParam.YM2612.VisVol2Cnt = 1;
-                if (newParam.YM2612.VisVolume2 > 0) newParam.YM2612.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 0 * 20, 10 + 1 * 8 * 9, ref oldParam.YM2612.VisVolume1, newParam.YM2612.VisVolume1, ref oldParam.YM2612.VisVolume2, newParam.YM2612.VisVolume2);
-
-            newParam.AY8910.VisVol2Cnt--;
-            if (newParam.AY8910.VisVol2Cnt == 0)
-            {
-                newParam.AY8910.VisVol2Cnt = 1;
-                if (newParam.AY8910.VisVolume2 > 0) newParam.AY8910.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 1 * 20, 10 + 1 * 8 * 9, ref oldParam.AY8910.VisVolume1, newParam.AY8910.VisVolume1, ref oldParam.AY8910.VisVolume2, newParam.AY8910.VisVolume2);
-
-            newParam.SN76489.VisVol2Cnt--;
-            if (newParam.SN76489.VisVol2Cnt == 0)
-            {
-                newParam.SN76489.VisVol2Cnt = 1;
-                if (newParam.SN76489.VisVolume2 > 0) newParam.SN76489.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 2 * 20, 10 + 1 * 8 * 9, ref oldParam.SN76489.VisVolume1, newParam.SN76489.VisVolume1, ref oldParam.SN76489.VisVolume2, newParam.SN76489.VisVolume2);
-
-            newParam.HuC6280.VisVol2Cnt--;
-            if (newParam.HuC6280.VisVol2Cnt == 0)
-            {
-                newParam.HuC6280.VisVol2Cnt = 1;
-                if (newParam.HuC6280.VisVolume2 > 0) newParam.HuC6280.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 3 * 20, 10 + 1 * 8 * 9, ref oldParam.HuC6280.VisVolume1, newParam.HuC6280.VisVolume1, ref oldParam.HuC6280.VisVolume2, newParam.HuC6280.VisVolume2);
-
-            newParam.RF5C164.VisVol2Cnt--;
-            if (newParam.RF5C164.VisVol2Cnt == 0)
-            {
-                newParam.RF5C164.VisVol2Cnt = 1;
-                if (newParam.RF5C164.VisVolume2 > 0) newParam.RF5C164.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 4 * 20, 10 + 1 * 8 * 9, ref oldParam.RF5C164.VisVolume1, newParam.RF5C164.VisVolume1, ref oldParam.RF5C164.VisVolume2, newParam.RF5C164.VisVolume2);
-
-            newParam.PWM.VisVol2Cnt--;
-            if (newParam.PWM.VisVol2Cnt == 0)
-            {
-                newParam.PWM.VisVol2Cnt = 1;
-                if (newParam.PWM.VisVolume2 > 0) newParam.PWM.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 5 * 20, 10 + 1 * 8 * 9, ref oldParam.PWM.VisVolume1, newParam.PWM.VisVolume1, ref oldParam.PWM.VisVolume2, newParam.PWM.VisVolume2);
-
-            newParam.OKIM6258.VisVol2Cnt--;
-            if (newParam.OKIM6258.VisVol2Cnt == 0)
-            {
-                newParam.OKIM6258.VisVol2Cnt = 1;
-                if (newParam.OKIM6258.VisVolume2 > 0) newParam.OKIM6258.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 6 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6258.VisVolume1, newParam.OKIM6258.VisVolume1, ref oldParam.OKIM6258.VisVolume2, newParam.OKIM6258.VisVolume2);
-
-            newParam.OKIM6295.VisVol2Cnt--;
-            if (newParam.OKIM6295.VisVol2Cnt == 0)
-            {
-                newParam.OKIM6295.VisVol2Cnt = 1;
-                if (newParam.OKIM6295.VisVolume2 > 0) newParam.OKIM6295.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 7 * 20, 10 + 1 * 8 * 9, ref oldParam.OKIM6295.VisVolume1, newParam.OKIM6295.VisVolume1, ref oldParam.OKIM6295.VisVolume2, newParam.OKIM6295.VisVolume2);
-
-            newParam.C140.VisVol2Cnt--;
-            if (newParam.C140.VisVol2Cnt == 0)
-            {
-                newParam.C140.VisVol2Cnt = 1;
-                if (newParam.C140.VisVolume2 > 0) newParam.C140.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 8 * 20, 10 + 1 * 8 * 9, ref oldParam.C140.VisVolume1, newParam.C140.VisVolume1, ref oldParam.C140.VisVolume2, newParam.C140.VisVolume2);
-
-            newParam.SEGAPCM.VisVol2Cnt--;
-            if (newParam.SEGAPCM.VisVol2Cnt == 0)
-            {
-                newParam.SEGAPCM.VisVol2Cnt = 1;
-                if (newParam.SEGAPCM.VisVolume2 > 0) newParam.SEGAPCM.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 9 * 20, 10 + 1 * 8 * 9, ref oldParam.SEGAPCM.VisVolume1, newParam.SEGAPCM.VisVolume1, ref oldParam.SEGAPCM.VisVolume2, newParam.SEGAPCM.VisVolume2);
-
-            newParam.C352.VisVol2Cnt--;
-            if (newParam.C352.VisVol2Cnt == 0)
-            {
-                newParam.C352.VisVol2Cnt = 1;
-                if (newParam.C352.VisVolume2 > 0) newParam.C352.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 10 * 20, 10 + 1 * 8 * 9, ref oldParam.C352.VisVolume1, newParam.C352.VisVolume1, ref oldParam.C352.VisVolume2, newParam.C352.VisVolume2);
-
-            newParam.K054539.VisVol2Cnt--;
-            if (newParam.K054539.VisVol2Cnt == 0)
-            {
-                newParam.K054539.VisVol2Cnt = 1;
-                if (newParam.K054539.VisVolume2 > 0) newParam.K054539.VisVolume2--;
-            }
-            DrawBuff.MixerVolume(frameBuffer, 2 + 13 * 20, 10 + 1 * 8 * 9, ref oldParam.K054539.VisVolume1, newParam.K054539.VisVolume1, ref oldParam.K054539.VisVolume2, newParam.K054539.VisVolume2);
+            DrawBuff.MixerVolume(
+                frameBuffer
+                , 2 + (num % 16) * 20
+                , 10 + (num / 16) * 8 * 9
+                , ref oVI.VisVolume1
+                , nVI.VisVolume1
+                , ref oVI.VisVolume2
+                , nVI.VisVolume2);
         }
 
         public void screenInit()
         {
-            Audio.visVolume.APU = -1;
-            Audio.visVolume.ay8910 = -1;
-            Audio.visVolume.c140 = -1;
-            Audio.visVolume.c352 = -1;
-            Audio.visVolume.DMC = -1;
-            Audio.visVolume.FDS = -1;
-            Audio.visVolume.FME7 = -1;
-            Audio.visVolume.huc6280 = -1;
-            Audio.visVolume.k054539 = -1;
             Audio.visVolume.master = -1;
-            Audio.visVolume.MMC5 = -1;
-            Audio.visVolume.N160 = -1;
-            Audio.visVolume.okim6258 = -1;
-            Audio.visVolume.okim6295 = -1;
-            Audio.visVolume.pwm = -1;
-            Audio.visVolume.rf5c164 = -1;
-            Audio.visVolume.segaPCM = -1;
-            Audio.visVolume.sn76489 = -1;
-            Audio.visVolume.VRC6 = -1;
-            Audio.visVolume.VRC7 = -1;
             Audio.visVolume.ym2151 = -1;
             Audio.visVolume.ym2203 = -1;
             Audio.visVolume.ym2203FM = -1;
             Audio.visVolume.ym2203SSG = -1;
-            Audio.visVolume.ym2413 = -1;
+            Audio.visVolume.ym2612 = -1;
             Audio.visVolume.ym2608 = -1;
             Audio.visVolume.ym2608APCM = -1;
             Audio.visVolume.ym2608FM = -1;
@@ -717,7 +639,44 @@ namespace MDPlayer.form
             Audio.visVolume.ym2610APCMB = -1;
             Audio.visVolume.ym2610FM = -1;
             Audio.visVolume.ym2610SSG = -1;
-            Audio.visVolume.ym2612 = -1;
+
+            Audio.visVolume.ym2413 = -1;
+            Audio.visVolume.ym3526 = -1;
+            Audio.visVolume.y8950 = -1;
+            Audio.visVolume.ym3812 = -1;
+            Audio.visVolume.ymf262 = -1;
+            Audio.visVolume.ymf278b = -1;
+            Audio.visVolume.ymz280b = -1;
+            Audio.visVolume.ymf271 = -1;
+            Audio.visVolume.ay8910 = -1;
+            Audio.visVolume.sn76489 = -1;
+            Audio.visVolume.huc6280 = -1;
+
+            Audio.visVolume.rf5c164 = -1;
+            Audio.visVolume.rf5c68 = -1;
+            Audio.visVolume.pwm = -1;
+            Audio.visVolume.okim6258 = -1;
+            Audio.visVolume.okim6295 = -1;
+            Audio.visVolume.c140 = -1;
+            Audio.visVolume.c352 = -1;
+            Audio.visVolume.segaPCM = -1;
+            Audio.visVolume.multiPCM = -1;
+            Audio.visVolume.k051649 = -1;
+            Audio.visVolume.k053260 = -1;
+            Audio.visVolume.k054539 = -1;
+            Audio.visVolume.qSound = -1;
+            Audio.visVolume.ga20 = -1;
+
+            Audio.visVolume.APU = -1;
+            Audio.visVolume.DMC = -1;
+            Audio.visVolume.FDS = -1;
+            Audio.visVolume.MMC5 = -1;
+            Audio.visVolume.N160 = -1;
+            Audio.visVolume.VRC6 = -1;
+            Audio.visVolume.VRC7 = -1;
+            Audio.visVolume.FME7 = -1;
+            Audio.visVolume.DMG = -1;
+
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -726,8 +685,7 @@ namespace MDPlayer.form
             int py = e.Location.Y / parent.setting.other.Zoom;
             chipn = px / 20 + (py / 72) * 16;
             bool b = e.Button == MouseButtons.Middle;
-
-            fader(chipn, b, 0, 0);
+            if (b) SetVolume[chipn]?.Invoke(true, 0);
         }
 
         private void frmMixer2_KeyDown(object sender, KeyEventArgs e)
@@ -767,158 +725,36 @@ namespace MDPlayer.form
                     n = (int)(n * (192.0 / 35.0));
                 }
 
-                fader(chipn, true, 0, n);
+                if (chipn < 0 || chipn >= SetVolume.Length) return;
+                SetVolume[chipn]?.Invoke(true, n);
 
             }
         }
 
 
-        private void fader(int chipn, bool b, int delta, int v)
+        Action<bool, int>[] SetVolume = new Action<bool, int>[]
         {
-            switch (chipn)
-            {
-                case 0:
-                    Audio.SetMasterVolume(parent.setting.balance.MasterVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.MasterVolume + delta)), 20), -192)));
-                    break;
-                case 1:
-                    Audio.SetYM2151Volume(parent.setting.balance.YM2151Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2151Volume + delta)), 20), -192)));
-                    break;
-                case 2:
-                    Audio.SetYM2203Volume(parent.setting.balance.YM2203Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2203Volume + delta)), 20), -192)));
-                    break;
-                case 3:
-                    Audio.SetYM2203FMVolume(parent.setting.balance.YM2203FMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2203FMVolume + delta)), 20), -192)));
-                    break;
-                case 4:
-                    Audio.SetYM2203PSGVolume(parent.setting.balance.YM2203PSGVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2203PSGVolume + delta)), 20), -192)));
-                    break;
-                case 5:
-                    Audio.SetYM2413Volume(parent.setting.balance.YM2413Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2413Volume + delta)), 20), -192)));
-                    break;
-                case 6:
-                    Audio.SetYM2608Volume(parent.setting.balance.YM2608Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2608Volume + delta)), 20), -192)));
-                    break;
-                case 7:
-                    Audio.SetYM2608FMVolume(parent.setting.balance.YM2608FMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2608FMVolume + delta)), 20), -192)));
-                    break;
-                case 8:
-                    Audio.SetYM2608PSGVolume(parent.setting.balance.YM2608PSGVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2608PSGVolume + delta)), 20), -192)));
-                    break;
-                case 9:
-                    Audio.SetYM2608RhythmVolume(parent.setting.balance.YM2608RhythmVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2608RhythmVolume + delta)), 20), -192)));
-                    break;
-                case 10:
-                    Audio.SetYM2608AdpcmVolume(parent.setting.balance.YM2608AdpcmVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2608AdpcmVolume + delta)), 20), -192)));
-                    break;
-                case 11:
-                    Audio.SetYM2610Volume(parent.setting.balance.YM2610Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2610Volume + delta)), 20), -192)));
-                    break;
-                case 12:
-                    Audio.SetYM2610FMVolume(parent.setting.balance.YM2610FMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2610FMVolume + delta)), 20), -192)));
-                    break;
-                case 13:
-                    Audio.SetYM2610PSGVolume(parent.setting.balance.YM2610PSGVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2610PSGVolume + delta)), 20), -192)));
-                    break;
-                case 14:
-                    Audio.SetYM2610AdpcmAVolume(parent.setting.balance.YM2610AdpcmAVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2610AdpcmAVolume + delta)), 20), -192)));
-                    break;
-                case 15:
-                    Audio.SetYM2610AdpcmBVolume(parent.setting.balance.YM2610AdpcmBVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2610AdpcmBVolume + delta)), 20), -192)));
-                    break;
+                  Audio.SetMasterVolume    , Audio.SetYM2151Volume       , Audio.SetYM2203Volume       , Audio.SetYM2203FMVolume
+                , Audio.SetYM2203PSGVolume , Audio.SetYM2612Volume       , Audio.SetYM2608Volume       , Audio.SetYM2608FMVolume
+                , Audio.SetYM2608PSGVolume , Audio.SetYM2608RhythmVolume , Audio.SetYM2608AdpcmVolume  , Audio.SetYM2610Volume
+                , Audio.SetYM2610FMVolume  , Audio.SetYM2610PSGVolume    , Audio.SetYM2610AdpcmAVolume , Audio.SetYM2610AdpcmBVolume
 
-                case 16:
-                    Audio.SetYM2612Volume(parent.setting.balance.YM2612Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YM2612Volume + delta)), 20), -192)));
-                    break;
-                case 17:
-                    Audio.SetAY8910Volume(parent.setting.balance.AY8910Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.AY8910Volume + delta)), 20), -192)));
-                    break;
-                case 18:
-                    Audio.SetSN76489Volume(parent.setting.balance.SN76489Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.SN76489Volume + delta)), 20), -192)));
-                    break;
-                case 19:
-                    Audio.SetHuC6280Volume(parent.setting.balance.HuC6280Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.HuC6280Volume + delta)), 20), -192)));
-                    break;
-                case 20:
-                    Audio.SetRF5C164Volume(parent.setting.balance.RF5C164Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.RF5C164Volume + delta)), 20), -192)));
-                    break;
-                case 21:
-                    Audio.SetPWMVolume(parent.setting.balance.PWMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.PWMVolume + delta)), 20), -192)));
-                    break;
-                case 22:
-                    Audio.SetOKIM6258Volume(parent.setting.balance.OKIM6258Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.OKIM6258Volume + delta)), 20), -192)));
-                    break;
-                case 23:
-                    Audio.SetOKIM6295Volume(parent.setting.balance.OKIM6295Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.OKIM6295Volume + delta)), 20), -192)));
-                    break;
-                case 24:
-                    Audio.SetC140Volume(parent.setting.balance.C140Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.C140Volume + delta)), 20), -192)));
-                    break;
-                case 25:
-                    Audio.SetSegaPCMVolume(parent.setting.balance.SEGAPCMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.SEGAPCMVolume + delta)), 20), -192)));
-                    break;
-                case 26:
-                    Audio.SetC352Volume(parent.setting.balance.C352Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.C352Volume + delta)), 20), -192)));
-                    break;
-                case 27://K051
-                    Audio.SetK051649Volume(parent.setting.balance.K051649Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.K051649Volume + delta)), 20), -192)));
-                    break;
-                case 28://K053
-                    break;
-                case 29://K054
-                    Audio.SetK054539Volume(parent.setting.balance.K054539Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.K054539Volume + delta)), 20), -192)));
-                    break;
-                case 30://QSND
-                    Audio.SetQSoundVolume(parent.setting.balance.QSoundVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.QSoundVolume + delta)), 20), -192)));
-                    break;
-                case 31://MPCM
-                    Audio.SetMultiPCMVolume(parent.setting.balance.MultiPCMVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.MultiPCMVolume + delta)), 20), -192)));
-                    break;
+                , Audio.SetYM2413Volume    , Audio.SetYM3526Volume       , Audio.SetY8950Volume        , Audio.SetYM3812Volume
+                , Audio.SetYMF262Volume    , Audio.SetYMF278BVolume      , Audio.SetYMZ280BVolume      , Audio.SetYMF271Volume
+                , null                     , Audio.SetAY8910Volume       , Audio.SetSN76489Volume      , Audio.SetHuC6280Volume
+                , null                     , null                        , null                        , null
 
-                case 32://NES(APU)
-                    Audio.SetAPUVolume(parent.setting.balance.APUVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.APUVolume + delta)), 20), -192)));
-                    break;
-                case 33://DMC
-                    Audio.SetDMCVolume(parent.setting.balance.DMCVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.DMCVolume + delta)), 20), -192)));
-                    break;
-                case 34://FDS
-                    Audio.SetFDSVolume(parent.setting.balance.FDSVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.FDSVolume + delta)), 20), -192)));
-                    break;
-                case 35://MMC5
-                    Audio.SetMMC5Volume(parent.setting.balance.MMC5Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.MMC5Volume + delta)), 20), -192)));
-                    break;
-                case 36://N160
-                    Audio.SetN160Volume(parent.setting.balance.N160Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.N160Volume + delta)), 20), -192)));
-                    break;
-                case 37://VRC6
-                    Audio.SetVRC6Volume(parent.setting.balance.VRC6Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.VRC6Volume + delta)), 20), -192)));
-                    break;
-                case 38://VRC7
-                    Audio.SetVRC7Volume(parent.setting.balance.VRC7Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.VRC7Volume + delta)), 20), -192)));
-                    break;
-                case 39://FME7
-                    Audio.SetFME7Volume(parent.setting.balance.FME7Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.FME7Volume + delta)), 20), -192)));
-                    break;
-                case 40://DMG
-                    Audio.SetDMGVolume(parent.setting.balance.DMGVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.DMGVolume + delta)), 20), -192)));
-                    break;
-                case 41://GA20
-                    Audio.SetGA20Volume(parent.setting.balance.GA20Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.GA20Volume + delta)), 20), -192)));
-                    break;
-                case 42://YMZ
-                    Audio.SetYMZ280BVolume(parent.setting.balance.YMZ280BVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMZ280BVolume + delta)), 20), -192)));
-                    break;
-                case 43://OPX
-                    Audio.SetYMF271Volume(parent.setting.balance.YMF271Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF271Volume + delta)), 20), -192)));
-                    break;
-                case 46://OPL3
-                    Audio.SetYMF262Volume(parent.setting.balance.YMF262Volume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF262Volume + delta)), 20), -192)));
-                    break;
-                case 47://OPL4
-                    Audio.SetYMF278BVolume(parent.setting.balance.YMF278BVolume = (Math.Max(Math.Min((b ? v : (parent.setting.balance.YMF278BVolume + delta)), 20), -192)));
-                    break;
+                , null                     , null                        , Audio.SetRF5C164Volume      , Audio.SetRF5C68Volume
+                , Audio.SetPWMVolume       , Audio.SetOKIM6258Volume     , Audio.SetOKIM6295Volume     , Audio.SetC140Volume
+                , Audio.SetC352Volume      , Audio.SetSegaPCMVolume      , Audio.SetMultiPCMVolume     , Audio.SetK051649Volume
+                , Audio.SetK053260Volume   , Audio.SetK054539Volume      , Audio.SetQSoundVolume       , Audio.SetGA20Volume
 
-            }
-        }
+                , Audio.SetAPUVolume       , Audio.SetDMCVolume          , Audio.SetFDSVolume          , Audio.SetMMC5Volume
+                , Audio.SetN160Volume      , Audio.SetVRC6Volume         , Audio.SetVRC7Volume         , Audio.SetFME7Volume
+                , Audio.SetDMGVolume       , null                        , null                        , null
+                , null                     , null                        , null                        , null
+        };
+
 
         private void pbScreen_MouseEnter(object sender, EventArgs e)
         {

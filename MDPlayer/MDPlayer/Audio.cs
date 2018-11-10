@@ -1797,8 +1797,8 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2151Volume(setting.balance.YM2151Volume);
-                SetAY8910Volume(setting.balance.AY8910Volume);
+                SetYM2151Volume(false, setting.balance.YM2151Volume);
+                SetAY8910Volume(false, setting.balance.AY8910Volume);
 
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -1911,7 +1911,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYMF278BVolume(setting.balance.YMF278BVolume);
+                SetYMF278BVolume(true, setting.balance.YMF278BVolume);
 
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2054,7 +2054,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2151Volume(setting.balance.YM2151Volume);
+                SetYM2151Volume(false, setting.balance.YM2151Volume);
 
                 bool retV = ((MDPlayer.Driver.MXDRV.MXDRV)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2247,12 +2247,12 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2151Volume(setting.balance.YM2151Volume);
-                SetYM2608Volume(setting.balance.YM2608Volume);
-                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
-                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
-                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
-                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+                SetYM2151Volume(false,  setting.balance.YM2151Volume);
+                SetYM2608Volume(true, setting.balance.YM2608Volume);
+                SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
 
                 bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151,enmUseChip.YM2608 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2374,8 +2374,8 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2612Volume(setting.balance.YM2612Volume);
-                SetSN76489Volume(setting.balance.SN76489Volume);
+                SetYM2612Volume(true, setting.balance.YM2612Volume);
+                SetSN76489Volume(true, setting.balance.SN76489Volume);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2450,7 +2450,7 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2203 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel,new enmUseChip[] { enmUseChip.YM2203 }
+                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2203 }
                     , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
 
@@ -2490,7 +2490,7 @@ namespace MDPlayer
                             chip.Reset = ym2149.Reset;
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.AY8910Volume;
-                            chip.Clock = dInfo.Clock/4;
+                            chip.Clock = dInfo.Clock / 4;
                             clockAY8910 = (int)chip.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
@@ -2555,7 +2555,7 @@ namespace MDPlayer
                             {
                                 ym2608 = new ym2608();
                                 chip.ID = 0;
-                                chipLED.PriOPNA=1;
+                                chipLED.PriOPNA = 1;
                             }
                             else
                             {
@@ -2697,27 +2697,27 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2203Volume(setting.balance.YM2203Volume);
-                SetYM2203FMVolume(setting.balance.YM2203FMVolume);
-                SetYM2203PSGVolume(setting.balance.YM2203PSGVolume);
+                SetYM2203Volume(true, setting.balance.YM2203Volume);
+                SetYM2203FMVolume(true, setting.balance.YM2203FMVolume);
+                SetYM2203PSGVolume(true, setting.balance.YM2203PSGVolume);
 
-                SetYM2612Volume(setting.balance.YM2612Volume);
+                SetYM2612Volume(true, setting.balance.YM2612Volume);
 
-                SetYM2608Volume(setting.balance.YM2608Volume);
-                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
-                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
-                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
-                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+                SetYM2608Volume(true, setting.balance.YM2608Volume);
+                SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
 
-                SetYM2151Volume(setting.balance.YM2151Volume);
+                SetYM2151Volume(false, setting.balance.YM2151Volume);
 
-                SetYM2413Volume(setting.balance.YM2413Volume);
+                SetYM2413Volume(true, setting.balance.YM2413Volume);
 
-                SetAY8910Volume(setting.balance.AY8910Volume);
+                SetAY8910Volume(false, setting.balance.AY8910Volume);
 
                 //Play
 
@@ -3789,7 +3789,7 @@ namespace MDPlayer
                         chip.Stop = ym3812.Stop;
                         chip.Reset = ym3812.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YM3812Volume;
+                        chip.Volume = setting.balance.YM3812Volume;
                         chip.Clock = ((vgm)driverVirtual).YM3812ClockValue & 0x7fffffff;
                         chip.Option = null;
 
@@ -3870,7 +3870,7 @@ namespace MDPlayer
                         chip.Stop = ymf278b.Stop;
                         chip.Reset = ymf278b.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume =  setting.balance.YMF278BVolume;
+                        chip.Volume = setting.balance.YMF278BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMF278BClockValue & 0x7fffffff;
                         chip.Option = new object[] { common.GetApplicationFolder() };
 
@@ -3941,7 +3941,7 @@ namespace MDPlayer
                 if (((vgm)driverVirtual).YM2413ClockValue != 0)
                 {
                     MDSound.ym2413 ym2413 = new MDSound.ym2413();
-                    
+
                     for (int i = 0; i < (((vgm)driverVirtual).YM2413DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
@@ -3956,7 +3956,7 @@ namespace MDPlayer
                         chip.Volume = setting.balance.YM2413Volume;
                         chip.Clock = (((vgm)driverVirtual).YM2413ClockValue & 0x7fffffff);
                         chip.Option = null;
-                        
+
                         hiyorimiDeviceFlag |= 0x2;
 
                         if (i == 0) chipLED.PriOPLL = 1;
@@ -3996,23 +3996,23 @@ namespace MDPlayer
                 if (((vgm)driverVirtual).QSoundClockValue != 0)
                 {
                     MDSound.qsound qsound = new MDSound.qsound();
-                        chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.QSound;
-                        chip.ID = (byte)0;
-                        chip.Instrument = qsound;
-                        chip.Update = qsound.Update;
-                        chip.Start = qsound.Start;
-                        chip.Stop = qsound.Stop;
-                        chip.Reset = qsound.Reset;
-                        chip.SamplingRate = (UInt32)common.SampleRate;
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.QSound;
+                    chip.ID = (byte)0;
+                    chip.Instrument = qsound;
+                    chip.Update = qsound.Update;
+                    chip.Start = qsound.Start;
+                    chip.Stop = qsound.Stop;
+                    chip.Reset = qsound.Reset;
+                    chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.QSoundVolume;
                     chip.Clock = (((vgm)driverVirtual).QSoundClockValue);// & 0x7fffffff);
-                        chip.Option = null;
+                    chip.Option = null;
 
-                        hiyorimiDeviceFlag |= 0x2;
+                    hiyorimiDeviceFlag |= 0x2;
 
-                        //if (i == 0) chipLED.PriHuC = 1;
-                        //else chipLED.SecHuC = 1;
+                    //if (i == 0) chipLED.PriHuC = 1;
+                    //else chipLED.SecHuC = 1;
                     chipLED.PriQsnd = 1;
 
                     lstChips.Add(chip);
@@ -4088,7 +4088,7 @@ namespace MDPlayer
                         chip.Stop = k053260.Stop;
                         chip.Reset = k053260.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.K053260Volume;
+                        chip.Volume = setting.balance.K053260Volume;
                         chip.Clock = ((vgm)driverVirtual).K053260ClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriK053260 = 1;
@@ -4169,7 +4169,7 @@ namespace MDPlayer
                         chip.Stop = ym3526.Stop;
                         chip.Reset = ym3526.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.YM3526Volume;
+                        chip.Volume = setting.balance.YM3526Volume;
                         chip.Clock = ((vgm)driverVirtual).YM3526ClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriOPL = 1;
@@ -4196,7 +4196,7 @@ namespace MDPlayer
                         chip.Stop = y8950.Stop;
                         chip.Reset = y8950.Reset;
                         chip.SamplingRate = (UInt32)common.SampleRate;
-                        chip.Volume = 0;// setting.balance.Y8950Volume;
+                        chip.Volume = setting.balance.Y8950Volume;
                         chip.Clock = ((vgm)driverVirtual).Y8950ClockValue;
                         chip.Option = null;
                         if (i == 0) chipLED.PriY895 = 1;
@@ -4272,18 +4272,18 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister();
 
-                SetYM2203FMVolume(setting.balance.YM2203FMVolume);
-                SetYM2203PSGVolume(setting.balance.YM2203PSGVolume);
+                SetYM2203FMVolume(true, setting.balance.YM2203FMVolume);
+                SetYM2203PSGVolume(true, setting.balance.YM2203PSGVolume);
 
-                SetYM2608FMVolume(setting.balance.YM2608FMVolume);
-                SetYM2608PSGVolume(setting.balance.YM2608PSGVolume);
-                SetYM2608RhythmVolume(setting.balance.YM2608RhythmVolume);
-                SetYM2608AdpcmVolume(setting.balance.YM2608AdpcmVolume);
+                SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
 
-                SetYM2610FMVolume(setting.balance.YM2610FMVolume);
-                SetYM2610PSGVolume(setting.balance.YM2610PSGVolume);
-                SetYM2610AdpcmAVolume(setting.balance.YM2610AdpcmAVolume);
-                SetYM2610AdpcmBVolume(setting.balance.YM2610AdpcmBVolume);
+                SetYM2610FMVolume(true, setting.balance.YM2610FMVolume);
+                SetYM2610PSGVolume(true, setting.balance.YM2610PSGVolume);
+                SetYM2610AdpcmAVolume(true, setting.balance.YM2610AdpcmAVolume);
+                SetYM2610AdpcmBVolume(true, setting.balance.YM2610AdpcmBVolume);
 
                 chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, enmModel.RealModel);
                 chipRegister.writeSEGAPCMClock(0, (int)((vgm)driverVirtual).SEGAPCMClockValue, enmModel.RealModel);
@@ -5151,7 +5151,6 @@ namespace MDPlayer
                 visVolume.master = buffer[offset];
 
                 int[][][] vol = mds.getYM2151VisVolume();
-
                 if (vol != null) visVolume.ym2151 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
                 vol = mds.getYM2203VisVolume();
@@ -5159,8 +5158,8 @@ namespace MDPlayer
                 if (vol != null) visVolume.ym2203FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
                 if (vol != null) visVolume.ym2203SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
 
-                vol = mds.getYM2413VisVolume();
-                if (vol != null) visVolume.ym2413 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                vol = mds.getYM2612VisVolume();
+                if (vol != null) visVolume.ym2612 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
                 vol = mds.getYM2608VisVolume();
                 if (vol != null) visVolume.ym2608 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
@@ -5176,8 +5175,30 @@ namespace MDPlayer
                 if (vol != null) visVolume.ym2610APCMA = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
                 if (vol != null) visVolume.ym2610APCMB = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
 
-                vol = mds.getYM2612VisVolume();
-                if (vol != null) visVolume.ym2612 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYM2413VisVolume();
+                if (vol != null) visVolume.ym2413 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYM3526VisVolume();
+                if (vol != null) visVolume.ym3526 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getY8950VisVolume();
+                if (vol != null) visVolume.y8950 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYM3812VisVolume();
+                if (vol != null) visVolume.ym3812 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYMF262VisVolume();
+                if (vol != null) visVolume.ymf262 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYMF278BVisVolume();
+                if (vol != null) visVolume.ymf278b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYMF271VisVolume();
+                if (vol != null) visVolume.ymf271 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getYMZ280BVisVolume();
+                if (vol != null) visVolume.ymz280b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
                 vol = mds.getAY8910VisVolume();
                 if (vol != null) visVolume.ay8910 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
@@ -5188,8 +5209,12 @@ namespace MDPlayer
                 vol = mds.getHuC6280VisVolume();
                 if (vol != null) visVolume.huc6280 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
+
                 vol = mds.getRF5C164VisVolume();
                 if (vol != null) visVolume.rf5c164 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getRF5C68VisVolume();
+                if (vol != null) visVolume.rf5c68 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
                 vol = mds.getPWMVisVolume();
                 if (vol != null) visVolume.pwm = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
@@ -5203,14 +5228,30 @@ namespace MDPlayer
                 vol = mds.getC140VisVolume();
                 if (vol != null) visVolume.c140 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
-                vol = mds.getSegaPCMVisVolume();
-                if (vol != null) visVolume.segaPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
                 vol = mds.getC352VisVolume();
                 if (vol != null) visVolume.c352 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
+                vol = mds.getSegaPCMVisVolume();
+                if (vol != null) visVolume.segaPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getMultiPCMVisVolume();
+                if (vol != null) visVolume.multiPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getK051649VisVolume();
+                if (vol != null) visVolume.k051649 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getK053260VisVolume();
+                if (vol != null) visVolume.k053260 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
                 vol = mds.getK054539VisVolume();
                 if (vol != null) visVolume.k054539 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getQSoundVisVolume();
+                if (vol != null) visVolume.qSound = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getGA20VisVolume();
+                if (vol != null) visVolume.ga20 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
 
                 vol = mds.getNESVisVolume();
                 if (vol != null) visVolume.APU = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
@@ -5235,6 +5276,10 @@ namespace MDPlayer
 
                 vol = mds.getFME7VisVolume();
                 if (vol != null) visVolume.FME7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+                vol = mds.getDMGVisVolume();
+                if (vol != null) visVolume.DMG = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
 
                 if (vgmFadeout)
                 {
@@ -5687,408 +5732,509 @@ namespace MDPlayer
         }
 
 
-        public static void SetMasterVolume(int volume)
+        public static void SetMasterVolume(bool isAbs, int volume)
         {
-            MasterVolume = volume;
+            MasterVolume
+                = setting.balance.MasterVolume
+                = common.Range((isAbs ? 0 : setting.balance.MasterVolume) + volume, -192, 20);
         }
 
-        public static void SetAY8910Volume(int volume)
+        public static void SetAY8910Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.setVolumeAY8910(volume);
+                mds.setVolumeAY8910(setting.balance.AY8910Volume
+                    = common.Range((isAbs ? 0 : setting.balance.AY8910Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2151Volume(int volume)
+        public static void SetYM2151Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2151(volume);
-                mds.SetVolumeYM2151mame(volume);
-                mds.SetVolumeYM2151x68sound(volume);
+                int vol
+                    = setting.balance.YM2151Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2151Volume) + volume, -192, 20);
+
+                mds.SetVolumeYM2151(vol);
+                mds.SetVolumeYM2151mame(vol);
+                mds.SetVolumeYM2151x68sound(vol);
             }
             catch { }
         }
 
-        public static void SetYM2203Volume(int volume)
+        public static void SetYM2203Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2203(volume);
+                mds.SetVolumeYM2203(setting.balance.YM2203Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2203Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2203FMVolume(int volume)
+        public static void SetYM2203FMVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2203FM(volume);
+                mds.SetVolumeYM2203FM(setting.balance.YM2203FMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2203FMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2203PSGVolume(int volume)
+        public static void SetYM2203PSGVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2203PSG(volume);
+                mds.SetVolumeYM2203PSG(setting.balance.YM2203PSGVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2203PSGVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2413Volume(int volume)
+        public static void SetYM2413Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2413(volume);
+                mds.SetVolumeYM2413(setting.balance.YM2413Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2413Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2608Volume(int volume)
+        public static void SetK053260Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2608(volume);
+                mds.SetVolumeK053260(setting.balance.K053260Volume
+                    = common.Range((isAbs ? 0 : setting.balance.K053260Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2608FMVolume(int volume)
+        public static void SetRF5C68Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2608FM(volume);
+                mds.SetVolumeRF5C68(setting.balance.RF5C68Volume
+                    = common.Range((isAbs ? 0 : setting.balance.RF5C68Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2608PSGVolume(int volume)
+        public static void SetYM3812Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2608PSG(volume);
+                mds.SetVolumeYM3812(setting.balance.YM3812Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM3812Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2608RhythmVolume(int volume)
+        public static void SetY8950Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2608Rhythm(volume);
+                mds.SetVolumeY8950(setting.balance.Y8950Volume
+                    = common.Range((isAbs ? 0 : setting.balance.Y8950Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2608AdpcmVolume(int volume)
+        public static void SetYM3526Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2608Adpcm(volume);
+                mds.SetVolumeYM3526(setting.balance.YM3526Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM3526Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2610Volume(int volume)
+        public static void SetYM2608Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2610(volume);
+                mds.SetVolumeYM2608(setting.balance.YM2608Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2608Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2610FMVolume(int volume)
+        public static void SetYM2608FMVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2610FM(volume);
+                mds.SetVolumeYM2608FM(setting.balance.YM2608FMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2608FMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2610PSGVolume(int volume)
+        public static void SetYM2608PSGVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2610PSG(volume);
+                mds.SetVolumeYM2608PSG(setting.balance.YM2608PSGVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2608PSGVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2610AdpcmAVolume(int volume)
+        public static void SetYM2608RhythmVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2610AdpcmA(volume);
+                mds.SetVolumeYM2608Rhythm(setting.balance.YM2608RhythmVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2608RhythmVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2610AdpcmBVolume(int volume)
+        public static void SetYM2608AdpcmVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2610AdpcmB(volume);
+                mds.SetVolumeYM2608Adpcm(setting.balance.YM2608AdpcmVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2608AdpcmVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYM2612Volume(int volume)
+        public static void SetYM2610Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYM2612(volume);
+                mds.SetVolumeYM2610(setting.balance.YM2610Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2610Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetSN76489Volume(int volume)
+        public static void SetYM2610FMVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeSN76489(volume);
+                mds.SetVolumeYM2610FM(setting.balance.YM2610FMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2610FMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetHuC6280Volume(int volume)
+        public static void SetYM2610PSGVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.setVolumeHuC6280(volume);
+                mds.SetVolumeYM2610PSG(setting.balance.YM2610PSGVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2610PSGVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetRF5C164Volume(int volume)
+        public static void SetYM2610AdpcmAVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeRF5C164(volume);
+                mds.SetVolumeYM2610AdpcmA(setting.balance.YM2610AdpcmAVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2610AdpcmAVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetPWMVolume(int volume)
+        public static void SetYM2610AdpcmBVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumePWM(volume);
+                mds.SetVolumeYM2610AdpcmB(setting.balance.YM2610AdpcmBVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2610AdpcmBVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetOKIM6258Volume(int volume)
+        public static void SetYM2612Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeOKIM6258(volume);
-                mds.SetVolumeMpcmX68k(volume);
+                mds.SetVolumeYM2612(setting.balance.YM2612Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YM2612Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetOKIM6295Volume(int volume)
+        public static void SetSN76489Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeOKIM6295(volume);
+                mds.SetVolumeSN76489(setting.balance.SN76489Volume
+                    = common.Range((isAbs ? 0 : setting.balance.SN76489Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetC140Volume(int volume)
+        public static void SetHuC6280Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeC140(volume);
+                mds.setVolumeHuC6280(setting.balance.HuC6280Volume
+                    = common.Range((isAbs ? 0 : setting.balance.HuC6280Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetSegaPCMVolume(int volume)
+        public static void SetRF5C164Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeSegaPCM(volume);
+                mds.SetVolumeRF5C164(setting.balance.RF5C164Volume
+                    = common.Range((isAbs ? 0 : setting.balance.RF5C164Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetC352Volume(int volume)
+        public static void SetPWMVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeC352(volume);
+                mds.SetVolumePWM(setting.balance.PWMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.PWMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetK051649Volume(int volume)
+        public static void SetOKIM6258Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeK051649(volume);
+                int vol = setting.balance.OKIM6258Volume
+                    = common.Range((isAbs ? 0 : setting.balance.OKIM6258Volume) + volume, -192, 20);
+
+                mds.SetVolumeOKIM6258(vol);
+                mds.SetVolumeMpcmX68k(vol);
             }
             catch { }
         }
 
-        public static void SetK054539Volume(int volume)
+        public static void SetOKIM6295Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeK054539(volume);
+                mds.SetVolumeOKIM6295(setting.balance.OKIM6295Volume
+                    = common.Range((isAbs ? 0 : setting.balance.OKIM6295Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetQSoundVolume(int volume)
+        public static void SetC140Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeQSound(volume);
+                mds.SetVolumeC140(setting.balance.C140Volume
+                    = common.Range((isAbs ? 0 : setting.balance.C140Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetDMGVolume(int volume)
+        public static void SetSegaPCMVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeDMG(volume);
+                mds.SetVolumeSegaPCM(setting.balance.SEGAPCMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.SEGAPCMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetGA20Volume(int volume)
+        public static void SetC352Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeGA20(volume);
+                mds.SetVolumeC352(setting.balance.C352Volume
+                    = common.Range((isAbs ? 0 : setting.balance.C352Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYMZ280BVolume(int volume)
+        public static void SetK051649Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYMZ280B(volume);
+                mds.SetVolumeK051649(setting.balance.K051649Volume
+                    = common.Range((isAbs ? 0 : setting.balance.K051649Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYMF271Volume(int volume)
+        public static void SetK054539Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYMF271(volume);
+                mds.SetVolumeK054539(setting.balance.K054539Volume
+                    = common.Range((isAbs ? 0 : setting.balance.K054539Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYMF262Volume(int volume)
+        public static void SetQSoundVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYMF262(volume);
+                mds.SetVolumeQSound(setting.balance.QSoundVolume
+                    = common.Range((isAbs ? 0 : setting.balance.QSoundVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetYMF278BVolume(int volume)
+        public static void SetDMGVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeYMF278B(volume);
+                mds.SetVolumeDMG(setting.balance.DMGVolume
+                    = common.Range((isAbs ? 0 : setting.balance.DMGVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetMultiPCMVolume(int volume)
+        public static void SetGA20Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeMultiPCM(volume);
+                mds.SetVolumeGA20(setting.balance.GA20Volume
+                    = common.Range((isAbs ? 0 : setting.balance.GA20Volume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetYMZ280BVolume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMZ280B(setting.balance.YMZ280BVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YMZ280BVolume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetYMF271Volume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF271(setting.balance.YMF271Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YMF271Volume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetYMF262Volume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF262(setting.balance.YMF262Volume
+                    = common.Range((isAbs ? 0 : setting.balance.YMF262Volume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetYMF278BVolume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeYMF278B(setting.balance.YMF278BVolume
+                    = common.Range((isAbs ? 0 : setting.balance.YMF278BVolume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetMultiPCMVolume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeMultiPCM(setting.balance.MultiPCMVolume
+                    = common.Range((isAbs ? 0 : setting.balance.MultiPCMVolume) + volume, -192, 20));
             }
             catch { }
         }
 
 
 
-        public static void SetAPUVolume(int volume)
+        public static void SetAPUVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeNES(volume);
+                mds.SetVolumeNES(setting.balance.APUVolume
+                    = common.Range((isAbs ? 0 : setting.balance.APUVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetDMCVolume(int volume)
+        public static void SetDMCVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeDMC(volume);
+                mds.SetVolumeDMC(setting.balance.DMCVolume
+                    = common.Range((isAbs ? 0 : setting.balance.DMCVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetFDSVolume(int volume)
+        public static void SetFDSVolume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeFDS(volume);
+                mds.SetVolumeFDS(setting.balance.FDSVolume
+                    = common.Range((isAbs ? 0 : setting.balance.FDSVolume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetMMC5Volume(int volume)
+        public static void SetMMC5Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeMMC5(volume);
+                mds.SetVolumeMMC5(setting.balance.MMC5Volume
+                    = common.Range((isAbs ? 0 : setting.balance.MMC5Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetN160Volume(int volume)
+        public static void SetN160Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeN160(volume);
+                mds.SetVolumeN160(setting.balance.N160Volume
+                    = common.Range((isAbs ? 0 : setting.balance.N160Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetVRC6Volume(int volume)
+        public static void SetVRC6Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeVRC6(volume);
+                mds.SetVolumeVRC6(setting.balance.VRC6Volume
+                    = common.Range((isAbs ? 0 : setting.balance.VRC6Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetVRC7Volume(int volume)
+        public static void SetVRC7Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeVRC7(volume);
+                mds.SetVolumeVRC7(setting.balance.VRC7Volume
+                    = common.Range((isAbs ? 0 : setting.balance.VRC7Volume) + volume, -192, 20));
             }
             catch { }
         }
 
-        public static void SetFME7Volume(int volume)
+        public static void SetFME7Volume(bool isAbs, int volume)
         {
             try
             {
-                mds.SetVolumeFME7(volume);
+                mds.SetVolumeFME7(setting.balance.FME7Volume
+                    = common.Range((isAbs ? 0 : setting.balance.FME7Volume) + volume, -192, 20));
             }
             catch { }
         }

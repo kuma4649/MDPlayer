@@ -1588,6 +1588,38 @@ namespace MDPlayer
                 }
             }
 
+            private int _YM3526Volume = 0;
+            public int YM3526Volume
+            {
+                get
+                {
+                    if (_YM3526Volume > 20 || _YM3526Volume < -192) _YM3526Volume = 0;
+                    return _YM3526Volume;
+                }
+
+                set
+                {
+                    _YM3526Volume = value;
+                    if (_YM3526Volume > 20 || _YM3526Volume < -192) _YM3526Volume = 0;
+                }
+            }
+
+            private int _Y8950Volume = 0;
+            public int Y8950Volume
+            {
+                get
+                {
+                    if (_Y8950Volume > 20 || _Y8950Volume < -192) _Y8950Volume = 0;
+                    return _Y8950Volume;
+                }
+
+                set
+                {
+                    _Y8950Volume = value;
+                    if (_Y8950Volume > 20 || _Y8950Volume < -192) _Y8950Volume = 0;
+                }
+            }
+
             private int _HuC6280Volume = 0;
             public int HuC6280Volume
             {
@@ -2148,6 +2180,21 @@ namespace MDPlayer
                 }
             }
 
+            private int _K053260Volume = 0;
+            public int K053260Volume
+            {
+                get
+                {
+                    if (_K053260Volume > 20 || _K053260Volume < -192) _K053260Volume = 0;
+                    return _K053260Volume;
+                }
+
+                set
+                {
+                    _K053260Volume = value;
+                    if (_K053260Volume > 20 || _K053260Volume < -192) _K053260Volume = 0;
+                }
+            }
 
             public Balance Copy()
             {

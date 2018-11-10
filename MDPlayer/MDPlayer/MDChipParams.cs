@@ -362,23 +362,12 @@ namespace MDPlayer
                 public int VisVolume2 = -1;
                 public int VisVol2Cnt = 30;
             }
-            public VolumeInfo AY8910 = new VolumeInfo();
-            public VolumeInfo C140 = new VolumeInfo();
-            public VolumeInfo C352 = new VolumeInfo();
-            public VolumeInfo HuC6280 = new VolumeInfo();
-            public VolumeInfo K054539 = new VolumeInfo();
+
             public VolumeInfo Master = new VolumeInfo();
-            public VolumeInfo OKIM6258 = new VolumeInfo();
-            public VolumeInfo OKIM6295 = new VolumeInfo();
-            public VolumeInfo PWM = new VolumeInfo();
-            public VolumeInfo RF5C164 = new VolumeInfo();
-            public VolumeInfo SEGAPCM = new VolumeInfo();
-            public VolumeInfo SN76489 = new VolumeInfo();
             public VolumeInfo YM2151 = new VolumeInfo();
+            public VolumeInfo YM2203 = new VolumeInfo();
             public VolumeInfo YM2203FM = new VolumeInfo();
             public VolumeInfo YM2203PSG = new VolumeInfo();
-            public VolumeInfo YM2203 = new VolumeInfo();
-            public VolumeInfo YM2413 = new VolumeInfo();
             public VolumeInfo YM2608Adpcm = new VolumeInfo();
             public VolumeInfo YM2608FM = new VolumeInfo();
             public VolumeInfo YM2608PSG = new VolumeInfo();
@@ -390,6 +379,34 @@ namespace MDPlayer
             public VolumeInfo YM2610PSG = new VolumeInfo();
             public VolumeInfo YM2610 = new VolumeInfo();
             public VolumeInfo YM2612 = new VolumeInfo();
+
+            public VolumeInfo YM2413 = new VolumeInfo();
+            public VolumeInfo YM3526 = new VolumeInfo();
+            public VolumeInfo Y8950 = new VolumeInfo();
+            public VolumeInfo YM3812 = new VolumeInfo();
+            public VolumeInfo YMF262 = new VolumeInfo();//OPL3
+            public VolumeInfo YMF278B = new VolumeInfo();//OPL4
+            public VolumeInfo YMF271 = new VolumeInfo();//OPX
+            public VolumeInfo AY8910 = new VolumeInfo();
+            public VolumeInfo SN76489 = new VolumeInfo();
+            public VolumeInfo HuC6280 = new VolumeInfo();
+
+            public VolumeInfo RF5C164 = new VolumeInfo();
+            public VolumeInfo RF5C68 = new VolumeInfo();
+            public VolumeInfo PWM = new VolumeInfo();
+            public VolumeInfo OKIM6258 = new VolumeInfo();
+            public VolumeInfo OKIM6295 = new VolumeInfo();
+            public VolumeInfo C140 = new VolumeInfo();
+            public VolumeInfo C352 = new VolumeInfo();
+            public VolumeInfo SEGAPCM = new VolumeInfo();
+            public VolumeInfo MultiPCM = new VolumeInfo();//MPCM
+            public VolumeInfo YMZ280B = new VolumeInfo();//YMZ
+            public VolumeInfo K051649 = new VolumeInfo();//K051
+            public VolumeInfo K053260 = new VolumeInfo();//K051
+            public VolumeInfo K054539 = new VolumeInfo();
+            public VolumeInfo QSound = new VolumeInfo();//QSND
+            public VolumeInfo GA20 = new VolumeInfo();
+
             public VolumeInfo APU = new VolumeInfo();
             public VolumeInfo DMC = new VolumeInfo();
             public VolumeInfo FDS = new VolumeInfo();
@@ -399,14 +416,6 @@ namespace MDPlayer
             public VolumeInfo VRC7 = new VolumeInfo();
             public VolumeInfo FME7 = new VolumeInfo();
             public VolumeInfo DMG = new VolumeInfo();
-            public VolumeInfo GA20 = new VolumeInfo();
-            public VolumeInfo YMZ280B = new VolumeInfo();//YMZ
-            public VolumeInfo YMF271 = new VolumeInfo();//OPX
-            public VolumeInfo YMF262 = new VolumeInfo();//OPL3
-            public VolumeInfo YMF278B = new VolumeInfo();//OPL4
-            public VolumeInfo MultiPCM = new VolumeInfo();//MPCM
-            public VolumeInfo QSound = new VolumeInfo();//QSND
-            public VolumeInfo K051649 = new VolumeInfo();//K051
         }
         public Mixer mixer = new Mixer();
 

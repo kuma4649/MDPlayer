@@ -47,7 +47,7 @@
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMixer;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
-            this.pbScreen.Size = new System.Drawing.Size(320, 216);
+            this.pbScreen.Size = new System.Drawing.Size(320, 288);
             this.pbScreen.TabIndex = 0;
             this.pbScreen.TabStop = false;
             this.pbScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbScreen_MouseClick);
@@ -64,7 +64,7 @@
             this.tsmiSaveDriverBalance,
             this.tsmiSaveSongBalance});
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(269, 120);
+            this.ctxtMenu.Size = new System.Drawing.Size(269, 98);
             // 
             // tsmiLoadDriverBalance
             // 
@@ -105,12 +105,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 216);
+            this.ClientSize = new System.Drawing.Size(320, 288);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMixer2";
-            this.Text = "Mixer2";
+            this.Text = "Mixer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMixer2_FormClosed);
             this.Load += new System.EventHandler(this.frmMixer2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMixer2_KeyDown);

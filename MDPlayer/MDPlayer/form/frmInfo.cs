@@ -104,9 +104,9 @@ namespace MDPlayer.form
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (lyrics == null) return;
+            if (lyrics == null || lyrics.Count < 1) return;
 
-            long cnt=Audio.GetDriverCounter();
+            long cnt = Audio.GetDriverCounter();
 
             if (cnt >= lyrics[lyricsIndex].Item1)
             {
