@@ -5573,5 +5573,81 @@ namespace MDPlayer.form
             return music;
         }
 
+        public static Action<HongliangSoft.Utilities.Gui.KeyboardHookedEventArgs> keyHookMeth=null;
+
+        private void keyboardHook1_KeyboardHooked(object sender, HongliangSoft.Utilities.Gui.KeyboardHookedEventArgs e)
+        {
+            if (e.UpDown != HongliangSoft.Utilities.Gui.KeyboardUpDown.Up) return;
+
+            if (keyHookMeth != null)
+            {
+                keyHookMeth(e);
+                return;
+            }
+
+            string k = e.KeyCode.ToString();
+            bool Shift = (Control.ModifierKeys & Keys.Shift) != 0;
+            bool Ctrl = (Control.ModifierKeys & Keys.Control) != 0;
+            bool Alt = (Control.ModifierKeys & Keys.Alt) != 0;
+            Setting.KeyBoardHook.HookKeyInfo info;
+
+            info = setting.keyBoardHook.Stop;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                stop();
+                return;
+            }
+
+            info = setting.keyBoardHook.Pause;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                pause();
+                return;
+            }
+
+            info = setting.keyBoardHook.Fadeout;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                fadeout();
+                return;
+            }
+
+            info = setting.keyBoardHook.Prev;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                prev();
+                return;
+            }
+
+            info = setting.keyBoardHook.Slow;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                slow();
+                return;
+            }
+
+            info = setting.keyBoardHook.Play;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                play();
+                return;
+            }
+
+            info = setting.keyBoardHook.Next;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                next();
+                return;
+            }
+
+            info = setting.keyBoardHook.Fast;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                ff();
+                return;
+            }
+
+
+        }
     }
 }

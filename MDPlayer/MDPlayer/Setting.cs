@@ -691,6 +691,8 @@ namespace MDPlayer
         public AutoBalance autoBalance {
             get => _autoBalance; set => _autoBalance = value;
         }
+        public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
+        private KeyBoardHook _keyBoardHook = new KeyBoardHook();
 
         [Serializable]
         public class OutputDevice
@@ -3600,6 +3602,85 @@ namespace MDPlayer
         }
 
         [Serializable]
+        public class KeyBoardHook
+        {
+            [Serializable]
+            public class HookKeyInfo
+            {
+                private bool _Shift = false;
+                private bool _Ctrl = false;
+                private bool _Win = false;
+                private bool _Alt = false;
+                private string _Key = "(None)";
+
+                public bool Shift { get => _Shift; set => _Shift = value; }
+                public bool Ctrl { get => _Ctrl; set => _Ctrl = value; }
+                public bool Win { get => _Win; set => _Win = value; }
+                public bool Alt { get => _Alt; set => _Alt = value; }
+                public string Key { get => _Key; set => _Key = value; }
+
+                public HookKeyInfo Copy()
+                {
+                    HookKeyInfo hookKeyInfo = new HookKeyInfo();
+                    hookKeyInfo.Shift = this.Shift;
+                    hookKeyInfo.Ctrl = this.Ctrl;
+                    hookKeyInfo.Win = this.Win;
+                    hookKeyInfo.Alt = this.Alt;
+                    hookKeyInfo.Key = this.Key;
+
+                    return hookKeyInfo;
+                }
+            }
+
+            private bool _UseKeyBoardHook = false;
+            public bool UseKeyBoardHook
+            {
+                get
+                {
+                    return _UseKeyBoardHook;
+                }
+
+                set
+                {
+                    _UseKeyBoardHook = value;
+                }
+            }
+
+            public HookKeyInfo Stop { get => _Stop; set => _Stop = value; }
+            public HookKeyInfo Pause { get => _Pause; set => _Pause = value; }
+            public HookKeyInfo Fadeout { get => _Fadeout; set => _Fadeout = value; }
+            public HookKeyInfo Prev { get => _Prev; set => _Prev = value; }
+            public HookKeyInfo Slow { get => _Slow; set => _Slow = value; }
+            public HookKeyInfo Play { get => _Play; set => _Play = value; }
+            public HookKeyInfo Next { get => _Next; set => _Next = value; }
+            public HookKeyInfo Fast { get => _Fast; set => _Fast = value; }
+            private HookKeyInfo _Stop = new HookKeyInfo();
+            private HookKeyInfo _Pause = new HookKeyInfo();
+            private HookKeyInfo _Fadeout = new HookKeyInfo();
+            private HookKeyInfo _Prev = new HookKeyInfo();
+            private HookKeyInfo _Slow = new HookKeyInfo();
+            private HookKeyInfo _Play = new HookKeyInfo();
+            private HookKeyInfo _Next = new HookKeyInfo();
+            private HookKeyInfo _Fast = new HookKeyInfo();
+
+            public KeyBoardHook Copy()
+            {
+                KeyBoardHook keyBoard = new KeyBoardHook();
+                keyBoard.UseKeyBoardHook = this.UseKeyBoardHook;
+                keyBoard.Stop = this.Stop.Copy();
+                keyBoard.Pause = this.Pause.Copy();
+                keyBoard.Fadeout = this.Fadeout.Copy();
+                keyBoard.Prev = this.Prev.Copy();
+                keyBoard.Slow = this.Slow.Copy();
+                keyBoard.Play = this.Play.Copy();
+                keyBoard.Next = this.Next.Copy();
+                keyBoard.Fast = this.Fast.Copy();
+
+                return keyBoard;
+            }
+        }
+
+        [Serializable]
         public class Vst
         {
             private string _DefaultPath = "";
@@ -4066,6 +4147,8 @@ namespace MDPlayer
             setting.nsf = this.nsf.Copy();
             setting.sid = this.sid.Copy();
             setting.autoBalance = this.autoBalance.Copy();
+
+            setting.keyBoardHook = this.keyBoardHook.Copy();
 
             return setting;
         }

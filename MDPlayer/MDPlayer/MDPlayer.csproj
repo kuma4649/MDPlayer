@@ -445,6 +445,7 @@
     </Compile>
     <Compile Include="FrameBuffer.cs" />
     <Compile Include="HostCommandStub.cs" />
+    <Compile Include="KeyboardHook3.cs" />
     <Compile Include="log.cs" />
     <Compile Include="M3U.cs" />
     <Compile Include="MDChipParams.cs" />

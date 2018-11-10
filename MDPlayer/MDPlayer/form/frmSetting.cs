@@ -101,58 +101,61 @@ namespace MDPlayer.form
                 cmbMIDIIN.SelectedIndex = 0;
             }
 
-            SetSCCICombo(enmScciChipType.YM2612
-                , ucSI.cmbYM2612P_SCCI, ucSI.rbYM2612P_SCCI
-                , ucSI.cmbYM2612S_SCCI, ucSI.rbYM2612S_SCCI
-                );
+            if (ucSI != null)
+            {
+                SetSCCICombo(enmScciChipType.YM2612
+                    , ucSI.cmbYM2612P_SCCI, ucSI.rbYM2612P_SCCI
+                    , ucSI.cmbYM2612S_SCCI, ucSI.rbYM2612S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.SN76489
-                , ucSI.cmbSN76489P_SCCI, ucSI.rbSN76489P_SCCI
-                , ucSI.cmbSN76489S_SCCI, ucSI.rbSN76489S_SCCI
-                );
+                SetSCCICombo(enmScciChipType.SN76489
+                    , ucSI.cmbSN76489P_SCCI, ucSI.rbSN76489P_SCCI
+                    , ucSI.cmbSN76489S_SCCI, ucSI.rbSN76489S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.YM2608
-                , ucSI.cmbYM2608P_SCCI, ucSI.rbYM2608P_SCCI
-                , ucSI.cmbYM2608S_SCCI, ucSI.rbYM2608S_SCCI
-                );
+                SetSCCICombo(enmScciChipType.YM2608
+                    , ucSI.cmbYM2608P_SCCI, ucSI.rbYM2608P_SCCI
+                    , ucSI.cmbYM2608S_SCCI, ucSI.rbYM2608S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.YM2610
-                , ucSI.cmbYM2610BP_SCCI, ucSI.rbYM2610BP_SCCI
-                , ucSI.cmbYM2610BS_SCCI, ucSI.rbYM2610BS_SCCI
-                );
+                SetSCCICombo(enmScciChipType.YM2610
+                    , ucSI.cmbYM2610BP_SCCI, ucSI.rbYM2610BP_SCCI
+                    , ucSI.cmbYM2610BS_SCCI, ucSI.rbYM2610BS_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.YM2608
-                , ucSI.cmbYM2610BEP_SCCI, ucSI.rbYM2610BEP_SCCI
-                , ucSI.cmbYM2610BES_SCCI, ucSI.rbYM2610BES_SCCI
-                );
+                SetSCCICombo(enmScciChipType.YM2608
+                    , ucSI.cmbYM2610BEP_SCCI, ucSI.rbYM2610BEP_SCCI
+                    , ucSI.cmbYM2610BES_SCCI, ucSI.rbYM2610BES_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.SPPCM
-                , ucSI.cmbSPPCMP_SCCI, null
-                , ucSI.cmbSPPCMS_SCCI, null
-                );
+                SetSCCICombo(enmScciChipType.SPPCM
+                    , ucSI.cmbSPPCMP_SCCI, null
+                    , ucSI.cmbSPPCMS_SCCI, null
+                    );
 
-            ucSI.rbYM2610BEP_SCCI.Enabled = (ucSI.cmbYM2610BEP_SCCI.Enabled || ucSI.cmbSPPCMP_SCCI.Enabled);
-            ucSI.rbYM2610BES_SCCI.Enabled = (ucSI.cmbYM2610BES_SCCI.Enabled || ucSI.cmbSPPCMS_SCCI.Enabled);
+                ucSI.rbYM2610BEP_SCCI.Enabled = (ucSI.cmbYM2610BEP_SCCI.Enabled || ucSI.cmbSPPCMP_SCCI.Enabled);
+                ucSI.rbYM2610BES_SCCI.Enabled = (ucSI.cmbYM2610BES_SCCI.Enabled || ucSI.cmbSPPCMS_SCCI.Enabled);
 
-            SetSCCICombo(enmScciChipType.YM2151
-                , ucSI.cmbYM2151P_SCCI, ucSI.rbYM2151P_SCCI
-                , ucSI.cmbYM2151S_SCCI, ucSI.rbYM2151S_SCCI
-                );
+                SetSCCICombo(enmScciChipType.YM2151
+                    , ucSI.cmbYM2151P_SCCI, ucSI.rbYM2151P_SCCI
+                    , ucSI.cmbYM2151S_SCCI, ucSI.rbYM2151S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.YM2203
-                , ucSI.cmbYM2203P_SCCI, ucSI.rbYM2203P_SCCI
-                , ucSI.cmbYM2203S_SCCI, ucSI.rbYM2203S_SCCI
-                );
+                SetSCCICombo(enmScciChipType.YM2203
+                    , ucSI.cmbYM2203P_SCCI, ucSI.rbYM2203P_SCCI
+                    , ucSI.cmbYM2203S_SCCI, ucSI.rbYM2203S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.C140
-                , ucSI.cmbC140P_SCCI, ucSI.rbC140P_SCCI
-                , ucSI.cmbC140S_SCCI, ucSI.rbC140S_SCCI
-                );
+                SetSCCICombo(enmScciChipType.C140
+                    , ucSI.cmbC140P_SCCI, ucSI.rbC140P_SCCI
+                    , ucSI.cmbC140S_SCCI, ucSI.rbC140S_SCCI
+                    );
 
-            SetSCCICombo(enmScciChipType.SEGAPCM
-                , ucSI.cmbSEGAPCMP_SCCI, ucSI.rbSEGAPCMP_SCCI
-                , ucSI.cmbSEGAPCMS_SCCI, ucSI.rbSEGAPCMS_SCCI
-                );
+                SetSCCICombo(enmScciChipType.SEGAPCM
+                    , ucSI.cmbSEGAPCMP_SCCI, ucSI.rbSEGAPCMP_SCCI
+                    , ucSI.cmbSEGAPCMS_SCCI, ucSI.rbSEGAPCMS_SCCI
+                    );
+            }
 
             copyFromMIDIoutListA(dgvMIDIoutListB);
             copyFromMIDIoutListA(dgvMIDIoutListC);
@@ -262,113 +265,114 @@ namespace MDPlayer.form
                 cmbWaitTime.SelectedItem = setting.outputDevice.WaitTime.ToString();
             }
 
+            if (ucSI != null)
+            {
+                SetSCCIParam(setting.YM2612Type
+                    , ucSI.rbYM2612P_Silent
+                    , ucSI.rbYM2612P_Emu
+                    , ucSI.rbYM2612P_SCCI
+                    , ucSI.cmbYM2612P_SCCI);
+                SetSCCIParam(setting.YM2612SType
+                    , ucSI.rbYM2612S_Silent
+                    , ucSI.rbYM2612S_Emu
+                    , ucSI.rbYM2612S_SCCI
+                    , ucSI.cmbYM2612S_SCCI);
 
-            SetSCCIParam(setting.YM2612Type
-                , ucSI.rbYM2612P_Silent
-                , ucSI.rbYM2612P_Emu
-                , ucSI.rbYM2612P_SCCI
-                , ucSI.cmbYM2612P_SCCI);
-            SetSCCIParam(setting.YM2612SType
-                , ucSI.rbYM2612S_Silent
-                , ucSI.rbYM2612S_Emu
-                , ucSI.rbYM2612S_SCCI
-                , ucSI.cmbYM2612S_SCCI);
+                ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
+                ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
+                ucSI.cbEmulationPCMOnly.Checked = setting.YM2612Type.OnlyPCMEmulation;
 
-            ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
-            ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
-            ucSI.cbEmulationPCMOnly.Checked = setting.YM2612Type.OnlyPCMEmulation;
+                SetSCCIParam(setting.YM2610Type
+                    , ucSI.rbYM2610BP_Silent
+                    , ucSI.rbYM2610BP_Emu
+                    , ucSI.rbYM2610BP_SCCI
+                    , ucSI.cmbYM2610BP_SCCI
+                    , ucSI.rbYM2610BEP_SCCI
+                    , ucSI.cmbYM2610BEP_SCCI
+                    , ucSI.cmbSPPCMP_SCCI
+                    );
+                SetSCCIParam(setting.YM2610SType
+                    , ucSI.rbYM2610BS_Silent
+                    , ucSI.rbYM2610BS_Emu
+                    , ucSI.rbYM2610BS_SCCI
+                    , ucSI.cmbYM2610BS_SCCI
+                    , ucSI.rbYM2610BES_SCCI
+                    , ucSI.cmbYM2610BES_SCCI
+                    , ucSI.cmbSPPCMS_SCCI
+                    );
 
-            SetSCCIParam(setting.YM2610Type
-                , ucSI.rbYM2610BP_Silent
-                , ucSI.rbYM2610BP_Emu
-                , ucSI.rbYM2610BP_SCCI
-                , ucSI.cmbYM2610BP_SCCI
-                , ucSI.rbYM2610BEP_SCCI
-                , ucSI.cmbYM2610BEP_SCCI
-                , ucSI.cmbSPPCMP_SCCI
-                );
-            SetSCCIParam(setting.YM2610SType
-                , ucSI.rbYM2610BS_Silent
-                , ucSI.rbYM2610BS_Emu
-                , ucSI.rbYM2610BS_SCCI
-                , ucSI.cmbYM2610BS_SCCI
-                , ucSI.rbYM2610BES_SCCI
-                , ucSI.cmbYM2610BES_SCCI
-                , ucSI.cmbSPPCMS_SCCI
-                );
+                SetSCCIParam(setting.SN76489Type
+                    , ucSI.rbSN76489P_Silent
+                    , ucSI.rbSN76489P_Emu
+                    , ucSI.rbSN76489P_SCCI
+                    , ucSI.cmbSN76489P_SCCI);
+                SetSCCIParam(setting.SN76489SType
+                    , ucSI.rbSN76489S_Silent
+                    , ucSI.rbSN76489S_Emu
+                    , ucSI.rbSN76489S_SCCI
+                    , ucSI.cmbSN76489S_SCCI);
 
-            SetSCCIParam(setting.SN76489Type
-                , ucSI.rbSN76489P_Silent
-                , ucSI.rbSN76489P_Emu
-                , ucSI.rbSN76489P_SCCI
-                , ucSI.cmbSN76489P_SCCI);
-            SetSCCIParam(setting.SN76489SType
-                , ucSI.rbSN76489S_Silent
-                , ucSI.rbSN76489S_Emu
-                , ucSI.rbSN76489S_SCCI
-                , ucSI.cmbSN76489S_SCCI);
+                SetSCCIParam(setting.YM2608Type
+                    , ucSI.rbYM2608P_Silent
+                    , ucSI.rbYM2608P_Emu
+                    , ucSI.rbYM2608P_SCCI
+                    , ucSI.cmbYM2608P_SCCI);
+                SetSCCIParam(setting.YM2608SType
+                    , ucSI.rbYM2608S_Silent
+                    , ucSI.rbYM2608S_Emu
+                    , ucSI.rbYM2608S_SCCI
+                    , ucSI.cmbYM2608S_SCCI);
 
-            SetSCCIParam(setting.YM2608Type
-                , ucSI.rbYM2608P_Silent
-                , ucSI.rbYM2608P_Emu
-                , ucSI.rbYM2608P_SCCI
-                , ucSI.cmbYM2608P_SCCI);
-            SetSCCIParam(setting.YM2608SType
-                , ucSI.rbYM2608S_Silent
-                , ucSI.rbYM2608S_Emu
-                , ucSI.rbYM2608S_SCCI
-                , ucSI.cmbYM2608S_SCCI);
+                SetSCCIParam(setting.YM2151Type
+                    , ucSI.rbYM2151P_Silent
+                    , ucSI.rbYM2151P_Emu
+                    , ucSI.rbYM2151P_SCCI
+                    , ucSI.cmbYM2151P_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2151P_EmuMame
+                    , ucSI.rbYM2151P_EmuX68Sound);
+                SetSCCIParam(setting.YM2151SType
+                    , ucSI.rbYM2151S_Silent
+                    , ucSI.rbYM2151S_Emu
+                    , ucSI.rbYM2151S_SCCI
+                    , ucSI.cmbYM2151S_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2151S_EmuMame
+                    , ucSI.rbYM2151S_EmuX68Sound);
 
-            SetSCCIParam(setting.YM2151Type
-                , ucSI.rbYM2151P_Silent
-                , ucSI.rbYM2151P_Emu
-                , ucSI.rbYM2151P_SCCI
-                , ucSI.cmbYM2151P_SCCI
-                , null , null , null
-                , ucSI.rbYM2151P_EmuMame
-                , ucSI.rbYM2151P_EmuX68Sound);
-            SetSCCIParam(setting.YM2151SType
-                , ucSI.rbYM2151S_Silent
-                , ucSI.rbYM2151S_Emu
-                , ucSI.rbYM2151S_SCCI
-                , ucSI.cmbYM2151S_SCCI
-                , null, null, null
-                , ucSI.rbYM2151S_EmuMame
-                , ucSI.rbYM2151S_EmuX68Sound);
+                SetSCCIParam(setting.YM2203Type
+                    , ucSI.rbYM2203P_Silent
+                    , ucSI.rbYM2203P_Emu
+                    , ucSI.rbYM2203P_SCCI
+                    , ucSI.cmbYM2203P_SCCI);
+                SetSCCIParam(setting.YM2203SType
+                    , ucSI.rbYM2203S_Silent
+                    , ucSI.rbYM2203S_Emu
+                    , ucSI.rbYM2203S_SCCI
+                    , ucSI.cmbYM2203S_SCCI);
 
-            SetSCCIParam(setting.YM2203Type
-                , ucSI.rbYM2203P_Silent
-                , ucSI.rbYM2203P_Emu
-                , ucSI.rbYM2203P_SCCI
-                , ucSI.cmbYM2203P_SCCI);
-            SetSCCIParam(setting.YM2203SType
-                , ucSI.rbYM2203S_Silent
-                , ucSI.rbYM2203S_Emu
-                , ucSI.rbYM2203S_SCCI
-                , ucSI.cmbYM2203S_SCCI);
+                SetSCCIParam(setting.C140Type
+                    , ucSI.rbC140P_Silent
+                    , ucSI.rbC140P_Emu
+                    , ucSI.rbC140P_SCCI
+                    , ucSI.cmbC140P_SCCI);
+                SetSCCIParam(setting.C140SType
+                    , ucSI.rbC140S_Silent
+                    , ucSI.rbC140S_Emu
+                    , ucSI.rbC140S_SCCI
+                    , ucSI.cmbC140S_SCCI);
 
-            SetSCCIParam(setting.C140Type
-                , ucSI.rbC140P_Silent
-                , ucSI.rbC140P_Emu
-                , ucSI.rbC140P_SCCI
-                , ucSI.cmbC140P_SCCI);
-            SetSCCIParam(setting.C140SType
-                , ucSI.rbC140S_Silent
-                , ucSI.rbC140S_Emu
-                , ucSI.rbC140S_SCCI
-                , ucSI.cmbC140S_SCCI);
-
-            SetSCCIParam(setting.SEGAPCMType
-                , ucSI.rbSEGAPCMP_Silent
-                , ucSI.rbSEGAPCMP_Emu
-                , ucSI.rbSEGAPCMP_SCCI
-                , ucSI.cmbSEGAPCMP_SCCI);
-            SetSCCIParam(setting.SEGAPCMSType
-                , ucSI.rbSEGAPCMS_Silent
-                , ucSI.rbSEGAPCMS_Emu
-                , ucSI.rbSEGAPCMS_SCCI
-                , ucSI.cmbSEGAPCMS_SCCI);
-
+                SetSCCIParam(setting.SEGAPCMType
+                    , ucSI.rbSEGAPCMP_Silent
+                    , ucSI.rbSEGAPCMP_Emu
+                    , ucSI.rbSEGAPCMP_SCCI
+                    , ucSI.cmbSEGAPCMP_SCCI);
+                SetSCCIParam(setting.SEGAPCMSType
+                    , ucSI.rbSEGAPCMS_Silent
+                    , ucSI.rbSEGAPCMS_Emu
+                    , ucSI.rbSEGAPCMS_SCCI
+                    , ucSI.cmbSEGAPCMS_SCCI);
+            }
 
             cbUseMIDIKeyboard.Checked = setting.midiKbd.UseMIDIKeyboard;
 
@@ -581,6 +585,64 @@ namespace MDPlayer.form
             rbAutoBalanceSamePositionAsSongData.Checked = setting.autoBalance.SamePositionAsSongData;
             rbAutoBalanceNotSamePositionAsSongData.Checked = !setting.autoBalance.SamePositionAsSongData;
 
+            cbUseKeyBoardHook.Checked = setting.keyBoardHook.UseKeyBoardHook;
+            gbUseKeyBoardHook.Enabled = setting.keyBoardHook.UseKeyBoardHook;
+
+            cbStopShift.Checked = setting.keyBoardHook.Stop.Shift;
+            cbStopCtrl.Checked = setting.keyBoardHook.Stop.Ctrl;
+            cbStopWin.Checked = setting.keyBoardHook.Stop.Win;
+            cbStopAlt.Checked = setting.keyBoardHook.Stop.Alt;
+            lblStopKey.Text = setting.keyBoardHook.Stop.Key;
+            btStopClr.Enabled = (lblStopKey.Text != "(None)" && !string.IsNullOrEmpty(lblStopKey.Text));
+
+            cbPauseShift.Checked = setting.keyBoardHook.Pause.Shift;
+            cbPauseCtrl.Checked = setting.keyBoardHook.Pause.Ctrl;
+            cbPauseWin.Checked = setting.keyBoardHook.Pause.Win;
+            cbPauseAlt.Checked = setting.keyBoardHook.Pause.Alt;
+            lblPauseKey.Text = setting.keyBoardHook.Pause.Key;
+            btPauseClr.Enabled = (lblPauseKey.Text != "(None)" && !string.IsNullOrEmpty(lblPauseKey.Text));
+
+            cbFadeoutShift.Checked = setting.keyBoardHook.Fadeout.Shift;
+            cbFadeoutCtrl.Checked = setting.keyBoardHook.Fadeout.Ctrl;
+            cbFadeoutWin.Checked = setting.keyBoardHook.Fadeout.Win;
+            cbFadeoutAlt.Checked = setting.keyBoardHook.Fadeout.Alt;
+            lblFadeoutKey.Text = setting.keyBoardHook.Fadeout.Key;
+            btFadeoutClr.Enabled = (lblFadeoutKey.Text != "(None)" && !string.IsNullOrEmpty(lblFadeoutKey.Text));
+
+            cbPrevShift.Checked = setting.keyBoardHook.Prev.Shift;
+            cbPrevCtrl.Checked = setting.keyBoardHook.Prev.Ctrl;
+            cbPrevWin.Checked = setting.keyBoardHook.Prev.Win;
+            cbPrevAlt.Checked = setting.keyBoardHook.Prev.Alt;
+            lblPrevKey.Text = setting.keyBoardHook.Prev.Key;
+            btPrevClr.Enabled = (lblPrevKey.Text != "(None)" && !string.IsNullOrEmpty(lblPrevKey.Text));
+
+            cbSlowShift.Checked = setting.keyBoardHook.Slow.Shift;
+            cbSlowCtrl.Checked = setting.keyBoardHook.Slow.Ctrl;
+            cbSlowWin.Checked = setting.keyBoardHook.Slow.Win;
+            cbSlowAlt.Checked = setting.keyBoardHook.Slow.Alt;
+            lblSlowKey.Text = setting.keyBoardHook.Slow.Key;
+            btSlowClr.Enabled = (lblSlowKey.Text != "(None)" && !string.IsNullOrEmpty(lblSlowKey.Text));
+
+            cbPlayShift.Checked = setting.keyBoardHook.Play.Shift;
+            cbPlayCtrl.Checked = setting.keyBoardHook.Play.Ctrl;
+            cbPlayWin.Checked = setting.keyBoardHook.Play.Win;
+            cbPlayAlt.Checked = setting.keyBoardHook.Play.Alt;
+            lblPlayKey.Text = setting.keyBoardHook.Play.Key;
+            btPlayClr.Enabled = (lblPlayKey.Text != "(None)" && !string.IsNullOrEmpty(lblPlayKey.Text));
+
+            cbFastShift.Checked = setting.keyBoardHook.Fast.Shift;
+            cbFastCtrl.Checked = setting.keyBoardHook.Fast.Ctrl;
+            cbFastWin.Checked = setting.keyBoardHook.Fast.Win;
+            cbFastAlt.Checked = setting.keyBoardHook.Fast.Alt;
+            lblFastKey.Text = setting.keyBoardHook.Fast.Key;
+            btFastClr.Enabled = (lblFastKey.Text != "(None)" && !string.IsNullOrEmpty(lblFastKey.Text));
+
+            cbNextShift.Checked = setting.keyBoardHook.Next.Shift;
+            cbNextCtrl.Checked = setting.keyBoardHook.Next.Ctrl;
+            cbNextWin.Checked = setting.keyBoardHook.Next.Win;
+            cbNextAlt.Checked = setting.keyBoardHook.Next.Alt;
+            lblNextKey.Text = setting.keyBoardHook.Next.Key;
+            btNextClr.Enabled = (lblNextKey.Text != "(None)" && !string.IsNullOrEmpty(lblNextKey.Text));
         }
 
         private void SetSCCICombo(enmScciChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
@@ -1265,6 +1327,58 @@ namespace MDPlayer.form
             setting.autoBalance.SaveSongBalance = rbAutoBalanceSaveSongBalance.Checked;
             setting.autoBalance.SamePositionAsSongData= rbAutoBalanceSamePositionAsSongData.Checked;
 
+
+            setting.keyBoardHook.UseKeyBoardHook = cbUseKeyBoardHook.Checked;
+
+            setting.keyBoardHook.Stop.Shift = cbStopShift.Checked;
+            setting.keyBoardHook.Stop.Ctrl = cbStopCtrl.Checked;
+            setting.keyBoardHook.Stop.Win = cbStopWin.Checked;
+            setting.keyBoardHook.Stop.Alt = cbStopAlt.Checked;
+            setting.keyBoardHook.Stop.Key = string.IsNullOrEmpty(lblStopKey.Text) ? "(None)" : lblStopKey.Text;
+
+            setting.keyBoardHook.Pause.Shift = cbPauseShift.Checked;
+            setting.keyBoardHook.Pause.Ctrl = cbPauseCtrl.Checked;
+            setting.keyBoardHook.Pause.Win = cbPauseWin.Checked;
+            setting.keyBoardHook.Pause.Alt = cbPauseAlt.Checked;
+            setting.keyBoardHook.Pause.Key = string.IsNullOrEmpty(lblPauseKey.Text) ? "(None)" : lblPauseKey.Text;
+
+            setting.keyBoardHook.Fadeout.Shift = cbFadeoutShift.Checked;
+            setting.keyBoardHook.Fadeout.Ctrl = cbFadeoutCtrl.Checked;
+            setting.keyBoardHook.Fadeout.Win = cbFadeoutWin.Checked;
+            setting.keyBoardHook.Fadeout.Alt = cbFadeoutAlt.Checked;
+            setting.keyBoardHook.Fadeout.Key = string.IsNullOrEmpty(lblFadeoutKey.Text) ? "(None)" : lblFadeoutKey.Text;
+
+            setting.keyBoardHook.Prev.Shift = cbPrevShift.Checked;
+            setting.keyBoardHook.Prev.Ctrl = cbPrevCtrl.Checked;
+            setting.keyBoardHook.Prev.Win = cbPrevWin.Checked;
+            setting.keyBoardHook.Prev.Alt = cbPrevAlt.Checked;
+            setting.keyBoardHook.Prev.Key = string.IsNullOrEmpty(lblPrevKey.Text) ? "(None)" : lblPrevKey.Text;
+
+            setting.keyBoardHook.Slow.Shift = cbSlowShift.Checked;
+            setting.keyBoardHook.Slow.Ctrl = cbSlowCtrl.Checked;
+            setting.keyBoardHook.Slow.Win = cbSlowWin.Checked;
+            setting.keyBoardHook.Slow.Alt = cbSlowAlt.Checked;
+            setting.keyBoardHook.Slow.Key = string.IsNullOrEmpty(lblSlowKey.Text) ? "(None)" : lblSlowKey.Text;
+
+            setting.keyBoardHook.Play.Shift = cbPlayShift.Checked;
+            setting.keyBoardHook.Play.Ctrl = cbPlayCtrl.Checked;
+            setting.keyBoardHook.Play.Win = cbPlayWin.Checked;
+            setting.keyBoardHook.Play.Alt = cbPlayAlt.Checked;
+            setting.keyBoardHook.Play.Key = string.IsNullOrEmpty(lblPlayKey.Text) ? "(None)" : lblPlayKey.Text;
+
+            setting.keyBoardHook.Fast.Shift = cbFastShift.Checked;
+            setting.keyBoardHook.Fast.Ctrl = cbFastCtrl.Checked;
+            setting.keyBoardHook.Fast.Win = cbFastWin.Checked;
+            setting.keyBoardHook.Fast.Alt = cbFastAlt.Checked;
+            setting.keyBoardHook.Fast.Key = string.IsNullOrEmpty(lblFastKey.Text) ? "(None)" : lblFastKey.Text;
+
+            setting.keyBoardHook.Next.Shift = cbNextShift.Checked;
+            setting.keyBoardHook.Next.Ctrl = cbNextCtrl.Checked;
+            setting.keyBoardHook.Next.Win = cbNextWin.Checked;
+            setting.keyBoardHook.Next.Alt = cbNextAlt.Checked;
+            setting.keyBoardHook.Next.Key = string.IsNullOrEmpty(lblNextKey.Text) ? "(None)" : lblNextKey.Text;
+
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -1827,6 +1941,228 @@ namespace MDPlayer.form
 
         private void frmSetting_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void cbUseKeyBoardHook_CheckedChanged(object sender, EventArgs e)
+        {
+            gbUseKeyBoardHook.Enabled = cbUseKeyBoardHook.Checked;
+        }
+
+        private void btStopClr_Click(object sender, EventArgs e)
+        {
+            lblStopKey.Text = "(None)";
+            btStopClr.Enabled = false;
+        }
+
+        private void btPauseClr_Click(object sender, EventArgs e)
+        {
+            lblPauseKey.Text = "(None)";
+            btPauseClr.Enabled = false;
+        }
+
+        private void btFadeoutClr_Click(object sender, EventArgs e)
+        {
+            lblFadeoutKey.Text = "(None)";
+            btFadeoutClr.Enabled = false;
+        }
+
+        private void btPrevClr_Click(object sender, EventArgs e)
+        {
+            lblPrevKey.Text = "(None)";
+            btPrevClr.Enabled = false;
+        }
+
+        private void btSlowClr_Click(object sender, EventArgs e)
+        {
+            lblSlowKey.Text = "(None)";
+            btSlowClr.Enabled = false;
+        }
+
+        private void btPlayClr_Click(object sender, EventArgs e)
+        {
+            lblPlayKey.Text = "(None)";
+            btPlayClr.Enabled = false;
+        }
+
+        private void btFastClr_Click(object sender, EventArgs e)
+        {
+            lblFastKey.Text = "(None)";
+            btFastClr.Enabled = false;
+        }
+
+        private void btNextClr_Click(object sender, EventArgs e)
+        {
+            lblNextKey.Text = "(None)";
+            btNextClr.Enabled = false;
+        }
+
+        private void btStopSet_Click(object sender, EventArgs e)
+        {
+
+            lblKey = lblStopKey;
+            btSet = btStopSet;
+            btClr = btStopClr;
+            btOK = btnOK;
+            btStopSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+
+        }
+
+        private void btPauseSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblPauseKey;
+            btSet = btPauseSet;
+            btOK = btnOK;
+            btClr = btPauseClr;
+            btPauseSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+
+        }
+
+        private void btFadeoutSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblFadeoutKey;
+            btSet = btFadeoutSet;
+            btClr = btFadeoutClr;
+            btOK = btnOK;
+            btFadeoutSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btPrevSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblPrevKey;
+            btSet = btPrevSet;
+            btClr = btPrevClr;
+            btOK = btnOK;
+            btPrevSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btSlowSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblSlowKey;
+            btSet = btSlowSet;
+            btClr = btSlowClr;
+            btOK = btnOK;
+            btSlowSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btPlaySet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblPlayKey;
+            btSet = btPlaySet;
+            btClr = btPlayClr;
+            btOK = btnOK;
+            btPlaySet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btFastSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblFastKey;
+            btSet = btFastSet;
+            btClr = btFastClr;
+            btOK = btnOK;
+            btFastSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btNextSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblNextKey;
+            btSet = btNextSet;
+            btClr = btNextClr;
+            btOK = btnOK;
+            btNextSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        public static Label lblKey = null;
+        public static Label lblNotice = null;
+        public static Button btSet = null;
+        public static Button btClr = null;
+        public static Button btOK = null;
+        public static void keyHookMeth(HongliangSoft.Utilities.Gui.KeyboardHookedEventArgs e)
+        {
+            if (e.UpDown != HongliangSoft.Utilities.Gui.KeyboardUpDown.Up) return;
+
+            lblKey.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblKey.Text= e.KeyCode.ToString();
+            lblNotice.Visible = false;
+
+            frmMain.keyHookMeth = null;
+            btSet.Enabled = true;
+            btOK.Enabled = true;
+            btClr.Enabled = true;
+
+        }
+
+        private void frmSetting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+            if (frmMain.keyHookMeth == keyHookMeth)
+            {
+                frmMain.keyHookMeth = null;
+            }
 
         }
     }

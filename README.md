@@ -186,11 +186,14 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・VST.NET  
     ・NSFPlay  
     ・CVS.EXE  
+    ・KeyboardHook3.cs  
      
     ・SMS Power!  
     ・DOBON.NET  
     ・Wikipedia  
     ・GitHub  
+    ・ぬるり。  
+  
   
 [同期のすゝめ]  
       
