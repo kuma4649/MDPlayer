@@ -13,6 +13,7 @@ namespace MDPlayer
         public byte PriOPNA = 0;
         public byte PriOPNB = 0;
         public byte PriOPL = 0;
+        public byte PriY8950 = 0;
         public byte PriOPL2 = 0;
         public byte PriOPL3 = 0;
         public byte PriOPL4 = 0;
@@ -46,7 +47,6 @@ namespace MDPlayer
         public byte PriHuC8 = 0;
         public byte PriMPCM = 0;
         public byte PriYMZ = 0;
-        public byte PriY895 = 0;
         public byte PriSID = 0;
         public byte PriMID = 0;
 
@@ -55,6 +55,7 @@ namespace MDPlayer
         public byte SecOPNA = 0;
         public byte SecOPNB = 0;
         public byte SecOPL = 0;
+        public byte SecY8950 = 0;
         public byte SecOPL2 = 0;
         public byte SecOPL3 = 0;
         public byte SecOPL4 = 0;
@@ -87,7 +88,6 @@ namespace MDPlayer
         public byte SecHuC8 = 0;
         public byte SecMPCM = 0;
         public byte SecYMZ = 0;
-        public byte SecY895 = 0;
         public byte SecSID = 0;
         public byte SecMID = 0;
 

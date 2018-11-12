@@ -1049,46 +1049,46 @@ namespace MDPlayer
                 nscci.setLevelDisp(false);
             }
 
-            scYM2612[0] = getChip(Audio.setting.YM2612Type);
+            scYM2612[0] = GetSCCIChip(Audio.setting.YM2612Type);
             if (scYM2612[0] != null) scYM2612[0].init();
-            scSN76489[0] = getChip(Audio.setting.SN76489Type);
+            scSN76489[0] = GetSCCIChip(Audio.setting.SN76489Type);
             if (scSN76489[0] != null) scSN76489[0].init();
-            scYM2608[0] = getChip(Audio.setting.YM2608Type);
+            scYM2608[0] = GetSCCIChip(Audio.setting.YM2608Type);
             if (scYM2608[0] != null) scYM2608[0].init();
-            scYM2151[0] = getChip(Audio.setting.YM2151Type);
+            scYM2151[0] = GetSCCIChip(Audio.setting.YM2151Type);
             if (scYM2151[0] != null) scYM2151[0].init();
-            scYM2203[0] = getChip(Audio.setting.YM2203Type);
+            scYM2203[0] = GetSCCIChip(Audio.setting.YM2203Type);
             if (scYM2203[0] != null) scYM2203[0].init();
-            scYM2610[0] = getChip(Audio.setting.YM2610Type);
+            scYM2610[0] = GetSCCIChip(Audio.setting.YM2610Type);
             if (scYM2610[0] != null) scYM2610[0].init();
-            scYM2610EA[0] = getChip(Audio.setting.YM2610Type, 1);
+            scYM2610EA[0] = GetSCCIChip(Audio.setting.YM2610Type, 1);
             if (scYM2610EA[0] != null) scYM2610EA[0].init();
-            scYM2610EB[0] = getChip(Audio.setting.YM2610Type, 2);
+            scYM2610EB[0] = GetSCCIChip(Audio.setting.YM2610Type, 2);
             if (scYM2610EB[0] != null) scYM2610EB[0].init();
-            scSEGAPCM[0] = getChip(Audio.setting.SEGAPCMType);
+            scSEGAPCM[0] = GetSCCIChip(Audio.setting.SEGAPCMType);
             if (scSEGAPCM[0] != null) scSEGAPCM[0].init();
-            scC140[0] = getChip(Audio.setting.C140Type);
+            scC140[0] = GetSCCIChip(Audio.setting.C140Type);
             if (scC140[0] != null) scC140[0].init();
 
-            scYM2612[1] = getChip(Audio.setting.YM2612SType);
+            scYM2612[1] = GetSCCIChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
-            scSN76489[1] = getChip(Audio.setting.SN76489SType);
+            scSN76489[1] = GetSCCIChip(Audio.setting.SN76489SType);
             if (scSN76489[1] != null) scSN76489[1].init();
-            scYM2608[1] = getChip(Audio.setting.YM2608SType);
+            scYM2608[1] = GetSCCIChip(Audio.setting.YM2608SType);
             if (scYM2608[1] != null) scYM2608[1].init();
-            scYM2151[1] = getChip(Audio.setting.YM2151SType);
+            scYM2151[1] = GetSCCIChip(Audio.setting.YM2151SType);
             if (scYM2151[1] != null) scYM2151[1].init();
-            scYM2203[1] = getChip(Audio.setting.YM2203SType);
+            scYM2203[1] = GetSCCIChip(Audio.setting.YM2203SType);
             if (scYM2203[1] != null) scYM2203[1].init();
-            scYM2610[1] = getChip(Audio.setting.YM2610SType);
+            scYM2610[1] = GetSCCIChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
-            scYM2610EA[1] = getChip(Audio.setting.YM2610SType, 1);
+            scYM2610EA[1] = GetSCCIChip(Audio.setting.YM2610SType, 1);
             if (scYM2610EA[1] != null) scYM2610EA[1].init();
-            scYM2610EB[1] = getChip(Audio.setting.YM2610SType, 2);
+            scYM2610EB[1] = GetSCCIChip(Audio.setting.YM2610SType, 2);
             if (scYM2610EB[1] != null) scYM2610EB[1].init();
-            scC140[1] = getChip(Audio.setting.C140SType);
+            scC140[1] = GetSCCIChip(Audio.setting.C140SType);
             if (scC140[1] != null) scC140[1].init();
-            scSEGAPCM[1] = getChip(Audio.setting.SEGAPCMSType);
+            scSEGAPCM[1] = GetSCCIChip(Audio.setting.SEGAPCMSType);
             if (scSEGAPCM[1] != null) scSEGAPCM[1].init();
 
             chipRegister = new ChipRegister(
@@ -1105,7 +1105,7 @@ namespace MDPlayer
                 , scC140
                 , scSEGAPCM
                 );
-            chipRegister.initChipRegister();
+            chipRegister.initChipRegister(null);
 
             log.ForcedWrite("Audio:Init:STEP 05");
 
@@ -1419,7 +1419,12 @@ namespace MDPlayer
 
         }
 
-        public static List<Setting.ChipType> getChipList(enmScciChipType scciChipType)
+        public static MDSound.MDSound.Chip GetMDSChipInfo(MDSound.MDSound.enmInstrumentType typ)
+        {
+            return chipRegister.GetChipInfo(typ);
+        }
+
+        public static List<Setting.ChipType> GetSCCIChipList(enmScciChipType scciChipType)
         {
             List<Setting.ChipType> ret = new List<Setting.ChipType>();
 
@@ -1444,7 +1449,7 @@ namespace MDPlayer
             return ret;
         }
 
-        private static NSoundChip getChip(Setting.ChipType ct, int ind = 0)
+        private static NSoundChip GetSCCIChip(Setting.ChipType ct, int ind = 0)
         {
             for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
             {
@@ -1795,7 +1800,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2151Volume(false, setting.balance.YM2151Volume);
                 SetAY8910Volume(false, setting.balance.AY8910Volume);
@@ -1909,7 +1914,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYMF278BVolume(true, setting.balance.YMF278BVolume);
 
@@ -2052,7 +2057,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2151Volume(false, setting.balance.YM2151Volume);
 
@@ -2245,7 +2250,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2151Volume(false,  setting.balance.YM2151Volume);
                 SetYM2608Volume(true, setting.balance.YM2608Volume);
@@ -2372,7 +2377,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2612Volume(true, setting.balance.YM2612Volume);
                 SetSN76489Volume(true, setting.balance.SN76489Volume);
@@ -2695,7 +2700,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2203Volume(true, setting.balance.YM2203Volume);
                 SetYM2203FMVolume(true, setting.balance.YM2203FMVolume);
@@ -2782,7 +2787,7 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(null);
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
                 chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
@@ -2861,7 +2866,7 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(null);
                 ReleaseAllMIDIout();
                 MakeMIDIout(setting, MidiMode);
                 chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
@@ -2922,7 +2927,6 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                chipRegister.initChipRegister();
 
 
                 trdClosed = false;
@@ -3090,6 +3094,8 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
+                chipRegister.initChipRegisterNSF(lstChips.ToArray());
+
                 //Play
 
                 Paused = false;
@@ -3136,7 +3142,6 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                chipRegister.initChipRegister();
 
 
                 trdClosed = false;
@@ -3186,6 +3191,8 @@ namespace MDPlayer
                     mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 ((hes)driverVirtual).song = (byte)SongNo;
                 ((hes)driverReal).song = (byte)SongNo;
@@ -3241,7 +3248,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(null);
 
 
                 trdClosed = false;
@@ -4199,8 +4206,8 @@ namespace MDPlayer
                         chip.Volume = setting.balance.Y8950Volume;
                         chip.Clock = ((vgm)driverVirtual).Y8950ClockValue;
                         chip.Option = null;
-                        if (i == 0) chipLED.PriY895 = 1;
-                        else chipLED.SecY895 = 1;
+                        if (i == 0) chipLED.PriY8950 = 1;
+                        else chipLED.SecY8950 = 1;
 
                         hiyorimiDeviceFlag |= 0x2;
 
@@ -4270,7 +4277,7 @@ namespace MDPlayer
                 else
                     mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-                chipRegister.initChipRegister();
+                chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2203FMVolume(true, setting.balance.YM2203FMVolume);
                 SetYM2203PSGVolume(true, setting.balance.YM2203PSGVolume);
@@ -5466,6 +5473,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM3526[chipID];
         }
 
+        public static int[] GetY8950Register(int chipID)
+        {
+            return chipRegister.fmRegisterY8950[chipID];
+        }
+
         public static int[] GetYM3812Register(int chipID)
         {
             return chipRegister.fmRegisterYM3812[chipID];
@@ -5694,6 +5706,11 @@ namespace MDPlayer
         public static ChipKeyInfo getYM3526KeyInfo(int chipID)
         {
             return chipRegister.getYM3526KeyInfo(chipID);
+        }
+
+        public static ChipKeyInfo getY8950KeyInfo(int chipID)
+        {
+            return chipRegister.getY8950KeyInfo(chipID);
         }
 
         public static ChipKeyInfo getYM3812KeyInfo(int chipID)
@@ -6375,6 +6392,11 @@ namespace MDPlayer
             chipRegister.setMaskYM3526(chipID, ch, true);
         }
 
+        public static void setY8950Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskY8950(chipID, ch, true);
+        }
+
         public static void setYM3812Mask(int chipID, int ch)
         {
             chipRegister.setMaskYM3812(chipID, ch, true);
@@ -6532,6 +6554,15 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM3526(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetY8950Mask(int chipID, int ch)
+        {
+            try
+            {
+                chipRegister.setMaskY8950(chipID, ch, false);
             }
             catch { }
         }

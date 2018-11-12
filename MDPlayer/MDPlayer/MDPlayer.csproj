@@ -383,6 +383,12 @@
     <Compile Include="form\frmVSTeffectList.Designer.cs">
       <DependentUpon>frmVSTeffectList.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmY8950.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmY8950.Designer.cs">
+      <DependentUpon>frmY8950.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmYM2151.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -549,6 +555,9 @@
     <EmbeddedResource Include="form\frmVSTeffectList.resx">
       <DependentUpon>frmVSTeffectList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmY8950.resx">
+      <DependentUpon>frmY8950.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmYM2151.resx">
       <DependentUpon>frmYM2151.cs</DependentUpon>
     </EmbeddedResource>
@@ -673,6 +682,7 @@
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
     <Content Include="Resources\planeVRC7.png" />
+    <Content Include="Resources\planeY8950.png" />
     <Content Include="Resources\planeYM2203.png" />
     <Content Include="Resources\planeYM2413.png" />
     <Content Include="Resources\planeYM2610.png" />

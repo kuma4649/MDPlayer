@@ -147,6 +147,8 @@ namespace MDPlayer.form
             MDChipParams.Channel nyc;
             int slot = 0;
             ChipKeyInfo ki = Audio.getYM3526KeyInfo(chipID);
+            MDSound.MDSound.Chip chipInfo = Audio.GetMDSChipInfo(MDSound.MDSound.enmInstrumentType.YM3526);
+            uint masterClock = chipInfo == null ? 3579545 : chipInfo.Clock; //3579545 -> Default master clock
 
             //FM
             for (int c = 0; c < 9; c++)
@@ -200,7 +202,9 @@ namespace MDPlayer.form
                 //CN
                 nyc.inst[14] = (ym3526Register[0xc0 + c] & 1);
 
-                int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
+                // FNUM / (2^19) * (mClock/72) * (2 ^ (block - 1)) 
+                double fmus = (double)nyc.inst[12] / (1 << 19) * (masterClock / 72.0) * (1 << nyc.inst[11]);
+                int nt = common.searchSegaPCMNote(fmus / 523.3);//523.3 -> c4
                 if (ki.On[c] || ki.Off[c])
                 {
                     if (nyc.note != nt || ki.Off[c])

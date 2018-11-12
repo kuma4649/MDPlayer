@@ -654,7 +654,7 @@ namespace MDPlayer.form
             if (rbS != null) rbS.Enabled = false;
             cmbS.Enabled = false;
 
-            List<Setting.ChipType> lstChip = Audio.getChipList(scciType);
+            List<Setting.ChipType> lstChip = Audio.GetSCCIChipList(scciType);
             if (lstChip == null || lstChip.Count < 1) return;
 
             foreach (Setting.ChipType ct in lstChip)

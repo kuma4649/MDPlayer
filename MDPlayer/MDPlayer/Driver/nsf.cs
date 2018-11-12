@@ -474,7 +474,12 @@ namespace MDPlayer
 
             master_volume = 0x80;// (*config)["MASTER_VOLUME"];
 
-            double apu_clock_per_sample = chipRegister.nes_cpu.NES_BASECYCLES / rate;
+
+            double apu_clock_per_sample = 0;
+            if (chipRegister.nes_cpu != null)
+            {
+                apu_clock_per_sample = chipRegister.nes_cpu.NES_BASECYCLES / rate;
+            }
             double cpu_clock_per_sample = apu_clock_per_sample * vgmSpeed;// ((double)((*config)["MULT_SPEED"].GetInt()) / 256.0);
 
 

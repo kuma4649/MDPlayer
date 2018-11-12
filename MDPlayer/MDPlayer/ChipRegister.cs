@@ -22,6 +22,8 @@ namespace MDPlayer
         //private NX68Sound.X68Sound x68Sound = null;
         //private NX68Sound.sound_iocs sound_iocs = null;
 
+        private Dictionary<MDSound.MDSound.enmInstrumentType, MDSound.MDSound.Chip> dicChipsInfo = new Dictionary<MDSound.MDSound.enmInstrumentType, MDSound.MDSound.Chip>();
+
         private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2608 = new Setting.ChipType[2] { null, null };
@@ -225,7 +227,23 @@ namespace MDPlayer
 
         public int[][] YMZ280BRegister = new int[][] { null, null };
 
-        public int[][] Y8950Register = new int[][] { null, null };
+        public int[][] fmRegisterY8950 = new int[][] { null, null };
+        private ChipKeyInfo[] kiY8950 = new ChipKeyInfo[2] { new ChipKeyInfo(15), new ChipKeyInfo(15) };
+        private ChipKeyInfo[] kiY8950ret = new ChipKeyInfo[2] { new ChipKeyInfo(15), new ChipKeyInfo(15) };
+        private bool[][] maskFMChY8950 = new bool[2][] {
+            new bool[9 + 5+1]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+                , false
+            },
+            new bool[9 + 5+1]
+            {
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false
+                , false
+            }
+        };
 
         public int[][] sn76489Register = new int[][] { null, null };
         public int[] sn76489RegisterGGPan = new int[] { 0xff, 0xff };
@@ -337,7 +355,7 @@ namespace MDPlayer
             this.ctC140 = new Setting.ChipType[] { setting.C140Type, setting.C140SType };
             this.ctSEGAPCM = new Setting.ChipType[] { setting.SEGAPCMType, setting.SEGAPCMSType };
 
-            initChipRegister();
+            initChipRegister(null);
 
             //x68Sound = new NX68Sound.X68Sound();
             //sound_iocs = new NX68Sound.sound_iocs(x68Sound);
@@ -348,8 +366,21 @@ namespace MDPlayer
         }
 
 
-        public void initChipRegister()
+        public void initChipRegister(MDSound.MDSound.Chip[] chipInfos)
         {
+
+            dicChipsInfo.Clear();
+            if (chipInfos != null)
+            {
+                foreach (MDSound.MDSound.Chip c in chipInfos)
+                {
+                    if (!dicChipsInfo.ContainsKey(c.type))
+                    {
+                        dicChipsInfo.Add(c.type, c);
+                    }
+                }
+            }
+
             for (int chipID = 0; chipID < 2; chipID++)
             {
 
@@ -440,10 +471,10 @@ namespace MDPlayer
                 fmRegisterYMF278BRyhthmB[0] = 0;
                 fmRegisterYMF278BRyhthmB[1] = 0;
 
-                Y8950Register[chipID] = new int[0x100];
+                fmRegisterY8950[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
                 {
-                    Y8950Register[chipID][i] = 0;
+                    fmRegisterY8950[chipID][i] = 0;
                 }
 
                 YMZ280BRegister[chipID] = new int[0x100];
@@ -505,6 +536,7 @@ namespace MDPlayer
                 nowYM2612FadeoutVol[chipID] = 0;
 
             }
+
             nes_bank = null;
             nes_mem = null;
             nes_cpu = null;
@@ -517,6 +549,182 @@ namespace MDPlayer
             nes_fme7 = null;
             nes_vrc7 = null;
 
+        }
+
+        public void initChipRegisterNSF(MDSound.MDSound.Chip[] chipInfos)
+        {
+
+            dicChipsInfo.Clear();
+            if (chipInfos != null)
+            {
+                foreach (MDSound.MDSound.Chip c in chipInfos)
+                {
+                    dicChipsInfo.Add(c.type, c);
+                }
+            }
+
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+
+                fmRegisterYM2612[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2612[chipID][0][i] = 0;
+                    fmRegisterYM2612[chipID][1][i] = 0;
+                }
+                fmRegisterYM2612[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2612[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2612[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2612[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2612[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2608[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2608[chipID][0][i] = 0;
+                    fmRegisterYM2608[chipID][1][i] = 0;
+                }
+                fmRegisterYM2608[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2608[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2608[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2608[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2608[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2610[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2610[chipID][0][i] = 0;
+                    fmRegisterYM2610[chipID][1][i] = 0;
+                }
+                fmRegisterYM2610[chipID][0][0xb4] = 0xc0;
+                fmRegisterYM2610[chipID][0][0xb5] = 0xc0;
+                fmRegisterYM2610[chipID][0][0xb6] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb4] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb5] = 0xc0;
+                fmRegisterYM2610[chipID][1][0xb6] = 0xc0;
+                fmKeyOnYM2610[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM3526[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM3526[chipID][i] = 0;
+                    fmRegisterYM3526[chipID][i] = 0;
+                }
+
+                fmRegisterYM3812[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM3812[chipID][i] = 0;
+                    fmRegisterYM3812[chipID][i] = 0;
+                }
+
+                fmRegisterYMF262[chipID] = new int[2][] { new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYMF262[chipID][0][i] = 0;
+                    fmRegisterYMF262[chipID][1][i] = 0;
+                }
+
+                fmRegisterYMF271[chipID] = new int[7][] { new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYMF271[chipID][0][i] = 0;
+                    fmRegisterYMF271[chipID][1][i] = 0;
+                    fmRegisterYMF271[chipID][2][i] = 0;
+                    fmRegisterYMF271[chipID][3][i] = 0;
+                    fmRegisterYMF271[chipID][4][i] = 0;
+                    fmRegisterYMF271[chipID][5][i] = 0;
+                    fmRegisterYMF271[chipID][6][i] = 0;
+                }
+
+                fmRegisterYMF278B[chipID] = new int[3][] { new int[0x100], new int[0x100], new int[0x100] };
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYMF278B[chipID][0][i] = 0;
+                    fmRegisterYMF278B[chipID][1][i] = 0;
+                    fmRegisterYMF278B[chipID][2][i] = 0;
+                }
+                fmRegisterYMF278BRyhthm[0] = 0;
+                fmRegisterYMF278BRyhthm[1] = 0;
+                fmRegisterYMF278BRyhthmB[0] = 0;
+                fmRegisterYMF278BRyhthmB[1] = 0;
+
+                fmRegisterY8950[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterY8950[chipID][i] = 0;
+                }
+
+                YMZ280BRegister[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    YMZ280BRegister[chipID][i] = 0;
+                }
+
+                fmRegisterYM2151[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2151[chipID][i] = 0;
+                }
+                fmKeyOnYM2151[chipID] = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                fmRegisterYM2203[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    fmRegisterYM2203[chipID][i] = 0;
+                }
+                fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
+
+                sn76489Register[chipID] = new int[8] { 0, 15, 0, 15, 0, 15, 0, 15 };
+
+                fmRegisterYM2413[chipID] = new int[0x39];
+                for (int i = 0; i < 0x39; i++)
+                {
+                    fmRegisterYM2413[chipID][i] = 0;
+                }
+                fmRegisterYM2413Ryhthm[0] = 0;
+                fmRegisterYM2413Ryhthm[1] = 0;
+                fmRegisterYM2413RyhthmB[0] = 0;
+                fmRegisterYM2413RyhthmB[1] = 0;
+
+                psgRegisterAY8910[chipID] = new int[0x100];
+                for (int i = 0; i < 0x100; i++)
+                {
+                    psgRegisterAY8910[chipID][i] = 0;
+                }
+                psgKeyOnAY8910[chipID] = new int[3] { 0, 0, 0 };
+
+                pcmRegisterC140[chipID] = new byte[0x200];
+                pcmKeyOnC140[chipID] = new bool[24];
+
+                pcmRegisterC352[chipID] = new ushort[0x203];
+                pcmKeyOnC352[chipID] = new ushort[32];
+
+                pcmRegisterSEGAPCM[chipID] = new byte[0x200];
+                pcmKeyOnSEGAPCM[chipID] = new bool[16];
+
+                midiParams[chipID] = new MIDIParam();
+
+                nowAY8910FadeoutVol[chipID] = 0;
+                nowSN76489FadeoutVol[chipID] = 0;
+                nowYM2151FadeoutVol[chipID] = 0;
+                nowYM2203FadeoutVol[chipID] = 0;
+                nowYM2608FadeoutVol[chipID] = 0;
+                nowYM2610FadeoutVol[chipID] = 0;
+                nowYM2612FadeoutVol[chipID] = 0;
+
+            }
+
+        }
+
+        public MDSound.MDSound.Chip GetChipInfo(MDSound.MDSound.enmInstrumentType typ)
+        {
+            if (dicChipsInfo.ContainsKey(typ)) return dicChipsInfo[typ];
+            return null;
         }
 
         public void Close()
@@ -2180,18 +2388,88 @@ namespace MDPlayer
             return kiYM3526ret[chipID];
         }
 
+        public ChipKeyInfo getY8950KeyInfo(int chipID)
+        {
+            for (int ch = 0; ch < kiY8950[chipID].Off.Length; ch++)
+            {
+                kiY8950ret[chipID].On[ch] = kiY8950[chipID].On[ch];
+                kiY8950ret[chipID].Off[ch] = kiY8950[chipID].Off[ch];
+                kiY8950[chipID].Off[ch] = false;
+            }
+            return kiY8950ret[chipID];
+        }
+
         public void setY8950Register(int chipID, int dAddr, int dData, enmModel model)
         {
             if (ctY8950 == null) return;
 
-            if (chipID == 0) chipLED.PriY895 = 2;
-            else chipLED.SecY895 = 2;
-
-            if (model == enmModel.VirtualModel) Y8950Register[chipID][dAddr] = dData;
+            if (chipID == 0) chipLED.PriY8950 = 2;
+            else chipLED.SecY8950 = 2;
 
             if (model == enmModel.VirtualModel)
             {
-                if (!ctY8950[chipID].UseScci)
+                fmRegisterY8950[chipID][dAddr] = dData;
+                if (dAddr >= 0xb0 && dAddr <= 0xb8)
+                {
+                    int ch = dAddr - 0xb0;
+                    int k = (dData >> 5) & 1;
+                    if (k == 0)
+                    {
+                        kiY8950[chipID].On[ch] = false;
+                        kiY8950[chipID].Off[ch] = true;
+                    }
+                    else
+                    {
+                        kiY8950[chipID].On[ch] = true;
+                    }
+                    if (maskFMChY8950[chipID][ch]) dData &= 0x1f;
+                }
+
+                if (dAddr == 0xbd)
+                {
+
+                    for (int c = 0; c < 5; c++)
+                    {
+                        if ((dData & (0x10 >> c)) != 0)
+                        {
+                            kiY8950[chipID].On[c + 9] = true;
+                        }
+                        else
+                        {
+                            kiY8950[chipID].On[c + 9] = false;
+                            //kiY8950[chipID].Off[c + 9] = true;
+                        }
+                    }
+
+                    if (maskFMChY8950[chipID][9]) dData &= 0xef;
+                    if (maskFMChY8950[chipID][10]) dData &= 0xf7;
+                    if (maskFMChY8950[chipID][11]) dData &= 0xfb;
+                    if (maskFMChY8950[chipID][12]) dData &= 0xfd;
+                    if (maskFMChY8950[chipID][13]) dData &= 0xfe;
+
+                }
+
+                //ADPCM
+                if (dAddr == 0x07)
+                {
+                    int k = (dData & 0x80);
+                    if (k == 0)
+                    {
+                        kiY8950[chipID].On[14] = false;
+                        kiY8950[chipID].Off[14] = true;
+                    }
+                    else
+                    {
+                        kiY8950[chipID].On[14] = true;
+                    }
+                    if (maskFMChY8950[chipID][14]) dData &= 0x7f;
+                }
+
+            }
+
+            if (model == enmModel.VirtualModel)
+            {
+                //if (!ctY8950[chipID].UseScci)
                 {
                     mds.WriteY8950((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -2445,6 +2723,11 @@ namespace MDPlayer
         public void setMaskYM3526(int chipID, int ch, bool mask)
         {
             maskFMChYM3526[chipID][ch] = mask;
+        }
+
+        public void setMaskY8950(int chipID, int ch, bool mask)
+        {
+            maskFMChY8950[chipID][ch] = mask;
         }
 
         public void setMaskYM3812(int chipID, int ch, bool mask)
@@ -3172,8 +3455,8 @@ namespace MDPlayer
 
         public void writeY8950PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, enmModel model)
         {
-            if (chipid == 0) chipLED.PriY895 = 2;
-            else chipLED.SecY895 = 2;
+            if (chipid == 0) chipLED.PriY8950 = 2;
+            else chipLED.SecY8950 = 2;
 
             if (model == enmModel.VirtualModel)
                 mds.WriteY8950PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);

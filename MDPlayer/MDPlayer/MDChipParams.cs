@@ -262,6 +262,18 @@ namespace MDPlayer
         }
         public YM3526[] ym3526 = new YM3526[] { new YM3526(), new YM3526() };
 
+        public class Y8950
+        {
+            public Channel[] channels = new Channel[9 + 5+1] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel() //FM 9
+                ,new Channel(), new Channel(), new Channel(), new Channel(), new Channel() //Ryhthm 5
+                ,new Channel()//ADPCM
+            };
+
+        }
+        public Y8950[] y8950 = new Y8950[] { new Y8950(), new Y8950() };
+
         public class YM3812
         {
             public Channel[] channels = new Channel[9 + 5] {

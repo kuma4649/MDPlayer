@@ -45,6 +45,7 @@
             this.tsmiPOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPL2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPL3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPL4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +71,7 @@
             this.tsmiSOKIM6258 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOKIM6295 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPLL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPL = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPL2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPL3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPL4 = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,8 +85,8 @@
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiPOPL = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPL = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPY8950 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSY8950 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.SuspendLayout();
@@ -129,6 +131,7 @@
             this.tsmiPOKIM6295,
             this.tsmiPOPLL,
             this.tsmiPOPL,
+            this.tsmiPY8950,
             this.tsmiPOPL2,
             this.tsmiPOPL3,
             this.tsmiPOPL4,
@@ -228,6 +231,13 @@
             this.tsmiPOPLL.Size = new System.Drawing.Size(180, 22);
             this.tsmiPOPLL.Text = "OPLL";
             this.tsmiPOPLL.Click += new System.EventHandler(this.tsmiPOPLL_Click);
+            // 
+            // tsmiPOPL
+            // 
+            this.tsmiPOPL.Name = "tsmiPOPL";
+            this.tsmiPOPL.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPOPL.Text = "OPL";
+            this.tsmiPOPL.Click += new System.EventHandler(this.tsmiPOPL_Click);
             // 
             // tsmiPOPL2
             // 
@@ -329,6 +339,7 @@
             this.tsmiSOKIM6295,
             this.tsmiSOPLL,
             this.tsmiSOPL,
+            this.tsmiSY8950,
             this.tsmiSOPL2,
             this.tsmiSOPL3,
             this.tsmiSOPL4,
@@ -429,6 +440,13 @@
             this.tsmiSOPLL.Text = "OPLL";
             this.tsmiSOPLL.Click += new System.EventHandler(this.tsmiSOPLL_Click);
             // 
+            // tsmiSOPL
+            // 
+            this.tsmiSOPL.Name = "tsmiSOPL";
+            this.tsmiSOPL.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSOPL.Text = "OPL";
+            this.tsmiSOPL.Click += new System.EventHandler(this.tsmiSOPL_Click);
+            // 
             // tsmiSOPL2
             // 
             this.tsmiSOPL2.Name = "tsmiSOPL2";
@@ -517,19 +535,19 @@
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
-            // tsmiPOPL
+            // tsmiPY8950
             // 
-            this.tsmiPOPL.Name = "tsmiPOPL";
-            this.tsmiPOPL.Size = new System.Drawing.Size(180, 22);
-            this.tsmiPOPL.Text = "OPL";
-            this.tsmiPOPL.Click += new System.EventHandler(this.tsmiPOPL_Click);
+            this.tsmiPY8950.Name = "tsmiPY8950";
+            this.tsmiPY8950.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPY8950.Text = "Y8950";
+            this.tsmiPY8950.Click += new System.EventHandler(this.tsmiPY8950_Click);
             // 
-            // tsmiSOPL
+            // tsmiSY8950
             // 
-            this.tsmiSOPL.Name = "tsmiSOPL";
-            this.tsmiSOPL.Size = new System.Drawing.Size(180, 22);
-            this.tsmiSOPL.Text = "OPL";
-            this.tsmiSOPL.Click += new System.EventHandler(this.tsmiSOPL_Click);
+            this.tsmiSY8950.Name = "tsmiSY8950";
+            this.tsmiSY8950.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSY8950.Text = "Y8950";
+            this.tsmiSY8950.Click += new System.EventHandler(this.tsmiSY8950_Click);
             // 
             // frmMain
             // 
@@ -611,6 +629,8 @@
         private HongliangSoft.Utilities.Gui.KeyboardHook keyboardHook1;
         private System.Windows.Forms.ToolStripMenuItem tsmiPOPL;
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPL;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPY8950;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSY8950;
     }
 }
 
