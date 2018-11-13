@@ -3519,26 +3519,29 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).C140ClockValue != 0)
                 {
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.C140;
-                    chip.ID = 0;
                     MDSound.c140 c140 = new MDSound.c140();
-                    chip.Instrument = c140;
-                    chip.Update = c140.Update;
-                    chip.Start = c140.Start;
-                    chip.Stop = c140.Stop;
-                    chip.Reset = c140.Reset;
-                    chip.SamplingRate = (UInt32)common.SampleRate;
-                    chip.Volume = setting.balance.C140Volume;
-                    chip.Clock = ((vgm)driverVirtual).C140ClockValue;
-                    clockC140 = (int)chip.Clock;
-                    chip.Option = new object[1] { ((vgm)driverVirtual).C140Type };
+                    for (int i = 0; i < (((vgm)driverVirtual).C140DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.C140;
+                        chip.ID = (byte)i;
+                        chip.Instrument = c140;
+                        chip.Update = c140.Update;
+                        chip.Start = c140.Start;
+                        chip.Stop = c140.Stop;
+                        chip.Reset = c140.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = setting.balance.C140Volume;
+                        chip.Clock = ((vgm)driverVirtual).C140ClockValue;
+                        chip.Option = new object[1] { ((vgm)driverVirtual).C140Type }; 
 
-                    hiyorimiDeviceFlag |= 0x2;
+                        hiyorimiDeviceFlag |= 0x2;
 
-                    chipLED.PriC140 = 1;
+                        if (i == 0) chipLED.PriC140 = 1;
+                        else chipLED.SecC140 = 1;
 
-                    lstChips.Add(chip);
+                        lstChips.Add(chip);
+                    }
                 }
 
                 if (((vgm)driverVirtual).MultiPCMClockValue != 0)

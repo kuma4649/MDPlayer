@@ -79,6 +79,7 @@ namespace MDPlayer
         public bool AY8910DualChipFlag;
         public bool YM2413DualChipFlag;
         public bool HuC6280DualChipFlag;
+        public bool C140DualChipFlag;
         public bool C352DualChipFlag;
         public bool GA20DualChipFlag;
         public bool K053260DualChipFlag;
@@ -1412,18 +1413,20 @@ namespace MDPlayer
 
         private void vcC140()
         {
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
             uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
             byte data = vgmBuf[vgmAdr + 3];
-            chipRegister.writeC140(0, adr, data, model);
+            chipRegister.writeC140(id, adr, data, model);
             vgmAdr += 4;
         }
 
         private void vcC352()
         {
-            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0xff) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
             uint data = (uint)((vgmBuf[vgmAdr + 3] & 0xff) * 0x100 + (vgmBuf[vgmAdr + 4] & 0xff));
             
-            chipRegister.writeC352(0, adr, data, model);
+            chipRegister.writeC352(id, adr, data, model);
             vgmAdr += 5;
         }
 
@@ -2215,7 +2218,7 @@ namespace MDPlayer
                         uint K054539clock = getLE32(0xa0);
                         if (K054539clock != 0)
                         {
-                            K054539ClockValue = K054539clock & 0x3fffffff;
+                            K054539ClockValue = K054539clock & 0x3fff_ffff;
                             K054539DualChipFlag = (K054539clock & 0x40000000) != 0;
                             if (K054539DualChipFlag) chips.Add("K054539x2");
                             else chips.Add("K054539");
@@ -2240,8 +2243,11 @@ namespace MDPlayer
                         uint C140clock = getLE32(0xa8);
                         if (C140clock != 0)
                         {
-                            chips.Add("C140");
-                            C140ClockValue = C140clock;
+                            C140ClockValue = C140clock & 0x3fff_ffff;
+                            C140DualChipFlag = (C140clock & 0x4000_0000) != 0;
+                            if (C140DualChipFlag) chips.Add("C140x2");
+                            else chips.Add("C140");
+
                             switch (vgmBuf[0x96])
                             {
                                 case 0x00:
@@ -2309,8 +2315,11 @@ namespace MDPlayer
                         uint C352clock = getLE32(0xdc);
                         if (C352clock != 0)
                         {
-                            chips.Add("C352");
-                            C352ClockValue = C352clock;
+                            C352ClockValue = C352clock & 0x3fff_ffff;
+                            C352DualChipFlag = (C352clock & 0x4000_0000) != 0;
+                            if (C352DualChipFlag) chips.Add("C352x2");
+                            else chips.Add("C352");
+
                             C352ClockDivider = vgmBuf[0xd6];
                         }
                     }

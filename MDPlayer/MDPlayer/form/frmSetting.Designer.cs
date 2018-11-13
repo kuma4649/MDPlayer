@@ -298,21 +298,12 @@
             this.label37 = new System.Windows.Forms.Label();
             this.cbStopAlt = new System.Windows.Forms.CheckBox();
             this.label45 = new System.Windows.Forms.Label();
-            this.cbNextWin = new System.Windows.Forms.CheckBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.cbFastWin = new System.Windows.Forms.CheckBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.cbPlayWin = new System.Windows.Forms.CheckBox();
             this.label48 = new System.Windows.Forms.Label();
-            this.cbSlowWin = new System.Windows.Forms.CheckBox();
             this.label38 = new System.Windows.Forms.Label();
-            this.cbPrevWin = new System.Windows.Forms.CheckBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.cbFadeoutWin = new System.Windows.Forms.CheckBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.cbPauseWin = new System.Windows.Forms.CheckBox();
             this.label41 = new System.Windows.Forms.Label();
-            this.cbStopWin = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.cbNextCtrl = new System.Windows.Forms.CheckBox();
             this.label43 = new System.Windows.Forms.Label();
@@ -332,6 +323,15 @@
             this.cbPlayShift = new System.Windows.Forms.CheckBox();
             this.cbNextShift = new System.Windows.Forms.CheckBox();
             this.cbFastShift = new System.Windows.Forms.CheckBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.cbStopWin = new System.Windows.Forms.CheckBox();
+            this.cbPauseWin = new System.Windows.Forms.CheckBox();
+            this.cbFadeoutWin = new System.Windows.Forms.CheckBox();
+            this.cbPrevWin = new System.Windows.Forms.CheckBox();
+            this.cbSlowWin = new System.Windows.Forms.CheckBox();
+            this.cbPlayWin = new System.Windows.Forms.CheckBox();
+            this.cbFastWin = new System.Windows.Forms.CheckBox();
+            this.cbNextWin = new System.Windows.Forms.CheckBox();
             this.tpBalance = new System.Windows.Forms.TabPage();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
             this.rbAutoBalanceNotSamePositionAsSongData = new System.Windows.Forms.RadioButton();
@@ -3468,16 +3468,6 @@
             this.label45.TabIndex = 26;
             this.label45.Text = "Shift";
             // 
-            // cbNextWin
-            // 
-            this.cbNextWin.AutoSize = true;
-            this.cbNextWin.Location = new System.Drawing.Point(239, 309);
-            this.cbNextWin.Name = "cbNextWin";
-            this.cbNextWin.Size = new System.Drawing.Size(15, 14);
-            this.cbNextWin.TabIndex = 27;
-            this.cbNextWin.UseVisualStyleBackColor = true;
-            this.cbNextWin.Visible = false;
-            // 
             // label46
             // 
             this.label46.AutoSize = true;
@@ -3486,36 +3476,6 @@
             this.label46.Size = new System.Drawing.Size(24, 12);
             this.label46.TabIndex = 26;
             this.label46.Text = "Ctrl";
-            // 
-            // cbFastWin
-            // 
-            this.cbFastWin.AutoSize = true;
-            this.cbFastWin.Location = new System.Drawing.Point(218, 309);
-            this.cbFastWin.Name = "cbFastWin";
-            this.cbFastWin.Size = new System.Drawing.Size(15, 14);
-            this.cbFastWin.TabIndex = 27;
-            this.cbFastWin.UseVisualStyleBackColor = true;
-            this.cbFastWin.Visible = false;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(63, 311);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(23, 12);
-            this.label47.TabIndex = 26;
-            this.label47.Text = "Win";
-            this.label47.Visible = false;
-            // 
-            // cbPlayWin
-            // 
-            this.cbPlayWin.AutoSize = true;
-            this.cbPlayWin.Location = new System.Drawing.Point(197, 309);
-            this.cbPlayWin.Name = "cbPlayWin";
-            this.cbPlayWin.Size = new System.Drawing.Size(15, 14);
-            this.cbPlayWin.TabIndex = 27;
-            this.cbPlayWin.UseVisualStyleBackColor = true;
-            this.cbPlayWin.Visible = false;
             // 
             // label48
             // 
@@ -3526,16 +3486,6 @@
             this.label48.TabIndex = 26;
             this.label48.Text = "Alt";
             // 
-            // cbSlowWin
-            // 
-            this.cbSlowWin.AutoSize = true;
-            this.cbSlowWin.Location = new System.Drawing.Point(176, 309);
-            this.cbSlowWin.Name = "cbSlowWin";
-            this.cbSlowWin.Size = new System.Drawing.Size(15, 14);
-            this.cbSlowWin.TabIndex = 27;
-            this.cbSlowWin.UseVisualStyleBackColor = true;
-            this.cbSlowWin.Visible = false;
-            // 
             // label38
             // 
             this.label38.AutoSize = true;
@@ -3544,16 +3494,6 @@
             this.label38.Size = new System.Drawing.Size(53, 12);
             this.label38.TabIndex = 26;
             this.label38.Text = "一時停止";
-            // 
-            // cbPrevWin
-            // 
-            this.cbPrevWin.AutoSize = true;
-            this.cbPrevWin.Location = new System.Drawing.Point(155, 309);
-            this.cbPrevWin.Name = "cbPrevWin";
-            this.cbPrevWin.Size = new System.Drawing.Size(15, 14);
-            this.cbPrevWin.TabIndex = 27;
-            this.cbPrevWin.UseVisualStyleBackColor = true;
-            this.cbPrevWin.Visible = false;
             // 
             // label39
             // 
@@ -3564,16 +3504,6 @@
             this.label39.TabIndex = 26;
             this.label39.Text = "フェードアウト";
             // 
-            // cbFadeoutWin
-            // 
-            this.cbFadeoutWin.AutoSize = true;
-            this.cbFadeoutWin.Location = new System.Drawing.Point(134, 309);
-            this.cbFadeoutWin.Name = "cbFadeoutWin";
-            this.cbFadeoutWin.Size = new System.Drawing.Size(15, 14);
-            this.cbFadeoutWin.TabIndex = 27;
-            this.cbFadeoutWin.UseVisualStyleBackColor = true;
-            this.cbFadeoutWin.Visible = false;
-            // 
             // label40
             // 
             this.label40.AutoSize = true;
@@ -3583,16 +3513,6 @@
             this.label40.TabIndex = 26;
             this.label40.Text = "前曲";
             // 
-            // cbPauseWin
-            // 
-            this.cbPauseWin.AutoSize = true;
-            this.cbPauseWin.Location = new System.Drawing.Point(113, 309);
-            this.cbPauseWin.Name = "cbPauseWin";
-            this.cbPauseWin.Size = new System.Drawing.Size(15, 14);
-            this.cbPauseWin.TabIndex = 27;
-            this.cbPauseWin.UseVisualStyleBackColor = true;
-            this.cbPauseWin.Visible = false;
-            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -3601,16 +3521,6 @@
             this.label41.Size = new System.Drawing.Size(57, 12);
             this.label41.TabIndex = 26;
             this.label41.Text = "スロー再生";
-            // 
-            // cbStopWin
-            // 
-            this.cbStopWin.AutoSize = true;
-            this.cbStopWin.Location = new System.Drawing.Point(92, 309);
-            this.cbStopWin.Name = "cbStopWin";
-            this.cbStopWin.Size = new System.Drawing.Size(15, 14);
-            this.cbStopWin.TabIndex = 27;
-            this.cbStopWin.UseVisualStyleBackColor = true;
-            this.cbStopWin.Visible = false;
             // 
             // label42
             // 
@@ -3782,6 +3692,96 @@
             this.cbFastShift.Size = new System.Drawing.Size(15, 14);
             this.cbFastShift.TabIndex = 27;
             this.cbFastShift.UseVisualStyleBackColor = true;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(63, 311);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(23, 12);
+            this.label47.TabIndex = 26;
+            this.label47.Text = "Win";
+            this.label47.Visible = false;
+            // 
+            // cbStopWin
+            // 
+            this.cbStopWin.AutoSize = true;
+            this.cbStopWin.Location = new System.Drawing.Point(92, 309);
+            this.cbStopWin.Name = "cbStopWin";
+            this.cbStopWin.Size = new System.Drawing.Size(15, 14);
+            this.cbStopWin.TabIndex = 27;
+            this.cbStopWin.UseVisualStyleBackColor = true;
+            this.cbStopWin.Visible = false;
+            // 
+            // cbPauseWin
+            // 
+            this.cbPauseWin.AutoSize = true;
+            this.cbPauseWin.Location = new System.Drawing.Point(113, 309);
+            this.cbPauseWin.Name = "cbPauseWin";
+            this.cbPauseWin.Size = new System.Drawing.Size(15, 14);
+            this.cbPauseWin.TabIndex = 27;
+            this.cbPauseWin.UseVisualStyleBackColor = true;
+            this.cbPauseWin.Visible = false;
+            // 
+            // cbFadeoutWin
+            // 
+            this.cbFadeoutWin.AutoSize = true;
+            this.cbFadeoutWin.Location = new System.Drawing.Point(134, 309);
+            this.cbFadeoutWin.Name = "cbFadeoutWin";
+            this.cbFadeoutWin.Size = new System.Drawing.Size(15, 14);
+            this.cbFadeoutWin.TabIndex = 27;
+            this.cbFadeoutWin.UseVisualStyleBackColor = true;
+            this.cbFadeoutWin.Visible = false;
+            // 
+            // cbPrevWin
+            // 
+            this.cbPrevWin.AutoSize = true;
+            this.cbPrevWin.Location = new System.Drawing.Point(155, 309);
+            this.cbPrevWin.Name = "cbPrevWin";
+            this.cbPrevWin.Size = new System.Drawing.Size(15, 14);
+            this.cbPrevWin.TabIndex = 27;
+            this.cbPrevWin.UseVisualStyleBackColor = true;
+            this.cbPrevWin.Visible = false;
+            // 
+            // cbSlowWin
+            // 
+            this.cbSlowWin.AutoSize = true;
+            this.cbSlowWin.Location = new System.Drawing.Point(176, 309);
+            this.cbSlowWin.Name = "cbSlowWin";
+            this.cbSlowWin.Size = new System.Drawing.Size(15, 14);
+            this.cbSlowWin.TabIndex = 27;
+            this.cbSlowWin.UseVisualStyleBackColor = true;
+            this.cbSlowWin.Visible = false;
+            // 
+            // cbPlayWin
+            // 
+            this.cbPlayWin.AutoSize = true;
+            this.cbPlayWin.Location = new System.Drawing.Point(197, 309);
+            this.cbPlayWin.Name = "cbPlayWin";
+            this.cbPlayWin.Size = new System.Drawing.Size(15, 14);
+            this.cbPlayWin.TabIndex = 27;
+            this.cbPlayWin.UseVisualStyleBackColor = true;
+            this.cbPlayWin.Visible = false;
+            // 
+            // cbFastWin
+            // 
+            this.cbFastWin.AutoSize = true;
+            this.cbFastWin.Location = new System.Drawing.Point(218, 309);
+            this.cbFastWin.Name = "cbFastWin";
+            this.cbFastWin.Size = new System.Drawing.Size(15, 14);
+            this.cbFastWin.TabIndex = 27;
+            this.cbFastWin.UseVisualStyleBackColor = true;
+            this.cbFastWin.Visible = false;
+            // 
+            // cbNextWin
+            // 
+            this.cbNextWin.AutoSize = true;
+            this.cbNextWin.Location = new System.Drawing.Point(239, 309);
+            this.cbNextWin.Name = "cbNextWin";
+            this.cbNextWin.Size = new System.Drawing.Size(15, 14);
+            this.cbNextWin.TabIndex = 27;
+            this.cbNextWin.UseVisualStyleBackColor = true;
+            this.cbNextWin.Visible = false;
             // 
             // tpBalance
             // 

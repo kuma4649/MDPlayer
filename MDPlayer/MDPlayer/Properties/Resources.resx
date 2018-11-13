@@ -133,7 +133,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDXファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MNDファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -157,26 +157,31 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .SID (コモドール向けファイル)  
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
+  .MND (MNDRV X68000(OPM,OKIM6258) &amp; まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
   ・現在、以下の主にメガドライブ系音源チップのエミュレーションによる再生が可能です。  
      
-      AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140(C219) , OKIM6258 , OKIM6295  
+      AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140(C219) , OKIM6295 , OKIM6258(PCM8,MPCM含)  
       , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2610/B   , HuC6280  , C352  
       , K054539 , NES_APU  , NES_DMC , NES_FDS , MMC5    , FME7       , N160     , VRC6  
       , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B , YMZ280B    , DMG      , QSound  
-      , RF5C68  , SID  
+      , S5B     , GA20  
+      , RF5C68  , SID      , Y8950   , YM3526  , YM3812  , K053260    , K051649(K052539)  
   
   ・現在、以下の鍵盤表示が可能です。  
      
-      AY8910    , YM2612   , SN76489  , RF5C164 , C140(C219) , SEGAPCM , YM2151      , YM2203  
-      , YM2413  , YM2608   , YM2610/B 、YMF278B , HuC6280    , MIDI    , NES_APU&amp;DMC , NES_FDS  
-      , MMC5  
+      YM2612        , SN76489    , RF5C164  
+      , AY8910      , C140(C219) , C352    , SEGAPCM  
+      , Y8950       , YM2151     , YM2203  , YM2413  , YM2608 , YM2610/B , YM3526 , YM3812  
+      , YMF262      , YMF278B    
+      , HuC6280     , MIDI       
+      , NES_APU&amp;DMC , NES_FDS    , MMC5    , VRC7    
   
   ・C#で作成されています。  
   
-  ・VGMPlay,MAMEのソースを参考、移植しています。  
+  ・VGMPlay,MAME,DOSBOXのソースを参考、移植しています。  
   
   ・FMGenのソースを参考、移植しています。  
   
@@ -196,8 +201,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   ・MXDRVのソースを参考、移植しています。  
   
+  ・MNDRVのソースを参考、移植しています。  
+  
   ・X68Soundのソースを参考、移植しています。  
-  (m_puusanさん/rururutanさん版両方)
+  (m_puusanさん/rururutanさん版両方)  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -230,6 +237,14 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・演奏をwavで書き出すことが可能です。  
   
   ・MIDI音源にVSTiを指定可能です。  
+  
+  ・キーボード、MIDIキーボードから、再生、停止などの操作が可能です。  
+  
+  ・プレイリストから、再生中の拡張子違いの同名ファイル(Text,MML,Image)を開くことができます。  
+  
+  ・VGM/VGZファイルに独自機能を追加しています。  
+      RF5C164のDual演奏  
+      歌詞表示  
   
   
 [必要な動作環境]  
@@ -264,8 +279,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   作成方法は申し訳ありませんがお任せします。  
   	yrw801.rom  
   
-  ・C64のエミュレーション時、Kernal,Basic,CharacterのROMファイルが必要です。  
+  ・C64のエミュレーション時、以下のROMファイルが必要です。  
   作成方法は申し訳ありませんがお任せします。  
+  	Kernal , Basic , Character  
   
   ・そこそこ速いCPU。  
   
@@ -287,6 +303,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・かきうち さん  
     ・ぼう☆きち さん  
     ・dj.tuBIG/MaliceX さん  
+    ・じごふりん さん  
      
     ・Visual Studio Community 2015  
     ・MinGW/msys  
@@ -301,18 +318,24 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・MoonDriver  
     ・MXP  
     ・MXDRV  
+    ・MNDRV  
+    ・MPCM  
     ・X68Sound  
     ・hoot  
+    ・XM6 TypeG  
     ・ASLPLAY  
     ・NAUDIO  
     ・VST.NET  
     ・NSFPlay  
     ・CVS.EXE  
+    ・KeyboardHook3.cs  
      
     ・SMS Power!  
     ・DOBON.NET  
     ・Wikipedia  
     ・GitHub  
+    ・ぬるり。  
+  
   
 [同期のすゝめ]  
       
@@ -441,7 +464,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       
     CC:66(SOSTENUTO)  
       MONOモード時のみ、選択行のログをMMLにしクリップボードに設定します。  
-      画面クリック時の処理との違い
+      画面クリック時の処理との違い  
         Ctrl+V（ペースト）のキーストロークを送信します。  
         選択チャンネルのノートログをクリアします。  
         初めのオクターブコマンドは出力しません。</value>
