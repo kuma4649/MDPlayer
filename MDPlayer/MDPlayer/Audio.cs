@@ -1532,6 +1532,16 @@ namespace MDPlayer
                 return false;
             }
 
+            MDSound.MDSound.np_nes_apu_volume = 0;
+            MDSound.MDSound.np_nes_dmc_volume = 0;
+            MDSound.MDSound.np_nes_fds_volume = 0;
+            MDSound.MDSound.np_nes_fme7_volume = 0;
+            MDSound.MDSound.np_nes_mmc5_volume= 0;
+            MDSound.MDSound.np_nes_n106_volume = 0;
+            MDSound.MDSound.np_nes_vrc6_volume = 0;
+            MDSound.MDSound.np_nes_vrc7_volume = 0;
+
+
             if (PlayingFileFormat == enmFileFormat.NRT)
             {
                 driverVirtual = new NRTDRV();
@@ -5265,27 +5275,35 @@ namespace MDPlayer
 
                 vol = mds.getNESVisVolume();
                 if (vol != null) visVolume.APU = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                else visVolume.APU = (short)MDSound.MDSound.np_nes_apu_volume;
 
                 vol = mds.getDMCVisVolume();
                 if (vol != null) visVolume.DMC = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                else visVolume.DMC = (short)MDSound.MDSound.np_nes_dmc_volume;
 
                 vol = mds.getFDSVisVolume();
                 if (vol != null) visVolume.FDS = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                else visVolume.FDS = (short)MDSound.MDSound.np_nes_fds_volume;
 
                 vol = mds.getMMC5VisVolume();
                 if (vol != null) visVolume.MMC5 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (visVolume.MMC5 == 0) visVolume.MMC5 = (short)MDSound.MDSound.np_nes_mmc5_volume;
 
                 vol = mds.getN160VisVolume();
                 if (vol != null) visVolume.N160 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (visVolume.N160 == 0) visVolume.N160 = (short)MDSound.MDSound.np_nes_n106_volume;
 
                 vol = mds.getVRC6VisVolume();
                 if (vol != null) visVolume.VRC6 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (visVolume.VRC6 == 0) visVolume.VRC6 = (short)MDSound.MDSound.np_nes_vrc6_volume;
 
                 vol = mds.getVRC7VisVolume();
                 if (vol != null) visVolume.VRC7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (visVolume.VRC7 == 0) visVolume.VRC7 = (short)MDSound.MDSound.np_nes_vrc7_volume;
 
                 vol = mds.getFME7VisVolume();
                 if (vol != null) visVolume.FME7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+                if (visVolume.FME7 == 0) visVolume.FME7 = (short)MDSound.MDSound.np_nes_fme7_volume;
 
                 vol = mds.getDMGVisVolume();
                 if (vol != null) visVolume.DMG = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);

@@ -2171,7 +2171,7 @@ namespace MDPlayer
                         uint NESclock = getLE32(0x84);
                         if (NESclock != 0)
                         {
-                            NESClockValue = NESclock & 0x3fffffff;
+                            NESClockValue = NESclock & 0xbfffffff;
                             NESDualChipFlag = (NESclock & 0x40000000) != 0;
                             if (NESDualChipFlag) chips.Add("NES_APUx2");
                             else chips.Add("NES_APU");

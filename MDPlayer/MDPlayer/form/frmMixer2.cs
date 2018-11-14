@@ -465,7 +465,7 @@ namespace MDPlayer.form
                 newParam.APU.VisVol2Cnt = 30;
             }
 
-            newParam.DMC.VisVolume1 = common.Range(Audio.visVolume.DMC / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.DMC.VisVolume1 = common.Range(Audio.visVolume.DMC / 350, 0, 44);//(short.MaxValue / 44);
             if (newParam.DMC.VisVolume2 <= newParam.DMC.VisVolume1)
             {
                 newParam.DMC.VisVolume2 = newParam.DMC.VisVolume1;
@@ -479,41 +479,41 @@ namespace MDPlayer.form
                 newParam.FDS.VisVol2Cnt = 30;
             }
 
-            newParam.MMC5.VisVolume1 = common.Range(Audio.visVolume.MMC5 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.MMC5.VisVolume1 = common.Range(Audio.visVolume.MMC5 / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.MMC5.VisVolume2 <= newParam.K054539.VisVolume1)
             {
                 newParam.MMC5.VisVolume2 = newParam.MMC5.VisVolume1;
                 newParam.MMC5.VisVol2Cnt = 30;
             }
 
-            newParam.N160.VisVolume1 = common.Range(Audio.visVolume.N160 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.N160.VisVolume1 = common.Range(Audio.visVolume.N160 / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.N160.VisVolume2 <= newParam.N160.VisVolume1)
             {
                 newParam.N160.VisVolume2 = newParam.N160.VisVolume1;
                 newParam.N160.VisVol2Cnt = 30;
             }
-            newParam.VRC6.VisVolume1 = common.Range(Audio.visVolume.VRC6 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.VRC6.VisVolume1 = common.Range(Audio.visVolume.VRC6 / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.VRC6.VisVolume2 <= newParam.VRC6.VisVolume1)
             {
                 newParam.VRC6.VisVolume2 = newParam.VRC6.VisVolume1;
                 newParam.VRC6.VisVol2Cnt = 30;
             }
 
-            newParam.VRC7.VisVolume1 = common.Range(Audio.visVolume.VRC7 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.VRC7.VisVolume1 = common.Range(Audio.visVolume.VRC7 / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.VRC7.VisVolume2 <= newParam.VRC7.VisVolume1)
             {
                 newParam.VRC7.VisVolume2 = newParam.VRC7.VisVolume1;
                 newParam.VRC7.VisVol2Cnt = 30;
             }
 
-            newParam.FME7.VisVolume1 = common.Range(Audio.visVolume.FME7 / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.FME7.VisVolume1 = common.Range(Audio.visVolume.FME7 / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.FME7.VisVolume2 <= newParam.FME7.VisVolume1)
             {
                 newParam.FME7.VisVolume2 = newParam.FME7.VisVolume1;
                 newParam.FME7.VisVol2Cnt = 30;
             }
 
-            newParam.DMG.VisVolume1 = common.Range(Audio.visVolume.DMG / 200, 0, 44);//(short.MaxValue / 44);
+            newParam.DMG.VisVolume1 = common.Range(Audio.visVolume.DMG / 50, 0, 44);//(short.MaxValue / 44);
             if (newParam.DMG.VisVolume2 <= newParam.DMG.VisVolume1)
             {
                 newParam.DMG.VisVolume2 = newParam.DMG.VisVolume1;
@@ -667,14 +667,14 @@ namespace MDPlayer.form
             Audio.visVolume.qSound = -1;
             Audio.visVolume.ga20 = -1;
 
-            Audio.visVolume.APU = -1;
-            Audio.visVolume.DMC = -1;
-            Audio.visVolume.FDS = -1;
-            Audio.visVolume.MMC5 = -1;
-            Audio.visVolume.N160 = -1;
-            Audio.visVolume.VRC6 = -1;
-            Audio.visVolume.VRC7 = -1;
-            Audio.visVolume.FME7 = -1;
+            Audio.visVolume.APU = 0;
+            Audio.visVolume.DMC = 0;
+            Audio.visVolume.FDS = 0;
+            Audio.visVolume.MMC5 = 0;
+            Audio.visVolume.N160 = 0;
+            Audio.visVolume.VRC6 = 0;
+            Audio.visVolume.VRC7 = 0;
+            Audio.visVolume.FME7 = 0;
             Audio.visVolume.DMG = -1;
 
         }
