@@ -1402,6 +1402,8 @@ namespace MDPlayer.form
             frmMCD[chipID].update();
             frmMCD[chipID].Text = string.Format("RF5C164 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.rf5c164[chipID] = new MDChipParams.RF5C164();
+
+            CheckAndSetForm(frmMCD[chipID]);
         }
 
         private void CloseFormMegaCD(int chipID)
@@ -1458,6 +1460,8 @@ namespace MDPlayer.form
             frmYM2608[chipID].update();
             frmYM2608[chipID].Text = string.Format("YM2608 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2608[chipID] = new MDChipParams.YM2608();
+
+            CheckAndSetForm(frmYM2608[chipID]);
         }
 
         private void CloseFormYM2608(int chipID)
@@ -1513,6 +1517,8 @@ namespace MDPlayer.form
             frmYM2151[chipID].update();
             frmYM2151[chipID].Text = string.Format("YM2151 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2151[chipID] = new MDChipParams.YM2151();
+
+            CheckAndSetForm(frmYM2151[chipID]);
         }
 
         private void CloseFormYM2151(int chipID)
@@ -1567,6 +1573,8 @@ namespace MDPlayer.form
             frmC140[chipID].update();
             frmC140[chipID].Text = string.Format("C140 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.c140[chipID] = new MDChipParams.C140();
+
+            CheckAndSetForm(frmC140[chipID]);
         }
 
         private void CloseFormC140(int chipID)
@@ -1621,6 +1629,8 @@ namespace MDPlayer.form
             frmC352[chipID].update();
             frmC352[chipID].Text = string.Format("C352 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.c352[chipID] = new MDChipParams.C352();
+
+            CheckAndSetForm(frmC352[chipID]);
         }
 
         private void CloseFormC352(int chipID)
@@ -1675,6 +1685,9 @@ namespace MDPlayer.form
             frmYM2203[chipID].update();
             frmYM2203[chipID].Text = string.Format("YM2203 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2203[chipID] = new MDChipParams.YM2203();
+
+            CheckAndSetForm(frmYM2203[chipID]);
+
         }
 
         private void CloseFormYM2203(int chipID)
@@ -1729,6 +1742,8 @@ namespace MDPlayer.form
             frmYM2610[chipID].update();
             frmYM2610[chipID].Text = string.Format("YM2610 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2610[chipID] = new MDChipParams.YM2610();
+
+            CheckAndSetForm(frmYM2610[chipID]);
         }
 
         private void CloseFormYM2610(int chipID)
@@ -1783,6 +1798,8 @@ namespace MDPlayer.form
             frmYM2612[chipID].update();
             frmYM2612[chipID].Text = string.Format("YM2612 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2612[chipID] = new MDChipParams.YM2612();
+
+            CheckAndSetForm(frmYM2612[chipID]);
         }
 
         private void CloseFormYM2612(int chipID)
@@ -1835,6 +1852,8 @@ namespace MDPlayer.form
             frmOKIM6258[chipID].Show();
             frmOKIM6258[chipID].update();
             frmOKIM6258[chipID].Text = string.Format("OKIM6258 ({0})", chipID == 0 ? "Primary" : "Secondary");
+
+            CheckAndSetForm(frmOKIM6258[chipID]);
         }
 
         private void CloseFormOKIM6258(int chipID)
@@ -1888,6 +1907,8 @@ namespace MDPlayer.form
             frmOKIM6295[chipID].Show();
             frmOKIM6295[chipID].update();
             frmOKIM6295[chipID].Text = string.Format("OKIM6295 ({0})", chipID == 0 ? "Primary" : "Secondary");
+
+            CheckAndSetForm(frmOKIM6295[chipID]);
         }
 
         private void CloseFormOKIM6295(int chipID)
@@ -1942,6 +1963,8 @@ namespace MDPlayer.form
             frmSN76489[chipID].update();
             frmSN76489[chipID].Text = string.Format("SN76489 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.sn76489[chipID] = new MDChipParams.SN76489();
+
+            CheckAndSetForm(frmSN76489[chipID]);
         }
 
         private void CloseFormSN76489(int chipID)
@@ -1996,6 +2019,8 @@ namespace MDPlayer.form
             frmSegaPCM[chipID].update();
             frmSegaPCM[chipID].Text = string.Format("SegaPCM ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.segaPcm[chipID] = new MDChipParams.SegaPcm();
+
+            CheckAndSetForm(frmSegaPCM[chipID]);
         }
 
         private void CloseFormSegaPCM(int chipID)
@@ -2050,6 +2075,8 @@ namespace MDPlayer.form
             frmAY8910[chipID].update();
             frmAY8910[chipID].Text = string.Format("AY8910 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ay8910[chipID] = new MDChipParams.AY8910();
+
+            CheckAndSetForm(frmAY8910[chipID]);
         }
 
         private void CloseFormAY8910(int chipID)
@@ -2104,6 +2131,8 @@ namespace MDPlayer.form
             frmHuC6280[chipID].update();
             frmHuC6280[chipID].Text = string.Format("HuC6280 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.huc6280[chipID] = new MDChipParams.HuC6280();
+
+            CheckAndSetForm(frmHuC6280[chipID]);
         }
 
         private void CloseFormHuC6280(int chipID)
@@ -2158,6 +2187,8 @@ namespace MDPlayer.form
             frmYM2413[chipID].update();
             frmYM2413[chipID].Text = string.Format("YM2413 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2413[chipID] = new MDChipParams.YM2413();
+
+            CheckAndSetForm(frmYM2413[chipID]);
         }
 
         private void CloseFormYM2413(int chipID)
@@ -2212,6 +2243,8 @@ namespace MDPlayer.form
             frmYM3526[chipID].update();
             frmYM3526[chipID].Text = string.Format("YM3526 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym3526[chipID] = new MDChipParams.YM3526();
+
+            CheckAndSetForm(frmYM3526[chipID]);
         }
 
         private void CloseFormYM3526(int chipID)
@@ -2266,6 +2299,8 @@ namespace MDPlayer.form
             frmY8950[chipID].update();
             frmY8950[chipID].Text = string.Format("Y8950 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.y8950[chipID] = new MDChipParams.Y8950();
+
+            CheckAndSetForm(frmY8950[chipID]);
         }
 
         private void CloseFormY8950(int chipID)
@@ -2320,6 +2355,8 @@ namespace MDPlayer.form
             frmYM3812[chipID].update();
             frmYM3812[chipID].Text = string.Format("YM3812 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym3812[chipID] = new MDChipParams.YM3812();
+
+            CheckAndSetForm(frmYM3812[chipID]);
         }
 
         private void CloseFormYM3812(int chipID)
@@ -2374,6 +2411,8 @@ namespace MDPlayer.form
             frmYMF262[chipID].update();
             frmYMF262[chipID].Text = string.Format("YMF262 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ymf262[chipID] = new MDChipParams.YMF262();
+
+            CheckAndSetForm(frmYMF262[chipID]);
         }
 
         private void CloseFormYMF262(int chipID)
@@ -2428,6 +2467,8 @@ namespace MDPlayer.form
             frmYMF278B[chipID].update();
             frmYMF278B[chipID].Text = string.Format("YMF278B ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ymf278b[chipID] = new MDChipParams.YMF278B();
+
+            CheckAndSetForm(frmYMF278B[chipID]);
         }
 
         private void CloseFormYMF278B(int chipID)
@@ -2482,6 +2523,8 @@ namespace MDPlayer.form
             frmMIDI[chipID].update();
             frmMIDI[chipID].Text = string.Format("MIDI ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.midi[chipID] = new MIDIParam();
+
+            CheckAndSetForm(frmMIDI[chipID]);
         }
 
         private void CloseFormMIDI(int chipID)
@@ -2536,6 +2579,8 @@ namespace MDPlayer.form
             frmNESDMC[chipID].update();
             frmNESDMC[chipID].Text = string.Format("NES&DMC ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.nesdmc[chipID] = new MDChipParams.NESDMC();
+
+            CheckAndSetForm(frmNESDMC[chipID]);
         }
 
         private void CloseFormNESDMC(int chipID)
@@ -2590,6 +2635,8 @@ namespace MDPlayer.form
             frmFDS[chipID].update();
             frmFDS[chipID].Text = string.Format("FDS ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.fds[chipID] = new MDChipParams.FDS();
+
+            CheckAndSetForm(frmFDS[chipID]);
         }
 
         private void CloseFormFDS(int chipID)
@@ -2644,6 +2691,8 @@ namespace MDPlayer.form
             frmVRC7[chipID].update();
             frmVRC7[chipID].Text = string.Format("VRC7 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.vrc7[chipID] = new MDChipParams.VRC7();
+
+            CheckAndSetForm(frmVRC7[chipID]);
         }
 
         private void CloseFormVRC7(int chipID)
@@ -2698,6 +2747,8 @@ namespace MDPlayer.form
             frmMMC5[chipID].update();
             frmMMC5[chipID].Text = string.Format("MMC5 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.mmc5[chipID] = new MDChipParams.MMC5();
+
+            CheckAndSetForm(frmMMC5[chipID]);
         }
 
         private void CloseFormMMC5(int chipID)
@@ -5882,5 +5933,35 @@ namespace MDPlayer.form
 
         }
 
+
+        private void CheckAndSetForm(Form frm)
+        {
+            Screen s = Screen.FromControl(frm);
+            int sch = s.Bounds.Height;
+            int scw = s.Bounds.Width;
+            int fx = frm.Location.X;
+            int fy = frm.Location.Y;
+
+            if (frm.Location.X + frm.Size.Width < 0)
+            {
+                fx = 0;
+            }
+            else if (frm.Location.X >= scw)
+            {
+                fx = 0;
+            }
+
+            if (frm.Location.Y < 0)
+            {
+                fy = 0;
+            }
+            else if (frm.Location.Y >= sch)
+            {
+                fy = 0;
+            }
+
+            frm.Location = new System.Drawing.Point(fx, fy);
+
+        }
     }
 }

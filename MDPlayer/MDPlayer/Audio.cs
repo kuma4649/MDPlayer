@@ -4257,10 +4257,10 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).NESClockValue != 0)
                 {
-                    MDSound.nes_intf nes = new MDSound.nes_intf();
 
                     for (int i = 0; i < (((vgm)driverVirtual).NESDualChipFlag ? 2 : 1); i++)
                     {
+                        MDSound.nes_intf nes = new MDSound.nes_intf();
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.Nes;
                         chip.ID = (byte)i;
@@ -4276,9 +4276,47 @@ namespace MDPlayer
                         if (i == 0) chipLED.PriNES = 1;
                         else chipLED.SecNES = 1;
 
-                        hiyorimiDeviceFlag |= 0x2;
+                        lstChips.Add(chip);
+
+
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.DMC;
+                        chip.ID = (byte)i;
+                        chip.Instrument = nes;
+                        //chip.Update = nes.Update;
+                        chip.Start = nes.Start;
+                        chip.Stop = nes.Stop;
+                        chip.Reset = nes.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = setting.balance.DMCVolume;
+                        chip.Clock = ((vgm)driverVirtual).NESClockValue;
+                        chip.Option = null;
+                        if (i == 0) chipLED.PriDMC = 1;
+                        else chipLED.SecDMC = 1;
 
                         lstChips.Add(chip);
+
+
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.FDS;
+                        chip.ID = (byte)i;
+                        chip.Instrument = nes;
+                        //chip.Update = nes.Update;
+                        chip.Start = nes.Start;
+                        chip.Stop = nes.Stop;
+                        chip.Reset = nes.Reset;
+                        chip.SamplingRate = (UInt32)common.SampleRate;
+                        chip.Volume = setting.balance.FDSVolume;
+                        chip.Clock = ((vgm)driverVirtual).NESClockValue;
+                        chip.Option = null;
+                        if (i == 0) chipLED.PriFDS = 1;
+                        else chipLED.SecFDS = 1;
+
+                        lstChips.Add(chip);
+
+
+                        hiyorimiDeviceFlag |= 0x2;
+
                     }
                 }
 
@@ -6211,8 +6249,10 @@ namespace MDPlayer
         {
             try
             {
-                mds.SetVolumeNES(setting.balance.APUVolume
-                    = common.Range((isAbs ? 0 : setting.balance.APUVolume) + volume, -192, 20));
+                mds.SetVolumeNES(
+                    setting.balance.APUVolume
+                    = common.Range((isAbs ? 0 : setting.balance.APUVolume) + volume, -192, 20)
+                    );
             }
             catch { }
         }
