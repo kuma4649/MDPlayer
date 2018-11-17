@@ -10,46 +10,18 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmAY8910 : Form
+    public partial class frmAY8910 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
 
-        private MDChipParams.AY8910 newParam = null;
-        private MDChipParams.AY8910 oldParam = new MDChipParams.AY8910();
-        private FrameBuffer frameBuffer = new FrameBuffer();
-
-        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam)
+        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam) : base(frm, chipID, zoom, newParam)
         {
-            parent = frm;
-            this.chipID = chipID;
-            this.zoom = zoom;
-
             InitializeComponent();
 
+            oldParam = new MDChipParams.AY8910();
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeAY8910, null, zoom);
+            frameBuffer.Add(this.pbScreen, Properties.Resources.planeAY8910, null, zoom);
             DrawBuff.screenInitAY8910(frameBuffer);
             update();
-        }
-
-        public void update()
-        {
-            frameBuffer.Refresh(null);
-        }
-
-        protected override bool ShowWithoutActivation
-        {
-            get
-            {
-                return true;
-            }
         }
 
         private void frmAY8910_FormClosed(object sender, FormClosedEventArgs e)
@@ -82,21 +54,7 @@ namespace MDPlayer.form
 
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
-        public void screenChangeParams()
+        override public void screenChangeParams()
         {
             int[] AY8910Register = Audio.GetAY8910Register(chipID);
 
@@ -137,7 +95,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenDrawParams()
+        override public void screenDrawParams()
         {
             //int tp = setting.AY8910Type.UseScci ? 1 : 0;
             int tp = 0;
@@ -160,6 +118,19 @@ namespace MDPlayer.form
             DrawBuff.Efrq(frameBuffer, 18, 8, ref oldParam.efrq, newParam.efrq);
             DrawBuff.Etype(frameBuffer, 33, 8, ref oldParam.etype, newParam.etype);
 
+        }
+
+        override public void screenInit()
+        {
+            for (int c = 0; c < newParam.channels.Length; c++)
+            {
+                newParam.channels[c].note = -1;
+                newParam.channels[c].volume = -1;
+                newParam.channels[c].tn = -1;
+            }
+            newParam.nfrq = 0;
+            newParam.efrq = 0;
+            newParam.etype = 0;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -207,17 +178,5 @@ namespace MDPlayer.form
             return n;
         }
 
-        internal void screenInit()
-        {
-            for (int c = 0; c < newParam.channels.Length; c++)
-            {
-                newParam.channels[c].note = -1;
-                newParam.channels[c].volume = -1;
-                newParam.channels[c].tn = -1;
-            }
-            newParam.nfrq = 0;
-            newParam.efrq = 0;
-            newParam.etype = 0;
-        }
     }
 }

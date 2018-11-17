@@ -202,29 +202,24 @@ namespace MDPlayer.form
                 //CN
                 nyc.inst[14] = (ym3812Register[0xc0 + c] & 1);
 
-                int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
-                if (ki.On[c] || ki.Off[c])
+                nyc.note = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
+
+                //詳細はfrmVRC7の該当箇所を参照
+
+                if (ki.On[c])
                 {
-                    if (nyc.note != nt || ki.Off[c])
+                    int tl1 = nyc.inst[5 + 0 * 17];
+                    int tl2 = nyc.inst[5 + 1 * 17];
+                    int tl = tl2;
+                    if (nyc.inst[14] != 0)
                     {
-                        nyc.note = nt;
-                        int tl1 = nyc.inst[5 + 0 * 17];
-                        int tl2 = nyc.inst[5 + 1 * 17];
-                        int tl = tl2;
-                        if (nyc.inst[14] != 0)
-                        {
-                            tl = Math.Min(tl1, tl2);
-                        }
-                        nyc.volume = (19 * (64 - tl) / 64);
+                        tl = Math.Min(tl1, tl2);
                     }
-                    else
-                    {
-                        nyc.volume--; if (nyc.volume < 0) nyc.volume = 0;
-                    }
+                    nyc.volume = (19 * (64 - tl) / 64);
                 }
                 else
                 {
-                    nyc.note = -1;
+                    if ((ym3812Register[0xb0 + c] & 0x20) == 0) nyc.note = -1;
                     nyc.volume--; if (nyc.volume < 0) nyc.volume = 0;
                 }
 
@@ -243,7 +238,7 @@ namespace MDPlayer.form
 
             for (int i = 0; i < 5; i++)
             {
-                if (ki.On[i + 9] || ki.Off[i + 9])
+                if (ki.On[i + 9])
                 {
                     newParam.channels[i + 9].volume = 19 - ((ym3812Register[rhythmAdr[i]] & 0x3f) >> 2);
                 }

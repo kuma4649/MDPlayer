@@ -102,37 +102,49 @@ namespace MDPlayer.form
             byte[] vrc7Register = Audio.GetVRC7Register(chipID);
             if (vrc7Register == null) return;
 
+            //キーオン(ワンショット)があったかを取得する
+            ChipKeyInfo ki = Audio.getVRC7KeyInfo(chipID);
+
             for (int ch = 0; ch < 6; ch++)
             {
-                newParam.channels[ch].inst[0] = (vrc7Register[0x30 + ch] & 0xf0) >> 4;
-                newParam.channels[ch].inst[1] = (vrc7Register[0x20 + ch] & 0x20) >> 5;
-                newParam.channels[ch].inst[2] = (vrc7Register[0x20 + ch] & 0x10) >> 4;
-                newParam.channels[ch].inst[3] = (vrc7Register[0x30 + ch] & 0x0f);
+                MDChipParams.Channel nyc = newParam.channels[ch];
 
+                //音色番号
+                nyc.inst[0] = (vrc7Register[0x30 + ch] & 0xf0) >> 4;
+                //サスティンの取得
+                nyc.inst[1] = (vrc7Register[0x20 + ch] & 0x20) >> 5;
+                //現在のキーオン状態
+                nyc.inst[2] = (vrc7Register[0x20 + ch] & 0x10) >> 4;
+                //ボリューム
+                nyc.inst[3] = (vrc7Register[0x30 + ch] & 0x0f);
+
+                //再生周波数
                 int freq = vrc7Register[0x10 + ch] + ((vrc7Register[0x20 + ch] & 0x1) << 8);
+                //オクターブ
                 int oct = ((vrc7Register[0x20 + ch] & 0xe) >> 1);
+                //周波数とオクターブ情報から近似する音程を取得する
+                nyc.note = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
 
-                if (newParam.channels[ch].inst[2] == 0)
+
+                //ワンショット(前回の処理から比較してキーオンが1度以上発生している状態)の場合
+                if (ki.On[ch])
                 {
-                    newParam.channels[ch].note = -1;
-                    newParam.channels[ch].volumeL--;
-                    if (newParam.channels[ch].volumeL < 0) newParam.channels[ch].volumeL = 0;
+                    //ボリュームメーターを振る
+                    nyc.volumeL = (19 - nyc.inst[3]);
                 }
                 else
                 {
-                    int n = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
-                    if (newParam.channels[ch].note != n)
-                    {
-                        newParam.channels[ch].note = n;
-                        newParam.channels[ch].volumeL = (19 - newParam.channels[ch].inst[3]);
-                    }
-                    else
-                    {
-                        newParam.channels[ch].volumeL--;
-                        if (newParam.channels[ch].volumeL < 0) newParam.channels[ch].volumeL = 0;
-                    }
-                }
+                    //ワンショットが無く、現在もキーオンしていない場合は音程を無しにする。
+                    //ワンショットが無くても、キーオン状態ならば音程をリセットしない。
+                    //(持続している場合やベンドやスラーをしていることが考えられる為。)
+                    //また、この処理はワンショットが発生しているときは実施しない。
+                    //ワンショットが有り、現在はキーオンしていない場合に対応するため。
+                    //上記ケースは、ボリュームメータを振り、音程表示は一瞬だけ表示する動きになる
+                    if (nyc.inst[2] == 0) nyc.note = -1;
 
+                    //ボリュームメータの減衰処理(音色設定を無視し常に一定)
+                    nyc.volumeL--; if (nyc.volumeL < 0) nyc.volumeL = 0;
+                }
             }
 
 

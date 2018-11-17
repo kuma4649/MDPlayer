@@ -50,6 +50,8 @@ namespace MDPlayer.form
         private frmMMC5[] frmMMC5 = new frmMMC5[2] { null, null };
         private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
 
+        private List<Form[]> lstForm = new List<Form[]>();
+
         public MDChipParams oldParam = new MDChipParams();
         private MDChipParams newParam = new MDChipParams();
 
@@ -86,6 +88,32 @@ namespace MDPlayer.form
 
             InitializeComponent();
             DrawBuff.Init();
+
+            lstForm.Add(frmMCD);
+            lstForm.Add(frmC140);
+            lstForm.Add(frmC352);
+            lstForm.Add(frmY8950);
+            lstForm.Add(frmYM2608);
+            lstForm.Add(frmYM2151);
+            lstForm.Add(frmYM2203);
+            lstForm.Add(frmYM2413);
+            lstForm.Add(frmYM2610);
+            lstForm.Add(frmYM2612);
+            lstForm.Add(frmYM3526);
+            lstForm.Add(frmYM3812);
+            lstForm.Add(frmYMF262);
+            lstForm.Add(frmYMF278B);
+            lstForm.Add(frmOKIM6258);
+            lstForm.Add(frmOKIM6295);
+            lstForm.Add(frmSN76489);
+            lstForm.Add(frmSegaPCM);
+            lstForm.Add(frmAY8910);
+            lstForm.Add(frmHuC6280);
+            lstForm.Add(frmMIDI);
+            lstForm.Add(frmNESDMC);
+            lstForm.Add(frmFDS);
+            lstForm.Add(frmMMC5);
+            lstForm.Add(frmVRC7);
 
             log.ForcedWrite("frmMain(コンストラクタ):STEP 01");
 
@@ -2046,6 +2074,7 @@ namespace MDPlayer.form
             frmSegaPCM[chipID] = null;
         }
 
+
         private void OpenFormAY8910(int chipID, bool force = false)
         {
             if (frmAY8910[chipID] != null)// && frmInfo.isClosed)
@@ -3809,6 +3838,7 @@ namespace MDPlayer.form
                 frmPlayList.Height = setting.location.PPlayListWH.Y;
             }
             frmPlayList.Visible = !frmPlayList.Visible;
+            if(frmPlayList.Visible) CheckAndSetForm(frmPlayList);
             frmPlayList.TopMost = true;
             frmPlayList.TopMost = false;
         }
@@ -3816,6 +3846,7 @@ namespace MDPlayer.form
         private void dispVSTList()
         {
             frmVSTeffectList.Visible = !frmVSTeffectList.Visible;
+            if (frmVSTeffectList.Visible) CheckAndSetForm(frmVSTeffectList);
             frmVSTeffectList.TopMost = true;
             frmVSTeffectList.TopMost = false;
         }

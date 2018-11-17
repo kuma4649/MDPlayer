@@ -5757,9 +5757,14 @@ namespace MDPlayer
             return chipRegister.fmKeyOnYM2203[chipID];
         }
 
-        public static int getYM2413RyhthmKeyON(int chipID)
+        //public static int getYM2413RyhthmKeyON(int chipID)
+        //{
+        //    return chipRegister.getYM2413RyhthmKeyON(chipID);
+        //}
+
+        public static ChipKeyInfo getYM2413KeyInfo(int chipID)
         {
-            return chipRegister.getYM2413RyhthmKeyON(chipID);
+            return chipRegister.getYM2413KeyInfo(chipID);
         }
 
         public static ChipKeyInfo getYM3526KeyInfo(int chipID)
@@ -5775,6 +5780,11 @@ namespace MDPlayer
         public static ChipKeyInfo getYM3812KeyInfo(int chipID)
         {
             return chipRegister.getYM3812KeyInfo(chipID);
+        }
+
+        public static ChipKeyInfo getVRC7KeyInfo(int chipID)
+        {
+            return chipRegister.getVRC7KeyInfo(chipID);
         }
 
         public static int getYMF262FMKeyON(int chipID)

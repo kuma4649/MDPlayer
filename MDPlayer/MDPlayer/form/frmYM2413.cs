@@ -100,44 +100,39 @@ namespace MDPlayer.form
         public void screenChangeParams()
         {
             int[] ym2413Register = Audio.GetYM2413Register(chipID);
+            MDChipParams.Channel nyc;
+            ChipKeyInfo ki = Audio.getYM2413KeyInfo(chipID);
 
             for (int ch = 0; ch < 9; ch++)
             {
-                newParam.channels[ch].inst[0] = (ym2413Register[0x30 + ch] & 0xf0) >> 4;
-                newParam.channels[ch].inst[1] = (ym2413Register[0x20 + ch] & 0x20) >> 5;
-                newParam.channels[ch].inst[2] = (ym2413Register[0x20 + ch] & 0x10) >> 4;
-                newParam.channels[ch].inst[3] = (ym2413Register[0x30 + ch] & 0x0f);
+                nyc = newParam.channels[ch];
+
+                nyc.inst[0] = (ym2413Register[0x30 + ch] & 0xf0) >> 4;
+                nyc.inst[1] = (ym2413Register[0x20 + ch] & 0x20) >> 5;
+                nyc.inst[2] = (ym2413Register[0x20 + ch] & 0x10) >> 4;
+                nyc.inst[3] = (ym2413Register[0x30 + ch] & 0x0f);
 
                 int freq = ym2413Register[0x10 + ch] + ((ym2413Register[0x20 + ch] & 0x1) << 8);
                 int oct = ((ym2413Register[0x20 + ch] & 0xe) >> 1);
 
-                if (newParam.channels[ch].inst[2] == 0)
+                nyc.note = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
+
+                if (ki.On[ch])
                 {
-                    newParam.channels[ch].note = -1;
-                    newParam.channels[ch].volumeL--;
-                    if (newParam.channels[ch].volumeL < 0) newParam.channels[ch].volumeL = 0;
+                    nyc.volumeL = (19 - nyc.inst[3]);
                 }
                 else
                 {
-                    int n = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
-                    if (newParam.channels[ch].note != n)
-                    {
-                        newParam.channels[ch].note = n;
-                        newParam.channels[ch].volumeL = (19 - newParam.channels[ch].inst[3]);
-                    }
-                    else
-                    {
-                        newParam.channels[ch].volumeL--;
-                        if (newParam.channels[ch].volumeL < 0) newParam.channels[ch].volumeL = 0;
-                    }
+                    if (nyc.inst[2] == 0) nyc.note = -1;
+                    nyc.volumeL--; if (nyc.volumeL < 0) nyc.volumeL = 0;
                 }
 
             }
 
-            int r = Audio.getYM2413RyhthmKeyON(chipID);
+            //int r = Audio.getYM2413RyhthmKeyON(chipID);
 
             //BD
-            if ((r & 0x10) != 0)
+            if (ki.On[9])
             {
                 newParam.channels[9].volume = (19 - (ym2413Register[0x36] & 0x0f));
             }
@@ -148,7 +143,7 @@ namespace MDPlayer.form
             }
 
             //SD
-            if ((r & 0x08) != 0)
+            if (ki.On[10])
             {
                 newParam.channels[10].volume = (19 - (ym2413Register[0x37] & 0x0f));
             }
@@ -159,7 +154,7 @@ namespace MDPlayer.form
             }
 
             //TOM
-            if ((r & 0x04) != 0)
+            if (ki.On[11])
             {
                 newParam.channels[11].volume = 19 - ((ym2413Register[0x38] & 0xf0) >> 4);
             }
@@ -170,9 +165,9 @@ namespace MDPlayer.form
             }
 
             //CYM
-            if ((r & 0x02) != 0)
+            if (ki.On[12])
             {
-                newParam.channels[12].volume = 19 - ((ym2413Register[0x38] & 0x0f) >> 0);
+                newParam.channels[12].volume = 19 - (ym2413Register[0x38] & 0x0f);
             }
             else
             {
@@ -181,7 +176,7 @@ namespace MDPlayer.form
             }
 
             //HH
-            if ((r & 0x01) != 0)
+            if (ki.On[13])
             {
                 newParam.channels[13].volume = 19 - ((ym2413Register[0x37] & 0xf0) >> 4);
             }

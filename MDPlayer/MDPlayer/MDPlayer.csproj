@@ -262,6 +262,12 @@
     <Compile Include="form\frmC352.Designer.cs">
       <DependentUpon>frmC352.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmChipBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmChipBase.Designer.cs">
+      <DependentUpon>frmChipBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmFDS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -494,6 +500,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmC352.resx">
       <DependentUpon>frmC352.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmChipBase.resx">
+      <DependentUpon>frmChipBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmFDS.resx">
       <DependentUpon>frmFDS.cs</DependentUpon>
