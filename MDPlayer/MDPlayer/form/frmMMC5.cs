@@ -55,7 +55,14 @@ namespace MDPlayer.form
 
         private void frmMMC5_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosMMC5[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosMMC5[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosMMC5[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

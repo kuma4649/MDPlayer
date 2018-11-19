@@ -82,7 +82,14 @@ namespace MDPlayer.form
         private void frmVSTeffectList_FormClosing(object sender, FormClosingEventArgs e)
         {
             isClosed = true;
-            setting.location.PosVSTeffectList = this.Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosVSTeffectList = Location;
+            }
+            else
+            {
+                parent.setting.location.PosVSTeffectList = RestoreBounds.Location;
+            }
             //setting.location.PPlayListWH = new Point(this.Width, this.Height);
             this.Visible = false;
             e.Cancel = true;

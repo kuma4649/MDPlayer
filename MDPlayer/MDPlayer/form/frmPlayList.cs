@@ -33,6 +33,7 @@ namespace MDPlayer.form
         public frmPlayList(frmMain frm)
         {
             frmMain = frm;
+            setting = frm.setting;
             InitializeComponent();
 
             playList = PlayList.Load(null);
@@ -123,8 +124,16 @@ namespace MDPlayer.form
         private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
         {
             isClosed = true;
-            setting.location.PPlayList = this.Location;
-            setting.location.PPlayListWH = new Point(this.Width, this.Height);
+            if (WindowState == FormWindowState.Normal)
+            {
+                setting.location.PPlayList = Location;
+                setting.location.PPlayListWH = new Point(Size.Width, Size.Height);
+            }
+            else
+            {
+                setting.location.PPlayList = RestoreBounds.Location;
+                setting.location.PPlayListWH = new Point(RestoreBounds.Size.Width, RestoreBounds.Size.Height);
+            }
             this.Visible = false;
             e.Cancel = true;
         }
@@ -1014,6 +1023,11 @@ namespace MDPlayer.form
         {
             if (playIndex < 0 || dgvList.Rows.Count <= playIndex) return null;
             return (PlayList.music)dgvList.Rows[playIndex].Tag;
+        }
+
+        private void frmPlayList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

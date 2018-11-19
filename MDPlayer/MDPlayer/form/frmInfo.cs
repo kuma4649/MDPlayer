@@ -83,8 +83,15 @@ namespace MDPlayer.form
 
         private void frmInfo_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PInfo = Location;
+            }
+            else
+            {
+                parent.setting.location.PInfo = RestoreBounds.Location;
+            }
             isClosed = true;
-            setting.location.PInfo = this.Location;
         }
 
         private void frmInfo_Load(object sender, EventArgs e)

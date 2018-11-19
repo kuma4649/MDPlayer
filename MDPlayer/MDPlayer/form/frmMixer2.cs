@@ -65,7 +65,14 @@ namespace MDPlayer.form
 
         private void frmMixer2_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosMixer = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosMixer = Location;
+            }
+            else
+            {
+                parent.setting.location.PosMixer = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

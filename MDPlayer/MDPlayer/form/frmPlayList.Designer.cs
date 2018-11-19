@@ -622,6 +622,7 @@ namespace MDPlayer.form
             this.Opacity = 0D;
             this.Text = "play list";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPlayList_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmPlayList_FormClosed);
             this.Load += new System.EventHandler(this.frmPlayList_Load);
             this.Shown += new System.EventHandler(this.frmPlayList_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmPlayList_DragDrop);

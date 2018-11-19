@@ -680,32 +680,37 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
 
-            setting.location.PMain = this.Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                setting.location.PMain = Location;
+            }
+            else
+            {
+                setting.location.PMain = RestoreBounds.Location;
+            }
             if (frmPlayList != null && !frmPlayList.isClosed)
             {
-                setting.location.PPlayList = frmPlayList.Location;
-                setting.location.PPlayListWH = new System.Drawing.Point(frmPlayList.Width, frmPlayList.Height);
+                frmPlayList.Close();
                 setting.location.OPlayList = true;
             }
             if (frmInfo != null && !frmInfo.isClosed)
             {
-                setting.location.PInfo = frmInfo.Location;
+                frmInfo.Close();
                 setting.location.OInfo = true;
             }
             if (frmMixer2 != null && !frmMixer2.isClosed)
             {
-                setting.location.PMixer = frmMixer2.Location;
-                setting.location.PosMixer = frmMixer2.Location;
+                frmMixer2.Close();
                 setting.location.OMixer = true;
             }
             if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
             {
-                setting.location.PosYm2612MIDI = frmYM2612MIDI.Location;
+                frmYM2612MIDI.Close();
                 setting.location.OpenYm2612MIDI = true;
             }
             if (frmVSTeffectList != null && !frmVSTeffectList.isClosed)
             {
-                setting.location.PosVSTeffectList = frmVSTeffectList.Location;
+                frmVSTeffectList.Close();
                 setting.location.OpenVSTeffectList = true;
             }
 
@@ -713,127 +718,127 @@ namespace MDPlayer.form
             {
                 if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
                 {
-                    setting.location.PosAY8910[chipID] = frmAY8910[chipID].Location;
+                    frmAY8910[chipID].Close();
                     setting.location.OpenAY8910[chipID] = true;
                 }
                 if (frmC140[chipID] != null && !frmC140[chipID].isClosed)
                 {
-                    setting.location.PosC140[chipID] = frmC140[chipID].Location;
+                    frmC140[chipID].Close();
                     setting.location.OpenC140[chipID] = true;
                 }
                 if (frmC352[chipID] != null && !frmC352[chipID].isClosed)
                 {
-                    setting.location.PosC352[chipID] = frmC352[chipID].Location;
+                    frmC352[chipID].Close();
                     setting.location.OpenC352[chipID] = true;
                 }
                 if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed)
                 {
-                    setting.location.PosFDS[chipID] = frmFDS[chipID].Location;
+                    frmFDS[chipID].Close();
                     setting.location.OpenFDS[chipID] = true;
                 }
                 if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed)
                 {
-                    setting.location.PosHuC6280[chipID] = frmHuC6280[chipID].Location;
+                    frmHuC6280[chipID].Close();
                     setting.location.OpenHuC6280[chipID] = true;
                 }
                 if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed)
                 {
-                    setting.location.PosRf5c164[chipID] = frmMCD[chipID].Location;
+                    frmMCD[chipID].Close();
                     setting.location.OpenRf5c164[chipID] = true;
                 }
                 if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed)
                 {
-                    setting.location.PosMIDI[chipID] = frmMIDI[chipID].Location;
+                    frmMIDI[chipID].Close();
                     setting.location.OpenMIDI[chipID] = true;
                 }
                 if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed)
                 {
-                    setting.location.PosMMC5[chipID] = frmMMC5[chipID].Location;
+                    frmMMC5[chipID].Close();
                     setting.location.OpenMMC5[chipID] = true;
                 }
                 if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed)
                 {
-                    setting.location.PosVrc7[chipID] = frmVRC7[chipID].Location;
+                    frmVRC7[chipID].Close();
                     setting.location.OpenVrc7[chipID] = true;
                 }
                 if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed)
                 {
-                    setting.location.PosNESDMC[chipID] = frmNESDMC[chipID].Location;
+                    frmNESDMC[chipID].Close();
                     setting.location.OpenNESDMC[chipID] = true;
                 }
                 if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed)
                 {
-                    setting.location.PosOKIM6258[chipID] = frmOKIM6258[chipID].Location;
+                    frmOKIM6258[chipID].Close();
                     setting.location.OpenOKIM6258[chipID] = true;
                 }
                 if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed)
                 {
-                    setting.location.PosOKIM6295[chipID] = frmOKIM6295[chipID].Location;
+                    frmOKIM6295[chipID].Close();
                     setting.location.OpenOKIM6295[chipID] = true;
                 }
                 if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed)
                 {
-                    setting.location.PosSegaPCM[chipID] = frmSegaPCM[chipID].Location;
+                    frmSegaPCM[chipID].Close();
                     setting.location.OpenSegaPCM[chipID] = true;
                 }
                 if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed)
                 {
-                    setting.location.PosSN76489[chipID] = frmSN76489[chipID].Location;
+                    frmSN76489[chipID].Close();
                     setting.location.OpenSN76489[chipID] = true;
                 }
                 if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed)
                 {
-                    setting.location.PosYm2151[chipID] = frmYM2151[chipID].Location;
+                    frmYM2151[chipID].Close();
                     setting.location.OpenYm2151[chipID] = true;
                 }
                 if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed)
                 {
-                    setting.location.PosYm2203[chipID] = frmYM2203[chipID].Location;
+                    frmYM2203[chipID].Close();
                     setting.location.OpenYm2203[chipID] = true;
                 }
                 if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed)
                 {
-                    setting.location.PosYm2413[chipID] = frmYM2413[chipID].Location;
+                    frmYM2413[chipID].Close();
                     setting.location.OpenYm2413[chipID] = true;
                 }
                 if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed)
                 {
-                    setting.location.PosYm2608[chipID] = frmYM2608[chipID].Location;
+                    frmYM2608[chipID].Close();
                     setting.location.OpenYm2608[chipID] = true;
                 }
                 if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed)
                 {
-                    setting.location.PosYm2610[chipID] = frmYM2610[chipID].Location;
+                    frmYM2610[chipID].Close();
                     setting.location.OpenYm2610[chipID] = true;
                 }
                 if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed)
                 {
-                    setting.location.PosYm2612[chipID] = frmYM2612[chipID].Location;
+                    frmYM2612[chipID].Close();
                     setting.location.OpenYm2612[chipID] = true;
                 }
                 if (frmYM3526[chipID] != null && !frmYM3526[chipID].isClosed)
                 {
-                    setting.location.PosYm3526[chipID] = frmYM3526[chipID].Location;
+                    frmYM3526[chipID].Close();
                     setting.location.OpenYm3526[chipID] = true;
                 }
                 if (frmY8950[chipID] != null && !frmY8950[chipID].isClosed)
                 {
-                    setting.location.PosY8950[chipID] = frmY8950[chipID].Location;
+                    frmY8950[chipID].Close();
                     setting.location.OpenY8950[chipID] = true;
                 }
                 if (frmYM3812[chipID] != null && !frmYM3812[chipID].isClosed)
                 {
-                    setting.location.PosYm3812[chipID] = frmYM3812[chipID].Location;
+                    frmYM3812[chipID].Close();
                     setting.location.OpenYm3812[chipID] = true;
                 }
                 if (frmYMF262[chipID] != null && !frmYMF262[chipID].isClosed)
                 {
-                    setting.location.PosYmf262[chipID] = frmYMF262[chipID].Location;
+                    frmYMF262[chipID].Close();
                     setting.location.OpenYmf262[chipID] = true;
                 }
                 if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed)
                 {
-                    setting.location.PosYmf278b[chipID] = frmYMF278B[chipID].Location;
+                    frmYMF278B[chipID].Close();
                     setting.location.OpenYmf278b[chipID] = true;
                 }
             }

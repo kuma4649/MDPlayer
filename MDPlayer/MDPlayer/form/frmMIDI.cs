@@ -56,7 +56,14 @@ namespace MDPlayer.form
 
         private void frmMIDI_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosMIDI[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosMIDI[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosMIDI[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

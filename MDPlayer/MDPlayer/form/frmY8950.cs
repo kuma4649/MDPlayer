@@ -42,7 +42,14 @@ namespace MDPlayer.form
 
         private void frmY8950_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosY8950[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosY8950[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosY8950[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

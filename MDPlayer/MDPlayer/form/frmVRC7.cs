@@ -65,7 +65,14 @@ namespace MDPlayer.form
 
         private void frmVRC7_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosVrc7[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosVrc7[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosVrc7[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

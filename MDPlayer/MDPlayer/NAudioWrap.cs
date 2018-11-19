@@ -15,7 +15,6 @@ namespace MDPlayer
         private WasapiOut wasapiOut;
         private DirectSoundOut dsOut;
         private AsioOut asioOut;
-
         private SineWaveProvider16 waveProvider;
 
         private static naudioCallBack callBack = null;
@@ -36,7 +35,7 @@ namespace MDPlayer
             waveProvider.SetWaveFormat(sampleRate, 2);
 
             callBack = nCallBack;
-
+            
         }
 
         public void Start(Setting setting)

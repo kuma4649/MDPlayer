@@ -65,7 +65,14 @@ namespace MDPlayer.form
 
         private void frmYMF262_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosYmf262[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosYmf262[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosYmf262[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

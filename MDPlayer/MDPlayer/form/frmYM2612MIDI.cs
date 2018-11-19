@@ -54,7 +54,14 @@ namespace MDPlayer.form
 
         private void frmYM2612MIDI_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosYm2612MIDI = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosYm2612MIDI = Location;
+            }
+            else
+            {
+                parent.setting.location.PosYm2612MIDI = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

@@ -48,7 +48,14 @@ namespace MDPlayer.form
 
         private void frmMegaCD_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosRf5c164[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosRf5c164[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosRf5c164[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 

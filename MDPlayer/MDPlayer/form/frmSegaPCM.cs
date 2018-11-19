@@ -54,7 +54,14 @@ namespace MDPlayer.form
 
         private void frmSegaPCM_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parent.setting.location.PosSegaPCM[chipID] = Location;
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosSegaPCM[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosSegaPCM[chipID] = RestoreBounds.Location;
+            }
             isClosed = true;
         }
 
