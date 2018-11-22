@@ -1545,60 +1545,85 @@ namespace MDPlayer
             if (PlayingFileFormat == enmFileFormat.NRT)
             {
                 driverVirtual = new NRTDRV();
-                driverReal = new NRTDRV();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new NRTDRV();
+                    driverReal.setting = setting;
+                }
                 return nrdPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.MDR)
             {
                 driverVirtual = new Driver.MoonDriver.MoonDriver();
-                driverReal = new Driver.MoonDriver.MoonDriver();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
                 ((Driver.MoonDriver.MoonDriver)driverVirtual).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
-                ((Driver.MoonDriver.MoonDriver)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new Driver.MoonDriver.MoonDriver();
+                    driverReal.setting = setting;
+                    ((Driver.MoonDriver.MoonDriver)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
+                }
                 return mdrPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.MDX)
             {
                 driverVirtual = new Driver.MXDRV.MXDRV();
-                driverReal = new Driver.MXDRV.MXDRV();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
                 ((Driver.MXDRV.MXDRV)driverVirtual).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
-                ((Driver.MXDRV.MXDRV)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new Driver.MXDRV.MXDRV();
+                    driverReal.setting = setting;
+                    ((Driver.MXDRV.MXDRV)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
+                }
                 return mdxPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.MND)
             {
                 driverVirtual = new Driver.MNDRV.mndrv();
-                driverReal = new Driver.MNDRV.mndrv();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
                 ((Driver.MNDRV.mndrv)driverVirtual).ExtendFile = ExtendFile;
-                ((Driver.MNDRV.mndrv)driverReal).ExtendFile = ExtendFile;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new Driver.MNDRV.mndrv();
+                    driverReal.setting = setting;
+                    ((Driver.MNDRV.mndrv)driverReal).ExtendFile = ExtendFile;
+                }
                 return mndPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.XGM)
             {
                 driverVirtual = new xgm();
-                driverReal = new xgm();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new xgm();
+                    driverReal.setting = setting;
+                }
+
                 return xgmPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.S98)
             {
                 driverVirtual = new S98();
-                driverReal = new S98();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new S98();
+                    driverReal.setting = setting;
+                }
                 
                 return s98Play(setting);
             }
@@ -1606,64 +1631,88 @@ namespace MDPlayer
             if (PlayingFileFormat == enmFileFormat.MID)
             {
                 driverVirtual = new MID();
-                driverReal = new MID();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new MID();
+                    driverReal.setting = setting;
+                }
                 return midPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.RCP)
             {
                 driverVirtual = new RCP();
-                driverReal = new RCP();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
-                ((RCP)driverVirtual).ExtendFile=ExtendFile;
-                ((RCP)driverReal).ExtendFile = ExtendFile;
+                ((RCP)driverVirtual).ExtendFile = ExtendFile;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new RCP();
+                    driverReal.setting = setting;
+                    ((RCP)driverReal).ExtendFile = ExtendFile;
+                }
                 return rcpPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.NSF)
             {
                 driverVirtual = new nsf();
-                driverReal = new nsf();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
-
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new nsf();
+                    driverReal.setting = setting;
+                }
                 return nsfPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.HES)
             {
                 driverVirtual = new hes();
-                driverReal = new hes();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
 
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new hes();
+                    driverReal.setting = setting;
+                }
                 return hesPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.SID)
             {
                 driverVirtual = new Driver.SID.sid();
-                driverReal = new Driver.SID.sid();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
 
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new Driver.SID.sid();
+                    driverReal.setting = setting;
+                }
                 return sidPlay(setting);
             }
 
             if (PlayingFileFormat == enmFileFormat.VGM)
             {
                 driverVirtual = new vgm();
-                driverReal = new vgm();
                 driverVirtual.setting = setting;
-                driverReal.setting = setting;
                 ((vgm)driverVirtual).dacControl.chipRegister = chipRegister;
                 ((vgm)driverVirtual).dacControl.model = enmModel.VirtualModel;
-                ((vgm)driverReal).dacControl.chipRegister = chipRegister;
-                ((vgm)driverReal).dacControl.model = enmModel.RealModel;
 
+
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new vgm();
+                    driverReal.setting = setting;
+                    ((vgm)driverReal).dacControl.chipRegister = chipRegister;
+                    ((vgm)driverReal).dacControl.model = enmModel.RealModel;
+                }
                 return vgmPlay(setting);
             }
 
@@ -1705,12 +1754,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -1818,13 +1862,17 @@ namespace MDPlayer
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
-                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
                 ((NRTDRV)driverVirtual).Call(0);//
                 ((NRTDRV)driverVirtual).Call(1);//MPLAY
-                ((NRTDRV)driverReal).Call(0);//
-                ((NRTDRV)driverReal).Call(1);//MPLAY
+
+                if (driverReal != null)
+                {
+                    driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                    ((NRTDRV)driverReal).Call(0);//
+                    ((NRTDRV)driverReal).Call(1);//MPLAY
+                }
 
                 Paused = false;
                 Stopped = false;
@@ -1877,12 +1925,7 @@ namespace MDPlayer
 
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -1931,9 +1974,12 @@ namespace MDPlayer
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
-                driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                if (driverReal != null)
+                {
+                    driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                }
 
                 Paused = false;
                 Stopped = false;
@@ -1979,12 +2025,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 hiyorimiNecessary = setting.HiyorimiMode;
                 int hiyorimiDeviceFlag = 3;
@@ -2075,10 +2116,14 @@ namespace MDPlayer
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
                     , mdxPCM_V);
-                bool retR = ((MDPlayer.Driver.MXDRV.MXDRV)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
-                    , mdxPCM_R);
+                bool retR = true;
+                if (driverReal != null)
+                {
+                    retR = ((MDPlayer.Driver.MXDRV.MXDRV)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                        , mdxPCM_R);
+                }
 
                 if (!retV || !retR)
                 {
@@ -2130,12 +2175,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 hiyorimiNecessary = setting.HiyorimiMode;
                 int hiyorimiDeviceFlag = 3;
@@ -2273,10 +2313,14 @@ namespace MDPlayer
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
                     );
-                bool retR = ((MDPlayer.Driver.MNDRV.mndrv)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.YM2608 }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
-                    );
+                bool retR = true;
+                if (driverReal != null)
+                {
+                    retR = ((MDPlayer.Driver.MNDRV.mndrv)driverReal).init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.YM2608 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                        );
+                }
 
                 if (!retV || !retR)
                 {
@@ -2330,12 +2374,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -2395,10 +2434,12 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
                 //Play
 
                 Paused = false;
@@ -2445,12 +2486,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -2465,9 +2501,12 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2203 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2203 }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2203 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 List<S98.S98DevInfo> s98DInfo = ((S98)driverVirtual).s98Info.DeviceInfos;
 
@@ -2780,12 +2819,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -2805,9 +2839,12 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2859,12 +2896,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -2884,9 +2916,12 @@ namespace MDPlayer
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2939,12 +2974,7 @@ namespace MDPlayer
 
 
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -2957,13 +2987,16 @@ namespace MDPlayer
                 MasterVolume = setting.balance.MasterVolume;
 
                 ((nsf)driverVirtual).song = SongNo;
-                ((nsf)driverReal).song = SongNo;
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    ((nsf)driverReal).song = SongNo;
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
                 if (((nsf)driverVirtual).use_fme7) chipLED.PriFME7 = 1;
@@ -3153,13 +3186,7 @@ namespace MDPlayer
                 chipRegister.resetChips();
 
 
-
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -3205,13 +3232,16 @@ namespace MDPlayer
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 ((hes)driverVirtual).song = (byte)SongNo;
-                ((hes)driverReal).song = (byte)SongNo;
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    ((hes)driverReal).song = (byte)SongNo;
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
                 //Play
 
                 Paused = false;
@@ -3260,13 +3290,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister(null);
 
-
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -3278,13 +3302,16 @@ namespace MDPlayer
                 MasterVolume = setting.balance.MasterVolume;
 
                 ((Driver.SID.sid)driverVirtual).song = (byte)SongNo+1;
-                ((Driver.SID.sid)driverReal).song = (byte)SongNo+1;
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
-                    , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    ((Driver.SID.sid)driverReal).song = (byte)SongNo + 1;
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.Unuse }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 Paused = false;
                 Stopped = false;
@@ -3350,7 +3377,7 @@ namespace MDPlayer
                     }
                 }
 
-                if (!driverReal.init(vgmBuf
+                if (driverReal != null && !driverReal.init(vgmBuf
                     , chipRegister
                     , enmModel.RealModel
                     , usechip.ToArray()
@@ -3376,12 +3403,7 @@ namespace MDPlayer
                 chipRegister.setFadeoutVolSN76489(1, 0);
                 chipRegister.resetChips();
 
-                trdClosed = false;
-                trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
-                trdMain.Priority = ThreadPriority.Highest;
-                trdMain.IsBackground = true;
-                trdMain.Name = "trdVgmReal";
-                trdMain.Start();
+                startTrdVgmReal();
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
@@ -4809,18 +4831,35 @@ namespace MDPlayer
 
         public static bool GetIsDataBlock(enmModel model)
         {
-            if (driverVirtual == null) return false;
-            if (!(driverVirtual is vgm)) return false;
 
-            return (model == enmModel.VirtualModel) ? ((vgm)driverVirtual).isDataBlock : ((vgm)driverReal).isDataBlock;
+            if (model == enmModel.VirtualModel)
+            {
+                if (driverVirtual == null) return false;
+                if (!(driverVirtual is vgm)) return false;
+                return ((vgm)driverVirtual).isDataBlock;
+            }
+            else
+            {
+                if (driverReal == null) return false;
+                if (!(driverReal is vgm)) return false;
+                return ((vgm)driverReal).isDataBlock;
+            }
         }
 
         public static bool GetIsPcmRAMWrite(enmModel model)
         {
-            if (driverVirtual == null) return false;
-            if (!(driverVirtual is vgm)) return false;
-
-            return (model == enmModel.VirtualModel) ? ((vgm)driverVirtual).isPcmRAMWrite : ((vgm)driverReal).isPcmRAMWrite;
+            if (model == enmModel.VirtualModel)
+            {
+                if (driverVirtual == null) return false;
+                if (!(driverVirtual is vgm)) return false;
+                return ((vgm)driverVirtual).isPcmRAMWrite;
+            }
+            else
+            {
+                if (driverReal == null) return false;
+                if (!(driverReal is vgm)) return false;
+                return ((vgm)driverReal).isPcmRAMWrite;
+            }
         }
 
         private static void NaudioWrap_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
@@ -4854,6 +4893,20 @@ namespace MDPlayer
             }
         }
 
+        private static void startTrdVgmReal()
+        {
+            if (setting.outputDevice.DeviceType == 5)
+            {
+                return;
+            }
+
+            trdClosed = false;
+            trdMain = new Thread(new ThreadStart(trdVgmRealFunction));
+            trdMain.Priority = ThreadPriority.Highest;
+            trdMain.IsBackground = true;
+            trdMain.Name = "trdVgmReal";
+            trdMain.Start();
+        }
 
         private static void trdVgmRealFunction()
         {
@@ -4989,23 +5042,26 @@ namespace MDPlayer
             trdStopped = true;
         }
 
+        private static short[] bufVirtualFunction_MIDIKeyboard = null;
+
         internal static int trdVgmVirtualFunction(short[] buffer, int offset, int sampleCount)
         {
-            int cnt1 = trdVgmVirtualMainFunction(buffer, offset, sampleCount);
+            int cnt = trdVgmVirtualMainFunction(buffer, offset, sampleCount);
 
             if (setting.midiKbd.UseMIDIKeyboard)
             {
-                short[] buf = new short[sampleCount];
-                int cnt2 = mdsMIDI.Update(buf, 0, sampleCount, null);
+                if (bufVirtualFunction_MIDIKeyboard == null || bufVirtualFunction_MIDIKeyboard.Length < sampleCount)
+                {
+                    bufVirtualFunction_MIDIKeyboard = new short[sampleCount];
+                }
+                mdsMIDI.Update(bufVirtualFunction_MIDIKeyboard, 0, sampleCount, null);
                 for (int i = 0; i < sampleCount; i++)
                 {
-                    buffer[i + offset] += buf[i];
+                    buffer[i + offset] += bufVirtualFunction_MIDIKeyboard[i];
                 }
             }
 
-            if (vstPlugins.Count > 0 || vstPluginsInst.Count > 0) VST_Update(buffer, offset, sampleCount);
-
-            return cnt1;
+            return cnt;
         }
 
         private static void VST_Update(short[] buffer, int offset, int sampleCount)
@@ -5142,42 +5198,36 @@ namespace MDPlayer
 
             try
             {
-                stwh.Reset();stwh.Start();
+                stwh.Reset(); stwh.Start();
 
                 int i;
                 int cnt = 0;
 
+                if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
+
                 if (driverVirtual is nsf)
                 {
-                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
-
                     driverVirtual.vstDelta = 0;
                     cnt = (Int32)((nsf)driverVirtual).Render(buffer, (UInt32)sampleCount / 2, offset) * 2;
                 }
                 else if (driverVirtual is Driver.SID.sid)
                 {
-                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
-
                     driverVirtual.vstDelta = 0;
                     cnt = (Int32)((Driver.SID.sid)driverVirtual).Render(buffer, (UInt32)sampleCount);
                 }
                 else if (driverVirtual is Driver.MXDRV.MXDRV)
                 {
-                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
-
                     mds.setIncFlag();
                     driverVirtual.vstDelta = 0;
                     for (i = 0; i < sampleCount; i += 2)
                     {
-                        cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).Render(buffer, offset + i, 2);//.x68Sound.X68Sound_GetPcm(buffer, (int)sampleCount);
+                        cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).Render(buffer, offset + i, 2);
                         mds.Update(buffer, offset + i, 2, null);
                     }
                     cnt = sampleCount;
                 }
                 else
                 {
-                    if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
-
                     if ((driverReal is vgm) && ((vgm)driverReal).isDataBlock) return mds.Update(buffer, offset, sampleCount, null);
 
                     if (StepCounter > 0)
@@ -5195,198 +5245,62 @@ namespace MDPlayer
                     cnt = mds.Update(buffer, offset, sampleCount, driverVirtual.oneFrameProc);
                 }
 
-                //for (i = 0; i < sampleCount; i++)
-                //{
-                //    Console.WriteLine("{0}:{1}:{2}", offset,i,buffer[offset + i]);
-                //}
+                //VST
+                if (vstPlugins.Count > 0 || vstPluginsInst.Count > 0) VST_Update(buffer, offset, sampleCount);
 
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
-                    buffer[offset + i] = (short)((Limit(buffer[offset + i], 0x7fff, -0x8000) * mul) >> 14);
+                    buffer[offset + i] = (short)Limit((buffer[offset + i] * mul) >> 14, 0x7fff, -0x8000);
+
+                    if (!vgmFadeout) continue;
+
+                    //フェードアウト処理
+                    buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
+
+                    vgmFadeoutCounter -= vgmFadeoutCounterV;
+                    if (vgmFadeoutCounterV >= 0.004 && vgmFadeoutCounterV != 0.1)
+                    {
+                        vgmFadeoutCounterV = 0.004;
+                    }
+
+                    if (vgmFadeoutCounter < 0.0)
+                    {
+                        vgmFadeoutCounter = 0.0;
+                    }
+
+                    //フェードアウト完了後、演奏を完全停止する
+                    if (vgmFadeoutCounter == 0.0)
+                    {
+                        waveWriter.Write(buffer, offset, i + 1);
+
+                        waveWriter.Close();
+
+                        if (mds == null)
+                            mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, null);
+                        else
+                            mds.Init((UInt32)common.SampleRate, samplingBuffer, null);
+
+                        Stopped = true;
+
+                        chipRegister.Close();
+
+                        //1frame当たりの処理時間
+                        ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / (i + 1) * 1000000.0);
+                        return i + 1;
+                    }
+
                 }
 
-                visVolume.master = buffer[offset];
-
-                int[][][] vol = mds.getYM2151VisVolume();
-                if (vol != null) visVolume.ym2151 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYM2203VisVolume();
-                if (vol != null) visVolume.ym2203 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (vol != null) visVolume.ym2203FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
-                if (vol != null) visVolume.ym2203SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
-
-                vol = mds.getYM2612VisVolume();
-                if (vol != null) visVolume.ym2612 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYM2608VisVolume();
-                if (vol != null) visVolume.ym2608 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (vol != null) visVolume.ym2608FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
-                if (vol != null) visVolume.ym2608SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
-                if (vol != null) visVolume.ym2608Rtm = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
-                if (vol != null) visVolume.ym2608APCM = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
-
-                vol = mds.getYM2610VisVolume();
-                if (vol != null) visVolume.ym2610 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (vol != null) visVolume.ym2610FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
-                if (vol != null) visVolume.ym2610SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
-                if (vol != null) visVolume.ym2610APCMA = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
-                if (vol != null) visVolume.ym2610APCMB = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
-
-
-                vol = mds.getYM2413VisVolume();
-                if (vol != null) visVolume.ym2413 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYM3526VisVolume();
-                if (vol != null) visVolume.ym3526 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getY8950VisVolume();
-                if (vol != null) visVolume.y8950 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYM3812VisVolume();
-                if (vol != null) visVolume.ym3812 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYMF262VisVolume();
-                if (vol != null) visVolume.ymf262 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYMF278BVisVolume();
-                if (vol != null) visVolume.ymf278b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYMF271VisVolume();
-                if (vol != null) visVolume.ymf271 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getYMZ280BVisVolume();
-                if (vol != null) visVolume.ymz280b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getAY8910VisVolume();
-                if (vol != null) visVolume.ay8910 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getSN76489VisVolume();
-                if (vol != null) visVolume.sn76489 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getHuC6280VisVolume();
-                if (vol != null) visVolume.huc6280 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-
-                vol = mds.getRF5C164VisVolume();
-                if (vol != null) visVolume.rf5c164 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getRF5C68VisVolume();
-                if (vol != null) visVolume.rf5c68 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getPWMVisVolume();
-                if (vol != null) visVolume.pwm = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getOKIM6258VisVolume();
-                if (vol != null) visVolume.okim6258 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getOKIM6295VisVolume();
-                if (vol != null) visVolume.okim6295 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getC140VisVolume();
-                if (vol != null) visVolume.c140 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getC352VisVolume();
-                if (vol != null) visVolume.c352 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getSegaPCMVisVolume();
-                if (vol != null) visVolume.segaPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getMultiPCMVisVolume();
-                if (vol != null) visVolume.multiPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getK051649VisVolume();
-                if (vol != null) visVolume.k051649 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getK053260VisVolume();
-                if (vol != null) visVolume.k053260 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getK054539VisVolume();
-                if (vol != null) visVolume.k054539 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getQSoundVisVolume();
-                if (vol != null) visVolume.qSound = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-                vol = mds.getGA20VisVolume();
-                if (vol != null) visVolume.ga20 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-
-                vol = mds.getNESVisVolume();
-                if (vol != null) visVolume.APU = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                else visVolume.APU = (short)MDSound.MDSound.np_nes_apu_volume;
-
-                vol = mds.getDMCVisVolume();
-                if (vol != null) visVolume.DMC = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                else visVolume.DMC = (short)MDSound.MDSound.np_nes_dmc_volume;
-
-                vol = mds.getFDSVisVolume();
-                if (vol != null) visVolume.FDS = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                else visVolume.FDS = (short)MDSound.MDSound.np_nes_fds_volume;
-
-                vol = mds.getMMC5VisVolume();
-                if (vol != null) visVolume.MMC5 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (visVolume.MMC5 == 0) visVolume.MMC5 = (short)MDSound.MDSound.np_nes_mmc5_volume;
-
-                vol = mds.getN160VisVolume();
-                if (vol != null) visVolume.N160 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (visVolume.N160 == 0) visVolume.N160 = (short)MDSound.MDSound.np_nes_n106_volume;
-
-                vol = mds.getVRC6VisVolume();
-                if (vol != null) visVolume.VRC6 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (visVolume.VRC6 == 0) visVolume.VRC6 = (short)MDSound.MDSound.np_nes_vrc6_volume;
-
-                vol = mds.getVRC7VisVolume();
-                if (vol != null) visVolume.VRC7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (visVolume.VRC7 == 0) visVolume.VRC7 = (short)MDSound.MDSound.np_nes_vrc7_volume;
-
-                vol = mds.getFME7VisVolume();
-                if (vol != null) visVolume.FME7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-                if (visVolume.FME7 == 0) visVolume.FME7 = (short)MDSound.MDSound.np_nes_fme7_volume;
-
-                vol = mds.getDMGVisVolume();
-                if (vol != null) visVolume.DMG = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
-
-
-                if (vgmFadeout)
+                if (setting.outputDevice.DeviceType != 5)
                 {
-                    for (i = 0; i < sampleCount; i++)
-                    {
-                        buffer[offset + i] = (short)(buffer[offset + i] * vgmFadeoutCounter);
-
-                        vgmFadeoutCounter -= vgmFadeoutCounterV;
-                        //vgmFadeoutCounterV += 0.00001;
-                        if (vgmFadeoutCounterV >= 0.004 && vgmFadeoutCounterV != 0.1)
-                        {
-                            vgmFadeoutCounterV = 0.004;
-                        }
-
-                        if (vgmFadeoutCounter < 0.0)
-                        {
-                            vgmFadeoutCounter = 0.0;
-                        }
-                        
-                    }
+                    updateVisualVolume(buffer, offset);
                 }
 
                 waveWriter.Write(buffer, offset, sampleCount);
 
-                if (vgmFadeoutCounter == 0.0)
-                {
-                    waveWriter.Close();
-
-                    if (mds == null)
-                        mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, null);
-                    else
-                        mds.Init((UInt32)common.SampleRate, samplingBuffer, null);
-
-                    Stopped = true;
-
-                    chipRegister.Close();
-                }
-
                 //1frame当たりの処理時間
                 ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / sampleCount * 1000000.0);
-
                 return cnt;
 
             }
@@ -5398,6 +5312,149 @@ namespace MDPlayer
             }
 
             return -1;
+        }
+
+        private static void updateVisualVolume(short[] buffer, int offset)
+        {
+            visVolume.master = buffer[offset];
+
+            int[][][] vol = mds.getYM2151VisVolume();
+            if (vol != null) visVolume.ym2151 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYM2203VisVolume();
+            if (vol != null) visVolume.ym2203 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (vol != null) visVolume.ym2203FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+            if (vol != null) visVolume.ym2203SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+
+            vol = mds.getYM2612VisVolume();
+            if (vol != null) visVolume.ym2612 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYM2608VisVolume();
+            if (vol != null) visVolume.ym2608 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (vol != null) visVolume.ym2608FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+            if (vol != null) visVolume.ym2608SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+            if (vol != null) visVolume.ym2608Rtm = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
+            if (vol != null) visVolume.ym2608APCM = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
+
+            vol = mds.getYM2610VisVolume();
+            if (vol != null) visVolume.ym2610 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (vol != null) visVolume.ym2610FM = (short)getMonoVolume(vol[0][1][0], vol[0][1][1], vol[1][1][0], vol[1][1][1]);
+            if (vol != null) visVolume.ym2610SSG = (short)getMonoVolume(vol[0][2][0], vol[0][2][1], vol[1][2][0], vol[1][2][1]);
+            if (vol != null) visVolume.ym2610APCMA = (short)getMonoVolume(vol[0][3][0], vol[0][3][1], vol[1][3][0], vol[1][3][1]);
+            if (vol != null) visVolume.ym2610APCMB = (short)getMonoVolume(vol[0][4][0], vol[0][4][1], vol[1][4][0], vol[1][4][1]);
+
+
+            vol = mds.getYM2413VisVolume();
+            if (vol != null) visVolume.ym2413 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYM3526VisVolume();
+            if (vol != null) visVolume.ym3526 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getY8950VisVolume();
+            if (vol != null) visVolume.y8950 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYM3812VisVolume();
+            if (vol != null) visVolume.ym3812 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYMF262VisVolume();
+            if (vol != null) visVolume.ymf262 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYMF278BVisVolume();
+            if (vol != null) visVolume.ymf278b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYMF271VisVolume();
+            if (vol != null) visVolume.ymf271 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getYMZ280BVisVolume();
+            if (vol != null) visVolume.ymz280b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getAY8910VisVolume();
+            if (vol != null) visVolume.ay8910 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getSN76489VisVolume();
+            if (vol != null) visVolume.sn76489 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getHuC6280VisVolume();
+            if (vol != null) visVolume.huc6280 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+
+            vol = mds.getRF5C164VisVolume();
+            if (vol != null) visVolume.rf5c164 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getRF5C68VisVolume();
+            if (vol != null) visVolume.rf5c68 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getPWMVisVolume();
+            if (vol != null) visVolume.pwm = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getOKIM6258VisVolume();
+            if (vol != null) visVolume.okim6258 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getOKIM6295VisVolume();
+            if (vol != null) visVolume.okim6295 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getC140VisVolume();
+            if (vol != null) visVolume.c140 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getC352VisVolume();
+            if (vol != null) visVolume.c352 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getSegaPCMVisVolume();
+            if (vol != null) visVolume.segaPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getMultiPCMVisVolume();
+            if (vol != null) visVolume.multiPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getK051649VisVolume();
+            if (vol != null) visVolume.k051649 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getK053260VisVolume();
+            if (vol != null) visVolume.k053260 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getK054539VisVolume();
+            if (vol != null) visVolume.k054539 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getQSoundVisVolume();
+            if (vol != null) visVolume.qSound = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getGA20VisVolume();
+            if (vol != null) visVolume.ga20 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+
+            vol = mds.getNESVisVolume();
+            if (vol != null) visVolume.APU = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            else visVolume.APU = (short)MDSound.MDSound.np_nes_apu_volume;
+
+            vol = mds.getDMCVisVolume();
+            if (vol != null) visVolume.DMC = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            else visVolume.DMC = (short)MDSound.MDSound.np_nes_dmc_volume;
+
+            vol = mds.getFDSVisVolume();
+            if (vol != null) visVolume.FDS = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            else visVolume.FDS = (short)MDSound.MDSound.np_nes_fds_volume;
+
+            vol = mds.getMMC5VisVolume();
+            if (vol != null) visVolume.MMC5 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (visVolume.MMC5 == 0) visVolume.MMC5 = (short)MDSound.MDSound.np_nes_mmc5_volume;
+
+            vol = mds.getN160VisVolume();
+            if (vol != null) visVolume.N160 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (visVolume.N160 == 0) visVolume.N160 = (short)MDSound.MDSound.np_nes_n106_volume;
+
+            vol = mds.getVRC6VisVolume();
+            if (vol != null) visVolume.VRC6 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (visVolume.VRC6 == 0) visVolume.VRC6 = (short)MDSound.MDSound.np_nes_vrc6_volume;
+
+            vol = mds.getVRC7VisVolume();
+            if (vol != null) visVolume.VRC7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (visVolume.VRC7 == 0) visVolume.VRC7 = (short)MDSound.MDSound.np_nes_vrc7_volume;
+
+            vol = mds.getFME7VisVolume();
+            if (vol != null) visVolume.FME7 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            if (visVolume.FME7 == 0) visVolume.FME7 = (short)MDSound.MDSound.np_nes_fme7_volume;
+
+            vol = mds.getDMGVisVolume();
+            if (vol != null) visVolume.DMG = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
         }
 
         public static int getMonoVolume(int pl, int pr, int sl, int sr)
@@ -5484,6 +5541,8 @@ namespace MDPlayer
                 Debug.WriteLine("The loading Plugin called:" + e.Message);
             }
         }
+
+
 
 
 
@@ -5756,11 +5815,6 @@ namespace MDPlayer
         {
             return chipRegister.fmKeyOnYM2203[chipID];
         }
-
-        //public static int getYM2413RyhthmKeyON(int chipID)
-        //{
-        //    return chipRegister.getYM2413RyhthmKeyON(chipID);
-        //}
 
         public static ChipKeyInfo getYM2413KeyInfo(int chipID)
         {
@@ -6408,10 +6462,6 @@ namespace MDPlayer
             return chipRegister.GetPSGVolume(chipID);
         }
 
-        //public static int[][] GetRf5c164Volume(int chipID)
-        //{
-            //return mds.ReadRf5c164Volume(chipID);
-        //}
 
 
         public static void setSN76489Mask(int chipID, int ch)

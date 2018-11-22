@@ -15,6 +15,7 @@ namespace MDPlayer
         private WasapiOut wasapiOut;
         private DirectSoundOut dsOut;
         private AsioOut asioOut;
+        private NullOut nullOut;
         private SineWaveProvider16 waveProvider;
 
         private static naudioCallBack callBack = null;
@@ -49,6 +50,8 @@ namespace MDPlayer
             dsOut = null;
             if (asioOut != null) asioOut.Dispose();
             asioOut = null;
+            if (nullOut != null) nullOut.Dispose();
+            nullOut = null;
 
             try
             {
@@ -133,6 +136,13 @@ namespace MDPlayer
                             asioOut.Init(waveProvider);
                             asioOut.Play();
                         }
+                        break;
+
+                    case 5:
+                        nullOut = new NullOut(true);
+                        nullOut.PlaybackStopped += DeviceOut_PlaybackStopped;
+                        nullOut.Init(waveProvider);
+                        nullOut.Play();
                         break;
                 }
             }
@@ -221,6 +231,18 @@ namespace MDPlayer
                 asioOut = null;
             }
 
+            if (nullOut != null)
+            {
+                try
+                {
+                    nullOut.Stop();
+                    while (nullOut.PlaybackState != PlaybackState.Stopped) { Thread.Sleep(1); }
+                    nullOut.Dispose();
+                }
+                catch { }
+                nullOut = null;
+            }
+
             //一休み
             //for (int i = 0; i < 10; i++)
             //{
@@ -264,6 +286,10 @@ namespace MDPlayer
             if (asioOut != null)
             {
                 if (asioOut.PlaybackState != PlaybackState.Stopped) return asioOut.PlaybackState;
+            }
+            if (nullOut != null)
+            {
+                if (nullOut.PlaybackState != PlaybackState.Stopped) return nullOut.PlaybackState;
             }
 
             return notNull ? (PlaybackState?)PlaybackState.Stopped : null;

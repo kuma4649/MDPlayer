@@ -59,7 +59,6 @@
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -400,6 +399,8 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.rbNullDevice = new System.Windows.Forms.RadioButton();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -711,6 +712,7 @@
             // 
             // tpOutput
             // 
+            this.tpOutput.Controls.Add(this.rbNullDevice);
             this.tpOutput.Controls.Add(this.label36);
             this.tpOutput.Controls.Add(this.lblWaitTime);
             this.tpOutput.Controls.Add(this.lblLatencyUnit);
@@ -841,7 +843,7 @@
             this.groupBox16.Enabled = false;
             this.groupBox16.Location = new System.Drawing.Point(7, 251);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(429, 48);
+            this.groupBox16.Size = new System.Drawing.Size(228, 48);
             this.groupBox16.TabIndex = 3;
             this.groupBox16.TabStop = false;
             // 
@@ -853,7 +855,7 @@
             this.cmbSPPCMDevice.FormattingEnabled = true;
             this.cmbSPPCMDevice.Location = new System.Drawing.Point(6, 19);
             this.cmbSPPCMDevice.Name = "cmbSPPCMDevice";
-            this.cmbSPPCMDevice.Size = new System.Drawing.Size(417, 20);
+            this.cmbSPPCMDevice.Size = new System.Drawing.Size(216, 20);
             this.cmbSPPCMDevice.TabIndex = 2;
             // 
             // tpModule
@@ -876,15 +878,6 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -3992,10 +3985,10 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.cbWavSwitch);
             this.tpOther.Controls.Add(this.groupBox17);
             this.tpOther.Controls.Add(this.cbUseGetInst);
             this.tpOther.Controls.Add(this.groupBox4);
-            this.tpOther.Controls.Add(this.cbWavSwitch);
             this.tpOther.Controls.Add(this.cbDumpSwitch);
             this.tpOther.Controls.Add(this.gbWav);
             this.tpOther.Controls.Add(this.gbDump);
@@ -4133,7 +4126,7 @@
             // cbWavSwitch
             // 
             this.cbWavSwitch.AutoSize = true;
-            this.cbWavSwitch.Location = new System.Drawing.Point(14, 203);
+            this.cbWavSwitch.Location = new System.Drawing.Point(14, 202);
             this.cbWavSwitch.Name = "cbWavSwitch";
             this.cbWavSwitch.Size = new System.Drawing.Size(177, 16);
             this.cbWavSwitch.TabIndex = 0;
@@ -4515,6 +4508,25 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
+            // 
+            // rbNullDevice
+            // 
+            this.rbNullDevice.Location = new System.Drawing.Point(274, 261);
+            this.rbNullDevice.Name = "rbNullDevice";
+            this.rbNullDevice.Size = new System.Drawing.Size(122, 29);
+            this.rbNullDevice.TabIndex = 2;
+            this.rbNullDevice.Text = "NULL(サウンドデバイスを使用しない)";
+            this.rbNullDevice.UseVisualStyleBackColor = true;
+            this.rbNullDevice.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
             // 
             // frmSetting
             // 
@@ -5039,5 +5051,6 @@
         private System.Windows.Forms.Button btSlowClr;
         private ucSettingInstruments ucSettingInstruments1;
         private System.Windows.Forms.Label lblKeyBoardHookNotice;
+        private System.Windows.Forms.RadioButton rbNullDevice;
     }
 }

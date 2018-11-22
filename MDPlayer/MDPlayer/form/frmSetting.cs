@@ -186,6 +186,13 @@ namespace MDPlayer.form
                     if (asioSupported) rbAsioOut.Checked = true;
                     else rbWaveOut.Checked = true;
                     break;
+                case 4:
+                    //SSPCM
+                    rbWaveOut.Checked = true;
+                    break;
+                case 5:
+                    rbNullDevice.Checked = true;
+                    break;
             }
 
             if (cmbWaveOutDevice.Items.Count > 0)
@@ -804,6 +811,8 @@ namespace MDPlayer.form
             if (rbDirectSoundOut.Checked) setting.outputDevice.DeviceType = 1;
             if (rbWasapiOut.Checked) setting.outputDevice.DeviceType = 2;
             if (rbAsioOut.Checked) setting.outputDevice.DeviceType = 3;
+            if (rbSPPCM.Checked) setting.outputDevice.DeviceType = 4;
+            if (rbNullDevice.Checked) setting.outputDevice.DeviceType = 5;
 
             setting.outputDevice.WaveOutDeviceName = cmbWaveOutDevice.SelectedItem != null ? cmbWaveOutDevice.SelectedItem.ToString() : "";
             setting.outputDevice.DirectSoundDeviceName = cmbDirectSoundDevice.SelectedItem != null ? cmbDirectSoundDevice.SelectedItem.ToString() : "";
