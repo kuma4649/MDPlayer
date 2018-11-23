@@ -43,8 +43,8 @@
             this.lblUsedChips = new System.Windows.Forms.Label();
             this.lblSystemJ = new System.Windows.Forms.Label();
             this.lblComposerJ = new System.Windows.Forms.Label();
-            this.lblLyrics = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.rtbLyrics = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -216,23 +216,31 @@
             this.lblComposerJ.TabIndex = 14;
             this.lblComposerJ.Text = "01234567890123456789012345678901234567890123456789";
             // 
-            // lblLyrics
-            // 
-            this.lblLyrics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLyrics.BackColor = System.Drawing.Color.Black;
-            this.lblLyrics.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblLyrics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblLyrics.Location = new System.Drawing.Point(40, 208);
-            this.lblLyrics.Name = "lblLyrics";
-            this.lblLyrics.Size = new System.Drawing.Size(284, 16);
-            this.lblLyrics.TabIndex = 15;
-            this.lblLyrics.Text = "01234567890123456789012345678901234567890123456789";
-            // 
             // timer
             // 
             this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // rtbLyrics
+            // 
+            this.rtbLyrics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbLyrics.BackColor = System.Drawing.Color.Black;
+            this.rtbLyrics.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbLyrics.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.rtbLyrics.DetectUrls = false;
+            this.rtbLyrics.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.rtbLyrics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.rtbLyrics.Location = new System.Drawing.Point(41, 209);
+            this.rtbLyrics.Multiline = false;
+            this.rtbLyrics.Name = "rtbLyrics";
+            this.rtbLyrics.ReadOnly = true;
+            this.rtbLyrics.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.rtbLyrics.ShortcutsEnabled = false;
+            this.rtbLyrics.Size = new System.Drawing.Size(283, 20);
+            this.rtbLyrics.TabIndex = 16;
+            this.rtbLyrics.TabStop = false;
+            this.rtbLyrics.Text = "";
             // 
             // frmInfo
             // 
@@ -241,8 +249,8 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::MDPlayer.Properties.Resources.planeB;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(324, 229);
-            this.Controls.Add(this.lblLyrics);
+            this.ClientSize = new System.Drawing.Size(324, 231);
+            this.Controls.Add(this.rtbLyrics);
             this.Controls.Add(this.lblComposerJ);
             this.Controls.Add(this.lblSystemJ);
             this.Controls.Add(this.lblUsedChips);
@@ -283,7 +291,7 @@
         private System.Windows.Forms.Label lblUsedChips;
         private System.Windows.Forms.Label lblSystemJ;
         private System.Windows.Forms.Label lblComposerJ;
-        private System.Windows.Forms.Label lblLyrics;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.RichTextBox rtbLyrics;
     }
 }

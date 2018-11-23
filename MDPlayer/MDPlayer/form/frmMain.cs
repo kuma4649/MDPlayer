@@ -3096,6 +3096,7 @@ namespace MDPlayer.form
             DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
+            screenInit();
 
             for (int i = 0; i < 2; i++)
             {
@@ -3127,6 +3128,7 @@ namespace MDPlayer.form
 
             }
             if (frmMixer2 != null) frmMixer2.screenInit();
+            if (frmInfo != null) frmInfo.screenInit();
             //if (frmYM2612MIDI != null) frmYM2612MIDI.screenInit();
 
             reqAllScreenInit = false;
@@ -3476,6 +3478,80 @@ namespace MDPlayer.form
 
         }
 
+        private void screenInit()
+        {
+
+            oldParam.chipLED.PriOPN = 255;
+            oldParam.chipLED.PriOPN2 = 255;
+            oldParam.chipLED.PriOPNA = 255;
+            oldParam.chipLED.PriOPNB = 255;
+            oldParam.chipLED.PriOPM = 255;
+            oldParam.chipLED.PriDCSG = 255;
+            oldParam.chipLED.PriRF5C = 255;
+            oldParam.chipLED.PriPWM = 255;
+            oldParam.chipLED.PriOKI5 = 255;
+            oldParam.chipLED.PriOKI9 = 255;
+            oldParam.chipLED.PriC140 = 255;
+            oldParam.chipLED.PriSPCM = 255;
+            oldParam.chipLED.PriAY10 = 255;
+            oldParam.chipLED.PriOPLL = 255;
+            oldParam.chipLED.PriHuC8 = 255;
+            oldParam.chipLED.SecOPN = 255;
+            oldParam.chipLED.SecOPN2 = 255;
+            oldParam.chipLED.SecOPNA = 255;
+            oldParam.chipLED.SecOPNB = 255;
+            oldParam.chipLED.SecOPM = 255;
+            oldParam.chipLED.SecDCSG = 255;
+            oldParam.chipLED.SecRF5C = 255;
+            oldParam.chipLED.SecPWM = 255;
+            oldParam.chipLED.SecOKI5 = 255;
+            oldParam.chipLED.SecOKI9 = 255;
+            oldParam.chipLED.SecC140 = 255;
+            oldParam.chipLED.SecSPCM = 255;
+            oldParam.chipLED.SecAY10 = 255;
+            oldParam.chipLED.SecOPLL = 255;
+            oldParam.chipLED.SecHuC8 = 255;
+
+            byte[] chips = Audio.GetChipStatus();
+            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
+
+            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
+
+            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
+
+        }
+
 
 
         public void stop()
@@ -3487,7 +3563,7 @@ namespace MDPlayer.form
 
             frmPlayList.Stop();
             Audio.Stop();
-
+            screenInit();
         }
 
         public void pause()
@@ -3752,6 +3828,7 @@ namespace MDPlayer.form
                 Audio.Pause();
             }
             Audio.Stop();
+            screenInit();
 
             frmPlayList.nextPlay();
         }
