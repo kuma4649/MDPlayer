@@ -174,7 +174,6 @@ namespace MDPlayer.form
                                     culColor= Color.FromArgb(r, g, b);
                                     rtbLyrics.SelectionColor = culColor;
                                     continue;
-                                    break;
                             }
                         }
                         rtbLyrics.SelectedText = c.ToString();
@@ -191,8 +190,12 @@ namespace MDPlayer.form
             }
             catch
             {
-                rtbLyrics.Clear();
-                rtbLyrics.SelectedText = "LYLIC PARSE ERROR";
+                try
+                {
+                    rtbLyrics.Clear();
+                    rtbLyrics.SelectedText = "LYLIC PARSE ERROR";
+                }
+                catch { }
             }
         }
     }
