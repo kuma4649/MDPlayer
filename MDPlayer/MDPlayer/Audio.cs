@@ -32,6 +32,7 @@ namespace MDPlayer
         }
 
         public static int clockAY8910 = 1789750;
+        public static int clockK051649 = 1500000;
         public static int clockC140 = 21390;
         public static int clockC352 = 24192000;
         public static int clockFDS = 0;
@@ -4186,6 +4187,7 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.K051649Volume;
                         chip.Clock = ((vgm)driverVirtual).K051649ClockValue;
+                        clockK051649 = (int)chip.Clock;
                         chip.Option = null;
                         if (i == 0) chipLED.PriK051649 = 1;
                         else chipLED.SecK051649 = 1;
@@ -5198,7 +5200,7 @@ namespace MDPlayer
 
             try
             {
-                stwh.Reset(); stwh.Start();
+                //stwh.Reset(); stwh.Start();
 
                 int i;
                 int cnt = 0;
@@ -5224,6 +5226,8 @@ namespace MDPlayer
                         cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).Render(buffer, offset + i, 2);
                         mds.Update(buffer, offset + i, 2, null);
                     }
+                    //cnt = (Int32)((Driver.MXDRV.MXDRV)driverVirtual).Render(buffer, offset , sampleCount);
+                    //mds.Update(buffer, offset , sampleCount, null);
                     cnt = sampleCount;
                 }
                 else
@@ -5242,7 +5246,9 @@ namespace MDPlayer
                     }
 
                     driverVirtual.vstDelta = 0;
+                    stwh.Reset(); stwh.Start();
                     cnt = mds.Update(buffer, offset, sampleCount, driverVirtual.oneFrameProc);
+                    ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / (sampleCount + 1) * 1000000.0);
                 }
 
                 //VST
@@ -5286,7 +5292,7 @@ namespace MDPlayer
                         chipRegister.Close();
 
                         //1frame当たりの処理時間
-                        ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / (i + 1) * 1000000.0);
+                        //ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / (i + 1) * 1000000.0);
                         return i + 1;
                     }
 
@@ -5294,13 +5300,13 @@ namespace MDPlayer
 
                 if (setting.outputDevice.DeviceType != 5)
                 {
-                    updateVisualVolume(buffer, offset);
+                    //updateVisualVolume(buffer, offset);
                 }
 
                 waveWriter.Write(buffer, offset, sampleCount);
 
-                //1frame当たりの処理時間
-                ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / sampleCount * 1000000.0);
+                ////1frame当たりの処理時間
+                //ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / sampleCount * 1000000.0);
                 return cnt;
 
             }
@@ -5638,6 +5644,11 @@ namespace MDPlayer
         public static Ootake_PSG.huc6280_state GetHuC6280Register(int chipID)
         {
             return mds.ReadHuC6280Status(chipID);
+        }
+
+        public static K051649.k051649_state GetK051649Register(int chipID)
+        {
+            return mds.ReadK051649Status(chipID);
         }
 
         public static MIDIParam GetMIDIInfos(int chipID)

@@ -112,6 +112,20 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _K051649Type = new ChipType();
+        public ChipType K051649Type
+        {
+            get
+            {
+                return _K051649Type;
+            }
+
+            set
+            {
+                _K051649Type = value;
+            }
+        }
+
         private ChipType _YM2413SType = new ChipType();
         public ChipType YM2413SType
         {
@@ -2854,6 +2868,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosK051649 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosK051649
+            {
+                get
+                {
+                    return _PosK051649;
+                }
+
+                set
+                {
+                    _PosK051649 = value;
+                }
+            }
+
+            private bool[] _OpenK051649 = new bool[2] { false, false };
+            public bool[] OpenK051649
+            {
+                get
+                {
+                    return _OpenK051649;
+                }
+
+                set
+                {
+                    _OpenK051649 = value;
+                }
+            }
+
             private Point[] _PosYm2413 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosYm2413
             {
@@ -3273,6 +3315,8 @@ namespace MDPlayer
                 Location.OpenAY8910 = this.OpenAY8910;
                 Location.PosHuC6280 = this.PosHuC6280;
                 Location.OpenHuC6280 = this.OpenHuC6280;
+                Location.PosK051649 = this.PosK051649;
+                Location.OpenK051649 = this.OpenK051649;
                 Location.PosYm2612MIDI = this.PosYm2612MIDI;
                 Location.OpenYm2612MIDI = this.OpenYm2612MIDI;
                 Location.PosVSTeffectList = this.PosVSTeffectList;

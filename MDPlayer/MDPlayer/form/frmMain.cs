@@ -39,6 +39,7 @@ namespace MDPlayer.form
         private frmSegaPCM[] frmSegaPCM = new frmSegaPCM[2] { null, null };
         private frmAY8910[] frmAY8910 = new frmAY8910[2] { null, null };
         private frmHuC6280[] frmHuC6280 = new frmHuC6280[2] { null, null };
+        private frmK051649[] frmK051649 = new frmK051649[2] { null, null };
         private frmYM2413[] frmYM2413 = new frmYM2413[2] { null, null };
         private frmYMF262[] frmYMF262 = new frmYMF262[2] { null, null };
         private frmYMF278B[] frmYMF278B = new frmYMF278B[2] { null, null };
@@ -109,6 +110,7 @@ namespace MDPlayer.form
             lstForm.Add(frmSegaPCM);
             lstForm.Add(frmAY8910);
             lstForm.Add(frmHuC6280);
+            lstForm.Add(frmK051649);
             lstForm.Add(frmMIDI);
             lstForm.Add(frmNESDMC);
             lstForm.Add(frmFDS);
@@ -213,6 +215,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenC140[chipID]) OpenFormC140(chipID);
                 if (setting.location.OpenC352[chipID]) OpenFormC352(chipID);
                 if (setting.location.OpenHuC6280[chipID]) OpenFormHuC6280(chipID);
+                if (setting.location.OpenK051649[chipID]) OpenFormK051649(chipID);
                 if (setting.location.OpenMIDI[chipID]) OpenFormMIDI(chipID);
                 if (setting.location.OpenNESDMC[chipID]) OpenFormNESDMC(chipID);
                 if (setting.location.OpenFDS[chipID]) OpenFormFDS(chipID);
@@ -372,6 +375,12 @@ namespace MDPlayer.form
                 tsmiPHuC6280_Click(null, null);
             }
 
+            if (frmK051649[0] != null && !frmK051649[0].isClosed)
+            {
+                tsmiPK051649_Click(null, null);
+                tsmiPK051649_Click(null, null);
+            }
+
 
 
             if (frmMCD[1] != null && !frmMCD[1].isClosed)
@@ -492,6 +501,12 @@ namespace MDPlayer.form
             {
                 tsmiSHuC6280_Click(null, null);
                 tsmiSHuC6280_Click(null, null);
+            }
+
+            if (frmK051649[1] != null && !frmK051649[1].isClosed)
+            {
+                tsmiSK051649_Click(null, null);
+                tsmiSK051649_Click(null, null);
             }
 
             if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed)
@@ -655,6 +670,7 @@ namespace MDPlayer.form
                 setting.location.OpenC140[chipID] = false;
                 setting.location.OpenC352[chipID] = false;
                 setting.location.OpenHuC6280[chipID] = false;
+                setting.location.OpenK051649[chipID] = false;
                 setting.location.OpenMIDI[chipID] = false;
                 setting.location.OpenNESDMC[chipID] = false;
                 setting.location.OpenFDS[chipID] = false;
@@ -740,6 +756,16 @@ namespace MDPlayer.form
                 {
                     frmHuC6280[chipID].Close();
                     setting.location.OpenHuC6280[chipID] = true;
+                }
+                if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed)
+                {
+                    frmK051649[chipID].Close();
+                    setting.location.OpenK051649[chipID] = true;
+                }
+                if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed)
+                {
+                    frmK051649[chipID].Close();
+                    setting.location.OpenK051649[chipID] = true;
                 }
                 if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed)
                 {
@@ -1250,6 +1276,11 @@ namespace MDPlayer.form
             OpenFormHuC6280(0);
         }
 
+        private void tsmiPK051649_Click(object sender, EventArgs e)
+        {
+            OpenFormK051649(0);
+        }
+
         private void tsmiPMMC5_Click(object sender, EventArgs e)
         {
             OpenFormMMC5(0);
@@ -1363,6 +1394,11 @@ namespace MDPlayer.form
         private void tsmiSHuC6280_Click(object sender, EventArgs e)
         {
             OpenFormHuC6280(1);
+        }
+
+        private void tsmiSK051649_Click(object sender, EventArgs e)
+        {
+            OpenFormK051649(1);
         }
 
         private void tsmiPMIDI_Click(object sender, EventArgs e)
@@ -2190,6 +2226,62 @@ namespace MDPlayer.form
                 log.ForcedWrite(ex);
             }
             frmHuC6280[chipID] = null;
+        }
+
+        private void OpenFormK051649(int chipID, bool force = false)
+        {
+            if (frmK051649[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormK051649(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmK051649[chipID] = new frmK051649(this, chipID, setting.other.Zoom, newParam.k051649[chipID]);
+
+            if (setting.location.PosK051649[chipID] == System.Drawing.Point.Empty)
+            {
+                frmK051649[chipID].x = this.Location.X;
+                frmK051649[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmK051649[chipID].x = setting.location.PosK051649[chipID].X;
+                frmK051649[chipID].y = setting.location.PosK051649[chipID].Y;
+            }
+
+            frmK051649[chipID].Show();
+            frmK051649[chipID].update();
+            frmK051649[chipID].Text = string.Format("K051649 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            oldParam.k051649[chipID] = new MDChipParams.K051649();
+
+            CheckAndSetForm(frmK051649[chipID]);
+        }
+
+        private void CloseFormK051649(int chipID)
+        {
+            if (frmK051649[chipID] == null) return;
+
+            try
+            {
+                frmK051649[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmK051649[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmK051649[chipID] = null;
         }
 
         private void OpenFormYM2413(int chipID, bool force = false)
@@ -3105,6 +3197,7 @@ namespace MDPlayer.form
                 if (frmC352[i] != null) frmC352[i].screenInit();
                 if (frmFDS[i] != null) frmFDS[i].screenInit();
                 if (frmHuC6280[i] != null) frmHuC6280[i].screenInit();
+                if (frmK051649[i] != null) frmK051649[i].screenInit();
                 if (frmMCD[i] != null) frmMCD[i].screenInit();
                 if (frmMIDI[i] != null) frmMIDI[i].screenInit();
                 if (frmMMC5[i] != null) frmMMC5[i].screenInit();
@@ -3227,6 +3320,9 @@ namespace MDPlayer.form
                     if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
                     else frmHuC6280[chipID] = null;
 
+                    if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) frmK051649[chipID].screenChangeParams();
+                    else frmK051649[chipID] = null;
+
                     if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenChangeParams();
                     else frmMIDI[chipID] = null;
 
@@ -3317,6 +3413,9 @@ namespace MDPlayer.form
 
                     if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) { frmHuC6280[chipID].screenDrawParams(); frmHuC6280[chipID].update(); }
                     else frmHuC6280[chipID] = null;
+
+                    if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) { frmK051649[chipID].screenDrawParams(); frmK051649[chipID].update(); }
+                    else frmK051649[chipID] = null;
 
                     if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) { frmMIDI[chipID].screenDrawParams(); frmMIDI[chipID].update(); }
                     else frmMIDI[chipID] = null;
@@ -3772,6 +3871,9 @@ namespace MDPlayer.form
 
                     if (Audio.chipLED.PriHuC != 0) OpenFormHuC6280(0, true); else CloseFormHuC6280(0);
                     if (Audio.chipLED.SecHuC != 0) OpenFormHuC6280(1, true); else CloseFormHuC6280(1);
+
+                    if (Audio.chipLED.PriK051649 != 0) OpenFormK051649(0, true); else CloseFormK051649(0);
+                    if (Audio.chipLED.SecK051649 != 0) OpenFormK051649(1, true); else CloseFormK051649(1);
 
                     if (Audio.chipLED.PriMID != 0) OpenFormMIDI(0, true); else CloseFormMIDI(0);
                     if (Audio.chipLED.SecMID != 0) OpenFormMIDI(1, true); else CloseFormMIDI(1);
@@ -6076,5 +6178,6 @@ namespace MDPlayer.form
             frm.Location = new System.Drawing.Point(fx, fy);
 
         }
+
     }
 }

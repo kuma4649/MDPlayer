@@ -166,6 +166,20 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitK051649(FrameBuffer screen)
+        {
+            for (int ch = 0; ch < 5; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+            }
+        }
+
         public static void screenInitRF5C164(FrameBuffer screen)
         {
             //RF5C164
@@ -1543,6 +1557,32 @@ namespace MDPlayer
             }
         }
 
+        public static void WaveFormToK051649(FrameBuffer screen, int c, ref int[] oi, int[] ni)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (oi[i] == ni[i]) continue;
+
+                int n = (ni[i] / 8) + 16;
+                int x = c % 3;
+                x = x * 104 + i+4;
+                int y = c / 3;
+                y = y * 48 + 80;
+
+                int m = 0;
+                m = (n > 7) ? 8 : n;
+                screen.drawByteArray(x, y, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 15) ? 8 : ((n - 8) < 0 ? 0 : (n - 8));
+                screen.drawByteArray(x, y - 8, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 23) ? 8 : ((n - 16) < 0 ? 0 : (n - 16));
+                screen.drawByteArray(x, y - 16, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
+                screen.drawByteArray(x, y - 23, rWavGraph, 64, m + 1, 0, 1, 7);
+
+                oi[i] = ni[i];
+            }
+        }
+
         public static void WaveFormToFDS(FrameBuffer screen, int c, ref int[] oi, int[] ni)
         {
             for (int i = 0; i < 32; i++)
@@ -2284,6 +2324,14 @@ namespace MDPlayer
             on = nn;
         }
 
+        public static void font4Hex4Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex4Bit(screen, x, y, t, nn);
+            on = nn;
+        }
+
         public static void font4HexByte(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
         {
             if (on == nn) return;
@@ -2694,12 +2742,25 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rFont2[t], 128, n * 4 + 64, 0, 4, 8);
         }
 
+        public static void drawFont4Hex4Bit(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = common.Range((byte)num, 0, 15);
+
+            n = num;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
         public static void drawFont4HexByte(FrameBuffer screen, int x, int y, int t, int num)
         {
             if (screen == null) return;
 
             int n;
-            num = common.Range(num, 0, 255);
+            num = common.Range((byte)num, 0, 255);
 
             n = num / 0x10;
             num -= n * 0x10;
@@ -2718,7 +2779,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range(num, 0, 0xfff);
+            num = common.Range((ushort)num, 0, 0xfff);
 
             n = num / 0x100;
             num -= n * 0x100;
@@ -2743,7 +2804,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range(num, 0, 0xffff);
+            num = common.Range((ushort)num, 0, 0xffff);
 
             n = num / 0x1000;
             num -= n * 0x1000;

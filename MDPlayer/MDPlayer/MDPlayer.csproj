@@ -286,6 +286,12 @@
     <Compile Include="form\frmInfo.Designer.cs">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmK051649.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmK051649.Designer.cs">
+      <DependentUpon>frmK051649.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -514,6 +520,9 @@
     <EmbeddedResource Include="form\frmInfo.resx">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmK051649.resx">
+      <DependentUpon>frmK051649.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -681,6 +690,7 @@
     <Content Include="Resources\planeF.png" />
     <Content Include="Resources\planeFDS.png" />
     <Content Include="Resources\planeHuC6280.png" />
+    <Content Include="Resources\planeK051649.png" />
     <Content Include="Resources\planeMIDI_GM.png" />
     <Content Include="Resources\planeMIDI_GS.png" />
     <Content Include="Resources\planeMIDI_XG.png" />

@@ -504,46 +504,52 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                CTC0DownCounterMAX = (work.ctc0timeconstant == 0 ? 0x100 : work.ctc0timeconstant) * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
-                CTC1DownCounterMAX = (work.ctc1timeconstant == 0 ? 0x100 : work.ctc1timeconstant) * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                //KUMA:(CTC0 & 0x40)==0は常に成り立つ
+                //CTC0DownCounterMAX = (work.ctc0timeconstant == 0 ? 0x100 : work.ctc0timeconstant) * ((work.ctc0 & 0x40) == 0 ? ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC0DownCounterMAX = (work.ctc0timeconstant == 0 ? 0x100 : work.ctc0timeconstant) * ((work.ctc0 & 0x20) != 0 ? 256.0f : 16.0f);
+                //KUMA:(CTC1 & 0x40)==0は常に成り立つ
+                //CTC1DownCounterMAX = (work.ctc1timeconstant == 0 ? 0x100 : work.ctc1timeconstant) * ((work.ctc1 & 0x40) == 0 ? ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
+                CTC1DownCounterMAX = (work.ctc1timeconstant == 0 ? 0x100 : work.ctc1timeconstant) * ((work.ctc1 & 0x20) != 0 ? 256.0f : 16.0f);
                 CTC3DownCounterMAX = (work.ctc3timeconstant == 0 ? 0x100 : work.ctc3timeconstant) * ((work.ctc3 & 0x40) == 0 ? ((work.ctc3 & 0x20) != 0 ? 256.0f : 16.0f) : 1);
                 CTC0Paluse = false;
                 //CTC3Paluse = false;
 
+                //KUMA:(CTC0 & 0x40)==0は常に成り立つ
                 //ctc0
-                if ((work.ctc0 & 0x40) == 0)
-                {
-                    //Timer Mode
-                    CTC0DownCounter -= CTCStep;
-                }
-                else
-                {
-                    //CounterMode 無し
-                    ;
-                }
+                //if ((work.ctc0 & 0x40) == 0)
+                //{
+                //Timer Mode
+                CTC0DownCounter -= CTCStep;
+                //}
+                //else
+                //{
+                    ////CounterMode 無し
+                    //;
+                //}
 
                 if (CTC0DownCounter <= 0.0f)
                 {
                     CTC0Paluse = true;
-                    if ((work.ctc0 & 0x80) != 0)
-                    {
+                    //if ((work.ctc0 & 0x80) != 0)
+                    //{
                         //Parse();
-                    }
+                    //}
                     CTC0DownCounter += CTC0DownCounterMAX;
                 }
 
 
+                //KUMA:(CTC1 & 0x40)==0は常に成り立つ
                 //ctc1
-                if ((work.ctc1 & 0x40) == 0)
-                {
+                //if ((work.ctc1 & 0x40) == 0)
+                //{
                     //Timer Mode
                     CTC1DownCounter -= CTC1Step;
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     //CounterMode 無し
-                    ;
-                }
+                    //;
+                //}
 
                 if (CTC1DownCounter <= 0.0f)
                 {
@@ -725,6 +731,7 @@ namespace MDPlayer
             work.ctc0 = 3;
         }
 
+        private byte[] psrtbl = new byte[] { 0xe0, 1, 0xe0, 1, 0xe0, 1, 0, 0x38, 0, 0, 0, 0, 0x10, 0 };
         private void pinit(ushort hl)
         {
             Ch[] wChs = work.PSGChs;
@@ -748,8 +755,8 @@ namespace MDPlayer
             }
 
             work.PFLG = 0x38;
-            byte[] psrtbl = new byte[] { 0xe0, 1, 0xe0, 1, 0xe0, 1, 0, 0x38, 0, 0, 0, 0, 0x10, 0 };
-            for(byte d=0;d<psrtbl.Length;d++)
+            //byte[] psrtbl = new byte[] { 0xe0, 1, 0xe0, 1, 0xe0, 1, 0, 0x38, 0, 0, 0, 0, 0x10, 0 };
+            for (byte d = 0; d < psrtbl.Length; d++)
             {
                 wpsg(d, psrtbl[d]);
             }
@@ -917,9 +924,9 @@ namespace MDPlayer
                 //Out(0x1b00, a);//PSG data
                 chipRegister.setAY8910Register(0, d, a, enmModel.VirtualModel);
             }
-            else
-            {
-            }
+            //else
+            //{
+            //}
         }
 
         public class Work
