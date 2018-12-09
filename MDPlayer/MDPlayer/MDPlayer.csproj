@@ -790,12 +790,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"
-copy "$(TargetDir)"*.dll c:\bin\$(ConfigurationName)
-copy "$(TargetDir)"MDPlayer.exe c:\bin\$(ConfigurationName)
-copy "$(TargetDir)"scciconfig.exe c:\bin\$(ConfigurationName)
-copy "$(TargetDir)"scci.ini c:\bin\$(ConfigurationName)
-del c:\bin\bin$(ConfigurationName).zip
-powershell compress-archive c:\bin\$(ConfigurationName)\*.* c:\bin\bin$(ConfigurationName).zip 
+copy "$(TargetDir)"*.dll d:\bin\$(ConfigurationName)
+copy "$(TargetDir)"MDPlayer.exe d:\bin\$(ConfigurationName)
+copy "$(TargetDir)"scciconfig.exe d:\bin\$(ConfigurationName)
+copy "$(TargetDir)"scci.ini d:\bin\$(ConfigurationName)
+del d:\bin\bin$(ConfigurationName).zip
+powershell compress-archive d:\bin\$(ConfigurationName)\*.* d:\bin\bin$(ConfigurationName).zip 
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

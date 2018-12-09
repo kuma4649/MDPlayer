@@ -5300,7 +5300,7 @@ namespace MDPlayer
 
                 if (setting.outputDevice.DeviceType != 5)
                 {
-                    //updateVisualVolume(buffer, offset);
+                    updateVisualVolume(buffer, offset);
                 }
 
                 waveWriter.Write(buffer, offset, sampleCount);

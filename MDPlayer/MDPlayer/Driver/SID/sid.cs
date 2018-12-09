@@ -110,7 +110,7 @@ namespace MDPlayer.Driver.SID
                 return length;
             }
 
-            m_engine.fastForward(50);
+            m_engine.fastForward(100);
             m_engine.play(b, length);
             for (int i = 0; i < length/2; i++) oneFrameProc();
 
