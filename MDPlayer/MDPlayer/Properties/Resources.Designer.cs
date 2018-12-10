@@ -47,7 +47,7 @@ namespace MDPlayer.Properties {
         }
         
         /// <summary>
-        ///   厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+        ///   すべてについて、現在のスレッドの CurrentUICulture プロパティをオーバーライドします
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -223,7 +223,7 @@ namespace MDPlayer.Properties {
         }
         
         /// <summary>
-        ///   yyyy/MM/dd HH:mm:ss\t に類似しているローカライズされた文字列を検索します。
+        ///   yyyy/MM/dd HH:mm:ss     に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntTimeFormat {
             get {

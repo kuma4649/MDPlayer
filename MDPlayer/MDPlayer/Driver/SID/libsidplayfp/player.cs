@@ -392,7 +392,7 @@ namespace Driver.libsidplayfp
             if (m_isPlaying == state_t.PLAYING)
             {
                 m_mixer.begin(buffer, count);
-
+                //MDPlayer.log.Write(string.Format("{0}", count));
                 try
                 {
                     if (m_mixer.getSid(0) != null)

@@ -3,6 +3,7 @@ using Driver.libsidplayfp.sidplayfp;
 using System;
 using System.Text;
 using System.IO;
+using Driver.libsidplayfp;
 
 namespace MDPlayer.Driver.SID
 {
@@ -119,6 +120,8 @@ namespace MDPlayer.Driver.SID
 
         private void SidInit(byte[] vgmBuf)
         {
+            sidemu.output.OUTPUTBUFFERSIZE = setting.sid.OutputBufferSize;
+
             byte[] aryKernal = null;
             byte[] aryBasic = null;
             byte[] aryCharacter = null;

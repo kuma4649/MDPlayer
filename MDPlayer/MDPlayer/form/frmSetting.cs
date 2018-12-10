@@ -581,6 +581,7 @@ namespace MDPlayer.form
                     rdSIDQ4.Checked = true;
                     break;
             }
+            tbSIDOutputBufferSize.Text = setting.sid.OutputBufferSize.ToString();
 
             cbAutoBalanceUseThis.Checked = setting.autoBalance.UseThis;
             rbAutoBalanceLoadSongBalance.Checked = setting.autoBalance.LoadSongBalance;
@@ -1328,6 +1329,14 @@ namespace MDPlayer.form
             if (rdSIDQ2.Checked) setting.sid.Quality = 1;
             if (rdSIDQ3.Checked) setting.sid.Quality = 2;
             if (rdSIDQ4.Checked) setting.sid.Quality = 3;
+            try
+            {
+                setting.sid.OutputBufferSize = Math.Min(Math.Max(int.Parse(tbSIDOutputBufferSize.Text), 100), 999999);
+            }
+            catch
+            {
+                setting.sid.OutputBufferSize = 5000;
+            }
 
             setting.autoBalance = new Setting.AutoBalance();
             setting.autoBalance.UseThis = cbAutoBalanceUseThis.Checked;

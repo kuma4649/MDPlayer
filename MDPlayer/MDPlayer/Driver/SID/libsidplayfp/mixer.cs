@@ -353,6 +353,8 @@ namespace Driver.libsidplayfp
                     break;
                 }
 
+                //MDPlayer.log.Write(".");
+
                 // This is a crude boxcar low-pass filter to
                 // reduce aliasing during fast forward.
                 for (Int32 k = 0; k < m_buffers.Count; k++)

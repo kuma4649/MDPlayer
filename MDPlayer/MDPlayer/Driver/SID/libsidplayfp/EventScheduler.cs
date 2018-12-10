@@ -219,6 +219,8 @@ namespace Driver.libsidplayfp
             IEvent event_ = firstEvent;
             firstEvent = firstEvent.GetM_next(); //次のイベントが最初になる
             currentTime = event_.GetTriggerTime();
+            //MDPlayer.log.Write(string.Format("{0} {1}",currentTime,event_.GetM_name()));
+
             event_.event_();
         }
 

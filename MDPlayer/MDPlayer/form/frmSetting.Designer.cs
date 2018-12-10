@@ -47,6 +47,7 @@
             this.cmbDirectSoundDevice = new System.Windows.Forms.ComboBox();
             this.tcSetting = new System.Windows.Forms.TabControl();
             this.tpOutput = new System.Windows.Forms.TabPage();
+            this.rbNullDevice = new System.Windows.Forms.RadioButton();
             this.label36 = new System.Windows.Forms.Label();
             this.lblWaitTime = new System.Windows.Forms.Label();
             this.lblLatencyUnit = new System.Windows.Forms.Label();
@@ -59,6 +60,7 @@
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -112,6 +114,8 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.tbSIDOutputBufferSize = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
             this.tpMIDIOut = new System.Windows.Forms.TabPage();
             this.btnAddVST = new System.Windows.Forms.Button();
             this.tbcMIDIoutList = new System.Windows.Forms.TabControl();
@@ -351,6 +355,7 @@
             this.rbAutoBalanceNotLoadDriverBalance = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceLoadDriverBalance = new System.Windows.Forms.RadioButton();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.tbImageExt = new System.Windows.Forms.TextBox();
             this.tbMMLExt = new System.Windows.Forms.TextBox();
@@ -362,7 +367,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
             this.lblInstFormat = new System.Windows.Forms.Label();
-            this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.cbDumpSwitch = new System.Windows.Forms.CheckBox();
             this.gbWav = new System.Windows.Forms.GroupBox();
             this.btnWavPath = new System.Windows.Forms.Button();
@@ -399,8 +403,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.rbNullDevice = new System.Windows.Forms.RadioButton();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
+            this.label51 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -738,6 +741,16 @@
             this.tpOutput.Text = "出力";
             this.tpOutput.UseVisualStyleBackColor = true;
             // 
+            // rbNullDevice
+            // 
+            this.rbNullDevice.Location = new System.Drawing.Point(274, 261);
+            this.rbNullDevice.Name = "rbNullDevice";
+            this.rbNullDevice.Size = new System.Drawing.Size(122, 29);
+            this.rbNullDevice.TabIndex = 2;
+            this.rbNullDevice.Text = "NULL(サウンドデバイスを使用しない)";
+            this.rbNullDevice.UseVisualStyleBackColor = true;
+            this.rbNullDevice.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
+            // 
             // label36
             // 
             this.label36.AutoSize = true;
@@ -878,6 +891,15 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -1233,6 +1255,9 @@
             // 
             this.tpSID.Controls.Add(this.groupBox14);
             this.tpSID.Controls.Add(this.groupBox13);
+            this.tpSID.Controls.Add(this.tbSIDOutputBufferSize);
+            this.tpSID.Controls.Add(this.label51);
+            this.tpSID.Controls.Add(this.label49);
             this.tpSID.Location = new System.Drawing.Point(4, 22);
             this.tpSID.Name = "tpSID";
             this.tpSID.Size = new System.Drawing.Size(443, 371);
@@ -1420,6 +1445,23 @@
             this.label22.Size = new System.Drawing.Size(37, 12);
             this.label22.TabIndex = 0;
             this.label22.Text = "Kernal";
+            // 
+            // tbSIDOutputBufferSize
+            // 
+            this.tbSIDOutputBufferSize.Location = new System.Drawing.Point(114, 226);
+            this.tbSIDOutputBufferSize.MaxLength = 10;
+            this.tbSIDOutputBufferSize.Name = "tbSIDOutputBufferSize";
+            this.tbSIDOutputBufferSize.Size = new System.Drawing.Size(93, 19);
+            this.tbSIDOutputBufferSize.TabIndex = 1;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(13, 229);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(95, 12);
+            this.label49.TabIndex = 0;
+            this.label49.Text = "OutputBuffer size";
             // 
             // tpMIDIOut
             // 
@@ -4012,6 +4054,17 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
+            // cbWavSwitch
+            // 
+            this.cbWavSwitch.AutoSize = true;
+            this.cbWavSwitch.Location = new System.Drawing.Point(14, 202);
+            this.cbWavSwitch.Name = "cbWavSwitch";
+            this.cbWavSwitch.Size = new System.Drawing.Size(177, 16);
+            this.cbWavSwitch.TabIndex = 0;
+            this.cbWavSwitch.Text = "演奏時に.wavファイルを出力する";
+            this.cbWavSwitch.UseVisualStyleBackColor = true;
+            this.cbWavSwitch.CheckedChanged += new System.EventHandler(this.cbWavSwitch_CheckedChanged);
+            // 
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.tbImageExt);
@@ -4122,17 +4175,6 @@
             this.lblInstFormat.Size = new System.Drawing.Size(55, 12);
             this.lblInstFormat.TabIndex = 17;
             this.lblInstFormat.Text = "フォーマット";
-            // 
-            // cbWavSwitch
-            // 
-            this.cbWavSwitch.AutoSize = true;
-            this.cbWavSwitch.Location = new System.Drawing.Point(14, 202);
-            this.cbWavSwitch.Name = "cbWavSwitch";
-            this.cbWavSwitch.Size = new System.Drawing.Size(177, 16);
-            this.cbWavSwitch.TabIndex = 0;
-            this.cbWavSwitch.Text = "演奏時に.wavファイルを出力する";
-            this.cbWavSwitch.UseVisualStyleBackColor = true;
-            this.cbWavSwitch.CheckedChanged += new System.EventHandler(this.cbWavSwitch_CheckedChanged);
             // 
             // cbDumpSwitch
             // 
@@ -4509,31 +4551,20 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // rbNullDevice
+            // label51
             // 
-            this.rbNullDevice.Location = new System.Drawing.Point(274, 261);
-            this.rbNullDevice.Name = "rbNullDevice";
-            this.rbNullDevice.Size = new System.Drawing.Size(122, 29);
-            this.rbNullDevice.TabIndex = 2;
-            this.rbNullDevice.Text = "NULL(サウンドデバイスを使用しない)";
-            this.rbNullDevice.UseVisualStyleBackColor = true;
-            this.rbNullDevice.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
+            this.label51.Location = new System.Drawing.Point(213, 224);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(227, 38);
+            this.label51.TabIndex = 0;
+            this.label51.Text = "テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。";
             // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(464, 442);
+            this.ClientSize = new System.Drawing.Size(464, 441);
             this.Controls.Add(this.tcSetting);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -4572,6 +4603,7 @@
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tpSID.ResumeLayout(false);
+            this.tpSID.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
@@ -5052,5 +5084,8 @@
         private ucSettingInstruments ucSettingInstruments1;
         private System.Windows.Forms.Label lblKeyBoardHookNotice;
         private System.Windows.Forms.RadioButton rbNullDevice;
+        private System.Windows.Forms.TextBox tbSIDOutputBufferSize;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label51;
     }
 }

@@ -47,9 +47,9 @@ namespace Driver.libsidplayfp
         /**
          * Buffer size. 5000 is roughly 5 ms at 96 kHz
          */
-        public enum output
+        public static class output
         {
-            OUTPUTBUFFERSIZE = 5000
+            static public int OUTPUTBUFFERSIZE = 5000;
         }
 
         private sidplayfp.sidbuilder m_builder;

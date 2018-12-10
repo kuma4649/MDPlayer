@@ -4172,6 +4172,7 @@ namespace MDPlayer
             public string RomBasicPath = "";
             public string RomCharacterPath = "";
             public int Quality = 1;
+            public int OutputBufferSize = 5000;
 
             public SID Copy()
             {
@@ -4181,6 +4182,7 @@ namespace MDPlayer
                 SID.RomBasicPath = this.RomBasicPath;
                 SID.RomCharacterPath = this.RomCharacterPath;
                 SID.Quality = this.Quality;
+                SID.OutputBufferSize = this.OutputBufferSize;
 
                 return SID;
             }

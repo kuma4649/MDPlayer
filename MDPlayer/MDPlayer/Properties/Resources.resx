@@ -755,7 +755,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     <value>Setting.xml</value>
   </data>
   <data name="cntTimeFormat" xml:space="preserve">
-    <value>yyyy/MM/dd HH:mm:ss\t</value>
+    <value>yyyy/MM/dd HH:mm:ss    </value>
   </data>
   <data name="DefaultVolumeBalance_MND" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\defaultvolumebalance_mnd.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
