@@ -19,7 +19,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.GetApplicationDataFolder(true);
+                    string fullPath = common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
@@ -42,7 +42,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.GetApplicationDataFolder(true);
+                    string fullPath = common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
@@ -75,7 +75,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.GetApplicationDataFolder(true);
+                    string fullPath = common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }

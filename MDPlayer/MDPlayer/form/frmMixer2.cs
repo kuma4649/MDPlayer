@@ -813,7 +813,7 @@ namespace MDPlayer.form
                 sfd.Filter = "ミキサーバランス(*.mbc)|*.mbc";
                 sfd.Title = "ミキサーバランスを保存";
                 sfd.InitialDirectory = System.IO.Path.GetDirectoryName(string.IsNullOrEmpty(ms.arcFileName) ? ms.fileName : ms.arcFileName);
-                if (!parent.setting.autoBalance.SamePositionAsSongData) sfd.InitialDirectory = System.IO.Path.Combine(common.GetApplicationDataFolder(true), "MixerBalance");
+                if (!parent.setting.autoBalance.SamePositionAsSongData) sfd.InitialDirectory = System.IO.Path.Combine(common.settingFilePath, "MixerBalance");
 
                 sfd.RestoreDirectory = false;
                 sfd.FileName = System.IO.Path.GetFileName(string.IsNullOrEmpty(ms.arcFileName) ? ms.fileName : ms.arcFileName) + ".mbc";

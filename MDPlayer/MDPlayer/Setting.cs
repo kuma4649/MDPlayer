@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace MDPlayer
@@ -698,6 +699,20 @@ namespace MDPlayer
             set
             {
                 _sid = value;
+            }
+        }
+
+        private NukedOPN2 _NukedOPN2 = new NukedOPN2();
+        public NukedOPN2 nukedOPN2
+        {
+            get
+            {
+                return _NukedOPN2;
+            }
+
+            set
+            {
+                _NukedOPN2 = value;
             }
         }
 
@@ -4189,6 +4204,20 @@ namespace MDPlayer
         }
 
         [Serializable]
+        public class NukedOPN2
+        {
+            public int EmuType = 0;
+
+            public NukedOPN2 Copy()
+            {
+                NukedOPN2 no = new NukedOPN2();
+                no.EmuType = this.EmuType;
+
+                return no;
+            }
+        }
+
+        [Serializable]
         public class AutoBalance
         {
             private bool _UseThis = false;
@@ -4252,6 +4281,7 @@ namespace MDPlayer
             setting.midiOut = this.midiOut.Copy();
             setting.nsf = this.nsf.Copy();
             setting.sid = this.sid.Copy();
+            setting.nukedOPN2 = this.nukedOPN2.Copy();
             setting.autoBalance = this.autoBalance.Copy();
 
             setting.keyBoardHook = this.keyBoardHook.Copy();
@@ -4261,7 +4291,7 @@ namespace MDPlayer
 
         public void Save()
         {
-            string fullPath = common.GetApplicationDataFolder(true);
+            string fullPath = common.settingFilePath;
             fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
             XmlSerializer serializer = new XmlSerializer(typeof(Setting));
@@ -4275,7 +4305,17 @@ namespace MDPlayer
         {
             try
             {
-                string fullPath = common.GetApplicationDataFolder(true);
+                string fn = Properties.Resources.cntSettingFileName;
+                if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn)))
+                {
+                    common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                }
+                else
+                {
+                    common.settingFilePath = common.GetApplicationDataFolder(true);
+                }
+
+                string fullPath = common.settingFilePath;
                 fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
                 if (!File.Exists(fullPath)) { return new Setting(); }

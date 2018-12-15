@@ -35,9 +35,7 @@ namespace MDPlayer
 
             if (fileName == null || fileName == "")
             {
-                fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                fullPath = System.IO.Path.Combine(fullPath, "KumaApp", common.AssemblyTitle);
-                if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+                fullPath = common.settingFilePath;
                 fullPath = System.IO.Path.Combine(fullPath, "DefaultTonePallet.xml");
             }
             else
@@ -59,9 +57,7 @@ namespace MDPlayer
                 string fullPath = "";
                 if (fileName == null || fileName == "")
                 {
-                    fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    fullPath = System.IO.Path.Combine(fullPath, "KumaApp", common.AssemblyTitle);
-                    if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+                    fullPath = common.settingFilePath;
                     fullPath = System.IO.Path.Combine(fullPath, "DefaultTonePallet.xml");
                 }
                 else

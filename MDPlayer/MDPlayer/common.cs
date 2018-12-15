@@ -11,7 +11,7 @@ namespace MDPlayer
     {
         public static Int32 SampleRate = 44100;
         public static Int32 NsfClock = 1789773;
-       
+        public static string settingFilePath = "";
 
         public static UInt32 getBE16(byte[] buf, UInt32 adr)
         {

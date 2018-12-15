@@ -3446,19 +3446,51 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).YM2612ClockValue != 0)
                 {
-                    MDSound.ym2612 ym2612 = new MDSound.ym2612();
+                    MDSound.ym2612 ym2612 = null;
+                    MDSound.ym3438 ym3438 = null;
 
                     for (int i = 0; i < (((vgm)driverVirtual).YM2612DualChipFlag ? 2 : 1); i++)
                     {
                         //MDSound.ym2612 ym2612 = new MDSound.ym2612();
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
                         chip.ID = (byte)i;
-                        chip.Instrument = ym2612;
-                        chip.Update = ym2612.Update;
-                        chip.Start = ym2612.Start;
-                        chip.Stop = ym2612.Stop;
-                        chip.Reset = ym2612.Reset;
+
+                        if ((i == 0 && setting.YM2612Type.UseEmu) || (i == 1 && setting.YM2612SType.UseEmu))
+                        {
+                            if (ym2612 == null) ym2612 = new ym2612();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
+                            chip.Instrument = ym2612;
+                            chip.Update = ym2612.Update;
+                            chip.Start = ym2612.Start;
+                            chip.Stop = ym2612.Stop;
+                            chip.Reset = ym2612.Reset;
+                        }
+                        else if((i == 0 && setting.YM2612Type.UseEmu2) || (i == 1 && setting.YM2612SType.UseEmu2))
+                        {
+                            if (ym3438 == null) ym3438 = new ym3438();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM3438;
+                            chip.Instrument = ym3438;
+                            chip.Update = ym3438.Update;
+                            chip.Start = ym3438.Start;
+                            chip.Stop = ym3438.Stop;
+                            chip.Reset = ym3438.Reset;
+                            switch (setting.nukedOPN2.EmuType)
+                            {
+                                case 0:
+                                    ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.discrete);
+                                    break;
+                                case 1:
+                                    ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic);
+                                    break;
+                                case 2:
+                                    ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612);
+                                    break;
+                                case 3:
+                                    ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612_u);
+                                    break;
+                            }
+                        }
+
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.YM2612Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2612ClockValue;

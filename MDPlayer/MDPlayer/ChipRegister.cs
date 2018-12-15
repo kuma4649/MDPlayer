@@ -2650,26 +2650,26 @@ namespace MDPlayer
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
-                            //if (ctYM2612.UseEmu)
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
-                            //if (ctYM2612.UseEmu)
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
-                            //if (ctYM2612.UseEmu)
-                            mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }
                 else
                 {
                     //エミュを使用する場合のみMDSoundへデータを送る
-                    if (ctYM2612[chipID].UseEmu)
-                        mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else

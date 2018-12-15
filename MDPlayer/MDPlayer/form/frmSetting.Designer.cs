@@ -69,6 +69,12 @@
             this.tbLatencyEmu = new System.Windows.Forms.TextBox();
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.tpNuked = new System.Windows.Forms.TabPage();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.rbNukedOPN2OptionYM2612u = new System.Windows.Forms.RadioButton();
+            this.rbNukedOPN2OptionYM2612 = new System.Windows.Forms.RadioButton();
+            this.rbNukedOPN2OptionDiscrete = new System.Windows.Forms.RadioButton();
+            this.rbNukedOPN2OptionASIC = new System.Windows.Forms.RadioButton();
             this.tpNSF = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.cbNSFDmc_TriNull = new System.Windows.Forms.CheckBox();
@@ -115,6 +121,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.tbSIDOutputBufferSize = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.tpMIDIOut = new System.Windows.Forms.TabPage();
             this.btnAddVST = new System.Windows.Forms.Button();
@@ -403,7 +410,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -414,6 +420,8 @@
             this.tpModule.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tpNuked.SuspendLayout();
+            this.groupBox26.SuspendLayout();
             this.tpNSF.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -695,6 +703,7 @@
             // 
             this.tcSetting.Controls.Add(this.tpOutput);
             this.tcSetting.Controls.Add(this.tpModule);
+            this.tcSetting.Controls.Add(this.tpNuked);
             this.tcSetting.Controls.Add(this.tpNSF);
             this.tcSetting.Controls.Add(this.tpSID);
             this.tcSetting.Controls.Add(this.tpMIDIOut);
@@ -976,6 +985,73 @@
             this.label10.Size = new System.Drawing.Size(20, 12);
             this.label10.TabIndex = 2;
             this.label10.Text = "ms";
+            // 
+            // tpNuked
+            // 
+            this.tpNuked.Controls.Add(this.groupBox26);
+            this.tpNuked.Location = new System.Drawing.Point(4, 22);
+            this.tpNuked.Name = "tpNuked";
+            this.tpNuked.Size = new System.Drawing.Size(443, 371);
+            this.tpNuked.TabIndex = 14;
+            this.tpNuked.Text = "Nuked-OPN2";
+            this.tpNuked.UseVisualStyleBackColor = true;
+            // 
+            // groupBox26
+            // 
+            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612u);
+            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612);
+            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionDiscrete);
+            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIC);
+            this.groupBox26.Location = new System.Drawing.Point(7, 3);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(318, 106);
+            this.groupBox26.TabIndex = 0;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "Emulation type";
+            // 
+            // rbNukedOPN2OptionYM2612u
+            // 
+            this.rbNukedOPN2OptionYM2612u.AutoSize = true;
+            this.rbNukedOPN2OptionYM2612u.Location = new System.Drawing.Point(6, 84);
+            this.rbNukedOPN2OptionYM2612u.Name = "rbNukedOPN2OptionYM2612u";
+            this.rbNukedOPN2OptionYM2612u.Size = new System.Drawing.Size(189, 16);
+            this.rbNukedOPN2OptionYM2612u.TabIndex = 0;
+            this.rbNukedOPN2OptionYM2612u.TabStop = true;
+            this.rbNukedOPN2OptionYM2612u.Text = "YM2612(without filter emulation)";
+            this.rbNukedOPN2OptionYM2612u.UseVisualStyleBackColor = true;
+            // 
+            // rbNukedOPN2OptionYM2612
+            // 
+            this.rbNukedOPN2OptionYM2612.AutoSize = true;
+            this.rbNukedOPN2OptionYM2612.Location = new System.Drawing.Point(6, 62);
+            this.rbNukedOPN2OptionYM2612.Name = "rbNukedOPN2OptionYM2612";
+            this.rbNukedOPN2OptionYM2612.Size = new System.Drawing.Size(188, 16);
+            this.rbNukedOPN2OptionYM2612.TabIndex = 0;
+            this.rbNukedOPN2OptionYM2612.TabStop = true;
+            this.rbNukedOPN2OptionYM2612.Text = "YM2612(MD1,MD2 VA2)(default)";
+            this.rbNukedOPN2OptionYM2612.UseVisualStyleBackColor = true;
+            // 
+            // rbNukedOPN2OptionDiscrete
+            // 
+            this.rbNukedOPN2OptionDiscrete.AutoSize = true;
+            this.rbNukedOPN2OptionDiscrete.Location = new System.Drawing.Point(6, 18);
+            this.rbNukedOPN2OptionDiscrete.Name = "rbNukedOPN2OptionDiscrete";
+            this.rbNukedOPN2OptionDiscrete.Size = new System.Drawing.Size(122, 16);
+            this.rbNukedOPN2OptionDiscrete.TabIndex = 0;
+            this.rbNukedOPN2OptionDiscrete.TabStop = true;
+            this.rbNukedOPN2OptionDiscrete.Text = "Discrete(Teradrive)";
+            this.rbNukedOPN2OptionDiscrete.UseVisualStyleBackColor = true;
+            // 
+            // rbNukedOPN2OptionASIC
+            // 
+            this.rbNukedOPN2OptionASIC.AutoSize = true;
+            this.rbNukedOPN2OptionASIC.Location = new System.Drawing.Point(6, 40);
+            this.rbNukedOPN2OptionASIC.Name = "rbNukedOPN2OptionASIC";
+            this.rbNukedOPN2OptionASIC.Size = new System.Drawing.Size(174, 16);
+            this.rbNukedOPN2OptionASIC.TabIndex = 0;
+            this.rbNukedOPN2OptionASIC.TabStop = true;
+            this.rbNukedOPN2OptionASIC.Text = "ASIC(MD1 VA7,MD2,MD3,etc)";
+            this.rbNukedOPN2OptionASIC.UseVisualStyleBackColor = true;
             // 
             // tpNSF
             // 
@@ -1453,6 +1529,14 @@
             this.tbSIDOutputBufferSize.Name = "tbSIDOutputBufferSize";
             this.tbSIDOutputBufferSize.Size = new System.Drawing.Size(93, 19);
             this.tbSIDOutputBufferSize.TabIndex = 1;
+            // 
+            // label51
+            // 
+            this.label51.Location = new System.Drawing.Point(213, 224);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(227, 38);
+            this.label51.TabIndex = 0;
+            this.label51.Text = "テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。";
             // 
             // label49
             // 
@@ -4551,14 +4635,6 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // label51
-            // 
-            this.label51.Location = new System.Drawing.Point(213, 224);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(227, 38);
-            this.label51.TabIndex = 0;
-            this.label51.Text = "テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。";
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -4591,6 +4667,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tpNuked.ResumeLayout(false);
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
             this.tpNSF.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
@@ -5087,5 +5166,11 @@
         private System.Windows.Forms.TextBox tbSIDOutputBufferSize;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TabPage tpNuked;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.RadioButton rbNukedOPN2OptionYM2612u;
+        private System.Windows.Forms.RadioButton rbNukedOPN2OptionYM2612;
+        private System.Windows.Forms.RadioButton rbNukedOPN2OptionDiscrete;
+        private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIC;
     }
 }

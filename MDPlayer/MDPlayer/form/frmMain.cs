@@ -5880,7 +5880,7 @@ namespace MDPlayer.form
             try
             {
                 Setting.Balance balance = null;
-                string fullPath = common.GetApplicationDataFolder(true);
+                string fullPath = common.settingFilePath;
                 fullPath = Path.Combine(fullPath, "MixerBalance");
                 if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
                 string fn = "";
@@ -5906,7 +5906,7 @@ namespace MDPlayer.form
                     if (!File.Exists(Path.Combine(fullPath, fn)))
                     {
                         fn = "";
-                        fullPath = common.GetApplicationDataFolder(true);
+                        fullPath = common.settingFilePath;
                         fullPath = Path.Combine(fullPath, "MixerBalance");
                     }
                     else
@@ -5994,7 +5994,7 @@ namespace MDPlayer.form
 
             try
             {
-                string fullPath = common.GetApplicationDataFolder(true);
+                string fullPath = common.settingFilePath;
                 fullPath = Path.Combine(fullPath, "MixerBalance");
                 if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
                 string fn = "";

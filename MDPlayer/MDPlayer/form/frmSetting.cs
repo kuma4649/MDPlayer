@@ -278,12 +278,18 @@ namespace MDPlayer.form
                     , ucSI.rbYM2612P_Silent
                     , ucSI.rbYM2612P_Emu
                     , ucSI.rbYM2612P_SCCI
-                    , ucSI.cmbYM2612P_SCCI);
+                    , ucSI.cmbYM2612P_SCCI
+                    , null, null,null
+                    , ucSI.rbYM2612P_EmuNuked
+                    , null);
                 SetSCCIParam(setting.YM2612SType
                     , ucSI.rbYM2612S_Silent
                     , ucSI.rbYM2612S_Emu
                     , ucSI.rbYM2612S_SCCI
-                    , ucSI.cmbYM2612S_SCCI);
+                    , ucSI.cmbYM2612S_SCCI
+                    , null, null,null
+                    , ucSI.rbYM2612S_EmuNuked
+                    , null);
 
                 ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
                 ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
@@ -583,6 +589,22 @@ namespace MDPlayer.form
             }
             tbSIDOutputBufferSize.Text = setting.sid.OutputBufferSize.ToString();
 
+            switch (setting.nukedOPN2.EmuType)
+            {
+                case 0:
+                    rbNukedOPN2OptionDiscrete.Checked = true;
+                    break;
+                case 1:
+                    rbNukedOPN2OptionASIC.Checked = true;
+                    break;
+                case 2:
+                    rbNukedOPN2OptionYM2612.Checked = true;
+                    break;
+                case 3:
+                    rbNukedOPN2OptionYM2612u.Checked = true;
+                    break;
+            }
+
             cbAutoBalanceUseThis.Checked = setting.autoBalance.UseThis;
             rbAutoBalanceLoadSongBalance.Checked = setting.autoBalance.LoadSongBalance;
             rbAutoBalanceNotLoadSongBalance.Checked = !setting.autoBalance.LoadSongBalance;
@@ -839,6 +861,7 @@ namespace MDPlayer.form
                 }
             }
             setting.YM2612Type.UseEmu = ucSI.rbYM2612P_Emu.Checked;
+            setting.YM2612Type.UseEmu2 = ucSI.rbYM2612P_EmuNuked.Checked;
 
             setting.YM2612SType = new Setting.ChipType();
             setting.YM2612SType.UseScci = ucSI.rbYM2612S_SCCI.Checked;
@@ -855,6 +878,7 @@ namespace MDPlayer.form
                 }
             }
             setting.YM2612SType.UseEmu = ucSI.rbYM2612S_Emu.Checked;
+            setting.YM2612SType.UseEmu2 = ucSI.rbYM2612S_EmuNuked.Checked;
 
 
             setting.YM2612Type.UseWait = ucSI.cbSendWait.Checked;
@@ -1338,6 +1362,12 @@ namespace MDPlayer.form
                 setting.sid.OutputBufferSize = 5000;
             }
 
+            setting.nukedOPN2 = new Setting.NukedOPN2();
+            if (rbNukedOPN2OptionYM2612.Checked) setting.nukedOPN2.EmuType = 2;
+            if (rbNukedOPN2OptionASIC.Checked) setting.nukedOPN2.EmuType = 1;
+            if (rbNukedOPN2OptionDiscrete.Checked) setting.nukedOPN2.EmuType = 0;
+            if (rbNukedOPN2OptionYM2612u.Checked) setting.nukedOPN2.EmuType = 3;
+
             setting.autoBalance = new Setting.AutoBalance();
             setting.autoBalance.UseThis = cbAutoBalanceUseThis.Checked;
             setting.autoBalance.LoadSongBalance = rbAutoBalanceLoadSongBalance.Checked;
@@ -1670,9 +1700,7 @@ namespace MDPlayer.form
 
         private void btnOpenSettingFolder_Click(object sender, EventArgs e)
         {
-            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+            string fullPath = common.settingFilePath;
             System.Diagnostics.Process.Start(fullPath);
         }
 
