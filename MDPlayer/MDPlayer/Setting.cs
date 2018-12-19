@@ -2252,6 +2252,7 @@ namespace MDPlayer
                 Balance.SN76489Volume = this.SN76489Volume;
                 Balance.HuC6280Volume = this.HuC6280Volume;
                 Balance.RF5C164Volume = this.RF5C164Volume;
+                Balance.RF5C68Volume = this.RF5C68Volume;
                 Balance.PWMVolume = this.PWMVolume;
                 Balance.OKIM6258Volume = this.OKIM6258Volume;
                 Balance.OKIM6295Volume = this.OKIM6295Volume;
@@ -2259,6 +2260,7 @@ namespace MDPlayer
                 Balance.SEGAPCMVolume = this.SEGAPCMVolume;
                 Balance.C352Volume = this.C352Volume;
                 Balance.K051649Volume = this.K051649Volume;
+                Balance.K053260Volume = this.K053260Volume;
                 Balance.K054539Volume = this.K054539Volume;
                 Balance.QSoundVolume = this.QSoundVolume;
                 Balance.MultiPCMVolume = this.MultiPCMVolume;
@@ -2277,6 +2279,9 @@ namespace MDPlayer
                 Balance.YMF271Volume = this.YMF271Volume;
                 Balance.YMF262Volume = this.YMF262Volume;
                 Balance.YMF278BVolume = this.YMF278BVolume;
+                Balance.YM3526Volume = this.YM3526Volume;
+                Balance.Y8950Volume = this.Y8950Volume;
+                Balance.YM3812Volume = this.YM3812Volume;
 
                 return Balance;
             }
