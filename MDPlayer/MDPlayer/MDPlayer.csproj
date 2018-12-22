@@ -142,6 +142,8 @@
     <Compile Include="Driver\MNDRV\mpcm.cs" />
     <Compile Include="Driver\MNDRV\reg.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
+    <Compile Include="Driver\MUCOM88\ver1_1\adpcm.cs" />
+    <Compile Include="Driver\MUCOM88\Z80.cs" />
     <Compile Include="Driver\MXDRV\depend.cs" />
     <Compile Include="Driver\MXDRV\MXDRV.cs" />
     <Compile Include="Driver\MXDRV\MXDRVh.cs" />

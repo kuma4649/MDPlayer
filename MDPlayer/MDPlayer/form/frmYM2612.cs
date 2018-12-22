@@ -104,14 +104,27 @@ namespace MDPlayer.form
             }
         }
 
+        private static byte[] md = new byte[]
+        {
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x0c<<4,
+            0x0e<<4,
+            0x0e<<4,
+            0x0f<<4
+        };
+
         public void screenChangeParams()
         {
             int[][] fmRegister = Audio.GetFMRegister(chipID);
-            int[][] fmVol = Audio.GetFMVolume(chipID);
+            int[] fmVol = Audio.GetFMVolume(chipID);
             int[] fmCh3SlotVol = Audio.GetFMCh3SlotVolume(chipID);
             int[] fmKey = Audio.GetFMKeyOn(chipID);
 
-            bool isFmEx = (fmRegister[0][0x27] & 0x40) > 0;
+            bool isFmEx = (fmRegister[0][0x27] & 0x40) != 0;
+            newParam.channels[2].ex = isFmEx;
 
             newParam.lfoSw = (fmRegister[0][0x22] & 0x8) != 0;
             newParam.lfoFrq = (fmRegister[0][0x22] & 0x7);
@@ -151,17 +164,32 @@ namespace MDPlayer.form
                     octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
 
                     if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(fmVol[ch][0] / 80, 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max(fmVol[ch][1] / 80, 0), 19);
+
+                    byte con = (byte)(fmKey[ch]);
+                    int v = 127;
+                    int m = md[fmRegister[p][0xb0 + c] & 7];
+                    //OP1
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > fmRegister[p][0x40 + c]) ? fmRegister[p][0x40 + c] : v;
+                    //OP3
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > fmRegister[p][0x44 + c]) ? fmRegister[p][0x44 + c] : v;
+                    //OP2
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > fmRegister[p][0x48 + c]) ? fmRegister[p][0x48 + c] : v;
+                    //OP4
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > fmRegister[p][0x4c + c]) ? fmRegister[p][0x4c + c] : v;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * fmVol[ch] / 80.0), 0), 19);
+                    newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[p][0xb4 + c] & 0x40) != 0 ? 1 : 0) * fmVol[ch] / 80.0), 0), 19);
                 }
                 else
                 {
+                    int m = md[fmRegister[0][0xb0 + 2] & 7];
                     freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
                     octav = (fmRegister[0][0xad] & 0x38) >> 3;
 
-                    if ((fmKey[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
-                    newParam.channels[2].volumeL = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
-                    newParam.channels[2].volumeR = Math.Min(Math.Max(fmCh3SlotVol[0] / 80, 0), 19);
+                    if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+
+                    int v = ((m & 0x10) != 0) ? fmRegister[p][0x40 + c] : 127;
+                    newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * fmCh3SlotVol[0] / 80.0), 0), 19);
+                    newParam.channels[2].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[0][0xb4 + 2] & 0x40) != 0 ? 1 : 0) * fmCh3SlotVol[0] / 80.0), 0), 19);
                 }
                 newParam.channels[ch].note = n;
 
@@ -182,12 +210,21 @@ namespace MDPlayer.form
 
                 if (isFmEx)
                 {
+                    int m = md[fmRegister[0][0xb0 + 2] & 7];
+                    int op = ch - 5;
+                    op = op == 1 ? 2 : (op == 2 ? 1 : op);
+
                     int freq = fmRegister[0][0xa8 + c] + (fmRegister[0][0xac + c] & 0x07) * 0x100;
                     int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKey[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[2] & (0x10 << (ch-5))) != 0 && ((m & (0x10 << op)) != 0))
+                    {
+                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                    }
                     newParam.channels[ch].note = n;
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(fmCh3SlotVol[ch - 5] / 80, 0), 19);
+
+                    int v = ((m & (0x10 << op)) != 0) ? fmRegister[0][0x42 + op * 4] : 127;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * fmCh3SlotVol[ch - 5] / 80.0), 0), 19);
                 }
                 else
                 {
@@ -236,7 +273,16 @@ namespace MDPlayer.form
                 bool YM2612type = (chipID == 0) ? parent.setting.YM2612Type.UseScci : parent.setting.YM2612SType.UseScci;
                 int tp = YM2612type ? 1 : 0;
 
-                if (c < 5)
+                if (c == 2)
+                {
+                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.Ch3YM2612(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
+                }
+                else if (c < 5)
                 {
                     DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);

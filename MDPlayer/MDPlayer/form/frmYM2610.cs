@@ -181,6 +181,18 @@ namespace MDPlayer.form
             DrawBuff.ChYM2610Rhythm(frameBuffer, 0, ref f, false, tp);
         }
 
+        private static byte[] md = new byte[]
+        {
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x0c<<4,
+            0x0e<<4,
+            0x0e<<4,
+            0x0f<<4
+        };
+
         public void screenChangeParams()
         {
             int delta;
@@ -188,11 +200,12 @@ namespace MDPlayer.form
 
             int[][] YM2610Register = Audio.GetYM2610Register(chipID);
             int[] fmKeyYM2610 = Audio.GetYM2610KeyOn(chipID);
-            int[][] YM2610Vol = Audio.GetYM2610Volume(chipID);
+            int[] YM2610Vol = Audio.GetYM2610Volume(chipID);
             int[] YM2610Ch3SlotVol = Audio.GetYM2610Ch3SlotVolume(chipID);
             int[][] YM2610Rhythm = Audio.GetYM2610RhythmVolume(chipID);
             int[] YM2610AdpcmVol = Audio.GetYM2610AdpcmVolume(chipID);
             bool isFmEx = (YM2610Register[chipID][0x27] & 0x40) > 0;
+            newParam.channels[2].ex = isFmEx;
 
             newParam.lfoSw = (YM2610Register[0][0x22] & 0x8) != 0;
             newParam.lfoFrq = (YM2610Register[0][0x22] & 0x7);
@@ -232,17 +245,32 @@ namespace MDPlayer.form
                     octav = (YM2610Register[p][0xa4 + c] & 0x38) >> 3;
 
                     if (fmKeyYM2610[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(YM2610Vol[ch][0] / 80, 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max(YM2610Vol[ch][1] / 80, 0), 19);
+
+                    byte con = (byte)(fmKeyYM2610[ch]);
+                    int v = 127;
+                    int m = md[YM2610Register[p][0xb0 + c] & 7];
+                    //OP1
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > YM2610Register[p][0x40 + c]) ? YM2610Register[p][0x40 + c] : v;
+                    //OP3
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > YM2610Register[p][0x44 + c]) ? YM2610Register[p][0x44 + c] : v;
+                    //OP2
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > YM2610Register[p][0x48 + c]) ? YM2610Register[p][0x48 + c] : v;
+                    //OP4
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > YM2610Register[p][0x4c + c]) ? YM2610Register[p][0x4c + c] : v;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * YM2610Vol[ch] / 80.0), 0), 19);
+                    newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * YM2610Vol[ch] / 80.0), 0), 19);
                 }
                 else
                 {
+                    int m = md[YM2610Register[0][0xb0 + 2] & 7];
                     freq = YM2610Register[0][0xa9] + (YM2610Register[0][0xad] & 0x07) * 0x100;
                     octav = (YM2610Register[0][0xad] & 0x38) >> 3;
 
-                    if ((fmKeyYM2610[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
-                    newParam.channels[2].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
-                    newParam.channels[2].volumeR = Math.Min(Math.Max(YM2610Ch3SlotVol[0] / 80, 0), 19);
+                    if ((fmKeyYM2610[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+
+                    int v = ((m & 0x10) != 0) ? YM2610Register[p][0x40 + c] : 127;
+                    newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * YM2610Ch3SlotVol[0] / 80.0), 0), 19);
+                    newParam.channels[2].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * YM2610Ch3SlotVol[0] / 80.0), 0), 19);
                 }
                 newParam.channels[ch].note = n;
 
@@ -258,12 +286,21 @@ namespace MDPlayer.form
 
                 if (isFmEx)
                 {
+                    int m = md[YM2610Register[0][0xb0 + 2] & 7];
+                    int op = ch - 5;
+                    op = op == 1 ? 2 : (op == 2 ? 1 : op);
+
                     int freq = YM2610Register[0][0xa8 + c] + (YM2610Register[0][0xac + c] & 0x07) * 0x100;
                     int octav = (YM2610Register[0][0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKeyYM2610[2] & (0x20 << (ch - 6))) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2610[2] & (0x10 << (ch - 5))) != 0 && ((m & (0x10 << op)) != 0))
+                    {
+                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    }
                     newParam.channels[ch].note = n;
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(YM2610Ch3SlotVol[ch - 5] / 80, 0), 19);
+
+                    int v = ((m & (0x10 << op)) != 0) ? YM2610Register[0][0x42 + op * 4] : 127;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * YM2610Ch3SlotVol[ch - 5] / 80.0), 0), 19);
                 }
                 else
                 {
@@ -337,21 +374,31 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                if (c < 6)
+                if (c != 2)
                 {
                     DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
                     DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 17, c, oyc.inst, nyc.inst);
+                    DrawBuff.Ch3YM2610(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
+                }
+                else if (c < 6)
+                {
+                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Inst(frameBuffer, 1, 17, c, oyc.inst, nyc.inst);
+                    DrawBuff.ChYM2610(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
                 else
                 {
                     DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                    DrawBuff.ChYM2610(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
 
-                DrawBuff.ChYM2610(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
             }
 

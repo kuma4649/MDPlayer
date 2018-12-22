@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MNDファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC(TBD),MUB(TBD)ファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -28,6 +28,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
   .MND (MNDRV X68000(OPM,OKIM6258) & まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
+  .MUC (MUCOM88win 向けファイル)TBD  
+  .MUB (MUCOM88win 向けファイル)TBD  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -75,6 +77,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・X68Soundのソースを参考、移植しています。  
   (m_puusanさん/rururutanさん版両方)  
+  
+  ・MUCOM88windowsのソースを参考、移植しています。  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -199,6 +203,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・NSFPlay  
     ・CVS.EXE  
     ・KeyboardHook3.cs  
+    ・MUCOM88windows  
      
     ・SMS Power!  
     ・DOBON.NET  
@@ -339,4 +344,34 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
         選択チャンネルのノートログをクリアします。  
         初めのオクターブコマンドは出力しません。  
       
+      
+[著作権・免責]  
+  MDPlayerはMITライセンスに準ずる物とします。LICENSE.txtを参照。  
+  著作権は作者が保有しています。  
+  このソフトは無保証であり、このソフトを使用した事による  
+  いかなる損害も作者は一切の責任を負いません。  
+  また、MITライセンスは著作権表示および本許諾表示を求めますが本ソフトでは不要です。  
+  以下のソフトウェアのソースコードをC#向けに改変、またはそのまま使用しています。  
+  これらのソース、ソフトウェアは各著作者が著作権を持ちます。 ライセンスに関しては、各ドキュメントを参照してください。  
+  
+  ・VGMPlay  
+  ・MAME  
+  ・DOSBOX  
+  ・FMGen  
+  ・NSFPlay  
+  ・NEZ Plug++  
+  ・libsidplayfp  
+  ・sidplayfp  
+  ・NRTDRV  
+  ・MoonDriver  
+  ・MXP  
+  ・MXDRV  
+  ・MNDRV  
+  ・X68Sound  
+  (m_puusanさん/rururutanさん版両方)  
+  ・MUCOM88windows  
+  ・VST.NET  
+  ・NAudio  
+  ・SCCI  
+  
   

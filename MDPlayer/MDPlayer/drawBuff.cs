@@ -255,6 +255,8 @@ namespace MDPlayer
 
         public static void screenInitYM2203(FrameBuffer screen, int tp)
         {
+            if (screen == null) return;
+
             //YM2203
             for (int y = 0; y < 3 + 3 + 3; y++)
             {
@@ -269,6 +271,11 @@ namespace MDPlayer
 
                 int d = 99;
                 Volume(screen, y, 0, ref d, 0, tp);
+
+                if (y < 9)
+                {
+                    ChYM2203_P(screen, 0, y * 8 + 8, y, false, tp);
+                }
             }
 
         }
@@ -1247,6 +1254,19 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void Ch3YM2203(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        {
+
+            if (om == nm && oe == ne)
+            {
+                return;
+            }
+
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            om = nm;
+            oe = ne;
+        }
+
         public static void ChYM2413(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -1359,6 +1379,19 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void Ch3YM2608(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        {
+
+            if (om == nm && oe == ne)
+            {
+                return;
+            }
+
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            om = nm;
+            oe = ne;
+        }
+
         public static void ChYM2608Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -1383,6 +1416,19 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void Ch3YM2610(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        {
+
+            if (om == nm && oe == ne)
+            {
+                return;
+            }
+
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            om = nm;
+            oe = ne;
+        }
+
         public static void ChYM2610Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -1405,6 +1451,19 @@ namespace MDPlayer
 
             ChYM2612_P(screen, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
+        }
+
+        public static void Ch3YM2612(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        {
+
+            if (om == nm && oe == ne)
+            {
+                return;
+            }
+
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            om = nm;
+            oe = ne;
         }
 
         public static void Ch6YM2612(FrameBuffer screen, int buff, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
@@ -2973,8 +3032,7 @@ namespace MDPlayer
             }
             else if (ch < 9)
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
-                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 6).ToString());
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32*(ch-5), 24, 32, 8);
             }
             else
             {
@@ -3205,8 +3263,7 @@ namespace MDPlayer
             }
             else if (ch < 12)
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
-                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32 * (ch - 8), 24, 32, 8);
             }
             else
             {
@@ -3242,8 +3299,7 @@ namespace MDPlayer
             }
             else if (ch < 12)
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
-                drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch - 9).ToString());
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32 * (ch - 8), 24, 32, 8);
             }
             else
             {
@@ -3291,8 +3347,20 @@ namespace MDPlayer
             }
             else if (ch < 10)
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 0, 16, 8);
-                drawFont8(screen, x + 16, y, mask ? 1 : 0, (ch - 5).ToString());
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 32 * (ch - 5), 24, 32, 8);
+            }
+        }
+
+        private static void Ch3YM2612_P(FrameBuffer screen, int x, int y, int ch, bool mask,bool ex, int tp)
+        {
+            if (!ex)
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
+                drawFont8(screen, x + 16, y, mask ? 1 : 0, (ch + 1).ToString());
+            }
+            else
+            {
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 24, 24, 8);
             }
         }
 

@@ -6497,17 +6497,17 @@ namespace MDPlayer
         }
 
 
-        public static int[][] GetFMVolume(int chipID)
+        public static int[] GetFMVolume(int chipID)
         {
             return chipRegister.GetYM2612Volume(chipID);
         }
 
-        public static int[][] GetYM2151Volume(int chipID)
+        public static int[] GetYM2151Volume(int chipID)
         {
             return chipRegister.GetYM2151Volume(chipID);
         }
 
-        public static int[][] GetYM2608Volume(int chipID)
+        public static int[] GetYM2608Volume(int chipID)
         {
             return chipRegister.GetYM2608Volume(chipID);
         }
@@ -6522,7 +6522,7 @@ namespace MDPlayer
             return chipRegister.GetYM2608AdpcmVolume(chipID);
         }
 
-        public static int[][] GetYM2610Volume(int chipID)
+        public static int[] GetYM2610Volume(int chipID)
         {
             return chipRegister.GetYM2610Volume(chipID);
         }

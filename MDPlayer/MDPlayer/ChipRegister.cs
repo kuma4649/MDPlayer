@@ -72,9 +72,9 @@ namespace MDPlayer
 
         public int[][] fmRegisterYM2151 = new int[][] { null, null };
         public int[][] fmKeyOnYM2151 = new int[][] { null, null };
-        public int[][][] fmVolYM2151 = new int[][][] {
-            new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
-            , new int[8][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        public int[][] fmVolYM2151 = new int[][] {
+            new int[8] { 0,0,0,0,0,0,0,0 }
+            , new int[8] { 0,0,0,0,0,0,0,0 }
         };
 
         private int[] nowYM2151FadeoutVol = new int[] { 0, 0 };
@@ -107,9 +107,9 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYM2612 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2612 = new int[][] { null, null };
-        public int[][][] fmVolYM2612 = new int[][][] {
-            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
-            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        public int[][] fmVolYM2612 = new int[][] {
+            new int[9] { 0,0,0,0,0,0,0,0,0 }
+            ,new int[9] { 0,0,0,0,0,0,0,0,0 }
         };
         public int[][] fmCh3SlotVolYM2612 = new int[][] { new int[4], new int[4] };
         private int[] nowYM2612FadeoutVol = new int[] { 0, 0 };
@@ -117,9 +117,9 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYM2608 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2608 = new int[][] { null, null };
-        public int[][][] fmVolYM2608 = new int[][][] {
-            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
-            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        public int[][] fmVolYM2608 = new int[][] {
+            new int[9] { 0,0,0,0,0,0,0,0,0 }
+            ,new int[9] { 0,0,0,0,0,0,0,0,0 }
         };
         public int[][] fmCh3SlotVolYM2608 = new int[][] { new int[4], new int[4] };
         public int[][][] fmVolYM2608Rhythm = new int[][][] {
@@ -136,9 +136,9 @@ namespace MDPlayer
 
         public int[][][] fmRegisterYM2610 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2610 = new int[][] { null, null };
-        public int[][][] fmVolYM2610 = new int[][][] {
-            new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
-            ,new int[9][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        public int[][] fmVolYM2610 = new int[][] {
+            new int[9] { 0,0,0,0,0,0,0,0,0 }
+            ,new int[9] { 0,0,0,0,0,0,0,0,0 }
         };
         public int[][] fmCh3SlotVolYM2610 = new int[][] { new int[4], new int[4] };
         public int[][][] fmVolYM2610Rhythm = new int[][][] {
@@ -1015,16 +1015,15 @@ namespace MDPlayer
                     int ch = dData & 0x7;
                     if (ch >= 0 && ch < 8)
                     {
-                        if ((dData & 0x78) > 0)
+                        if ((dData & 0x78) != 0)
                         {
-                            fmKeyOnYM2151[chipID][ch] = dData & 0x78;
-                            //0x2x Pan/FL/CON
-                            fmVolYM2151[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2151[chipID][0x20 + ch] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[chipID][0x78 + ch] & 0x7f)) / 127.0));
-                            fmVolYM2151[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2151[chipID][0x20 + ch] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2151[chipID][0x78 + ch] & 0x7f)) / 127.0));
+                            byte con = (byte)(dData & 0x78);
+                            fmKeyOnYM2151[chipID][ch] = con | 1;
+                            fmVolYM2151[chipID][ch] = 256 * 6;
                         }
                         else
                         {
-                            fmKeyOnYM2151[chipID][ch] = 0;
+                            fmKeyOnYM2151[chipID][ch] &= 0xfe;
                         }
                     }
                 }
@@ -1599,17 +1598,23 @@ namespace MDPlayer
                     {
                         if (ch != 2 || (fmRegisterYM2203[chipID][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2203[chipID][ch] = dData & 0xf0;
-                            int c = ch;
-                            fmVolYM2203[chipID][ch] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x4c + c] & 0x7f)) / 127.0));
+                            if ((dData & 0xf0) != 0)
+                            {
+                                fmKeyOnYM2203[chipID][ch] = (dData & 0xf0) | 1;
+                                fmVolYM2203[chipID][ch] = 256 * 6;
+                            }
+                            else
+                            {
+                                fmKeyOnYM2203[chipID][ch] &= 0xfe;
+                            }
                         }
                         else
                         {
-                            fmKeyOnYM2203[chipID][2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2203[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2203[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2203[chipID][0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2203[chipID][2] = (dData & 0xf0);
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2203[chipID][0] = 256 * 6;
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2203[chipID][1] = 256 * 6;
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2203[chipID][2] = 256 * 6;
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2203[chipID][3] = 256 * 6;
                         }
                     }
                 }
@@ -1694,19 +1699,23 @@ namespace MDPlayer
                     {
                         if (ch != 2 || (fmRegisterYM2608[chipID][0][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2608[chipID][ch] = dData & 0xf0;
-                            int p = (ch > 2) ? 1 : 0;
-                            int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVolYM2608[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2608[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[chipID][p][0x4c + c] & 0x7f)) / 127.0));
-                            fmVolYM2608[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2608[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2608[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                            if ((dData & 0xf0) != 0)
+                            {
+                                fmKeyOnYM2608[chipID][ch] = (dData & 0xf0) | 1;
+                                fmVolYM2608[chipID][ch] = 256 * 6;
+                            }
+                            else
+                            {
+                                fmKeyOnYM2608[chipID][ch] &= 0xfe;
+                            }
                         }
                         else
                         {
                             fmKeyOnYM2608[chipID][2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2608[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2608[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2608[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2608[chipID][0] = 256 * 6;
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2608[chipID][1] = 256 * 6;
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2608[chipID][2] = 256 * 6;
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2608[chipID][3] = 256 * 6;
                         }
                     }
                 }
@@ -1858,19 +1867,23 @@ namespace MDPlayer
                     {
                         if (ch != 2 || (fmRegisterYM2610[chipID][0][0x27] & 0xc0) != 0x40)
                         {
-                            fmKeyOnYM2610[chipID][ch] = dData & 0xf0;
-                            int p = (ch > 2) ? 1 : 0;
-                            int c = (ch > 2) ? (ch - 3) : ch;
-                            fmVolYM2610[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2610[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[chipID][p][0x4c + c] & 0x7f)) / 127.0));
-                            fmVolYM2610[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2610[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2610[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                            if ((dData & 0xf0) != 0)
+                            {
+                                fmKeyOnYM2610[chipID][ch] = (dData & 0xf0)|1;
+                                fmVolYM2610[chipID][ch] = 256 * 6;
+                            }
+                            else
+                            {
+                                fmKeyOnYM2610[chipID][ch] &= 0xfe;
+                            }
                         }
                         else
                         {
                             fmKeyOnYM2610[chipID][2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2610[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2610[chipID][0] = 256 * 6;
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2610[chipID][1] = 256 * 6;
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2610[chipID][2] = 256 * 6;
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2610[chipID][3] = 256 * 6;
                         }
                     }
                 }
@@ -2574,30 +2587,36 @@ namespace MDPlayer
                         {
                             if (ch != 5 || (fmRegisterYM2612[chipID][0][0x2b] & 0x80) == 0)
                             {
-                                fmKeyOnYM2612[chipID][ch] = dData & 0xf0;
-                                int p = (ch > 2) ? 1 : 0;
-                                int c = (ch > 2) ? (ch - 3) : ch;
-                                fmVolYM2612[chipID][ch][0] = (int)(256 * 6 * ((fmRegisterYM2612[chipID][p][0xb4 + c] & 0x80) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2612[chipID][p][0x4c + c] & 0x7f)) / 127.0));
-                                fmVolYM2612[chipID][ch][1] = (int)(256 * 6 * ((fmRegisterYM2612[chipID][p][0xb4 + c] & 0x40) > 0 ? 1 : 0) * ((127 - (fmRegisterYM2612[chipID][p][0x4c + c] & 0x7f)) / 127.0));
+                                if ((dData & 0xf0) != 0)
+                                {
+                                    fmKeyOnYM2612[chipID][ch] = (dData & 0xf0) | 1;
+                                    fmVolYM2612[chipID][ch] = 256 * 6;
+                                }
+                                else
+                                {
+                                    fmKeyOnYM2612[chipID][ch] &= 0xfe;
+                                }
                             }
                         }
                         else
                         {
-                            fmKeyOnYM2612[chipID][2] = dData & 0xf0;
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][1] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][2] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
+                            fmKeyOnYM2612[chipID][2] = (dData & 0xf0);
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][1] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][2] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
                         }
                     }
                 }
 
+                //PCM
                 if ((fmRegisterYM2612[chipID][0][0x2b] & 0x80) > 0)
                 {
                     if (fmRegisterYM2612[chipID][0][0x2a] > 0)
                     {
-                        fmVolYM2612[chipID][5][0] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                        fmVolYM2612[chipID][5][1] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                        //fmVolYM2612[chipID][5][0] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
+                        //fmVolYM2612[chipID][5][1] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
+                        fmVolYM2612[chipID][5] = fmRegisterYM2612[chipID][0][0x2a] * 10;
                     }
                 }
             }
@@ -3684,8 +3703,7 @@ namespace MDPlayer
             {
                 for (int i = 0; i < 9; i++)
                 {
-                    if (fmVolYM2612[chipID][i][0] > 0) { fmVolYM2612[chipID][i][0] -= 50; if (fmVolYM2612[chipID][i][0] < 0) fmVolYM2612[chipID][i][0] = 0; }
-                    if (fmVolYM2612[chipID][i][1] > 0) { fmVolYM2612[chipID][i][1] -= 50; if (fmVolYM2612[chipID][i][1] < 0) fmVolYM2612[chipID][i][1] = 0; }
+                    if (fmVolYM2612[chipID][i] > 0) { fmVolYM2612[chipID][i] -= 50; if (fmVolYM2612[chipID][i] < 0) fmVolYM2612[chipID][i] = 0; }
                 }
                 for (int i = 0; i < 4; i++)
                 {
@@ -3693,13 +3711,11 @@ namespace MDPlayer
                 }
                 for (int i = 0; i < 8; i++)
                 {
-                    if (fmVolYM2151[chipID][i][0] > 0) { fmVolYM2151[chipID][i][0] -= 50; if (fmVolYM2151[chipID][i][0] < 0) fmVolYM2151[chipID][i][0] = 0; }
-                    if (fmVolYM2151[chipID][i][1] > 0) { fmVolYM2151[chipID][i][1] -= 50; if (fmVolYM2151[chipID][i][1] < 0) fmVolYM2151[chipID][i][1] = 0; }
+                    if (fmVolYM2151[chipID][i] > 0) { fmVolYM2151[chipID][i] -= 50; if (fmVolYM2151[chipID][i] < 0) fmVolYM2151[chipID][i] = 0; }
                 }
                 for (int i = 0; i < 9; i++)
                 {
-                    if (fmVolYM2608[chipID][i][0] > 0) { fmVolYM2608[chipID][i][0] -= 50; if (fmVolYM2608[chipID][i][0] < 0) fmVolYM2608[chipID][i][0] = 0; }
-                    if (fmVolYM2608[chipID][i][1] > 0) { fmVolYM2608[chipID][i][1] -= 50; if (fmVolYM2608[chipID][i][1] < 0) fmVolYM2608[chipID][i][1] = 0; }
+                    if (fmVolYM2608[chipID][i] > 0) { fmVolYM2608[chipID][i] -= 50; if (fmVolYM2608[chipID][i] < 0) fmVolYM2608[chipID][i] = 0; }
                 }
                 for (int i = 0; i < 4; i++)
                 {
@@ -3716,8 +3732,7 @@ namespace MDPlayer
 
                 for (int i = 0; i < 9; i++)
                 {
-                    if (fmVolYM2610[chipID][i][0] > 0) { fmVolYM2610[chipID][i][0] -= 50; if (fmVolYM2610[chipID][i][0] < 0) fmVolYM2610[chipID][i][0] = 0; }
-                    if (fmVolYM2610[chipID][i][1] > 0) { fmVolYM2610[chipID][i][1] -= 50; if (fmVolYM2610[chipID][i][1] < 0) fmVolYM2610[chipID][i][1] = 0; }
+                    if (fmVolYM2610[chipID][i] > 0) { fmVolYM2610[chipID][i] -= 50; if (fmVolYM2610[chipID][i] < 0) fmVolYM2610[chipID][i] = 0; }
                 }
                 for (int i = 0; i < 4; i++)
                 {
@@ -3744,7 +3759,7 @@ namespace MDPlayer
 
         }
 
-        public int[][] GetYM2151Volume(int chipID)
+        public int[] GetYM2151Volume(int chipID)
         {
             return fmVolYM2151[chipID];
         }
@@ -3754,17 +3769,17 @@ namespace MDPlayer
             return fmVolYM2203[chipID];
         }
 
-        public int[][] GetYM2608Volume(int chipID)
+        public int[] GetYM2608Volume(int chipID)
         {
             return fmVolYM2608[chipID];
         }
 
-        public int[][] GetYM2610Volume(int chipID)
+        public int[] GetYM2610Volume(int chipID)
         {
             return fmVolYM2610[chipID];
         }
 
-        public int[][] GetYM2612Volume(int chipID)
+        public int[] GetYM2612Volume(int chipID)
         {
             return fmVolYM2612[chipID];
         }

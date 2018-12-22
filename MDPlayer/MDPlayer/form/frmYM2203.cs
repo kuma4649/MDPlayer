@@ -104,6 +104,18 @@ namespace MDPlayer.form
             }
         }
 
+        private static byte[] md = new byte[]
+        {
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x08<<4,
+            0x0c<<4,
+            0x0e<<4,
+            0x0e<<4,
+            0x0f<<4
+        };
+
         public void screenChangeParams()
         {
             bool isFmEx;
@@ -113,6 +125,8 @@ namespace MDPlayer.form
             int[] ym2203Ch3SlotVol = Audio.GetYM2203Ch3SlotVolume(chipID);
 
             isFmEx = (ym2203Register[0x27] & 0x40) > 0;
+            newParam.channels[2].ex = isFmEx;
+
             for (int ch = 0; ch < 3; ch++)
             {
                 int c = ch;
@@ -147,17 +161,30 @@ namespace MDPlayer.form
                     octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
 
                     if (fmKeyYM2203[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
-                    //newParam.ym2203[0].channels[ch].volumeR = Math.Min(Math.Max(ym2203Vol[ch] / 80, 0), 19);
+
+                    byte con = (byte)(fmKeyYM2203[ch]);
+                    int v = 127;
+                    int m = md[ym2203Register[0xb0 + c] & 7];
+                    //OP1
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > ym2203Register[0x40 + c]) ? ym2203Register[0x40 + c] : v;
+                    //OP3
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > ym2203Register[0x44 + c]) ? ym2203Register[0x44 + c] : v;
+                    //OP2
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > ym2203Register[0x48 + c]) ? ym2203Register[0x48 + c] : v;
+                    //OP4
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > ym2203Register[0x4c + c]) ? ym2203Register[0x4c + c] : v;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Vol[ch] / 80.0), 0), 19);
                 }
                 else
                 {
+                    int m = md[ym2203Register[0xb0 + 2] & 7];
                     freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
                     octav = (ym2203Register[0xad] & 0x38) >> 3;
 
-                    if ((fmKeyYM2203[2] & 0x10) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
-                    newParam.channels[2].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
-                    //newParam.ym2203[0].channels[2].volumeR = Math.Min(Math.Max(ym2203Ch3SlotVol[0] / 80, 0), 19);
+                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+
+                    int v = ((m & 0x10) != 0) ? ym2203Register[0x40 + c] : 127;
+                    newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Ch3SlotVol[0] / 80.0), 0), 19);
                 }
                 newParam.channels[ch].note = n;
 
@@ -173,12 +200,21 @@ namespace MDPlayer.form
 
                 if (isFmEx)
                 {
+                    int m = md[ym2203Register[0xb0 + 2] & 7];
+                    int op = ch - 2;
+                    op = op == 1 ? 2 : (op == 2 ? 1 : op);
+
                     int freq = ym2203Register[0xa8 + c] + (ym2203Register[0xac + c] & 0x07) * 0x100;
                     int octav = (ym2203Register[0xac + c] & 0x38) >> 3;
                     int n = -1;
-                    if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) != 0 && ((m & (0x10 << op)) != 0))
+                    {
+                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    }
                     newParam.channels[ch].note = n;
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2203Ch3SlotVol[ch - 2] / 80, 0), 19);
+
+                    int v = ((m & (0x10 << op)) != 0) ? ym2203Register[0x42 + op * 4] : 127;
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Ch3SlotVol[ch - 2] / 80.0), 0), 19);
                 }
                 else
                 {
@@ -223,7 +259,7 @@ namespace MDPlayer.form
         }
 
 
-    public void screenDrawParams()
+        public void screenDrawParams()
         {
             int tp = parent.setting.YM2203Type.UseScci ? 1 : 0;
 
@@ -233,19 +269,27 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                if (c < 3)
+                if (c == 2)
                 {
                     DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.Ch3YM2203(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
+                }
+                else if (c < 3)
+                {
+                    DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
                 else
                 {
                     DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
+                    DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
 
-                DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
             }
 
@@ -270,6 +314,8 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
+            int tp = parent.setting.YM2203Type.UseScci ? 1 : 0;
+
             for (int ch = 0; ch < 3; ch++)
             {
                 for (int i = 0; i < 4; i++)
@@ -315,6 +361,7 @@ namespace MDPlayer.form
             newParam.efrq = 0;
             newParam.etype = 0;
 
+            DrawBuff.screenInitYM2203(frameBuffer,tp);
         }
 
 

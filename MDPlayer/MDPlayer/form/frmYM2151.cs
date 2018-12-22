@@ -161,11 +161,23 @@ namespace MDPlayer.form
             }
         }
 
+        private static byte[] md = new byte[]
+        {
+            0x08<<3,
+            0x08<<3,
+            0x08<<3,
+            0x08<<3,
+            0x0c<<3,
+            0x0e<<3,
+            0x0e<<3,
+            0x0f<<3
+        };
+
         public void screenChangeParams()
         {
             int[] ym2151Register = Audio.GetYM2151Register(chipID);
             int[] fmKeyYM2151 = Audio.GetYM2151KeyOn(chipID);
-            int[][] fmYM2151Vol = Audio.GetYM2151Volume(chipID);
+            int[] fmYM2151Vol = Audio.GetYM2151Volume(chipID);
 
             for (int ch = 0; ch < 8; ch++)
             {
@@ -200,10 +212,22 @@ namespace MDPlayer.form
                 {
                     hosei = (Audio.driverVirtual).YM2151Hosei[chipID];
                 }
-                newParam.channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + hosei) : -1;//4
+                newParam.channels[ch].note = ((fmKeyYM2151[ch] & 1) != 0) ? (oct * 12 + note + hosei) : -1;
 
-                newParam.channels[ch].volumeL = Math.Min(Math.Max(fmYM2151Vol[ch][1] / 80, 0), 19);
-                newParam.channels[ch].volumeR = Math.Min(Math.Max(fmYM2151Vol[ch][0] / 80, 0), 19);
+                byte con = (byte)(fmKeyYM2151[ch]);
+                int v = 127;
+                int m = md[ym2151Register[0x20 + ch] & 7];
+                //OP1
+                v = (((con & 0x08) != 0) && ((m & 0x08) != 0) && v > ym2151Register[0x60 + ch]) ? ym2151Register[0x60 + ch] : v;
+                //OP3
+                v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > ym2151Register[0x68 + ch]) ? ym2151Register[0x68 + ch] : v;
+                //OP2
+                v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > ym2151Register[0x70 + ch]) ? ym2151Register[0x70 + ch] : v;
+                //OP4
+                v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > ym2151Register[0x78 + ch]) ? ym2151Register[0x78 + ch] : v;
+
+                newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x80) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
+                newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x40) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
 
                 newParam.channels[ch].kf = ((ym2151Register[0x30 + ch] & 0xfc) >> 2);
 

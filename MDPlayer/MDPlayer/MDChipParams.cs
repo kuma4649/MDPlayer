@@ -47,6 +47,7 @@ namespace MDPlayer
             public int tp = -1;
             public int kf = -1;//OPM only
             public int tn = 0;//PSG only
+            public bool ex = false;//OPN/2/A/B
             public int tntp = -1;
             public bool dda = false;//HuC6280
             public bool noise = false;//HuC6280
