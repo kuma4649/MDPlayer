@@ -163,19 +163,19 @@ namespace MDPlayer.form
                     freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
                     octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
 
-                    if (fmKey[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
 
                     byte con = (byte)(fmKey[ch]);
                     int v = 127;
                     int m = md[fmRegister[p][0xb0 + c] & 7];
                     //OP1
-                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > fmRegister[p][0x40 + c]) ? fmRegister[p][0x40 + c] : v;
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (fmRegister[p][0x40 + c] & 0x7f)) ? (fmRegister[p][0x40 + c] & 0x7f) : v;
                     //OP3
-                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > fmRegister[p][0x44 + c]) ? fmRegister[p][0x44 + c] : v;
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > (fmRegister[p][0x44 + c] & 0x7f)) ? (fmRegister[p][0x44 + c] & 0x7f) : v;
                     //OP2
-                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > fmRegister[p][0x48 + c]) ? fmRegister[p][0x48 + c] : v;
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (fmRegister[p][0x48 + c] & 0x7f)) ? (fmRegister[p][0x48 + c] & 0x7f) : v;
                     //OP4
-                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > fmRegister[p][0x4c + c]) ? fmRegister[p][0x4c + c] : v;
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > (fmRegister[p][0x4c + c] & 0x7f)) ? (fmRegister[p][0x4c + c] & 0x7f) : v;
                     newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * fmVol[ch] / 80.0), 0), 19);
                     newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[p][0xb4 + c] & 0x40) != 0 ? 1 : 0) * fmVol[ch] / 80.0), 0), 19);
                 }
@@ -236,6 +236,11 @@ namespace MDPlayer.form
             newParam.channels[5].pcmMode = (fmRegister[0][0x2b] & 0x80) >> 7;
             if (newParam.channels[5].pcmBuff > 0)
                 newParam.channels[5].pcmBuff--;
+            if (newParam.channels[5].pcmMode!=0)
+            {
+                newParam.channels[5].volumeL = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
+                newParam.channels[5].volumeR = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
+            }
 
             if (newParam.fileFormat == enmFileFormat.XGM && Audio.driverVirtual is xgm)
             {

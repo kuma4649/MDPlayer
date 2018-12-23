@@ -603,6 +603,9 @@ namespace MDPlayer.form
                 case 3:
                     rbNukedOPN2OptionYM2612u.Checked = true;
                     break;
+                case 4:
+                    rbNukedOPN2OptionASIClp.Checked = true;
+                    break;
             }
 
             cbAutoBalanceUseThis.Checked = setting.autoBalance.UseThis;
@@ -1367,6 +1370,7 @@ namespace MDPlayer.form
             if (rbNukedOPN2OptionASIC.Checked) setting.nukedOPN2.EmuType = 1;
             if (rbNukedOPN2OptionDiscrete.Checked) setting.nukedOPN2.EmuType = 0;
             if (rbNukedOPN2OptionYM2612u.Checked) setting.nukedOPN2.EmuType = 3;
+            if (rbNukedOPN2OptionASIClp.Checked) setting.nukedOPN2.EmuType = 4;
 
             setting.autoBalance = new Setting.AutoBalance();
             setting.autoBalance.UseThis = cbAutoBalanceUseThis.Checked;

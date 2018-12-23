@@ -218,13 +218,13 @@ namespace MDPlayer.form
                 int v = 127;
                 int m = md[ym2151Register[0x20 + ch] & 7];
                 //OP1
-                v = (((con & 0x08) != 0) && ((m & 0x08) != 0) && v > ym2151Register[0x60 + ch]) ? ym2151Register[0x60 + ch] : v;
+                v = (((con & 0x08) != 0) && ((m & 0x08) != 0) && v > (ym2151Register[0x60 + ch] & 0x7f)) ? (ym2151Register[0x60 + ch] & 0x7f) : v;
                 //OP3
-                v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > ym2151Register[0x68 + ch]) ? ym2151Register[0x68 + ch] : v;
+                v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (ym2151Register[0x68 + ch] & 0x7f)) ? (ym2151Register[0x68 + ch] & 0x7f) : v;
                 //OP2
-                v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > ym2151Register[0x70 + ch]) ? ym2151Register[0x70 + ch] : v;
+                v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > (ym2151Register[0x70 + ch] & 0x7f)) ? (ym2151Register[0x70 + ch] & 0x7f) : v;
                 //OP4
-                v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > ym2151Register[0x78 + ch]) ? ym2151Register[0x78 + ch] : v;
+                v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (ym2151Register[0x78 + ch] & 0x7f)) ? (ym2151Register[0x78 + ch] & 0x7f) : v;
 
                 newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x80) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x40) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);

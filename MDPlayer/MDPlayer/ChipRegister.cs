@@ -2601,10 +2601,10 @@ namespace MDPlayer
                         else
                         {
                             fmKeyOnYM2612[chipID][2] = (dData & 0xf0);
-                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x40 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][1] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x44 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][2] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x48 + 2] & 0x7f)) / 127.0));
-                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = 256 * 6;// (int)(256 * 6 * ((127 - (fmRegisterYM2612[chipID][0][0x4c + 2] & 0x7f)) / 127.0));
+                            if ((dData & 0x10) > 0) fmCh3SlotVolYM2612[chipID][0] = 256 * 6;
+                            if ((dData & 0x20) > 0) fmCh3SlotVolYM2612[chipID][1] = 256 * 6;
+                            if ((dData & 0x40) > 0) fmCh3SlotVolYM2612[chipID][2] = 256 * 6;
+                            if ((dData & 0x80) > 0) fmCh3SlotVolYM2612[chipID][3] = 256 * 6;
                         }
                     }
                 }
@@ -2614,9 +2614,7 @@ namespace MDPlayer
                 {
                     if (fmRegisterYM2612[chipID][0][0x2a] > 0)
                     {
-                        //fmVolYM2612[chipID][5][0] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x80) > 0 ? 1 : 0);
-                        //fmVolYM2612[chipID][5][1] = fmRegisterYM2612[chipID][0][0x2a] * 10 * ((fmRegisterYM2612[chipID][1][0xb4 + 2] & 0x40) > 0 ? 1 : 0);
-                        fmVolYM2612[chipID][5] = fmRegisterYM2612[chipID][0][0x2a] * 10;
+                        fmVolYM2612[chipID][5] = Math.Abs(fmRegisterYM2612[chipID][0][0x2a]-0x7f) * 20;
                     }
                 }
             }

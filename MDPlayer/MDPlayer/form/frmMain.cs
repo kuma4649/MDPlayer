@@ -194,7 +194,7 @@ namespace MDPlayer.form
             frmPlayList.Show();
             frmPlayList.Visible = false;
             frmPlayList.Opacity = 1.0;
-            frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
+            //frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
 
             frmVSTeffectList = new frmVSTeffectList(this, setting);
@@ -4011,16 +4011,16 @@ namespace MDPlayer.form
         private void dispPlayList()
         {
             frmPlayList.setting = setting;
-            if (setting.location.PPlayList != System.Drawing.Point.Empty)
-            {
-                frmPlayList.Location = setting.location.PPlayList;
+            //if (setting.location.PPlayList != System.Drawing.Point.Empty)
+            //{
+            //    frmPlayList.Location = setting.location.PPlayList;
 
-            }
-            if (setting.location.PPlayListWH != System.Drawing.Point.Empty)
-            {
-                frmPlayList.Width = setting.location.PPlayListWH.X;
-                frmPlayList.Height = setting.location.PPlayListWH.Y;
-            }
+            //}
+            //if (setting.location.PPlayListWH != System.Drawing.Point.Empty)
+            //{
+            //    frmPlayList.Width = setting.location.PPlayListWH.X;
+            //    frmPlayList.Height = setting.location.PPlayListWH.Y;
+            //}
             frmPlayList.Visible = !frmPlayList.Visible;
             if(frmPlayList.Visible) CheckAndSetForm(frmPlayList);
             frmPlayList.TopMost = true;

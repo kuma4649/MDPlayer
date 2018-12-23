@@ -2425,6 +2425,9 @@ namespace MDPlayer
                         case 3:
                             ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612_u);
                             break;
+                        case 4:
+                            ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic_lp);
+                            break;
                     }
                 }
                 chip.SamplingRate = (UInt32)common.SampleRate;
@@ -2655,6 +2658,9 @@ namespace MDPlayer
                                         break;
                                     case 3:
                                         ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612_u);
+                                        break;
+                                    case 4:
+                                        ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic_lp);
                                         break;
                                 }
                             }
@@ -3549,6 +3555,9 @@ namespace MDPlayer
                                     break;
                                 case 3:
                                     ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.ym2612_u);
+                                    break;
+                                case 4:
+                                    ym3438.OPN2_SetChipType(ym3438_const.ym3438_type.asic_lp);
                                     break;
                             }
                         }

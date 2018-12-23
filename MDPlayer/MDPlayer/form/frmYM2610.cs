@@ -244,19 +244,19 @@ namespace MDPlayer.form
                     freq = YM2610Register[p][0xa0 + c] + (YM2610Register[p][0xa4 + c] & 0x07) * 0x100;
                     octav = (YM2610Register[p][0xa4 + c] & 0x38) >> 3;
 
-                    if (fmKeyYM2610[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2610[ch]&1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2610[ch]);
                     int v = 127;
                     int m = md[YM2610Register[p][0xb0 + c] & 7];
                     //OP1
-                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > YM2610Register[p][0x40 + c]) ? YM2610Register[p][0x40 + c] : v;
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (YM2610Register[p][0x40 + c] & 0x7f)) ? (YM2610Register[p][0x40 + c] & 0x7f) : v;
                     //OP3
-                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > YM2610Register[p][0x44 + c]) ? YM2610Register[p][0x44 + c] : v;
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > (YM2610Register[p][0x44 + c] & 0x7f)) ? (YM2610Register[p][0x44 + c] & 0x7f) : v;
                     //OP2
-                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > YM2610Register[p][0x48 + c]) ? YM2610Register[p][0x48 + c] : v;
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (YM2610Register[p][0x48 + c] & 0x7f)) ? (YM2610Register[p][0x48 + c] & 0x7f) : v;
                     //OP4
-                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > YM2610Register[p][0x4c + c]) ? YM2610Register[p][0x4c + c] : v;
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > (YM2610Register[p][0x4c + c] & 0x7f)) ? (YM2610Register[p][0x4c + c] & 0x7f) : v;
                     newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * YM2610Vol[ch] / 80.0), 0), 19);
                     newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * YM2610Vol[ch] / 80.0), 0), 19);
                 }

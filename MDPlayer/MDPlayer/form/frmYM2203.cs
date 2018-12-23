@@ -160,19 +160,19 @@ namespace MDPlayer.form
                     freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
                     octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
 
-                    if (fmKeyYM2203[ch] > 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2203[ch]);
                     int v = 127;
                     int m = md[ym2203Register[0xb0 + c] & 7];
                     //OP1
-                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > ym2203Register[0x40 + c]) ? ym2203Register[0x40 + c] : v;
+                    v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (ym2203Register[0x40 + c] & 0x7f)) ? (ym2203Register[0x40 + c] & 0x7f) : v;
                     //OP3
-                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > ym2203Register[0x44 + c]) ? ym2203Register[0x44 + c] : v;
+                    v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > (ym2203Register[0x44 + c] & 0x7f)) ? (ym2203Register[0x44 + c] & 0x7f) : v;
                     //OP2
-                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > ym2203Register[0x48 + c]) ? ym2203Register[0x48 + c] : v;
+                    v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (ym2203Register[0x48 + c] & 0x7f)) ? (ym2203Register[0x48 + c] & 0x7f) : v;
                     //OP4
-                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > ym2203Register[0x4c + c]) ? ym2203Register[0x4c + c] : v;
+                    v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > (ym2203Register[0x4c + c] & 0x7f)) ? (ym2203Register[0x4c + c] & 0x7f) : v;
                     newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Vol[ch] / 80.0), 0), 19);
                 }
                 else

@@ -305,7 +305,7 @@ namespace MDPlayer.form
             this.toolStripSeparator3,
             this.tsmiDelAllMusic});
             this.cmsPlayList.Name = "cmsPlayList";
-            this.cmsPlayList.Size = new System.Drawing.Size(161, 104);
+            this.cmsPlayList.Size = new System.Drawing.Size(151, 104);
             // 
             // type設定ToolStripMenuItem
             // 
@@ -321,107 +321,107 @@ namespace MDPlayer.form
             this.tsmiI,
             this.tsmiJ});
             this.type設定ToolStripMenuItem.Name = "type設定ToolStripMenuItem";
-            this.type設定ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.type設定ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.type設定ToolStripMenuItem.Text = "Type設定";
             // 
             // tsmiA
             // 
             this.tsmiA.Name = "tsmiA";
-            this.tsmiA.Size = new System.Drawing.Size(85, 22);
+            this.tsmiA.Size = new System.Drawing.Size(83, 22);
             this.tsmiA.Text = "A";
             this.tsmiA.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiB
             // 
             this.tsmiB.Name = "tsmiB";
-            this.tsmiB.Size = new System.Drawing.Size(85, 22);
+            this.tsmiB.Size = new System.Drawing.Size(83, 22);
             this.tsmiB.Text = "B";
             this.tsmiB.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiC
             // 
             this.tsmiC.Name = "tsmiC";
-            this.tsmiC.Size = new System.Drawing.Size(85, 22);
+            this.tsmiC.Size = new System.Drawing.Size(83, 22);
             this.tsmiC.Text = "C";
             this.tsmiC.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiD
             // 
             this.tsmiD.Name = "tsmiD";
-            this.tsmiD.Size = new System.Drawing.Size(85, 22);
+            this.tsmiD.Size = new System.Drawing.Size(83, 22);
             this.tsmiD.Text = "D";
             this.tsmiD.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiE
             // 
             this.tsmiE.Name = "tsmiE";
-            this.tsmiE.Size = new System.Drawing.Size(85, 22);
+            this.tsmiE.Size = new System.Drawing.Size(83, 22);
             this.tsmiE.Text = "E";
             this.tsmiE.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiF
             // 
             this.tsmiF.Name = "tsmiF";
-            this.tsmiF.Size = new System.Drawing.Size(85, 22);
+            this.tsmiF.Size = new System.Drawing.Size(83, 22);
             this.tsmiF.Text = "F";
             this.tsmiF.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiG
             // 
             this.tsmiG.Name = "tsmiG";
-            this.tsmiG.Size = new System.Drawing.Size(85, 22);
+            this.tsmiG.Size = new System.Drawing.Size(83, 22);
             this.tsmiG.Text = "G";
             this.tsmiG.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiH
             // 
             this.tsmiH.Name = "tsmiH";
-            this.tsmiH.Size = new System.Drawing.Size(85, 22);
+            this.tsmiH.Size = new System.Drawing.Size(83, 22);
             this.tsmiH.Text = "H";
             this.tsmiH.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiI
             // 
             this.tsmiI.Name = "tsmiI";
-            this.tsmiI.Size = new System.Drawing.Size(85, 22);
+            this.tsmiI.Size = new System.Drawing.Size(83, 22);
             this.tsmiI.Text = "I";
             this.tsmiI.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiJ
             // 
             this.tsmiJ.Name = "tsmiJ";
-            this.tsmiJ.Size = new System.Drawing.Size(85, 22);
+            this.tsmiJ.Size = new System.Drawing.Size(83, 22);
             this.tsmiJ.Text = "J";
             this.tsmiJ.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(147, 6);
             // 
             // tsmiPlayThis
             // 
             this.tsmiPlayThis.Name = "tsmiPlayThis";
-            this.tsmiPlayThis.Size = new System.Drawing.Size(160, 22);
+            this.tsmiPlayThis.Size = new System.Drawing.Size(150, 22);
             this.tsmiPlayThis.Text = "この曲を再生";
             this.tsmiPlayThis.Click += new System.EventHandler(this.tsmiPlayThis_Click);
             // 
             // tsmiDelThis
             // 
             this.tsmiDelThis.Name = "tsmiDelThis";
-            this.tsmiDelThis.Size = new System.Drawing.Size(160, 22);
+            this.tsmiDelThis.Size = new System.Drawing.Size(150, 22);
             this.tsmiDelThis.Text = "この曲を除去";
             this.tsmiDelThis.Click += new System.EventHandler(this.tsmiDelThis_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
             // 
             // tsmiDelAllMusic
             // 
             this.tsmiDelAllMusic.Name = "tsmiDelAllMusic";
-            this.tsmiDelAllMusic.Size = new System.Drawing.Size(160, 22);
+            this.tsmiDelAllMusic.Size = new System.Drawing.Size(150, 22);
             this.tsmiDelAllMusic.Text = "全ての曲を除去";
             this.tsmiDelAllMusic.Click += new System.EventHandler(this.tsmiDelAllMusic_Click);
             // 
@@ -622,7 +622,6 @@ namespace MDPlayer.form
             this.Opacity = 0D;
             this.Text = "play list";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPlayList_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmPlayList_FormClosed);
             this.Load += new System.EventHandler(this.frmPlayList_Load);
             this.Shown += new System.EventHandler(this.frmPlayList_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmPlayList_DragDrop);

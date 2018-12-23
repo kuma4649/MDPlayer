@@ -410,6 +410,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.rbNukedOPN2OptionASIClp = new System.Windows.Forms.RadioButton();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1001,10 +1002,11 @@
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612u);
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionYM2612);
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionDiscrete);
+            this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIClp);
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIC);
             this.groupBox26.Location = new System.Drawing.Point(7, 3);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(318, 106);
+            this.groupBox26.Size = new System.Drawing.Size(318, 128);
             this.groupBox26.TabIndex = 0;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Emulation type";
@@ -4635,6 +4637,17 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // rbNukedOPN2OptionASIClp
+            // 
+            this.rbNukedOPN2OptionASIClp.AutoSize = true;
+            this.rbNukedOPN2OptionASIClp.Location = new System.Drawing.Point(6, 106);
+            this.rbNukedOPN2OptionASIClp.Name = "rbNukedOPN2OptionASIClp";
+            this.rbNukedOPN2OptionASIClp.Size = new System.Drawing.Size(151, 16);
+            this.rbNukedOPN2OptionASIClp.TabIndex = 0;
+            this.rbNukedOPN2OptionASIClp.TabStop = true;
+            this.rbNukedOPN2OptionASIClp.Text = "ASIC(with lowpass filter)";
+            this.rbNukedOPN2OptionASIClp.UseVisualStyleBackColor = true;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -5172,5 +5185,6 @@
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionYM2612;
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionDiscrete;
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIC;
+        private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
     }
 }

@@ -118,7 +118,10 @@ namespace MDPlayer.form
 
         private void frmPlayList_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(x, y);
+            if (setting.location.PPlayList != System.Drawing.Point.Empty)
+                this.Location = setting.location.PPlayList;
+            if (setting.location.PPlayListWH != System.Drawing.Point.Empty)
+                this.Size = new Size(setting.location.PPlayListWH);
         }
 
         private void frmPlayList_FormClosing(object sender, FormClosingEventArgs e)
@@ -1023,11 +1026,6 @@ namespace MDPlayer.form
         {
             if (playIndex < 0 || dgvList.Rows.Count <= playIndex) return null;
             return (PlayList.music)dgvList.Rows[playIndex].Tag;
-        }
-
-        private void frmPlayList_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
         }
     }
 }
