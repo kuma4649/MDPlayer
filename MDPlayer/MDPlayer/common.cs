@@ -441,6 +441,7 @@ namespace MDPlayer
         , YM3526
         , Y8950
         , YM3812
+        , K051649
     }
 
     public enum enmScciChipType : int

@@ -5513,6 +5513,17 @@ namespace MDPlayer.form
                         newParam.vrc7[chipID].channels[ch].mask = !newParam.vrc7[chipID].channels[ch].mask;
                     }
                     break;
+                case enmUseChip.K051649:
+                    if (ch >= 0 && ch < 5)
+                    {
+                        if (!newParam.k051649[chipID].channels[ch].mask)
+                            Audio.setK051649Mask(chipID, ch);
+                        else
+                            Audio.resetK051649Mask(chipID, ch);
+
+                        newParam.k051649[chipID].channels[ch].mask = !newParam.k051649[chipID].channels[ch].mask;
+                    }
+                    break;
             }
         }
 
@@ -5607,6 +5618,10 @@ namespace MDPlayer.form
                 case enmUseChip.HuC6280:
                     newParam.huc6280[chipID].channels[ch].mask = false;
                     Audio.resetHuC6280Mask(chipID, ch);
+                    break;
+                case enmUseChip.K051649:
+                    newParam.k051649[chipID].channels[ch].mask = false;
+                    Audio.resetK051649Mask(chipID, ch);
                     break;
                 case enmUseChip.OKIM6258:
                     newParam.okim6258[chipID].mask = false;

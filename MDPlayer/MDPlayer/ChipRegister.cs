@@ -290,6 +290,13 @@ namespace MDPlayer
             }
         };
 
+        public byte[] K051649tKeyOnOff = new byte[] { 0, 0 };
+        public bool[][] maskChK051649 = new bool[][]
+        {
+            new bool[]{ false, false, false, false, false},
+            new bool[]{ false, false, false, false, false}
+        };
+
         public byte[][] pcmRegisterSEGAPCM = new byte[2][] { null, null };
         public bool[][] pcmKeyOnSEGAPCM = new bool[2][] { null, null };
 
@@ -3004,6 +3011,18 @@ namespace MDPlayer
             if (nes_vrc7 != null) nes_vrc7.SetMask(nsfVRC7mask);
         }
 
+        public void setK051649Mask(int chipID, int ch)
+        {
+            maskChK051649[chipID][ch] = true;
+            writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID],enmModel.VirtualModel);
+        }
+
+        public void resetK051649Mask(int chipID, int ch)
+        {
+            maskChK051649[chipID][ch] = false;
+            writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], enmModel.VirtualModel);
+        }
+
 
 
         public void setFadeoutVolYM2151(int chipID, int v)
@@ -3350,7 +3369,21 @@ namespace MDPlayer
             else chipLED.SecK051649 = 2;
 
             if (model == enmModel.VirtualModel)
+            {
+                if ((adr & 1) != 0)
+                {
+                    if ((adr >> 1) == 3)//keyonoff
+                    {
+                        K051649tKeyOnOff[chipid] = data;
+                        data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
+                        data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
+                        data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
+                        data &= (byte)(maskChK051649[chipid][3] ? 0xf7 : 0xff);
+                        data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
+                    }
+                }
                 mds.WriteK051649(chipid, (int)adr, data);
+            }
         }
 
         public void writeK053260(byte chipid, uint adr, byte data, enmModel model)

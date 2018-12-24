@@ -6702,6 +6702,11 @@ namespace MDPlayer
             chipRegister.setVRC7Mask(chipID, ch);
         }
 
+        public static void setK051649Mask(int chipID, int ch)
+        {
+            chipRegister.setK051649Mask(chipID, ch);
+        }
+
 
         public static void resetOKIM6258Mask(int chipID)
         {
@@ -6881,6 +6886,11 @@ namespace MDPlayer
         public static void resetVRC7Mask(int chipID, int ch)
         {
             chipRegister.resetVRC7Mask(chipID, ch);
+        }
+
+        public static void resetK051649Mask(int chipID, int ch)
+        {
+            chipRegister.resetK051649Mask(chipID, ch);
         }
 
     }

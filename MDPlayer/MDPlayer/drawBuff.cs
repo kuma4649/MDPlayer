@@ -1172,6 +1172,18 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChK051649(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChK051649_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
         public static void ChRF5C164(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
         {
 
@@ -2971,7 +2983,15 @@ namespace MDPlayer
         {
             if (screen == null) return;
 
-            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 14 * 8, 16, 8);
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 112, 0, 16, 8);
+            drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChK051649_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 112, 0, 16, 8);
             drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 

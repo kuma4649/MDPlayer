@@ -143,6 +143,9 @@ namespace MDPlayer.form
                 DrawBuff.font4Hex4Bit(frameBuffer, x * 4 * 26 + 4 * 22, y * 8 * 6 + 8 * 11, tp, ref oyc.volumeL, nyc.volumeL);
                 DrawBuff.drawNESSw(frameBuffer, x * 4 * 26 + 4 * 25, y * 8 * 6 + 8 * 11, ref oyc.dda, nyc.dda);
                 DrawBuff.WaveFormToK051649(frameBuffer, c, ref oyc.typ, nyc.inst);
+
+                DrawBuff.ChK051649(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+
                 for (int i = 0; i < 32; i++)
                 {
                     int fx = i % 8;
@@ -154,7 +157,42 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            int py = e.Location.Y / zoom;
 
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
+
+            //鍵盤
+            if (py < 6 * 8)
+            {
+                int ch = (py / 8) - 1;
+                if (ch < 0) return;
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    //マスク
+                    parent.SetChannelMask(enmUseChip.K051649, chipID, ch);
+                    return;
+                }
+
+                //マスク解除
+                for (ch = 0; ch < 5; ch++) parent.ResetChannelMask(enmUseChip.K051649, chipID, ch);
+                return;
+            }
+
+            //音色で右クリックした場合は何もしない
+            if (e.Button == MouseButtons.Right) return;
+
+            int px = e.Location.X / zoom;
+
+            // 音色表示欄の判定
+            int instCh = ((py < 12 * 8) ? 0 : 3) + px / (8*13);
+
+            if (instCh < 5)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(enmUseChip.K051649, instCh, chipID);
+            }
         }
 
         public void screenInit()
