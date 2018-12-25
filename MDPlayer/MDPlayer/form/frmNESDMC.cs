@@ -184,7 +184,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
-                DrawBuff.Volume(frameBuffer, i * 2, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + i*2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
                 DrawBuff.font4Int2(frameBuffer, 16 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].nfrq, newParam.sqrChannels[i].nfrq);
                 DrawBuff.font4Int2(frameBuffer, 19 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pan, newParam.sqrChannels[i].pan);
                 DrawBuff.font4Int2(frameBuffer, 22 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pantp, newParam.sqrChannels[i].pantp);
@@ -202,13 +202,13 @@ namespace MDPlayer.form
             }
 
             DrawBuff.KeyBoard(frameBuffer, 4, ref oldParam.triChannel.note, newParam.triChannel.note, 0);
-            DrawBuff.Volume(frameBuffer, 4, 0, ref oldParam.triChannel.volume, newParam.triChannel.volume, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 4 * 8, 0, ref oldParam.triChannel.volume, newParam.triChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 36, 6 * 8, ref oldParam.triChannel.dda, newParam.triChannel.dda);
             DrawBuff.font4Int3(frameBuffer, 13 * 4, 6 * 8, 0, 3,ref oldParam.triChannel.nfrq, newParam.triChannel.nfrq);
             DrawBuff.font4Int2(frameBuffer, 19 * 4, 6 * 8, 0, 2,ref oldParam.triChannel.pantp, newParam.triChannel.pantp);
             DrawBuff.ChNESDMC(frameBuffer, 2, ref oldParam.triChannel.mask, newParam.triChannel.mask, 0);
 
-            DrawBuff.Volume(frameBuffer, 3, 0, ref oldParam.noiseChannel.volume, newParam.noiseChannel.volume, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 0, ref oldParam.noiseChannel.volume, newParam.noiseChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 228, 32, ref oldParam.noiseChannel.dda, newParam.noiseChannel.dda);
             DrawBuff.drawNESSw(frameBuffer, 144, 32, ref oldParam.noiseChannel.noise, newParam.noiseChannel.noise);
             ob = oldParam.noiseChannel.volumeL != 0;
@@ -218,7 +218,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int2(frameBuffer, 196, 32, 0, 2,ref oldParam.noiseChannel.nfrq, newParam.noiseChannel.nfrq);
             DrawBuff.ChNESDMC(frameBuffer, 3, ref oldParam.noiseChannel.mask, newParam.noiseChannel.mask, 0);
 
-            DrawBuff.Volume(frameBuffer, 5, 0, ref oldParam.dmcChannel.volume, newParam.dmcChannel.volume, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 5 * 8, 0, ref oldParam.dmcChannel.volume, newParam.dmcChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 144, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.dda);
             DrawBuff.drawNESSw(frameBuffer, 152, 48, ref oldParam.dmcChannel.dda, newParam.dmcChannel.noise);
             DrawBuff.font4Int2(frameBuffer, 176, 48, 0, 2,ref oldParam.dmcChannel.volumeL, newParam.dmcChannel.volumeL);

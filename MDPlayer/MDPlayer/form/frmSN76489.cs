@@ -152,20 +152,20 @@ namespace MDPlayer.form
                 osc = oldParam.channels[c];
                 nsc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 1, ref osc.volumeL, nsc.volumeL, tp);
-                DrawBuff.Volume(frameBuffer, c, 2, ref osc.volumeR, nsc.volumeR, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref osc.note, nsc.note, tp);
                 DrawBuff.ChSN76489(frameBuffer, c, ref osc.mask, nsc.mask, tp);
-                DrawBuff.Pan(frameBuffer, c, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+                DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
             }
 
             osc = oldParam.channels[3];
             nsc = newParam.channels[3];
-            DrawBuff.Volume(frameBuffer, 3, 1, ref osc.volumeL, nsc.volumeL, tp);
-            DrawBuff.Volume(frameBuffer, 3, 2, ref osc.volumeR, nsc.volumeR, tp);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
             DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
             DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
-            DrawBuff.Pan(frameBuffer, 3, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+            DrawBuff.Pan(frameBuffer, 24, 8 + 3 * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
             if (osc.freq != nsc.freq)
             {
                 DrawBuff.drawFont4(frameBuffer, 172, 32, 0, nsc.freq.ToString("0000"));

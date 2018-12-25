@@ -217,9 +217,9 @@ namespace MDPlayer
             drawFont4(screen, 26 * 4, 8, 0, string.Format("{0:d5}", 0));
 
             o = 0; n = 38;
-            Volume(screen, 0, 1, ref o, n / 2, 0);
+            Volume(screen, 256, 8 + 0 * 8, 1, ref o, n / 2, 0);
             o = 0; n = 38;
-            Volume(screen, 0, 2, ref o, n / 2, 0);
+            Volume(screen, 256, 8 + 0 * 8, 2, ref o, n / 2, 0);
 
         }
 
@@ -227,7 +227,7 @@ namespace MDPlayer
         {
         }
 
-        public static void screenInitSN76489(FrameBuffer screen,int tp)
+        public static void screenInitSN76489(FrameBuffer screen, int tp)
         {
 
             for (int ch = 0; ch < 4; ch++)
@@ -249,7 +249,7 @@ namespace MDPlayer
                 DrawBuff.ChSN76489_P(screen, 0, ch * 8 + 8, ch, false, tp);
 
                 int d = 99;
-                DrawBuff.Volume(screen, ch, 0, ref d, 0, tp);
+                DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
             }
         }
 
@@ -270,7 +270,7 @@ namespace MDPlayer
                 }
 
                 int d = 99;
-                Volume(screen, y, 0, ref d, 0, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
 
                 if (y < 9)
                 {
@@ -297,7 +297,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 0, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
             }
 
         }
@@ -329,13 +329,13 @@ namespace MDPlayer
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    Volume(screen, y, 0, ref d, 0, tp);
+                    Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    Volume(screen, y, 1, ref d, 0, tp);
+                    Volume(screen, 256, 8 + y * 8, 1, ref d, 0, tp);
                     d = 99;
-                    Volume(screen, y, 2, ref d, 0, tp);
+                    Volume(screen, 256, 8 + y * 8, 2, ref d, 0, tp);
                 }
             }
 
@@ -350,7 +350,7 @@ namespace MDPlayer
             }
         }
 
-        public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM,bool isXGM)
+        public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM, bool isXGM)
         {
             if (screen == null) return;
 
@@ -358,7 +358,7 @@ namespace MDPlayer
             {
 
                 int d = 99;
-//                bool YM2612type = chipID==0 ? parent.setting.YM2612Type.UseScci : setting.YM2612SType.UseScci;
+                //                bool YM2612type = chipID==0 ? parent.setting.YM2612Type.UseScci : setting.YM2612SType.UseScci;
                 int tp6 = tp;
                 if (tp6 == 1 && onlyPCM)
                 {
@@ -366,7 +366,7 @@ namespace MDPlayer
                 }
 
                 //note
-                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                drawFont8(screen, 297, y * 8 + 8, 1, "   ");
 
                 //keyboard
                 for (int i = 0; i < 96; i++)
@@ -375,42 +375,46 @@ namespace MDPlayer
                     int kt = Tables.kbl[(i % 12) * 2 + 1];
                     if (y != 5)
                     {
-                        drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                        drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp);
                     }
                     else
                     {
-                        if(!isXGM) drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp6);
+                        if (!isXGM) drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp6);
                     }
                 }
 
                 if (isXGM)
                 {
-                    Ch6YM2612XGM_P(screen, 0, 48, 0, false, tp6);
+                    Ch6YM2612XGM_P(screen, 1, 48, 0, false, tp6);
                 }
 
                 if (y != 5)
                 {
                     d = -1;
-                    Volume(screen, y, 0, ref d, 0, tp);
+                    Volume(screen, 289, 8 + y * 8, 0, ref d, 0, tp);
                 }
 
                 if (y < 6)
                 {
                     d = 99;
-                    DrawBuff.Pan(screen, y, ref d, 3, ref d, tp);
+                    DrawBuff.Pan(screen, 25, 8 + y * 8, ref d, 3, ref d, tp);
+                    byte b = 255;
+                    Slot(screen, 257, 8 + y * 8, ref b, 0);
                 }
+                d = 1;
+                font4Hex16Bit(screen, 273, 8 + y * 8,0, ref d, 0);
 
                 if (y != 5)
                 {
-                    ChYM2612_P(screen, 0, y * 8 + 8, y, false, tp);
+                    ChYM2612_P(screen, 1, y * 8 + 8, y, false, tp);
                 }
                 else
                 {
-                    Ch6YM2612_P(screen, 0, y * 8 + 8, 0, false, tp6);
+                    Ch6YM2612_P(screen, 1, y * 8 + 8, 0, false, tp6);
                     d = -1;
-                    Volume(screen, y, 0, ref d, 0, tp6);
+                    Volume(screen, 289, 8 + y * 8, 0, ref d, 0, tp6);
                     d = -1;
-                    DrawBuff.Pan(screen, y, ref d, 3, ref d, tp6);
+                    DrawBuff.Pan(screen, 25, 8 + y * 8, ref d, 3, ref d, tp6);
                 }
 
             }
@@ -433,7 +437,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
             }
 
         }
@@ -455,7 +459,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
             }
 
         }
@@ -477,7 +481,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
             }
 
         }
@@ -499,7 +503,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
             }
 
         }
@@ -521,7 +525,7 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
             }
 
             for (int y = 19; y < 19 + 24; y++)
@@ -609,10 +613,49 @@ namespace MDPlayer
 
                 //Volume
                 int d = 99;
-                Volume(screen, y, 0, ref d, 0, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
             }
         }
 
+
+        public static void InstOPN2(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
+        {
+            int sx = (c % 3) * 4 * 29 + x ;
+            int sy = (c / 3) * 8 * 6 + y;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    if (oi[i + j * 11] != ni[i + j * 11])
+                    {
+                        drawFont4Int(screen, sx + i * 8 + (i > 5 ? 4 : 0), sy + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        oi[i + j * 11] = ni[i + j * 11];
+                    }
+                }
+            }
+
+            if (oi[44] != ni[44])
+            {
+                drawFont4Int(screen, sx + 8 * 4, sy - 16, 0, 2, ni[44]);
+                oi[44] = ni[44];
+            }
+            if (oi[45] != ni[45])
+            {
+                drawFont4Int(screen, sx + 8 * 6, sy - 16, 0, 2, ni[45]);
+                oi[45] = ni[45];
+            }
+            if (oi[46] != ni[46])
+            {
+                drawFont4Int(screen, sx + 8 * 8 + 4, sy - 16, 0, 2, ni[46]);
+                oi[46] = ni[46];
+            }
+            if (oi[47] != ni[47])
+            {
+                drawFont4Int(screen, sx + 8 * 11, sy - 16, 0, 2, ni[47]);
+                oi[47] = ni[47];
+            }
+        }
 
         public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
         {
@@ -697,6 +740,18 @@ namespace MDPlayer
             }
         }
 
+        public static void Slot(FrameBuffer screen, int x, int y, ref byte os, byte ns)
+        {
+            if (os == ns) return;
+
+            screen.drawByteArray(x + 0, y, rNESDMC, 64, ((ns & 1) != 0 ? 1 : 0) * 4 + 32, 0, 4, 8);
+            screen.drawByteArray(x + 4, y, rNESDMC, 64, ((ns & 2) != 0 ? 1 : 0) * 4 + 32, 0, 4, 8);
+            screen.drawByteArray(x + 8, y, rNESDMC, 64, ((ns & 4) != 0 ? 1 : 0) * 4 + 32, 0, 4, 8);
+            screen.drawByteArray(x + 12, y, rNESDMC, 64, ((ns & 8) != 0 ? 1 : 0) * 4 + 32, 0, 4, 8);
+
+            os = ns;
+        }
+
         public static void drawInstNumber(FrameBuffer screen, int x, int y, ref int oi, int ni)
         {
             if (oi != ni)
@@ -706,24 +761,50 @@ namespace MDPlayer
             }
         }
 
-        public static void Volume(FrameBuffer screen, int y, int c, ref int ov, int nv, int tp)
+        /// <summary>
+        /// ボリュームメータ描画
+        /// </summary>
+        /// <param name="screen">描画対象バッファ</param>
+        /// <param name="x">x座標(x1)</param>
+        /// <param name="y">y座標(x1)</param>
+        /// <param name="c">0:Mono 1:Stereo(L) 2:Stereo(R)</param>
+        /// <param name="ov">前回の値(ref)</param>
+        /// <param name="nv">今回の値</param>
+        /// <param name="tp">0:EMU 1:Real </param>
+        public static void Volume(FrameBuffer screen, int x,int y,int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
+
+            //int t = 0;
+            //int sy = 0;
+            //if (c == 1 || c == 2) { t = 4; }
+            //if (c == 2) { sy = 4; }
+            //y = (y + 1) * 8;
+
+            //for (int i = 0; i <= 19; i++)
+            //{
+            //    VolumeP(screen, 256 + i * 2, y + sy, (1 + t), tp);
+            //}
+
+            //for (int i = 0; i <= nv; i++)
+            //{
+            //    VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            //}
 
             int t = 0;
             int sy = 0;
             if (c == 1 || c == 2) { t = 4; }
             if (c == 2) { sy = 4; }
-            y = (y + 1) * 8;
+            //y = (y + 1) * 8;
 
             for (int i = 0; i <= 19; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, (1 + t), tp);
+                VolumeP(screen, x + i * 2, y + sy, (1 + t), tp);
             }
 
             for (int i = 0; i <= nv; i++)
             {
-                VolumeP(screen, 256 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+                VolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
             }
 
             ov = nv;
@@ -864,6 +945,32 @@ namespace MDPlayer
 
         }
 
+        public static void VolumeXYOPN2(FrameBuffer screen, int x, int y, int c, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            if (c == 1 || c == 2) { t = 4; }
+            if (c == 2) { sy = 4; }
+
+            //y *= 4;
+            //x *= 4;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
         public static void VolumeYM2608Rhythm(FrameBuffer screen, int x, int c, ref int ov, int nv, int tp)
         {
             if (ov == nv) return;
@@ -922,7 +1029,7 @@ namespace MDPlayer
 
             y = (y + 1) * 8;
 
-            if (ot >= 0 && ot<12*8)
+            if (ot >= 0 && ot < 12 * 8)
             {
                 kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
                 kt = Tables.kbl[(ot % 12) * 2 + 1];
@@ -944,6 +1051,43 @@ namespace MDPlayer
                 if (nt / 12 < 10)
                 {
                     drawFont8(screen, 312, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
+        public static void KeyBoardOPNM(FrameBuffer screen, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 33 + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, 33 + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 329, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 329, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 345, y, 1, Tables.kbo[nt / 12]);
                 }
             }
 
@@ -1058,7 +1202,7 @@ namespace MDPlayer
         }
 
 
-        public static void Pan(FrameBuffer screen, int c, ref int ot, int nt, ref int otp, int ntp)
+        public static void Pan(FrameBuffer screen,int x, int y, ref int ot, int nt, ref int otp, int ntp)
         {
 
             if (ot == nt && otp == ntp)
@@ -1066,7 +1210,7 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(screen, 24, 8 + c * 8, nt, ntp);
+            drawPanP(screen, x, y, nt, ntp);
             ot = nt;
             otp = ntp;
         }
@@ -1461,7 +1605,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2612_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChYM2612_P(screen, 1, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
@@ -1473,7 +1617,7 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            Ch3YM2612_P(screen, 1, 8 + ch * 8, ch, nm, ne, tp);
             om = nm;
             oe = ne;
         }
@@ -1488,7 +1632,7 @@ namespace MDPlayer
                 }
             }
 
-            Ch6YM2612_P(screen, 0, 48, nt, nm, ntp);
+            Ch6YM2612_P(screen, 1, 48, nt, nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
@@ -1504,7 +1648,7 @@ namespace MDPlayer
                 }
             }
 
-            Ch6YM2612XGM_P(screen, 0, 48, nt, nm, ntp);
+            Ch6YM2612XGM_P(screen, 1, 48, nt, nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
@@ -3396,7 +3540,7 @@ namespace MDPlayer
                 {
                     int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
                     int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y, kt, tp);
+                    drawKbn(screen, 33 + kx, y, kt, tp);
                 }
             }
             else

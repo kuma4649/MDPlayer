@@ -157,7 +157,7 @@ namespace MDPlayer.form
         public void screenDrawParams()
         {
             DrawBuff.KeyBoard(frameBuffer, 0, ref oldParam.channel.note, newParam.channel.note, 0);
-            DrawBuff.Volume(frameBuffer, 0, 0, ref oldParam.channel.volume, newParam.channel.volume, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 0 * 8, 0, ref oldParam.channel.volume, newParam.channel.volume, 0);
 
             DrawBuff.WaveFormToFDS(frameBuffer, 0, ref oldParam.wave, newParam.wave);
             DrawBuff.WaveFormToFDS(frameBuffer, 1, ref oldParam.mod, newParam.mod);

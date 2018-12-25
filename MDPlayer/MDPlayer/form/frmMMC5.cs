@@ -144,7 +144,7 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 DrawBuff.KeyBoard(frameBuffer, i * 2, ref oldParam.sqrChannels[i].note, newParam.sqrChannels[i].note, 0);
-                DrawBuff.Volume(frameBuffer, i * 2, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + i*2 * 8, 0, ref oldParam.sqrChannels[i].volume, newParam.sqrChannels[i].volume, 0);
                 DrawBuff.font4Int2(frameBuffer, 22 * 4, (2 + i * 2) * 8, 0, 2, ref oldParam.sqrChannels[i].pantp, newParam.sqrChannels[i].pantp);
                 DrawBuff.drawDuty(frameBuffer, 24, (1 + i * 2) * 8, ref oldParam.sqrChannels[i].kf, newParam.sqrChannels[i].kf);
                 DrawBuff.drawNESSw(frameBuffer, 32, (2 + i * 2) * 8, ref oldParam.sqrChannels[i].dda, newParam.sqrChannels[i].dda);
@@ -152,7 +152,7 @@ namespace MDPlayer.form
                 DrawBuff.ChMMC5(frameBuffer, i, ref oldParam.sqrChannels[i].mask, newParam.sqrChannels[i].mask, 0);
             }
 
-            DrawBuff.Volume(frameBuffer, 3, 0, ref oldParam.pcmChannel.volume, newParam.pcmChannel.volume, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 0, ref oldParam.pcmChannel.volume, newParam.pcmChannel.volume, 0);
             DrawBuff.drawNESSw(frameBuffer, 148, 32, ref oldParam.pcmChannel.dda, newParam.pcmChannel.dda);
             DrawBuff.drawNESSw(frameBuffer, 160, 32, ref oldParam.pcmChannel.noise, newParam.pcmChannel.noise);
             DrawBuff.font4HexByte(frameBuffer, 196, 32, 0, ref oldParam.pcmChannel.note, newParam.pcmChannel.note);

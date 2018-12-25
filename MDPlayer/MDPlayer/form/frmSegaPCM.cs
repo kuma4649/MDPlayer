@@ -134,9 +134,9 @@ namespace MDPlayer.form
             for (int ch = 0; ch < 16; ch++)
             {
                 int o = -1;
-                DrawBuff.Volume(frameBuffer, ch, 1, ref o, 0, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 1, ref o, 0, tp);
                 o = -1;
-                DrawBuff.Volume(frameBuffer, ch, 2, ref o, 0, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 2, ref o, 0, tp);
                 for (int ot = 0; ot < 12 * 8; ot++)
                 {
                     int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
@@ -233,8 +233,8 @@ namespace MDPlayer.form
                 MDChipParams.Channel orc = oldParam.channels[c];
                 MDChipParams.Channel nrc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, tp);
-                DrawBuff.Volume(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref orc.volumeL, nrc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref orc.volumeR, nrc.volumeR, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, tp);
                 DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan, tp);
 

@@ -197,7 +197,7 @@ namespace MDPlayer.form
                 oyc = oldParam.channels[c];
                 nyc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
 
                 DrawBuff.drawInstNumber(frameBuffer, (c % 3) * 16 + 37, (c / 3) * 2 + 16, ref oyc.inst[0], nyc.inst[0]);

@@ -158,13 +158,13 @@ namespace MDPlayer.form
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    DrawBuff.Volume(frameBuffer, y, 0, ref d, 0, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + y * 8, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, y, 1, ref d, 0, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + y * 8, 1, ref d, 0, tp);
                     d = 99;
-                    DrawBuff.Volume(frameBuffer, y, 2, ref d, 0, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + y * 8, 2, ref d, 0, tp);
                 }
             }
 
@@ -376,25 +376,25 @@ namespace MDPlayer.form
 
                 if (c != 2)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 17, c, oyc.inst, nyc.inst);
                     DrawBuff.Ch3YM2610(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
                 }
                 else if (c < 6)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 17, c, oyc.inst, nyc.inst);
                     DrawBuff.ChYM2610(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2610(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
@@ -407,16 +407,16 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c + 9];
                 MDChipParams.Channel nyc = newParam.channels[c + 9];
 
-                DrawBuff.Volume(frameBuffer, c + 6, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + (c+6) * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c + 6, ref oyc.note, nyc.note, tp);
                 DrawBuff.Tn(frameBuffer, 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 
                 DrawBuff.ChYM2610(frameBuffer, c + 9, ref oyc.mask, nyc.mask, tp);
             }
 
-            DrawBuff.Volume(frameBuffer, 13, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
-            DrawBuff.Volume(frameBuffer, 13, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
-            DrawBuff.Pan(frameBuffer, 13, ref oldParam.channels[12].pan, newParam.channels[12].pan, ref oldParam.channels[12].pantp, tp);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 13 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 13 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
+            DrawBuff.Pan(frameBuffer, 24, 8 + 13 * 8, ref oldParam.channels[12].pan, newParam.channels[12].pan, ref oldParam.channels[12].pantp, tp);
             DrawBuff.KeyBoard(frameBuffer, 13, ref oldParam.channels[12].note, newParam.channels[12].note, tp);
             DrawBuff.ChYM2610(frameBuffer, 13, ref oldParam.channels[12].mask, newParam.channels[12].mask, tp);
 

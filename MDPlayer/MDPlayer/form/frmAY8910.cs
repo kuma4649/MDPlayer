@@ -113,7 +113,7 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                 DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 

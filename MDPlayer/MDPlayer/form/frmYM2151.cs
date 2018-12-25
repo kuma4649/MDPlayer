@@ -154,9 +154,9 @@ namespace MDPlayer.form
                 DrawBuff.ChYM2151_P(frameBuffer, 0, ch * 8 + 8, ch, false, tp);
                 DrawBuff.drawPanP(frameBuffer, 24, ch * 8 + 8, 3, tp);
                 int d = 99;
-                DrawBuff.Volume(frameBuffer, ch, 1, ref d, 0, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 1, ref d, 0, tp);
                 d = 99;
-                DrawBuff.Volume(frameBuffer, ch, 2, ref d, 0, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + ch * 8, 2, ref d, 0, tp);
 
             }
         }
@@ -253,11 +253,11 @@ namespace MDPlayer.form
 
                 DrawBuff.Inst(frameBuffer, 1, 11, c, oyc.inst, nyc.inst);
 
-                DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
 
-                DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
 
                 DrawBuff.ChYM2151(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 

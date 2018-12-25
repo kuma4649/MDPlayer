@@ -271,21 +271,21 @@ namespace MDPlayer.form
 
                 if (c == 2)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
                     DrawBuff.Ch3YM2203(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
                 }
                 else if (c < 3)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
                     DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2203(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }
@@ -298,7 +298,7 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c + 6];
                 MDChipParams.Channel nyc = newParam.channels[c + 6];
 
-                DrawBuff.Volume(frameBuffer, c + 3, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
                 DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 

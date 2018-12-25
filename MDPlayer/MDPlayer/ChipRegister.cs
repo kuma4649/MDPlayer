@@ -2601,7 +2601,7 @@ namespace MDPlayer
                                 }
                                 else
                                 {
-                                    fmKeyOnYM2612[chipID][ch] &= 0xfe;
+                                    fmKeyOnYM2612[chipID][ch] = (dData & 0xf0) | 0;
                                 }
                             }
                         }

@@ -44,6 +44,7 @@ namespace MDPlayer
             public int pcmMode = -1;
             public int pcmBuff = 0;
             public bool mask = false;
+            public byte slot = 0;
             public int tp = -1;
             public int kf = -1;//OPM only
             public int tn = 0;//PSG only
@@ -83,6 +84,8 @@ namespace MDPlayer
             public enmFileFormat fileFormat = enmFileFormat.unknown;
             public bool lfoSw = false;
             public int lfoFrq = -1;
+            public int timerA = -1;
+            public int timerB = -1;
             public int[] xpcmVolL = new int[4] { -1, -1, -1, -1 };
             public int[] xpcmVolR = new int[4] { -1, -1, -1, -1 };
             public int[] xpcmInst = new int[4] { -1, -1, -1, -1 };

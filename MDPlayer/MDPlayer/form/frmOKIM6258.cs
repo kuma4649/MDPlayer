@@ -173,8 +173,8 @@ namespace MDPlayer.form
                 ost.pbFreq = nst.pbFreq;
             }
 
-            DrawBuff.Volume(frameBuffer, 0, 1, ref ost.volumeL, nst.volumeL / 2, 0);
-            DrawBuff.Volume(frameBuffer, 0, 2, ref ost.volumeR, nst.volumeR / 2, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 0 * 8, 1, ref ost.volumeL, nst.volumeL / 2, 0);
+            DrawBuff.Volume(frameBuffer, 256, 8 + 0 * 8, 2, ref ost.volumeR, nst.volumeR / 2, 0);
 
             DrawBuff.ChOKIM6258(frameBuffer, ref ost.mask, nst.mask, 0);
 

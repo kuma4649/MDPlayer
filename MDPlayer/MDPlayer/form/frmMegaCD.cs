@@ -132,8 +132,8 @@ namespace MDPlayer.form
                 MDChipParams.Channel orc = oldParam.channels[c];
                 MDChipParams.Channel nrc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, c, 1, ref orc.volumeL, nrc.volumeL, 0);
-                DrawBuff.Volume(frameBuffer, c, 2, ref orc.volumeR, nrc.volumeR, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref orc.volumeL, nrc.volumeL, 0);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref orc.volumeR, nrc.volumeR, 0);
                 DrawBuff.KeyBoard(frameBuffer, c, ref orc.note, nrc.note, 0);
                 DrawBuff.PanType2(frameBuffer, c, ref orc.pan, nrc.pan,0);
                 DrawBuff.ChRF5C164(frameBuffer, c, ref orc.mask, nrc.mask, 0);

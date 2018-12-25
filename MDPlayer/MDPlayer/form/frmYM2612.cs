@@ -128,11 +128,14 @@ namespace MDPlayer.form
 
             newParam.lfoSw = (fmRegister[0][0x22] & 0x8) != 0;
             newParam.lfoFrq = (fmRegister[0][0x22] & 0x7);
+            newParam.timerA = fmRegister[0][0x24] | ((fmRegister[0][0x25] & 0x3) << 8);
+            newParam.timerB = fmRegister[0][0x26];
 
             for (int ch = 0; ch < 6; ch++)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
+                newParam.channels[ch].slot = (byte)(fmKey[ch] >> 4);
                 for (int i = 0; i < 4; i++)
                 {
                     int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
@@ -162,6 +165,7 @@ namespace MDPlayer.form
                 {
                     freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
                     octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
+                    newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
 
                     if ((fmKey[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
 
@@ -184,6 +188,7 @@ namespace MDPlayer.form
                     int m = md[fmRegister[0][0xb0 + 2] & 7];
                     freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
                     octav = (fmRegister[0][0xad] & 0x38) >> 3;
+                    newParam.channels[2].freq = (freq & 0x7ff) | ((octav & 7) << 11);
 
                     if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
 
@@ -216,6 +221,7 @@ namespace MDPlayer.form
 
                     int freq = fmRegister[0][0xa8 + c] + (fmRegister[0][0xac + c] & 0x07) * 0x100;
                     int octav = (fmRegister[0][0xac + c] & 0x38) >> 3;
+                    newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     int n = -1;
                     if ((fmKey[2] & (0x10 << (ch-5))) != 0 && ((m & (0x10 << op)) != 0))
                     {
@@ -280,21 +286,25 @@ namespace MDPlayer.form
 
                 if (c == 2)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
-                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.InstOPN2(frameBuffer, 13, 96, c, oyc.inst, nyc.inst);
                     DrawBuff.Ch3YM2612(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
+                    DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else if (c < 5)
                 {
-                    DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp);
-                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
-                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                    DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.InstOPN2(frameBuffer, 13, 96, c, oyc.inst, nyc.inst);
                     DrawBuff.ChYM2612(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                    DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else if (c == 5)
                 {
@@ -306,34 +316,38 @@ namespace MDPlayer.form
                                                                          //tp6 = 0;
                     }
 
-                    DrawBuff.Pan(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6v);
-                    DrawBuff.Inst(frameBuffer, 1, 12, c, oyc.inst, nyc.inst);
+                    DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6v);
+                    DrawBuff.InstOPN2(frameBuffer, 13, 96, c, oyc.inst, nyc.inst);
 
                     if (newParam.fileFormat != enmFileFormat.XGM)
                     {
                         DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
-                        DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
-                        DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
-                        DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                        DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                        DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                        DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                        DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                     }
                     else
                     {
                         DrawBuff.Ch6YM2612XGM(frameBuffer,nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         if (newParam.channels[5].pcmMode == 0)
                         {
-                            DrawBuff.Volume(frameBuffer, c, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
-                            DrawBuff.Volume(frameBuffer, c, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
-                            DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                            DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
+                            DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
+                            DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp6v);
+                            DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
+                            DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                         }
                         else
                         {
                             for (int i = 0; i < 4; i++)
                             {
-                                DrawBuff.VolumeXY(frameBuffer, 13 + i * 17, 12, 1, ref oldParam.xpcmVolL[i], newParam.xpcmVolL[i], tp6v);
-                                DrawBuff.VolumeXY(frameBuffer, 13 + i * 17, 12, 2, ref oldParam.xpcmVolR[i], newParam.xpcmVolR[i], tp6v);
+                                DrawBuff.VolumeXYOPN2(frameBuffer, (13 + i * 17) * 4 + 1, 12 * 4, 1, ref oldParam.xpcmVolL[i], newParam.xpcmVolL[i], tp6v);
+                                DrawBuff.VolumeXYOPN2(frameBuffer, (13 + i * 17) * 4 + 1, 12 * 4, 2, ref oldParam.xpcmVolR[i], newParam.xpcmVolR[i], tp6v);
                                 if (oldParam.xpcmInst[i] != newParam.xpcmInst[i])
                                 {
-                                    DrawBuff.drawFont4Int2(frameBuffer, 44 + i * 17 * 4, 48, tp6v, 2, newParam.xpcmInst[i]);
+                                    DrawBuff.drawFont4Int2(frameBuffer, 45 + i * 17 * 4, 48, tp6v, 2, newParam.xpcmInst[i]);
                                     oldParam.xpcmInst[i] = newParam.xpcmInst[i];
                                 }
                             }
@@ -342,16 +356,18 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2612(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
 
             }
 
-            DrawBuff.LfoSw(frameBuffer, 4, 44, ref oldParam.lfoSw, newParam.lfoSw);
-            DrawBuff.LfoFrq(frameBuffer, 16, 44, ref oldParam.lfoFrq, newParam.lfoFrq);
-
+            DrawBuff.LfoSw(frameBuffer, 5, 44, ref oldParam.lfoSw, newParam.lfoSw);
+            DrawBuff.LfoFrq(frameBuffer, 17, 44, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.font4Hex12Bit(frameBuffer, 1 + 29 * 4, 44 * 4, 0, ref oldParam.timerA, newParam.timerA);
+            DrawBuff.font4HexByte(frameBuffer, 1 + 43 * 4, 44 * 4, 0, ref oldParam.timerB, newParam.timerB);
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -386,7 +402,7 @@ namespace MDPlayer.form
 
             // 音色表示欄の判定
             int h = (py - 10 * 8) / (6 * 8);
-            int w = Math.Min(px / (13 * 8), 2);
+            int w = Math.Min(px / (29 * 4), 2);
             int instCh = h * 3 + w;
 
             if (instCh < 6)

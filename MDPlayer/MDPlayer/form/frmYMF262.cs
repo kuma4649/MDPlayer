@@ -390,7 +390,7 @@ namespace MDPlayer.form
                 DrawBuff.font4Int2(frameBuffer, 16 + 4 * 72, c * 8 + 168, 0, 0, ref oyc.inst[14], nyc.inst[14]);//CN
                 DrawBuff.font4Int2(frameBuffer, 16 + 4 * 75, c * 8 + 168, 0, 0, ref oyc.inst[15], nyc.inst[15]);//FB
                 int dmy = 99;
-                DrawBuff.Pan(frameBuffer, c, ref oyc.inst[36], nyc.inst[36], ref dmy, 0);
+                DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref oyc.inst[36], nyc.inst[36], ref dmy, 0);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, tp);
                 DrawBuff.VolumeXY(frameBuffer, 64, c * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, tp);

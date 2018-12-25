@@ -138,7 +138,7 @@ namespace MDPlayer.form
                 int y = c / 3;
 
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
-                DrawBuff.Volume(frameBuffer, c, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.font4Hex12Bit(frameBuffer, x * 4 * 26 + 4 * 14, y * 8 * 6 + 8 * 11, tp, ref oyc.freq, nyc.freq);
                 DrawBuff.font4Hex4Bit(frameBuffer, x * 4 * 26 + 4 * 22, y * 8 * 6 + 8 * 11, tp, ref oyc.volumeL, nyc.volumeL);
                 DrawBuff.drawNESSw(frameBuffer, x * 4 * 26 + 4 * 25, y * 8 * 6 + 8 * 11, ref oyc.dda, nyc.dda);
