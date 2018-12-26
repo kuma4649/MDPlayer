@@ -28,8 +28,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
   .MND (MNDRV X68000(OPM,OKIM6258) & まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
-  .MUC (MUCOM88win 向けファイル)TBD  
-  .MUB (MUCOM88win 向けファイル)TBD  
+  .MUC (MUCOM88Windows 向けファイル)TBD  
+  .MUB (MUCOM88Windows 向けファイル)TBD  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -78,7 +78,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・X68Soundのソースを参考、移植しています。  
   (m_puusanさん/rururutanさん版両方)  
   
-  ・MUCOM88windowsのソースを参考、移植しています。  
+  ・MUCOM88/MUCOM88windowsのソースを参考、移植しています。  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -98,7 +98,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・OPN,OPM,OPL系の音色パラメーターを左クリックするとクリップボードに音色パラメーターをテキストとしてコピーします。  
   パラメーターの形式はオプション設定から変更可能です。  
      
-      FMP7 , MDX , MUSIC LALF , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
+      FMP7 , MDX , MUCOM88(MUSIC LALF) , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
   
   に対応しており、.TFIを選んだ場合はクリップボードの代わりにファイルに出力します。  
   
@@ -122,7 +122,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   
 [必要な動作環境]  
-  ・恐らく、WindowsVista(32bit)以降のOS。64ビット環境では未検証。  
+  ・恐らく、WindowsVista(32bit)以降のOS。私はWindows10Home(x64)を使用しています。  
   XPでは動作しません。  
   
   ・.NET Framework4.5/4.5.2をインストールしている必要あり。  
@@ -158,6 +158,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   	Kernal , Basic , Character  
   
   ・そこそこ速いCPU。  
+  使用するChipなどによって必要な処理量が変わります。  
+  私はi7-9700K 3.6GHzを使用しています。  
   
   
 [SpecialThanks]  
@@ -178,8 +180,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・ぼう☆きち さん  
     ・dj.tuBIG/MaliceX さん  
     ・じごふりん さん  
+    ・WING さん  
      
-    ・Visual Studio Community 2015  
+    ・Visual Studio Community 2015/2017  
     ・MinGW/msys  
     ・gcc  
     ・SGDK  
@@ -203,6 +206,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・NSFPlay  
     ・CVS.EXE  
     ・KeyboardHook3.cs  
+    ・MUCOM88  
     ・MUCOM88windows  
      
     ・SMS Power!  
@@ -279,7 +283,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
       そのデータを、指定された形式でファイルへ出力する、又は読み込むことが可能です。  
       以下のソフトウェア向けの形式で保存、読み込みが可能です。  
         FMP7  
-        MUSIC LALF  
+        MUCOM88(MUSIC LALF)  
         NRTDRV  
         MXDRV  
         mml2vgm  
@@ -351,7 +355,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   このソフトは無保証であり、このソフトを使用した事による  
   いかなる損害も作者は一切の責任を負いません。  
   また、MITライセンスは著作権表示および本許諾表示を求めますが本ソフトでは不要です。  
-  以下のソフトウェアのソースコードをC#向けに改変、またはそのまま使用しています。  
+  そして以下のソフトウェアのソースコードをC#向けに移植改変、またはそのまま使用しています。  
   これらのソース、ソフトウェアは各著作者が著作権を持ちます。 ライセンスに関しては、各ドキュメントを参照してください。  
   
   ・VGMPlay  
@@ -369,6 +373,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・MNDRV  
   ・X68Sound  
   (m_puusanさん/rururutanさん版両方)  
+  ・MUCOM88  
   ・MUCOM88windows  
   ・VST.NET  
   ・NAudio  
