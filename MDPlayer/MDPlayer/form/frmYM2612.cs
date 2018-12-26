@@ -364,8 +364,8 @@ namespace MDPlayer.form
 
             }
 
-            DrawBuff.LfoSw(frameBuffer, 5, 44, ref oldParam.lfoSw, newParam.lfoSw);
-            DrawBuff.LfoFrq(frameBuffer, 17, 44, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.LfoSw(frameBuffer, 16 + 1, 176, ref oldParam.lfoSw, newParam.lfoSw);
+            DrawBuff.LfoFrq(frameBuffer, 64+1, 176, ref oldParam.lfoFrq, newParam.lfoFrq);
             DrawBuff.font4Hex12Bit(frameBuffer, 1 + 29 * 4, 44 * 4, 0, ref oldParam.timerA, newParam.timerA);
             DrawBuff.font4HexByte(frameBuffer, 1 + 43 * 4, 44 * 4, 0, ref oldParam.timerB, newParam.timerB);
         }

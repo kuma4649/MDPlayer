@@ -206,8 +206,8 @@ namespace MDPlayer.form
 
             DrawBuff.MONOPOLYYM2612MIDI(frameBuffer, ref oldParam.IsMONO, newParam.IsMONO);
 
-            DrawBuff.LfoSw(frameBuffer, 4, 44, ref oldParam.lfoSw, newParam.lfoSw);
-            DrawBuff.LfoFrq(frameBuffer, 16, 44, ref oldParam.lfoFrq, newParam.lfoFrq);
+            DrawBuff.LfoSw(frameBuffer, 16, 176, ref oldParam.lfoSw, newParam.lfoSw);
+            DrawBuff.LfoFrq(frameBuffer, 64, 176, ref oldParam.lfoFrq, newParam.lfoFrq);
             DrawBuff.ToneFormat(frameBuffer, 16, 6, ref oldParam.useFormat, newParam.useFormat);
         }
 

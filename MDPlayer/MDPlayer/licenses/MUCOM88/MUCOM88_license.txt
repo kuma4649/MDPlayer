@@ -1,0 +1,6 @@
+﻿MUCOM88 License
+
+MUCOM88は、ALPHA-DOS上で動作するFM音源ドライバーと音楽製作ツールの総称です(License: CC BY-NC-SA 4.0)。
+(ALPHA-DOSは、8bitパソコン・NEC PC-8801シリーズ上で動作するオペレーティングシステムです(License: CC BY-NC-ND 4.0))
+MML記述による楽曲を、内蔵FM音源、及びサウンドボードII音源上で演奏させることが可能です。 
+

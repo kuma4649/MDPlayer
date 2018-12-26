@@ -2288,8 +2288,6 @@ namespace MDPlayer
                 return;
             }
 
-            x *= 4;
-            y *= 4;
             drawFont4(screen, x, y, 0, nlfosw ? "ON " : "OFF");
 
             olfosw = nlfosw;
@@ -2302,8 +2300,6 @@ namespace MDPlayer
                 return;
             }
 
-            x *= 4;
-            y *= 4;
             drawFont4Int(screen, x, y, 0, 1, nlfofrq);
 
             olfofrq = nlfofrq;

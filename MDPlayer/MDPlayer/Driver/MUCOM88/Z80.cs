@@ -70,6 +70,30 @@ namespace MDPlayer.Driver.MUCOM88
             }
         }
 
+        public static bool Carry
+        {
+            get
+            {
+                return (F & 0x1) != 0;
+            }
+            set
+            {
+                F = (byte)(value ? (F | 1) : (F & 0xfe));
+            }
+        }
+
+        public static bool Zero
+        {
+            get
+            {
+                return (F & 0x40) != 0;
+            }
+            set
+            {
+                F = (byte)(value ? (F | 0x40) : (F & 0xbf));
+            }
+        }
+
     }
 
     public static class Mem
