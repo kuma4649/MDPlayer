@@ -133,7 +133,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MNDファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC(TBD),MUB(TBD)ファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -158,6 +158,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
   .MND (MNDRV X68000(OPM,OKIM6258) &amp; まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
+  .MUC (MUCOM88Windows 向けファイル)TBD  
+  .MUB (MUCOM88Windows 向けファイル)TBD  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -206,6 +208,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・X68Soundのソースを参考、移植しています。  
   (m_puusanさん/rururutanさん版両方)  
   
+  ・MUCOM88/MUCOM88windowsのソースを参考、移植しています。  
+  
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
   ・SCCIを利用して本物のYM2612,SN76489,YM2608,YM2151から再生が可能です。  
@@ -224,7 +228,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・OPN,OPM,OPL系の音色パラメーターを左クリックするとクリップボードに音色パラメーターをテキストとしてコピーします。  
   パラメーターの形式はオプション設定から変更可能です。  
      
-      FMP7 , MDX , MUSIC LALF , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
+      FMP7 , MDX , MUCOM88(MUSIC LALF) , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
   
   に対応しており、.TFIを選んだ場合はクリップボードの代わりにファイルに出力します。  
   
@@ -248,7 +252,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   
 [必要な動作環境]  
-  ・恐らく、WindowsVista(32bit)以降のOS。64ビット環境では未検証。  
+  ・恐らく、WindowsVista(32bit)以降のOS。私はWindows10Home(x64)を使用しています。  
   XPでは動作しません。  
   
   ・.NET Framework4.5/4.5.2をインストールしている必要あり。  
@@ -284,6 +288,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   	Kernal , Basic , Character  
   
   ・そこそこ速いCPU。  
+  使用するChipなどによって必要な処理量が変わります。  
+  私はi7-9700K 3.6GHzを使用しています。  
   
   
 [SpecialThanks]  
@@ -304,8 +310,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・ぼう☆きち さん  
     ・dj.tuBIG/MaliceX さん  
     ・じごふりん さん  
+    ・WING さん  
      
-    ・Visual Studio Community 2015  
+    ・Visual Studio Community 2015/2017  
     ・MinGW/msys  
     ・gcc  
     ・SGDK  
@@ -329,6 +336,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・NSFPlay  
     ・CVS.EXE  
     ・KeyboardHook3.cs  
+    ・MUCOM88  
+    ・MUCOM88windows  
      
     ・SMS Power!  
     ・DOBON.NET  
@@ -404,7 +413,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       そのデータを、指定された形式でファイルへ出力する、又は読み込むことが可能です。  
       以下のソフトウェア向けの形式で保存、読み込みが可能です。  
         FMP7  
-        MUSIC LALF  
+        MUCOM88(MUSIC LALF)  
         NRTDRV  
         MXDRV  
         mml2vgm  
@@ -467,7 +476,38 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       画面クリック時の処理との違い  
         Ctrl+V（ペースト）のキーストロークを送信します。  
         選択チャンネルのノートログをクリアします。  
-        初めのオクターブコマンドは出力しません。</value>
+        初めのオクターブコマンドは出力しません。  
+      
+      
+[著作権・免責]  
+  MDPlayerはMITライセンスに準ずる物とします。LICENSE.txtを参照。  
+  著作権は作者が保有しています。  
+  このソフトは無保証であり、このソフトを使用した事による  
+  いかなる損害も作者は一切の責任を負いません。  
+  また、MITライセンスは著作権表示および本許諾表示を求めますが本ソフトでは不要です。  
+  そして以下のソフトウェアのソースコードをC#向けに移植改変、またはそのまま使用しています。  
+  これらのソース、ソフトウェアは各著作者が著作権を持ちます。 ライセンスに関しては、各ドキュメントを参照してください。  
+  
+  ・VGMPlay  
+  ・MAME  
+  ・DOSBOX  
+  ・FMGen  
+  ・NSFPlay  
+  ・NEZ Plug++  
+  ・libsidplayfp  
+  ・sidplayfp  
+  ・NRTDRV  
+  ・MoonDriver  
+  ・MXP  
+  ・MXDRV  
+  ・MNDRV  
+  ・X68Sound  
+  (m_puusanさん/rururutanさん版両方)  
+  ・MUCOM88  
+  ・MUCOM88windows  
+  ・VST.NET  
+  ・NAudio  
+  ・SCCI</value>
   </data>
   <data name="フェーリAndMD2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\フェーリAndMD2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

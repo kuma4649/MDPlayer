@@ -166,7 +166,7 @@ namespace MDPlayer.Properties {
         ///  
         ///[概要]  
         ///  このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-        ///  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MNDファイルにも対応。)  
+        ///  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC(TBD),MUB(TBD)ファイルにも対応。)  
         ///  
         ///[注意]  
         ///  ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -177,8 +177,7 @@ namespace MDPlayer.Properties {
         ///  直接MDPlayerについての連絡がいくことの無い様にお願いします。)  
         ///  できるかぎり対応させていただくつもりですが、ご希望に添えないことも多々あります。ご了承ください。  
         ///  
-        ///[対応フォーマット]  
-        ///  .VGM (所謂v [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///[対応フォーマ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntDescription {
             get {
