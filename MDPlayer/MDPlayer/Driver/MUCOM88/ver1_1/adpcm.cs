@@ -4,6 +4,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 {
     public class adpcm
     {
+        public Mem Mem = null;
+        public Z80 Z80 = null;
+        public PC88 PC88 = null;
 
         //	ADPCM TEST ROUTINE
         //
@@ -13,14 +16,20 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         //	ORG	0B000H
 
         public const ushort PORT13 = 0x0FFFD;
-        public Action[] tblOpe = new Action[] {
-            PLYPCM,
-            REC,
-            RAM_W,
-            RAM_R
-        };
+        public Action[] tblOpe;
 
-        public static void PLYPCM()
+        public adpcm()
+        {
+            tblOpe = new Action[] {
+                PLYPCM,
+                REC,
+                RAM_W,
+                RAM_R
+            };
+
+        }
+
+        public void PLYPCM()
         {
             Z80.A = Mem.LD_8(0xc000); //ｵﾝﾃｲ
             ushort adr = PCMDAT[Z80.A << 1];
@@ -39,7 +48,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             PLAY();
         }
 
-        public static ushort[] PCMDAT = new ushort[]{// C-B ﾏﾃﾞ ﾉ ｻｲｾｲ ｻﾝﾌﾟﾘﾝｸﾞ ﾚｰﾄ
+        public ushort[] PCMDAT = new ushort[]{// C-B ﾏﾃﾞ ﾉ ｻｲｾｲ ｻﾝﾌﾟﾘﾝｸﾞ ﾚｰﾄ
             0x49BA,0x4E1C,0x52C1,0x57AD,
             0x5CE4,0x626A,0x6844,0x6E77,
             0x7509,0x7BFE,0x835E,0x8B2D
@@ -54,7 +63,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public const ushort ENDADR = 0x0E002;
         public const ushort TIME = 0x0E004;
 
-        public static void REC()
+        public void REC()
         {
             Z80.DE = 0x1008;// MASK BRDY
             PCMOUT();
@@ -136,7 +145,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         // IN:(STTADR)<=ｻｲｾｲ ｽﾀｰﾄ ｱﾄﾞﾚｽ
         //	   (ENDADR)  <=ｻｲｾｲ ｴﾝﾄﾞ ｱﾄﾞﾚｽ
         //	   (DELT_N)<=ｻｲｾｲ ﾚｰﾄ
-        public static void PLAY()
+        public void PLAY()
         {
             Z80.DE = 0x1008;
             PCMOUT();
@@ -193,7 +202,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         // ***	RAM-WRITE***
         //IN:HL<=START ADR
-        public static void RAM_W()
+        public void RAM_W()
         {
             //	DI
             Z80.A = Mem.LD_8(0xE6C2);
@@ -279,7 +288,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         // ***	RAM READ	***
         // IN:HL<=START ADR
-        public static void RAM_R()
+        public void RAM_R()
         {
             //	DI
             Z80.A = Mem.LD_8(0x0E6C2);
@@ -354,7 +363,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
 
         // ---	READ SUB	---
-        public static void RESUB()
+        public void RESUB()
         {
             PCMIN();
 
@@ -377,7 +386,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         // ***	ADPCM IN	***
         // EXIT:	A<= $8(DAC) ﾉ ﾃﾞｰﾀ
-        public static void PCMIN()
+        public void PCMIN()
         {
             ushort stBC = Z80.BC;
 
@@ -403,7 +412,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
 
         // ***	ADPCM OUT	***
-        public static void PCMOUT()
+        public void PCMOUT()
         {
             ushort stBC = Z80.BC;
 
@@ -427,7 +436,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
 
         // ***	ADPCM WORK	***
-        public static ushort DELT_N = 0;
+        public ushort DELT_N = 0;
 
     }
 }

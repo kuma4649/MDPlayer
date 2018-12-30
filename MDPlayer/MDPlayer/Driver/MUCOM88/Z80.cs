@@ -6,22 +6,42 @@ using System.Threading.Tasks;
 
 namespace MDPlayer.Driver.MUCOM88
 {
-    public static class Z80
+    public class Z80
     {
-        //regs
+        public Mem Mem = null;
 
         //8bit
-        public static byte A;
-        public static byte B;
-        public static byte C;
-        public static byte D;
-        public static byte E;
-        public static byte F;
-        public static byte H;
-        public static byte L;
+        public byte A;
+        public byte B;
+        public byte C;
+        public byte D;
+        public byte E;
+        public byte F;
+        public byte H;
+        public byte L;
+
+        public ushort IX;
+        public ushort IY;
+
+        private byte Ab;
+        private byte Bb;
+        private byte Cb;
+        private byte Db;
+        private byte Eb;
+        private byte Fb;
+        private byte Hb;
+        private byte Lb;
+        private byte Ac;
+        private byte Bc;
+        private byte Cc;
+        private byte Dc;
+        private byte Ec;
+        private byte Fc;
+        private byte Hc;
+        private byte Lc;
 
         //16bit
-        public static ushort AF
+        public ushort AF
         {
             get
             {
@@ -33,7 +53,7 @@ namespace MDPlayer.Driver.MUCOM88
                 F = (byte)value;
             }
         }
-        public static ushort BC
+        public ushort BC
         {
             get
             {
@@ -45,7 +65,7 @@ namespace MDPlayer.Driver.MUCOM88
                 C = (byte)value;
             }
         }
-        public static ushort DE
+        public ushort DE
         {
             get
             {
@@ -57,7 +77,7 @@ namespace MDPlayer.Driver.MUCOM88
                 E = (byte)value;
             }
         }
-        public static ushort HL
+        public ushort HL
         {
             get
             {
@@ -70,7 +90,82 @@ namespace MDPlayer.Driver.MUCOM88
             }
         }
 
-        public static bool Carry
+        public void EXX()
+        {
+            Ac = A; A = Ab; Ab = Ac;
+            Bc = B; B = Bb; Bb = Bc;
+            Cc = C; C = Cb; Cb = Cc;
+            Dc = D; D = Db; Db = Dc;
+            Ec = E; E = Eb; Eb = Ec;
+            Fc = F; F = Fb; Fb = Fc;
+            Hc = H; H = Hb; Hb = Hc;
+            Lc = L; L = Lb; Lb = Lc;
+        }
+
+        public void EX_DE_HL()
+        {
+            ushort dmy = DE;
+            DE = HL;
+            HL = dmy;
+        }
+
+        public void EX_AF_AF()
+        {
+            Ac = A; A = Ab; Ab = Ac;
+            Fc = F; F = Fb; Fb = Fc;
+        }
+
+        public void LDI()
+        {
+            Mem.LD_8(DE, Mem.LD_8(HL));
+            DE++;
+            HL++;
+            BC--;
+        }
+
+        public void LDI(byte[] buf)
+        {
+            Mem.LD_8(DE, buf[HL]);
+            DE++;
+            HL++;
+            BC--;
+        }
+
+        public void LDIR()
+        {
+            do
+            {
+                Mem.LD_8(DE, Mem.LD_8(HL));
+                DE++;
+                HL++;
+                BC--;
+            } while (BC != 0);
+        }
+
+        public void LDIR(byte[] buf)
+        {
+            do
+            {
+                Mem.LD_8(DE, buf[HL]);
+                DE++;
+                HL++;
+                BC--;
+            } while (BC != 0);
+        }
+
+        public void RLCA()
+        {
+            A = (byte)((A << 1) | ((A & 0x80) != 0 ? 1 : 0));
+            Carry = (A & 0x80) != 0;
+        }
+
+        public void RRCA()
+        {
+            A = (byte)((A >> 1) | ((A & 0x01) != 0 ? 0x80 : 0));
+            Carry = (A & 0x01) != 0;
+        }
+
+        public bool Carry
         {
             get
             {
@@ -82,7 +177,7 @@ namespace MDPlayer.Driver.MUCOM88
             }
         }
 
-        public static bool Zero
+        public bool Zero
         {
             get
             {
@@ -96,48 +191,69 @@ namespace MDPlayer.Driver.MUCOM88
 
     }
 
-    public static class Mem
+    public class Mem
     {
-        private static byte[] mainMemory = null;
+        private byte[] mainMemory = null;
 
-        public static void Init()
+        public Mem()
         {
             mainMemory = new byte[0x10000];
         }
 
-        public static byte LD_8(ushort adr)
+        public byte LD_8(ushort adr)
         {
             return mainMemory[adr];
         }
 
-        public static void LD_8(ushort adr,byte val)
+        public void LD_8(ushort adr,byte val)
         {
             mainMemory[adr] = val;
         }
 
-        public static ushort LD_16(ushort adr)
+        public ushort LD_16(ushort adr)
         {
             return (ushort)((mainMemory[adr] << 8) | mainMemory[adr + 1]);
         }
 
-        public static void LD_16(ushort adr, ushort val)
+        public void LD_16(ushort adr, ushort val)
         {
             mainMemory[adr] = (byte)(val >> 8);
             mainMemory[adr + 1] = (byte)val;
         }
+
+        public Stack<ushort> stack = new Stack<ushort>(0x100);
     }
 
-    public static class PC88
+    public class PC88
     {
-        public static byte IN(byte adr)
+        public Mem Mem = new Mem();
+        public Z80 Z80 = new Z80();
+
+        public PC88()
+        {
+            Z80.Mem = Mem;
+        }
+
+        public byte IN(byte adr)
         {
             return 0;
         }
 
-        public static void OUT(byte adr,byte val)
+        public void OUT(byte adr,byte val)
         {
 
         }
+
+        public void CALL(ushort adr)
+        {
+
+        }
+
+        public void RST(ushort adr,params object[] option)
+        {
+
+        }
+
     }
 
 }
