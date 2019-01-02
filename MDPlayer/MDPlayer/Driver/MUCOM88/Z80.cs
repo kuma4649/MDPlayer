@@ -20,9 +20,6 @@ namespace MDPlayer.Driver.MUCOM88
         public byte H;
         public byte L;
 
-        public ushort IX;
-        public ushort IY;
-
         private byte Ab;
         private byte Bb;
         private byte Cb;
@@ -90,6 +87,10 @@ namespace MDPlayer.Driver.MUCOM88
             }
         }
 
+        public ushort IX;
+        public ushort IY;
+
+
         public void EXX()
         {
             Ac = A; A = Ab; Ab = Ac;
@@ -142,13 +143,35 @@ namespace MDPlayer.Driver.MUCOM88
             } while (BC != 0);
         }
 
-        public void LDIR(byte[] buf)
+        public void LDIR_HL(byte[] buf)
         {
             do
             {
                 Mem.LD_8(DE, buf[HL]);
                 DE++;
                 HL++;
+                BC--;
+            } while (BC != 0);
+        }
+
+        public void LDIR_DE(byte[] buf)
+        {
+            do
+            {
+                buf[DE] = Mem.LD_8(HL);
+                DE++;
+                HL++;
+                BC--;
+            } while (BC != 0);
+        }
+
+        public void LDDR()
+        {
+            do
+            {
+                Mem.LD_8(DE, Mem.LD_8(HL));
+                DE--;
+                HL--;
                 BC--;
             } while (BC != 0);
         }

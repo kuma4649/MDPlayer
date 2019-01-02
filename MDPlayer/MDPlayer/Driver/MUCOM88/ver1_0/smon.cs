@@ -534,7 +534,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 Z80.HL = 0;// NAME3;
                 buf = Encoding.UTF8.GetBytes(NAME3);
                 Z80.BC = 10;
-                Z80.LDIR(buf);
+                Z80.LDIR_HL(buf);
                 Z80.DE++;
                 Z80.DE++;
                 Z80.DE++;

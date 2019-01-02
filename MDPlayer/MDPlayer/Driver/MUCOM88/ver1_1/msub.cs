@@ -1372,12 +1372,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         MCMP1:
             Z80.A = Mem.LD_8(Z80.DE);
             Z80.A |= Z80.A;
-            if (Z80.A == 0)
+            Z80.Zero = (Z80.A == 0);
+            Z80.Carry = false;
+            if (Z80.Zero)
             {
                 return;
             }
             Z80.C = Mem.LD_8(Z80.HL);
-            if (Z80.A - Z80.C != 0)
+            Z80.Zero = (Z80.A - Z80.C == 0);
+            if (!Z80.Zero)
             {
                 goto MCMP4;
             }
@@ -1387,6 +1390,27 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         MCMP4:
             Z80.Carry = true;
             //    RET
+        }
+
+        public void MCMP_DE(string strDE)
+        {
+            Z80.Zero = false;
+            Z80.Carry = true;
+            try
+            {
+                string trgDE = strDE.Substring(0, strDE.IndexOf("\0"));
+                if (trgDE.Length < 1) return;
+
+                byte[] bHL = new byte[trgDE.Length];
+                for (int i = 0; i < trgDE.Length; i++) bHL[i] = Mem.LD_8(Z80.HL);
+                string trgHL = Encoding.UTF8.GetString(bHL);
+                if (trgHL == trgDE)
+                {
+                    Z80.Zero = true;
+                    Z80.Carry = false;
+                }
+            }
+            catch { }
         }
 
         // COMMAND
