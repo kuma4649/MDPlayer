@@ -266,6 +266,8 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mnd") != -1) return enmFileFormat.MND;
             if (filename.ToLower().LastIndexOf(".mdr") != -1) return enmFileFormat.MDR;
             if (filename.ToLower().LastIndexOf(".mdx") != -1) return enmFileFormat.MDX;
+            if (filename.ToLower().LastIndexOf(".mub") != -1) return enmFileFormat.MUB;
+            if (filename.ToLower().LastIndexOf(".muc") != -1) return enmFileFormat.MUC;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
@@ -486,7 +488,9 @@ namespace MDPlayer
         MDR = 12,
         LZH = 13,
         MDX = 14,
-        MND = 15
+        MND = 15,
+        MUB = 16,
+        MUC = 17
     }
 
     public enum enmArcType : int

@@ -693,12 +693,13 @@ namespace MDPlayer.form
                 + "MNDファイル(*.mnd)|*.mnd|"
                 + "MDRファイル(*.mdr)|*.mdr|"
                 + "MDXファイル(*.mdx)|*.mdx|"
+                + "MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|"
                 + "StandardMIDIファイル(*.mid)|*.mid|"
                 + "RCPファイル(*.rcp)|*.rcp|"
                 + "M3Uファイル(*.m3u)|*.m3u|"
                 + "アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mid;*.rcp;*.m3u|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u|"
                 + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;

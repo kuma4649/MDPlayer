@@ -268,6 +268,12 @@ namespace MDPlayer
                 case enmFileFormat.MDX:
                     AddFileMDX(mc, entry);
                     break;
+                case enmFileFormat.MUB:
+                    AddFileMUB(mc, entry);
+                    break;
+                case enmFileFormat.MUC:
+                    AddFileMUC(mc, entry);
+                    break;
                 case enmFileFormat.RCP:
                     AddFileRCP(mc, entry);
                     break;
@@ -597,6 +603,16 @@ namespace MDPlayer
         }
 
         private void AddFileMDX(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMUB(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMUC(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
         }

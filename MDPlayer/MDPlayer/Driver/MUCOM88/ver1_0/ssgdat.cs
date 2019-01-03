@@ -78,6 +78,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             ,255,255,255,220,0,255
             ,0,1,1,0xB8,0x0B,255,0,0
 
-        };
+        };
+
     }
 }

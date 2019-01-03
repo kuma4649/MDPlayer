@@ -4080,6 +4080,18 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (filename.ToLower().LastIndexOf(".mub") != -1)
+            {
+                format = enmFileFormat.MUB;
+                return buf;
+            }
+
+            if (filename.ToLower().LastIndexOf(".muc") != -1)
+            {
+                format = enmFileFormat.MUC;
+                return buf;
+            }
+
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
                 format = enmFileFormat.XGM;

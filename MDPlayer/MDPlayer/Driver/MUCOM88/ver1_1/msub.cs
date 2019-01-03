@@ -363,6 +363,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //TODO:
             //goto 0x03B3;// ERROR PROCESS
             //    RET
+            PC88.CALL(0x3b3);
         }
 
         public static byte[] ERLI = new byte[] {
@@ -389,6 +390,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Z80.A = TONES[Z80.HL];
                 if (Z80.A - Z80.C == 0)
                 {
+                    log.Write(string.Format("Note:{0}",Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(Z80.A) })));
                     TONEXT();
                     return;
                 }
@@ -408,7 +410,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public void TONEXT()
         {
             Z80.HL++;
-            Z80.C = Mem.LD_8(Z80.HL);// GET KEY CODE DATA
+            //Z80.C = Mem.LD_8(Z80.HL);// GET KEY CODE DATA
+            Z80.C = TONES[Z80.HL];
             Z80.A = Mem.LD_8(OCTAVE);
             Z80.B = Z80.A;// STORE A
             Z80.HL = Mem.stack.Pop();
@@ -1402,7 +1405,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 if (trgDE.Length < 1) return;
 
                 byte[] bHL = new byte[trgDE.Length];
-                for (int i = 0; i < trgDE.Length; i++) bHL[i] = Mem.LD_8(Z80.HL);
+                for (int i = 0; i < trgDE.Length; i++)
+                {
+                    bHL[i] = Mem.LD_8(Z80.HL++);
+                }
                 string trgHL = Encoding.UTF8.GetString(bHL);
                 if (trgHL == trgDE)
                 {

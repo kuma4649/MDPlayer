@@ -40,15 +40,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public const int LOOPSP = 0xF260;//ﾙｰﾌﾟｽﾀｯｸ
         public const int CURSOR = 0xEF86;//ｶｰｿﾙﾜｰｸ
 
-        public const int MDATA = COMWK;// ｺﾝﾊﾟｲﾙｻﾚﾀ ﾃﾞｰﾀｶﾞｵｶﾚﾙ ｹﾞﾝｻﾞｲﾉ ｱﾄﾞﾚｽ
-        public const int DATTBL = MDATA + 4;// ｹﾞﾝｻﾞｲ ｺﾝﾊﾟｲﾙﾁｭｳ ﾉ MUSIC DATA TABLE TOP
-        public const int OCTAVE = DATTBL + 2;//
-        public const int SIFTDAT = OCTAVE + 1;//
-        public const int CLOCK = SIFTDAT + 1;//
-        public const int SECCOM = CLOCK + 1;//
-        public const int KOTAE = SECCOM + 1;//
-        public const int LINE = KOTAE + 2;//
-        public const int ERRLINE = LINE + 2;//
+        public const int MDATA = COMWK;// ｺﾝﾊﾟｲﾙｻﾚﾀ ﾃﾞｰﾀｶﾞｵｶﾚﾙ ｹﾞﾝｻﾞｲﾉ ｱﾄﾞﾚｽ//KUMA:0xf320
+        public const int DATTBL = MDATA + 4;// ｹﾞﾝｻﾞｲ ｺﾝﾊﾟｲﾙﾁｭｳ ﾉ MUSIC DATA TABLE TOP//KUMA:0xf324
+        public const int OCTAVE = DATTBL + 2;//KUMA:0xf326
+        public const int SIFTDAT = OCTAVE + 1;//KUMA:0xf327
+        public const int CLOCK = SIFTDAT + 1;//KUMA:0xf328
+        public const int SECCOM = CLOCK + 1;//KUMA:0xf329
+        public const int KOTAE = SECCOM + 1;//KUMA:0xf32A
+        public const int LINE = KOTAE + 2;//KUMA:0xf32c
+        public const int ERRLINE = LINE + 2;//KUMA:0xf32e
         public const int COMNOW = ERRLINE + 2;//
         public const int COUNT = COMNOW + 1;//
         public const int MOJIBUF = COUNT + 1;//
@@ -169,9 +169,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         //JP CINT
         //JP GETADR
 
+        //上位が直接COMPILを呼ぶのでこのメソッドに意味は特にない。
         public void CINT()
         {
-            //TODO:未対策！！！
             Z80.HL = 0;// COMPIL;
             Z80.A = 0xc3;
         //CI2:
@@ -180,7 +180,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //RET
         }
 
-        public void COMPIL()
+        public int COMPIL()
         {
             Mem.stack.Push(Z80.HL);
             INIT0();
@@ -197,24 +197,24 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             {
                 // MON
                 CHECK();
-                return;
+                return 0;
             }
             if (Z80.A - 0x46 == 0)//'F'
             {
                 WFOUND();
-                return;
+                return 0;
             }
             if (Z80.A - 0x52 == 0)//'R'
             {
                 REPST();
-                return;
+                return 0;
             }
             if (Z80.A - 0xce == 0)
             {
                 goto FDO;
             }
 
-            Mem.stack.Push(Z80.HL);
+            Mem.stack.Push(Z80.AF);
             Mem.stack.Push(Z80.HL);
             PC88.CALL(INFADR);
             Mem.LD_8((ushort)(Z80.IX + 2), 0);
@@ -227,61 +227,67 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.A - 0x45 == 0)//'E'
             {
                 CHGPMD();
-                return;
+                return 0;
             }
             if (Z80.A - 0x49 == 0)//'I'
             {
                 INITFG();
-                return;
+                return 0;
             }
             if (Z80.A - 0x44 == 0)//'D'
             {
                 DEBFCH();
-                return;
+                return 0;
             }
             if (Z80.A - 0x56 == 0)//'V'
             {
                 VICMKE();
-                return;
+                return 0;
             }
             if (Z80.A - 0x4c == 0)//'L'
             {
                 LINC();
-                return;
+                return 0;
             }
             if (Z80.A - 0x53 == 0)//'S'
             {
                 M_ST();
-                return;
+                return 0;
             }
             if (Z80.A - 0x50 == 0)//'P'
             {
                 COMPI1();
-                return;
+                return 0;
             }
             if (Z80.A - 0x5a == 0)//'Z'
             {
                 CMP1();
-                return;
+                return 0;
             }
             Mem.LD_8(Z80.HL, (byte)(Mem.LD_8(Z80.HL) + 1));
             if (Z80.A - 0x41 == 0)//'A' ｺﾝﾊﾟｲﾙｵﾝﾘｰ
             {
                 COMPI1();
-                return;
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                {
+                    return -1;
+                }
+                return 0;
             }
 
             Z80.HL = Mem.stack.Pop();
             Z80.E = 2;
 
+            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERRORSN;
             PC88.CALL(0x03B3);
-            return;
+            return 0;
 
         FDO:
             PC88.CALL(INFADR);
             Mem.LD_8((ushort)(Z80.IX + 8), 16);
             Z80.HL = Mem.stack.Pop();
             //    RET
+            return 0;
         }
 
         public void CHGPMD()
@@ -530,7 +536,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.A = 0xff;
             //Mem.LD_8(MACFG, Z80.A);
             MACFG = Z80.A;
-            COMPST();
+            COMPST();//KUMA:先ずマクロの解析
             Z80.HL = Mem.LD_16(MDATA);
             TBLSET();
             Z80.HL = 1;
@@ -543,6 +549,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Mem.LD_8(MACFG, Z80.A);
             MACFG = Z80.A;
             COMPST();
+            if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+            {
+                return;
+            }
             CMPEND();// ﾘﾝｸ ﾎﾟｲﾝﾀ = 0->BASIC END
         }
 
@@ -557,11 +567,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Mem.LD_16(LINKPT, Z80.DE);  // STORE LINK POINTER
                 Z80.A = Z80.E;
                 Z80.A |= Z80.D;
-                if (Z80.A == 0)
+                if (Z80.A == 0)//最終行まで走査完了したか
                 {
                     return;
                 }
+
                 Mem.LD_16(LINE, Z80.HL);
+                //log.Write(string.Format("{0}行目の解析", Mem.LD_16(Z80.HL)));
+                Mem.LD_16(ERRLINE, Mem.LD_16(Z80.HL));
+
                 Z80.HL++;       //
                 Z80.HL++;// SKIP LINE NUMBER
                 Z80.A = Mem.LD_8(Z80.HL);
@@ -590,9 +604,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Z80.A++;
                 if (Z80.A == 0)
                 {
-                    MACPRC();
+                    MACPRC();//マクロの解析
 
-                    ///RECOMの処理
+                    //KUMA:RECOMの処理をここに追加
                     Z80.HL = Mem.LD_16(LINKPT); // ﾘﾝｸﾎﾟｲﾝﾀ ｻｲｾｯﾄ
                     continue;
                 }
@@ -625,7 +639,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Z80.A += 0x41;// 'A';
                 Z80.C = Z80.A;
                 Z80.AF = Mem.stack.Pop();
-                if (Z80.A - Z80.C >= 0)
+                if (Z80.A - Z80.C >= 0)//KUMA:MUCOM88が扱える最大のチャンネルよりも大きいパートを指定しているか
                 {
                     goto RECOM;
                 }
@@ -652,7 +666,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                     goto RECOM;
                 }
             CST3:
+                log.Write(string.Format("Ch.{0}のFMCOMP開始", Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + Z80.C) })));
                 FMCOMP();// TO FM COMPILE
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                {
+                    break;
+                }
                 continue;// goto COMPST;
             RECOM:
                 Z80.HL = Mem.LD_16(LINKPT); // ﾘﾝｸﾎﾟｲﾝﾀ ｻｲｾｯﾄ
@@ -671,7 +690,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Mem.LD_16(TST2 + 1, Z80.DE);
             TST2_VAL = Z80.DE;
             MPC1();
-            //goto RECOM;
+            //goto RECOM; //KUMA:呼び出しもとでRECOMを実施する
         }
 
         // --	ﾃｷｽﾄｶﾗ Cregｺﾏﾝﾄﾞ ｦｻｶﾞｽ	--
@@ -1293,7 +1312,36 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         //goto FMCOMP;
         FCOMP0:
             Z80.HL++;// SKIP SPACE
-            FCOMP1();
+            do
+            {
+                if (FCOMP_nextRtn == enmFCOMPNextRtn.comprc)
+                {
+                    COMPRC();
+                    switch (COMTBL_RetPtn)
+                    {
+                        case 1:
+                            FCOMP_nextRtn = enmFCOMPNextRtn.fcomp1;
+                            break;
+                        case 12:
+                            FCOMP12();
+                            break;
+                        case 13:
+                            FCOMP13();
+                            break;
+                        default:
+                            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERRORSN;
+                            break;
+                    }
+                }
+                else
+                {
+                    FCOMP1();
+                }
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                {
+                    break;
+                }
+            } while (FCOMP_nextRtn != enmFCOMPNextRtn.NextLine);
         }
 
         public enum enmFCOMPNextRtn
@@ -1304,6 +1352,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             occuredERRORSN,
             fcomp1
         }
+
         public enmFCOMPNextRtn FCOMP_nextRtn = enmFCOMPNextRtn.Unknown; 
 
         public void FCOMP1()
@@ -1498,48 +1547,26 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         public void COMPRC()
         {
-            do
-            {
-                Z80.C--;
-                Z80.A = Z80.C;
-                Z80.A += Z80.A;
-                Z80.A += Z80.C;// *3
-                Z80.DE = 0;// COMTBL;
-                Z80.Carry = (Z80.A + Z80.E > 0xff);
-                Z80.A += Z80.E;
-                Z80.E = Z80.A;
-                Z80.A += (byte)(Z80.D + (Z80.Carry ? 1 : 0));
-                Z80.A -= Z80.E;
-                Z80.D = Z80.A;
+            Z80.C--;
+            Z80.A = Z80.C;
+            Z80.A += Z80.A;
+            Z80.A += Z80.C;// *3
+            Z80.DE = 0;// COMTBL;
+            Z80.Carry = (Z80.A + Z80.E > 0xff);
+            Z80.A += Z80.E;
+            Z80.E = Z80.A;
+            Z80.A += (byte)(Z80.D + (Z80.Carry ? 1 : 0));
+            Z80.A -= Z80.E;
+            Z80.D = Z80.A;
 
-                //KUMA:オリジナルは以下の2行でCOMTBLのルーチンがコールされる。
-                //更に一部を除き、戻り先がない状態なのでRETせずにJR/JPなどで任意の処理に飛ぶ
-                //Mem.stack.Push(Z80.DE);
-                //RET
-                //KUMA:代わりにデリゲートし、飛び先をここで判断する(判明しているのは3パターン)
-                //KUMA:.NET側のスタックがパンクするかも。。。
-                COMTBL_RetPtn = -1;
-                COMTBL[Z80.DE / 3]();
-                do
-                {
-                    switch (COMTBL_RetPtn)
-                    {
-                        case 1:
-                            FCOMP1();
-                            break;
-                        case 12:
-                            FCOMP12();
-                            break;
-                        case 13:
-                            FCOMP13();
-                            break;
-                        default:
-                            throw new Exception("知らない飛び先");
-                    }
-                    //FCOMP処理後、再度fcomp/comprcが必要な場合があるようなので
-                    //チェックする
-                } while (FCOMP_nextRtn == enmFCOMPNextRtn.fcomp1);
-            } while (FCOMP_nextRtn == enmFCOMPNextRtn.comprc);
+            //KUMA:オリジナルは以下の2行でCOMTBLのルーチンがコールされる。
+            //更に一部を除き、戻り先がない状態なのでRETせずにJR/JPなどで任意の処理に飛ぶ
+            //Mem.stack.Push(Z80.DE);
+            //RET
+            //KUMA:代わりにデリゲートし、飛び先はFMCOMPで判断する
+            COMTBL_RetPtn = -1;
+            log.Write(string.Format("Command:{0}",COMTBL[Z80.DE/3].Method.ToString()));
+            COMTBL[Z80.DE / 3]();
         }
 
         public muc88()

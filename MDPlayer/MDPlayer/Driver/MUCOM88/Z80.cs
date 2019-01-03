@@ -217,31 +217,127 @@ namespace MDPlayer.Driver.MUCOM88
     public class Mem
     {
         private byte[] mainMemory = null;
+        private byte[][] gvram = null;
+        private byte[] tvram = null;
+        public enum EnmGVRAM : int
+        {
+            MainRAM=0,
+            BPLANE
+        }
+        public EnmGVRAM GVRAM_SW = EnmGVRAM.MainRAM;
+        public bool MMODE = false; //false:ROM/RAM mode   true:64K RAM mode
+        public bool TMODE = false;//false:TextVRAM  true:MainVRAM
 
         public Mem()
         {
             mainMemory = new byte[0x10000];
+            gvram = new byte[3][]
+            {
+                new byte[0x10000-0xc000],
+                null,
+                null
+            };
+            tvram = new byte[0x10000 - 0xf000];
+        }
+
+        private byte this[ushort index]
+        {
+            set
+            {
+                byte[] buf = mainMemory;
+                ushort adr = index;
+
+                if (index < 0x8000)
+                {
+                    //MMODEに関係なく書き込みはmainMemoryに行われる
+                    //if (!MMODE)
+                    //{
+                    //}
+                }
+                else if (index >= 0xc000)
+                {
+                    switch (GVRAM_SW)
+                    {
+                        case EnmGVRAM.MainRAM:
+                            if (index >= 0xf000 && !TMODE)
+                            {
+                                buf = tvram;
+                                adr -= 0xf000;
+                            }
+                            break;
+                        case EnmGVRAM.BPLANE:
+                            buf = gvram[0];
+                            adr -= 0xc000;
+                            break;
+                    }
+                }
+
+                buf[adr] = value;
+            }
+
+            get
+            {
+                byte[] buf = mainMemory;
+                ushort adr = index;
+
+                if (index < 0x8000)
+                {
+                    if (!MMODE)
+                    {
+                        throw new NotSupportedException("MDPlayerはPC88のROM領域の読み込みに対応していません");
+                    }
+                }
+                if (index >= 0xc000)
+                {
+                    switch (GVRAM_SW)
+                    {
+                        case EnmGVRAM.MainRAM:
+                            if (index >= 0xf000 && !TMODE)
+                            {
+                                buf = tvram;
+                                adr -= 0xf000;
+                            }
+                            break;
+                        case EnmGVRAM.BPLANE:
+                            buf = gvram[0];
+                            adr -= 0xc000;
+                            break;
+                    }
+                }
+
+                return buf[adr];
+            }
         }
 
         public byte LD_8(ushort adr)
         {
-            return mainMemory[adr];
+            return this[adr];
         }
 
         public void LD_8(ushort adr,byte val)
         {
-            mainMemory[adr] = val;
+            this[adr] = val;
+            //if(adr>=0xf3c8 && adr < 0xfe80)
+            //{
+            //    int loc = (adr - 0xf3c8) / 120;
+            //    log.ForcedWrite(Encoding.GetEncoding("Shift_JIS").GetString(mainMemory, 0xf3c8 + loc * 120, 80));
+            //}
         }
 
         public ushort LD_16(ushort adr)
         {
-            return (ushort)((mainMemory[adr] << 8) | mainMemory[adr + 1]);
+            return (ushort)((this[(ushort)(adr + 1)] << 8) | this[adr]);
         }
 
         public void LD_16(ushort adr, ushort val)
         {
-            mainMemory[adr] = (byte)(val >> 8);
-            mainMemory[adr + 1] = (byte)val;
+            this[adr] = (byte)val;
+            this[(ushort)(adr + 1)] = (byte)(val >> 8);
+            //if (adr >= 0xf3c8 && adr < 0xfe80)
+            //{
+            //    int loc = (adr - 0xf3c8) / 120;
+            //    log.ForcedWrite(Encoding.GetEncoding("Shift_JIS").GetString(mainMemory, 0xf3c8 + loc * 120, 80));
+            //}
         }
 
         public Stack<ushort> stack = new Stack<ushort>(0x100);
@@ -249,27 +345,56 @@ namespace MDPlayer.Driver.MUCOM88
 
     public class PC88
     {
-        public Mem Mem = new Mem();
-        public Z80 Z80 = new Z80();
+        public Mem Mem = null;
+        public Z80 Z80 = null;
 
         public PC88()
         {
-            Z80.Mem = Mem;
         }
 
         public byte IN(byte adr)
         {
+            log.Write(string.Format("Port In:Adr[{0:x02}]", adr));
             return 0;
         }
 
         public void OUT(byte adr,byte val)
         {
-
+            log.Write(string.Format("Port Out:Adr[{0:x02}] val[{1:x02}]", adr, val));
+            switch (adr)
+            {
+                case 0x31:
+                    Mem.MMODE = ((val & 0x2) != 0);
+                    break;
+                case 0x32:
+                    Mem.TMODE = ((val & 0x10) != 0);
+                    break;
+                case 0x5c:
+                    Mem.GVRAM_SW = Mem.EnmGVRAM.BPLANE;
+                    break;
+                case 0x5f:
+                    Mem.GVRAM_SW = Mem.EnmGVRAM.MainRAM;
+                    break;
+                default:
+                    throw new NotSupportedException(string.Format("ポート{0:x02}は未対応です",adr));
+            }
         }
 
         public void CALL(ushort adr)
         {
-
+            if (adr == 0x3b3) {
+                log.Write("!! Error Trap !!");
+                return;
+            }
+            else if (adr == 0xb036)
+            {
+                Z80.IX = 0xc9bf;
+                return;
+            }
+            else if(adr>=0xb000 && adr < 0xb040)
+            {
+                return;
+            }
         }
 
         public void RST(ushort adr,params object[] option)

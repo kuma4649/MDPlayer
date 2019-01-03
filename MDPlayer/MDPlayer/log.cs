@@ -7,8 +7,11 @@ namespace MDPlayer
 {
     public static class log
     {
+#if DEBUG
         public static bool debug = true;
-
+#else
+        public static bool debug = false;
+#endif
         public static string path = "";
         public static bool consoleEchoBack = false;
         private static Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");

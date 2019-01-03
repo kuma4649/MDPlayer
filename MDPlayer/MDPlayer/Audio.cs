@@ -396,6 +396,42 @@ namespace MDPlayer
                 music.notes = gd3.Notes;
 
             }
+            else if (file.ToLower().LastIndexOf(".mub") != -1)
+            {
+
+                music.format = enmFileFormat.MUB;
+                uint index = 0;
+                GD3 gd3 = (new Driver.MUCOM88.MUCOM88()).getGD3Info(buf, index);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
+            else if (file.ToLower().LastIndexOf(".muc") != -1)
+            {
+
+                music.format = enmFileFormat.MUC;
+                uint index = 0;
+                GD3 gd3 = (new Driver.MUCOM88.MUCOM88()).getGD3Info(buf, index);
+                music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
+                music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+            }
             else if (file.ToLower().LastIndexOf(".xgm") != -1)
             {
                 music.format = enmFileFormat.XGM;
