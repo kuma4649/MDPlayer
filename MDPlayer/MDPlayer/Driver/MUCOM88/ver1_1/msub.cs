@@ -472,6 +472,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.A = Z80.B;// RESTORE A
             Z80.A <<= 4;
             Z80.A |= Z80.C;// A=OCTAVE & KEY CODE
+            Z80.Carry = false;
             Z80.DE = Mem.stack.Pop();
             //    RET
         }

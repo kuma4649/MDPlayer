@@ -93,12 +93,12 @@ namespace MDPlayer.Driver.MUCOM88
 
         public void EXX()
         {
-            Ac = A; A = Ab; Ab = Ac;
+            //Ac = A; A = Ab; Ab = Ac;
             Bc = B; B = Bb; Bb = Bc;
             Cc = C; C = Cb; Cb = Cc;
             Dc = D; D = Db; Db = Dc;
             Ec = E; E = Eb; Eb = Ec;
-            Fc = F; F = Fb; Fb = Fc;
+            //Fc = F; F = Fb; Fb = Fc;
             Hc = H; H = Hb; Hb = Hc;
             Lc = L; L = Lb; Lb = Lc;
         }

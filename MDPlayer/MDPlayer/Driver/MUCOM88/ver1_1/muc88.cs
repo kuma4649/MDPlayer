@@ -268,7 +268,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.A - 0x41 == 0)//'A' ｺﾝﾊﾟｲﾙｵﾝﾘｰ
             {
                 COMPI1();
-                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERROR)
                 {
                     return -1;
                 }
@@ -278,7 +278,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.HL = Mem.stack.Pop();
             Z80.E = 2;
 
-            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERRORSN;
+            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERROR;
             PC88.CALL(0x03B3);
             return 0;
 
@@ -545,15 +545,25 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         public void CSTART2()
         {
-            Z80.A ^= Z80.A;
-            //Mem.LD_8(MACFG, Z80.A);
-            MACFG = Z80.A;
-            COMPST();
-            if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+            do
             {
-                return;
-            }
-            CMPEND();// ﾘﾝｸ ﾎﾟｲﾝﾀ = 0->BASIC END
+                Z80.A ^= Z80.A;
+                //Mem.LD_8(MACFG, Z80.A);
+                MACFG = Z80.A;
+                COMPST();
+                if (FCOMP_nextRtn == enmFCOMPNextRtn.occuredERROR)
+                {
+                    return;
+                }
+
+                CMPEND();// ﾘﾝｸ ﾎﾟｲﾝﾀ = 0->BASIC END
+                if (CMPEND_nextRtn == enmCMPENDNextRtn.occuredERROR)
+                {
+                    FCOMP_nextRtn = enmFCOMPNextRtn.occuredERROR;
+                    return;
+                }
+
+            } while (CMPEND_nextRtn == enmCMPENDNextRtn.CSTART2);
         }
 
         public void COMPST()
@@ -668,7 +678,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             CST3:
                 log.Write(string.Format("Ch.{0}のFMCOMP開始", Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + Z80.C) })));
                 FMCOMP();// TO FM COMPILE
-                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERROR)
                 {
                     break;
                 }
@@ -845,6 +855,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         public void CMPEND()
         {
+            CMPEND_nextRtn = enmCMPENDNextRtn.Unknown;
+
             TCLKADR();
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
@@ -878,6 +890,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.A - Z80.L == 0)
             {
                 CMPEN1();
+                CMPEND_nextRtn = enmCMPENDNextRtn.Success;
                 return;
             }
             Z80.HL = 1;// TEXT START ADR
@@ -888,6 +901,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.A != 0)
             {
                 msub.ERRORFN();// [] ﾉ ｸﾐｱﾜｾ ｶﾞ ｱﾜﾅｲ
+                CMPEND_nextRtn = enmCMPENDNextRtn.occuredERROR;
                 return;
             }
 
@@ -899,7 +913,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Mem.LD_8(SIFTDAT, Z80.A);
             Mem.LD_8(BEFRST, Z80.A);
             Mem.LD_8(TIEFG, Z80.A);
-            CSTART2();
+
+            CMPEND_nextRtn = enmCMPENDNextRtn.CSTART2;
         }
 
         public void TBLSET()
@@ -1329,7 +1344,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                             FCOMP13();
                             break;
                         default:
-                            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERRORSN;
+                            FCOMP_nextRtn = enmFCOMPNextRtn.occuredERROR;
                             break;
                     }
                 }
@@ -1337,7 +1352,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 {
                     FCOMP1();
                 }
-                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERRORSN)
+                if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERROR)
                 {
                     break;
                 }
@@ -1349,11 +1364,20 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Unknown,
             NextLine,
             comprc,
-            occuredERRORSN,
+            occuredERROR,
             fcomp1
         }
 
         public enmFCOMPNextRtn FCOMP_nextRtn = enmFCOMPNextRtn.Unknown; 
+
+        public enum enmCMPENDNextRtn
+        {
+            Unknown,
+            Success,
+            occuredERROR,
+            CSTART2
+        }
+        public enmCMPENDNextRtn CMPEND_nextRtn = enmCMPENDNextRtn.Unknown;
 
         public void FCOMP1()
         {
@@ -1394,7 +1418,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.Carry)
             {
                 //msub.ERRORSN();
-                FCOMP_nextRtn = enmFCOMPNextRtn.occuredERRORSN;
+                FCOMP_nextRtn = enmFCOMPNextRtn.occuredERROR;
                 return;
             }
             Z80.C = Z80.A;
@@ -1409,12 +1433,13 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Mem.LD_16(TONEADR, Z80.DE);
             goto FCOMP16;
         FC11:
-            Z80.A = Mem.LD_8(TIEFG);
+            Z80.A = Mem.LD_8(TIEFG);//KUMA:タイかどうか
             Z80.A |= Z80.A;
+            Z80.Zero = (Z80.A == 0);
             Z80.A = Z80.C;
-            if (Z80.A == 0)
+            if (Z80.Zero)
             {
-                goto FCOMP16;
+                goto FCOMP16;//タイではない
             }
             Z80.HL++;
             FCOMP13();
@@ -1689,7 +1714,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public void TCLKSUB()
         {
             Z80.EXX();
-            Mem.stack.Push(Z80.HL);
+            Mem.stack.Push(Z80.AF);
             TCLKADR();
             Z80.E = Z80.L;
             Z80.D = Z80.H;
@@ -1698,7 +1723,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.H = Mem.LD_8(Z80.HL);
             Z80.L = Z80.A;
             Z80.AF = Mem.stack.Pop();
-            Mem.stack.Push(Z80.HL);
+            Mem.stack.Push(Z80.AF);
             Z80.Carry = (Z80.A + Z80.L > 0xff);
             Z80.A += Z80.L;
             Z80.L = Z80.A;
@@ -2728,7 +2753,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             msub.MWRIT2(); // WRITE LOOP Co.
             Z80.DE = Mem.LD_16(MDATA);
             msub.MWRIT2(); // WRITE LOOP Co. (SPEAR)
-            Mem.stack.Push(Z80.HL);
+            Mem.stack.Push(Z80.AF);
             //Z80.HL = Mem.LD_16(POINTC);
             Z80.HL = POINTC;
             Z80.BC = LOOPSP;// STAC TOP
@@ -2748,39 +2773,47 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Mem.LD_16(POINTC, Z80.HL);
             POINTC = Z80.HL;
             Z80.HL = Mem.stack.Pop();
+
             Mem.stack.Push(Z80.HL);
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
             Z80.H = Mem.LD_8(Z80.HL);
             Z80.L = Z80.A;
+
             Mem.stack.Push(Z80.HL);
             Z80.A &= Z80.A;
             Z80.EX_DE_HL();
-            Z80.HL -= Z80.BC;
+            Z80.HL -= Z80.DE;
             Z80.EX_DE_HL(); // DE as OFFSET
             Z80.HL = Mem.stack.Pop();
+
             Mem.LD_8(Z80.HL, Z80.E);    //
             Z80.HL++;// RSKIP JP ADR
             Mem.LD_8(Z80.HL, Z80.D);  //
+
             Z80.HL = Mem.stack.Pop();
             Z80.HL++;
             Z80.HL++;
             Mem.stack.Push(Z80.HL);
+
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
             Z80.H = Mem.LD_8(Z80.HL);
             Z80.L = Z80.A;// HL ﾊ LOOP ｦ ｶｲｼｼﾀ ｱﾄﾞﾚｽ
+
             Z80.DE = Mem.LD_16(MDATA);
             Z80.EX_DE_HL();
             Z80.A &= Z80.A;
-            Z80.HL -= Z80.BC; // HL as LOOP RET ADR OFFSET
+            Z80.HL -= Z80.DE; // HL as LOOP RET ADR OFFSET
             Z80.EX_DE_HL();
+
             Z80.HL = Mem.LD_16(MDATA);
             Mem.LD_8(Z80.HL, Z80.E);        //
             Z80.HL++;// WRITE RET ADR OFFSET
             Mem.LD_8(Z80.HL, Z80.D);        //
             Z80.HL++;
             Mem.LD_16(MDATA, Z80.HL);
+
             Z80.HL = Mem.stack.Pop();
             Z80.HL++;
             Z80.HL++;
@@ -2793,6 +2826,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             {
                 goto SETLPE1;
             }
+
             Z80.DE = Mem.LD_16(MDATA);
             Z80.DE--;
             Z80.DE--;
@@ -2801,12 +2835,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Mem.stack.Push(Z80.HL);
             Z80.EX_DE_HL();
             Z80.A &= Z80.A;
-            Z80.HL -= Z80.BC;
+            Z80.HL -= Z80.DE;
             Z80.EX_DE_HL(); // DE as OFFSET
             Z80.HL = Mem.stack.Pop();
+
             Mem.LD_8(Z80.HL, Z80.E);
             Z80.HL++;
             Mem.LD_8(Z80.HL, Z80.D);
+
         SETLPE1:
             //Z80.HL = REPCOUNT;
             //Mem.LD_8(Z80.HL, (byte)(Mem.LD_8(Z80.HL) - 1));
@@ -4691,7 +4727,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         // **	SYSTEM WORK AREA**
 
         public byte MACFG = 0;//0>< AS MACRO PRC
-        public string MESS = "[  MUSICLALF Ver:1.1 ] Address:    -    (    )         [ 00:00 ] MODE:";
+        public string MESS = "[  MUCOM88 Ver:1.7  ]  Address:    -    (    )         [ 00:00 ] MODE:";
         public string MESNML = "NORMAL  LINC    EXPERT  ";
         public string MESNOT = "----";
         public string VNMESS = "\x0AUsed FM voice:\0";
