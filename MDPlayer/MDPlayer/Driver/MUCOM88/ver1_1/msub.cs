@@ -1120,7 +1120,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Z80.D = Z80.A;
             //Z80.A = Mem.LD_8(Z80.DE);
             Z80.A = MOJIDATA[Z80.A];
-
+            Z80.Carry = false;
             //    RET
         }
 
@@ -1430,8 +1430,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         ,0x40 //,'@'	SOUND COLOR
         ,0x3e //,'>'	OCTAVE UP
         ,0x3c //,'<'	OCTAVE DOWN
-        ,0x28 //,')'	VOLUME UP
-        ,0x29 //,'('	VOLUME DOWN
+        ,0x29 //,')'	VOLUME UP
+        ,0x28 //,'('	VOLUME DOWN
         ,0x26 //,'&'	TIE
         ,0x79 //,'y'	REGISTER WRITE
         ,0x4d //,'M'	MODURATION(LFO)

@@ -1021,12 +1021,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 VCON0_VAL = Z80.A;
                 Mem.stack.Push(Z80.DE);
                 Mem.stack.Push(Z80.HL);
-                expand.FVTEXT();
+                expand.FVTEXT(); //KUMA:MML中で音色定義されているナンバーかどうか探す
                 Z80.HL = Mem.stack.Pop();
                 Z80.DE = Mem.stack.Pop();
                 if (Z80.Carry)
                 {
-                    goto VCON0;
+                    goto VCON0;//KUMA:見つからなかった
                 }
                 Z80.HL = FMLIB + 1;
                 goto VCON01;
@@ -1038,10 +1038,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Mem.stack.Push(Z80.DE);
                 Z80.BC = 12;
                 Z80.DE = Mem.LD_16(ENDADR);
-                Z80.LDIR();
+                Z80.LDIR();//KUMA:最初の12byte分の音色データをコピー
                 Z80.B = 4;
-            //VCON1:
-                do
+                //VCON1:
+                do//KUMA:次の4byte分の音色データをbit7(AMON)を立ててコピー
                 {
                     Z80.A = Mem.LD_8(Z80.HL);
                     Z80.A |= 0b1000_0000;// SET AMON FLAG
@@ -1684,9 +1684,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.Carry = (Z80.A - 3 < 0);
             if (Z80.A - 3 < 0)
             {
-                return;
+                return;//ssg
             }
-            if (Z80.A != 0)
+            if (Z80.A - 3 != 0)
             {
                 goto CHE3;
             }
@@ -3629,7 +3629,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.A = Mem.LD_8(Z80.HL);
             if (Z80.A - 0x22 == 0)//'"'
             {
-                SETVN();
+                SETVN();//文字列による指定
                 return;
             }
             Z80.HL++;
@@ -3741,6 +3741,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             if (Z80.A == 0)
             {
                 STCL73();
+                return;
             }
             Mem.stack.Push(Z80.HL);
             Z80.DE = Mem.LD_16(MDATA);
@@ -3998,11 +3999,11 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.A = Z80.E;
             Mem.LD_8(VOLUME, Z80.A);
             Mem.LD_8(VOLINT, Z80.A);
+
             Z80.A = Mem.LD_8(COMNOW);
             if (Z80.A - 6 == 0) {
                 goto STV2;
             }
-
             Z80.A -= 3;
             Z80.Carry = (Z80.A - 3 < 0);
             //Z80.A = Mem.LD_8(TV_OFS);

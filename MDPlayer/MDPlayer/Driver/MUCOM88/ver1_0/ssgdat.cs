@@ -79,6 +79,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             ,0,1,1,0xB8,0x0B,255,0,0
 
         };
-
+
+        public void SetSSGDAT(Mem mem)
+        {
+            ushort adr = 0x5e00;
+            foreach(byte d in dat)
+            {
+                mem.LD_8(adr++, d);
+            }
+        }
+
     }
 }

@@ -178,14 +178,14 @@ namespace MDPlayer.Driver.MUCOM88
 
         public void RLCA()
         {
-            A = (byte)((A << 1) | ((A & 0x80) != 0 ? 1 : 0));
             Carry = (A & 0x80) != 0;
+            A = (byte)((A << 1) | ((A & 0x80) != 0 ? 1 : 0));
         }
 
         public void RRCA()
         {
-            A = (byte)((A >> 1) | ((A & 0x01) != 0 ? 0x80 : 0));
             Carry = (A & 0x01) != 0;
+            A = (byte)((A >> 1) | ((A & 0x01) != 0 ? 0x80 : 0));
         }
 
         public bool Carry

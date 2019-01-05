@@ -796,8 +796,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             LINEADR = Z80.HL;
             Z80.A = Z80.E;
 
-            //Z80.D |= Z80.D;//BASIC END?
-            if (Z80.D == 0)
+            //Z80.A |= Z80.D;//BASIC END?
+            if (Z80.A == 0)
             {
                 FVF2();
                 return;
@@ -878,6 +878,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.EXX();
 
             Z80.A &= Z80.A;
+            Z80.Carry = false;
             return;//    RET
 
         // --	38ﾊﾞｲﾄﾍﾞｰｼｯｸﾎｳｼｷﾉﾄｷﾉ ﾖﾐｺﾐ	--
@@ -924,6 +925,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.HL = 0x6001;
             smon.CONVERT();//38BYTE->25BYTE
             Z80.A &= Z80.A;
+            Z80.Carry = false;
             return;//   RET
         }
 

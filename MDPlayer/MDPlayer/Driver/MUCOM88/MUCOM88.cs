@@ -11,6 +11,11 @@ namespace MDPlayer.Driver.MUCOM88
 {
     public class MUCOM88 : baseDriver
     {
+        private string fnVoicedat = "";
+        private string fnPcm = "";
+        private List<Tuple<string, string>> tags = null;
+        private byte[] pcmdata = null;
+
         /// <summary>
         /// 曲情報取得
         /// </summary>
@@ -24,36 +29,48 @@ namespace MDPlayer.Driver.MUCOM88
                 throw new NotImplementedException();
             }
 
-            List<Tuple<string, string>> tags = GetTagsFromMUC(buf);
+            tags = GetTagsFromMUC(buf);
             GD3 gd3 = new GD3();
             foreach (Tuple<string, string> tag in tags)
             {
                 switch (tag.Item1)
                 {
-                    case "#title":
+                    case "title":
                         gd3.TrackName = tag.Item2;
                         gd3.TrackNameJ = tag.Item2;
                         break;
-                    case "#composer":
+                    case "composer":
                         gd3.Composer = tag.Item2;
                         gd3.ComposerJ = tag.Item2;
                         break;
-                    case "#author":
+                    case "author":
                         gd3.VGMBy = tag.Item2;
                         break;
-                    case "#comment":
+                    case "comment":
                         gd3.Notes = tag.Item2;
                         break;
-                    case "#mucom88":
+                    case "mucom88":
                         gd3.Version = tag.Item2;
                         break;
-                    case "#date":
+                    case "date":
                         gd3.Converted = tag.Item2;
+                        break;
+                    case "voice":
+                        fnVoicedat = tag.Item2;
+                        break;
+                    case "pcm":
+                        fnPcm = tag.Item2;
                         break;
                 }
             }
 
             //Debug
+
+            fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
+            LoadFMVoice(fnVoicedat);
+
+            fnPcm = string.IsNullOrEmpty(fnPcm) ? "mucompcm.bin" : fnPcm;
+            pcmdata= LoadPCM(fnPcm);
 
             //Compile
             ushort basicsize = StoreBasicSource(buf, 1, 1);
@@ -219,8 +236,7 @@ namespace MDPlayer.Driver.MUCOM88
             pc88.Mem = mem;
             pc88.Z80 = z80;
 
-            string fn = "voice.dat";
-            LoadFMVoice(fn);
+            ssgdat.SetSSGDAT(mem);
 
             //ほぼ意味なし
             muc88.CINT();
@@ -255,7 +271,9 @@ namespace MDPlayer.Driver.MUCOM88
             {
                 try
                 {
-                    Tuple<string, string> item = new Tuple<string, string>(v.Substring(0, v.IndexOf(' ')).ToLower(), v.Substring(v.IndexOf(' ') + 1));
+                    string tag = v.Substring(1, v.IndexOf(' ')).Trim().ToLower();
+                    string ele = v.Substring(v.IndexOf(' ') + 1).Trim();
+                    Tuple<string, string> item = new Tuple<string, string>(tag, ele);
                     tags.Add(item);
                 }
                 catch { }
@@ -300,16 +318,29 @@ namespace MDPlayer.Driver.MUCOM88
             //		(戻り値が0以外の場合はエラー)
             //
 
-            List<byte> dat = new List<byte>();
-            ushort footsize;
-            ushort pcmptr;
-            ushort pcmsize;
-
             if (string.IsNullOrEmpty(fname)) return -1;
 
+            List<byte> dat = new List<byte>();
+            int footsize;
             footsize = 1;//かならず1以上
-            pcmptr = (ushort)(((option & 2) != 0) ? 0 : (32 + length + footsize));
-            pcmsize = 0;
+
+            int pcmptr = 0;
+            int pcmsize = pcmdata.Length;
+            bool pcmuse = ((option & 2) == 0);
+            pcmdata = (!pcmuse ? null : pcmdata);
+            pcmptr = (!pcmuse ? 0 : (32 + length + footsize));
+            pcmsize = (!pcmuse ? 0 : pcmsize);
+            if (pcmuse)
+            {
+                if (pcmdata == null || pcmsize == 0)
+                {
+                    pcmuse = false;
+                    pcmdata = null;
+                    pcmptr = 0;
+                    pcmsize = 0;
+                }
+            }
+
             //if (infobuf)
             //{
             //    infobuf->Put((int)0);
@@ -333,10 +364,10 @@ namespace MDPlayer.Driver.MUCOM88
             dat.Add((byte)((32 + length) >> 8));
             dat.Add((byte)((32 + length) >> 16));
             dat.Add((byte)((32 + length) >> 24));
-            dat.Add((byte)footsize);//tagdata size(32bit)
-            dat.Add((byte)(footsize >> 8));
-            dat.Add((byte)(footsize >> 16));
-            dat.Add((byte)(footsize >> 24));
+            dat.Add(1);//tagdata size(32bit)
+            dat.Add(0);
+            dat.Add(0);
+            dat.Add(0);
             dat.Add((byte)pcmptr);//pcmdata ptr(32bit)
             dat.Add((byte)(pcmptr >> 8));
             dat.Add((byte)(pcmptr >> 16));
@@ -357,11 +388,43 @@ namespace MDPlayer.Driver.MUCOM88
 
             for (int i = 0; i < length; i++) dat.Add(mem.LD_8((ushort)(start + i)));
 
-            //for (int i = 0; i < footsize; i++) dat.Add(0);
-
-            if ((option & 2) == 0)
+            if (tags != null)
             {
-                //for (int i = 0; i < pcmsize; i++) dat.Add(0);
+                footsize = 0;
+
+                foreach (Tuple<string, string> tag in tags)
+                {
+                    byte[] b = Encoding.GetEncoding("shift_jis").GetBytes(string.Format("#{0} {1}\r\n", tag.Item1, tag.Item2));
+                    footsize += b.Length;
+                    dat.AddRange(b);
+                }
+
+                if (footsize > 0)
+                {
+                    dat.Add(0);
+                    dat.Add(0);
+                    dat.Add(0);
+                    dat.Add(0);
+                    footsize += 4;
+
+                    dat[16] = (byte)footsize;//tagdata size(32bit)
+                    dat[17] = (byte)(footsize >> 8);
+                    dat[18] = (byte)(footsize >> 16);
+                    dat[19] = (byte)(footsize >> 24);
+                }
+            }
+
+            if (pcmuse)
+            {
+                for (int i = 0; i < pcmsize; i++) dat.Add(pcmdata[i]);
+                if (pcmsize > 0)
+                {
+                    pcmptr = 32 + length + footsize;
+                    dat[20] = (byte)pcmptr;//pcmdata size(32bit)
+                    dat[21] = (byte)(pcmptr >> 8);
+                    dat[22] = (byte)(pcmptr >> 16);
+                    dat[23] = (byte)(pcmptr >> 24);
+                }
             }
 
             try
@@ -380,7 +443,7 @@ namespace MDPlayer.Driver.MUCOM88
 
         private void LoadFMVoice(string fn)
         {
-            if(!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
+            if (!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
             {
                 return;
             }
@@ -399,5 +462,25 @@ namespace MDPlayer.Driver.MUCOM88
                 //失敗しても特に何もしない
             }
         }
+
+        private byte[] LoadPCM(string fn)
+        {
+            if (!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
+            {
+                return null;
+            }
+
+            try
+            {
+                return File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn));
+            }
+            catch
+            {
+                //失敗しても特に何もしない
+            }
+
+            return null;
+        }
+
     }
 }
