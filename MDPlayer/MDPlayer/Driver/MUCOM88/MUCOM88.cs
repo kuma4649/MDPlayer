@@ -70,7 +70,7 @@ namespace MDPlayer.Driver.MUCOM88
             LoadFMVoice(fnVoicedat);
 
             fnPcm = string.IsNullOrEmpty(fnPcm) ? "mucompcm.bin" : fnPcm;
-            pcmdata= LoadPCM(fnPcm);
+            pcmdata = LoadPCM(fnPcm);
 
             //Compile
             ushort basicsize = StoreBasicSource(buf, 1, 1);
@@ -95,6 +95,16 @@ namespace MDPlayer.Driver.MUCOM88
                 return gd3;
             }
 
+            SaveMub(basicsize);
+
+            music2.initMusic2();
+            music2.MSTART();
+
+            return gd3;
+        }
+
+        private void SaveMub(ushort basicsize)
+        {
             byte[] textLineBuf = new byte[80];
             string msg;
 
@@ -142,8 +152,6 @@ namespace MDPlayer.Driver.MUCOM88
             log.Write(string.Format("#MaxCount:{0} Basic:${1:x04} Data:${2:x04}", maxcount, basicsize, mubsize));
 
             SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
-
-            return gd3;
         }
 
         /// <summary>
@@ -180,6 +188,9 @@ namespace MDPlayer.Driver.MUCOM88
         private ver1_0.ssgdat ssgdat = null;
         private ver1_0.time time = null;
         private ver1_0.smon smon = null;
+
+        private ver1_0.music2 music2 = null;
+
         private Z80 z80 = null;
         private Mem mem = null;
         private PC88 pc88 = null;
@@ -200,6 +211,8 @@ namespace MDPlayer.Driver.MUCOM88
             ssgdat = new ver1_0.ssgdat();
             time = new ver1_0.time();
             smon = new ver1_0.smon();
+            music2 = new ver1_0.music2();
+
             z80 = new Z80();
             mem = new Mem();
             pc88 = new PC88();
@@ -237,6 +250,10 @@ namespace MDPlayer.Driver.MUCOM88
             pc88.Z80 = z80;
 
             ssgdat.SetSSGDAT(mem);
+
+            music2.Z80 = z80;
+            music2.Mem = mem;
+            music2.PC88 = pc88;
 
             //ほぼ意味なし
             muc88.CINT();

@@ -144,6 +144,7 @@
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
     <Compile Include="Driver\MUCOM88\MUCOM88.cs" />
     <Compile Include="Driver\MUCOM88\ver1_0\errmsg.cs" />
+    <Compile Include="Driver\MUCOM88\ver1_0\music2.cs" />
     <Compile Include="Driver\MUCOM88\ver1_0\smon.cs" />
     <Compile Include="Driver\MUCOM88\ver1_0\ssgdat.cs" />
     <Compile Include="Driver\MUCOM88\ver1_0\time.cs" />

@@ -19,6 +19,7 @@ namespace MDPlayer.Driver.MUCOM88
         public byte F;
         public byte H;
         public byte L;
+        public byte I = 0;//dummy
 
         private byte Ab;
         private byte Bb;
