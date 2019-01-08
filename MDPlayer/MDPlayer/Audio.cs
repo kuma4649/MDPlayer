@@ -1579,6 +1579,19 @@ namespace MDPlayer
             MDSound.MDSound.np_nes_vrc7_volume = 0;
 
 
+            if (PlayingFileFormat == enmFileFormat.MUC)
+            {
+                driverVirtual = new Driver.MUCOM88.MUCOM88();
+                driverVirtual.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != 5)
+                {
+                    driverReal = new Driver.MUCOM88.MUCOM88();
+                    driverReal.setting = setting;
+                }
+                return mucPlay(setting);
+            }
+
             if (PlayingFileFormat == enmFileFormat.NRT)
             {
                 driverVirtual = new NRTDRV();
@@ -1754,6 +1767,114 @@ namespace MDPlayer
             }
 
             return false;
+        }
+
+        public static bool mucPlay(Setting setting)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                Stop();
+
+                chipRegister.resetChips();
+                ResetFadeOutParam();
+
+                startTrdVgmReal();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                chipLED = new ChipLEDs();
+                MasterVolume = setting.balance.MasterVolume;
+
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2608 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2608 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+
+                ym2608 ym2608 = null;
+                chip = new MDSound.MDSound.Chip();
+                ym2608 = new ym2608();
+                chip.ID = 0;
+                chipLED.PriOPNA = 1;
+                chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                chip.Instrument = ym2608;
+                chip.Update = ym2608.Update;
+                chip.Start = ym2608.Start;
+                chip.Stop = ym2608.Stop;
+                chip.Reset = ym2608.Reset;
+                chip.SamplingRate = (UInt32)common.SampleRate;
+                chip.Volume = setting.balance.YM2608Volume;
+                chip.Clock = 8000000;
+                chip.Option = new object[] { common.GetApplicationFolder() };
+                //hiyorimiDeviceFlag |= 0x2;
+                lstChips.Add(chip);
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)common.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
+
+                SetYM2608Volume(true, setting.balance.YM2608Volume);
+                SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
+
+                //Play
+
+                Paused = false;
+                Stopped = false;
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        private static void ResetFadeOutParam()
+        {
+            vgmFadeout = false;
+            vgmFadeoutCounter = 1.0;
+            vgmFadeoutCounterV = 0.00001;
+            vgmSpeed = 1;
+            vgmRealFadeoutVol = 0;
+            vgmRealFadeoutVolWait = 4;
+            chipRegister.setFadeoutVolYM2203(0, 0);
+            chipRegister.setFadeoutVolYM2203(1, 0);
+            chipRegister.setFadeoutVolYM2608(0, 0);
+            chipRegister.setFadeoutVolYM2608(1, 0);
+            chipRegister.setFadeoutVolYM2151(0, 0);
+            chipRegister.setFadeoutVolYM2151(1, 0);
+            chipRegister.setFadeoutVolYM2612(0, 0);
+            chipRegister.setFadeoutVolYM2612(1, 0);
+            chipRegister.setFadeoutVolSN76489(0, 0);
+            chipRegister.setFadeoutVolSN76489(1, 0);
+            chipRegister.resetChips();
         }
 
         public static bool nrdPlay(Setting setting)

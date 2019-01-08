@@ -64,7 +64,35 @@ namespace MDPlayer.Driver.MUCOM88
                 }
             }
 
-            //Debug
+            return gd3;
+        }
+
+        /// <summary>
+        /// イニシャライズ
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <param name="chipRegister"></param>
+        /// <param name="model"></param>
+        /// <param name="useChip"></param>
+        /// <param name="latency"></param>
+        /// <param name="waitTime"></param>
+        /// <returns></returns>
+        public override bool init(byte[] buf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        {
+            this.vgmBuf = buf;
+            this.chipRegister = chipRegister;
+            this.model = model;
+            this.useChip = useChip;
+            this.latency = latency;
+            this.waitTime = waitTime;
+            pc88.ChipRegister = chipRegister;
+            pc88.fmTimer = timerOPN;
+            pc88.model = model;
+
+            //デバッグ向け
+            if (model == enmModel.RealModel) return true;
+
+            GD3 = getGD3Info(buf, 0);
 
             fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
             LoadFMVoice(fnVoicedat);
@@ -80,9 +108,9 @@ namespace MDPlayer.Driver.MUCOM88
 
             //コンパイルコマンドのセット
             z80.HL = 0xf010;
-            mem.LD_16(0xf010, 0x41);// 'A'
-            mem.LD_16(0xf011, 0x00);
-            mem.LD_16(0xf012, 0x00);
+            mem.LD_8(0xf010, 0x41);// 'A'
+            mem.LD_8(0xf011, 0x00);
+            mem.LD_8(0xf012, 0x00);
 
             //↓コンパイルが実施される
             int ret = muc88.COMPIL();//vector 0xeea8
@@ -92,7 +120,7 @@ namespace MDPlayer.Driver.MUCOM88
             {
                 int errLine = mem.LD_16(0x0f32e);//ワークアドレスのERRLINE
                 log.Write(string.Format("コンパイル時にエラーが発生したみたい(errLine:{0})", errLine));
-                return gd3;
+                return false;
             }
 
             SaveMub(basicsize);
@@ -100,78 +128,42 @@ namespace MDPlayer.Driver.MUCOM88
             music2.initMusic2();
             music2.MSTART();
 
-            return gd3;
-        }
-
-        private void SaveMub(ushort basicsize)
-        {
-            byte[] textLineBuf = new byte[80];
-            string msg;
-
-            for (int i = 0; i < 80; i++) textLineBuf[i] = mem.LD_8((ushort)(0xf3c8 + i));
-            log.Write(Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf));
-
-            ushort workadr = 0xf320;
-            int fmvoice = mem.LD_8((ushort)(workadr + 50));
-            int pcmflag = 0;
-            int maxcount = 0;
-            int mubsize = 0;
-
-            log.Write(string.Format("Used FM voice:{0}", fmvoice));
-
-            string strTcount = "";
-            string strLcount = "";
-            for (int i = 0; i < muc88.MAXCH[0]; i++)
-            {
-                int tcnt = mem.LD_16((ushort)(0x8c10 + i * 4));
-                int lcnt = mem.LD_16((ushort)(0x8c12 + i * 4));
-                if (lcnt != 0) { lcnt = tcnt - (lcnt - 1); }
-                if (tcnt > maxcount) maxcount = tcnt;
-                msg = Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + i) });
-                strTcount += string.Format("{0}:{1} ", msg, tcnt);
-                strLcount += string.Format("{0}:{1} ", msg, lcnt);
-            }
-
-            if (mem.LD_16((ushort)(0x8c10 + 10 * 4)) == 0) pcmflag = 2;
-
-            log.Write("[ Total count ]");
-            log.Write(strTcount);
-            log.Write("");
-            log.Write("[ Loop count  ]");
-            log.Write(strLcount);
-            log.Write("");
-
-            msg = Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf, 31, 4);
-            int start = Convert.ToInt32(msg, 16);
-            msg = Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf, 41, 4);
-            int length = Convert.ToInt32(msg, 16);
-
-            mubsize = length;
-
-            log.Write(string.Format("#Data Buffer ${0:x04}-${1:x04} (${2:x04})", start, start + length - 1, length));
-            log.Write(string.Format("#MaxCount:{0} Basic:${1:x04} Data:${2:x04}", maxcount, basicsize, mubsize));
-
-            SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
-        }
-
-        /// <summary>
-        /// イニシャライズ
-        /// </summary>
-        /// <param name="vgmBuf"></param>
-        /// <param name="chipRegister"></param>
-        /// <param name="model"></param>
-        /// <param name="useChip"></param>
-        /// <param name="latency"></param>
-        /// <param name="waitTime"></param>
-        /// <returns></returns>
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
-        {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override void oneFrameProc()
         {
-            throw new NotImplementedException();
+            //デバッグ向け
+            if (model == enmModel.RealModel) return;
+
+            try
+            {
+                vgmSpeedCounter += vgmSpeed;
+                while (vgmSpeedCounter >= 1.0)
+                {
+                    vgmSpeedCounter -= 1.0;
+
+                    timerOPN.timer();
+                    if ((timerOPN.ReadStatus() & 3) != 0)
+                    {
+                        //mucom88
+                        ;
+                        music2.PL_SND();
+                    }
+                    Counter++;
+                    vgmFrameCounter++;
+                }
+
+                //if ((mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x20) != 0)
+                //{
+                    //Stopped = true;
+                //}
+                //vgmCurLoop = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         public MUCOM88()
@@ -194,6 +186,8 @@ namespace MDPlayer.Driver.MUCOM88
         private Z80 z80 = null;
         private Mem mem = null;
         private PC88 pc88 = null;
+        private MNDRV.FMTimer timerOPN;
+
 
         public enum enmMUCOMFileType
         {
@@ -202,7 +196,7 @@ namespace MDPlayer.Driver.MUCOM88
             MUC
         }
 
-        private void mucInit()
+        public void mucInit()
         {
             expand = new ver1_1.expand();
             errmsg = new ver1_0.errmsg();
@@ -248,12 +242,17 @@ namespace MDPlayer.Driver.MUCOM88
 
             pc88.Mem = mem;
             pc88.Z80 = z80;
+            pc88.ChipRegister = chipRegister;
+            pc88.fmTimer = timerOPN;
+            pc88.model = model;
 
             ssgdat.SetSSGDAT(mem);
 
             music2.Z80 = z80;
             music2.Mem = mem;
             music2.PC88 = pc88;
+
+            timerOPN = new MNDRV.FMTimer(false, null, 8000000);
 
             //ほぼ意味なし
             muc88.CINT();
@@ -324,6 +323,57 @@ namespace MDPlayer.Driver.MUCOM88
             mem.LD_16(linkptr, (ushort)0);
 
             return mptr;
+        }
+
+        private void SaveMub(ushort basicsize)
+        {
+            byte[] textLineBuf = new byte[80];
+            string msg;
+
+            for (int i = 0; i < 80; i++) textLineBuf[i] = mem.LD_8((ushort)(0xf3c8 + i));
+            log.Write(Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf));
+
+            ushort workadr = 0xf320;
+            int fmvoice = mem.LD_8((ushort)(workadr + 50));
+            int pcmflag = 0;
+            int maxcount = 0;
+            int mubsize = 0;
+
+            log.Write(string.Format("Used FM voice:{0}", fmvoice));
+
+            string strTcount = "";
+            string strLcount = "";
+            for (int i = 0; i < muc88.MAXCH[0]; i++)
+            {
+                int tcnt = mem.LD_16((ushort)(0x8c10 + i * 4));
+                int lcnt = mem.LD_16((ushort)(0x8c12 + i * 4));
+                if (lcnt != 0) { lcnt = tcnt - (lcnt - 1); }
+                if (tcnt > maxcount) maxcount = tcnt;
+                msg = Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + i) });
+                strTcount += string.Format("{0}:{1} ", msg, tcnt);
+                strLcount += string.Format("{0}:{1} ", msg, lcnt);
+            }
+
+            if (mem.LD_16((ushort)(0x8c10 + 10 * 4)) == 0) pcmflag = 2;
+
+            log.Write("[ Total count ]");
+            log.Write(strTcount);
+            log.Write("");
+            log.Write("[ Loop count  ]");
+            log.Write(strLcount);
+            log.Write("");
+
+            msg = Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf, 31, 4);
+            int start = Convert.ToInt32(msg, 16);
+            msg = Encoding.GetEncoding("Shift_JIS").GetString(textLineBuf, 41, 4);
+            int length = Convert.ToInt32(msg, 16);
+
+            mubsize = length;
+
+            log.Write(string.Format("#Data Buffer ${0:x04}-${1:x04} (${2:x04})", start, start + length - 1, length));
+            log.Write(string.Format("#MaxCount:{0} Basic:${1:x04} Data:${2:x04}", maxcount, basicsize, mubsize));
+
+            SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
         }
 
         private int SaveMusic(string fname, ushort start, ushort length, int option)

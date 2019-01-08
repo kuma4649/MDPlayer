@@ -348,20 +348,35 @@ namespace MDPlayer.Driver.MUCOM88
     {
         public Mem Mem = null;
         public Z80 Z80 = null;
+        public ChipRegister ChipRegister = null;
+        public MNDRV.FMTimer fmTimer = null;
+        public byte port0Adr = 0;
+        public byte port1Adr = 0;
+        public enmModel model = enmModel.VirtualModel;
 
         public PC88()
         {
+            port0Adr = 0;
+            port1Adr = 0;
         }
 
         public byte IN(byte adr)
         {
             log.Write(string.Format("Port In:Adr[{0:x02}]", adr));
+            switch (adr)
+            {
+                case 0x44:
+                case 0x45:
+                case 0x46:
+                case 0x47:
+                    return 1;
+            }
             return 0;
         }
 
         public void OUT(byte adr,byte val)
         {
-            log.Write(string.Format("Port Out:Adr[{0:x02}] val[{1:x02}]", adr, val));
+            //log.Write(string.Format("Port Out:Adr[{0:x02}] val[{1:x02}]", adr, val));
             switch (adr)
             {
                 case 0x31:
@@ -370,14 +385,36 @@ namespace MDPlayer.Driver.MUCOM88
                 case 0x32:
                     Mem.TMODE = ((val & 0x10) != 0);
                     break;
+                case 0x44:
+                    port0Adr = val;
+                    break;
+                case 0x45:
+                    ChipRegister.setYM2608Register(0, 0, (int)port0Adr, (int)val, model);
+                    fmTimer.WriteReg(port0Adr, val);
+                    break;
+                case 0x46:
+                    port1Adr = val;
+                    break;
+                case 0x47:
+                    ChipRegister.setYM2608Register(0, 1, (int)port1Adr, (int)val, model);
+                    break;
                 case 0x5c:
                     Mem.GVRAM_SW = Mem.EnmGVRAM.BPLANE;
                     break;
                 case 0x5f:
                     Mem.GVRAM_SW = Mem.EnmGVRAM.MainRAM;
                     break;
+                case 0xa8:
+                case 0xa9:
+                case 0xac:
+                case 0xad:
+                    break;
+                case 0xe4://割り込みレベル
+                case 0xe6://割り込みマスク
+                    //何もしない
+                    break;
                 default:
-                    throw new NotSupportedException(string.Format("ポート{0:x02}は未対応です",adr));
+                    throw new NotSupportedException(string.Format("ポート${0:x02}は未対応です",adr));
             }
         }
 

@@ -172,7 +172,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //	DI
             AKYOFF();
             SSGOFF();
-            Z80.A = Mem.LD_8(M_VECTR);
+            //Z80.A = Mem.LD_8(M_VECTR);
+            Z80.A = M_VECTR;
             Z80.C = Z80.A;
             Z80.A = PC88.IN(Z80.C);
             Z80.A |= 0b1000_0000;
@@ -217,9 +218,11 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             FDCO[0] = Z80.A;
         FDO2:
             Z80.A += 0x0F0;
-            Mem.LD_8(TOTALV, Z80.A);
+            //Mem.LD_8(TOTALV, Z80.A);
+            TOTALV = Z80.A;
             Z80.A ^= Z80.A;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
             Z80.IX = CH1DAT;
             FDOFM();
             Z80.B = 3;
@@ -242,7 +245,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             } while (Z80.B != 0);
             DVOLSET();
             Z80.A = 4;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
             Z80.DE = WKLENG;
             Z80.IX += Z80.DE;
             FDOFM();
@@ -278,7 +282,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             MSTOP();
             Z80.A ^= Z80.A;
-            Mem.LD_8(TOTALV, Z80.A);
+            //Mem.LD_8(TOTALV, Z80.A);
+            TOTALV = Z80.A;
             //  RET
         }
 
@@ -335,7 +340,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A = Mem.LD_8(TIMER_B);
             Z80.E = Z80.A;
             STTMB();// SET Timer-B
-            Z80.A = Mem.LD_8(M_VECTR);
+            //Z80.A = Mem.LD_8(M_VECTR);
+            Z80.A = M_VECTR;
             Z80.C = Z80.A;
             Z80.A = PC88.IN(Z80.C);
             Z80.A &= 0x7F;
@@ -350,7 +356,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.D = 0x0B4;
             Z80.E = 0x0C0;
             Z80.A ^= Z80.A;
-            Mem.LD_8(FMPORT, Z80.A);
+            FMPORT= Z80.A;
             Z80.B = 3;
         MONO2:
             do
@@ -371,7 +377,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.B = 3;
             Z80.D = 0x0B4;
             Z80.A = 4;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
         MONO4:
             do
             {
@@ -380,7 +387,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 Z80.B--;
             } while (Z80.B != 0);
             Z80.A ^= Z80.A;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
             Z80.DE = 0x2200;
             PSGOUT();
             Z80.DE = 0x1200;
@@ -396,7 +404,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 Z80.B--;
             } while (Z80.B != 0);
             Z80.A = 3;
-            Mem.LD_8(PCMLR, Z80.A);
+            //Mem.LD_8(PCMLR, Z80.A);
+            PCMLR = Z80.A;
             //  RET
         }
 
@@ -439,7 +448,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void DRIVE()
         {
             Z80.A ^= Z80.A;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
             Z80.IX = CH1DAT;
             FMENT();
             Z80.IX = CH2DAT;
@@ -448,7 +458,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             FMENT();
             // **	CALL SSG	**
             Z80.A = 0xff;
-            Mem.LD_8(SSGF1, Z80.A);
+            //Mem.LD_8(SSGF1, Z80.A);
+            SSGF1 = Z80.A;
             Z80.IX = CH4DAT;
             SSGENT();
             Z80.IX = CH5DAT;
@@ -456,9 +467,11 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.IX = CH6DAT;
             SSGENT();
             Z80.A ^= Z80.A;
-            Mem.LD_8(SSGF1, Z80.A);
+            //Mem.LD_8(SSGF1, Z80.A);
+            SSGF1 = Z80.A;
 
-            Z80.A = Mem.LD_8(NOTSB2);//KUMA:SoundBoard2(OPNA)か
+            //Z80.A = Mem.LD_8(NOTSB2);//KUMA:SoundBoard2(OPNA)か
+            Z80.A = NOTSB2;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -467,15 +480,18 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
             //KUMA:Rhythm
             Z80.A++;
-            Mem.LD_8(DRMF1, Z80.A);
+            //Mem.LD_8(DRMF1, Z80.A);
+            DRMF1 = Z80.A;
             Z80.IX = DRAMDAT;
             FMENT();
             Z80.A ^= Z80.A;
-            Mem.LD_8(DRMF1, Z80.A);
+            //Mem.LD_8(DRMF1, Z80.A);
+            DRMF1 = Z80.A;
 
             //KUMA:FM Ch4-6
             Z80.A = 4;
-            Mem.LD_8(FMPORT, Z80.A);
+            //Mem.LD_8(FMPORT, Z80.A);
+            FMPORT = Z80.A;
             Z80.IX = CHADAT;
             FMENT();
             Z80.IX = CHBDAT;
@@ -650,7 +666,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 FMSUB4();
                 return;
             }
-            Z80.A = Mem.LD_8(FMPORT);
+            //Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -695,7 +712,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             {
                 goto PCMGFQ;
             }
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A == 0)
             {
@@ -789,7 +807,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             }
             Mem.LD_8((ushort)(Z80.IX + 29), Z80.L);// FOR LFO
             Mem.LD_8((ushort)(Z80.IX + 30), Z80.H);// FOR LFO
-            Mem.LD_16(FNUM, Z80.HL);
+            //Mem.LD_16(FNUM, Z80.HL);
+            FNUM = Z80.HL;
         FMS92:
             Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x40) == 0);
             if (!Z80.Zero)
@@ -847,7 +866,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL++;
             Mem.stack.Push(Z80.HL);
         HLSTC0:
-            Z80.HL = Mem.LD_16(FNUM);
+            //Z80.HL = Mem.LD_16(FNUM);
+            Z80.HL = FNUM;
             FMSUB6();// SET OP2-OP4
             Z80.HL = Mem.stack.Pop();
             Z80.AF = Mem.stack.Pop();
@@ -876,13 +896,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 PCMEND();
                 return;
             }
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
                 goto DKEYOF;
             }
-            Z80.A = Mem.LD_8(FMPORT);
+            //Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A += Mem.LD_8((ushort)(Z80.IX + 8));
             Z80.E = Z80.A;
             Z80.D = 0x28;//  PORT 28H
@@ -905,7 +927,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void KEYON()
         {
-            Z80.A = Mem.LD_8(FMPORT);
+            //Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A |= Z80.A;
             Z80.Zero = (Z80.A == 0);
             Z80.A = 0xf0;
@@ -973,20 +996,20 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.stack.Push(Z80.BC);
             Mem.stack.Push(Z80.HL);
 
-            Z80.A = Mem.LD_8(PORT13);
+            Z80.A = PORT13[0];
             Z80.C = Z80.A;
             Z80.A = Z80.D;
             if (Z80.A - 0x30 < 0)
             {
                 goto PSGO4;
             }
-            Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A &= Z80.A;
             if (Z80.A == 0)
             {
                 goto PSGO4;
             }
-            Z80.A = Mem.LD_8((ushort)(PORT13 + 1));
+            Z80.A = PORT13[1];
             Z80.C = Z80.A;
         PSGO4:
             PC88.OUT(Z80.C, Z80.D);
@@ -1100,7 +1123,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
-            Mem.LD_8(FLGADR, Z80.A);
+            //Mem.LD_8(FLGADR, Z80.A);
+            FLGADR = Z80.A;
             //  RET
         }
 
@@ -1154,7 +1178,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
-            Mem.LD_8(PVMODE, Z80.A);
+            //Mem.LD_8(PVMODE, Z80.A);
+            PVMODE= Z80.A;
             //  RET
         }
 
@@ -1162,7 +1187,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void STEREO()
         {
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -1176,7 +1202,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             }
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.HL++;
-            Mem.LD_8(PCMLR, Z80.A);
+            //Mem.LD_8(PCMLR, Z80.A);
+            PCMLR = Z80.A;
             return;
         STER2:
             Z80.A = Mem.LD_8(Z80.HL);
@@ -1185,7 +1212,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.RRCA();
             Z80.C = Z80.A;
             Z80.DE = 0;// PALDAT;
-            Z80.A = Mem.LD_8(FMPORT);
+            //Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A += Mem.LD_8((ushort)(Z80.IX + 8));
             Z80.Carry = (Z80.A + Z80.E > 0xff);
             Z80.A += Z80.E;
@@ -1251,7 +1279,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             {
                 return;
             }
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -1293,7 +1322,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.RLCA();
             Z80.A |= Z80.C;
             Z80.C = Z80.A;// AMS+PMS
-            Z80.A = Mem.LD_8(FMPORT);
+            //Z80.A = Mem.LD_8(FMPORT);
+            Z80.A = FMPORT;
             Z80.A += Mem.LD_8((ushort)(Z80.IX + 8));
             Z80.DE = 0;// PALDAT;
             Z80.Carry = (Z80.A + Z80.E > 0xff);
@@ -1472,7 +1502,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 OTOPCM();
                 return;
             }
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -1524,7 +1555,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL++;
             Z80.E = Mem.LD_8(Z80.HL);
             Z80.HL = Mem.stack.Pop();
-            Z80.A = Mem.LD_8(PVMODE);
+            //Z80.A = Mem.LD_8(PVMODE);
+            Z80.A = PVMODE;
             Z80.A |= Z80.A;
             if (Z80.A == 0)
             {
@@ -1545,7 +1577,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 PCMVOL();
                 return;
             }
-            Z80.A = Mem.LD_8(DRMF1);
+            //Z80.A = Mem.LD_8(DRMF1);
+            Z80.A = DRMF1;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -1597,7 +1630,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.E = Mem.LD_8(Z80.HL);
             Z80.HL++;
-            Z80.A = Mem.LD_8(PVMODE);
+            //Z80.A = Mem.LD_8(PVMODE);
+            Z80.A = PVMODE;
             Z80.A |= Z80.A;
             if (Z80.A != 0)
             {
@@ -1622,7 +1656,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
             Z80.A &= 0b0011_1111;
             Z80.E = Z80.A;
-            Z80.A = Mem.LD_8(TOTALV);
+            //Z80.A = Mem.LD_8(TOTALV);
+            Z80.A = TOTALV;
             Z80.A += Z80.A;
             Z80.A += Z80.A;
             Z80.A += Z80.E;
@@ -1870,7 +1905,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void STV1()
         {
             Z80.C = Mem.LD_8((ushort)(Z80.IX + 6));// INPUT VOLUME
-            Z80.A = Mem.LD_8(TOTALV);
+            //Z80.A = Mem.LD_8(TOTALV);
+            Z80.A = TOTALV;
             Z80.A += Z80.C;
             if (Z80.A - 20 < 0)
             {
@@ -2041,7 +2077,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL += Z80.DE;//  HL= NEW F-NUMBER
             Mem.LD_8((ushort)(Z80.IX + 29), Z80.L);// SET NEW F-NUM1
             Mem.LD_8((ushort)(Z80.IX + 30), Z80.H);// SET NEW F-NUM2
-            Z80.A = Mem.LD_8(SSGF1);
+            //Z80.A = Mem.LD_8(SSGF1);
+            Z80.A = SSGF1;
             Z80.A |= Z80.A;
             if (Z80.A == 0)
             {
@@ -2725,7 +2762,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void PV1()
         { 
-            Z80.A = Mem.LD_8(TOTALV);
+            //Z80.A = Mem.LD_8(TOTALV);
+            Z80.A = TOTALV;
             Z80.A += Z80.C;
             if (Z80.A - 16 < 0)
             {
@@ -2958,7 +2996,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A ^= Z80.A;
             Mem.LD_8(C2NUM, Z80.A);
             Mem.LD_8(CHNUM, Z80.A);
-            Mem.LD_8(PVMODE, Z80.A);
+            PVMODE= Z80.A;
             Z80.A = Mem.LD_8(MUSNUM);
             Z80.HL = MU_TOP;
         WI1:
@@ -3057,7 +3095,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         FMI2:
             Z80.HL = C2NUM;
             Mem.LD_8(Z80.HL, (byte)(Mem.LD_8(Z80.HL) + 1));
-            Z80.HL = Mem.LD_8(TB_TOP);
+            Z80.HL = Mem.LD_16(TB_TOP);
             Z80.DE = 4;
             Z80.HL += Z80.DE;
             Mem.LD_16(TB_TOP, Z80.HL);
@@ -3163,7 +3201,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             PCMOUT();
             Z80.D = 0x0B;
             Z80.E = Mem.LD_8((ushort)(Z80.IX + 6));
-            Z80.A = Mem.LD_8(TOTALV);
+            //Z80.A = Mem.LD_8(TOTALV);
+            Z80.A = TOTALV;
             Z80.A += Z80.A;
             Z80.A += Z80.A;
             Z80.A += Z80.E;
@@ -3174,7 +3213,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A ^= Z80.A;
         PL1:
             Z80.E = Z80.A;
-            Z80.A = Mem.LD_8(PVMODE);
+            //Z80.A = Mem.LD_8(PVMODE);
+            Z80.A = PVMODE;
             Z80.A |= Z80.A;
             if (Z80.A == 0)
             {
@@ -3186,14 +3226,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         PL2:
             PCMOUT();// VOLUME
             Z80.D = 0x01;
-            Z80.A = Mem.LD_8(PCMLR);
+            //Z80.A = Mem.LD_8(PCMLR);
+            Z80.A = PCMLR;
             Z80.RRCA();
             Z80.RRCA();
             Z80.A &= 0b1100_0000;
             Z80.E = Z80.A;
             PCMOUT();// 1 bit TYPE, L&R OUT
             Z80.A = Mem.LD_8(PCMNUM);
-            Mem.LD_8(P_OUT, Z80.A);// ｼﾝｺﾞｳﾀﾞｽ
+            //Mem.LD_8(P_OUT, Z80.A);// ｼﾝｺﾞｳﾀﾞｽ
+            P_OUT = Z80.A;
             Z80.HL = Mem.stack.Pop();
             //  RET
         }
@@ -3203,7 +3245,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void PCMOUT()
         {
             Mem.stack.Push(Z80.BC);
-            Z80.A = Mem.LD_8((ushort)(PORT13 + 1));
+            Z80.A = PORT13[1];
             Z80.C = Z80.A;
         PCMO2:
             Z80.A = PC88.IN(Z80.C);
@@ -3229,12 +3271,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void CHK()
         {
             Z80.A ^= Z80.A;
-            Mem.LD_8(NOTSB2, Z80.A);
+            //Mem.LD_8(NOTSB2, Z80.A);
+            NOTSB2 = Z80.A;
             Z80.HL = TYPE1;
             Z80.DE = M_VECTR;
-            Z80.LDI();
-            Z80.LDI();
-            Z80.LDI();
+            //Z80.LDI();
+            //Z80.LDI();
+            //Z80.LDI();
+            M_VECTR = Mem.LD_8(TYPE1);
+            PORT13[0] = Mem.LD_8(TYPE1 + 1);
+            PORT13[1] = Mem.LD_8(TYPE1 + 2);
             Z80.C = 0x44;
             STT1();
             Z80.A--;
@@ -3248,14 +3294,18 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             {
                 goto STT2;
             }
-            Mem.LD_8(NOTSB2, Z80.A);
+            //Mem.LD_8(NOTSB2, Z80.A);
+            NOTSB2 = Z80.A;
             goto STTE;
         STT2:
             Z80.HL = TYPE2;
             Z80.DE = M_VECTR;
-            Z80.LDI();
-            Z80.LDI();
-            Z80.LDI();
+            //Z80.LDI();
+            //Z80.LDI();
+            //Z80.LDI();
+            M_VECTR = Mem.LD_8(TYPE2);
+            PORT13[0] = Mem.LD_8(TYPE2 + 1);
+            PORT13[1] = Mem.LD_8(TYPE2 + 2);
             goto STTE;
         STTE:
             return;
@@ -3278,8 +3328,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public byte NOTSB2 = 0;//(INFADR)
         public byte PVMODE = 0;//PCMvolMODE
         public byte P_OUT = 0;
-        public byte M_VECTR = 0;//32H OR AAH
-        public ushort PORT13 = 0;//44H OR A8H
+        public byte M_VECTR = 0x32;//32H OR AAH
+        public byte[] PORT13 = { 0x44, 0x46 };//44H OR A8H
         public byte TOTALV = 0;
         public byte[] FDCO = new byte[] { 0, 0 };
         public byte SSGF1 = 0;// SSG 4-6CH PLAY FLAG
@@ -3667,6 +3717,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.LD_8(PCMDAT + 6, 10);
             Mem.LD_8(PCMDAT + 8, 2);
 
+            Mem.LD_8(INITPM + 5, 56);
+
             Mem.LD_8(DRMVOL + 0, 0xc0);
             Mem.LD_8(DRMVOL + 1, 0xc0);
             Mem.LD_8(DRMVOL + 2, 0xc0);
@@ -3678,6 +3730,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.LD_8(OP_SEL + 1, 0xac);
             Mem.LD_8(OP_SEL + 2, 0xad);
             Mem.LD_8(OP_SEL + 3, 0xae);
+
+            Mem.LD_8(DMY, 8);
 
             byte[] type1_2 = new byte[] {
                 0x032,0x044,0x046,
