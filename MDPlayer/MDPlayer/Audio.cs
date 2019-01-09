@@ -1583,11 +1583,13 @@ namespace MDPlayer
             {
                 driverVirtual = new Driver.MUCOM88.MUCOM88();
                 driverVirtual.setting = setting;
+                ((Driver.MUCOM88.MUCOM88)driverVirtual).PlayingFileName = PlayingFileName;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != 5)
                 {
                     driverReal = new Driver.MUCOM88.MUCOM88();
                     driverReal.setting = setting;
+                    ((Driver.MUCOM88.MUCOM88)driverReal).PlayingFileName = PlayingFileName;
                 }
                 return mucPlay(setting);
             }
@@ -1815,7 +1817,7 @@ namespace MDPlayer
                 chip.Reset = ym2608.Reset;
                 chip.SamplingRate = (UInt32)common.SampleRate;
                 chip.Volume = setting.balance.YM2608Volume;
-                chip.Clock = 8000000;
+                chip.Clock = Driver.MUCOM88.MUCOM88.baseclock;
                 chip.Option = new object[] { common.GetApplicationFolder() };
                 //hiyorimiDeviceFlag |= 0x2;
                 lstChips.Add(chip);

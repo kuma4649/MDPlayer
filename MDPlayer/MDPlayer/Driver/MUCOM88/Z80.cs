@@ -362,12 +362,14 @@ namespace MDPlayer.Driver.MUCOM88
 
         public byte IN(byte adr)
         {
-            log.Write(string.Format("Port In:Adr[{0:x02}]", adr));
+            //log.Write(string.Format("Port In:Adr[{0:x02}]", adr));
             switch (adr)
             {
                 case 0x44:
                 case 0x45:
+                    return 1;
                 case 0x46:
+                    return 1;
                 case 0x47:
                     return 1;
             }

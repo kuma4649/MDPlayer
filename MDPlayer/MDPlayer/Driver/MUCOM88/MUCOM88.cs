@@ -15,6 +15,7 @@ namespace MDPlayer.Driver.MUCOM88
         private string fnPcm = "";
         private List<Tuple<string, string>> tags = null;
         private byte[] pcmdata = null;
+        public string PlayingFileName = "";
 
         /// <summary>
         /// 曲情報取得
@@ -187,7 +188,7 @@ namespace MDPlayer.Driver.MUCOM88
         private Mem mem = null;
         private PC88 pc88 = null;
         private MNDRV.FMTimer timerOPN;
-
+        public const int baseclock =7987200;
 
         public enum enmMUCOMFileType
         {
@@ -252,7 +253,7 @@ namespace MDPlayer.Driver.MUCOM88
             music2.Mem = mem;
             music2.PC88 = pc88;
 
-            timerOPN = new MNDRV.FMTimer(false, null, 8000000);
+            timerOPN = new MNDRV.FMTimer(false, null, baseclock);
 
             //ほぼ意味なし
             muc88.CINT();
@@ -373,7 +374,10 @@ namespace MDPlayer.Driver.MUCOM88
             log.Write(string.Format("#Data Buffer ${0:x04}-${1:x04} (${2:x04})", start, start + length - 1, length));
             log.Write(string.Format("#MaxCount:{0} Basic:${1:x04} Data:${2:x04}", maxcount, basicsize, mubsize));
 
-            SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
+            if (log.debug)
+            {
+                SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
+            }
         }
 
         private int SaveMusic(string fname, ushort start, ushort length, int option)
@@ -510,14 +514,28 @@ namespace MDPlayer.Driver.MUCOM88
 
         private void LoadFMVoice(string fn)
         {
-            if (!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
+            //mucファイルのある位置にあるfn
+            string mucPathVoice = Path.Combine(Path.GetDirectoryName(PlayingFileName), fn);
+            //mdplayerがある位置にあるfn
+            string mdpPathVoice = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn);
+            string decideVoice = "";
+
+            if (!File.Exists(mucPathVoice))
             {
-                return;
+                if (!File.Exists(mdpPathVoice))
+                {
+                    return;
+                }
+                decideVoice = mdpPathVoice;
+            }
+            else
+            {
+                decideVoice = mucPathVoice;
             }
 
             try
             {
-                byte[] voice = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn));
+                byte[] voice = File.ReadAllBytes(decideVoice);
                 ushort adr = 0x6000;
                 foreach (byte b in voice)
                 {
@@ -532,14 +550,28 @@ namespace MDPlayer.Driver.MUCOM88
 
         private byte[] LoadPCM(string fn)
         {
-            if (!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn)))
+            //mucファイルのある位置にあるfn
+            string mucPathPCM = Path.Combine(Path.GetDirectoryName(PlayingFileName), fn);
+            //mdplayerがある位置にあるfn
+            string mdpPathPCM = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn);
+            string decidePCM = "";
+
+            if (!File.Exists(mucPathPCM))
             {
-                return null;
+                if (!File.Exists(mdpPathPCM))
+                {
+                    return null;
+                }
+                decidePCM = mdpPathPCM;
+            }
+            else
+            {
+                decidePCM = mucPathPCM;
             }
 
             try
             {
-                return File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn));
+                return File.ReadAllBytes(decidePCM);
             }
             catch
             {

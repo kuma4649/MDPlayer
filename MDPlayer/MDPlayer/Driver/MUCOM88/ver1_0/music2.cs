@@ -1045,6 +1045,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //KUMA:FMCOMテーブルのコマンドをコール
             //PUSH DE
             //RET
+            //log.Write(string.Format("Z80.DE:{0}",Z80.DE));
             FMCOM[Z80.DE / 3]();
             FMSUBC();
         }
@@ -1726,6 +1727,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL++;
             Z80.D = Mem.LD_8(Z80.HL);
             Z80.HL++;
+
             Mem.stack.Push(Z80.HL);
             Z80.HL--;
             Z80.HL--;
@@ -1774,8 +1776,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void REPENF()
         {
-            Z80.HL--;// DEC REPEAT Co.
-            if (Z80.HL == 0)
+            Z80.Zero = ((Mem.LD_8(Z80.HL) - 1) == 0);// DEC REPEAT Co.
+            Mem.LD_8(Z80.HL, (byte)(Mem.LD_8(Z80.HL) - 1));
+            if (Z80.Zero)
             {
                 REPENF2();
                 return;
@@ -2688,7 +2691,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL += Z80.BC;
             Z80.EX_DE_HL();
             Z80.BC = 6;
-            Z80.LDDR();
+            Z80.LDIR();
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
             Z80.A |= 0b1001_0000;// ｴﾝﾍﾞﾌﾗｸﾞ ｱﾀｯｸﾌﾗｸﾞ ｾｯﾄ
             Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);
@@ -3748,7 +3751,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 ,0x5CE4+200,0x626A+200,0x6844+200,0x6E77+200
                 ,0x7509+200,0x7BFE+200,0x835E+200,0x8B2D+200
             };
-            for (int i = 0; i < f_s_pcm_numb.Length; i++) Mem.LD_16((ushort)(FNUMB + i), f_s_pcm_numb[i]);
+            for (int i = 0; i < f_s_pcm_numb.Length; i++) Mem.LD_16((ushort)(FNUMB + i * 2), f_s_pcm_numb[i]);
 
             byte[] sd = new byte[]{
                 255,255,255,255,0,255 // E
