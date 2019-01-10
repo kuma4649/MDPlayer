@@ -1837,10 +1837,14 @@ namespace MDPlayer
                 SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
                 SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
                 SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.RealModel);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.VirtualModel); //PSG TONE でリセット
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.RealModel);
 
                 //Play
 

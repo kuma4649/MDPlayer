@@ -505,6 +505,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.IX = PCMDAT;
             FMENT();
             Z80.A ^= Z80.A;
+            Z80.Zero = false;
+            Z80.Carry = false;
             Mem.LD_8(PCMFLG, Z80.A);
             //RET
         }

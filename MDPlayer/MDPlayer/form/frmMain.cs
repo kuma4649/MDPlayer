@@ -5987,6 +5987,14 @@ namespace MDPlayer.form
                             fn = "DriverBalance_SID.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_SID;
                             break;
+                        case enmFileFormat.MUC:
+                            fn = "DriverBalance_MUC.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_MUC;
+                            break;
+                        case enmFileFormat.MUB:
+                            fn = "DriverBalance_MUB.mbc";
+                            defMbc = Properties.Resources.DefaultVolumeBalance_MUB;
+                            break;
                     }
 
                     fullPath = Path.Combine(fullPath, fn);
@@ -6059,6 +6067,12 @@ namespace MDPlayer.form
                             break;
                         case enmFileFormat.SID:
                             fn = "DriverBalance_SID.mbc";
+                            break;
+                        case enmFileFormat.MUC:
+                            fn = "DriverBalance_MUC.mbc";
+                            break;
+                        case enmFileFormat.MUB:
+                            fn = "DriverBalance_MUB.mbc";
                             break;
                     }
 

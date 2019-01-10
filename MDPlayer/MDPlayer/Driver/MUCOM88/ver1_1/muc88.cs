@@ -766,10 +766,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto MPC3;
             }
             Z80.A &= Z80.A;
+            Z80.Carry = false;
             return;        //RET
         MPC3:
             TOSTAC();
             Z80.A &= Z80.A;
+            Z80.Carry = false;
             return;//RET
         MPNON:
             Z80.Carry = true; // ﾅｲﾖ
@@ -1342,6 +1344,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                             break;
                         case 13:
                             FCOMP13();
+                            break;
+                        case 14:
+                            FCOMP_nextRtn = enmFCOMPNextRtn.NextLine;
                             break;
                         default:
                             FCOMP_nextRtn = enmFCOMPNextRtn.occuredERROR;
@@ -2071,6 +2076,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Z80.A |= Z80.A;
             } while (Z80.A != 0);
             //    RET
+            COMTBL_RetPtn = 14;//KUMA:NextLine
         }
 
         // *	SET TAG & JUMP TO TAG*

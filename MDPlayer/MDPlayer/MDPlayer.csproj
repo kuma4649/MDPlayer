@@ -683,6 +683,8 @@
     <Content Include="Resources\DefaultVolumeBalance_MDR.xml" />
     <Content Include="Resources\DefaultVolumeBalance_MDX.xml" />
     <Content Include="Resources\DefaultVolumeBalance_MND.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MUB.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_MUC.xml" />
     <Content Include="Resources\DefaultVolumeBalance_NRT.xml" />
     <Content Include="Resources\DefaultVolumeBalance_NSF.xml" />
     <Content Include="Resources\DefaultVolumeBalance_S98.xml" />

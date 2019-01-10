@@ -126,6 +126,7 @@ namespace MDPlayer.Driver.MUCOM88
 
             SaveMub(basicsize);
 
+            setPCMData(pcmdata);
             music2.initMusic2();
             music2.MSTART();
 
@@ -288,10 +289,16 @@ namespace MDPlayer.Driver.MUCOM88
             {
                 try
                 {
-                    string tag = v.Substring(1, v.IndexOf(' ')).Trim().ToLower();
-                    string ele = v.Substring(v.IndexOf(' ') + 1).Trim();
-                    Tuple<string, string> item = new Tuple<string, string>(tag, ele);
-                    tags.Add(item);
+                    int p = v.IndexOf(' ');
+                    string tag = "";
+                    string ele = "";
+                    if (p >= 0)
+                    {
+                        tag = v.Substring(1, p).Trim().ToLower();
+                        ele = v.Substring(p + 1).Trim();
+                        Tuple<string, string> item = new Tuple<string, string>(tag, ele);
+                        tags.Add(item);
+                    }
                 }
                 catch { }
             }
@@ -520,6 +527,9 @@ namespace MDPlayer.Driver.MUCOM88
             string mdpPathVoice = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn);
             string decideVoice = "";
 
+            log.Write(mucPathVoice);
+            log.Write(mdpPathVoice);
+
             if (!File.Exists(mucPathVoice))
             {
                 if (!File.Exists(mdpPathVoice))
@@ -556,6 +566,9 @@ namespace MDPlayer.Driver.MUCOM88
             string mdpPathPCM = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn);
             string decidePCM = "";
 
+            log.Write(mucPathPCM);
+            log.Write(mdpPathPCM);
+
             if (!File.Exists(mucPathPCM))
             {
                 if (!File.Exists(mdpPathPCM))
@@ -580,6 +593,75 @@ namespace MDPlayer.Driver.MUCOM88
 
             return null;
         }
+
+        private void setPCMData(byte[] pcmdata)
+        {
+            if (pcmdata == null) return;
+
+            int infosize;
+            int i;
+            int pcmtable;
+            int inftable;
+            int adr, whl, eadr;
+            byte[] pcmname=new byte[17];
+            int maxpcm = 32;
+
+            infosize = 0x400;
+            inftable = 0x0000;
+            //for(i = 0; i < infosize; i++)
+            //{
+            //    mem.LD_8((ushort)(inftable + i), pcmdata[i]);
+            //}
+
+            pcmtable = 0xe300;
+            for (i = 0; i < maxpcm; i++)
+            {
+                adr = pcmdata[inftable + 28] | (pcmdata[inftable + 29] * 0x100);
+                whl = pcmdata[inftable + 30] | (pcmdata[inftable + 31] * 0x100);
+                eadr = adr + (whl >> 2);
+                if (pcmdata[i * 32] != 0)
+                {
+                    mem.LD_16((ushort)(pcmtable), (ushort)adr);
+                    mem.LD_16((ushort)(pcmtable + 2), (ushort)eadr);
+                    mem.LD_16((ushort)(pcmtable + 4), 0);
+                    mem.LD_16((ushort)(pcmtable + 6), (ushort)(pcmdata[inftable + 26] | (pcmdata[inftable + 27] * 0x100)));
+                    Array.Copy(pcmdata,i*32,pcmname,0, 16);
+                    pcmname[16] = 0;
+                    log.Write(string.Format("#PCM{0} ${1:x04} ${2:x04} {3}", i + 1, adr, eadr, Encoding.GetEncoding("shift_jis").GetString(pcmname)));
+                }
+                pcmtable += 8;
+                inftable += 32;
+            }
+
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x20, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x21, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
+
+            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x00, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
+
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x61, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x68, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x01, 0x00, model);
+
+            int startAddress = 0;
+            chipRegister.setYM2608Register(0, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+            chipRegister.setYM2608Register(0, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+            chipRegister.setYM2608Register(0, 0x1, 0x04, 0xff, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x05, 0xff, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x0c, 0xff, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x0d, 0xff, model);
+
+            // データ転送
+            for (int cnt = 0; cnt < pcmdata.Length - infosize; cnt++)
+            {
+                chipRegister.setYM2608Register(0, 0x1, 0x08, pcmdata[infosize + cnt], model);
+            }
+            chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
+            chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
+
+        }
+
 
     }
 }
