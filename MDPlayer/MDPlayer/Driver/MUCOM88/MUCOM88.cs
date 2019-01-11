@@ -627,7 +627,7 @@ namespace MDPlayer.Driver.MUCOM88
                     mem.LD_16((ushort)(pcmtable + 6), (ushort)(pcmdata[inftable + 26] | (pcmdata[inftable + 27] * 0x100)));
                     Array.Copy(pcmdata,i*32,pcmname,0, 16);
                     pcmname[16] = 0;
-                    log.Write(string.Format("#PCM{0} ${1:x04} ${2:x04} {3}", i + 1, adr, eadr, Encoding.GetEncoding("shift_jis").GetString(pcmname)));
+                    //log.Write(string.Format("#PCM{0} ${1:x04} ${2:x04} {3}", i + 1, adr, eadr, Encoding.GetEncoding("shift_jis").GetString(pcmname)));
                 }
                 pcmtable += 8;
                 inftable += 32;
@@ -656,6 +656,7 @@ namespace MDPlayer.Driver.MUCOM88
             for (int cnt = 0; cnt < pcmdata.Length - infosize; cnt++)
             {
                 chipRegister.setYM2608Register(0, 0x1, 0x08, pcmdata[infosize + cnt], model);
+                //log.Write(string.Format("#PCMDATA adr:{0:x04} dat:{1:x02}", (infosize + cnt) >> 2, pcmdata[infosize + cnt]));
             }
             chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
             chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);

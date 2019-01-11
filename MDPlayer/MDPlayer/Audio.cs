@@ -1794,16 +1794,6 @@ namespace MDPlayer
                 chipLED = new ChipLEDs();
                 MasterVolume = setting.balance.MasterVolume;
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2608 }
-                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                if (driverReal != null)
-                {
-                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2608 }
-                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
-                }
-
                 ym2608 ym2608 = null;
                 chip = new MDSound.MDSound.Chip();
                 ym2608 = new ym2608();
@@ -1845,6 +1835,16 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.RealModel);
+
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2608 }
+                    , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, enmModel.RealModel, new enmUseChip[] { enmUseChip.YM2608 }
+                        , (uint)(common.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
 
                 //Play
 

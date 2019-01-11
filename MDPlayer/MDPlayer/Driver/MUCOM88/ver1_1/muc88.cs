@@ -676,7 +676,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                     goto RECOM;
                 }
             CST3:
-                log.Write(string.Format("Ch.{0}のFMCOMP開始", Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + Z80.C) })));
+                //log.Write(string.Format("Ch.{0}のFMCOMP開始", Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(0x41 + Z80.C) })));
                 FMCOMP();// TO FM COMPILE
                 if(FCOMP_nextRtn== enmFCOMPNextRtn.occuredERROR)
                 {
@@ -1595,7 +1595,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //RET
             //KUMA:代わりにデリゲートし、飛び先はFMCOMPで判断する
             COMTBL_RetPtn = -1;
-            log.Write(string.Format("Command:{0}",COMTBL[Z80.DE/3].Method.ToString()));
+            //log.Write(string.Format("Command:{0}",COMTBL[Z80.DE/3].Method.ToString()));
             COMTBL[Z80.DE / 3]();
         }
 

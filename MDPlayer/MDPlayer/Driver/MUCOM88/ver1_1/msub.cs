@@ -390,7 +390,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 Z80.A = TONES[Z80.HL];
                 if (Z80.A - Z80.C == 0)
                 {
-                    log.Write(string.Format("Note:{0}",Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(Z80.A) })));
+                    //log.Write(string.Format("Note:{0}",Encoding.GetEncoding("Shift_JIS").GetString(new byte[] { (byte)(Z80.A) })));
                     TONEXT();
                     return;
                 }

@@ -1684,6 +1684,10 @@ namespace MDPlayer
 
         public void setYM2608Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
         {
+            //if (chipID == 0 && dPort == 1 && dAddr < 0x11 && dAddr != 0x08 && model== enmModel.VirtualModel)
+            //{
+            //    log.Write(string.Format("FM P1 Out:Adr[{0:x02}] val[{1:x02}]", (int)dAddr, (int)dData));
+            //}
             if (ctYM2608 == null) return;
 
             if (chipID == 0) chipLED.PriOPNA = 2;
