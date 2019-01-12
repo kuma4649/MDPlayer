@@ -91,7 +91,7 @@ namespace MDPlayer.Driver.MUCOM88
             pc88.model = model;
 
             //デバッグ向け
-            if (model == enmModel.RealModel) return true;
+            //if (model == enmModel.RealModel) return true;
 
             GD3 = getGD3Info(buf, 0);
 
@@ -136,7 +136,7 @@ namespace MDPlayer.Driver.MUCOM88
         public override void oneFrameProc()
         {
             //デバッグ向け
-            if (model == enmModel.RealModel) return;
+            //if (model == enmModel.RealModel) return;
 
             try
             {
@@ -661,6 +661,7 @@ namespace MDPlayer.Driver.MUCOM88
             chipRegister.setYM2608Register(0, 0x1, 0x00, 0x00, model);
             chipRegister.setYM2608Register(0, 0x1, 0x10, 0x80, model);
 
+            chipRegister.sendDataYM2608(0, model);
         }
 
 
