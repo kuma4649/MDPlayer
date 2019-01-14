@@ -11,6 +11,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         //ORG 5E00H
 
+        // +0      : Pコマンドの値
+        // +1      : dummy?
+        // +2～+7  : Eコマンドの値(6byte)
+        // +8      : LFOを設定するかどうか 1:しない  1以外:する
+        // +9～+14 : Mコマンドの値(6byte)
+        // +15     : dummy?
         public byte[] dat = new byte[] {
             8,0			// ﾉｰﾏﾙ
             ,255,255,255,255,0,255 // E

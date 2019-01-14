@@ -874,8 +874,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         READ6:
             //Z80.A = Mem.LD_8(SCORE + 4);// 1 ﾉ ｹﾀ
             Z80.A = SCORE[4];// 1 ﾉ ｹﾀ
-            Z80.Carry = (Z80.A + Z80.C + Z80.L > 0xff);
             Z80.A += Z80.C;
+            Z80.Carry = (Z80.A + Z80.L > 0xff);
             Z80.A += Z80.L;
             Z80.L = Z80.A;
             Z80.A += (byte)(Z80.H + (Z80.Carry ? 1 : 0));
@@ -897,6 +897,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.HL = Mem.stack.Pop();
         READA:
             Z80.A ^= Z80.A; //CY=0
+            Z80.Carry = false;
             Z80.BC = Mem.stack.Pop();
             return;//    RET
         READE:
@@ -1173,6 +1174,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.C++;
             goto FCMLP;
         FCMLP2:
+            //log.Write(string.Format("Cmd '{0}' is not found.", (char)Z80.D));
             Z80.C = Z80.A;
             //RET     ; NO COM.
         }

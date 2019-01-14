@@ -48,10 +48,11 @@ namespace MDPlayer.Driver.MUCOM88
                         gd3.VGMBy = tag.Item2;
                         break;
                     case "comment":
-                        gd3.Notes = tag.Item2;
+                        //gd3.Notes = tag.Item2;
                         break;
                     case "mucom88":
                         gd3.Version = tag.Item2;
+                        gd3.Notes = tag.Item2;
                         break;
                     case "date":
                         gd3.Converted = tag.Item2;

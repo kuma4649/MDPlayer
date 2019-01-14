@@ -3043,7 +3043,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             {
                 goto SETVEC2;
             }
-            NEG16();
+            NEG16();//ssgの場合はdeの符号を反転
         SETVEC2:
             Mem.LD_8(Z80.HL, Z80.E);
             //Mem.LD_8((ushort)(Z80.IX + 3), Z80.E);
@@ -4749,6 +4749,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public string IFGM = ">) as UP,<( as DOWN\0";
         public string IFGM2 = ">) as DOWN,<( as UP\0";
         public byte[] LFODAT = new byte[] { 1, 0, 0, 0, 0, 0, 0 };
+        //+0 LFO SW(0:ON 1:OFF)
+        //+1 DELAY
+        //+2 Clock Unit(SPEED?)
+        //+3 DEPTH L
+        //+4 DEPTH H
+        //+5 変化の回数
+        //+6 ?
+
         public ushort ADRSTC = 0;
         public byte VPCO = 0;
         public byte UDFLG = 0;

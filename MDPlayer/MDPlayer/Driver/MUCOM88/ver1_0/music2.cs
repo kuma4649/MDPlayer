@@ -1373,15 +1373,17 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.A--;
             Z80.C = Z80.A;
-            Z80.A += Z80.A;
-            Z80.A += Z80.C;
+            //Z80.A += Z80.A;
+            //Z80.A += Z80.C;
+            Z80.A *= 3;
             Z80.DE = 0;//LFOTBL;
-            Z80.Carry = (Z80.A + Z80.E > 0xff);
-            Z80.A += Z80.E;
-            Z80.E = Z80.A;
-            Z80.A += (byte)(Z80.D + (Z80.Carry ? 1 : 0));
-            Z80.A -= Z80.E;
-            Z80.D = Z80.A;
+            //Z80.Carry = (Z80.A + Z80.E > 0xff);
+            //Z80.A += Z80.E;
+            //Z80.E = Z80.A;
+            //Z80.A += (byte)(Z80.D + (Z80.Carry ? 1 : 0));
+            //Z80.A -= Z80.E;
+            //Z80.D = Z80.A;
+            Z80.DE += Z80.A;
             //PUSH DE
             //RET
             LFOTBL[Z80.DE / 3]();
@@ -2457,7 +2459,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A |= 0b1001_0000;//  TO STATE 1 (ATTACK)
             Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 12));//  ENVE INIT
-            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);
+            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);//KUMA:ALがcounterの初期値として使用される
             Mem.LD_8((ushort)(Z80.IX + 31), (byte)(Mem.LD_8((ushort)(Z80.IX + 31)) & 0xdf));// RESET LFO CONTINE FLAG
             SOFEV7();
         SSSUBH:
@@ -2818,99 +2820,99 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 6)) & 0x10) == 0);// CHECK ATTACK FLAG
             if (Z80.Zero)
             {
-                goto SOFEV2;
+                goto SOFEV2; //KUMA:decay flagのチェックへゴー
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 13));
-            Z80.Carry = ((Z80.A + Z80.D) > 0xff);
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));  //KUMA:get counter
+            Z80.D = Mem.LD_8((ushort)(Z80.IX + 13));  //KUMA:get AR
+            Z80.Carry = ((Z80.A + Z80.D) > 0xff); //KUMA:counter + AR が255を超えたか？
             Z80.A += Z80.D;
             if (!Z80.Carry)
             {
                 goto SOFEV1;
             }
-            Z80.A = 0xff;
-        SOFEV1:
+            Z80.A = 0xff; //KUMA:counterが上限を突破したので,counterを255に修正
+        SOFEV1: //KUMA:counterとflagの更新
             Z80.Zero = ((Z80.A - 0xff) == 0);
-            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);
+            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A); //KUMA: counter = counter + AR(毎クロック,AR分だけcounterが増える)
             if (!Z80.Zero)
             {
-                SOFEV7();
+                SOFEV7(); //KUMA:counterが255に達していないならSOFEV7へ
                 return;
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
-            Z80.A ^= 0b0011_0000;
-            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// TO STATE 2 (DECAY)
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));//KUMA:current volume & flagsを取得
+            Z80.A ^= 0b0011_0000;//KUMA:attack flag:off  decay flag:on をxorで実現(上手い)
+            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// TO STATE 2 (DECAY) //KUMA:current volume & flagsを更新
             SOFEV7();
             return;
         SOFEV2:
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 6)) & 0x20) == 0);
+            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 6)) & 0x20) == 0);//KUMA: Check decay flag
             if (Z80.Zero)
             {
-                goto SOFEV4;
+                goto SOFEV4;//KUMA:sustain flagのチェックへ
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 14));// GET DECAY
-            Z80.E = Mem.LD_8((ushort)(Z80.IX + 15));// GET SUSTAIN
-            Z80.Carry = ((Z80.A - Z80.D) < 0);
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));// KUMA:get counter
+            Z80.D = Mem.LD_8((ushort)(Z80.IX + 14));// GET DECAY //KUMA:get DR
+            Z80.E = Mem.LD_8((ushort)(Z80.IX + 15));// GET SUSTAIN //KUMA:get SR
+            Z80.Carry = ((Z80.A - Z80.D) < 0); //KUMA:counter = counter - DR 結果、counterが0未満の場合はSOFEV8へ
             Z80.A -= Z80.D;
             if (Z80.Carry)
             {
                 goto SOFEV8;
             }
-            if (Z80.A - Z80.E >= 0)
+            if (Z80.A - Z80.E >= 0)//KUMA:counter-SR は0以上の場合はSOFEV3へ
             {
                 goto SOFEV3;
             }
         SOFEV8:
-            Z80.A = Z80.E;
+            Z80.A = Z80.E;//KUMA: counter = SR
         SOFEV3:
             Z80.Zero = ((Z80.A - Z80.E) == 0);
-            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);
+            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);//KUMA:counter=counter-DR(毎クロック,DR分だけcounterが減る)
             if (!Z80.Zero)
             {
-                SOFEV7();
+                SOFEV7();//KUMA: counterがSRに到達していないならSOFEV7へ
                 return;
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
-            Z80.A ^= 0b0110_0000;
-            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// TO STATE 3 (SUSTAIN)
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));//KUMA:current volume & flagsを取得
+            Z80.A ^= 0b0110_0000;//KUMA:dcay flag:off  sustain flag:on
+            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// TO STATE 3 (SUSTAIN) //KUMA:current volume & flagsを更新
             SOFEV7();
             return;
         SOFEV4:
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 6)) & 0x40) == 0);
+            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 6)) & 0x40) == 0);//KUMA: Check sustain flag
             if (Z80.Zero)
             {
-                SOFEV9();
+                SOFEV9();//KUMA:release 処理へ
                 return;
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 16));// GET SUSTAIN LEVEL
-            Z80.Carry = ((Z80.A - Z80.D) < 0);
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));// KUMA:get counter
+            Z80.D = Mem.LD_8((ushort)(Z80.IX + 16));// GET SUSTAIN LEVEL// KUMA:get SL
+            Z80.Carry = ((Z80.A - Z80.D) < 0);//KUMA:counter = counter - SL 結果、counterが0以上の場合はSOFEV5へ
             Z80.A -= Z80.D;
             if (!Z80.Carry)
             {
                 goto SOFEV5;
             }
-            Z80.A ^= Z80.A;
+            Z80.A ^= Z80.A;//KUMA: counter=0
         SOFEV5:
             Z80.A |= Z80.A;
-            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);
+            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);//KUMA:counter=counter-SL(毎クロック,SL分だけcounterが減る)
             if (Z80.A != 0)
             {
                 SOFEV7();
                 return;
             }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
-            Z80.A &= 0b1000_1111;
-            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// END OF ENVE
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));//KUMA:current volume & flagsを取得
+            Z80.A &= 0b1000_1111;//KUMA:エンベロープで使用した進捗に関わるフラグをリセット
+            Mem.LD_8((ushort)(Z80.IX + 6), Z80.A);// END OF ENVE //KUMA:KEYON中にSLにきて更にcounterが0になったらエンベロープ処理は終了する
             SOFEV7();
         }
 
         public void SOFEV9()
         {
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 17));// GET REREASE
-            Z80.Carry = ((Z80.A - Z80.D) < 0);
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));//KUMA:get counter
+            Z80.D = Mem.LD_8((ushort)(Z80.IX + 17));// GET REREASE//KUMA:get RR
+            Z80.Carry = ((Z80.A - Z80.D) < 0);//KUMA:RRでcounterを減算
             Z80.A -= Z80.D;
             if (!Z80.Carry)
             {
@@ -2918,7 +2920,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             }
             Z80.A ^= Z80.A;
         SOFEVA:
-            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);
+            Mem.LD_8((ushort)(Z80.IX + 11), Z80.A);//KUMA:counterを更新
             SOFEV7();
         }
         // **	VOLUME CALCURATE	**
@@ -2926,20 +2928,20 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void SOFEV7()
         { 
             Mem.stack.Push(Z80.HL);
-            Z80.E = Mem.LD_8((ushort)(Z80.IX + 11));
+            Z80.E = Mem.LD_8((ushort)(Z80.IX + 11));//KUMA:get counter
             Z80.D = 0;
             Z80.HL = 0;
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));// GET VOLUME
             Z80.A &= 0b0000_1111;
             Z80.A++;
-            Z80.B = Z80.A;
+            Z80.B = Z80.A;//繰り返す回数 VOLUME+1回
         SOFEV6:
             do
             {
                 Z80.HL += Z80.DE;
                 Z80.B--;
             } while (Z80.B != 0);
-            Z80.A = Z80.H;
+            Z80.A = Z80.H;//AにはVOLUME+1を最大値としたcounter/256の割合分の値が入る
             Z80.HL = Mem.stack.Pop();
             Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x40) == 0);
             if (!Z80.Zero)
@@ -3482,7 +3484,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         //DB	0           ; CHANNEL No.           8
         //DW    0   	    ; FOR DETUNE		9,10
         //DB	0   	    ; SOFT ENVE COUNTER	11
-        //DS	6	        ; SOFT ENVE		12-17
+        //DS	6	        ; SOFT ENVE		12-17    //KUMA:  12:AL 13:AR 14:DR 15:SR 16:SL 17:RR
         //DB	0   	    ; COUNTER OF 'q'	18
         //DB	0   	    ; LFO DELAY		19
         //DB	0   	    ; WORK			20
