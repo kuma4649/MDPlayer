@@ -359,6 +359,7 @@ namespace MDPlayer.form
                     DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.KeyBoardOPNM(frameBuffer, c, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2612(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                    oyc.freq = 0;
                     DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
 

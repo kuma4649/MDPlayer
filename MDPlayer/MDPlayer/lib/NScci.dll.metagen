@@ -1,0 +1,77 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly NScci, Version=1.0.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Windows, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class NScci.NSCCI_SOUND_CHIP_INFO: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    SCCI_SOUND_CHIP_INFO* SCCI_SOUND_CHIP_INFO_ : Public
+  Methods:
+    getcSoundChipName(): PrivateScope, Public, HideBySig
+    getiSoundChip(): PrivateScope, Public, HideBySig
+    getiCompatibleSoundChip(): PrivateScope, Public, HideBySig
+    getdClock(): PrivateScope, Public, HideBySig
+    getdCompatibleClock(): PrivateScope, Public, HideBySig
+    getbIsUsed(): PrivateScope, Public, HideBySig
+    getdBusID(): PrivateScope, Public, HideBySig
+    getdSoundLocation(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class NScci.NSoundChip: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    SoundChip* SoundChip_ : Public
+    NScci.NSoundInterface parentSoundInterface : Public
+  Methods:
+    getSoundChipInfo(): PrivateScope, Public, HideBySig
+    getSoundChipType(): PrivateScope, Public, HideBySig
+    setRegister(Int32 IsLong, Int32 IsLong): PrivateScope, Public, HideBySig
+    getRegister(Int32 IsLong): PrivateScope, Public, HideBySig
+    init(): PrivateScope, Public, HideBySig
+    getSoundChipClock(): PrivateScope, Public, HideBySig
+    getWrittenRegisterData(Int32 IsLong): PrivateScope, Public, HideBySig
+    isBufferEmpty(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class NScci.NSoundInterface: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    NScci.NScci parentNScci : Public
+    SoundInterface* SoundInterface_ : Public
+  Methods:
+    isSupportLowLevelApi(): PrivateScope, Public, HideBySig
+    setData(Byte[], Int32 IsLong): PrivateScope, Public, HideBySig
+    getData(Byte[], Int32 IsLong): PrivateScope, Public, HideBySig
+    setDelay(Int32 IsLong): PrivateScope, Public, HideBySig
+    getDelay(): PrivateScope, Public, HideBySig
+    reset(): PrivateScope, Public, HideBySig
+    init(): PrivateScope, Public, HideBySig
+    getSoundChipCount(): PrivateScope, Public, HideBySig
+    getSoundChip(Int32 IsLong): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class NScci.NScci: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    getInterfaceCount(): PrivateScope, Public, HideBySig
+    getcInterfaceNameFromInterfaceInfo(Int32): PrivateScope, Public, HideBySig
+    getiSoundChipCountFromInterfaceInfo(Int32): PrivateScope, Public, HideBySig
+    getInterface(Int32): PrivateScope, Public, HideBySig
+    reset(): PrivateScope, Public, HideBySig
+    isBufferEmpty(): PrivateScope, Public, HideBySig
+    sendData(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

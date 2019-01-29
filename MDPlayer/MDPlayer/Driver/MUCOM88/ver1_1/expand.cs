@@ -1093,18 +1093,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
 
         // **	ﾎﾟﾙﾀﾒﾝﾄ ｹｲｻﾝ	**
-        // IN:	HL<={CG
-        //    }
-        //    ﾀﾞｯﾀﾗ GﾉﾃｷｽﾄADR
+        // IN:	HL<={CG}ﾀﾞｯﾀﾗ GﾉﾃｷｽﾄADR
         // EXIT:	DE<=Mｺﾏﾝﾄﾞﾉ 3ﾊﾞﾝﾒ ﾉ ﾍﾝｶﾘｮｳ
         //	Zﾌﾗｸﾞ=1 ﾅﾗ ﾍﾝｶｼﾅｲ
         public void CULPTM()
         {
             Z80.DE = Mem.LD_16(MDATA);
 
-            ushort stDE = Z80.DE;
+            Mem.stack.Push(Z80.DE);
             msub.STTONE();
-            Z80.DE = stDE;
+            Z80.DE = Mem.stack.Pop();
             Mem.LD_16(MDATA, Z80.DE);
             if (!Z80.Carry) goto CPT2;
 
@@ -1112,12 +1110,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             return;//    RET
 
         CPT2:
-            ushort stHL = Z80.HL;
+            Mem.stack.Push(Z80.HL);
             Z80.C = Z80.A;
 
             CULP2();
 
-            ushort stAF = Z80.AF;
+            Mem.stack.Push(Z80.AF);
             Z80.A = Mem.LD_8(BEFCO + 1);
             Z80.E = Z80.A;
             Z80.D = 0;
@@ -1128,23 +1126,22 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
             Z80.EX_DE_HL();
 
-            Z80.AF = stAF;
-            Z80.HL = stHL;
+            Z80.AF = Mem.stack.Pop();
+            Z80.HL = Mem.stack.Pop();
 
             if (!Z80.Carry) return;
 
-            stHL = Z80.HL;
+            Mem.stack.Push(Z80.HL);
 
             Z80.HL = 0;
             Z80.A &= Z80.A;
             Z80.HL -= Z80.DE;
 
             Z80.EX_DE_HL();
-
-            Z80.HL = stHL;
+            Z80.HL = Mem.stack.Pop();
 
             Z80.A &= Z80.A;
-
+            Z80.Carry = false;
             return;//    RET
         }
 
@@ -1248,40 +1245,63 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Z80.A &= Z80.A;
             Z80.HL -= Z80.DE;
             Z80.A &= Z80.A;
+            Z80.Carry = false;
             return;//RET
         }
 
         public void CULC()
         {
-            ushort stAF = Z80.AF;
-            msub.ROM();
-            //Z80.HL = Mem.LD_16(FRQBEF);
-            Z80.HL = FRQBEF;
-            PC88.CALL(0x21FD);//STORE HL INTO FACC
-            PC88.CALL(0x222F);//ﾀﾝｾｲﾄﾞ ﾆ ﾍﾝｶﾝ
-            PC88.CALL(0x20E8);//BCDE<=FACC
-            Z80.AF = stAF;
-            //CULLP:
-            do
-            {
-                stAF = Z80.AF;
-                //CULLP2:
-                Z80.HL = CULLP2_VAL;// 0x0A1BB;//FACC=BBA17180(0.943874)
-                Mem.LD_16(0x0EC41, Z80.HL);
-                //CULLP3:
-                Z80.HL = CULLP3_VAL;// 0x08071;
-                Mem.LD_16(0x0EC43, Z80.HL);//FACC=LHED
-                Z80.A = 04;
-                Mem.LD_8(0x0EABD, Z80.A);
-                PC88.CALL(0x1F53);//FACC=BCDE* FACC..F_NUM*1/(2^(1/12))
-                PC88.CALL(0x20E8);//BCDE<=FACC(NEW F_NUM)
-                Z80.AF = stAF;
-                Z80.A--;
-            } while (Z80.A != 0);
+            //ushort stAF = Z80.AF;
+            //msub.ROM();
+            ////Z80.HL = Mem.LD_16(FRQBEF);
+            //Z80.HL = FRQBEF;
+            //PC88.CALL(0x21FD);//STORE HL INTO FACC
+            //PC88.CALL(0x222F);//ﾀﾝｾｲﾄﾞ ﾆ ﾍﾝｶﾝ
+            //PC88.CALL(0x20E8);//BCDE<=FACC
+            //Z80.AF = stAF;
+            ////CULLP:
+            //do
+            //{
+            //    stAF = Z80.AF;
+            //    //CULLP2:
+            //    Z80.HL = CULLP2_VAL;// 0x0A1BB;//FACC=BBA17180(0.943874)
+            //    Mem.LD_16(0x0EC41, Z80.HL);
+            //    //CULLP3:
+            //    Z80.HL = CULLP3_VAL;// 0x08071;
+            //    Mem.LD_16(0x0EC43, Z80.HL);//FACC=LHED
+            //    Z80.A = 04;
+            //    Mem.LD_8(0x0EABD, Z80.A);
+            //    PC88.CALL(0x1F53);//FACC=BCDE* FACC..F_NUM*1/(2^(1/12))
+            //    PC88.CALL(0x20E8);//BCDE<=FACC(NEW F_NUM)
+            //    Z80.AF = stAF;
+            //    Z80.A--;
+            //} while (Z80.A != 0);
 
-            PC88.CALL(0x21A0);//ｾｲｽｳ ﾆ ﾍﾝｶﾝ=>HL
-            msub.RAM();
-            return;//    RET
+            //PC88.CALL(0x21A0);//ｾｲｽｳ ﾆ ﾍﾝｶﾝ=>HL
+            //msub.RAM();
+            //return;//    RET
+
+
+            int amul = Z80.A;
+            int val = CULLP2_VAL;
+            int frq = CULLP3_VAL;
+            int ans, count;
+            float facc;
+            float frqbef = (float)frq;
+            if (val == 0x0A1BB)
+            {
+                facc = 0.943874f;
+            }
+            else
+            {
+                facc = 1.059463f;
+            }
+            for (count = 0; count < amul; count++)
+            {
+                frqbef = frqbef * facc;
+            }
+            ans = (int)frqbef;
+            Z80.HL=(ushort)ans;
         }
 
         public void CTONE()

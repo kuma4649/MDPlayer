@@ -863,7 +863,7 @@ namespace MDPlayer.form
                     setting.YM2612Type.SoundChip = int.Parse(ns[2]);
                 }
             }
-            setting.YM2612Type.UseEmu = ucSI.rbYM2612P_Emu.Checked;
+            setting.YM2612Type.UseEmu = (ucSI.rbYM2612P_Emu.Checked || ucSI.rbYM2612P_SCCI.Checked);
             setting.YM2612Type.UseEmu2 = ucSI.rbYM2612P_EmuNuked.Checked;
 
             setting.YM2612SType = new Setting.ChipType();
@@ -880,7 +880,7 @@ namespace MDPlayer.form
                     setting.YM2612SType.SoundChip = int.Parse(ns[2]);
                 }
             }
-            setting.YM2612SType.UseEmu = ucSI.rbYM2612S_Emu.Checked;
+            setting.YM2612SType.UseEmu = (ucSI.rbYM2612S_Emu.Checked || ucSI.rbYM2612S_SCCI.Checked);
             setting.YM2612SType.UseEmu2 = ucSI.rbYM2612S_EmuNuked.Checked;
 
 

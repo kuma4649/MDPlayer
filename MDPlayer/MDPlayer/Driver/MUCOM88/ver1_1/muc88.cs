@@ -1917,21 +1917,21 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.DE = Mem.LD_16(MDATA);
             Z80.HL = 0;// PTMDAT;
             Z80.BC = 4;
-            Z80.LDIR_HL(PTMDAT);
-            Mem.LD_16(BEFMD, Z80.DE);
+            Z80.LDIR_HL(PTMDAT);//KUMA:Mコマンドのテンプレを4byte書き込む(0xf4,0,1,1)
+            Mem.LD_16(BEFMD, Z80.DE);//KUMA:DEPTHの書き込み位置を退避
             Z80.DE++;
             Z80.DE++;
             Z80.A = 255;
-            Mem.LD_8(Z80.DE, Z80.A);
+            Mem.LD_8(Z80.DE, Z80.A);//KUMA:回数(255回)を書き込む
             Z80.DE++;
-            Mem.LD_16(MDATA, Z80.DE);
+            Mem.LD_16(MDATA, Z80.DE);//KUMA:Mコマンドの次の位置をMDATAに退避)
             Z80.HL = Mem.stack.Pop();
             Z80.HL++;
-            Z80.A = Mem.LD_8(Z80.HL);
-            msub.STTONE();
+            Z80.A = Mem.LD_8(Z80.HL);//KUMA:音符(文字)を読み込み
+            msub.STTONE();//KUMA:オクターブ情報などを含めた音符情報に変換
             if (Z80.Carry)
             {
-                msub.ERRORSN();
+                msub.ERRORSN();//KUMA:エラーが発生したらエラー処理へ
                 return;
             }
             Z80.HL++;
@@ -1939,36 +1939,36 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Mem.stack.Push(Z80.HL);
             Z80.DE = Mem.LD_16(MDATA);
             Z80.A = 0xF4;
-            Mem.LD_8(Z80.DE, Z80.A);
+            Mem.LD_8(Z80.DE, Z80.A); //KUMA:2個目のMコマンド作成開始
             Z80.DE++;
             //Z80.A = Mem.LD_8(LFODAT);
-            Z80.A = LFODAT[0];
+            Z80.A = LFODAT[0]; //KUMA:現在のLFOのスイッチを取得
             Z80.A--;
-            if (Z80.A == 0)
+            if (Z80.A == 0)//KUMA:OFF(1)の場合はSTP1で2個めのMコマンドへOFF(1)を書き込む
             {
                 goto STP1;
             }
             Z80.A ^= Z80.A;
-            Mem.LD_8(Z80.DE, Z80.A);
+            Mem.LD_8(Z80.DE, Z80.A);//KUMA:ON(0)の場合は2個めのMコマンドへON(0)を書き込む
             Z80.DE++;
             //Z80.HL = LFODAT + 1;
             Z80.HL = 1;
             Z80.BC = 5;
-            Z80.LDIR_HL(LFODAT);
+            Z80.LDIR_HL(LFODAT);//KUMA:残りの現在のLFOの設定5byteをそのまま２個目のMコマンドへコピー
             goto STP2;
         STP1:
             Z80.A = 1;
             Mem.LD_8(Z80.DE, Z80.A);
             Z80.DE++;
         STP2:
-            Mem.LD_16(MDATA, Z80.DE);
+            Mem.LD_16(MDATA, Z80.DE);//KUMA:MDATAの位置を退避
             Z80.HL = Mem.stack.Pop();
         //STP22:
-            Z80.A = Mem.LD_8(Z80.HL);
+            Z80.A = Mem.LD_8(Z80.HL);//KUMA:次のコマンドを取得
             Z80.A |= Z80.A;
             if (Z80.A == 0)
             {
-                msub.ERRORSN();
+                msub.ERRORSN();//KUMA:データがない場合はエラー処理へ
                 return;
             }
             if (Z80.A - 0x7d == 0)//'}'
@@ -1984,7 +1984,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             {
                 SOD1();
             }
-            expand.CULPTM();
+            expand.CULPTM();//KUMA:DEPTHを計算
             if (Z80.Carry)
             {
                 msub.ERRORSN();
@@ -1992,7 +1992,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             }
             Mem.stack.Push(Z80.HL);
             Z80.HL = Mem.LD_16(BEFMD);
-            Mem.LD_8(Z80.HL, Z80.E);
+            Mem.LD_8(Z80.HL, Z80.E);//KUMA:DE(DEPTH)を書き込む
             Z80.HL++;
             Mem.LD_8(Z80.HL, Z80.D);
             Z80.HL++;

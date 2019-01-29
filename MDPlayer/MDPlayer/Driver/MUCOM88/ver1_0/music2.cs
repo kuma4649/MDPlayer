@@ -557,7 +557,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 return;
             }
             //    BIT	5,(IX+33)
-            if ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x20) != 0)
+            if ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x20) != 0)//KUMA: 0x20(bit5)=REVERVE FLAG
             {
                 FS2();
                 return;
@@ -568,8 +568,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void FS2()
         {
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
-            Z80.A += Mem.LD_8((ushort)(Z80.IX + 17));
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));  //KUMA:IX+6 VOLUME DATA
+            Z80.A += Mem.LD_8((ushort)(Z80.IX + 17));  //KUMA:IX+17 SOFT ENVE DUMMY? なぜ？
             Z80.C = Z80.A;
             Z80.C >>= 1;
             STV2();
@@ -2011,14 +2011,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.LD_8((ushort)(Z80.IX + 22), Z80.A);
             Mem.LD_8((ushort)(Z80.IX + 31), (byte)(Mem.LD_8((ushort)(Z80.IX + 31)) | 0x20));// SET CONTINUE FLAG
         CTLFO:
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 20));
+            Z80.A = Mem.LD_8((ushort)(Z80.IX + 20));//Delayのworkを取得
             Z80.A |= Z80.A;
-            if (Z80.A == 0)
+            if (Z80.A == 0)//delayが完了していたら次の処理へ
             {
                 CTLFO1();
                 return;
             }
-            Z80.A--;
+            Z80.A--;//delayのカウントダウン
             Mem.LD_8((ushort)(Z80.IX + 20), Z80.A);
             //  RET
         }

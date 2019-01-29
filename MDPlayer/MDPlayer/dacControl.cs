@@ -41,6 +41,8 @@ namespace MDPlayer
                     Port = (byte)((chip.DstCommand & 0xFF00) >> 8);
                     Command = (byte)((chip.DstCommand & 0x00FF) >> 0);
                     Data = chip.Data[(chip.DataStart + chip.RealPos)];
+                    //if (model == enmModel.RealModel) log.Write(string.Format("{0:x} {1:x}", Data, chip.RealPos));
+
                     chip_reg_write(chip.DstChipType, chip.DstChipID, Port, Command, Data);
                     break;
                 case 0x11:  // PWM (4-bit Register, 12-bit Data)
@@ -196,6 +198,7 @@ namespace MDPlayer
             {
                 sendCommand(chip);
                 chip.Pos += chip.DataStep;
+                //if(model== enmModel.RealModel)                log.Write(string.Format("datastep:{0}",chip.DataStep));
                 chip.RealPos = (uint)((int)chip.RealPos + RealDataStp);
                 chip.Running &= 0xef;// ~0x10;
                 chip.RemainCmds--;

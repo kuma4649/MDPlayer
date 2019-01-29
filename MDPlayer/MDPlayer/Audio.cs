@@ -3686,7 +3686,8 @@ namespace MDPlayer
                         chip = new MDSound.MDSound.Chip();
                         chip.ID = (byte)i;
 
-                        if ((i == 0 && setting.YM2612Type.UseEmu) || (i == 1 && setting.YM2612SType.UseEmu))
+                        if ((i == 0 && (setting.YM2612Type.UseEmu || setting.YM2612Type.UseScci)) 
+                            || (i == 1 && setting.YM2612SType.UseEmu || setting.YM2612SType.UseScci))
                         {
                             if (ym2612 == null) ym2612 = new ym2612();
                             chip.type = MDSound.MDSound.enmInstrumentType.YM2612;

@@ -137,7 +137,7 @@ namespace MDPlayer.Driver.MUCOM88
         public override void oneFrameProc()
         {
             //デバッグ向け
-            //if (model == enmModel.RealModel) return;
+            if (model == enmModel.RealModel) return;
 
             try
             {
