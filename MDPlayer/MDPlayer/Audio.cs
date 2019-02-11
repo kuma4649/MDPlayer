@@ -14,22 +14,22 @@ namespace MDPlayer
 {
     public class Audio
     {
-        public class cNscci
-        {
-            public cSoundInterface[] arySoundInterface;
-        }
+        //public class cNscci
+        //{
+        //    public cSoundInterface[] arySoundInterface;
+        //}
 
-        public class cSoundInterface
-        {
-            public NSoundInterface nSoundInterface;
-            public cSoundChip[] arySoundChip;
-        }
+        //public class cSoundInterface
+        //{
+        //    public NSoundInterface nSoundInterface;
+        //    public cSoundChip[] arySoundChip;
+        //}
 
-        public class cSoundChip
-        {
-            public NSoundChip nSoundChip;
-            public NSCCI_SOUND_CHIP_INFO info;
-        }
+        //public class cSoundChip
+        //{
+        //    public NSoundChip nSoundChip;
+        //    public NSCCI_SOUND_CHIP_INFO info;
+        //}
 
         public static int clockAY8910 = 1789750;
         public static int clockK051649 = 1500000;
@@ -79,17 +79,19 @@ namespace MDPlayer
         private static NAudioWrap naudioWrap;
         private static WaveWriter waveWriter = null;
 
-        private static NScci.NScci nscci;
-        private static NSoundChip[] scYM2612 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scSN76489 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2151 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2608 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2203 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2610 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2610EA = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scYM2610EB = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scC140 = new NSoundChip[2] { null, null };
-        private static NSoundChip[] scSEGAPCM = new NSoundChip[2] { null, null };
+        //private static NScci.NScci nScci;
+        private static RSoundChip[] scYM2612   = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scSN76489  = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2151   = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2608   = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2203   = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2610   = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scC140     = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scSEGAPCM  = new RSoundChip[2] { null, null };
+        //private static Nc86ctl.Nc86ctl nc86ctl;
+        private static RealChip realChip;
 
         private static ChipRegister chipRegister = null;
 
@@ -151,7 +153,7 @@ namespace MDPlayer
         private static int SongNo = 0;
         private static List<Tuple<string, byte[]>> ExtendFile = null;
         private static enmFileFormat PlayingFileFormat;
-        public static cNscci cnscci;
+        //public static cNscci cnscci;
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
         public static int ProcTimePer1Frame = 0;
 
@@ -744,6 +746,11 @@ namespace MDPlayer
             return musics;
         }
 
+        public static void RealChipClose()
+        {
+            realChip.Close();
+        }
+
         public static List<PlayList.music> getMusic(PlayList.music ms, byte[] buf, string zipFile = null)
         {
             List<PlayList.music> musics = new List<PlayList.music>();
@@ -991,6 +998,12 @@ namespace MDPlayer
             return musics;
         }
 
+        public static List<Setting.ChipType> GetRealChipList(enmRealChipType scciType)
+        {
+            if (realChip == null) return null;
+            return realChip.GetRealChipList(scciType);
+        }
+
         private static string getNRDString(byte[] buf, ref int index)
         {
             if (buf == null || buf.Length < 1 || index < 0 || index >= buf.Length) return "";
@@ -1079,58 +1092,85 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 04");
 
-            if (cnscci == null)
+            if (realChip == null)
             {
-                nscci = new NScci.NScci();
-                getScciInstances();
-                nscci.setLevelDisp(false);
+                realChip = new RealChip();
             }
 
-            scYM2612[0] = GetSCCIChip(Audio.setting.YM2612Type);
+            //if (cnscci == null)
+            //{
+            //    int n = 0;
+
+            //    nScci = new NScci.NScci();
+            //    n = nScci.NSoundInterfaceManager_.getInterfaceCount();
+            //    if (n == 0)
+            //    {
+            //        nScci.Dispose();
+            //        nScci = null;
+            //    }
+            //    getScciInstances();
+            //    nScci.NSoundInterfaceManager_.setLevelDisp(false);
+
+            //    nc86ctl = new Nc86ctl.Nc86ctl();
+            //    n = nc86ctl.getNumberOfChip();
+            //    if (n == 0)
+            //    {
+            //        nc86ctl.deinitialize();
+            //        nc86ctl = null;
+            //    }
+            //    else
+            //    {
+            //        Nc86ctl.NIRealChip nirc = nc86ctl.getChipInterface(0);
+            //        nirc.reset();
+            //    }
+            //}
+
+            scYM2612[0] = realChip.GetRealChip(Audio.setting.YM2612Type);
             if (scYM2612[0] != null) scYM2612[0].init();
-            scSN76489[0] = GetSCCIChip(Audio.setting.SN76489Type);
+            scSN76489[0] = realChip.GetRealChip(Audio.setting.SN76489Type);
             if (scSN76489[0] != null) scSN76489[0].init();
-            scYM2608[0] = GetSCCIChip(Audio.setting.YM2608Type);
+            scYM2608[0] = realChip.GetRealChip(Audio.setting.YM2608Type);
             if (scYM2608[0] != null) scYM2608[0].init();
-            scYM2151[0] = GetSCCIChip(Audio.setting.YM2151Type);
+            scYM2151[0] = realChip.GetRealChip(Audio.setting.YM2151Type);
             if (scYM2151[0] != null) scYM2151[0].init();
-            scYM2203[0] = GetSCCIChip(Audio.setting.YM2203Type);
+            scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
             if (scYM2203[0] != null) scYM2203[0].init();
-            scYM2610[0] = GetSCCIChip(Audio.setting.YM2610Type);
+            scYM2610[0] = realChip.GetRealChip(Audio.setting.YM2610Type);
             if (scYM2610[0] != null) scYM2610[0].init();
-            scYM2610EA[0] = GetSCCIChip(Audio.setting.YM2610Type, 1);
+            scYM2610EA[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 1);
             if (scYM2610EA[0] != null) scYM2610EA[0].init();
-            scYM2610EB[0] = GetSCCIChip(Audio.setting.YM2610Type, 2);
+            scYM2610EB[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 2);
             if (scYM2610EB[0] != null) scYM2610EB[0].init();
-            scSEGAPCM[0] = GetSCCIChip(Audio.setting.SEGAPCMType);
+            scSEGAPCM[0] = realChip.GetRealChip(Audio.setting.SEGAPCMType);
             if (scSEGAPCM[0] != null) scSEGAPCM[0].init();
-            scC140[0] = GetSCCIChip(Audio.setting.C140Type);
+            scC140[0] = realChip.GetRealChip(Audio.setting.C140Type);
             if (scC140[0] != null) scC140[0].init();
 
-            scYM2612[1] = GetSCCIChip(Audio.setting.YM2612SType);
+            scYM2612[1] = realChip.GetRealChip(Audio.setting.YM2612SType);
             if (scYM2612[1] != null) scYM2612[1].init();
-            scSN76489[1] = GetSCCIChip(Audio.setting.SN76489SType);
+            scSN76489[1] = realChip.GetRealChip(Audio.setting.SN76489SType);
             if (scSN76489[1] != null) scSN76489[1].init();
-            scYM2608[1] = GetSCCIChip(Audio.setting.YM2608SType);
+            scYM2608[1] = realChip.GetRealChip(Audio.setting.YM2608SType);
             if (scYM2608[1] != null) scYM2608[1].init();
-            scYM2151[1] = GetSCCIChip(Audio.setting.YM2151SType);
+            scYM2151[1] = realChip.GetRealChip(Audio.setting.YM2151SType);
             if (scYM2151[1] != null) scYM2151[1].init();
-            scYM2203[1] = GetSCCIChip(Audio.setting.YM2203SType);
+            scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
             if (scYM2203[1] != null) scYM2203[1].init();
-            scYM2610[1] = GetSCCIChip(Audio.setting.YM2610SType);
+            scYM2610[1] = realChip.GetRealChip(Audio.setting.YM2610SType);
             if (scYM2610[1] != null) scYM2610[1].init();
-            scYM2610EA[1] = GetSCCIChip(Audio.setting.YM2610SType, 1);
+            scYM2610EA[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 1);
             if (scYM2610EA[1] != null) scYM2610EA[1].init();
-            scYM2610EB[1] = GetSCCIChip(Audio.setting.YM2610SType, 2);
+            scYM2610EB[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 2);
             if (scYM2610EB[1] != null) scYM2610EB[1].init();
-            scC140[1] = GetSCCIChip(Audio.setting.C140SType);
+            scC140[1] = realChip.GetRealChip(Audio.setting.C140SType);
             if (scC140[1] != null) scC140[1].init();
-            scSEGAPCM[1] = GetSCCIChip(Audio.setting.SEGAPCMSType);
+            scSEGAPCM[1] = realChip.GetRealChip(Audio.setting.SEGAPCMSType);
             if (scSEGAPCM[1] != null) scSEGAPCM[1].init();
 
             chipRegister = new ChipRegister(
                 setting
                 , mds
+                , realChip
                 , scYM2612
                 , scSN76489
                 , scYM2608
@@ -1426,106 +1466,109 @@ namespace MDPlayer
             }
         }
 
-        public static void getScciInstances()
-        {
-            cnscci = new cNscci();
-            int ifc = nscci.getInterfaceCount();
-            cnscci.arySoundInterface = new cSoundInterface[ifc];
+        //public static void getScciInstances()
+        //{
+        //    cnscci = new cNscci();
+        //    int ifc = nScci.NSoundInterfaceManager_.getInterfaceCount();
+        //    cnscci.arySoundInterface = new cSoundInterface[ifc];
 
-            for (int i = 0; i < ifc; i++)
-            {
-                cnscci.arySoundInterface[i] = new cSoundInterface();
-                NSoundInterface sif = nscci.getInterface(i);
-                cnscci.arySoundInterface[i].nSoundInterface = sif;
+        //    for (int i = 0; i < ifc; i++)
+        //    {
+        //        cnscci.arySoundInterface[i] = new cSoundInterface();
+        //        NSoundInterface sif = nScci.NSoundInterfaceManager_.getInterface(i);
+        //        cnscci.arySoundInterface[i].nSoundInterface = sif;
 
-                int scc = sif.getSoundChipCount();
-                cnscci.arySoundInterface[i].arySoundChip = new cSoundChip[scc];
+        //        int scc = sif.getSoundChipCount();
+        //        cnscci.arySoundInterface[i].arySoundChip = new cSoundChip[scc];
 
-                for (int j = 0; j < scc; j++)
-                {
-                    NSoundChip sc = sif.getSoundChip(j);
-                    cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip();
-                    cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip = sc;
+        //        for (int j = 0; j < scc; j++)
+        //        {
+        //            NSoundChip sc = sif.getSoundChip(j);
+        //            cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip();
+        //            cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip = sc;
 
-                    NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
+        //            NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
 
-                    cnscci.arySoundInterface[i].arySoundChip[j].info = info;
+        //            cnscci.arySoundInterface[i].arySoundChip[j].info = info;
 
-                }
-            }
+        //        }
+        //    }
 
-        }
+        //}
 
         public static MDSound.MDSound.Chip GetMDSChipInfo(MDSound.MDSound.enmInstrumentType typ)
         {
             return chipRegister.GetChipInfo(typ);
         }
 
-        public static List<Setting.ChipType> GetSCCIChipList(enmScciChipType scciChipType)
-        {
-            List<Setting.ChipType> ret = new List<Setting.ChipType>();
+        //public static List<Setting.ChipType> GetSCCIChipList(enmScciChipType scciChipType)
+        //{
+        //    List<Setting.ChipType> ret = new List<Setting.ChipType>();
+        //    if (cnscci == null) return ret;
 
-            for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
-            {
-                for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
-                {
-                    NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
-                    int t = sc.getSoundChipType();
-                    if (t == (int)scciChipType)
-                    {
-                        Setting.ChipType ct = new Setting.ChipType();
-                        ct.SoundLocation = 0;
-                        ct.BusID = i;
-                        ct.SoundChip = j;
-                        ct.ChipName = sc.getSoundChipInfo().getcSoundChipName();
-                        ret.Add(ct);
-                    }
-                }
-            }
+        //    for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
+        //    {
+        //        for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
+        //        {
+        //            NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
+        //            int t = sc.getSoundChipType();
+        //            if (t == (int)scciChipType)
+        //            {
+        //                Setting.ChipType ct = new Setting.ChipType();
+        //                ct.SoundLocation = 0;
+        //                ct.BusID = i;
+        //                ct.SoundChip = j;
+        //                ct.ChipName = sc.getSoundChipInfo().cSoundChipName;
+        //                ret.Add(ct);
+        //            }
+        //        }
+        //    }
 
-            return ret;
-        }
+        //    return ret;
+        //}
 
-        private static NSoundChip GetSCCIChip(Setting.ChipType ct, int ind = 0)
-        {
-            for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
-            {
-                for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
-                {
-                    NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
-                    NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
-                    switch (ind)
-                    {
-                        case 0:
-                            if (0 == ct.SoundLocation
-                                && i == ct.BusID
-                                && j == ct.SoundChip)
-                            {
-                                return sc;
-                            }
-                            break;
-                        case 1:
-                            if (0 == ct.SoundLocation2A
-                                && i == ct.BusID2A
-                                && j == ct.SoundChip2A)
-                            {
-                                return sc;
-                            }
-                            break;
-                        case 2:
-                            if (0 == ct.SoundLocation2B
-                                && i == ct.BusID2B
-                                && j == ct.SoundChip2B)
-                            {
-                                return sc;
-                            }
-                            break;
-                    }
-                }
-            }
+        //private static NSoundChip GetSCCIChip(Setting.ChipType ct, int ind = 0)
+        //{
+        //    if (cnscci == null) return null;
 
-            return null;
-        }
+        //    for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
+        //    {
+        //        for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
+        //        {
+        //            NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
+        //            NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
+        //            switch (ind)
+        //            {
+        //                case 0:
+        //                    if (0 == ct.SoundLocation
+        //                        && i == ct.BusID
+        //                        && j == ct.SoundChip)
+        //                    {
+        //                        return sc;
+        //                    }
+        //                    break;
+        //                case 1:
+        //                    if (0 == ct.SoundLocation2A
+        //                        && i == ct.BusID2A
+        //                        && j == ct.SoundChip2A)
+        //                    {
+        //                        return sc;
+        //                    }
+        //                    break;
+        //                case 2:
+        //                    if (0 == ct.SoundLocation2B
+        //                        && i == ct.BusID2B
+        //                        && j == ct.SoundChip2B)
+        //                    {
+        //                        return sc;
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //    }
+
+        //    return null;
+        //}
 
         public static int getLatency()
         {
@@ -1827,6 +1870,7 @@ namespace MDPlayer
                 SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
                 SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
                 SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+                Thread.Sleep(500);
                 chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.RealModel);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
@@ -2472,6 +2516,15 @@ namespace MDPlayer
                 SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
                 SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
                 SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+                Thread.Sleep(500);
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, enmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
+                chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.VirtualModel); //PSG TONE でリセット
+                chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.RealModel);
 
                 bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151,enmUseChip.YM2608 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2994,6 +3047,7 @@ namespace MDPlayer
                 SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
                 SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
                 SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+                Thread.Sleep(500);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
@@ -4765,9 +4819,9 @@ namespace MDPlayer
                 }
                 trdClosed = true;
 
-                if (nscci != null)
+                if (realChip != null)
                 {
-                    nscci.init();
+                    realChip.Init();
                 }
 
                 int timeout = 5000;
@@ -4782,11 +4836,12 @@ namespace MDPlayer
                     timeout--;
                     if (timeout < 1) break;
                 };
-                
-                if (nscci != null)
+
+                if (realChip != null)
                 {
-                    nscci.init();//.reset();
+                    realChip.Init();
                 }
+
                 //chipRegister.outMIDIData_Close();
 
                 waveWriter.Close();
@@ -4919,8 +4974,7 @@ namespace MDPlayer
 
                 }
 
-                //nscci.Dispose();
-                //nscci = null;
+                //realChip.Close();
             }
             catch (Exception ex)
             {
@@ -5205,9 +5259,9 @@ namespace MDPlayer
 
                     if (Stopped || Paused)
                     {
-                        if (nscci != null && !oneTimeReset)
+                        if (realChip != null && !oneTimeReset)
                         {
-                            nscci.reset();
+                            realChip.reset();
                             oneTimeReset = true;
                             chipRegister.resetAllMIDIout();
                         }
@@ -5239,7 +5293,7 @@ namespace MDPlayer
                             vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
                             if (vgmRealFadeoutVol == 127)
                             {
-                                if (nscci != null) nscci.reset();
+                                if(realChip!=null) realChip.reset();
                                 vgmRealFadeoutVolWait = 1000;
                                 chipRegister.resetAllMIDIout();
                             }

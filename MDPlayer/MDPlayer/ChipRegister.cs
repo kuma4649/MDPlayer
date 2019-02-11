@@ -6,6 +6,7 @@ using MDSound.np;
 using MDSound.np.memory;
 using MDSound.np.cpu;
 using MDSound.np.chip;
+using NScci;
 
 namespace MDPlayer
 {
@@ -42,20 +43,21 @@ namespace MDPlayer
         private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
 
-        private NScci.NSoundChip[] scSN76489 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2612 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2608 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2151 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2203 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2610 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2610EA = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYM2610EB = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYMF262 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYMF271 = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYMF278B = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scYMZ280B = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scSEGAPCM = new NScci.NSoundChip[2] { null, null };
-        private NScci.NSoundChip[] scC140 = new NScci.NSoundChip[2] { null, null };
+        private RealChip realChip = null;
+        private RSoundChip[] scSN76489 =  new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2612 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2608 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2151 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2203 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF262 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF271 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF278B =  new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMZ280B =  new RSoundChip[2] { null, null };
+        private RSoundChip[] scSEGAPCM =  new RSoundChip[2] { null, null };
+        private RSoundChip[] scC140 =     new RSoundChip[2] { null, null };
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
@@ -323,21 +325,23 @@ namespace MDPlayer
 
         public ChipRegister(Setting setting
             , MDSound.MDSound mds
-            , NScci.NSoundChip[] scYM2612
-            , NScci.NSoundChip[] scSN76489
-            , NScci.NSoundChip[] scYM2608
-            , NScci.NSoundChip[] scYM2151
-            , NScci.NSoundChip[] scYM2203
-            , NScci.NSoundChip[] scYM2610
-            , NScci.NSoundChip[] scYM2610EA
-            , NScci.NSoundChip[] scYM2610EB
-            , NScci.NSoundChip[] scC140
-            , NScci.NSoundChip[] scSEGAPCM
+            , RealChip nScci
+            , RSoundChip[] scYM2612
+            , RSoundChip[] scSN76489
+            , RSoundChip[] scYM2608
+            , RSoundChip[] scYM2151
+            , RSoundChip[] scYM2203
+            , RSoundChip[] scYM2610
+            , RSoundChip[] scYM2610EA
+            , RSoundChip[] scYM2610EB
+            , RSoundChip[] scC140
+            , RSoundChip[] scSEGAPCM
             )
         {
             this.setting = setting;
             this.mds = mds;
-            
+
+            this.realChip = nScci;
             this.scYM2612 = scYM2612;
             this.scYM2608 = scYM2608;
             this.scYM2151 = scYM2151;
@@ -2083,7 +2087,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmA[cnt]);
                     }
-                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
                 if (scYM2610EB[chipID] != null)
                 {
@@ -2101,7 +2106,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmA[cnt]);
                     }
-                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }
@@ -2129,7 +2135,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
                     }
-                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
                 if (scYM2610EB[chipID] != null)
                 {
@@ -2146,7 +2153,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
                     }
-                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }
@@ -2175,7 +2183,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610[chipID].setRegister((dPort << 8) | 0x04, ym2610AdpcmB[cnt]);
                     }
-                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
                 if (scYM2610EB[chipID] != null)
                 {
@@ -2193,7 +2202,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, ym2610AdpcmB[cnt]);
                     }
-                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }
@@ -2221,7 +2231,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610[chipID].setRegister((dPort << 8) | 0x04, buf[srcStartAddr + cnt]);
                     }
-                    scYM2610[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
                 if (scYM2610EB[chipID] != null)
                 {
@@ -2238,7 +2249,8 @@ namespace MDPlayer
                         // pushReg(CMD_YM2610|0x02,0x04,*m_pDump);
                         scYM2610EB[chipID].setRegister((dPort << 8) | 0x10004, buf[srcStartAddr + cnt]);
                     }
-                    scYM2610EB[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }
@@ -3154,8 +3166,8 @@ namespace MDPlayer
 
             if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
             {
-                scYM2151[chipID].parentSoundInterface.parentNScci.sendData();
-                while (!scYM2151[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
+                realChip.SendData();
+                while (!scYM2151[chipID].isBufferEmpty()) { }
             }
         }
 
@@ -3165,8 +3177,8 @@ namespace MDPlayer
 
             if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
             {
-                scYM2608[chipID].parentSoundInterface.parentNScci.sendData();
-                while (!scYM2608[chipID].parentSoundInterface.parentNScci.isBufferEmpty()) { }
+                realChip.SendData();
+                while (!scYM2608[chipID].isBufferEmpty()) { }
             }
         }
 
@@ -3175,7 +3187,7 @@ namespace MDPlayer
         {
             if (scYM2151[chipID] == null) return -1;
 
-            return scYM2151[chipID].getSoundChipInfo().getdClock();
+            return scYM2151[chipID].dClock;
         }
 
 
@@ -3615,7 +3627,8 @@ namespace MDPlayer
                         scSEGAPCM[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
                     }
                     scSEGAPCM[chipID].setRegister(0x10006, (int)ROMSize);
-                    scSEGAPCM[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }
@@ -3689,7 +3702,8 @@ namespace MDPlayer
                         scC140[chipID].setRegister(0x10004, romdata[SrcStartAdr + cnt]);
                     }
                     //scC140[chipID].setRegister(0x10006, (int)ROMSize);
-                    scC140[chipID].parentSoundInterface.parentNScci.sendData();
+
+                    realChip.SendData();
                 }
             }
         }

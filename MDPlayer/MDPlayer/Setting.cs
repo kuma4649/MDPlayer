@@ -915,6 +915,20 @@ namespace MDPlayer
                 }
             }
 
+            private string _InterfaceName = "";
+            public string InterfaceName
+            {
+                get
+                {
+                    return _InterfaceName;
+                }
+
+                set
+                {
+                    _InterfaceName = value;
+                }
+            }
+
             private int _SoundLocation = -1;
             public int SoundLocation
             {
@@ -986,6 +1000,20 @@ namespace MDPlayer
                 }
             }
 
+            private string _InterfaceName2A = "";
+            public string InterfaceName2A
+            {
+                get
+                {
+                    return _InterfaceName2A;
+                }
+
+                set
+                {
+                    _InterfaceName2A = value;
+                }
+            }
+
             private int _SoundLocation2A = -1;
             public int SoundLocation2A
             {
@@ -1039,6 +1067,20 @@ namespace MDPlayer
                 set
                 {
                     _ChipName2A = value;
+                }
+            }
+
+            private string _InterfaceName2B = "";
+            public string InterfaceName2B
+            {
+                get
+                {
+                    return _InterfaceName2B;
+                }
+
+                set
+                {
+                    _InterfaceName2B = value;
                 }
             }
 
@@ -1178,18 +1220,25 @@ namespace MDPlayer
                 ct.UseEmu3 = this.UseEmu3;
                 ct.UseScci = this.UseScci;
                 ct.SoundLocation = this.SoundLocation;
+
                 ct.BusID = this.BusID;
+                ct.InterfaceName = this.InterfaceName;
                 ct.SoundChip = this.SoundChip;
                 ct.ChipName = this.ChipName;
                 ct.UseScci2 = this.UseScci2;
                 ct.SoundLocation2A = this.SoundLocation2A;
+
+                ct.InterfaceName2A = this.InterfaceName2A;
                 ct.BusID2A = this.BusID2A;
                 ct.SoundChip2A = this.SoundChip2A;
                 ct.ChipName2A = this.ChipName2A;
                 ct.SoundLocation2B = this.SoundLocation2B;
+
+                ct.InterfaceName2B = this.InterfaceName2B;
                 ct.BusID2B = this.BusID2B;
                 ct.SoundChip2B = this.SoundChip2B;
                 ct.ChipName2B = this.ChipName2B;
+
                 ct.UseWait = this.UseWait;
                 ct.UseWaitBoost = this.UseWaitBoost;
                 ct.OnlyPCMEmulation = this.OnlyPCMEmulation;

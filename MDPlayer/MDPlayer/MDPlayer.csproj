@@ -100,6 +100,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\NScci.dll</HintPath>
     </Reference>
+    <Reference Include="RealChipCtlWrap, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\RealChipCtlWrap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
@@ -493,7 +497,9 @@
     <Compile Include="PlayList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealChip.cs" />
     <Compile Include="Setting.cs" />
+    <Compile Include="SoundChip.cs" />
     <Compile Include="Tables.cs" />
     <Compile Include="form\ucSettingInstruments.cs">
       <SubType>UserControl</SubType>
@@ -634,6 +640,9 @@
     <EmbeddedResource Include="form\ucSettingInstruments.resx">
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="lib\c86ctl.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lib\scci.ini" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BindData.datasource" />
@@ -656,11 +665,16 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lib\c86ctl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\Jacobi.Vst.Core.dll" />
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
     <Content Include="lib\NAudio.dll" />
-    <Content Include="lib\NScci.dll" />
+    <Content Include="lib\RealChipCtlWrap.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
     <Content Include="licenses\GPL.txt" />

@@ -446,7 +446,7 @@ namespace MDPlayer
         , K051649
     }
 
-    public enum enmScciChipType : int
+    public enum enmRealChipType : int
     {
         YM2608 = 1
         , YM2151 = 2

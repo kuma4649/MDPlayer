@@ -46,9 +46,11 @@ namespace MDPlayer
             if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath),fn))) return fn;
             fn = "NAudio.dll";
             if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "NScci.dll";
+            fn = "RealChipCtlWrap.dll";
             if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
             fn = "scci.dll";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+            fn = "c86ctl.dll";
             if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
             fn = "Jacobi.Vst.Core.dll";
             if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;

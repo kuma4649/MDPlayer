@@ -643,6 +643,7 @@ namespace MDPlayer.form
 
             StopMIDIInMonitoring();
             Audio.Close();
+            Audio.RealChipClose();
 
             log.ForcedWrite("frmMain_FormClosing:STEP 02");
 

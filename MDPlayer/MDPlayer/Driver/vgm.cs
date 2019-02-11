@@ -286,7 +286,7 @@ namespace MDPlayer
             }
 
             //if (model == enmModel.VirtualModel)
-                oneFrameVGMStream();
+                //oneFrameVGMStream();
 
             vgmWait--;
             Counter++;
