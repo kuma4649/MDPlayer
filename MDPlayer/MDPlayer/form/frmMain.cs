@@ -3043,6 +3043,7 @@ namespace MDPlayer.form
             this.setting.Save();
 
             screen.setting = this.setting;
+            frmPlayList.setting = this.setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
             reqAllScreenInit = true;

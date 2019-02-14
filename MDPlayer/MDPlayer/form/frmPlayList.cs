@@ -91,6 +91,10 @@ namespace MDPlayer.form
 
         public void Save()
         {
+            if (setting.other.EmptyPlayList)
+            {
+                playList.lstMusic = new List<PlayList.music>();
+            }
             playList.Save(null);
         }
 

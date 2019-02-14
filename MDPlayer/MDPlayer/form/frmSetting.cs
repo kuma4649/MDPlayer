@@ -432,6 +432,7 @@ namespace MDPlayer.form
             tbMMLExt.Text = setting.other.MMLExt;
             tbImageExt.Text = setting.other.ImageExt;
             cbInitAlways.Checked = setting.other.InitAlways;
+            cbEmptyPlayList.Checked = setting.other.EmptyPlayList;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1279,6 +1280,7 @@ namespace MDPlayer.form
             setting.other.MMLExt = tbMMLExt.Text;
             setting.other.ImageExt = tbImageExt.Text;
             setting.other.InitAlways = cbInitAlways.Checked;
+            setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;

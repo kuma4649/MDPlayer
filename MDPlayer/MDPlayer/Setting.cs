@@ -1447,6 +1447,9 @@ namespace MDPlayer
             private bool _InitAlways = false;
             public bool InitAlways { get => _InitAlways; set => _InitAlways = value; }
 
+            private bool _EmptyPlayList = false;
+            public bool EmptyPlayList { get => _EmptyPlayList; set => _EmptyPlayList = value; }
+
             public Other Copy()
             {
                 Other other = new Other();
@@ -1467,6 +1470,7 @@ namespace MDPlayer
                 other.MMLExt = this.MMLExt;
                 other.ImageExt = this.ImageExt;
                 other.InitAlways = this.InitAlways;
+                other.EmptyPlayList = this.EmptyPlayList;
 
                 return other;
             }

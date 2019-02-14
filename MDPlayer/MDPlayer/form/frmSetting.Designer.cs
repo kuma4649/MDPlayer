@@ -74,6 +74,7 @@
             this.rbNukedOPN2OptionYM2612u = new System.Windows.Forms.RadioButton();
             this.rbNukedOPN2OptionYM2612 = new System.Windows.Forms.RadioButton();
             this.rbNukedOPN2OptionDiscrete = new System.Windows.Forms.RadioButton();
+            this.rbNukedOPN2OptionASIClp = new System.Windows.Forms.RadioButton();
             this.rbNukedOPN2OptionASIC = new System.Windows.Forms.RadioButton();
             this.tpNSF = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -410,7 +411,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.rbNukedOPN2OptionASIClp = new System.Windows.Forms.RadioButton();
+            this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1043,6 +1044,17 @@
             this.rbNukedOPN2OptionDiscrete.TabStop = true;
             this.rbNukedOPN2OptionDiscrete.Text = "Discrete(Teradrive)";
             this.rbNukedOPN2OptionDiscrete.UseVisualStyleBackColor = true;
+            // 
+            // rbNukedOPN2OptionASIClp
+            // 
+            this.rbNukedOPN2OptionASIClp.AutoSize = true;
+            this.rbNukedOPN2OptionASIClp.Location = new System.Drawing.Point(6, 106);
+            this.rbNukedOPN2OptionASIClp.Name = "rbNukedOPN2OptionASIClp";
+            this.rbNukedOPN2OptionASIClp.Size = new System.Drawing.Size(151, 16);
+            this.rbNukedOPN2OptionASIClp.TabIndex = 0;
+            this.rbNukedOPN2OptionASIClp.TabStop = true;
+            this.rbNukedOPN2OptionASIClp.Text = "ASIC(with lowpass filter)";
+            this.rbNukedOPN2OptionASIClp.UseVisualStyleBackColor = true;
             // 
             // rbNukedOPN2OptionASIC
             // 
@@ -4130,6 +4142,7 @@
             this.tpOther.Controls.Add(this.label19);
             this.tpOther.Controls.Add(this.btnResetPosition);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
+            this.tpOther.Controls.Add(this.cbEmptyPlayList);
             this.tpOther.Controls.Add(this.cbInitAlways);
             this.tpOther.Controls.Add(this.cbAutoOpen);
             this.tpOther.Controls.Add(this.cbUseLoopTimes);
@@ -4637,16 +4650,16 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // rbNukedOPN2OptionASIClp
+            // cbEmptyPlayList
             // 
-            this.rbNukedOPN2OptionASIClp.AutoSize = true;
-            this.rbNukedOPN2OptionASIClp.Location = new System.Drawing.Point(6, 106);
-            this.rbNukedOPN2OptionASIClp.Name = "rbNukedOPN2OptionASIClp";
-            this.rbNukedOPN2OptionASIClp.Size = new System.Drawing.Size(151, 16);
-            this.rbNukedOPN2OptionASIClp.TabIndex = 0;
-            this.rbNukedOPN2OptionASIClp.TabStop = true;
-            this.rbNukedOPN2OptionASIClp.Text = "ASIC(with lowpass filter)";
-            this.rbNukedOPN2OptionASIClp.UseVisualStyleBackColor = true;
+            this.cbEmptyPlayList.AutoSize = true;
+            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 308);
+            this.cbEmptyPlayList.Name = "cbEmptyPlayList";
+            this.cbEmptyPlayList.Size = new System.Drawing.Size(177, 16);
+            this.cbEmptyPlayList.TabIndex = 0;
+            this.cbEmptyPlayList.Text = "起動時にプレイリストを空にする。";
+            this.cbEmptyPlayList.UseVisualStyleBackColor = true;
+            this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // frmSetting
             // 
@@ -5186,5 +5199,6 @@
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionDiscrete;
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIC;
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
+        private System.Windows.Forms.CheckBox cbEmptyPlayList;
     }
 }
