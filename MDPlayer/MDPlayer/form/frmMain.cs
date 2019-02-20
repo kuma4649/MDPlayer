@@ -4459,9 +4459,9 @@ namespace MDPlayer.form
                 int c = (ch > 2) ? ch - 3 : ch;
                 int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
-                n = string.Format("@xx:{{\r\n  {0:D3} {1:D3}\r\n"
-                    , fmRegister[p][0xb0 + c] & 0x07//AL
+                n = string.Format("  @xx:{{\r\n  {0:D3} {1:D3}\r\n"
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
+                    , fmRegister[p][0xb0 + c] & 0x07//AL
                     );
 
                 for (int i = 0; i < 4; i++)
@@ -4479,7 +4479,7 @@ namespace MDPlayer.form
                         , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
                     );
                 }
-                n += "}\r\n";
+                n += "  }\r\n";
             }
             else if (chip == enmUseChip.YM2151)
             {
