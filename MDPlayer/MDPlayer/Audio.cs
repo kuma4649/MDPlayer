@@ -748,7 +748,10 @@ namespace MDPlayer
 
         public static void RealChipClose()
         {
-            realChip.Close();
+            if (realChip != null)
+            {
+                realChip.Close();
+            }
         }
 
         public static List<PlayList.music> getMusic(PlayList.music ms, byte[] buf, string zipFile = null)
@@ -1094,7 +1097,14 @@ namespace MDPlayer
 
             if (realChip == null)
             {
-                realChip = new RealChip();
+                try
+                {
+                    realChip = new RealChip();
+                }
+                catch
+                {
+                    realChip = null;
+                }
             }
 
             //if (cnscci == null)
@@ -1124,48 +1134,50 @@ namespace MDPlayer
             //        nirc.reset();
             //    }
             //}
+            if (realChip != null)
+            {
+                scYM2612[0] = realChip.GetRealChip(Audio.setting.YM2612Type);
+                if (scYM2612[0] != null) scYM2612[0].init();
+                scSN76489[0] = realChip.GetRealChip(Audio.setting.SN76489Type);
+                if (scSN76489[0] != null) scSN76489[0].init();
+                scYM2608[0] = realChip.GetRealChip(Audio.setting.YM2608Type);
+                if (scYM2608[0] != null) scYM2608[0].init();
+                scYM2151[0] = realChip.GetRealChip(Audio.setting.YM2151Type);
+                if (scYM2151[0] != null) scYM2151[0].init();
+                scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
+                if (scYM2203[0] != null) scYM2203[0].init();
+                scYM2610[0] = realChip.GetRealChip(Audio.setting.YM2610Type);
+                if (scYM2610[0] != null) scYM2610[0].init();
+                scYM2610EA[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 1);
+                if (scYM2610EA[0] != null) scYM2610EA[0].init();
+                scYM2610EB[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 2);
+                if (scYM2610EB[0] != null) scYM2610EB[0].init();
+                scSEGAPCM[0] = realChip.GetRealChip(Audio.setting.SEGAPCMType);
+                if (scSEGAPCM[0] != null) scSEGAPCM[0].init();
+                scC140[0] = realChip.GetRealChip(Audio.setting.C140Type);
+                if (scC140[0] != null) scC140[0].init();
 
-            scYM2612[0] = realChip.GetRealChip(Audio.setting.YM2612Type);
-            if (scYM2612[0] != null) scYM2612[0].init();
-            scSN76489[0] = realChip.GetRealChip(Audio.setting.SN76489Type);
-            if (scSN76489[0] != null) scSN76489[0].init();
-            scYM2608[0] = realChip.GetRealChip(Audio.setting.YM2608Type);
-            if (scYM2608[0] != null) scYM2608[0].init();
-            scYM2151[0] = realChip.GetRealChip(Audio.setting.YM2151Type);
-            if (scYM2151[0] != null) scYM2151[0].init();
-            scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
-            if (scYM2203[0] != null) scYM2203[0].init();
-            scYM2610[0] = realChip.GetRealChip(Audio.setting.YM2610Type);
-            if (scYM2610[0] != null) scYM2610[0].init();
-            scYM2610EA[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 1);
-            if (scYM2610EA[0] != null) scYM2610EA[0].init();
-            scYM2610EB[0] = realChip.GetRealChip(Audio.setting.YM2610Type, 2);
-            if (scYM2610EB[0] != null) scYM2610EB[0].init();
-            scSEGAPCM[0] = realChip.GetRealChip(Audio.setting.SEGAPCMType);
-            if (scSEGAPCM[0] != null) scSEGAPCM[0].init();
-            scC140[0] = realChip.GetRealChip(Audio.setting.C140Type);
-            if (scC140[0] != null) scC140[0].init();
-
-            scYM2612[1] = realChip.GetRealChip(Audio.setting.YM2612SType);
-            if (scYM2612[1] != null) scYM2612[1].init();
-            scSN76489[1] = realChip.GetRealChip(Audio.setting.SN76489SType);
-            if (scSN76489[1] != null) scSN76489[1].init();
-            scYM2608[1] = realChip.GetRealChip(Audio.setting.YM2608SType);
-            if (scYM2608[1] != null) scYM2608[1].init();
-            scYM2151[1] = realChip.GetRealChip(Audio.setting.YM2151SType);
-            if (scYM2151[1] != null) scYM2151[1].init();
-            scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
-            if (scYM2203[1] != null) scYM2203[1].init();
-            scYM2610[1] = realChip.GetRealChip(Audio.setting.YM2610SType);
-            if (scYM2610[1] != null) scYM2610[1].init();
-            scYM2610EA[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 1);
-            if (scYM2610EA[1] != null) scYM2610EA[1].init();
-            scYM2610EB[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 2);
-            if (scYM2610EB[1] != null) scYM2610EB[1].init();
-            scC140[1] = realChip.GetRealChip(Audio.setting.C140SType);
-            if (scC140[1] != null) scC140[1].init();
-            scSEGAPCM[1] = realChip.GetRealChip(Audio.setting.SEGAPCMSType);
-            if (scSEGAPCM[1] != null) scSEGAPCM[1].init();
+                scYM2612[1] = realChip.GetRealChip(Audio.setting.YM2612SType);
+                if (scYM2612[1] != null) scYM2612[1].init();
+                scSN76489[1] = realChip.GetRealChip(Audio.setting.SN76489SType);
+                if (scSN76489[1] != null) scSN76489[1].init();
+                scYM2608[1] = realChip.GetRealChip(Audio.setting.YM2608SType);
+                if (scYM2608[1] != null) scYM2608[1].init();
+                scYM2151[1] = realChip.GetRealChip(Audio.setting.YM2151SType);
+                if (scYM2151[1] != null) scYM2151[1].init();
+                scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
+                if (scYM2203[1] != null) scYM2203[1].init();
+                scYM2610[1] = realChip.GetRealChip(Audio.setting.YM2610SType);
+                if (scYM2610[1] != null) scYM2610[1].init();
+                scYM2610EA[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 1);
+                if (scYM2610EA[1] != null) scYM2610EA[1].init();
+                scYM2610EB[1] = realChip.GetRealChip(Audio.setting.YM2610SType, 2);
+                if (scYM2610EB[1] != null) scYM2610EB[1].init();
+                scC140[1] = realChip.GetRealChip(Audio.setting.C140SType);
+                if (scC140[1] != null) scC140[1].init();
+                scSEGAPCM[1] = realChip.GetRealChip(Audio.setting.SEGAPCMSType);
+                if (scSEGAPCM[1] != null) scSEGAPCM[1].init();
+            }
 
             chipRegister = new ChipRegister(
                 setting
