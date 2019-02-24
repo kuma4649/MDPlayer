@@ -35,10 +35,16 @@ namespace MDPlayer
             switch (chip)
             {
                 case enmUseChip.YM2151:
-                    if (setting.midiExport.UseYM2151Export) outMIDIData_YM2151(chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+                    if (setting.midiExport.UseYM2151Export)
+                    {
+                        outMIDIData_YM2151(chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
+                    }
                     break;
                 case enmUseChip.YM2612:
-                    if (setting.midiExport.UseYM2612Export) outMIDIData_YM2612(chipID, dPort, dAddr, dData, vgmFrameCounter);
+                    if (setting.midiExport.UseYM2612Export)
+                    {
+                        outMIDIData_YM2612(chipID, dPort, dAddr, dData, vgmFrameCounter);
+                    }
                     break;
             }
         }
@@ -203,48 +209,51 @@ namespace MDPlayer
                 return;
             }
 
-            if (dAddr >= 0x28 && dAddr < 0x30)
+            if (!setting.midiExport.KeyOnFnum)
             {
-                byte ch = (byte)(dAddr & 0x7);
-                int freq = midi2151.oldFreq[ch];
-                if (freq == -1) return;
-
-                freq = (freq & 0xfc00) | (dData & 0x007f);
-
-                if (freq != midi2151.oldFreq[ch])
+                if (dAddr >= 0x28 && dAddr < 0x30)
                 {
-                    int freq2nd = freq & 0x007f;
-                    //if (freq2nd == 0) return;
-                    int octav = (freq & 0x0070) >> 4;
-                    int note = searchOPMNote(freq2nd)+hosei;
-                    byte code = (byte)(octav * 12 + note);
+                    byte ch = (byte)(dAddr & 0x7);
+                    int freq = midi2151.oldFreq[ch];
+                    if (freq == -1) return;
 
-                    if (midi2151.oldCode[ch] != -1 && midi2151.oldCode[ch] != code)
+                    freq = (freq & 0xfc00) | (dData & 0x007f);
+
+                    if (freq != midi2151.oldFreq[ch])
                     {
-                        SetDelta(ch, midi2151, vgmFrameCounter);
-                        midi2151.data[ch].Add((byte)(0x80 | ch));
-                        midi2151.data[ch].Add((byte)midi2151.oldCode[ch]);
-                        midi2151.data[ch].Add(0x00);
+                        int freq2nd = freq & 0x007f;
+                        //if (freq2nd == 0) return;
+                        int octav = (freq & 0x0070) >> 4;
+                        int note = searchOPMNote(freq2nd) + hosei;
+                        byte code = (byte)(octav * 12 + note);
 
-                        midi2151.data[ch].Add(0);//delta0
-                        midi2151.data[ch].Add((byte)(0x90 | ch));
-                        midi2151.data[ch].Add(code);
-                        if (setting.midiExport.UseVOPMex)
+                        if (midi2151.oldCode[ch] != -1 && midi2151.oldCode[ch] != code)
                         {
-                            midi2151.data[ch].Add(127);
-                        }
-                        else
-                        {
-                            byte vel = (byte)(127 - fmRegisterYM2151[chipID][0x78 + ch]);
-                            midi2151.data[ch].Add(vel);
-                        }
+                            SetDelta(ch, midi2151, vgmFrameCounter);
+                            midi2151.data[ch].Add((byte)(0x80 | ch));
+                            midi2151.data[ch].Add((byte)midi2151.oldCode[ch]);
+                            midi2151.data[ch].Add(0x00);
 
-                        midi2151.oldFreq[ch] = freq;
-                        midi2151.oldCode[ch] = code;
+                            midi2151.data[ch].Add(0);//delta0
+                            midi2151.data[ch].Add((byte)(0x90 | ch));
+                            midi2151.data[ch].Add(code);
+                            if (setting.midiExport.UseVOPMex)
+                            {
+                                midi2151.data[ch].Add(127);
+                            }
+                            else
+                            {
+                                byte vel = (byte)(127 - fmRegisterYM2151[chipID][0x78 + ch]);
+                                midi2151.data[ch].Add(vel);
+                            }
+
+                            midi2151.oldFreq[ch] = freq;
+                            midi2151.oldCode[ch] = code;
+                        }
                     }
-                }
 
-                return;
+                    return;
+                }
             }
 
             ////
@@ -448,15 +457,19 @@ namespace MDPlayer
                 MakeHeader();
             }
 
+            //KeyON時
             if (dPort == 0 && dAddr == 0x28)
             {
                 byte ch = (byte)(dData & 0x7);
                 ch = (byte)(ch > 2 ? ch - 1 : ch);
-                byte cmd = (byte)((dData & 0xf0) != 0 ? 0x90 : 0x80);
+                byte cmd = (byte)((dData & 0xf0) != 0 ? 0x90 : 0x80);//オペレータが一つでもonならnoteON(0x90) 全てoffならnoteOFF(0x80)
 
+                //必要なレジスタを読むための情報であるチャンネルとポートを取得
                 int p = ch > 2 ? 1 : 0;
                 int vch = ch > 2 ? (ch - 3) : ch;
                 if (ch > 5) return;
+
+                //キーオンしたチャンネルのFnumを取得
                 midi2612.oldFreq[ch] = fmRegisterYM2612[chipID][p][0xa0 + vch] + (fmRegisterYM2612[chipID][p][0xa4 + vch] & 0x3f) * 0x100;
                 int freq = midi2612.oldFreq[ch] & 0x7ff;
                 if (freq == 0) return;
@@ -464,12 +477,16 @@ namespace MDPlayer
                 int note = searchFMNote(freq);
                 byte code = (byte)(octav * 12 + note);
 
+                //オペレータ4のトータルレベルのみ取得(音量として使う)
                 byte vel = (byte)(127 - fmRegisterYM2612[chipID][p][0x4c + vch]);
 
+                //前回のコードが負で且つ noteOFFなら何もせずに処理終了
                 if (midi2612.oldCode[ch] < 0 && cmd == 0x80) return;
 
+                //デルタのセット(前回のデータ送信から経過した時間をセットする)
                 SetDelta(ch, midi2612, vgmFrameCounter);
 
+                //前回のコードが正(発音中である)の時、またはnoteOFFの時　noteOFFのコマンドを発行
                 if (midi2612.oldCode[ch] >= 0 || cmd == 0x80)
                 {
                     midi2612.data[ch].Add((byte)(0x80 | ch));
@@ -480,6 +497,7 @@ namespace MDPlayer
                     if (cmd != 0x80) midi2612.data[ch].Add(0);//NextDeltaTime
                 }
 
+                //noteONの場合は、noteONコマンドを発行
                 if (cmd == 0x90)
                 {
                     midi2612.data[ch].Add((byte)(0x90 | ch));
@@ -499,54 +517,65 @@ namespace MDPlayer
                 return;
             }
 
-            if (dAddr >= 0xa0 && dAddr < 0xa8)
+            if (!setting.midiExport.KeyOnFnum)
             {
-                byte ch = (byte)((dAddr & 0x3) + dPort * 3);
-                int freq = midi2612.oldFreq[ch];
-                int vch = ch > 2 ? (ch - 3) : ch;
-                if (freq == -1) return;
-                if (dAddr < 0xa4)
+                //Fnumを設定したとき
+                if (dAddr >= 0xa0 && dAddr < 0xa8)
                 {
-                    freq = (freq & 0x3f00) | dData;
-                }
-                else
-                {
-                    freq = (freq & 0xff) | ((dData & 0x3f) << 8);
-                }
-
-                if (freq != midi2612.oldFreq[ch])
-                {
-                    int freq2nd = freq & 0x07ff;
-                    if (freq2nd == 0) return;
-                    int octav = (freq & 0x3800) >> 11;
-                    int note = searchFMNote(freq2nd);
-                    byte code = (byte)(octav * 12 + note);
-                    if (midi2612.oldCode[ch] != -1 && midi2612.oldCode[ch] != code)
+                    //fnumの情報を読み出す
+                    byte ch = (byte)((dAddr & 0x3) + dPort * 3);
+                    int freq = midi2612.oldFreq[ch];
+                    int vch = ch > 2 ? (ch - 3) : ch;
+                    if (freq == -1) return;
+                    if (dAddr < 0xa4)
                     {
-                        SetDelta(ch, midi2612, vgmFrameCounter);
-                        midi2612.data[ch].Add((byte)(0x80 | ch));
-                        midi2612.data[ch].Add((byte)midi2612.oldCode[ch]);
-                        midi2612.data[ch].Add(0x00);
-
-                        midi2612.data[ch].Add(0);//delta0
-                        midi2612.data[ch].Add((byte)(0x90 | ch));
-                        midi2612.data[ch].Add(code);
-                        if (setting.midiExport.UseVOPMex)
-                        {
-                            midi2612.data[ch].Add(127);
-                        }
-                        else
-                        {
-                            byte vel = (byte)(127 - fmRegisterYM2612[chipID][dPort][0x4c + vch]);
-                            midi2612.data[ch].Add(vel);
-                        }
-
-                        midi2612.oldFreq[ch] = freq;
-                        midi2612.oldCode[ch] = code;
+                        freq = (freq & 0x3f00) | dData;
                     }
-                }
+                    else
+                    {
+                        freq = (freq & 0xff) | ((dData & 0x3f) << 8);
+                    }
 
-                return;
+                    //もし前回と異なる値を設定していた場合はもっと詳細に調べる
+                    if (freq != midi2612.oldFreq[ch])
+                    {
+                        //今回の音階を調べる
+                        int freq2nd = freq & 0x07ff;
+                        if (freq2nd == 0) return;
+                        int octav = (freq & 0x3800) >> 11;
+                        int note = searchFMNote(freq2nd);
+                        byte code = (byte)(octav * 12 + note);
+
+                        //現在発音中で、更に前回と音階が異なっているか調べる
+                        if (midi2612.oldCode[ch] != -1 && midi2612.oldCode[ch] != code)
+                        {
+                            //一旦キーオフする
+                            SetDelta(ch, midi2612, vgmFrameCounter);
+                            midi2612.data[ch].Add((byte)(0x80 | ch));
+                            midi2612.data[ch].Add((byte)midi2612.oldCode[ch]);
+                            midi2612.data[ch].Add(0x00);
+
+                            //今回の音階でキーオンしなおす
+                            midi2612.data[ch].Add(0);//delta0
+                            midi2612.data[ch].Add((byte)(0x90 | ch));
+                            midi2612.data[ch].Add(code);
+                            if (setting.midiExport.UseVOPMex)
+                            {
+                                midi2612.data[ch].Add(127);
+                            }
+                            else
+                            {
+                                byte vel = (byte)(127 - fmRegisterYM2612[chipID][dPort][0x4c + vch]);
+                                midi2612.data[ch].Add(vel);
+                            }
+
+                            midi2612.oldFreq[ch] = freq;
+                            midi2612.oldCode[ch] = code;
+                        }
+                    }
+
+                    return;
+                }
             }
 
             ////

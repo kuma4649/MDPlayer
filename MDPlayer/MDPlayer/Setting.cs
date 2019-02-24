@@ -3477,6 +3477,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool _KeyOnFnum = false;
+            public bool KeyOnFnum
+            {
+                get
+                {
+                    return _KeyOnFnum;
+                }
+
+                set
+                {
+                    _KeyOnFnum = value;
+                }
+            }
+
 
             public MidiExport Copy()
             {
@@ -3487,6 +3501,7 @@ namespace MDPlayer
                 MidiExport.UseYM2612Export = this.UseYM2612Export;
                 MidiExport.ExportPath = this.ExportPath;
                 MidiExport.UseVOPMex = this.UseVOPMex;
+                MidiExport.KeyOnFnum = this.KeyOnFnum;
 
                 return MidiExport;
             }

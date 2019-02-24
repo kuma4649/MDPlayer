@@ -438,6 +438,7 @@ namespace MDPlayer.form
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
             tbMIDIOutputPath.Text = setting.midiExport.ExportPath;
             cbMIDIUseVOPM.Checked = setting.midiExport.UseVOPMex;
+            cbMIDIKeyOnFnum.Checked = setting.midiExport.KeyOnFnum;
             cbMIDIYM2151.Checked = setting.midiExport.UseYM2151Export;
             cbMIDIYM2612.Checked = setting.midiExport.UseYM2612Export;
 
@@ -1288,6 +1289,7 @@ namespace MDPlayer.form
             setting.midiExport.UseMIDIExport=cbUseMIDIExport.Checked;
             setting.midiExport.ExportPath = tbMIDIOutputPath.Text;
             setting.midiExport.UseVOPMex = cbMIDIUseVOPM.Checked;
+            setting.midiExport.KeyOnFnum = cbMIDIKeyOnFnum.Checked;
             setting.midiExport.UseYM2151Export = cbMIDIYM2151.Checked;
             setting.midiExport.UseYM2612Export = cbMIDIYM2612.Checked;
 

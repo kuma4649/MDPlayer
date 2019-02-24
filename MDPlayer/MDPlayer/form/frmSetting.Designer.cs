@@ -394,6 +394,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.btnResetPosition = new System.Windows.Forms.Button();
             this.btnOpenSettingFolder = new System.Windows.Forms.Button();
+            this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
             this.cbInitAlways = new System.Windows.Forms.CheckBox();
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
@@ -411,7 +412,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
+            this.cbMIDIKeyOnFnum = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -2399,6 +2400,7 @@
             // 
             // gbMIDIExport
             // 
+            this.gbMIDIExport.Controls.Add(this.cbMIDIKeyOnFnum);
             this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
             this.gbMIDIExport.Controls.Add(this.groupBox6);
             this.gbMIDIExport.Controls.Add(this.cbMIDIPlayless);
@@ -2435,7 +2437,7 @@
             this.groupBox6.Controls.Add(this.cbMIDIYM2608Sec);
             this.groupBox6.Controls.Add(this.cbMIDIYM2203Sec);
             this.groupBox6.Controls.Add(this.cbMIDIYM2608);
-            this.groupBox6.Location = new System.Drawing.Point(21, 91);
+            this.groupBox6.Location = new System.Drawing.Point(20, 113);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(188, 152);
             this.groupBox6.TabIndex = 22;
@@ -2587,7 +2589,7 @@
             // 
             // btnMIDIOutputPath
             // 
-            this.btnMIDIOutputPath.Location = new System.Drawing.Point(404, 64);
+            this.btnMIDIOutputPath.Location = new System.Drawing.Point(403, 86);
             this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
             this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
             this.btnMIDIOutputPath.TabIndex = 19;
@@ -2598,7 +2600,7 @@
             // lblOutputPath
             // 
             this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Location = new System.Drawing.Point(20, 69);
+            this.lblOutputPath.Location = new System.Drawing.Point(19, 91);
             this.lblOutputPath.Name = "lblOutputPath";
             this.lblOutputPath.Size = new System.Drawing.Size(52, 12);
             this.lblOutputPath.TabIndex = 17;
@@ -2606,7 +2608,7 @@
             // 
             // tbMIDIOutputPath
             // 
-            this.tbMIDIOutputPath.Location = new System.Drawing.Point(78, 66);
+            this.tbMIDIOutputPath.Location = new System.Drawing.Point(77, 88);
             this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
             this.tbMIDIOutputPath.Size = new System.Drawing.Size(320, 19);
             this.tbMIDIOutputPath.TabIndex = 18;
@@ -4447,6 +4449,17 @@
             this.btnOpenSettingFolder.UseVisualStyleBackColor = true;
             this.btnOpenSettingFolder.Click += new System.EventHandler(this.btnOpenSettingFolder_Click);
             // 
+            // cbEmptyPlayList
+            // 
+            this.cbEmptyPlayList.AutoSize = true;
+            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 308);
+            this.cbEmptyPlayList.Name = "cbEmptyPlayList";
+            this.cbEmptyPlayList.Size = new System.Drawing.Size(177, 16);
+            this.cbEmptyPlayList.TabIndex = 0;
+            this.cbEmptyPlayList.Text = "起動時にプレイリストを空にする。";
+            this.cbEmptyPlayList.UseVisualStyleBackColor = true;
+            this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
             // cbInitAlways
             // 
             this.cbInitAlways.Location = new System.Drawing.Point(240, 263);
@@ -4650,16 +4663,15 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // cbEmptyPlayList
+            // cbMIDIKeyOnFnum
             // 
-            this.cbEmptyPlayList.AutoSize = true;
-            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 308);
-            this.cbEmptyPlayList.Name = "cbEmptyPlayList";
-            this.cbEmptyPlayList.Size = new System.Drawing.Size(177, 16);
-            this.cbEmptyPlayList.TabIndex = 0;
-            this.cbEmptyPlayList.Text = "起動時にプレイリストを空にする。";
-            this.cbEmptyPlayList.UseVisualStyleBackColor = true;
-            this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            this.cbMIDIKeyOnFnum.AutoSize = true;
+            this.cbMIDIKeyOnFnum.Location = new System.Drawing.Point(21, 66);
+            this.cbMIDIKeyOnFnum.Name = "cbMIDIKeyOnFnum";
+            this.cbMIDIKeyOnFnum.Size = new System.Drawing.Size(169, 16);
+            this.cbMIDIKeyOnFnum.TabIndex = 23;
+            this.cbMIDIKeyOnFnum.Text = "KeyON時のみfnumを評価する";
+            this.cbMIDIKeyOnFnum.UseVisualStyleBackColor = true;
             // 
             // frmSetting
             // 
@@ -5200,5 +5212,6 @@
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIC;
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
         private System.Windows.Forms.CheckBox cbEmptyPlayList;
+        private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
     }
 }
