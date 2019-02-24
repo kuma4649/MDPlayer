@@ -159,9 +159,9 @@
             this.rbYM2151P_SCCI.AutoSize = true;
             this.rbYM2151P_SCCI.Location = new System.Drawing.Point(165, 35);
             this.rbYM2151P_SCCI.Name = "rbYM2151P_SCCI";
-            this.rbYM2151P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2151P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2151P_SCCI.TabIndex = 1;
-            this.rbYM2151P_SCCI.Text = "SCCI";
+            this.rbYM2151P_SCCI.Text = "Real";
             this.rbYM2151P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2151P_Silent
@@ -250,9 +250,9 @@
             this.rbYM2151S_SCCI.AutoSize = true;
             this.rbYM2151S_SCCI.Location = new System.Drawing.Point(165, 35);
             this.rbYM2151S_SCCI.Name = "rbYM2151S_SCCI";
-            this.rbYM2151S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2151S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2151S_SCCI.TabIndex = 1;
-            this.rbYM2151S_SCCI.Text = "SCCI";
+            this.rbYM2151S_SCCI.Text = "Real";
             this.rbYM2151S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2151S_Silent
@@ -311,9 +311,9 @@
             this.rbYM2203P_SCCI.AutoSize = true;
             this.rbYM2203P_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2203P_SCCI.Name = "rbYM2203P_SCCI";
-            this.rbYM2203P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2203P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2203P_SCCI.TabIndex = 1;
-            this.rbYM2203P_SCCI.Text = "SCCI";
+            this.rbYM2203P_SCCI.Text = "Real";
             this.rbYM2203P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2203P_Emu
@@ -378,9 +378,9 @@
             this.rbYM2203S_SCCI.AutoSize = true;
             this.rbYM2203S_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2203S_SCCI.Name = "rbYM2203S_SCCI";
-            this.rbYM2203S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2203S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2203S_SCCI.TabIndex = 1;
-            this.rbYM2203S_SCCI.Text = "SCCI";
+            this.rbYM2203S_SCCI.Text = "Real";
             this.rbYM2203S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2203S_Silent
@@ -419,9 +419,9 @@
             this.rbYM2608P_SCCI.AutoSize = true;
             this.rbYM2608P_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2608P_SCCI.Name = "rbYM2608P_SCCI";
-            this.rbYM2608P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2608P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2608P_SCCI.TabIndex = 1;
-            this.rbYM2608P_SCCI.Text = "SCCI";
+            this.rbYM2608P_SCCI.Text = "Real";
             this.rbYM2608P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2608P_Emu
@@ -486,9 +486,9 @@
             this.rbYM2608S_SCCI.AutoSize = true;
             this.rbYM2608S_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2608S_SCCI.Name = "rbYM2608S_SCCI";
-            this.rbYM2608S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2608S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2608S_SCCI.TabIndex = 1;
-            this.rbYM2608S_SCCI.Text = "SCCI";
+            this.rbYM2608S_SCCI.Text = "Real";
             this.rbYM2608S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2608S_Silent
@@ -527,9 +527,9 @@
             this.rbYM2610BP_SCCI.AutoSize = true;
             this.rbYM2610BP_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2610BP_SCCI.Name = "rbYM2610BP_SCCI";
-            this.rbYM2610BP_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2610BP_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2610BP_SCCI.TabIndex = 1;
-            this.rbYM2610BP_SCCI.Text = "SCCI";
+            this.rbYM2610BP_SCCI.Text = "Real";
             this.rbYM2610BP_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2610BP_Emu
@@ -593,9 +593,9 @@
             this.rbYM2610BEP_SCCI.AutoSize = true;
             this.rbYM2610BEP_SCCI.Location = new System.Drawing.Point(4, 39);
             this.rbYM2610BEP_SCCI.Name = "rbYM2610BEP_SCCI";
-            this.rbYM2610BEP_SCCI.Size = new System.Drawing.Size(59, 16);
+            this.rbYM2610BEP_SCCI.Size = new System.Drawing.Size(56, 16);
             this.rbYM2610BEP_SCCI.TabIndex = 1;
-            this.rbYM2610BEP_SCCI.Text = "SCCI_2";
+            this.rbYM2610BEP_SCCI.Text = "Real_2";
             this.rbYM2610BEP_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2610BP_Silent
@@ -657,9 +657,9 @@
             this.rbYM2610BS_SCCI.AutoSize = true;
             this.rbYM2610BS_SCCI.Location = new System.Drawing.Point(165, 13);
             this.rbYM2610BS_SCCI.Name = "rbYM2610BS_SCCI";
-            this.rbYM2610BS_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2610BS_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2610BS_SCCI.TabIndex = 1;
-            this.rbYM2610BS_SCCI.Text = "SCCI";
+            this.rbYM2610BS_SCCI.Text = "Real";
             this.rbYM2610BS_SCCI.UseVisualStyleBackColor = true;
             // 
             // cmbSPPCMS_SCCI
@@ -698,9 +698,9 @@
             this.rbYM2610BES_SCCI.AutoSize = true;
             this.rbYM2610BES_SCCI.Location = new System.Drawing.Point(4, 39);
             this.rbYM2610BES_SCCI.Name = "rbYM2610BES_SCCI";
-            this.rbYM2610BES_SCCI.Size = new System.Drawing.Size(59, 16);
+            this.rbYM2610BES_SCCI.Size = new System.Drawing.Size(56, 16);
             this.rbYM2610BES_SCCI.TabIndex = 1;
-            this.rbYM2610BES_SCCI.Text = "SCCI_2";
+            this.rbYM2610BES_SCCI.Text = "Real_2";
             this.rbYM2610BES_SCCI.UseVisualStyleBackColor = true;
             // 
             // cbEmulationPCMOnly
@@ -748,9 +748,9 @@
             this.rbYM2612P_SCCI.AutoSize = true;
             this.rbYM2612P_SCCI.Location = new System.Drawing.Point(165, 37);
             this.rbYM2612P_SCCI.Name = "rbYM2612P_SCCI";
-            this.rbYM2612P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2612P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2612P_SCCI.TabIndex = 1;
-            this.rbYM2612P_SCCI.Text = "SCCI";
+            this.rbYM2612P_SCCI.Text = "Real";
             this.rbYM2612P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2612P_Emu
@@ -837,9 +837,9 @@
             this.rbYM2612S_SCCI.AutoSize = true;
             this.rbYM2612S_SCCI.Location = new System.Drawing.Point(165, 37);
             this.rbYM2612S_SCCI.Name = "rbYM2612S_SCCI";
-            this.rbYM2612S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbYM2612S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2612S_SCCI.TabIndex = 1;
-            this.rbYM2612S_SCCI.Text = "SCCI";
+            this.rbYM2612S_SCCI.Text = "Real";
             this.rbYM2612S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbYM2612S_EmuNuked
@@ -878,9 +878,9 @@
             this.rbSN76489P_SCCI.AutoSize = true;
             this.rbSN76489P_SCCI.Location = new System.Drawing.Point(165, 15);
             this.rbSN76489P_SCCI.Name = "rbSN76489P_SCCI";
-            this.rbSN76489P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbSN76489P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSN76489P_SCCI.TabIndex = 1;
-            this.rbSN76489P_SCCI.Text = "SCCI";
+            this.rbSN76489P_SCCI.Text = "Real";
             this.rbSN76489P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbSN76489P_Emu
@@ -945,9 +945,9 @@
             this.rbSN76489S_SCCI.AutoSize = true;
             this.rbSN76489S_SCCI.Location = new System.Drawing.Point(165, 15);
             this.rbSN76489S_SCCI.Name = "rbSN76489S_SCCI";
-            this.rbSN76489S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbSN76489S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSN76489S_SCCI.TabIndex = 1;
-            this.rbSN76489S_SCCI.Text = "SCCI";
+            this.rbSN76489S_SCCI.Text = "Real";
             this.rbSN76489S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbSN76489S_Silent
@@ -1011,9 +1011,9 @@
             this.rbC140S_SCCI.AutoSize = true;
             this.rbC140S_SCCI.Location = new System.Drawing.Point(165, 15);
             this.rbC140S_SCCI.Name = "rbC140S_SCCI";
-            this.rbC140S_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbC140S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbC140S_SCCI.TabIndex = 1;
-            this.rbC140S_SCCI.Text = "SCCI";
+            this.rbC140S_SCCI.Text = "Real";
             this.rbC140S_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbC140S_Silent
@@ -1065,9 +1065,9 @@
             this.rbC140P_SCCI.AutoSize = true;
             this.rbC140P_SCCI.Location = new System.Drawing.Point(165, 15);
             this.rbC140P_SCCI.Name = "rbC140P_SCCI";
-            this.rbC140P_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbC140P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbC140P_SCCI.TabIndex = 1;
-            this.rbC140P_SCCI.Text = "SCCI";
+            this.rbC140P_SCCI.Text = "Real";
             this.rbC140P_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbC140P_Silent
@@ -1119,9 +1119,9 @@
             this.rbSEGAPCMS_SCCI.AutoSize = true;
             this.rbSEGAPCMS_SCCI.Location = new System.Drawing.Point(222, 15);
             this.rbSEGAPCMS_SCCI.Name = "rbSEGAPCMS_SCCI";
-            this.rbSEGAPCMS_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbSEGAPCMS_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSEGAPCMS_SCCI.TabIndex = 1;
-            this.rbSEGAPCMS_SCCI.Text = "SCCI";
+            this.rbSEGAPCMS_SCCI.Text = "Real";
             this.rbSEGAPCMS_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbSEGAPCMS_Silent
@@ -1173,9 +1173,9 @@
             this.rbSEGAPCMP_SCCI.AutoSize = true;
             this.rbSEGAPCMP_SCCI.Location = new System.Drawing.Point(222, 15);
             this.rbSEGAPCMP_SCCI.Name = "rbSEGAPCMP_SCCI";
-            this.rbSEGAPCMP_SCCI.Size = new System.Drawing.Size(49, 16);
+            this.rbSEGAPCMP_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSEGAPCMP_SCCI.TabIndex = 1;
-            this.rbSEGAPCMP_SCCI.Text = "SCCI";
+            this.rbSEGAPCMP_SCCI.Text = "Real";
             this.rbSEGAPCMP_SCCI.UseVisualStyleBackColor = true;
             // 
             // rbSEGAPCMP_Silent

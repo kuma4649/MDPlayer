@@ -1097,14 +1097,7 @@ namespace MDPlayer
 
             if (realChip == null)
             {
-                try
-                {
-                    realChip = new RealChip();
-                }
-                catch
-                {
-                    realChip = null;
-                }
+                realChip = new RealChip();
             }
 
             //if (cnscci == null)

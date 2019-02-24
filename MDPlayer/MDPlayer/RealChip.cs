@@ -40,29 +40,54 @@ namespace MDPlayer
 
         public RealChip() 
         {
+            log.ForcedWrite("RealChip:Ctr:STEP 00(Start)");
+
             int n = 0;
-            nScci = new NScci.NScci();
-            n = nScci.NSoundInterfaceManager_.getInterfaceCount();
-            if (n == 0)
+            try
             {
-                nScci.Dispose();
+                nScci = new NScci.NScci();
+                n = nScci.NSoundInterfaceManager_.getInterfaceCount();
+                if (n == 0)
+                {
+                    nScci.Dispose();
+                    nScci = null;
+                    log.ForcedWrite("RealChip:Ctr:Not found SCCI.");
+                }
+                else
+                {
+                    log.ForcedWrite(string.Format("RealChip:Ctr:Found SCCI.(Interface count={0})", n));
+                    getScciInstances();
+                    nScci.NSoundInterfaceManager_.setLevelDisp(false);
+                }
+            }
+            catch
+            {
                 nScci = null;
             }
-            getScciInstances();
-            nScci.NSoundInterfaceManager_.setLevelDisp(false);
 
-            nc86ctl = new Nc86ctl.Nc86ctl();
-            n = nc86ctl.getNumberOfChip();
-            if (n == 0)
+            log.ForcedWrite("RealChip:Ctr:STEP 01");
+            try
             {
-                nc86ctl.deinitialize();
+                nc86ctl = new Nc86ctl.Nc86ctl();
+                n = nc86ctl.getNumberOfChip();
+                if (n == 0)
+                {
+                    nc86ctl.deinitialize();
+                    nc86ctl = null;
+                    log.ForcedWrite("RealChip:Ctr:Not found G.I.M.I.C.");
+                }
+                else
+                {
+                    log.ForcedWrite(string.Format("RealChip:Ctr:Found G.I.M.I.C.(Interface count={0})", n));
+                    Nc86ctl.NIRealChip nirc = nc86ctl.getChipInterface(0);
+                    nirc.reset();
+                }
+            }
+            catch
+            {
                 nc86ctl = null;
             }
-            else
-            {
-                Nc86ctl.NIRealChip nirc = nc86ctl.getChipInterface(0);
-                nirc.reset();
-            }
+            log.ForcedWrite("RealChip:Ctr:STEP 02(Success)");
         }
 
         public void Close()
@@ -132,7 +157,10 @@ namespace MDPlayer
         public void SendData()
         {
             if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
-            if (nc86ctl != null) { }
+            if (nc86ctl != null)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
         }
 
         public RSoundChip GetRealChip(Setting.ChipType chipType,int ind=0)
