@@ -2280,6 +2280,38 @@ namespace MDPlayer
                 }
             }
 
+            private int _GimicOPNVolume = 0;
+            public int GimicOPNVolume
+            {
+                get
+                {
+                    if (_GimicOPNVolume > 127 || _GimicOPNVolume < 0) _GimicOPNVolume = 30;
+                    return _GimicOPNVolume;
+                }
+
+                set
+                {
+                    _GimicOPNVolume = value;
+                    if (_GimicOPNVolume > 127 || _GimicOPNVolume < 0) _GimicOPNVolume = 30;
+                }
+            }
+
+            private int _GimicOPNAVolume = 0;
+            public int GimicOPNAVolume
+            {
+                get
+                {
+                    if (_GimicOPNAVolume > 127 || _GimicOPNAVolume < 0) _GimicOPNAVolume = 30;
+                    return _GimicOPNAVolume;
+                }
+
+                set
+                {
+                    _GimicOPNAVolume = value;
+                    if (_GimicOPNAVolume > 127 || _GimicOPNAVolume < 0) _GimicOPNAVolume = 30;
+                }
+            }
+
             public Balance Copy()
             {
                 Balance Balance = new Balance();
@@ -2335,6 +2367,9 @@ namespace MDPlayer
                 Balance.YM3526Volume = this.YM3526Volume;
                 Balance.Y8950Volume = this.Y8950Volume;
                 Balance.YM3812Volume = this.YM3812Volume;
+
+                Balance.GimicOPNVolume = this.GimicOPNVolume;
+                Balance.GimicOPNAVolume = this.GimicOPNAVolume;
 
                 return Balance;
             }

@@ -15,7 +15,7 @@ namespace MDPlayer
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // 重複する呼び出しを検出するには
+        private bool disposedValue = false; 
 
         protected virtual void Dispose(bool disposing)
         {
@@ -30,7 +30,6 @@ namespace MDPlayer
             }
         }
 
-        // このコードは、破棄可能なパターンを正しく実装できるように追加されました。
         public void Dispose()
         {
             Dispose(true);
@@ -151,7 +150,16 @@ namespace MDPlayer
         public void reset()
         {
             if (nScci != null) nScci.NSoundInterfaceManager_.reset();
-            if (nc86ctl != null) nc86ctl.initialize();
+            if (nc86ctl != null)
+            {
+                //nc86ctl.initialize();
+                int n=nc86ctl.getNumberOfChip();
+                for(int i = 0; i < n; i++)
+                {
+                    NIRealChip rc= nc86ctl.getChipInterface(i);
+                    rc.reset();
+                }
+            }
         }
 
         public void SendData()
@@ -310,13 +318,14 @@ namespace MDPlayer
                     int o = -1;
                     switch (realChipType)
                     {
+                        case enmRealChipType.YM2203:
                         case enmRealChipType.YM2608:
-                            if (cct == ChipType.CHIP_YM2608)
+                            if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288 || cct == ChipType.CHIP_YM2203)
                             {
                                 ct = new Setting.ChipType();
                                 ct.SoundLocation = -1;
                                 ct.BusID = i;
-                                string seri= gm.getModuleInfo().Serial;
+                                string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.SoundChip = o;
                                 ct.ChipName = gm.getModuleInfo().Devname;
@@ -352,7 +361,7 @@ namespace MDPlayer
         protected int BusID;
         protected int SoundChip;
 
-        public int dClock = 3579545;
+        public uint dClock = 3579545;
 
         public RSoundChip(int soundLocation,int busID,int soundChip)
         {
@@ -375,6 +384,17 @@ namespace MDPlayer
         {
             throw new NotImplementedException();
         }
+
+        virtual public uint SetMasterClock(uint mClock)
+        {
+            throw new NotImplementedException();
+        }
+
+        virtual public void setSSGVolume(byte vol)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
     public class RScciSoundChip : RSoundChip
@@ -391,12 +411,16 @@ namespace MDPlayer
             NSoundInterface nsif = scci.NSoundInterfaceManager_.getInterface(BusID);
             NSoundChip nsc = nsif.getSoundChip(SoundChip);
             realChip = nsc;
-            dClock = nsc.getSoundChipClock();
-            if (nsc.getSoundChipType() == (int)enmRealChipType.YM2608)
+            dClock = (uint)nsc.getSoundChipClock();
+
+            //chipの種類ごとに初期化コマンドを送りたい場合
+            switch (nsc.getSoundChipType())
             {
-                //setRegister(0x2d, 00);
-                //setRegister(0x29, 82);
-                //setRegister(0x07, 38);
+                case (int)enmRealChipType.YM2608:
+                    //setRegister(0x2d, 00);
+                    //setRegister(0x29, 82);
+                    //setRegister(0x07, 38);
+                    break;
             }
         }
 
@@ -409,12 +433,31 @@ namespace MDPlayer
         {
             return realChip.isBufferEmpty();
         }
+
+        /// <summary>
+        /// マスタークロックの設定
+        /// </summary>
+        /// <param name="mClock">設定したい値</param>
+        /// <returns>実際設定された値</returns>
+        override public uint SetMasterClock(uint mClock)
+        {
+            //SCCIはクロックの変更不可
+
+            return (uint)realChip.getSoundChipClock();
+        }
+
+        override public void setSSGVolume(byte vol)
+        {
+            //SCCIはSSG音量の変更不可
+        }
+
     }
 
     public class RC86ctlSoundChip : RSoundChip
     {
         public Nc86ctl.Nc86ctl c86ctl = null;
-        private Nc86ctl.NIRealChip realChip = null;
+        public Nc86ctl.NIRealChip realChip = null;
+        public Nc86ctl.ChipType chiptype = ChipType.CHIP_UNKNOWN;
 
         public RC86ctlSoundChip(int soundLocation, int busID, int soundChip) : base(soundLocation, busID, soundChip)
         {
@@ -427,7 +470,8 @@ namespace MDPlayer
             realChip = rc;
             NIGimic2 gm = rc.QueryInterface();
             dClock = gm.getPLLClock();
-            if(gm.getModuleType()== ChipType.CHIP_YM2608)
+            chiptype = gm.getModuleType();
+            if (chiptype == ChipType.CHIP_YM2608)
             {
                 //setRegister(0x2d, 00);
                 //setRegister(0x29, 82);
@@ -443,6 +487,25 @@ namespace MDPlayer
         override public bool isBufferEmpty()
         {
             return true;
+        }
+
+        /// <summary>
+        /// マスタークロックの設定
+        /// </summary>
+        /// <param name="mClock">設定したい値</param>
+        /// <returns>実際設定された値</returns>
+        override public uint SetMasterClock(uint mClock)
+        {
+            NIGimic2 gm = realChip.QueryInterface();
+            gm.setPLLClock(mClock);
+
+            return gm.getPLLClock();
+        }
+
+        override public void setSSGVolume(byte vol)
+        {
+            NIGimic2 gm = realChip.QueryInterface();
+            gm.setSSGVolume(vol);
         }
 
     }

@@ -450,6 +450,9 @@ namespace MDPlayer
             public VolumeInfo VRC7 = new VolumeInfo();
             public VolumeInfo FME7 = new VolumeInfo();
             public VolumeInfo DMG = new VolumeInfo();
+
+            public VolumeInfo GimicOPN = new VolumeInfo();
+            public VolumeInfo GimicOPNA = new VolumeInfo();
         }
         public Mixer mixer = new Mixer();
 

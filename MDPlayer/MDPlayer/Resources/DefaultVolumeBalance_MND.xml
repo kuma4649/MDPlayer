@@ -46,4 +46,6 @@
   <MultiPCMVolume>-192</MultiPCMVolume>
   <QSoundVolume>-192</QSoundVolume>
   <K051649Volume>-192</K051649Volume>
+  <GimicOPNVolume>31</GimicOPNVolume>
+  <GimicOPNAVolume>31</GimicOPNAVolume>
 </Balance>

@@ -171,6 +171,9 @@ namespace MDPlayer.form
             newParam.FME7.Volume = parent.setting.balance.FME7Volume;
             newParam.DMG.Volume = parent.setting.balance.DMGVolume;
 
+            newParam.GimicOPN.Volume = parent.setting.balance.GimicOPNVolume;
+            newParam.GimicOPNA.Volume = parent.setting.balance.GimicOPNAVolume;
+
 
             newParam.Master.VisVolume1 = common.Range(Audio.visVolume.master / 250, 0, 44);
             if (newParam.Master.VisVolume2 <= newParam.Master.VisVolume1)
@@ -598,14 +601,39 @@ namespace MDPlayer.form
             num++;
             num++;
             num++;
-            num++;
-            num++;
+            num++; oVI = oldParam.GimicOPN; nVI = newParam.GimicOPN; drawGVolAndFader(num, oVI, nVI);
+            num++; oVI = oldParam.GimicOPNA; nVI = newParam.GimicOPNA; drawGVolAndFader(num, oVI, nVI);
 
         }
 
         private void drawVolAndFader(int num, MDChipParams.Mixer.VolumeInfo oVI, MDChipParams.Mixer.VolumeInfo nVI)
         {
             DrawBuff.drawFader(
+                frameBuffer
+                , 5 + (num % 16) * 20
+                , 16 + (num / 16) * 8 * 9
+                , num == 0 ? 0 : 1
+                , ref oVI.Volume
+                , nVI.Volume);
+            nVI.VisVol2Cnt--;
+            if (nVI.VisVol2Cnt == 0)
+            {
+                nVI.VisVol2Cnt = 1;
+                if (nVI.VisVolume2 > 0) nVI.VisVolume2--;
+            }
+            DrawBuff.MixerVolume(
+                frameBuffer
+                , 2 + (num % 16) * 20
+                , 10 + (num / 16) * 8 * 9
+                , ref oVI.VisVolume1
+                , nVI.VisVolume1
+                , ref oVI.VisVolume2
+                , nVI.VisVolume2);
+        }
+
+        private void drawGVolAndFader(int num, MDChipParams.Mixer.VolumeInfo oVI, MDChipParams.Mixer.VolumeInfo nVI)
+        {
+            DrawBuff.drawGFader(
                 frameBuffer
                 , 5 + (num % 16) * 20
                 , 16 + (num / 16) * 8 * 9
@@ -717,19 +745,33 @@ namespace MDPlayer.form
             int n = 0;
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
             {
-                if (py < 18)
+                if (chipn < 62)
                 {
-                    n = (18 - py) > 8 ? 8 : (18 - py);
-                    n = (int)(n * 2.5);
-                }
-                else if (py == 18)
-                {
-                    n = 0;
+                    if (py < 18)
+                    {
+                        n = (18 - py) > 8 ? 8 : (18 - py);
+                        n = (int)(n * 2.5);
+                    }
+                    else if (py == 18)
+                    {
+                        n = 0;
+                    }
+                    else
+                    {
+                        n = (18 - py) < -35 ? -35 : (18 - py);
+                        n = (int)(n * (192.0 / 35.0));
+                    }
                 }
                 else
                 {
-                    n = (18 - py) < -35 ? -35 : (18 - py);
-                    n = (int)(n * (192.0 / 35.0));
+                    if (py < 0)
+                    {
+                        n = 127;
+                    }
+                    else
+                    {
+                        n = (int)((72 - py) * (127.0 / 72.0));
+                    }
                 }
 
                 if (chipn < 0 || chipn >= SetVolume.Length) return;
@@ -759,7 +801,7 @@ namespace MDPlayer.form
                 , Audio.SetAPUVolume       , Audio.SetDMCVolume          , Audio.SetFDSVolume          , Audio.SetMMC5Volume
                 , Audio.SetN160Volume      , Audio.SetVRC6Volume         , Audio.SetVRC7Volume         , Audio.SetFME7Volume
                 , Audio.SetDMGVolume       , null                        , null                        , null
-                , null                     , null                        , null                        , null
+                , null                     , null                        , Audio.SetGimicOPNVolume     , Audio.SetGimicOPNAVolume
         };
 
 

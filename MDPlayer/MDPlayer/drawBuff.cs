@@ -2090,6 +2090,21 @@ namespace MDPlayer
             od = nd;
         }
 
+        public static void drawGFader(FrameBuffer screen, int x, int y, int t, ref int od, int nd)
+        {
+            if (od == nd) return;
+
+            drawFaderSlitP(screen, x, y - 8);
+            drawFont4IntM(screen, x, y + 48, 3, nd);
+
+            int n = 35 - (int)(nd / 127.0 * 43.0);
+            y += n;
+
+            drawFaderP(screen, x, y, t);
+
+            od = nd;
+        }
+
         public static void MixerVolume(FrameBuffer screen, int x, int y, ref int od, int nd, ref int ov, int nv)
         {
             if (od == nd && ov == nv) return;

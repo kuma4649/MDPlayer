@@ -37,5 +37,22 @@ namespace MDPlayer
         public abstract void oneFrameProc();
         public abstract GD3 getGD3Info(byte[] buf, uint vgmGd3);
 
+        public void SetYM2151Hosei(float YM2151ClockValue)
+        {
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, 3579545);
+                if (model == enmModel.RealModel)
+                {
+                    YM2151Hosei[chipID] = 0;
+                    int clock = chipRegister.getYM2151Clock((byte)chipID);
+                    if (clock != -1)
+                    {
+                        YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, clock);
+                    }
+                }
+            }
+        }
+
     }
 }

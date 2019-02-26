@@ -3187,7 +3187,7 @@ namespace MDPlayer
         {
             if (scYM2151[chipID] == null) return -1;
 
-            return scYM2151[chipID].dClock;
+            return (int)scYM2151[chipID].dClock;
         }
 
 
@@ -3629,6 +3629,85 @@ namespace MDPlayer
                     scSEGAPCM[chipID].setRegister(0x10006, (int)ROMSize);
 
                     realChip.SendData();
+                }
+            }
+        }
+
+        public void writeYM2151Clock(byte chipID, int clock, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM2151 != null && scYM2151[chipID] != null)
+                {
+                    scYM2151[chipID].dClock = scYM2151[chipID].SetMasterClock((uint)clock);                    
+                }
+            }
+        }
+
+        public void writeYM2203Clock(byte chipID, int clock, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM2203 != null && scYM2203[chipID] != null)
+                {
+                    if(scYM2203[chipID] is RC86ctlSoundChip)
+                    {
+                        Nc86ctl.ChipType ct = ((RC86ctlSoundChip)scYM2203[chipID]).chiptype;
+                        //OPNA/OPN3Lが選ばれている場合は周波数を2倍にする
+                        if (ct == Nc86ctl.ChipType.CHIP_OPN3L || ct == Nc86ctl.ChipType.CHIP_OPNA)
+                        {
+                            clock *= 2;
+                        }
+                    }
+                    scYM2203[chipID].dClock = scYM2203[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void writeYM2608Clock(byte chipID, int clock, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM2608 != null && scYM2608[chipID] != null)
+                {
+                    scYM2608[chipID].dClock = scYM2608[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void setYM2203SSGVolume(byte chipID, int vol, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM2203 != null && scYM2203[chipID] != null)
+                {
+                    scYM2203[chipID].setSSGVolume((byte)vol);
+                }
+            }
+        }
+
+        public void setYM2608SSGVolume(byte chipID, int vol, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM2608 != null && scYM2608[chipID] != null)
+                {
+                    scYM2608[chipID].setSSGVolume((byte)vol);
                 }
             }
         }

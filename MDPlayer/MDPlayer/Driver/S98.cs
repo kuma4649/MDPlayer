@@ -406,8 +406,12 @@ namespace MDPlayer
             }
         }
 
+        private int ym2608WaitCounter = 0;
+        //private bool ym2608WaitSw = false;
+
         private void oneFrameS98()
         {
+
             while (true)
             {
 
@@ -417,6 +421,7 @@ namespace MDPlayer
                 if (cmd == 0xff)
                 {
                     s98WaitCounter = 1;
+                    ym2608WaitCounter = 0;
                     break;
                 }
 
@@ -424,6 +429,7 @@ namespace MDPlayer
                 if (cmd == 0xfe)
                 {
                     s98WaitCounter = common.getvv(vgmBuf, ref musicPtr);
+                    ym2608WaitCounter = 0;
                     break;
                 }
 
@@ -464,7 +470,28 @@ namespace MDPlayer
                         WriteYM2612(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
                         break;
                     case 4:
+
+                        if (model == enmModel.RealModel)
+                        {
+                            if (ym2608WaitCounter > 200)
+                            {
+                                ym2608WaitCounter = 0;
+                                System.Threading.Thread.Sleep(10);
+                            }
+
+                            //if (ym2608WaitCounter > 1000)
+                            //{
+                            //    ym2608WaitSw = true;
+                            //}
+                            //else if (ym2608WaitSw && ym2608WaitCounter == 1)
+                            //{
+                            //    chipRegister.sendDataYM2608(s98Info.DeviceInfos[devNo].ChipID, model);
+                            //    ym2608WaitSw = false;
+                            //}
+                        }
+
                         WriteYM2608(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                        ym2608WaitCounter++;
                         break;
                     case 5:
                         WriteYM2151(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);

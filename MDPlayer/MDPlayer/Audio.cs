@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NScci;
 using System.Threading;
 using System.Diagnostics;
 using MDSound;
@@ -14,22 +13,6 @@ namespace MDPlayer
 {
     public class Audio
     {
-        //public class cNscci
-        //{
-        //    public cSoundInterface[] arySoundInterface;
-        //}
-
-        //public class cSoundInterface
-        //{
-        //    public NSoundInterface nSoundInterface;
-        //    public cSoundChip[] arySoundChip;
-        //}
-
-        //public class cSoundChip
-        //{
-        //    public NSoundChip nSoundChip;
-        //    public NSCCI_SOUND_CHIP_INFO info;
-        //}
 
         public static int clockAY8910 = 1789750;
         public static int clockK051649 = 1500000;
@@ -79,18 +62,18 @@ namespace MDPlayer
         private static NAudioWrap naudioWrap;
         private static WaveWriter waveWriter = null;
 
-        //private static NScci.NScci nScci;
-        private static RSoundChip[] scYM2612   = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scSN76489  = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scYM2151   = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scYM2608   = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scYM2203   = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scYM2610   = new RSoundChip[2] { null, null };
+
+        private static RSoundChip[] scYM2612 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scSN76489 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2610 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scC140     = new RSoundChip[2] { null, null };
-        private static RSoundChip[] scSEGAPCM  = new RSoundChip[2] { null, null };
-        //private static Nc86ctl.Nc86ctl nc86ctl;
+        private static RSoundChip[] scC140 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scSEGAPCM = new RSoundChip[2] { null, null };
+
         private static RealChip realChip;
 
         private static ChipRegister chipRegister = null;
@@ -153,7 +136,7 @@ namespace MDPlayer
         private static int SongNo = 0;
         private static List<Tuple<string, byte[]>> ExtendFile = null;
         private static enmFileFormat PlayingFileFormat;
-        //public static cNscci cnscci;
+
         private static System.Diagnostics.Stopwatch stwh = System.Diagnostics.Stopwatch.StartNew();
         public static int ProcTimePer1Frame = 0;
 
@@ -312,7 +295,7 @@ namespace MDPlayer
             return true;
         }
 
-        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null,object entry=null)
+        public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null, object entry = null)
         {
             List<PlayList.music> musics = new List<PlayList.music>();
             PlayList.music music = new PlayList.music();
@@ -1100,33 +1083,6 @@ namespace MDPlayer
                 realChip = new RealChip();
             }
 
-            //if (cnscci == null)
-            //{
-            //    int n = 0;
-
-            //    nScci = new NScci.NScci();
-            //    n = nScci.NSoundInterfaceManager_.getInterfaceCount();
-            //    if (n == 0)
-            //    {
-            //        nScci.Dispose();
-            //        nScci = null;
-            //    }
-            //    getScciInstances();
-            //    nScci.NSoundInterfaceManager_.setLevelDisp(false);
-
-            //    nc86ctl = new Nc86ctl.Nc86ctl();
-            //    n = nc86ctl.getNumberOfChip();
-            //    if (n == 0)
-            //    {
-            //        nc86ctl.deinitialize();
-            //        nc86ctl = null;
-            //    }
-            //    else
-            //    {
-            //        Nc86ctl.NIRealChip nirc = nc86ctl.getChipInterface(0);
-            //        nirc.reset();
-            //    }
-            //}
             if (realChip != null)
             {
                 scYM2612[0] = realChip.GetRealChip(Audio.setting.YM2612Type);
@@ -1289,7 +1245,7 @@ namespace MDPlayer
                     vi.key = setting.vst.VSTInfo[i].key;
 
                     ctx.PluginCommandStub.SetBlockSize(512);
-                    ctx.PluginCommandStub.SetSampleRate(common.SampleRate/1000.0f);
+                    ctx.PluginCommandStub.SetSampleRate(common.SampleRate / 1000.0f);
                     ctx.PluginCommandStub.MainsChanged(true);
                     ctx.PluginCommandStub.StartProcess();
                     vi.effectName = ctx.PluginCommandStub.GetEffectName();
@@ -1471,109 +1427,10 @@ namespace MDPlayer
             }
         }
 
-        //public static void getScciInstances()
-        //{
-        //    cnscci = new cNscci();
-        //    int ifc = nScci.NSoundInterfaceManager_.getInterfaceCount();
-        //    cnscci.arySoundInterface = new cSoundInterface[ifc];
-
-        //    for (int i = 0; i < ifc; i++)
-        //    {
-        //        cnscci.arySoundInterface[i] = new cSoundInterface();
-        //        NSoundInterface sif = nScci.NSoundInterfaceManager_.getInterface(i);
-        //        cnscci.arySoundInterface[i].nSoundInterface = sif;
-
-        //        int scc = sif.getSoundChipCount();
-        //        cnscci.arySoundInterface[i].arySoundChip = new cSoundChip[scc];
-
-        //        for (int j = 0; j < scc; j++)
-        //        {
-        //            NSoundChip sc = sif.getSoundChip(j);
-        //            cnscci.arySoundInterface[i].arySoundChip[j] = new cSoundChip();
-        //            cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip = sc;
-
-        //            NSCCI_SOUND_CHIP_INFO info = sc.getSoundChipInfo();
-
-        //            cnscci.arySoundInterface[i].arySoundChip[j].info = info;
-
-        //        }
-        //    }
-
-        //}
-
         public static MDSound.MDSound.Chip GetMDSChipInfo(MDSound.MDSound.enmInstrumentType typ)
         {
             return chipRegister.GetChipInfo(typ);
         }
-
-        //public static List<Setting.ChipType> GetSCCIChipList(enmScciChipType scciChipType)
-        //{
-        //    List<Setting.ChipType> ret = new List<Setting.ChipType>();
-        //    if (cnscci == null) return ret;
-
-        //    for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
-        //    {
-        //        for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
-        //        {
-        //            NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
-        //            int t = sc.getSoundChipType();
-        //            if (t == (int)scciChipType)
-        //            {
-        //                Setting.ChipType ct = new Setting.ChipType();
-        //                ct.SoundLocation = 0;
-        //                ct.BusID = i;
-        //                ct.SoundChip = j;
-        //                ct.ChipName = sc.getSoundChipInfo().cSoundChipName;
-        //                ret.Add(ct);
-        //            }
-        //        }
-        //    }
-
-        //    return ret;
-        //}
-
-        //private static NSoundChip GetSCCIChip(Setting.ChipType ct, int ind = 0)
-        //{
-        //    if (cnscci == null) return null;
-
-        //    for (int i = 0; i < cnscci.arySoundInterface.Length; i++)
-        //    {
-        //        for (int j = 0; j < cnscci.arySoundInterface[i].arySoundChip.Length; j++)
-        //        {
-        //            NSoundChip sc = cnscci.arySoundInterface[i].arySoundChip[j].nSoundChip;
-        //            NSCCI_SOUND_CHIP_INFO info = cnscci.arySoundInterface[i].arySoundChip[j].info;
-        //            switch (ind)
-        //            {
-        //                case 0:
-        //                    if (0 == ct.SoundLocation
-        //                        && i == ct.BusID
-        //                        && j == ct.SoundChip)
-        //                    {
-        //                        return sc;
-        //                    }
-        //                    break;
-        //                case 1:
-        //                    if (0 == ct.SoundLocation2A
-        //                        && i == ct.BusID2A
-        //                        && j == ct.SoundChip2A)
-        //                    {
-        //                        return sc;
-        //                    }
-        //                    break;
-        //                case 2:
-        //                    if (0 == ct.SoundLocation2B
-        //                        && i == ct.BusID2B
-        //                        && j == ct.SoundChip2B)
-        //                    {
-        //                        return sc;
-        //                    }
-        //                    break;
-        //            }
-        //        }
-        //    }
-
-        //    return null;
-        //}
 
         public static int getLatency()
         {
@@ -1584,7 +1441,7 @@ namespace MDPlayer
             return naudioWrap.getAsioLatency();
         }
 
-        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName, string playingArcFileName, int midiMode,int songNo,List<Tuple<string,byte[]>> extFile)
+        public static void SetVGMBuffer(enmFileFormat format, byte[] srcBuf, string playingFileName, string playingArcFileName, int midiMode, int songNo, List<Tuple<string, byte[]>> extFile)
         {
             Stop();
             PlayingFileFormat = format;
@@ -1597,7 +1454,7 @@ namespace MDPlayer
             ExtendFile = extFile;//追加ファイル
         }
 
-        public static void getPlayingFileName(out string playingFileName,out string playingArcFileName)
+        public static void getPlayingFileName(out string playingFileName, out string playingArcFileName)
         {
             playingFileName = PlayingFileName;
             playingArcFileName = PlayingArcFileName;
@@ -1621,7 +1478,7 @@ namespace MDPlayer
             MDSound.MDSound.np_nes_dmc_volume = 0;
             MDSound.MDSound.np_nes_fds_volume = 0;
             MDSound.MDSound.np_nes_fme7_volume = 0;
-            MDSound.MDSound.np_nes_mmc5_volume= 0;
+            MDSound.MDSound.np_nes_mmc5_volume = 0;
             MDSound.MDSound.np_nes_n106_volume = 0;
             MDSound.MDSound.np_nes_vrc6_volume = 0;
             MDSound.MDSound.np_nes_vrc7_volume = 0;
@@ -1724,7 +1581,7 @@ namespace MDPlayer
                     driverReal = new S98();
                     driverReal.setting = setting;
                 }
-                
+
                 return s98Play(setting);
             }
 
@@ -1819,6 +1676,8 @@ namespace MDPlayer
             return false;
         }
 
+
+
         public static bool mucPlay(Setting setting)
         {
 
@@ -1885,6 +1744,14 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.RealModel);
 
+                chipRegister.writeYM2608Clock(0, Driver.MUCOM88.MUCOM88.baseclock, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, Driver.MUCOM88.MUCOM88.baseclock, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+
+
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2608 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
@@ -1909,27 +1776,6 @@ namespace MDPlayer
                 return false;
             }
 
-        }
-
-        private static void ResetFadeOutParam()
-        {
-            vgmFadeout = false;
-            vgmFadeoutCounter = 1.0;
-            vgmFadeoutCounterV = 0.00001;
-            vgmSpeed = 1;
-            vgmRealFadeoutVol = 0;
-            vgmRealFadeoutVolWait = 4;
-            chipRegister.setFadeoutVolYM2203(0, 0);
-            chipRegister.setFadeoutVolYM2203(1, 0);
-            chipRegister.setFadeoutVolYM2608(0, 0);
-            chipRegister.setFadeoutVolYM2608(1, 0);
-            chipRegister.setFadeoutVolYM2151(0, 0);
-            chipRegister.setFadeoutVolYM2151(1, 0);
-            chipRegister.setFadeoutVolYM2612(0, 0);
-            chipRegister.setFadeoutVolYM2612(1, 0);
-            chipRegister.setFadeoutVolSN76489(0, 0);
-            chipRegister.setFadeoutVolSN76489(1, 0);
-            chipRegister.resetChips();
         }
 
         public static bool nrdPlay(Setting setting)
@@ -2072,6 +1918,15 @@ namespace MDPlayer
                 SetYM2151Volume(false, setting.balance.YM2151Volume);
                 SetAY8910Volume(false, setting.balance.AY8910Volume);
 
+                chipRegister.writeYM2151Clock(0, 4000000, enmModel.RealModel);
+                chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
+                driverVirtual.SetYM2151Hosei(4000000);
+                driverReal.SetYM2151Hosei(4000000);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.AY8910 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000));
@@ -2183,6 +2038,10 @@ namespace MDPlayer
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYMF278BVolume(true, setting.balance.YMF278BVolume);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2324,6 +2183,15 @@ namespace MDPlayer
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 SetYM2151Volume(false, setting.balance.YM2151Volume);
+
+                chipRegister.writeYM2151Clock(0, 4000000, enmModel.RealModel);
+                chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
+                driverVirtual.SetYM2151Hosei(4000000);
+                driverReal.SetYM2151Hosei(4000000);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 bool retV = ((MDPlayer.Driver.MXDRV.MXDRV)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2515,7 +2383,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
-                SetYM2151Volume(false,  setting.balance.YM2151Volume);
+                SetYM2151Volume(false, setting.balance.YM2151Volume);
                 SetYM2608Volume(true, setting.balance.YM2608Volume);
                 SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
                 SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
@@ -2531,7 +2399,18 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, enmModel.RealModel);
 
-                bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151,enmUseChip.YM2608 }
+                chipRegister.writeYM2151Clock(0, 4000000, enmModel.RealModel);
+                chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(0, 7987200, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, 7987200, enmModel.RealModel);
+                driverVirtual.SetYM2151Hosei(4000000);
+                driverReal.SetYM2151Hosei(4000000);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+
+                bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2151, enmUseChip.YM2608 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000)
                     );
@@ -2608,7 +2487,7 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                    chip = new MDSound.MDSound.Chip();
+                chip = new MDSound.MDSound.Chip();
                 chip.ID = (byte)0;
                 MDSound.ym2612 ym2612 = null;
                 MDSound.ym3438 ym3438 = null;
@@ -2659,20 +2538,20 @@ namespace MDPlayer
                 lstChips.Add(chip);
 
                 sn76489 sn76489 = new sn76489();
-                    chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
-                    chip.ID = (byte)0;
-                    chip.Instrument = sn76489;
-                    chip.Update = sn76489.Update;
-                    chip.Start = sn76489.Start;
-                    chip.Stop = sn76489.Stop;
-                    chip.Reset = sn76489.Reset;
-                    chip.SamplingRate = (UInt32)common.SampleRate;
-                    chip.Volume = setting.balance.SN76489Volume;
-                    chip.Clock = 3579545;
-                    chip.Option = null;
-                    chipLED.PriDCSG = 1;
-                    lstChips.Add(chip);
+                chip = new MDSound.MDSound.Chip();
+                chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                chip.ID = (byte)0;
+                chip.Instrument = sn76489;
+                chip.Update = sn76489.Update;
+                chip.Start = sn76489.Start;
+                chip.Stop = sn76489.Stop;
+                chip.Reset = sn76489.Reset;
+                chip.SamplingRate = (UInt32)common.SampleRate;
+                chip.Volume = setting.balance.SN76489Volume;
+                chip.Clock = 3579545;
+                chip.Option = null;
+                chipLED.PriDCSG = 1;
+                lstChips.Add(chip);
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2686,6 +2565,10 @@ namespace MDPlayer
 
                 SetYM2612Volume(true, setting.balance.YM2612Volume);
                 SetSN76489Volume(true, setting.balance.SN76489Volume);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.YM2612, enmUseChip.SN76489 }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
@@ -2776,6 +2659,11 @@ namespace MDPlayer
                 ym2151_x68sound ym2151_x68sound = null;
                 ym2413 ym2413 = null;
                 ay8910 ay8910 = null;
+
+                int YM2151ClockValue = 4000000;
+                int YM2203ClockValue = 4000000;
+                int YM2608ClockValue = 8000000;
+
                 foreach (S98.S98DevInfo dInfo in s98DInfo)
                 {
                     switch (dInfo.DeviceType)
@@ -2830,6 +2718,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.YM2203Volume;
                             chip.Clock = dInfo.Clock;
+                            YM2203ClockValue = (int)chip.Clock;
                             chip.Option = null;
                             lstChips.Add(chip);
 
@@ -2915,6 +2804,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.YM2608Volume;
                             chip.Clock = dInfo.Clock;
+                            YM2608ClockValue = (int)chip.Clock;
                             chip.Option = new object[] { common.GetApplicationFolder() };
                             //hiyorimiDeviceFlag |= 0x2;
                             lstChips.Add(chip);
@@ -2967,6 +2857,7 @@ namespace MDPlayer
                             chip.SamplingRate = (UInt32)common.SampleRate;
                             chip.Volume = setting.balance.YM2151Volume;
                             chip.Clock = dInfo.Clock;
+                            YM2151ClockValue = (int)chip.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
                             if (chip.Start != null)
@@ -3057,12 +2948,22 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(0, 0, 0x29, 0x82, enmModel.RealModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.VirtualModel);
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, enmModel.RealModel);
-
                 SetYM2151Volume(false, setting.balance.YM2151Volume);
-
                 SetYM2413Volume(true, setting.balance.YM2413Volume);
-
                 SetAY8910Volume(false, setting.balance.AY8910Volume);
+
+                chipRegister.writeYM2151Clock(0, YM2151ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2151Clock(1, YM2151ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2203Clock(0, YM2203ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2203Clock(1, YM2203ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(0, YM2608ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, YM2608ClockValue, enmModel.RealModel);
+                driverVirtual.SetYM2151Hosei(YM2151ClockValue);
+                driverReal.SetYM2151Hosei(YM2151ClockValue);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 //Play
 
@@ -3127,7 +3028,7 @@ namespace MDPlayer
                 MakeMIDIout(setting, MidiMode);
                 chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType, vstMidiOuts, vstMidiOutsType);
 
-                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel,new enmUseChip[] { enmUseChip.Unuse }
+                if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
@@ -3592,7 +3493,7 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                ((Driver.SID.sid)driverVirtual).song = (byte)SongNo+1;
+                ((Driver.SID.sid)driverVirtual).song = (byte)SongNo + 1;
                 if (!driverVirtual.init(vgmBuf, chipRegister, enmModel.VirtualModel, new enmUseChip[] { enmUseChip.Unuse }
                     , (uint)(common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
@@ -3745,7 +3646,7 @@ namespace MDPlayer
                         chip = new MDSound.MDSound.Chip();
                         chip.ID = (byte)i;
 
-                        if ((i == 0 && (setting.YM2612Type.UseEmu || setting.YM2612Type.UseScci)) 
+                        if ((i == 0 && (setting.YM2612Type.UseEmu || setting.YM2612Type.UseScci))
                             || (i == 1 && setting.YM2612SType.UseEmu || setting.YM2612SType.UseScci))
                         {
                             if (ym2612 == null) ym2612 = new ym2612();
@@ -3756,7 +3657,7 @@ namespace MDPlayer
                             chip.Stop = ym2612.Stop;
                             chip.Reset = ym2612.Reset;
                         }
-                        else if((i == 0 && setting.YM2612Type.UseEmu2) || (i == 1 && setting.YM2612SType.UseEmu2))
+                        else if ((i == 0 && setting.YM2612Type.UseEmu2) || (i == 1 && setting.YM2612SType.UseEmu2))
                         {
                             if (ym3438 == null) ym3438 = new ym3438();
                             chip.type = MDSound.MDSound.enmInstrumentType.YM3438;
@@ -3892,7 +3793,7 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)common.SampleRate;
                         chip.Volume = setting.balance.C140Volume;
                         chip.Clock = ((vgm)driverVirtual).C140ClockValue;
-                        chip.Option = new object[1] { ((vgm)driverVirtual).C140Type }; 
+                        chip.Option = new object[1] { ((vgm)driverVirtual).C140Type };
 
                         hiyorimiDeviceFlag |= 0x2;
 
@@ -4031,7 +3932,6 @@ namespace MDPlayer
                         lstChips.Add(chip);
                     }
                 }
-
 
                 if (((vgm)driverVirtual).YM2151ClockValue != 0)
                 {
@@ -4693,8 +4593,21 @@ namespace MDPlayer
                 SetYM2610AdpcmAVolume(true, setting.balance.YM2610AdpcmAVolume);
                 SetYM2610AdpcmBVolume(true, setting.balance.YM2610AdpcmBVolume);
 
+                chipRegister.writeYM2151Clock(0, (int)((vgm)driverVirtual).YM2151ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2151Clock(1, (int)((vgm)driverVirtual).YM2151ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2203Clock(0, (int)((vgm)driverVirtual).YM2203ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2203Clock(1, (int)((vgm)driverVirtual).YM2203ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(0, (int)((vgm)driverVirtual).YM2608ClockValue, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, (int)((vgm)driverVirtual).YM2608ClockValue, enmModel.RealModel);
                 chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, enmModel.RealModel);
                 chipRegister.writeSEGAPCMClock(0, (int)((vgm)driverVirtual).SEGAPCMClockValue, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+                chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+
+                driverVirtual.SetYM2151Hosei(((vgm)driverVirtual).YM2151ClockValue);
+                driverReal.SetYM2151Hosei(((vgm)driverReal).YM2151ClockValue);
 
                 Paused = false;
                 Stopped = false;
@@ -4710,9 +4623,32 @@ namespace MDPlayer
 
         }
 
+
+
+        private static void ResetFadeOutParam()
+        {
+            vgmFadeout = false;
+            vgmFadeoutCounter = 1.0;
+            vgmFadeoutCounterV = 0.00001;
+            vgmSpeed = 1;
+            vgmRealFadeoutVol = 0;
+            vgmRealFadeoutVolWait = 4;
+            chipRegister.setFadeoutVolYM2203(0, 0);
+            chipRegister.setFadeoutVolYM2203(1, 0);
+            chipRegister.setFadeoutVolYM2608(0, 0);
+            chipRegister.setFadeoutVolYM2608(1, 0);
+            chipRegister.setFadeoutVolYM2151(0, 0);
+            chipRegister.setFadeoutVolYM2151(1, 0);
+            chipRegister.setFadeoutVolYM2612(0, 0);
+            chipRegister.setFadeoutVolYM2612(1, 0);
+            chipRegister.setFadeoutVolSN76489(0, 0);
+            chipRegister.setFadeoutVolSN76489(1, 0);
+            chipRegister.resetChips();
+        }
+
         public static void ChangeChipSampleRate(MDSound.MDSound.Chip chip, int NewSmplRate)
         {
-            MDSound.MDSound.Chip CAA = chip; 
+            MDSound.MDSound.Chip CAA = chip;
 
             if (CAA.SamplingRate == NewSmplRate)
                 return;
@@ -4836,7 +4772,8 @@ namespace MDPlayer
                     timeout--;
                     if (timeout < 1) break;
                 };
-                while (!Stopped) {
+                while (!Stopped)
+                {
                     Thread.Sleep(1);
                     timeout--;
                     if (timeout < 1) break;
@@ -4911,7 +4848,7 @@ namespace MDPlayer
                             vstPlugins[i].vstPlugins.PluginCommandStub.EditorClose();
                             vstPlugins[i].vstPlugins.PluginCommandStub.StopProcess();
                             vstPlugins[i].vstPlugins.PluginCommandStub.MainsChanged(false);
-                            int pc=vstPlugins[i].vstPlugins.PluginInfo.ParameterCount;
+                            int pc = vstPlugins[i].vstPlugins.PluginInfo.ParameterCount;
                             List<float> plst = new List<float>();
                             for (int p = 0; p < pc; p++)
                             {
@@ -4992,7 +4929,7 @@ namespace MDPlayer
             if (driverVirtual == null && driverReal == null) return -1;
 
             if (driverVirtual == null) return driverReal.Counter;
-            if (driverReal==null) return driverVirtual.Counter;
+            if (driverReal == null) return driverVirtual.Counter;
 
             return driverVirtual.Counter > driverReal.Counter ? driverVirtual.Counter : driverReal.Counter;
         }
@@ -5117,9 +5054,9 @@ namespace MDPlayer
             chipRegister.chipLED.SecOPLL = chipLED.SecOPLL;
             chips[128 + 14] = chipRegister.chipLED.SecHuC;
             chipRegister.chipLED.SecHuC = chipLED.SecHuC;
-            chips[128+15] = chipRegister.chipLED.SecC352;
+            chips[128 + 15] = chipRegister.chipLED.SecC352;
             chipRegister.chipLED.SecC352 = chipLED.SecC352;
-            chips[128+16] = chipRegister.chipLED.SecK054539;
+            chips[128 + 16] = chipRegister.chipLED.SecK054539;
             chipRegister.chipLED.SecK054539 = chipLED.SecK054539;
 
 
@@ -5205,11 +5142,11 @@ namespace MDPlayer
                 {
                     naudioWrap.Stop();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     log.ForcedWrite(ex);
                 }
-                
+
             }
             else
             {
@@ -5250,7 +5187,7 @@ namespace MDPlayer
 
                     double el1 = sw.ElapsedTicks / swFreq;
                     if (el1 - o < step) continue;
-                    if (el1 - o >= step * common.SampleRate/100.0)//閾値10ms
+                    if (el1 - o >= step * common.SampleRate / 100.0)//閾値10ms
                     {
                         do
                         {
@@ -5298,7 +5235,7 @@ namespace MDPlayer
                             vgmRealFadeoutVol = Math.Min(127, vgmRealFadeoutVol);
                             if (vgmRealFadeoutVol == 127)
                             {
-                                if(realChip!=null) realChip.reset();
+                                if (realChip != null) realChip.reset();
                                 vgmRealFadeoutVolWait = 1000;
                                 chipRegister.resetAllMIDIout();
                             }
@@ -5333,7 +5270,7 @@ namespace MDPlayer
                         double dSCCI = common.SampleRate * setting.LatencySCCI / 1000.0;
                         double abs = Math.Abs((driverReal.vgmFrameCounter - dSCCI) - (driverVirtual.vgmFrameCounter - dEMU));
                         int m = 0;
-                        long l = getLatency()/10;
+                        long l = getLatency() / 10;
                         if (abs >= l)
                         {
                             m = ((driverReal.vgmFrameCounter - dSCCI) > (driverVirtual.vgmFrameCounter - dEMU)) ? 1 : 2;
@@ -5945,7 +5882,7 @@ namespace MDPlayer
 
         public static int[] GetMoonDriverPCMKeyOn()
         {
-            if(driverVirtual is Driver.MoonDriver.MoonDriver)
+            if (driverVirtual is Driver.MoonDriver.MoonDriver)
             {
                 if (driverVirtual != null) return ((Driver.MoonDriver.MoonDriver)driverVirtual).GetPCMKeyOn();
             }
@@ -6095,7 +6032,7 @@ namespace MDPlayer
             uint dat = 0;
             for (uint adr = 0x5000; adr < 0x5008; adr++)
             {
-                dat=0;
+                dat = 0;
                 chipRegister.nes_mmc5.Read(adr, ref dat);
                 mmc5regs[adr & 0x7] = (byte)dat;
             }
@@ -6728,6 +6665,16 @@ namespace MDPlayer
             catch { }
         }
 
+        public static void SetGimicOPNVolume(bool isAbs, int volume)
+        {
+            setting.balance.GimicOPNVolume = common.Range((isAbs ? 0 : setting.balance.GimicOPNVolume) + volume, 0, 127);
+        }
+
+        public static void SetGimicOPNAVolume(bool isAbs, int volume)
+        {
+            setting.balance.GimicOPNAVolume = common.Range((isAbs ? 0 : setting.balance.GimicOPNAVolume) + volume, 0, 127);
+        }
+
 
         public static int[] GetFMVolume(int chipID)
         {
@@ -6907,7 +6854,7 @@ namespace MDPlayer
 
         public static void setDMCMask(int chipID, int ch)
         {
-            chipRegister.setNESMask(chipID, ch+2);
+            chipRegister.setNESMask(chipID, ch + 2);
         }
 
         public static void setFDSMask(int chipID)
@@ -7093,7 +7040,7 @@ namespace MDPlayer
 
         public static void resetDMCMask(int chipID, int ch)
         {
-            chipRegister.resetNESMask(chipID, ch+2);
+            chipRegister.resetNESMask(chipID, ch + 2);
         }
 
         public static void resetFDSMask(int chipID)
