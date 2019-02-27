@@ -418,6 +418,6 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・VST.NET  
   ・NAudio  
   ・SCCI  
-  ・GIMIC(C86ctl)  
+  ・c86ctl  
   
   
