@@ -2332,7 +2332,7 @@ namespace MDPlayer
                     chip.Reset = opna.Reset;
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
-                    chip.Clock = 7987200;
+                    chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { common.GetApplicationFolder() };
                     chipLED.PriOPNA = 1;
                     lstChips.Add(chip);
@@ -2350,7 +2350,7 @@ namespace MDPlayer
                     chip.Reset = opna.Reset;
                     chip.SamplingRate = (UInt32)common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
-                    chip.Clock = 7987200;
+                    chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { common.GetApplicationFolder() };
                     chipLED.SecOPNA = 1;
                     lstChips.Add(chip);
@@ -2401,8 +2401,8 @@ namespace MDPlayer
 
                 chipRegister.writeYM2151Clock(0, 4000000, enmModel.RealModel);
                 chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
-                chipRegister.writeYM2608Clock(0, 7987200, enmModel.RealModel);
-                chipRegister.writeYM2608Clock(1, 7987200, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(0, 8000000, enmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, 8000000, enmModel.RealModel);
                 driverVirtual.SetYM2151Hosei(4000000);
                 driverReal.SetYM2151Hosei(4000000);
                 chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
@@ -4762,7 +4762,7 @@ namespace MDPlayer
 
                 if (realChip != null)
                 {
-                    realChip.Init();
+                    realChip.reset();//.Init();
                 }
 
                 int timeout = 5000;
@@ -4781,7 +4781,7 @@ namespace MDPlayer
 
                 if (realChip != null)
                 {
-                    realChip.Init();
+                    realChip.reset();//.Init();
                 }
 
                 //chipRegister.outMIDIData_Close();

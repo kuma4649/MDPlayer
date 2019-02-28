@@ -199,6 +199,7 @@
             this.tabMIDIExp = new System.Windows.Forms.TabPage();
             this.cbUseMIDIExport = new System.Windows.Forms.CheckBox();
             this.gbMIDIExport = new System.Windows.Forms.GroupBox();
+            this.cbMIDIKeyOnFnum = new System.Windows.Forms.CheckBox();
             this.cbMIDIUseVOPM = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.cbMIDIYM2612 = new System.Windows.Forms.CheckBox();
@@ -412,7 +413,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.cbMIDIKeyOnFnum = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -953,9 +953,9 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(6, 40);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(31, 12);
+            this.label12.Size = new System.Drawing.Size(28, 12);
             this.label12.TabIndex = 3;
-            this.label12.Text = "SCCI";
+            this.label12.Text = "Real";
             // 
             // label11
             // 
@@ -2412,6 +2412,16 @@
             this.gbMIDIExport.Size = new System.Drawing.Size(433, 365);
             this.gbMIDIExport.TabIndex = 0;
             this.gbMIDIExport.TabStop = false;
+            // 
+            // cbMIDIKeyOnFnum
+            // 
+            this.cbMIDIKeyOnFnum.AutoSize = true;
+            this.cbMIDIKeyOnFnum.Location = new System.Drawing.Point(21, 66);
+            this.cbMIDIKeyOnFnum.Name = "cbMIDIKeyOnFnum";
+            this.cbMIDIKeyOnFnum.Size = new System.Drawing.Size(169, 16);
+            this.cbMIDIKeyOnFnum.TabIndex = 23;
+            this.cbMIDIKeyOnFnum.Text = "KeyON時のみfnumを評価する";
+            this.cbMIDIKeyOnFnum.UseVisualStyleBackColor = true;
             // 
             // cbMIDIUseVOPM
             // 
@@ -4662,16 +4672,6 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
-            // 
-            // cbMIDIKeyOnFnum
-            // 
-            this.cbMIDIKeyOnFnum.AutoSize = true;
-            this.cbMIDIKeyOnFnum.Location = new System.Drawing.Point(21, 66);
-            this.cbMIDIKeyOnFnum.Name = "cbMIDIKeyOnFnum";
-            this.cbMIDIKeyOnFnum.Size = new System.Drawing.Size(169, 16);
-            this.cbMIDIKeyOnFnum.TabIndex = 23;
-            this.cbMIDIKeyOnFnum.Text = "KeyON時のみfnumを評価する";
-            this.cbMIDIKeyOnFnum.UseVisualStyleBackColor = true;
             // 
             // frmSetting
             // 

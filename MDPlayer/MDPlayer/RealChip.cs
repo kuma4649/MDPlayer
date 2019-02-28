@@ -68,6 +68,7 @@ namespace MDPlayer
             try
             {
                 nc86ctl = new Nc86ctl.Nc86ctl();
+                nc86ctl.initialize();
                 n = nc86ctl.getNumberOfChip();
                 if (n == 0)
                 {
@@ -135,17 +136,17 @@ namespace MDPlayer
             nScci.NSoundInterfaceManager_.setLevelDisp(v);
         }
 
-        public void Init()
-        {
-            if (nScci != null)
-            {
-                nScci.NSoundInterfaceManager_.init();
-            }
-            if (nc86ctl != null)
-            {
-                nc86ctl.initialize();
-            }
-        }
+        //public void Init()
+        //{
+        //    if (nScci != null)
+        //    {
+        //        nScci.NSoundInterfaceManager_.init();
+        //    }
+        //    if (nc86ctl != null)
+        //    {
+        //        nc86ctl.initialize();
+        //    }
+        //}
 
         public void reset()
         {

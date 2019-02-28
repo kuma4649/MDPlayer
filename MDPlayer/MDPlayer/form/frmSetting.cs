@@ -1593,7 +1593,7 @@ namespace MDPlayer.form
             if (ret)
             {
                 if (MessageBox.Show(
-                    "SCCIのデバイスが重複して設定されています。強行しますか"
+                    "SCCI/GIMICのデバイスが重複して設定されています。強行しますか"
                     , "警告"
                     , MessageBoxButtons.YesNo
                     , MessageBoxIcon.Warning
