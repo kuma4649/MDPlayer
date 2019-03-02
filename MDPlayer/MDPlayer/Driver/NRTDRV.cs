@@ -634,10 +634,10 @@ namespace MDPlayer
             imain();
             if (model == enmModel.RealModel)
             {
-                chipRegister.sendDataYM2151(0, model);
-                chipRegister.setYM2151SyncWait(0, 1);
-                chipRegister.sendDataYM2151(1, model);
-                chipRegister.setYM2151SyncWait(1, 1);
+                //chipRegister.sendDataYM2151(0, model);
+                //chipRegister.setYM2151SyncWait(0, 1);
+                //chipRegister.sendDataYM2151(1, model);
+                //chipRegister.setYM2151SyncWait(1, 1);
             }
 
             work.OPMKeyONEnable = true;

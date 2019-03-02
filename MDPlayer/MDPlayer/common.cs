@@ -444,6 +444,59 @@ namespace MDPlayer
         , Y8950
         , YM3812
         , K051649
+        , N160
+        , VRC6
+        , FME7
+            , RF5C68
+            , MultiPCM
+            ,YMF271
+            , YMZ280B
+            ,QSound
+            ,GA20
+            ,K053260
+            ,K054539
+            ,DMG
+
+        , S_SN76489
+        , S_YM2612
+        , S_YM2612Ch6
+        , S_RF5C164
+        , S_PWM
+        , S_C140
+        , S_OKIM6258
+        , S_OKIM6295
+        , S_SEGAPCM
+        , S_YM2151
+        , S_YM2608
+        , S_YM2203
+        , S_YM2610
+        , S_AY8910
+        , S_HuC6280
+        , S_YM2413
+        , S_NES
+        , S_DMC
+        , S_FDS
+        , S_MMC5
+        , S_YMF262
+        , S_YMF278B
+        , S_VRC7
+        , S_C352
+        , S_YM3526
+        , S_Y8950
+        , S_YM3812
+        , S_K051649
+        , S_N160
+        , S_VRC6
+        , S_FME7
+            , S_RF5C68
+            , S_MultiPCM
+            ,S_YMF271
+            ,S_YMZ280B
+            ,S_QSound
+            ,S_GA20
+            ,S_K053260
+            ,S_K054539
+            ,S_DMG
     }
 
     public enum enmRealChipType : int

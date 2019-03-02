@@ -59,17 +59,19 @@ namespace MDPlayer
             rFont3[0] = getByteArray(Properties.Resources.rFont_05);
             rFont3[1] = getByteArray(Properties.Resources.rFont_06);
 
-            rKBD = new byte[2][];
+            rKBD = new byte[3][];
             rKBD[0] = getByteArray(Properties.Resources.rKBD_01);
             rKBD[1] = getByteArray(Properties.Resources.rKBD_02);
+            rKBD[2] = getByteArray(Properties.Resources.rKBD_03);
 
             rMenuButtons = new byte[2][];
             rMenuButtons[0] = getByteArray(Properties.Resources.rMenuButtons_01);
             rMenuButtons[1] = getByteArray(Properties.Resources.rMenuButtons_02);
 
-            rPan = new byte[2][];
+            rPan = new byte[3][];
             rPan[0] = getByteArray(Properties.Resources.rPan_01);
             rPan[1] = getByteArray(Properties.Resources.rPan_02);
+            rPan[2] = getByteArray(Properties.Resources.rPan_03);
 
             rPan2 = new byte[2][];
             rPan2[0] = getByteArray(Properties.Resources.rPan2_01);
@@ -77,21 +79,26 @@ namespace MDPlayer
 
             rPSGEnv = getByteArray(Properties.Resources.rPSGEnv);
 
-            rPSGMode = new byte[4][];
+            rPSGMode = new byte[6][];
             rPSGMode[0] = getByteArray(Properties.Resources.rPSGMode_01);
             rPSGMode[1] = getByteArray(Properties.Resources.rPSGMode_02);
             rPSGMode[2] = getByteArray(Properties.Resources.rPSGMode_03);
             rPSGMode[3] = getByteArray(Properties.Resources.rPSGMode_04);
+            rPSGMode[4] = getByteArray(Properties.Resources.rPSGMode_05);
+            rPSGMode[5] = getByteArray(Properties.Resources.rPSGMode_06);
 
-            rType = new byte[4][];
+            rType = new byte[6][];
             rType[0] = getByteArray(Properties.Resources.rType_01);
             rType[1] = getByteArray(Properties.Resources.rType_02);
             rType[2] = getByteArray(Properties.Resources.rType_03);
             rType[3] = getByteArray(Properties.Resources.rType_04);
+            rType[4] = getByteArray(Properties.Resources.rType_05);
+            rType[5] = getByteArray(Properties.Resources.rType_06);
 
-            rVol = new byte[2][];
+            rVol = new byte[3][];
             rVol[0] = getByteArray(Properties.Resources.rVol_01);
             rVol[1] = getByteArray(Properties.Resources.rVol_02);
+            rVol[2] = getByteArray(Properties.Resources.rVol_03);
 
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
             rFader = getByteArray(Properties.Resources.rFader);

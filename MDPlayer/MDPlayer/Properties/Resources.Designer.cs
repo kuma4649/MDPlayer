@@ -994,6 +994,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap rKBD_03 {
+            get {
+                object obj = ResourceManager.GetObject("rKBD_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rMenuButtons_01 {
             get {
                 object obj = ResourceManager.GetObject("rMenuButtons_01", resourceCulture);
@@ -1204,6 +1214,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap rPan_03 {
+            get {
+                object obj = ResourceManager.GetObject("rPan_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rPan2_01 {
             get {
                 object obj = ResourceManager.GetObject("rPan2_01", resourceCulture);
@@ -1274,6 +1294,26 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap rPSGMode_05 {
+            get {
+                object obj = ResourceManager.GetObject("rPSGMode_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rPSGMode_06 {
+            get {
+                object obj = ResourceManager.GetObject("rPSGMode_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rType_01 {
             get {
                 object obj = ResourceManager.GetObject("rType_01", resourceCulture);
@@ -1314,6 +1354,26 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap rType_05 {
+            get {
+                object obj = ResourceManager.GetObject("rType_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rType_06 {
+            get {
+                object obj = ResourceManager.GetObject("rType_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rVol_01 {
             get {
                 object obj = ResourceManager.GetObject("rVol_01", resourceCulture);
@@ -1327,6 +1387,16 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap rVol_02 {
             get {
                 object obj = ResourceManager.GetObject("rVol_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rVol_03 {
+            get {
+                object obj = ResourceManager.GetObject("rVol_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

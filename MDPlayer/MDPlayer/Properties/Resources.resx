@@ -854,4 +854,25 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   <data name="DefaultVolumeBalance_MUC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DefaultVolumeBalance_MUC.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
+  <data name="rPan_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPan_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rVol_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rVol_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rKBD_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rKBD_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rPSGMode_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rPSGMode_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

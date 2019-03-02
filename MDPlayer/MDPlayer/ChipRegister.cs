@@ -1135,11 +1135,81 @@ namespace MDPlayer
                 }
                 else
                 {
-                    if (scYM2151[chipID] != null)
-                        scYM2151[chipID].setRegister(dAddr, dData);
+                    scYM2151[chipID].setRegister(dAddr, dData);
                 }
             }
 
+        }
+
+        private void writeYM2151(int chipID, int dPort, int dAddr, int dData, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYM2151[chipID].UseScci)
+                {
+                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM2151[chipID] != null)
+                    scYM2151[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public void softResetYM2151(int chipID, enmModel model)
+        {
+
+            //FM全チャネルキーオフ
+            for (int i = 0; i < 8; i++)
+            {
+                // note off
+                writeYM2151(chipID, 0, 0x08, 0x00 + i, model);
+            }
+
+            writeYM2151(chipID, 0, 0x0f, 0x00, model); //  FM NOISE ENABLE/NOISE FREQ
+            writeYM2151(chipID, 0, 0x18, 0x00, model); //  FM HW LFO FREQ
+            writeYM2151(chipID, 0, 0x19, 0x80, model); //  FM PMD/VALUE
+            writeYM2151(chipID, 0, 0x19, 0x00, model); //  FM AMD/VALUE
+            writeYM2151(chipID, 0, 0x1b, 0x00, model); //  FM HW LFO WAVEFORM
+
+            //FM HW LFO RESET
+            writeYM2151(chipID, 0,0x01, 0x02, model);
+            writeYM2151(chipID, 0, 0x01, 0x00, model);
+
+            writeYM2151(chipID, 0,0x10, 0x00, model); // FM Timer-A(H)
+            writeYM2151(chipID, 0,0x11, 0x00, model); // FM Timer-A(L)
+            writeYM2151(chipID, 0,0x12, 0x00, model); // FM Timer-B
+            writeYM2151(chipID, 0, 0x14, 0x00, model); // FM Timer Control
+
+            for (int i = 0; i < 8; i++)
+            {
+                //  FB/ALG/PAN
+                writeYM2151(chipID, 0, 0x20 + i, 0x00, model);
+                // KC
+                writeYM2151(chipID, 0, 0x28 + i, 0x00, model);
+                // KF
+                writeYM2151(chipID, 0, 0x30 + i, 0x00, model);
+                // PMS/AMS
+                writeYM2151(chipID, 0, 0x38 + i, 0x00, model);
+            }
+            for (int i = 0; i < 0x20; i++)
+            {
+                // DT1/ML
+                writeYM2151(chipID, 0, 0x40 + i, 0x00, model);
+                // TL=127
+                writeYM2151(chipID, 0, 0x60 + i, 0x7f, model);
+                // KS/AR
+                writeYM2151(chipID, 0, 0x80 + i, 0x1F, model);
+                // AMD/D1R
+                writeYM2151(chipID, 0, 0xa0 + i, 0x00, model);
+                // DT2/D2R
+                writeYM2151(chipID, 0, 0xc0 + i, 0x00, model);
+                // D1L/RR
+                writeYM2151(chipID, 0, 0xe0 + i, 0x0F, model);
+            }
         }
 
         public void setAY8910Register(int chipID, int dAddr, int dData, enmModel model)
@@ -1640,7 +1710,15 @@ namespace MDPlayer
 
                 if (ch != 3)
                 {
-                    dData = Math.Min(dData + nowYM2203FadeoutVol[chipID], 127);
+                    int alg = fmRegisterYM2203[chipID][0xb0 + ch] & 0x7;
+                    int fv = 0;
+                    int dAddrTL = (dAddr & 0xf) - ch;
+                    if (dAddrTL == 0x0) { if ((algVolTbl[alg] & 1) != 0) fv = nowYM2203FadeoutVol[chipID]; }
+                    else if (dAddrTL == 0x4) { if ((algVolTbl[alg] & 4) != 0) fv = nowYM2203FadeoutVol[chipID]; }
+                    else if (dAddrTL == 0x8) { if ((algVolTbl[alg] & 2) != 0) fv = nowYM2203FadeoutVol[chipID]; }
+                    else if (dAddrTL == 0xc) { if ((algVolTbl[alg] & 8) != 0) fv = nowYM2203FadeoutVol[chipID]; }
+
+                    dData = Math.Min(dData + fv, 127);
                     dData = maskFMChYM2203[chipID][ch] ? 127 : dData;
                 }
             }
@@ -1684,6 +1762,88 @@ namespace MDPlayer
 
                 scYM2203[chipID].setRegister(dAddr, dData);
             }
+        }
+
+        private void writeYM2203(int chipID, int dPort, int dAddr, int dData, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYM2203[chipID].UseScci)
+                {
+                    mds.WriteYM2203((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM2203[chipID] == null) return;
+
+                scYM2203[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public void softResetYM2203(int chipID, enmModel model)
+        {
+            int i;
+
+            // FM全チャネルキーオフ
+            writeYM2203(chipID, 0, 0x28, 0x00, model);
+            writeYM2203(chipID, 0, 0x28, 0x01, model);
+            writeYM2203(chipID, 0, 0x28, 0x02, model);
+
+            // FM TL=127
+            for (i = 0x40; i < 0x4F + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x7f, model);
+            }
+            // FM ML/DT
+            for (i = 0x30; i < 0x3F + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x0, model);
+            }
+            // FM AR,DR,SR,KS,AMON
+            for (i = 0x50; i < 0x7F + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x0, model);
+            }
+            // FM SL,RR
+            for (i = 0x80; i < 0x8F + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0xff, model);
+            }
+            // FM F-Num, FB/CONNECT
+            for (i = 0x90; i < 0xBF + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x0, model);
+            }
+            // FM PAN/AMS/PMS
+            for (i = 0xB4; i < 0xB6 + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0xc0, model);
+            }
+            writeYM2203(chipID, 0, 0x22, 0x00, model); // HW LFO
+            writeYM2203(chipID, 0, 0x24, 0x00, model); // Timer-A(1)
+            writeYM2203(chipID, 0, 0x25, 0x00, model); // Timer-A(2)
+            writeYM2203(chipID, 0, 0x26, 0x00, model); // Timer-B
+            writeYM2203(chipID, 0, 0x27, 0x30, model); // Timer Control
+
+            // SSG 音程(2byte*3ch)
+            for (i = 0x00; i < 0x05 + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x00, model);
+            }
+            writeYM2203(chipID, 0, 0x06, 0x00, model); // SSG ノイズ周波数
+            writeYM2203(chipID, 0, 0x07, 0x38, model); // SSG ミキサ
+                                                       // SSG ボリューム(3ch)
+            for (i = 0x08; i < 0x0A + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x00, model);
+            }
+            // SSG Envelope
+            for (i = 0x0B; i < 0x0D + 1; i++)
+            {
+                writeYM2203(chipID, 0, i, 0x00, model);
+            }
+
         }
 
         public void setYM2608Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
@@ -1854,6 +2014,112 @@ namespace MDPlayer
                 scYM2608[chipID].setRegister(dPort * 0x100 + dAddr, dData);
             }
 
+        }
+
+        private void writeYM2608(int chipID, int dPort, int dAddr, int dData, enmModel model)
+        {
+            if (model == enmModel.VirtualModel)
+            {
+                if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
+                {
+                    mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM2608[chipID] == null) return;
+
+                scYM2608[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+        }
+
+        public void softResetYM2608(int chipID, enmModel model)
+        {
+            int i;
+
+            // FM全チャネルキーオフ
+            writeYM2608(chipID, 0, 0x28, 0x00, model);
+            writeYM2608(chipID, 0, 0x28, 0x01, model);
+            writeYM2608(chipID, 0, 0x28, 0x02, model);
+            writeYM2608(chipID, 0, 0x28, 0x04, model);
+            writeYM2608(chipID, 0, 0x28, 0x05, model);
+            writeYM2608(chipID, 0, 0x28, 0x06, model);
+
+            // FM TL=127
+            for (i = 0x40; i < 0x4F + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x7f, model);
+                writeYM2608(chipID, 1, i, 0x7f, model);
+            }
+            // FM ML/DT
+            for (i = 0x30; i < 0x3F + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x0, model);
+                writeYM2608(chipID, 1, i, 0x0, model);
+            }
+            // FM AR,DR,SR,KS,AMON
+            for (i = 0x50; i < 0x7F + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x0, model);
+                writeYM2608(chipID, 1, i, 0x0, model);
+            }
+            // FM SL,RR
+            for (i = 0x80; i < 0x8F + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0xff, model);
+                writeYM2608(chipID, 1, i, 0xff, model);
+            }
+            // FM F-Num, FB/CONNECT
+            for (i = 0x90; i < 0xBF + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x0, model);
+                writeYM2608(chipID, 1, i, 0x0, model);
+            }
+            // FM PAN/AMS/PMS
+            for (i = 0xB4; i < 0xB6 + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0xc0, model);
+                writeYM2608(chipID, 1, i, 0xc0, model);
+            }
+            writeYM2608(chipID, 0, 0x22, 0x00, model); // HW LFO
+            writeYM2608(chipID, 0, 0x24, 0x00, model); // Timer-A(1)
+            writeYM2608(chipID, 0, 0x25, 0x00, model); // Timer-A(2)
+            writeYM2608(chipID, 0, 0x26, 0x00, model); // Timer-B
+            writeYM2608(chipID, 0, 0x27, 0x30, model); // Timer Control
+            writeYM2608(chipID, 0, 0x29, 0x80, model); // FM4-6 Enable
+
+            // SSG 音程(2byte*3ch)
+            for (i = 0x00; i < 0x05 + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x00, model);
+            }
+            writeYM2608(chipID, 0, 0x06, 0x00, model); // SSG ノイズ周波数
+            writeYM2608(chipID, 0, 0x07, 0x38, model); // SSG ミキサ
+                                                       // SSG ボリューム(3ch)
+            for (i = 0x08; i < 0x0A + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x00, model);
+            }
+            // SSG Envelope
+            for (i = 0x0B; i < 0x0D + 1; i++)
+            {
+                writeYM2608(chipID, 0, i, 0x00, model);
+            }
+
+            // RHYTHM
+            writeYM2608(chipID, 0, 0x10, 0xBF, model); // 強制発音停止
+            writeYM2608(chipID, 0, 0x11, 0x00, model); // Total Level
+            writeYM2608(chipID, 0, 0x18, 0x00, model); // BD音量
+            writeYM2608(chipID, 0, 0x19, 0x00, model); // SD音量
+            writeYM2608(chipID, 0, 0x1A, 0x00, model); // CYM音量
+            writeYM2608(chipID, 0, 0x1B, 0x00, model); // HH音量
+            writeYM2608(chipID, 0, 0x1C, 0x00, model); // TOM音量
+            writeYM2608(chipID, 0, 0x1D, 0x00, model); // RIM音量
+
+            // ADPCM
+            writeYM2608(chipID, 1, 0x00, 0x21, model); // ADPCMリセット
+            writeYM2608(chipID, 1, 0x01, 0x06, model); // ADPCM消音
+            writeYM2608(chipID, 1, 0x10, 0x9C, model); // FLAGリセット        }
         }
 
         public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, enmModel model)
@@ -2750,9 +3016,11 @@ namespace MDPlayer
             maskChSN76489[chipID][ch] = mask;
         }
 
-        public void setMaskYM2151(int chipID, int ch, bool mask)
+        public void setMaskYM2151(int chipID, int ch, bool mask, bool noSend = false)
         {
             maskFMChYM2151[chipID][ch] = mask;
+
+            if (noSend) return;
 
             setYM2151Register((byte)chipID, 0, 0x60 + ch, fmRegisterYM2151[chipID][0x60 + ch], enmModel.VirtualModel, 0, -1);
             setYM2151Register((byte)chipID, 0, 0x68 + ch, fmRegisterYM2151[chipID][0x68 + ch], enmModel.VirtualModel, 0, -1);
@@ -2765,9 +3033,11 @@ namespace MDPlayer
             setYM2151Register((byte)chipID, 0, 0x78 + ch, fmRegisterYM2151[chipID][0x78 + ch], enmModel.RealModel, 0, -1);
         }
 
-        public void setMaskYM2203(int chipID, int ch, bool mask)
+        public void setMaskYM2203(int chipID, int ch, bool mask, bool noSend = false)
         {
             maskFMChYM2203[chipID][ch] = mask;
+
+            if (noSend) return;
 
             int c = ch;
             if (ch < 3)
@@ -2835,7 +3105,7 @@ namespace MDPlayer
             maskChC352[chipID][ch] = mask;
         }
 
-        public void setMaskYM2608(int chipID, int ch, bool mask)
+        public void setMaskYM2608(int chipID, int ch, bool mask,bool noSend=false)
         {
             maskFMChYM2608[chipID][ch] = mask;
             if (ch >= 9 && ch < 12)
@@ -2848,6 +3118,8 @@ namespace MDPlayer
 
             int c = (ch < 3) ? ch : (ch - 3);
             int p = (ch < 3) ? 0 : 1;
+
+            if (noSend) return;
 
             if (ch < 6)
             {
@@ -3053,15 +3325,18 @@ namespace MDPlayer
             }
         }
 
+        int[] algVolTbl = new int[8] { 8, 8, 8, 8, 0xa, 0xe, 0xe, 0xf };
+
         public void setFadeoutVolYM2203(int chipID, int v)
         {
             nowYM2203FadeoutVol[chipID] = v;
             for (int c = 0; c < 3; c++)
             {
-                setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], enmModel.RealModel);
-                setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], enmModel.RealModel);
+                int alg = fmRegisterYM2203[chipID][0xb0 + c] & 0x7;
+                if ((algVolTbl[alg] & 1) != 0) setYM2203Register((byte)chipID, 0x40 + c, fmRegisterYM2203[chipID][0x40 + c], enmModel.RealModel);
+                if ((algVolTbl[alg] & 4) != 0) setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], enmModel.RealModel);
+                if ((algVolTbl[alg] & 2) != 0) setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], enmModel.RealModel);
+                if ((algVolTbl[alg] & 8) != 0) setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], enmModel.RealModel);
             }
         }
 

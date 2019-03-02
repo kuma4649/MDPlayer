@@ -498,7 +498,11 @@ namespace MDPlayer
         override public uint SetMasterClock(uint mClock)
         {
             NIGimic2 gm = realChip.QueryInterface();
-            gm.setPLLClock(mClock);
+            uint nowClock= gm.getPLLClock();
+            if (nowClock != mClock)
+            {
+                gm.setPLLClock(mClock);
+            }
 
             return gm.getPLLClock();
         }

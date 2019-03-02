@@ -35,7 +35,8 @@ namespace MDPlayer.form
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeD, null, zoom);
             bool YM2608Type = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
-            int tp = YM2608Type ? 1 : 0;
+            int YM2608SoundLocation = (chipID == 0) ? parent.setting.YM2608Type.SoundLocation : parent.setting.YM2608SType.SoundLocation;
+            int tp = !YM2608Type ? 0 : (YM2608SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYM2608(frameBuffer, tp);
             update();
         }
@@ -110,7 +111,8 @@ namespace MDPlayer.form
                 newParam.channels[c].note = -1;
             }
             bool YM2608Type = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
-            int tp = YM2608Type ? 1 : 0;
+            int YM2608SoundLocation = (chipID == 0) ? parent.setting.YM2608Type.SoundLocation : parent.setting.YM2608SType.SoundLocation;
+            int tp = !YM2608Type ? 0 : (YM2608SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYM2608(frameBuffer, tp);
         }
 
@@ -299,7 +301,9 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.YM2608Type.UseScci ? 1 : 0;
+            bool chipType = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
+            int chipSoundLocation = (chipID == 0) ? parent.setting.YM2608Type.SoundLocation : parent.setting.YM2608SType.SoundLocation;
+            int tp = !chipType ? 0 : (chipSoundLocation < 0 ? 2 : 1);
 
             for (int c = 0; c < 9; c++)
             {
@@ -342,7 +346,7 @@ namespace MDPlayer.form
 
                 DrawBuff.Volume(frameBuffer, 256, 8 + (c+6) * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c + 6, ref oyc.note, nyc.note, tp);
-                DrawBuff.Tn(frameBuffer, 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+                DrawBuff.Tn(frameBuffer, 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp*2);
 
                 DrawBuff.ChYM2608(frameBuffer, c + 9, ref oyc.mask, nyc.mask, tp);
             }

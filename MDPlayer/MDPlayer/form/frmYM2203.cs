@@ -34,8 +34,9 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM2203, null, zoom);
-            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203Type.UseScci;
-            int tp = YM2203Type ? 1 : 0;
+            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
+            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYM2203(frameBuffer, tp);
             update();
         }
@@ -261,7 +262,9 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.YM2203Type.UseScci ? 1 : 0;
+            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
+            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
 
             for (int c = 0; c < 6; c++)
             {
@@ -300,7 +303,7 @@ namespace MDPlayer.form
 
                 DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
-                DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+                DrawBuff.Tn(frameBuffer, 6, 2, c + 3, ref oyc.tn, nyc.tn, ref oyc.tntp, tp*2);
 
                 DrawBuff.ChYM2203(frameBuffer, c + 6, ref oyc.mask, nyc.mask, tp);
 
@@ -314,7 +317,9 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            int tp = parent.setting.YM2203Type.UseScci ? 1 : 0;
+            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
+            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
 
             for (int ch = 0; ch < 3; ch++)
             {

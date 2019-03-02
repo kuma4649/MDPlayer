@@ -754,6 +754,7 @@
     <Content Include="Resources\rKakko_00.png" />
     <Content Include="Resources\rKBD_01.png" />
     <Content Include="Resources\rKBD_02.png" />
+    <Content Include="Resources\rKBD_03.png" />
     <Content Include="Resources\rMenuButtons_01.png" />
     <Content Include="Resources\rMenuButtons_02.png" />
     <Content Include="Resources\rMIDILCD_01.png" />
@@ -784,6 +785,8 @@
     <Content Include="Resources\rPSGMode_02.png" />
     <Content Include="Resources\rPSGMode_03.png" />
     <Content Include="Resources\rPSGMode_04.png" />
+    <Content Include="Resources\rPSGMode_05.png" />
+    <Content Include="Resources\rPSGMode_06.png" />
     <Content Include="Resources\rType_01.png" />
     <Content Include="Resources\rType_02.png" />
     <Content Include="Resources\rType_03.png" />

@@ -18,6 +18,7 @@ namespace MDPlayer
         private double musicStep = common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
         private int s98WaitCounter;
+        public int SSGVolumeFromTAG = -1;
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
@@ -105,12 +106,16 @@ namespace MDPlayer
                             catch
                             { }
                         }
+                        SSGVolumeFromTAG = -1;
                         if (str.ToLower().IndexOf("system=") != -1)
                         {
                             try
                             {
                                 gd3.SystemName = str.Substring(str.IndexOf("=") + 1);
                                 gd3.SystemNameJ = str.Substring(str.IndexOf("=") + 1);
+
+                                if (gd3.SystemName.IndexOf("8801") > 0) SSGVolumeFromTAG = 63;
+                                else if (gd3.SystemName.IndexOf("9801") > 0) SSGVolumeFromTAG = 31;
                             }
                             catch
                             { }
