@@ -21,19 +21,20 @@ namespace MDPlayer
         public string Version = "";
         public string UsedChips = "";
         public int vstDelta = 0;
+        public bool isDataBlock = false;
 
         public int[] YM2151Hosei = new int[2] { 0, 0 };
 
         protected byte[] vgmBuf = null;
         protected ChipRegister chipRegister = null;
-        protected enmModel model = enmModel.VirtualModel;
-        protected enmUseChip[] useChip = new enmUseChip[] { enmUseChip.Unuse };
+        protected EnmModel model = EnmModel.VirtualModel;
+        protected EnmChip[] useChip = new EnmChip[] { EnmChip.Unuse };
         protected uint latency = 1000;
         protected uint waitTime = 0;
 
         public string errMsg { get; internal set; }
 
-        public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime);
+        public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime);
         public abstract void oneFrameProc();
         public abstract GD3 getGD3Info(byte[] buf, uint vgmGd3);
 
@@ -41,14 +42,14 @@ namespace MDPlayer
         {
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, 3579545);
-                if (model == enmModel.RealModel)
+                YM2151Hosei[chipID] = Common.GetYM2151Hosei(YM2151ClockValue, 3579545);
+                if (model == EnmModel.RealModel)
                 {
                     YM2151Hosei[chipID] = 0;
                     int clock = chipRegister.getYM2151Clock((byte)chipID);
                     if (clock != -1)
                     {
-                        YM2151Hosei[chipID] = common.GetYM2151Hosei(YM2151ClockValue, clock);
+                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(YM2151ClockValue, clock);
                     }
                 }
             }

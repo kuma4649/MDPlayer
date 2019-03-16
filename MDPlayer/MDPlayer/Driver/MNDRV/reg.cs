@@ -129,11 +129,11 @@ namespace MDPlayer.Driver.MNDRV
             this.MasterClock = MasterClock;
             if (isOPM)
             {
-                step = MasterClock / 64.0 / 1.0 / (double)common.SampleRate;
+                step = MasterClock / 64.0 / 1.0 / (double)Common.SampleRate;
             }
             else
             {
-                step = MasterClock / 72.0 / 2.0 / (double)common.SampleRate;
+                step = MasterClock / 72.0 / 2.0 / (double)Common.SampleRate;
             }
         }
 

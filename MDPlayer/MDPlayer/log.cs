@@ -22,7 +22,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.settingFilePath;
+                    string fullPath = Common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
@@ -45,7 +45,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.settingFilePath;
+                    string fullPath = Common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
@@ -78,7 +78,7 @@ namespace MDPlayer
             {
                 if (path == "")
                 {
-                    string fullPath = common.settingFilePath;
+                    string fullPath = Common.settingFilePath;
                     path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }

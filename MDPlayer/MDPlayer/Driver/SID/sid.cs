@@ -22,11 +22,11 @@ namespace MDPlayer.Driver.SID
             if (buf == null) return null;
 
             if (
-                common.getLE32(buf, 0) != FCC_PSID
-                && common.getLE32(buf, 0) != FCC_RSID
+                Common.getLE32(buf, 0) != FCC_PSID
+                && Common.getLE32(buf, 0) != FCC_RSID
                 ) return null;
 
-            songs = (int)common.getBE16(buf, 0x0e);
+            songs = (int)Common.getBE16(buf, 0x0e);
 
             GD3 gd3 = new GD3();
             gd3.TrackName = Encoding.ASCII.GetString(buf, 0x16, 32).Trim();
@@ -39,7 +39,7 @@ namespace MDPlayer.Driver.SID
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -48,7 +48,7 @@ namespace MDPlayer.Driver.SID
             this.latency = latency;
             this.waitTime = waitTime;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 Stopped = true;
                 vgmCurLoop = 9999;
@@ -74,7 +74,7 @@ namespace MDPlayer.Driver.SID
 
         public override void oneFrameProc()
         {
-            if (model == enmModel.RealModel) return;
+            if (model == EnmModel.RealModel) return;
             try
             {
                 vgmSpeedCounter += vgmSpeed;
@@ -172,7 +172,7 @@ namespace MDPlayer.Driver.SID
             //    return false;
 
             SidConfig cfg = new SidConfig();
-            cfg.frequency = (uint)common.SampleRate;
+            cfg.frequency = (uint)Common.SampleRate;
             cfg.samplingMethod = (setting.sid.Quality & 2) == 0 ? SidConfig.sampling_method_t.INTERPOLATE : SidConfig.sampling_method_t.RESAMPLE_INTERPOLATE;
             cfg.fastSampling = (setting.sid.Quality & 1) == 0;
             cfg.playback = SidConfig.playback_t.STEREO;

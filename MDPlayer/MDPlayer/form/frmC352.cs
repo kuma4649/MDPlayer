@@ -114,11 +114,11 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(enmUseChip.C352, chipID, ch);
+                    parent.SetChannelMask(EnmChip.C352, chipID, ch);
                     return;
                 }
 
-                for (ch = 0; ch < 32; ch++) parent.ResetChannelMask(enmUseChip.C352, chipID, ch);
+                for (ch = 0; ch < 32; ch++) parent.ResetChannelMask(EnmChip.C352, chipID, ch);
                 return;
 
             }
@@ -184,10 +184,10 @@ namespace MDPlayer.form
                     if ((c352Register[ch * 8 + 3] & 0x4000) != 0 && (c352key[ch] & 0x8000) != 0)
                     {
                         newParam.channels[ch].pan = ((c352Register[ch * 8 + 0] >> 12) & 0xf) | (((((UInt16)c352Register[ch * 8 + 0] & 0xff) >> 4) & 0xf) << 4);
-                        newParam.channels[ch].volumeL = common.Range((int)(((UInt16)c352Register[ch * 8 + 0] >> 8) / 11.7), 0, 19);
-                        newParam.channels[ch].volumeR = common.Range((int)(((UInt16)c352Register[ch * 8 + 0] & 0xff) / 11.7), 0, 19);
-                        newParam.channels[ch].volumeRL = common.Range((int)(((UInt16)c352Register[ch * 8 + 1] >> 8) / 11.7), 0, 19);
-                        newParam.channels[ch].volumeRR = common.Range((int)(((UInt16)c352Register[ch * 8 + 1] & 0xff) / 11.7), 0, 19);
+                        newParam.channels[ch].volumeL = Common.Range((int)(((UInt16)c352Register[ch * 8 + 0] >> 8) / 11.7), 0, 19);
+                        newParam.channels[ch].volumeR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 0] & 0xff) / 11.7), 0, 19);
+                        newParam.channels[ch].volumeRL = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] >> 8) / 11.7), 0, 19);
+                        newParam.channels[ch].volumeRR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] & 0xff) / 11.7), 0, 19);
                     }
 
                     if (newParam.channels[ch].mask)

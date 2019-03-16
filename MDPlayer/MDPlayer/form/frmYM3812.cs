@@ -92,12 +92,12 @@ namespace MDPlayer.form
             if (e.Button == MouseButtons.Left)
             {
                 //マスク
-                parent.SetChannelMask(enmUseChip.YM3812, chipID, ch);
+                parent.SetChannelMask(EnmChip.YM3812, chipID, ch);
                 return;
             }
 
             //マスク解除
-            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(enmUseChip.YM3812, chipID, ch);
+            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(EnmChip.YM3812, chipID, ch);
             return;
         }
 
@@ -209,7 +209,7 @@ namespace MDPlayer.form
                 //CN
                 nyc.inst[14] = (ym3812Register[0xc0 + c] & 1);
 
-                nyc.note = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
+                nyc.note = Common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
 
                 //詳細はfrmVRC7の該当箇所を参照
 

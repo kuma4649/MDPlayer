@@ -36,7 +36,7 @@ namespace MDPlayer.form
         {
             bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type.UseScci : parent.setting.YM2612SType.UseScci;
             int tp = YM2612Type ? 1 : 0;
-            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0) ? parent.setting.YM2612Type.OnlyPCMEmulation : parent.setting.YM2612SType.OnlyPCMEmulation, newParam.fileFormat == enmFileFormat.XGM);
+            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0) ? parent.setting.YM2612Type.OnlyPCMEmulation : parent.setting.YM2612SType.OnlyPCMEmulation, newParam.fileFormat == EnmFileFormat.XGM);
             newParam.channels[5].pcmBuff = 100;
         }
 
@@ -167,7 +167,7 @@ namespace MDPlayer.form
                     octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
                     newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
 
-                    if ((fmKey[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
 
                     byte con = (byte)(fmKey[ch]);
                     int v = 127;
@@ -190,7 +190,7 @@ namespace MDPlayer.form
                     octav = (fmRegister[0][0xad] & 0x38) >> 3;
                     newParam.channels[2].freq = (freq & 0x7ff) | ((octav & 7) << 11);
 
-                    if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
 
                     int v = ((m & 0x10) != 0) ? fmRegister[p][0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * fmCh3SlotVol[0] / 80.0), 0), 19);
@@ -225,7 +225,7 @@ namespace MDPlayer.form
                     int n = -1;
                     if ((fmKey[2] & (0x10 << (ch-5))) != 0 && ((m & (0x10 << op)) != 0))
                     {
-                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq), 0), 95);
+                        n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
                     }
                     newParam.channels[ch].note = n;
 
@@ -248,7 +248,7 @@ namespace MDPlayer.form
                 newParam.channels[5].volumeR = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
             }
 
-            if (newParam.fileFormat == enmFileFormat.XGM && Audio.driverVirtual is xgm)
+            if (newParam.fileFormat == EnmFileFormat.XGM && Audio.driverVirtual is xgm)
             {
                 if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
                 {
@@ -319,7 +319,7 @@ namespace MDPlayer.form
                     DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp6v);
                     DrawBuff.InstOPN2(frameBuffer, 13, 96, c, oyc.inst, nyc.inst);
 
-                    if (newParam.fileFormat != enmFileFormat.XGM)
+                    if (newParam.fileFormat != EnmFileFormat.XGM)
                     {
                         DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
@@ -388,13 +388,13 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    if (ch < 6) parent.SetChannelMask(enmUseChip.YM2612, chipID, ch);
-                    else parent.SetChannelMask(enmUseChip.YM2612, chipID, 2);
+                    if (ch < 6) parent.SetChannelMask(EnmChip.YM2612, chipID, ch);
+                    else parent.SetChannelMask(EnmChip.YM2612, chipID, 2);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(enmUseChip.YM2612, chipID, ch);
+                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(EnmChip.YM2612, chipID, ch);
                 return;
             }
 
@@ -409,7 +409,7 @@ namespace MDPlayer.form
             if (instCh < 6)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2612, instCh, chipID);
+                parent.getInstCh(EnmChip.YM2612, instCh, chipID);
             }
 
         }

@@ -281,8 +281,8 @@ namespace MDPlayer.form
                     for (int i = 0; i < 5; i++)
                     {
                         //マスク解除
-                        if (i < 2) parent.ResetChannelMask(enmUseChip.NES, chipID, i);
-                        else parent.ResetChannelMask(enmUseChip.DMC, chipID, i - 2);
+                        if (i < 2) parent.ResetChannelMask(EnmChip.NES, chipID, i);
+                        else parent.ResetChannelMask(EnmChip.DMC, chipID, i - 2);
                     }
 
                     return;
@@ -296,8 +296,8 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    if (ch < 2) parent.SetChannelMask(enmUseChip.NES, chipID, ch);
-                    else parent.SetChannelMask(enmUseChip.DMC, chipID, ch - 2);
+                    if (ch < 2) parent.SetChannelMask(EnmChip.NES, chipID, ch);
+                    else parent.SetChannelMask(EnmChip.DMC, chipID, ch - 2);
 
                     return;
                 }

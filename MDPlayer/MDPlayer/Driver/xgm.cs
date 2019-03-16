@@ -30,7 +30,7 @@ namespace MDPlayer
         private uint gd3InfoStartAddr = 0;
 
 
-        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = xgmBuf;
@@ -51,7 +51,7 @@ namespace MDPlayer
 
             if (!getXGMInfo(vgmBuf)) return false;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 chipRegister.setYM2612SyncWait(0, 1);
                 chipRegister.setYM2612SyncWait(1, 1);
@@ -102,7 +102,7 @@ namespace MDPlayer
 
             if (!existGD3) return new GD3();
 
-            GD3 GD3 = common.getGD3Info(vgmBuf, gd3InfoStartAddr + 12);
+            GD3 GD3 = Common.getGD3Info(vgmBuf, gd3InfoStartAddr + 12);
             GD3.UsedChips = UsedChips;
 
             return GD3;
@@ -115,16 +115,16 @@ namespace MDPlayer
 
             try
             {
-                if (common.getLE32(vgmBuf, 0) != FCC_XGM) return false;
+                if (Common.getLE32(vgmBuf, 0) != FCC_XGM) return false;
 
                 for (uint i = 0; i < 63; i++)
                 {
                     sampleID[i] = new XGMSampleID();
-                    sampleID[i].addr = (common.getLE16(vgmBuf, i * 4 + 4) * 256);
-                    sampleID[i].size = (common.getLE16(vgmBuf, i * 4 + 6) * 256);
+                    sampleID[i].addr = (Common.getLE16(vgmBuf, i * 4 + 4) * 256);
+                    sampleID[i].size = (Common.getLE16(vgmBuf, i * 4 + 6) * 256);
                 }
 
-                sampleDataBlockSize = common.getLE16(vgmBuf, 0x100);
+                sampleDataBlockSize = Common.getLE16(vgmBuf, 0x100);
 
                 versionInformation = vgmBuf[0x102];
 
@@ -138,7 +138,7 @@ namespace MDPlayer
 
                 sampleDataBlockAddr = 0x104;
 
-                musicDataBlockSize = common.getLE32(vgmBuf, sampleDataBlockAddr + sampleDataBlockSize * 256);
+                musicDataBlockSize = Common.getLE32(vgmBuf, sampleDataBlockAddr + sampleDataBlockSize * 256);
 
                 musicDataBlockAddr = sampleDataBlockAddr + sampleDataBlockSize * 256 + 4;
 
@@ -166,8 +166,8 @@ namespace MDPlayer
         }
 
 
-        private double musicStep = common.SampleRate / 60.0;
-        private double pcmStep = common.SampleRate / 14000.0;
+        private double musicStep = Common.SampleRate / 60.0;
+        private double pcmStep = Common.SampleRate / 14000.0;
         private double musicDownCounter = 0.0;
         private double pcmDownCounter = 0.0;
         private uint musicPtr = 0;
@@ -181,7 +181,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = common.SampleRate / (isNTSC ? 60.0 : 50.0);
+                musicStep = Common.SampleRate / (isNTSC ? 60.0 : 50.0);
 
                 if (musicDownCounter <= 0.0)
                 {
@@ -220,7 +220,7 @@ namespace MDPlayer
                 //loop command
                 if (cmd == 0x7e)
                 {
-                    musicPtr = musicDataBlockAddr + common.getLE24(vgmBuf, musicPtr);
+                    musicPtr = musicDataBlockAddr + Common.getLE24(vgmBuf, musicPtr);
                     vgmCurLoop++;
                     continue;
                 }

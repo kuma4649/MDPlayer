@@ -15,7 +15,7 @@ namespace MDPlayer
         public uint reso = 196;
 
         private double oneSyncTime = 0.0001;
-        private double musicStep = common.SampleRate / 60.0;
+        private double musicStep = Common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
         private List<RCP.CtlSysex>[] beforeSend = null;
@@ -52,7 +52,7 @@ namespace MDPlayer
 
             try
             {
-                if (common.getLE32(buf, 0) != FCC_MID) return null;
+                if (Common.getLE32(buf, 0) != FCC_MID) return null;
                 uint format = (uint)(buf[8]*0x100+buf[9]);
                 uint trkCount = (uint)(buf[10] * 0x100 + buf[11]);
                 uint adr = 14;
@@ -62,25 +62,25 @@ namespace MDPlayer
                 {
                     if (buf.Length <= adr) break;
 
-                    if (common.getLE32(buf, adr) != FCC_TRK) return null;
+                    if (Common.getLE32(buf, adr) != FCC_TRK) return null;
                     uint len = (uint)(buf[adr + 4] * 0x1000000 + buf[adr + 5] * 0x10000 + buf[adr + 6] * 0x100 + buf[adr + 7]);
                     adr += 8;
                     uint trkEndadr = adr + len;
 
                     while (adr < trkEndadr && adr < buf.Length)
                     {
-                        int delta = common.getDelta(ref adr, buf);
+                        int delta = Common.getDelta(ref adr, buf);
                         byte cmd = buf[adr++];
                         if (cmd == 0xf0 || cmd == 0xf7)
                         {
                             uint bAdr = adr - 1;
-                            int datalen = common.getDelta(ref adr, buf);
+                            int datalen = Common.getDelta(ref adr, buf);
                             adr = adr + (uint)datalen;
                         }
                         else if (cmd == 0xff)
                         {
                             byte eventType = buf[adr++];
-                            uint eventLen = (uint)common.getDelta(ref adr, buf);
+                            uint eventLen = (uint)Common.getDelta(ref adr, buf);
                             List<byte> eventData = new List<byte>();
                             for (int j = 0; j < eventLen; j++)
                             {
@@ -164,7 +164,7 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -192,7 +192,7 @@ namespace MDPlayer
             //ポートごとに事前に送信するコマンドを作成する
             if (!MakeBeforeSendCommand()) return false;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 chipRegister.setYM2612SyncWait(0, 1);
                 chipRegister.setYM2612SyncWait(1, 1);
@@ -204,7 +204,7 @@ namespace MDPlayer
         private bool getInformationHeader()
         {
             if (vgmBuf == null) return false;
-            if (common.getLE32(vgmBuf, 0) != FCC_MID) return false;
+            if (Common.getLE32(vgmBuf, 0) != FCC_MID) return false;
 
             format = (uint)(vgmBuf[8] * 0x100 + vgmBuf[9]);
             trkCount = (uint)(vgmBuf[10] * 0x100 + vgmBuf[11]);
@@ -225,7 +225,7 @@ namespace MDPlayer
                 isEnd.Add(false);
                 isDelta.Add(true);
 
-                if (common.getLE32(vgmBuf, adr) != FCC_TRK) return false;
+                if (Common.getLE32(vgmBuf, adr) != FCC_TRK) return false;
                 uint len = (uint)(vgmBuf[adr + 4] * 0x1000000 + vgmBuf[adr + 5] * 0x10000 + vgmBuf[adr + 6] * 0x100 + vgmBuf[adr + 7]);
                 adr += 8;
                 musicPtr.Add(adr);
@@ -274,7 +274,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = common.SampleRate * oneSyncTime;
+                musicStep = Common.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {
@@ -322,7 +322,7 @@ namespace MDPlayer
 
                     if (isDelta[trk])
                     {
-                        delta = common.getDelta(ref ptr, vgmBuf);
+                        delta = Common.getDelta(ref ptr, vgmBuf);
                         midWaitCounter[trk] = delta;
 
 #if DEBUG
@@ -339,7 +339,7 @@ namespace MDPlayer
 
                         if (cmd == 0xf0 || cmd == 0xf7)
                         {
-                            uint eventLen = (uint)common.getDelta(ref ptr, vgmBuf);
+                            uint eventLen = (uint)Common.getDelta(ref ptr, vgmBuf);
 #if DEBUG
                             //Console.Write("evntLen:{0:D10} ", eventLen);
                             Console.Write("{0:X2} ", cmd);
@@ -362,7 +362,7 @@ namespace MDPlayer
                         else if (cmd == 0xff)
                         {
                             byte eventType = vgmBuf[ptr++];
-                            uint eventLen = (uint)common.getDelta(ref ptr, vgmBuf);
+                            uint eventLen = (uint)Common.getDelta(ref ptr, vgmBuf);
 
 #if DEBUG
                             Console.Write("evntTyp:{0:X2} evntLen:{1:D10} ", eventType, eventLen);

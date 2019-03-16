@@ -96,7 +96,7 @@ namespace MDPlayer
             ,214,0                  //+2
         };
 
-        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] nrdFileData, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = nrdFileData;
@@ -129,14 +129,14 @@ namespace MDPlayer
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, 3579545);
-                if (model == enmModel.RealModel)
+                YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
+                if (model == EnmModel.RealModel)
                 {
                     YM2151Hosei[chipID] = 0;
                     int clock = chipRegister.getYM2151Clock((byte)chipID);
                     if (clock != -1)
                     {
-                        YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, clock);
+                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
                     }
                 }
             }
@@ -144,7 +144,7 @@ namespace MDPlayer
             //Driverの初期化
             Call(0);
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 chipRegister.sendDataYM2151(0, model);
                 chipRegister.setYM2151SyncWait(0, 1);
@@ -158,12 +158,12 @@ namespace MDPlayer
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             GD3 gd3 = new GD3();
-            gd3.TrackName = common.getNRDString(buf, ref vgmGd3);
-            gd3.TrackNameJ = common.getNRDString(buf, ref vgmGd3);
-            gd3.Composer = common.getNRDString(buf, ref vgmGd3);
+            gd3.TrackName = Common.getNRDString(buf, ref vgmGd3);
+            gd3.TrackNameJ = Common.getNRDString(buf, ref vgmGd3);
+            gd3.Composer = Common.getNRDString(buf, ref vgmGd3);
             gd3.ComposerJ = gd3.Composer;
-            gd3.VGMBy = common.getNRDString(buf, ref vgmGd3);
-            gd3.Notes = common.getNRDString(buf, ref vgmGd3);
+            gd3.VGMBy = Common.getNRDString(buf, ref vgmGd3);
+            gd3.Notes = Common.getNRDString(buf, ref vgmGd3);
 
             if ((buf[2] & 0x08) != 0)
             {
@@ -173,7 +173,7 @@ namespace MDPlayer
                 {
                     int cnt = buf[adr] + buf[adr + 1] * 0x100;
                     uint sAdr = (uint)(buf[adr + 2] + buf[adr + 3] * 0x100);
-                    string msg = common.getNRDString(buf, ref sAdr);
+                    string msg = Common.getNRDString(buf, ref sAdr);
                     gd3.Lyrics.Add(new Tuple<int, int, string>(cnt, (int)sAdr, msg));
                     adr += 4;
                 }
@@ -468,8 +468,8 @@ namespace MDPlayer
         private float CTC3DownCounter = 0.0f;
         private float CTC3DownCounterMAX = 0.0f;
         //private bool CTC3Paluse = false;
-        private float CTCStep = 4000000.0f / common.SampleRate;
-        private float CTC1Step = 4000000.0f / (UInt32)common.SampleRate;
+        private float CTCStep = 4000000.0f / Common.SampleRate;
+        private float CTC1Step = 4000000.0f / (UInt32)Common.SampleRate;
 
         public override void oneFrameProc()
         {
@@ -632,7 +632,7 @@ namespace MDPlayer
             // 割り込みルーチン最後のEI 無効
 
             imain();
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 //chipRegister.sendDataYM2151(0, model);
                 //chipRegister.setYM2151SyncWait(0, 1);
@@ -876,14 +876,14 @@ namespace MDPlayer
 
         private void wopm(byte d, byte a)
         {
-            if (model == enmModel.VirtualModel)
+            if (model == EnmModel.VirtualModel)
             {
                 if (work.OPMIO == 0x701)
                 {
                     //仮想レジスタに書き込み
                     work.OPM1vreg[d] = a;
                     //実レジスタに書き込み
-                    chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
+                    chipRegister.setYM2151Register(0, 0, d, a, EnmModel.VirtualModel, 0, 0);
                     //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
                 }
                 else
@@ -891,7 +891,7 @@ namespace MDPlayer
                     //仮想レジスタに書き込み
                     work.OPM2vreg[d] = a;
                     //実レジスタに書き込み
-                    chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
+                    chipRegister.setYM2151Register(1, 0, d, a, EnmModel.VirtualModel, 0, 0);
                     //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
                 }
             }
@@ -902,7 +902,7 @@ namespace MDPlayer
                     //仮想レジスタに書き込み
                     work.OPM1vreg[d] = a;
                     //実レジスタに書き込み
-                    chipRegister.setYM2151Register(0, 0, d, a, enmModel.RealModel, YM2151Hosei[0], 0);
+                    chipRegister.setYM2151Register(0, 0, d, a, EnmModel.RealModel, YM2151Hosei[0], 0);
                     //Console.WriteLine($"OPM1 Reg{d:X2} Dat{a:X2}");
                 }
                 else
@@ -910,7 +910,7 @@ namespace MDPlayer
                     //仮想レジスタに書き込み
                     work.OPM2vreg[d] = a;
                     //実レジスタに書き込み
-                    chipRegister.setYM2151Register(1, 0, d, a, enmModel.RealModel, YM2151Hosei[1], 0);
+                    chipRegister.setYM2151Register(1, 0, d, a, EnmModel.RealModel, YM2151Hosei[1], 0);
                     //Console.WriteLine($"OPM2 Reg{d:X2} Dat{a:X2}");
                 }
             }
@@ -918,11 +918,11 @@ namespace MDPlayer
 
         private void wpsg(byte d, byte a)
         {
-            if (model == enmModel.VirtualModel)
+            if (model == EnmModel.VirtualModel)
             {
                 //Out(0x1c00, d);//PSG register
                 //Out(0x1b00, a);//PSG data
-                chipRegister.setAY8910Register(0, d, a, enmModel.VirtualModel);
+                chipRegister.setAY8910Register(0, d, a, EnmModel.VirtualModel);
             }
             //else
             //{
@@ -1658,7 +1658,7 @@ namespace MDPlayer
                 {
                     //ウエイト
                 }
-                chipRegister.setYM2151Register(0, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(0, 0, d, a, EnmModel.VirtualModel, 0, 0);
             }
             else
             {
@@ -1668,7 +1668,7 @@ namespace MDPlayer
                 {
                     //ウエイト
                 }
-                chipRegister.setYM2151Register(1, 0, d, a, enmModel.VirtualModel, 0, 0);
+                chipRegister.setYM2151Register(1, 0, d, a, EnmModel.VirtualModel, 0, 0);
             }
         }
 

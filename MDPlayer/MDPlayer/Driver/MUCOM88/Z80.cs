@@ -352,7 +352,7 @@ namespace MDPlayer.Driver.MUCOM88
         public MNDRV.FMTimer fmTimer = null;
         public byte port0Adr = 0;
         public byte port1Adr = 0;
-        public enmModel model = enmModel.VirtualModel;
+        public EnmModel model = EnmModel.VirtualModel;
 
         public PC88()
         {

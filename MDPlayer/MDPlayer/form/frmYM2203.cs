@@ -161,7 +161,7 @@ namespace MDPlayer.form
                     freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
                     octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
 
-                    if ((fmKeyYM2203[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2203[ch]);
                     int v = 127;
@@ -182,7 +182,7 @@ namespace MDPlayer.form
                     freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
                     octav = (ym2203Register[0xad] & 0x38) >> 3;
 
-                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? ym2203Register[0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Ch3SlotVol[0] / 80.0), 0), 19);
@@ -210,7 +210,7 @@ namespace MDPlayer.form
                     int n = -1;
                     if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) != 0 && ((m & (0x10 << op)) != 0))
                     {
-                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                        n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
                     }
                     newParam.channels[ch].note = n;
 
@@ -248,7 +248,7 @@ namespace MDPlayer.form
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
                     float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = common.searchSSGNote(ftone);
+                    channel.note = Common.searchSSGNote(ftone);
                 }
 
             }
@@ -387,12 +387,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.YM2203, chipID, ch);
+                    parent.SetChannelMask(EnmChip.YM2203, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 9; ch++) parent.ResetChannelMask(enmUseChip.YM2203, chipID, ch);
+                for (ch = 0; ch < 9; ch++) parent.ResetChannelMask(EnmChip.YM2203, chipID, ch);
                 return;
             }
 
@@ -407,7 +407,7 @@ namespace MDPlayer.form
             if (instCh < 3)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2203, instCh, chipID);
+                parent.getInstCh(EnmChip.YM2203, instCh, chipID);
             }
         }
     }

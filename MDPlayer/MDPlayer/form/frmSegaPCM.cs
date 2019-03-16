@@ -115,11 +115,11 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
+                    parent.SetChannelMask(EnmChip.SEGAPCM, chipID, ch);
                     return;
                 }
 
-                for (ch = 0; ch < 16; ch++) parent.ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
+                for (ch = 0; ch < 16; ch++) parent.ResetChannelMask(EnmChip.SEGAPCM, chipID, ch);
                 return;
 
             }
@@ -200,7 +200,7 @@ namespace MDPlayer.form
 
                     if (segapcmKeyOn[ch])
                     {
-                        newParam.channels[ch].note = common.searchSegaPCMNote(ml);
+                        newParam.channels[ch].note = Common.searchSegaPCMNote(ml);
                         newParam.channels[ch].volumeL = Math.Min(Math.Max((l * 1) >> 1, 0), 19);
                         newParam.channels[ch].volumeR = Math.Min(Math.Max((r * 1) >> 1, 0), 19);
                     }

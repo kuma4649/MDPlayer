@@ -199,14 +199,14 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Right)
                 {
                     //マスク解除
-                    parent.ResetChannelMask(enmUseChip.FDS, chipID, 0);
+                    parent.ResetChannelMask(EnmChip.FDS, chipID, 0);
                     return;
                 }
 
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.FDS, chipID, 0);
+                    parent.SetChannelMask(EnmChip.FDS, chipID, 0);
                     return;
                 }
 

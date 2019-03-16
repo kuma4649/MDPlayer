@@ -207,12 +207,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.OKIM6258, chipID, 0);
+                    parent.SetChannelMask(EnmChip.OKIM6258, chipID, 0);
                     return;
                 }
 
                 //マスク解除
-                parent.ResetChannelMask(enmUseChip.OKIM6258, chipID, 0);
+                parent.ResetChannelMask(EnmChip.OKIM6258, chipID, 0);
                 return;
             }
 

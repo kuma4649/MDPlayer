@@ -79,7 +79,7 @@ namespace MDPlayer.Driver.MUCOM88
         /// <param name="latency"></param>
         /// <param name="waitTime"></param>
         /// <returns></returns>
-        public override bool init(byte[] buf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] buf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = buf;
             this.chipRegister = chipRegister;
@@ -87,14 +87,24 @@ namespace MDPlayer.Driver.MUCOM88
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
+
+            GD3 = getGD3Info(buf, 0);
+            Counter = 0;
+            TotalCounter = 0;
+            LoopCounter = 0;
+            vgmCurLoop = 0;
+            Stopped = false;
+            vgmFrameCounter = -latency - waitTime;
+            vgmSpeed = 1;
+
             pc88.ChipRegister = chipRegister;
             pc88.fmTimer = timerOPN;
             pc88.model = model;
 
-            //デバッグ向け
+#if DEBUG
+            //実チップスレッドは処理をスキップ(デバッグ向け)
             //if (model == enmModel.RealModel) return true;
-
-            GD3 = getGD3Info(buf, 0);
+#endif
 
             fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
             LoadFMVoice(fnVoicedat);
@@ -136,8 +146,14 @@ namespace MDPlayer.Driver.MUCOM88
 
         public override void oneFrameProc()
         {
-            //デバッグ向け
-            //if (model == enmModel.RealModel) return;
+#if DEBUG
+            //実チップスレッドは処理をスキップ(デバッグ向け)
+            //if (model == enmModel.RealModel)
+            //{
+            //    Stopped = true;
+            //    return;
+            //}
+#endif
 
             try
             {
@@ -157,16 +173,70 @@ namespace MDPlayer.Driver.MUCOM88
                     vgmFrameCounter++;
                 }
 
-                //if ((mm.ReadByte(reg.a6 + dw.DRV_STATUS) & 0x20) != 0)
-                //{
-                    //Stopped = true;
-                //}
-                //vgmCurLoop = mm.ReadUInt16(reg.a6 + dw.LOOP_COUNTER);
+                Stopped = !IsPlaying();
             }
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        private ushort[] soundWorkTbl = new ushort[]
+        {
+            ver1_0.music2.CH1DAT, //FM Ch.1
+            ver1_0.music2.CH2DAT, //FM Ch.2
+            ver1_0.music2.CH3DAT, //FM Ch.3
+            ver1_0.music2.CH4DAT, //SSG Ch.1
+            ver1_0.music2.CH5DAT, //SSG Ch.2
+            ver1_0.music2.CH6DAT, //SSG Ch.3
+            ver1_0.music2.CHADAT, //FM Ch.4
+            ver1_0.music2.CHBDAT, //FM Ch.5
+            ver1_0.music2.CHCDAT, //FM Ch.6
+            ver1_0.music2.DRAMDAT, //RHYTHM Ch.
+            ver1_0.music2.PCMDAT //ADPCM Ch.
+        };
+
+        public bool IsPlaying()
+        {
+            long loop = long.MaxValue;
+            bool loopSw = false;
+            bool flg = false;
+
+            if (music2.loopCounter == null)
+            {
+                vgmCurLoop = 0;
+                return false;
+            }
+
+            for (int i = 0; i < soundWorkTbl.Length; i++)
+            {
+                if (music2.loopCounter[i] != -1)
+                {
+                    loop = Math.Min(music2.loopCounter[i], loop);
+                    loopSw = true;
+                }
+
+                ushort soundDataAdr = mem.LD_16((ushort)(soundWorkTbl[i] + 2));
+                ushort soundDataLoopAdr = mem.LD_16((ushort)(soundWorkTbl[i] + 4));
+                byte soundData = mem.LD_8(soundDataAdr);
+
+                if (soundDataLoopAdr != 0)
+                {
+                    //このパートはループ先アドレスがある(=ループするので演奏終了しない)
+                    flg = true;
+                }
+                else
+                {
+                    if (soundData != 0)
+                    {
+                        //このパートは演奏中である
+                        flg = true;
+                    }
+                }
+            }
+
+            vgmCurLoop = (uint)(loopSw ? (loop + 1) : 0);
+            return flg;
         }
 
         public MUCOM88()

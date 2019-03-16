@@ -11,7 +11,7 @@ namespace MDPlayer
 
 
         private double oneSyncTime = 0.009;
-        private double musicStep = common.SampleRate / 60.0;
+        private double musicStep = Common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
         private List<CtlSysex>[] beforeSend = null;
@@ -183,7 +183,7 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -211,7 +211,7 @@ namespace MDPlayer
             //ポートごとに事前に送信するコマンドを作成する
             if (!MakeBeforeSendCommand()) return false;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 chipRegister.setYM2612SyncWait(0, 1);
                 chipRegister.setYM2612SyncWait(1, 1);
@@ -1134,7 +1134,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = common.SampleRate * oneSyncTime;
+                musicStep = Common.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

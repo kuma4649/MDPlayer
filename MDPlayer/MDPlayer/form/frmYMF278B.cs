@@ -253,7 +253,7 @@ namespace MDPlayer.form
                 nyc.inst[16] = n == 0 ? 0 : 1;
                 nyc.inst[33] = 1;
 
-                int nt = common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
+                int nt = Common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
                 if ((ko & (1 << (adr + p * 9))) != 0)
                 {
                     if (nyc.note != nt)
@@ -376,7 +376,7 @@ namespace MDPlayer.form
                     if (pcmKey[c - 23] == 1)
                     {
                         //note
-                        nyc.note = ((nyc.inst[13] + 7) & 0xf) * 12 + common.searchPCMNote(nyc.inst[14]) - 5;
+                        nyc.note = ((nyc.inst[13] + 7) & 0xf) * 12 + Common.searchPCMNote(nyc.inst[14]) - 5;
                         //Console.WriteLine("{0:x} {1:x}", nyc.inst[13], nyc.inst[14]);
                         nyc.volumeL = (127 - (ymf278bRegister[2][0x50 + (c - 23)] >> 1)) * (nyc.pan & 0xf) / 16 / 6;
                         nyc.volumeR = (127 - (ymf278bRegister[2][0x50 + (c - 23)] >> 1)) * (nyc.pan >> 4) / 16 / 6;
@@ -573,12 +573,12 @@ namespace MDPlayer.form
             if (e.Button == MouseButtons.Left)
             {
                 //マスク
-                parent.SetChannelMask(enmUseChip.YMF278B, chipID, ch);
+                parent.SetChannelMask(EnmChip.YMF278B, chipID, ch);
                 return;
             }
 
             //マスク解除
-            for (ch = 0; ch < 47; ch++) parent.ResetChannelMask(enmUseChip.YMF278B, chipID, ch);
+            for (ch = 0; ch < 47; ch++) parent.ResetChannelMask(EnmChip.YMF278B, chipID, ch);
             return;
         }
     }

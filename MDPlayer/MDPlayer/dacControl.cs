@@ -15,7 +15,7 @@ namespace MDPlayer
         private const int MAX_CHIPS = 0xFF;
         private dac_control[] DACData = new dac_control[MAX_CHIPS];
         public ChipRegister chipRegister = null;
-        public enmModel model = enmModel.VirtualModel;
+        public EnmModel model = EnmModel.VirtualModel;
 
 
         public void sendCommand(dac_control chip)
@@ -179,7 +179,7 @@ namespace MDPlayer
             {
                 // very effective Speed Hack for fast seeking
                 NewPos = chip.Step + (samples - 0x10);
-                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);// DAC_SMPL_RATE);
+                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, (UInt32)Common.SampleRate);// DAC_SMPL_RATE);
                 while (chip.RemainCmds > 0 && chip.Pos < NewPos)
                 {
                     chip.Pos += chip.DataStep;
@@ -190,7 +190,7 @@ namespace MDPlayer
 
             chip.Step += samples;
             // Formula: Step * Freq / SampleRate
-            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);// DAC_SMPL_RATE);
+            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)Common.SampleRate);// DAC_SMPL_RATE);
             //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);
             sendCommand(chip);
 
@@ -439,7 +439,7 @@ namespace MDPlayer
                     chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)), model);
                     break;
                 case 0x17:  // OKIM6258
-                    if(model== enmModel.VirtualModel) //System.Console.Write("[DAC]");
+                    if(model== EnmModel.VirtualModel) //System.Console.Write("[DAC]");
                     chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
                     break;
                 case 0x1b:  // HuC6280

@@ -56,6 +56,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             SetLFOTBL();
             SetPSGCOM();
             SetSoundWork();
+
+            loopCounter = new long[MAXCH];
+            for (int i = 0; i < loopCounter.Length; i++) loopCounter[i] = -1;// ulong.MaxValue;
         }
 
         public byte FLGADR = 0;//#n
@@ -443,6 +446,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //    RET
         }
 
+        public long[] loopCounter = null;
+        public int currentCh = 0;
+
         // **	CALL FM		**
 
         public void DRIVE()
@@ -451,20 +457,26 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //Mem.LD_8(FMPORT, Z80.A);
             FMPORT = Z80.A;
             Z80.IX = CH1DAT;
+            currentCh = 0;
             FMENT();
             Z80.IX = CH2DAT;
+            currentCh = 1;
             FMENT();
             Z80.IX = CH3DAT;
+            currentCh = 2;
             FMENT();
             // **	CALL SSG	**
             Z80.A = 0xff;
             //Mem.LD_8(SSGF1, Z80.A);
             SSGF1 = Z80.A;
             Z80.IX = CH4DAT;
+            currentCh = 3;
             SSGENT();
             Z80.IX = CH5DAT;
+            currentCh = 4;
             SSGENT();
             Z80.IX = CH6DAT;
+            currentCh = 5;
             SSGENT();
             Z80.A ^= Z80.A;
             //Mem.LD_8(SSGF1, Z80.A);
@@ -483,6 +495,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //Mem.LD_8(DRMF1, Z80.A);
             DRMF1 = Z80.A;
             Z80.IX = DRAMDAT;
+            currentCh = 9;
             FMENT();
             Z80.A ^= Z80.A;
             //Mem.LD_8(DRMF1, Z80.A);
@@ -493,16 +506,20 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //Mem.LD_8(FMPORT, Z80.A);
             FMPORT = Z80.A;
             Z80.IX = CHADAT;
+            currentCh = 6;
             FMENT();
             Z80.IX = CHBDAT;
+            currentCh = 7;
             FMENT();
             Z80.IX = CHCDAT;
+            currentCh = 8;
             FMENT();
 
             //KUMA:Adpcm
             Z80.A = 0xff;
             Mem.LD_8(PCMFLG, Z80.A);
             Z80.IX = PCMDAT;
+            currentCh = 10;
             FMENT();
             Z80.A ^= Z80.A;
             Z80.Zero = false;
@@ -613,6 +630,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
                 FMEND();//* DATA TOP ADRESS ｶﾞ 0000H ﾃﾞ BGM
                 return; // ﾉ ｼｭｳﾘｮｳ ｦ ｹｯﾃｲ ｿﾚ ｲｶﾞｲﾊ ｸﾘｶｴｼ
             }
+            loopCounter[currentCh]++;
             Z80.EX_DE_HL();
         FMSUBB:
             Z80.A = Mem.LD_8(Z80.HL);// GET FLAG & LENGTH

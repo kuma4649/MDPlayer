@@ -90,7 +90,6 @@ namespace MDPlayer
         public bool MultiPCMDualChipFlag;
 
         public dacControl dacControl = new dacControl();
-        public bool isDataBlock = false;
         public bool isPcmRAMWrite = false;
         public bool useChipYM2612Ch6 = false;
         //public Setting setting = null;
@@ -118,7 +117,7 @@ namespace MDPlayer
         private byte[][] ym2610AdpcmA = new byte[2][] { null, null };
         private byte[][] ym2610AdpcmB = new byte[2][] { null, null };
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip,uint latency,uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip,uint latency,uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -158,9 +157,9 @@ namespace MDPlayer
             isDataBlock = false;
             isPcmRAMWrite = false;
             useChipYM2612Ch6 = false;
-            foreach (enmUseChip uc in useChip)
+            foreach (EnmChip uc in useChip)
             {
-                if (uc == enmUseChip.YM2612Ch6)
+                if (uc == EnmChip.YM2612Ch6)
                 {
                     useChipYM2612Ch6 = true;
                     break;
@@ -248,7 +247,7 @@ namespace MDPlayer
                 countNum++;
                 if (countNum > 100)
                 {
-                    if (model == enmModel.RealModel && countNum%100==0)
+                    if (model == EnmModel.RealModel && countNum%100==0)
                     {
                         isDataBlock = true;
                         chipRegister.sendDataYM2608(0,model);
@@ -264,7 +263,7 @@ namespace MDPlayer
                 }
             }
 
-            if (model == enmModel.RealModel && isDataBlock)
+            if (model == EnmModel.RealModel && isDataBlock)
             {
                 isDataBlock = false;
                 //Console.WriteLine("{0} countnum:{1}", model, countNum);
@@ -272,7 +271,7 @@ namespace MDPlayer
             }
 
             //Send wait
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 if (vgmSpeed == 1) //等速の場合のみウェイトをかける
                 {
@@ -893,6 +892,18 @@ namespace MDPlayer
                             //chipRegister.setYM2608Register(0x1, 0x00, 0x00, model);
                             //chipRegister.setYM2608Register(0x1, 0x10, 0x80, model);
 
+                            while((chipRegister.getYM2608Register(chipID, 0x1, 0x00, model) & 0xbf) != 0)
+                            {
+                                System.Threading.Thread.Sleep(0);
+                            }
+                            if(model== EnmModel.RealModel)
+                            {
+                                if ((chipID == 0 && setting.YM2608Type.UseScci) || (chipID == 1 && setting.YM2608SType.UseScci) )
+                                {
+                                    System.Threading.Thread.Sleep(500);
+                                }
+                            }
+
                             chipRegister.sendDataYM2608(chipID, model);
                             dumpData(model, "YM2608_ADPCM", vgmAdr + 15, bLen - 8);
                             break;
@@ -905,7 +916,7 @@ namespace MDPlayer
                                 {
                                     ym2610AdpcmA[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                                 }
-                                if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
+                                if (model == EnmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmA(chipID, ym2610AdpcmA[chipID], model);
                                 else chipRegister.WriteYM2610_SetAdpcmA(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
                                 dumpData(model, "YM2610_ADPCMA", vgmAdr + 15, bLen - 8);
                             }
@@ -918,7 +929,7 @@ namespace MDPlayer
                                 {
                                     ym2610AdpcmB[chipID][startAddress + cnt] = vgmBuf[vgmAdr + 15 + cnt];
                                 }
-                                if (model == enmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
+                                if (model == EnmModel.VirtualModel) chipRegister.WriteYM2610_SetAdpcmB(chipID, ym2610AdpcmB[chipID], model);
                                 else chipRegister.WriteYM2610_SetAdpcmB(chipID, model, (int)startAddress, (int)(bLen - 8), vgmBuf, (int)(vgmAdr + 15));
                                 dumpData(model, "YM2610_ADPCMB", vgmAdr + 15, bLen - 8);
                             }
@@ -1046,9 +1057,9 @@ namespace MDPlayer
         }
 
         private int dumpCounter = 0;
-        private void dumpData(enmModel model,string chipName, uint adr, uint len)
+        private void dumpData(EnmModel model,string chipName, uint adr, uint len)
         {
-            if (model == enmModel.RealModel) return;
+            if (model == EnmModel.RealModel) return;
             if (setting == null) return;
             if (!setting.other.DumpSwitch) return;
 
@@ -1071,9 +1082,9 @@ namespace MDPlayer
 
         }
 
-        private void dumpDataForSegaPCM(enmModel model, string chipName, uint adr, uint len)
+        private void dumpDataForSegaPCM(EnmModel model, string chipName, uint adr, uint len)
         {
-            if (model == enmModel.RealModel) return;
+            if (model == EnmModel.RealModel) return;
             if (setting == null) return;
             if (!setting.other.DumpSwitch) return;
 
@@ -2364,7 +2375,7 @@ namespace MDPlayer
         {
 
             uint adr = vgmGd3 + 12 + 0x14;
-            GD3 = common.getGD3Info(buf, adr);
+            GD3 = Common.getGD3Info(buf, adr);
             GD3.UsedChips = UsedChips;
 
             return GD3;

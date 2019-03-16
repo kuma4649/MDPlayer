@@ -11,7 +11,7 @@ namespace MDPlayer
     {
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
-            if (common.getLE32(buf, 0) != FCC_HES)
+            if (Common.getLE32(buf, 0) != FCC_HES)
             {
                 return null;
             }
@@ -30,7 +30,7 @@ namespace MDPlayer
             return null;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
@@ -40,7 +40,7 @@ namespace MDPlayer
             this.latency = latency;
             this.waitTime = waitTime;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 Stopped = true;
                 vgmCurLoop = 9999;
@@ -144,20 +144,20 @@ namespace MDPlayer
                     }
                 }
 
-                if (!playtime_detected && silent_length > common.SampleRate * 3)
+                if (!playtime_detected && silent_length > Common.SampleRate * 3)
                 {
                     playtime_detected = true;
                     LoopCounter = 0;
                     Stopped = true;
                 }
 
-                time_in_ms += (1000 * Length / (double)common.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
+                time_in_ms += (1000 * Length / (double)Common.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
                 if (!playtime_detected && ld.IsLooped((int)time_in_ms, 30000, 5000))
                 {
                     playtime_detected = true;
-                    TotalCounter = (long)ld.GetLoopEnd() * (long)common.SampleRate / 1000L;
+                    TotalCounter = (long)ld.GetLoopEnd() * (long)Common.SampleRate / 1000L;
                     if (TotalCounter == 0) TotalCounter = Counter;
-                    LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)common.SampleRate / 1000L);
+                    LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)Common.SampleRate / 1000L);
                 }
 
                 if (!playtime_detected) vgmCurLoop = 0;

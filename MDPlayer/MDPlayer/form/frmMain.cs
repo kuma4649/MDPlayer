@@ -1094,7 +1094,7 @@ namespace MDPlayer.form
                         //frmPlayList.AddList(fn[0]);
                         frmPlayList.getPlayList().AddFile(fn[0]);
 
-                        if (common.CheckExt(fn[0]) != enmFileFormat.M3U && common.CheckExt(fn[0]) != enmFileFormat.ZIP)
+                        if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
                         {
                             loadAndPlay(0, 0, fn[0], "");
                             frmPlayList.setStart(-1);
@@ -3487,7 +3487,7 @@ namespace MDPlayer.form
         {
 
             long w = Audio.GetCounter();
-            double sec = (double)w / (double)common.SampleRate;
+            double sec = (double)w / (double)Common.SampleRate;
             newParam.Cminutes = (int)(sec / 60);
             sec -= newParam.Cminutes * 60;
             newParam.Csecond = (int)sec;
@@ -3495,7 +3495,7 @@ namespace MDPlayer.form
             newParam.Cmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetTotalCounter();
-            sec = (double)w / (double)common.SampleRate;
+            sec = (double)w / (double)Common.SampleRate;
             newParam.TCminutes = (int)(sec / 60);
             sec -= newParam.TCminutes * 60;
             newParam.TCsecond = (int)sec;
@@ -3503,7 +3503,7 @@ namespace MDPlayer.form
             newParam.TCmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetLoopCounter();
-            sec = (double)w / (double)common.SampleRate;
+            sec = (double)w / (double)Common.SampleRate;
             newParam.LCminutes = (int)(sec / 60);
             sec -= newParam.LCminutes * 60;
             newParam.LCsecond = (int)sec;
@@ -3556,10 +3556,10 @@ namespace MDPlayer.form
             DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
             if (setting.Debug_DispFrameCounter)
             {
@@ -3646,10 +3646,10 @@ namespace MDPlayer.form
             DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(enmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(enmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(enmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(enmModel.RealModel) ? "RP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
         }
 
@@ -3744,27 +3744,27 @@ namespace MDPlayer.form
                 {
                     Audio.Pause();
                 }
-                stop();
+                //stop();
 
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
-                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.AY8910, chipID, ch);
-                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.YM2151, chipID, ch);
-                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2203, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2413, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2608, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(enmUseChip.YM2610, chipID, ch);
-                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(enmUseChip.YM2612, chipID, ch);
-                    for (int ch = 0; ch < 4; ch++) ResetChannelMask(enmUseChip.SN76489, chipID, ch);
-                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
-                    for (int ch = 0; ch < 24; ch++) ResetChannelMask(enmUseChip.C140, chipID, ch);
-                    for (int ch = 0; ch < 32; ch++) ResetChannelMask(enmUseChip.C352, chipID, ch);
-                    for (int ch = 0; ch < 16; ch++) ResetChannelMask(enmUseChip.SEGAPCM, chipID, ch);
-                    for (int ch = 0; ch < 6; ch++) ResetChannelMask(enmUseChip.HuC6280, chipID, ch);
-                    for (int ch = 0; ch < 2; ch++) ResetChannelMask(enmUseChip.NES, chipID, ch);
-                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.DMC, chipID, ch);
-                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(enmUseChip.MMC5, chipID, ch);
-                    ResetChannelMask(enmUseChip.FDS, chipID, 0);
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.AY8910, chipID, ch);
+                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.YM2151, chipID, ch);
+                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(EnmChip.YM2203, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2413, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2608, chipID, ch);
+                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2610, chipID, ch);
+                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(EnmChip.YM2612, chipID, ch);
+                    for (int ch = 0; ch < 4; ch++) ResetChannelMask(EnmChip.SN76489, chipID, ch);
+                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.RF5C164, chipID, ch);
+                    for (int ch = 0; ch < 24; ch++) ResetChannelMask(EnmChip.C140, chipID, ch);
+                    for (int ch = 0; ch < 32; ch++) ResetChannelMask(EnmChip.C352, chipID, ch);
+                    for (int ch = 0; ch < 16; ch++) ResetChannelMask(EnmChip.SEGAPCM, chipID, ch);
+                    for (int ch = 0; ch < 6; ch++) ResetChannelMask(EnmChip.HuC6280, chipID, ch);
+                    for (int ch = 0; ch < 2; ch++) ResetChannelMask(EnmChip.NES, chipID, ch);
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.DMC, chipID, ch);
+                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.MMC5, chipID, ch);
+                    ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
                 oldParam = new MDChipParams();
@@ -4049,9 +4049,9 @@ namespace MDPlayer.form
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
 
-        public byte[] getAllBytes(string filename, out enmFileFormat format)
+        public byte[] getAllBytes(string filename, out EnmFileFormat format)
         {
-            format = enmFileFormat.unknown;
+            format = EnmFileFormat.unknown;
 
             //先ずは丸ごと読み込む
             byte[] buf = System.IO.File.ReadAllBytes(filename);
@@ -4060,79 +4060,79 @@ namespace MDPlayer.form
             //.NRDファイルの場合は拡張子判定
             if (filename.ToLower().LastIndexOf(".nrd") != -1)
             {
-                format = enmFileFormat.NRT;
+                format = EnmFileFormat.NRT;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".mdr") != -1)
             {
-                format = enmFileFormat.MDR;
+                format = EnmFileFormat.MDR;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".mdx") != -1)
             {
-                format = enmFileFormat.MDX;
+                format = EnmFileFormat.MDX;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".mnd") != -1)
             {
-                format = enmFileFormat.MND;
+                format = EnmFileFormat.MND;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".mub") != -1)
             {
-                format = enmFileFormat.MUB;
+                format = EnmFileFormat.MUB;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".muc") != -1)
             {
-                format = enmFileFormat.MUC;
+                format = EnmFileFormat.MUC;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".xgm") != -1)
             {
-                format = enmFileFormat.XGM;
+                format = EnmFileFormat.XGM;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".s98") != -1)
             {
-                format = enmFileFormat.S98;
+                format = EnmFileFormat.S98;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".nsf") != -1)
             {
-                format = enmFileFormat.NSF;
+                format = EnmFileFormat.NSF;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".hes") != -1)
             {
-                format = enmFileFormat.HES;
+                format = EnmFileFormat.HES;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".sid") != -1)
             {
-                format = enmFileFormat.SID;
+                format = EnmFileFormat.SID;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".mid") != -1)
             {
-                format = enmFileFormat.MID;
+                format = EnmFileFormat.MID;
                 return buf;
             }
 
             if (filename.ToLower().LastIndexOf(".rcp") != -1)
             {
-                format = enmFileFormat.RCP;
+                format = EnmFileFormat.RCP;
                 return buf;
             }
 
@@ -4141,7 +4141,7 @@ namespace MDPlayer.form
             uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
             if (vgm == FCC_VGM)
             {
-                format = enmFileFormat.VGM;
+                format = EnmFileFormat.VGM;
                 return buf;
             }
 
@@ -4169,18 +4169,18 @@ namespace MDPlayer.form
                 }
             }
 
-            format = enmFileFormat.VGM;
+            format = EnmFileFormat.VGM;
             return outStream.ToArray();
         }
 
-        public void getInstCh(enmUseChip chip, int ch, int chipID)
+        public void getInstCh(EnmChip chip, int ch, int chipID)
         {
-            if (chip == enmUseChip.YM2413)
+            if (chip == EnmChip.YM2413)
             {
                 getInstChForMGSC(chip, ch, chipID);
                 return;
             }
-            if (chip == enmUseChip.VRC7)
+            if (chip == EnmChip.VRC7)
             {
                 getInstChForMGSC(chip, ch, chipID);
                 return;
@@ -4192,43 +4192,43 @@ namespace MDPlayer.form
 
             switch (setting.other.InstFormat)
             {
-                case enmInstFormat.FMP7:
+                case EnmInstFormat.FMP7:
                     getInstChForFMP7(chip, ch, chipID);
                     break;
-                case enmInstFormat.MDX:
+                case EnmInstFormat.MDX:
                     getInstChForMDX(chip, ch, chipID);
                     break;
-                case enmInstFormat.MML2VGM:
+                case EnmInstFormat.MML2VGM:
                     getInstChForMML2VGM(chip, ch, chipID);
                     break;
-                case enmInstFormat.MUSICLALF:
+                case EnmInstFormat.MUSICLALF:
                     getInstChForMUSICLALF(chip, ch, chipID);
                     break;
-                case enmInstFormat.MUSICLALF2:
+                case EnmInstFormat.MUSICLALF2:
                     getInstChForMUSICLALF2(chip, ch, chipID);
                     break;
-                case enmInstFormat.TFI:
+                case EnmInstFormat.TFI:
                     getInstChForTFI(chip, ch, chipID);
                     break;
-                case enmInstFormat.NRTDRV:
+                case EnmInstFormat.NRTDRV:
                     getInstChForNRTDRV(chip, ch, chipID);
                     break;
-                case enmInstFormat.HUSIC:
+                case EnmInstFormat.HUSIC:
                     getInstChForHuSIC(chip, ch, chipID);
                     break;
             }
         }
 
-        private void getInstChForFMP7(enmUseChip chip, int ch, int chipID)
+        private void getInstChForFMP7(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@ FA xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM\r\n";
 
@@ -4254,7 +4254,7 @@ namespace MDPlayer.form
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
                 n = "'@ FC xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AM\r\n";
@@ -4286,16 +4286,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForMDX(enmUseChip chip, int ch, int chipID)
+        private void getInstChForMDX(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@xx = {\r\n/* AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME\r\n";
 
@@ -4322,7 +4322,7 @@ namespace MDPlayer.form
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4355,16 +4355,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForMML2VGM(enmUseChip chip, int ch, int chipID)
+        private void getInstChForMML2VGM(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "'@ N xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG\r\n";
 
@@ -4391,7 +4391,7 @@ namespace MDPlayer.form
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
                 n = "'@ M xx\r\n   AR  DR  SR  RR  SL  TL  KS  ML  DT1 DT2 AME\r\n";
@@ -4419,7 +4419,7 @@ namespace MDPlayer.form
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
                 );
             }
-            else if (chip == enmUseChip.HuC6280)
+            else if (chip == EnmChip.HuC6280)
             {
                 MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
                 if (huc6280Register == null) return;
@@ -4448,16 +4448,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForMUSICLALF(enmUseChip chip, int ch, int chipID)
+        private void getInstChForMUSICLALF(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = string.Format("  @xx:{{\r\n  {0:D3} {1:D3}\r\n"
                     , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
@@ -4481,7 +4481,7 @@ namespace MDPlayer.form
                 }
                 n += "  }\r\n";
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4511,16 +4511,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForMUSICLALF2(enmUseChip chip, int ch, int chipID)
+        private void getInstChForMUSICLALF2(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "@%xxx\r\n";
 
@@ -4537,7 +4537,7 @@ namespace MDPlayer.form
                     , fmRegister[p][0xb0 + c] //FB/AL
                     );
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4588,16 +4588,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForNRTDRV(enmUseChip chip, int ch, int chipID)
+        private void getInstChForNRTDRV(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n = "@ xxxx {\r\n";
                 n += string.Format("000,{0:D3},{1:D3},015\r\n"
@@ -4624,7 +4624,7 @@ namespace MDPlayer.form
                 }
                 n += "}\r\n";
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4657,12 +4657,12 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForHuSIC(enmUseChip chip, int ch, int chipID)
+        private void getInstChForHuSIC(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
 
-            if (chip == enmUseChip.HuC6280)
+            if (chip == EnmChip.HuC6280)
             {
                 MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
                 if (huc6280Register == null) return;
@@ -4693,17 +4693,17 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForMGSC(enmUseChip chip, int ch, int chipID)
+        private void getInstChForMGSC(EnmChip chip, int ch, int chipID)
         {
 
             string n = "";
             int[] Register=null;
 
-            if (chip == enmUseChip.YM2413)
+            if (chip == EnmChip.YM2413)
             {
                 Register = Audio.GetYM2413Register(chipID);
             }
-            else if (chip == enmUseChip.VRC7)
+            else if (chip == EnmChip.VRC7)
             {
                 byte[] r = Audio.GetVRC7Register(chipID);
                 if (r == null) return;
@@ -4756,16 +4756,16 @@ namespace MDPlayer.form
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
-        private void getInstChForTFI(enmUseChip chip, int ch, int chipID)
+        private void getInstChForTFI(EnmChip chip, int ch, int chipID)
         {
 
             byte[] n = new byte[42];
 
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2203 || chip == enmUseChip.YM2610)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
                 int p = (ch > 2) ? 1 : 0;
                 int c = (ch > 2) ? ch - 3 : ch;
-                int[][] fmRegister = (chip == enmUseChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == enmUseChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == enmUseChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
                 n[0] = (byte)(fmRegister[p][0xb0 + c] & 0x07);//AL
                 n[1] = (byte)((fmRegister[p][0xb0 + c] & 0x38) >> 3);//FB
@@ -4792,7 +4792,7 @@ namespace MDPlayer.form
                 }
 
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
@@ -4984,7 +4984,7 @@ namespace MDPlayer.form
 
                 string playingFileName = fn;
                 string playingArcFileName = "";
-                enmFileFormat format = enmFileFormat.unknown;
+                EnmFileFormat format = EnmFileFormat.unknown;
                 List<Tuple<string, byte[]>> extFile = null;
 
                 if (zfn == null || zfn == "")
@@ -5004,8 +5004,8 @@ namespace MDPlayer.form
                             ZipArchiveEntry entry = archive.GetEntry(fn);
                             string arcFn = "";
 
-                            format = common.CheckExt(fn);
-                            if (format != enmFileFormat.unknown)
+                            format = Common.CheckExt(fn);
+                            if (format != EnmFileFormat.unknown)
                             {
                                 srcBuf = getBytesFromZipFile(entry, out arcFn);
                                 if (arcFn != "") playingFileName = arcFn;
@@ -5015,8 +5015,8 @@ namespace MDPlayer.form
                     }
                     else
                     {
-                        format = common.CheckExt(fn);
-                        if (format != enmFileFormat.unknown)
+                        format = Common.CheckExt(fn);
+                        if (format != EnmFileFormat.unknown)
                         {
                             UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
                             srcBuf = cmd.GetFileByte(zfn, fn);
@@ -5051,13 +5051,13 @@ namespace MDPlayer.form
             return true;
         }
 
-        private List<Tuple<string, byte[]>> getExtendFile(string fn, byte[] srcBuf, enmFileFormat format, object archive = null)
+        private List<Tuple<string, byte[]>> getExtendFile(string fn, byte[] srcBuf, EnmFileFormat format, object archive = null)
         {
             List<Tuple<string, byte[]>> ret = new List<Tuple<string, byte[]>>();
             byte[] buf;
             switch (format)
             {
-                case enmFileFormat.RCP:
+                case EnmFileFormat.RCP:
                     string CM6, GSD, GSD2;
                     RCP.getControlFileName(srcBuf, out CM6, out GSD, out GSD2);
                     if (!string.IsNullOrEmpty(CM6))
@@ -5076,11 +5076,11 @@ namespace MDPlayer.form
                         if (buf != null) ret.Add(new Tuple<string, byte[]>(".GSD", buf));
                     }
                     break;
-                case enmFileFormat.MDR:
+                case EnmFileFormat.MDR:
                     buf = getExtendFileAllBytes(fn, System.IO.Path.GetFileNameWithoutExtension(fn) + ".PCM", archive);
                     if (buf != null) ret.Add(new Tuple<string, byte[]>(".PCM", buf));
                     break;
-                case enmFileFormat.MDX:
+                case EnmFileFormat.MDX:
                     string PDX;
                     Driver.MXDRV.MXDRV.getPDXFileName(srcBuf, out PDX);
                     if (!string.IsNullOrEmpty(PDX))
@@ -5093,7 +5093,7 @@ namespace MDPlayer.form
                         if (buf != null) ret.Add(new Tuple<string, byte[]>(".PDX", buf));
                     }
                     break;
-                case enmFileFormat.MND:
+                case EnmFileFormat.MND:
                     uint hs=(uint)((srcBuf[0x06] << 8) + srcBuf[0x07]);
                     uint pcmptr = (uint)((srcBuf[0x14] << 24) + (srcBuf[0x15] << 16) + (srcBuf[0x16] << 8) + srcBuf[0x17]);
                     if (hs < 0x18) pcmptr = 0;
@@ -5103,7 +5103,7 @@ namespace MDPlayer.form
                         pcmptr += 2;
                         for (int i = 0; i < pcmnum; i++)
                         {
-                            string mndPcmFn = common.getNRDString(srcBuf, ref pcmptr);
+                            string mndPcmFn = Common.getNRDString(srcBuf, ref pcmptr);
                             buf = getExtendFileAllBytes(fn, mndPcmFn, archive);
                             if (buf != null) ret.Add(new Tuple<string, byte[]>(".PND", buf));
                         }
@@ -5159,7 +5159,7 @@ namespace MDPlayer.form
                 buf = reader.ReadBytes((int)entry.Length);
             }
 
-            if (common.CheckExt(entry.FullName) == enmFileFormat.VGM)
+            if (Common.CheckExt(entry.FullName) == EnmFileFormat.VGM)
             {
                 try
                 {
@@ -5203,11 +5203,11 @@ namespace MDPlayer.form
             return buf;
         }
 
-        public void SetChannelMask(enmUseChip chip, int chipID, int ch)
+        public void SetChannelMask(EnmChip chip, int chipID, int ch)
         {
             switch (chip)
             {
-                case enmUseChip.YM2203:
+                case EnmChip.YM2203:
                     if (ch >= 0 && ch < 9)
                     {
                         if (!newParam.ym2203[chipID].channels[ch].mask)
@@ -5227,7 +5227,7 @@ namespace MDPlayer.form
                         }
                     }
                     break;
-                case enmUseChip.YM2413:
+                case EnmChip.YM2413:
                     if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym2413[chipID].channels[ch].mask)
@@ -5238,7 +5238,7 @@ namespace MDPlayer.form
                         newParam.ym2413[chipID].channels[ch].mask = !newParam.ym2413[chipID].channels[ch].mask;
                     }
                     break;
-                case enmUseChip.YM3526:
+                case EnmChip.YM3526:
                     if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym3526[chipID].channels[ch].mask)
@@ -5250,7 +5250,7 @@ namespace MDPlayer.form
 
                     }
                     break;
-                case enmUseChip.Y8950:
+                case EnmChip.Y8950:
                     if (ch >= 0 && ch < 15)
                     {
                         if (!newParam.y8950[chipID].channels[ch].mask)
@@ -5262,7 +5262,7 @@ namespace MDPlayer.form
 
                     }
                     break;
-                case enmUseChip.YM3812:
+                case EnmChip.YM3812:
                     if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym3812[chipID].channels[ch].mask)
@@ -5274,7 +5274,7 @@ namespace MDPlayer.form
 
                     }
                     break;
-                case enmUseChip.YMF262:
+                case EnmChip.YMF262:
                     if (ch >= 0 && ch < 24)
                     {
                         if (!newParam.ymf262[chipID].channels[ch].mask)
@@ -5286,7 +5286,7 @@ namespace MDPlayer.form
 
                     }
                     break;
-                case enmUseChip.YMF278B:
+                case EnmChip.YMF278B:
                     if (ch >= 0 && ch < 47)
                     {
                         if (!newParam.ymf278b[chipID].channels[ch].mask)
@@ -5298,7 +5298,7 @@ namespace MDPlayer.form
 
                     }
                     break;
-                case enmUseChip.YM2608:
+                case EnmChip.YM2608:
                     if (ch >= 0 && ch < 14)
                     {
                         if (!newParam.ym2608[chipID].channels[ch].mask)
@@ -5318,7 +5318,7 @@ namespace MDPlayer.form
                         }
                     }
                     break;
-                case enmUseChip.YM2610:
+                case EnmChip.YM2610:
                     if (ch >= 0 && ch < 14)
                     {
                         int c = ch;
@@ -5341,7 +5341,7 @@ namespace MDPlayer.form
                         }
                     }
                     break;
-                case enmUseChip.YM2612:
+                case EnmChip.YM2612:
                     if (ch >= 0 && ch < 9)
                     {
                         if (!newParam.ym2612[chipID].channels[ch].mask)
@@ -5361,7 +5361,7 @@ namespace MDPlayer.form
                         }
                     }
                     break;
-                case enmUseChip.SN76489:
+                case EnmChip.SN76489:
                     if (!newParam.sn76489[chipID].channels[ch].mask)
                     {
                         Audio.setSN76489Mask(chipID, ch);
@@ -5372,7 +5372,7 @@ namespace MDPlayer.form
                     }
                     newParam.sn76489[chipID].channels[ch].mask = !newParam.sn76489[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.RF5C164:
+                case EnmChip.RF5C164:
                     if (!newParam.rf5c164[chipID].channels[ch].mask)
                     {
                         Audio.setRF5C164Mask(chipID, ch);
@@ -5383,7 +5383,7 @@ namespace MDPlayer.form
                     }
                     newParam.rf5c164[chipID].channels[ch].mask = !newParam.rf5c164[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.YM2151:
+                case EnmChip.YM2151:
                     if (!newParam.ym2151[chipID].channels[ch].mask)
                     {
                         Audio.setYM2151Mask(chipID, ch);
@@ -5394,7 +5394,7 @@ namespace MDPlayer.form
                     }
                     newParam.ym2151[chipID].channels[ch].mask = !newParam.ym2151[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.C140:
+                case EnmChip.C140:
                     if (!newParam.c140[chipID].channels[ch].mask)
                     {
                         Audio.setC140Mask(chipID, ch);
@@ -5405,7 +5405,7 @@ namespace MDPlayer.form
                     }
                     newParam.c140[chipID].channels[ch].mask = !newParam.c140[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.C352:
+                case EnmChip.C352:
                     if (!newParam.c352[chipID].channels[ch].mask)
                     {
                         Audio.setC352Mask(chipID, ch);
@@ -5416,7 +5416,7 @@ namespace MDPlayer.form
                     }
                     newParam.c352[chipID].channels[ch].mask = !newParam.c352[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.SEGAPCM:
+                case EnmChip.SEGAPCM:
                     if (!newParam.segaPcm[chipID].channels[ch].mask)
                     {
                         Audio.setSegaPCMMask(chipID, ch);
@@ -5427,7 +5427,7 @@ namespace MDPlayer.form
                     }
                     newParam.segaPcm[chipID].channels[ch].mask = !newParam.segaPcm[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.AY8910:
+                case EnmChip.AY8910:
                     if (!newParam.ay8910[chipID].channels[ch].mask)
                     {
                         Audio.setAY8910Mask(chipID, ch);
@@ -5438,7 +5438,7 @@ namespace MDPlayer.form
                     }
                     newParam.ay8910[chipID].channels[ch].mask = !newParam.ay8910[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.HuC6280:
+                case EnmChip.HuC6280:
                     if (!newParam.huc6280[chipID].channels[ch].mask)
                     {
                         Audio.setHuC6280Mask(chipID, ch);
@@ -5449,7 +5449,7 @@ namespace MDPlayer.form
                     }
                     newParam.huc6280[chipID].channels[ch].mask = !newParam.huc6280[chipID].channels[ch].mask;
                     break;
-                case enmUseChip.OKIM6258:
+                case EnmChip.OKIM6258:
                     if (!newParam.okim6258[chipID].mask)
                     {
                         Audio.setOKIM6258Mask(chipID);
@@ -5460,7 +5460,7 @@ namespace MDPlayer.form
                     }
                     newParam.okim6258[chipID].mask = !newParam.okim6258[chipID].mask;
                     break;
-                case enmUseChip.NES:
+                case EnmChip.NES:
                     if (!newParam.nesdmc[chipID].sqrChannels[ch].mask)
                     {
                         Audio.setNESMask(chipID, ch);
@@ -5471,7 +5471,7 @@ namespace MDPlayer.form
                     }
                     newParam.nesdmc[chipID].sqrChannels[ch].mask = !newParam.nesdmc[chipID].sqrChannels[ch].mask;
                     break;
-                case enmUseChip.DMC:
+                case EnmChip.DMC:
                     switch (ch)
                     {
                         case 0:
@@ -5491,12 +5491,12 @@ namespace MDPlayer.form
                             break;
                     }
                     break;
-                case enmUseChip.FDS:
+                case EnmChip.FDS:
                     if (!newParam.fds[chipID].channel.mask) Audio.setFDSMask(chipID);
                     else Audio.resetFDSMask(chipID);
                     newParam.fds[chipID].channel.mask = !newParam.fds[chipID].channel.mask;
                     break;
-                case enmUseChip.MMC5:
+                case EnmChip.MMC5:
                     switch (ch)
                     {
                         case 0:
@@ -5516,7 +5516,7 @@ namespace MDPlayer.form
                             break;
                     }
                     break;
-                case enmUseChip.VRC7:
+                case EnmChip.VRC7:
                     if (ch >= 0 && ch < 6)
                     {
                         if (!newParam.vrc7[chipID].channels[ch].mask)
@@ -5527,7 +5527,7 @@ namespace MDPlayer.form
                         newParam.vrc7[chipID].channels[ch].mask = !newParam.vrc7[chipID].channels[ch].mask;
                     }
                     break;
-                case enmUseChip.K051649:
+                case EnmChip.K051649:
                     if (ch >= 0 && ch < 5)
                     {
                         if (!newParam.k051649[chipID].channels[ch].mask)
@@ -5541,39 +5541,39 @@ namespace MDPlayer.form
             }
         }
 
-        public void ResetChannelMask(enmUseChip chip, int chipID, int ch)
+        public void ResetChannelMask(EnmChip chip, int chipID, int ch)
         {
             switch (chip)
             {
-                case enmUseChip.SN76489:
+                case EnmChip.SN76489:
                     newParam.sn76489[chipID].channels[ch].mask = false;
                     Audio.resetSN76489Mask(chipID, ch);
                     break;
-                case enmUseChip.RF5C164:
+                case EnmChip.RF5C164:
                     newParam.rf5c164[chipID].channels[ch].mask = false;
                     Audio.resetRF5C164Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2151:
+                case EnmChip.YM2151:
                     newParam.ym2151[chipID].channels[ch].mask = false;
                     Audio.resetYM2151Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2203:
+                case EnmChip.YM2203:
                     newParam.ym2203[chipID].channels[ch].mask = false;
                     Audio.resetYM2203Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2413:
+                case EnmChip.YM2413:
                     newParam.ym2413[chipID].channels[ch].mask = false;
                     Audio.resetYM2413Mask(chipID, ch);
                     break;
-                case enmUseChip.VRC7:
+                case EnmChip.VRC7:
                     newParam.vrc7[chipID].channels[ch].mask = false;
                     Audio.resetVRC7Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2608:
+                case EnmChip.YM2608:
                     newParam.ym2608[chipID].channels[ch].mask = false;
                     Audio.resetYM2608Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2610:
+                case EnmChip.YM2610:
                     if (ch < 12)
                         newParam.ym2610[chipID].channels[ch].mask = false;
                     else if (ch == 12)
@@ -5583,7 +5583,7 @@ namespace MDPlayer.form
 
                     Audio.resetYM2610Mask(chipID, ch);
                     break;
-                case enmUseChip.YM2612:
+                case EnmChip.YM2612:
                     newParam.ym2612[chipID].channels[ch].mask = false;
                     if (ch == 2)
                     {
@@ -5593,55 +5593,55 @@ namespace MDPlayer.form
                     }
                     if (ch < 6) Audio.resetYM2612Mask(chipID, ch);
                     break;
-                case enmUseChip.YM3526:
+                case EnmChip.YM3526:
                     newParam.ym3526[chipID].channels[ch].mask = false;
                     Audio.resetYM3526Mask(chipID, ch);
                     break;
-                case enmUseChip.Y8950:
+                case EnmChip.Y8950:
                     newParam.y8950[chipID].channels[ch].mask = false;
                     Audio.resetY8950Mask(chipID, ch);
                     break;
-                case enmUseChip.YM3812:
+                case EnmChip.YM3812:
                     newParam.ym3812[chipID].channels[ch].mask = false;
                     Audio.resetYM3812Mask(chipID, ch);
                     break;
-                case enmUseChip.YMF262:
+                case EnmChip.YMF262:
                     newParam.ymf262[chipID].channels[ch].mask = false;
                     Audio.resetYMF262Mask(chipID, ch);
                     break;
-                case enmUseChip.YMF278B:
+                case EnmChip.YMF278B:
                     newParam.ymf278b[chipID].channels[ch].mask = false;
                     Audio.resetYMF278BMask(chipID, ch);
                     break;
-                case enmUseChip.C140:
+                case EnmChip.C140:
                     newParam.c140[chipID].channels[ch].mask = false;
                     if (ch < 24) Audio.resetC140Mask(chipID, ch);
                     break;
-                case enmUseChip.C352:
+                case EnmChip.C352:
                     newParam.c352[chipID].channels[ch].mask = false;
                     if (ch < 32) Audio.resetC352Mask(chipID, ch);
                     break;
-                case enmUseChip.SEGAPCM:
+                case EnmChip.SEGAPCM:
                     newParam.segaPcm[chipID].channels[ch].mask = false;
                     if (ch < 16) Audio.resetSegaPCMMask(chipID, ch);
                     break;
-                case enmUseChip.AY8910:
+                case EnmChip.AY8910:
                     newParam.ay8910[chipID].channels[ch].mask = false;
                     Audio.resetAY8910Mask(chipID, ch);
                     break;
-                case enmUseChip.HuC6280:
+                case EnmChip.HuC6280:
                     newParam.huc6280[chipID].channels[ch].mask = false;
                     Audio.resetHuC6280Mask(chipID, ch);
                     break;
-                case enmUseChip.K051649:
+                case EnmChip.K051649:
                     newParam.k051649[chipID].channels[ch].mask = false;
                     Audio.resetK051649Mask(chipID, ch);
                     break;
-                case enmUseChip.OKIM6258:
+                case EnmChip.OKIM6258:
                     newParam.okim6258[chipID].mask = false;
                     Audio.resetOKIM6258Mask(chipID);
                     break;
-                case enmUseChip.NES:
+                case EnmChip.NES:
                     switch (ch)
                     {
                         case 0:
@@ -5663,7 +5663,7 @@ namespace MDPlayer.form
                             break;
                     }
                     break;
-                case enmUseChip.DMC:
+                case EnmChip.DMC:
                     switch (ch)
                     {
                         case 0:
@@ -5680,11 +5680,11 @@ namespace MDPlayer.form
                             break;
                     }
                     break;
-                case enmUseChip.FDS:
+                case EnmChip.FDS:
                     newParam.fds[chipID].channel.mask = false;
                     Audio.resetFDSMask(chipID);
                     break;
-                case enmUseChip.MMC5:
+                case EnmChip.MMC5:
                     switch (ch)
                     {
                         case 0:
@@ -5902,14 +5902,14 @@ namespace MDPlayer.form
             YM2612MIDI.ChangeSelectedParamValue(n);
         }
 
-        private void LoadPresetMixerBalance(string playingFileName,string playingArcFileName, enmFileFormat format)
+        private void LoadPresetMixerBalance(string playingFileName,string playingArcFileName, EnmFileFormat format)
         {
             if (!setting.autoBalance.UseThis) return;
 
             try
             {
                 Setting.Balance balance = null;
-                string fullPath = common.settingFilePath;
+                string fullPath = Common.settingFilePath;
                 fullPath = Path.Combine(fullPath, "MixerBalance");
                 if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
                 string fn = "";
@@ -5935,7 +5935,7 @@ namespace MDPlayer.form
                     if (!File.Exists(Path.Combine(fullPath, fn)))
                     {
                         fn = "";
-                        fullPath = common.settingFilePath;
+                        fullPath = Common.settingFilePath;
                         fullPath = Path.Combine(fullPath, "MixerBalance");
                     }
                     else
@@ -5949,51 +5949,51 @@ namespace MDPlayer.form
                 {
                     switch (format)
                     {
-                        case enmFileFormat.VGM:
+                        case EnmFileFormat.VGM:
                             fn = "DriverBalance_VGM.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_VGM;
                             break;
-                        case enmFileFormat.XGM:
+                        case EnmFileFormat.XGM:
                             fn = "DriverBalance_XGM.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_XGM;
                             break;
-                        case enmFileFormat.HES:
+                        case EnmFileFormat.HES:
                             fn = "DriverBalance_HES.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_HES;
                             break;
-                        case enmFileFormat.NSF:
+                        case EnmFileFormat.NSF:
                             fn = "DriverBalance_NSF.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_NSF;
                             break;
-                        case enmFileFormat.NRT:
+                        case EnmFileFormat.NRT:
                             fn = "DriverBalance_NRT.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_NRT;
                             break;
-                        case enmFileFormat.MDR:
+                        case EnmFileFormat.MDR:
                             fn = "DriverBalance_MDR.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_MDR;
                             break;
-                        case enmFileFormat.MDX:
+                        case EnmFileFormat.MDX:
                             fn = "DriverBalance_MDX.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_MDX;
                             break;
-                        case enmFileFormat.MND:
+                        case EnmFileFormat.MND:
                             fn = "DriverBalance_MND.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_MND;
                             break;
-                        case enmFileFormat.S98:
+                        case EnmFileFormat.S98:
                             fn = "DriverBalance_S98.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_S98;
                             break;
-                        case enmFileFormat.SID:
+                        case EnmFileFormat.SID:
                             fn = "DriverBalance_SID.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_SID;
                             break;
-                        case enmFileFormat.MUC:
+                        case EnmFileFormat.MUC:
                             fn = "DriverBalance_MUC.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_MUC;
                             break;
-                        case enmFileFormat.MUB:
+                        case EnmFileFormat.MUB:
                             fn = "DriverBalance_MUB.mbc";
                             defMbc = Properties.Resources.DefaultVolumeBalance_MUB;
                             break;
@@ -6025,13 +6025,13 @@ namespace MDPlayer.form
             }
         }
 
-        private void ManualSavePresetMixerBalance(bool isDriverBalance, string playingFileName, string playingArcFileName, enmFileFormat format, Setting.Balance balance)
+        private void ManualSavePresetMixerBalance(bool isDriverBalance, string playingFileName, string playingArcFileName, EnmFileFormat format, Setting.Balance balance)
         {
             if (!setting.autoBalance.UseThis) return;
 
             try
             {
-                string fullPath = common.settingFilePath;
+                string fullPath = Common.settingFilePath;
                 fullPath = Path.Combine(fullPath, "MixerBalance");
                 if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
                 string fn = "";
@@ -6040,40 +6040,40 @@ namespace MDPlayer.form
                 {
                     switch (format)
                     {
-                        case enmFileFormat.VGM:
+                        case EnmFileFormat.VGM:
                             fn = "DriverBalance_VGM.mbc";
                             break;
-                        case enmFileFormat.XGM:
+                        case EnmFileFormat.XGM:
                             fn = "DriverBalance_XGM.mbc";
                             break;
-                        case enmFileFormat.HES:
+                        case EnmFileFormat.HES:
                             fn = "DriverBalance_HES.mbc";
                             break;
-                        case enmFileFormat.NSF:
+                        case EnmFileFormat.NSF:
                             fn = "DriverBalance_NSF.mbc";
                             break;
-                        case enmFileFormat.NRT:
+                        case EnmFileFormat.NRT:
                             fn = "DriverBalance_NRT.mbc";
                             break;
-                        case enmFileFormat.MDR:
+                        case EnmFileFormat.MDR:
                             fn = "DriverBalance_MDR.mbc";
                             break;
-                        case enmFileFormat.MDX:
+                        case EnmFileFormat.MDX:
                             fn = "DriverBalance_MDX.mbc";
                             break;
-                        case enmFileFormat.MND:
+                        case EnmFileFormat.MND:
                             fn = "DriverBalance_MND.mbc";
                             break;
-                        case enmFileFormat.S98:
+                        case EnmFileFormat.S98:
                             fn = "DriverBalance_S98.mbc";
                             break;
-                        case enmFileFormat.SID:
+                        case EnmFileFormat.SID:
                             fn = "DriverBalance_SID.mbc";
                             break;
-                        case enmFileFormat.MUC:
+                        case EnmFileFormat.MUC:
                             fn = "DriverBalance_MUC.mbc";
                             break;
-                        case enmFileFormat.MUB:
+                        case EnmFileFormat.MUB:
                             fn = "DriverBalance_MUB.mbc";
                             break;
                     }
@@ -6102,7 +6102,7 @@ namespace MDPlayer.form
                 throw new Exception("演奏情報が取得できませんでした。\r\n演奏中又は演奏完了直後に再度お試しください。");
             }
 
-            enmFileFormat fmt = music.format;
+            EnmFileFormat fmt = music.format;
             ManualSavePresetMixerBalance(true, "", "", fmt, balance);
 
             return fmt.ToString();

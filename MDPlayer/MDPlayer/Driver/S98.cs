@@ -15,7 +15,7 @@ namespace MDPlayer
         private List<string> chips = null;
         private uint musicPtr = 0;
         private double oneSyncTime;
-        private double musicStep = common.SampleRate / 60.0;
+        private double musicStep = Common.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
         private int s98WaitCounter;
         public int SSGVolumeFromTAG = -1;
@@ -30,9 +30,9 @@ namespace MDPlayer
 
             try
             {
-                if (common.getLE24(buf, 0) != FCC_S98) return null;
+                if (Common.getLE24(buf, 0) != FCC_S98) return null;
                 int Format = (int)(buf[3] - '0');
-                uint TAGAdr = common.getLE32(buf, 0x10);
+                uint TAGAdr = Common.getLE32(buf, 0x10);
                 if (Format < 2)
                 {
                     List<byte> strLst = new List<byte>();
@@ -53,7 +53,7 @@ namespace MDPlayer
                     if (buf[TAGAdr++] != 0x38) return null;
                     if (buf[TAGAdr++] != 0x5d) return null;
                     bool IsUTF8 = false;
-                    if (common.getLE24(buf, TAGAdr) == FCC_BOM)
+                    if (Common.getLE24(buf, TAGAdr) == FCC_BOM)
                     {
                         IsUTF8 = true;
                         TAGAdr += 3;
@@ -152,7 +152,7 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -175,7 +175,7 @@ namespace MDPlayer
 
             if (!getInformationHeader()) return false;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 chipRegister.setYM2612SyncWait(0, 1);
                 chipRegister.setYM2612SyncWait(1, 1);
@@ -219,37 +219,37 @@ namespace MDPlayer
             {
                 case 0:
                 case 1:
-                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    s98Info.SyncNumerator = Common.getLE32(vgmBuf, 4);
                     if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
                     s98Info.SyncDnumerator = 1000;
-                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
-                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                    s98Info.Compressing = Common.getLE32(vgmBuf, 0xc);//not support
+                    s98Info.TAGAddress = Common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = Common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = Common.getLE32(vgmBuf, 0x18);
                     s98Info.DeviceCount = 0;
                     break;
                 case 2:
-                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    s98Info.SyncNumerator = Common.getLE32(vgmBuf, 4);
                     if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
-                    s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
+                    s98Info.SyncDnumerator = Common.getLE32(vgmBuf, 8);
                     if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
-                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);//not support
-                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
+                    s98Info.Compressing = Common.getLE32(vgmBuf, 0xc);//not support
+                    s98Info.TAGAddress = Common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = Common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = Common.getLE32(vgmBuf, 0x18);
                     //0x1c Compressed data not support
-                    if (common.getLE32(vgmBuf, 0x20) == 0) s98Info.DeviceCount = 0;
+                    if (Common.getLE32(vgmBuf, 0x20) == 0) s98Info.DeviceCount = 0;
                     break;
                 case 3:
-                    s98Info.SyncNumerator = common.getLE32(vgmBuf, 4);
+                    s98Info.SyncNumerator = Common.getLE32(vgmBuf, 4);
                     if (s98Info.SyncNumerator == 0) s98Info.SyncNumerator = 10;
-                    s98Info.SyncDnumerator = common.getLE32(vgmBuf, 8);
+                    s98Info.SyncDnumerator = Common.getLE32(vgmBuf, 8);
                     if (s98Info.SyncDnumerator == 0) s98Info.SyncDnumerator = 1000;
-                    s98Info.Compressing = common.getLE32(vgmBuf, 0xc);
-                    s98Info.TAGAddress = common.getLE32(vgmBuf, 0x10);
-                    s98Info.DumpAddress = common.getLE32(vgmBuf, 0x14);
-                    s98Info.LoopAddress = common.getLE32(vgmBuf, 0x18);
-                    s98Info.DeviceCount = common.getLE32(vgmBuf, 0x1c);
+                    s98Info.Compressing = Common.getLE32(vgmBuf, 0xc);
+                    s98Info.TAGAddress = Common.getLE32(vgmBuf, 0x10);
+                    s98Info.DumpAddress = Common.getLE32(vgmBuf, 0x14);
+                    s98Info.LoopAddress = Common.getLE32(vgmBuf, 0x18);
+                    s98Info.DeviceCount = Common.getLE32(vgmBuf, 0x1c);
                     break;
             }
 
@@ -272,16 +272,16 @@ namespace MDPlayer
                 if (s98Info.FormatVersion == 2)
                 {
                     uint i = 0;
-                    while (common.getLE32(vgmBuf, 0x20 + i * 0x10) != 0)
+                    while (Common.getLE32(vgmBuf, 0x20 + i * 0x10) != 0)
                     {
                         S98DevInfo info = new S98DevInfo();
-                        info.DeviceType = common.getLE32(vgmBuf, 0x20 + i * 0x10);
+                        info.DeviceType = Common.getLE32(vgmBuf, 0x20 + i * 0x10);
                         if (devIDs[info.DeviceType] > 1)
                         {
                             i++;
                             continue;//同じchipは2こまで
                         }
-                        info.Clock = common.getLE32(vgmBuf, 0x24 + i * 0x10);
+                        info.Clock = Common.getLE32(vgmBuf, 0x24 + i * 0x10);
                         switch (info.DeviceType)
                         {
                             case 1:
@@ -311,11 +311,11 @@ namespace MDPlayer
                     for (int i = 0; i < s98Info.DeviceCount; i++)
                     {
                         S98DevInfo info = new S98DevInfo();
-                        info.DeviceType = common.getLE32(vgmBuf, (uint)(0x20 + i * 0x10));
+                        info.DeviceType = Common.getLE32(vgmBuf, (uint)(0x20 + i * 0x10));
                         if (devIDs[info.DeviceType] > 1) continue;//同じchipは2こまで
 
-                        info.Clock = common.getLE32(vgmBuf, (uint)(0x24 + i * 0x10));
-                        info.Pan = common.getLE32(vgmBuf, (uint)(0x28 + i * 0x10));
+                        info.Clock = Common.getLE32(vgmBuf, (uint)(0x24 + i * 0x10));
+                        info.Pan = Common.getLE32(vgmBuf, (uint)(0x28 + i * 0x10));
                         switch (info.DeviceType)
                         {
                             case 1:
@@ -394,7 +394,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = common.SampleRate * oneSyncTime;
+                musicStep = Common.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {
@@ -419,6 +419,10 @@ namespace MDPlayer
 
             while (true)
             {
+                if (vgmBuf == null)
+                {
+                    break;
+                }
 
                 byte cmd = vgmBuf[musicPtr++];
 
@@ -433,7 +437,7 @@ namespace MDPlayer
                 //wait nSync
                 if (cmd == 0xfe)
                 {
-                    s98WaitCounter = common.getvv(vgmBuf, ref musicPtr);
+                    s98WaitCounter = Common.getvv(vgmBuf, ref musicPtr);
                     ym2608WaitCounter = 0;
                     break;
                 }
@@ -476,12 +480,20 @@ namespace MDPlayer
                         break;
                     case 4:
 
-                        if (model == enmModel.RealModel)
+                        if (model == EnmModel.RealModel)
                         {
                             if (ym2608WaitCounter > 200)
                             {
+                                isDataBlock = true;
                                 ym2608WaitCounter = 0;
+
                                 System.Threading.Thread.Sleep(10);
+                                //while ((chipRegister.getYM2608Register(s98Info.DeviceInfos[devNo].ChipID, 0x1, 0x00, model) & 0xbf) != 0)
+                                //{
+                                //    System.Threading.Thread.Sleep(0);
+                                //}
+
+                                isDataBlock = false;
                             }
 
                             //if (ym2608WaitCounter > 1000)

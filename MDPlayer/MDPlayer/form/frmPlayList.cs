@@ -16,8 +16,8 @@ namespace MDPlayer.form
 
         public string playFilename = "";
         public string playArcFilename = "";
-        public enmFileFormat playFormat = enmFileFormat.unknown;
-        public enmArcType playArcType = enmArcType.unknown;
+        public EnmFileFormat playFormat = EnmFileFormat.unknown;
+        public EnmArcType playArcType = EnmArcType.unknown;
         public int playSongNum = -1;
 
         private PlayList playList = null;

@@ -122,7 +122,7 @@ namespace MDPlayer.form
                 int freq = ym2413Register[0x10 + ch] + ((ym2413Register[0x20 + ch] & 0x1) << 8);
                 int oct = ((ym2413Register[0x20 + ch] & 0xe) >> 1);
 
-                nyc.note = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
+                nyc.note = Common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
 
                 if (ki.On[ch])
                 {
@@ -342,12 +342,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.YM2413, chipID, ch);
+                    parent.SetChannelMask(EnmChip.YM2413, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(enmUseChip.YM2413, chipID, ch);
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(EnmChip.YM2413, chipID, ch);
                 return;
             }
 
@@ -355,7 +355,7 @@ namespace MDPlayer.form
             if (py < 15 * 8 && px < 16 * 8)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2413, 0, chipID);
+                parent.getInstCh(EnmChip.YM2413, 0, chipID);
             }
         }
     }

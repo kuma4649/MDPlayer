@@ -130,7 +130,7 @@ namespace MDPlayer.form
                 //オクターブ
                 int oct = ((vrc7Register[0x20 + ch] & 0xe) >> 1);
                 //周波数とオクターブ情報から近似する音程を取得する
-                nyc.note = common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
+                nyc.note = Common.searchSegaPCMNote(freq / 172.0) + (oct - 4) * 12;
 
 
                 //ワンショット(前回の処理から比較してキーオンが1度以上発生している状態)の場合
@@ -287,12 +287,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.VRC7, chipID, ch);
+                    parent.SetChannelMask(EnmChip.VRC7, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(enmUseChip.VRC7, chipID, ch);
+                for (ch = 0; ch < 6; ch++) parent.ResetChannelMask(EnmChip.VRC7, chipID, ch);
                 return;
             }
 
@@ -300,7 +300,7 @@ namespace MDPlayer.form
             if (py < 15 * 8 && px < 16 * 8)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.VRC7, 0, chipID);
+                parent.getInstCh(EnmChip.VRC7, 0, chipID);
             }
         }
     }

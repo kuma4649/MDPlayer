@@ -316,24 +316,24 @@ namespace MDPlayer
             return des;
         }
 
-        public void SetVoiceFromChipRegister(enmUseChip chip, int chipID, int ch)
+        public void SetVoiceFromChipRegister(EnmChip chip, int chipID, int ch)
         {
-            if (chip == enmUseChip.YM2612 || chip == enmUseChip.YM2608 || chip == enmUseChip.YM2610 || chip == enmUseChip.YM2203)
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2610 || chip == EnmChip.YM2203)
             {
                 int[][] srcRegs = null;
-                if (chip == enmUseChip.YM2612)
+                if (chip == EnmChip.YM2612)
                 {
                     srcRegs = Audio.GetFMRegister(chipID);
                 }
-                else if (chip == enmUseChip.YM2608)
+                else if (chip == EnmChip.YM2608)
                 {
                     srcRegs = Audio.GetYM2608Register(chipID);
                 }
-                else if (chip == enmUseChip.YM2610)
+                else if (chip == EnmChip.YM2610)
                 {
                     srcRegs = Audio.GetYM2610Register(chipID);
                 }
-                else if (chip == enmUseChip.YM2203)
+                else if (chip == EnmChip.YM2203)
                 {
                     int[] sReg = Audio.GetYM2203Register(chipID);
                     srcRegs = new int[2][] { sReg, null };
@@ -346,7 +346,7 @@ namespace MDPlayer
                     }
                 }
             }
-            else if (chip == enmUseChip.YM2151)
+            else if (chip == EnmChip.YM2151)
             {
                 int[] reg = Audio.GetYM2151Register(chipID);
                 for (int i = 0; i < 6; i++)

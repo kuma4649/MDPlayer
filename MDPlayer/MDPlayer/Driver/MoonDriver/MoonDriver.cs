@@ -18,23 +18,23 @@ namespace MDPlayer.Driver.MoonDriver
             if (adrTag != 0)
             {
                 adrTag -= 0x8000;
-                gd3.TrackName = common.getNRDString(buf, ref adrTag);
-                gd3.TrackNameJ = common.getNRDString(buf, ref adrTag);
-                gd3.GameName = common.getNRDString(buf, ref adrTag);
-                gd3.GameNameJ = common.getNRDString(buf, ref adrTag);
-                gd3.SystemName = common.getNRDString(buf, ref adrTag);
-                gd3.SystemNameJ = common.getNRDString(buf, ref adrTag);
-                gd3.Composer = common.getNRDString(buf, ref adrTag);//Track author
-                gd3.ComposerJ = common.getNRDString(buf, ref adrTag);//Track author(jp)
-                gd3.Version = common.getNRDString(buf, ref adrTag);//Release date
-                gd3.Converted = common.getNRDString(buf, ref adrTag);//Programmer
-                gd3.Notes = common.getNRDString(buf, ref adrTag);//Notes
+                gd3.TrackName = Common.getNRDString(buf, ref adrTag);
+                gd3.TrackNameJ = Common.getNRDString(buf, ref adrTag);
+                gd3.GameName = Common.getNRDString(buf, ref adrTag);
+                gd3.GameNameJ = Common.getNRDString(buf, ref adrTag);
+                gd3.SystemName = Common.getNRDString(buf, ref adrTag);
+                gd3.SystemNameJ = Common.getNRDString(buf, ref adrTag);
+                gd3.Composer = Common.getNRDString(buf, ref adrTag);//Track author
+                gd3.ComposerJ = Common.getNRDString(buf, ref adrTag);//Track author(jp)
+                gd3.Version = Common.getNRDString(buf, ref adrTag);//Release date
+                gd3.Converted = Common.getNRDString(buf, ref adrTag);//Programmer
+                gd3.Notes = Common.getNRDString(buf, ref adrTag);//Notes
             }
 
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
@@ -120,7 +120,7 @@ namespace MDPlayer.Driver.MoonDriver
             //Driverの初期化
             EntryPoints(0x4000);
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 //chipRegister.sendDataYM2151(0, model);
                 //chipRegister.setYM2151SyncWait(0, 1);
@@ -133,7 +133,7 @@ namespace MDPlayer.Driver.MoonDriver
 
         public override void oneFrameProc()
         {
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 Stopped = true;
                 vgmCurLoop = int.MaxValue;
@@ -237,7 +237,7 @@ namespace MDPlayer.Driver.MoonDriver
                 if (ntscCounter <= 0)
                 {
                     EntryPoints(0x4003);
-                    ntscStep = common.SampleRate / 60.0;
+                    ntscStep = Common.SampleRate / 60.0;
                     ntscCounter += ntscStep;
                 }
             }
@@ -1131,6 +1131,11 @@ namespace MDPlayer.Driver.MoonDriver
         {
             do
             {
+                if (work == null)
+                {
+                    return;
+                }
+
                 // reset mapper
                 a = 0;
                 change_page3();

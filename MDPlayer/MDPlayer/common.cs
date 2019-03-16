@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace MDPlayer
 {
-    public static class common
+    public static class Common
     {
+        public const int DEV_WaveOut = 0;
+        public const int DEV_DirectSound = 1;
+        public const int DEV_WasapiOut = 2;
+        public const int DEV_AsioOut = 3;
+        public const int DEV_SPPCM = 4;
+        public const int DEV_Null = 5;
+
         public static Int32 SampleRate = 44100;
         public static Int32 NsfClock = 1789773;
         public static string settingFilePath = "";
@@ -103,29 +110,29 @@ namespace MDPlayer
             try
             {
                 //trackName
-                GD3.TrackName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.TrackName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //trackNameJ
-                GD3.TrackNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.TrackNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //gameName
-                GD3.GameName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.GameName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //gameNameJ
-                GD3.GameNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.GameNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //systemName
-                GD3.SystemName = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.SystemName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //systemNameJ
-                GD3.SystemNameJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.SystemNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //Composer
-                GD3.Composer = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.Composer = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //ComposerJ
-                GD3.ComposerJ = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.ComposerJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //Converted
-                GD3.Converted = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.Converted = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //VGMBy
-                GD3.VGMBy = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.VGMBy = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //Notes
-                GD3.Notes = Encoding.Unicode.GetString(common.getByteArray(buf, ref adr));
+                GD3.Notes = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
                 //Lyric(独自拡張)
-                byte[] bLyric = common.getByteArray(buf, ref adr);
+                byte[] bLyric = Common.getByteArray(buf, ref adr);
                 if (bLyric != null)
                 {
                     GD3.Lyrics = new List<Tuple<int, int, string>>();
@@ -255,28 +262,28 @@ namespace MDPlayer
             return delta;
         }
 
-        public static enmFileFormat CheckExt(string filename)
+        public static EnmFileFormat CheckExt(string filename)
         {
-            if (filename.ToLower().LastIndexOf(".m3u") != -1) return enmFileFormat.M3U;
-            if (filename.ToLower().LastIndexOf(".mid") != -1) return enmFileFormat.MID;
-            if (filename.ToLower().LastIndexOf(".nrd") != -1) return enmFileFormat.NRT;
-            if (filename.ToLower().LastIndexOf(".nsf") != -1) return enmFileFormat.NSF;
-            if (filename.ToLower().LastIndexOf(".hes") != -1) return enmFileFormat.HES;
-            if (filename.ToLower().LastIndexOf(".sid") != -1) return enmFileFormat.SID;
-            if (filename.ToLower().LastIndexOf(".mnd") != -1) return enmFileFormat.MND;
-            if (filename.ToLower().LastIndexOf(".mdr") != -1) return enmFileFormat.MDR;
-            if (filename.ToLower().LastIndexOf(".mdx") != -1) return enmFileFormat.MDX;
-            if (filename.ToLower().LastIndexOf(".mub") != -1) return enmFileFormat.MUB;
-            if (filename.ToLower().LastIndexOf(".muc") != -1) return enmFileFormat.MUC;
-            if (filename.ToLower().LastIndexOf(".rcp") != -1) return enmFileFormat.RCP;
-            if (filename.ToLower().LastIndexOf(".s98") != -1) return enmFileFormat.S98;
-            if (filename.ToLower().LastIndexOf(".vgm") != -1) return enmFileFormat.VGM;
-            if (filename.ToLower().LastIndexOf(".vgz") != -1) return enmFileFormat.VGM;
-            if (filename.ToLower().LastIndexOf(".xgm") != -1) return enmFileFormat.XGM;
-            if (filename.ToLower().LastIndexOf(".zip") != -1) return enmFileFormat.ZIP;
-            if (filename.ToLower().LastIndexOf(".lzh") != -1) return enmFileFormat.LZH;
+            if (filename.ToLower().LastIndexOf(".m3u") != -1) return EnmFileFormat.M3U;
+            if (filename.ToLower().LastIndexOf(".mid") != -1) return EnmFileFormat.MID;
+            if (filename.ToLower().LastIndexOf(".nrd") != -1) return EnmFileFormat.NRT;
+            if (filename.ToLower().LastIndexOf(".nsf") != -1) return EnmFileFormat.NSF;
+            if (filename.ToLower().LastIndexOf(".hes") != -1) return EnmFileFormat.HES;
+            if (filename.ToLower().LastIndexOf(".sid") != -1) return EnmFileFormat.SID;
+            if (filename.ToLower().LastIndexOf(".mnd") != -1) return EnmFileFormat.MND;
+            if (filename.ToLower().LastIndexOf(".mdr") != -1) return EnmFileFormat.MDR;
+            if (filename.ToLower().LastIndexOf(".mdx") != -1) return EnmFileFormat.MDX;
+            if (filename.ToLower().LastIndexOf(".mub") != -1) return EnmFileFormat.MUB;
+            if (filename.ToLower().LastIndexOf(".muc") != -1) return EnmFileFormat.MUC;
+            if (filename.ToLower().LastIndexOf(".rcp") != -1) return EnmFileFormat.RCP;
+            if (filename.ToLower().LastIndexOf(".s98") != -1) return EnmFileFormat.S98;
+            if (filename.ToLower().LastIndexOf(".vgm") != -1) return EnmFileFormat.VGM;
+            if (filename.ToLower().LastIndexOf(".vgz") != -1) return EnmFileFormat.VGM;
+            if (filename.ToLower().LastIndexOf(".xgm") != -1) return EnmFileFormat.XGM;
+            if (filename.ToLower().LastIndexOf(".zip") != -1) return EnmFileFormat.ZIP;
+            if (filename.ToLower().LastIndexOf(".lzh") != -1) return EnmFileFormat.LZH;
 
-            return enmFileFormat.unknown;
+            return EnmFileFormat.unknown;
         }
 
         public static int searchFMNote(int freq)
@@ -407,13 +414,13 @@ namespace MDPlayer
         }
     }
 
-    public enum enmModel
+    public enum EnmModel
     {
         VirtualModel
         , RealModel
     }
 
-    public enum enmUseChip : int
+    public enum EnmChip : int
     {
         Unuse = 0
         , SN76489
@@ -447,15 +454,15 @@ namespace MDPlayer
         , N160
         , VRC6
         , FME7
-            , RF5C68
-            , MultiPCM
-            ,YMF271
-            , YMZ280B
-            ,QSound
-            ,GA20
-            ,K053260
-            ,K054539
-            ,DMG
+        , RF5C68
+        , MultiPCM
+        , YMF271
+        , YMZ280B
+        , QSound
+        , GA20
+        , K053260
+        , K054539
+        , DMG
 
         , S_SN76489
         , S_YM2612
@@ -488,18 +495,18 @@ namespace MDPlayer
         , S_N160
         , S_VRC6
         , S_FME7
-            , S_RF5C68
-            , S_MultiPCM
-            ,S_YMF271
-            ,S_YMZ280B
-            ,S_QSound
-            ,S_GA20
-            ,S_K053260
-            ,S_K054539
-            ,S_DMG
+        , S_RF5C68
+        , S_MultiPCM
+        , S_YMF271
+        , S_YMZ280B
+        , S_QSound
+        , S_GA20
+        , S_K053260
+        , S_K054539
+        , S_DMG
     }
 
-    public enum enmRealChipType : int
+    public enum EnmRealChipType : int
     {
         YM2608 = 1
         , YM2151 = 2
@@ -512,7 +519,7 @@ namespace MDPlayer
         , SEGAPCM = 44
     }
 
-    public enum enmInstFormat : int
+    public enum EnmInstFormat : int
     {
         FMP7 = 0,
         MDX = 1,
@@ -524,7 +531,7 @@ namespace MDPlayer
         HUSIC=7
     }
 
-    public enum enmFileFormat : int
+    public enum EnmFileFormat : int
     {
         unknown = 0,
         VGM = 1,
@@ -546,12 +553,18 @@ namespace MDPlayer
         MUC = 17
     }
 
-    public enum enmArcType : int
+    public enum EnmArcType : int
     {
         unknown = 0,
         ZIP = 1,
         LZH = 2
     }
 
+    public enum EnmRealModel
+    {
+        unknown,
+        SCCI,
+        GIMIC
+    }
 
 }

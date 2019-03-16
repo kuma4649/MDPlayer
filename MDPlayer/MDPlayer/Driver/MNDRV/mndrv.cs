@@ -11,7 +11,7 @@ namespace MDPlayer.Driver.MNDRV
         public List<Tuple<string, byte[]>> ExtendFile = null;
 
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -31,14 +31,14 @@ namespace MDPlayer.Driver.MNDRV
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, 3579545);
-                if (model == enmModel.RealModel)
+                YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
+                if (model == EnmModel.RealModel)
                 {
                     YM2151Hosei[chipID] = 0;
                     int clock = chipRegister.getYM2151Clock((byte)chipID);
                     if (clock != -1)
                     {
-                        YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, clock);
+                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
                     }
                 }
             }
@@ -68,7 +68,7 @@ namespace MDPlayer.Driver.MNDRV
             memPtr += (uint)vgmBuf.Length;
 
             //pcm転送
-            if (ExtendFile != null && model!= enmModel.RealModel)
+            if (ExtendFile != null && model!= EnmModel.RealModel)
             {
                 for (int j = 0; j < ExtendFile.Count; j++)
                 {
@@ -106,6 +106,11 @@ namespace MDPlayer.Driver.MNDRV
         {
             //デバッグ向け
             //if (model == enmModel.RealModel) return;
+
+            if (mm.mm == null)
+            {
+                return;
+            }
 
             try
             {
@@ -289,7 +294,7 @@ namespace MDPlayer.Driver.MNDRV
         //トラップ処理(実質MPCM制御)
         public void trap(int n)
         {
-            if (model == enmModel.RealModel) return;
+            if (model == EnmModel.RealModel) return;
 
             int ch = (int)reg.D0_B;
 

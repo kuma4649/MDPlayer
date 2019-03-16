@@ -23,24 +23,24 @@ namespace MDPlayer
             this.setting = setting;
         }
 
-        public void outMIDIData(enmUseChip chip, int chipID, int dPort, int dAddr, int dData,int hosei, long vgmFrameCounter)
+        public void outMIDIData(EnmChip chip, int chipID, int dPort, int dAddr, int dData,int hosei, long vgmFrameCounter)
         {
             if (!setting.midiExport.UseMIDIExport) return;
             if (setting.midiExport.ExportPath == "") return;
             if (vgmFrameCounter < 0) return;
             if (chipID != 0) return;
 
-            if (chip != enmUseChip.YM2612 && chip != enmUseChip.YM2151) return;
+            if (chip != EnmChip.YM2612 && chip != EnmChip.YM2151) return;
 
             switch (chip)
             {
-                case enmUseChip.YM2151:
+                case EnmChip.YM2151:
                     if (setting.midiExport.UseYM2151Export)
                     {
                         outMIDIData_YM2151(chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
                     }
                     break;
-                case enmUseChip.YM2612:
+                case EnmChip.YM2612:
                     if (setting.midiExport.UseYM2612Export)
                     {
                         outMIDIData_YM2612(chipID, dPort, dAddr, dData, vgmFrameCounter);
@@ -805,8 +805,8 @@ namespace MDPlayer
             if (ch >= chip.oldFrameCounter.Length) return;
 
             long sub = NewFrameCounter - chip.oldFrameCounter[ch];
-            long step = (long)(sub / (double)common.SampleRate * 960.0);
-            chip.oldFrameCounter[ch] += (long)(step * (double)common.SampleRate / 960.0);
+            long step = (long)(sub / (double)Common.SampleRate * 960.0);
+            chip.oldFrameCounter[ch] += (long)(step * (double)Common.SampleRate / 960.0);
 
             bool flg = true;
             for (int i = 0; i < 4; i++)

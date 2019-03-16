@@ -109,11 +109,11 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(enmUseChip.YM2610, chipID, ch);
+                    parent.SetChannelMask(EnmChip.YM2610, chipID, ch);
                     return;
                 }
 
-                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(enmUseChip.YM2610, chipID, ch);
+                for (ch = 0; ch < 14; ch++) parent.ResetChannelMask(EnmChip.YM2610, chipID, ch);
                 return;
             }
 
@@ -126,7 +126,7 @@ namespace MDPlayer.form
             if (instCh < 6)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(enmUseChip.YM2610, instCh, chipID);
+                parent.getInstCh(EnmChip.YM2610, instCh, chipID);
             }
         }
 
@@ -244,7 +244,7 @@ namespace MDPlayer.form
                     freq = YM2610Register[p][0xa0 + c] + (YM2610Register[p][0xa4 + c] & 0x07) * 0x100;
                     octav = (YM2610Register[p][0xa4 + c] & 0x38) >> 3;
 
-                    if ((fmKeyYM2610[ch]&1) != 0) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2610[ch]&1) != 0) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2610[ch]);
                     int v = 127;
@@ -266,7 +266,7 @@ namespace MDPlayer.form
                     freq = YM2610Register[0][0xa9] + (YM2610Register[0][0xad] & 0x07) * 0x100;
                     octav = (YM2610Register[0][0xad] & 0x38) >> 3;
 
-                    if ((fmKeyYM2610[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2610[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? YM2610Register[p][0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((YM2610Register[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * YM2610Ch3SlotVol[0] / 80.0), 0), 19);
@@ -295,7 +295,7 @@ namespace MDPlayer.form
                     int n = -1;
                     if ((fmKeyYM2610[2] & (0x10 << (ch - 5))) != 0 && ((m & (0x10 << op)) != 0))
                     {
-                        n = Math.Min(Math.Max(octav * 12 + common.searchFMNote(freq) + 1, 0), 95);
+                        n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
                     }
                     newParam.channels[ch].note = n;
 
@@ -334,7 +334,7 @@ namespace MDPlayer.form
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
                     float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
-                    channel.note = common.searchSSGNote(ftone);
+                    channel.note = Common.searchSSGNote(ftone);
                 }
 
             }
@@ -349,7 +349,7 @@ namespace MDPlayer.form
             newParam.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
             delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
             frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
-            newParam.channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? common.searchYM2608Adpcm(frq) : -1;
+            newParam.channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? Common.searchYM2608Adpcm(frq) : -1;
             if ((YM2610Register[0][0x11] & 0xc0) == 0)
             {
                 newParam.channels[12].note = -1;

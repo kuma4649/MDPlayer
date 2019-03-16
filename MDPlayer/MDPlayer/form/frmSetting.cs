@@ -103,32 +103,32 @@ namespace MDPlayer.form
 
             if (ucSI != null)
             {
-                SetSCCICombo(enmRealChipType.YM2612
+                SetSCCICombo(EnmRealChipType.YM2612
                     , ucSI.cmbYM2612P_SCCI, ucSI.rbYM2612P_SCCI
                     , ucSI.cmbYM2612S_SCCI, ucSI.rbYM2612S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.SN76489
+                SetSCCICombo(EnmRealChipType.SN76489
                     , ucSI.cmbSN76489P_SCCI, ucSI.rbSN76489P_SCCI
                     , ucSI.cmbSN76489S_SCCI, ucSI.rbSN76489S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.YM2608
+                SetSCCICombo(EnmRealChipType.YM2608
                     , ucSI.cmbYM2608P_SCCI, ucSI.rbYM2608P_SCCI
                     , ucSI.cmbYM2608S_SCCI, ucSI.rbYM2608S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.YM2610
+                SetSCCICombo(EnmRealChipType.YM2610
                     , ucSI.cmbYM2610BP_SCCI, ucSI.rbYM2610BP_SCCI
                     , ucSI.cmbYM2610BS_SCCI, ucSI.rbYM2610BS_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.YM2608
+                SetSCCICombo(EnmRealChipType.YM2608
                     , ucSI.cmbYM2610BEP_SCCI, ucSI.rbYM2610BEP_SCCI
                     , ucSI.cmbYM2610BES_SCCI, ucSI.rbYM2610BES_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.SPPCM
+                SetSCCICombo(EnmRealChipType.SPPCM
                     , ucSI.cmbSPPCMP_SCCI, null
                     , ucSI.cmbSPPCMS_SCCI, null
                     );
@@ -136,22 +136,22 @@ namespace MDPlayer.form
                 ucSI.rbYM2610BEP_SCCI.Enabled = (ucSI.cmbYM2610BEP_SCCI.Enabled || ucSI.cmbSPPCMP_SCCI.Enabled);
                 ucSI.rbYM2610BES_SCCI.Enabled = (ucSI.cmbYM2610BES_SCCI.Enabled || ucSI.cmbSPPCMS_SCCI.Enabled);
 
-                SetSCCICombo(enmRealChipType.YM2151
+                SetSCCICombo(EnmRealChipType.YM2151
                     , ucSI.cmbYM2151P_SCCI, ucSI.rbYM2151P_SCCI
                     , ucSI.cmbYM2151S_SCCI, ucSI.rbYM2151S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.YM2203
+                SetSCCICombo(EnmRealChipType.YM2203
                     , ucSI.cmbYM2203P_SCCI, ucSI.rbYM2203P_SCCI
                     , ucSI.cmbYM2203S_SCCI, ucSI.rbYM2203S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.C140
+                SetSCCICombo(EnmRealChipType.C140
                     , ucSI.cmbC140P_SCCI, ucSI.rbC140P_SCCI
                     , ucSI.cmbC140S_SCCI, ucSI.rbC140S_SCCI
                     );
 
-                SetSCCICombo(enmRealChipType.SEGAPCM
+                SetSCCICombo(EnmRealChipType.SEGAPCM
                     , ucSI.cmbSEGAPCMP_SCCI, ucSI.rbSEGAPCMP_SCCI
                     , ucSI.cmbSEGAPCMS_SCCI, ucSI.rbSEGAPCMS_SCCI
                     );
@@ -680,7 +680,7 @@ namespace MDPlayer.form
             btNextClr.Enabled = (lblNextKey.Text != "(None)" && !string.IsNullOrEmpty(lblNextKey.Text));
         }
 
-        private void SetSCCICombo(enmRealChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
+        private void SetSCCICombo(EnmRealChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
         {
 
             if(rbP!=null) rbP.Enabled = false;
@@ -834,13 +834,13 @@ namespace MDPlayer.form
 
             int i = 0;
 
-            setting.outputDevice.DeviceType = 0;
-            if (rbWaveOut.Checked) setting.outputDevice.DeviceType = 0;
-            if (rbDirectSoundOut.Checked) setting.outputDevice.DeviceType = 1;
-            if (rbWasapiOut.Checked) setting.outputDevice.DeviceType = 2;
-            if (rbAsioOut.Checked) setting.outputDevice.DeviceType = 3;
-            if (rbSPPCM.Checked) setting.outputDevice.DeviceType = 4;
-            if (rbNullDevice.Checked) setting.outputDevice.DeviceType = 5;
+            setting.outputDevice.DeviceType = Common.DEV_WaveOut;
+            if (rbWaveOut.Checked) setting.outputDevice.DeviceType = Common.DEV_WaveOut;
+            if (rbDirectSoundOut.Checked) setting.outputDevice.DeviceType = Common.DEV_DirectSound;
+            if (rbWasapiOut.Checked) setting.outputDevice.DeviceType = Common.DEV_WasapiOut;
+            if (rbAsioOut.Checked) setting.outputDevice.DeviceType = Common.DEV_AsioOut;
+            if (rbSPPCM.Checked) setting.outputDevice.DeviceType = Common.DEV_SPPCM;
+            if (rbNullDevice.Checked) setting.outputDevice.DeviceType = Common.DEV_Null;
 
             setting.outputDevice.WaveOutDeviceName = cmbWaveOutDevice.SelectedItem != null ? cmbWaveOutDevice.SelectedItem.ToString() : "";
             setting.outputDevice.DirectSoundDeviceName = cmbDirectSoundDevice.SelectedItem != null ? cmbDirectSoundDevice.SelectedItem.ToString() : "";
@@ -1267,7 +1267,7 @@ namespace MDPlayer.form
 
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
-            setting.other.InstFormat = (enmInstFormat)cmbInstFormat.SelectedIndex;
+            setting.other.InstFormat = (EnmInstFormat)cmbInstFormat.SelectedIndex;
             if (int.TryParse(tbScreenFrameRate.Text, out i))
             {
                 setting.other.ScreenFrameRate = Math.Max(Math.Min(i, 120), 10);
@@ -1728,7 +1728,7 @@ namespace MDPlayer.form
 
         private void btnOpenSettingFolder_Click(object sender, EventArgs e)
         {
-            string fullPath = common.settingFilePath;
+            string fullPath = Common.settingFilePath;
             System.Diagnostics.Process.Start(fullPath);
         }
 

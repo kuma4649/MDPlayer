@@ -28,7 +28,7 @@ namespace MDPlayer
                         if (line[0] == '#') continue;
 
                         PlayList.music ms = analyzeLine(line, rootPath);
-                        ms.format = common.CheckExt(ms.fileName);
+                        ms.format = Common.CheckExt(ms.fileName);
                         if (ms != null) pl.lstMusic.Add(ms);
 
                     }
@@ -67,7 +67,7 @@ namespace MDPlayer
                         if (line[0] == '#') continue;
 
                         PlayList.music ms = analyzeLine(line, "");
-                        ms.format = common.CheckExt(ms.fileName);
+                        ms.format = Common.CheckExt(ms.fileName);
                         ms.arcFileName = zipFileName;
                         if (ms != null) pl.lstMusic.Add(ms);
 
@@ -100,7 +100,7 @@ namespace MDPlayer
                     if (line[0] == '#') continue;
 
                     PlayList.music ms = analyzeLine(line, "");
-                    ms.format = common.CheckExt(ms.fileName);
+                    ms.format = Common.CheckExt(ms.fileName);
                     ms.arcFileName = zipFileName;
                     if (ms != null) pl.lstMusic.Add(ms);
 

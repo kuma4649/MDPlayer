@@ -2980,7 +2980,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range((byte)num, 0, 15);
+            num = Common.Range((byte)num, 0, 15);
 
             n = num;
             drawFont4(screen, x, y, t, Tables.hexCh[n]);
@@ -2993,7 +2993,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range((byte)num, 0, 255);
+            num = Common.Range((byte)num, 0, 255);
 
             n = num / 0x10;
             num -= n * 0x10;
@@ -3012,7 +3012,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range((ushort)num, 0, 0xfff);
+            num = Common.Range((ushort)num, 0, 0xfff);
 
             n = num / 0x100;
             num -= n * 0x100;
@@ -3037,7 +3037,7 @@ namespace MDPlayer
             if (screen == null) return;
 
             int n;
-            num = common.Range((ushort)num, 0, 0xffff);
+            num = Common.Range((ushort)num, 0, 0xffff);
 
             n = num / 0x1000;
             num -= n * 0x1000;

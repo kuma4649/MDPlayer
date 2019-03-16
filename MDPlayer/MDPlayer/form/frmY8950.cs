@@ -96,12 +96,12 @@ namespace MDPlayer.form
             if (e.Button == MouseButtons.Left)
             {
                 //マスク
-                parent.SetChannelMask(enmUseChip.Y8950, chipID, ch);
+                parent.SetChannelMask(EnmChip.Y8950, chipID, ch);
                 return;
             }
 
             //マスク解除
-            for (ch = 0; ch < 9 + 5 + 1; ch++) parent.ResetChannelMask(enmUseChip.Y8950, chipID, ch);
+            for (ch = 0; ch < 9 + 5 + 1; ch++) parent.ResetChannelMask(EnmChip.Y8950, chipID, ch);
             return;
         }
 
@@ -215,7 +215,7 @@ namespace MDPlayer.form
 
                 // FNUM / (2^19) * (mClock/72) * (2 ^ (block - 1)) 
                 double fmus = (double)nyc.inst[12] / (1 << 19) * (masterClock / 72.0) * (1 << nyc.inst[11]);
-                nyc.note = common.searchSegaPCMNote(fmus/523.3);//523.3 -> c4
+                nyc.note = Common.searchSegaPCMNote(fmus/523.3);//523.3 -> c4
 
                 if (ki.On[c])
                 {
@@ -272,13 +272,13 @@ namespace MDPlayer.form
             {
                 //fSample = deltaN * 50KHz / (2^16)
                 double fSample = newParam.channels[14].inst[12] * 50000.0 / (double)(1 << 16);
-                int pnt = ki.Off[14] ? -1 : common.searchSegaPCMNote(fSample / 8000.0);
+                int pnt = ki.Off[14] ? -1 : Common.searchSegaPCMNote(fSample / 8000.0);
 
                 if (newParam.channels[14].note != pnt || ki.Off[14])
                 {
                     newParam.channels[14].note = pnt;
                     int tl = Y8950Register[0x12];
-                    newParam.channels[14].volume = pnt == -1 ? 0 : common.Range(tl >> 3, 0, 19);
+                    newParam.channels[14].volume = pnt == -1 ? 0 : Common.Range(tl >> 3, 0, 19);
                 }
                 else
                 {

@@ -108,11 +108,11 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask( enmUseChip.C140, chipID, ch);
+                    parent.SetChannelMask( EnmChip.C140, chipID, ch);
                     return;
                 }
 
-                for (ch = 0; ch < 24; ch++) parent.ResetChannelMask(enmUseChip.C140, chipID, ch);
+                for (ch = 0; ch < 24; ch++) parent.ResetChannelMask(EnmChip.C140, chipID, ch);
                 return;
 
             }

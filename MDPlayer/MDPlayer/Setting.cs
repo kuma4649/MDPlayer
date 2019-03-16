@@ -1309,8 +1309,8 @@ namespace MDPlayer
                 }
             }
 
-            private enmInstFormat _InstFormat = enmInstFormat.MML2VGM;
-            public enmInstFormat InstFormat
+            private EnmInstFormat _InstFormat = EnmInstFormat.MML2VGM;
+            public EnmInstFormat InstFormat
             {
                 get
                 {
@@ -2376,7 +2376,7 @@ namespace MDPlayer
 
             public void Save(string fullPath)
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Balance));
+                XmlSerializer serializer = new XmlSerializer(typeof(Balance), typeof(Balance).GetNestedTypes());
                 using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
                 {
                     serializer.Serialize(sw, this);
@@ -2388,7 +2388,7 @@ namespace MDPlayer
                 try
                 {
                     if (!File.Exists(fullPath)) return null;
-                    XmlSerializer serializer = new XmlSerializer(typeof(Balance));
+                    XmlSerializer serializer = new XmlSerializer(typeof(Balance), typeof(Balance).GetNestedTypes());
                     using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
                     {
                         return (Balance)serializer.Deserialize(sr);
@@ -4399,10 +4399,10 @@ namespace MDPlayer
 
         public void Save()
         {
-            string fullPath = common.settingFilePath;
+            string fullPath = Common.settingFilePath;
             fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+            XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());
             using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
             {
                 serializer.Serialize(sw, this);
@@ -4416,18 +4416,18 @@ namespace MDPlayer
                 string fn = Properties.Resources.cntSettingFileName;
                 if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn)))
                 {
-                    common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                    Common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
                 }
                 else
                 {
-                    common.settingFilePath = common.GetApplicationDataFolder(true);
+                    Common.settingFilePath = Common.GetApplicationDataFolder(true);
                 }
 
-                string fullPath = common.settingFilePath;
+                string fullPath = Common.settingFilePath;
                 fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
 
                 if (!File.Exists(fullPath)) { return new Setting(); }
-                XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+                XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());
                 using (StreamReader sr = new StreamReader(fullPath, new UTF8Encoding(false)))
                 {
                     return (Setting)serializer.Deserialize(sr);

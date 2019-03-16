@@ -15,7 +15,7 @@ namespace MDPlayer
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
-            if (common.getLE32(buf, 0) != FCC_NSF)
+            if (Common.getLE32(buf, 0) != FCC_NSF)
             {
                 //NSFeはとりあえず未サポート
                 return null;
@@ -116,7 +116,7 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
@@ -126,7 +126,7 @@ namespace MDPlayer
             this.latency = latency;
             this.waitTime = waitTime;
 
-            if (model == enmModel.RealModel)
+            if (model == EnmModel.RealModel)
             {
                 Stopped = true;
                 vgmCurLoop = 9999;
@@ -151,7 +151,7 @@ namespace MDPlayer
 
         public override void oneFrameProc()
         {
-            if (model == enmModel.RealModel) return;
+            if (model == EnmModel.RealModel) return;
 
             try
             {
@@ -253,7 +253,7 @@ namespace MDPlayer
         private NESDetector ld = null;
 //        private NESDetectorEx ld = null;
 
-        private double rate = common.SampleRate;
+        private double rate = Common.SampleRate;
         private double cpu_clock_rest;
         private double apu_clock_rest;
         private Int32 time_in_ms;
@@ -274,27 +274,27 @@ namespace MDPlayer
             chipRegister.nes_fme7 = new nes_fme7();
             chipRegister.nes_vrc7 = new nes_vrc7();
 
-            chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(Common.NsfClock, Common.SampleRate);
             chipRegister.nes_apu.Reset();
-            chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(Common.NsfClock, Common.SampleRate);
             chipRegister.nes_dmc.Reset();
-            chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(common.NsfClock, common.SampleRate);
+            chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(Common.NsfClock, Common.SampleRate);
             chipRegister.nes_fds.Reset();
-            chipRegister.nes_n106.SetClock(common.NsfClock);
-            chipRegister.nes_n106.SetRate(common.SampleRate);
+            chipRegister.nes_n106.SetClock(Common.NsfClock);
+            chipRegister.nes_n106.SetRate(Common.SampleRate);
             chipRegister.nes_n106.Reset();
-            chipRegister.nes_vrc6.SetClock(common.NsfClock);
-            chipRegister.nes_vrc6.SetRate(common.SampleRate);
+            chipRegister.nes_vrc6.SetClock(Common.NsfClock);
+            chipRegister.nes_vrc6.SetRate(Common.SampleRate);
             chipRegister.nes_vrc6.Reset();
-            chipRegister.nes_mmc5.SetClock(common.NsfClock);
-            chipRegister.nes_mmc5.SetRate(common.SampleRate);
+            chipRegister.nes_mmc5.SetClock(Common.NsfClock);
+            chipRegister.nes_mmc5.SetRate(Common.SampleRate);
             chipRegister.nes_mmc5.Reset();
             chipRegister.nes_mmc5.SetCPU(chipRegister.nes_cpu);
-            chipRegister.nes_fme7.SetClock(common.NsfClock);
-            chipRegister.nes_fme7.SetRate(common.SampleRate);
+            chipRegister.nes_fme7.SetClock(Common.NsfClock);
+            chipRegister.nes_fme7.SetRate(Common.SampleRate);
             chipRegister.nes_fme7.Reset();
-            chipRegister.nes_vrc7.SetClock(common.NsfClock);
-            chipRegister.nes_vrc7.SetRate(common.SampleRate);
+            chipRegister.nes_vrc7.SetClock(Common.NsfClock);
+            chipRegister.nes_vrc7.SetRate(Common.SampleRate);
             chipRegister.nes_vrc7.Reset();
 
             chipRegister.nes_dmc.dmc.nes_apu = chipRegister.nes_apu.apu;
@@ -459,7 +459,9 @@ namespace MDPlayer
 
         public UInt32 Render(Int16[] b, UInt32 length,Int32 offset)
         {
-            if (model == enmModel.RealModel) return length;
+            if (model == EnmModel.RealModel) return length;
+            if (chipRegister == null) return length;
+
             if (vgmFrameCounter < 0)
             {
                 vgmFrameCounter+=length;
@@ -646,18 +648,18 @@ namespace MDPlayer
             if (ld.IsLooped(time_in_ms, 30000, 5000) && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * common.SampleRate / 1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * Common.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
-                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * common.SampleRate / 1000L);
+                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * Common.SampleRate / 1000L);
             }
         }
 
         public void DetectSilent()
         {
-            if (silent_length> common.SampleRate * 3 && !playtime_detected)
+            if (silent_length> Common.SampleRate * 3 && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * common.SampleRate / 1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * Common.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
                 LoopCounter = 0;
                 Stopped = true;

@@ -54,7 +54,7 @@ namespace MDPlayer.Driver.MXDRV
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -74,14 +74,14 @@ namespace MDPlayer.Driver.MXDRV
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, 3579545);
-                if (model == enmModel.RealModel)
+                YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
+                if (model == EnmModel.RealModel)
                 {
                     YM2151Hosei[chipID] = 0;
                     int clock = chipRegister.getYM2151Clock((byte)chipID);
                     if (clock != -1)
                     {
-                        YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, clock);
+                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
                     }
                 }
             }
@@ -120,7 +120,7 @@ namespace MDPlayer.Driver.MXDRV
             return true;
         }
 
-        public bool init(byte[] vgmBuf, ChipRegister chipRegister, enmModel model, enmUseChip[] useChip, uint latency, uint waitTime,MDSound.ym2151_x68sound mdxPCM)
+        public bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime,MDSound.ym2151_x68sound mdxPCM)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
@@ -141,14 +141,14 @@ namespace MDPlayer.Driver.MXDRV
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, 3579545);
-                if (model == enmModel.RealModel)
+                YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
+                if (model == EnmModel.RealModel)
                 {
                     YM2151Hosei[chipID] = 0;
                     int clock = chipRegister.getYM2151Clock((byte)chipID);
                     if (clock != -1)
                     {
-                        YM2151Hosei[chipID] = common.GetYM2151Hosei(4000000, clock);
+                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
                     }
                 }
             }
@@ -170,14 +170,14 @@ namespace MDPlayer.Driver.MXDRV
             }
 
             int ret;
-            if (model == enmModel.VirtualModel)
+            if (model == EnmModel.VirtualModel)
             {
                 //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
-                ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
+                ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
             }
             else
             {
-                ret = MXDRV_Start(common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
+                ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
             }
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
@@ -192,7 +192,7 @@ namespace MDPlayer.Driver.MXDRV
 
             uint playtime=MXDRV_MeasurePlayTime(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr, 1, depend.TRUE);
             //Console.WriteLine("({0}:{1:d02}) {2}", playtime / 1000 / 60, playtime / 1000 % 60, "");
-            TotalCounter = playtime * common.SampleRate/1000;
+            TotalCounter = playtime * Common.SampleRate/1000;
             TerminatePlay = false;
             MXDRV_Play(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr);
 
@@ -248,6 +248,10 @@ namespace MDPlayer.Driver.MXDRV
 
         internal int Render(short[] buffer, int offset, int sampleCount)
         {
+            if (mdxPCM == null)
+            {
+                return 0;
+            }
             return mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
         }
 

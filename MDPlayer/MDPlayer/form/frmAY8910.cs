@@ -156,12 +156,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(enmUseChip.AY8910, chipID, ch);
+                    parent.SetChannelMask(EnmChip.AY8910, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 3; ch++) parent.ResetChannelMask(enmUseChip.AY8910, chipID, ch);
+                for (ch = 0; ch < 3; ch++) parent.ResetChannelMask(EnmChip.AY8910, chipID, ch);
                 return;
             }
 

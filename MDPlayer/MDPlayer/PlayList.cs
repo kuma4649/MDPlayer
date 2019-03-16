@@ -15,11 +15,11 @@ namespace MDPlayer
     {
         public class music
         {
-            public enmFileFormat format;
+            public EnmFileFormat format;
             public string playingNow;
             public string fileName;
             public string arcFileName;
-            public enmArcType arcType= enmArcType.unknown;
+            public EnmArcType arcType= EnmArcType.unknown;
             public string type = "-";
 
             public string title;
@@ -73,7 +73,7 @@ namespace MDPlayer
 
             if (fileName == null || fileName == "")
             {
-                fullPath = common.settingFilePath;
+                fullPath = Common.settingFilePath;
                 fullPath = System.IO.Path.Combine(fullPath, "DefaultPlayList.xml");
             }
             else
@@ -81,7 +81,7 @@ namespace MDPlayer
                 fullPath = fileName;
             }
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(PlayList));
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(PlayList), typeof(PlayList).GetNestedTypes());
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fullPath, false, new UTF8Encoding(false)))
             {
                 serializer.Serialize(sw, this);
@@ -116,7 +116,7 @@ namespace MDPlayer
                 string fullPath = "";
                 if (fileName == null || fileName == "")
                 {
-                    fullPath = common.settingFilePath;
+                    fullPath = Common.settingFilePath;
                     fullPath = System.IO.Path.Combine(fullPath, "DefaultPlayList.xml");
                 }
                 else
@@ -124,7 +124,7 @@ namespace MDPlayer
                     fullPath = fileName;
                 }
 
-                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(PlayList));
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(PlayList), typeof(PlayList).GetNestedTypes());
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(fullPath, new UTF8Encoding(false)))
                 {
                     PlayList pl = (PlayList)serializer.Deserialize(sr);
@@ -219,7 +219,7 @@ namespace MDPlayer
             try
             {
                 music mc = new music();
-                mc.format = common.CheckExt(filename);
+                mc.format = Common.CheckExt(filename);
                 mc.fileName = filename;
                 rootPath = Path.GetDirectoryName(filename);
 
@@ -239,57 +239,57 @@ namespace MDPlayer
         {
             switch (mc.format)
             {
-                case enmFileFormat.unknown:
+                case EnmFileFormat.unknown:
                     break;
-                case enmFileFormat.M3U:
+                case EnmFileFormat.M3U:
                     AddFileM3U(mc, entry);
                     break;
-                case enmFileFormat.MID:
+                case EnmFileFormat.MID:
                     AddFileMID(mc, entry);
                     break;
-                case enmFileFormat.NRT:
+                case EnmFileFormat.NRT:
                     AddFileNRT(mc, entry);
                     break;
-                case enmFileFormat.NSF:
+                case EnmFileFormat.NSF:
                     AddFileNSF(mc, entry);
                     break;
-                case enmFileFormat.HES:
+                case EnmFileFormat.HES:
                     AddFileHES(mc, entry);
                     break;
-                case enmFileFormat.SID:
+                case EnmFileFormat.SID:
                     AddFileSID(mc, entry);
                     break;
-                case enmFileFormat.MDR:
+                case EnmFileFormat.MDR:
                     AddFileMDR(mc, entry);
                     break;
-                case enmFileFormat.MND:
+                case EnmFileFormat.MND:
                     AddFileMND(mc, entry);
                     break;
-                case enmFileFormat.MDX:
+                case EnmFileFormat.MDX:
                     AddFileMDX(mc, entry);
                     break;
-                case enmFileFormat.MUB:
+                case EnmFileFormat.MUB:
                     AddFileMUB(mc, entry);
                     break;
-                case enmFileFormat.MUC:
+                case EnmFileFormat.MUC:
                     AddFileMUC(mc, entry);
                     break;
-                case enmFileFormat.RCP:
+                case EnmFileFormat.RCP:
                     AddFileRCP(mc, entry);
                     break;
-                case enmFileFormat.S98:
+                case EnmFileFormat.S98:
                     AddFileS98(mc, entry);
                     break;
-                case enmFileFormat.VGM:
+                case EnmFileFormat.VGM:
                     AddFileVGM(mc, entry);
                     break;
-                case enmFileFormat.XGM:
+                case EnmFileFormat.XGM:
                     AddFileXGM(mc, entry);
                     break;
-                case enmFileFormat.ZIP:
+                case EnmFileFormat.ZIP:
                     AddFileZIP(mc, entry);
                     break;
-                case enmFileFormat.LZH:
+                case EnmFileFormat.LZH:
                     AddFileLZH(mc, entry);
                     break;
             }
@@ -314,7 +314,7 @@ namespace MDPlayer
                         log.ForcedWrite(ex);
                         buf = null;
                     }
-                    if (buf == null && mc.format == enmFileFormat.VGM)
+                    if (buf == null && mc.format == EnmFileFormat.VGM)
                     {
                         if (Path.GetExtension(mc.fileName).ToLower() == ".vgm")
                         {
@@ -624,12 +624,12 @@ namespace MDPlayer
             using (ZipArchive archive = ZipFile.OpenRead(mc.fileName))
             {
                 mc.arcFileName = mc.fileName;
-                mc.arcType = enmArcType.ZIP;
+                mc.arcType = EnmArcType.ZIP;
                 List<string> zipMember = new List<string>();
                 List<music> mMember = new List<music>();
                 foreach (ZipArchiveEntry ent in archive.Entries)
                 {
-                    if (common.CheckExt(ent.FullName) != enmFileFormat.M3U)
+                    if (Common.CheckExt(ent.FullName) != EnmFileFormat.M3U)
                     {
                         zipMember.Add(ent.FullName);
                     }
@@ -651,7 +651,7 @@ namespace MDPlayer
                             break;
                         }
                     }
-                    if (!found && common.CheckExt(zm)== enmFileFormat.VGM)
+                    if (!found && Common.CheckExt(zm)== EnmFileFormat.VGM)
                     {
                         string vzm = "";
                         if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
@@ -685,7 +685,7 @@ namespace MDPlayer
 
                         if (ent.FullName == m.fileName || ent.FullName == vzm)
                         {
-                            m.format = common.CheckExt(m.fileName);
+                            m.format = Common.CheckExt(m.fileName);
                             m.arcFileName = mc.arcFileName;
                             m.arcType = mc.arcType;
                             AddFileLoop(m, ent);
@@ -702,13 +702,13 @@ namespace MDPlayer
             UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
             List<Tuple<string, UInt64>> res = cmd.GetFileList(mc.fileName, "*.*");
             mc.arcFileName = mc.fileName;
-            mc.arcType = enmArcType.LZH;
+            mc.arcType = EnmArcType.LZH;
             List<string> zipMember = new List<string>();
             List<music> mMember = new List<music>();
 
             foreach (Tuple<string, UInt64> ent in res)
             {
-                if (common.CheckExt(ent.Item1) != enmFileFormat.M3U)
+                if (Common.CheckExt(ent.Item1) != EnmFileFormat.M3U)
                 {
                     zipMember.Add(ent.Item1);
                 }
@@ -730,7 +730,7 @@ namespace MDPlayer
                         break;
                     }
                 }
-                if (!found && common.CheckExt(zm) == enmFileFormat.VGM)
+                if (!found && Common.CheckExt(zm) == EnmFileFormat.VGM)
                 {
                     string vzm = "";
                     if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
@@ -764,7 +764,7 @@ namespace MDPlayer
 
                     if (ent.Item1 == m.fileName || ent.Item1 == vzm)
                     {
-                        m.format = common.CheckExt(m.fileName);
+                        m.format = Common.CheckExt(m.fileName);
                         m.arcFileName = mc.arcFileName;
                         m.arcType = mc.arcType;
                         AddFileLoop(m, new Tuple<string, string>(m.arcFileName, ent.Item1));

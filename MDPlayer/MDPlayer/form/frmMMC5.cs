@@ -193,7 +193,7 @@ namespace MDPlayer.form
                     for (int i = 0; i < 3; i++)
                     {
                         //マスク解除
-                        if (i < 3) parent.ResetChannelMask(enmUseChip.MMC5, chipID, i);
+                        if (i < 3) parent.ResetChannelMask(EnmChip.MMC5, chipID, i);
                     }
 
                     return;
@@ -218,7 +218,7 @@ namespace MDPlayer.form
                             return;
                     }
                     //マスク
-                    parent.SetChannelMask(enmUseChip.MMC5, chipID, ch);
+                    parent.SetChannelMask(EnmChip.MMC5, chipID, ch);
 
                     return;
                 }

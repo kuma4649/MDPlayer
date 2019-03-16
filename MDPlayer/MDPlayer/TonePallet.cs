@@ -35,7 +35,7 @@ namespace MDPlayer
 
             if (fileName == null || fileName == "")
             {
-                fullPath = common.settingFilePath;
+                fullPath = Common.settingFilePath;
                 fullPath = System.IO.Path.Combine(fullPath, "DefaultTonePallet.xml");
             }
             else
@@ -43,7 +43,7 @@ namespace MDPlayer
                 fullPath = fileName;
             }
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(TonePallet));
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(TonePallet), typeof(TonePallet).GetNestedTypes());
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fullPath, false, new UTF8Encoding(false)))
             {
                 serializer.Serialize(sw, this);
@@ -57,7 +57,7 @@ namespace MDPlayer
                 string fullPath = "";
                 if (fileName == null || fileName == "")
                 {
-                    fullPath = common.settingFilePath;
+                    fullPath = Common.settingFilePath;
                     fullPath = System.IO.Path.Combine(fullPath, "DefaultTonePallet.xml");
                 }
                 else
@@ -65,7 +65,7 @@ namespace MDPlayer
                     fullPath = fileName;
                 }
 
-                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(TonePallet));
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(TonePallet), typeof(TonePallet).GetNestedTypes());
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(fullPath, new UTF8Encoding(false)))
                 {
                     TonePallet pl = (TonePallet)serializer.Deserialize(sr);

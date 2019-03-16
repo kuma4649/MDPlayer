@@ -81,7 +81,7 @@ namespace MDPlayer
 
         public class YM2612
         {
-            public enmFileFormat fileFormat = enmFileFormat.unknown;
+            public EnmFileFormat fileFormat = EnmFileFormat.unknown;
             public bool lfoSw = false;
             public int lfoFrq = -1;
             public int timerA = -1;

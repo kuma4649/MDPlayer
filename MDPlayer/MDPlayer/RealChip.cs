@@ -168,11 +168,43 @@ namespace MDPlayer
             if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
             if (nc86ctl != null)
             {
-                System.Threading.Thread.Sleep(1000);
+                //int n = nc86ctl.getNumberOfChip();
+                //for (int i = 0; i < n; i++)
+                //{
+                //    NIRealChip rc = nc86ctl.getChipInterface(i);
+                //    if (rc != null)
+                //    {
+                //        while ((rc.@in(0x0) & 0x00) != 0)
+                //            System.Threading.Thread.Sleep(0);
+                //    }
+                //}
             }
         }
 
-        public RSoundChip GetRealChip(Setting.ChipType chipType,int ind=0)
+        public void WaitOPNADPCMData(bool isGIMIC)
+        {
+            if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
+            if (nc86ctl != null && isGIMIC)
+            {
+                int n = nc86ctl.getNumberOfChip();
+                for (int i = 0; i < n; i++)
+                {
+                    NIRealChip rc = nc86ctl.getChipInterface(i);
+                    if (rc != null)
+                    {
+                        while ((rc.@in(0x0) & 0x83) != 0)
+                            System.Threading.Thread.Sleep(0);
+                        while ((rc.@in(0x100) & 0xbf) != 0)
+                        {
+                            System.Threading.Thread.Sleep(0);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        public RSoundChip GetRealChip(Setting.ChipType chipType, int ind = 0)
         {
             if (nScci != null)
             {
@@ -276,7 +308,7 @@ namespace MDPlayer
             return null;
         }
 
-        public List<Setting.ChipType> GetRealChipList(enmRealChipType realChipType)
+        public List<Setting.ChipType> GetRealChipList(EnmRealChipType realChipType)
         {
             List<Setting.ChipType> ret = new List<Setting.ChipType>();
 
@@ -319,8 +351,8 @@ namespace MDPlayer
                     int o = -1;
                     switch (realChipType)
                     {
-                        case enmRealChipType.YM2203:
-                        case enmRealChipType.YM2608:
+                        case EnmRealChipType.YM2203:
+                        case EnmRealChipType.YM2608:
                             if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288 || cct == ChipType.CHIP_YM2203)
                             {
                                 ct = new Setting.ChipType();
@@ -333,7 +365,7 @@ namespace MDPlayer
                                 ct.InterfaceName = gm.getMBInfo().Devname;
                             }
                             break;
-                        case enmRealChipType.YM2151:
+                        case EnmRealChipType.YM2151:
                             if (cct == ChipType.CHIP_YM2151)
                             {
                                 ct = new Setting.ChipType();
@@ -381,6 +413,11 @@ namespace MDPlayer
             throw new NotImplementedException();
         }
 
+        virtual public int getRegister(int adr)
+        {
+            throw new NotImplementedException();
+        }
+
         virtual public bool isBufferEmpty()
         {
             throw new NotImplementedException();
@@ -417,7 +454,7 @@ namespace MDPlayer
             //chipの種類ごとに初期化コマンドを送りたい場合
             switch (nsc.getSoundChipType())
             {
-                case (int)enmRealChipType.YM2608:
+                case (int)EnmRealChipType.YM2608:
                     //setRegister(0x2d, 00);
                     //setRegister(0x29, 82);
                     //setRegister(0x07, 38);
@@ -428,6 +465,11 @@ namespace MDPlayer
         override public void setRegister(int adr, int dat)
         {
             realChip.setRegister(adr, dat);
+        }
+
+        override public int getRegister(int adr)
+        {
+            return realChip.getRegister(adr);
         }
 
         override public bool isBufferEmpty()
@@ -483,6 +525,11 @@ namespace MDPlayer
         override public void setRegister(int adr, int dat)
         {
             realChip.@out((ushort)adr, (byte)dat);
+        }
+
+        override public int getRegister(int adr)
+        {
+            return realChip.@in((ushort)adr);
         }
 
         override public bool isBufferEmpty()

@@ -92,12 +92,12 @@ namespace MDPlayer.form
             if (e.Button == MouseButtons.Left)
             {
                 //マスク
-                parent.SetChannelMask(enmUseChip.YM3526, chipID, ch);
+                parent.SetChannelMask(EnmChip.YM3526, chipID, ch);
                 return;
             }
 
             //マスク解除
-            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(enmUseChip.YM3526, chipID, ch);
+            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(EnmChip.YM3526, chipID, ch);
             return;
         }
 
@@ -211,7 +211,7 @@ namespace MDPlayer.form
 
                 // FNUM / (2^19) * (mClock/72) * (2 ^ (block - 1)) 
                 double fmus = (double)nyc.inst[12] / (1 << 19) * (masterClock / 72.0) * (1 << nyc.inst[11]);
-                nyc.note = common.searchSegaPCMNote(fmus / 523.3);//523.3 -> c4
+                nyc.note = Common.searchSegaPCMNote(fmus / 523.3);//523.3 -> c4
 
                 if (ki.On[c])
                 {

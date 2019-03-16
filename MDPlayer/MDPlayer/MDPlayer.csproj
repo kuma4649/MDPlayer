@@ -68,6 +68,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <Optimize>false</Optimize>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -96,10 +99,6 @@
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="NScci, Version=1.0.6016.37071, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\NScci.dll</HintPath>
-    </Reference>
     <Reference Include="RealChipCtlWrap, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\RealChipCtlWrap.dll</HintPath>
@@ -123,6 +122,7 @@
     <Compile Include="ChipRegister.cs" />
     <Compile Include="common.cs" />
     <Compile Include="dacControl.cs" />
+    <Compile Include="ChipInf.cs" />
     <Compile Include="drawBuff.cs" />
     <Compile Include="Driver\baseDriver.cs" />
     <Compile Include="Driver\HES\hes.cs" />

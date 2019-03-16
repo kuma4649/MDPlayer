@@ -151,11 +151,11 @@ namespace MDPlayer.form
 
             if (e.Button == MouseButtons.Left)
             {
-                parent.SetChannelMask(enmUseChip.RF5C164, chipID, ch);
+                parent.SetChannelMask(EnmChip.RF5C164, chipID, ch);
                 return;
             }
 
-            for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(enmUseChip.RF5C164, chipID, ch);
+            for (ch = 0; ch < 8; ch++) parent.ResetChannelMask(EnmChip.RF5C164, chipID, ch);
         }
 
         private int searchRf5c164Note(uint freq)
