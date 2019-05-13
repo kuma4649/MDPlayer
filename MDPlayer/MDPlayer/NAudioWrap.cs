@@ -131,7 +131,20 @@ namespace MDPlayer
                                 }
                                 i++;
                             }
-                            asioOut = new AsioOut(i);
+                            int retry = 3;
+                            do
+                            {
+                                try
+                                {
+                                    asioOut = new AsioOut(i);
+                                }
+                                catch
+                                {
+                                    asioOut = null;
+                                    Thread.Sleep(1000);
+                                    retry--;
+                                }
+                            } while (asioOut == null && retry > 0);
                             asioOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                             asioOut.Init(waveProvider);
                             asioOut.Play();

@@ -15,6 +15,7 @@ namespace MDPlayer
         public static string path = "";
         public static bool consoleEchoBack = false;
         private static Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+        public static Action<string> dispMsg;
 
         public static void ForcedWrite(string msg)
         {
@@ -28,11 +29,15 @@ namespace MDPlayer
                 }
                 string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
+#if DEBUG
+                dispMsg?.Invoke(msg);
+#else
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
                     writer.WriteLine(timefmt + msg);
                     if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
+#endif
             }
             catch
             {
@@ -51,6 +56,16 @@ namespace MDPlayer
                 }
                 string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
+#if DEBUG
+                string msg = string.Format(Properties.Resources.cntExceptionFormat, e.GetType().Name, e.Message, e.Source, e.StackTrace);
+                Exception ie = e;
+                while (ie.InnerException != null)
+                {
+                    ie = ie.InnerException;
+                    msg += string.Format(Properties.Resources.cntInnerExceptionFormat, ie.GetType().Name, ie.Message, ie.Source, ie.StackTrace);
+                }
+                dispMsg?.Invoke(timefmt + msg);
+#else
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
                     string msg = string.Format(Properties.Resources.cntExceptionFormat, e.GetType().Name, e.Message, e.Source, e.StackTrace);
@@ -64,6 +79,7 @@ namespace MDPlayer
                     writer.WriteLine(timefmt + msg);
                     if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
+#endif
             }
             catch
             {
@@ -84,11 +100,15 @@ namespace MDPlayer
                 }
                 string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
+#if DEBUG
+                dispMsg?.Invoke(timefmt + msg);
+#else
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
                     writer.WriteLine(timefmt + msg);
                     if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 }
+#endif
             }
             catch
             {

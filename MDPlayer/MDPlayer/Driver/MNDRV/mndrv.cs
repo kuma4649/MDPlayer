@@ -11,11 +11,10 @@ namespace MDPlayer.Driver.MNDRV
         public List<Tuple<string, byte[]>> ExtendFile = null;
 
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -32,15 +31,15 @@ namespace MDPlayer.Driver.MNDRV
             for (int chipID = 0; chipID < 2; chipID++)
             {
                 YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
-                if (model == EnmModel.RealModel)
-                {
-                    YM2151Hosei[chipID] = 0;
-                    int clock = chipRegister.getYM2151Clock((byte)chipID);
-                    if (clock != -1)
-                    {
-                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
-                    }
-                }
+                //if (model == EnmModel.RealModel)
+                //{
+                //    YM2151Hosei[chipID] = 0;
+                //    int clock = chipRegister.getYM2151Clock((byte)chipID);
+                //    if (clock != -1)
+                //    {
+                //        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
+                //    }
+                //}
             }
 
             uint memPtr = (uint)(0x03_0000);
@@ -68,7 +67,7 @@ namespace MDPlayer.Driver.MNDRV
             memPtr += (uint)vgmBuf.Length;
 
             //pcm転送
-            if (ExtendFile != null && model!= EnmModel.RealModel)
+            if (ExtendFile != null)// && model!= EnmModel.RealModel)
             {
                 for (int j = 0; j < ExtendFile.Count; j++)
                 {
@@ -294,7 +293,7 @@ namespace MDPlayer.Driver.MNDRV
         //トラップ処理(実質MPCM制御)
         public void trap(int n)
         {
-            if (model == EnmModel.RealModel) return;
+            //if (model == EnmModel.RealModel) return;
 
             int ch = (int)reg.D0_B;
 
@@ -2786,24 +2785,24 @@ namespace MDPlayer.Driver.MNDRV
             switch (reg.a0)
             {
                 case 0xecc0c1:
-                    chipRegister.setYM2608Register(0, 0, (int)reg.D1_B, (int)reg.D0_B, model);
+                    chipRegister.YM2608SetRegister(0, 0, 0, (int)reg.D1_B, (int)reg.D0_B);
                     timerOPN.WriteReg((byte)reg.D1_B, (byte)reg.D0_B);
                     //log.Write(string.Format("DEV:0 PRT:0 radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
                     //if (reg.D1_B < 0x10)
                     //{
-                        //log.Write(string.Format("SSG : radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
+                    //log.Write(string.Format("SSG : radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
                     //}
                     break;
                 case 0xecc0c5:
-                    chipRegister.setYM2608Register(0, 1, (int)reg.D1_B, (int)reg.D0_B, model);
+                    chipRegister.YM2608SetRegister(0, 0, 1, (int)reg.D1_B, (int)reg.D0_B);
                     //log.Write(string.Format("DEV:0 PRT:1 radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
                     break;
                 case 0xecc0c9:
-                    chipRegister.setYM2608Register(1, 0, (int)reg.D1_B, (int)reg.D0_B, model);
+                    chipRegister.YM2608SetRegister(0, 1, 0, (int)reg.D1_B, (int)reg.D0_B);
                     //log.Write(string.Format("DEV:1 PRT:0 radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
                     break;
                 case 0xecc0cd:
-                    chipRegister.setYM2608Register(1, 1, (int)reg.D1_B, (int)reg.D0_B, model);
+                    chipRegister.YM2608SetRegister(0, 1, 1, (int)reg.D1_B, (int)reg.D0_B);
                     //log.Write(string.Format("DEV:1 PRT:1 radr:{0:x} rdat:{1:x}", reg.D1_B, reg.D0_B));
                     break;
             }
@@ -2907,7 +2906,7 @@ namespace MDPlayer.Driver.MNDRV
             //while ((sbyte)mm.ReadByte(reg.a0) < 0) ; //wait?
             //mm.Write(reg.a0, (byte)reg.D0_B);
             //log.Write(string.Format("adr:{0:x} dat:{1:x}", reg.a0, reg.D0_B));
-            chipRegister.setYM2151Register(0, 0, (int)reg.D1_B, (int)reg.D0_B, model, YM2151Hosei[0], 0);
+            //chipRegister.YM2151SetRegister(0, 0, (int)reg.D1_B, (int)reg.D0_B, YM2151Hosei[0], 0);
             timerOPM.WriteReg((byte)reg.D1_B, (byte)reg.D0_B);
         }
 

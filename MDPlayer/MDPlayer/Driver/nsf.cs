@@ -116,22 +116,21 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister,  EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
 
-            if (model == EnmModel.RealModel)
-            {
-                Stopped = true;
-                vgmCurLoop = 9999;
-                return true;
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    Stopped = true;
+            //    vgmCurLoop = 9999;
+            //    return true;
+            //}
 
             Counter = 0;
             TotalCounter = 0;
@@ -151,7 +150,7 @@ namespace MDPlayer
 
         public override void oneFrameProc()
         {
-            if (model == EnmModel.RealModel) return;
+            //if (model == EnmModel.RealModel) return;
 
             try
             {
@@ -459,7 +458,7 @@ namespace MDPlayer
 
         public UInt32 Render(Int16[] b, UInt32 length,Int32 offset)
         {
-            if (model == EnmModel.RealModel) return length;
+            //if (model == EnmModel.RealModel) return length;
             if (chipRegister == null) return length;
 
             if (vgmFrameCounter < 0)

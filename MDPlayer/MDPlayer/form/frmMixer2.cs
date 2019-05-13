@@ -79,6 +79,7 @@ namespace MDPlayer.form
         private void frmMixer2_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
+            this.Opacity = parent.setting.other.Opacity / 100.0;
 
             frameSizeW = this.Width - this.ClientSize.Width;
             frameSizeH = this.Height - this.ClientSize.Height;

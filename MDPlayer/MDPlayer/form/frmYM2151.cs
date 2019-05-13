@@ -10,20 +10,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYM2151 : Form
+    public partial class frmYM2151 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
 
         private MDChipParams.YM2151 newParam = null;
         private MDChipParams.YM2151 oldParam = new MDChipParams.YM2151();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
 
         public frmYM2151(frmMain frm, int chipID, int zoom, MDChipParams.YM2151 newParam)
@@ -39,7 +30,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -135,7 +126,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenInit()
+        public override void screenInit()
         {
             bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
             int YM2151SoundLocation = (chipID == 0) ? parent.setting.YM2151Type.SoundLocation : parent.setting.YM2151SType.SoundLocation;
@@ -175,7 +166,7 @@ namespace MDPlayer.form
             0x0f<<3
         };
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             int[] ym2151Register = Audio.GetYM2151Register(chipID);
             int[] fmKeyYM2151 = Audio.GetYM2151KeyOn(chipID);
@@ -210,9 +201,9 @@ namespace MDPlayer.form
                 int oct = ((ym2151Register[0x28 + ch] & 0x70) >> 4);
                 //newParam.ym2151[chipID].channels[ch].note = (fmKeyYM2151[ch] > 0) ? (oct * 12 + note + Audio.vgmReal.YM2151Hosei + 1 + 9) : -1;
                 int hosei = 0;
-                if (Audio.driverVirtual != null)//is vgm)
+                if (Audio.driver != null)//is vgm)
                 {
-                    hosei = (Audio.driverVirtual).YM2151Hosei[chipID];
+                    hosei = (Audio.driver).YM2151Hosei[chipID];
                 }
                 newParam.channels[ch].note = ((fmKeyYM2151[ch] & 1) != 0) ? (oct * 12 + note + hosei) : -1;
 
@@ -244,7 +235,7 @@ namespace MDPlayer.form
 
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             for (int c = 0; c < 8; c++)
             {

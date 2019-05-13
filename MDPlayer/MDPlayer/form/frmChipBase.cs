@@ -21,22 +21,19 @@ namespace MDPlayer.form
         protected int chipID = 0;
         protected int zoom = 1;
 
-        protected MDChipParams.AY8910 newParam = null;
-        protected MDChipParams.AY8910 oldParam = null;
-
         protected FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmChipBase()
         {
             InitializeComponent();
+            Opened = false;
         }
 
-        public frmChipBase(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam)
+        public frmChipBase(frmMain frm, int chipID, int zoom)
         {
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
-            this.newParam = newParam;
 
             InitializeComponent();
 
@@ -49,7 +46,7 @@ namespace MDPlayer.form
 
         private void frmChipBase_Load(object sender, EventArgs e)
         {
-
+            this.Opacity = parent.setting.other.Opacity / 100.0;
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
@@ -58,8 +55,9 @@ namespace MDPlayer.form
         }
 
 
-        public void update()
+        public virtual void update()
         {
+            //while (!Opened) { Application.DoEvents(); }
             frameBuffer.Refresh(null);
         }
 
@@ -70,6 +68,8 @@ namespace MDPlayer.form
                 return true;
             }
         }
+
+        public bool Opened { get; internal set; }
 
         protected override void WndProc(ref Message m)
         {
@@ -88,5 +88,10 @@ namespace MDPlayer.form
         virtual public void screenChangeParams() { }
         virtual public void screenDrawParams() { }
         virtual public void screenInit() { }
+
+        private void FrmChipBase_Shown(object sender, EventArgs e)
+        {
+            Opened = true;
+        }
     }
 }

@@ -125,6 +125,9 @@ namespace MDPlayer
 
             if (pbScreen == null) return;
             if (pbScreen.IsDisposed) return;
+            if (!pbScreen.Created) return;
+            if (pbScreen.Parent == null) return;
+            if (pbScreen.Parent is form.frmChipBase && !((form.frmChipBase)pbScreen.Parent).Opened) return;
 
             try
             {

@@ -4,20 +4,10 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYM2610 : Form
+    public partial class frmYM2610 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
-
         private MDChipParams.YM2610 newParam = null;
         private MDChipParams.YM2610 oldParam = new MDChipParams.YM2610();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmYM2610(frmMain frm, int chipID, int zoom, MDChipParams.YM2610 newParam)
         {
@@ -32,7 +22,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -131,7 +121,7 @@ namespace MDPlayer.form
         }
 
 
-        public void screenInit()
+        public override void screenInit()
         {
             int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
 
@@ -193,7 +183,7 @@ namespace MDPlayer.form
             0x0f<<4
         };
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             int delta;
             float frq;
@@ -364,7 +354,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
 

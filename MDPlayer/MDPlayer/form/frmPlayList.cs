@@ -122,6 +122,7 @@ namespace MDPlayer.form
 
         private void frmPlayList_Load(object sender, EventArgs e)
         {
+            this.Opacity = setting.other.Opacity / 100.0;
             if (setting.location.PPlayList != System.Drawing.Point.Empty)
                 this.Location = setting.location.PPlayList;
             if (setting.location.PPlayListWH != System.Drawing.Point.Empty)

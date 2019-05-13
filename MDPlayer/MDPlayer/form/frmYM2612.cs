@@ -4,20 +4,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYM2612 : Form
+    public partial class frmYM2612 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
 
         private MDChipParams.YM2612 newParam = null;
         private MDChipParams.YM2612 oldParam = new MDChipParams.YM2612();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmYM2612(frmMain frm, int chipID, int zoom, MDChipParams.YM2612 newParam)
         {
@@ -32,7 +23,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void screenInit()
+        public override  void screenInit()
         {
             bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type.UseScci : parent.setting.YM2612SType.UseScci;
             int tp = YM2612Type ? 1 : 0;
@@ -40,7 +31,7 @@ namespace MDPlayer.form
             newParam.channels[5].pcmBuff = 100;
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -116,7 +107,7 @@ namespace MDPlayer.form
             0x0f<<4
         };
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             int[][] fmRegister = Audio.GetFMRegister(chipID);
             int[] fmVol = Audio.GetFMVolume(chipID);
@@ -248,16 +239,16 @@ namespace MDPlayer.form
                 newParam.channels[5].volumeR = Math.Min(Math.Max(fmVol[5] / 80, 0), 19);
             }
 
-            if (newParam.fileFormat == EnmFileFormat.XGM && Audio.driverVirtual is xgm)
+            if (newParam.fileFormat == EnmFileFormat.XGM && Audio.driver is xgm)
             {
-                if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
+                if (Audio.driver != null && ((xgm)Audio.driver).xgmpcm != null)
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        if (((xgm)Audio.driverVirtual).xgmpcm[i].isPlaying)
+                        if (((xgm)Audio.driver).xgmpcm[i].isPlaying)
                         {
-                            newParam.xpcmInst[i] = (int)(((xgm)Audio.driverVirtual).xgmpcm[i].inst);
-                            int d = (((xgm)Audio.driverVirtual).xgmpcm[i].data / 6);
+                            newParam.xpcmInst[i] = (int)(((xgm)Audio.driver).xgmpcm[i].inst);
+                            int d = (((xgm)Audio.driver).xgmpcm[i].data / 6);
                             d = Math.Min(d, 19);
                             newParam.xpcmVolL[i] = d;
                             newParam.xpcmVolR[i] = d;
@@ -273,7 +264,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             for (int c = 0; c < 9; c++)
             {

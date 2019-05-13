@@ -96,8 +96,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.5\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="RealChipCtlWrap, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -120,7 +120,7 @@
     <Compile Include="Audio.cs" />
     <Compile Include="ChipLEDs.cs" />
     <Compile Include="ChipRegister.cs" />
-    <Compile Include="common.cs" />
+    <Compile Include="Common\common.cs" />
     <Compile Include="dacControl.cs" />
     <Compile Include="ChipInf.cs" />
     <Compile Include="drawBuff.cs" />
@@ -282,6 +282,12 @@
     </Compile>
     <Compile Include="form\frmChipBase.Designer.cs">
       <DependentUpon>frmChipBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmDebug.Designer.cs">
+      <DependentUpon>frmDebug.cs</DependentUpon>
     </Compile>
     <Compile Include="form\frmFDS.cs">
       <SubType>Form</SubType>
@@ -485,7 +491,7 @@
     <Compile Include="FrameBuffer.cs" />
     <Compile Include="HostCommandStub.cs" />
     <Compile Include="KeyboardHook3.cs" />
-    <Compile Include="log.cs" />
+    <Compile Include="Common\log.cs" />
     <Compile Include="M3U.cs" />
     <Compile Include="MDChipParams.cs" />
     <Compile Include="MIDIExport.cs" />
@@ -500,6 +506,18 @@
     <Compile Include="RealChip.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SoundChip.cs" />
+    <Compile Include="SoundManager\BaseMakerSender.cs" />
+    <Compile Include="SoundManager\BaseSender.cs" />
+    <Compile Include="SoundManager\Chip.cs" />
+    <Compile Include="SoundManager\ChipSender.cs" />
+    <Compile Include="SoundManager\DataMaker.cs" />
+    <Compile Include="SoundManager\DataSender.cs" />
+    <Compile Include="SoundManager\DriverAction.cs" />
+    <Compile Include="SoundManager\EmuChipSender.cs" />
+    <Compile Include="SoundManager\Pack.cs" />
+    <Compile Include="SoundManager\RealChipSender.cs" />
+    <Compile Include="SoundManager\RingBuffer.cs" />
+    <Compile Include="SoundManager\SoundManager.cs" />
     <Compile Include="Tables.cs" />
     <Compile Include="form\ucSettingInstruments.cs">
       <SubType>UserControl</SubType>
@@ -527,6 +545,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmChipBase.resx">
       <DependentUpon>frmChipBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmDebug.resx">
+      <DependentUpon>frmDebug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmFDS.resx">
       <DependentUpon>frmFDS.cs</DependentUpon>

@@ -43,6 +43,7 @@
             this.Text = "frmChipBase";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmChipBase_FormClosed);
             this.Load += new System.EventHandler(this.frmChipBase_Load);
+            this.Shown += new System.EventHandler(this.FrmChipBase_Shown);
             this.ResumeLayout(false);
 
         }

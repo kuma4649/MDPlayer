@@ -34,12 +34,11 @@ namespace MDPlayer.Driver.MoonDriver
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -120,25 +119,25 @@ namespace MDPlayer.Driver.MoonDriver
             //Driverの初期化
             EntryPoints(0x4000);
 
-            if (model == EnmModel.RealModel)
-            {
+            //if (model == EnmModel.RealModel)
+            //{
                 //chipRegister.sendDataYM2151(0, model);
                 //chipRegister.setYM2151SyncWait(0, 1);
                 //chipRegister.sendDataYM2151(1, model);
                 //chipRegister.setYM2151SyncWait(1, 1);
-            }
+            //}
 
             return true;
         }
 
         public override void oneFrameProc()
         {
-            if (model == EnmModel.RealModel)
-            {
-                Stopped = true;
-                vgmCurLoop = int.MaxValue;
-                return;
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    Stopped = true;
+            //    vgmCurLoop = int.MaxValue;
+            //    return;
+            //}
 
             try
             {
@@ -3189,7 +3188,7 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_DAT1), a
             //ret
-            chipRegister.setYMF278BRegister(0, 0, d, e, model);
+            chipRegister.setYMF278BRegister(0, 0, d, e);
             //Console.WriteLine("fm1out:{0:x02}:{1:x02}:", d, e);
         }
 
@@ -3202,7 +3201,7 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_DAT2), a
             //ret
-            chipRegister.setYMF278BRegister(0, 1, d, e, model);
+            chipRegister.setYMF278BRegister(0, 1, d, e);
             //Console.WriteLine("fm2out:{0:x02}:{1:x02}:", d, e);
         }
 
@@ -3215,7 +3214,7 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_WDAT),a
             //ret
-            chipRegister.setYMF278BRegister(0, 2, d, e, model);
+            chipRegister.setYMF278BRegister(0, 2, d, e);
             backDat = e;
             //Console.WriteLine("wave out:{0:x02}:{1:x02}:", d, e);
         }

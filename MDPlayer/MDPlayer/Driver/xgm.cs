@@ -30,12 +30,11 @@ namespace MDPlayer
         private uint gd3InfoStartAddr = 0;
 
 
-        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] xgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
 
             this.vgmBuf = xgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -51,11 +50,11 @@ namespace MDPlayer
 
             if (!getXGMInfo(vgmBuf)) return false;
 
-            if (model == EnmModel.RealModel)
-            {
-                chipRegister.setYM2612SyncWait(0, 1);
-                chipRegister.setYM2612SyncWait(1, 1);
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    chipRegister.setYM2612SyncWait(0, 1);
+            //    chipRegister.setYM2612SyncWait(1, 1);
+            //}
 
             //Driverの初期化
             musicPtr = musicDataBlockAddr;
@@ -269,7 +268,7 @@ namespace MDPlayer
             for (int i = 0; i < X + 1; i++)
             {
                 byte data = vgmBuf[musicPtr++];
-                chipRegister.setSN76489Register(0, data, model);
+                chipRegister.SN76489SetRegister(Audio.DriverSeqCounter, 0, data);
             }
         }
 
@@ -280,7 +279,7 @@ namespace MDPlayer
                 byte adr = vgmBuf[musicPtr++];
                 byte val = vgmBuf[musicPtr++];
                 if (adr == 0x2b) DACEnable = (byte)(val & 0x80);
-                chipRegister.setYM2612Register(0, 0, adr, val, model, vgmFrameCounter);
+                chipRegister.YM2612SetRegister(Audio.DriverSeqCounter, 0, 0, adr, val);
             }
         }
 
@@ -290,7 +289,7 @@ namespace MDPlayer
             {
                 byte adr = vgmBuf[musicPtr++];
                 byte val = vgmBuf[musicPtr++];
-                chipRegister.setYM2612Register(0, 1, adr, val, model, vgmFrameCounter);
+                chipRegister.YM2612SetRegister(Audio.DriverSeqCounter, 0, 1, adr, val);
             }
         }
 
@@ -299,7 +298,7 @@ namespace MDPlayer
             for (int i = 0; i < X + 1; i++)
             {
                 byte val = vgmBuf[musicPtr++];
-                chipRegister.setYM2612Register(0, 0, 0x28, val, model, vgmFrameCounter);
+                chipRegister.YM2612SetRegister(Audio.DriverSeqCounter, 0, 0, 0x28, val);
             }
         }
 
@@ -382,7 +381,7 @@ namespace MDPlayer
             //    o = 0;
             //}
             //Console.Write("{0} ", o);
-            chipRegister.setYM2612Register(0, 0, 0x2a, o, model, vgmFrameCounter);
+            chipRegister.YM2612SetRegister(Audio.DriverSeqCounter, 0, 0, 0x2a, o);
         }
 
     }

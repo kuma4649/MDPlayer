@@ -36,7 +36,7 @@ namespace MDPlayer
             }
         }
 
-        public event EventHandler<StoppedEventArgs> PlaybackStopped;
+        public event EventHandler<StoppedEventArgs> PlaybackStopped = null;
 
         public void Dispose()
         {

@@ -337,7 +337,7 @@ namespace MDPlayer
                     //    (Int32)(a & 0xf),
                     //    (Int32)v
                     //    );
-                    chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v, EnmModel.VirtualModel);
+                    chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v);
                     ld.Write((UInt32)(a & 0xf), (UInt32)v, 0);
                     //THIS_.hessnd.write(THIS_.hessnd.ctx, a & 0xf, v);
                     break;

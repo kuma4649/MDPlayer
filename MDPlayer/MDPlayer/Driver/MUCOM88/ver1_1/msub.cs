@@ -383,7 +383,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Z80.HL = TONES;
             Z80.HL = 0;
             Z80.B = 7;// TONE NUMBER(c-b)
-        TNLP0:
+        //TNLP0:
             do
             {
                 //Z80.A = Mem.LD_8(Z80.HL);
@@ -765,7 +765,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             {
                 goto READ1;//9ｲｶﾅﾗ ﾂｷﾞ
             }
-        READ8:
+        //READ8:
             Z80.A &= Z80.A;// CY=0
             Z80.A = 1;// ERROR SIGN
             Z80.BC = Mem.stack.Pop();
@@ -812,7 +812,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto READSEN;
             }
             Z80.B = Z80.A;
-        READMAN:
+        //READMAN:
             do
             {
                 Z80.HL += Z80.DE;
@@ -828,7 +828,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto READHYAKU;
             }
             Z80.B = Z80.A;
-        READSEN2:
+        //READSEN2:
             do
             {
                 Z80.HL += Z80.DE;
@@ -844,7 +844,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto READ4;
             }
             Z80.B = Z80.A;
-        READ2:
+        //READ2:
             do
             {
                 Z80.HL += Z80.DE;
@@ -861,7 +861,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.B = Z80.A;
             Z80.A = 0;
             Z80.C = 10;
-        READ3:
+        //READ3:
             do
             {
                 Z80.A += Z80.C;
@@ -941,13 +941,13 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.B = Z80.E;
             Z80.EX_DE_HL();
             Z80.HL = 0;
-        MULT2:
+        //MULT2:
             do
             {
                 Z80.HL += Z80.DE;
                 Z80.B--;
             } while (Z80.B != 0);
-        MULT3:
+        //MULT3:
             Mem.LD_16(KOTAE, Z80.HL);
             return;//  RET
         }
@@ -1213,7 +1213,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.B = 8;
 
             Z80.E = 0;
-        GETT2:
+        //GETT2:
             do
             {
                 Z80.A = PC88.IN(0x40);

@@ -17,6 +17,8 @@ namespace MDPlayer.form
         private DoubleBuffer screen;
         private int pWidth = 0;
         private int pHeight = 0;
+        private int dc = 0;
+
 
         private frmInfo frmInfo = null;
         private frmPlayList frmPlayList = null;
@@ -50,6 +52,7 @@ namespace MDPlayer.form
         private frmFDS[] frmFDS = new frmFDS[2] { null, null };
         private frmMMC5[] frmMMC5 = new frmMMC5[2] { null, null };
         private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
+        private frmDebug frmDebug = null;
 
         private List<Form[]> lstForm = new List<Form[]>();
 
@@ -159,12 +162,21 @@ namespace MDPlayer.form
             log.ForcedWrite("frmMain(コンストラクタ):STEP 04");
 
             log.debug = setting.Debug_DispFrameCounter;
-
+            if (setting.Debug_DispFrameCounter)
+            {
+                if (frmDebug != null)
+                {
+                    frmDebug.Close();
+                }
+                frmDebug = new frmDebug();
+                frmDebug.Show();
+            }
         }
 
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.Opacity = setting.other.Opacity/100.0;
 
             log.ForcedWrite("frmMain_Load:STEP 05");
 
@@ -193,14 +205,14 @@ namespace MDPlayer.form
             frmPlayList = new frmPlayList(this);
             frmPlayList.Show();
             frmPlayList.Visible = false;
-            frmPlayList.Opacity = 1.0;
+            frmPlayList.Opacity = setting.other.Opacity/100.0;
             //frmPlayList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmPlayList.Refresh();
 
             frmVSTeffectList = new frmVSTeffectList(this, setting);
             frmVSTeffectList.Show();
             frmVSTeffectList.Visible = false;
-            frmVSTeffectList.Opacity = 1.0;
+            frmVSTeffectList.Opacity = setting.other.Opacity / 100.0;
             //frmVSTeffectList.Location = new System.Drawing.Point(this.Location.X + 328, this.Location.Y + 264);
             frmVSTeffectList.Refresh();
 
@@ -564,9 +576,9 @@ namespace MDPlayer.form
         {
             log.ForcedWrite("frmMain_Shown:STEP 09");
 
-            System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
-            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
-            trd.Start();
+            //System.Threading.Thread trd = new System.Threading.Thread(screenMainLoop);
+            //trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+            //trd.Start();
             string[] args = Environment.GetCommandLineArgs();
 
             Application.DoEvents();
@@ -879,10 +891,47 @@ namespace MDPlayer.form
 
         }
 
+        private string[] buttonCaption = new string[] {
+            "オプション", "停止", "一時停止", "フェードアウト",
+            "前の曲へ", "スロー再生", "再生", "3倍速再生",
+            "次の曲へ", "再生方法", "曲ファイルの追加と再生","プレイリスト",
+            "曲情報","ミキサー", "鍵盤","VST",
+            "OPN2鍵盤","拡大表示" };
+        private string[] buttonDescription = new string[] {
+            "設定ダイアログを開き、各種詳細設定を行います。",
+            "演奏中の曲を停止します。",
+            "演奏中の曲を一時停止します。",
+            "演奏中の曲をフェードアウトし停止します。",
+            "演奏中、前の曲を演奏します。",
+            "演奏中の曲をゆっくり1/4のスピードで演奏します。",
+            "曲の演奏を開始します。",
+            "演奏中の曲を4倍のスピードで演奏します。",
+            "演奏中、次の曲を演奏します。",
+            "プレイリストの演奏順を変更します。\nリスト順：順番に演奏\nランダム：次の曲が不定\nループ：リスト順且つ最終曲演奏後最初の曲へ\n単独ループ：同じ曲を繰り返し演奏",
+            "ファイルを選択するとプレイリストへ追加されその曲を演奏します。",
+            "プレイリストの表示、非表示を切り替えます。",
+            "演奏中の曲情報の表示、非表示を切り替えます。",
+            "音量を設定するミキサーの表示、非表示を切り替えます。",
+            "各チップのパラメータ、鍵盤の表示、非表示を切り替えます。",
+            "VSTエフェクトリストの表示、非表示を切り替えます。",
+            "MIDIキーボードによるOPN2演奏鍵盤の表示、非表示を切り替えます。",
+            "ウィンドウの表示を等倍、４倍、８倍に順に切り替えます。" };
+
         private void pbScreen_MouseMove(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
+
+            if (py >= 24 && px >= 32)
+            {
+                int p = Math.Min(Math.Max((px - 32) / 16, 0), buttonCaption.Length - 1);
+                toolTip1.ToolTipTitle = buttonCaption[p];
+                toolTip1.Show(buttonDescription[p], (Control)sender, e.Location.X + 10, e.Location.Y + 30, 10000);
+            }
+            else
+            {
+                toolTip1.Hide((Control)sender);
+            }
 
             if (py < 24)
             {
@@ -904,6 +953,7 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseLeave(object sender, EventArgs e)
         {
+            toolTip1.Hide((Control)sender);
             for (int i = 0; i < newButton.Length; i++)
                 newButton[i] = 0;
         }
@@ -3055,6 +3105,16 @@ namespace MDPlayer.form
 
             log.ForcedWrite("Audio初期化処理完了");
             log.debug = this.setting.Debug_DispFrameCounter;
+            log.debug = setting.Debug_DispFrameCounter;
+            if (setting.Debug_DispFrameCounter)
+            {
+                if (frmDebug != null)
+                {
+                    frmDebug.Close();
+                }
+                frmDebug = new frmDebug();
+                frmDebug.Show();
+            }
 
             frmVSTeffectList.dispPluginList();
             StartMIDIInMonitoring();
@@ -3235,7 +3295,7 @@ namespace MDPlayer.form
             isRunning = true;
             stopped = false;
 
-            while (isRunning)
+            //while (isRunning)
             {
 
                 if (reqAllScreenInit)
@@ -3252,7 +3312,7 @@ namespace MDPlayer.form
                     {
                         System.Threading.Thread.Sleep((int)(nextFrame - tickCount));
                     }
-                    continue;
+                    return;// continue;
                 }
 
                 screenChangeParams();
@@ -3349,7 +3409,7 @@ namespace MDPlayer.form
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
                     nextFrame += period;
-                    continue;
+                    return;// continue;
                 }
 
                 screenDrawParams();
@@ -3444,12 +3504,12 @@ namespace MDPlayer.form
 
                 if (frmPlayList.isPlaying())
                 {
-                    if ((setting.other.UseLoopTimes && Audio.GetVgmCurLoopCounter() > setting.other.LoopTimes - 1)
-                        || Audio.GetVGMStopped())
+                    if ((setting.other.UseLoopTimes && Audio.sm.GetLoopCounter() > setting.other.LoopTimes - 1))
+                        //|| Audio.GetVGMStopped())
                     {
                         fadeout();
                     }
-                    if (Audio.Stopped && frmPlayList.isPlaying())
+                    if (!Audio.sm.IsRunningAsync() && frmPlayList.isPlaying())
                     {
                         nextPlayMode();
                     }
@@ -3556,21 +3616,19 @@ namespace MDPlayer.form
             DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
+            dc = (dc+1) & 0x3f;
+            DrawBuff.drawFont4(screen.mainScreen, 4, 32, 1, Audio.GetIsDataBlock() ? (dc < 20 ? "*--" : (dc < 40 ? "-*-" : "--*")) : "   ");
 
-            if (setting.Debug_DispFrameCounter)
-            {
-                long v = Audio.getVirtualFrameCounter();
-                if (v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
-                long r = Audio.getRealFrameCounter();
-                if (r != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("REAL CHIP  : {0:D12} ", r));
-                long d = r - v;
-                if (r != -1 && v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("R.CHIP-EMU : {0:D12} ", d));
-                DrawBuff.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
-            }
+            //if (setting.Debug_DispFrameCounter)
+            //{
+            //    long v = Audio.getVirtualFrameCounter();
+            //    if (v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 0, 0, string.Format("EMU        : {0:D12} ", v));
+            //    long r = Audio.getRealFrameCounter();
+            //    if (r != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 8, 0, string.Format("REAL CHIP  : {0:D12} ", r));
+            //    long d = r - v;
+            //    if (r != -1 && v != -1) DrawBuff.drawFont8(screen.mainScreen, 0, 16, 0, string.Format("R.CHIP-EMU : {0:D12} ", d));
+            //    DrawBuff.drawFont8(screen.mainScreen, 0, 24, 0, string.Format("PROC TIME  : {0:D12} ", Audio.ProcTimePer1Frame));
+            //}
 
             screen.Refresh();
 
@@ -3646,10 +3704,7 @@ namespace MDPlayer.form
             DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
             DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock() ? "*" : " ");
 
         }
 
@@ -3744,7 +3799,8 @@ namespace MDPlayer.form
                 {
                     Audio.Pause();
                 }
-                //stop();
+
+                stop();
 
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
@@ -5035,7 +5091,7 @@ namespace MDPlayer.form
 
                 if (srcBuf != null)
                 {
-                    this.Invoke((Action)playdata);
+                    playdata();// this.Invoke((Action)playdata);
                     if (Audio.errMsg != "") return false;
                 }
 
@@ -6016,7 +6072,7 @@ namespace MDPlayer.form
                 //ミキサーバランス変更処理
                 setting.balance = balance;
                 if (frmMixer2 != null) frmMixer2.update();
-                Application.DoEvents();
+                //Application.DoEvents();
 
             }
             catch (Exception ex)
@@ -6222,5 +6278,17 @@ namespace MDPlayer.form
 
         }
 
+        private void ToolTip1_Popup(object sender, PopupEventArgs e)
+        {
+            //System.Drawing.Point sp = System.Windows.Forms.Cursor.Position;
+            //System.Drawing.Point cp = this.PointToClient(sp);
+
+            //toolTip1.ToolTipTitle = cp.X.ToString();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            screenMainLoop();
+        }
     }
 }

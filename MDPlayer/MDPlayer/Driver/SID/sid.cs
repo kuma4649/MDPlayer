@@ -39,21 +39,20 @@ namespace MDPlayer.Driver.SID
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
 
-            if (model == EnmModel.RealModel)
-            {
-                Stopped = true;
-                vgmCurLoop = 9999;
-                return true;
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    Stopped = true;
+            //    vgmCurLoop = 9999;
+            //    return true;
+            //}
 
             Counter = 0;
             TotalCounter = 0;
@@ -74,7 +73,7 @@ namespace MDPlayer.Driver.SID
 
         public override void oneFrameProc()
         {
-            if (model == EnmModel.RealModel) return;
+            //if (model == EnmModel.RealModel) return;
             try
             {
                 vgmSpeedCounter += vgmSpeed;

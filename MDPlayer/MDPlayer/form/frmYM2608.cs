@@ -10,20 +10,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYM2608 : Form
+    public partial class frmYM2608 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
 
         private MDChipParams.YM2608 newParam = null;
         private MDChipParams.YM2608 oldParam = new MDChipParams.YM2608();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmYM2608(frmMain frm, int chipID, int zoom, MDChipParams.YM2608 newParam)
         {
@@ -32,6 +23,7 @@ namespace MDPlayer.form
             this.zoom = zoom;
             InitializeComponent();
 
+            oldParam = new MDChipParams.YM2608();
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeD, null, zoom);
             bool YM2608Type = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
@@ -41,7 +33,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -104,7 +96,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenInit()
+        public override void screenInit()
         {
             for (int c = 0; c < newParam.channels.Length; c++)
             {
@@ -128,7 +120,7 @@ namespace MDPlayer.form
             0x0f<<4
         };
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             bool isFmEx;
             int[][] ym2608Register = Audio.GetYM2608Register(chipID);
@@ -299,7 +291,7 @@ namespace MDPlayer.form
         }
 
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             bool chipType = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
             int chipSoundLocation = (chipID == 0) ? parent.setting.YM2608Type.SoundLocation : parent.setting.YM2608SType.SoundLocation;

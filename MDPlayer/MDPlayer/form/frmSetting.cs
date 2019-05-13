@@ -103,6 +103,11 @@ namespace MDPlayer.form
 
             if (ucSI != null)
             {
+                SetSCCICombo(EnmRealChipType.AY8910
+                    , ucSI.cmbAY8910P_SCCI, ucSI.rbAY8910P_SCCI
+                    , ucSI.cmbAY8910S_SCCI, ucSI.rbAY8910S_SCCI
+                    );
+
                 SetSCCICombo(EnmRealChipType.YM2612
                     , ucSI.cmbYM2612P_SCCI, ucSI.rbYM2612P_SCCI
                     , ucSI.cmbYM2612S_SCCI, ucSI.rbYM2612S_SCCI
@@ -111,6 +116,11 @@ namespace MDPlayer.form
                 SetSCCICombo(EnmRealChipType.SN76489
                     , ucSI.cmbSN76489P_SCCI, ucSI.rbSN76489P_SCCI
                     , ucSI.cmbSN76489S_SCCI, ucSI.rbSN76489S_SCCI
+                    );
+
+                SetSCCICombo(EnmRealChipType.YM2413
+                    , ucSI.cmbYM2413P_SCCI, ucSI.rbYM2413P_SCCI
+                    , ucSI.cmbYM2413S_SCCI, ucSI.rbYM2413S_SCCI
                     );
 
                 SetSCCICombo(EnmRealChipType.YM2608
@@ -123,18 +133,18 @@ namespace MDPlayer.form
                     , ucSI.cmbYM2610BS_SCCI, ucSI.rbYM2610BS_SCCI
                     );
 
-                SetSCCICombo(EnmRealChipType.YM2608
-                    , ucSI.cmbYM2610BEP_SCCI, ucSI.rbYM2610BEP_SCCI
-                    , ucSI.cmbYM2610BES_SCCI, ucSI.rbYM2610BES_SCCI
-                    );
+                //SetSCCICombo(EnmRealChipType.YM2608
+                //    , ucSI.cmbYM2610BEP_SCCI, ucSI.rbYM2610BEP_SCCI
+                //    , ucSI.cmbYM2610BES_SCCI, ucSI.rbYM2610BES_SCCI
+                //    );
 
                 SetSCCICombo(EnmRealChipType.SPPCM
                     , ucSI.cmbSPPCMP_SCCI, null
                     , ucSI.cmbSPPCMS_SCCI, null
                     );
 
-                ucSI.rbYM2610BEP_SCCI.Enabled = (ucSI.cmbYM2610BEP_SCCI.Enabled || ucSI.cmbSPPCMP_SCCI.Enabled);
-                ucSI.rbYM2610BES_SCCI.Enabled = (ucSI.cmbYM2610BES_SCCI.Enabled || ucSI.cmbSPPCMS_SCCI.Enabled);
+                //ucSI.rbYM2610BEP_SCCI.Enabled = (ucSI.cmbYM2610BEP_SCCI.Enabled || ucSI.cmbSPPCMP_SCCI.Enabled);
+                //ucSI.rbYM2610BES_SCCI.Enabled = (ucSI.cmbYM2610BES_SCCI.Enabled || ucSI.cmbSPPCMS_SCCI.Enabled);
 
                 SetSCCICombo(EnmRealChipType.YM2151
                     , ucSI.cmbYM2151P_SCCI, ucSI.rbYM2151P_SCCI
@@ -272,97 +282,13 @@ namespace MDPlayer.form
                 cmbWaitTime.SelectedItem = setting.outputDevice.WaitTime.ToString();
             }
 
+            rbAutoDetect.Checked = !setting.IsManualDetect;
+            rbManualDetect.Checked = setting.IsManualDetect;
+            rbSCCIDetect.Checked = (setting.AutoDetectModuleType == 0);
+            rbC86ctlDetect.Checked = (setting.AutoDetectModuleType == 1);
+
             if (ucSI != null)
             {
-                SetSCCIParam(setting.YM2612Type
-                    , ucSI.rbYM2612P_Silent
-                    , ucSI.rbYM2612P_Emu
-                    , ucSI.rbYM2612P_SCCI
-                    , ucSI.cmbYM2612P_SCCI
-                    , null, null,null
-                    , ucSI.rbYM2612P_EmuNuked
-                    , null);
-                SetSCCIParam(setting.YM2612SType
-                    , ucSI.rbYM2612S_Silent
-                    , ucSI.rbYM2612S_Emu
-                    , ucSI.rbYM2612S_SCCI
-                    , ucSI.cmbYM2612S_SCCI
-                    , null, null,null
-                    , ucSI.rbYM2612S_EmuNuked
-                    , null);
-
-                ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
-                ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
-                ucSI.cbEmulationPCMOnly.Checked = setting.YM2612Type.OnlyPCMEmulation;
-
-                SetSCCIParam(setting.YM2610Type
-                    , ucSI.rbYM2610BP_Silent
-                    , ucSI.rbYM2610BP_Emu
-                    , ucSI.rbYM2610BP_SCCI
-                    , ucSI.cmbYM2610BP_SCCI
-                    , ucSI.rbYM2610BEP_SCCI
-                    , ucSI.cmbYM2610BEP_SCCI
-                    , ucSI.cmbSPPCMP_SCCI
-                    );
-                SetSCCIParam(setting.YM2610SType
-                    , ucSI.rbYM2610BS_Silent
-                    , ucSI.rbYM2610BS_Emu
-                    , ucSI.rbYM2610BS_SCCI
-                    , ucSI.cmbYM2610BS_SCCI
-                    , ucSI.rbYM2610BES_SCCI
-                    , ucSI.cmbYM2610BES_SCCI
-                    , ucSI.cmbSPPCMS_SCCI
-                    );
-
-                SetSCCIParam(setting.SN76489Type
-                    , ucSI.rbSN76489P_Silent
-                    , ucSI.rbSN76489P_Emu
-                    , ucSI.rbSN76489P_SCCI
-                    , ucSI.cmbSN76489P_SCCI);
-                SetSCCIParam(setting.SN76489SType
-                    , ucSI.rbSN76489S_Silent
-                    , ucSI.rbSN76489S_Emu
-                    , ucSI.rbSN76489S_SCCI
-                    , ucSI.cmbSN76489S_SCCI);
-
-                SetSCCIParam(setting.YM2608Type
-                    , ucSI.rbYM2608P_Silent
-                    , ucSI.rbYM2608P_Emu
-                    , ucSI.rbYM2608P_SCCI
-                    , ucSI.cmbYM2608P_SCCI);
-                SetSCCIParam(setting.YM2608SType
-                    , ucSI.rbYM2608S_Silent
-                    , ucSI.rbYM2608S_Emu
-                    , ucSI.rbYM2608S_SCCI
-                    , ucSI.cmbYM2608S_SCCI);
-
-                SetSCCIParam(setting.YM2151Type
-                    , ucSI.rbYM2151P_Silent
-                    , ucSI.rbYM2151P_Emu
-                    , ucSI.rbYM2151P_SCCI
-                    , ucSI.cmbYM2151P_SCCI
-                    , null, null, null
-                    , ucSI.rbYM2151P_EmuMame
-                    , ucSI.rbYM2151P_EmuX68Sound);
-                SetSCCIParam(setting.YM2151SType
-                    , ucSI.rbYM2151S_Silent
-                    , ucSI.rbYM2151S_Emu
-                    , ucSI.rbYM2151S_SCCI
-                    , ucSI.cmbYM2151S_SCCI
-                    , null, null, null
-                    , ucSI.rbYM2151S_EmuMame
-                    , ucSI.rbYM2151S_EmuX68Sound);
-
-                SetSCCIParam(setting.YM2203Type
-                    , ucSI.rbYM2203P_Silent
-                    , ucSI.rbYM2203P_Emu
-                    , ucSI.rbYM2203P_SCCI
-                    , ucSI.cmbYM2203P_SCCI);
-                SetSCCIParam(setting.YM2203SType
-                    , ucSI.rbYM2203S_Silent
-                    , ucSI.rbYM2203S_Emu
-                    , ucSI.rbYM2203S_SCCI
-                    , ucSI.cmbYM2203S_SCCI);
 
                 SetSCCIParam(setting.C140Type
                     , ucSI.rbC140P_Silent
@@ -385,6 +311,120 @@ namespace MDPlayer.form
                     , ucSI.rbSEGAPCMS_Emu
                     , ucSI.rbSEGAPCMS_SCCI
                     , ucSI.cmbSEGAPCMS_SCCI);
+
+                SetSCCIParam(setting.SN76489Type
+                    , ucSI.rbSN76489P_Silent
+                    , ucSI.rbSN76489P_Emu
+                    , ucSI.rbSN76489P_SCCI
+                    , ucSI.cmbSN76489P_SCCI);
+                SetSCCIParam(setting.SN76489SType
+                    , ucSI.rbSN76489S_Silent
+                    , ucSI.rbSN76489S_Emu
+                    , ucSI.rbSN76489S_SCCI
+                    , ucSI.cmbSN76489S_SCCI);
+
+                SetSCCIParam(setting.YM2151Type
+                    , ucSI.rbYM2151P_Silent
+                    , ucSI.rbYM2151P_Emu
+                    , ucSI.rbYM2151P_SCCI
+                    , ucSI.cmbYM2151P_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2151P_EmuMame
+                    , ucSI.rbYM2151P_EmuX68Sound);
+                SetSCCIParam(setting.YM2151SType
+                    , ucSI.rbYM2151S_Silent
+                    , ucSI.rbYM2151S_Emu
+                    , ucSI.rbYM2151S_SCCI
+                    , ucSI.cmbYM2151S_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2151S_EmuMame
+                    , ucSI.rbYM2151S_EmuX68Sound);
+
+                SetSCCIParam(setting.AY8910Type
+                    , ucSI.rbAY8910P_Silent
+                    , ucSI.rbAY8910P_Emu
+                    , ucSI.rbAY8910P_SCCI
+                    , ucSI.cmbAY8910P_SCCI);
+                SetSCCIParam(setting.AY8910SType
+                    , ucSI.rbAY8910S_Silent
+                    , ucSI.rbAY8910S_Emu
+                    , ucSI.rbAY8910S_SCCI
+                    , ucSI.cmbAY8910S_SCCI);
+
+                SetSCCIParam(setting.YM2203Type
+                    , ucSI.rbYM2203P_Silent
+                    , ucSI.rbYM2203P_Emu
+                    , ucSI.rbYM2203P_SCCI
+                    , ucSI.cmbYM2203P_SCCI);
+                SetSCCIParam(setting.YM2203SType
+                    , ucSI.rbYM2203S_Silent
+                    , ucSI.rbYM2203S_Emu
+                    , ucSI.rbYM2203S_SCCI
+                    , ucSI.cmbYM2203S_SCCI);
+
+                SetSCCIParam(setting.YM2413Type
+                    , ucSI.rbYM2413P_Silent
+                    , ucSI.rbYM2413P_Emu
+                    , ucSI.rbYM2413P_SCCI
+                    , ucSI.cmbYM2413P_SCCI);
+                SetSCCIParam(setting.YM2413SType
+                    , ucSI.rbYM2413S_Silent
+                    , ucSI.rbYM2413S_Emu
+                    , ucSI.rbYM2413S_SCCI
+                    , ucSI.cmbYM2413S_SCCI);
+
+                SetSCCIParam(setting.YM2608Type
+                    , ucSI.rbYM2608P_Silent
+                    , ucSI.rbYM2608P_Emu
+                    , ucSI.rbYM2608P_SCCI
+                    , ucSI.cmbYM2608P_SCCI);
+                SetSCCIParam(setting.YM2608SType
+                    , ucSI.rbYM2608S_Silent
+                    , ucSI.rbYM2608S_Emu
+                    , ucSI.rbYM2608S_SCCI
+                    , ucSI.cmbYM2608S_SCCI);
+                ucSI.cbEmulationOPNAADPCMOnly.Checked = setting.YM2608Type.OnlyPCMEmulation;
+
+                SetSCCIParam(setting.YM2610Type
+                    , ucSI.rbYM2610BP_Silent
+                    , ucSI.rbYM2610BP_Emu
+                    , ucSI.rbYM2610BP_SCCI
+                    , ucSI.cmbYM2610BP_SCCI
+                    , null//ucSI.rbYM2610BEP_SCCI
+                    , null//ucSI.cmbYM2610BEP_SCCI
+                    , ucSI.cmbSPPCMP_SCCI
+                    );
+                SetSCCIParam(setting.YM2610SType
+                    , ucSI.rbYM2610BS_Silent
+                    , ucSI.rbYM2610BS_Emu
+                    , ucSI.rbYM2610BS_SCCI
+                    , ucSI.cmbYM2610BS_SCCI
+                    , null//ucSI.rbYM2610BES_SCCI
+                    , null//ucSI.cmbYM2610BES_SCCI
+                    , ucSI.cmbSPPCMS_SCCI
+                    );
+                ucSI.cbEmulationOPNBADPCMOnly.Checked = setting.YM2610Type.OnlyPCMEmulation;
+
+                SetSCCIParam(setting.YM2612Type
+                    , ucSI.rbYM2612P_Silent
+                    , ucSI.rbYM2612P_Emu
+                    , ucSI.rbYM2612P_SCCI
+                    , ucSI.cmbYM2612P_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2612P_EmuNuked
+                    , null);
+                SetSCCIParam(setting.YM2612SType
+                    , ucSI.rbYM2612S_Silent
+                    , ucSI.rbYM2612S_Emu
+                    , ucSI.rbYM2612S_SCCI
+                    , ucSI.cmbYM2612S_SCCI
+                    , null, null, null
+                    , ucSI.rbYM2612S_EmuNuked
+                    , null);
+                ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
+                ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
+                ucSI.cbEmulationPCMOnly.Checked = setting.YM2612Type.OnlyPCMEmulation;
+
             }
 
             cbUseMIDIKeyboard.Checked = setting.midiKbd.UseMIDIKeyboard;
@@ -433,6 +473,7 @@ namespace MDPlayer.form
             tbImageExt.Text = setting.other.ImageExt;
             cbInitAlways.Checked = setting.other.InitAlways;
             cbEmptyPlayList.Checked = setting.other.EmptyPlayList;
+            tbOpacity.Value = setting.other.Opacity;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -696,11 +737,11 @@ namespace MDPlayer.form
             {
                 if (ct == null) continue;
 
-                cmbP.Items.Add(string.Format("({0}:{1}:{2}:{3}){4}"
-                    , ct.InterfaceName, ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                cmbP.Items.Add(string.Format("({0}:{1}:{2}:{3}:{4}){5}"
+                    , ct.InterfaceName, ct.SoundLocation, ct.BusID, ct.SoundChip, ct.Type, ct.ChipName));
 
-                cmbS.Items.Add(string.Format("({0}:{1}:{2}:{3}){4}"
-                    , ct.InterfaceName, ct.SoundLocation, ct.BusID, ct.SoundChip, ct.ChipName));
+                cmbS.Items.Add(string.Format("({0}:{1}:{2}:{3}:{4}){5}"
+                    , ct.InterfaceName, ct.SoundLocation, ct.BusID, ct.SoundChip, ct.Type, ct.ChipName));
             }
 
             cmbP.SelectedIndex = 0;
@@ -716,8 +757,8 @@ namespace MDPlayer.form
         private void SetSCCIParam(Setting.ChipType chipType, RadioButton rbSilent, RadioButton rbEmu, RadioButton rbSCCI, ComboBox cmbP
             , RadioButton rbSCCI2 = null, ComboBox cmbP2A = null, ComboBox cmbP2B = null, RadioButton rbEmu2 = null, RadioButton rbEmu3 = null)
         {
-            string n = string.Format("({0}:{1}:{2}:{3})"
-                , chipType.InterfaceName, chipType.SoundLocation, chipType.BusID, chipType.SoundChip);
+            string n = string.Format("({0}:{1}:{2}:{3}:{4})"
+                , chipType.InterfaceName, chipType.SoundLocation, chipType.BusID, chipType.SoundChip, chipType.Type);
             if (cmbP.Items.Count > 0)
             {
                 foreach (string i in cmbP.Items)
@@ -731,8 +772,8 @@ namespace MDPlayer.form
 
             if (cmbP2A != null)
             {
-                n = string.Format("({0}:{1}:{2}:{3})"
-                    , chipType.InterfaceName2A, chipType.SoundLocation2A, chipType.BusID2A, chipType.SoundChip2A);
+                n = string.Format("({0}:{1}:{2}:{3}:{4})"
+                    , chipType.InterfaceName2A, chipType.SoundLocation2A, chipType.BusID2A, chipType.SoundChip2A, chipType.Type2A);
                 if (cmbP2A.Items.Count > 0)
                 {
                     foreach (string i in cmbP2A.Items)
@@ -747,8 +788,8 @@ namespace MDPlayer.form
 
             if (cmbP2B != null)
             {
-                n = string.Format("({0}:{1}:{2}:{3})"
-                    , chipType.InterfaceName2B, chipType.SoundLocation2B, chipType.BusID2B, chipType.SoundChip2B);
+                n = string.Format("({0}:{1}:{2}:{3}:{4})"
+                    , chipType.InterfaceName2B, chipType.SoundLocation2B, chipType.BusID2B, chipType.SoundChip2B, chipType.Type2B);
                 if (cmbP2B.Items.Count > 0)
                 {
                     foreach (string i in cmbP2B.Items)
@@ -851,6 +892,45 @@ namespace MDPlayer.form
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
             setting.outputDevice.WaitTime = int.Parse(cmbWaitTime.SelectedItem.ToString());
 
+            setting.IsManualDetect = !rbAutoDetect.Checked;
+            setting.AutoDetectModuleType = rbSCCIDetect.Checked ? 0 : 1;
+
+            setting.AY8910Type = new Setting.ChipType();
+            setting.AY8910Type.UseScci = ucSI.rbAY8910P_SCCI.Checked;
+            if (ucSI.rbAY8910P_SCCI.Checked)
+            {
+                if (ucSI.cmbAY8910P_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbAY8910P_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.AY8910Type.InterfaceName = ns[0];
+                    setting.AY8910Type.SoundLocation = int.Parse(ns[1]);
+                    setting.AY8910Type.BusID = int.Parse(ns[2]);
+                    setting.AY8910Type.SoundChip = int.Parse(ns[3]);
+                    setting.AY8910Type.Type = int.Parse(ns[4]);
+                }
+            }
+            setting.AY8910Type.UseEmu = ucSI.rbAY8910P_Emu.Checked;
+
+            setting.AY8910SType = new Setting.ChipType();
+            setting.AY8910SType.UseScci = ucSI.rbAY8910S_SCCI.Checked;
+            if (ucSI.rbAY8910S_SCCI.Checked)
+            {
+                if (ucSI.cmbAY8910S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbAY8910S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.AY8910SType.InterfaceName = ns[0];
+                    setting.AY8910SType.SoundLocation = int.Parse(ns[1]);
+                    setting.AY8910SType.BusID = int.Parse(ns[2]);
+                    setting.AY8910SType.SoundChip = int.Parse(ns[3]);
+                    setting.AY8910SType.Type = int.Parse(ns[4]);
+                }
+            }
+            setting.AY8910SType.UseEmu = ucSI.rbAY8910S_Emu.Checked;
+
             setting.YM2612Type = new Setting.ChipType();
             setting.YM2612Type.UseScci = ucSI.rbYM2612P_SCCI.Checked;
             if (ucSI.rbYM2612P_SCCI.Checked)
@@ -864,6 +944,7 @@ namespace MDPlayer.form
                     setting.YM2612Type.SoundLocation = int.Parse(ns[1]);
                     setting.YM2612Type.BusID = int.Parse(ns[2]);
                     setting.YM2612Type.SoundChip = int.Parse(ns[3]);
+                    setting.YM2612Type.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2612Type.UseEmu = (ucSI.rbYM2612P_Emu.Checked || ucSI.rbYM2612P_SCCI.Checked);
@@ -882,6 +963,7 @@ namespace MDPlayer.form
                     setting.YM2612SType.SoundLocation = int.Parse(ns[1]);
                     setting.YM2612SType.BusID = int.Parse(ns[2]);
                     setting.YM2612SType.SoundChip = int.Parse(ns[3]);
+                    setting.YM2612SType.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2612SType.UseEmu = (ucSI.rbYM2612S_Emu.Checked || ucSI.rbYM2612S_SCCI.Checked);
@@ -892,17 +974,6 @@ namespace MDPlayer.form
             setting.YM2612Type.UseWaitBoost = ucSI.cbTwice.Checked;
             setting.YM2612Type.OnlyPCMEmulation = ucSI.cbEmulationPCMOnly.Checked;
 
-
-            //setting.YM2612Type.LatencyForEmulation = 0;
-            //if (int.TryParse(tbYM2612EmuDelay.Text, out i))
-            //{
-            //    setting.YM2612Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
-            //}
-            //setting.YM2612Type.LatencyForScci = 0;
-            //if (int.TryParse(tbYM2612ScciDelay.Text, out i))
-            //{
-            //    setting.YM2612Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            //}
 
             setting.SN76489Type = new Setting.ChipType();
             setting.SN76489Type.UseScci = ucSI.rbSN76489P_SCCI.Checked;
@@ -915,6 +986,7 @@ namespace MDPlayer.form
                 setting.SN76489Type.SoundLocation = int.Parse(ns[1]);
                 setting.SN76489Type.BusID = int.Parse(ns[2]);
                 setting.SN76489Type.SoundChip = int.Parse(ns[3]);
+                setting.SN76489Type.Type = int.Parse(ns[4]);
             }
             setting.SN76489Type.UseEmu = ucSI.rbSN76489P_Emu.Checked;
 
@@ -929,19 +1001,10 @@ namespace MDPlayer.form
                 setting.SN76489SType.SoundLocation = int.Parse(ns[1]);
                 setting.SN76489SType.BusID = int.Parse(ns[2]);
                 setting.SN76489SType.SoundChip = int.Parse(ns[3]);
+                setting.SN76489SType.Type = int.Parse(ns[4]);
             }
             setting.SN76489SType.UseEmu = ucSI.rbSN76489S_Emu.Checked;
 
-            //setting.SN76489Type.LatencyForEmulation = 0;
-            //if (int.TryParse(tbSN76489EmuDelay.Text, out i))
-            //{
-            //    setting.SN76489Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
-            //}
-            //setting.SN76489Type.LatencyForScci = 0;
-            //if (int.TryParse(tbSN76489ScciDelay.Text, out i))
-            //{
-            //    setting.SN76489Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            //}
 
             setting.YM2608Type = new Setting.ChipType();
             setting.YM2608Type.UseScci = ucSI.rbYM2608P_SCCI.Checked;
@@ -956,6 +1019,7 @@ namespace MDPlayer.form
                     setting.YM2608Type.SoundLocation = int.Parse(ns[1]);
                     setting.YM2608Type.BusID = int.Parse(ns[2]);
                     setting.YM2608Type.SoundChip = int.Parse(ns[3]);
+                    setting.YM2608Type.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2608Type.UseEmu = ucSI.rbYM2608P_Emu.Checked;
@@ -973,9 +1037,11 @@ namespace MDPlayer.form
                     setting.YM2608SType.SoundLocation = int.Parse(ns[1]);
                     setting.YM2608SType.BusID = int.Parse(ns[2]);
                     setting.YM2608SType.SoundChip = int.Parse(ns[3]);
+                    setting.YM2608SType.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2608SType.UseEmu = ucSI.rbYM2608S_Emu.Checked;
+            setting.YM2608Type.OnlyPCMEmulation = ucSI.cbEmulationOPNAADPCMOnly.Checked;
 
             setting.YM2610Type = new Setting.ChipType();
             setting.YM2610Type.UseScci = ucSI.rbYM2610BP_SCCI.Checked;
@@ -990,21 +1056,7 @@ namespace MDPlayer.form
                     setting.YM2610Type.SoundLocation = int.Parse(ns[1]);
                     setting.YM2610Type.BusID = int.Parse(ns[2]);
                     setting.YM2610Type.SoundChip = int.Parse(ns[3]);
-                }
-            }
-            setting.YM2610Type.UseEmu = ucSI.rbYM2610BP_Emu.Checked;
-            setting.YM2610Type.UseScci2 = ucSI.rbYM2610BEP_SCCI.Checked;
-            if (ucSI.rbYM2610BEP_SCCI.Checked)
-            {
-                if (ucSI.cmbYM2610BEP_SCCI.SelectedItem != null)
-                {
-                    string n = ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString();
-                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
-                    string[] ns = n.Split(':');
-                    setting.YM2610Type.InterfaceName2A = ns[0];
-                    setting.YM2610Type.SoundLocation2A = int.Parse(ns[1]);
-                    setting.YM2610Type.BusID2A = int.Parse(ns[2]);
-                    setting.YM2610Type.SoundChip2A = int.Parse(ns[3]);
+                    setting.YM2610Type.Type = int.Parse(ns[4]);
                 }
                 if (ucSI.cmbSPPCMP_SCCI.SelectedItem != null)
                 {
@@ -1015,8 +1067,34 @@ namespace MDPlayer.form
                     setting.YM2610Type.SoundLocation2B = int.Parse(ns[1]);
                     setting.YM2610Type.BusID2B = int.Parse(ns[2]);
                     setting.YM2610Type.SoundChip2B = int.Parse(ns[3]);
+                    setting.YM2610Type.Type2B = int.Parse(ns[4]);
                 }
             }
+            setting.YM2610Type.UseEmu = ucSI.rbYM2610BP_Emu.Checked;
+            //setting.YM2610Type.UseScci2 = ucSI.rbYM2610BEP_SCCI.Checked;
+            //if (ucSI.rbYM2610BEP_SCCI.Checked)
+            //{
+            //    if (ucSI.cmbYM2610BEP_SCCI.SelectedItem != null)
+            //    {
+            //        string n = ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString();
+            //        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+            //        string[] ns = n.Split(':');
+            //        setting.YM2610Type.InterfaceName2A = ns[0];
+            //        setting.YM2610Type.SoundLocation2A = int.Parse(ns[1]);
+            //        setting.YM2610Type.BusID2A = int.Parse(ns[2]);
+            //        setting.YM2610Type.SoundChip2A = int.Parse(ns[3]);
+            //    }
+            //    if (ucSI.cmbSPPCMP_SCCI.SelectedItem != null)
+            //    {
+            //        string n = ucSI.cmbSPPCMP_SCCI.SelectedItem.ToString();
+            //        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+            //        string[] ns = n.Split(':');
+            //        setting.YM2610Type.InterfaceName2B = ns[0];
+            //        setting.YM2610Type.SoundLocation2B = int.Parse(ns[1]);
+            //        setting.YM2610Type.BusID2B = int.Parse(ns[2]);
+            //        setting.YM2610Type.SoundChip2B = int.Parse(ns[3]);
+            //    }
+            //}
 
             setting.YM2610SType = new Setting.ChipType();
             setting.YM2610SType.UseScci = ucSI.rbYM2610BS_SCCI.Checked;
@@ -1031,21 +1109,7 @@ namespace MDPlayer.form
                     setting.YM2610SType.SoundLocation = int.Parse(ns[1]);
                     setting.YM2610SType.BusID = int.Parse(ns[2]);
                     setting.YM2610SType.SoundChip = int.Parse(ns[3]);
-                }
-            }
-            setting.YM2610SType.UseEmu = ucSI.rbYM2610BS_Emu.Checked;
-            setting.YM2610SType.UseScci2 = ucSI.rbYM2610BES_SCCI.Checked;
-            if (ucSI.rbYM2610BES_SCCI.Checked)
-            {
-                if (ucSI.cmbYM2610BES_SCCI.SelectedItem != null)
-                {
-                    string n = ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString();
-                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
-                    string[] ns = n.Split(':');
-                    setting.YM2610SType.InterfaceName2A = ns[0];
-                    setting.YM2610SType.SoundLocation2A = int.Parse(ns[1]);
-                    setting.YM2610SType.BusID2A = int.Parse(ns[2]);
-                    setting.YM2610SType.SoundChip2A = int.Parse(ns[3]);
+                    setting.YM2610SType.Type = int.Parse(ns[4]);
                 }
                 if (ucSI.cmbSPPCMS_SCCI.SelectedItem != null)
                 {
@@ -1056,21 +1120,35 @@ namespace MDPlayer.form
                     setting.YM2610SType.SoundLocation2B = int.Parse(ns[1]);
                     setting.YM2610SType.BusID2B = int.Parse(ns[2]);
                     setting.YM2610SType.SoundChip2B = int.Parse(ns[3]);
+                    setting.YM2610SType.Type2B = int.Parse(ns[4]);
                 }
             }
-
-            //setting.YM2608Type.UseWaitBoost = cbYM2608UseWaitBoost.Checked;
-            //setting.YM2608Type.OnlyPCMEmulation = cbOnlyPCMEmulation.Checked;
-            //setting.YM2608Type.LatencyForEmulation = 0;
-            //if (int.TryParse(tbYM2608EmuDelay.Text, out i))
+            setting.YM2610SType.UseEmu = ucSI.rbYM2610BS_Emu.Checked;
+            //setting.YM2610SType.UseScci2 = ucSI.rbYM2610BES_SCCI.Checked;
+            //if (ucSI.rbYM2610BES_SCCI.Checked)
             //{
-            //    setting.YM2608Type.LatencyForEmulation = Math.Max(Math.Min(i, 999), 0);
+            //    if (ucSI.cmbYM2610BES_SCCI.SelectedItem != null)
+            //    {
+            //        string n = ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString();
+            //        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+            //        string[] ns = n.Split(':');
+            //        setting.YM2610SType.InterfaceName2A = ns[0];
+            //        setting.YM2610SType.SoundLocation2A = int.Parse(ns[1]);
+            //        setting.YM2610SType.BusID2A = int.Parse(ns[2]);
+            //        setting.YM2610SType.SoundChip2A = int.Parse(ns[3]);
+            //    }
+            //    if (ucSI.cmbSPPCMS_SCCI.SelectedItem != null)
+            //    {
+            //        string n = ucSI.cmbSPPCMS_SCCI.SelectedItem.ToString();
+            //        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+            //        string[] ns = n.Split(':');
+            //        setting.YM2610SType.InterfaceName2B = ns[0];
+            //        setting.YM2610SType.SoundLocation2B = int.Parse(ns[1]);
+            //        setting.YM2610SType.BusID2B = int.Parse(ns[2]);
+            //        setting.YM2610SType.SoundChip2B = int.Parse(ns[3]);
+            //    }
             //}
-            //setting.YM2608Type.LatencyForScci = 0;
-            //if (int.TryParse(tbYM2608ScciDelay.Text, out i))
-            //{
-            //    setting.YM2608Type.LatencyForScci = Math.Max(Math.Min(i, 999), 0);
-            //}
+            setting.YM2610Type.OnlyPCMEmulation = ucSI.cbEmulationOPNBADPCMOnly.Checked;
 
             setting.YM2151Type = new Setting.ChipType();
             setting.YM2151Type.UseScci = ucSI.rbYM2151P_SCCI.Checked;
@@ -1085,6 +1163,7 @@ namespace MDPlayer.form
                     setting.YM2151Type.SoundLocation = int.Parse(ns[1]);
                     setting.YM2151Type.BusID = int.Parse(ns[2]);
                     setting.YM2151Type.SoundChip = int.Parse(ns[3]);
+                    setting.YM2151Type.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2151Type.UseEmu = ucSI.rbYM2151P_Emu.Checked;
@@ -1104,6 +1183,7 @@ namespace MDPlayer.form
                     setting.YM2151SType.SoundLocation = int.Parse(ns[1]);
                     setting.YM2151SType.BusID = int.Parse(ns[2]);
                     setting.YM2151SType.SoundChip = int.Parse(ns[3]);
+                    setting.YM2151SType.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2151SType.UseEmu = ucSI.rbYM2151S_Emu.Checked;
@@ -1123,6 +1203,7 @@ namespace MDPlayer.form
                     setting.YM2203Type.SoundLocation = int.Parse(ns[1]);
                     setting.YM2203Type.BusID = int.Parse(ns[2]);
                     setting.YM2203Type.SoundChip = int.Parse(ns[3]);
+                    setting.YM2203Type.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2203Type.UseEmu = ucSI.rbYM2203P_Emu.Checked;
@@ -1140,9 +1221,46 @@ namespace MDPlayer.form
                     setting.YM2203SType.SoundLocation = int.Parse(ns[1]);
                     setting.YM2203SType.BusID = int.Parse(ns[2]);
                     setting.YM2203SType.SoundChip = int.Parse(ns[3]);
+                    setting.YM2203SType.Type = int.Parse(ns[4]);
                 }
             }
             setting.YM2203SType.UseEmu = ucSI.rbYM2203S_Emu.Checked;
+
+            setting.YM2413Type = new Setting.ChipType();
+            setting.YM2413Type.UseScci = ucSI.rbYM2413P_SCCI.Checked;
+            if (ucSI.rbYM2413P_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2413P_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2413P_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2413Type.InterfaceName = ns[0];
+                    setting.YM2413Type.SoundLocation = int.Parse(ns[1]);
+                    setting.YM2413Type.BusID = int.Parse(ns[2]);
+                    setting.YM2413Type.SoundChip = int.Parse(ns[3]);
+                    setting.YM2413Type.Type = int.Parse(ns[4]);
+                }
+            }
+            setting.YM2413Type.UseEmu = ucSI.rbYM2413P_Emu.Checked;
+
+            setting.YM2413SType = new Setting.ChipType();
+            setting.YM2413SType.UseScci = ucSI.rbYM2413S_SCCI.Checked;
+            if (ucSI.rbYM2413S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM2413S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM2413S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM2413SType.InterfaceName = ns[0];
+                    setting.YM2413SType.SoundLocation = int.Parse(ns[1]);
+                    setting.YM2413SType.BusID = int.Parse(ns[2]);
+                    setting.YM2413SType.SoundChip = int.Parse(ns[3]);
+                    setting.YM2413SType.Type = int.Parse(ns[4]);
+                }
+            }
+            setting.YM2413SType.UseEmu = ucSI.rbYM2413S_Emu.Checked;
 
             setting.C140Type = new Setting.ChipType();
             setting.C140Type.UseScci = ucSI.rbC140P_SCCI.Checked;
@@ -1157,6 +1275,7 @@ namespace MDPlayer.form
                     setting.C140Type.SoundLocation = int.Parse(ns[1]);
                     setting.C140Type.BusID = int.Parse(ns[2]);
                     setting.C140Type.SoundChip = int.Parse(ns[3]);
+                    setting.C140Type.Type = int.Parse(ns[4]);
                 }
             }
             setting.C140Type.UseEmu = ucSI.rbC140P_Emu.Checked;
@@ -1174,6 +1293,7 @@ namespace MDPlayer.form
                     setting.C140SType.SoundLocation = int.Parse(ns[1]);
                     setting.C140SType.BusID = int.Parse(ns[2]);
                     setting.C140SType.SoundChip = int.Parse(ns[3]);
+                    setting.C140SType.Type = int.Parse(ns[4]);
                 }
             }
             setting.C140SType.UseEmu = ucSI.rbC140S_Emu.Checked;
@@ -1191,6 +1311,7 @@ namespace MDPlayer.form
                     setting.SEGAPCMType.SoundLocation = int.Parse(ns[1]);
                     setting.SEGAPCMType.BusID = int.Parse(ns[2]);
                     setting.SEGAPCMType.SoundChip = int.Parse(ns[3]);
+                    setting.SEGAPCMType.Type = int.Parse(ns[4]);
                 }
             }
             setting.SEGAPCMType.UseEmu = ucSI.rbSEGAPCMP_Emu.Checked;
@@ -1208,6 +1329,7 @@ namespace MDPlayer.form
                     setting.SEGAPCMSType.SoundLocation = int.Parse(ns[1]);
                     setting.SEGAPCMSType.BusID = int.Parse(ns[2]);
                     setting.SEGAPCMSType.SoundChip = int.Parse(ns[3]);
+                    setting.SEGAPCMSType.Type = int.Parse(ns[4]);
                 }
             }
             setting.SEGAPCMSType.UseEmu = ucSI.rbSEGAPCMS_Emu.Checked;
@@ -1282,6 +1404,7 @@ namespace MDPlayer.form
             setting.other.ImageExt = tbImageExt.Text;
             setting.other.InitAlways = cbInitAlways.Checked;
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
+            setting.other.Opacity = tbOpacity.Value;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
@@ -1542,29 +1665,29 @@ namespace MDPlayer.form
                         hsSCCIs.Add(ucSI.cmbYM2610BS_SCCI.SelectedItem.ToString());
                     else ret = true;
 
-            if (ucSI.rbYM2610BEP_SCCI.Checked)
-                if (ucSI.cmbYM2610BEP_SCCI.SelectedItem != null)
-                    if (!hsSCCIs.Contains(ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString()))
-                        hsSCCIs.Add(ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString());
-                    else ret = true;
+            //if (ucSI.rbYM2610BEP_SCCI.Checked)
+            //    if (ucSI.cmbYM2610BEP_SCCI.SelectedItem != null)
+            //        if (!hsSCCIs.Contains(ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString()))
+            //            hsSCCIs.Add(ucSI.cmbYM2610BEP_SCCI.SelectedItem.ToString());
+            //        else ret = true;
 
-            if (ucSI.rbYM2610BES_SCCI.Checked)
-                if (ucSI.cmbYM2610BES_SCCI.SelectedItem != null)
-                    if (!hsSCCIs.Contains(ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString()))
-                        hsSCCIs.Add(ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString());
-                    else ret = true;
+            //if (ucSI.rbYM2610BES_SCCI.Checked)
+            //    if (ucSI.cmbYM2610BES_SCCI.SelectedItem != null)
+            //        if (!hsSCCIs.Contains(ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString()))
+            //            hsSCCIs.Add(ucSI.cmbYM2610BES_SCCI.SelectedItem.ToString());
+            //        else ret = true;
 
-            if (ucSI.rbYM2610BEP_SCCI.Checked)
-                if (ucSI.cmbSPPCMP_SCCI.SelectedItem != null)
-                    if (!hsSCCIs.Contains(ucSI.cmbSPPCMP_SCCI.SelectedItem.ToString()))
-                        hsSCCIs.Add(ucSI.cmbSPPCMP_SCCI.SelectedItem.ToString());
-                    else ret = true;
+            //if (ucSI.rbYM2610BEP_SCCI.Checked)
+            //    if (ucSI.cmbSPPCMP_SCCI.SelectedItem != null)
+            //        if (!hsSCCIs.Contains(ucSI.cmbSPPCMP_SCCI.SelectedItem.ToString()))
+            //            hsSCCIs.Add(ucSI.cmbSPPCMP_SCCI.SelectedItem.ToString());
+            //        else ret = true;
 
-            if (ucSI.rbYM2610BES_SCCI.Checked)
-                if (ucSI.cmbSPPCMS_SCCI.SelectedItem != null)
-                    if (!hsSCCIs.Contains(ucSI.cmbSPPCMS_SCCI.SelectedItem.ToString()))
-                        hsSCCIs.Add(ucSI.cmbSPPCMS_SCCI.SelectedItem.ToString());
-                    else ret = true;
+            //if (ucSI.rbYM2610BES_SCCI.Checked)
+            //    if (ucSI.cmbSPPCMS_SCCI.SelectedItem != null)
+            //        if (!hsSCCIs.Contains(ucSI.cmbSPPCMS_SCCI.SelectedItem.ToString()))
+            //            hsSCCIs.Add(ucSI.cmbSPPCMS_SCCI.SelectedItem.ToString());
+            //        else ret = true;
 
             if (ucSI.rbC140P_SCCI.Checked)
                 if (ucSI.cmbC140P_SCCI.SelectedItem != null)
@@ -2015,7 +2138,7 @@ namespace MDPlayer.form
 
         private void frmSetting_Load(object sender, EventArgs e)
         {
-
+            this.Opacity = setting.other.Opacity / 100.0;
         }
 
         private void cbUseKeyBoardHook_CheckedChanged(object sender, EventArgs e)
@@ -2238,6 +2361,11 @@ namespace MDPlayer.form
                 frmMain.keyHookMeth = null;
             }
 
+        }
+
+        private void tbOpacity_Scroll(object sender, EventArgs e)
+        {
+            this.Opacity = tbOpacity.Value / 100.0;
         }
     }
 

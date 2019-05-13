@@ -111,6 +111,7 @@ namespace MDPlayer.form
         private void frmInfo_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
+            this.Opacity = parent.setting.other.Opacity / 100.0;
         }
 
         protected override void WndProc(ref Message m)

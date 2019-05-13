@@ -4,19 +4,10 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmC140 : Form
+    public partial class frmC140 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
         private MDChipParams.C140 newParam = null;
         private MDChipParams.C140 oldParam = new MDChipParams.C140();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmC140(frmMain frm,int chipID,int zoom, MDChipParams.C140 newParam)
         {
@@ -29,13 +20,13 @@ namespace MDPlayer.form
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeF, null, zoom);
             screenInit();
-            update();
+            //update();
         }
 
-        public void update()
-        {
-            frameBuffer.Refresh(null);
-        }
+        //public override void update()
+        //{
+        //    frameBuffer.Refresh(null);
+        //}
 
         protected override bool ShowWithoutActivation
         {
@@ -149,7 +140,7 @@ namespace MDPlayer.form
         }
 
 
-        public void screenInit()
+        public override void screenInit()
         {
             bool C140Type = (chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci;
             int tp = C140Type ? 1 : 0;
@@ -171,7 +162,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             byte[] c140State = Audio.GetC140Register(chipID);
             bool[] c140KeyOn = Audio.GetC140KeyOn(chipID);
@@ -220,7 +211,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             int tp = ((chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci) ? 1 : 0;
 

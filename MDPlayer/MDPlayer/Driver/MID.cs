@@ -164,11 +164,10 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -192,11 +191,11 @@ namespace MDPlayer
             //ポートごとに事前に送信するコマンドを作成する
             if (!MakeBeforeSendCommand()) return false;
 
-            if (model == EnmModel.RealModel)
-            {
-                chipRegister.setYM2612SyncWait(0, 1);
-                chipRegister.setYM2612SyncWait(1, 1);
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    chipRegister.setYM2612SyncWait(0, 1);
+            //    chipRegister.setYM2612SyncWait(1, 1);
+            //}
 
             return true;
         }
@@ -273,6 +272,7 @@ namespace MDPlayer
 
                 Counter++;
                 vgmFrameCounter++;
+                Audio.DriverSeqCounter++;
 
                 musicStep = Common.SampleRate * oneSyncTime;
 
@@ -354,7 +354,7 @@ namespace MDPlayer
 #endif
                             }
 
-                            chipRegister.sendMIDIout(model, trkPort[trk], eventData.ToArray(),vstDelta);
+                            chipRegister.sendMIDIout(Audio.DriverSeqCounter, trkPort[trk], eventData.ToArray());//,vstDelta);
 
                             ptr = ptr + eventLen;
 
@@ -394,30 +394,35 @@ namespace MDPlayer
                                 {
                                     case 0x01:
                                         eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventText);
 #if DEBUG
                                         Console.Write("eventText:{0}", eventText);
 #endif
                                         break;
                                     case 0x02:
                                         eventCopyrightNotice = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventCopyrightNotice);
 #if DEBUG
                                         Console.Write("eventCopyrightNotice:{0}", eventCopyrightNotice);
 #endif
                                         break;
                                     case 0x03:
                                         eventSequenceTrackName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventSequenceTrackName);
 #if DEBUG
                                         Console.Write("eventSequenceTrackName:{0}", eventSequenceTrackName);
 #endif
                                         break;
                                     case 0x04:
                                         eventInstrumentName = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventInstrumentName);
 #if DEBUG
                                         Console.Write("eventInstrumentName:{0}", eventInstrumentName);
 #endif
                                         break;
                                     case 0x05:
                                         eventLyric = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventLyric);
 #if DEBUG
                                         Console.Write("eventLyric:{0}", eventLyric);
 #endif
@@ -425,12 +430,14 @@ namespace MDPlayer
                                         break;
                                     case 0x06:
                                         eventMarker = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventMarker);
 #if DEBUG
                                         Console.Write("eventMarker:{0}", eventMarker);
 #endif
                                         break;
                                     case 0x07:
                                         eventText = Encoding.GetEncoding(932).GetString(eventData.ToArray());
+                                        chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, eventText);
 #if DEBUG
                                         Console.Write("eventText:{0}", eventText);
 #endif
@@ -495,7 +502,7 @@ namespace MDPlayer
 
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1], vstDelta);
+                                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, trkPort[trk], cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);//, vstDelta);
 #if DEBUG
                                     //Console.Write("V1:{0:X2} V2:{1:X2} ", vgmBuf[ptr], vgmBuf[ptr + 1]);
                                     Console.Write("{0:X2} {1:X2} {2:X2}",cmd, vgmBuf[ptr], vgmBuf[ptr + 1]);
@@ -504,7 +511,7 @@ namespace MDPlayer
                                 }
                                 else
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], cmd, vgmBuf[ptr], vstDelta);
+                                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, trkPort[trk], cmd, vgmBuf[ptr]);//, vstDelta);
 #if DEBUG
                                     //Console.Write("V1:{0:X2} V2:-- ", vgmBuf[ptr]);
                                     Console.Write("{0:X2} {1:X2}", cmd, vgmBuf[ptr]);
@@ -520,7 +527,7 @@ namespace MDPlayer
 
                                 if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vgmBuf[ptr], vstDelta);
+                                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, trkPort[trk], midiEvent, cmd, vgmBuf[ptr]);//, vstDelta);
 #if DEBUG
                                     //Console.Write("RunSta V1:{0:X2} V2:{1:X2} ", cmd, vgmBuf[ptr]);
                                     Console.Write("{0:X2} {1:X2} {2:X2}", midiEvent, cmd, vgmBuf[ptr]);
@@ -529,7 +536,7 @@ namespace MDPlayer
                                 }
                                 else
                                 {
-                                    chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vstDelta);
+                                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, trkPort[trk], midiEvent, cmd);//, vstDelta);
 #if DEBUG
                                     //Console.Write("RunSta V1:{0:X2} V2:-- ", cmd);
                                     Console.Write("{0:X2} {1:X2} ", midiEvent, cmd);
@@ -586,7 +593,7 @@ namespace MDPlayer
 
                     RCP.CtlSysex csx = beforeSend[i][sendControlIndex[i]];
                     sendControlDelta[i] = csx.delta;
-                    chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
+                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, 0, csx.data);//, vstDelta);
 
                     sendControlIndex[i]++;
                 }

@@ -290,7 +290,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.C = 1;
         PRNW72:
             Z80.B = 8;
-        PRNW73:
+        //PRNW73:
             do
             {
                 Z80.RRCA();
@@ -371,7 +371,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A = 1;
             Z80.B = 6;
             Z80.DE = 6 * 256 + 17;
-        OPUT0:
+        //OPUT0:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -507,7 +507,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.HL = 0;// NAME2;
             Z80.DE = 0xF3C8 + 120 * 17;
             Z80.B = 8;
-        FPL1:
+        //FPL1:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -527,7 +527,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             } while (Z80.B != 0);
             Z80.DE = 0xF3C8 + 120 * 17 + 4;
             Z80.B = 6;
-        FPL2:
+        //FPL2:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -545,7 +545,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             buf = Encoding.UTF8.GetBytes(NAME4);
             Z80.DE = 0xF3C8 + 120 * 16 + 3;
             Z80.BC = 6 * 256 + 0xff;
-        FPL3:
+        //FPL3:
             do
             {
                 Z80.LDI(buf);
@@ -598,12 +598,12 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         public void FMP()
         {
             Z80.B = 6;
-        FMP2:
+        //FMP2:
             do
             {
                 Mem.stack.Push(Z80.BC);
                 Z80.B = 4;
-            FMP3:
+            //FMP3:
                 do
                 {
                     Mem.stack.Push(Z80.BC);
@@ -652,13 +652,13 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             // OUT:6000Hﾖﾘ 26BYTE
             Z80.DE = PARAM;
             Z80.B = 4;
-        CV1:
+        //CV1:
             do
             {
                 Mem.stack.Push(Z80.BC);
                 Mem.stack.Push(Z80.DE);
                 Z80.B = 9;
-            CV2:
+            //CV2:
                 do
                 {
                     Z80.A = Mem.LD_8(Z80.HL);
@@ -698,7 +698,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.IX = PARAM;
             Z80.IY = OTOWK + 1;
             Z80.B = 4;
-        GETP2:
+        //GETP2:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -724,7 +724,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.IX = PARAM;
             Z80.IY = OTOWK + 9;
             Z80.B = 4;
-        GETP3:
+        //GETP3:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -750,7 +750,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.IX = PARAM;
             Z80.IY = OTOWK + 21;
             Z80.B = 4;
-        GETP4:
+        //GETP4:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -787,7 +787,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.B = 10;
             Z80.HL = PARAM + 1;     // EX OP2, OP3
-        OPI4:
+        //OPI4:
             do
             {
                 Z80.A = Mem.LD_8(Z80.HL);
@@ -813,7 +813,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         // ---   SET DT&ML   ---
 
-        OPI0:
+        //OPI0:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -845,7 +845,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
             Z80.IX = PARAM;
             Z80.B = 4;
-        OPI1:
+        //OPI1:
             do
             {
                 Mem.stack.Push(Z80.BC);
@@ -876,7 +876,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
             Z80.IX = PARAM + 12;
             Z80.B = 4;
-        OPI3:
+        //OPI3:
             do
             {
                 Mem.stack.Push(Z80.BC);

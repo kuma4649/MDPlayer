@@ -392,7 +392,7 @@ namespace MDPlayer.Driver.MUCOM88
                     break;
                 case 0x45:
                     //log.Write(string.Format("FM P0 Out:Adr[{0:x02}] val[{1:x02}]", (int)port0Adr, (int)val));
-                    ChipRegister.setYM2608Register(0, 0, (int)port0Adr, (int)val, model);
+                    ChipRegister.YM2608SetRegister(0,0, 0, (int)port0Adr, (int)val);
                     fmTimer.WriteReg(port0Adr, val);
                     break;
                 case 0x46:
@@ -400,7 +400,7 @@ namespace MDPlayer.Driver.MUCOM88
                     break;
                 case 0x47:
                     //log.Write(string.Format("FM P1 Out:Adr[{0:x02}] val[{1:x02}]", (int)port1Adr, (int)val));
-                    ChipRegister.setYM2608Register(0, 1, (int)port1Adr, (int)val, model);
+                    ChipRegister.YM2608SetRegister(0,0, 1, (int)port1Adr, (int)val);
                     break;
                 case 0x5c:
                     Mem.GVRAM_SW = Mem.EnmGVRAM.BPLANE;

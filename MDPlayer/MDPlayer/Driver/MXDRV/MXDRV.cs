@@ -54,11 +54,10 @@ namespace MDPlayer.Driver.MXDRV
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -75,15 +74,15 @@ namespace MDPlayer.Driver.MXDRV
             for (int chipID = 0; chipID < 2; chipID++)
             {
                 YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
-                if (model == EnmModel.RealModel)
-                {
-                    YM2151Hosei[chipID] = 0;
-                    int clock = chipRegister.getYM2151Clock((byte)chipID);
-                    if (clock != -1)
-                    {
-                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
-                    }
-                }
+                //if (model == EnmModel.RealModel)
+                //{
+                //    YM2151Hosei[chipID] = 0;
+                //    int clock = chipRegister.getYM2151Clock((byte)chipID);
+                //    if (clock != -1)
+                //    {
+                //        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
+                //    }
+                //}
             }
 
             //byte[] mdx;
@@ -120,11 +119,10 @@ namespace MDPlayer.Driver.MXDRV
             return true;
         }
 
-        public bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime,MDSound.ym2151_x68sound mdxPCM)
+        public bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime,MDSound.ym2151_x68sound mdxPCM)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -142,15 +140,15 @@ namespace MDPlayer.Driver.MXDRV
             for (int chipID = 0; chipID < 2; chipID++)
             {
                 YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, 3579545);
-                if (model == EnmModel.RealModel)
-                {
-                    YM2151Hosei[chipID] = 0;
-                    int clock = chipRegister.getYM2151Clock((byte)chipID);
-                    if (clock != -1)
-                    {
-                        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
-                    }
-                }
+                //if (model == EnmModel.RealModel)
+                //{
+                //    YM2151Hosei[chipID] = 0;
+                //    int clock = chipRegister.getYM2151Clock((byte)chipID);
+                //    if (clock != -1)
+                //    {
+                //        YM2151Hosei[chipID] = Common.GetYM2151Hosei(4000000, clock);
+                //    }
+                //}
             }
 
 
@@ -170,15 +168,15 @@ namespace MDPlayer.Driver.MXDRV
             }
 
             int ret;
-            if (model == EnmModel.VirtualModel)
-            {
+            //if (model == EnmModel.VirtualModel)
+            //{
                 //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
                 ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
-            }
-            else
-            {
-                ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
-            }
+            //}
+            //else
+            //{
+                //ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
+            //}
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
             memind += mdxsize;
@@ -994,7 +992,7 @@ namespace MDPlayer.Driver.MXDRV
             //Debug.WriteLine("{0:x02} {1:x02}", D1 & 0xff, D2 & 0xff);
 
             mdxPCM.sound_Iocs[0]._iocs_opmset((byte)D1, (byte)D2);
-            chipRegister.setYM2151Register(0, 0, (int)D1, (int)D2, model, YM2151Hosei[0], 0);
+            //chipRegister.YM2151SetRegister(0, 0, (int)D1, (int)D2, YM2151Hosei[0], 0);
 
             if (D1 == 0x10)
             {

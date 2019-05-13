@@ -10,20 +10,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmMIDI : Form
+    public partial class frmMIDI : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
-
         private MIDIParam newParam = null;
         private MIDIParam oldParam = new MIDIParam();
-        private FrameBuffer frameBuffer = new FrameBuffer();
+
         private string notes = "";
 
 
@@ -41,7 +32,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -105,7 +96,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             MIDIParam prm = Audio.GetMIDIInfos(chipID);
 
@@ -231,7 +222,7 @@ namespace MDPlayer.form
 
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             int module = newParam.MIDIModule;
 
@@ -461,7 +452,7 @@ namespace MDPlayer.form
 
         }
 
-        internal void screenInit()
+        public override void screenInit()
         {
             int module = newParam.MIDIModule;
             newParam.LCD8850DisplayTime = 0;

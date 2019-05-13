@@ -63,7 +63,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             //Mem.LD_8(Z80.HL, 6);
             VRTCC = 6;
 
-        CH2:
+        //CH2:
             PC88.CALL(TIME);
         CH3:
             Z80.A = Mem.LD_8(S_ILVL);

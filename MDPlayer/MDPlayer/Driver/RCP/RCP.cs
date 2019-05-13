@@ -183,11 +183,10 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -211,11 +210,11 @@ namespace MDPlayer
             //ポートごとに事前に送信するコマンドを作成する
             if (!MakeBeforeSendCommand()) return false;
 
-            if (model == EnmModel.RealModel)
-            {
-                chipRegister.setYM2612SyncWait(0, 1);
-                chipRegister.setYM2612SyncWait(1, 1);
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    chipRegister.setYM2612SyncWait(0, 1);
+            //    chipRegister.setYM2612SyncWait(1, 1);
+            //}
 
             return true;
         }
@@ -1133,6 +1132,7 @@ namespace MDPlayer
 
                 Counter++;
                 vgmFrameCounter++;
+                Audio.DriverSeqCounter++;
 
                 musicStep = Common.SampleRate * oneSyncTime;
 
@@ -1295,7 +1295,7 @@ namespace MDPlayer
                 dat.Add(pMIDIMessage[i]);
 //                chipRegister.sendMIDIout(model, n, vv, vstDelta);
             }
-            chipRegister.sendMIDIout(model, n, dat.ToArray(), vstDelta);
+            chipRegister.sendMIDIout(Audio.DriverSeqCounter, n, dat.ToArray());//, vstDelta);
         }
 
         /// <summary>
@@ -1799,7 +1799,8 @@ namespace MDPlayer
         void sefCommentStart(MIDITrack trk, MIDIEvent eve)
         {
             trk.Comment = (Encoding.GetEncoding("Shift_JIS").GetString(eve.MIDIMessageLst[0])).Replace("\0", "");
-            chipRegister.midiParams[0].Lyric = trk.Comment;
+            chipRegister.sendMIDIoutLyric(Audio.DriverSeqCounter, 0, trk.Comment);
+            //chipRegister.midiParams[0].Lyric = trk.Comment;
         }
 
         void sefLoopEnd(MIDITrack trk, MIDIEvent eve)
@@ -2461,7 +2462,7 @@ namespace MDPlayer
 
                     CtlSysex csx = beforeSend[i][sendControlIndex[i]];
                     sendControlDelta[i] = csx.delta;
-                    chipRegister.sendMIDIout(model, 0, csx.data, vstDelta);
+                    chipRegister.sendMIDIout(Audio.DriverSeqCounter, i, csx.data);//, vstDelta);
 
                     sendControlIndex[i]++;
                 }

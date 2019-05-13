@@ -519,6 +519,33 @@ namespace MDPlayer
             }
         }
 
+        private bool _IsManualDetect = false;
+        public bool IsManualDetect
+        {
+            get
+            {
+                return _IsManualDetect;
+            }
+
+            set
+            {
+                _IsManualDetect = value;
+            }
+        }
+
+        private int _AutoDetectModuleType = 1;
+        public int AutoDetectModuleType
+        {
+            get
+            {
+                return _AutoDetectModuleType;
+            }
+
+            set
+            {
+                _AutoDetectModuleType = value;
+            }
+        }
 
         private int _LatencyEmulation = 0;
         public int LatencyEmulation
@@ -1070,6 +1097,48 @@ namespace MDPlayer
                 }
             }
 
+            private int _Type = 0;
+            public int Type
+            {
+                get
+                {
+                    return _Type;
+                }
+
+                set
+                {
+                    _Type = value;
+                }
+            }
+
+            private int _Type2A = 0;
+            public int Type2A
+            {
+                get
+                {
+                    return _Type2A;
+                }
+
+                set
+                {
+                    _Type2A = value;
+                }
+            }
+
+            private int _Type2B = 0;
+            public int Type2B
+            {
+                get
+                {
+                    return _Type2B;
+                }
+
+                set
+                {
+                    _Type2B = value;
+                }
+            }
+
             private string _InterfaceName2B = "";
             public string InterfaceName2B
             {
@@ -1219,21 +1288,24 @@ namespace MDPlayer
                 ct.UseEmu2 = this.UseEmu2;
                 ct.UseEmu3 = this.UseEmu3;
                 ct.UseScci = this.UseScci;
-                ct.SoundLocation = this.SoundLocation;
 
+                ct.SoundLocation = this.SoundLocation;
+                ct.Type = this.Type;
                 ct.BusID = this.BusID;
                 ct.InterfaceName = this.InterfaceName;
                 ct.SoundChip = this.SoundChip;
                 ct.ChipName = this.ChipName;
                 ct.UseScci2 = this.UseScci2;
-                ct.SoundLocation2A = this.SoundLocation2A;
 
+                ct.SoundLocation2A = this.SoundLocation2A;
+                ct.Type2A = this.Type2A;
                 ct.InterfaceName2A = this.InterfaceName2A;
                 ct.BusID2A = this.BusID2A;
                 ct.SoundChip2A = this.SoundChip2A;
                 ct.ChipName2A = this.ChipName2A;
-                ct.SoundLocation2B = this.SoundLocation2B;
 
+                ct.SoundLocation2B = this.SoundLocation2B;
+                ct.Type2B = this.Type2B;
                 ct.InterfaceName2B = this.InterfaceName2B;
                 ct.BusID2B = this.BusID2B;
                 ct.SoundChip2B = this.SoundChip2B;
@@ -1450,6 +1522,18 @@ namespace MDPlayer
             private bool _EmptyPlayList = false;
             public bool EmptyPlayList { get => _EmptyPlayList; set => _EmptyPlayList = value; }
 
+            private int _Opacity = 100;
+            public int Opacity {
+                get {
+                    _Opacity = Common.Range(_Opacity, 10, 100);
+                    return _Opacity;
+                }
+                set {
+                    _Opacity = value;
+                    _Opacity = Common.Range(_Opacity, 10, 100);
+                }
+            }
+
             public Other Copy()
             {
                 Other other = new Other();
@@ -1471,6 +1555,7 @@ namespace MDPlayer
                 other.ImageExt = this.ImageExt;
                 other.InitAlways = this.InitAlways;
                 other.EmptyPlayList = this.EmptyPlayList;
+                other.Opacity = this.Opacity;
 
                 return other;
             }
@@ -4358,8 +4443,10 @@ namespace MDPlayer
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
 
+            setting.AY8910Type = this.AY8910Type.Copy();
             setting.YM2151Type = this.YM2151Type.Copy();
             setting.YM2203Type = this.YM2203Type.Copy();
+            setting.YM2413Type = this.YM2413Type.Copy();
             setting.YM2608Type = this.YM2608Type.Copy();
             setting.YM2610Type = this.YM2610Type.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();
@@ -4367,8 +4454,10 @@ namespace MDPlayer
             setting.C140Type = this.C140Type.Copy();
             setting.SEGAPCMType = this.SEGAPCMType.Copy();
 
+            setting.AY8910SType = this.AY8910SType.Copy();
             setting.YM2151SType = this.YM2151SType.Copy();
             setting.YM2203SType = this.YM2203SType.Copy();
+            setting.YM2413SType = this.YM2413SType.Copy();
             setting.YM2608SType = this.YM2608SType.Copy();
             setting.YM2610SType = this.YM2610SType.Copy();
             setting.YM2612SType = this.YM2612SType.Copy();
@@ -4393,6 +4482,8 @@ namespace MDPlayer
             setting.autoBalance = this.autoBalance.Copy();
 
             setting.keyBoardHook = this.keyBoardHook.Copy();
+            setting.IsManualDetect = this.IsManualDetect;
+            setting.AutoDetectModuleType = this.AutoDetectModuleType;
 
             return setting;
         }

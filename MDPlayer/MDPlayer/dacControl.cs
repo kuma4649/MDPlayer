@@ -18,7 +18,7 @@ namespace MDPlayer
         public EnmModel model = EnmModel.VirtualModel;
 
 
-        public void sendCommand(dac_control chip)
+        public void sendCommand(long Counter,dac_control chip)
         {
             byte Port;
             byte Command;
@@ -43,13 +43,13 @@ namespace MDPlayer
                     Data = chip.Data[(chip.DataStart + chip.RealPos)];
                     //if (model == enmModel.RealModel) log.Write(string.Format("{0:x} {1:x}", Data, chip.RealPos));
 
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, Port, Command, Data);
+                    chip_reg_write(Counter,chip.DstChipType, chip.DstChipID, Port, Command, Data);
                     break;
                 case 0x11:  // PWM (4-bit Register, 12-bit Data)
                     Port = (byte)((chip.DstCommand & 0x000F) >> 0);
                     Command = (byte)(chip.Data[chip.DataStart + chip.RealPos + 1] & 0x0F);
                     Data = chip.Data[chip.DataStart + chip.RealPos];
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, Port, Command, Data);
+                    chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, Port, Command, Data);
                     break;
                 // Support for other chips (mainly for completeness)
                 case 0x00:  // SN76496 (4-bit Register, 4-bit/10-bit Data)
@@ -58,14 +58,14 @@ namespace MDPlayer
                     if ((Command & 0x10) > 0)
                     {
                         // Volume Change (4-Bit value)
-                        chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, 0x00, (byte)(Command | Data));
+                        chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, 0x00, (byte)(Command | Data));
                     }
                     else
                     {
                         // Frequency Write (10-Bit value)
                         Port = (byte)(((chip.Data[chip.DataStart + chip.RealPos + 1] & 0x03) << 4) | ((chip.Data[chip.DataStart + chip.RealPos] & 0xF0) >> 4));
-                        chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, 0x00, (byte)(Command | Data));
-                        chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, 0x00, Port);
+                        chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, 0x00, (byte)(Command | Data));
+                        chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, 0x00, Port);
                     }
                     break;
                 case 0x18:  // OKIM6295 - TODO: verify
@@ -79,19 +79,19 @@ namespace MDPlayer
                         {
                             // Sample Start
                             // write sample ID
-                            chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
+                            chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
                             // write channel(s) that should play the sample
-                            chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, Command, (byte)(Port << 4));
+                            chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, Command, (byte)(Port << 4));
                         }
                         else
                         {
                             // Sample Stop
-                            chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, Command, (byte)(Port << 3));
+                            chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, Command, (byte)(Port << 3));
                         }
                     }
                     else
                     {
-                        chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
+                        chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
                     }
                     break;
                 // Generic support: 8-bit Register, 8-bit Data
@@ -112,7 +112,7 @@ namespace MDPlayer
                 case 0x1E:  // Pokey - TODO: Verify
                     Command = (byte)((chip.DstCommand & 0x00FF) >> 0);
                     Data = chip.Data[chip.DataStart + chip.RealPos];
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
+                    chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, Command, Data);
                     break;
                 // Generic support: 16-bit Register, 8-bit Data
                 case 0x07:  // YM2608
@@ -126,7 +126,7 @@ namespace MDPlayer
                     Port = (byte)((chip.DstCommand & 0xFF00) >> 8);
                     Command = (byte)((chip.DstCommand & 0x00FF) >> 0);
                     Data = chip.Data[chip.DataStart + chip.RealPos];
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, Port, Command, Data);
+                    chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, Port, Command, Data);
                     break;
                 // Generic support: 8-bit Register with Channel Select, 8-bit Data
                 case 0x05:  // RF5C68
@@ -137,14 +137,14 @@ namespace MDPlayer
                     Data = chip.Data[chip.DataStart + chip.RealPos];
 
                     if (Port != 0xFF)   // Send Channel Select
-                        chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, (byte)(Command >> 4), Port);
+                        chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, (byte)(Command >> 4), Port);
                     // Send Data
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, 0x00, (byte)(Command & 0x0F), Data);
+                    chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, 0x00, (byte)(Command & 0x0F), Data);
                     break;
                 // Generic support: 8-bit Register, 16-bit Data
                 case 0x1F:  // QSound
                     Command = (byte)((chip.DstCommand & 0x00FF) >> 0);
-                    chip_reg_write(chip.DstChipType, chip.DstChipID, chip.Data[chip.DataStart + chip.RealPos], chip.Data[chip.DataStart + chip.RealPos + 1], Command);
+                    chip_reg_write(Counter, chip.DstChipType, chip.DstChipID, chip.Data[chip.DataStart + chip.RealPos], chip.Data[chip.DataStart + chip.RealPos + 1], Command);
                     break;
             }
             chip.Running |= 0x10;
@@ -158,7 +158,7 @@ namespace MDPlayer
             return (uint)(((ulong)Multiplicand * Multiplier + Multiplier / 2) / Divisor);
         }
 
-        public void update(byte ChipID, uint samples)
+        public void update(long Counter, byte ChipID, uint samples)
         {
             dac_control chip = DACData[ChipID];
             uint NewPos;
@@ -192,11 +192,11 @@ namespace MDPlayer
             // Formula: Step * Freq / SampleRate
             NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)Common.SampleRate);// DAC_SMPL_RATE);
             //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);
-            sendCommand(chip);
+            sendCommand(Counter, chip);
 
             while (chip.RemainCmds > 0 && chip.Pos < NewPos)
             {
-                sendCommand(chip);
+                sendCommand(Counter, chip);
                 chip.Pos += chip.DataStep;
                 //if(model== enmModel.RealModel)                log.Write(string.Format("datastep:{0}",chip.DataStep));
                 chip.RealPos = (uint)((int)chip.RealPos + RealDataStp);
@@ -425,25 +425,26 @@ namespace MDPlayer
             return;
         }
 
-        private void chip_reg_write(byte ChipType, byte ChipID, byte Port, byte Offset, byte Data)
+        private void chip_reg_write(long Counter, byte ChipType, byte ChipID, byte Port, byte Offset, byte Data)
         {
             switch (ChipType)
             {
                 case 0x02:  // YM2612
-                    chipRegister.setYM2612Register(ChipID,Port, Offset, Data, model,-1);
+                    chipRegister.YM2612SetRegister(Counter, ChipID, Port, Offset, Data);
+                    //log.Write(string.Format("Cnt{0} Data{1}",Counter,Data));
                     break;
                 case 0x10:
-                    chipRegister.writeRF5C164(ChipID, Offset, Data, model);
+                    chipRegister.writeRF5C164(ChipID, Offset, Data);
                     break;
                 case 0x11:  // PWM
-                    chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)), model);
+                    chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)));
                     break;
                 case 0x17:  // OKIM6258
-                    if(model== EnmModel.VirtualModel) //System.Console.Write("[DAC]");
-                    chipRegister.writeOKIM6258(ChipID, Offset, Data, model);
+                    if (model == EnmModel.VirtualModel) //System.Console.Write("[DAC]");
+                        chipRegister.writeOKIM6258(ChipID, Offset, Data);
                     break;
                 case 0x1b:  // HuC6280
-                    chipRegister.setHuC6280Register(ChipID, Offset, Data, model);
+                    chipRegister.setHuC6280Register(ChipID, Offset, Data);
                     break;
             }
         }

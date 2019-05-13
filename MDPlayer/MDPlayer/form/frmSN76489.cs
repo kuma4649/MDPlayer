@@ -10,20 +10,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmSN76489 : Form
+    public partial class frmSN76489 : frmChipBase
     {
-        public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
 
         private MDChipParams.SN76489 newParam = null;
         private MDChipParams.SN76489 oldParam = new MDChipParams.SN76489();
-        private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmSN76489(frmMain frm, int chipID, int zoom, MDChipParams.SN76489 newParam)
         {
@@ -41,7 +32,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public override void update()
         {
             frameBuffer.Refresh(null);
         }
@@ -105,7 +96,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
+        public override void screenChangeParams()
         {
             int[] psgRegister = Audio.GetPSGRegister(chipID);
             int psgRegisterPan = Audio.GetPSGRegisterGGPanning(chipID);
@@ -140,7 +131,7 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenDrawParams()
+        public override void screenDrawParams()
         {
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
             int tp = SN76489Type ? 1 : 0;
@@ -174,7 +165,7 @@ namespace MDPlayer.form
 
         }
 
-        public void screenInit()
+        public override void screenInit()
         {
             for (int ch = 0; ch < 3; ch++)
             {

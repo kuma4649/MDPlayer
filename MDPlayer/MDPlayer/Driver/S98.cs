@@ -152,11 +152,10 @@ namespace MDPlayer
             return gd3;
         }
 
-        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.vgmBuf = vgmBuf;
             this.chipRegister = chipRegister;
-            this.model = model;
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
@@ -175,11 +174,11 @@ namespace MDPlayer
 
             if (!getInformationHeader()) return false;
 
-            if (model == EnmModel.RealModel)
-            {
-                chipRegister.setYM2612SyncWait(0, 1);
-                chipRegister.setYM2612SyncWait(1, 1);
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    chipRegister.setYM2612SyncWait(0, 1);
+            //    chipRegister.setYM2612SyncWait(1, 1);
+            //}
 
             return true;
         }
@@ -480,32 +479,32 @@ namespace MDPlayer
                         break;
                     case 4:
 
-                        if (model == EnmModel.RealModel)
-                        {
-                            if (ym2608WaitCounter > 200)
-                            {
-                                isDataBlock = true;
-                                ym2608WaitCounter = 0;
+                        //if (model == EnmModel.RealModel)
+                        //{
+                        //    if (ym2608WaitCounter > 200)
+                        //    {
+                        //        isDataBlock = true;
+                        //        ym2608WaitCounter = 0;
 
-                                System.Threading.Thread.Sleep(10);
-                                //while ((chipRegister.getYM2608Register(s98Info.DeviceInfos[devNo].ChipID, 0x1, 0x00, model) & 0xbf) != 0)
-                                //{
-                                //    System.Threading.Thread.Sleep(0);
-                                //}
+                        //        System.Threading.Thread.Sleep(10);
+                        //        //while ((chipRegister.getYM2608Register(s98Info.DeviceInfos[devNo].ChipID, 0x1, 0x00, model) & 0xbf) != 0)
+                        //        //{
+                        //        //    System.Threading.Thread.Sleep(0);
+                        //        //}
 
-                                isDataBlock = false;
-                            }
+                        //        isDataBlock = false;
+                        //    }
 
-                            //if (ym2608WaitCounter > 1000)
-                            //{
-                            //    ym2608WaitSw = true;
-                            //}
-                            //else if (ym2608WaitSw && ym2608WaitCounter == 1)
-                            //{
-                            //    chipRegister.sendDataYM2608(s98Info.DeviceInfos[devNo].ChipID, model);
-                            //    ym2608WaitSw = false;
-                            //}
-                        }
+                        //    //if (ym2608WaitCounter > 1000)
+                        //    //{
+                        //    //    ym2608WaitSw = true;
+                        //    //}
+                        //    //else if (ym2608WaitSw && ym2608WaitCounter == 1)
+                        //    //{
+                        //    //    chipRegister.sendDataYM2608(s98Info.DeviceInfos[devNo].ChipID, model);
+                        //    //    ym2608WaitSw = false;
+                        //    //}
+                        //}
 
                         WriteYM2608(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
                         ym2608WaitCounter++;
@@ -530,37 +529,37 @@ namespace MDPlayer
 
         private void WriteYM2203(int chipID, byte adr, byte data)
         {
-            chipRegister.setYM2203Register(chipID, adr, data, model);
+            chipRegister.YM2203SetRegister(0, chipID, adr, data);
         }
 
         private void WriteYM2612(int chipID, byte port, byte adr, byte data)
         {
-            chipRegister.setYM2612Register(chipID, port, adr, data, model, 0);
+            chipRegister.YM2612SetRegister(0,chipID, port, adr, data);
         }
 
         private void WriteYM2608(int chipID, byte port, byte adr, byte data)
         {
-            chipRegister.setYM2608Register(chipID, port, adr, data, model);
+            chipRegister.YM2608SetRegister(0,chipID, port, adr, data);
         }
 
         private void WriteYM2151(int chipID, byte port, byte adr, byte data)
         {
-            chipRegister.setYM2151Register(chipID, port, adr, data, model, YM2151Hosei[chipID], 0);
+            chipRegister.YM2151SetRegister(0, chipID, adr, data);//, YM2151Hosei[chipID], 0);
         }
 
         private void WriteYM2413(int chipID, byte adr, byte data)
         {
-            chipRegister.setYM2413Register(chipID, adr, data, model);
+            chipRegister.YM2413SetRegister(0, chipID, adr, data);
         }
 
         private void WriteAY8910(int chipID, byte adr, byte data)
         {
-            chipRegister.setAY8910Register(chipID, adr, data, model);
+            chipRegister.AY8910SetRegister(0,chipID, adr, data);
         }
 
         private void WriteSN76489(int chipID, byte data)
         {
-            chipRegister.setSN76489Register(chipID, data, model);
+            chipRegister.SN76489SetRegister(0, chipID, data);
         }
 
     }

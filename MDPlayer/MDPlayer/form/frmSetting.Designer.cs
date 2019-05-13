@@ -48,7 +48,13 @@
             this.tcSetting = new System.Windows.Forms.TabControl();
             this.tpOutput = new System.Windows.Forms.TabPage();
             this.rbNullDevice = new System.Windows.Forms.RadioButton();
-            this.label36 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbLatencyEmu = new System.Windows.Forms.TextBox();
+            this.tbLatencySCCI = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.lblWaitTime = new System.Windows.Forms.Label();
             this.lblLatencyUnit = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
@@ -58,17 +64,14 @@
             this.rbSPPCM = new System.Windows.Forms.RadioButton();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
-            this.tpModule = new System.Windows.Forms.TabPage();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.rbManualDetect = new System.Windows.Forms.RadioButton();
+            this.rbAutoDetect = new System.Windows.Forms.RadioButton();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.rbSCCIDetect = new System.Windows.Forms.RadioButton();
+            this.rbC86ctlDetect = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ucSI = new MDPlayer.form.ucSettingInstruments();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbLatencyEmu = new System.Windows.Forms.TextBox();
-            this.tbLatencySCCI = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tpNuked = new System.Windows.Forms.TabPage();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.rbNukedOPN2OptionYM2612u = new System.Windows.Forms.RadioButton();
@@ -102,7 +105,6 @@
             this.tbNSFFds_LPF = new System.Windows.Forms.TextBox();
             this.cbNFSFds_4085Reset = new System.Windows.Forms.CheckBox();
             this.cbNSFFDSWriteDisable8000 = new System.Windows.Forms.CheckBox();
-            this.tpSID = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -124,8 +126,13 @@
             this.tbSIDOutputBufferSize = new System.Windows.Forms.TextBox();
             this.label51 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.tpMIDIOut = new System.Windows.Forms.TabPage();
-            this.btnAddVST = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label16 = new System.Windows.Forms.Label();
+            this.dgvMIDIoutPallet = new System.Windows.Forms.DataGridView();
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbcMIDIoutList = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvMIDIoutListA = new System.Windows.Forms.DataGridView();
@@ -175,16 +182,10 @@
             this.dgvMIDIoutListJ = new System.Windows.Forms.DataGridView();
             this.button17 = new System.Windows.Forms.Button();
             this.btnDOWN_J = new System.Windows.Forms.Button();
-            this.btnSubMIDIout = new System.Windows.Forms.Button();
-            this.btnAddMIDIout = new System.Windows.Forms.Button();
+            this.btnAddVST = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.dgvMIDIoutPallet = new System.Windows.Forms.DataGridView();
-            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSpacer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tpMIDIOut2 = new System.Windows.Forms.TabPage();
+            this.btnAddMIDIout = new System.Windows.Forms.Button();
+            this.btnSubMIDIout = new System.Windows.Forms.Button();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.btnBeforeSend_Default = new System.Windows.Forms.Button();
             this.tbBeforeSend_Custom = new System.Windows.Forms.TextBox();
@@ -400,6 +401,8 @@
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
             this.tpOmake = new System.Windows.Forms.TabPage();
+            this.tbOpacity = new System.Windows.Forms.TrackBar();
+            this.label52 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.btVST = new System.Windows.Forms.Button();
             this.tbVST = new System.Windows.Forms.TextBox();
@@ -413,16 +416,28 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.tabPage16 = new System.Windows.Forms.TabPage();
+            this.tabPage17 = new System.Windows.Forms.TabPage();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
             this.gbDirectSound.SuspendLayout();
             this.tcSetting.SuspendLayout();
             this.tpOutput.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.tpModule.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.groupBox27.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tpNuked.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.tpNSF.SuspendLayout();
@@ -431,10 +446,13 @@
             this.groupBox11.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.tpSID.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            this.tpMIDIOut.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).BeginInit();
             this.tbcMIDIoutList.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListA)).BeginInit();
@@ -456,8 +474,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListI)).BeginInit();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).BeginInit();
-            this.tpMIDIOut2.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.tabMIDIExp.SuspendLayout();
             this.gbMIDIExport.SuspendLayout();
@@ -500,10 +516,21 @@
             this.gbWav.SuspendLayout();
             this.gbDump.SuspendLayout();
             this.tpOmake.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            this.tabPage13.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage14.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage15.SuspendLayout();
+            this.tabPage16.SuspendLayout();
+            this.tabPage17.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -530,13 +557,12 @@
             // 
             // gbWaveOut
             // 
-            this.gbWaveOut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbWaveOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbWaveOut.Controls.Add(this.cmbWaveOutDevice);
-            this.gbWaveOut.Location = new System.Drawing.Point(7, 31);
+            this.gbWaveOut.Location = new System.Drawing.Point(6, 10);
             this.gbWaveOut.Name = "gbWaveOut";
-            this.gbWaveOut.Size = new System.Drawing.Size(429, 48);
+            this.gbWaveOut.Size = new System.Drawing.Size(417, 48);
             this.gbWaveOut.TabIndex = 1;
             this.gbWaveOut.TabStop = false;
             // 
@@ -548,14 +574,14 @@
             this.cmbWaveOutDevice.FormattingEnabled = true;
             this.cmbWaveOutDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbWaveOutDevice.Name = "cmbWaveOutDevice";
-            this.cmbWaveOutDevice.Size = new System.Drawing.Size(417, 20);
+            this.cmbWaveOutDevice.Size = new System.Drawing.Size(405, 20);
             this.cmbWaveOutDevice.TabIndex = 0;
             // 
             // rbWaveOut
             // 
             this.rbWaveOut.AutoSize = true;
             this.rbWaveOut.Checked = true;
-            this.rbWaveOut.Location = new System.Drawing.Point(13, 28);
+            this.rbWaveOut.Location = new System.Drawing.Point(12, 6);
             this.rbWaveOut.Name = "rbWaveOut";
             this.rbWaveOut.Size = new System.Drawing.Size(68, 16);
             this.rbWaveOut.TabIndex = 0;
@@ -567,7 +593,7 @@
             // rbAsioOut
             // 
             this.rbAsioOut.AutoSize = true;
-            this.rbAsioOut.Location = new System.Drawing.Point(13, 192);
+            this.rbAsioOut.Location = new System.Drawing.Point(12, 174);
             this.rbAsioOut.Name = "rbAsioOut";
             this.rbAsioOut.Size = new System.Drawing.Size(64, 16);
             this.rbAsioOut.TabIndex = 6;
@@ -578,7 +604,7 @@
             // rbWasapiOut
             // 
             this.rbWasapiOut.AutoSize = true;
-            this.rbWasapiOut.Location = new System.Drawing.Point(13, 136);
+            this.rbWasapiOut.Location = new System.Drawing.Point(12, 117);
             this.rbWasapiOut.Name = "rbWasapiOut";
             this.rbWasapiOut.Size = new System.Drawing.Size(77, 16);
             this.rbWasapiOut.TabIndex = 4;
@@ -588,21 +614,20 @@
             // 
             // gbAsioOut
             // 
-            this.gbAsioOut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbAsioOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbAsioOut.Controls.Add(this.btnASIOControlPanel);
             this.gbAsioOut.Controls.Add(this.cmbAsioDevice);
-            this.gbAsioOut.Location = new System.Drawing.Point(7, 195);
+            this.gbAsioOut.Location = new System.Drawing.Point(6, 177);
             this.gbAsioOut.Name = "gbAsioOut";
-            this.gbAsioOut.Size = new System.Drawing.Size(429, 50);
+            this.gbAsioOut.Size = new System.Drawing.Size(417, 50);
             this.gbAsioOut.TabIndex = 7;
             this.gbAsioOut.TabStop = false;
             // 
             // btnASIOControlPanel
             // 
             this.btnASIOControlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnASIOControlPanel.Location = new System.Drawing.Point(342, 8);
+            this.btnASIOControlPanel.Location = new System.Drawing.Point(330, 8);
             this.btnASIOControlPanel.Name = "btnASIOControlPanel";
             this.btnASIOControlPanel.Size = new System.Drawing.Size(81, 39);
             this.btnASIOControlPanel.TabIndex = 8;
@@ -618,13 +643,13 @@
             this.cmbAsioDevice.FormattingEnabled = true;
             this.cmbAsioDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbAsioDevice.Name = "cmbAsioDevice";
-            this.cmbAsioDevice.Size = new System.Drawing.Size(330, 20);
+            this.cmbAsioDevice.Size = new System.Drawing.Size(318, 20);
             this.cmbAsioDevice.TabIndex = 6;
             // 
             // rbDirectSoundOut
             // 
             this.rbDirectSoundOut.AutoSize = true;
-            this.rbDirectSoundOut.Location = new System.Drawing.Point(13, 82);
+            this.rbDirectSoundOut.Location = new System.Drawing.Point(12, 62);
             this.rbDirectSoundOut.Name = "rbDirectSoundOut";
             this.rbDirectSoundOut.Size = new System.Drawing.Size(85, 16);
             this.rbDirectSoundOut.TabIndex = 2;
@@ -634,22 +659,22 @@
             // 
             // gbWasapiOut
             // 
-            this.gbWasapiOut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbWasapiOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbWasapiOut.Controls.Add(this.rbExclusive);
             this.gbWasapiOut.Controls.Add(this.rbShare);
             this.gbWasapiOut.Controls.Add(this.cmbWasapiDevice);
-            this.gbWasapiOut.Location = new System.Drawing.Point(7, 139);
+            this.gbWasapiOut.Location = new System.Drawing.Point(6, 121);
             this.gbWasapiOut.Name = "gbWasapiOut";
-            this.gbWasapiOut.Size = new System.Drawing.Size(429, 50);
+            this.gbWasapiOut.Size = new System.Drawing.Size(417, 50);
             this.gbWasapiOut.TabIndex = 5;
             this.gbWasapiOut.TabStop = false;
             // 
             // rbExclusive
             // 
+            this.rbExclusive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbExclusive.AutoSize = true;
-            this.rbExclusive.Location = new System.Drawing.Point(342, 31);
+            this.rbExclusive.Location = new System.Drawing.Point(330, 31);
             this.rbExclusive.Name = "rbExclusive";
             this.rbExclusive.Size = new System.Drawing.Size(47, 16);
             this.rbExclusive.TabIndex = 7;
@@ -659,8 +684,9 @@
             // 
             // rbShare
             // 
+            this.rbShare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbShare.AutoSize = true;
-            this.rbShare.Location = new System.Drawing.Point(342, 9);
+            this.rbShare.Location = new System.Drawing.Point(330, 9);
             this.rbShare.Name = "rbShare";
             this.rbShare.Size = new System.Drawing.Size(47, 16);
             this.rbShare.TabIndex = 6;
@@ -676,18 +702,17 @@
             this.cmbWasapiDevice.FormattingEnabled = true;
             this.cmbWasapiDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbWasapiDevice.Name = "cmbWasapiDevice";
-            this.cmbWasapiDevice.Size = new System.Drawing.Size(330, 20);
+            this.cmbWasapiDevice.Size = new System.Drawing.Size(318, 20);
             this.cmbWasapiDevice.TabIndex = 4;
             // 
             // gbDirectSound
             // 
-            this.gbDirectSound.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbDirectSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDirectSound.Controls.Add(this.cmbDirectSoundDevice);
-            this.gbDirectSound.Location = new System.Drawing.Point(7, 85);
+            this.gbDirectSound.Location = new System.Drawing.Point(6, 66);
             this.gbDirectSound.Name = "gbDirectSound";
-            this.gbDirectSound.Size = new System.Drawing.Size(429, 48);
+            this.gbDirectSound.Size = new System.Drawing.Size(417, 48);
             this.gbDirectSound.TabIndex = 3;
             this.gbDirectSound.TabStop = false;
             // 
@@ -699,18 +724,17 @@
             this.cmbDirectSoundDevice.FormattingEnabled = true;
             this.cmbDirectSoundDevice.Location = new System.Drawing.Point(6, 18);
             this.cmbDirectSoundDevice.Name = "cmbDirectSoundDevice";
-            this.cmbDirectSoundDevice.Size = new System.Drawing.Size(417, 20);
+            this.cmbDirectSoundDevice.Size = new System.Drawing.Size(405, 20);
             this.cmbDirectSoundDevice.TabIndex = 2;
             // 
             // tcSetting
             // 
+            this.tcSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tcSetting.Controls.Add(this.tpOutput);
-            this.tcSetting.Controls.Add(this.tpModule);
             this.tcSetting.Controls.Add(this.tpNuked);
             this.tcSetting.Controls.Add(this.tpNSF);
-            this.tcSetting.Controls.Add(this.tpSID);
-            this.tcSetting.Controls.Add(this.tpMIDIOut);
-            this.tcSetting.Controls.Add(this.tpMIDIOut2);
             this.tcSetting.Controls.Add(this.tabMIDIExp);
             this.tcSetting.Controls.Add(this.tpMIDIKBD);
             this.tcSetting.Controls.Add(this.tpKeyBoard);
@@ -727,24 +751,7 @@
             // 
             // tpOutput
             // 
-            this.tpOutput.Controls.Add(this.rbNullDevice);
-            this.tpOutput.Controls.Add(this.label36);
-            this.tpOutput.Controls.Add(this.lblWaitTime);
-            this.tpOutput.Controls.Add(this.lblLatencyUnit);
-            this.tpOutput.Controls.Add(this.label28);
-            this.tpOutput.Controls.Add(this.lblLatency);
-            this.tpOutput.Controls.Add(this.cmbWaitTime);
-            this.tpOutput.Controls.Add(this.cmbLatency);
-            this.tpOutput.Controls.Add(this.rbSPPCM);
-            this.tpOutput.Controls.Add(this.rbDirectSoundOut);
-            this.tpOutput.Controls.Add(this.rbWaveOut);
-            this.tpOutput.Controls.Add(this.rbAsioOut);
-            this.tpOutput.Controls.Add(this.gbWaveOut);
-            this.tpOutput.Controls.Add(this.rbWasapiOut);
-            this.tpOutput.Controls.Add(this.groupBox16);
-            this.tpOutput.Controls.Add(this.gbAsioOut);
-            this.tpOutput.Controls.Add(this.gbDirectSound);
-            this.tpOutput.Controls.Add(this.gbWasapiOut);
+            this.tpOutput.Controls.Add(this.tabControl1);
             this.tpOutput.Location = new System.Drawing.Point(4, 22);
             this.tpOutput.Name = "tpOutput";
             this.tpOutput.Padding = new System.Windows.Forms.Padding(3);
@@ -755,27 +762,83 @@
             // 
             // rbNullDevice
             // 
-            this.rbNullDevice.Location = new System.Drawing.Point(274, 261);
+            this.rbNullDevice.Location = new System.Drawing.Point(225, 243);
             this.rbNullDevice.Name = "rbNullDevice";
-            this.rbNullDevice.Size = new System.Drawing.Size(122, 29);
+            this.rbNullDevice.Size = new System.Drawing.Size(158, 29);
             this.rbNullDevice.TabIndex = 2;
             this.rbNullDevice.Text = "NULL(サウンドデバイスを使用しない)";
             this.rbNullDevice.UseVisualStyleBackColor = true;
             this.rbNullDevice.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
             // 
-            // label36
+            // groupBox3
             // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(7, 7);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(67, 12);
-            this.label36.TabIndex = 3;
-            this.label36.Text = "出力デバイス";
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.tbLatencyEmu);
+            this.groupBox3.Controls.Add(this.tbLatencySCCI);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Location = new System.Drawing.Point(258, 272);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(158, 62);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "遅延演奏";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 18);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 12);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "EMU";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 40);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(28, 12);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Real";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(132, 40);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(20, 12);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "ms";
+            // 
+            // tbLatencyEmu
+            // 
+            this.tbLatencyEmu.Location = new System.Drawing.Point(41, 15);
+            this.tbLatencyEmu.Name = "tbLatencyEmu";
+            this.tbLatencyEmu.Size = new System.Drawing.Size(85, 19);
+            this.tbLatencyEmu.TabIndex = 1;
+            // 
+            // tbLatencySCCI
+            // 
+            this.tbLatencySCCI.Location = new System.Drawing.Point(41, 37);
+            this.tbLatencySCCI.Name = "tbLatencySCCI";
+            this.tbLatencySCCI.Size = new System.Drawing.Size(85, 19);
+            this.tbLatencySCCI.TabIndex = 4;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(132, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(20, 12);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "ms";
             // 
             // lblWaitTime
             // 
             this.lblWaitTime.AutoSize = true;
-            this.lblWaitTime.Location = new System.Drawing.Point(285, 347);
+            this.lblWaitTime.Location = new System.Drawing.Point(234, 316);
             this.lblWaitTime.Name = "lblWaitTime";
             this.lblWaitTime.Size = new System.Drawing.Size(20, 12);
             this.lblWaitTime.TabIndex = 9;
@@ -784,7 +847,7 @@
             // lblLatencyUnit
             // 
             this.lblLatencyUnit.AutoSize = true;
-            this.lblLatencyUnit.Location = new System.Drawing.Point(285, 321);
+            this.lblLatencyUnit.Location = new System.Drawing.Point(234, 290);
             this.lblLatencyUnit.Name = "lblLatencyUnit";
             this.lblLatencyUnit.Size = new System.Drawing.Size(20, 12);
             this.lblLatencyUnit.TabIndex = 9;
@@ -793,7 +856,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(7, 347);
+            this.label28.Location = new System.Drawing.Point(6, 316);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(98, 12);
             this.label28.TabIndex = 9;
@@ -802,11 +865,11 @@
             // lblLatency
             // 
             this.lblLatency.AutoSize = true;
-            this.lblLatency.Location = new System.Drawing.Point(7, 321);
+            this.lblLatency.Location = new System.Drawing.Point(5, 283);
             this.lblLatency.Name = "lblLatency";
-            this.lblLatency.Size = new System.Drawing.Size(145, 12);
+            this.lblLatency.Size = new System.Drawing.Size(97, 24);
             this.lblLatency.TabIndex = 9;
-            this.lblLatency.Text = "遅延時間(レンダリングバッファ)";
+            this.lblLatency.Text = "遅延時間\r\n(レンダリングバッファ)";
             // 
             // cmbWaitTime
             // 
@@ -824,7 +887,7 @@
             "4000",
             "4500",
             "5000"});
-            this.cmbWaitTime.Location = new System.Drawing.Point(158, 344);
+            this.cmbWaitTime.Location = new System.Drawing.Point(107, 313);
             this.cmbWaitTime.Name = "cmbWaitTime";
             this.cmbWaitTime.Size = new System.Drawing.Size(121, 20);
             this.cmbWaitTime.TabIndex = 8;
@@ -842,7 +905,7 @@
             "300",
             "400",
             "500"});
-            this.cmbLatency.Location = new System.Drawing.Point(158, 318);
+            this.cmbLatency.Location = new System.Drawing.Point(107, 287);
             this.cmbLatency.Name = "cmbLatency";
             this.cmbLatency.Size = new System.Drawing.Size(121, 20);
             this.cmbLatency.TabIndex = 8;
@@ -851,7 +914,7 @@
             // 
             this.rbSPPCM.AutoSize = true;
             this.rbSPPCM.Enabled = false;
-            this.rbSPPCM.Location = new System.Drawing.Point(13, 248);
+            this.rbSPPCM.Location = new System.Drawing.Point(12, 230);
             this.rbSPPCM.Name = "rbSPPCM";
             this.rbSPPCM.Size = new System.Drawing.Size(61, 16);
             this.rbSPPCM.TabIndex = 2;
@@ -861,14 +924,11 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox16.Controls.Add(this.cmbSPPCMDevice);
             this.groupBox16.Enabled = false;
-            this.groupBox16.Location = new System.Drawing.Point(7, 251);
+            this.groupBox16.Location = new System.Drawing.Point(6, 233);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(228, 48);
+            this.groupBox16.Size = new System.Drawing.Size(213, 48);
             this.groupBox16.TabIndex = 3;
             this.groupBox16.TabStop = false;
             // 
@@ -880,123 +940,110 @@
             this.cmbSPPCMDevice.FormattingEnabled = true;
             this.cmbSPPCMDevice.Location = new System.Drawing.Point(6, 19);
             this.cmbSPPCMDevice.Name = "cmbSPPCMDevice";
-            this.cmbSPPCMDevice.Size = new System.Drawing.Size(216, 20);
+            this.cmbSPPCMDevice.Size = new System.Drawing.Size(201, 20);
             this.cmbSPPCMDevice.TabIndex = 2;
             // 
-            // tpModule
+            // groupBox27
             // 
-            this.tpModule.Controls.Add(this.groupBox1);
-            this.tpModule.Controls.Add(this.groupBox3);
-            this.tpModule.Location = new System.Drawing.Point(4, 22);
-            this.tpModule.Name = "tpModule";
-            this.tpModule.Size = new System.Drawing.Size(443, 371);
-            this.tpModule.TabIndex = 3;
-            this.tpModule.Text = "音源";
-            this.tpModule.UseVisualStyleBackColor = true;
+            this.groupBox27.Controls.Add(this.rbManualDetect);
+            this.groupBox27.Controls.Add(this.rbAutoDetect);
+            this.groupBox27.Controls.Add(this.groupBox28);
+            this.groupBox27.Controls.Add(this.groupBox1);
+            this.groupBox27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox27.Location = new System.Drawing.Point(3, 3);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(423, 333);
+            this.groupBox27.TabIndex = 9;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "音源の割り当て";
+            // 
+            // rbManualDetect
+            // 
+            this.rbManualDetect.AutoSize = true;
+            this.rbManualDetect.Location = new System.Drawing.Point(12, 71);
+            this.rbManualDetect.Name = "rbManualDetect";
+            this.rbManualDetect.Size = new System.Drawing.Size(47, 16);
+            this.rbManualDetect.TabIndex = 10;
+            this.rbManualDetect.Text = "手動";
+            this.rbManualDetect.UseVisualStyleBackColor = true;
+            // 
+            // rbAutoDetect
+            // 
+            this.rbAutoDetect.AutoSize = true;
+            this.rbAutoDetect.Checked = true;
+            this.rbAutoDetect.Location = new System.Drawing.Point(12, 17);
+            this.rbAutoDetect.Name = "rbAutoDetect";
+            this.rbAutoDetect.Size = new System.Drawing.Size(47, 16);
+            this.rbAutoDetect.TabIndex = 10;
+            this.rbAutoDetect.TabStop = true;
+            this.rbAutoDetect.Text = "自動";
+            this.rbAutoDetect.UseVisualStyleBackColor = true;
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox28.Controls.Add(this.rbSCCIDetect);
+            this.groupBox28.Controls.Add(this.rbC86ctlDetect);
+            this.groupBox28.Location = new System.Drawing.Point(6, 18);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(411, 46);
+            this.groupBox28.TabIndex = 9;
+            this.groupBox28.TabStop = false;
+            // 
+            // rbSCCIDetect
+            // 
+            this.rbSCCIDetect.AutoSize = true;
+            this.rbSCCIDetect.Location = new System.Drawing.Point(212, 21);
+            this.rbSCCIDetect.Name = "rbSCCIDetect";
+            this.rbSCCIDetect.Size = new System.Drawing.Size(158, 16);
+            this.rbSCCIDetect.TabIndex = 0;
+            this.rbSCCIDetect.Text = "SCCIのモジュールを優先する";
+            this.rbSCCIDetect.UseVisualStyleBackColor = true;
+            // 
+            // rbC86ctlDetect
+            // 
+            this.rbC86ctlDetect.AutoSize = true;
+            this.rbC86ctlDetect.Checked = true;
+            this.rbC86ctlDetect.Location = new System.Drawing.Point(21, 21);
+            this.rbC86ctlDetect.Name = "rbC86ctlDetect";
+            this.rbC86ctlDetect.Size = new System.Drawing.Size(165, 16);
+            this.rbC86ctlDetect.TabIndex = 0;
+            this.rbC86ctlDetect.TabStop = true;
+            this.rbC86ctlDetect.Text = "C86ctlのモジュールを優先する";
+            this.rbC86ctlDetect.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.ucSI);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(6, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(437, 280);
+            this.groupBox1.Size = new System.Drawing.Size(411, 256);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "音源の割り当て";
             // 
             // ucSI
             // 
+            this.ucSI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Location = new System.Drawing.Point(3, 18);
             this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.Size = new System.Drawing.Size(405, 235);
             this.ucSI.TabIndex = 7;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cbHiyorimiMode);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.tbLatencyEmu);
-            this.groupBox3.Controls.Add(this.tbLatencySCCI);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Location = new System.Drawing.Point(3, 289);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(434, 79);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "遅延演奏";
-            // 
-            // cbHiyorimiMode
-            // 
-            this.cbHiyorimiMode.AutoSize = true;
-            this.cbHiyorimiMode.Location = new System.Drawing.Point(8, 59);
-            this.cbHiyorimiMode.Name = "cbHiyorimiMode";
-            this.cbHiyorimiMode.Size = new System.Drawing.Size(335, 16);
-            this.cbHiyorimiMode.TabIndex = 6;
-            this.cbHiyorimiMode.Text = "日和見モード(出力タブ：遅延時間100ms以下の時、使用を推奨)";
-            this.cbHiyorimiMode.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 18);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 12);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "エミュレーション";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 40);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(28, 12);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Real";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(144, 40);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(20, 12);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "ms";
-            // 
-            // tbLatencyEmu
-            // 
-            this.tbLatencyEmu.Location = new System.Drawing.Point(85, 15);
-            this.tbLatencyEmu.Name = "tbLatencyEmu";
-            this.tbLatencyEmu.Size = new System.Drawing.Size(53, 19);
-            this.tbLatencyEmu.TabIndex = 1;
-            // 
-            // tbLatencySCCI
-            // 
-            this.tbLatencySCCI.Location = new System.Drawing.Point(85, 37);
-            this.tbLatencySCCI.Name = "tbLatencySCCI";
-            this.tbLatencySCCI.Size = new System.Drawing.Size(53, 19);
-            this.tbLatencySCCI.TabIndex = 4;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(144, 18);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(20, 12);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "ms";
             // 
             // tpNuked
             // 
-            this.tpNuked.Controls.Add(this.groupBox26);
+            this.tpNuked.Controls.Add(this.tabControl2);
             this.tpNuked.Location = new System.Drawing.Point(4, 22);
             this.tpNuked.Name = "tpNuked";
             this.tpNuked.Size = new System.Drawing.Size(443, 371);
             this.tpNuked.TabIndex = 14;
-            this.tpNuked.Text = "Nuked-OPN2";
+            this.tpNuked.Text = "チップ別";
             this.tpNuked.UseVisualStyleBackColor = true;
             // 
             // groupBox26
@@ -1006,7 +1053,7 @@
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionDiscrete);
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIClp);
             this.groupBox26.Controls.Add(this.rbNukedOPN2OptionASIC);
-            this.groupBox26.Location = new System.Drawing.Point(7, 3);
+            this.groupBox26.Location = new System.Drawing.Point(6, 6);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(318, 128);
             this.groupBox26.TabIndex = 0;
@@ -1070,16 +1117,12 @@
             // 
             // tpNSF
             // 
-            this.tpNSF.Controls.Add(this.groupBox10);
-            this.tpNSF.Controls.Add(this.groupBox12);
-            this.tpNSF.Controls.Add(this.groupBox11);
-            this.tpNSF.Controls.Add(this.groupBox9);
-            this.tpNSF.Controls.Add(this.groupBox8);
+            this.tpNSF.Controls.Add(this.tabControl3);
             this.tpNSF.Location = new System.Drawing.Point(4, 22);
             this.tpNSF.Name = "tpNSF";
             this.tpNSF.Size = new System.Drawing.Size(443, 371);
             this.tpNSF.TabIndex = 9;
-            this.tpNSF.Text = "NSF";
+            this.tpNSF.Text = "ファイル別";
             this.tpNSF.UseVisualStyleBackColor = true;
             // 
             // groupBox10
@@ -1092,7 +1135,7 @@
             this.groupBox10.Controls.Add(this.cbNSFDmc_Enable4011);
             this.groupBox10.Controls.Add(this.cbNSFDmc_NonLinearMixer);
             this.groupBox10.Controls.Add(this.cbNSFDmc_UnmuteOnReset);
-            this.groupBox10.Location = new System.Drawing.Point(224, 3);
+            this.groupBox10.Location = new System.Drawing.Point(220, 3);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(210, 200);
             this.groupBox10.TabIndex = 8;
@@ -1182,7 +1225,7 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.cbNSFN160_Serial);
-            this.groupBox12.Location = new System.Drawing.Point(224, 209);
+            this.groupBox12.Location = new System.Drawing.Point(220, 209);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(210, 62);
             this.groupBox12.TabIndex = 8;
@@ -1203,7 +1246,7 @@
             // 
             this.groupBox11.Controls.Add(this.cbNSFMmc5_PhaseRefresh);
             this.groupBox11.Controls.Add(this.cbNSFMmc5_NonLinearMixer);
-            this.groupBox11.Location = new System.Drawing.Point(7, 209);
+            this.groupBox11.Location = new System.Drawing.Point(3, 209);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(210, 62);
             this.groupBox11.TabIndex = 8;
@@ -1236,7 +1279,7 @@
             this.groupBox9.Controls.Add(this.cbNFSNes_PhaseRefresh);
             this.groupBox9.Controls.Add(this.cbNFSNes_NonLinearMixer);
             this.groupBox9.Controls.Add(this.cbNFSNes_UnmuteOnReset);
-            this.groupBox9.Location = new System.Drawing.Point(7, 3);
+            this.groupBox9.Location = new System.Drawing.Point(3, 3);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(210, 107);
             this.groupBox9.TabIndex = 8;
@@ -1290,7 +1333,7 @@
             this.groupBox8.Controls.Add(this.tbNSFFds_LPF);
             this.groupBox8.Controls.Add(this.cbNFSFds_4085Reset);
             this.groupBox8.Controls.Add(this.cbNSFFDSWriteDisable8000);
-            this.groupBox8.Location = new System.Drawing.Point(7, 116);
+            this.groupBox8.Location = new System.Drawing.Point(3, 116);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(210, 87);
             this.groupBox8.TabIndex = 8;
@@ -1342,20 +1385,6 @@
             this.cbNSFFDSWriteDisable8000.Text = "Write disable($8000 - $DFFF)";
             this.cbNSFFDSWriteDisable8000.UseVisualStyleBackColor = true;
             // 
-            // tpSID
-            // 
-            this.tpSID.Controls.Add(this.groupBox14);
-            this.tpSID.Controls.Add(this.groupBox13);
-            this.tpSID.Controls.Add(this.tbSIDOutputBufferSize);
-            this.tpSID.Controls.Add(this.label51);
-            this.tpSID.Controls.Add(this.label49);
-            this.tpSID.Location = new System.Drawing.Point(4, 22);
-            this.tpSID.Name = "tpSID";
-            this.tpSID.Size = new System.Drawing.Size(443, 371);
-            this.tpSID.TabIndex = 10;
-            this.tpSID.Text = "SID";
-            this.tpSID.UseVisualStyleBackColor = true;
-            // 
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.label27);
@@ -1365,7 +1394,7 @@
             this.groupBox14.Controls.Add(this.rdSIDQ3);
             this.groupBox14.Controls.Add(this.rdSIDQ2);
             this.groupBox14.Controls.Add(this.rdSIDQ4);
-            this.groupBox14.Location = new System.Drawing.Point(7, 109);
+            this.groupBox14.Location = new System.Drawing.Point(3, 109);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(280, 111);
             this.groupBox14.TabIndex = 2;
@@ -1443,6 +1472,8 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox13.Controls.Add(this.btnSIDBasic);
             this.groupBox13.Controls.Add(this.btnSIDCharacter);
             this.groupBox13.Controls.Add(this.btnSIDKernal);
@@ -1452,16 +1483,17 @@
             this.groupBox13.Controls.Add(this.label24);
             this.groupBox13.Controls.Add(this.label23);
             this.groupBox13.Controls.Add(this.label22);
-            this.groupBox13.Location = new System.Drawing.Point(7, 3);
+            this.groupBox13.Location = new System.Drawing.Point(3, 3);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(433, 100);
+            this.groupBox13.Size = new System.Drawing.Size(429, 100);
             this.groupBox13.TabIndex = 0;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ROM Image";
             // 
             // btnSIDBasic
             // 
-            this.btnSIDBasic.Location = new System.Drawing.Point(404, 44);
+            this.btnSIDBasic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSIDBasic.Location = new System.Drawing.Point(400, 44);
             this.btnSIDBasic.Name = "btnSIDBasic";
             this.btnSIDBasic.Size = new System.Drawing.Size(23, 23);
             this.btnSIDBasic.TabIndex = 2;
@@ -1471,7 +1503,8 @@
             // 
             // btnSIDCharacter
             // 
-            this.btnSIDCharacter.Location = new System.Drawing.Point(404, 69);
+            this.btnSIDCharacter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSIDCharacter.Location = new System.Drawing.Point(400, 69);
             this.btnSIDCharacter.Name = "btnSIDCharacter";
             this.btnSIDCharacter.Size = new System.Drawing.Size(23, 23);
             this.btnSIDCharacter.TabIndex = 2;
@@ -1481,7 +1514,8 @@
             // 
             // btnSIDKernal
             // 
-            this.btnSIDKernal.Location = new System.Drawing.Point(404, 19);
+            this.btnSIDKernal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSIDKernal.Location = new System.Drawing.Point(400, 19);
             this.btnSIDKernal.Name = "btnSIDKernal";
             this.btnSIDKernal.Size = new System.Drawing.Size(23, 23);
             this.btnSIDKernal.TabIndex = 2;
@@ -1491,23 +1525,29 @@
             // 
             // tbSIDCharacter
             // 
+            this.tbSIDCharacter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSIDCharacter.Location = new System.Drawing.Point(67, 71);
             this.tbSIDCharacter.Name = "tbSIDCharacter";
-            this.tbSIDCharacter.Size = new System.Drawing.Size(331, 19);
+            this.tbSIDCharacter.Size = new System.Drawing.Size(327, 19);
             this.tbSIDCharacter.TabIndex = 1;
             // 
             // tbSIDBasic
             // 
+            this.tbSIDBasic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSIDBasic.Location = new System.Drawing.Point(67, 46);
             this.tbSIDBasic.Name = "tbSIDBasic";
-            this.tbSIDBasic.Size = new System.Drawing.Size(331, 19);
+            this.tbSIDBasic.Size = new System.Drawing.Size(327, 19);
             this.tbSIDBasic.TabIndex = 1;
             // 
             // tbSIDKernal
             // 
+            this.tbSIDKernal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSIDKernal.Location = new System.Drawing.Point(67, 21);
             this.tbSIDKernal.Name = "tbSIDKernal";
-            this.tbSIDKernal.Size = new System.Drawing.Size(331, 19);
+            this.tbSIDKernal.Size = new System.Drawing.Size(327, 19);
             this.tbSIDKernal.TabIndex = 1;
             // 
             // label24
@@ -1539,7 +1579,7 @@
             // 
             // tbSIDOutputBufferSize
             // 
-            this.tbSIDOutputBufferSize.Location = new System.Drawing.Point(114, 226);
+            this.tbSIDOutputBufferSize.Location = new System.Drawing.Point(110, 226);
             this.tbSIDOutputBufferSize.MaxLength = 10;
             this.tbSIDOutputBufferSize.Name = "tbSIDOutputBufferSize";
             this.tbSIDOutputBufferSize.Size = new System.Drawing.Size(93, 19);
@@ -1547,49 +1587,115 @@
             // 
             // label51
             // 
-            this.label51.Location = new System.Drawing.Point(213, 224);
+            this.label51.Location = new System.Drawing.Point(209, 224);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(227, 38);
+            this.label51.Size = new System.Drawing.Size(223, 38);
             this.label51.TabIndex = 0;
             this.label51.Text = "テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。";
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(13, 229);
+            this.label49.Location = new System.Drawing.Point(9, 229);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(95, 12);
             this.label49.TabIndex = 0;
             this.label49.Text = "OutputBuffer size";
             // 
-            // tpMIDIOut
+            // splitContainer1
             // 
-            this.tpMIDIOut.Controls.Add(this.btnAddVST);
-            this.tpMIDIOut.Controls.Add(this.tbcMIDIoutList);
-            this.tpMIDIOut.Controls.Add(this.btnSubMIDIout);
-            this.tpMIDIOut.Controls.Add(this.btnAddMIDIout);
-            this.tpMIDIOut.Controls.Add(this.label18);
-            this.tpMIDIOut.Controls.Add(this.dgvMIDIoutPallet);
-            this.tpMIDIOut.Controls.Add(this.label16);
-            this.tpMIDIOut.Location = new System.Drawing.Point(4, 22);
-            this.tpMIDIOut.Name = "tpMIDIOut";
-            this.tpMIDIOut.Size = new System.Drawing.Size(443, 371);
-            this.tpMIDIOut.TabIndex = 8;
-            this.tpMIDIOut.Text = "MIDI out";
-            this.tpMIDIOut.UseVisualStyleBackColor = true;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // btnAddVST
+            // splitContainer1.Panel1
             // 
-            this.btnAddVST.Location = new System.Drawing.Point(264, 159);
-            this.btnAddVST.Name = "btnAddVST";
-            this.btnAddVST.Size = new System.Drawing.Size(75, 23);
-            this.btnAddVST.TabIndex = 5;
-            this.btnAddVST.Text = "Add VST";
-            this.btnAddVST.UseVisualStyleBackColor = true;
-            this.btnAddVST.Click += new System.EventHandler(this.btnAddVST_Click);
+            this.splitContainer1.Panel1.Controls.Add(this.label16);
+            this.splitContainer1.Panel1.Controls.Add(this.dgvMIDIoutPallet);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tbcMIDIoutList);
+            this.splitContainer1.Panel2.Controls.Add(this.btnAddVST);
+            this.splitContainer1.Panel2.Controls.Add(this.label18);
+            this.splitContainer1.Panel2.Controls.Add(this.btnAddMIDIout);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSubMIDIout);
+            this.splitContainer1.Size = new System.Drawing.Size(429, 339);
+            this.splitContainer1.SplitterDistance = 136;
+            this.splitContainer1.TabIndex = 6;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(126, 12);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "MIDI Outデバイス パレット";
+            // 
+            // dgvMIDIoutPallet
+            // 
+            this.dgvMIDIoutPallet.AllowUserToAddRows = false;
+            this.dgvMIDIoutPallet.AllowUserToDeleteRows = false;
+            this.dgvMIDIoutPallet.AllowUserToResizeRows = false;
+            this.dgvMIDIoutPallet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMIDIoutPallet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmID,
+            this.clmDeviceName,
+            this.clmManufacturer,
+            this.clmSpacer});
+            this.dgvMIDIoutPallet.Location = new System.Drawing.Point(2, 15);
+            this.dgvMIDIoutPallet.MultiSelect = false;
+            this.dgvMIDIoutPallet.Name = "dgvMIDIoutPallet";
+            this.dgvMIDIoutPallet.RowHeadersVisible = false;
+            this.dgvMIDIoutPallet.RowTemplate.Height = 21;
+            this.dgvMIDIoutPallet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMIDIoutPallet.Size = new System.Drawing.Size(422, 118);
+            this.dgvMIDIoutPallet.TabIndex = 1;
+            // 
+            // clmID
+            // 
+            this.clmID.Frozen = true;
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.ReadOnly = true;
+            this.clmID.Visible = false;
+            this.clmID.Width = 40;
+            // 
+            // clmDeviceName
+            // 
+            this.clmDeviceName.Frozen = true;
+            this.clmDeviceName.HeaderText = "Device Name";
+            this.clmDeviceName.Name = "clmDeviceName";
+            this.clmDeviceName.ReadOnly = true;
+            this.clmDeviceName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmDeviceName.Width = 200;
+            // 
+            // clmManufacturer
+            // 
+            this.clmManufacturer.Frozen = true;
+            this.clmManufacturer.HeaderText = "Manufacturer";
+            this.clmManufacturer.Name = "clmManufacturer";
+            this.clmManufacturer.ReadOnly = true;
+            this.clmManufacturer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // clmSpacer
+            // 
+            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmSpacer.HeaderText = "";
+            this.clmSpacer.Name = "clmSpacer";
+            this.clmSpacer.ReadOnly = true;
+            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tbcMIDIoutList
             // 
+            this.tbcMIDIoutList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbcMIDIoutList.Controls.Add(this.tabPage1);
             this.tbcMIDIoutList.Controls.Add(this.tabPage2);
             this.tbcMIDIoutList.Controls.Add(this.tabPage3);
@@ -1600,10 +1706,10 @@
             this.tbcMIDIoutList.Controls.Add(this.tabPage8);
             this.tbcMIDIoutList.Controls.Add(this.tabPage9);
             this.tbcMIDIoutList.Controls.Add(this.tabPage10);
-            this.tbcMIDIoutList.Location = new System.Drawing.Point(4, 186);
+            this.tbcMIDIoutList.Location = new System.Drawing.Point(3, 31);
             this.tbcMIDIoutList.Name = "tbcMIDIoutList";
             this.tbcMIDIoutList.SelectedIndex = 0;
-            this.tbcMIDIoutList.Size = new System.Drawing.Size(436, 182);
+            this.tbcMIDIoutList.Size = new System.Drawing.Size(422, 165);
             this.tbcMIDIoutList.TabIndex = 4;
             // 
             // tabPage1
@@ -1614,7 +1720,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(428, 156);
+            this.tabPage1.Size = new System.Drawing.Size(414, 139);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Tag = "0";
             this.tabPage1.Text = "A";
@@ -1625,6 +1731,9 @@
             this.dgvMIDIoutListA.AllowUserToAddRows = false;
             this.dgvMIDIoutListA.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListA.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -1641,7 +1750,7 @@
             this.dgvMIDIoutListA.RowHeadersVisible = false;
             this.dgvMIDIoutListA.RowTemplate.Height = 21;
             this.dgvMIDIoutListA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMIDIoutListA.Size = new System.Drawing.Size(394, 153);
+            this.dgvMIDIoutListA.Size = new System.Drawing.Size(383, 134);
             this.dgvMIDIoutListA.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
@@ -1720,7 +1829,8 @@
             // 
             // btnUP_A
             // 
-            this.btnUP_A.Location = new System.Drawing.Point(400, 0);
+            this.btnUP_A.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUP_A.Location = new System.Drawing.Point(389, 0);
             this.btnUP_A.Name = "btnUP_A";
             this.btnUP_A.Size = new System.Drawing.Size(22, 58);
             this.btnUP_A.TabIndex = 3;
@@ -1730,7 +1840,8 @@
             // 
             // btnDOWN_A
             // 
-            this.btnDOWN_A.Location = new System.Drawing.Point(400, 95);
+            this.btnDOWN_A.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDOWN_A.Location = new System.Drawing.Point(389, 76);
             this.btnDOWN_A.Name = "btnDOWN_A";
             this.btnDOWN_A.Size = new System.Drawing.Size(22, 58);
             this.btnDOWN_A.TabIndex = 3;
@@ -1746,7 +1857,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(428, 156);
+            this.tabPage2.Size = new System.Drawing.Size(428, 158);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "1";
             this.tabPage2.Text = "B";
@@ -1757,6 +1868,9 @@
             this.dgvMIDIoutListB.AllowUserToAddRows = false;
             this.dgvMIDIoutListB.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListB.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListB.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListB.MultiSelect = false;
@@ -1764,12 +1878,13 @@
             this.dgvMIDIoutListB.RowHeadersVisible = false;
             this.dgvMIDIoutListB.RowTemplate.Height = 21;
             this.dgvMIDIoutListB.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMIDIoutListB.Size = new System.Drawing.Size(394, 153);
+            this.dgvMIDIoutListB.Size = new System.Drawing.Size(397, 153);
             this.dgvMIDIoutListB.TabIndex = 7;
             // 
             // btnUP_B
             // 
-            this.btnUP_B.Location = new System.Drawing.Point(400, 0);
+            this.btnUP_B.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUP_B.Location = new System.Drawing.Point(403, 0);
             this.btnUP_B.Name = "btnUP_B";
             this.btnUP_B.Size = new System.Drawing.Size(22, 58);
             this.btnUP_B.TabIndex = 5;
@@ -1779,7 +1894,8 @@
             // 
             // btnDOWN_B
             // 
-            this.btnDOWN_B.Location = new System.Drawing.Point(400, 95);
+            this.btnDOWN_B.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDOWN_B.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_B.Name = "btnDOWN_B";
             this.btnDOWN_B.Size = new System.Drawing.Size(22, 58);
             this.btnDOWN_B.TabIndex = 6;
@@ -1794,7 +1910,7 @@
             this.tabPage3.Controls.Add(this.btnDOWN_C);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(428, 156);
+            this.tabPage3.Size = new System.Drawing.Size(428, 158);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Tag = "2";
             this.tabPage3.Text = "C";
@@ -1805,6 +1921,9 @@
             this.dgvMIDIoutListC.AllowUserToAddRows = false;
             this.dgvMIDIoutListC.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListC.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListC.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListC.MultiSelect = false;
@@ -1817,6 +1936,7 @@
             // 
             // btnUP_C
             // 
+            this.btnUP_C.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_C.Location = new System.Drawing.Point(403, 0);
             this.btnUP_C.Name = "btnUP_C";
             this.btnUP_C.Size = new System.Drawing.Size(22, 58);
@@ -1827,6 +1947,7 @@
             // 
             // btnDOWN_C
             // 
+            this.btnDOWN_C.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_C.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_C.Name = "btnDOWN_C";
             this.btnDOWN_C.Size = new System.Drawing.Size(22, 58);
@@ -1842,7 +1963,7 @@
             this.tabPage4.Controls.Add(this.btnDOWN_D);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(428, 156);
+            this.tabPage4.Size = new System.Drawing.Size(428, 158);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Tag = "3";
             this.tabPage4.Text = "D";
@@ -1853,6 +1974,9 @@
             this.dgvMIDIoutListD.AllowUserToAddRows = false;
             this.dgvMIDIoutListD.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListD.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListD.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListD.MultiSelect = false;
@@ -1865,6 +1989,7 @@
             // 
             // btnUP_D
             // 
+            this.btnUP_D.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_D.Location = new System.Drawing.Point(403, 0);
             this.btnUP_D.Name = "btnUP_D";
             this.btnUP_D.Size = new System.Drawing.Size(22, 58);
@@ -1875,6 +2000,7 @@
             // 
             // btnDOWN_D
             // 
+            this.btnDOWN_D.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_D.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_D.Name = "btnDOWN_D";
             this.btnDOWN_D.Size = new System.Drawing.Size(22, 58);
@@ -1890,7 +2016,7 @@
             this.tabPage5.Controls.Add(this.btnDOWN_E);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(428, 156);
+            this.tabPage5.Size = new System.Drawing.Size(428, 158);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Tag = "4";
             this.tabPage5.Text = "E";
@@ -1901,6 +2027,9 @@
             this.dgvMIDIoutListE.AllowUserToAddRows = false;
             this.dgvMIDIoutListE.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListE.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListE.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListE.MultiSelect = false;
@@ -1913,6 +2042,7 @@
             // 
             // btnUP_E
             // 
+            this.btnUP_E.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_E.Location = new System.Drawing.Point(403, 0);
             this.btnUP_E.Name = "btnUP_E";
             this.btnUP_E.Size = new System.Drawing.Size(22, 58);
@@ -1923,6 +2053,7 @@
             // 
             // btnDOWN_E
             // 
+            this.btnDOWN_E.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_E.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_E.Name = "btnDOWN_E";
             this.btnDOWN_E.Size = new System.Drawing.Size(22, 58);
@@ -1938,7 +2069,7 @@
             this.tabPage6.Controls.Add(this.btnDOWN_F);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(428, 156);
+            this.tabPage6.Size = new System.Drawing.Size(428, 158);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Tag = "5";
             this.tabPage6.Text = "F";
@@ -1949,6 +2080,9 @@
             this.dgvMIDIoutListF.AllowUserToAddRows = false;
             this.dgvMIDIoutListF.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListF.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListF.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListF.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListF.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListF.MultiSelect = false;
@@ -1961,6 +2095,7 @@
             // 
             // btnUP_F
             // 
+            this.btnUP_F.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_F.Location = new System.Drawing.Point(403, 0);
             this.btnUP_F.Name = "btnUP_F";
             this.btnUP_F.Size = new System.Drawing.Size(22, 58);
@@ -1971,6 +2106,7 @@
             // 
             // btnDOWN_F
             // 
+            this.btnDOWN_F.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_F.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_F.Name = "btnDOWN_F";
             this.btnDOWN_F.Size = new System.Drawing.Size(22, 58);
@@ -1986,7 +2122,7 @@
             this.tabPage7.Controls.Add(this.btnDOWN_G);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(428, 156);
+            this.tabPage7.Size = new System.Drawing.Size(428, 158);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Tag = "6";
             this.tabPage7.Text = "G";
@@ -1997,6 +2133,9 @@
             this.dgvMIDIoutListG.AllowUserToAddRows = false;
             this.dgvMIDIoutListG.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListG.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListG.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListG.MultiSelect = false;
@@ -2009,6 +2148,7 @@
             // 
             // btnUP_G
             // 
+            this.btnUP_G.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_G.Location = new System.Drawing.Point(403, 0);
             this.btnUP_G.Name = "btnUP_G";
             this.btnUP_G.Size = new System.Drawing.Size(22, 58);
@@ -2019,6 +2159,7 @@
             // 
             // btnDOWN_G
             // 
+            this.btnDOWN_G.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_G.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_G.Name = "btnDOWN_G";
             this.btnDOWN_G.Size = new System.Drawing.Size(22, 58);
@@ -2034,7 +2175,7 @@
             this.tabPage8.Controls.Add(this.btnDOWN_H);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(428, 156);
+            this.tabPage8.Size = new System.Drawing.Size(428, 158);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Tag = "7";
             this.tabPage8.Text = "H";
@@ -2045,6 +2186,9 @@
             this.dgvMIDIoutListH.AllowUserToAddRows = false;
             this.dgvMIDIoutListH.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListH.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListH.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListH.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListH.MultiSelect = false;
@@ -2057,6 +2201,7 @@
             // 
             // btnUP_H
             // 
+            this.btnUP_H.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_H.Location = new System.Drawing.Point(403, 0);
             this.btnUP_H.Name = "btnUP_H";
             this.btnUP_H.Size = new System.Drawing.Size(22, 58);
@@ -2067,6 +2212,7 @@
             // 
             // btnDOWN_H
             // 
+            this.btnDOWN_H.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_H.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_H.Name = "btnDOWN_H";
             this.btnDOWN_H.Size = new System.Drawing.Size(22, 58);
@@ -2082,7 +2228,7 @@
             this.tabPage9.Controls.Add(this.btnDOWN_I);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(428, 156);
+            this.tabPage9.Size = new System.Drawing.Size(428, 158);
             this.tabPage9.TabIndex = 8;
             this.tabPage9.Tag = "8";
             this.tabPage9.Text = "I";
@@ -2093,6 +2239,9 @@
             this.dgvMIDIoutListI.AllowUserToAddRows = false;
             this.dgvMIDIoutListI.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListI.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListI.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListI.MultiSelect = false;
@@ -2105,6 +2254,7 @@
             // 
             // btnUP_I
             // 
+            this.btnUP_I.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUP_I.Location = new System.Drawing.Point(403, 0);
             this.btnUP_I.Name = "btnUP_I";
             this.btnUP_I.Size = new System.Drawing.Size(22, 58);
@@ -2115,6 +2265,7 @@
             // 
             // btnDOWN_I
             // 
+            this.btnDOWN_I.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_I.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_I.Name = "btnDOWN_I";
             this.btnDOWN_I.Size = new System.Drawing.Size(22, 58);
@@ -2130,7 +2281,7 @@
             this.tabPage10.Controls.Add(this.btnDOWN_J);
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(428, 156);
+            this.tabPage10.Size = new System.Drawing.Size(428, 158);
             this.tabPage10.TabIndex = 9;
             this.tabPage10.Tag = "9";
             this.tabPage10.Text = "J";
@@ -2141,6 +2292,9 @@
             this.dgvMIDIoutListJ.AllowUserToAddRows = false;
             this.dgvMIDIoutListJ.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListJ.AllowUserToResizeRows = false;
+            this.dgvMIDIoutListJ.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMIDIoutListJ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListJ.Location = new System.Drawing.Point(0, 0);
             this.dgvMIDIoutListJ.MultiSelect = false;
@@ -2153,6 +2307,7 @@
             // 
             // button17
             // 
+            this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button17.Location = new System.Drawing.Point(403, 0);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(22, 58);
@@ -2163,6 +2318,7 @@
             // 
             // btnDOWN_J
             // 
+            this.btnDOWN_J.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDOWN_J.Location = new System.Drawing.Point(403, 95);
             this.btnDOWN_J.Name = "btnDOWN_J";
             this.btnDOWN_J.Size = new System.Drawing.Size(22, 58);
@@ -2171,19 +2327,28 @@
             this.btnDOWN_J.UseVisualStyleBackColor = true;
             this.btnDOWN_J.Click += new System.EventHandler(this.btnDOWN_Click);
             // 
-            // btnSubMIDIout
+            // btnAddVST
             // 
-            this.btnSubMIDIout.Location = new System.Drawing.Point(191, 159);
-            this.btnSubMIDIout.Name = "btnSubMIDIout";
-            this.btnSubMIDIout.Size = new System.Drawing.Size(66, 24);
-            this.btnSubMIDIout.TabIndex = 3;
-            this.btnSubMIDIout.Text = "-";
-            this.btnSubMIDIout.UseVisualStyleBackColor = true;
-            this.btnSubMIDIout.Click += new System.EventHandler(this.btnSubMIDIout_Click);
+            this.btnAddVST.Location = new System.Drawing.Point(263, 4);
+            this.btnAddVST.Name = "btnAddVST";
+            this.btnAddVST.Size = new System.Drawing.Size(75, 23);
+            this.btnAddVST.TabIndex = 5;
+            this.btnAddVST.Text = "Add VST";
+            this.btnAddVST.UseVisualStyleBackColor = true;
+            this.btnAddVST.Click += new System.EventHandler(this.btnAddVST_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(74, 12);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "MIDI Outリスト";
             // 
             // btnAddMIDIout
             // 
-            this.btnAddMIDIout.Location = new System.Drawing.Point(119, 159);
+            this.btnAddMIDIout.Location = new System.Drawing.Point(118, 4);
             this.btnAddMIDIout.Name = "btnAddMIDIout";
             this.btnAddMIDIout.Size = new System.Drawing.Size(66, 24);
             this.btnAddMIDIout.TabIndex = 3;
@@ -2191,90 +2356,20 @@
             this.btnAddMIDIout.UseVisualStyleBackColor = true;
             this.btnAddMIDIout.Click += new System.EventHandler(this.btnAddMIDIout_Click);
             // 
-            // label18
+            // btnSubMIDIout
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 171);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(74, 12);
-            this.label18.TabIndex = 2;
-            this.label18.Text = "MIDI Outリスト";
-            // 
-            // dgvMIDIoutPallet
-            // 
-            this.dgvMIDIoutPallet.AllowUserToAddRows = false;
-            this.dgvMIDIoutPallet.AllowUserToDeleteRows = false;
-            this.dgvMIDIoutPallet.AllowUserToResizeRows = false;
-            this.dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMIDIoutPallet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmID,
-            this.clmDeviceName,
-            this.clmManufacturer,
-            this.clmSpacer});
-            this.dgvMIDIoutPallet.Location = new System.Drawing.Point(4, 20);
-            this.dgvMIDIoutPallet.MultiSelect = false;
-            this.dgvMIDIoutPallet.Name = "dgvMIDIoutPallet";
-            this.dgvMIDIoutPallet.RowHeadersVisible = false;
-            this.dgvMIDIoutPallet.RowTemplate.Height = 21;
-            this.dgvMIDIoutPallet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMIDIoutPallet.Size = new System.Drawing.Size(436, 133);
-            this.dgvMIDIoutPallet.TabIndex = 1;
-            // 
-            // clmID
-            // 
-            this.clmID.Frozen = true;
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.ReadOnly = true;
-            this.clmID.Visible = false;
-            this.clmID.Width = 40;
-            // 
-            // clmDeviceName
-            // 
-            this.clmDeviceName.Frozen = true;
-            this.clmDeviceName.HeaderText = "Device Name";
-            this.clmDeviceName.Name = "clmDeviceName";
-            this.clmDeviceName.ReadOnly = true;
-            this.clmDeviceName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmDeviceName.Width = 200;
-            // 
-            // clmManufacturer
-            // 
-            this.clmManufacturer.Frozen = true;
-            this.clmManufacturer.HeaderText = "Manufacturer";
-            this.clmManufacturer.Name = "clmManufacturer";
-            this.clmManufacturer.ReadOnly = true;
-            this.clmManufacturer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmSpacer
-            // 
-            this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmSpacer.HeaderText = "";
-            this.clmSpacer.Name = "clmSpacer";
-            this.clmSpacer.ReadOnly = true;
-            this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(5, 5);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(126, 12);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "MIDI Outデバイス パレット";
-            // 
-            // tpMIDIOut2
-            // 
-            this.tpMIDIOut2.Controls.Add(this.groupBox15);
-            this.tpMIDIOut2.Location = new System.Drawing.Point(4, 22);
-            this.tpMIDIOut2.Name = "tpMIDIOut2";
-            this.tpMIDIOut2.Size = new System.Drawing.Size(443, 371);
-            this.tpMIDIOut2.TabIndex = 11;
-            this.tpMIDIOut2.Text = "MIDI out2";
-            this.tpMIDIOut2.UseVisualStyleBackColor = true;
+            this.btnSubMIDIout.Location = new System.Drawing.Point(190, 4);
+            this.btnSubMIDIout.Name = "btnSubMIDIout";
+            this.btnSubMIDIout.Size = new System.Drawing.Size(66, 24);
+            this.btnSubMIDIout.TabIndex = 3;
+            this.btnSubMIDIout.Text = "-";
+            this.btnSubMIDIout.UseVisualStyleBackColor = true;
+            this.btnSubMIDIout.Click += new System.EventHandler(this.btnSubMIDIout_Click);
             // 
             // groupBox15
             // 
+            this.groupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox15.Controls.Add(this.btnBeforeSend_Default);
             this.groupBox15.Controls.Add(this.tbBeforeSend_Custom);
             this.groupBox15.Controls.Add(this.tbBeforeSend_XGReset);
@@ -2285,16 +2380,17 @@
             this.groupBox15.Controls.Add(this.label33);
             this.groupBox15.Controls.Add(this.tbBeforeSend_GMReset);
             this.groupBox15.Controls.Add(this.label31);
-            this.groupBox15.Location = new System.Drawing.Point(7, 3);
+            this.groupBox15.Location = new System.Drawing.Point(3, 3);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(433, 199);
+            this.groupBox15.Size = new System.Drawing.Size(429, 199);
             this.groupBox15.TabIndex = 0;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Before Send";
             // 
             // btnBeforeSend_Default
             // 
-            this.btnBeforeSend_Default.Location = new System.Drawing.Point(352, 123);
+            this.btnBeforeSend_Default.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBeforeSend_Default.Location = new System.Drawing.Point(348, 123);
             this.btnBeforeSend_Default.Name = "btnBeforeSend_Default";
             this.btnBeforeSend_Default.Size = new System.Drawing.Size(75, 23);
             this.btnBeforeSend_Default.TabIndex = 2;
@@ -2304,16 +2400,20 @@
             // 
             // tbBeforeSend_Custom
             // 
+            this.tbBeforeSend_Custom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBeforeSend_Custom.Location = new System.Drawing.Point(90, 98);
             this.tbBeforeSend_Custom.Name = "tbBeforeSend_Custom";
-            this.tbBeforeSend_Custom.Size = new System.Drawing.Size(337, 19);
+            this.tbBeforeSend_Custom.Size = new System.Drawing.Size(333, 19);
             this.tbBeforeSend_Custom.TabIndex = 1;
             // 
             // tbBeforeSend_XGReset
             // 
+            this.tbBeforeSend_XGReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBeforeSend_XGReset.Location = new System.Drawing.Point(90, 48);
             this.tbBeforeSend_XGReset.Name = "tbBeforeSend_XGReset";
-            this.tbBeforeSend_XGReset.Size = new System.Drawing.Size(337, 19);
+            this.tbBeforeSend_XGReset.Size = new System.Drawing.Size(333, 19);
             this.tbBeforeSend_XGReset.TabIndex = 1;
             // 
             // label35
@@ -2346,9 +2446,11 @@
             // 
             // tbBeforeSend_GSReset
             // 
+            this.tbBeforeSend_GSReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBeforeSend_GSReset.Location = new System.Drawing.Point(90, 73);
             this.tbBeforeSend_GSReset.Name = "tbBeforeSend_GSReset";
-            this.tbBeforeSend_GSReset.Size = new System.Drawing.Size(337, 19);
+            this.tbBeforeSend_GSReset.Size = new System.Drawing.Size(333, 19);
             this.tbBeforeSend_GSReset.TabIndex = 1;
             // 
             // label33
@@ -2362,9 +2464,11 @@
             // 
             // tbBeforeSend_GMReset
             // 
+            this.tbBeforeSend_GMReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBeforeSend_GMReset.Location = new System.Drawing.Point(90, 23);
             this.tbBeforeSend_GMReset.Name = "tbBeforeSend_GMReset";
-            this.tbBeforeSend_GMReset.Size = new System.Drawing.Size(337, 19);
+            this.tbBeforeSend_GMReset.Size = new System.Drawing.Size(333, 19);
             this.tbBeforeSend_GMReset.TabIndex = 1;
             // 
             // label31
@@ -2400,6 +2504,9 @@
             // 
             // gbMIDIExport
             // 
+            this.gbMIDIExport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbMIDIExport.Controls.Add(this.cbMIDIKeyOnFnum);
             this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
             this.gbMIDIExport.Controls.Add(this.groupBox6);
@@ -2599,6 +2706,7 @@
             // 
             // btnMIDIOutputPath
             // 
+            this.btnMIDIOutputPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMIDIOutputPath.Location = new System.Drawing.Point(403, 86);
             this.btnMIDIOutputPath.Name = "btnMIDIOutputPath";
             this.btnMIDIOutputPath.Size = new System.Drawing.Size(23, 23);
@@ -2618,6 +2726,8 @@
             // 
             // tbMIDIOutputPath
             // 
+            this.tbMIDIOutputPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMIDIOutputPath.Location = new System.Drawing.Point(77, 88);
             this.tbMIDIOutputPath.Name = "tbMIDIOutputPath";
             this.tbMIDIOutputPath.Size = new System.Drawing.Size(320, 19);
@@ -2647,6 +2757,9 @@
             // 
             // gbMIDIKeyboard
             // 
+            this.gbMIDIKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox8);
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox7);
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox6);
@@ -3075,6 +3188,8 @@
             // 
             // cmbMIDIIN
             // 
+            this.cmbMIDIIN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMIDIIN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMIDIIN.FormattingEnabled = true;
             this.cmbMIDIIN.Location = new System.Drawing.Point(72, 18);
@@ -3124,6 +3239,8 @@
             // 
             // gbUseKeyBoardHook
             // 
+            this.gbUseKeyBoardHook.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbUseKeyBoardHook.Controls.Add(this.lblKeyBoardHookNotice);
             this.gbUseKeyBoardHook.Controls.Add(this.btNextClr);
             this.gbUseKeyBoardHook.Controls.Add(this.btPrevClr);
@@ -3212,6 +3329,7 @@
             // 
             // btNextClr
             // 
+            this.btNextClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btNextClr.Location = new System.Drawing.Point(391, 243);
             this.btNextClr.Name = "btNextClr";
             this.btNextClr.Size = new System.Drawing.Size(36, 23);
@@ -3222,6 +3340,7 @@
             // 
             // btPrevClr
             // 
+            this.btPrevClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPrevClr.Location = new System.Drawing.Point(391, 127);
             this.btPrevClr.Name = "btPrevClr";
             this.btPrevClr.Size = new System.Drawing.Size(36, 23);
@@ -3232,6 +3351,7 @@
             // 
             // btPlayClr
             // 
+            this.btPlayClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPlayClr.Location = new System.Drawing.Point(391, 185);
             this.btPlayClr.Name = "btPlayClr";
             this.btPlayClr.Size = new System.Drawing.Size(36, 23);
@@ -3242,6 +3362,7 @@
             // 
             // btPauseClr
             // 
+            this.btPauseClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPauseClr.Location = new System.Drawing.Point(391, 69);
             this.btPauseClr.Name = "btPauseClr";
             this.btPauseClr.Size = new System.Drawing.Size(36, 23);
@@ -3252,6 +3373,7 @@
             // 
             // btFastClr
             // 
+            this.btFastClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btFastClr.Location = new System.Drawing.Point(391, 214);
             this.btFastClr.Name = "btFastClr";
             this.btFastClr.Size = new System.Drawing.Size(36, 23);
@@ -3262,6 +3384,7 @@
             // 
             // btFadeoutClr
             // 
+            this.btFadeoutClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btFadeoutClr.Location = new System.Drawing.Point(391, 98);
             this.btFadeoutClr.Name = "btFadeoutClr";
             this.btFadeoutClr.Size = new System.Drawing.Size(36, 23);
@@ -3272,6 +3395,7 @@
             // 
             // btSlowClr
             // 
+            this.btSlowClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btSlowClr.Location = new System.Drawing.Point(391, 156);
             this.btSlowClr.Name = "btSlowClr";
             this.btSlowClr.Size = new System.Drawing.Size(36, 23);
@@ -3282,6 +3406,7 @@
             // 
             // btStopClr
             // 
+            this.btStopClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btStopClr.Location = new System.Drawing.Point(391, 40);
             this.btStopClr.Name = "btStopClr";
             this.btStopClr.Size = new System.Drawing.Size(36, 23);
@@ -3292,6 +3417,7 @@
             // 
             // btNextSet
             // 
+            this.btNextSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btNextSet.Location = new System.Drawing.Point(349, 243);
             this.btNextSet.Name = "btNextSet";
             this.btNextSet.Size = new System.Drawing.Size(36, 23);
@@ -3302,6 +3428,7 @@
             // 
             // btPrevSet
             // 
+            this.btPrevSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPrevSet.Location = new System.Drawing.Point(349, 127);
             this.btPrevSet.Name = "btPrevSet";
             this.btPrevSet.Size = new System.Drawing.Size(36, 23);
@@ -3312,6 +3439,7 @@
             // 
             // btPlaySet
             // 
+            this.btPlaySet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPlaySet.Location = new System.Drawing.Point(349, 185);
             this.btPlaySet.Name = "btPlaySet";
             this.btPlaySet.Size = new System.Drawing.Size(36, 23);
@@ -3322,6 +3450,7 @@
             // 
             // btPauseSet
             // 
+            this.btPauseSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btPauseSet.Location = new System.Drawing.Point(349, 69);
             this.btPauseSet.Name = "btPauseSet";
             this.btPauseSet.Size = new System.Drawing.Size(36, 23);
@@ -3332,6 +3461,7 @@
             // 
             // btFastSet
             // 
+            this.btFastSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btFastSet.Location = new System.Drawing.Point(349, 214);
             this.btFastSet.Name = "btFastSet";
             this.btFastSet.Size = new System.Drawing.Size(36, 23);
@@ -3342,6 +3472,7 @@
             // 
             // btFadeoutSet
             // 
+            this.btFadeoutSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btFadeoutSet.Location = new System.Drawing.Point(349, 98);
             this.btFadeoutSet.Name = "btFadeoutSet";
             this.btFadeoutSet.Size = new System.Drawing.Size(36, 23);
@@ -3352,6 +3483,7 @@
             // 
             // btSlowSet
             // 
+            this.btSlowSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btSlowSet.Location = new System.Drawing.Point(349, 156);
             this.btSlowSet.Name = "btSlowSet";
             this.btSlowSet.Size = new System.Drawing.Size(36, 23);
@@ -3362,6 +3494,7 @@
             // 
             // btStopSet
             // 
+            this.btStopSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btStopSet.Location = new System.Drawing.Point(349, 40);
             this.btStopSet.Name = "btStopSet";
             this.btStopSet.Size = new System.Drawing.Size(36, 23);
@@ -3942,6 +4075,8 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
             this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
             this.groupBox25.Location = new System.Drawing.Point(7, 327);
@@ -3987,6 +4122,8 @@
             // 
             // groupBox18
             // 
+            this.groupBox18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox18.Controls.Add(this.groupBox24);
             this.groupBox18.Controls.Add(this.groupBox23);
             this.groupBox18.Location = new System.Drawing.Point(7, 3);
@@ -3997,6 +4134,8 @@
             // 
             // groupBox24
             // 
+            this.groupBox24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox24.Controls.Add(this.groupBox21);
             this.groupBox24.Controls.Add(this.groupBox22);
             this.groupBox24.Location = new System.Drawing.Point(6, 185);
@@ -4008,6 +4147,8 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox21.Controls.Add(this.rbAutoBalanceNotSaveSongBalance);
             this.groupBox21.Controls.Add(this.rbAutoBalanceSaveSongBalance);
             this.groupBox21.Location = new System.Drawing.Point(6, 18);
@@ -4041,6 +4182,8 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox22.Controls.Add(this.label4);
             this.groupBox22.Location = new System.Drawing.Point(6, 86);
             this.groupBox22.Name = "groupBox22";
@@ -4060,6 +4203,8 @@
             // 
             // groupBox23
             // 
+            this.groupBox23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox23.Controls.Add(this.groupBox19);
             this.groupBox23.Controls.Add(this.groupBox20);
             this.groupBox23.Location = new System.Drawing.Point(6, 22);
@@ -4071,6 +4216,8 @@
             // 
             // groupBox19
             // 
+            this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox19.Controls.Add(this.rbAutoBalanceNotLoadSongBalance);
             this.groupBox19.Controls.Add(this.rbAutoBalanceLoadSongBalance);
             this.groupBox19.Location = new System.Drawing.Point(6, 18);
@@ -4104,6 +4251,8 @@
             // 
             // groupBox20
             // 
+            this.groupBox20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox20.Controls.Add(this.rbAutoBalanceNotLoadDriverBalance);
             this.groupBox20.Controls.Add(this.rbAutoBalanceLoadDriverBalance);
             this.groupBox20.Location = new System.Drawing.Point(6, 87);
@@ -4178,6 +4327,8 @@
             // 
             // groupBox17
             // 
+            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox17.Controls.Add(this.tbImageExt);
             this.groupBox17.Controls.Add(this.tbMMLExt);
             this.groupBox17.Controls.Add(this.tbTextExt);
@@ -4193,6 +4344,8 @@
             // 
             // tbImageExt
             // 
+            this.tbImageExt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbImageExt.Location = new System.Drawing.Point(52, 58);
             this.tbImageExt.Name = "tbImageExt";
             this.tbImageExt.Size = new System.Drawing.Size(164, 19);
@@ -4200,6 +4353,8 @@
             // 
             // tbMMLExt
             // 
+            this.tbMMLExt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
             this.tbMMLExt.Name = "tbMMLExt";
             this.tbMMLExt.Size = new System.Drawing.Size(164, 19);
@@ -4207,6 +4362,8 @@
             // 
             // tbTextExt
             // 
+            this.tbTextExt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTextExt.Location = new System.Drawing.Point(52, 12);
             this.tbTextExt.Name = "tbTextExt";
             this.tbTextExt.Size = new System.Drawing.Size(164, 19);
@@ -4252,6 +4409,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.cmbInstFormat);
             this.groupBox4.Controls.Add(this.lblInstFormat);
             this.groupBox4.Location = new System.Drawing.Point(7, 31);
@@ -4262,6 +4421,8 @@
             // 
             // cmbInstFormat
             // 
+            this.cmbInstFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbInstFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbInstFormat.FormattingEnabled = true;
             this.cmbInstFormat.Items.AddRange(new object[] {
@@ -4300,6 +4461,8 @@
             // 
             // gbWav
             // 
+            this.gbWav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbWav.Controls.Add(this.btnWavPath);
             this.gbWav.Controls.Add(this.label7);
             this.gbWav.Controls.Add(this.tbWavPath);
@@ -4311,6 +4474,7 @@
             // 
             // btnWavPath
             // 
+            this.btnWavPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnWavPath.Location = new System.Drawing.Point(404, 16);
             this.btnWavPath.Name = "btnWavPath";
             this.btnWavPath.Size = new System.Drawing.Size(23, 23);
@@ -4330,6 +4494,8 @@
             // 
             // tbWavPath
             // 
+            this.tbWavPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbWavPath.Location = new System.Drawing.Point(73, 18);
             this.tbWavPath.Name = "tbWavPath";
             this.tbWavPath.Size = new System.Drawing.Size(325, 19);
@@ -4337,6 +4503,8 @@
             // 
             // gbDump
             // 
+            this.gbDump.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDump.Controls.Add(this.btnDumpPath);
             this.gbDump.Controls.Add(this.label6);
             this.gbDump.Controls.Add(this.tbDumpPath);
@@ -4348,6 +4516,7 @@
             // 
             // btnDumpPath
             // 
+            this.btnDumpPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDumpPath.Location = new System.Drawing.Point(404, 16);
             this.btnDumpPath.Name = "btnDumpPath";
             this.btnDumpPath.Size = new System.Drawing.Size(23, 23);
@@ -4367,6 +4536,8 @@
             // 
             // tbDumpPath
             // 
+            this.tbDumpPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDumpPath.Location = new System.Drawing.Point(73, 18);
             this.tbDumpPath.Name = "tbDumpPath";
             this.tbDumpPath.Size = new System.Drawing.Size(325, 19);
@@ -4408,6 +4579,7 @@
             // 
             // btnDataPath
             // 
+            this.btnDataPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDataPath.Location = new System.Drawing.Point(411, 102);
             this.btnDataPath.Name = "btnDataPath";
             this.btnDataPath.Size = new System.Drawing.Size(23, 23);
@@ -4425,6 +4597,8 @@
             // 
             // tbDataPath
             // 
+            this.tbDataPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDataPath.Location = new System.Drawing.Point(80, 104);
             this.tbDataPath.Name = "tbDataPath";
             this.tbDataPath.Size = new System.Drawing.Size(325, 19);
@@ -4441,6 +4615,7 @@
             // 
             // btnResetPosition
             // 
+            this.btnResetPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetPosition.Location = new System.Drawing.Point(167, 345);
             this.btnResetPosition.Name = "btnResetPosition";
             this.btnResetPosition.Size = new System.Drawing.Size(142, 23);
@@ -4451,6 +4626,7 @@
             // 
             // btnOpenSettingFolder
             // 
+            this.btnOpenSettingFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenSettingFolder.Location = new System.Drawing.Point(315, 345);
             this.btnOpenSettingFolder.Name = "btnOpenSettingFolder";
             this.btnOpenSettingFolder.Size = new System.Drawing.Size(125, 23);
@@ -4461,6 +4637,7 @@
             // 
             // cbEmptyPlayList
             // 
+            this.cbEmptyPlayList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbEmptyPlayList.AutoSize = true;
             this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 308);
             this.cbEmptyPlayList.Name = "cbEmptyPlayList";
@@ -4472,6 +4649,7 @@
             // 
             // cbInitAlways
             // 
+            this.cbInitAlways.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbInitAlways.Location = new System.Drawing.Point(240, 263);
             this.cbInitAlways.Name = "cbInitAlways";
             this.cbInitAlways.Size = new System.Drawing.Size(194, 39);
@@ -4504,6 +4682,8 @@
             // 
             // tpOmake
             // 
+            this.tpOmake.Controls.Add(this.tbOpacity);
+            this.tpOmake.Controls.Add(this.label52);
             this.tpOmake.Controls.Add(this.label14);
             this.tpOmake.Controls.Add(this.btVST);
             this.tpOmake.Controls.Add(this.tbVST);
@@ -4514,6 +4694,28 @@
             this.tpOmake.TabIndex = 7;
             this.tpOmake.Text = "おまけ";
             this.tpOmake.UseVisualStyleBackColor = true;
+            // 
+            // tbOpacity
+            // 
+            this.tbOpacity.Location = new System.Drawing.Point(109, 81);
+            this.tbOpacity.Maximum = 100;
+            this.tbOpacity.Minimum = 1;
+            this.tbOpacity.Name = "tbOpacity";
+            this.tbOpacity.Size = new System.Drawing.Size(143, 45);
+            this.tbOpacity.TabIndex = 20;
+            this.tbOpacity.TickFrequency = 10;
+            this.tbOpacity.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.tbOpacity.Value = 1;
+            this.tbOpacity.Scroll += new System.EventHandler(this.tbOpacity_Scroll);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(7, 96);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(96, 12);
+            this.label52.TabIndex = 19;
+            this.label52.Text = "ウィンドウ不透明度";
             // 
             // label14
             // 
@@ -4673,19 +4875,165 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // cbHiyorimiMode
+            // 
+            this.cbHiyorimiMode.AutoSize = true;
+            this.cbHiyorimiMode.Location = new System.Drawing.Point(8, 410);
+            this.cbHiyorimiMode.Name = "cbHiyorimiMode";
+            this.cbHiyorimiMode.Size = new System.Drawing.Size(220, 28);
+            this.cbHiyorimiMode.TabIndex = 6;
+            this.cbHiyorimiMode.Text = "日和見モード(出力タブ：\r\n遅延時間100ms以下の時、使用を推奨)";
+            this.cbHiyorimiMode.UseVisualStyleBackColor = true;
+            this.cbHiyorimiMode.Visible = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage11);
+            this.tabControl1.Controls.Add(this.tabPage12);
+            this.tabControl1.Controls.Add(this.tabPage13);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.HotTrack = true;
+            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(437, 365);
+            this.tabControl1.TabIndex = 7;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.rbWasapiOut);
+            this.tabPage11.Controls.Add(this.rbSPPCM);
+            this.tabPage11.Controls.Add(this.rbDirectSoundOut);
+            this.tabPage11.Controls.Add(this.rbAsioOut);
+            this.tabPage11.Controls.Add(this.rbWaveOut);
+            this.tabPage11.Controls.Add(this.rbNullDevice);
+            this.tabPage11.Controls.Add(this.groupBox3);
+            this.tabPage11.Controls.Add(this.gbWasapiOut);
+            this.tabPage11.Controls.Add(this.gbDirectSound);
+            this.tabPage11.Controls.Add(this.lblWaitTime);
+            this.tabPage11.Controls.Add(this.gbAsioOut);
+            this.tabPage11.Controls.Add(this.lblLatencyUnit);
+            this.tabPage11.Controls.Add(this.groupBox16);
+            this.tabPage11.Controls.Add(this.label28);
+            this.tabPage11.Controls.Add(this.lblLatency);
+            this.tabPage11.Controls.Add(this.cmbWaitTime);
+            this.tabPage11.Controls.Add(this.cmbLatency);
+            this.tabPage11.Controls.Add(this.gbWaveOut);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(429, 339);
+            this.tabPage11.TabIndex = 0;
+            this.tabPage11.Text = "Emulation";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.groupBox27);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(429, 339);
+            this.tabPage12.TabIndex = 1;
+            this.tabPage12.Text = "実音源";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // tabPage13
+            // 
+            this.tabPage13.Controls.Add(this.splitContainer1);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Size = new System.Drawing.Size(429, 339);
+            this.tabPage13.TabIndex = 2;
+            this.tabPage13.Text = "MIDI";
+            this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage14);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.HotTrack = true;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(443, 371);
+            this.tabControl2.TabIndex = 1;
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.Controls.Add(this.groupBox26);
+            this.tabPage14.Location = new System.Drawing.Point(4, 22);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage14.Size = new System.Drawing.Size(435, 345);
+            this.tabPage14.TabIndex = 0;
+            this.tabPage14.Text = "Nuked-OPN2";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage15);
+            this.tabControl3.Controls.Add(this.tabPage16);
+            this.tabControl3.Controls.Add(this.tabPage17);
+            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl3.HotTrack = true;
+            this.tabControl3.Location = new System.Drawing.Point(0, 0);
+            this.tabControl3.Multiline = true;
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(443, 371);
+            this.tabControl3.TabIndex = 9;
+            // 
+            // tabPage15
+            // 
+            this.tabPage15.Controls.Add(this.groupBox9);
+            this.tabPage15.Controls.Add(this.groupBox10);
+            this.tabPage15.Controls.Add(this.groupBox8);
+            this.tabPage15.Controls.Add(this.groupBox12);
+            this.tabPage15.Controls.Add(this.groupBox11);
+            this.tabPage15.Location = new System.Drawing.Point(4, 22);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage15.Size = new System.Drawing.Size(435, 345);
+            this.tabPage15.TabIndex = 0;
+            this.tabPage15.Text = ".NSF";
+            this.tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // tabPage16
+            // 
+            this.tabPage16.Controls.Add(this.groupBox14);
+            this.tabPage16.Controls.Add(this.groupBox13);
+            this.tabPage16.Controls.Add(this.label49);
+            this.tabPage16.Controls.Add(this.label51);
+            this.tabPage16.Controls.Add(this.tbSIDOutputBufferSize);
+            this.tabPage16.Location = new System.Drawing.Point(4, 22);
+            this.tabPage16.Name = "tabPage16";
+            this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage16.Size = new System.Drawing.Size(435, 345);
+            this.tabPage16.TabIndex = 1;
+            this.tabPage16.Text = ".SID";
+            this.tabPage16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage17
+            // 
+            this.tabPage17.Controls.Add(this.groupBox15);
+            this.tabPage17.Location = new System.Drawing.Point(4, 22);
+            this.tabPage17.Name = "tabPage17";
+            this.tabPage17.Size = new System.Drawing.Size(435, 345);
+            this.tabPage17.TabIndex = 2;
+            this.tabPage17.Text = ".MID/.RCP";
+            this.tabPage17.UseVisualStyleBackColor = true;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(464, 441);
+            this.Controls.Add(this.cbHiyorimiMode);
             this.Controls.Add(this.tcSetting);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(480, 480);
-            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(480, 480);
             this.Name = "frmSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -4699,12 +5047,14 @@
             this.gbDirectSound.ResumeLayout(false);
             this.tcSetting.ResumeLayout(false);
             this.tpOutput.ResumeLayout(false);
-            this.tpOutput.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            this.tpModule.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.tpNuked.ResumeLayout(false);
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
@@ -4719,14 +5069,17 @@
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.tpSID.ResumeLayout(false);
-            this.tpSID.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
-            this.tpMIDIOut.ResumeLayout(false);
-            this.tpMIDIOut.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).EndInit();
             this.tbcMIDIoutList.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListA)).EndInit();
@@ -4748,8 +5101,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListI)).EndInit();
             this.tabPage10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutListJ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMIDIoutPallet)).EndInit();
-            this.tpMIDIOut2.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
             this.tabMIDIExp.ResumeLayout(false);
@@ -4815,13 +5166,27 @@
             this.gbDump.PerformLayout();
             this.tpOmake.ResumeLayout(false);
             this.tpOmake.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tpAbout.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage11.PerformLayout();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage13.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage14.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage15.ResumeLayout(false);
+            this.tabPage16.ResumeLayout(false);
+            this.tabPage16.PerformLayout();
+            this.tabPage17.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -4869,7 +5234,6 @@
         private System.Windows.Forms.Label lblLatencyUnit;
         private System.Windows.Forms.Label lblLatency;
         private System.Windows.Forms.ComboBox cmbLatency;
-        private System.Windows.Forms.TabPage tpModule;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
@@ -4967,7 +5331,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btVST;
         private System.Windows.Forms.TextBox tbVST;
-        private System.Windows.Forms.TabPage tpMIDIOut;
         private System.Windows.Forms.Button btnUP_A;
         private System.Windows.Forms.Button btnSubMIDIout;
         private System.Windows.Forms.Button btnDOWN_A;
@@ -5045,7 +5408,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox tbNSFFds_LPF;
         private System.Windows.Forms.CheckBox cbNFSFds_4085Reset;
-        private System.Windows.Forms.TabPage tpSID;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnSIDCharacter;
@@ -5067,7 +5429,6 @@
         private System.Windows.Forms.Label lblWaitTime;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox cmbWaitTime;
-        private System.Windows.Forms.TabPage tpMIDIOut2;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.Button btnBeforeSend_Default;
         private System.Windows.Forms.TextBox tbBeforeSend_Custom;
@@ -5087,7 +5448,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label36;
         private System.Windows.Forms.RadioButton rbSPPCM;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.ComboBox cmbSPPCMDevice;
@@ -5198,7 +5558,7 @@
         private System.Windows.Forms.Button btPlayClr;
         private System.Windows.Forms.Button btFastClr;
         private System.Windows.Forms.Button btSlowClr;
-        private ucSettingInstruments ucSettingInstruments1;
+        //private ucSettingInstruments ucSettingInstruments1;
         private System.Windows.Forms.Label lblKeyBoardHookNotice;
         private System.Windows.Forms.RadioButton rbNullDevice;
         private System.Windows.Forms.TextBox tbSIDOutputBufferSize;
@@ -5213,5 +5573,24 @@
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
         private System.Windows.Forms.CheckBox cbEmptyPlayList;
         private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
+        private System.Windows.Forms.TrackBar tbOpacity;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.RadioButton rbManualDetect;
+        private System.Windows.Forms.RadioButton rbAutoDetect;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private System.Windows.Forms.RadioButton rbSCCIDetect;
+        private System.Windows.Forms.RadioButton rbC86ctlDetect;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage15;
+        private System.Windows.Forms.TabPage tabPage16;
+        private System.Windows.Forms.TabPage tabPage17;
     }
 }

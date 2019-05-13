@@ -12,8 +12,11 @@ namespace MDPlayer.form
 {
     public partial class frmAY8910 : frmChipBase
     {
+        private MDChipParams.AY8910 newParam = null;
+        private MDChipParams.AY8910 oldParam = null;
 
-        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam) : base(frm, chipID, zoom, newParam)
+
+        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam) : base(frm, chipID, zoom)
         {
             InitializeComponent();
 
