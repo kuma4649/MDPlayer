@@ -2846,6 +2846,7 @@ namespace MDPlayer
                 ym2151_mame ym2151mame = null;
                 ym2151_x68sound ym2151_x68sound = null;
                 ym2413 ym2413 = null;
+                ym3526 ym3526 = null;
                 ay8910 ay8910 = null;
 
                 int YM2151ClockValue = 4000000;
@@ -3087,6 +3088,34 @@ namespace MDPlayer
                             useChip.Add(chip.ID == 0 ? EnmChip.YM2413 : EnmChip.S_YM2413);
 
                             break;
+                        case 7:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ym3526 == null)
+                            {
+                                ym3526 = new ym3526();
+                                chip.ID = 0;
+                                chipLED.PriOPL = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                chipLED.SecOPL = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM3526;
+                            chip.Instrument = ym3526;
+                            chip.Update = ym3526.Update;
+                            chip.Start = ym3526.Start;
+                            chip.Stop = ym3526.Stop;
+                            chip.Reset = ym3526.Reset;
+                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.Volume = setting.balance.YM3526Volume;
+                            chip.Clock = dInfo.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+                            useChip.Add(chip.ID == 0 ? EnmChip.YM3526 : EnmChip.S_YM3526);
+
+                            break;
                         case 15:
                             chip = new MDSound.MDSound.Chip();
                             if (ay8910 == null)
@@ -3160,6 +3189,8 @@ namespace MDPlayer
                     SetYM2151Volume(false, setting.balance.YM2151Volume);
                 if (useChip.Contains(EnmChip.YM2413) || useChip.Contains(EnmChip.S_YM2413))
                     SetYM2413Volume(true, setting.balance.YM2413Volume);
+                if (useChip.Contains(EnmChip.YM3526) || useChip.Contains(EnmChip.S_YM3526))
+                    SetYM3526Volume(true, setting.balance.YM3526Volume);
                 if (useChip.Contains(EnmChip.AY8910) || useChip.Contains(EnmChip.S_AY8910))
                     SetAY8910Volume(false, setting.balance.AY8910Volume);
 
