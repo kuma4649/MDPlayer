@@ -516,6 +516,9 @@ namespace MDPlayer
                     case 6:
                         WriteYM2413(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
                         break;
+                    case 7:
+                        WriteYM3526(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                        break;
                     case 15:
                         WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
                         break;
@@ -551,6 +554,11 @@ namespace MDPlayer
         private void WriteYM2413(int chipID, byte adr, byte data)
         {
             chipRegister.setYM2413Register(chipID, adr, data, model);
+        }
+
+        private void WriteYM3526(int chipID, byte adr, byte data)
+        {
+            chipRegister.setYM3526Register(chipID, adr, data, model);
         }
 
         private void WriteAY8910(int chipID, byte adr, byte data)
