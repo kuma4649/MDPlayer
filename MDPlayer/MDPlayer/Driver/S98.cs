@@ -416,118 +416,124 @@ namespace MDPlayer
 
         private void oneFrameS98()
         {
-
-            while (true)
+            try
             {
-                if (vgmBuf == null)
+                while (true)
                 {
-                    break;
-                }
-
-                byte cmd = vgmBuf[musicPtr++];
-
-                //wait 1Sync
-                if (cmd == 0xff)
-                {
-                    s98WaitCounter = 1;
-                    ym2608WaitCounter = 0;
-                    break;
-                }
-
-                //wait nSync
-                if (cmd == 0xfe)
-                {
-                    s98WaitCounter = Common.getvv(vgmBuf, ref musicPtr);
-                    ym2608WaitCounter = 0;
-                    break;
-                }
-
-                //end/loop command
-                if (cmd == 0xfd)
-                {
-                    if (s98Info.LoopAddress != 0)
+                    if (vgmBuf == null)
                     {
-                        musicPtr = s98Info.LoopAddress;
-                        vgmCurLoop++;
+                        break;
+                    }
+
+                    byte cmd = vgmBuf[musicPtr++];
+
+                    //wait 1Sync
+                    if (cmd == 0xff)
+                    {
+                        s98WaitCounter = 1;
+                        ym2608WaitCounter = 0;
+                        break;
+                    }
+
+                    //wait nSync
+                    if (cmd == 0xfe)
+                    {
+                        s98WaitCounter = Common.getvv(vgmBuf, ref musicPtr);
+                        ym2608WaitCounter = 0;
+                        break;
+                    }
+
+                    //end/loop command
+                    if (cmd == 0xfd)
+                    {
+                        if (s98Info.LoopAddress != 0)
+                        {
+                            musicPtr = s98Info.LoopAddress;
+                            vgmCurLoop++;
+                            continue;
+                        }
+                        else
+                        {
+                            Stopped = true;
+                            break;
+                        }
+                    }
+
+                    int devNo = cmd / 2;
+                    if (devNo >= s98Info.DeviceInfos.Count)// s98Info.DeviceCount)
+                    {
+                        musicPtr += 2;
                         continue;
                     }
-                    else
+
+                    byte devPort = (byte)(cmd % 2);
+
+                    switch (s98Info.DeviceInfos[devNo].DeviceType)
                     {
-                        Stopped = true;
-                        break;
-                    }
-                }
+                        case 1:
+                            WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 2:
+                            WriteYM2203(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 3:
+                            WriteYM2612(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 4:
 
-                int devNo = cmd / 2;
-                if (devNo >= s98Info.DeviceInfos.Count)// s98Info.DeviceCount)
-                {
-                    musicPtr += 2;
-                    continue;
-                }
-
-                byte devPort = (byte)(cmd % 2);
-
-                switch (s98Info.DeviceInfos[devNo].DeviceType)
-                {
-                    case 1:
-                        WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 2:
-                        WriteYM2203(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 3:
-                        WriteYM2612(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 4:
-
-                        if (model == EnmModel.RealModel)
-                        {
-                            if (ym2608WaitCounter > 200)
+                            if (model == EnmModel.RealModel)
                             {
-                                isDataBlock = true;
-                                ym2608WaitCounter = 0;
+                                if (ym2608WaitCounter > 200)
+                                {
+                                    isDataBlock = true;
+                                    ym2608WaitCounter = 0;
 
-                                System.Threading.Thread.Sleep(10);
-                                //while ((chipRegister.getYM2608Register(s98Info.DeviceInfos[devNo].ChipID, 0x1, 0x00, model) & 0xbf) != 0)
+                                    System.Threading.Thread.Sleep(10);
+                                    //while ((chipRegister.getYM2608Register(s98Info.DeviceInfos[devNo].ChipID, 0x1, 0x00, model) & 0xbf) != 0)
+                                    //{
+                                    //    System.Threading.Thread.Sleep(0);
+                                    //}
+
+                                    isDataBlock = false;
+                                }
+
+                                //if (ym2608WaitCounter > 1000)
                                 //{
-                                //    System.Threading.Thread.Sleep(0);
+                                //    ym2608WaitSw = true;
                                 //}
-
-                                isDataBlock = false;
+                                //else if (ym2608WaitSw && ym2608WaitCounter == 1)
+                                //{
+                                //    chipRegister.sendDataYM2608(s98Info.DeviceInfos[devNo].ChipID, model);
+                                //    ym2608WaitSw = false;
+                                //}
                             }
 
-                            //if (ym2608WaitCounter > 1000)
-                            //{
-                            //    ym2608WaitSw = true;
-                            //}
-                            //else if (ym2608WaitSw && ym2608WaitCounter == 1)
-                            //{
-                            //    chipRegister.sendDataYM2608(s98Info.DeviceInfos[devNo].ChipID, model);
-                            //    ym2608WaitSw = false;
-                            //}
-                        }
+                            WriteYM2608(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            ym2608WaitCounter++;
+                            break;
+                        case 5:
+                            WriteYM2151(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 6:
+                            WriteYM2413(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 7:
+                            WriteYM3526(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 15:
+                            WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
+                            break;
+                        case 16:
+                            WriteSN76489(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr + 1]);
+                            break;
+                    }
+                    musicPtr += 2;
 
-                        WriteYM2608(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        ym2608WaitCounter++;
-                        break;
-                    case 5:
-                        WriteYM2151(s98Info.DeviceInfos[devNo].ChipID, devPort, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 6:
-                        WriteYM2413(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 7:
-                        WriteYM3526(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 15:
-                        WriteAY8910(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr], vgmBuf[musicPtr + 1]);
-                        break;
-                    case 16:
-                        WriteSN76489(s98Info.DeviceInfos[devNo].ChipID, vgmBuf[musicPtr + 1]);
-                        break;
                 }
-                musicPtr += 2;
-
+            }
+            catch (System.IndexOutOfRangeException )
+            {
+                Stopped = true;
             }
         }
 

@@ -4056,81 +4056,82 @@ namespace MDPlayer.form
             //先ずは丸ごと読み込む
             byte[] buf = System.IO.File.ReadAllBytes(filename);
 
+            string ext = Path.GetExtension(filename).ToLower();
 
             //.NRDファイルの場合は拡張子判定
-            if (filename.ToLower().LastIndexOf(".nrd") != -1)
+            if (ext==".nrd")
             {
                 format = EnmFileFormat.NRT;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".mdr") != -1)
+            if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".mdx") != -1)
+            if (ext == ".mdx")
             {
                 format = EnmFileFormat.MDX;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".mnd") != -1)
+            if (ext == ".mnd")
             {
                 format = EnmFileFormat.MND;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".mub") != -1)
+            if (ext == ".mub")
             {
                 format = EnmFileFormat.MUB;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".muc") != -1)
+            if (ext == ".muc")
             {
                 format = EnmFileFormat.MUC;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".xgm") != -1)
+            if (ext == ".xgm")
             {
                 format = EnmFileFormat.XGM;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".s98") != -1)
+            if (ext == ".s98")
             {
                 format = EnmFileFormat.S98;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".nsf") != -1)
+            if (ext == ".nsf")
             {
                 format = EnmFileFormat.NSF;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".hes") != -1)
+            if (ext == ".hes")
             {
                 format = EnmFileFormat.HES;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".sid") != -1)
+            if (ext == ".sid")
             {
                 format = EnmFileFormat.SID;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".mid") != -1)
+            if (ext == ".mid")
             {
                 format = EnmFileFormat.MID;
                 return buf;
             }
 
-            if (filename.ToLower().LastIndexOf(".rcp") != -1)
+            if (ext == ".rcp")
             {
                 format = EnmFileFormat.RCP;
                 return buf;
