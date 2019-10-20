@@ -283,7 +283,7 @@ namespace MDPlayer.form
             newParam.channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 80, 0), 19);
             int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
             float frq = (float)(delta / 9447.0f);
-            newParam.channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? Common.searchYM2608Adpcm(frq) : -1;
+            newParam.channels[12].note = (ym2608Register[1][0x00] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq)-1) : -1;
             if ((ym2608Register[1][0x01] & 0xc0) == 0)
             {
                 newParam.channels[12].note = -1;
