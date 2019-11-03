@@ -13,6 +13,7 @@ namespace MDPlayer
 {
     public class Audio
     {
+        public static frmMain frmMain = null;
 
         public static int clockAY8910 = 1789750;
         public static int clockK051649 = 1500000;
@@ -4871,6 +4872,8 @@ namespace MDPlayer
 
                 driverVirtual.SetYM2151Hosei(((vgm)driverVirtual).YM2151ClockValue);
                 driverReal.SetYM2151Hosei(((vgm)driverReal).YM2151ClockValue);
+
+                //frmMain.ForceChannelMask(EnmChip.YM2612, 0, 0, true);
 
                 Paused = false;
                 oneTimeReset = false;

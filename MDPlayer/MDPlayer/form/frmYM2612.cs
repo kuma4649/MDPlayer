@@ -16,10 +16,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YM2612 newParam = null;
-        private MDChipParams.YM2612 oldParam = new MDChipParams.YM2612();
+        private MDChipParams.YM2612 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2612(frmMain frm, int chipID, int zoom, MDChipParams.YM2612 newParam)
+        public frmYM2612(frmMain frm, int chipID, int zoom, MDChipParams.YM2612 newParam, MDChipParams.YM2612 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -27,6 +27,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM2612, null, zoom);
             screenInit();
             update();

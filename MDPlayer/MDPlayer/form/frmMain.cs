@@ -148,6 +148,7 @@ namespace MDPlayer.form
 
             log.ForcedWrite("起動時のAudio初期化処理開始");
 
+            Audio.frmMain = this;
             Audio.Init(setting);
 
             YM2612MIDI = new YM2612MIDI(this, Audio.mdsMIDI, newParam);
@@ -1851,7 +1852,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2612[chipID] = new frmYM2612(this, chipID, setting.other.Zoom, newParam.ym2612[chipID]);
+            frmYM2612[chipID] = new frmYM2612(this, chipID, setting.other.Zoom, newParam.ym2612[chipID], oldParam.ym2612[chipID]);
 
             if (setting.location.PosYm2612[chipID] == System.Drawing.Point.Empty)
             {
@@ -2016,7 +2017,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom, newParam.sn76489[chipID]);
+            frmSN76489[chipID] = new frmSN76489(this, chipID, setting.other.Zoom, newParam.sn76489[chipID], oldParam.sn76489[chipID]);
 
             if (setting.location.PosSN76489[chipID] == System.Drawing.Point.Empty)
             {
@@ -3186,7 +3187,7 @@ namespace MDPlayer.form
 
         private void allScreenInit()
         {
-            oldParam = new MDChipParams();
+            //oldParam = new MDChipParams();
             DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
@@ -3207,13 +3208,13 @@ namespace MDPlayer.form
                 if (frmOKIM6258[i] != null) frmOKIM6258[i].screenInit();
                 if (frmOKIM6295[i] != null) frmOKIM6295[i].screenInit();
                 if (frmSegaPCM[i] != null) frmSegaPCM[i].screenInit();
-                if (frmSN76489[i] != null) frmSN76489[i].screenInit();
+                //if (frmSN76489[i] != null) frmSN76489[i].screenInit();
                 if (frmYM2151[i] != null) frmYM2151[i].screenInit();
                 if (frmYM2203[i] != null) frmYM2203[i].screenInit();
                 if (frmYM2413[i] != null) frmYM2413[i].screenInit();
                 if (frmYM2608[i] != null) frmYM2608[i].screenInit();
                 if (frmYM2610[i] != null) frmYM2610[i].screenInit();
-                if (frmYM2612[i] != null) frmYM2612[i].screenInit();
+                //if (frmYM2612[i] != null) frmYM2612[i].screenInit();
                 if (frmYM3526[i] != null) frmYM3526[i].screenInit();
                 if (frmY8950[i] != null) frmY8950[i].screenInit();
                 if (frmYM3812[i] != null) frmYM3812[i].screenInit();
@@ -3754,8 +3755,8 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2413, chipID, ch);
                     for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2608, chipID, ch);
                     for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2610, chipID, ch);
-                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(EnmChip.YM2612, chipID, ch);
-                    for (int ch = 0; ch < 4; ch++) ResetChannelMask(EnmChip.SN76489, chipID, ch);
+                    for (int ch = 0; ch < 6; ch++) ForceChannelMask(EnmChip.YM2612, chipID, ch, newParam.ym2612[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.SN76489, chipID, ch, newParam.sn76489[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.RF5C164, chipID, ch);
                     for (int ch = 0; ch < 24; ch++) ResetChannelMask(EnmChip.C140, chipID, ch);
                     for (int ch = 0; ch < 32; ch++) ResetChannelMask(EnmChip.C352, chipID, ch);
@@ -3767,7 +3768,7 @@ namespace MDPlayer.form
                     ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
-                oldParam = new MDChipParams();
+                //oldParam = new MDChipParams();
                 //newParam = new MDChipParams();
                 reqAllScreenInit = true;
 
@@ -5704,6 +5705,41 @@ namespace MDPlayer.form
             }
         }
 
+        public void ForceChannelMask(EnmChip chip, int chipID, int ch, bool mask)
+        {
+            switch (chip)
+            {
+                case EnmChip.YM2612:
+                    if (ch >= 0 && ch < 9)
+                    {
+                        if (mask)
+                            Audio.setYM2612Mask(chipID, ch);
+                        else
+                            Audio.resetYM2612Mask(chipID, ch);
+
+                        newParam.ym2612[chipID].channels[ch].mask = mask;
+                        oldParam.ym2612[chipID].channels[ch].mask = !mask;
+
+                        //FM(2ch) FMex
+                        if ((ch == 2) || (ch >= 6 && ch < 9))
+                        {
+                            newParam.ym2612[chipID].channels[2].mask = mask;
+                            newParam.ym2612[chipID].channels[6].mask = mask;
+                            newParam.ym2612[chipID].channels[7].mask = mask;
+                            newParam.ym2612[chipID].channels[8].mask = mask;
+                        }
+                    }
+                    break;
+                case EnmChip.SN76489:
+                    if (mask)
+                        Audio.setSN76489Mask(chipID, ch);
+                    else
+                        Audio.resetSN76489Mask(chipID, ch);
+                    newParam.sn76489[chipID].channels[ch].mask = mask;
+                    oldParam.sn76489[chipID].channels[ch].mask = !mask;
+                    break;
+            }
+        }
 
 
         private void StartMIDIInMonitoring()

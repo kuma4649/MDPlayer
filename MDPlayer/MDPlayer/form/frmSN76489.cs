@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.SN76489 newParam = null;
-        private MDChipParams.SN76489 oldParam = new MDChipParams.SN76489();
+        private MDChipParams.SN76489 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmSN76489(frmMain frm, int chipID, int zoom, MDChipParams.SN76489 newParam)
+        public frmSN76489(frmMain frm, int chipID, int zoom, MDChipParams.SN76489 newParam, MDChipParams.SN76489 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -34,6 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeSN76489, null, zoom);
             bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
             int tp = SN76489Type ? 1 : 0;
