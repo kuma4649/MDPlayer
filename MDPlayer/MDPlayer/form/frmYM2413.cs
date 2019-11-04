@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YM2413 newParam = null;
-        private MDChipParams.YM2413 oldParam = new MDChipParams.YM2413();
+        private MDChipParams.YM2413 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2413(frmMain frm, int chipID, int zoom, MDChipParams.YM2413 newParam)
+        public frmYM2413(frmMain frm, int chipID, int zoom, MDChipParams.YM2413 newParam, MDChipParams.YM2413 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -33,6 +33,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM2413, null, zoom);
             bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
             int tp = YM2413Type ? 1 : 0;

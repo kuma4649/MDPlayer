@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YM2203 newParam = null;
-        private MDChipParams.YM2203 oldParam = new MDChipParams.YM2203();
+        private MDChipParams.YM2203 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2203(frmMain frm, int chipID, int zoom,MDChipParams.YM2203 newParam)
+        public frmYM2203(frmMain frm, int chipID, int zoom, MDChipParams.YM2203 newParam, MDChipParams.YM2203 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -33,6 +33,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM2203, null, zoom);
             bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
             int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;

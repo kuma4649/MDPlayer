@@ -1514,7 +1514,7 @@ namespace MDPlayer.form
                     return;
             }
 
-            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom, newParam.ym2608[chipID]);
+            frmYM2608[chipID] = new frmYM2608(this, chipID, setting.other.Zoom, newParam.ym2608[chipID], oldParam.ym2608[chipID]);
 
             if (setting.location.PosYm2608[chipID] == System.Drawing.Point.Empty)
             {
@@ -1571,7 +1571,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2151[chipID] = new frmYM2151(this, chipID, setting.other.Zoom, newParam.ym2151[chipID]);
+            frmYM2151[chipID] = new frmYM2151(this, chipID, setting.other.Zoom, newParam.ym2151[chipID], oldParam.ym2151[chipID]);
 
             if (setting.location.PosYm2151[chipID] == System.Drawing.Point.Empty)
             {
@@ -1739,7 +1739,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2203[chipID] = new frmYM2203(this, chipID, setting.other.Zoom, newParam.ym2203[chipID]);
+            frmYM2203[chipID] = new frmYM2203(this, chipID, setting.other.Zoom, newParam.ym2203[chipID], oldParam.ym2203[chipID]);
 
             if (setting.location.PosYm2203[chipID] == System.Drawing.Point.Empty)
             {
@@ -1796,7 +1796,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom, newParam.ym2610[chipID]);
+            frmYM2610[chipID] = new frmYM2610(this, chipID, setting.other.Zoom, newParam.ym2610[chipID], oldParam.ym2610[chipID]);
 
             if (setting.location.PosYm2610[chipID] == System.Drawing.Point.Empty)
             {
@@ -2298,7 +2298,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmYM2413[chipID] = new frmYM2413(this, chipID, setting.other.Zoom, newParam.ym2413[chipID]);
+            frmYM2413[chipID] = new frmYM2413(this, chipID, setting.other.Zoom, newParam.ym2413[chipID], oldParam.ym2413[chipID]);
 
             if (setting.location.PosYm2413[chipID] == System.Drawing.Point.Empty)
             {
@@ -3209,11 +3209,11 @@ namespace MDPlayer.form
                 if (frmOKIM6295[i] != null) frmOKIM6295[i].screenInit();
                 if (frmSegaPCM[i] != null) frmSegaPCM[i].screenInit();
                 //if (frmSN76489[i] != null) frmSN76489[i].screenInit();
-                if (frmYM2151[i] != null) frmYM2151[i].screenInit();
-                if (frmYM2203[i] != null) frmYM2203[i].screenInit();
-                if (frmYM2413[i] != null) frmYM2413[i].screenInit();
-                if (frmYM2608[i] != null) frmYM2608[i].screenInit();
-                if (frmYM2610[i] != null) frmYM2610[i].screenInit();
+                //if (frmYM2151[i] != null) frmYM2151[i].screenInit();
+                //if (frmYM2203[i] != null) frmYM2203[i].screenInit();
+                //if (frmYM2413[i] != null) frmYM2413[i].screenInit();
+                //if (frmYM2608[i] != null) frmYM2608[i].screenInit();
+                //if (frmYM2610[i] != null) frmYM2610[i].screenInit();
                 //if (frmYM2612[i] != null) frmYM2612[i].screenInit();
                 if (frmYM3526[i] != null) frmYM3526[i].screenInit();
                 if (frmY8950[i] != null) frmY8950[i].screenInit();
@@ -3750,11 +3750,11 @@ namespace MDPlayer.form
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
                     for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.AY8910, chipID, ch);
-                    for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.YM2151, chipID, ch);
-                    for (int ch = 0; ch < 9; ch++) ResetChannelMask(EnmChip.YM2203, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2413, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2608, chipID, ch);
-                    for (int ch = 0; ch < 14; ch++) ResetChannelMask(EnmChip.YM2610, chipID, ch);
+                    for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.YM2151, chipID, ch, newParam.ym2151[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 9; ch++) ForceChannelMask(EnmChip.YM2203, chipID, ch, newParam.ym2203[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 14; ch++) ForceChannelMask(EnmChip.YM2413, chipID, ch, newParam.ym2413[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 14; ch++) ForceChannelMask(EnmChip.YM2608, chipID, ch, newParam.ym2608[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 14; ch++) ForceChannelMask(EnmChip.YM2610, chipID, ch, newParam.ym2610[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 6; ch++) ForceChannelMask(EnmChip.YM2612, chipID, ch, newParam.ym2612[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.SN76489, chipID, ch, newParam.sn76489[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.RF5C164, chipID, ch);
@@ -5709,6 +5709,104 @@ namespace MDPlayer.form
         {
             switch (chip)
             {
+                case EnmChip.YM2151:
+                    if (mask)
+                        Audio.setYM2151Mask(chipID, ch);
+                    else
+                        Audio.resetYM2151Mask(chipID, ch);
+                    newParam.ym2151[chipID].channels[ch].mask = mask;
+                    oldParam.ym2151[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.YM2203:
+                    if (ch >= 0 && ch < 9)
+                    {
+                        if (mask)
+                            Audio.setYM2203Mask(chipID, ch);
+                        else
+                            Audio.resetYM2203Mask(chipID, ch);
+
+                        newParam.ym2203[chipID].channels[ch].mask = mask;
+                        oldParam.ym2203[chipID].channels[ch].mask = !mask;
+
+                        //FM(2ch) FMex
+                        if ((ch == 2) || (ch >= 6 && ch < 9))
+                        {
+                            newParam.ym2203[chipID].channels[2].mask = mask;
+                            newParam.ym2203[chipID].channels[6].mask = mask;
+                            newParam.ym2203[chipID].channels[7].mask = mask;
+                            newParam.ym2203[chipID].channels[8].mask = mask;
+                            oldParam.ym2203[chipID].channels[2].mask = !mask;
+                            oldParam.ym2203[chipID].channels[6].mask = !mask;
+                            oldParam.ym2203[chipID].channels[7].mask = !mask;
+                            oldParam.ym2203[chipID].channels[8].mask = !mask;
+                        }
+                    }
+                    break;
+                case EnmChip.YM2413:
+                    if (ch >= 0 && ch < 14)
+                    {
+                        if (mask)
+                            Audio.setYM2413Mask(chipID, ch);
+                        else
+                            Audio.resetYM2413Mask(chipID, ch);
+
+                        newParam.ym2413[chipID].channels[ch].mask = mask;
+                        oldParam.ym2413[chipID].channels[ch].mask = !mask;
+                    }
+                    break;
+                case EnmChip.YM2608:
+                    if (ch >= 0 && ch < 14)
+                    {
+                        if (mask)
+                            Audio.setYM2608Mask(chipID, ch);
+                        else
+                            Audio.resetYM2608Mask(chipID, ch);
+
+                        newParam.ym2608[chipID].channels[ch].mask = mask;
+                        oldParam.ym2608[chipID].channels[ch].mask = !mask;
+
+                        //FM(2ch) FMex
+                        if ((ch == 2) || (ch >= 9 && ch < 12))
+                        {
+                            newParam.ym2608[chipID].channels[2].mask = mask;
+                            newParam.ym2608[chipID].channels[9].mask = mask;
+                            newParam.ym2608[chipID].channels[10].mask = mask;
+                            newParam.ym2608[chipID].channels[11].mask = mask;
+                            oldParam.ym2608[chipID].channels[ 2].mask = !mask;
+                            oldParam.ym2608[chipID].channels[ 9].mask = !mask;
+                            oldParam.ym2608[chipID].channels[10].mask = !mask;
+                            oldParam.ym2608[chipID].channels[11].mask = !mask;
+                        }
+                    }
+                    break;
+                case EnmChip.YM2610:
+                    if (ch >= 0 && ch < 14)
+                    {
+                        int c = ch;
+                        if (ch == 12) c = 13;
+                        if (ch == 13) c = 12;
+
+                        if (mask)
+                            Audio.setYM2610Mask(chipID, ch);
+                        else
+                            Audio.resetYM2610Mask(chipID, ch);
+                        newParam.ym2610[chipID].channels[c].mask = mask;
+                        oldParam.ym2610[chipID].channels[c].mask = !mask;
+
+                        //FM(2ch) FMex
+                        if ((ch == 2) || (ch >= 9 && ch < 12))
+                        {
+                            newParam.ym2610[chipID].channels[ 2].mask = mask;
+                            newParam.ym2610[chipID].channels[ 9].mask = mask;
+                            newParam.ym2610[chipID].channels[10].mask = mask;
+                            newParam.ym2610[chipID].channels[11].mask = mask;
+                            oldParam.ym2610[chipID].channels[ 2].mask = !mask;
+                            oldParam.ym2610[chipID].channels[ 9].mask = !mask;
+                            oldParam.ym2610[chipID].channels[10].mask = !mask;
+                            oldParam.ym2610[chipID].channels[11].mask = !mask;
+                        }
+                    }
+                    break;
                 case EnmChip.YM2612:
                     if (ch >= 0 && ch < 9)
                     {
@@ -5727,7 +5825,71 @@ namespace MDPlayer.form
                             newParam.ym2612[chipID].channels[6].mask = mask;
                             newParam.ym2612[chipID].channels[7].mask = mask;
                             newParam.ym2612[chipID].channels[8].mask = mask;
+                            oldParam.ym2612[chipID].channels[2].mask = !mask;
+                            oldParam.ym2612[chipID].channels[6].mask = !mask;
+                            oldParam.ym2612[chipID].channels[7].mask = !mask;
+                            oldParam.ym2612[chipID].channels[8].mask = !mask;
                         }
+                    }
+                    break;
+                case EnmChip.YM3526:
+                    if (ch >= 0 && ch < 14)
+                    {
+                        if (mask)
+                            Audio.setYM3526Mask(chipID, ch);
+                        else
+                            Audio.resetYM3526Mask(chipID, ch);
+
+                        newParam.ym3526[chipID].channels[ch].mask = mask;
+                        oldParam.ym3526[chipID].channels[ch].mask = !mask;
+                    }
+                    break;
+                case EnmChip.Y8950:
+                    if (ch >= 0 && ch < 15)
+                    {
+                        if (mask)
+                            Audio.setY8950Mask(chipID, ch);
+                        else
+                            Audio.resetY8950Mask(chipID, ch);
+
+                        newParam.y8950[chipID].channels[ch].mask = mask;
+                        oldParam.y8950[chipID].channels[ch].mask = !mask;
+                    }
+                    break;
+                case EnmChip.YM3812:
+                    if (ch >= 0 && ch < 14)
+                    {
+                        if (mask)
+                            Audio.setYM3812Mask(chipID, ch);
+                        else
+                            Audio.resetYM3812Mask(chipID, ch);
+
+                        newParam.ym3812[chipID].channels[ch].mask = mask;
+                        oldParam.ym3812[chipID].channels[ch].mask = !mask;
+                    }
+                    break;
+                case EnmChip.YMF262:
+                    if (ch >= 0 && ch < 24)
+                    {
+                        if (mask)
+                            Audio.setYMF262Mask(chipID, ch);
+                        else
+                            Audio.resetYMF262Mask(chipID, ch);
+
+                        newParam.ymf262[chipID].channels[ch].mask = mask;
+                        oldParam.ymf262[chipID].channels[ch].mask = !mask;
+                    }
+                    break;
+                case EnmChip.YMF278B:
+                    if (ch >= 0 && ch < 47)
+                    {
+                        if (mask)
+                            Audio.setYMF278BMask(chipID, ch);
+                        else
+                            Audio.resetYMF278BMask(chipID, ch);
+
+                        newParam.ymf278b[chipID].channels[ch].mask = mask;
+                        oldParam.ymf278b[chipID].channels[ch].mask = !mask;
                     }
                     break;
                 case EnmChip.SN76489:

@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YM2608 newParam = null;
-        private MDChipParams.YM2608 oldParam = new MDChipParams.YM2608();
+        private MDChipParams.YM2608 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2608(frmMain frm, int chipID, int zoom, MDChipParams.YM2608 newParam)
+        public frmYM2608(frmMain frm, int chipID, int zoom, MDChipParams.YM2608 newParam, MDChipParams.YM2608 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -33,6 +33,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeD, null, zoom);
             bool YM2608Type = (chipID == 0) ? parent.setting.YM2608Type.UseScci : parent.setting.YM2608SType.UseScci;
             int YM2608SoundLocation = (chipID == 0) ? parent.setting.YM2608Type.SoundLocation : parent.setting.YM2608SType.SoundLocation;
