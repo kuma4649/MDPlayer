@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDPlayer", "MDPlayer\MDPlayer.csproj", "{B3206C8D-424E-4378-A2C3-3E6B6718A3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mdpc", "mdpc\mdpc.csproj", "{B44E36AE-56CD-491B-8583-35C53B5EED88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{B3206C8D-424E-4378-A2C3-3E6B6718A3EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3206C8D-424E-4378-A2C3-3E6B6718A3EB}.Release|x86.ActiveCfg = Release|x86
 		{B3206C8D-424E-4378-A2C3-3E6B6718A3EB}.Release|x86.Build.0 = Release|x86
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Debug|x86.Build.0 = Debug|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|x86.ActiveCfg = Release|Any CPU
+		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFAB7D8F-51EE-49D9-AE16-CBBBBB8774C9}
 	EndGlobalSection
 EndGlobal

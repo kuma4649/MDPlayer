@@ -4998,6 +4998,11 @@ namespace MDPlayer
             vgmFadeout = true;
         }
 
+        public static void closeWaveWriter()
+        {
+            waveWriter.Close();
+        }
+
         public static void Stop()
         {
 
