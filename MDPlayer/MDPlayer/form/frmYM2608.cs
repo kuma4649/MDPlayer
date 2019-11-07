@@ -333,6 +333,16 @@ namespace MDPlayer.form
                 else
                 {
                     DrawBuff.Volume(frameBuffer, 256, 8 + (c+3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    //if (c == 7 && oyc.note != nyc.note)
+                    //{
+                        //Console.WriteLine("note:{0}", nyc.note);
+                        //int[][] ym2608Register = Audio.GetYM2608Register(chipID);
+                        //int freq1 = ym2608Register[0][0xa9] + (ym2608Register[0][0xad] ) * 0x100;
+                        //int freq2 = ym2608Register[0][0xa8] + (ym2608Register[0][0xac] ) * 0x100;
+                        //int freq3 = ym2608Register[0][0xaa] + (ym2608Register[0][0xae] ) * 0x100;
+                        //int freq4 = ym2608Register[0][0xa2] + (ym2608Register[0][0xa6] ) * 0x100;
+                        //Console.WriteLine("frq:{0:x4} {1:x4} {2:x4} {3:x4}", freq1, freq2, freq3, freq4);
+                    //}
                     DrawBuff.KeyBoard(frameBuffer, c + 3, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2608(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                 }

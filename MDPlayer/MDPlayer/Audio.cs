@@ -3148,6 +3148,7 @@ namespace MDPlayer
 
         }
 
+
         public static bool midPlay(Setting setting)
         {
 
@@ -5192,6 +5193,25 @@ namespace MDPlayer
             {
                 log.ForcedWrite(ex);
             }
+        }
+
+        public static void ResetTimeCounter()
+        {
+            if (driverVirtual == null && driverReal == null) return;
+            if (driverVirtual != null)
+            {
+                driverVirtual.Counter = 0;
+                driverVirtual.TotalCounter = 0;
+                driverVirtual.LoopCounter = 0;
+            }
+
+            if (driverReal != null)
+            {
+                driverReal.Counter = 0;
+                driverReal.TotalCounter = 0;
+                driverReal.LoopCounter = 0;
+            }
+
         }
 
         public static long GetCounter()

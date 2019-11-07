@@ -3663,6 +3663,11 @@ namespace MDPlayer.form
                 Audio.Pause();
             }
 
+            if(Audio.trdStopped && Audio.Stopped)
+            {
+                Audio.ResetTimeCounter();
+            }
+
             frmPlayList.Stop();
             Audio.Stop();
             screenInit();
