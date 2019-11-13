@@ -3027,6 +3027,10 @@ namespace MDPlayer
 
         }
 
+        public void setMaskAY8910(int chipID,int ch,bool mask)
+        {
+            maskPSGChAY8910[chipID][ch] = mask;
+        }
 
         public void setMaskSN76489(int chipID, int ch, bool mask)
         {

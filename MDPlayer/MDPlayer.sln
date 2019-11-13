@@ -7,6 +7,37 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDPlayer", "MDPlayer\MDPlay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mdpc", "mdpc\mdpc.csproj", "{B44E36AE-56CD-491B-8583-35C53B5EED88}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "document", "document", "{4BC46D63-3EC7-41EE-BAE4-D6522DF7DE27}"
+	ProjectSection(SolutionItems) = preProject
+		document\CHANGE.txt = document\CHANGE.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "licenses", "licenses", "{B336E366-413C-4035-98C5-70D7BB32EF5D}"
+	ProjectSection(SolutionItems) = preProject
+		document\licenses\GPL.txt = document\licenses\GPL.txt
+		document\licenses\List.txt = document\licenses\List.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MUCOM88", "MUCOM88", "{733AD9D7-9A97-4397-BD4C-7027B1232B1F}"
+	ProjectSection(SolutionItems) = preProject
+		document\licenses\MUCOM88\MUCOM88_license.txt = document\licenses\MUCOM88\MUCOM88_license.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MUCOM88Windows", "MUCOM88Windows", "{288B52C3-3470-4E7C-A104-246326206697}"
+	ProjectSection(SolutionItems) = preProject
+		document\licenses\MUCOM88Windows\license.txt = document\licenses\MUCOM88Windows\license.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fmgen", "fmgen", "{D55D1918-56B0-4305-BD88-985BC75A01CC}"
+	ProjectSection(SolutionItems) = preProject
+		document\licenses\readme.txt = document\licenses\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mame", "mame", "{07460D4A-BCDC-4952-B595-44A9E4F5D994}"
+	ProjectSection(SolutionItems) = preProject
+		document\licenses\mame_license.txt = document\licenses\mame_license.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +65,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B336E366-413C-4035-98C5-70D7BB32EF5D} = {4BC46D63-3EC7-41EE-BAE4-D6522DF7DE27}
+		{733AD9D7-9A97-4397-BD4C-7027B1232B1F} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
+		{288B52C3-3470-4E7C-A104-246326206697} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
+		{D55D1918-56B0-4305-BD88-985BC75A01CC} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
+		{07460D4A-BCDC-4952-B595-44A9E4F5D994} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFAB7D8F-51EE-49D9-AE16-CBBBBB8774C9}

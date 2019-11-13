@@ -2130,7 +2130,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmAY8910[chipID] = new frmAY8910(this, chipID, setting.other.Zoom, newParam.ay8910[chipID]);
+            frmAY8910[chipID] = new frmAY8910(this, chipID, setting.other.Zoom, newParam.ay8910[chipID], oldParam.ay8910[chipID]);
 
             if (setting.location.PosAY8910[chipID] == System.Drawing.Point.Empty)
             {
@@ -3195,7 +3195,7 @@ namespace MDPlayer.form
 
             for (int i = 0; i < 2; i++)
             {
-                if (frmAY8910[i] != null) frmAY8910[i].screenInit();
+                //if (frmAY8910[i] != null) frmAY8910[i].screenInit();
                 if (frmC140[i] != null) frmC140[i].screenInit();
                 if (frmC352[i] != null) frmC352[i].screenInit();
                 if (frmFDS[i] != null) frmFDS[i].screenInit();
@@ -3754,7 +3754,7 @@ namespace MDPlayer.form
 
                 for (int chipID = 0; chipID < 2; chipID++)
                 {
-                    for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.AY8910, chipID, ch);
+                    for (int ch = 0; ch < 3; ch++) ForceChannelMask(EnmChip.AY8910, chipID, ch, newParam.ay8910[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.YM2151, chipID, ch, newParam.ym2151[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 9; ch++) ForceChannelMask(EnmChip.YM2203, chipID, ch, newParam.ym2203[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 14; ch++) ForceChannelMask(EnmChip.YM2413, chipID, ch, newParam.ym2413[chipID].channels[ch].mask);
@@ -5714,6 +5714,14 @@ namespace MDPlayer.form
         {
             switch (chip)
             {
+                case EnmChip.AY8910:
+                    if (mask)
+                        Audio.setAY8910Mask(chipID, ch);
+                    else
+                        Audio.resetAY8910Mask(chipID, ch);
+                    newParam.ay8910[chipID].channels[ch].mask = mask;
+                    oldParam.ay8910[chipID].channels[ch].mask = !mask;
+                    break;
                 case EnmChip.YM2151:
                     if (mask)
                         Audio.setYM2151Mask(chipID, ch);

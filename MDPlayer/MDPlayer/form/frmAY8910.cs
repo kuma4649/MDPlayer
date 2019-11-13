@@ -13,12 +13,13 @@ namespace MDPlayer.form
     public partial class frmAY8910 : frmChipBase
     {
 
-        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam) : base(frm, chipID, zoom, newParam)
+        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam, MDChipParams.AY8910 oldParam) : base(frm, chipID, zoom, newParam)
         {
             InitializeComponent();
 
             oldParam = new MDChipParams.AY8910();
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(this.pbScreen, Properties.Resources.planeAY8910, null, zoom);
             DrawBuff.screenInitAY8910(frameBuffer);
             update();

@@ -7145,7 +7145,8 @@ namespace MDPlayer
 
         public static void setAY8910Mask(int chipID, int ch)
         {
-            mds.setAY8910Mask(chipID, 1 << ch);
+            //mds.setAY8910Mask(chipID, 1 << ch);
+            chipRegister.setMaskAY8910(chipID, ch, true);
         }
 
         public static void setHuC6280Mask(int chipID, int ch)
@@ -7336,7 +7337,8 @@ namespace MDPlayer
 
         public static void resetAY8910Mask(int chipID, int ch)
         {
-            mds.resetAY8910Mask(chipID, 1 << ch);
+            //mds.resetAY8910Mask(chipID, 1 << ch);
+            chipRegister.setMaskAY8910(chipID, ch, false);
         }
 
         public static void resetHuC6280Mask(int chipID, int ch)

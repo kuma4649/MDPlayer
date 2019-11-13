@@ -677,12 +677,6 @@
     </Content>
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
-    <Content Include="licenses\GPL.txt" />
-    <Content Include="licenses\List.txt" />
-    <Content Include="licenses\mame_license.txt" />
-    <Content Include="licenses\MUCOM88Windows\license.txt" />
-    <Content Include="licenses\MUCOM88\MUCOM88_license.txt" />
-    <Content Include="licenses\readme.txt" />
     <Content Include="Resources\addFolderPL.png" />
     <Content Include="Resources\addPL.png" />
     <Content Include="Resources\ccFadeout.png" />
