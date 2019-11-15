@@ -1706,20 +1706,17 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
+                int slot = (dAddr & 0xc) >> 2;
+                int al = fmRegisterYM2203[chipID][0xb0 + ch] & 0x7;
                 dData &= 0x7f;
 
                 if (ch != 3)
                 {
-                    int alg = fmRegisterYM2203[chipID][0xb0 + ch] & 0x7;
-                    int fv = 0;
-                    int dAddrTL = (dAddr & 0xf) - ch;
-                    if (dAddrTL == 0x0) { if ((algVolTbl[alg] & 1) != 0) fv = nowYM2203FadeoutVol[chipID]; }
-                    else if (dAddrTL == 0x4) { if ((algVolTbl[alg] & 4) != 0) fv = nowYM2203FadeoutVol[chipID]; }
-                    else if (dAddrTL == 0x8) { if ((algVolTbl[alg] & 2) != 0) fv = nowYM2203FadeoutVol[chipID]; }
-                    else if (dAddrTL == 0xc) { if ((algVolTbl[alg] & 8) != 0) fv = nowYM2203FadeoutVol[chipID]; }
-
-                    dData = Math.Min(dData + fv, 127);
-                    dData = maskFMChYM2203[chipID][ch] ? 127 : dData;
+                    if ((algM[al] & (1 << slot)) != 0)
+                    {
+                        dData = Math.Min(dData + nowYM2203FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2203[chipID][ch] ? 127 : dData;
+                    }
                 }
             }
 
@@ -1728,14 +1725,17 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3 && maskFMChYM2203[chipID][ch])
+                if (ch != 3)// && maskFMChYM2203[chipID][ch])
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int slot = 0; slot < 4; slot++)
                     {
-                        int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
-                        if ((algM[al] & (1 << slot)) > 0)
+                        if ((algM[al] & (1 << slot)) != 0)
                         {
-                            setYM2203Register(chipID, 0x40 + ch + slot * 4, fmRegisterYM2203[chipID][0x40 + ch], model);
+                            setYM2203Register(
+                                chipID
+                                , 0x40 + ch + slot * 4
+                                , fmRegisterYM2203[chipID][0x40 + ch + slot * 4]
+                                , model);
                         }
                     }
                 }
@@ -1930,9 +1930,9 @@ namespace MDPlayer
                 int slot = (dAddr & 0xc) >> 2;
                 dData &= 0x7f;
 
-                if ((algM[al] & (1 << slot)) > 0)
+                if (ch != 3)
                 {
-                    if (ch != 3)
+                    if ((algM[al] & (1 << slot)) != 0)
                     {
                         dData = Math.Min(dData + nowYM2608FadeoutVol[chipID], 127);
                         dData = maskFMChYM2608[chipID][dPort * 3 + ch] ? 127 : dData;
@@ -1945,14 +1945,18 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3 && maskFMChYM2608[chipID][ch])
+                if (ch != 3)// && maskFMChYM2608[chipID][ch])
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int slot = 0; slot < 4; slot++)
                     {
-                        int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
                         if ((algM[al] & (1 << slot)) > 0)
                         {
-                            setYM2608Register(chipID, dPort, 0x40 + ch + slot * 4, fmRegisterYM2608[chipID][dPort][0x40 + ch], model);
+                            setYM2608Register(
+                                chipID
+                                , dPort
+                                , 0x40 + ch + slot * 4
+                                , fmRegisterYM2608[chipID][dPort][0x40 + ch + slot * 4]
+                                , model);
                         }
                     }
                 }
@@ -2232,18 +2236,18 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
-                int al = fmRegisterYM2610[chipID][dPort][0xb0 + ch] & 0x07;//AL
                 int slot = (dAddr & 0xc) >> 2;
+                int al = fmRegisterYM2610[chipID][dPort][0xb0 + ch] & 0x07;//AL
                 dData &= 0x7f;
 
-                //if ((algM[al] & (1 << slot)) > 0)
-                //{
                 if (ch != 3)
                 {
-                    dData = Math.Min(dData + nowYM2610FadeoutVol[chipID], 127);
-                    dData = maskFMChYM2610[chipID][dPort * 3 + ch] ? 127 : dData;
+                    if ((algM[al] & (1 << slot)) > 0)
+                    {
+                        dData = Math.Min(dData + nowYM2610FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2610[chipID][dPort * 3 + ch] ? 127 : dData;
+                    }
                 }
-                //}
             }
 
             if ((dAddr & 0xf0) == 0xb0)//AL
@@ -2251,14 +2255,18 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3 && maskFMChYM2610[chipID][ch])
+                if (ch != 3)// && maskFMChYM2610[chipID][ch])
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int slot = 0; slot < 4; slot++)
                     {
-                        int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
-                        if ((algM[al] & (1 << slot)) > 0)
+                        if ((algM[al] & (1 << slot)) != 0)
                         {
-                            setYM2610Register(chipID, dPort, 0x40 + ch + slot * 4, fmRegisterYM2610[chipID][dPort][0x40 + ch], model);
+                            setYM2610Register(
+                                chipID
+                                , dPort
+                                , 0x40 + ch + slot * 4
+                                , fmRegisterYM2610[chipID][dPort][0x40 + ch + slot * 4]
+                                , model);
                         }
                     }
                 }
@@ -2928,12 +2936,17 @@ namespace MDPlayer
             if ((dAddr & 0xf0) == 0x40)//TL
             {
                 int ch = (dAddr & 0x3);
+                int slot = (dAddr & 0xc) >> 2;
+                int al = fmRegisterYM2612[chipID][dPort][0xb0 + ch] & 0x07;
                 dData &= 0x7f;
 
                 if (ch != 3)
                 {
-                    dData = Math.Min(dData + nowYM2612FadeoutVol[chipID], 127);
-                    dData = maskFMChYM2612[chipID][dPort * 3 + ch] ? 127 : dData;
+                    if ((algM[al] & (1 << slot)) != 0)
+                    {
+                        dData = Math.Min(dData + nowYM2612FadeoutVol[chipID], 127);
+                        dData = maskFMChYM2612[chipID][dPort * 3 + ch] ? 127 : dData;
+                    }
                 }
             }
 
@@ -2942,14 +2955,20 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3 && maskFMChYM2612[chipID][ch])
+                if (ch != 3)// && maskFMChYM2612[chipID][dPort * 3 + ch])
                 {
-                    for (int i = 0; i < 4; i++)
+                    //CarrierのTLを再設定する
+                    for (int slot = 0; slot < 4; slot++)
                     {
-                        int slot = (i == 0) ? 0 : ((i == 1) ? 2 : ((i == 2) ? 1 : 3));
-                        if ((algM[al] & (1 << slot)) > 0)
+                        if ((algM[al] & (1 << slot)) != 0)
                         {
-                            setYM2612Register(chipID, dPort, 0x40 + ch + slot * 4, fmRegisterYM2612[chipID][dPort][0x40 + ch], model, vgmFrameCounter);
+                            setYM2612Register(
+                                chipID
+                                , dPort
+                                , 0x40 + ch + slot * 4
+                                , fmRegisterYM2612[chipID][dPort][0x40 + ch + slot * 4]
+                                , model
+                                , vgmFrameCounter);
                         }
                     }
                 }
@@ -2957,6 +2976,7 @@ namespace MDPlayer
 
             if (dAddr == 0x2a)
             {
+                //PCMデータをマスクする
                 if (maskFMChYM2612[chipID][5]) dData = 0x00;
             }
 
@@ -3594,8 +3614,8 @@ namespace MDPlayer
                 case 0:
                 case 2:
                 case 4: /* Tone channels */
-                    if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
-                        sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
+                    //if (sn76489Register[chipID][LatchedRegister[chipID]] == 0)
+                        //sn76489Register[chipID][LatchedRegister[chipID]] = 1; /* Zero frequency changed to 1 to avoid div/0 */
                     break;
                 case 6: /* Noise */
                     NoiseFreq[chipID] = 0x10 << (sn76489Register[chipID][6] & 0x3); /* set noise signal generator frequency */
