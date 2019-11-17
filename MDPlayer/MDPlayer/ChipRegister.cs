@@ -302,6 +302,33 @@ namespace MDPlayer
             }
         };
 
+        private bool[][] maskChRF5C164 = new bool[][] {
+            new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+            ,new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+        };
+
+        private bool[][] maskChHuC6280 = new bool[][] {
+            new bool[6] {
+                false, false, false, false, false, false
+            }
+            ,new bool[6] {
+                false, false, false, false, false, false
+            }
+        };
+
+        private bool[][] maskChSegaPCM = new bool[][] {
+            new bool[16] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+            }
+            ,new bool[16] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+            }
+        };
+
         public byte[] K051649tKeyOnOff = new byte[] { 0, 0 };
         public bool[][] maskChK051649 = new bool[][]
         {
@@ -1661,6 +1688,14 @@ namespace MDPlayer
             {
                 if (!ctHuC6280[chipID].UseScci)
                 {
+                    if (dAddr == 0)
+                    {
+                        HuC6280CurrentCh[chipID] = dData & 7;
+                    }
+                    if (dAddr == 4)
+                    {
+                        dData = (int)(maskChHuC6280[chipID][HuC6280CurrentCh[chipID]] ? 0 : dData);
+                    }
                     //System.Console.WriteLine("chipID:{0} Adr:{1} Dat:{2}", chipID, dAddr, dData);
                     mds.WriteHuC6280((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -3062,6 +3097,11 @@ namespace MDPlayer
             maskPSGChAY8910[chipID][ch] = mask;
         }
 
+        public void setMaskRF5C164(int chipID, int ch, bool mask)
+        {
+            maskChRF5C164[chipID][ch] = mask;
+        }
+
         public void setMaskSN76489(int chipID, int ch, bool mask)
         {
             maskChSN76489[chipID][ch] = mask;
@@ -3159,6 +3199,16 @@ namespace MDPlayer
         public void setMaskC352(int chipID, int ch, bool mask)
         {
             maskChC352[chipID][ch] = mask;
+        }
+
+        public void setMaskHuC6280(int chipID, int ch, bool mask)
+        {
+            maskChHuC6280[chipID][ch] = mask;
+        }
+
+        public void setMaskSegaPCM(int chipID, int ch, bool mask)
+        {
+            maskChSegaPCM[chipID][ch] = mask;
         }
 
         public void setMaskYM2608(int chipID, int ch, bool mask,bool noSend=false)
@@ -3382,6 +3432,7 @@ namespace MDPlayer
         }
 
         int[] algVolTbl = new int[8] { 8, 8, 8, 8, 0xa, 0xe, 0xe, 0xf };
+        private int[] HuC6280CurrentCh = new int[2] { 0, 0 };
 
         public void setFadeoutVolYM2203(int chipID, int v)
         {
@@ -3688,6 +3739,20 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
+                if (adr == 0x08)
+                {
+                    data = (byte)(
+                        (maskChRF5C164[chipid][0] ? 0 : (data & 0x01))
+                        | (maskChRF5C164[chipid][1] ? 0 : (data & 0x02))
+                        | (maskChRF5C164[chipid][2] ? 0 : (data & 0x04))
+                        | (maskChRF5C164[chipid][3] ? 0 : (data & 0x08))
+                        | (maskChRF5C164[chipid][4] ? 0 : (data & 0x10))
+                        | (maskChRF5C164[chipid][5] ? 0 : (data & 0x20))
+                        | (maskChRF5C164[chipid][6] ? 0 : (data & 0x40))
+                        | (maskChRF5C164[chipid][7] ? 0 : (data & 0x80))
+                        );
+                }
+
                 mds.WriteRF5C164(chipid, adr, data);
             }
         }
@@ -3920,6 +3985,7 @@ namespace MDPlayer
                 {
                     byte ch = (byte)((offset >> 3) & 0xf);
                     if ((data & 0x01) == 0) pcmKeyOnSEGAPCM[chipID][ch] = true;
+                    data = (byte)(maskChSegaPCM[chipID][ch] ? (data | 0x01) : data);
                 }
             }
 

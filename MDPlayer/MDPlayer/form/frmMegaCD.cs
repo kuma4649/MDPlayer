@@ -19,7 +19,7 @@ namespace MDPlayer.form
         private MDChipParams.RF5C164 oldParam = new MDChipParams.RF5C164();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmMegaCD(frmMain frm, int chipID, int zoom, MDChipParams.RF5C164 newParam)
+        public frmMegaCD(frmMain frm, int chipID, int zoom, MDChipParams.RF5C164 newParam, MDChipParams.RF5C164 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -28,6 +28,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeC, null, zoom);
             DrawBuff.screenInitRF5C164(frameBuffer);
             update();

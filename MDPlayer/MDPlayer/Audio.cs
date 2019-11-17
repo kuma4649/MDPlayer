@@ -7058,17 +7058,16 @@ namespace MDPlayer
             return chipRegister.GetPSGVolume(chipID);
         }
 
-
+        public static void setRF5C164Mask(int chipID, int ch)
+        {
+            //mds.setRf5c164Mask(chipID, ch);
+            chipRegister.setMaskRF5C164(chipID, ch, true);
+        }
 
         public static void setSN76489Mask(int chipID, int ch)
         {
             //mds.setSN76489Mask(chipID,1 << ch);
             chipRegister.setMaskSN76489(chipID, ch, true);
-        }
-
-        public static void setRF5C164Mask(int chipID, int ch)
-        {
-            mds.setRf5c164Mask(chipID, ch);
         }
 
         public static void setYM2151Mask(int chipID, int ch)
@@ -7142,7 +7141,8 @@ namespace MDPlayer
 
         public static void setSegaPCMMask(int chipID, int ch)
         {
-            mds.setSegaPcmMask(chipID, 1 << ch);
+            //mds.setSegaPcmMask(chipID, 1 << ch);
+            chipRegister.setMaskSegaPCM(chipID,ch, true);
         }
 
         public static void setAY8910Mask(int chipID, int ch)
@@ -7153,7 +7153,8 @@ namespace MDPlayer
 
         public static void setHuC6280Mask(int chipID, int ch)
         {
-            mds.setHuC6280Mask(chipID, 1 << ch);
+            //mds.setHuC6280Mask(chipID, 1 << ch);
+            chipRegister.setMaskHuC6280(chipID,ch, true);
         }
 
         public static void setOKIM6258Mask(int chipID)
@@ -7239,7 +7240,8 @@ namespace MDPlayer
         {
             try
             {
-                mds.resetRf5c164Mask(chipID, ch);
+                //mds.resetRf5c164Mask(chipID, ch);
+                chipRegister.setMaskRF5C164(chipID, ch, false);
             }
             catch { }
         }
@@ -7339,7 +7341,8 @@ namespace MDPlayer
 
         public static void resetSegaPCMMask(int chipID, int ch)
         {
-            mds.resetSegaPcmMask(chipID, 1 << ch);
+            //mds.resetSegaPcmMask(chipID, 1 << ch);
+            chipRegister.setMaskSegaPCM(chipID,ch, false);
         }
 
         public static void resetAY8910Mask(int chipID, int ch)
@@ -7350,7 +7353,8 @@ namespace MDPlayer
 
         public static void resetHuC6280Mask(int chipID, int ch)
         {
-            mds.resetHuC6280Mask(chipID, 1 << ch);
+            //mds.resetHuC6280Mask(chipID, 1 << ch);
+            chipRegister.setMaskHuC6280(chipID,ch, false);
         }
 
         public static void resetNESMask(int chipID, int ch)

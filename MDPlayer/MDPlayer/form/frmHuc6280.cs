@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.HuC6280 newParam = null;
-        private MDChipParams.HuC6280 oldParam = new MDChipParams.HuC6280();
+        private MDChipParams.HuC6280 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmHuC6280(frmMain frm, int chipID, int zoom, MDChipParams.HuC6280 newParam)
+        public frmHuC6280(frmMain frm, int chipID, int zoom, MDChipParams.HuC6280 newParam, MDChipParams.HuC6280 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -34,6 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeHuC6280, null, zoom);
             DrawBuff.screenInitHuC6280(frameBuffer);
             update();

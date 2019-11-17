@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.SegaPcm newParam = null;
-        private MDChipParams.SegaPcm oldParam = new MDChipParams.SegaPcm();
+        private MDChipParams.SegaPcm oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmSegaPCM(frmMain frm, int chipID, int zoom, MDChipParams.SegaPcm newParam)
+        public frmSegaPCM(frmMain frm, int chipID, int zoom, MDChipParams.SegaPcm newParam, MDChipParams.SegaPcm oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -34,6 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeSEGAPCM, null, zoom);
             screenInit();
             update();
