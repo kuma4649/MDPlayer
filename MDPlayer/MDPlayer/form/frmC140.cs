@@ -18,15 +18,16 @@ namespace MDPlayer.form
         private MDChipParams.C140 oldParam = new MDChipParams.C140();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmC140(frmMain frm,int chipID,int zoom, MDChipParams.C140 newParam)
+        public frmC140(frmMain frm,int chipID,int zoom, MDChipParams.C140 newParam,MDChipParams.C140 oldParam)
         {
+            InitializeComponent();
+
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
-
-            InitializeComponent();
-
             this.newParam = newParam;
+            this.oldParam = oldParam;
+
             frameBuffer.Add(pbScreen, Properties.Resources.planeF, null, zoom);
             screenInit();
             update();

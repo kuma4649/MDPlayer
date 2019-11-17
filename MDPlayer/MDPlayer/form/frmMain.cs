@@ -1627,7 +1627,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmC140[chipID] = new frmC140(this, chipID, setting.other.Zoom, newParam.c140[chipID]);
+            frmC140[chipID] = new frmC140(this, chipID, setting.other.Zoom, newParam.c140[chipID], oldParam.c140[chipID]);
 
             if (setting.location.PosC140[chipID] == System.Drawing.Point.Empty)
             {
@@ -1683,7 +1683,7 @@ namespace MDPlayer.form
                 else return;
             }
 
-            frmC352[chipID] = new frmC352(this, chipID, setting.other.Zoom, newParam.c352[chipID]);
+            frmC352[chipID] = new frmC352(this, chipID, setting.other.Zoom, newParam.c352[chipID], oldParam.c352[chipID]);
 
             if (setting.location.PosC352[chipID] == System.Drawing.Point.Empty)
             {
@@ -3196,8 +3196,8 @@ namespace MDPlayer.form
             for (int i = 0; i < 2; i++)
             {
                 //if (frmAY8910[i] != null) frmAY8910[i].screenInit();
-                if (frmC140[i] != null) frmC140[i].screenInit();
-                if (frmC352[i] != null) frmC352[i].screenInit();
+                //if (frmC140[i] != null) frmC140[i].screenInit();
+                //if (frmC352[i] != null) frmC352[i].screenInit();
                 if (frmFDS[i] != null) frmFDS[i].screenInit();
                 if (frmHuC6280[i] != null) frmHuC6280[i].screenInit();
                 if (frmK051649[i] != null) frmK051649[i].screenInit();
@@ -3763,8 +3763,8 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 6; ch++) ForceChannelMask(EnmChip.YM2612, chipID, ch, newParam.ym2612[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.SN76489, chipID, ch, newParam.sn76489[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 8; ch++) ResetChannelMask(EnmChip.RF5C164, chipID, ch);
-                    for (int ch = 0; ch < 24; ch++) ResetChannelMask(EnmChip.C140, chipID, ch);
-                    for (int ch = 0; ch < 32; ch++) ResetChannelMask(EnmChip.C352, chipID, ch);
+                    for (int ch = 0; ch < 24; ch++) ForceChannelMask(EnmChip.C140, chipID, ch, newParam.c140[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 32; ch++) ForceChannelMask(EnmChip.C352, chipID, ch, newParam.c352[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 16; ch++) ResetChannelMask(EnmChip.SEGAPCM, chipID, ch);
                     for (int ch = 0; ch < 6; ch++) ResetChannelMask(EnmChip.HuC6280, chipID, ch);
                     for (int ch = 0; ch < 2; ch++) ResetChannelMask(EnmChip.NES, chipID, ch);
@@ -5721,6 +5721,22 @@ namespace MDPlayer.form
                         Audio.resetAY8910Mask(chipID, ch);
                     newParam.ay8910[chipID].channels[ch].mask = mask;
                     oldParam.ay8910[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.C140:
+                    if (mask)
+                        Audio.setC140Mask(chipID, ch);
+                    else
+                        Audio.resetC140Mask(chipID, ch);
+                    newParam.c140[chipID].channels[ch].mask = mask;
+                    oldParam.c140[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.C352:
+                    if (mask)
+                        Audio.setC352Mask(chipID, ch);
+                    else
+                        Audio.resetC352Mask(chipID, ch);
+                    newParam.c352[chipID].channels[ch].mask = mask;
+                    oldParam.c352[chipID].channels[ch].mask = !mask;
                     break;
                 case EnmChip.YM2151:
                     if (mask)

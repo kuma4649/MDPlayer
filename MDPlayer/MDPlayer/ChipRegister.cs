@@ -278,6 +278,16 @@ namespace MDPlayer
 
         public byte[][] pcmRegisterC140 = new byte[2][] { null, null };
         public bool[][] pcmKeyOnC140 = new bool[2][] { null, null };
+        private bool[][] maskChC140 = new bool[][] {
+            new bool[24] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false
+            }
+            ,new bool[24] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false
+            }
+        };
 
         public ushort[][] pcmRegisterC352 = new ushort[2][] { null, null };
         public ushort[][] pcmKeyOnC352 = new ushort[2][] { null, null };
@@ -3141,6 +3151,11 @@ namespace MDPlayer
             maskFMChYMF278B[chipID][YMF278BCh[ch]] = mask;
         }
 
+        public void setMaskC140(int chipID, int ch, bool mask)
+        {
+            maskChC140[chipID][ch] = mask;
+        }
+
         public void setMaskC352(int chipID, int ch, bool mask)
         {
             maskChC352[chipID][ch] = mask;
@@ -4060,6 +4075,7 @@ namespace MDPlayer
                         if ((data & 0x80) != 0)
                         {
                             pcmKeyOnC140[chipID][ch] = true;
+                            data = (byte)(maskChC140[chipID][ch] ? (data & 0x7f) : data);
                         }
                         break;
                 }

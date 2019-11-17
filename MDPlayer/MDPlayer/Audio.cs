@@ -5773,7 +5773,8 @@ namespace MDPlayer
                 int i;
                 int cnt = 0;
 
-                if (Stopped || Paused) return mds.Update(buffer, offset, sampleCount, null);
+                if (Stopped || Paused)
+                    return mds.Update(buffer, offset, sampleCount, null);
 
                 if (driverVirtual is nsf)
                 {
@@ -5860,8 +5861,8 @@ namespace MDPlayer
 
 
                         chipRegister.Close();
-
-                        Thread.Sleep(500);//noise対策
+                        
+                        //Thread.Sleep(500);//noise対策
 
                         Stopped = true;
 
@@ -7130,7 +7131,8 @@ namespace MDPlayer
 
         public static void setC140Mask(int chipID, int ch)
         {
-            mds.setC140Mask(chipID, 1 << ch);
+            //mds.setC140Mask(chipID, 1 << ch);
+            chipRegister.setMaskC140(chipID, ch, true);
         }
 
         public static void setC352Mask(int chipID, int ch)
@@ -7318,7 +7320,12 @@ namespace MDPlayer
 
         public static void resetC140Mask(int chipID, int ch)
         {
-            mds.resetC140Mask(chipID, 1 << ch);
+            //mds.resetC140Mask(chipID, 1 << ch);
+            try
+            {
+                chipRegister.setMaskC140(chipID, ch, false);
+            }
+            catch { }
         }
 
         public static void resetC352Mask(int chipID, int ch)

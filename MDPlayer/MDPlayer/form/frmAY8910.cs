@@ -17,9 +17,12 @@ namespace MDPlayer.form
         {
             InitializeComponent();
 
-            oldParam = new MDChipParams.AY8910();
+            parent = frm;
+            this.chipID = chipID;
+            this.zoom = zoom;
             this.newParam = newParam;
             this.oldParam = oldParam;
+
             frameBuffer.Add(this.pbScreen, Properties.Resources.planeAY8910, null, zoom);
             DrawBuff.screenInitAY8910(frameBuffer);
             update();

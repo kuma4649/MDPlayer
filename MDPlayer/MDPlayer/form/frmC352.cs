@@ -24,15 +24,16 @@ namespace MDPlayer.form
         private MDChipParams.C352 oldParam = new MDChipParams.C352();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmC352(frmMain frm, int chipID, int zoom, MDChipParams.C352 newParam)
+        public frmC352(frmMain frm, int chipID, int zoom, MDChipParams.C352 newParam, MDChipParams.C352 oldParam)
         {
+            InitializeComponent();
+
             parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
-
-            InitializeComponent();
-
             this.newParam = newParam;
+            this.oldParam = oldParam;
+
             frameBuffer.Add(pbScreen, Properties.Resources.planeC352, null, zoom);
             screenInit();
             update();
