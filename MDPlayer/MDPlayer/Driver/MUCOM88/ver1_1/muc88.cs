@@ -3121,7 +3121,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto MO3;
             }
             Z80.E++;// SECOND COM
-            Mem.LD_8(Z80.IX, Z80.E);
+            //Mem.LD_8(Z80.IX, Z80.E);
+            LFODAT[Z80.IX] = Z80.E;
             Z80.A = Z80.E;
             msub.MWRIT2();// 'MF0'
             //goto FCOMP1;
@@ -3134,7 +3135,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 return;
             }
             Z80.E++;
-            Mem.LD_8(Z80.IX, Z80.E);
+            //Mem.LD_8(Z80.IX, Z80.E);
+            LFODAT[Z80.IX] = Z80.E;
             Z80.A = Z80.E;
             msub.MWRIT2();// 'MF1'
             //goto FCOMP1;
@@ -3166,7 +3168,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 goto M07;
             }
             Z80.A = 5;  // 'ML'
-            Mem.LD_8(Z80.IX, Z80.A);
+            //Mem.LD_8(Z80.IX, Z80.A);
+            LFODAT[Z80.IX] = Z80.A;
             msub.MWRIT2();
             msub.REDATA();
             if (Z80.Carry) {
@@ -3256,7 +3259,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         public void MODP2()
         {
-            Mem.LD_8(Z80.IX, Z80.A);
+            //Mem.LD_8(Z80.IX, Z80.A);
+            LFODAT[Z80.IX] = Z80.A;
             msub.MWRIT2();
             msub.REDATA();
             if (Z80.Carry)

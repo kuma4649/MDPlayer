@@ -103,7 +103,7 @@ namespace MDPlayer.Driver.MUCOM88
 
 #if DEBUG
             //実チップスレッドは処理をスキップ(デバッグ向け)
-            //if (model == enmModel.RealModel) return true;
+            if (model == EnmModel.RealModel) return true;
 #endif
 
             fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
@@ -452,10 +452,12 @@ namespace MDPlayer.Driver.MUCOM88
             log.Write(string.Format("#Data Buffer ${0:x04}-${1:x04} (${2:x04})", start, start + length - 1, length));
             log.Write(string.Format("#MaxCount:{0} Basic:${1:x04} Data:${2:x04}", maxcount, basicsize, mubsize));
 
+#if DEBUG
             if (log.debug)
             {
                 SaveMusic("test.mub", (ushort)start, (ushort)length, pcmflag);
             }
+#endif
         }
 
         private int SaveMusic(string fname, ushort start, ushort length, int option)
