@@ -1992,6 +1992,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             }
             Mem.stack.Push(Z80.HL);
             Z80.HL = Mem.LD_16(BEFMD);
+
             Mem.LD_8(Z80.HL, Z80.E);//KUMA:DE(DEPTH)を書き込む
             Z80.HL++;
             Mem.LD_8(Z80.HL, Z80.D);

@@ -148,11 +148,11 @@ namespace MDPlayer.Driver.MUCOM88
         {
 #if DEBUG
             //実チップスレッドは処理をスキップ(デバッグ向け)
-            //if (model == enmModel.RealModel)
-            //{
-            //    Stopped = true;
-            //    return;
-            //}
+            if (model == EnmModel.RealModel)
+            {
+                Stopped = true;
+                return;
+            }
 #endif
 
             try

@@ -1114,6 +1114,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.C = Z80.A;
 
             CULP2();
+            
+            //HL <- 0x118
 
             Mem.stack.Push(Z80.AF);
             Z80.A = Mem.LD_8(BEFCO + 1);
@@ -1157,7 +1159,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             //Z80.HL = FNUMB;
             //Z80.EXX();
             CULP2_Ptn = false;
-
+            byte stA = Z80.A;
             Z80.A = Mem.LD_8(COMNOW);
             Z80.A -= 3;
             if (Z80.A - 3 >= 0) goto CULP4;
@@ -1189,13 +1191,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
             //Mem.LD_16(FRQBEF, Z80.DE);
             FRQBEF = Z80.DE;
-
+            Z80.A =stA;
             CTONE();
             ushort stAF = Z80.AF;
             Z80.A = Mem.LD_8(BEFTONE);
             CTONE();
             Z80.C = Z80.A;
             Z80.AF = stAF;
+            Z80.Carry = ((Z80.A - Z80.C) < 0);
             Z80.A -= Z80.C;
             if (Z80.A == 0) return;
             //W1:
@@ -1287,7 +1290,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             int frq = CULLP3_VAL;
             int ans, count;
             float facc;
-            float frqbef = (float)frq;
+            float frqbef = FRQBEF;// (float)frq;
             if (val == 0x0A1BB)
             {
                 facc = 0.943874f;
@@ -1301,7 +1304,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
                 frqbef = frqbef * facc;
             }
             ans = (int)frqbef;
-            Z80.HL=(ushort)ans;
+            Z80.HL = (ushort)ans;
         }
 
         public void CTONE()

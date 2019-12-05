@@ -1956,9 +1956,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.B = 0;
             Z80.C = Mem.LD_8((ushort)(Z80.IX + 7));// INPUT ALGOLIZM
             Z80.Carry = (Z80.HL + Z80.BC > 0xffff);
-            Z80.HL += Z80.BC;
+            //Z80.HL += Z80.BC;
             //Z80.C = Mem.LD_8(Z80.HL);// C=ｷｬﾘｱ
-            Z80.C = CRYDAT[Z80.HL];// C=ｷｬﾘｱ
+            if (Z80.BC >= 8) return;//KUMA: オリジナルはチェック無し
+            Z80.C = CRYDAT[Z80.BC];// Z80.HL];// C=ｷｬﾘｱ
             Z80.B = 4;// 4 OPERATER
         STVOL2:
             do
