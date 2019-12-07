@@ -155,13 +155,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.A = 0;//!
             //	DI
             Mem.LD_8(MUSNUM, Z80.A);
-            CHK();
+            //CHK();//del
             AKYOFF();
             SSGOFF();
             WORKINIT();
 
         START:
             Mem.stack.Push(Z80.HL);
+            CHK();//added
             INT57();
             ENBL();
             TO_NML();
@@ -530,16 +531,44 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void SSGENT()
         {
+            if ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x08) != 0)//KUMA: 0x08(bit3)=MUTE FLAG
+            {
+                REOFF();
+            }
             SSGSUB();
             PLLFO();
+            if ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x08) != 0)//KUMA: 0x08(bit3)=MUTE FLAG
+            {
+                REON();
+            }
             //    RET
         }
 
         public void FMENT()
         {
+            if ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x08) != 0)//KUMA: 0x08(bit3)=MUTE FLAG
+            {
+                REOFF();
+            }
             FMSUB();
             PLLFO();
+            if ((Mem.LD_8((ushort)(Z80.IX + 31)) & 0x08) != 0)//KUMA: 0x08(bit3)=MUTE FLAG
+            {
+                REON();
+            }
             //    RET
+        }
+
+        public void REON()
+        {
+            Z80.A = 0xff;
+            READY= Z80.A;
+        }
+
+        public void REOFF()
+        {
+            Z80.A = 0x00;
+            READY= Z80.A;
         }
 
         //**	FM ｵﾝｹﾞﾝ ﾆ ﾀｲｽﾙ ｴﾝｿｳ ﾙｰﾁﾝ	**
@@ -947,6 +976,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void KEYON()
         {
+            if (READY == 0) return;//added
+
             //Z80.A = Mem.LD_8(FMPORT);
             Z80.A = FMPORT;
             Z80.A |= Z80.A;
@@ -974,6 +1005,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void DKEYON()
         {
+            if (READY == 0) return;//added
+
             Z80.D = 0x10;
             Z80.A = Mem.LD_8(RHYTHM);// GET RETHM PARAMETER
             Z80.A &= 0b0011_1111;
@@ -1037,6 +1070,11 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Z80.BC = Mem.stack.Pop();
             Z80.BC++;
             PC88.OUT(Z80.C, Z80.E);
+
+            //Mem.stack.Push(Z80.DE);
+            //PUTWK();
+            //Z80.DE = Mem.stack.Pop();
+
         PSGOE:
             Z80.HL = Mem.stack.Pop();
             Z80.BC = Mem.stack.Pop();
@@ -1097,8 +1135,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
             FMCOM2 = new Action[] {
              PVMCHG // 0xFF 0xF0 - PCM VOLUME MODE
-            ,HRDENV	// 0xFF 0xF1 - HARD ENVE SET 's'
-            ,ENVPOD // 0xFF 0xF2 - HARD ENVE PERIOD
+            //,HRDENV	// 0xFF 0xF1 - HARD ENVE SET 's'
+            //,ENVPOD // 0xFF 0xF2 - HARD ENVE PERIOD
+            ,NTMEAN
+            ,NTMEAN
             ,REVERVE// 0xFF 0xF3 - ﾘﾊﾞｰﾌﾞ
             ,REVMOD	// 0xFF 0xF4 - ﾘﾊﾞｰﾌﾞﾓｰﾄﾞ
             ,REVSW	// 0xFF 0xF5 - ﾘﾊﾞｰﾌﾞ ｽｲｯﾁ
@@ -1417,7 +1457,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             , SETCO
             , SETVC2
             , SETPEK
-            , TLLFO
+            //, TLLFO
             };
         }
 
@@ -2266,14 +2306,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.LD_8((ushort)(Z80.IX + 25), Z80.A);// ﾍﾝｶﾘｮｳ ｻｲｾｯﾃｲ
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 24));
             Mem.LD_8((ushort)(Z80.IX + 26), Z80.A);
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x40) == 0);
-            if (Z80.Zero)
-            {
-                return;
-            }
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
-            Mem.LD_8((ushort)(Z80.IX + 29), Z80.A);
-            Mem.LD_8((ushort)(Z80.IX + 30), 0);
+
+            //del
+            //Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x40) == 0);
+            //if (Z80.Zero)
+            //{
+            //    return;
+            //}
+            //Z80.A = Mem.LD_8((ushort)(Z80.IX + 11));
+            //Mem.LD_8((ushort)(Z80.IX + 29), Z80.A);
+            //Mem.LD_8((ushort)(Z80.IX + 30), 0);
             //	RET
         }
 
@@ -2319,6 +2361,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             }
             SOFENV();
             Z80.E = Z80.A;
+            if (READY == 0)//added
+            {
+                Z80.E = 0;//added
+            }
             Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
             PSGOUT();
             return;
@@ -2451,26 +2497,28 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             }
             SOFENV();
             goto SSSUB9;
+
+            //del
         SSSUBF:			// KEYON ｻﾚﾀﾄｷ ﾉ ｼｮﾘ
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
-            if (Z80.Zero)
-            {
-                goto SSSUBG;// NOT HARD ENV.
-            }
+        //    Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
+        //    if (Z80.Zero)
+        //    {
+        //        goto SSSUBG;// NOT HARD ENV.
+        //    }
 
-            // ---	HARD ENV.KEY ON    ---
+        //    // ---	HARD ENV.KEY ON    ---
 
-            Z80.E = 16;
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
-            PSGOUT();// HARD ENV.KEYON
-            Z80.A = Mem.LD_8((ushort)(Z80.IX + 33));
-            Z80.A &= 0b0000_1111;
-            Z80.E = Z80.A;
-            Z80.D = 0x0d;
-            PSGOUT();
-            goto SSSUBH;
+        //    Z80.E = 16;
+        //    Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
+        //    PSGOUT();// HARD ENV.KEYON
+        //    Z80.A = Mem.LD_8((ushort)(Z80.IX + 33));
+        //    Z80.A &= 0b0000_1111;
+        //    Z80.E = Z80.A;
+        //    Z80.D = 0x0d;
+        //    PSGOUT();
+        //    goto SSSUBH;
 
-        // ---	SOFT ENV.KEYON     ---
+        //// ---	SOFT ENV.KEYON     ---
 
         SSSUBG:
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
@@ -2500,13 +2548,19 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void SSSUB3()
         {
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
-            if (!Z80.Zero)
+            //del
+            //Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
+            //if (!Z80.Zero)
+            //{
+            //    SETPT();// IF HARD ENVE THEN SETPT
+            //    return;
+            //}
+            Z80.E = Z80.A;//added
+            if (READY == 0)//added
             {
-                SETPT();// IF HARD ENVE THEN SETPT
-                return;
+                Z80.E = 0;//added
             }
-            Z80.E = Z80.A;
+            //SSSUB32:
             Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
             PSGOUT();
             SETPT();
@@ -2523,21 +2577,21 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void SSSUBA()
         {
+            //del
+            //// --	HARD ENV.KEY OFF   --
 
-            // --	HARD ENV.KEY OFF   --
-
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
-            if (Z80.Zero)
-            {
-                goto SSUBAB;// NOT HARD ENV.
-            }
-            Z80.E = 0;
-            Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
-            PSGOUT();// HARD ENV.KEYOFF
+            //Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
+            //if (Z80.Zero)
+            //{
+            //    goto SSUBAB;// NOT HARD ENV.
+            //}
+            //Z80.E = 0;
+            //Z80.D = Mem.LD_8((ushort)(Z80.IX + 7));
+            //PSGOUT();// HARD ENV.KEYOFF
 
         // --	SOFT ENV.KEY OFF   --
 
-        SSUBAB:
+        //SSUBAB://del
             Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x20) == 0);
             if (Z80.Zero)
             {
@@ -2753,11 +2807,11 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         {
             Z80.D = Mem.LD_8(Z80.HL);
             Z80.HL++;
-            Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
-            if (!Z80.Zero)
-            {
-                return;
-            }
+            //Z80.Zero = ((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x80) == 0);
+            //if (!Z80.Zero)
+            //{
+            //    return;
+            //}
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
             Z80.E = Z80.A;
             Z80.A &= 0b0000_1111;
@@ -2778,7 +2832,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void PSGVOL()
         {
-            Mem.LD_8((ushort)(Z80.IX + 33), (byte)((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x7f)));// RES HARD ENV FLAG
+            //Mem.LD_8((ushort)(Z80.IX + 33), (byte)((Mem.LD_8((ushort)(Z80.IX + 33)) & 0x7f)));// RES HARD ENV FLAG
             Z80.A = Mem.LD_8((ushort)(Z80.IX + 6));
             Z80.A &= 0b1111_0000;
             Z80.E = Z80.A;
@@ -3190,6 +3244,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public void PLAY()
         {
+            if (READY == 0) return;//added
+
             Mem.stack.Push(Z80.HL);
             Z80.DE = 0x0B00;
             PCMOUT();
@@ -3353,6 +3409,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public byte NOTSB2 = 0;//(INFADR)
         public byte PVMODE = 0;//PCMvolMODE
+        public byte READY = 0xff;//KEYON ENA/DISA //added
         public byte P_OUT = 0;
         public byte M_VECTR = 0x32;//32H OR AAH
         public byte[] PORT13 = { 0x44, 0x46 };//44H OR A8H

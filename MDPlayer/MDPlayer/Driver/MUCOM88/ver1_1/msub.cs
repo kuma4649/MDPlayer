@@ -37,6 +37,21 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         public const int FD_EFG = FD_FLG + 1;
         public const int ESCAPE = FD_EFG + 1;
         public const int MINUSF = ESCAPE + 1;
+        public const int BEFRST	    = MINUSF+1		;//■追記
+        public const int BEFCO		= BEFRST+1		;//■
+        public const int BEFTONE	= BEFCO+2		;//■
+        public const int TIEFG		= BEFTONE+9		;//■
+        public const int COMNO		= TIEFG+1		;//■
+        public const int ASEMFG	    = COMNO+1		;//■
+        public const int VDDAT		= ASEMFG+1		;//■
+        public const int OTONUM	    = VDDAT+1		;//■
+        public const int VOLUME	    = OTONUM+1		;//■
+        public const int LINKPT	    = VOLUME+1		;//■
+        public const int ENDADR	    = LINKPT+2		;//■
+        public const int OCTINT	    = ENDADR+2		;//■
+        public const int SIFTDA2	= OCTINT+1		;//■
+        public const int KEYONR	    = SIFTDA2+1		;//■
+
         public const int MEMEND = 0x0E3F0;//0DDF0H
         public const int ERRORTBL = 0x08800;
 
@@ -479,7 +494,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
 
         public void KEYSIFT()
         {
-            Z80.A = Mem.LD_8(SIFTDAT);
+            Z80.L = Mem.LD_8(SIFTDAT);//added mod
+            Z80.A = Mem.LD_8(SIFTDA2);//added
+            Z80.A += Z80.L;//added
             //    Z80.A |= Z80.A
             if (Z80.A == 0) return;
             Mem.stack.Push(Z80.BC);
@@ -495,7 +512,9 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.A += (byte)(Z80.H + (Z80.Carry ? 1 : 0));
             Z80.A -= Z80.L;
             Z80.H = Z80.A; // HL = OCTAVE * 12 + KEYCODE
-            Z80.A = Mem.LD_8(SIFTDAT);
+            Z80.E = Mem.LD_8(SIFTDAT);//added mod
+            Z80.A = Mem.LD_8(SIFTDA2);//added
+            Z80.A += Z80.E;//added
             if (Z80.A - 128 < 0)
             {
                 goto KYS2;
@@ -1453,8 +1472,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
         ,0x2f //,'/'	REPEAT JUMP
         ,0x56 //,'V'	TOTAL VOLUME OFFSET
         ,0x5c //,'\'    BEFORE CODE
-        ,0x73 //,'s'	HARD ENVE SET
-        ,0x6d //,'m'	HARD ENVE PERIOD
+        //,0x73 //,'s'	HARD ENVE SET
+        //,0x6d //,'m'	HARD ENVE PERIOD
+        ,0x6b //,'k'	KEY SHIFT 2
+        ,0x73 //,'s'	KEY ON REVISE
         ,0x25 //,'%'	SET LIZM(DIRECT CLOCK)
         ,0x70 //,'p'	STEREO PAN
         ,0x48 //,'H'	HARD LFO
