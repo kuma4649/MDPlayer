@@ -12,9 +12,9 @@ namespace MDPlayer
 #else
         public static bool debug = false;
 #endif
-        public static string path = "";
         public static bool consoleEchoBack = false;
         private static Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+        public static string path = "";
 
         public static void ForcedWrite(string msg)
         {

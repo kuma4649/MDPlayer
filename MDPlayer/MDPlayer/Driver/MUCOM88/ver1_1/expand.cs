@@ -794,10 +794,10 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             LINKPT = Z80.DE;
             //Mem.LD_16(LINEADR, Z80.HL);
             LINEADR = Z80.HL;
-            Z80.A = Z80.E;
 
+            Z80.A = Z80.E;
             //Z80.A |= Z80.D;//BASIC END?
-            if (Z80.A == 0)
+            if (Z80.DE == 0)
             {
                 FVF2();
                 return;
@@ -808,6 +808,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             Z80.D = Mem.LD_8(Z80.HL);
             Z80.HL++;
 
+            log.Write(string.Format("voice:{0}行目の解析", Z80.DE));
             //Mem.LD_16(LINE2, Z80.DE);
             LINE2 = Z80.DE;
             Z80.HL++;
