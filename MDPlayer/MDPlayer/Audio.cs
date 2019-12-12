@@ -384,7 +384,7 @@ namespace MDPlayer
 
                 music.format = EnmFileFormat.MUB;
                 uint index = 0;
-                GD3 gd3 = (new Driver.MUCOM88.MUCOM88()).getGD3Info(buf, index);
+                GD3 gd3 = (new Driver.MUCOM88.MUCOM88()).getGD3InfoMUB(buf, index);
                 music.title = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackName;
                 music.titleJ = gd3.TrackName == "" ? Path.GetFileName(file) : gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -1484,6 +1484,21 @@ namespace MDPlayer
             MDSound.MDSound.np_nes_vrc7_volume = 0;
 
 
+            if (PlayingFileFormat == EnmFileFormat.MUB)
+            {
+                driverVirtual = new Driver.MUCOM88.MUCOM88();
+                driverVirtual.setting = setting;
+                ((Driver.MUCOM88.MUCOM88)driverVirtual).PlayingFileName = PlayingFileName;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                {
+                    driverReal = new Driver.MUCOM88.MUCOM88();
+                    driverReal.setting = setting;
+                    ((Driver.MUCOM88.MUCOM88)driverReal).PlayingFileName = PlayingFileName;
+                }
+                return mubPlay(setting);
+            }
+
             if (PlayingFileFormat == EnmFileFormat.MUC)
             {
                 driverVirtual = new Driver.MUCOM88.MUCOM88();
@@ -1677,6 +1692,13 @@ namespace MDPlayer
         }
 
 
+        public static bool mubPlay(Setting setting)
+        {
+            ((Driver.MUCOM88.MUCOM88)driverVirtual).isMUB = true;
+            if (driverReal != null) ((Driver.MUCOM88.MUCOM88)driverReal).isMUB = true;
+
+            return mucPlay(setting);
+        }
 
         public static bool mucPlay(Setting setting)
         {

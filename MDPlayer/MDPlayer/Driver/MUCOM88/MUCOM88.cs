@@ -16,6 +16,7 @@ namespace MDPlayer.Driver.MUCOM88
         private List<Tuple<string, string>> tags = null;
         private byte[] pcmdata = null;
         public string PlayingFileName = "";
+        MUBHeader mubHeader = null;
 
         /// <summary>
         /// 曲情報取得
@@ -32,6 +33,53 @@ namespace MDPlayer.Driver.MUCOM88
 
             tags = GetTagsFromMUC(buf);
             GD3 gd3 = new GD3();
+            foreach (Tuple<string, string> tag in tags)
+            {
+                switch (tag.Item1)
+                {
+                    case "title":
+                        gd3.TrackName = tag.Item2;
+                        gd3.TrackNameJ = tag.Item2;
+                        break;
+                    case "composer":
+                        gd3.Composer = tag.Item2;
+                        gd3.ComposerJ = tag.Item2;
+                        break;
+                    case "author":
+                        gd3.VGMBy = tag.Item2;
+                        break;
+                    case "comment":
+                        //gd3.Notes = tag.Item2;
+                        break;
+                    case "mucom88":
+                        gd3.Version = tag.Item2;
+                        gd3.Notes = tag.Item2;
+                        break;
+                    case "date":
+                        gd3.Converted = tag.Item2;
+                        break;
+                    case "voice":
+                        fnVoicedat = tag.Item2;
+                        break;
+                    case "pcm":
+                        fnPcm = tag.Item2;
+                        break;
+                }
+            }
+
+            return gd3;
+        }
+
+        public GD3 getGD3InfoMUB(byte[] buf, uint vgmGd3)
+        {
+            if (CheckFileType(buf) != enmMUCOMFileType.MUB)
+            {
+                throw new NotImplementedException();
+            }
+
+            GD3 gd3 = new GD3();
+            tags = GetTagsFromMUB(buf);
+            if (tags == null) return gd3;
             foreach (Tuple<string, string> tag in tags)
             {
                 switch (tag.Item1)
@@ -88,7 +136,9 @@ namespace MDPlayer.Driver.MUCOM88
             this.latency = latency;
             this.waitTime = waitTime;
 
-            GD3 = getGD3Info(buf, 0);
+            if (!this.isMUB) GD3 = getGD3Info(buf, 0);
+            else GD3 = getGD3InfoMUB(buf, 0);
+
             Counter = 0;
             TotalCounter = 0;
             LoopCounter = 0;
@@ -106,6 +156,12 @@ namespace MDPlayer.Driver.MUCOM88
             if (model == EnmModel.RealModel) return true;
 #endif
 
+            if (!this.isMUB) return initMUC();
+            else return initMUB();
+        }
+
+        public bool initMUC()
+        {
             fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
             LoadFMVoice(fnVoicedat);
 
@@ -113,7 +169,7 @@ namespace MDPlayer.Driver.MUCOM88
             pcmdata = LoadPCM(fnPcm);
 
             //Compile
-            ushort basicsize = StoreBasicSource(buf, 1, 1);
+            ushort basicsize = StoreBasicSource(vgmBuf, 1, 1);
 
             //MUCOM88 初期化
             muc88.CINT();//0x9600
@@ -142,6 +198,83 @@ namespace MDPlayer.Driver.MUCOM88
             music2.MSTART();
 
             return true;
+        }
+
+        public bool initMUB()
+        {
+            mubHeader = new MUBHeader(vgmBuf);
+
+            if (mubHeader.dataoffset != 0)
+            {
+                byte[] data = new byte[mubHeader.datasize];
+                Array.Copy(vgmBuf, (int)mubHeader.dataoffset, data, 0, mubHeader.datasize);
+                for (int i = 0; i < mubHeader.datasize; i++)
+                    mem.LD_8((ushort)(0xc200 + i), data[i]);
+            }
+
+            if (mubHeader.pcmdata != 0)
+            {
+                pcmdata = new byte[mubHeader.pcmsize];
+                Array.Copy(vgmBuf, (int)mubHeader.pcmdata, pcmdata, 0, mubHeader.pcmsize);
+                setPCMData(pcmdata);
+            }
+
+            fnVoicedat = string.IsNullOrEmpty(fnVoicedat) ? "voice.dat" : fnVoicedat;
+            LoadFMVoice(fnVoicedat);
+
+            music2.initMusic2();
+            music2.MSTART();
+
+            return true;
+        }
+
+        public class MUBHeader
+        {
+            public uint magic = 0;
+            public uint dataoffset = 0;
+            public uint datasize = 0;
+            public uint tagdata = 0;
+            public uint tagsize = 0;
+            public uint pcmdata = 0;
+            public uint pcmsize = 0;
+            public uint jumpcount = 0;
+            public uint jumpline = 0;
+            public uint ext_flags = 0;
+            public uint ext_system = 0;
+            public uint ext_target = 0;
+            public uint ext_channel_num = 0;
+            public uint ext_fmvoice_num = 0;
+            public uint ext_player = 0;
+            public uint pad1 = 0;
+            public byte[] ext_fmvoice = new byte[256];
+
+            public MUBHeader(byte[] buf)
+            {
+                magic = Common.getLE32(buf, 0x0000);
+                dataoffset = Common.getLE32(buf, 0x0004);
+                datasize = Common.getLE32(buf, 0x0008);
+                tagdata = Common.getLE32(buf, 0x000c);
+                tagsize = Common.getLE32(buf, 0x0010);
+                pcmdata = Common.getLE32(buf, 0x0014);
+                pcmsize = Common.getLE32(buf, 0x0018);
+                jumpcount = Common.getLE16(buf, 0x001c);
+                jumpline = Common.getLE16(buf, 0x001e);
+
+                if (magic == 0x3842554d) //'MUB8'
+                {
+                    ext_flags = Common.getLE16(buf, 0x0020);
+                    ext_system = buf[0x0022];
+                    ext_target = buf[0x0023];
+                    ext_channel_num = Common.getLE16(buf, 0x0024);
+                    ext_fmvoice_num = Common.getLE16(buf, 0x0026);
+                    ext_player = Common.getLE32(buf, 0x0028);
+                    pad1 = Common.getLE32(buf, 0x002c);
+                    for (int i = 0; i < 256; i++)
+                    {
+                        ext_fmvoice[i] = buf[0x0030 + i];
+                    }
+                }
+            }
         }
 
         public override void oneFrameProc()
@@ -262,6 +395,8 @@ namespace MDPlayer.Driver.MUCOM88
         private MNDRV.FMTimer timerOPN;
         public const int baseclock =7987200;
 
+        public bool isMUB { get; internal set; } = false;
+
         public enum enmMUCOMFileType
         {
             unknown,
@@ -345,17 +480,50 @@ namespace MDPlayer.Driver.MUCOM88
             {
                 return enmMUCOMFileType.MUB;
             }
+            if (buf[0] == 0x4d
+                && buf[1] == 0x55
+                && buf[2] == 0x42
+                && buf[3] == 0x38)
+            {
+                return enmMUCOMFileType.MUB;
+            }
 
             return enmMUCOMFileType.MUC;
         }
 
         private List<Tuple<string, string>> GetTagsFromMUC(byte[] buf)
         {
+            return GetTagsByteArray(buf);
+        }
+
+        private List<Tuple<string, string>> GetTagsFromMUB(byte[] buf)
+        {
+            try
+            {
+                MUBHeader mh = new MUBHeader(buf);
+                if (mh.tagdata == 0) return null;
+
+                List<byte> lb = new List<byte>();
+                for (int i = 0; i < mh.tagsize; i++)
+                {
+                    lb.Add(buf[mh.tagdata + i]);
+                }
+
+                return GetTagsByteArray(lb.ToArray());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Tuple<string, string>> GetTagsByteArray(byte[] buf)
+        { 
             var text = Encoding.GetEncoding("shift_jis").GetString(buf)
                 .Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
                 .Where(x => x.IndexOf("#") == 0);
-            List<Tuple<string, string>> tags = new List<Tuple<string, string>>();
 
+            List<Tuple<string, string>> tags = new List<Tuple<string, string>>();
             foreach (string v in text)
             {
                 try
