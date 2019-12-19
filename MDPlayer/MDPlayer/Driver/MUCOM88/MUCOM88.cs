@@ -246,7 +246,7 @@ namespace MDPlayer.Driver.MUCOM88
             public uint ext_fmvoice_num = 0;
             public uint ext_player = 0;
             public uint pad1 = 0;
-            public byte[] ext_fmvoice = new byte[256];
+            public byte[] ext_fmvoice = new byte[32];
 
             public MUBHeader(byte[] buf)
             {
@@ -269,7 +269,7 @@ namespace MDPlayer.Driver.MUCOM88
                     ext_fmvoice_num = Common.getLE16(buf, 0x0026);
                     ext_player = Common.getLE32(buf, 0x0028);
                     pad1 = Common.getLE32(buf, 0x002c);
-                    for (int i = 0; i < 256; i++)
+                    for (int i = 0; i < 32; i++)
                     {
                         ext_fmvoice[i] = buf[0x0030 + i];
                     }

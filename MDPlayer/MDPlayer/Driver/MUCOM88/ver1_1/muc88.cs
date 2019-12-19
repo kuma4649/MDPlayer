@@ -3206,7 +3206,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_1
             return;
         M06:
             Z80.IY++;
-            if (Z80.A - 0x00 != 0)//'L'
+            if (Z80.A - 0x4c != 0)//'L'
             {
                 goto M07;
             }
