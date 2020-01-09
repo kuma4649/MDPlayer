@@ -166,6 +166,7 @@ namespace MDPlayer.form
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            Microsoft.Win32.SystemEvents.SessionEnding += SystemEvents_SessionEnding;
 
             log.ForcedWrite("frmMain_Load:STEP 05");
 
@@ -247,6 +248,11 @@ namespace MDPlayer.form
 
             changeZoom();
 
+        }
+
+        private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
+        {
+            this.Close();
         }
 
         private void changeZoom()
@@ -6474,5 +6480,9 @@ namespace MDPlayer.form
 
         }
 
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Microsoft.Win32.SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
+        }
     }
 }

@@ -177,6 +177,7 @@ namespace MDPlayer
         {
             try
             {
+                //if (model == EnmModel.RealModel) return;
 
                 Counter++;
                 vgmFrameCounter++;
@@ -329,10 +330,10 @@ namespace MDPlayer
                 {
                     //IDが0の場合や、定義されていないIDが指定された場合は発音を停止する
                     xgmpcm[channel].Priority = 0;
-                    xgmpcm[channel].startAddr = 0;
-                    xgmpcm[channel].endAddr = 0;
-                    xgmpcm[channel].addr = 0;
-                    xgmpcm[channel].inst = id;
+                    //xgmpcm[channel].startAddr = 0;
+                    //xgmpcm[channel].endAddr = 0;
+                    //xgmpcm[channel].addr = 0;
+                    //xgmpcm[channel].inst = id;
                     xgmpcm[channel].isPlaying = false;
                 }
                 else
@@ -352,36 +353,22 @@ namespace MDPlayer
             if (DACEnable == 0) return;
 
             short o = 0;
-            int cnt = 0;
 
             for (int i = 0; i < 4; i++)
             {
                 if (!xgmpcm[i].isPlaying) continue;
-                cnt++;
-                short d = vgmBuf[xgmpcm[i].addr++];
-                o += (short)(d > 127 ? (d - 256) : d);
-                xgmpcm[i].data = (byte)(Math.Abs((int)d));
+                sbyte d = (sbyte)vgmBuf[xgmpcm[i].addr++];
+                o += (short)d;
+                xgmpcm[i].data = (byte)Math.Abs((int)d);
                 if (xgmpcm[i].addr >= xgmpcm[i].endAddr)
                 {
                     xgmpcm[i].isPlaying = false;
                     xgmpcm[i].data = 0;
                 }
             }
-
-            //if (cnt > 1)
-            //{
-            //if (o < sbyte.MinValue || o > sbyte.MaxValue)
-            //{a
-            //o = (short)(o >> (cnt - 1))aa;
             o = Math.Min(Math.Max(o, (short)(sbyte.MinValue + 1)), (short)(sbyte.MaxValue));
             o += 0x80;
-            //}
-            //}
-            //else
-            //{
-            //    o = 0;
-            //}
-            //Console.Write("{0} ", o);
+
             chipRegister.setYM2612Register(0, 0, 0x2a, o, model, vgmFrameCounter);
         }
 
