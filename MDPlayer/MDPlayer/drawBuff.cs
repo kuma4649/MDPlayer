@@ -890,6 +890,28 @@ namespace MDPlayer
             ov = nv;
 
         }
+        
+        public static void VolumeToOKIM6295(FrameBuffer screen, int y, ref int ov, int nv)
+        {
+            if (ov == nv) return;
+
+            int t = 0;
+            int sy = 0;
+            y = (y + 1) * 8;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, 80 + i * 2, y + sy, (1 + t), 0);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, 80 + i * 2, y + sy, i > 17 ? (2 + t) : (0 + t), 0);
+            }
+
+            ov = nv;
+
+        }
 
         public static void VolumeLCDToMIDILCD(FrameBuffer screen, int MIDImodule, int x, int y, ref int oldValue1, int value1, ref int oldValue2, int value2)
         {
@@ -1320,6 +1342,18 @@ namespace MDPlayer
             }
 
             ChHuC6280_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            om = nm;
+        }
+
+        public static void ChOKIM6295(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChOKIM6295_P(screen, 0, 8 + ch * 8, ch, nm, tp);
             om = nm;
         }
 
@@ -2589,6 +2623,22 @@ namespace MDPlayer
             on = nn;
         }
 
+        public static void font4Hex20Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex20Bit(screen, x, y, t, nn);
+            on = nn;
+        }
+
+        public static void font4Hex32Bit(FrameBuffer screen, int x, int y, int t, ref uint on, uint nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex32Bit(screen, x, y, t, nn);
+            on = nn;
+        }
+
 
 
 
@@ -3063,6 +3113,98 @@ namespace MDPlayer
             return;
         }
 
+        public static void drawFont4Hex20Bit(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = Common.Range((ushort)num, 0, 0xf_ffff);
+
+            n = num / 0x1_0000;
+            num -= n * 0x1_0000;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x1000;
+            num -= n * 0x1000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x100;
+            num -= n * 0x100;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
+        public static void drawFont4Hex32Bit(FrameBuffer screen, int x, int y, int t, uint num)
+        {
+            if (screen == null) return;
+
+            uint n;
+            num = Common.Range(num, 0, 0xffff_ffff);
+
+            n = num / 0x1000_0000;
+            num -= n * 0x1000_0000;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x100_0000;
+            num -= n * 0x100_0000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10_0000;
+            num -= n * 0x10_0000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x1_0000;
+            num -= n * 0x1_0000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x1000;
+            num -= n * 0x1000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x100;
+            num -= n * 0x100;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
         public static void drawFont4V(FrameBuffer screen, int x, int y, int t, string msg)
         {
             if (screen == null) return;
@@ -3147,6 +3289,14 @@ namespace MDPlayer
 
             screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 112, 0, 16, 8);
             drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+        }
+
+        private static void ChOKIM6295_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 0, 24, 8);
+            drawFont8(screen, x + 24, y, mask ? 1 : 0, (1 + ch).ToString());
         }
 
         private static void ChK051649_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)

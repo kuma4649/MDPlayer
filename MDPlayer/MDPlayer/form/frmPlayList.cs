@@ -690,6 +690,7 @@ namespace MDPlayer.form
             ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|"
                 + "NRDファイル(*.nrd)|*.nrd|"
                 + "XGMファイル(*.xgm)|*.xgm|"
+                + "ZGMファイル(*.zgm)|*.zgm|"
                 + "S98ファイル(*.s98)|*.s98|"
                 + "NSFファイル(*.nsf)|*.nsf|"
                 + "HESファイル(*.hes)|*.hes|"
@@ -702,8 +703,8 @@ namespace MDPlayer.form
                 + "RCPファイル(*.rcp)|*.rcp|"
                 + "M3Uファイル(*.m3u)|*.m3u|"
                 + "アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u|"
+                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u)|"
+                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u|"
                 + "すべてのファイル(*.*)|*.*";
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;

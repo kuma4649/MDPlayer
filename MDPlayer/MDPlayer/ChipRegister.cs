@@ -7,6 +7,7 @@ using MDSound.np.memory;
 using MDSound.np.cpu;
 using MDSound.np.chip;
 using NScci;
+using MDSound;
 
 namespace MDPlayer
 {
@@ -61,6 +62,7 @@ namespace MDPlayer
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
+
         private int[] noteTbl = new int[] { 2, 4, 5, -1, 6, 8, 9, -1, 10, 12, 13, -1, 14, 0, 1, -1 };
         private int[] noteTbl2 = new int[] { 13, 14, 0, -1, 1, 2, 4, -1, 5, 6, 8, -1, 9, 10, 12, -1 };
 
@@ -275,6 +277,11 @@ namespace MDPlayer
 
         private bool[] maskOKIM6258 = new bool[2] { false, false };
         public bool[] okim6258Keyon = new bool[2] { false, false };
+
+        private bool[][] maskOKIM6295 = new bool[2][] {
+            new bool[] { false, false, false, false},
+            new bool[] { false, false, false, false}
+        };
 
         public byte[][] pcmRegisterC140 = new byte[2][] { null, null };
         public bool[][] pcmKeyOnC140 = new bool[2][] { null, null };
@@ -3327,6 +3334,18 @@ namespace MDPlayer
 
             writeOKIM6258((byte)chipID, 0, 1, EnmModel.VirtualModel);
             writeOKIM6258((byte)chipID, 0, 1, EnmModel.RealModel);
+        }
+
+        public void setMaskOKIM6295(int chipID,int ch, bool mask)
+        {
+            maskOKIM6295[chipID][ch] = mask;
+            if (mask) mds.setOKIM6295Mask(0, chipID, 1 << ch);
+            else mds.resetOKIM6295Mask(0, chipID, 1 << ch);
+        }
+
+        internal okim6295.okim6295Info GetOKIM6295Info(int chipID)
+        {
+            return mds.GetOKIM6295Info(0, chipID);
         }
 
         public void setNESMask(int chipID, int ch)

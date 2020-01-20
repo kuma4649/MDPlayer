@@ -99,6 +99,12 @@ namespace MDPlayer
                 }
             }
         }
+
+        internal static okim6295.okim6295Info GetOKIM6295Info(int chipID)
+        {
+            return chipRegister.GetOKIM6295Info(chipID);
+        }
+
         private static Stopwatch sw = Stopwatch.StartNew();
         private static double swFreq = Stopwatch.Frequency;
 
@@ -419,6 +425,26 @@ namespace MDPlayer
             {
                 music.format = EnmFileFormat.XGM;
                 GD3 gd3 = new xgm().getGD3Info(buf, 0);
+                music.title = gd3.TrackName;
+                music.titleJ = gd3.TrackNameJ;
+                music.game = gd3.GameName;
+                music.gameJ = gd3.GameNameJ;
+                music.composer = gd3.Composer;
+                music.composerJ = gd3.ComposerJ;
+                music.vgmby = gd3.VGMBy;
+
+                music.converted = gd3.Converted;
+                music.notes = gd3.Notes;
+
+                if (music.title == "" && music.titleJ == "" && music.game == "" && music.gameJ == "" && music.composer == "" && music.composerJ == "")
+                {
+                    music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+                }
+            }
+            else if (file.ToLower().LastIndexOf(".zgm") != -1)
+            {
+                music.format = EnmFileFormat.ZGM;
+                GD3 gd3 = new Driver.ZGM.zgm().getGD3Info(buf, 0);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -1586,6 +1612,20 @@ namespace MDPlayer
                 return xgmPlay(setting);
             }
 
+            if (PlayingFileFormat == EnmFileFormat.ZGM)
+            {
+                driverVirtual = new Driver.ZGM.zgm();
+                driverVirtual.setting = setting;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                {
+                    driverReal = new Driver.ZGM.zgm();
+                    driverReal.setting = setting;
+                }
+
+                return zgmPlay(setting);
+            }
+
             if (PlayingFileFormat == EnmFileFormat.S98)
             {
                 driverVirtual = new S98();
@@ -2700,6 +2740,103 @@ namespace MDPlayer
                 return false;
             }
 
+        }
+
+        public static bool zgmPlay(Setting setting)
+        {
+            if (vgmBuf == null || setting == null) return false;
+
+            try
+            {
+                chipRegister.resetChips();
+
+                vgmFadeout = false;
+                vgmFadeoutCounter = 1.0;
+                vgmFadeoutCounterV = 0.00001;
+                vgmSpeed = 1;
+                vgmRealFadeoutVol = 0;
+                vgmRealFadeoutVolWait = 4;
+                chipRegister.setFadeoutVolYM2203(0, 0);
+                chipRegister.setFadeoutVolYM2203(1, 0);
+                chipRegister.setFadeoutVolYM2608(0, 0);
+                chipRegister.setFadeoutVolYM2608(1, 0);
+                chipRegister.setFadeoutVolYM2151(0, 0);
+                chipRegister.setFadeoutVolYM2151(1, 0);
+                chipRegister.setFadeoutVolYM2612(0, 0);
+                chipRegister.setFadeoutVolYM2612(1, 0);
+                chipRegister.setFadeoutVolSN76489(0, 0);
+                chipRegister.setFadeoutVolSN76489(1, 0);
+                chipRegister.resetChips();
+
+                useChip.Clear();
+
+                //MIDIに対応するまで封印
+                //startTrdVgmReal();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                chipLED = new ChipLEDs();
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                if (!driverVirtual.init(vgmBuf
+                    , chipRegister
+                    , EnmModel.VirtualModel
+                    , new EnmChip[] { EnmChip.YM2203 }
+                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                    return false;
+
+                //MIDIに対応するまで封印
+                //if (driverReal != null && !driverReal.init(vgmBuf
+                //    , chipRegister
+                //    , EnmModel.RealModel
+                //    , new EnmChip[] { EnmChip.YM2203 }
+                //    , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
+                //    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                //    return false;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+                int hiyorimiDeviceFlag = 0;
+
+                chipLED = new ChipLEDs();
+
+                MasterVolume = setting.balance.MasterVolume;
+
+                //
+                //chips initialization
+                //
+
+
+
+                if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
+
+                Paused = false;
+                oneTimeReset = false;
+
+                Thread.Sleep(500);
+
+                Stopped = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
         }
 
         public static bool s98Play(Setting setting)
@@ -7182,6 +7319,16 @@ namespace MDPlayer
         public static void setOKIM6258Mask(int chipID)
         {
             chipRegister.setMaskOKIM6258(chipID, true);
+        }
+
+        public static void setOKIM6295Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskOKIM6295(chipID, ch, true);
+        }
+
+        public static void resetOKIM6295Mask(int chipID, int ch)
+        {
+            chipRegister.setMaskOKIM6295(chipID, ch, false);
         }
 
         public static void setNESMask(int chipID, int ch)

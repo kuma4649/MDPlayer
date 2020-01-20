@@ -148,7 +148,11 @@ namespace MDPlayer
 
         public class OKIM6295
         {
+            public Channel[] channels = new Channel[4] { new Channel(), new Channel(), new Channel(), new Channel() };
 
+            public uint masterClock = 0;
+            public int pin7State = 0;
+            public int[] nmkBank = new int[4];
         }
         public OKIM6295[] okim6295 = new OKIM6295[] { new OKIM6295(), new OKIM6295() };
 

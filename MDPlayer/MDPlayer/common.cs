@@ -217,6 +217,11 @@ namespace MDPlayer
             return (n > max) ? max : (n < min ? min : n);
         }
 
+        public static uint Range(uint n, uint min, uint max)
+        {
+            return (n > max) ? max : (n < min ? min : n);
+        }
+
         public static int getvv(byte[] buf, ref uint musicPtr)
         {
             int s = 0, n = 0;
@@ -280,6 +285,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return EnmFileFormat.VGM;
             if (filename.ToLower().LastIndexOf(".vgz") != -1) return EnmFileFormat.VGM;
             if (filename.ToLower().LastIndexOf(".xgm") != -1) return EnmFileFormat.XGM;
+            if (filename.ToLower().LastIndexOf(".zgm") != -1) return EnmFileFormat.ZGM;
             if (filename.ToLower().LastIndexOf(".zip") != -1) return EnmFileFormat.ZIP;
             if (filename.ToLower().LastIndexOf(".lzh") != -1) return EnmFileFormat.LZH;
 
@@ -550,7 +556,8 @@ namespace MDPlayer
         MDX = 14,
         MND = 15,
         MUB = 16,
-        MUC = 17
+        MUC = 17,
+        ZGM = 18,
     }
 
     public enum EnmArcType : int

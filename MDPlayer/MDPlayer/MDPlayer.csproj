@@ -259,6 +259,13 @@
     <Compile Include="Driver\HES\s_hesad.cs" />
     <Compile Include="Driver\SID\sid.cs" />
     <Compile Include="Driver\xgm.cs" />
+    <Compile Include="Driver\ZGM\EnmZGMDevice.cs" />
+    <Compile Include="Driver\ZGM\zgm.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Chip.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ChipFactory.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
     <Compile Include="form\frmAY8910.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -699,6 +706,7 @@
     <Content Include="Resources\DefaultVolumeBalance_SID.xml" />
     <Content Include="Resources\DefaultVolumeBalance_VGM.xml" />
     <Content Include="Resources\DefaultVolumeBalance_XGM.xml" />
+    <Content Include="Resources\DefaultVolumeBalance_ZGM.xml" />
     <Content Include="Resources\downPL.png" />
     <Content Include="Resources\imgPL.png" />
     <Content Include="Resources\japPL.png" />
