@@ -23,6 +23,7 @@ namespace mdpc
         private byte[] vgmBuf;
         private double vgmSpeed;
         private MDPlayer.baseDriver driver;
+        private bool emuOnly=false;
 
         public mdpc(string[] args)
         {
@@ -53,6 +54,9 @@ namespace mdpc
                     {
                         case 'w':
                             waveout = true;
+                            break;
+                        case 'e':
+                            emuOnly = true;
                             break;
                     }
                 }
@@ -274,6 +278,7 @@ namespace mdpc
         {
             vgmBuf = getAllBytes(srcFn, out format);
             //Audio.isCommandLine = true;
+            Audio.emuOnly = emuOnly;
             Audio.Init(setting);
             Audio.SetVGMBuffer(format, vgmBuf, srcFn, "", 0, 0, null);
             Audio.Play(setting);

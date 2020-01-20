@@ -1102,7 +1102,7 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 04");
 
-            if (realChip == null)
+            if (realChip == null && !emuOnly )
             {
                 realChip = new RealChip();
             }
@@ -5148,6 +5148,8 @@ namespace MDPlayer
             }
         }
 
+        public static bool emuOnly { get; set; }
+
         public static void StepPlay(int Step)
         {
             StepCounter = Step;
@@ -5765,7 +5767,7 @@ namespace MDPlayer
             chipRegister.softResetYM2608(1, model);
             chipRegister.softResetYM2151(0, model);
             chipRegister.softResetYM2151(1, model);
-            if(model== EnmModel.RealModel)
+            if (model == EnmModel.RealModel && realChip != null)
             {
                 realChip.SendData();
             }
