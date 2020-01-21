@@ -126,6 +126,7 @@ namespace mdpc
             {
                 CheckPath();
                 Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+                if (!debug) return;
                 if (writer == null)
                 {
                     writer = new StreamWriter(path, true, sjisEnc);

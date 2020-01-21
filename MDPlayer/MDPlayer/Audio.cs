@@ -1100,10 +1100,9 @@ namespace MDPlayer
             else
                 mdsMIDI.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
 
-            log.ForcedWrite("Audio:Init:STEP 04");
-
             if (realChip == null && !emuOnly )
             {
+                log.ForcedWrite("Audio:Init:STEP 04");
                 realChip = new RealChip();
             }
 

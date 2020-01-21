@@ -276,6 +276,7 @@ namespace mdpc
 
         private void procMain()
         {
+            Common.settingFilePath = Common.GetApplicationDataFolder(true);
             vgmBuf = getAllBytes(srcFn, out format);
             //Audio.isCommandLine = true;
             Audio.emuOnly = emuOnly;
