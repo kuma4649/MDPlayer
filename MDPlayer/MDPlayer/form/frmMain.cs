@@ -4258,6 +4258,9 @@ namespace MDPlayer.form
                 case EnmInstFormat.HUSIC:
                     getInstChForHuSIC(chip, ch, chipID);
                     break;
+                case EnmInstFormat.VOPM:
+                    getInstChForVOPM(chip, ch, chipID);
+                    break;
             }
         }
 
@@ -4885,6 +4888,90 @@ namespace MDPlayer.form
                 fs.Write(n, 0, n.Length);
 
             }
+        }
+
+        private void getInstChForVOPM(EnmChip chip, int ch, int chipID)
+        {
+
+            string n = "";
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+
+                n = "@: n MDPlayer\r\n";
+                n += "LFO:  0   0   0   0   0\r\n";
+                n += string.Format("CH: 64  {0,2}  {1,2}   0   0 120   0\r\n"
+                    , (fmRegister[p][0xb0 + c] & 0x38) >> 3//FB
+                    , fmRegister[p][0xb0 + c] & 0x07//AL
+                );
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    n += string.Format(
+                        "{0}{1}"
+                        , string.Format(
+                            "{0}:{1,3} {2,3} {3,3} {4,3} {5,3} "
+                            , "M1C1M2C2".Substring(i * 2, 2)
+                            , fmRegister[p][0x50 + ops + c] & 0x1f //AR
+                            , fmRegister[p][0x60 + ops + c] & 0x1f //DR
+                            , fmRegister[p][0x70 + ops + c] & 0x1f //SR
+                            , fmRegister[p][0x80 + ops + c] & 0x0f //RR
+                            , (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4//SL
+                        )
+                        , string.Format(
+                            "{0,3} {1,3} {2,3} {3,3}   0 {4,3}\r\n"
+                            , fmRegister[p][0x40 + ops + c] & 0x7f//TL
+                            , (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6//KS
+                            , fmRegister[p][0x30 + ops + c] & 0x0f//ML
+                            , (fmRegister[p][0x30 + ops + c] & 0x70) >> 4//DT
+                            , (fmRegister[p][0x60 + ops + c] & 0x80) >> 7//AM
+                        )
+                    );
+                }
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                n = "@: n MDPlayer\r\n";
+                n += "LFO:  0   0   0   0   0\r\n";
+                n += string.Format("CH: 64  {0,2}  {1,2}   0   0 120   0\r\n"
+                    , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
+                    , ym2151Register[0x20 + ch] & 0x07 //AL
+                );
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    n += string.Format(
+                        "{0}{1}"
+                        , string.Format(
+                            "{0}:{1,3} {2,3} {3,3} {4,3} {5,3} "
+                            , "M1C1M2C2".Substring(i * 2, 2)
+                            , ym2151Register[0x80 + ops + ch] & 0x1f //AR
+                            , ym2151Register[0xa0 + ops + ch] & 0x1f //DR
+                            , ym2151Register[0xc0 + ops + ch] & 0x1f //SR
+                            , ym2151Register[0xe0 + ops + ch] & 0x0f //RR
+                            , (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4 //SL
+                        )
+                        , string.Format(
+                            "{0,3} {1,3} {2,3} {3,3}   0 {4,3}\r\n"
+                            , ym2151Register[0x60 + ops + ch] & 0x7f //TL
+                            , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
+                            , ym2151Register[0x40 + ops + ch] & 0x0f //ML
+                            , (ym2151Register[0x40 + ops + ch] & 0x70) >> 4 //DT
+                            , (ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6 //DT2
+                            , (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7 //AM
+                        )
+                    );
+                }
+            }
+
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
 
 

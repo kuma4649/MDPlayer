@@ -198,6 +198,7 @@ namespace MDPlayer.form
                 else
                 {
                     int m = md[ym2608Register[0][0xb0 + 2] & 7];
+                    if (parent.setting.other.ExAll) m = 0xf0;
                     freq = ym2608Register[0][0xa9] + (ym2608Register[0][0xad] & 0x07) * 0x100;
                     octav = (ym2608Register[0][0xad] & 0x38) >> 3;
 
@@ -222,6 +223,7 @@ namespace MDPlayer.form
                 if (isFmEx)
                 {
                     int m = md[ym2608Register[0][0xb0 + 2] & 7];
+                    if (parent.setting.other.ExAll) m = 0xf0;
                     int op = ch - 5;
                     op = op == 1 ? 2 : (op == 2 ? 1 : op);
 

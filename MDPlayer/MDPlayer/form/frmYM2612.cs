@@ -173,6 +173,7 @@ namespace MDPlayer.form
                     byte con = (byte)(fmKey[ch]);
                     int v = 127;
                     int m = md[fmRegister[p][0xb0 + c] & 7];
+
                     //OP1
                     v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (fmRegister[p][0x40 + c] & 0x7f)) ? (fmRegister[p][0x40 + c] & 0x7f) : v;
                     //OP3
@@ -187,6 +188,7 @@ namespace MDPlayer.form
                 else
                 {
                     int m = md[fmRegister[0][0xb0 + 2] & 7];
+                    if (parent.setting.other.ExAll) m = 0xf0;
                     freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
                     octav = (fmRegister[0][0xad] & 0x38) >> 3;
                     newParam.channels[2].freq = (freq & 0x7ff) | ((octav & 7) << 11);
@@ -217,6 +219,7 @@ namespace MDPlayer.form
                 if (isFmEx)
                 {
                     int m = md[fmRegister[0][0xb0 + 2] & 7];
+                    if (parent.setting.other.ExAll) m = 0xf0;
                     int op = ch - 5;
                     op = op == 1 ? 2 : (op == 2 ? 1 : op);
 

@@ -1449,6 +1449,7 @@ namespace MDPlayer
 
             private bool _EmptyPlayList = false;
             public bool EmptyPlayList { get => _EmptyPlayList; set => _EmptyPlayList = value; }
+            public bool ExAll { get; set; } = false;
 
             public Other Copy()
             {
@@ -1471,6 +1472,7 @@ namespace MDPlayer
                 other.ImageExt = this.ImageExt;
                 other.InitAlways = this.InitAlways;
                 other.EmptyPlayList = this.EmptyPlayList;
+                other.ExAll = this.ExAll;
 
                 return other;
             }

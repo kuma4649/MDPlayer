@@ -678,6 +678,8 @@ namespace MDPlayer.form
             cbNextAlt.Checked = setting.keyBoardHook.Next.Alt;
             lblNextKey.Text = setting.keyBoardHook.Next.Key;
             btNextClr.Enabled = (lblNextKey.Text != "(None)" && !string.IsNullOrEmpty(lblNextKey.Text));
+
+            cbExALL.Checked = setting.other.ExAll;
         }
 
         private void SetSCCICombo(EnmRealChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
@@ -1282,8 +1284,11 @@ namespace MDPlayer.form
             setting.other.ImageExt = tbImageExt.Text;
             setting.other.InitAlways = cbInitAlways.Checked;
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
+            setting.other.ExAll = cbExALL.Checked;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
+
+
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
 
             setting.midiExport.UseMIDIExport=cbUseMIDIExport.Checked;

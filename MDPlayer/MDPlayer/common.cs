@@ -534,7 +534,8 @@ namespace MDPlayer
         MUSICLALF2 = 4,
         MML2VGM = 5,
         NRTDRV = 6,
-        HUSIC=7
+        HUSIC=7,
+        VOPM=8
     }
 
     public enum EnmFileFormat : int

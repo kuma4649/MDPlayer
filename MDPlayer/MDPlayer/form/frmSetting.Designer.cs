@@ -413,6 +413,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbExALL = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -4154,6 +4155,7 @@
             this.tpOther.Controls.Add(this.label19);
             this.tpOther.Controls.Add(this.btnResetPosition);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
+            this.tpOther.Controls.Add(this.cbExALL);
             this.tpOther.Controls.Add(this.cbEmptyPlayList);
             this.tpOther.Controls.Add(this.cbInitAlways);
             this.tpOther.Controls.Add(this.cbAutoOpen);
@@ -4272,7 +4274,8 @@
             "MUSIC LALF #2",
             "MML2VGM",
             "NRTDRV",
-            "HuSIC"});
+            "HuSIC",
+            "VOPM"});
             this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
@@ -4462,7 +4465,7 @@
             // cbEmptyPlayList
             // 
             this.cbEmptyPlayList.AutoSize = true;
-            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 308);
+            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 293);
             this.cbEmptyPlayList.Name = "cbEmptyPlayList";
             this.cbEmptyPlayList.Size = new System.Drawing.Size(177, 16);
             this.cbEmptyPlayList.TabIndex = 0;
@@ -4472,7 +4475,7 @@
             // 
             // cbInitAlways
             // 
-            this.cbInitAlways.Location = new System.Drawing.Point(240, 263);
+            this.cbInitAlways.Location = new System.Drawing.Point(240, 251);
             this.cbInitAlways.Name = "cbInitAlways";
             this.cbInitAlways.Size = new System.Drawing.Size(194, 39);
             this.cbInitAlways.TabIndex = 0;
@@ -4672,6 +4675,17 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
+            // 
+            // cbExALL
+            // 
+            this.cbExALL.AutoSize = true;
+            this.cbExALL.Location = new System.Drawing.Point(240, 323);
+            this.cbExALL.Name = "cbExALL";
+            this.cbExALL.Size = new System.Drawing.Size(192, 16);
+            this.cbExALL.TabIndex = 0;
+            this.cbExALL.Text = "キャリアとモジュレータの区別をしない";
+            this.cbExALL.UseVisualStyleBackColor = true;
+            this.cbExALL.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // frmSetting
             // 
@@ -5213,5 +5227,6 @@
         private System.Windows.Forms.RadioButton rbNukedOPN2OptionASIClp;
         private System.Windows.Forms.CheckBox cbEmptyPlayList;
         private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
+        private System.Windows.Forms.CheckBox cbExALL;
     }
 }

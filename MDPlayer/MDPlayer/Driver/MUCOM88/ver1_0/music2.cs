@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -449,8 +450,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
 
         public long[] loopCounter = null;
         public int currentCh = 0;
-
+        private long loopC = 0;
         // **	CALL FM		**
+
+        public static void writeLine(string msg)
+        {
+            File.AppendAllText(@"C:\Users\kuma\Desktop\mdp.log",
+                string.Format("[{0,-7}] {1}" + Environment.NewLine
+                , "TRACE"
+                , msg));
+        }
 
         public void DRIVE()
         {
@@ -459,12 +468,16 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             FMPORT = Z80.A;
             Z80.IX = CH1DAT;
             currentCh = 0;
+            //writeLine(string.Format("----- -----{0}", loopC++));
+            //writeLine("----- FM 1");
             FMENT();
             Z80.IX = CH2DAT;
             currentCh = 1;
+            //writeLine("----- FM 2");
             FMENT();
             Z80.IX = CH3DAT;
             currentCh = 2;
+            //writeLine("----- FM 3");
             FMENT();
             // **	CALL SSG	**
             Z80.A = 0xff;
@@ -472,12 +485,15 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             SSGF1 = Z80.A;
             Z80.IX = CH4DAT;
             currentCh = 3;
+            //writeLine("----- SSG1");
             SSGENT();
             Z80.IX = CH5DAT;
             currentCh = 4;
+            //writeLine("----- SSG2");
             SSGENT();
             Z80.IX = CH6DAT;
             currentCh = 5;
+            //writeLine("----- SSG3");
             SSGENT();
             Z80.A ^= Z80.A;
             //Mem.LD_8(SSGF1, Z80.A);
@@ -497,6 +513,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             DRMF1 = Z80.A;
             Z80.IX = DRAMDAT;
             currentCh = 9;
+            //writeLine("----- Ryhthm");
             FMENT();
             Z80.A ^= Z80.A;
             //Mem.LD_8(DRMF1, Z80.A);
@@ -508,11 +525,14 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             FMPORT = Z80.A;
             Z80.IX = CHADAT;
             currentCh = 6;
+            //writeLine("----- FM 4");
             FMENT();
             Z80.IX = CHBDAT;
             currentCh = 7;
+            //writeLine("----- FM 5");
             FMENT();
             Z80.IX = CHCDAT;
+            //writeLine("----- FM 6");
             currentCh = 8;
             FMENT();
 
@@ -521,6 +541,7 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
             Mem.LD_8(PCMFLG, Z80.A);
             Z80.IX = PCMDAT;
             currentCh = 10;
+            //writeLine("----- ADPCM");
             FMENT();
             Z80.A ^= Z80.A;
             Z80.Zero = false;
@@ -642,7 +663,8 @@ namespace MDPlayer.Driver.MUCOM88.ver1_0
         }
 
         public void FMSUBC()
-        { 
+        {
+            //writeLine(string.Format("{0:x}",Z80.HL));
             Z80.A = Mem.LD_8(Z80.HL);
             Z80.A |= Z80.A;// ﾃﾞｰﾀ ｼｭｳﾘｮｳ ｦ ｼﾗﾍﾞﾙ
             if (Z80.A != 0)
