@@ -395,6 +395,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.btnResetPosition = new System.Windows.Forms.Button();
             this.btnOpenSettingFolder = new System.Windows.Forms.Button();
+            this.cbExALL = new System.Windows.Forms.CheckBox();
             this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
             this.cbInitAlways = new System.Windows.Forms.CheckBox();
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
@@ -413,7 +414,6 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.cbExALL = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -4275,7 +4275,8 @@
             "MML2VGM",
             "NRTDRV",
             "HuSIC",
-            "VOPM"});
+            "VOPM",
+            "PMD"});
             this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
@@ -4461,6 +4462,17 @@
             this.btnOpenSettingFolder.Text = "設定フォルダーを開く";
             this.btnOpenSettingFolder.UseVisualStyleBackColor = true;
             this.btnOpenSettingFolder.Click += new System.EventHandler(this.btnOpenSettingFolder_Click);
+            // 
+            // cbExALL
+            // 
+            this.cbExALL.AutoSize = true;
+            this.cbExALL.Location = new System.Drawing.Point(240, 323);
+            this.cbExALL.Name = "cbExALL";
+            this.cbExALL.Size = new System.Drawing.Size(192, 16);
+            this.cbExALL.TabIndex = 0;
+            this.cbExALL.Text = "キャリアとモジュレータの区別をしない";
+            this.cbExALL.UseVisualStyleBackColor = true;
+            this.cbExALL.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // cbEmptyPlayList
             // 
@@ -4675,17 +4687,6 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
-            // 
-            // cbExALL
-            // 
-            this.cbExALL.AutoSize = true;
-            this.cbExALL.Location = new System.Drawing.Point(240, 323);
-            this.cbExALL.Name = "cbExALL";
-            this.cbExALL.Size = new System.Drawing.Size(192, 16);
-            this.cbExALL.TabIndex = 0;
-            this.cbExALL.Text = "キャリアとモジュレータの区別をしない";
-            this.cbExALL.UseVisualStyleBackColor = true;
-            this.cbExALL.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // frmSetting
             // 
