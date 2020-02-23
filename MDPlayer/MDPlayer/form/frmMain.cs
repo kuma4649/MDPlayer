@@ -2954,13 +2954,15 @@ namespace MDPlayer.form
             }
 
             Screen s = Screen.FromControl(frmInfo);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmInfo.x > w - 100 || frmInfo.y > h - 100)
+            Rectangle rc = new Rectangle(frmInfo.Location, frmInfo.Size);
+            if (s.WorkingArea.Contains(rc))
             {
-                frmInfo.x = 0;
-                frmInfo.y = 0;
+                frmInfo.Location = rc.Location;
+                frmInfo.Size = rc.Size;
+            }
+            else
+            {
+                frmInfo.Location = new System.Drawing.Point(100, 100);
             }
 
             frmInfo.setting = setting;
@@ -3012,13 +3014,15 @@ namespace MDPlayer.form
             }
 
             Screen s = Screen.FromControl(frmYM2612MIDI);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmYM2612MIDI.x > w - 100 || frmYM2612MIDI.y > h - 100)
+            Rectangle rc = new Rectangle(frmYM2612MIDI.Location, frmYM2612MIDI.Size);
+            if (s.WorkingArea.Contains(rc))
             {
-                frmYM2612MIDI.x = 0;
-                frmYM2612MIDI.y = 0;
+                frmYM2612MIDI.Location = rc.Location;
+                frmYM2612MIDI.Size = rc.Size;
+            }
+            else
+            {
+                frmYM2612MIDI.Location = new System.Drawing.Point(100, 100);
             }
 
             //frmYM2612MIDI.setting = setting;
@@ -3126,13 +3130,15 @@ namespace MDPlayer.form
             }
 
             Screen s = Screen.FromControl(frmMixer2);
-            //ディスプレイの高さと幅を取得
-            int h = s.Bounds.Height;
-            int w = s.Bounds.Width;
-            if (frmMixer2.x > w - 100 || frmMixer2.y > h - 100)
+            Rectangle rc = new Rectangle(frmMixer2.Location, frmMixer2.Size);
+            if (s.WorkingArea.Contains(rc))
             {
-                frmMixer2.x = 0;
-                frmMixer2.y = 0;
+                frmMixer2.Location = rc.Location;
+                frmMixer2.Size = rc.Size;
+            }
+            else
+            {
+                frmMixer2.Location = new System.Drawing.Point(100, 100);
             }
 
             //frmMixer.setting = setting;
