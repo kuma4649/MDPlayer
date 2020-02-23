@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using NAudio.Midi;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace MDPlayer.form
 {
@@ -6668,30 +6669,18 @@ namespace MDPlayer.form
         private void CheckAndSetForm(Form frm)
         {
             Screen s = Screen.FromControl(frm);
-            int sch = s.Bounds.Height;
-            int scw = s.Bounds.Width;
-            int fx = frm.Location.X;
-            int fy = frm.Location.Y;
-
-            if (frm.Location.X + frm.Size.Width < 0)
+            Rectangle rc = new Rectangle(frm.Location, frm.Size);
+            if (s.WorkingArea.Contains(rc))
             {
-                fx = 0;
+                frm.Location = rc.Location;
+                frm.Size = rc.Size;
+                return;
             }
-            else if (frm.Location.X >= scw)
+            else
             {
-                fx = 0;
+                frm.Location = new System.Drawing.Point(100, 100);
+                return;
             }
-
-            if (frm.Location.Y < 0)
-            {
-                fy = 0;
-            }
-            else if (frm.Location.Y >= sch)
-            {
-                fy = 0;
-            }
-
-            frm.Location = new System.Drawing.Point(fx, fy);
 
         }
 
