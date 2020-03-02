@@ -918,6 +918,15 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            if(e.Button== MouseButtons.Right)
+            {
+                cmsMenu.Show();
+                System.Drawing.Point p = Control.MousePosition;
+                cmsMenu.Top = p.Y;
+                cmsMenu.Left = p.X;
+                return;
+            }
+
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
 
@@ -1021,27 +1030,25 @@ namespace MDPlayer.form
 
             if (px >= 0 * 16 + 32 && px < 1 * 16 + 32)
             {
-                openSetting();
+                tsmiOption_Click(null, null);
                 return;
             }
 
             if (px >= 1 * 16 + 32 && px < 2 * 16 + 32)
             {
-                frmPlayList.Stop();
-                stop();
+                tsmiStop_Click(null, null);
                 return;
             }
 
             if (px >= 2 * 16 + 32 && px < 3 * 16 + 32)
             {
-                pause();
+                tsmiPause_Click(null,null);
                 return;
             }
 
             if (px >= 3 * 16 + 32 && px < 4 * 16 + 32)
             {
-                fadeout();
-                frmPlayList.Stop();
+                tsmiFadeOut_Click(null,null);
                 return;
             }
 
@@ -1054,126 +1061,79 @@ namespace MDPlayer.form
 
             if (px >= 5 * 16 + 32 && px < 6 * 16 + 32)
             {
-                slow();
+                tsmiSlow_Click(null, null);
                 return;
             }
 
             if (px >= 6 * 16 + 32 && px < 7 * 16 + 32)
             {
-                play();
-                oldParam = new MDChipParams();
+                tsmiPlay_Click(null, null);
                 return;
             }
 
             if (px >= 7 * 16 + 32 && px < 8 * 16 + 32)
             {
-                ff();
+                tsmiFf_Click(null, null);
                 return;
             }
 
             if (px >= 8 * 16 + 32 && px < 9 * 16 + 32)
             {
-                next();
-                oldParam = new MDChipParams();
+                tsmiNext_Click(null, null);
                 return;
             }
 
             if (px >= 9 * 16 + 32 && px < 10 * 16 + 32)
             {
-                playMode();
+                tsmiPlayMode_Click(null, null);
                 return;
             }
 
             if (px >= 10 * 16 + 32 && px < 11 * 16 + 32)
             {
-                string[] fn = fileOpen(true);
-
-                if (fn != null)
-                {
-                    if (Audio.isPaused)
-                    {
-                        Audio.Pause();
-                    }
-
-                    if (fn.Length == 1)
-                    {
-                        frmPlayList.Stop();
-
-                        //frmPlayList.AddList(fn[0]);
-                        frmPlayList.getPlayList().AddFile(fn[0]);
-
-                        if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
-                        {
-                            loadAndPlay(0, 0, fn[0], "");
-                            frmPlayList.setStart(-1);
-                        }
-                        oldParam = new MDChipParams();
-
-                        frmPlayList.Play();
-                    }
-                    else
-                    {
-                        frmPlayList.Stop();
-
-                        try
-                        {
-                            foreach (string f in fn)
-                            {
-                                frmPlayList.getPlayList().AddFile(f);
-                                //frmPlayList.AddList(f);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            log.ForcedWrite(ex);
-                        }
-                    }
-                }
-
+                tsmiOpenFile_Click(null, null);
                 return;
             }
 
             if (px >= 11 * 16 + 32 && px < 12 * 16 + 32)
             {
-                dispPlayList();
+                tsmiPlayList_Click(null, null);
                 return;
             }
 
             if (px >= 12 * 16 + 32 && px < 13 * 16 + 32)
             {
-                openInfo();
+                tsmiOpenInfo_Click(null, null);
                 return;
             }
 
             if (px >= 13 * 16 + 32 && px < 14 * 16 + 32)
             {
-                //dispMixer();
-                openMixer();
+                tsmiOpenMixer_Click(null, null);
                 return;
             }
 
             if (px >= 14 * 16 + 32 && px < 15 * 16 + 32)
             {
-                showContextMenu();
+                tsmiKBrd_Click(null,null);
                 return;
             }
 
             if (px >= 15 * 16 + 32 && px < 16 * 16 + 32)
             {
-                dispVSTList();
+                tsmiVST_Click(null,null);
                 return;
             }
 
             if (px >= 16 * 16 + 32 && px < 17 * 16 + 32)
             {
-                openMIDIKeyboard();
+                tsmiMIDIkbd_Click(null,null);
                 return;
             }
 
             if (px >= 17 * 16 + 32 && px < 18 * 16 + 32)
             {
-                setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
-                changeZoom();
+                tsmiChangeZoom_Click(null, null);
                 return;
             }
         }
@@ -6693,6 +6653,145 @@ namespace MDPlayer.form
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Microsoft.Win32.SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
+        }
+
+        private void tsmiOpenFile_Click(object sender, EventArgs e)
+        {
+            string[] fn = fileOpen(true);
+
+            if (fn != null)
+            {
+                if (Audio.isPaused)
+                {
+                    Audio.Pause();
+                }
+
+                if (fn.Length == 1)
+                {
+                    frmPlayList.Stop();
+
+                    //frmPlayList.AddList(fn[0]);
+                    frmPlayList.getPlayList().AddFile(fn[0]);
+
+                    if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
+                    {
+                        loadAndPlay(0, 0, fn[0], "");
+                        frmPlayList.setStart(-1);
+                    }
+                    oldParam = new MDChipParams();
+
+                    frmPlayList.Play();
+                }
+                else
+                {
+                    frmPlayList.Stop();
+
+                    try
+                    {
+                        foreach (string f in fn)
+                        {
+                            frmPlayList.getPlayList().AddFile(f);
+                            //frmPlayList.AddList(f);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                    }
+                }
+            }
+
+
+        }
+
+        private void tsmiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tsmiPlay_Click(object sender, EventArgs e)
+        {
+            play();
+            oldParam = new MDChipParams();
+        }
+
+        private void tsmiStop_Click(object sender, EventArgs e)
+        {
+            frmPlayList.Stop();
+            stop();
+        }
+
+        private void tsmiPause_Click(object sender, EventArgs e)
+        {
+            pause();
+        }
+
+        private void tsmiFadeOut_Click(object sender, EventArgs e)
+        {
+            fadeout();
+            frmPlayList.Stop();
+        }
+
+        private void tsmiSlow_Click(object sender, EventArgs e)
+        {
+            slow();
+        }
+
+        private void tsmiFf_Click(object sender, EventArgs e)
+        {
+            ff();
+        }
+
+        private void tsmiNext_Click(object sender, EventArgs e)
+        {
+            next();
+            oldParam = new MDChipParams();
+        }
+
+        private void tsmiPlayMode_Click(object sender, EventArgs e)
+        {
+            playMode();
+        }
+
+        private void tsmiOption_Click(object sender, EventArgs e)
+        {
+            openSetting();
+        }
+
+        private void tsmiPlayList_Click(object sender, EventArgs e)
+        {
+            dispPlayList();
+        }
+
+        private void tsmiOpenInfo_Click(object sender, EventArgs e)
+        {
+            openInfo();
+        }
+
+        private void tsmiOpenMixer_Click(object sender, EventArgs e)
+        {
+            openMixer();
+        }
+
+        private void tsmiChangeZoom_Click(object sender, EventArgs e)
+        {
+            setting.other.Zoom = (setting.other.Zoom == 3) ? 1 : (setting.other.Zoom + 1);
+            changeZoom();
+        }
+
+        private void tsmiVST_Click(object sender, EventArgs e)
+        {
+            dispVSTList();
+        }
+
+        private void tsmiMIDIkbd_Click(object sender, EventArgs e)
+        {
+            openMIDIKeyboard();
+        }
+
+        private void tsmiKBrd_Click(object sender, EventArgs e)
+        {
+            showContextMenu();
         }
     }
 }

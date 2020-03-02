@@ -88,9 +88,32 @@
             this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPlay = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFadeOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSlow = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFf = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPlayMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPlayList = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenMixer = new System.Windows.Forms.ToolStripMenuItem();
+            this.その他ウィンドウ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiKBrd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiVST = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMIDIkbd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiChangeZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
+            this.cmsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbScreen
@@ -563,6 +586,180 @@
             this.tsmiSVRC7.Text = "VRC7";
             this.tsmiSVRC7.Click += new System.EventHandler(this.tsmiSVRC7_Click);
             // 
+            // cmsMenu
+            // 
+            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルToolStripMenuItem,
+            this.操作ToolStripMenuItem,
+            this.tsmiOption,
+            this.tsmiPlayList,
+            this.tsmiOpenInfo,
+            this.tsmiOpenMixer,
+            this.その他ウィンドウ表示ToolStripMenuItem,
+            this.tsmiChangeZoom});
+            this.cmsMenu.Name = "contextMenuStrip1";
+            this.cmsMenu.Size = new System.Drawing.Size(181, 202);
+            // 
+            // ファイルToolStripMenuItem
+            // 
+            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenFile,
+            this.tsmiExit});
+            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ファイルToolStripMenuItem.Text = "ファイル";
+            // 
+            // tsmiOpenFile
+            // 
+            this.tsmiOpenFile.Name = "tsmiOpenFile";
+            this.tsmiOpenFile.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenFile.Text = "開く";
+            this.tsmiOpenFile.Click += new System.EventHandler(this.tsmiOpenFile_Click);
+            // 
+            // tsmiExit
+            // 
+            this.tsmiExit.Name = "tsmiExit";
+            this.tsmiExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiExit.Text = "終了";
+            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
+            // 
+            // 操作ToolStripMenuItem
+            // 
+            this.操作ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiPlay,
+            this.tsmiStop,
+            this.tsmiPause,
+            this.tsmiFadeOut,
+            this.tsmiSlow,
+            this.tsmiFf,
+            this.tsmiNext,
+            this.tsmiPlayMode});
+            this.操作ToolStripMenuItem.Name = "操作ToolStripMenuItem";
+            this.操作ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.操作ToolStripMenuItem.Text = "操作";
+            // 
+            // tsmiPlay
+            // 
+            this.tsmiPlay.Name = "tsmiPlay";
+            this.tsmiPlay.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPlay.Text = "再生";
+            this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
+            // 
+            // tsmiStop
+            // 
+            this.tsmiStop.Name = "tsmiStop";
+            this.tsmiStop.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStop.Text = "停止";
+            this.tsmiStop.Click += new System.EventHandler(this.tsmiStop_Click);
+            // 
+            // tsmiPause
+            // 
+            this.tsmiPause.Name = "tsmiPause";
+            this.tsmiPause.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPause.Text = "一時停止";
+            this.tsmiPause.Click += new System.EventHandler(this.tsmiPause_Click);
+            // 
+            // tsmiFadeOut
+            // 
+            this.tsmiFadeOut.Name = "tsmiFadeOut";
+            this.tsmiFadeOut.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFadeOut.Text = "フェードアウト";
+            this.tsmiFadeOut.Click += new System.EventHandler(this.tsmiFadeOut_Click);
+            // 
+            // tsmiSlow
+            // 
+            this.tsmiSlow.Name = "tsmiSlow";
+            this.tsmiSlow.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSlow.Text = "スロー再生";
+            this.tsmiSlow.Click += new System.EventHandler(this.tsmiSlow_Click);
+            // 
+            // tsmiFf
+            // 
+            this.tsmiFf.Name = "tsmiFf";
+            this.tsmiFf.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFf.Text = "３倍速再生";
+            this.tsmiFf.Click += new System.EventHandler(this.tsmiFf_Click);
+            // 
+            // tsmiNext
+            // 
+            this.tsmiNext.Name = "tsmiNext";
+            this.tsmiNext.Size = new System.Drawing.Size(180, 22);
+            this.tsmiNext.Text = "次の曲へ";
+            this.tsmiNext.Click += new System.EventHandler(this.tsmiNext_Click);
+            // 
+            // tsmiPlayMode
+            // 
+            this.tsmiPlayMode.Name = "tsmiPlayMode";
+            this.tsmiPlayMode.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPlayMode.Text = "再生順変更";
+            this.tsmiPlayMode.Click += new System.EventHandler(this.tsmiPlayMode_Click);
+            // 
+            // tsmiOption
+            // 
+            this.tsmiOption.Name = "tsmiOption";
+            this.tsmiOption.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOption.Text = "オプション";
+            this.tsmiOption.Click += new System.EventHandler(this.tsmiOption_Click);
+            // 
+            // tsmiPlayList
+            // 
+            this.tsmiPlayList.Name = "tsmiPlayList";
+            this.tsmiPlayList.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPlayList.Text = "プレイリスト表示";
+            this.tsmiPlayList.Click += new System.EventHandler(this.tsmiPlayList_Click);
+            // 
+            // tsmiOpenInfo
+            // 
+            this.tsmiOpenInfo.Name = "tsmiOpenInfo";
+            this.tsmiOpenInfo.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenInfo.Text = "曲情報表示";
+            this.tsmiOpenInfo.Click += new System.EventHandler(this.tsmiOpenInfo_Click);
+            // 
+            // tsmiOpenMixer
+            // 
+            this.tsmiOpenMixer.Name = "tsmiOpenMixer";
+            this.tsmiOpenMixer.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenMixer.Text = "ミキサー表示";
+            this.tsmiOpenMixer.Click += new System.EventHandler(this.tsmiOpenMixer_Click);
+            // 
+            // その他ウィンドウ表示ToolStripMenuItem
+            // 
+            this.その他ウィンドウ表示ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiKBrd,
+            this.tsmiVST,
+            this.tsmiMIDIkbd});
+            this.その他ウィンドウ表示ToolStripMenuItem.Name = "その他ウィンドウ表示ToolStripMenuItem";
+            this.その他ウィンドウ表示ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.その他ウィンドウ表示ToolStripMenuItem.Text = "その他ウィンドウ表示";
+            // 
+            // tsmiKBrd
+            // 
+            this.tsmiKBrd.Name = "tsmiKBrd";
+            this.tsmiKBrd.Size = new System.Drawing.Size(180, 22);
+            this.tsmiKBrd.Text = "各種鍵盤";
+            this.tsmiKBrd.Click += new System.EventHandler(this.tsmiKBrd_Click);
+            // 
+            // tsmiVST
+            // 
+            this.tsmiVST.Name = "tsmiVST";
+            this.tsmiVST.Size = new System.Drawing.Size(180, 22);
+            this.tsmiVST.Text = "VST";
+            this.tsmiVST.Click += new System.EventHandler(this.tsmiVST_Click);
+            // 
+            // tsmiMIDIkbd
+            // 
+            this.tsmiMIDIkbd.Name = "tsmiMIDIkbd";
+            this.tsmiMIDIkbd.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMIDIkbd.Text = "MIDI鍵盤";
+            this.tsmiMIDIkbd.Click += new System.EventHandler(this.tsmiMIDIkbd_Click);
+            // 
+            // tsmiChangeZoom
+            // 
+            this.tsmiChangeZoom.Name = "tsmiChangeZoom";
+            this.tsmiChangeZoom.Size = new System.Drawing.Size(180, 22);
+            this.tsmiChangeZoom.Text = "ウィンドウサイズ変更";
+            this.tsmiChangeZoom.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            // 
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
@@ -587,6 +784,7 @@
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
             this.cmsOpenOtherPanel.ResumeLayout(false);
+            this.cmsMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -652,6 +850,28 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSY8950;
         private System.Windows.Forms.ToolStripMenuItem tsmiPK051649;
         private System.Windows.Forms.ToolStripMenuItem tsmiSK051649;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
+        private System.Windows.Forms.ToolStripMenuItem 操作ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPlay;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStop;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPause;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFadeOut;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSlow;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFf;
+        private System.Windows.Forms.ToolStripMenuItem tsmiNext;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPlayMode;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOption;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPlayList;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenInfo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenMixer;
+        private System.Windows.Forms.ToolStripMenuItem その他ウィンドウ表示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiKBrd;
+        private System.Windows.Forms.ToolStripMenuItem tsmiVST;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMIDIkbd;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoom;
     }
 }
 

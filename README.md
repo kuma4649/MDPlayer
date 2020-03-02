@@ -232,8 +232,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・dj.tuBIG/MaliceX さん  
     ・じごふりん さん  
     ・WING さん  
-    ・そんそんさん  
-    ・欧場豪さん  
+    ・そんそん さん  
+    ・欧場豪 さん  
+    ・sgq1205 さん  
 
     ・Visual Studio Community 2015/2017  
     ・MinGW/msys  
