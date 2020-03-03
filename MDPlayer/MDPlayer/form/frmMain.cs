@@ -51,6 +51,7 @@ namespace MDPlayer.form
         private frmFDS[] frmFDS = new frmFDS[2] { null, null };
         private frmMMC5[] frmMMC5 = new frmMMC5[2] { null, null };
         private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
+        private frmRegTest frmRegTest;
 
         private List<Form[]> lstForm = new List<Form[]>();
 
@@ -564,7 +565,6 @@ namespace MDPlayer.form
                 openMixer();
                 openMixer();
             }
-
 
         }
 
@@ -2869,6 +2869,40 @@ namespace MDPlayer.form
             frmMMC5[chipID] = null;
         }
 
+        private void OpenFormRegTest(int chipID, bool force = false) {
+            if (frmRegTest != null) {
+                if (!force) {
+                    CloseFormRegTest(chipID);
+                    return;
+                } else return;
+            }
+
+            frmRegTest = new frmRegTest(this, chipID, setting.other.Zoom);
+
+            frmRegTest.Show();
+            frmRegTest.update();
+            frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
+
+            CheckAndSetForm(frmRegTest);
+        }
+
+        private void CloseFormRegTest(int chipID) {
+            if (frmRegTest == null) return;
+
+            try {
+                frmRegTest.Close();
+            } catch (Exception ex) {
+                log.ForcedWrite(ex);
+            }
+            try {
+                frmRegTest.Dispose();
+            } catch (Exception ex) {
+                log.ForcedWrite(ex);
+            }
+            frmRegTest = null;
+        }
+
+
 
         private void openInfo()
         {
@@ -3196,9 +3230,12 @@ namespace MDPlayer.form
                 if (frmVRC7[i] != null) frmVRC7[i].screenInit();
 
             }
+
             if (frmMixer2 != null) frmMixer2.screenInit();
             if (frmInfo != null) frmInfo.screenInit();
             //if (frmYM2612MIDI != null) frmYM2612MIDI.screenInit();
+
+            if (frmRegTest != null) frmRegTest.screenInit();
 
             reqAllScreenInit = false;
         }
@@ -3320,6 +3357,9 @@ namespace MDPlayer.form
                 if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenChangeParams();
                 else frmMixer2 = null;
 
+                if (frmRegTest != null && !frmRegTest.isClosed) frmRegTest.screenChangeParams();
+                else frmRegTest = null;
+
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
                     nextFrame += period;
@@ -3413,6 +3453,9 @@ namespace MDPlayer.form
                 else frmYM2612MIDI = null;
                 if (frmMixer2 != null && !frmMixer2.isClosed) { frmMixer2.screenDrawParams(); frmMixer2.update(); }
                 else frmMixer2 = null;
+
+                if (frmRegTest != null && !frmRegTest.isClosed) { frmRegTest.screenDrawParams(); frmRegTest.update(); } else frmRegTest = null;
+
 
                 nextFrame += period;
 
@@ -6792,6 +6835,10 @@ namespace MDPlayer.form
         private void tsmiKBrd_Click(object sender, EventArgs e)
         {
             showContextMenu();
+        }
+
+        private void RegisterDumpMenuItem_Click(object sender, EventArgs e) {
+            OpenFormRegTest(0);
         }
     }
 }
