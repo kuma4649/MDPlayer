@@ -45,6 +45,10 @@ namespace MDPlayer.form
                 AddChip("YM2610", 2, (Select) => {
                     return Audio.GetYM2610Register(0)[Select];
                 });
+
+                AddChip("YM2608", 2, (Select) => {
+                    return Audio.GetYM2608Register(0)[Select];
+                });
             }
 
             private void AddChip(string ChipName, int Max, ChipData.GetRegisterDelegate p) {
