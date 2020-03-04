@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "document", "document", "{4B
 	ProjectSection(SolutionItems) = preProject
 		..\CHANGE.txt = ..\CHANGE.txt
 		..\LICENSE.txt = ..\LICENSE.txt
+		makeZip.bat = makeZip.bat
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

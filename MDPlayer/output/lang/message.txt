@@ -1,0 +1,3 @@
+﻿;mdpc.cs 00000
+I00000=MDPlayer Commandline Version\r\n                                   By kuma\r\n\r\nUsage:\r\n    mdpc [-w] [-e] .vgm [.wav]\r\n\r\nOption:\r\n    -w  Output wave file.\r\n    -e  Only emulation.\r\n
+E0000=Illegal option.
