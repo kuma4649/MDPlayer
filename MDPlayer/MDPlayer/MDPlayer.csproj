@@ -369,6 +369,12 @@
     <Compile Include="form\frmPlayList.Designer.cs">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmRegTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmRegTest.Designer.cs">
+      <DependentUpon>frmRegTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmSegaPCM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -573,6 +579,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmPlayList.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmRegTest.resx">
+      <DependentUpon>frmRegTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmSegaPCM.resx">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
@@ -827,14 +836,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)lib"\*.* "$(TargetDir)"
-copy "$(TargetDir)"*.dll d:\bin\$(ConfigurationName)
-copy "$(TargetDir)"MDPlayer.exe d:\bin\$(ConfigurationName)
-copy "$(TargetDir)"scciconfig.exe d:\bin\$(ConfigurationName)
-copy "$(TargetDir)"scci.ini d:\bin\$(ConfigurationName)
-del d:\bin\bin$(ConfigurationName).zip
-powershell compress-archive d:\bin\$(ConfigurationName)\*.* d:\bin\bin$(ConfigurationName).zip 
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

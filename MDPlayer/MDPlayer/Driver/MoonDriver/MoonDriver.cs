@@ -1912,6 +1912,12 @@ namespace MDPlayer.Driver.MoonDriver
                 return;
             }
 
+            a--;
+            if (a == 0) {
+                write_data_wave();// (a >> 8) == 3
+                return;
+            }
+
             hl++;
         }
 
@@ -1951,6 +1957,16 @@ namespace MDPlayer.Driver.MoonDriver
             e = a;// Data
             hl++;
             moon_fm2_out();
+        }
+
+        private void write_data_wave() {
+            hl++;
+
+            a = ReadMemory(hl);
+
+            e = a;// Data
+            hl++;
+            moon_wave_out();
         }
 
         private void seq_wait()
