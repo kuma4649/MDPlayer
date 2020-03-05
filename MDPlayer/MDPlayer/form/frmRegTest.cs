@@ -73,7 +73,7 @@ namespace MDPlayer.form
 
             public string GetName() {
                 var x = ChipList[Select];
-                return $"{x.ChipName, -10} #{Select - x.BaseIndex} REGISTER ({Select+1}/{ChipList.Count})";
+                return $"{x.ChipName, -10} #{Select - x.BaseIndex} REGISTER ({Select+1}/{ChipList.Count})  ";
             }
 
         }
