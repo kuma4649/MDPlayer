@@ -235,7 +235,7 @@ namespace MDPlayer
                 //Console.WriteLine("[{0}]: Adr:{1:X} Dat:{2:X}",model, vgmAdr , vgmBuf[vgmAdr]);
                 if (vgmCmdTbl[cmd] != null)
                 {
-                    //if (model == enmModel.VirtualModel) Console.WriteLine("{0:X05} : {1:X02} ", vgmAdr, vgmBuf[vgmAdr]);
+                    //if (model == EnmModel.VirtualModel) Console.WriteLine("{0:X05} : {1:X02} ", vgmAdr, vgmBuf[vgmAdr]);
                     vgmCmdTbl[cmd]();
                 }
                 else
