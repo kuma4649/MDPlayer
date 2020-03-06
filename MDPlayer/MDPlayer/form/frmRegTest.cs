@@ -209,7 +209,8 @@ namespace MDPlayer.form
                     y += 8;
                     DrawBuff.drawFont4(frameBuffer, 2, y-8, 0, $"{i:X3}:"); 
                 }
-                DrawBuff.drawFont4(frameBuffer, 34 + ((i%16) * 12), y-8, 0, $"{Reg[i]:X2}");
+                byte v = (byte)Reg[i];
+                DrawBuff.drawFont4(frameBuffer, 34 + ((i%16) * 12), y-8, 0, $"{v:X2}");
             }
         }
 
@@ -233,11 +234,5 @@ namespace MDPlayer.form
         public void screenInit()
         {
         }
-
-        public void eraseScreen()
-        {
-
-        }
-
     }
 }
