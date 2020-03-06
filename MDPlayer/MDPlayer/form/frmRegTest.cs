@@ -16,11 +16,12 @@ namespace MDPlayer.form
             public string ChipName;
             public int BaseIndex;
             public GetRegisterDelegate Register;
-
-            public ChipData(string chipName, int baseIndex, GetRegisterDelegate register) {
+            public int MaxRegisterSize;
+            public ChipData(string chipName, int baseIndex, int maxRegisterSize, GetRegisterDelegate register) {
                 ChipName = chipName;
                 BaseIndex = baseIndex;
                 Register = register;
+                MaxRegisterSize = maxRegisterSize;
             }
         }
 
@@ -30,40 +31,51 @@ namespace MDPlayer.form
             List<ChipData> ChipList = new List<ChipData>();
 
             public RegisterManager() {
-                AddChip("YMF278B", 3, (Select) => {
+                AddChip("YMF278B", 3, 0x100, (Select) => {
                     return Audio.GetYMF278BRegister(0)[Select];
                 });
 
-                AddChip("YMF262", 2, (Select) => {
+                AddChip("YMF262", 2, 0x100, (Select) => {
                     return Audio.GetYMF262Register(0)[Select];
                 });
 
-                AddChip("YM2151", 1, (Select) => {
+                AddChip("YM2151", 1, 0x100, (Select) => {
                     return Audio.GetYM2151Register(0);
                 });
 
-                AddChip("YM2610", 2, (Select) => {
+                AddChip("YM2610", 2, 0x100, (Select) => {
                     return Audio.GetYM2610Register(0)[Select];
                 });
 
-                AddChip("YM2608", 2, (Select) => {
+                AddChip("YM2608", 2, 0x100, (Select) => {
                     return Audio.GetYM2608Register(0)[Select];
+                });
+
+                AddChip("YM2612 P", 2, 0x100, (Select) => {
+                    return Audio.GetFMRegister(0)[Select];
+                });
+
+                AddChip("SN76489", 1, 8, (Select) => {
+                    return Audio.GetPSGRegister(0);
                 });
             }
 
-            private void AddChip(string ChipName, int Max, ChipData.GetRegisterDelegate p) {
+            private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
                 var BaseIndex = ChipList.Count; 
                 for(var i=0; i < Max; i++) {
-                    ChipList.Add(new ChipData(ChipName, BaseIndex, p));
+                    ChipList.Add(new ChipData(ChipName, BaseIndex, regSize, p));
                 }
             }
 
             public void Prev() {
-                if (Select > 0) Select--;
+                Select--;
+                if (Select < 0) Select = ChipList.Count - 1;
             }
 
             public void Next() {
-                if (Select < ChipList.Count-1) Select++;
+                Select++;
+                if (Select > ChipList.Count - 1) Select = 0;
+                //if (Select < ChipList.Count-1) Select++;
             }
 
             public int[] GetData() {
@@ -74,6 +86,10 @@ namespace MDPlayer.form
             public string GetName() {
                 var x = ChipList[Select];
                 return $"{x.ChipName, -10} #{Select - x.BaseIndex} REGISTER ({Select+1}/{ChipList.Count})  ";
+            }
+
+            public int getRegisterSize() {
+                return ChipList[Select].MaxRegisterSize;
             }
 
         }
@@ -170,21 +186,32 @@ namespace MDPlayer.form
         {
             var Name = RegMan.GetName();
             var Reg = RegMan.GetData();
+            var regSize = RegMan.getRegisterSize();
 
             DrawBuff.drawFont4(frameBuffer, 2, 0, 0, Name);
             DrawBuff.drawFont4(frameBuffer, 210, 0, 0, $"< >");
 
             var y = 8;
-            for(var idx = 0; idx < 0x100;) {
+            /*
+            var y = 8; // 行 0x10毎に変わる・・・
+            for(var idx = 0; idx < regSize; idx+=0x10) {
                 DrawBuff.drawFont4(frameBuffer, 2, y, 0, $"{idx:X3}:");
-                for(var i=0; i < 0x10; i++) {
-                    DrawBuff.drawFont4(frameBuffer, 34 + (i * 12), y, 0, $"{Reg[idx]:X2}");
-                    idx++;
+                var remainingRegNum = regSize >= 0x10 ? 0x10 : regSize;
+                for (var i = 0; i < remainingRegNum; i++)
+                {
+                    DrawBuff.drawFont4(frameBuffer, 34 + (i * 12), y, 0, $"{Reg[idx+i]:X2}");
                 }
                 y += 8;
+            }*/
+            for(var i = 0; i < regSize; i++)
+            {
+                if (i % 16 == 0) {
+                    y += 8;
+                    DrawBuff.drawFont4(frameBuffer, 2, y-8, 0, $"{i:X3}:"); 
+                }
+                DrawBuff.drawFont4(frameBuffer, 34 + ((i%16) * 12), y-8, 0, $"{Reg[i]:X2}");
             }
         }
-
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
@@ -205,6 +232,11 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
+        }
+
+        public void eraseScreen()
+        {
+
         }
 
     }
