@@ -102,6 +102,13 @@ namespace MDPlayer
             //DeleteObject(hBmp);
         }
 
+        public void clearScreen()
+        {
+            Array.Clear(baPlaneBuffer, 0, baPlaneBuffer.Length);
+            drawScreen();
+        }
+
+
         public static uint SRCINVERT = 0x00660046;
         public static uint SRCCOPY = 0x00CC0020;
         [DllImport("gdi32.dll")]

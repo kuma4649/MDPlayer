@@ -27,7 +27,7 @@ namespace MDPlayer.form
 
         class RegisterManager {
             int Select;
-
+            public bool needRefresh = false;
             List<ChipData> ChipList = new List<ChipData>();
 
             public RegisterManager() {
@@ -70,11 +70,13 @@ namespace MDPlayer.form
             public void Prev() {
                 Select--;
                 if (Select < 0) Select = ChipList.Count - 1;
+                needRefresh = true;
             }
 
             public void Next() {
                 Select++;
                 if (Select > ChipList.Count - 1) Select = 0;
+                needRefresh = true;
                 //if (Select < ChipList.Count-1) Select++;
             }
 
@@ -91,7 +93,6 @@ namespace MDPlayer.form
             public int getRegisterSize() {
                 return ChipList[Select].MaxRegisterSize;
             }
-
         }
 
         public bool isClosed = false;
@@ -126,6 +127,7 @@ namespace MDPlayer.form
 
         public void update()
         {
+            if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             frameBuffer.Refresh(null);
         }
 
@@ -184,6 +186,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
+            //if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             var Name = RegMan.GetName();
             var Reg = RegMan.GetData();
             var regSize = RegMan.getRegisterSize();
