@@ -1720,7 +1720,17 @@ namespace MDPlayer
             if (chipID == 0) chipLED.PriOPN = 2;
             else chipLED.SecOPN = 2;
 
-            if (model == EnmModel.VirtualModel) fmRegisterYM2203[chipID][dAddr] = dData;
+            if (model == EnmModel.VirtualModel)
+            {
+                if (dAddr != 0x2d && dAddr != 0x2e && dAddr != 0x2f)
+                {
+                    fmRegisterYM2203[chipID][dAddr] = dData;
+                }
+                else
+                {
+                    fmRegisterYM2203[chipID][0x2d] = dAddr - 0x2d;
+                }
+            }
 
             if ((model == EnmModel.RealModel && ctYM2203[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2203[chipID].UseScci))
             {
@@ -1914,7 +1924,14 @@ namespace MDPlayer
                 || (model == EnmModel.RealModel && (scYM2608 != null && scYM2608[chipID] != null))
                 )
             {
-                fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+                if (dPort == 0 && (dAddr == 0x2d || dAddr == 0x2e || dAddr == 0x2f))
+                {
+                    fmRegisterYM2608[chipID][0][0x2d] = dData - 0x2d;
+                }
+                else
+                {
+                    fmRegisterYM2608[chipID][dPort][dAddr] = dData;
+                }
             }
 
             if ((model == EnmModel.RealModel && ctYM2608[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2608[chipID].UseScci))
@@ -2208,7 +2225,14 @@ namespace MDPlayer
                 || (model == EnmModel.RealModel && (scYM2610 != null && scYM2610[chipID] != null))
                 )
             {
-                fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+                if (dPort == 0 && (dAddr == 0x2d || dAddr == 0x2e || dAddr == 0x2f))
+                {
+                    fmRegisterYM2610[chipID][0][0x2d] = dData - 0x2d;
+                }
+                else
+                {
+                    fmRegisterYM2610[chipID][dPort][dAddr] = dData;
+                }
             }
 
             if ((model == EnmModel.RealModel && ctYM2610[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2610[chipID].UseScci))

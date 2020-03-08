@@ -118,6 +118,9 @@ namespace MDPlayer.form
             0x0f<<4
         };
 
+        private static float[] fmDivTbl = new float[] { 6, 3, 2 };
+        private static float[] ssgDivTbl = new float[] { 4, 2, 1 };
+
         public void screenChangeParams()
         {
             bool isFmEx;
@@ -128,6 +131,19 @@ namespace MDPlayer.form
 
             isFmEx = (ym2203Register[0x27] & 0x40) > 0;
             newParam.channels[2].ex = isFmEx;
+
+            int defaultMasterClock = 7987200 / 2;
+            float ssgMul = 1.0f;
+            int masterClock = defaultMasterClock;
+            if (Audio.clockYM2203 != 0)
+            {
+                ssgMul = Audio.clockYM2203 / (float)defaultMasterClock;
+                masterClock = Audio.clockYM2203;
+            }
+
+            float fmDiv = fmDivTbl[ym2203Register[0x2d]];
+            float ssgDiv = ssgDivTbl[ym2203Register[0x2d]];
+            ssgMul = ssgMul * ssgDiv / 4;
 
             for (int ch = 0; ch < 3; ch++)
             {
@@ -159,10 +175,13 @@ namespace MDPlayer.form
                 int n = -1;
                 if (ch != 2 || !isFmEx)
                 {
-                    freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
                     octav = (ym2203Register[0xa4 + c] & 0x38) >> 3;
+                    freq = ym2203Register[0xa0 + c] + (ym2203Register[0xa4 + c] & 0x07) * 0x100;
+                    float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
+                    ff /= 1038f;
 
-                    if ((fmKeyYM2203[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[ch] & 1) != 0)
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     byte con = (byte)(fmKeyYM2203[ch]);
                     int v = 127;
@@ -183,8 +202,11 @@ namespace MDPlayer.form
                     if (parent.setting.other.ExAll) m = 0xf0;
                     freq = ym2203Register[0xa9] + (ym2203Register[0xad] & 0x07) * 0x100;
                     octav = (ym2203Register[0xad] & 0x38) >> 3;
+                    float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
+                    ff /= 1038f;
 
-                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
+                    if ((fmKeyYM2203[2] & 0x10) != 0 && ((m & 0x10) != 0)) 
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? ym2203Register[0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2203Ch3SlotVol[0] / 80.0), 0), 19);
@@ -213,7 +235,9 @@ namespace MDPlayer.form
                     int n = -1;
                     if ((fmKeyYM2203[2] & (0x20 << (ch - 3))) != 0 && ((m & (0x10 << op)) != 0))
                     {
-                        n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq) + 1, 0), 95);
+                        float ff = freq / ((2 << 20) / (masterClock / (12 * fmDiv))) * (2 << (octav + 2));
+                        ff /= 1038f;
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
                     }
                     newParam.channels[ch].note = n;
 
@@ -250,7 +274,7 @@ namespace MDPlayer.form
                     int ct = ym2203Register[0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp);// 7987200 = MasterClock
+                    float ftone = 7987200.0f / (64.0f * (float)tp) * ssgMul;// 7987200 = MasterClock(↓のメソッドが7987200を基準としたテーブルの為)
                     channel.note = Common.searchSSGNote(ftone);
                 }
 

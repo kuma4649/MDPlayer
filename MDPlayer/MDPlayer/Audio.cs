@@ -1781,6 +1781,7 @@ namespace MDPlayer
                 //hiyorimiDeviceFlag |= 0x2;
                 lstChips.Add(chip);
                 useChip.Add(EnmChip.YM2608);
+                clockYM2608 = Driver.MUCOM88.MUCOM88.baseclock;
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2445,6 +2446,7 @@ namespace MDPlayer
                     chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { Common.GetApplicationFolder() };
                     lstChips.Add(chip);
+                    clockYM2608 = 8000000;
                 }
                 useChip.Add(EnmChip.YM2608);
 
@@ -2463,6 +2465,7 @@ namespace MDPlayer
                     chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { Common.GetApplicationFolder() };
                     lstChips.Add(chip);
+                    clockYM2608 = 8000000;
                 }
                 useChip.Add(EnmChip.S_YM2608);
 
@@ -4027,6 +4030,7 @@ namespace MDPlayer
                         chip.Volume = setting.balance.YM2612Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2612ClockValue;
                         chip.Option = null;
+                        clockYM2612 = (int)((vgm)driverVirtual).YM2612ClockValue;
 
                         hiyorimiDeviceFlag |= (setting.YM2612Type.UseScci) ? 0x1 : 0x2;
                         hiyorimiDeviceFlag |= (setting.YM2612Type.UseScci && setting.YM2612Type.OnlyPCMEmulation) ? 0x2 : 0x0;
@@ -4271,6 +4275,7 @@ namespace MDPlayer
                         chip.Clock = ((vgm)driverVirtual).YM2608ClockValue;
                         chip.Option = new object[] { Common.GetApplicationFolder() };
                         hiyorimiDeviceFlag |= 0x2;
+                        clockYM2608 = (int)((vgm)driverVirtual).YM2608ClockValue;
 
                         if (i == 0) chipLED.PriOPNA = 1;
                         else chipLED.SecOPNA = 1;
@@ -4355,6 +4360,8 @@ namespace MDPlayer
                         chip.Volume = setting.balance.YM2203Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2203ClockValue;
                         chip.Option = null;
+
+                        clockYM2203 = (int)((vgm)driverVirtual).YM2203ClockValue;
 
                         hiyorimiDeviceFlag |= 0x2;
 

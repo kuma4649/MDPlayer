@@ -132,6 +132,25 @@ namespace MDPlayer.form
             newParam.timerA = fmRegister[0][0x24] | ((fmRegister[0][0x25] & 0x3) << 8);
             newParam.timerB = fmRegister[0][0x26];
 
+            //int masterClock = Audio.clockYM2612;
+            //int defaultMasterClock = 8000000;
+            //float mul = 1.0f;
+            //if (masterClock != 0)
+            //    mul = masterClock / (float)defaultMasterClock;
+
+            int defaultMasterClock = 8000000;
+            float ssgMul = 1.0f;
+            int masterClock = defaultMasterClock;
+            if (Audio.clockYM2612 != 0)
+            {
+                ssgMul = Audio.clockYM2612 / (float)defaultMasterClock;
+                masterClock = Audio.clockYM2612;
+            }
+
+            float fmDiv = 6;
+            float ssgDiv = 4;
+            ssgMul = ssgMul * ssgDiv / 4;
+
             for (int ch = 0; ch < 6; ch++)
             {
                 int p = (ch > 2) ? 1 : 0;
@@ -167,8 +186,11 @@ namespace MDPlayer.form
                     freq = fmRegister[p][0xa0 + c] + (fmRegister[p][0xa4 + c] & 0x07) * 0x100;
                     octav = (fmRegister[p][0xa4 + c] & 0x38) >> 3;
                     newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
+                    float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
+                    ff /= 1038f;
 
-                    if ((fmKey[ch] & 1) != 0) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[ch] & 1) != 0)
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     byte con = (byte)(fmKey[ch]);
                     int v = 127;
@@ -192,8 +214,11 @@ namespace MDPlayer.form
                     freq = fmRegister[0][0xa9] + (fmRegister[0][0xad] & 0x07) * 0x100;
                     octav = (fmRegister[0][0xad] & 0x38) >> 3;
                     newParam.channels[2].freq = (freq & 0x7ff) | ((octav & 7) << 11);
+                    float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
+                    ff /= 1038f;
 
-                    if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0)) n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
+                    if ((fmKey[2] & 0x10) != 0 && ((m & 0x10) != 0))
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? fmRegister[p][0x40 + c] : 127;
                     newParam.channels[2].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((fmRegister[0][0xb4 + 2] & 0x80) != 0 ? 1 : 0) * fmCh3SlotVol[0] / 80.0), 0), 19);
@@ -229,7 +254,9 @@ namespace MDPlayer.form
                     int n = -1;
                     if ((fmKey[2] & (0x10 << (ch-5))) != 0 && ((m & (0x10 << op)) != 0))
                     {
-                        n = Math.Min(Math.Max(octav * 12 + Common.searchFMNote(freq), 0), 95);
+                        float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
+                        ff /= 1038f;
+                        n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
                     }
                     newParam.channels[ch].note = n;
 
