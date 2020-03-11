@@ -226,14 +226,9 @@ namespace MDPlayer.form
                 nyc = newParam.channels[c];
 
                 int p = c / 9;
-                bool isOp4 = false;
-                int adr = c % 9;
-                if (adr < 6)
-                {
-                    if (newParam.channels[(adr / 2) + p * 3].dda) isOp4 = true;
-                }
-                adr = isOp4 ? (adr / 2) : adr;
-                adr = chTbl[adr];
+                int cadr = c % 9;
+
+                int adr = chTbl[cadr];
 
                 //BL
                 nyc.inst[11] = (ymf278bRegister[p][0xb0 + adr] >> 2) & 7;
@@ -254,20 +249,60 @@ namespace MDPlayer.form
                 nyc.inst[33] = 1;
 
                 int nt = Common.searchSegaPCMNote(nyc.inst[12] / 344.0) + (nyc.inst[11] - 4) * 12;
+
+                bool fouropChannel = cadr < 6;
+                bool fouropControl = fouropChannel && cadr % 2 == 0;
+
+                // 4opのフラグはキーボードの並びと異なる
+                var ccnt = fouropChannel ? newParam.channels[(p * 3) + (cadr / 2)] : null;
+                var csub = fouropControl ? newParam.channels[c + 1] : null;
+                bool fouropMode = ccnt != null && ccnt.dda;
+
+                int cnt2 = fouropControl ? ymf278bRegister[p][0xc3 + adr] & 1 : 0;
+
+                bool chmask = false;
+                if (fouropMode && !fouropControl) chmask = true;
+
                 if ((ko & (1 << (adr + p * 9))) != 0)
                 {
-                    if (nyc.note != nt)
+                    if (nyc.note != nt && !chmask)
                     {
                         nyc.note = nt;
-                        int tl1 = nyc.inst[5 + 0 * 17];
-                        int tl2 = nyc.inst[5 + 1 * 17];
-                        int tl = tl2;
-                        if (n != 0)
-                        {
-                            tl = Math.Min(tl1, tl2);
+
+                        if (fouropMode) {
+                            int tl1 = nyc.inst[5 + 0 * 17];
+                            int tl2 = nyc.inst[5 + 1 * 17];
+                            int tl3 = csub.inst[5 + 0 * 17];
+                            int tl4 = csub.inst[5 + 1 * 17];
+
+                            // cnt == 0はTL4
+                            int tl = tl4;
+
+                            int cnt = (n << 1) + cnt2;
+                            switch(cnt) {
+                                case 1:
+                                    tl = Math.Min(tl2, tl4);
+                                    break;
+                                case 2:
+                                    tl = Math.Min(tl1, tl4);
+                                    break;
+                                case 3:
+                                    tl = Math.Min(tl1, Math.Min(tl3, tl4));
+                                    break;
+                            }
+
+                            nyc.volumeL = (nyc.inst[36] & 2) != 0 ? (19 * (64 - tl) / 64) : 0;
+                            nyc.volumeR = (nyc.inst[36] & 1) != 0 ? (19 * (64 - tl) / 64) : 0;
+                        } else {
+                            int tl1 = nyc.inst[5 + 0 * 17];
+                            int tl2 = nyc.inst[5 + 1 * 17];
+                            int tl = tl2;
+                            if (n != 0) {
+                                tl = Math.Min(tl1, tl2);
+                            }
+                            nyc.volumeL = (nyc.inst[36] & 2) != 0 ? (19 * (64 - tl) / 64) : 0;
+                            nyc.volumeR = (nyc.inst[36] & 1) != 0 ? (19 * (64 - tl) / 64) : 0;
                         }
-                        nyc.volumeL = (nyc.inst[36] & 2) != 0 ? (19 * (64 - tl) / 64) : 0;
-                        nyc.volumeR = (nyc.inst[36] & 1) != 0 ? (19 * (64 - tl) / 64) : 0;
                     }
                     else
                     {
