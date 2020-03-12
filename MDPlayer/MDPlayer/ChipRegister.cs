@@ -1926,7 +1926,7 @@ namespace MDPlayer
             {
                 if (dPort == 0 && (dAddr == 0x2d || dAddr == 0x2e || dAddr == 0x2f))
                 {
-                    fmRegisterYM2608[chipID][0][0x2d] = dData - 0x2d;
+                    fmRegisterYM2608[chipID][0][0x2d] = dAddr - 0x2d;
                 }
                 else
                 {
@@ -2227,7 +2227,7 @@ namespace MDPlayer
             {
                 if (dPort == 0 && (dAddr == 0x2d || dAddr == 0x2e || dAddr == 0x2f))
                 {
-                    fmRegisterYM2610[chipID][0][0x2d] = dData - 0x2d;
+                    fmRegisterYM2610[chipID][0][0x2d] = dAddr - 0x2d;
                 }
                 else
                 {

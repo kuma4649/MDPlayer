@@ -221,8 +221,10 @@ namespace MDPlayer.form
                 masterClock = Audio.clockYM2610;
             }
 
-            float fmDiv = fmDivTbl[YM2610Register[0][0x2d]];
-            float ssgDiv = ssgDivTbl[YM2610Register[0][0x2d]];
+            int divInd = YM2610Register[0][0x2d];
+            if (divInd < 0 || divInd > 2) divInd = 0;
+            float fmDiv = fmDivTbl[divInd];
+            float ssgDiv = ssgDivTbl[divInd];
             ssgMul = ssgMul * ssgDiv / 4;
 
             //int masterClock = Audio.clockYM2610;
