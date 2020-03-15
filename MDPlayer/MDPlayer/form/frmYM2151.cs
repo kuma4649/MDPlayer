@@ -164,16 +164,20 @@ namespace MDPlayer.form
             }
         }
 
+        // CONの接続をOPマスクの並びに変換するテーブル
+        // 7  6   5   4   3   2  1  0
+        // x, C2, M2, C1, M1, x, x, x
+
         private static byte[] md = new byte[]
         {
-            0x08<<3,
-            0x08<<3,
-            0x08<<3,
-            0x08<<3,
-            0x0c<<3,
-            0x0e<<3,
-            0x0e<<3,
-            0x0f<<3
+            0x40,
+            0x40,
+            0x40,
+            0x40,
+            0x50,
+            0x70,
+            0x70,
+            0x78,
         };
 
         public void screenChangeParams()
@@ -219,15 +223,18 @@ namespace MDPlayer.form
 
                 byte con = (byte)(fmKeyYM2151[ch]);
                 int v = 127;
-                int m = md[ym2151Register[0x20 + ch] & 7];
-                //OP1
-                v = (((con & 0x08) != 0) && ((m & 0x08) != 0) && v > (ym2151Register[0x60 + ch] & 0x7f)) ? (ym2151Register[0x60 + ch] & 0x7f) : v;
-                //OP3
-                v = (((con & 0x10) != 0) && ((m & 0x10) != 0) && v > (ym2151Register[0x68 + ch] & 0x7f)) ? (ym2151Register[0x68 + ch] & 0x7f) : v;
-                //OP2
-                v = (((con & 0x20) != 0) && ((m & 0x20) != 0) && v > (ym2151Register[0x70 + ch] & 0x7f)) ? (ym2151Register[0x70 + ch] & 0x7f) : v;
-                //OP4
-                v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (ym2151Register[0x78 + ch] & 0x7f)) ? (ym2151Register[0x78 + ch] & 0x7f) : v;
+                byte m = md[ym2151Register[0x20 + ch] & 7];
+
+                byte carrierOp = (byte)(con & m);
+
+                //OP1 M1
+                v = (((carrierOp & 0x08) != 0) && v > (ym2151Register[0x60 + ch] & 0x7f)) ? (ym2151Register[0x60 + ch] & 0x7f) : v;
+                //OP3 C1
+                v = (((carrierOp & 0x10) != 0) && v > (ym2151Register[0x68 + ch] & 0x7f)) ? (ym2151Register[0x68 + ch] & 0x7f) : v;
+                //OP2 M2
+                v = (((carrierOp & 0x20) != 0) && v > (ym2151Register[0x70 + ch] & 0x7f)) ? (ym2151Register[0x70 + ch] & 0x7f) : v;
+                //OP4 C2
+                v = (((carrierOp & 0x40) != 0) && v > (ym2151Register[0x78 + ch] & 0x7f)) ? (ym2151Register[0x78 + ch] & 0x7f) : v;
 
                 newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x80) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2151Register[0x20 + ch] & 0x40) != 0 ? 1 : 0) * fmYM2151Vol[ch] / 80.0), 0), 19);
