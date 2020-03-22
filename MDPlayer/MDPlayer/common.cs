@@ -536,7 +536,8 @@ namespace MDPlayer
         NRTDRV = 6,
         HUSIC=7,
         VOPM=8,
-        PMD=9
+        PMD=9,
+        MUCOM88 = 10,
     }
 
     public enum EnmFileFormat : int

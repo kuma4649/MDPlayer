@@ -4276,7 +4276,8 @@
             "NRTDRV",
             "HuSIC",
             "VOPM",
-            "PMD"});
+            "PMD",
+            "MUCOM88"});
             this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
