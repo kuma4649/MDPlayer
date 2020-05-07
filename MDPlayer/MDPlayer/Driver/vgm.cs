@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDSound.NX68Sound;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -125,6 +126,7 @@ namespace MDPlayer
             this.useChip = useChip;
             this.latency = latency;
             this.waitTime = waitTime;
+            this.opnaRamType = 0;
 
             dumpCounter = 0;
 
@@ -853,10 +855,18 @@ namespace MDPlayer
 
                             chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x61, model);
                             chipRegister.setYM2608Register(chipID, 0x1, 0x00, 0x68, model);
-                            chipRegister.setYM2608Register(chipID, 0x1, 0x01, 0x00, model);
+                            chipRegister.setYM2608Register(chipID, 0x1, 0x01, opnaRamType, model);
 
-                            chipRegister.setYM2608Register(chipID, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
-                            chipRegister.setYM2608Register(chipID, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            if (opnaRamType != 2)
+                            {
+                                chipRegister.setYM2608Register(chipID, 0x1, 0x02, (int)((startAddress >> 2) & 0xff), model);
+                                chipRegister.setYM2608Register(chipID, 0x1, 0x03, (int)((startAddress >> 10) & 0xff), model);
+                            }
+                            else
+                            {
+                                chipRegister.setYM2608Register(chipID, 0x1, 0x02, (int)((startAddress >> 5) & 0xff), model);
+                                chipRegister.setYM2608Register(chipID, 0x1, 0x03, (int)((startAddress >> 13) & 0xff), model);
+                            }
                             chipRegister.setYM2608Register(chipID, 0x1, 0x04, 0xff, model);
                             chipRegister.setYM2608Register(chipID, 0x1, 0x05, 0xff, model);
                             chipRegister.setYM2608Register(chipID, 0x1, 0x0c, 0xff, model);
@@ -1057,6 +1067,8 @@ namespace MDPlayer
         }
 
         private int dumpCounter = 0;
+        private int opnaRamType = 0;
+
         private void dumpData(EnmModel model,string chipName, uint adr, uint len)
         {
             if (model == EnmModel.RealModel) return;
@@ -2013,6 +2025,8 @@ namespace MDPlayer
                             YM2608DualChipFlag = (YM2608clock & 0x40000000) != 0;
                             if (YM2608DualChipFlag) chips.Add("YM2608x2");
                             else chips.Add("YM2608");
+
+                            opnaRamType = SearchOpnaRamType() ? 0x2 : 0x0;
                         }
                     }
 
@@ -2369,6 +2383,69 @@ namespace MDPlayer
             }
 
             return true;
+        }
+
+
+        /// <summary>
+        /// OPNAのRAMTypeをデータから調べる
+        /// </summary>
+        /// <returns>true:x8bit false:x1bit</returns>
+        private bool SearchOpnaRamType()
+        {
+            try
+            {
+                long adr = vgmDataOffset;
+
+                while (adr < vgmBuf.Length && vgmBuf[adr] != 0x66)
+                {
+                    byte dat = vgmBuf[adr];
+                    if (dat < 0x51) adr += 2;
+                    else if (dat < 0x57) adr += 3;
+                    else if (dat == 0x57)
+                    {
+                        byte reg = vgmBuf[adr + 1];
+                        byte val = vgmBuf[adr + 2];
+                        adr += 3;
+                        if (reg == 1)
+                        {
+                            if ((val & 2) != 0)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else if (dat < 0x62) adr += 3;
+                    else if (dat < 0x64) adr++;
+                    else if (dat == 0x64) adr += 4;
+                    else if (dat == 0x66) adr++;
+                    else if (dat == 0x67)
+                    {
+                        uint bLen = getLE32((uint)(adr + 3));
+                        bLen &= 0x7fffffff;
+                        adr += bLen + 7;
+                    }
+                    else if (dat == 0x68)
+                    {
+                        adr += 12;
+                    }
+                    else if (dat < 0x90) adr++;
+                    else if (dat == 0x90) adr += 5;
+                    else if (dat == 0x91) adr += 5;
+                    else if (dat == 0x92) adr += 6;
+                    else if (dat == 0x93) adr += 11;
+                    else if (dat == 0x94) adr += 2;
+                    else if (dat == 0x95) adr += 5;
+                    else if (dat < 0xc0) adr += 3;
+                    else if (dat < 0xe0) adr += 4;
+                    else adr += 5;
+                }
+            }
+            catch
+            {
+                ;
+            }
+
+            return false;
         }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)

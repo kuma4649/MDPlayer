@@ -84,10 +84,13 @@ namespace MDPlayer
                 }
                 string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
 
-                using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
+                if (consoleEchoBack) Console.WriteLine(timefmt + msg);
+                else
                 {
-                    writer.WriteLine(timefmt + msg);
-                    if (consoleEchoBack) Console.WriteLine(timefmt + msg);
+                    using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
+                    {
+                        writer.WriteLine(timefmt + msg);
+                    }
                 }
             }
             catch
