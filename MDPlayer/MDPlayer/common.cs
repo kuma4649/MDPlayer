@@ -520,6 +520,7 @@ namespace MDPlayer
         , YM2203 = 4
         , YM2612 = 5
         , SN76489 = 7
+        , YMF262 = 9
         , SPPCM = 42
         , C140 = 43
         , SEGAPCM = 44

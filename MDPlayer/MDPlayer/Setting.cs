@@ -4362,6 +4362,7 @@ namespace MDPlayer
 
             setting.YM2151Type = this.YM2151Type.Copy();
             setting.YM2203Type = this.YM2203Type.Copy();
+            setting.YMF262Type = this.YMF262Type.Copy();
             setting.YM2608Type = this.YM2608Type.Copy();
             setting.YM2610Type = this.YM2610Type.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();
@@ -4371,6 +4372,7 @@ namespace MDPlayer
 
             setting.YM2151SType = this.YM2151SType.Copy();
             setting.YM2203SType = this.YM2203SType.Copy();
+            setting.YMF262SType = this.YMF262SType.Copy();
             setting.YM2608SType = this.YM2608SType.Copy();
             setting.YM2610SType = this.YM2610SType.Copy();
             setting.YM2612SType = this.YM2612SType.Copy();

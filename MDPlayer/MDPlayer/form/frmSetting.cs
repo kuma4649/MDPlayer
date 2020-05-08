@@ -155,6 +155,11 @@ namespace MDPlayer.form
                     , ucSI.cmbSEGAPCMP_SCCI, ucSI.rbSEGAPCMP_SCCI
                     , ucSI.cmbSEGAPCMS_SCCI, ucSI.rbSEGAPCMS_SCCI
                     );
+
+                SetSCCICombo(EnmRealChipType.YMF262
+                    , ucSI.cmbYMF262P_SCCI, ucSI.rbYMF262P_SCCI
+                    , ucSI.cmbYMF262S_SCCI, ucSI.rbYMF262S_SCCI
+                    );
             }
 
             copyFromMIDIoutListA(dgvMIDIoutListB);
@@ -363,6 +368,17 @@ namespace MDPlayer.form
                     , ucSI.rbYM2203S_Emu
                     , ucSI.rbYM2203S_SCCI
                     , ucSI.cmbYM2203S_SCCI);
+
+                SetSCCIParam(setting.YMF262Type
+                    , ucSI.rbYMF262P_Silent
+                    , ucSI.rbYMF262P_Emu
+                    , ucSI.rbYMF262P_SCCI
+                    , ucSI.cmbYMF262P_SCCI);
+                SetSCCIParam(setting.YMF262SType
+                    , ucSI.rbYMF262S_Silent
+                    , ucSI.rbYMF262S_Emu
+                    , ucSI.rbYMF262S_SCCI
+                    , ucSI.cmbYMF262S_SCCI);
 
                 SetSCCIParam(setting.C140Type
                     , ucSI.rbC140P_Silent
@@ -1213,6 +1229,41 @@ namespace MDPlayer.form
                 }
             }
             setting.SEGAPCMSType.UseEmu = ucSI.rbSEGAPCMS_Emu.Checked;
+
+            setting.YMF262Type = new Setting.ChipType();
+            setting.YMF262Type.UseScci = ucSI.rbYMF262P_SCCI.Checked;
+            if (ucSI.rbYMF262P_SCCI.Checked)
+            {
+                if (ucSI.cmbYMF262P_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYMF262P_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YMF262Type.InterfaceName = ns[0];
+                    setting.YMF262Type.SoundLocation = int.Parse(ns[1]);
+                    setting.YMF262Type.BusID = int.Parse(ns[2]);
+                    setting.YMF262Type.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.YMF262Type.UseEmu = ucSI.rbYMF262P_Emu.Checked;
+
+            setting.YMF262SType = new Setting.ChipType();
+            setting.YMF262SType.UseScci = ucSI.rbYMF262S_SCCI.Checked;
+            if (ucSI.rbYMF262S_SCCI.Checked)
+            {
+                if (ucSI.cmbYMF262S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYMF262S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YMF262SType.InterfaceName = ns[0];
+                    setting.YMF262SType.SoundLocation = int.Parse(ns[1]);
+                    setting.YMF262SType.BusID = int.Parse(ns[2]);
+                    setting.YMF262SType.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.YMF262SType.UseEmu = ucSI.rbYMF262S_Emu.Checked;
+
 
 
 
