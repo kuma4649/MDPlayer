@@ -554,6 +554,9 @@
     <EmbeddedResource Include="form\frmK051649.resx">
       <DependentUpon>frmK051649.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmMain.ja.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -577,6 +580,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmOKIM6295.resx">
       <DependentUpon>frmOKIM6295.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmPlayList.ja.resx">
+      <DependentUpon>frmPlayList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmPlayList.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
@@ -657,9 +663,7 @@
     <EmbeddedResource Include="form\ucSettingInstruments.resx">
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="lib\c86ctl.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="lib\c86ctl.ini" />
     <None Include="lib\scci.ini" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BindData.datasource" />
@@ -682,16 +686,12 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\c86ctl.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="lib\c86ctl.dll" />
     <Content Include="lib\Jacobi.Vst.Core.dll" />
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
     <Content Include="lib\NAudio.dll" />
-    <Content Include="lib\RealChipCtlWrap.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="lib\RealChipCtlWrap.dll" />
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
     <Content Include="Resources\addFolderPL.png" />
@@ -837,8 +837,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)lib\*.* $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

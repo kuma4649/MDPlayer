@@ -32,11 +32,12 @@ namespace MDPlayer.form
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayList));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.dgvList = new System.Windows.Forms.DataGridView();
             this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSongNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,7 +74,6 @@ namespace MDPlayer.form
             this.tsmiDelThis = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiDelAllMusic = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbOpenPlayList = new System.Windows.Forms.ToolStripButton();
             this.tsbSavePlayList = new System.Windows.Forms.ToolStripButton();
@@ -90,31 +90,58 @@ namespace MDPlayer.form
             this.tsbMMLExt = new System.Windows.Forms.ToolStripButton();
             this.tsbImgExt = new System.Windows.Forms.ToolStripButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
-            this.cmsPlayList.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
+            this.cmsPlayList.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // toolStripContainer1
+            // 
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
+            // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.dgvList);
+            // 
+            // toolStripContainer1.LeftToolStripPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            // 
+            // toolStripContainer1.RightToolStripPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            // 
             // dgvList
             // 
+            resources.ApplyResources(this.dgvList, "dgvList");
             this.dgvList.AllowUserToAddRows = false;
             this.dgvList.AllowUserToDeleteRows = false;
             this.dgvList.AllowUserToResizeRows = false;
             this.dgvList.BackgroundColor = System.Drawing.Color.Black;
             this.dgvList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvList.ColumnHeadersHeight = 20;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmKey,
@@ -135,24 +162,22 @@ namespace MDPlayer.form
             this.clmNotes,
             this.clmDuration,
             this.clmSpacer});
-            this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.Name = "dgvList";
             this.dgvList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.dgvList.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvList.RowTemplate.ContextMenuStrip = this.cmsPlayList;
             this.dgvList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvList.RowTemplate.Height = 10;
@@ -162,141 +187,128 @@ namespace MDPlayer.form
             this.dgvList.ShowCellToolTips = false;
             this.dgvList.ShowEditingIcon = false;
             this.dgvList.ShowRowErrors = false;
-            this.dgvList.Size = new System.Drawing.Size(585, 245);
-            this.dgvList.TabIndex = 0;
             this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
             this.dgvList.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvList_CellMouseClick);
             // 
             // clmKey
             // 
-            this.clmKey.HeaderText = "Key";
+            resources.ApplyResources(this.clmKey, "clmKey");
             this.clmKey.Name = "clmKey";
             this.clmKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmKey.Visible = false;
             // 
             // clmSongNo
             // 
-            this.clmSongNo.HeaderText = "SongNo";
+            resources.ApplyResources(this.clmSongNo, "clmSongNo");
             this.clmSongNo.Name = "clmSongNo";
-            this.clmSongNo.Visible = false;
             // 
             // clmZipFileName
             // 
-            this.clmZipFileName.HeaderText = "ZipFileName";
+            resources.ApplyResources(this.clmZipFileName, "clmZipFileName");
             this.clmZipFileName.Name = "clmZipFileName";
-            this.clmZipFileName.Visible = false;
             // 
             // clmFileName
             // 
-            this.clmFileName.HeaderText = "FileName";
+            resources.ApplyResources(this.clmFileName, "clmFileName");
             this.clmFileName.Name = "clmFileName";
             this.clmFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmFileName.Visible = false;
             // 
             // clmPlayingNow
             // 
             this.clmPlayingNow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.clmPlayingNow.HeaderText = " ";
+            resources.ApplyResources(this.clmPlayingNow, "clmPlayingNow");
             this.clmPlayingNow.Name = "clmPlayingNow";
             this.clmPlayingNow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.clmPlayingNow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmPlayingNow.Width = 25;
             // 
             // clmEXT
             // 
-            this.clmEXT.HeaderText = "EXT";
+            resources.ApplyResources(this.clmEXT, "clmEXT");
             this.clmEXT.Name = "clmEXT";
             this.clmEXT.ReadOnly = true;
             this.clmEXT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmEXT.Width = 40;
             // 
             // clmType
             // 
-            this.clmType.HeaderText = "Type";
+            resources.ApplyResources(this.clmType, "clmType");
             this.clmType.Name = "clmType";
             this.clmType.ReadOnly = true;
             this.clmType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmType.Width = 40;
             // 
             // clmTitle
             // 
-            this.clmTitle.HeaderText = "Title";
+            resources.ApplyResources(this.clmTitle, "clmTitle");
             this.clmTitle.Name = "clmTitle";
             this.clmTitle.ReadOnly = true;
             this.clmTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitle.Width = 200;
             // 
             // clmTitleJ
             // 
-            this.clmTitleJ.HeaderText = "タイトル";
+            resources.ApplyResources(this.clmTitleJ, "clmTitleJ");
             this.clmTitleJ.Name = "clmTitleJ";
             this.clmTitleJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmTitleJ.Visible = false;
             // 
             // clmGame
             // 
-            this.clmGame.HeaderText = "Game";
+            resources.ApplyResources(this.clmGame, "clmGame");
             this.clmGame.Name = "clmGame";
             this.clmGame.ReadOnly = true;
             this.clmGame.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGame.Width = 200;
             // 
             // clmGameJ
             // 
-            this.clmGameJ.HeaderText = "ゲーム";
+            resources.ApplyResources(this.clmGameJ, "clmGameJ");
             this.clmGameJ.Name = "clmGameJ";
             this.clmGameJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmGameJ.Visible = false;
             // 
             // clmComposer
             // 
-            this.clmComposer.HeaderText = "Composer";
+            resources.ApplyResources(this.clmComposer, "clmComposer");
             this.clmComposer.Name = "clmComposer";
             this.clmComposer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmComposerJ
             // 
-            this.clmComposerJ.HeaderText = "作曲者";
+            resources.ApplyResources(this.clmComposerJ, "clmComposerJ");
             this.clmComposerJ.Name = "clmComposerJ";
             this.clmComposerJ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.clmComposerJ.Visible = false;
             // 
             // clmVGMby
             // 
-            this.clmVGMby.HeaderText = "VGMby";
+            resources.ApplyResources(this.clmVGMby, "clmVGMby");
             this.clmVGMby.Name = "clmVGMby";
             this.clmVGMby.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmConverted
             // 
-            this.clmConverted.HeaderText = "Release";
+            resources.ApplyResources(this.clmConverted, "clmConverted");
             this.clmConverted.Name = "clmConverted";
             this.clmConverted.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmNotes
             // 
-            this.clmNotes.HeaderText = "Notes";
+            resources.ApplyResources(this.clmNotes, "clmNotes");
             this.clmNotes.Name = "clmNotes";
             this.clmNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmDuration
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle2;
-            this.clmDuration.HeaderText = "Duration";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.clmDuration.DefaultCellStyle = dataGridViewCellStyle6;
+            resources.ApplyResources(this.clmDuration, "clmDuration");
             this.clmDuration.Name = "clmDuration";
             this.clmDuration.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // clmSpacer
             // 
             this.clmSpacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmSpacer.HeaderText = "";
+            resources.ApplyResources(this.clmSpacer, "clmSpacer");
             this.clmSpacer.Name = "clmSpacer";
             this.clmSpacer.ReadOnly = true;
             this.clmSpacer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cmsPlayList
             // 
+            resources.ApplyResources(this.cmsPlayList, "cmsPlayList");
             this.cmsPlayList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.type設定ToolStripMenuItem,
             this.toolStripSeparator5,
@@ -305,10 +317,10 @@ namespace MDPlayer.form
             this.toolStripSeparator3,
             this.tsmiDelAllMusic});
             this.cmsPlayList.Name = "cmsPlayList";
-            this.cmsPlayList.Size = new System.Drawing.Size(151, 104);
             // 
             // type設定ToolStripMenuItem
             // 
+            resources.ApplyResources(this.type設定ToolStripMenuItem, "type設定ToolStripMenuItem");
             this.type設定ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiA,
             this.tsmiB,
@@ -321,132 +333,98 @@ namespace MDPlayer.form
             this.tsmiI,
             this.tsmiJ});
             this.type設定ToolStripMenuItem.Name = "type設定ToolStripMenuItem";
-            this.type設定ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.type設定ToolStripMenuItem.Text = "Type設定";
             // 
             // tsmiA
             // 
+            resources.ApplyResources(this.tsmiA, "tsmiA");
             this.tsmiA.Name = "tsmiA";
-            this.tsmiA.Size = new System.Drawing.Size(83, 22);
-            this.tsmiA.Text = "A";
             this.tsmiA.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiB
             // 
+            resources.ApplyResources(this.tsmiB, "tsmiB");
             this.tsmiB.Name = "tsmiB";
-            this.tsmiB.Size = new System.Drawing.Size(83, 22);
-            this.tsmiB.Text = "B";
             this.tsmiB.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiC
             // 
+            resources.ApplyResources(this.tsmiC, "tsmiC");
             this.tsmiC.Name = "tsmiC";
-            this.tsmiC.Size = new System.Drawing.Size(83, 22);
-            this.tsmiC.Text = "C";
             this.tsmiC.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiD
             // 
+            resources.ApplyResources(this.tsmiD, "tsmiD");
             this.tsmiD.Name = "tsmiD";
-            this.tsmiD.Size = new System.Drawing.Size(83, 22);
-            this.tsmiD.Text = "D";
             this.tsmiD.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiE
             // 
+            resources.ApplyResources(this.tsmiE, "tsmiE");
             this.tsmiE.Name = "tsmiE";
-            this.tsmiE.Size = new System.Drawing.Size(83, 22);
-            this.tsmiE.Text = "E";
             this.tsmiE.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiF
             // 
+            resources.ApplyResources(this.tsmiF, "tsmiF");
             this.tsmiF.Name = "tsmiF";
-            this.tsmiF.Size = new System.Drawing.Size(83, 22);
-            this.tsmiF.Text = "F";
             this.tsmiF.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiG
             // 
+            resources.ApplyResources(this.tsmiG, "tsmiG");
             this.tsmiG.Name = "tsmiG";
-            this.tsmiG.Size = new System.Drawing.Size(83, 22);
-            this.tsmiG.Text = "G";
             this.tsmiG.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiH
             // 
+            resources.ApplyResources(this.tsmiH, "tsmiH");
             this.tsmiH.Name = "tsmiH";
-            this.tsmiH.Size = new System.Drawing.Size(83, 22);
-            this.tsmiH.Text = "H";
             this.tsmiH.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiI
             // 
+            resources.ApplyResources(this.tsmiI, "tsmiI");
             this.tsmiI.Name = "tsmiI";
-            this.tsmiI.Size = new System.Drawing.Size(83, 22);
-            this.tsmiI.Text = "I";
             this.tsmiI.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // tsmiJ
             // 
+            resources.ApplyResources(this.tsmiJ, "tsmiJ");
             this.tsmiJ.Name = "tsmiJ";
-            this.tsmiJ.Size = new System.Drawing.Size(83, 22);
-            this.tsmiJ.Text = "J";
             this.tsmiJ.Click += new System.EventHandler(this.tsmiA_Click);
             // 
             // toolStripSeparator5
             // 
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(147, 6);
             // 
             // tsmiPlayThis
             // 
+            resources.ApplyResources(this.tsmiPlayThis, "tsmiPlayThis");
             this.tsmiPlayThis.Name = "tsmiPlayThis";
-            this.tsmiPlayThis.Size = new System.Drawing.Size(150, 22);
-            this.tsmiPlayThis.Text = "この曲を再生";
             this.tsmiPlayThis.Click += new System.EventHandler(this.tsmiPlayThis_Click);
             // 
             // tsmiDelThis
             // 
+            resources.ApplyResources(this.tsmiDelThis, "tsmiDelThis");
             this.tsmiDelThis.Name = "tsmiDelThis";
-            this.tsmiDelThis.Size = new System.Drawing.Size(150, 22);
-            this.tsmiDelThis.Text = "この曲を除去";
             this.tsmiDelThis.Click += new System.EventHandler(this.tsmiDelThis_Click);
             // 
             // toolStripSeparator3
             // 
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
             // 
             // tsmiDelAllMusic
             // 
+            resources.ApplyResources(this.tsmiDelAllMusic, "tsmiDelAllMusic");
             this.tsmiDelAllMusic.Name = "tsmiDelAllMusic";
-            this.tsmiDelAllMusic.Size = new System.Drawing.Size(150, 22);
-            this.tsmiDelAllMusic.Text = "全ての曲を除去";
             this.tsmiDelAllMusic.Click += new System.EventHandler(this.tsmiDelAllMusic_Click);
-            // 
-            // toolStripContainer1
-            // 
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.AutoScroll = true;
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.dgvList);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(585, 245);
-            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(585, 270);
-            this.toolStripContainer1.TabIndex = 1;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbOpenPlayList,
@@ -463,143 +441,108 @@ namespace MDPlayer.form
             this.tsbTextExt,
             this.tsbMMLExt,
             this.tsbImgExt});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(585, 25);
             this.toolStrip1.Stretch = true;
-            this.toolStrip1.TabIndex = 1;
             // 
             // tsbOpenPlayList
             // 
+            resources.ApplyResources(this.tsbOpenPlayList, "tsbOpenPlayList");
             this.tsbOpenPlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbOpenPlayList.Image = global::MDPlayer.Properties.Resources.openPL;
-            this.tsbOpenPlayList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbOpenPlayList.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbOpenPlayList.Name = "tsbOpenPlayList";
-            this.tsbOpenPlayList.Size = new System.Drawing.Size(23, 22);
-            this.tsbOpenPlayList.Text = "プレイリストファイルを開く";
             this.tsbOpenPlayList.Click += new System.EventHandler(this.tsbOpenPlayList_Click);
             // 
             // tsbSavePlayList
             // 
+            resources.ApplyResources(this.tsbSavePlayList, "tsbSavePlayList");
             this.tsbSavePlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbSavePlayList.Image = global::MDPlayer.Properties.Resources.savePL;
-            this.tsbSavePlayList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbSavePlayList.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbSavePlayList.Name = "tsbSavePlayList";
-            this.tsbSavePlayList.Size = new System.Drawing.Size(23, 22);
-            this.tsbSavePlayList.Text = "プレイリストファイルを保存";
             this.tsbSavePlayList.Click += new System.EventHandler(this.tsbSavePlayList_Click);
             // 
             // toolStripSeparator1
             // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbAddMusic
             // 
+            resources.ApplyResources(this.tsbAddMusic, "tsbAddMusic");
             this.tsbAddMusic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbAddMusic.Image = global::MDPlayer.Properties.Resources.addPL;
-            this.tsbAddMusic.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbAddMusic.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddMusic.Name = "tsbAddMusic";
-            this.tsbAddMusic.Size = new System.Drawing.Size(23, 22);
-            this.tsbAddMusic.Text = "曲を追加";
             this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
             // 
             // tsbAddFolder
             // 
+            resources.ApplyResources(this.tsbAddFolder, "tsbAddFolder");
             this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbAddFolder.Image = global::MDPlayer.Properties.Resources.addFolderPL;
-            this.tsbAddFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbAddFolder.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddFolder.Name = "tsbAddFolder";
-            this.tsbAddFolder.Size = new System.Drawing.Size(23, 22);
-            this.tsbAddFolder.Text = "フォルダー内の曲を追加";
             this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
             // 
             // toolStripSeparator2
             // 
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbUp
             // 
+            resources.ApplyResources(this.tsbUp, "tsbUp");
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbUp.Image = global::MDPlayer.Properties.Resources.upPL;
-            this.tsbUp.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbUp.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbUp.Name = "tsbUp";
-            this.tsbUp.Size = new System.Drawing.Size(23, 22);
-            this.tsbUp.Text = "上の曲と入れ替える";
             this.tsbUp.Click += new System.EventHandler(this.tsbUp_Click);
             // 
             // tsbDown
             // 
+            resources.ApplyResources(this.tsbDown, "tsbDown");
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDown.Image = global::MDPlayer.Properties.Resources.downPL;
-            this.tsbDown.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbDown.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbDown.Name = "tsbDown";
-            this.tsbDown.Size = new System.Drawing.Size(23, 22);
-            this.tsbDown.Text = "下の曲と入れ替える";
             this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
             // 
             // toolStripSeparator4
             // 
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbJapanese
             // 
+            resources.ApplyResources(this.tsbJapanese, "tsbJapanese");
             this.tsbJapanese.CheckOnClick = true;
             this.tsbJapanese.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbJapanese.Image = global::MDPlayer.Properties.Resources.japPL;
-            this.tsbJapanese.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbJapanese.Name = "tsbJapanese";
-            this.tsbJapanese.Size = new System.Drawing.Size(23, 22);
-            this.tsbJapanese.Text = "日本語";
             this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator6
             // 
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbTextExt
             // 
+            resources.ApplyResources(this.tsbTextExt, "tsbTextExt");
             this.tsbTextExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbTextExt.Enabled = false;
             this.tsbTextExt.Image = global::MDPlayer.Properties.Resources.txtPL;
-            this.tsbTextExt.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbTextExt.Name = "tsbTextExt";
-            this.tsbTextExt.Size = new System.Drawing.Size(23, 22);
-            this.tsbTextExt.Text = "toolStripButton1";
-            this.tsbTextExt.ToolTipText = "テキスト表示";
             this.tsbTextExt.Click += new System.EventHandler(this.tsbTextExt_Click);
             // 
             // tsbMMLExt
             // 
+            resources.ApplyResources(this.tsbMMLExt, "tsbMMLExt");
             this.tsbMMLExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbMMLExt.Enabled = false;
             this.tsbMMLExt.Image = global::MDPlayer.Properties.Resources.mmlPL;
-            this.tsbMMLExt.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbMMLExt.Name = "tsbMMLExt";
-            this.tsbMMLExt.Size = new System.Drawing.Size(23, 22);
-            this.tsbMMLExt.Text = "toolStripButton2";
-            this.tsbMMLExt.ToolTipText = "MML表示";
             this.tsbMMLExt.Click += new System.EventHandler(this.tsbMMLExt_Click);
             // 
             // tsbImgExt
             // 
+            resources.ApplyResources(this.tsbImgExt, "tsbImgExt");
             this.tsbImgExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbImgExt.Enabled = false;
             this.tsbImgExt.Image = global::MDPlayer.Properties.Resources.imgPL;
-            this.tsbImgExt.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbImgExt.Name = "tsbImgExt";
-            this.tsbImgExt.Size = new System.Drawing.Size(23, 22);
-            this.tsbImgExt.Text = "toolStripButton3";
-            this.tsbImgExt.ToolTipText = "画像表示";
             this.tsbImgExt.Click += new System.EventHandler(this.tsbImgExt_Click);
             // 
             // timer1
@@ -609,31 +552,27 @@ namespace MDPlayer.form
             // 
             // frmPlayList
             // 
+            resources.ApplyResources(this, "$this");
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 270);
             this.Controls.Add(this.toolStripContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(400, 120);
             this.Name = "frmPlayList";
             this.Opacity = 0D;
-            this.Text = "play list";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPlayList_FormClosing);
             this.Load += new System.EventHandler(this.frmPlayList_Load);
             this.Shown += new System.EventHandler(this.frmPlayList_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmPlayList_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.frmPlayList_DragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmPlayList_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
-            this.cmsPlayList.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
+            this.cmsPlayList.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
