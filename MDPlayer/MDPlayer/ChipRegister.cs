@@ -32,6 +32,8 @@ namespace MDPlayer
         private Setting.ChipType[] ctYM2151 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYM3526 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType[] ctYM3812 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
@@ -39,7 +41,6 @@ namespace MDPlayer
         private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM3526 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
         private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
@@ -53,7 +54,8 @@ namespace MDPlayer
         private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
-        private RSoundChip[] scYMF262 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYMF271 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYMF278B =  new RSoundChip[2] { null, null };
         private RSoundChip[] scYMZ280B =  new RSoundChip[2] { null, null };
@@ -379,6 +381,7 @@ namespace MDPlayer
             , RSoundChip[] scYM2610
             , RSoundChip[] scYM2610EA
             , RSoundChip[] scYM2610EB
+            , RSoundChip[] scYM3812
             , RSoundChip[] scYMF262
             , RSoundChip[] scC140
             , RSoundChip[] scSEGAPCM
@@ -393,6 +396,7 @@ namespace MDPlayer
             this.scYM2151 = scYM2151;
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
+            this.scYM3812 = scYM3812;
             this.scYMF262 = scYMF262;
             this.scYM2610 = scYM2610;
             this.scYM2610EA = scYM2610EA;
@@ -414,6 +418,7 @@ namespace MDPlayer
             this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
             this.ctYM3526 = new Setting.ChipType[] { setting.YM3526Type, setting.YM3526SType };
+            this.ctYM3812 = new Setting.ChipType[] { setting.YM3812Type, setting.YM3812SType };
             this.ctY8950 = new Setting.ChipType[] { setting.Y8950Type, setting.Y8950SType };
             this.ctC140 = new Setting.ChipType[] { setting.C140Type, setting.C140SType };
             this.ctSEGAPCM = new Setting.ChipType[] { setting.SEGAPCMType, setting.SEGAPCMSType };
@@ -1569,13 +1574,15 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                //if (!ctYM3812[chipID].UseScci)
+                if (!ctYM3812[chipID].UseScci)
                 {
                     mds.WriteYM3812((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
             {
+                if (scYM3812[chipID] == null) return;
+                scYM3812[chipID].setRegister( dAddr, dData);
             }
 
         }
@@ -1938,10 +1945,10 @@ namespace MDPlayer
                 bool cr = false;
 
                 int twoOpChannel = (ch / 8) * 3 + ((ch % 8) % 3);
-                int fourOpChannel = twoOpChannel > 6 ? -1 : ((twoOpChannel % 3) + dPort * 3);
+                int fourOpChannel = twoOpChannel > 5 ? -1 : ((twoOpChannel % 3) + dPort * 3);
                 bool fourOpMode = fourOpChannel != -1 ? ((conSel & (1 << fourOpChannel)) != 0) : false;
-                int slotNumber = (((ch % 8) % 3) < 3 ? 0 : 1) + (twoOpChannel > 3 ? 2 : 0);
-                //twoOpChannel += dPort * 9;
+                int slotNumber = ((ch % 8) / 3) + (twoOpChannel > 2 ? 2 : 0);
+                twoOpChannel += dPort * 9;
 
                 if (!fourOpMode)
                 {
@@ -1983,46 +1990,47 @@ namespace MDPlayer
                 if (cr)
                 {
                     dData = Math.Min(tl + nowYMF262FadeoutVol[chipID], 0x3f);
-                    dData = ksl + (maskFMChYMF262[chipID][ch] ? 0x3f : dData);
+                    dData = ksl + (maskFMChYMF262[chipID][twoOpChannel] ? 0x3f : dData);
                 }
+            }
+
+
+            if (dAddr >= 0xb0 && dAddr <= 0xb8)
+            {
+                int ch = dAddr - 0xb0 + dPort * 9;
+                int k = (dData >> 5) & 1;
+                if (k == 0)
+                {
+                    fmRegisterYMF262FM[chipID] &= ~(1 << ch);
+                }
+                else
+                {
+                    fmRegisterYMF262FM[chipID] |= (1 << ch);
+                }
+                fmRegisterYMF262FM[chipID] &= 0x3ffff;
+                if (maskFMChYMF262[chipID][ch]) dData &= 0x1f;
+            }
+
+            if (dAddr == 0xbd && dPort == 0)
+            {
+                if ((fmRegisterYMF262RyhthmB[chipID] & 0x10) == 0 && (dData & 0x10) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x10;
+                if ((fmRegisterYMF262RyhthmB[chipID] & 0x08) == 0 && (dData & 0x08) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x08;
+                if ((fmRegisterYMF262RyhthmB[chipID] & 0x04) == 0 && (dData & 0x04) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x04;
+                if ((fmRegisterYMF262RyhthmB[chipID] & 0x02) == 0 && (dData & 0x02) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x02;
+                if ((fmRegisterYMF262RyhthmB[chipID] & 0x01) == 0 && (dData & 0x01) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x01;
+                fmRegisterYMF262RyhthmB[chipID] = dData;
+
+                if (maskFMChYMF262[chipID][18]) dData &= 0xef;
+                if (maskFMChYMF262[chipID][19]) dData &= 0xf7;
+                if (maskFMChYMF262[chipID][20]) dData &= 0xfb;
+                if (maskFMChYMF262[chipID][21]) dData &= 0xfd;
+                if (maskFMChYMF262[chipID][22]) dData &= 0xfe;
+
             }
 
 
             if (model == EnmModel.VirtualModel)
             {
-                if (dAddr >= 0xb0 && dAddr <= 0xb8)
-                {
-                    int ch = dAddr - 0xb0 + dPort * 9;
-                    int k = (dData >> 5) & 1;
-                    if (k == 0)
-                    {
-                        fmRegisterYMF262FM[chipID] &= ~(1 << ch);
-                    }
-                    else
-                    {
-                        fmRegisterYMF262FM[chipID] |= (1 << ch);
-                    }
-                    fmRegisterYMF262FM[chipID] &= 0x3ffff;
-                    if (maskFMChYMF262[chipID][ch]) dData &= 0x1f;
-                }
-
-                if (dAddr == 0xbd && dPort == 0)
-                {
-                    if ((fmRegisterYMF262RyhthmB[chipID] & 0x10) == 0 && (dData & 0x10) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x10;
-                    if ((fmRegisterYMF262RyhthmB[chipID] & 0x08) == 0 && (dData & 0x08) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x08;
-                    if ((fmRegisterYMF262RyhthmB[chipID] & 0x04) == 0 && (dData & 0x04) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x04;
-                    if ((fmRegisterYMF262RyhthmB[chipID] & 0x02) == 0 && (dData & 0x02) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x02;
-                    if ((fmRegisterYMF262RyhthmB[chipID] & 0x01) == 0 && (dData & 0x01) != 0) fmRegisterYMF262Ryhthm[chipID] |= 0x01;
-                    fmRegisterYMF262RyhthmB[chipID] = dData;
-
-                    if (maskFMChYMF262[chipID][18]) dData &= 0xef;
-                    if (maskFMChYMF262[chipID][19]) dData &= 0xf7;
-                    if (maskFMChYMF262[chipID][20]) dData &= 0xfb;
-                    if (maskFMChYMF262[chipID][21]) dData &= 0xfd;
-                    if (maskFMChYMF262[chipID][22]) dData &= 0xfe;
-
-                }
-
                 if (!ctYMF262[chipID].UseScci)
                 {
                     mds.WriteYMF262((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);

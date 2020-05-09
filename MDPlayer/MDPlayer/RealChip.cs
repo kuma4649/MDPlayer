@@ -334,7 +334,24 @@ namespace MDPlayer
                             ct.InterfaceName = iInfo.cInterfaceName;
                             ret.Add(ct);
                         }
+                        else
+                        {
+                            //互換指定をチェック
+                            NSCCI_SOUND_CHIP_INFO chipInfo = sc.getSoundChipInfo();
+                            for (int n = 0; n < chipInfo.iCompatibleSoundChip.Length; n++)
+                            {
+                                if ((int)realChipType != chipInfo.iCompatibleSoundChip[n]) continue;
 
+                                Setting.ChipType ct = new Setting.ChipType();
+                                ct.SoundLocation = 0;
+                                ct.BusID = i;
+                                ct.SoundChip = s;
+                                ct.ChipName = sc.getSoundChipInfo().cSoundChipName;
+                                ct.InterfaceName = iInfo.cInterfaceName;
+                                ret.Add(ct);
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -378,6 +395,7 @@ namespace MDPlayer
                                 ct.InterfaceName = gm.getMBInfo().Devname;
                             }
                             break;
+                        case EnmRealChipType.YM3812:
                         case EnmRealChipType.YMF262:
                             if (cct == ChipType.CHIP_OPL3)
                             {

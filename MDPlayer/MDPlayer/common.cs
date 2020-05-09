@@ -519,7 +519,9 @@ namespace MDPlayer
         , YM2610 = 3
         , YM2203 = 4
         , YM2612 = 5
+        , AY8910 = 6
         , SN76489 = 7
+        , YM3812 = 8
         , YMF262 = 9
         , SPPCM = 42
         , C140 = 43

@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YMF262 newParam = null;
-        private MDChipParams.YMF262 oldParam = new MDChipParams.YMF262();
+        private MDChipParams.YMF262 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYMF262(frmMain frm, int chipID, int zoom, MDChipParams.YMF262 newParam)
+        public frmYMF262(frmMain frm, int chipID, int zoom, MDChipParams.YMF262 newParam,MDChipParams.YMF262 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -33,9 +33,11 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYMF262, null, zoom);
-            bool YMF262Type = false;// (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262Type.UseScci;
-            int tp = YMF262Type ? 1 : 0;
+            bool YMF262Type = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
+            int YMF262SoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
+            int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYMF262(frameBuffer, tp);
             update();
         }

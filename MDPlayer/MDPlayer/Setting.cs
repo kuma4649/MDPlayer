@@ -435,6 +435,34 @@ namespace MDPlayer
             }
         }
 
+        private ChipType _YM3812Type = new ChipType();
+        public ChipType YM3812Type
+        {
+            get
+            {
+                return _YM3812Type;
+            }
+
+            set
+            {
+                _YM3812Type = value;
+            }
+        }
+
+        private ChipType _YM3812SType = new ChipType();
+        public ChipType YM3812SType
+        {
+            get
+            {
+                return _YM3812SType;
+            }
+
+            set
+            {
+                _YM3812SType = value;
+            }
+        }
+
         private ChipType _Y8950Type = new ChipType();
         public ChipType Y8950Type
         {
@@ -4363,6 +4391,7 @@ namespace MDPlayer
             setting.YM2151Type = this.YM2151Type.Copy();
             setting.YM2203Type = this.YM2203Type.Copy();
             setting.YMF262Type = this.YMF262Type.Copy();
+            setting.YM3812Type = this.YM3812Type.Copy();
             setting.YM2608Type = this.YM2608Type.Copy();
             setting.YM2610Type = this.YM2610Type.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();

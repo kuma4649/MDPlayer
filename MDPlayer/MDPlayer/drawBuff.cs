@@ -495,6 +495,8 @@ namespace MDPlayer
 
         public static void screenInitYMF262(FrameBuffer screen, int tp)
         {
+            if (screen == null) return;
+
             for (int y = 0; y < 18; y++)
             {
                 //Note
@@ -508,7 +510,9 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
-                ChYMF262_P(screen, 0, y * 8 + 8, y, false, tp);
+                bool bd = false;
+                //ChYMF262(screen, y, ref bd, true, tp);
+                //ChYMF262(screen, y, ref bd, false, tp);
                 drawPanP(screen, 24, y * 8 + 8, 3, tp);
 
                 //Volume

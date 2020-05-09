@@ -69,6 +69,7 @@ namespace MDPlayer
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2610 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
@@ -1119,6 +1120,8 @@ namespace MDPlayer
                 if (scYM2151[0] != null) scYM2151[0].init();
                 scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
                 if (scYM2203[0] != null) scYM2203[0].init();
+                scYM3812[0] = realChip.GetRealChip(Audio.setting.YM3812Type);
+                if (scYM3812[0] != null) scYM3812[0].init();
                 scYMF262[0] = realChip.GetRealChip(Audio.setting.YMF262Type);
                 if (scYMF262[0] != null) scYMF262[0].init();
                 scYM2610[0] = realChip.GetRealChip(Audio.setting.YM2610Type);
@@ -1142,6 +1145,8 @@ namespace MDPlayer
                 if (scYM2151[1] != null) scYM2151[1].init();
                 scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
                 if (scYM2203[1] != null) scYM2203[1].init();
+                scYM3812[1] = realChip.GetRealChip(Audio.setting.YM3812SType);
+                if (scYM3812[1] != null) scYM3812[1].init();
                 scYMF262[1] = realChip.GetRealChip(Audio.setting.YMF262SType);
                 if (scYMF262[1] != null) scYMF262[1].init();
                 scYM2610[1] = realChip.GetRealChip(Audio.setting.YM2610SType);
@@ -1168,6 +1173,7 @@ namespace MDPlayer
                 , scYM2610
                 , scYM2610EA
                 , scYM2610EB
+                , scYM3812
                 , scYMF262
                 , scC140
                 , scSEGAPCM
