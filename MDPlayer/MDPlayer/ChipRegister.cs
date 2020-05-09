@@ -1941,10 +1941,11 @@ namespace MDPlayer
                 int fourOpChannel = twoOpChannel > 6 ? -1 : ((twoOpChannel % 3) + dPort * 3);
                 bool fourOpMode = fourOpChannel != -1 ? ((conSel & (1 << fourOpChannel)) != 0) : false;
                 int slotNumber = (((ch % 8) % 3) < 3 ? 0 : 1) + (twoOpChannel > 3 ? 2 : 0);
-                twoOpChannel += dPort * 9;
+                //twoOpChannel += dPort * 9;
 
                 if (!fourOpMode)
                 {
+                    //2opの時のキャリア判定
                     if (ch % 8 > 2) cr = true;
                     else
                     {
@@ -4246,6 +4247,20 @@ namespace MDPlayer
                 if (scYM2608 != null && scYM2608[chipID] != null)
                 {
                     scYM2608[chipID].dClock = scYM2608[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void writeYMF262Clock(byte chipID, int clock, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYMF262 != null && scYMF262[chipID] != null)
+                {
+                    scYMF262[chipID].dClock = scYMF262[chipID].SetMasterClock((uint)clock);
                 }
             }
         }

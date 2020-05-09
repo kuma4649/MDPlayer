@@ -508,9 +508,13 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
+                ChYMF262_P(screen, 0, y * 8 + 8, y, false, tp);
+                drawPanP(screen, 24, y * 8 + 8, 3, tp);
+
                 //Volume
                 int d = 99;
                 Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
+                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
             }
 
         }

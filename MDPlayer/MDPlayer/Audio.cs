@@ -2925,11 +2925,14 @@ namespace MDPlayer
                 ym2151_x68sound ym2151_x68sound = null;
                 ym2413 ym2413 = null;
                 ym3526 ym3526 = null;
+                ym3812 ym3812 = null;
+                ymf262 ymf262 = null;
                 ay8910 ay8910 = null;
 
                 int YM2151ClockValue = 4000000;
                 int YM2203ClockValue = 4000000;
                 int YM2608ClockValue = 8000000;
+                int YMF262ClockValue = 14318180;
                 useChip.Clear();
 
                 foreach (S98.S98DevInfo dInfo in s98DInfo)
@@ -3192,6 +3195,63 @@ namespace MDPlayer
                             useChip.Add(chip.ID == 0 ? EnmChip.YM3526 : EnmChip.S_YM3526);
 
                             break;
+                        case 8:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ym3812 == null)
+                            {
+                                ym3812 = new ym3812();
+                                chip.ID = 0;
+                                chipLED.PriOPL2 = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                chipLED.SecOPL2 = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM3812;
+                            chip.Instrument = ym3812;
+                            chip.Update = ym3812.Update;
+                            chip.Start = ym3812.Start;
+                            chip.Stop = ym3812.Stop;
+                            chip.Reset = ym3812.Reset;
+                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.Volume = setting.balance.YM3812Volume;
+                            chip.Clock = dInfo.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+                            useChip.Add(chip.ID == 0 ? EnmChip.YM3812 : EnmChip.S_YM3812);
+
+                            break;
+                        case 9:
+                            chip = new MDSound.MDSound.Chip();
+                            if (ymf262 == null)
+                            {
+                                ymf262 = new ymf262();
+                                chip.ID = 0;
+                                chipLED.PriOPL3 = 1;
+                            }
+                            else
+                            {
+                                chip.ID = 1;
+                                chipLED.SecOPL3 = 1;
+                            }
+                            chip.type = MDSound.MDSound.enmInstrumentType.YMF262;
+                            chip.Instrument = ymf262;
+                            chip.Update = ymf262.Update;
+                            chip.Start = ymf262.Start;
+                            chip.Stop = ymf262.Stop;
+                            chip.Reset = ymf262.Reset;
+                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.Volume = setting.balance.YMF262Volume;
+                            chip.Clock = dInfo.Clock;
+                            YMF262ClockValue = (int)chip.Clock;
+                            chip.Option = null;
+                            //hiyorimiDeviceFlag |= 0x2;
+                            lstChips.Add(chip);
+                            useChip.Add(chip.ID == 0 ? EnmChip.YMF262 : EnmChip.S_YMF262);
+
+                            break;
                         case 15:
                             chip = new MDSound.MDSound.Chip();
                             if (ay8910 == null)
@@ -3284,6 +3344,17 @@ namespace MDPlayer
                     chipRegister.writeYM2608Clock(0, YM2608ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2608))
                     chipRegister.writeYM2608Clock(1, YM2608ClockValue, EnmModel.RealModel);
+
+                if (useChip.Contains(EnmChip.YMF262))
+                {
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.writeYMF262Clock(0, YMF262ClockValue, EnmModel.RealModel);
+                }
+                if (useChip.Contains(EnmChip.S_YMF262))
+                {
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.writeYMF262Clock(1, YMF262ClockValue, EnmModel.RealModel);
+                }
 
                 driverVirtual.SetYM2151Hosei(YM2151ClockValue);
                 driverReal.SetYM2151Hosei(YM2151ClockValue);
@@ -5022,6 +5093,16 @@ namespace MDPlayer
                     chipRegister.writeYM2608Clock(0, (int)((vgm)driverVirtual).YM2608ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2608))
                     chipRegister.writeYM2608Clock(1, (int)((vgm)driverVirtual).YM2608ClockValue, EnmModel.RealModel);
+                if (useChip.Contains(EnmChip.YMF262))
+                {
+                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.writeYMF262Clock(0, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
+                }
+                if (useChip.Contains(EnmChip.S_YMF262))
+                {
+                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.writeYMF262Clock(1, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
+                }
 
                 if (useChip.Contains(EnmChip.C140))
                     chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, EnmModel.RealModel);
@@ -5072,14 +5153,6 @@ namespace MDPlayer
                 driverReal.SetYM2151Hosei(((vgm)driverReal).YM2151ClockValue);
 
 
-                if (useChip.Contains(EnmChip.YMF262))
-                {
-                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);
-                }
-                if (useChip.Contains(EnmChip.S_YMF262))
-                {
-                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);
-                }
                 //frmMain.ForceChannelMask(EnmChip.YM2612, 0, 0, true);
 
                 Paused = false;

@@ -114,6 +114,10 @@ namespace MDPlayer.form
             {
                 newParam.channels[c].note = -1;
             }
+            bool YMF262Type = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
+            int YMF262SoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
+            int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
+            DrawBuff.screenInitYMF262(frameBuffer, tp);
         }
 
         public void screenChangeParams()
@@ -354,7 +358,9 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = 0;// parent.setting.YMF262Type.UseScci ? 1 : 0;
+            bool chipType = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
+            int chipSoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
+            int tp = !chipType ? 0 : (chipSoundLocation < 0 ? 2 : 1);
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
 
