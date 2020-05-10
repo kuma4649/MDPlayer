@@ -96,6 +96,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MDSound.dll</HintPath>
     </Reference>
+    <Reference Include="musicDriverInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\musicDriverInterface.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
@@ -158,6 +162,7 @@
     <Compile Include="Driver\MUCOM88\ver1_1\msub.cs" />
     <Compile Include="Driver\MUCOM88\ver1_1\muc88.cs" />
     <Compile Include="Driver\MUCOM88\Z80.cs" />
+    <Compile Include="Driver\MucomDotNET.cs" />
     <Compile Include="Driver\MXDRV\depend.cs" />
     <Compile Include="Driver\MXDRV\MXDRV.cs" />
     <Compile Include="Driver\MXDRV\MXDRVh.cs" />
@@ -690,6 +695,12 @@
     <Content Include="lib\Jacobi.Vst.Core.dll" />
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
+    <Content Include="plugin\driver\mucomDotNETCommon.dll" />
+    <Content Include="plugin\driver\mucomDotNETCompiler.dll" />
+    <Content Include="plugin\driver\mucomDotNETDriver.dll" />
+    <Content Include="plugin\driver\mucomDotNETmessage.ja-JP.txt" />
+    <Content Include="plugin\driver\mucomDotNETmessage.txt" />
+    <Content Include="lib\musicDriverInterface.dll" />
     <Content Include="lib\NAudio.dll" />
     <Content Include="lib\RealChipCtlWrap.dll" />
     <Content Include="lib\scci.dll" />
@@ -837,7 +848,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)lib\*.* $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)lib\*.* $(TargetDir)
+mkdir $(TargetDir)plugin\driver
+copy $(ProjectDir)plugin\driver\*.* $(TargetDir)plugin\driver
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

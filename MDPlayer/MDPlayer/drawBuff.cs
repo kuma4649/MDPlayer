@@ -486,6 +486,9 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
+                bool dm = true;
+                DrawBuff.ChYM3812(screen, y, ref dm, false, tp);
+
                 //Volume
                 int d = 99;
                 Volume(screen, 256, 8 + y * 8, 0, ref d, 19, tp);
@@ -510,7 +513,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
-                bool bd = false;
+                //bool bd = false;
                 //ChYMF262(screen, y, ref bd, true, tp);
                 //ChYMF262(screen, y, ref bd, false, tp);
                 drawPanP(screen, 24, y * 8 + 8, 3, tp);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MDPlayer.form;
+using System.IO;
 
 namespace MDPlayer
 {
@@ -40,22 +41,21 @@ namespace MDPlayer
 
         static string checkFiles()
         {
-            string fn;
+            string[] chkFn = new string[]
+            {
+                "MDSound.dll"
+                , "NAudio.dll"
+                , "RealChipCtlWrap.dll"
+                , "scci.dll"
+                , "c86ctl.dll"
+                , "Jacobi.Vst.Core.dll"
+                , "Jacobi.Vst.Interop.dll"
+            };
 
-            fn = "MDSound.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath),fn))) return fn;
-            fn = "NAudio.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "RealChipCtlWrap.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "scci.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "c86ctl.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "Jacobi.Vst.Core.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
-            fn = "Jacobi.Vst.Interop.dll";
-            if (!System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+            foreach (string fn in chkFn)
+            {
+                if (!File.Exists(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fn))) return fn;
+            }
 
             return null;
         }
