@@ -161,6 +161,11 @@ namespace MDPlayer.form
                     , ucSI.cmbYMF262S_SCCI, ucSI.rbYMF262S_SCCI
                     );
 
+                SetSCCICombo(EnmRealChipType.YM3526
+                    , ucSI.cmbYM3526P_SCCI, ucSI.rbYM3526P_SCCI
+                    , ucSI.cmbYM3526S_SCCI, ucSI.rbYM3526S_SCCI
+                    );
+
                 SetSCCICombo(EnmRealChipType.YM3812
                     , ucSI.cmbYM3812P_SCCI, ucSI.rbYM3812P_SCCI
                     , ucSI.cmbYM3812S_SCCI, ucSI.rbYM3812S_SCCI
@@ -373,6 +378,17 @@ namespace MDPlayer.form
                     , ucSI.rbYM2203S_Emu
                     , ucSI.rbYM2203S_SCCI
                     , ucSI.cmbYM2203S_SCCI);
+
+                SetSCCIParam(setting.YM3526Type
+                    , ucSI.rbYM3526P_Silent
+                    , ucSI.rbYM3526P_Emu
+                    , ucSI.rbYM3526P_SCCI
+                    , ucSI.cmbYM3526P_SCCI);
+                SetSCCIParam(setting.YM3526SType
+                    , ucSI.rbYM3526S_Silent
+                    , ucSI.rbYM3526S_Emu
+                    , ucSI.rbYM3526S_SCCI
+                    , ucSI.cmbYM3526S_SCCI);
 
                 SetSCCIParam(setting.YM3812Type
                     , ucSI.rbYM3812P_Silent
@@ -1245,6 +1261,42 @@ namespace MDPlayer.form
                 }
             }
             setting.SEGAPCMSType.UseEmu = ucSI.rbSEGAPCMS_Emu.Checked;
+
+
+
+            setting.YM3526Type = new Setting.ChipType();
+            setting.YM3526Type.UseScci = ucSI.rbYM3526P_SCCI.Checked;
+            if (ucSI.rbYM3526P_SCCI.Checked)
+            {
+                if (ucSI.cmbYM3526P_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM3526P_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM3526Type.InterfaceName = ns[0];
+                    setting.YM3526Type.SoundLocation = int.Parse(ns[1]);
+                    setting.YM3526Type.BusID = int.Parse(ns[2]);
+                    setting.YM3526Type.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.YM3526Type.UseEmu = ucSI.rbYM3526P_Emu.Checked;
+
+            setting.YM3526SType = new Setting.ChipType();
+            setting.YM3526SType.UseScci = ucSI.rbYM3526S_SCCI.Checked;
+            if (ucSI.rbYM3526S_SCCI.Checked)
+            {
+                if (ucSI.cmbYM3526S_SCCI.SelectedItem != null)
+                {
+                    string n = ucSI.cmbYM3526S_SCCI.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.YM3526SType.InterfaceName = ns[0];
+                    setting.YM3526SType.SoundLocation = int.Parse(ns[1]);
+                    setting.YM3526SType.BusID = int.Parse(ns[2]);
+                    setting.YM3526SType.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.YM3526SType.UseEmu = ucSI.rbYM3526S_Emu.Checked;
 
 
 

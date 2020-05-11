@@ -395,6 +395,7 @@ namespace MDPlayer
                                 ct.InterfaceName = gm.getMBInfo().Devname;
                             }
                             break;
+                        case EnmRealChipType.YM3526:
                         case EnmRealChipType.YM3812:
                         case EnmRealChipType.YMF262:
                             if (cct == ChipType.CHIP_OPL3)

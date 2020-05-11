@@ -54,6 +54,7 @@ namespace MDPlayer
         private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYMF271 =   new RSoundChip[2] { null, null };
@@ -160,6 +161,7 @@ namespace MDPlayer
         };
 
         public int[][] fmRegisterYM3526 = new int[][] { null, null };
+        private int[] nowYM3526FadeoutVol = new int[] { 0, 0 };
         private ChipKeyInfo[] kiYM3526 = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
         private ChipKeyInfo[] kiYM3526ret = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
         private bool[][] maskFMChYM3526 = new bool[2][] {
@@ -382,6 +384,7 @@ namespace MDPlayer
             , RSoundChip[] scYM2610
             , RSoundChip[] scYM2610EA
             , RSoundChip[] scYM2610EB
+            , RSoundChip[] scYM3526
             , RSoundChip[] scYM3812
             , RSoundChip[] scYMF262
             , RSoundChip[] scC140
@@ -397,6 +400,7 @@ namespace MDPlayer
             this.scYM2151 = scYM2151;
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
+            this.scYM3526 = scYM3526;
             this.scYM3812 = scYM3812;
             this.scYMF262 = scYMF262;
             this.scYM2610 = scYM2610;
@@ -603,6 +607,7 @@ namespace MDPlayer
                 nowYM2608FadeoutVol[chipID] = 0;
                 nowYM2610FadeoutVol[chipID] = 0;
                 nowYM2612FadeoutVol[chipID] = 0;
+                nowYM3526FadeoutVol[chipID] = 0;
                 nowYM3812FadeoutVol[chipID] = 0;
                 nowYMF262FadeoutVol[chipID] = 0;
 
@@ -787,6 +792,7 @@ namespace MDPlayer
                 nowYM2608FadeoutVol[chipID] = 0;
                 nowYM2610FadeoutVol[chipID] = 0;
                 nowYM2612FadeoutVol[chipID] = 0;
+                nowYM3526FadeoutVol[chipID] = 0;
                 nowYM3812FadeoutVol[chipID] = 0;
                 nowYMF262FadeoutVol[chipID] = 0;
 
@@ -1533,17 +1539,6 @@ namespace MDPlayer
             return kiYM2413ret[chipID];
         }
 
-        public ChipKeyInfo getYM3526KeyInfo(int chipID)
-        {
-            for (int ch = 0; ch < kiYM3526[chipID].Off.Length; ch++)
-            {
-                kiYM3526ret[chipID].Off[ch] = kiYM3526[chipID].Off[ch];
-                kiYM3526ret[chipID].On[ch] = kiYM3526[chipID].On[ch];
-                kiYM3526[chipID].On[ch] = false;
-            }
-            return kiYM3526ret[chipID];
-        }
-
         public ChipKeyInfo getY8950KeyInfo(int chipID)
         {
             for (int ch = 0; ch < kiY8950[chipID].Off.Length; ch++)
@@ -1834,6 +1829,146 @@ namespace MDPlayer
             }
 
         }
+
+
+
+        public void setYM3526Register(int chipID, int dAddr, int dData, EnmModel model)
+        {
+            //if (ctYM3526 == null) return;
+
+            if (chipID == 0) chipLED.PriOPL = 2;
+            else chipLED.SecOPL = 2;
+
+            fmRegisterYM3526[chipID][dAddr] = dData;
+
+            if (dAddr >= 0x40 && dAddr <= 0x55)//TL
+            {
+                byte ksl = (byte)(dData & 0xc0);
+                byte tl = (byte)(dData & 0x3f);
+                int ch = dAddr - 0x40;
+                bool cr = false;
+                int twoOpChannel = (ch / 8) * 3 + ((ch % 8) % 3);
+
+                //2opの時のキャリア判定
+                if (ch % 8 > 2) cr = true;
+                else
+                {
+                    int cnt = fmRegisterYM3526[chipID][0xc0 + (ch / 8) * 3 + (ch % 8)] & 1;
+                    if (cnt == 1)
+                        cr = true;
+                }
+
+                if (ch >= 0x10 && (fmRegisterYM3526[chipID][0xbd] & 0x20) != 0)
+                {
+                    cr = true;
+                }
+
+                if (cr)
+                {
+                    dData = Math.Min(tl + nowYM3526FadeoutVol[chipID], 0x3f);
+                    dData = ksl + (maskFMChYM3526[chipID][twoOpChannel] ? 0x3f : dData);
+                }
+            }
+
+            //if (model == EnmModel.VirtualModel)
+            {
+                if (dAddr >= 0xb0 && dAddr <= 0xb8)
+                {
+                    int ch = dAddr - 0xb0;
+                    int k = (dData >> 5) & 1;
+                    if (k == 0)
+                    {
+                        kiYM3526[chipID].On[ch] = false;
+                        kiYM3526[chipID].Off[ch] = true;
+                    }
+                    else
+                    {
+                        kiYM3526[chipID].On[ch] = true;
+                    }
+                    if (maskFMChYM3526[chipID][ch]) dData &= 0x1f;
+                }
+
+                if (dAddr == 0xbd)
+                {
+
+                    for (int c = 0; c < 5; c++)
+                    {
+                        if ((dData & (0x10 >> c)) == 0)
+                        {
+                            kiYM3526[chipID].Off[c + 9] = true;
+                        }
+                        else
+                        {
+                            if (kiYM3526[chipID].Off[c + 9]) kiYM3526[chipID].On[c + 9] = true;
+                            kiYM3526[chipID].Off[c + 9] = false;
+                        }
+                    }
+
+                    if (maskFMChYM3526[chipID][9]) dData &= 0xef;
+                    if (maskFMChYM3526[chipID][10]) dData &= 0xf7;
+                    if (maskFMChYM3526[chipID][11]) dData &= 0xfb;
+                    if (maskFMChYM3526[chipID][12]) dData &= 0xfd;
+                    if (maskFMChYM3526[chipID][13]) dData &= 0xfe;
+
+                }
+
+            }
+
+            writeYM3526(chipID, dAddr, dData, model);
+
+        }
+
+        public ChipKeyInfo getYM3526KeyInfo(int chipID)
+        {
+            for (int ch = 0; ch < kiYM3526[chipID].Off.Length; ch++)
+            {
+                kiYM3526ret[chipID].Off[ch] = kiYM3526[chipID].Off[ch];
+                kiYM3526ret[chipID].On[ch] = kiYM3526[chipID].On[ch];
+                kiYM3526[chipID].On[ch] = false;
+            }
+            return kiYM3526ret[chipID];
+        }
+
+        private void writeYM3526(int chipID, int dAddr, int dData, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                if (!ctYM3526[chipID].UseScci)
+                {
+                    mds.WriteYM3526((byte)chipID, (byte)dAddr, (byte)dData);
+                }
+            }
+            else
+            {
+                if (scYM3526[chipID] == null) return;
+
+                scYM3526[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public void softResetYM3526(int chipID, EnmModel model)
+        {
+            int i;
+
+            // FM全チャネルキーオフ
+            for (i = 0; i < 9; i++)
+            {
+                writeYM3526(chipID, 0xb0 + i, 0x00, model);
+            }
+
+            // FM TL=127
+            for (i = 0; i < 22; i++)
+            {
+                writeYM3526(chipID, 0x40 + i, 0x3f, model);
+            }
+
+            //SL=15 RR=15
+            for (i = 0; i < 22; i++)
+            {
+                writeYM3526(chipID, 0x80 + i, 0xff, model);
+            }
+        }
+
 
 
 
@@ -2975,71 +3110,6 @@ namespace MDPlayer
 
         }
 
-        public void setYM3526Register(int chipID, int dAddr, int dData, EnmModel model)
-        {
-            if (ctYM3526 == null) return;
-
-            if (chipID == 0) chipLED.PriOPL = 2;
-            else chipLED.SecOPL = 2;
-
-            if (model == EnmModel.VirtualModel)
-            {
-                fmRegisterYM3526[chipID][dAddr] = dData;
-                if (dAddr >= 0xb0 && dAddr <= 0xb8)
-                {
-                    int ch = dAddr - 0xb0;
-                    int k = (dData >> 5) & 1;
-                    if (k == 0)
-                    {
-                        kiYM3526[chipID].On[ch] = false;
-                        kiYM3526[chipID].Off[ch] = true;
-                    }
-                    else
-                    {
-                        kiYM3526[chipID].On[ch] = true;
-                    }
-                    if (maskFMChYM3526[chipID][ch]) dData &= 0x1f;
-                }
-
-                if (dAddr == 0xbd)
-                {
-
-                    for (int c = 0; c < 5; c++)
-                    {
-                        if ((dData & (0x10 >> c)) == 0)
-                        {
-                            kiYM3526[chipID].Off[c + 9] = true;
-                        }
-                        else
-                        {
-                            if (kiYM3526[chipID].Off[c + 9]) kiYM3526[chipID].On[c + 9] = true;
-                            kiYM3526[chipID].Off[c + 9] = false;
-                        }
-                    }
-
-                    if (maskFMChYM3526[chipID][9]) dData &= 0xef;
-                    if (maskFMChYM3526[chipID][10]) dData &= 0xf7;
-                    if (maskFMChYM3526[chipID][11]) dData &= 0xfb;
-                    if (maskFMChYM3526[chipID][12]) dData &= 0xfd;
-                    if (maskFMChYM3526[chipID][13]) dData &= 0xfe;
-
-                }
-
-            }
-
-            if (model == EnmModel.VirtualModel)
-            {
-                //if (!ctYM3526[chipID].UseScci)
-                {
-                    mds.WriteYM3526((byte)chipID, (byte)dAddr, (byte)dData);
-                }
-            }
-            else
-            {
-            }
-
-        }
-
         public void setY8950Register(int chipID, int dAddr, int dData, EnmModel model)
         {
             if (ctY8950 == null) return;
@@ -3682,6 +3752,15 @@ namespace MDPlayer
                 if ((algVolTbl[alg] & 4) != 0) setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 2) != 0) setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 8) != 0) setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], EnmModel.RealModel);
+            }
+        }
+
+        public void setFadeoutVolYM3526(int chipID, int v)
+        {
+            nowYM3526FadeoutVol[chipID] = v >> 1;//0-63 (v range: 0-127)
+            for (int c = 0; c < 22; c++)
+            {
+                setYM3526Register(chipID, 0x40 + c, fmRegisterYM3526[chipID][0x40 + c], EnmModel.RealModel);
             }
         }
 
@@ -4334,6 +4413,35 @@ namespace MDPlayer
                 if (scYM2608 != null && scYM2608[chipID] != null)
                 {
                     scYM2608[chipID].dClock = scYM2608[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void writeYM3526Clock(byte chipID, int clock, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM3526 != null && scYM3526[chipID] != null)
+                {
+                    if (scYM3526[chipID] is RC86ctlSoundChip && ((RC86ctlSoundChip)scYM3526[chipID]).chiptype == Nc86ctl.ChipType.CHIP_OPL3) clock *= 4;
+                    scYM3526[chipID].dClock = scYM3526[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void writeYM3812Clock(byte chipID, int clock, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scYM3812 != null && scYM3812[chipID] != null)
+                {
+                    scYM3812[chipID].dClock = scYM3812[chipID].SetMasterClock((uint)clock);
                 }
             }
         }

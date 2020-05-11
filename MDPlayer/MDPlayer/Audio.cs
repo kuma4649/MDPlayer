@@ -70,6 +70,7 @@ namespace MDPlayer
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2610 = new RSoundChip[2] { null, null };
@@ -1121,6 +1122,8 @@ namespace MDPlayer
                 if (scYM2151[0] != null) scYM2151[0].init();
                 scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
                 if (scYM2203[0] != null) scYM2203[0].init();
+                scYM3526[0] = realChip.GetRealChip(Audio.setting.YM3526Type);
+                if (scYM3526[0] != null) scYM3526[0].init();
                 scYM3812[0] = realChip.GetRealChip(Audio.setting.YM3812Type);
                 if (scYM3812[0] != null) scYM3812[0].init();
                 scYMF262[0] = realChip.GetRealChip(Audio.setting.YMF262Type);
@@ -1146,6 +1149,8 @@ namespace MDPlayer
                 if (scYM2151[1] != null) scYM2151[1].init();
                 scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
                 if (scYM2203[1] != null) scYM2203[1].init();
+                scYM3526[1] = realChip.GetRealChip(Audio.setting.YM3526SType);
+                if (scYM3526[1] != null) scYM3526[1].init();
                 scYM3812[1] = realChip.GetRealChip(Audio.setting.YM3812SType);
                 if (scYM3812[1] != null) scYM3812[1].init();
                 scYMF262[1] = realChip.GetRealChip(Audio.setting.YMF262SType);
@@ -1174,6 +1179,7 @@ namespace MDPlayer
                 , scYM2610
                 , scYM2610EA
                 , scYM2610EB
+                , scYM3526
                 , scYM3812
                 , scYMF262
                 , scC140
@@ -2073,6 +2079,8 @@ namespace MDPlayer
             chipRegister.setFadeoutVolYM2612(1, 0);
             chipRegister.setFadeoutVolSN76489(0, 0);
             chipRegister.setFadeoutVolSN76489(1, 0);
+            chipRegister.setFadeoutVolYM3526(0, 0);
+            chipRegister.setFadeoutVolYM3526(1, 0);
             chipRegister.setFadeoutVolYM3812(0, 0);
             chipRegister.setFadeoutVolYM3812(1, 0);
             chipRegister.setFadeoutVolYMF262(0, 0);
@@ -5005,14 +5013,36 @@ namespace MDPlayer
                     chipRegister.writeYM2608Clock(0, (int)((vgm)driverVirtual).YM2608ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2608))
                     chipRegister.writeYM2608Clock(1, (int)((vgm)driverVirtual).YM2608ClockValue, EnmModel.RealModel);
+                if (useChip.Contains(EnmChip.YM3526))
+                {
+                    chipRegister.setYM3526Register(0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.writeYM3526Clock(0, (int)((vgm)driverVirtual).YM3526ClockValue, EnmModel.RealModel);
+                }
+                if (useChip.Contains(EnmChip.S_YM3526))
+                {
+                    chipRegister.setYM3526Register(1, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.writeYM3526Clock(1, (int)((vgm)driverVirtual).YM3526ClockValue, EnmModel.RealModel);
+                }
+                if (useChip.Contains(EnmChip.YM3812))
+                {
+                    chipRegister.setYM3812Register(0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.writeYM3812Clock(0, (int)((vgm)driverVirtual).YM3812ClockValue, EnmModel.RealModel);
+                }
+                if (useChip.Contains(EnmChip.S_YM3812))
+                {
+                    chipRegister.setYM3812Register(1, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.writeYM3812Clock(1, (int)((vgm)driverVirtual).YM3812ClockValue, EnmModel.RealModel);
+                }
                 if (useChip.Contains(EnmChip.YMF262))
                 {
-                    chipRegister.setYMF262Register(0, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.setYMF262Register(0, 0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.setYMF262Register(0, 1,    5, 1, EnmModel.RealModel);//opl3mode
                     chipRegister.writeYMF262Clock(0, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
                 if (useChip.Contains(EnmChip.S_YMF262))
                 {
-                    chipRegister.setYMF262Register(1, 1, 5, 1, EnmModel.RealModel);//opl3mode
+                    chipRegister.setYMF262Register(1, 0, 0xbd, 0, EnmModel.RealModel);//リズムモードオフ
+                    chipRegister.setYMF262Register(1, 1,    5, 1, EnmModel.RealModel);//opl3mode
                     chipRegister.writeYMF262Clock(1, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
 
@@ -5696,6 +5726,7 @@ namespace MDPlayer
                             if (useChip.Contains(EnmChip.YM2608)) chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2610)) chipRegister.setFadeoutVolYM2610(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2612)) chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.YM3526)) chipRegister.setFadeoutVolYM3526(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM3812)) chipRegister.setFadeoutVolYM3812(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.SN76489)) chipRegister.setFadeoutVolSN76489(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YMF262)) chipRegister.setFadeoutVolYMF262(0, vgmRealFadeoutVol);
@@ -5705,6 +5736,7 @@ namespace MDPlayer
                             if (useChip.Contains(EnmChip.S_YM2608)) chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2610)) chipRegister.setFadeoutVolYM2610(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2612)) chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.S_YM3526)) chipRegister.setFadeoutVolYM3526(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM3812)) chipRegister.setFadeoutVolYM3812(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_SN76489)) chipRegister.setFadeoutVolSN76489(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YMF262)) chipRegister.setFadeoutVolYMF262(1, vgmRealFadeoutVol);
@@ -5797,6 +5829,8 @@ namespace MDPlayer
             chipRegister.softResetYM2608(1, model);
             chipRegister.softResetYM2151(0, model);
             chipRegister.softResetYM2151(1, model);
+            chipRegister.softResetYM3526(0, model);
+            chipRegister.softResetYM3526(1, model);
             chipRegister.softResetYM3812(0, model);
             chipRegister.softResetYM3812(1, model);
             chipRegister.softResetYMF262(0, model);
