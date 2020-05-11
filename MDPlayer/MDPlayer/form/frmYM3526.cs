@@ -22,10 +22,10 @@ namespace MDPlayer.form
         private int zoom = 1;
 
         private MDChipParams.YM3526 newParam = null;
-        private MDChipParams.YM3526 oldParam = new MDChipParams.YM3526();
+        private MDChipParams.YM3526 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM3526(frmMain frm, int chipID, int zoom, MDChipParams.YM3526 newParam)
+        public frmYM3526(frmMain frm, int chipID, int zoom, MDChipParams.YM3526 newParam, MDChipParams.YM3526 oldParam)
         {
             parent = frm;
             this.chipID = chipID;
@@ -33,72 +33,14 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
+            this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Properties.Resources.planeYM3526, null, zoom);
-            bool YM3526Type = false;// (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526Type.UseScci;
-            int tp = YM3526Type ? 1 : 0;
+            bool YM3526Type = (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526SType.UseScci;
+            int YM3526SoundLocation = (chipID == 0) ? parent.setting.YM3526Type.SoundLocation : parent.setting.YM3526SType.SoundLocation;
+            int tp = !YM3526Type ? 0 : (YM3526SoundLocation < 0 ? 2 : 1);
+
             DrawBuff.screenInitYM3526(frameBuffer, tp);
             update();
-        }
-
-        private void frmYM3526_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-            {
-                parent.setting.location.PosYm3526[chipID] = Location;
-            }
-            else
-            {
-                parent.setting.location.PosYm3526[chipID] = RestoreBounds.Location;
-            }
-            isClosed = true;
-        }
-
-        private void frmYM3526_Load(object sender, EventArgs e)
-        {
-            this.Location = new Point(x, y);
-
-            frameSizeW = this.Width - this.ClientSize.Width;
-            frameSizeH = this.Height - this.ClientSize.Height;
-
-            changeZoom();
-        }
-
-        private void frmYM3526_Resize(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
-        {
-            int py = e.Location.Y / zoom;
-            int px = e.Location.X / zoom;
-
-            //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
-
-            //鍵盤 FM & RHM
-            int ch = (py / 8) - 1;
-            if (ch < 0) return;
-
-            if (ch == 9)
-            {
-                int x = (px / 4 - 1);
-                if (x < 0) return;
-                x /= 15;
-                if (x > 4) return;
-                ch += x;
-            }
-
-            if (e.Button == MouseButtons.Left)
-            {
-                //マスク
-                parent.SetChannelMask(EnmChip.YM3526, chipID, ch);
-                return;
-            }
-
-            //マスク解除
-            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(EnmChip.YM3526, chipID, ch);
-            return;
         }
 
         public void update()
@@ -114,12 +56,40 @@ namespace MDPlayer.form
             }
         }
 
+        private void frmYM3526_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(x, y);
+
+            frameSizeW = this.Width - this.ClientSize.Width;
+            frameSizeH = this.Height - this.ClientSize.Height;
+
+            changeZoom();
+        }
+
+        private void frmYM3526_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosYm3526[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosYm3526[chipID] = RestoreBounds.Location;
+            }
+            isClosed = true;
+        }
+
         public void changeZoom()
         {
             this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
             this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
             this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
             frmYM3526_Resize(null, null);
+        }
+
+        private void frmYM3526_Resize(object sender, EventArgs e)
+        {
+
         }
 
         protected override void WndProc(ref Message m)
@@ -154,6 +124,7 @@ namespace MDPlayer.form
             MDChipParams.Channel nyc;
             int slot = 0;
             ChipKeyInfo ki = Audio.getYM3526KeyInfo(chipID);
+
             MDSound.MDSound.Chip chipInfo = Audio.GetMDSChipInfo(MDSound.MDSound.enmInstrumentType.YM3526);
             uint masterClock = chipInfo == null ? 3579545 : chipInfo.Clock; //3579545 -> Default master clock
 
@@ -261,7 +232,9 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = 0;// parent.setting.YMF262Type.UseScci ? 1 : 0;
+            bool YM3526Type = (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526SType.UseScci;
+            int YM3526SoundLocation = (chipID == 0) ? parent.setting.YM3526Type.SoundLocation : parent.setting.YM3526SType.SoundLocation;
+            int tp = !YM3526Type ? 0 : (YM3526SoundLocation < 0 ? 2 : 1);
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
 
@@ -308,6 +281,39 @@ namespace MDPlayer.form
                 DrawBuff.ChYM3526(frameBuffer, c, ref oldParam.channels[c].mask, newParam.channels[c].mask, tp);
                 DrawBuff.VolumeXY(frameBuffer, 3 + (c - 9) * 15, 10 * 2, 0, ref oldParam.channels[c].volume, newParam.channels[c].volume, tp);
             }
+        }
+
+        private void pbScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            int py = e.Location.Y / zoom;
+            int px = e.Location.X / zoom;
+
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8) return;
+
+            //鍵盤 FM & RHM
+            int ch = (py / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch == 9)
+            {
+                int x = (px / 4 - 1);
+                if (x < 0) return;
+                x /= 15;
+                if (x > 4) return;
+                ch += x;
+            }
+
+            if (e.Button == MouseButtons.Left)
+            {
+                //マスク
+                parent.SetChannelMask(EnmChip.YM3526, chipID, ch);
+                return;
+            }
+
+            //マスク解除
+            for (ch = 0; ch < 9 + 5; ch++) parent.ResetChannelMask(EnmChip.YM3526, chipID, ch);
+            return;
         }
 
     }
