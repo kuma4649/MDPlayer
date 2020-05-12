@@ -410,7 +410,7 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                if (c != 2)
+                if (c == 2)
                 {
                     DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
                     DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);

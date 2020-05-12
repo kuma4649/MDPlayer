@@ -3649,7 +3649,7 @@ namespace MDPlayer
             }
             else
             {
-                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 64, 32, 24, 8);
+                screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 88, 0, 24, 8);
             }
         }
 
