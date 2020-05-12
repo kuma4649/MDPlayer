@@ -352,6 +352,15 @@ namespace MDPlayer.form
 
                     if (newParam.fileFormat != EnmFileFormat.XGM)
                     {
+                        if (oldParam.fileFormat != newParam.fileFormat)
+                        {
+                            //
+                            oyc.pcmMode = 1;
+                            nyc.pcmMode = 0;
+                            DrawBuff.Ch6YM2612XGM(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
+                            oldParam.fileFormat = newParam.fileFormat;
+                        }
+
                         DrawBuff.Ch6YM2612(frameBuffer, nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp6v);
                         DrawBuff.Volume(frameBuffer, 289, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp6v);
@@ -361,6 +370,11 @@ namespace MDPlayer.form
                     }
                     else
                     {
+                        if (oldParam.fileFormat != newParam.fileFormat)
+                        {
+                            oldParam.fileFormat = newParam.fileFormat;
+                        }
+
                         DrawBuff.Ch6YM2612XGM(frameBuffer,nyc.pcmBuff, ref oyc.pcmMode, nyc.pcmMode, ref oyc.mask, nyc.mask, ref oyc.tp, tp6v);
                         if (newParam.channels[5].pcmMode == 0)
                         {
