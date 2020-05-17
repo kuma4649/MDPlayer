@@ -698,8 +698,8 @@
     <Content Include="plugin\driver\mucomDotNETCommon.dll" />
     <Content Include="plugin\driver\mucomDotNETCompiler.dll" />
     <Content Include="plugin\driver\mucomDotNETDriver.dll" />
-    <Content Include="plugin\driver\mucomDotNETmessage.ja-JP.txt" />
-    <Content Include="plugin\driver\mucomDotNETmessage.txt" />
+    <Content Include="lang\mucomDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\mucomDotNETmessage.txt" />
     <Content Include="lib\musicDriverInterface.dll" />
     <Content Include="lib\NAudio.dll" />
     <Content Include="lib\RealChipCtlWrap.dll" />
@@ -851,6 +851,8 @@
     <PostBuildEvent>copy $(ProjectDir)lib\*.* $(TargetDir)
 mkdir $(TargetDir)plugin\driver
 copy $(ProjectDir)plugin\driver\*.* $(TargetDir)plugin\driver
+mkdir $(TargetDir)lang
+copy $(ProjectDir)lang\*.* $(TargetDir)lang
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
