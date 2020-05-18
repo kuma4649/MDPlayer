@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace MDPlayer
 {
@@ -186,21 +187,30 @@ namespace MDPlayer
             if (nScci != null) nScci.NSoundInterfaceManager_.sendData();
             if (nc86ctl != null && isGIMIC)
             {
-                int n = nc86ctl.getNumberOfChip();
-                for (int i = 0; i < n; i++)
-                {
-                    NIRealChip rc = nc86ctl.getChipInterface(i);
-                    if (rc != null)
-                    {
-                        while ((rc.@in(0x0) & 0x83) != 0)
-                            System.Threading.Thread.Sleep(0);
-                        while ((rc.@in(0x100) & 0xbf) != 0)
-                        {
-                            System.Threading.Thread.Sleep(0);
-                        }
-                    }
-                }
+                //int n = nc86ctl.getNumberOfChip();
+                //for (int i = 0; i < n; i++)
+                //{
+                //    NIRealChip rc = nc86ctl.getChipInterface(i);
+                //    if (rc != null)
+                //    {
+                //        while ((rc.@in(0x0) & 0x83) != 0)
+                //            System.Threading.Thread.Sleep(0);
+                //        while ((rc.@in(0x100) & 0xbf) != 0)
+                //        {
+                //            System.Threading.Thread.Sleep(0);
+                //        }
+                //    }
+                //}
 
+            }
+            else
+            {
+                if (nScci == null) return;
+                nScci.NSoundInterfaceManager_.sendData();
+                while (!nScci.NSoundInterfaceManager_.isBufferEmpty())
+                {
+                    Thread.Sleep(0);
+                }
             }
         }
 

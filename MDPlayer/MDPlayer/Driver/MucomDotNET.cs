@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MDPlayer.Driver
@@ -103,7 +104,18 @@ namespace MDPlayer.Driver
                     vgmFrameCounter++;
                 }
 
-                //Stopped = !IsPlaying();
+                int lp = mucomDriver.GetNowLoopCounter();
+                lp = lp < 0 ? 0 : lp;
+                vgmCurLoop = (uint)lp;
+
+                if (mucomDriver.GetStatus() < 1)
+                {
+                    if (mucomDriver.GetStatus() == 0)
+                    {
+                        Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    }
+                    Stopped = true;
+                }
             }
             catch (Exception ex)
             {
@@ -214,9 +226,11 @@ namespace MDPlayer.Driver
             return true;
         }
 
-        private void chipWaitSend(long arg1, int arg2)
+        private void chipWaitSend(long elapsed, int size)
         {
-            ;
+            //サイズと経過時間から、追加でウエイトする。
+            int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+            Thread.Sleep(m);
         }
 
         private void chipWriteRegister(ChipDatum dat)
