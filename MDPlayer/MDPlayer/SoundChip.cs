@@ -5,9 +5,9 @@ namespace MDPlayer
     public class SoundChip
     {
         //public NScci.NScci nScci;
-        private NScci.NSoundChip nSoundChip;
-        private NScci.NSoundInterface nSoundInterface;
-        private NScci.NSoundInterfaceManager nSoundInterfaceManager;
+        private NScci.NSoundChip nSoundChip=null;
+        private NScci.NSoundInterface nSoundInterface=null;
+        private NScci.NSoundInterfaceManager nSoundInterfaceManager=null;
 
         public void setRegister(int v1, int v2)
         {

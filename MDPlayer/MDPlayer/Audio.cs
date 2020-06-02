@@ -2771,7 +2771,7 @@ namespace MDPlayer
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
-                MDSound.MDSound.Chip chip;
+                //MDSound.MDSound.Chip chip;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
 
@@ -4645,9 +4645,9 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).QSoundClockValue != 0)
                 {
-                    MDSound.qsound qsound = new MDSound.qsound();
+                    MDSound.Qsound_ctr qsound = new MDSound.Qsound_ctr();
                     chip = new MDSound.MDSound.Chip();
-                    chip.type = MDSound.MDSound.enmInstrumentType.QSound;
+                    chip.type = MDSound.MDSound.enmInstrumentType.QSoundCtr;
                     chip.ID = (byte)0;
                     chip.Instrument = qsound;
                     chip.Update = qsound.Update;
@@ -6219,7 +6219,7 @@ namespace MDPlayer
             vol = mds.getK054539VisVolume();
             if (vol != null) visVolume.k054539 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
-            vol = mds.getQSoundVisVolume();
+            vol = mds.getQSoundCtrVisVolume();
             if (vol != null) visVolume.qSound = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
             vol = mds.getGA20VisVolume();
@@ -7041,7 +7041,7 @@ namespace MDPlayer
         {
             try
             {
-                mds.SetVolumeQSound(setting.balance.QSoundVolume
+                mds.SetVolumeQSoundCtr(setting.balance.QSoundVolume
                     = Common.Range((isAbs ? 0 : setting.balance.QSoundVolume) + volume, -192, 20));
             }
             catch { }

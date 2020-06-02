@@ -5214,7 +5214,7 @@
         private System.Windows.Forms.Button btPlayClr;
         private System.Windows.Forms.Button btFastClr;
         private System.Windows.Forms.Button btSlowClr;
-        private ucSettingInstruments ucSettingInstruments1;
+        //private ucSettingInstruments ucSettingInstruments1;
         private System.Windows.Forms.Label lblKeyBoardHookNotice;
         private System.Windows.Forms.RadioButton rbNullDevice;
         private System.Windows.Forms.TextBox tbSIDOutputBufferSize;

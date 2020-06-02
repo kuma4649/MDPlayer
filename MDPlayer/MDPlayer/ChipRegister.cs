@@ -1439,9 +1439,9 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                mds.WriteQSound((byte)chipID, 0, mm);
-                mds.WriteQSound((byte)chipID, 1, ll);
-                mds.WriteQSound((byte)chipID, 2, rr);
+                mds.WriteQSoundCtr((byte)chipID, 0, mm);
+                mds.WriteQSoundCtr((byte)chipID, 1, ll);
+                mds.WriteQSoundCtr((byte)chipID, 2, rr);
             }
             else
             {
@@ -4175,7 +4175,7 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriQsnd = 2;
 
             if (model == EnmModel.VirtualModel)
-                mds.WriteQSoundPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+                mds.WriteQSoundCtrPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeC352(byte chipid, uint adr, uint data, EnmModel model)
