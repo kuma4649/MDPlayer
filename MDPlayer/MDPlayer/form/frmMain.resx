@@ -117,415 +117,545 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;tsmiMIDIkbd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSPWM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSK051649.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiKBrd.Name" xml:space="preserve">
-    <value>tsmiKBrd</value>
-  </data>
-  <data name="&gt;&gt;tsmiPC140.Name" xml:space="preserve">
-    <value>tsmiPC140</value>
-  </data>
-  <data name="tsmiSAY8910.Text" xml:space="preserve">
-    <value>AY8910</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;レジスタダンプ表示ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiSOPN2.Text" xml:space="preserve">
-    <value>OPN2</value>
-  </data>
-  <data name="&gt;&gt;tsmiPRF5C164.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMIDI.Name" xml:space="preserve">
-    <value>tsmiSMIDI</value>
-  </data>
-  <data name="tsmiSDCSG.Text" xml:space="preserve">
-    <value>DCSG</value>
-  </data>
-  <data name="tsmiSOPNA.Text" xml:space="preserve">
-    <value>OPNA</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tsmiPOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSOPNB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiVST.Text" xml:space="preserve">
-    <value>VST</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPNA.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiStop.Name" xml:space="preserve">
-    <value>tsmiStop</value>
-  </data>
-  <data name="tsmiSOPM.Text" xml:space="preserve">
-    <value>OPM</value>
-  </data>
-  <data name="&gt;&gt;tsmiOpenFile.Name" xml:space="preserve">
-    <value>tsmiOpenFile</value>
-  </data>
-  <data name="&gt;&gt;tsmiSY8950.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiStop.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="tsmiSMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPMMC5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOKIM6258.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPOPM.Text" xml:space="preserve">
-    <value>OPM</value>
-  </data>
-  <data name="tsmiPOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiSOPNB.Text" xml:space="preserve">
-    <value>OPNB</value>
-  </data>
-  <data name="&gt;&gt;tsmiPMIDI.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pbScreen.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="tsmiPDCSG.Text" xml:space="preserve">
-    <value>DCSG</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pbScreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;tsmiPVRC7.Name" xml:space="preserve">
-    <value>tsmiPVRC7</value>
+  <data name="pbScreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>318, 40</value>
   </data>
-  <data name="&gt;&gt;tsmiStop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pbScreen.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="tsmiFf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+  <data name="&gt;&gt;pbScreen.Name" xml:space="preserve">
+    <value>pbScreen</value>
   </data>
-  <data name="tsmiPC352.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;pbScreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPL2.Name" xml:space="preserve">
-    <value>tsmiSOPL2</value>
+  <data name="&gt;&gt;pbScreen.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pbScreen.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="cmsOpenOtherPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="tsmiPAY8910.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
   <data name="tsmiPAY8910.Text" xml:space="preserve">
     <value>AY8910</value>
   </data>
-  <data name="tsmiSNESDMC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="tsmiPC140.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPL.Name" xml:space="preserve">
-    <value>tsmiSOPL</value>
+  <data name="tsmiPC140.Text" xml:space="preserve">
+    <value>C140</value>
   </data>
-  <data name="tsmiSMMC5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="tsmiPC352.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="tsmiExit.Text" xml:space="preserve">
-    <value>Exit</value>
+  <data name="tsmiPC352.Text" xml:space="preserve">
+    <value>C352</value>
   </data>
-  <data name="&gt;&gt;tsmiPNESDMC.Name" xml:space="preserve">
-    <value>tsmiPNESDMC</value>
+  <data name="tsmiPDCSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="tsmiSlow.Text" xml:space="preserve">
-    <value>Slow</value>
-  </data>
-  <data name="tsmiPHuC6280.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOKIM6258.Name" xml:space="preserve">
-    <value>tsmiSOKIM6258</value>
-  </data>
-  <data name="tsmiPlayMode.Text" xml:space="preserve">
-    <value>Change playback order</value>
+  <data name="tsmiPDCSG.Text" xml:space="preserve">
+    <value>DCSG</value>
   </data>
   <data name="tsmiPFDS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPFDS.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="tsmiPHuC6280.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPHuC6280.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="tsmiPK051649.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPK051649.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
+  <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPMIDI.Text" xml:space="preserve">
+    <value>MIDI</value>
+  </data>
+  <data name="tsmiPMMC5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPMMC5.Text" xml:space="preserve">
+    <value>MMC5</value>
+  </data>
+  <data name="tsmiPNESDMC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPNESDMC.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
+  </data>
+  <data name="tsmiPOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOKIM6258.Text" xml:space="preserve">
+    <value>OKIM6258</value>
+  </data>
+  <data name="tsmiPOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOKIM6295.Text" xml:space="preserve">
+    <value>OKIM6295</value>
+  </data>
+  <data name="tsmiPOPLL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPLL.Text" xml:space="preserve">
+    <value>OPLL</value>
+  </data>
+  <data name="tsmiPOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPL.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
+  <data name="tsmiPY8950.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPY8950.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="tsmiPOPL2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPL2.Text" xml:space="preserve">
+    <value>OPL2</value>
+  </data>
+  <data name="tsmiPOPL3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPL3.Text" xml:space="preserve">
+    <value>OPL3</value>
+  </data>
+  <data name="tsmiPOPL4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPL4.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
+  <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPM.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="tsmiPOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="tsmiPOPN2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
   <data name="tsmiPOPN2.Text" xml:space="preserve">
     <value>OPN2</value>
   </data>
   <data name="tsmiPOPNA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+    <value>180, 22</value>
   </data>
-  <data name="tsmiPC140.Text" xml:space="preserve">
-    <value>C140</value>
+  <data name="tsmiPOPNA.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="tsmiPOPNB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPNB.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="tsmiPPWM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPPWM.Text" xml:space="preserve">
+    <value>PWM</value>
+  </data>
+  <data name="tsmiPQSound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPQSound.Text" xml:space="preserve">
+    <value>QSound</value>
+  </data>
+  <data name="tsmiPRF5C164.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
   <data name="tsmiPRF5C164.Text" xml:space="preserve">
     <value>RF5C164</value>
   </data>
-  <data name="tsmiSOPL4.Text" xml:space="preserve">
-    <value>OPL4</value>
-  </data>
-  <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 202</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPN.Name" xml:space="preserve">
-    <value>tsmiPOPN</value>
-  </data>
-  <data name="&gt;&gt;tsmiPDCSG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Register dump</value>
-  </data>
-  <data name="&gt;&gt;tsmiPAY8910.Name" xml:space="preserve">
-    <value>tsmiPAY8910</value>
-  </data>
-  <data name="&gt;&gt;tsmiPPWM.Name" xml:space="preserve">
-    <value>tsmiPPWM</value>
-  </data>
-  <data name="&gt;&gt;操作ToolStripMenuItem.Name" xml:space="preserve">
-    <value>操作ToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPN.Name" xml:space="preserve">
-    <value>tsmiSOPN</value>
-  </data>
-  <data name="tsmiSDCSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiPHuC6280.Name" xml:space="preserve">
-    <value>tsmiPHuC6280</value>
-  </data>
-  <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiOpenMixer.Name" xml:space="preserve">
-    <value>tsmiOpenMixer</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPL3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPSegaPCM.Name" xml:space="preserve">
-    <value>tsmiPSegaPCM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOKIM6295.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiPSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
-  <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiPSegaPCM.Text" xml:space="preserve">
+    <value>SEGA PCM</value>
+  </data>
+  <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiPY8950.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tsmiPVRC7.Text" xml:space="preserve">
+    <value>VRC7</value>
   </data>
-  <data name="tsmiSSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiPFDS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Primary</value>
   </data>
   <data name="tsmiSAY8910.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;レジスタダンプ表示ToolStripMenuItem.Name" xml:space="preserve">
-    <value>レジスタダンプ表示ToolStripMenuItem</value>
+  <data name="tsmiSAY8910.Text" xml:space="preserve">
+    <value>AY8910</value>
   </data>
-  <data name="&gt;&gt;pbScreen.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPL3.Name" xml:space="preserve">
-    <value>tsmiPOPL3</value>
-  </data>
-  <data name="tsmiSSegaPCM.Text" xml:space="preserve">
-    <value>SEGA PCM</value>
-  </data>
-  <data name="tsmiPDCSG.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiSC140.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiOpenFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tsmiSC140.Text" xml:space="preserve">
+    <value>C140</value>
   </data>
-  <data name="&gt;&gt;tsmiPMMC5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tsmiSC352.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiChangeZoom.Name" xml:space="preserve">
-    <value>tsmiChangeZoom</value>
+  <data name="tsmiSC352.Text" xml:space="preserve">
+    <value>C352</value>
+  </data>
+  <data name="tsmiSDCSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSDCSG.Text" xml:space="preserve">
+    <value>DCSG</value>
+  </data>
+  <data name="tsmiSFDS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSFDS.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="tsmiSHuC6280.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSHuC6280.Text" xml:space="preserve">
+    <value>HuC6280</value>
+  </data>
+  <data name="tsmiSK051649.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSK051649.Text" xml:space="preserve">
+    <value>K051649</value>
+  </data>
+  <data name="tsmiSMIDI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
   </data>
   <data name="tsmiSMIDI.Text" xml:space="preserve">
     <value>MIDI</value>
   </data>
-  <data name="tsmiPlayList.Text" xml:space="preserve">
-    <value>Playlist</value>
-  </data>
-  <data name="&gt;&gt;tsmiPFDS.Name" xml:space="preserve">
-    <value>tsmiPFDS</value>
-  </data>
-  <data name="tsmiSRF5C164.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiSMMC5.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;ファイルToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tsmiSMMC5.Text" xml:space="preserve">
+    <value>MMC5</value>
   </data>
-  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPLL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPOPL4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiSNESDMC.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiSRF5C164.Name" xml:space="preserve">
-    <value>tsmiSRF5C164</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPNA.Name" xml:space="preserve">
-    <value>tsmiPOPNA</value>
-  </data>
-  <data name="&gt;&gt;tsmiPNESDMC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiChangeZoom.Text" xml:space="preserve">
-    <value>Resize window</value>
-  </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
-    <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;tsmiKBrd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pbScreen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMMC5.Name" xml:space="preserve">
-    <value>tsmiSMMC5</value>
-  </data>
-  <data name="&gt;&gt;tsmiPlay.Name" xml:space="preserve">
-    <value>tsmiPlay</value>
-  </data>
-  <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPOPLL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPAY8910.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMMC5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSC352.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPOPL3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="tsmiSNESDMC.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
   </data>
   <data name="tsmiSOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPLL.Name" xml:space="preserve">
-    <value>tsmiPOPLL</value>
+  <data name="tsmiSOKIM6258.Text" xml:space="preserve">
+    <value>OKIM6258</value>
   </data>
-  <data name="tsmiPY8950.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiSOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOKIM6295.Name" xml:space="preserve">
-    <value>tsmiPOKIM6295</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPL2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPlayMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPNB.Name" xml:space="preserve">
-    <value>tsmiSOPNB</value>
-  </data>
-  <data name="tsmiStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
   </data>
   <data name="tsmiSOKIM6295.Text" xml:space="preserve">
     <value>OKIM6295</value>
   </data>
-  <data name="&gt;&gt;tsmiSHuC6280.Name" xml:space="preserve">
-    <value>tsmiSHuC6280</value>
-  </data>
-  <data name="tsmiPOPL2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiSOPLL.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiPOKIM6258.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tsmiSOPLL.Text" xml:space="preserve">
+    <value>OPLL</value>
   </data>
-  <data name="tsmiPMMC5.Text" xml:space="preserve">
-    <value>MMC5</value>
+  <data name="tsmiSOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPL.Text" xml:space="preserve">
+    <value>OPL</value>
   </data>
   <data name="tsmiSY8950.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSY8950.Text" xml:space="preserve">
+    <value>Y8950</value>
+  </data>
+  <data name="tsmiSOPL2.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
   <data name="tsmiSOPL2.Text" xml:space="preserve">
     <value>OPL2</value>
   </data>
-  <data name="&gt;&gt;tsmiPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiSOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiPMIDI.Text" xml:space="preserve">
-    <value>MIDI</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPN.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPlayMode.Name" xml:space="preserve">
-    <value>tsmiPlayMode</value>
-  </data>
-  <data name="&gt;&gt;tsmiChangeZoom.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPK051649.Name" xml:space="preserve">
-    <value>tsmiPK051649</value>
-  </data>
-  <data name="tsmiSMMC5.Text" xml:space="preserve">
-    <value>MMC5</value>
+  <data name="tsmiSOPL3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
   </data>
   <data name="tsmiSOPL3.Text" xml:space="preserve">
     <value>OPL3</value>
   </data>
+  <data name="tsmiSOPL4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPL4.Text" xml:space="preserve">
+    <value>OPL4</value>
+  </data>
+  <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPM.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="tsmiSOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
+  <data name="tsmiSOPN2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPN2.Text" xml:space="preserve">
+    <value>OPN2</value>
+  </data>
+  <data name="tsmiSOPNA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPNA.Text" xml:space="preserve">
+    <value>OPNA</value>
+  </data>
+  <data name="tsmiSOPNB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSOPNB.Text" xml:space="preserve">
+    <value>OPNB</value>
+  </data>
+  <data name="tsmiSPWM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSPWM.Text" xml:space="preserve">
+    <value>PWM</value>
+  </data>
+  <data name="tsmiSRF5C164.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSRF5C164.Text" xml:space="preserve">
+    <value>RF5C164</value>
+  </data>
+  <data name="tsmiSSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSSegaPCM.Text" xml:space="preserve">
+    <value>SEGA PCM</value>
+  </data>
+  <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="tsmiSVRC7.Text" xml:space="preserve">
+    <value>VRC7</value>
+  </data>
+  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 48</value>
+  </data>
   <data name="&gt;&gt;cmsOpenOtherPanel.Name" xml:space="preserve">
     <value>cmsOpenOtherPanel</value>
   </data>
-  <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;cmsOpenOtherPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>206, 21</value>
+  </metadata>
+  <data name="tsmiOpenFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="tsmiOpenFile.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="tsmiExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="tsmiExit.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="tsmiPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiPlay.Text" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="tsmiStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiStop.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="tsmiPause.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiPause.Text" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="tsmiFadeOut.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiFadeOut.Text" xml:space="preserve">
+    <value>Fade out</value>
+  </data>
+  <data name="tsmiSlow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiSlow.Text" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="tsmiFf.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiFf.Text" xml:space="preserve">
+    <value>x3 speed</value>
+  </data>
+  <data name="tsmiNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiNext.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="tsmiPlayMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="tsmiPlayMode.Text" xml:space="preserve">
+    <value>Change playback order</value>
+  </data>
+  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="tsmiOption.Text" xml:space="preserve">
+    <value>Option</value>
+  </data>
+  <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="tsmiPlayList.Text" xml:space="preserve">
+    <value>Playlist</value>
+  </data>
+  <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="tsmiOpenInfo.Text" xml:space="preserve">
+    <value>Music Information</value>
+  </data>
+  <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="tsmiOpenMixer.Text" xml:space="preserve">
+    <value>Mixer</value>
+  </data>
+  <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="tsmiKBrd.Text" xml:space="preserve">
+    <value>Various keyboards</value>
+  </data>
+  <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="tsmiVST.Text" xml:space="preserve">
+    <value>VST</value>
+  </data>
+  <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="tsmiMIDIkbd.Text" xml:space="preserve">
+    <value>MIDI keyboard</value>
+  </data>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="tsmiChangeZoom.Text" xml:space="preserve">
+    <value>Resize window</value>
+  </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 22</value>
+  </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Register dump</value>
+  </data>
+  <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 202</value>
+  </data>
+  <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
+    <value>cmsMenu</value>
+  </data>
+  <data name="&gt;&gt;cmsMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="keyboardHook1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>336, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>318, 40</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -857,611 +987,496 @@
         ////////////////////////
 </value>
   </data>
-  <data name="tsmiPC352.Text" xml:space="preserve">
-    <value>C352</value>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>336, 261</value>
   </data>
-  <data name="&gt;&gt;tsmiPY8950.Name" xml:space="preserve">
-    <value>tsmiPY8950</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>MDPlayer</value>
   </data>
-  <data name="&gt;&gt;tsmiPPWM.Type" xml:space="preserve">
+  <data name="&gt;&gt;primaryToolStripMenuItem.Name" xml:space="preserve">
+    <value>primaryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;primaryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiOpenMixer.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPAY8910.Name" xml:space="preserve">
+    <value>tsmiPAY8910</value>
+  </data>
+  <data name="&gt;&gt;tsmiPAY8910.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiPY8950.Text" xml:space="preserve">
-    <value>Y8950</value>
+  <data name="&gt;&gt;tsmiPC140.Name" xml:space="preserve">
+    <value>tsmiPC140</value>
   </data>
-  <data name="tsmiPOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSOKIM6258.Text" xml:space="preserve">
-    <value>OKIM6258</value>
-  </data>
-  <data name="tsmiPOKIM6258.Text" xml:space="preserve">
-    <value>OKIM6258</value>
-  </data>
-  <data name="tsmiFadeOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="tsmiPVRC7.Text" xml:space="preserve">
-    <value>VRC7</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPL4.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPC140.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiFf.Name" xml:space="preserve">
-    <value>tsmiFf</value>
+  <data name="&gt;&gt;tsmiPC352.Name" xml:space="preserve">
+    <value>tsmiPC352</value>
   </data>
-  <data name="&gt;&gt;tsmiPSegaPCM.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPC352.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiSY8950.Text" xml:space="preserve">
-    <value>Y8950</value>
+  <data name="&gt;&gt;tsmiPDCSG.Name" xml:space="preserve">
+    <value>tsmiPDCSG</value>
   </data>
-  <data name="&gt;&gt;pbScreen.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tsmiSOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiMIDIkbd.Text" xml:space="preserve">
-    <value>MIDI keyboard</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPL2.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPDCSG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiSNESDMC.Text" xml:space="preserve">
-    <value>NES&amp;&amp;DMC</value>
+  <data name="&gt;&gt;tsmiPFDS.Name" xml:space="preserve">
+    <value>tsmiPFDS</value>
   </data>
-  <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSPWM.Name" xml:space="preserve">
-    <value>tsmiSPWM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPMMC5.Name" xml:space="preserve">
-    <value>tsmiPMMC5</value>
-  </data>
-  <data name="tsmiOpenFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPM.Name" xml:space="preserve">
-    <value>tsmiSOPM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPN2.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPFDS.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiSOPLL.Text" xml:space="preserve">
-    <value>OPLL</value>
-  </data>
-  <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 48</value>
-  </data>
-  <data name="tsmiPause.Text" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="tsmiSC140.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiVST.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiSFDS.Text" xml:space="preserve">
-    <value>FDS</value>
-  </data>
-  <data name="tsmiSC352.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;その他ウィンドウ表示ToolStripMenuItem.Name" xml:space="preserve">
-    <value>その他ウィンドウ表示ToolStripMenuItem</value>
+  <data name="&gt;&gt;tsmiPHuC6280.Name" xml:space="preserve">
+    <value>tsmiPHuC6280</value>
   </data>
   <data name="&gt;&gt;tsmiPHuC6280.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSlow.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPK051649.Name" xml:space="preserve">
+    <value>tsmiPK051649</value>
+  </data>
+  <data name="&gt;&gt;tsmiPK051649.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMIDI.Name" xml:space="preserve">
+    <value>tsmiPMIDI</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMIDI.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMMC5.Name" xml:space="preserve">
+    <value>tsmiPMMC5</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMMC5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPNESDMC.Name" xml:space="preserve">
+    <value>tsmiPNESDMC</value>
+  </data>
+  <data name="&gt;&gt;tsmiPNESDMC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOKIM6258.Name" xml:space="preserve">
+    <value>tsmiPOKIM6258</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOKIM6258.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOKIM6295.Name" xml:space="preserve">
+    <value>tsmiPOKIM6295</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOKIM6295.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPLL.Name" xml:space="preserve">
+    <value>tsmiPOPLL</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPLL.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiPOPL.Name" xml:space="preserve">
     <value>tsmiPOPL</value>
   </data>
-  <data name="tsmiSlow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="tsmiSHuC6280.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSOPL4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPOKIM6295.Text" xml:space="preserve">
-    <value>OKIM6295</value>
-  </data>
-  <data name="tsmiPPWM.Text" xml:space="preserve">
-    <value>PWM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPRF5C164.Name" xml:space="preserve">
-    <value>tsmiPRF5C164</value>
-  </data>
-  <data name="&gt;&gt;tsmiSFDS.Name" xml:space="preserve">
-    <value>tsmiSFDS</value>
-  </data>
-  <data name="tsmiSOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSVRC7.Name" xml:space="preserve">
-    <value>tsmiSVRC7</value>
-  </data>
-  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSPWM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiOpenInfo.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPOPL.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiOption.Text" xml:space="preserve">
-    <value>Option</value>
+  <data name="&gt;&gt;tsmiPY8950.Name" xml:space="preserve">
+    <value>tsmiPY8950</value>
   </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="&gt;&gt;tsmiPlayList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPHuC6280.Text" xml:space="preserve">
-    <value>HuC6280</value>
-  </data>
-  <data name="&gt;&gt;tsmiSAY8910.Name" xml:space="preserve">
-    <value>tsmiSAY8910</value>
-  </data>
-  <data name="&gt;&gt;tsmiPDCSG.Name" xml:space="preserve">
-    <value>tsmiPDCSG</value>
-  </data>
-  <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
-    <value>ファイルToolStripMenuItem</value>
-  </data>
-  <data name="tsmiOpenFile.Text" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="&gt;&gt;tsmiPVRC7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPOPNA.Text" xml:space="preserve">
-    <value>OPNA</value>
-  </data>
-  <data name="&gt;&gt;tsmiOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;その他ウィンドウ表示ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;操作ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Secondary</value>
-  </data>
-  <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiPOPN2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSVRC7.Text" xml:space="preserve">
-    <value>VRC7</value>
-  </data>
-  <data name="&gt;&gt;tsmiVST.Name" xml:space="preserve">
-    <value>tsmiVST</value>
-  </data>
-  <data name="&gt;&gt;sencondryToolStripMenuItem.Name" xml:space="preserve">
-    <value>sencondryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;tsmiSAY8910.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOKIM6295.Name" xml:space="preserve">
-    <value>tsmiSOKIM6295</value>
-  </data>
-  <data name="tsmiPOPNB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiSOPN.Text" xml:space="preserve">
-    <value>OPN</value>
-  </data>
-  <data name="&gt;&gt;tsmiSC352.Name" xml:space="preserve">
-    <value>tsmiSC352</value>
-  </data>
-  <data name="tsmiPOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiExit.Name" xml:space="preserve">
-    <value>tsmiExit</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPL4.Name" xml:space="preserve">
-    <value>tsmiPOPL4</value>
-  </data>
-  <data name="tsmiFadeOut.Text" xml:space="preserve">
-    <value>Fade out</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 22</value>
-  </data>
-  <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
-    <value>cmsMenu</value>
-  </data>
-  <data name="tsmiSK051649.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSNESDMC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPOPNB.Text" xml:space="preserve">
-    <value>OPNB</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPN.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiSC140.Text" xml:space="preserve">
-    <value>C140</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>frmMain</value>
-  </data>
-  <data name="tsmiPlayMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="tsmiSPWM.Text" xml:space="preserve">
-    <value>PWM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPC352.Name" xml:space="preserve">
-    <value>tsmiPC352</value>
-  </data>
-  <data name="&gt;&gt;tsmiSY8950.Name" xml:space="preserve">
-    <value>tsmiSY8950</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPLL.Name" xml:space="preserve">
-    <value>tsmiSOPLL</value>
-  </data>
-  <data name="tsmiKBrd.Text" xml:space="preserve">
-    <value>Various keyboards</value>
-  </data>
-  <data name="tsmiSOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPN2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSFDS.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPY8950.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiPOPL2.Name" xml:space="preserve">
     <value>tsmiPOPL2</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPNA.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPOPL2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;primaryToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiPSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPRF5C164.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPNESDMC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPNB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMIDI.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiFadeOut.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPC140.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPK051649.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiFf.Text" xml:space="preserve">
-    <value>x3 speed</value>
+  <data name="&gt;&gt;tsmiPOPL3.Name" xml:space="preserve">
+    <value>tsmiPOPL3</value>
   </data>
   <data name="&gt;&gt;tsmiPOPL3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPLL.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPOPL4.Name" xml:space="preserve">
+    <value>tsmiPOPL4</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPL4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiSOPL2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;tsmiPOPM.Name" xml:space="preserve">
+    <value>tsmiPOPM</value>
   </data>
-  <data name="tsmiPK051649.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;tsmiPOPM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiPause.Name" xml:space="preserve">
-    <value>tsmiPause</value>
+  <data name="&gt;&gt;tsmiPOPN.Name" xml:space="preserve">
+    <value>tsmiPOPN</value>
   </data>
-  <data name="&gt;&gt;tsmiPOKIM6258.Name" xml:space="preserve">
-    <value>tsmiPOKIM6258</value>
+  <data name="&gt;&gt;tsmiPOPN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPL.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPOPN2.Name" xml:space="preserve">
+    <value>tsmiPOPN2</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPN2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPNA.Name" xml:space="preserve">
+    <value>tsmiPOPNA</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPNA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPNB.Name" xml:space="preserve">
+    <value>tsmiPOPNB</value>
+  </data>
+  <data name="&gt;&gt;tsmiPOPNB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPPWM.Name" xml:space="preserve">
+    <value>tsmiPPWM</value>
+  </data>
+  <data name="&gt;&gt;tsmiPPWM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPRF5C164.Name" xml:space="preserve">
+    <value>tsmiPRF5C164</value>
+  </data>
+  <data name="&gt;&gt;tsmiPRF5C164.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPSegaPCM.Name" xml:space="preserve">
+    <value>tsmiPSegaPCM</value>
+  </data>
+  <data name="&gt;&gt;tsmiPSegaPCM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPVRC7.Name" xml:space="preserve">
+    <value>tsmiPVRC7</value>
+  </data>
+  <data name="&gt;&gt;tsmiPVRC7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPQSound.Name" xml:space="preserve">
+    <value>tsmiPQSound</value>
+  </data>
+  <data name="&gt;&gt;tsmiPQSound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sencondryToolStripMenuItem.Name" xml:space="preserve">
+    <value>sencondryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sencondryToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSAY8910.Name" xml:space="preserve">
+    <value>tsmiSAY8910</value>
+  </data>
+  <data name="&gt;&gt;tsmiSAY8910.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSC140.Name" xml:space="preserve">
+    <value>tsmiSC140</value>
+  </data>
+  <data name="&gt;&gt;tsmiSC140.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSC352.Name" xml:space="preserve">
+    <value>tsmiSC352</value>
+  </data>
+  <data name="&gt;&gt;tsmiSC352.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiSDCSG.Name" xml:space="preserve">
     <value>tsmiSDCSG</value>
   </data>
-  <data name="&gt;&gt;tsmiSVRC7.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSDCSG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Primary</value>
+  <data name="&gt;&gt;tsmiSFDS.Name" xml:space="preserve">
+    <value>tsmiSFDS</value>
   </data>
-  <data name="&gt;&gt;tsmiOption.Name" xml:space="preserve">
-    <value>tsmiOption</value>
-  </data>
-  <data name="&gt;&gt;tsmiSC140.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSFDS.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPM.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSHuC6280.Name" xml:space="preserve">
+    <value>tsmiSHuC6280</value>
+  </data>
+  <data name="&gt;&gt;tsmiSHuC6280.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+  <data name="&gt;&gt;tsmiSK051649.Name" xml:space="preserve">
+    <value>tsmiSK051649</value>
   </data>
-  <data name="&gt;&gt;tsmiNext.Name" xml:space="preserve">
-    <value>tsmiNext</value>
-  </data>
-  <data name="&gt;&gt;tsmiSC140.Name" xml:space="preserve">
-    <value>tsmiSC140</value>
-  </data>
-  <data name="&gt;&gt;tsmiSRF5C164.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSK051649.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 22</value>
+  <data name="&gt;&gt;tsmiSMIDI.Name" xml:space="preserve">
+    <value>tsmiSMIDI</value>
   </data>
-  <data name="&gt;&gt;tsmiPAY8910.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSMIDI.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiOpenInfo.Name" xml:space="preserve">
-    <value>tsmiOpenInfo</value>
+  <data name="&gt;&gt;tsmiSMMC5.Name" xml:space="preserve">
+    <value>tsmiSMMC5</value>
   </data>
-  <data name="&gt;&gt;tsmiSlow.Name" xml:space="preserve">
-    <value>tsmiSlow</value>
-  </data>
-  <data name="&gt;&gt;tsmiSSegaPCM.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSMMC5.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiPOPL4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tsmiNext.Text" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPL3.Name" xml:space="preserve">
-    <value>tsmiSOPL3</value>
-  </data>
-  <data name="tsmiSC352.Text" xml:space="preserve">
-    <value>C352</value>
-  </data>
-  <data name="tsmiSFDS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
   </data>
   <data name="&gt;&gt;tsmiSNESDMC.Name" xml:space="preserve">
     <value>tsmiSNESDMC</value>
   </data>
-  <data name="&gt;&gt;tsmiFadeOut.Name" xml:space="preserve">
-    <value>tsmiFadeOut</value>
-  </data>
-  <data name="&gt;&gt;tsmiPause.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSNESDMC.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+  <data name="&gt;&gt;tsmiSOKIM6258.Name" xml:space="preserve">
+    <value>tsmiSOKIM6258</value>
   </data>
-  <data name="&gt;&gt;tsmiPC352.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSOKIM6258.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiPFDS.Text" xml:space="preserve">
-    <value>FDS</value>
+  <data name="&gt;&gt;tsmiSOKIM6295.Name" xml:space="preserve">
+    <value>tsmiSOKIM6295</value>
   </data>
-  <data name="&gt;&gt;tsmiExit.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSOKIM6295.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPLL.Name" xml:space="preserve">
+    <value>tsmiSOPLL</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPLL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL.Name" xml:space="preserve">
+    <value>tsmiSOPL</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSY8950.Name" xml:space="preserve">
+    <value>tsmiSY8950</value>
+  </data>
+  <data name="&gt;&gt;tsmiSY8950.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL2.Name" xml:space="preserve">
+    <value>tsmiSOPL2</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL3.Name" xml:space="preserve">
+    <value>tsmiSOPL3</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL4.Name" xml:space="preserve">
+    <value>tsmiSOPL4</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPL4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPM.Name" xml:space="preserve">
+    <value>tsmiSOPM</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPN.Name" xml:space="preserve">
+    <value>tsmiSOPN</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPN.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiSOPN2.Name" xml:space="preserve">
     <value>tsmiSOPN2</value>
   </data>
-  <data name="&gt;&gt;pbScreen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tsmiSOPN2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pbScreen.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;tsmiSOPNA.Name" xml:space="preserve">
+    <value>tsmiSOPNA</value>
   </data>
-  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Operation</value>
+  <data name="&gt;&gt;tsmiSOPNA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiPlay.Text" xml:space="preserve">
-    <value>Play</value>
-  </data>
-  <data name="tsmiSOPLL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPNESDMC.Text" xml:space="preserve">
-    <value>NES&amp;&amp;DMC</value>
-  </data>
-  <data name="tsmiOpenInfo.Text" xml:space="preserve">
-    <value>Music Information</value>
-  </data>
-  <data name="&gt;&gt;tsmiSSegaPCM.Name" xml:space="preserve">
-    <value>tsmiSSegaPCM</value>
-  </data>
-  <data name="&gt;&gt;keyboardHook1.Name" xml:space="preserve">
-    <value>keyboardHook1</value>
+  <data name="&gt;&gt;tsmiSOPNB.Name" xml:space="preserve">
+    <value>tsmiSOPNB</value>
   </data>
   <data name="&gt;&gt;tsmiSOPNB.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+  <data name="&gt;&gt;tsmiSPWM.Name" xml:space="preserve">
+    <value>tsmiSPWM</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPM.Name" xml:space="preserve">
-    <value>tsmiPOPM</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>318, 40</value>
-  </data>
-  <data name="tsmiSK051649.Text" xml:space="preserve">
-    <value>K051649</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>MDPlayer</value>
-  </data>
-  <data name="tsmiPOPL4.Text" xml:space="preserve">
-    <value>OPL4</value>
-  </data>
-  <data name="tsmiPPWM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>336, 261</value>
-  </data>
-  <data name="&gt;&gt;cmsOpenOtherPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmsMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sencondryToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSPWM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPM.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSRF5C164.Name" xml:space="preserve">
+    <value>tsmiSRF5C164</value>
+  </data>
+  <data name="&gt;&gt;tsmiSRF5C164.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiSOPL3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;tsmiSSegaPCM.Name" xml:space="preserve">
+    <value>tsmiSSegaPCM</value>
   </data>
-  <data name="tsmiSHuC6280.Text" xml:space="preserve">
-    <value>HuC6280</value>
+  <data name="&gt;&gt;tsmiSSegaPCM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiPMIDI.Name" xml:space="preserve">
-    <value>tsmiPMIDI</value>
+  <data name="&gt;&gt;tsmiSVRC7.Name" xml:space="preserve">
+    <value>tsmiSVRC7</value>
   </data>
-  <data name="tsmiPOPLL.Text" xml:space="preserve">
-    <value>OPLL</value>
+  <data name="&gt;&gt;tsmiSVRC7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSK051649.Name" xml:space="preserve">
-    <value>tsmiSK051649</value>
+  <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
+    <value>ファイルToolStripMenuItem</value>
   </data>
-  <data name="tsmiPOPL3.Text" xml:space="preserve">
-    <value>OPL3</value>
+  <data name="&gt;&gt;ファイルToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPNB.Name" xml:space="preserve">
-    <value>tsmiPOPNB</value>
+  <data name="&gt;&gt;tsmiOpenFile.Name" xml:space="preserve">
+    <value>tsmiOpenFile</value>
   </data>
-  <data name="&gt;&gt;tsmiPOPN2.Name" xml:space="preserve">
-    <value>tsmiPOPN2</value>
+  <data name="&gt;&gt;tsmiOpenFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiPSegaPCM.Text" xml:space="preserve">
-    <value>SEGA PCM</value>
+  <data name="&gt;&gt;tsmiExit.Name" xml:space="preserve">
+    <value>tsmiExit</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPL4.Name" xml:space="preserve">
-    <value>tsmiSOPL4</value>
+  <data name="&gt;&gt;tsmiExit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;操作ToolStripMenuItem.Name" xml:space="preserve">
+    <value>操作ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;操作ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPlay.Name" xml:space="preserve">
+    <value>tsmiPlay</value>
+  </data>
+  <data name="&gt;&gt;tsmiPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiStop.Name" xml:space="preserve">
+    <value>tsmiStop</value>
+  </data>
+  <data name="&gt;&gt;tsmiStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPause.Name" xml:space="preserve">
+    <value>tsmiPause</value>
+  </data>
+  <data name="&gt;&gt;tsmiPause.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiFadeOut.Name" xml:space="preserve">
+    <value>tsmiFadeOut</value>
+  </data>
+  <data name="&gt;&gt;tsmiFadeOut.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSlow.Name" xml:space="preserve">
+    <value>tsmiSlow</value>
+  </data>
+  <data name="&gt;&gt;tsmiSlow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiFf.Name" xml:space="preserve">
+    <value>tsmiFf</value>
   </data>
   <data name="&gt;&gt;tsmiFf.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pbScreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>318, 40</value>
+  <data name="&gt;&gt;tsmiNext.Name" xml:space="preserve">
+    <value>tsmiNext</value>
   </data>
-  <data name="tsmiPC140.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;tsmiNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiPOPN.Text" xml:space="preserve">
-    <value>OPN</value>
+  <data name="&gt;&gt;tsmiPlayMode.Name" xml:space="preserve">
+    <value>tsmiPlayMode</value>
   </data>
-  <data name="&gt;&gt;tsmiSOKIM6295.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPlayMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiOption.Name" xml:space="preserve">
+    <value>tsmiOption</value>
+  </data>
+  <data name="&gt;&gt;tsmiOption.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiPlayList.Name" xml:space="preserve">
     <value>tsmiPlayList</value>
   </data>
+  <data name="&gt;&gt;tsmiPlayList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiOpenInfo.Name" xml:space="preserve">
+    <value>tsmiOpenInfo</value>
+  </data>
+  <data name="&gt;&gt;tsmiOpenInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiOpenMixer.Name" xml:space="preserve">
+    <value>tsmiOpenMixer</value>
+  </data>
+  <data name="&gt;&gt;tsmiOpenMixer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;その他ウィンドウ表示ToolStripMenuItem.Name" xml:space="preserve">
+    <value>その他ウィンドウ表示ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;その他ウィンドウ表示ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiKBrd.Name" xml:space="preserve">
+    <value>tsmiKBrd</value>
+  </data>
+  <data name="&gt;&gt;tsmiKBrd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiVST.Name" xml:space="preserve">
+    <value>tsmiVST</value>
+  </data>
+  <data name="&gt;&gt;tsmiVST.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiMIDIkbd.Name" xml:space="preserve">
     <value>tsmiMIDIkbd</value>
   </data>
-  <data name="tsmiPOPL2.Text" xml:space="preserve">
-    <value>OPL2</value>
-  </data>
-  <data name="&gt;&gt;pbScreen.Name" xml:space="preserve">
-    <value>pbScreen</value>
-  </data>
-  <data name="tsmiSRF5C164.Text" xml:space="preserve">
-    <value>RF5C164</value>
-  </data>
-  <data name="tsmiNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="tsmiPK051649.Text" xml:space="preserve">
-    <value>K051649</value>
-  </data>
-  <data name="&gt;&gt;tsmiSHuC6280.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiMIDIkbd.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;primaryToolStripMenuItem.Name" xml:space="preserve">
-    <value>primaryToolStripMenuItem</value>
+  <data name="&gt;&gt;tsmiChangeZoom.Name" xml:space="preserve">
+    <value>tsmiChangeZoom</value>
   </data>
-  <data name="tsmiSOPN2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
-  </data>
-  <data name="tsmiPause.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="&gt;&gt;tsmiSDCSG.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiChangeZoom.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiOpenMixer.Text" xml:space="preserve">
-    <value>Mixer</value>
+  <data name="&gt;&gt;レジスタダンプ表示ToolStripMenuItem.Name" xml:space="preserve">
+    <value>レジスタダンプ表示ToolStripMenuItem</value>
   </data>
-  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+  <data name="&gt;&gt;レジスタダンプ表示ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSOPNA.Name" xml:space="preserve">
-    <value>tsmiSOPNA</value>
+  <data name="&gt;&gt;keyboardHook1.Name" xml:space="preserve">
+    <value>keyboardHook1</value>
   </data>
-  <data name="tsmiSOPNA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 22</value>
+  <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
+    <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <metadata name="keyboardHook1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>336, 17</value>
-  </metadata>
-  <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>206, 21</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cmsOpenOtherPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>frmMain</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -744,6 +744,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeQSound {
+            get {
+                object obj = ResourceManager.GetObject("planeQSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeSEGAPCM {
             get {
                 object obj = ResourceManager.GetObject("planeSEGAPCM", resourceCulture);

@@ -1442,10 +1442,19 @@ namespace MDPlayer
                 mds.WriteQSoundCtr((byte)chipID, 0, mm);
                 mds.WriteQSoundCtr((byte)chipID, 1, ll);
                 mds.WriteQSoundCtr((byte)chipID, 2, rr);
+
+                QSoundRegister[chipID][rr] = (ushort)(mm * 0x100 + ll);
             }
             else
             {
             }
+        }
+
+        private ushort[][] QSoundRegister = new ushort[2][] { new ushort[256], new ushort[256] };
+
+        public ushort[] getQSoundRegister(int chipID)
+        {
+            return QSoundRegister[chipID];
         }
 
         public void setGA20Register(int chipID, Int32 Adr, byte Dat, EnmModel model)

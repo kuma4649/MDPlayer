@@ -364,6 +364,12 @@
     <Compile Include="form\frmPlayList.Designer.cs">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmQSound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmQSound.Designer.cs">
+      <DependentUpon>frmQSound.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmRegTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -581,6 +587,9 @@
     <EmbeddedResource Include="form\frmPlayList.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmQSound.resx">
+      <DependentUpon>frmQSound.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmRegTest.resx">
       <DependentUpon>frmRegTest.cs</DependentUpon>
     </EmbeddedResource>
@@ -740,6 +749,7 @@
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
     <Content Include="Resources\planeNESDMC.png" />
+    <Content Include="Resources\planeQSound.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
     <Content Include="Resources\planeVRC7.png" />

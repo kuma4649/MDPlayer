@@ -5997,7 +5997,15 @@ namespace MDPlayer
                 int cnt = 0;
 
                 if (Stopped || Paused)
+                {
+                    if (setting.other.NonRenderingForPause)
+                    {
+                        for (int d = offset; d < offset + sampleCount; d++) buffer[d] = 0;
+                        return sampleCount;
+                    }
+
                     return mds.Update(buffer, offset, sampleCount, null);
+                }
 
                 if (driverVirtual is nsf)
                 {
@@ -6478,6 +6486,11 @@ namespace MDPlayer
         public static ushort[] GetC352KeyOn(int chipID)
         {
             return chipRegister.readC352((byte)chipID);
+        }
+
+        public static ushort[] GetQSoundRegister(int chipID)
+        {
+            return chipRegister.getQSoundRegister(chipID);
         }
 
         public static byte[] GetSEGAPCMRegister(int chipID)

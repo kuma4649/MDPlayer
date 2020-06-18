@@ -1478,6 +1478,7 @@ namespace MDPlayer
             private bool _EmptyPlayList = false;
             public bool EmptyPlayList { get => _EmptyPlayList; set => _EmptyPlayList = value; }
             public bool ExAll { get; set; } = false;
+            public bool NonRenderingForPause { get; set; } = false;
 
             public Other Copy()
             {
@@ -1501,6 +1502,7 @@ namespace MDPlayer
                 other.InitAlways = this.InitAlways;
                 other.EmptyPlayList = this.EmptyPlayList;
                 other.ExAll = this.ExAll;
+                other.NonRenderingForPause = this.NonRenderingForPause;
 
                 return other;
             }
@@ -2670,6 +2672,20 @@ namespace MDPlayer
                 }
             }
 
+            private bool[] _OpenQSound = new bool[2] { false, false };
+            public bool[] OpenQSound
+            {
+                get
+                {
+                    return _OpenQSound;
+                }
+
+                set
+                {
+                    _OpenQSound = value;
+                }
+            }
+
             private Point[] _PosYm2151 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosYm2151
             {
@@ -3398,7 +3414,19 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosQSound = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosQSound
+            {
+                get
+                {
+                    return _PosQSound;
+                }
 
+                set
+                {
+                    _PosQSound = value;
+                }
+            }
 
             public Location Copy()
             {
@@ -3421,6 +3449,8 @@ namespace MDPlayer
                 Location.OpenC140 = this.OpenC140;
                 Location.PosC352 = this.PosC352;
                 Location.OpenC352 = this.OpenC352;
+                Location.PosQSound = this.PosQSound;
+                Location.OpenQSound = this.OpenQSound;
                 Location.PosYm2151 = this.PosYm2151;
                 Location.OpenYm2151 = this.OpenYm2151;
                 Location.PosYm2608 = this.PosYm2608;

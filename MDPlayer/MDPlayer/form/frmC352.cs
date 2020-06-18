@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MDPlayer.form
@@ -158,7 +152,7 @@ namespace MDPlayer.form
                     0x10000 //1sample進むのに必要なカウント数
                     * 8000.0
                     * Tables.pcmMulTbl[i % 12 + 12]
-                    * Math.Pow(2, (i / 12 - 3+2))
+                    * Math.Pow(2, (i / 12 - 3 + 2))
                     / clock
                     );
 
@@ -199,7 +193,7 @@ namespace MDPlayer.form
                     if ((c352key[ch] & 0x8000) == 0)
                     {
                         newParam.channels[ch].note = -1;
-                        
+
                         c352Register[ch * 8 + 3] = (ushort)(c352Register[ch * 8 + 3] & 0xbfff);
                         if (newParam.channels[ch].volumeL > 0) newParam.channels[ch].volumeL--;
                         if (newParam.channels[ch].volumeR > 0) newParam.channels[ch].volumeR--;
@@ -244,13 +238,13 @@ namespace MDPlayer.form
                 oyc = oldParam.channels[ch];
                 nyc = newParam.channels[ch];
 
-                DrawBuff.VolumeXY(frameBuffer, 105, ch * 2 + 2, 1, ref oyc.volumeL , nyc.volumeL , 0);//Front
-                DrawBuff.VolumeXY(frameBuffer, 105, ch * 2 + 3, 1, ref oyc.volumeR , nyc.volumeR , 0);//Front
+                DrawBuff.VolumeXY(frameBuffer, 105, ch * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, 0);//Front
+                DrawBuff.VolumeXY(frameBuffer, 105, ch * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, 0);//Front
                 DrawBuff.VolumeXY(frameBuffer, 115, ch * 2 + 2, 1, ref oyc.volumeRL, nyc.volumeRL, 0);//Rear
                 DrawBuff.VolumeXY(frameBuffer, 115, ch * 2 + 3, 1, ref oyc.volumeRR, nyc.volumeRR, 0);//Rear
                 for (int b = 0; b < 16; b++)
                 {
-                    DrawBuff.drawNESSw(frameBuffer, 64 * 4 + b * 4, ch * 8+8
+                    DrawBuff.drawNESSw(frameBuffer, 64 * 4 + b * 4, ch * 8 + 8
                         , ref oldParam.channels[ch].bit[b], newParam.channels[ch].bit[b]);
                 }
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 81, ch * 8 + 8, 0, ref oyc.freq, nyc.freq);
@@ -258,7 +252,7 @@ namespace MDPlayer.form
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 91, ch * 8 + 8, 0, ref oyc.sadr, nyc.sadr);
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 96, ch * 8 + 8, 0, ref oyc.eadr, nyc.eadr);
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 101, ch * 8 + 8, 0, ref oyc.ladr, nyc.ladr);
-                DrawBuff.KeyBoardToC352(frameBuffer, ch , ref oyc.note, nyc.note, 0);
+                DrawBuff.KeyBoardToC352(frameBuffer, ch, ref oyc.note, nyc.note, 0);
                 DrawBuff.PanType2(frameBuffer, ch, ref oyc.pan, nyc.pan, 0);
                 DrawBuff.ChC352(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
             }

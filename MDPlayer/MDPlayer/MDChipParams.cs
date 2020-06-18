@@ -131,6 +131,19 @@ namespace MDPlayer
         }
         public C352[] c352 = new C352[] { new C352(), new C352() };
 
+        public class QSound
+        {
+            public Channel[] channels = new Channel[19] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+
+                new Channel(), new Channel(), new Channel()
+            };
+        }
+        public QSound[] qSound = new QSound[] { new QSound(), new QSound() };
+
         public class OKIM6258
         {
             public int pan = -1;

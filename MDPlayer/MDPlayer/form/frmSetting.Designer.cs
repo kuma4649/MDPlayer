@@ -414,6 +414,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -4138,6 +4139,7 @@
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.cbNonRenderingForPause);
             this.tpOther.Controls.Add(this.cbWavSwitch);
             this.tpOther.Controls.Add(this.groupBox17);
             this.tpOther.Controls.Add(this.cbUseGetInst);
@@ -4689,6 +4691,16 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
+            // cbNonRenderingForPause
+            // 
+            this.cbNonRenderingForPause.AutoSize = true;
+            this.cbNonRenderingForPause.Location = new System.Drawing.Point(240, 131);
+            this.cbNonRenderingForPause.Name = "cbNonRenderingForPause";
+            this.cbNonRenderingForPause.Size = new System.Drawing.Size(156, 16);
+            this.cbNonRenderingForPause.TabIndex = 24;
+            this.cbNonRenderingForPause.Text = "ポーズ時にレンダリングしない";
+            this.cbNonRenderingForPause.UseVisualStyleBackColor = true;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -5230,5 +5242,6 @@
         private System.Windows.Forms.CheckBox cbEmptyPlayList;
         private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
         private System.Windows.Forms.CheckBox cbExALL;
+        private System.Windows.Forms.CheckBox cbNonRenderingForPause;
     }
 }

@@ -728,6 +728,7 @@ namespace MDPlayer.form
             btNextClr.Enabled = (lblNextKey.Text != "(None)" && !string.IsNullOrEmpty(lblNextKey.Text));
 
             cbExALL.Checked = setting.other.ExAll;
+            cbNonRenderingForPause.Checked = setting.other.NonRenderingForPause;
         }
 
         private void SetSCCICombo(EnmRealChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
@@ -1442,6 +1443,7 @@ namespace MDPlayer.form
             setting.other.InitAlways = cbInitAlways.Checked;
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
             setting.other.ExAll = cbExALL.Checked;
+            setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
 
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
 
