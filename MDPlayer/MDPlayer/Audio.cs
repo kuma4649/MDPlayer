@@ -1503,6 +1503,7 @@ namespace MDPlayer
             SongNo = songNo;
             chipRegister.SetFileName(playingFileName);//ExportMIDI向け
             ExtendFile = extFile;//追加ファイル
+            Common.playingFilePath = Path.GetDirectoryName(playingFileName);
         }
 
         public static void getPlayingFileName(out string playingFileName, out string playingArcFileName)
@@ -1797,8 +1798,8 @@ namespace MDPlayer
                 chip.SamplingRate = (UInt32)Common.SampleRate;
                 chip.Volume = setting.balance.YM2608Volume;
                 chip.Clock = Driver.MucomDotNET.baseclock;
-                chip.Option = new object[] { Common.GetApplicationFolder() };
-                //hiyorimiDeviceFlag |= 0x2;
+                Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+                chip.Option = new object[] { fn };
                 lstChips.Add(chip);
                 useChip.Add(EnmChip.YM2608);
                 clockYM2608 = Driver.MucomDotNET.baseclock;
@@ -2452,7 +2453,8 @@ namespace MDPlayer
                     chip.SamplingRate = (UInt32)Common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 8000000;// 7987200;
-                    chip.Option = new object[] { Common.GetApplicationFolder() };
+                    Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+                    chip.Option = new object[] { fn };
                     lstChips.Add(chip);
                     clockYM2608 = 8000000;
                 }
@@ -3045,8 +3047,8 @@ namespace MDPlayer
                             chip.Volume = setting.balance.YM2608Volume;
                             chip.Clock = dInfo.Clock;
                             YM2608ClockValue = (int)chip.Clock;
-                            chip.Option = new object[] { Common.GetApplicationFolder() };
-                            //hiyorimiDeviceFlag |= 0x2;
+                            Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+                            chip.Option = new object[] { fn };
                             lstChips.Add(chip);
                             useChip.Add(chip.ID == 0 ? EnmChip.YM2608 : EnmChip.S_YM2608);
 
@@ -4289,7 +4291,8 @@ namespace MDPlayer
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.YM2608Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2608ClockValue;
-                        chip.Option = new object[] { Common.GetApplicationFolder() };
+                        Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+                        chip.Option = new object[] { fn };
                         hiyorimiDeviceFlag |= 0x2;
                         clockYM2608 = (int)((vgm)driverVirtual).YM2608ClockValue;
 

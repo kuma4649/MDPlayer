@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,6 +20,7 @@ namespace MDPlayer
         public static Int32 SampleRate = 44100;
         public static Int32 NsfClock = 1789773;
         public static string settingFilePath = "";
+        public static string playingFilePath = "";
 
         public static UInt32 getBE16(byte[] buf, UInt32 adr)
         {
@@ -149,7 +151,7 @@ namespace MDPlayer
                                 string m = Encoding.Unicode.GetString(bLyric, st, i - st + ((i >= bLyric.Length - 2) ? 2 : 0));
                                 st = i;
 
-                                int cnt = int.Parse(m.Substring(1, m.IndexOf("]")-1));
+                                int cnt = int.Parse(m.Substring(1, m.IndexOf("]") - 1));
                                 m = m.Substring(m.IndexOf("]") + 1);
                                 GD3.Lyrics.Add(new Tuple<int, int, string>(cnt, cnt, m));
                             }
@@ -253,7 +255,7 @@ namespace MDPlayer
         public static int getDelta(ref uint trkPtr, byte[] bs)
         {
             int delta = 0;
-            while(true)
+            while (true)
             {
                 delta = (delta << 7) + (bs[trkPtr] & 0x7f);
                 if ((bs[trkPtr] & 0x80) == 0)
@@ -381,7 +383,7 @@ namespace MDPlayer
             return n + 1;
         }
 
-        public static int GetYM2151Hosei(float YM2151ClockValue,float baseClock)
+        public static int GetYM2151Hosei(float YM2151ClockValue, float baseClock)
         {
             int ret = 0;
 
@@ -418,6 +420,33 @@ namespace MDPlayer
 
             return fullPath;
         }
+
+        public static Stream GetOPNARyhthmStream(string fn)
+        {
+            string ffn = fn;
+
+            string chk;
+
+            chk = Path.Combine(playingFilePath, fn);
+            if (File.Exists(chk))
+                ffn = chk;
+            else
+            {
+                chk = Path.Combine(GetApplicationFolder(), fn);
+                if (File.Exists(chk)) ffn = chk;
+            }
+
+            try
+            {
+                FileStream fs = new FileStream(ffn, FileMode.Open, FileAccess.Read, FileShare.Read);
+                return fs;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 
     public enum EnmModel

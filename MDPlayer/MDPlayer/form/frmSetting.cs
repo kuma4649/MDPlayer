@@ -2403,6 +2403,12 @@ namespace MDPlayer.form
             }
 
         }
+
+        private void llOpenGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            llOpenGithub.LinkVisited = true;
+            System.Diagnostics.Process.Start("https://github.com/kuma4649/MDPlayer/releases/latest");
+        }
     }
 
 

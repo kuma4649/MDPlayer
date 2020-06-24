@@ -364,6 +364,7 @@
             this.rbAutoBalanceNotLoadDriverBalance = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceLoadDriverBalance = new System.Windows.Forms.RadioButton();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
             this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.tbImageExt = new System.Windows.Forms.TextBox();
@@ -414,7 +415,7 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
+            this.llOpenGithub = new System.Windows.Forms.LinkLabel();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -4169,6 +4170,16 @@
             this.tpOther.Text = "Other";
             this.tpOther.UseVisualStyleBackColor = true;
             // 
+            // cbNonRenderingForPause
+            // 
+            this.cbNonRenderingForPause.AutoSize = true;
+            this.cbNonRenderingForPause.Location = new System.Drawing.Point(240, 131);
+            this.cbNonRenderingForPause.Name = "cbNonRenderingForPause";
+            this.cbNonRenderingForPause.Size = new System.Drawing.Size(156, 16);
+            this.cbNonRenderingForPause.TabIndex = 24;
+            this.cbNonRenderingForPause.Text = "ポーズ時にレンダリングしない";
+            this.cbNonRenderingForPause.UseVisualStyleBackColor = true;
+            // 
             // cbWavSwitch
             // 
             this.cbWavSwitch.AutoSize = true;
@@ -4604,6 +4615,7 @@
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.llOpenGithub, 1, 5);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -4691,15 +4703,18 @@
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "説明";
             // 
-            // cbNonRenderingForPause
+            // llOpenGithub
             // 
-            this.cbNonRenderingForPause.AutoSize = true;
-            this.cbNonRenderingForPause.Location = new System.Drawing.Point(240, 131);
-            this.cbNonRenderingForPause.Name = "cbNonRenderingForPause";
-            this.cbNonRenderingForPause.Size = new System.Drawing.Size(156, 16);
-            this.cbNonRenderingForPause.TabIndex = 24;
-            this.cbNonRenderingForPause.Text = "ポーズ時にレンダリングしない";
-            this.cbNonRenderingForPause.UseVisualStyleBackColor = true;
+            this.llOpenGithub.AutoSize = true;
+            this.llOpenGithub.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.llOpenGithub.Location = new System.Drawing.Point(147, 332);
+            this.llOpenGithub.Name = "llOpenGithub";
+            this.llOpenGithub.Size = new System.Drawing.Size(287, 33);
+            this.llOpenGithub.TabIndex = 24;
+            this.llOpenGithub.TabStop = true;
+            this.llOpenGithub.Text = "Open latest version page of Github.";
+            this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
             // frmSetting
             // 
@@ -5243,5 +5258,6 @@
         private System.Windows.Forms.CheckBox cbMIDIKeyOnFnum;
         private System.Windows.Forms.CheckBox cbExALL;
         private System.Windows.Forms.CheckBox cbNonRenderingForPause;
+        private System.Windows.Forms.LinkLabel llOpenGithub;
     }
 }
