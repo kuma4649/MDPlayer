@@ -1033,5 +1033,19 @@ namespace MDPlayer.form
             if (playIndex < 0 || dgvList.Rows.Count <= playIndex) return null;
             return (PlayList.music)dgvList.Rows[playIndex].Tag;
         }
+
+        private void tsmiOpenFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string path = (string)dgvList.SelectedRows[0].Cells["clmFileName"].Value;
+                path = Path.GetDirectoryName(path);
+                System.Diagnostics.Process.Start(path);
+            }
+            catch
+            {
+                ;
+            }
+        }
     }
 }
