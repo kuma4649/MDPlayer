@@ -4245,7 +4245,9 @@ namespace MDPlayer
             }
 
             if (model == EnmModel.VirtualModel)
+            {
                 mds.WriteOKIM6258(ChipID, Port, Data);
+            }
         }
 
         public void writeOKIM6295(byte ChipID, byte Port, byte Data, EnmModel model)

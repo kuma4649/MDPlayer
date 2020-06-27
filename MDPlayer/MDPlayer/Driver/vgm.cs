@@ -207,6 +207,8 @@ namespace MDPlayer
                 return;
             }
 
+            oneFrameVGMStream();
+
             if (!vgmAnalyze)
             {
                 //if (model == enmModel.VirtualModel)

@@ -155,11 +155,14 @@ namespace MDPlayer
         private uint muldiv64round(uint Multiplicand, uint Multiplier, uint Divisor)
         {
             // Yes, I'm correctly rounding the values.
-            return (uint)(((ulong)Multiplicand * Multiplier + Multiplier / 2) / Divisor);
+            return (uint)(((ulong)Multiplicand * Multiplier + Divisor / 2) / Divisor);
         }
 
         public void update(byte ChipID, uint samples)
         {
+#if DEBUG
+            if (model != EnmModel.VirtualModel) return;
+#endif
             dac_control chip = DACData[ChipID];
             uint NewPos;
             int RealDataStp;
@@ -191,7 +194,7 @@ namespace MDPlayer
             chip.Step += samples;
             // Formula: Step * Freq / SampleRate
             NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)Common.SampleRate);// DAC_SMPL_RATE);
-            //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)common.SampleRate);
+            //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)Common.SampleRate);
             sendCommand(chip);
 
             while (chip.RemainCmds > 0 && chip.Pos < NewPos)
