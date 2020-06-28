@@ -438,6 +438,7 @@ namespace MDPlayer
 
             try
             {
+                if (!File.Exists(ffn)) return null;
                 FileStream fs = new FileStream(ffn, FileMode.Open, FileAccess.Read, FileShare.Read);
                 return fs;
             }

@@ -230,6 +230,8 @@ namespace MDPlayer.Driver
 
         private void chipWaitSend(long elapsed, int size)
         {
+            if (model == EnmModel.VirtualModel) return;
+
             //サイズと経過時間から、追加でウエイトする。
             int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
             Thread.Sleep(m);
