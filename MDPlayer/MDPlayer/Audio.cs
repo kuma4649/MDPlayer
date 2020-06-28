@@ -1544,7 +1544,7 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
                 ((Driver.MucomDotNET)driverVirtual).PlayingFileName = PlayingFileName;
                 driverReal = null;
-                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                if (setting.outputDevice.DeviceType != Common.DEV_Null && !setting.YM2608Type.UseEmu)
                 {
                     driverReal = new Driver.MucomDotNET(mucomDotNETim);
                     driverReal.setting = setting;
@@ -1559,7 +1559,7 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
                 ((Driver.MucomDotNET)driverVirtual).PlayingFileName = PlayingFileName;
                 driverReal = null;
-                if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                if (setting.outputDevice.DeviceType != Common.DEV_Null && !setting.YM2608Type.UseEmu)
                 {
                     driverReal = new Driver.MucomDotNET(mucomDotNETim);
                     driverReal.setting = setting;
@@ -5676,9 +5676,16 @@ namespace MDPlayer
 
         private static void trdVgmRealFunction()
         {
+
+            if (driverReal == null)
+            {
+                trdClosed = true;
+                trdStopped = true;
+                return;
+            }
+
             double o = sw.ElapsedTicks / swFreq;
             double step = 1 / (double)Common.SampleRate;
-
             trdStopped = false;
             try
             {
