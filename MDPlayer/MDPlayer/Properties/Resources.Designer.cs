@@ -222,6 +222,31 @@ namespace MDPlayer.Properties {
         }
         
         /// <summary>
+        ///   VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|
+        ///NRDファイル(*.nrd)|*.nrd|
+        ///XGMファイル(*.xgm)|*.xgm|
+        ///ZGMファイル(*.zgm)|*.zgm|
+        ///S98ファイル(*.s98)|*.s98|
+        ///NSFファイル(*.nsf)|*.nsf|
+        ///HESファイル(*.hes)|*.hes|
+        ///SIDファイル(*.sid)|*.sid|
+        ///MNDファイル(*.mnd)|*.mnd|
+        ///MDRファイル(*.mdr)|*.mdr|
+        ///MDXファイル(*.mdx)|*.mdx|
+        ///MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
+        ///StandardMIDIファイル(*.mid)|*.mid|
+        ///RCPファイル(*.rcp)|*.rcp|
+        ///M3Uファイル(*.m3u)|*.m3u|
+        ///アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
+        ///すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*. [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string cntSupportFile {
+            get {
+                return ResourceManager.GetString("cntSupportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   yyyy/MM/dd HH:mm:ss     に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntTimeFormat {

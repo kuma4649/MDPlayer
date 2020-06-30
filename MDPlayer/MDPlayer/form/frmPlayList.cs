@@ -687,25 +687,7 @@ namespace MDPlayer.form
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|"
-                + "NRDファイル(*.nrd)|*.nrd|"
-                + "XGMファイル(*.xgm)|*.xgm|"
-                + "ZGMファイル(*.zgm)|*.zgm|"
-                + "S98ファイル(*.s98)|*.s98|"
-                + "NSFファイル(*.nsf)|*.nsf|"
-                + "HESファイル(*.hes)|*.hes|"
-                + "SIDファイル(*.sid)|*.sid|"
-                + "MNDファイル(*.mnd)|*.mnd|"
-                + "MDRファイル(*.mdr)|*.mdr|"
-                + "MDXファイル(*.mdx)|*.mdx|"
-                + "MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|"
-                + "StandardMIDIファイル(*.mid)|*.mid|"
-                + "RCPファイル(*.rcp)|*.rcp|"
-                + "M3Uファイル(*.m3u)|*.m3u|"
-                + "アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|"
-                + "すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u)|"
-                + "*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u|"
-                + "すべてのファイル(*.*)|*.*";
+            ofd.Filter = Properties.Resources.cntSupportFile.Replace("\r\n", "");
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;
 
