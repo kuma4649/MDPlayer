@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MDPlayer.Driver
 {
@@ -230,7 +231,13 @@ namespace MDPlayer.Driver
 
         private void chipWaitSend(long elapsed, int size)
         {
-            if (model == EnmModel.VirtualModel) return;
+            if (model == EnmModel.VirtualModel)
+            {
+                //MessageBox.Show(string.Format("elapsed:{0} size:{1}", elapsed, size));
+                //int n = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+                //Thread.Sleep(n);
+                return;
+            }
 
             //サイズと経過時間から、追加でウエイトする。
             int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)

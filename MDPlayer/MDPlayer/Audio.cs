@@ -2013,18 +2013,21 @@ namespace MDPlayer
                 if (useChip.Contains(EnmChip.S_YM2151))
                     chipRegister.writeYM2151Clock(1, 4000000, EnmModel.RealModel);
 
-                driverVirtual.SetYM2151Hosei(4000000);
-                driverReal.SetYM2151Hosei(4000000);
+                if (driverVirtual != null) driverVirtual.SetYM2151Hosei(4000000);
+                if (driverReal != null) driverReal.SetYM2151Hosei(4000000);
                 //chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
 
-                driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2151, EnmChip.AY8910 }
+                if (driverVirtual != null)
+                {
+                    driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2151, EnmChip.AY8910 }
                     , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
                     , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000));
-                ((NRTDRV)driverVirtual).Call(0);//
+                    ((NRTDRV)driverVirtual).Call(0);//
+                }
 
                 if (driverReal != null)
                 {
@@ -2306,7 +2309,7 @@ namespace MDPlayer
                 //chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
 
                 driverVirtual.SetYM2151Hosei(4000000);
-                driverReal.SetYM2151Hosei(4000000);
+                if(driverReal!=null) driverReal.SetYM2151Hosei(4000000);
                 //chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
@@ -2327,7 +2330,7 @@ namespace MDPlayer
 
                 if (!retV || !retR)
                 {
-                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : driverReal.errMsg;
+                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : (driverReal != null ? driverReal.errMsg : "");
                     return false;
                 }
 
@@ -2554,7 +2557,7 @@ namespace MDPlayer
                     chipRegister.writeYM2151Clock(1, 4000000, EnmModel.RealModel);
 
                 driverVirtual.SetYM2151Hosei(4000000);
-                driverReal.SetYM2151Hosei(4000000);
+                if (driverReal != null) driverReal.SetYM2151Hosei(4000000);
 
                 if (useChip.Contains(EnmChip.YM2203))
                     chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, EnmModel.RealModel);
@@ -2576,7 +2579,7 @@ namespace MDPlayer
 
                 if (!retV || !retR)
                 {
-                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : driverReal.errMsg;
+                    errMsg = driverVirtual.errMsg != "" ? driverVirtual.errMsg : (driverReal != null ? driverReal.errMsg : "");
                     return false;
                 }
 
@@ -3326,7 +3329,7 @@ namespace MDPlayer
                 }
 
                 driverVirtual.SetYM2151Hosei(YM2151ClockValue);
-                driverReal.SetYM2151Hosei(YM2151ClockValue);
+                if (driverReal != null)driverReal.SetYM2151Hosei(YM2151ClockValue);
 
                 if (driverReal == null || ((S98)driverReal).SSGVolumeFromTAG == -1)
                 {
@@ -5088,7 +5091,7 @@ namespace MDPlayer
                 }
 
                 driverVirtual.SetYM2151Hosei(((vgm)driverVirtual).YM2151ClockValue);
-                driverReal.SetYM2151Hosei(((vgm)driverReal).YM2151ClockValue);
+                if (driverReal != null) driverReal.SetYM2151Hosei(((vgm)driverReal).YM2151ClockValue);
 
 
                 //frmMain.ForceChannelMask(EnmChip.YM2612, 0, 0, true);
@@ -5152,21 +5155,21 @@ namespace MDPlayer
         {
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
             driverVirtual.vgmSpeed = vgmSpeed;
-            driverReal.vgmSpeed = vgmSpeed;
+            if (driverReal != null) driverReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Slow()
         {
             vgmSpeed = (vgmSpeed == 1) ? 0.25 : 1;
             driverVirtual.vgmSpeed = vgmSpeed;
-            driverReal.vgmSpeed = vgmSpeed;
+            if (driverReal != null) driverReal.vgmSpeed = vgmSpeed;
         }
 
         public static void ResetSlow()
         {
             vgmSpeed = 1;
             driverVirtual.vgmSpeed = vgmSpeed;
-            driverReal.vgmSpeed = vgmSpeed;
+            if (driverReal != null) driverReal.vgmSpeed = vgmSpeed;
         }
 
         public static void Pause()
@@ -5633,7 +5636,9 @@ namespace MDPlayer
             if (e.Exception != null)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    string.Format("デバイスが何らかの原因で停止しました。\r\nメッセージ:\r\n{0}", e.Exception.Message)
+                    string.Format("デバイスが何らかの原因で停止しました。\r\nメッセージ:\r\n{0}\r\nスタックトレース:\r\n{1}"
+                    , e.Exception.Message
+                    , e.Exception.StackTrace)
                     , "エラー"
                     , System.Windows.Forms.MessageBoxButtons.OK
                     , System.Windows.Forms.MessageBoxIcon.Error);
@@ -6042,7 +6047,7 @@ namespace MDPlayer
                 }
                 else
                 {
-                    if (hiyorimiNecessary && driverReal.isDataBlock)
+                    if (hiyorimiNecessary && driverReal!=null && driverReal.isDataBlock)
                         return mds.Update(buffer, offset, sampleCount, null);
 
                     if (StepCounter > 0)
