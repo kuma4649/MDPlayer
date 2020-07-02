@@ -57,10 +57,10 @@
             this.tsmiPOPNA = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPNB = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPPWM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPQSound = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPQSound = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +113,10 @@
             this.tsmiChangeZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiChangeZoomX1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiChangeZoomX2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiChangeZoomX3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiChangeZoomX4 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -318,6 +322,12 @@
             resources.ApplyResources(this.tsmiPPWM, "tsmiPPWM");
             this.tsmiPPWM.Click += new System.EventHandler(this.tsmiPPWM_Click);
             // 
+            // tsmiPQSound
+            // 
+            this.tsmiPQSound.Name = "tsmiPQSound";
+            resources.ApplyResources(this.tsmiPQSound, "tsmiPQSound");
+            this.tsmiPQSound.Click += new System.EventHandler(this.tsmiPQSound_Click);
+            // 
             // tsmiPRF5C164
             // 
             this.tsmiPRF5C164.Name = "tsmiPRF5C164";
@@ -335,12 +345,6 @@
             this.tsmiPVRC7.Name = "tsmiPVRC7";
             resources.ApplyResources(this.tsmiPVRC7, "tsmiPVRC7");
             this.tsmiPVRC7.Click += new System.EventHandler(this.tsmiPVRC7_Click);
-            // 
-            // tsmiPQSound
-            // 
-            this.tsmiPQSound.Name = "tsmiPQSound";
-            resources.ApplyResources(this.tsmiPQSound, "tsmiPQSound");
-            this.tsmiPQSound.Click += new System.EventHandler(this.tsmiPQSound_Click);
             // 
             // sencondryToolStripMenuItem
             // 
@@ -688,6 +692,11 @@
             // 
             // tsmiChangeZoom
             // 
+            this.tsmiChangeZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiChangeZoomX1,
+            this.tsmiChangeZoomX2,
+            this.tsmiChangeZoomX3,
+            this.tsmiChangeZoomX4});
             this.tsmiChangeZoom.Name = "tsmiChangeZoom";
             resources.ApplyResources(this.tsmiChangeZoom, "tsmiChangeZoom");
             this.tsmiChangeZoom.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
@@ -701,6 +710,30 @@
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
+            // 
+            // tsmiChangeZoomX1
+            // 
+            this.tsmiChangeZoomX1.Name = "tsmiChangeZoomX1";
+            resources.ApplyResources(this.tsmiChangeZoomX1, "tsmiChangeZoomX1");
+            this.tsmiChangeZoomX1.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            // 
+            // tsmiChangeZoomX2
+            // 
+            this.tsmiChangeZoomX2.Name = "tsmiChangeZoomX2";
+            resources.ApplyResources(this.tsmiChangeZoomX2, "tsmiChangeZoomX2");
+            this.tsmiChangeZoomX2.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            // 
+            // tsmiChangeZoomX3
+            // 
+            this.tsmiChangeZoomX3.Name = "tsmiChangeZoomX3";
+            resources.ApplyResources(this.tsmiChangeZoomX3, "tsmiChangeZoomX3");
+            this.tsmiChangeZoomX3.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            // 
+            // tsmiChangeZoomX4
+            // 
+            this.tsmiChangeZoomX4.Name = "tsmiChangeZoomX4";
+            resources.ApplyResources(this.tsmiChangeZoomX4, "tsmiChangeZoomX4");
+            this.tsmiChangeZoomX4.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
             // 
             // frmMain
             // 
@@ -808,6 +841,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoom;
         private System.Windows.Forms.ToolStripMenuItem レジスタダンプ表示ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmiPQSound;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX4;
     }
 }
 
