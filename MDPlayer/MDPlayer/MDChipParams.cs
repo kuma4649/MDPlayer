@@ -41,6 +41,7 @@ namespace MDPlayer
             public int sadr = -1;
             public int eadr = -1;
             public int ladr = -1;
+            public int leadr = -1;
             public int pcmMode = -1;
             public int pcmBuff = 0;
             public bool mask = false;
@@ -53,6 +54,7 @@ namespace MDPlayer
             public bool dda = false;//HuC6280
             public bool noise = false;//HuC6280
             public int nfrq = -1;//HuC6280
+            public bool loopFlg = false;//YMZ280B
 
             public int[] inst = new int[48];
             public int[] typ = new int[48];
@@ -130,6 +132,15 @@ namespace MDPlayer
             };
         }
         public C352[] c352 = new C352[] { new C352(), new C352() };
+
+        public class YMZ280B
+        {
+            public Channel[] channels = new Channel[8] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel()
+            };
+        }
+        public YMZ280B[] ymz280b = new YMZ280B[] { new YMZ280B(), new YMZ280B() };
 
         public class QSound
         {

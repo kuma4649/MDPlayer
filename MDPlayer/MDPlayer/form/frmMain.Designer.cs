@@ -111,12 +111,14 @@
             this.tsmiVST = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMIDIkbd = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangeZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
             this.tsmiChangeZoomX1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangeZoomX2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangeZoomX3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangeZoomX4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -174,7 +176,8 @@
             this.tsmiPQSound,
             this.tsmiPRF5C164,
             this.tsmiPSegaPCM,
-            this.tsmiPVRC7});
+            this.tsmiPVRC7,
+            this.tsmiYMZ280B});
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
             resources.ApplyResources(this.primaryToolStripMenuItem, "primaryToolStripMenuItem");
             // 
@@ -375,7 +378,8 @@
             this.tsmiSPWM,
             this.tsmiSRF5C164,
             this.tsmiSSegaPCM,
-            this.tsmiSVRC7});
+            this.tsmiSVRC7,
+            this.tsmiSYMZ280B});
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
             resources.ApplyResources(this.sencondryToolStripMenuItem, "sencondryToolStripMenuItem");
             // 
@@ -701,16 +705,6 @@
             resources.ApplyResources(this.tsmiChangeZoom, "tsmiChangeZoom");
             this.tsmiChangeZoom.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
             // 
-            // レジスタダンプ表示ToolStripMenuItem
-            // 
-            this.レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
-            resources.ApplyResources(this.レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
-            this.レジスタダンプ表示ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
-            // 
-            // keyboardHook1
-            // 
-            this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
-            // 
             // tsmiChangeZoomX1
             // 
             this.tsmiChangeZoomX1.Name = "tsmiChangeZoomX1";
@@ -734,6 +728,28 @@
             this.tsmiChangeZoomX4.Name = "tsmiChangeZoomX4";
             resources.ApplyResources(this.tsmiChangeZoomX4, "tsmiChangeZoomX4");
             this.tsmiChangeZoomX4.Click += new System.EventHandler(this.tsmiChangeZoom_Click);
+            // 
+            // レジスタダンプ表示ToolStripMenuItem
+            // 
+            this.レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
+            resources.ApplyResources(this.レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
+            this.レジスタダンプ表示ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            // 
+            // keyboardHook1
+            // 
+            this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
+            // 
+            // tsmiYMZ280B
+            // 
+            this.tsmiYMZ280B.Name = "tsmiYMZ280B";
+            resources.ApplyResources(this.tsmiYMZ280B, "tsmiYMZ280B");
+            this.tsmiYMZ280B.Click += new System.EventHandler(this.tsmiYMZ280B_Click);
+            // 
+            // tsmiSYMZ280B
+            // 
+            this.tsmiSYMZ280B.Name = "tsmiSYMZ280B";
+            resources.ApplyResources(this.tsmiSYMZ280B, "tsmiSYMZ280B");
+            this.tsmiSYMZ280B.Click += new System.EventHandler(this.tsmiSYMZ280B_Click);
             // 
             // frmMain
             // 
@@ -845,6 +861,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX2;
         private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX3;
         private System.Windows.Forms.ToolStripMenuItem tsmiChangeZoomX4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiYMZ280B;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSYMZ280B;
     }
 }
 

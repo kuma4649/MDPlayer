@@ -6493,6 +6493,11 @@ namespace MDPlayer
             return chipRegister.pcmKeyOnC140[chipID];
         }
 
+        public static int[] GetYMZ280BRegister(int chipID)
+        {
+            return chipRegister.YMZ280BRegister[chipID];
+        }
+
         public static ushort[] GetC352Register(int chipID)
         {
             return chipRegister.pcmRegisterC352[chipID];

@@ -497,6 +497,12 @@
     <Compile Include="form\frmYMF278B.Designer.cs">
       <DependentUpon>frmYMF278B.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmYMZ280B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmYMZ280B.Designer.cs">
+      <DependentUpon>frmYMZ280B.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrameBuffer.cs" />
     <Compile Include="HostCommandStub.cs" />
     <Compile Include="KeyboardHook3.cs" />
@@ -654,6 +660,9 @@
     <EmbeddedResource Include="form\frmYMF278B.resx">
       <DependentUpon>frmYMF278B.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmYMZ280B.resx">
+      <DependentUpon>frmYMZ280B.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -763,6 +772,7 @@
     <Content Include="Resources\planeYM3812.png" />
     <Content Include="Resources\planeYMF262.png" />
     <Content Include="Resources\planeYMF278B.png" />
+    <Content Include="Resources\planeYMZ280B.png" />
     <Content Include="Resources\rChipName_01.png" />
     <Content Include="Resources\rChipName_02.png" />
     <Content Include="Resources\rChipName_03.png" />

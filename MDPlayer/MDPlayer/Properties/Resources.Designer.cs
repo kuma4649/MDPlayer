@@ -909,6 +909,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeYMZ280B {
+            get {
+                object obj = ResourceManager.GetObject("planeYMZ280B", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap rChipName_01 {
             get {
                 object obj = ResourceManager.GetObject("rChipName_01", resourceCulture);

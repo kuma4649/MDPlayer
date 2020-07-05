@@ -2645,6 +2645,14 @@ namespace MDPlayer
             on = nn;
         }
 
+        public static void font4Hex24Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4Hex24Bit(screen, x, y, t, nn);
+            on = nn;
+        }
+
         public static void font4Hex32Bit(FrameBuffer screen, int x, int y, int t, ref uint on, uint nn)
         {
             if (on == nn) return;
@@ -3137,6 +3145,49 @@ namespace MDPlayer
             n = num / 0x1_0000;
             num -= n * 0x1_0000;
             n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x1000;
+            num -= n * 0x1000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x100;
+            num -= n * 0x100;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x10;
+            num -= n * 0x10;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 1;
+            x += 4;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            return;
+        }
+
+        public static void drawFont4Hex24Bit(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (screen == null) return;
+
+            int n;
+            num = Common.Range((int)num, 0, 0xff_ffff);
+
+            n = num / 0x10_0000;
+            num -= n * 0x10_0000;
+            n = (n > 0xf) ? 0 : n;
+            drawFont4(screen, x, y, t, Tables.hexCh[n]);
+
+            n = num / 0x1_0000;
+            num -= n * 0x1_0000;
+            n = (n > 0xf) ? 0 : n;
+            x += 4;
             drawFont4(screen, x, y, t, Tables.hexCh[n]);
 
             n = num / 0x1000;
