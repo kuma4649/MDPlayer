@@ -3358,7 +3358,33 @@ namespace MDPlayer
                 }
                 else
                 {
+
+#if DEBUG
+                    //if (dAddr == 0x2a || dAddr==0x2b) return;//DAC
+                    //if (dPort == 1) return;//port1 
+                    //if (dAddr == 0x28 && (dData & 7) == 0) return;//Ch1Keyon/off
+                    //if (dAddr == 0x28 && (dData & 7) == 1) return;//Ch2Keyon/off
+                    //if (dAddr == 0x28 && (dData & 7) == 2) return;//Ch3Keyon/off
+                    //if (dAddr == 0x28 && (dData & 7) == 4) return;//Ch4Keyon/off
+                    //if (dAddr == 0x28 && (dData & 7) == 5) return;//Ch5Keyon/off
+                    //if (dAddr == 0x28 && (dData & 7) == 6) return;//Ch6Keyon/off
+                    //if ((dAddr & 0xf0) == 0x30) return;//DTMUL cancel
+                    //if ((dAddr & 0xf0) == 0x40) return;//TL cancel
+                    //if ((dAddr & 0xf0) == 0x50) return;//TL cancel
+                    //if ((dAddr & 0xf0) == 0x60) return;//TL cancel
+                    //if ((dAddr & 0xf0) == 0x70) return;//TL cancel
+                    //if ((dAddr & 0xf0) == 0x80) return;//TL cancel
+                    //if ((dAddr & 0xf0) == 0x90) return;//TL cancel
+                    //if (dAddr >= 0x00 && dAddr < 0x22) return;//いろいろ cancel
+                    //if (dAddr >= 0xb4) return;//TL cancel
+                    //return;
+#endif
+
+                    if (ctYM2612[chipID].UseEmu2 && dAddr == 0x21) 
+                        return;//TESTレジスタへのデータ送信をキャンセルする
+
                     //エミュを使用する場合のみMDSoundへデータを送る
+                    //Console.WriteLine("{0}:{1:X02}:{2:X02}:{3:X02}", chipID, dPort, dAddr, dData);
                     if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                     if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
