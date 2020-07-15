@@ -1980,7 +1980,7 @@ namespace MDPlayer
                     vgmDataOffset += 0x34;
                 }
 
-                if (version >= 0x0151)
+                //if (version >= 0x0151)
                 {
                     if (vgmDataOffset > 0x38)
                     {
@@ -2168,7 +2168,7 @@ namespace MDPlayer
                 //HuC6280ClockValue = 0;
                 //OKIM6295ClockValue = 0;
 
-                if (version >= 0x0161)
+                //if (version >= 0x0161)
                 {
                     if (vgmDataOffset > 0x80)
                     {
@@ -2323,7 +2323,7 @@ namespace MDPlayer
                     }
 
                 }
-                if (version >= 0x0171)
+                //if (version >= 0x0171)
                 {
                     if (vgmDataOffset > 0xdc)
                     {
