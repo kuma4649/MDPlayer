@@ -1419,6 +1419,14 @@ namespace MDPlayer
             }
         }
 
+        public multipcm._MultiPCM getMultiPCMRegister(int chipID)
+        {
+            if (chipID == 0) chipLED.PriMPCM = 2;
+            else chipLED.SecMPCM = 2;
+
+            return mds.ReadMultiPCMRegister(chipID);
+        }
+
         public void setMultiPCMSetBank(int chipID, int dCh, int dAddr, EnmModel model)
         {
             if (chipID == 0) chipLED.PriMPCM = 2;

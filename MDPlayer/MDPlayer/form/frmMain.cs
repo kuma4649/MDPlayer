@@ -27,6 +27,7 @@ namespace MDPlayer.form
         private frmC140[] frmC140 = new frmC140[2] { null, null };
         private frmYMZ280B[] frmYMZ280B = new frmYMZ280B[2] { null, null };
         private frmC352[] frmC352 = new frmC352[2] { null, null };
+        private frmMultiPCM[] frmMultiPCM = new frmMultiPCM[2] { null, null };
         private frmQSound[] frmQSound = new frmQSound[2] { null, null };
         private frmYM2608[] frmYM2608 = new frmYM2608[2] { null, null };
         private frmYM2151[] frmYM2151 = new frmYM2151[2] { null, null };
@@ -221,6 +222,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenC140[chipID]) OpenFormC140(chipID);
                 if (setting.location.OpenYMZ280B[chipID]) OpenFormYMZ280B(chipID);
                 if (setting.location.OpenC352[chipID]) OpenFormC352(chipID);
+                if (setting.location.OpenMultiPCM[chipID]) OpenFormMultiPCM(chipID);
                 if (setting.location.OpenQSound[chipID]) OpenFormQSound(chipID);
                 if (setting.location.OpenHuC6280[chipID]) OpenFormHuC6280(chipID);
                 if (setting.location.OpenK051649[chipID]) OpenFormK051649(chipID);
@@ -1234,6 +1236,11 @@ namespace MDPlayer.form
             OpenFormC352(0);
         }
 
+        private void tsmiPMultiPCM_Click(object sender, EventArgs e)
+        {
+            OpenFormMultiPCM(0);
+        }
+
         private void tsmiPQSound_Click(object sender, EventArgs e)
         {
             OpenFormQSound(0);
@@ -1367,6 +1374,11 @@ namespace MDPlayer.form
         private void tsmiSC352_Click(object sender, EventArgs e)
         {
             OpenFormC352(1);
+        }
+
+        private void tsmiSMultiPCM_Click(object sender, EventArgs e)
+        {
+            OpenFormMultiPCM(1);
         }
 
         private void tsmiSQSound_Click(object sender, EventArgs e)
@@ -1802,6 +1814,62 @@ namespace MDPlayer.form
                 log.ForcedWrite(ex);
             }
             frmC352[chipID] = null;
+        }
+
+        private void OpenFormMultiPCM(int chipID, bool force = false)
+        {
+            if (frmMultiPCM[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormMultiPCM(chipID);
+                    return;
+                }
+                else return;
+            }
+
+            frmMultiPCM[chipID] = new frmMultiPCM(this, chipID, setting.other.Zoom, newParam.multiPCM[chipID], oldParam.multiPCM[chipID]);
+
+            if (setting.location.PosMultiPCM[chipID] == System.Drawing.Point.Empty)
+            {
+                frmMultiPCM[chipID].x = this.Location.X;
+                frmMultiPCM[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmMultiPCM[chipID].x = setting.location.PosMultiPCM[chipID].X;
+                frmMultiPCM[chipID].y = setting.location.PosMultiPCM[chipID].Y;
+            }
+
+            frmMultiPCM[chipID].Show();
+            frmMultiPCM[chipID].update();
+            frmMultiPCM[chipID].Text = string.Format("MultiPCM ({0})", chipID == 0 ? "Primary" : "Secondary");
+            oldParam.multiPCM[chipID] = new MDChipParams.MultiPCM();
+
+            CheckAndSetForm(frmMultiPCM[chipID]);
+        }
+
+        private void CloseFormMultiPCM(int chipID)
+        {
+            if (frmMultiPCM[chipID] == null) return;
+
+            try
+            {
+                frmMultiPCM[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmMultiPCM[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmMultiPCM[chipID] = null;
         }
 
         private void OpenFormQSound(int chipID, bool force = false)
@@ -3448,6 +3516,9 @@ namespace MDPlayer.form
                     if (frmC352[chipID] != null && !frmC352[chipID].isClosed) frmC352[chipID].screenChangeParams();
                     else frmC352[chipID] = null;
 
+                    if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) frmMultiPCM[chipID].screenChangeParams();
+                    else frmMultiPCM[chipID] = null;
+
                     if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) frmQSound[chipID].screenChangeParams();
                     else frmQSound[chipID] = null;
 
@@ -3553,6 +3624,9 @@ namespace MDPlayer.form
 
                     if (frmC352[chipID] != null && !frmC352[chipID].isClosed) { frmC352[chipID].screenDrawParams(); frmC352[chipID].update(); }
                     else frmC352[chipID] = null;
+
+                    if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) { frmMultiPCM[chipID].screenDrawParams(); frmMultiPCM[chipID].update(); }
+                    else frmMultiPCM[chipID] = null;
 
                     if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) { frmQSound[chipID].screenDrawParams(); frmQSound[chipID].update(); }
                     else frmQSound[chipID] = null;
@@ -4090,6 +4164,9 @@ namespace MDPlayer.form
 
                     if (Audio.chipLED.PriC352 != 0) OpenFormC352(0, true); else CloseFormC352(0);
                     if (Audio.chipLED.SecC352 != 0) OpenFormC352(1, true); else CloseFormC352(1);
+
+                    if (Audio.chipLED.PriMPCM != 0) OpenFormMultiPCM(0, true); else CloseFormMultiPCM(0);
+                    if (Audio.chipLED.SecMPCM != 0) OpenFormMultiPCM(1, true); else CloseFormMultiPCM(1);
 
                     if (Audio.chipLED.PriQsnd != 0) OpenFormQSound(0, true); else CloseFormQSound(0);
                     //if (Audio.chipLED.SecQsnd != 0) OpenFormQSound(1, true); else CloseFormQSound(1);

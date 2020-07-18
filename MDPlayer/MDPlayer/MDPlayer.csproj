@@ -341,6 +341,12 @@
     <Compile Include="form\frmMMC5.Designer.cs">
       <DependentUpon>frmMMC5.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmMultiPCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmMultiPCM.Designer.cs">
+      <DependentUpon>frmMultiPCM.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmNESDMC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -579,6 +585,9 @@
     <EmbeddedResource Include="form\frmMMC5.resx">
       <DependentUpon>frmMMC5.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmMultiPCM.resx">
+      <DependentUpon>frmMultiPCM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmNESDMC.resx">
       <DependentUpon>frmNESDMC.cs</DependentUpon>
     </EmbeddedResource>
@@ -757,6 +766,7 @@
     <Content Include="Resources\planeMMC5.png" />
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
+    <Content Include="Resources\planeMultiPCM.png" />
     <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planeQSound.png" />
     <Content Include="Resources\planeSEGAPCM.png" />

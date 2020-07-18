@@ -6503,6 +6503,11 @@ namespace MDPlayer
             return chipRegister.pcmRegisterC352[chipID];
         }
 
+        public static multipcm._MultiPCM GetMultiPCMRegister(int chipID)
+        {
+            return chipRegister.getMultiPCMRegister(chipID);
+        }
+
         public static ushort[] GetC352KeyOn(int chipID)
         {
             return chipRegister.readC352((byte)chipID);

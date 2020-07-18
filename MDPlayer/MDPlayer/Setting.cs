@@ -2700,6 +2700,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosMultiPCM = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosMultiPCM
+            {
+                get
+                {
+                    return _PosMultiPCM;
+                }
+
+                set
+                {
+                    _PosMultiPCM = value;
+                }
+            }
+
+            private bool[] _OpenMultiPCM = new bool[2] { false, false };
+            public bool[] OpenMultiPCM
+            {
+                get
+                {
+                    return _OpenMultiPCM;
+                }
+
+                set
+                {
+                    _OpenMultiPCM = value;
+                }
+            }
+
             private bool[] _OpenQSound = new bool[2] { false, false };
             public bool[] OpenQSound
             {

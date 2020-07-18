@@ -133,6 +133,21 @@ namespace MDPlayer
         }
         public C352[] c352 = new C352[] { new C352(), new C352() };
 
+        public class MultiPCM
+        {
+            public Channel[] channels = new Channel[28] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel()
+            };
+        }
+        public MultiPCM[] multiPCM = new MultiPCM[] { new MultiPCM(), new MultiPCM() };
+
         public class YMZ280B
         {
             public Channel[] channels = new Channel[8] {
