@@ -12,7 +12,9 @@ namespace MDPlayer.form
 {
     public partial class frmRegTest : Form {
         class ChipData {
+
             public delegate int[] GetRegisterDelegate(int Select);
+
             public string ChipName;
             public int BaseIndex;
             public GetRegisterDelegate Register;
@@ -53,6 +55,22 @@ namespace MDPlayer.form
 
                 AddChip("YM2612 P", 2, 0x100, (Select) => {
                     return Audio.GetFMRegister(0)[Select];
+                });
+
+                AddChip("C140", 1, 0x200, (Select) => {
+                    return Audio.GetC140Register(0).Select(x => (int)x).ToArray();
+                });
+
+                AddChip("QSound", 1, 0x200, (Select) => {
+                    return Audio.GetQSoundRegister(0).Select(x => (int)x).ToArray();
+                });
+
+                AddChip("SEGAPCM", 1, 0x200, (Select) => {
+                    return Audio.GetSEGAPCMRegister(0).Select(x => (int)x).ToArray();
+                });
+
+                AddChip("YMZ280B", 1, 0x100, (Select) => {
+                    return Audio.GetYMZ280BRegister(0);
                 });
 
                 AddChip("SN76489", 1, 8, (Select) => {
@@ -118,7 +136,7 @@ namespace MDPlayer.form
             this.zoom = zoom;
 
             FormWidth = 260;
-            FormHeight = 140;
+            FormHeight = 280;//140;
 
             InitializeComponent();
             frameBuffer.Add(pbScreen, new Bitmap(FormWidth, FormHeight), null, zoom);
@@ -189,8 +207,8 @@ namespace MDPlayer.form
             //if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             var Name = RegMan.GetName();
             var Reg = RegMan.GetData();
-            var regSize = RegMan.getRegisterSize();
-
+            var regSize = RegMan.getRegisterSize(); // Max
+            var actualRegSize = Reg.Length >= regSize ? regSize : Reg.Length;
             DrawBuff.drawFont4(frameBuffer, 2, 0, 0, Name);
             DrawBuff.drawFont4(frameBuffer, 210, 0, 0, $"< >");
 
@@ -206,7 +224,7 @@ namespace MDPlayer.form
                 }
                 y += 8;
             }*/
-            for(var i = 0; i < regSize; i++)
+            for(var i = 0; i < actualRegSize; i++)
             {
                 if (i % 16 == 0) {
                     y += 8;
