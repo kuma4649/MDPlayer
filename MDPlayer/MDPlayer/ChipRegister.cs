@@ -460,8 +460,8 @@ namespace MDPlayer
                 fmRegisterYM2612[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2612[chipID][0][i] = 0;
-                    fmRegisterYM2612[chipID][1][i] = 0;
+                    fmRegisterYM2612[chipID][0][i] = -1;
+                    fmRegisterYM2612[chipID][1][i] = -1;
                 }
                 fmRegisterYM2612[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2612[chipID][0][0xb5] = 0xc0;
@@ -474,8 +474,8 @@ namespace MDPlayer
                 fmRegisterYM2608[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2608[chipID][0][i] = 0;
-                    fmRegisterYM2608[chipID][1][i] = 0;
+                    fmRegisterYM2608[chipID][0][i] = -1;
+                    fmRegisterYM2608[chipID][1][i] = -1;
                 }
                 fmRegisterYM2608[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2608[chipID][0][0xb5] = 0xc0;
@@ -488,8 +488,8 @@ namespace MDPlayer
                 fmRegisterYM2610[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2610[chipID][0][i] = 0;
-                    fmRegisterYM2610[chipID][1][i] = 0;
+                    fmRegisterYM2610[chipID][0][i] = -1;
+                    fmRegisterYM2610[chipID][1][i] = -1;
                 }
                 fmRegisterYM2610[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2610[chipID][0][0xb5] = 0xc0;
@@ -566,7 +566,7 @@ namespace MDPlayer
                 fmRegisterYM2203[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2203[chipID][i] = 0;
+                    fmRegisterYM2203[chipID][i] = -1;
                 }
                 fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 
@@ -1655,6 +1655,7 @@ namespace MDPlayer
         public void setYM2203Register(int chipID, int dAddr, int dData, EnmModel model)
         {
             if (ctYM2203 == null) return;
+            if (dAddr < 0 || dData < 0) return;
 
             if (chipID == 0) chipLED.PriOPN = 2;
             else chipLED.SecOPN = 2;
@@ -1726,16 +1727,17 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3)// && maskFMChYM2203[chipID][ch])
+                if (ch != 3 && maskFMChYM2203[chipID][ch])
                 {
                     for (int slot = 0; slot < 4; slot++)
                     {
                         if ((algM[al] & (1 << slot)) != 0)
                         {
+                            int tslot = (slot == 1 ? 2 : (slot == 2 ? 1 : slot)) * 4;
                             setYM2203Register(
                                 chipID
-                                , 0x40 + ch + slot * 4
-                                , fmRegisterYM2203[chipID][0x40 + ch + slot * 4]
+                                , 0x40 + ch + tslot
+                                , fmRegisterYM2203[chipID][0x40 + ch + tslot]
                                 , model);
                         }
                     }
@@ -2317,6 +2319,7 @@ namespace MDPlayer
             //}
 
             if (ctYM2608 == null) return;
+            if (dAddr < 0 || dData < 0) return;
 
             if (chipID == 0) chipLED.PriOPNA = 2;
             else chipLED.SecOPNA = 2;
@@ -2416,17 +2419,18 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3)// && maskFMChYM2608[chipID][ch])
+                if (ch != 3 && maskFMChYM2608[chipID][ch])
                 {
                     for (int slot = 0; slot < 4; slot++)
                     {
                         if ((algM[al] & (1 << slot)) > 0)
                         {
+                            int tslot = (slot == 1 ? 2 : (slot == 2 ? 1 : slot)) * 4;
                             setYM2608Register(
                                 chipID
                                 , dPort
-                                , 0x40 + ch + slot * 4
-                                , fmRegisterYM2608[chipID][dPort][0x40 + ch + slot * 4]
+                                , 0x40 + ch + tslot
+                                , fmRegisterYM2608[chipID][dPort][0x40 + ch + tslot]
                                 , model);
                         }
                     }
@@ -2617,6 +2621,7 @@ namespace MDPlayer
         public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, EnmModel model)
         {
             if (ctYM2610 == null) return;
+            if (dAddr < 0 || dData < 0) return;
 
             if (chipID == 0) chipLED.PriOPNB = 2;
             else chipLED.SecOPNB = 2;
@@ -2733,17 +2738,18 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3)// && maskFMChYM2610[chipID][ch])
+                if (ch != 3 && maskFMChYM2610[chipID][ch])
                 {
                     for (int slot = 0; slot < 4; slot++)
                     {
                         if ((algM[al] & (1 << slot)) != 0)
                         {
+                            int tslot = (slot == 1 ? 2 : (slot == 2 ? 1 : slot)) * 4;
                             setYM2610Register(
                                 chipID
                                 , dPort
-                                , 0x40 + ch + slot * 4
-                                , fmRegisterYM2610[chipID][dPort][0x40 + ch + slot * 4]
+                                , 0x40 + ch + tslot
+                                , fmRegisterYM2610[chipID][dPort][0x40 + ch + tslot]
                                 , model);
                         }
                     }
@@ -3235,6 +3241,7 @@ namespace MDPlayer
         public void setYM2612Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, long vgmFrameCounter)
         {
             if (ctYM2612 == null) return;
+            if (dAddr < 0 || dData < 0) return;
 
             if (chipID == 0) chipLED.PriOPN2 = 2;
             else chipLED.SecOPN2 = 2;
@@ -3311,18 +3318,19 @@ namespace MDPlayer
                 int ch = (dAddr & 0x3);
                 int al = dData & 0x07;//AL
 
-                if (ch != 3)// && maskFMChYM2612[chipID][dPort * 3 + ch])
+                if (ch != 3 && maskFMChYM2612[chipID][dPort * 3 + ch])
                 {
                     //CarrierのTLを再設定する
                     for (int slot = 0; slot < 4; slot++)
                     {
                         if ((algM[al] & (1 << slot)) != 0)
                         {
+                            int tslot = (slot == 1 ? 2 : (slot == 2 ? 1 : slot)) * 4;
                             setYM2612Register(
                                 chipID
                                 , dPort
-                                , 0x40 + ch + slot * 4
-                                , fmRegisterYM2612[chipID][dPort][0x40 + ch + slot * 4]
+                                , 0x40 + ch + tslot
+                                , fmRegisterYM2612[chipID][dPort][0x40 + ch + tslot]
                                 , model
                                 , vgmFrameCounter);
                         }
@@ -3482,7 +3490,7 @@ namespace MDPlayer
                 setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], EnmModel.RealModel);
                 setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], EnmModel.RealModel);
             }
-            else
+            else if (ch < 6)
             {
                 setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], EnmModel.VirtualModel);
                 setYM2203Register((byte)chipID, 0x08 + c - 3, fmRegisterYM2203[chipID][0x08 + c - 3], EnmModel.RealModel);

@@ -175,7 +175,7 @@ namespace MDPlayer.form
         public void changeZoom()
         {
             this.MaximumSize = new System.Drawing.Size(frameSizeW + FormWidth * zoom, frameSizeH + FormHeight * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + FormWidth * zoom, frameSizeH + FormHeight * zoom);
+            //this.MinimumSize = new System.Drawing.Size(frameSizeW + FormWidth * zoom, frameSizeH + FormHeight * zoom);
             this.Size = new System.Drawing.Size(frameSizeW + FormWidth * zoom, frameSizeH + FormHeight * zoom);
             fmrRegTest_Resize(null, null);
         }

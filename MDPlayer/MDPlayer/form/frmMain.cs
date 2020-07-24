@@ -6342,10 +6342,10 @@ namespace MDPlayer.form
                 case EnmChip.YM2608:
                     if (ch >= 0 && ch < 14)
                     {
-                        if (mask)
-                            Audio.setYM2608Mask(chipID, ch);
-                        else
-                            Audio.resetYM2608Mask(chipID, ch);
+                        //if (mask)
+                        //    Audio.setYM2608Mask(chipID, ch);
+                        //else
+                        //    Audio.resetYM2608Mask(chipID, ch);
 
                         newParam.ym2608[chipID].channels[ch].mask = mask;
                         oldParam.ym2608[chipID].channels[ch].mask = !mask;
@@ -6357,8 +6357,8 @@ namespace MDPlayer.form
                             newParam.ym2608[chipID].channels[9].mask = mask;
                             newParam.ym2608[chipID].channels[10].mask = mask;
                             newParam.ym2608[chipID].channels[11].mask = mask;
-                            oldParam.ym2608[chipID].channels[ 2].mask = !mask;
-                            oldParam.ym2608[chipID].channels[ 9].mask = !mask;
+                            oldParam.ym2608[chipID].channels[2].mask = !mask;
+                            oldParam.ym2608[chipID].channels[9].mask = !mask;
                             oldParam.ym2608[chipID].channels[10].mask = !mask;
                             oldParam.ym2608[chipID].channels[11].mask = !mask;
                         }

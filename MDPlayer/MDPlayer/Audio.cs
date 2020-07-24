@@ -4980,6 +4980,14 @@ namespace MDPlayer
 
                 if (useChip.Contains(EnmChip.YM2203) || useChip.Contains(EnmChip.S_YM2203))
                 {
+                    chipRegister.setYM2203Register(0, 0x7, 0x3f, EnmModel.RealModel);//出力オフ
+                    chipRegister.setYM2203Register(1, 0x7, 0x3f, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(0, 0x8, 0x0, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(1, 0x8, 0x0, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(0, 0x9, 0x0, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(1, 0x9, 0x0, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(0, 0xa, 0x0, EnmModel.RealModel);
+                    chipRegister.setYM2203Register(1, 0xa, 0x0, EnmModel.RealModel);
                     SetYM2203FMVolume(true, setting.balance.YM2203FMVolume);
                     SetYM2203PSGVolume(true, setting.balance.YM2203PSGVolume);
                 }
