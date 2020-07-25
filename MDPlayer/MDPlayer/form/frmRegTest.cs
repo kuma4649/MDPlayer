@@ -13,17 +13,19 @@ namespace MDPlayer.form
     public partial class frmRegTest : Form {
         class ChipData {
 
-            public delegate int[] GetRegisterDelegate(int Select);
+            public delegate object GetRegisterDelegate(int Select);
 
             public string ChipName;
             public int BaseIndex;
             public GetRegisterDelegate Register;
             public int MaxRegisterSize;
-            public ChipData(string chipName, int baseIndex, int maxRegisterSize, GetRegisterDelegate register) {
+            public int regWind;
+            public ChipData(string chipName, int baseIndex, int maxRegisterSize, int regWindow, GetRegisterDelegate register) {
                 ChipName = chipName;
                 BaseIndex = baseIndex;
                 Register = register;
                 MaxRegisterSize = maxRegisterSize;
+                regWind = regWindow;
             }
         }
 
@@ -62,7 +64,8 @@ namespace MDPlayer.form
                 });
 
                 AddChip("QSound", 1, 0x200, (Select) => {
-                    return Audio.GetQSoundRegister(0).Select(x => (int)x).ToArray();
+                    //return Audio.GetQSoundRegister(0).Select(x => (int)x).ToArray();
+                    return Audio.GetQSoundRegister(0);
                 });
 
                 AddChip("SEGAPCM", 1, 0x200, (Select) => {
@@ -81,7 +84,7 @@ namespace MDPlayer.form
             private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
                 var BaseIndex = ChipList.Count; 
                 for(var i=0; i < Max; i++) {
-                    ChipList.Add(new ChipData(ChipName, BaseIndex, regSize, p));
+                    ChipList.Add(new ChipData(ChipName, BaseIndex, regSize, Max, p));
                 }
             }
 
@@ -98,9 +101,9 @@ namespace MDPlayer.form
                 //if (Select < ChipList.Count-1) Select++;
             }
 
-            public int[] GetData() {
-                var x = ChipList[Select];
-                return x.Register(Select - x.BaseIndex);
+            public object GetData(int page) {
+                var x = ChipList[Select+page];
+                return x.Register(Select + page - x.BaseIndex);
             }
 
             public string GetName() {
@@ -110,6 +113,11 @@ namespace MDPlayer.form
 
             public int getRegisterSize() {
                 return ChipList[Select].MaxRegisterSize;
+            }
+
+            public int getPageSize()
+            {
+                return ChipList[Select].regWind;
             }
         }
 
@@ -206,9 +214,9 @@ namespace MDPlayer.form
         {
             //if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             var Name = RegMan.GetName();
-            var Reg = RegMan.GetData();
+            var MaxPage = RegMan.getPageSize();
             var regSize = RegMan.getRegisterSize(); // Max
-            var actualRegSize = Reg.Length >= regSize ? regSize : Reg.Length;
+            var actualRegSize = RegMan.getRegisterSize();//Reg.Length >= regSize ? regSize : Reg.Length; //TODO: Change this
             DrawBuff.drawFont4(frameBuffer, 2, 0, 0, Name);
             DrawBuff.drawFont4(frameBuffer, 210, 0, 0, $"< >");
 
@@ -224,15 +232,25 @@ namespace MDPlayer.form
                 }
                 y += 8;
             }*/
-            for(var i = 0; i < actualRegSize; i++)
+            for (var p = 0; p < MaxPage; p++)
             {
-                if (i % 16 == 0) {
-                    y += 8;
-                    DrawBuff.drawFont4(frameBuffer, 2, y-8, 0, $"{i:X3}:"); 
+                var Reg = RegMan.GetData(p);
+                if (Reg is int[])
+                {
+                    int[] r = (int[])Reg;
+                    for (var i = 0; i < r.Length; i++)
+                    {
+                        if (i % 16 == 0)
+                        {
+                            y += 8;
+                            DrawBuff.drawFont4(frameBuffer, 2, y - 8, 0, $"{i:X3}:");
+                        }
+                        byte v = (byte)r[i];
+                        DrawBuff.drawFont4(frameBuffer, 34 + ((i % 16) * 12), y - 8, 0, $"{v:X2}");
+                    }
                 }
-                byte v = (byte)Reg[i];
-                DrawBuff.drawFont4(frameBuffer, 34 + ((i%16) * 12), y-8, 0, $"{v:X2}");
             }
+
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
