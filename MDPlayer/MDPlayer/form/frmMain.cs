@@ -8,6 +8,7 @@ using NAudio.Midi;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using MDSound;
 
 namespace MDPlayer.form
 {
@@ -3103,7 +3104,7 @@ namespace MDPlayer.form
             frmMMC5[chipID] = null;
         }
 
-        private void OpenFormRegTest(int chipID, bool force = false) {
+        private void OpenFormRegTest(int chipID, EnmChip selectedChip = EnmChip.Unuse, bool force = false) {
             if (frmRegTest != null) {
                 if (!force) {
                     CloseFormRegTest(chipID);
@@ -3111,7 +3112,7 @@ namespace MDPlayer.form
                 } else return;
             }
 
-            frmRegTest = new frmRegTest(this, chipID, setting.other.Zoom);
+            frmRegTest = new frmRegTest(this, chipID, selectedChip, setting.other.Zoom);
 
             frmRegTest.Show();
             frmRegTest.update();
@@ -7157,8 +7158,16 @@ namespace MDPlayer.form
         }
 
         private void RegisterDumpMenuItem_Click(object sender, EventArgs e) {
-            OpenFormRegTest(0);
-        }
+            if (sender == yM2612ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2612);
+            else if (sender == ym2151ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2151);
+            else if (sender == ym2203ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2203);
+            else if (sender == ym2413ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2413);
+            else if (sender == ym2608ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2608);
 
+            else if (sender == c140ToolStripMenuItem) OpenFormRegTest(0, EnmChip.C140);
+
+            else OpenFormRegTest(0);
+        }
+        
     }
 }
