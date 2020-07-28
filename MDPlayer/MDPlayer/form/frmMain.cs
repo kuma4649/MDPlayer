@@ -7163,11 +7163,18 @@ namespace MDPlayer.form
             else if (sender == ym2203ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2203);
             else if (sender == ym2413ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2413);
             else if (sender == ym2608ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2608);
-
+            else if (sender == yMF278BToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMF278B);
+            else if (sender == yMF262ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMF262);
+            else if (sender == yM2610ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2610);
+            else if (sender == qSoundToolStripMenuItem) OpenFormRegTest(0, EnmChip.QSound);
+            else if (sender == segaPCMToolStripMenuItem) OpenFormRegTest(0, EnmChip.SEGAPCM);
+            else if (sender == yMZ280BToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMZ280B);
+            else if (sender == sN76489ToolStripMenuItem) OpenFormRegTest(0, EnmChip.SN76489);
+            else if (sender == aY8910ToolStripMenuItem) OpenFormRegTest(0, EnmChip.AY8910);
             else if (sender == c140ToolStripMenuItem) OpenFormRegTest(0, EnmChip.C140);
-
+            else if (sender == c352ToolStripMenuItem) OpenFormRegTest(0, EnmChip.C352);
+            else if (sender == yM3812ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM3812);
             else OpenFormRegTest(0);
         }
-        
     }
 }

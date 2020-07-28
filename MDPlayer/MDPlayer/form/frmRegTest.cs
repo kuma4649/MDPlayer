@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDSound;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +33,7 @@ namespace MDPlayer.form
         class RegisterManager {
             int Select;
             public bool needRefresh = false;
-            List<ChipData> ChipList = new List<ChipData>();
+             List<ChipData> ChipList = new List<ChipData>();
 
             public RegisterManager() {
                 AddChip("YMF278B", 3, 0x100, (Select) => { // 0
@@ -64,7 +65,6 @@ namespace MDPlayer.form
                 });
 
                 AddChip("QSOUND", 1, 0x200, (Select) => {
-                    //return Audio.GetQSoundRegister(0).Select(x => (int)x).ToArray();
                     return Audio.GetQSoundRegister(0);
                 });
 
@@ -80,6 +80,10 @@ namespace MDPlayer.form
                     return Audio.GetPSGRegister(0);
                 });
 
+                AddChip("AY", 1, 16, (Select) => {
+                    return Audio.GetAY8910Register(0);
+                });
+
                 AddChip("C352", 1, 0x400, (Select) => {
                     return Audio.GetC352Register(0);
                 });
@@ -92,6 +96,9 @@ namespace MDPlayer.form
                     return Audio.GetYM2413Register(0);
                 });
 
+                AddChip("YM3812", 1, 0x100, (Select) => {
+                    return Audio.GetYM3812Register(0);
+                });
             }
 
             private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
@@ -170,16 +177,23 @@ namespace MDPlayer.form
 
         private readonly Dictionary<EnmChip, int> pageDict = new Dictionary<EnmChip, int>()
         {
-            { EnmChip.YM2612, 8 },
+            { EnmChip.YMF278B, 0 },
+            { EnmChip.YMF262, 3 },
             { EnmChip.YM2151, 5 },
-            { EnmChip.YM2203, 15 },
-            { EnmChip.YM2413, 16 },
+            { EnmChip.YM2610, 6 },
             { EnmChip.YM2608, 7 },
-            { EnmChip.C140, 10 },
-            
-            
+            { EnmChip.YM2612, 8 },
+            { EnmChip.C140, 9 },
+            { EnmChip.QSound, 10 },
+            { EnmChip.SEGAPCM, 11 },
+            { EnmChip.YMZ280B, 12 },
+            { EnmChip.SN76489, 13 },
+            { EnmChip.AY8910, 14 },
+            { EnmChip.C352, 15 },
+            { EnmChip.YM2203, 16 },
+            { EnmChip.YM2413, 17 },
+            { EnmChip.YM3812, 18 },
         };
-
 
         public frmRegTest(frmMain frm, int chipID,EnmChip enmPage, int zoom)
         {

@@ -145,7 +145,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pbScreen.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="cmsOpenOtherPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -606,11 +606,71 @@
   <data name="ym2608ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2608</value>
   </data>
+  <data name="yM2610ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="yM2610ToolStripMenuItem.Text" xml:space="preserve">
+    <value>YM2610</value>
+  </data>
+  <data name="yM3812ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="yM3812ToolStripMenuItem.Text" xml:space="preserve">
+    <value>YM3812</value>
+  </data>
+  <data name="yMF262ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="yMF262ToolStripMenuItem.Text" xml:space="preserve">
+    <value>YMF262</value>
+  </data>
+  <data name="yMF278BToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="yMF278BToolStripMenuItem.Text" xml:space="preserve">
+    <value>YMF278B</value>
+  </data>
+  <data name="yMZ280BToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="yMZ280BToolStripMenuItem.Text" xml:space="preserve">
+    <value>YMZ280B</value>
+  </data>
   <data name="c140ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
   <data name="c140ToolStripMenuItem.Text" xml:space="preserve">
     <value>C140</value>
+  </data>
+  <data name="c352ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="c352ToolStripMenuItem.Text" xml:space="preserve">
+    <value>C352</value>
+  </data>
+  <data name="qSoundToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="qSoundToolStripMenuItem.Text" xml:space="preserve">
+    <value>QSound</value>
+  </data>
+  <data name="segaPCMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="segaPCMToolStripMenuItem.Text" xml:space="preserve">
+    <value>SegaPCM</value>
+  </data>
+  <data name="sN76489ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="sN76489ToolStripMenuItem.Text" xml:space="preserve">
+    <value>SN76489</value>
+  </data>
+  <data name="aY8910ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="aY8910ToolStripMenuItem.Text" xml:space="preserve">
+    <value>AY8910</value>
   </data>
   <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -736,7 +796,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>122</value>
+    <value>56</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 12</value>
@@ -1073,9 +1133,6 @@
         ///8f///////////////////////////////////////////////////////////////////////////
         ////////////////////////
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>336, 261</value>
@@ -1611,23 +1668,11 @@
   <data name="&gt;&gt;yM2612ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;c140ToolStripMenuItem.Name" xml:space="preserve">
-    <value>c140ToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;c140ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;ym2151ToolStripMenuItem.Name" xml:space="preserve">
     <value>ym2151ToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ym2151ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;keyboardHook1.Name" xml:space="preserve">
-    <value>keyboardHook1</value>
-  </data>
-  <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
-    <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ym2203ToolStripMenuItem.Name" xml:space="preserve">
     <value>ym2203ToolStripMenuItem</value>
@@ -1645,6 +1690,78 @@
     <value>ym2608ToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ym2608ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;yM2610ToolStripMenuItem.Name" xml:space="preserve">
+    <value>yM2610ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;yM2610ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;c140ToolStripMenuItem.Name" xml:space="preserve">
+    <value>c140ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;c140ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;yMF262ToolStripMenuItem.Name" xml:space="preserve">
+    <value>yMF262ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;yMF262ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;yMF278BToolStripMenuItem.Name" xml:space="preserve">
+    <value>yMF278BToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;yMF278BToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;yMZ280BToolStripMenuItem.Name" xml:space="preserve">
+    <value>yMZ280BToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;yMZ280BToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;c352ToolStripMenuItem.Name" xml:space="preserve">
+    <value>c352ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;c352ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;qSoundToolStripMenuItem.Name" xml:space="preserve">
+    <value>qSoundToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;qSoundToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;segaPCMToolStripMenuItem.Name" xml:space="preserve">
+    <value>segaPCMToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;segaPCMToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sN76489ToolStripMenuItem.Name" xml:space="preserve">
+    <value>sN76489ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sN76489ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aY8910ToolStripMenuItem.Name" xml:space="preserve">
+    <value>aY8910ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aY8910ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;keyboardHook1.Name" xml:space="preserve">
+    <value>keyboardHook1</value>
+  </data>
+  <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
+    <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;yM3812ToolStripMenuItem.Name" xml:space="preserve">
+    <value>yM3812ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;yM3812ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
