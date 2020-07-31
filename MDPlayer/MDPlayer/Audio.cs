@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using MDPlayer.form;
 using musicDriverInterface;
+using MDSound.np.chip;
 
 namespace MDPlayer
 {
@@ -6405,6 +6406,11 @@ namespace MDPlayer
         public static int[] GetYM2413Register(int chipID)
         {
             return chipRegister.fmRegisterYM2413[chipID];
+        }
+
+        public static ITrackInfo[] GetVRC6Register(int chipID)
+        {
+            return chipRegister.getVRC6Register(chipID);
         }
 
         public static byte[] GetVRC7Register(int chipID)

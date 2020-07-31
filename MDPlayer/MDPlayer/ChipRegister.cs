@@ -4801,6 +4801,14 @@ namespace MDPlayer
 
         }
 
+        public ITrackInfo[] getVRC6Register(int chipID)
+        {
+            if (nes_vrc6 == null) return null;
+            if (chipID != 0) return null;
+
+            return nes_vrc6.GetTracksInfo();
+        }
+
         internal byte[] getVRC7Register(int chipID)
         {
             if (nes_vrc7 == null) return null;

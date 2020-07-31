@@ -53,7 +53,6 @@ namespace MDPlayer.form
         private frmNESDMC[] frmNESDMC = new frmNESDMC[2] { null, null };
         private frmFDS[] frmFDS = new frmFDS[2] { null, null };
         private frmMMC5[] frmMMC5 = new frmMMC5[2] { null, null };
-        private frmVRC6[] frmVRC6 = new frmVRC6[2] { null, null };
         private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
         private frmRegTest frmRegTest;
 
@@ -121,7 +120,6 @@ namespace MDPlayer.form
             lstForm.Add(frmNESDMC);
             lstForm.Add(frmFDS);
             lstForm.Add(frmMMC5);
-            lstForm.Add(frmVRC6);
             lstForm.Add(frmVRC7);
 
             log.ForcedWrite("frmMain(コンストラクタ):STEP 01");
@@ -248,7 +246,6 @@ namespace MDPlayer.form
                 if (setting.location.OpenYm3812[chipID]) OpenFormYM3812(chipID);
                 if (setting.location.OpenYmf262[chipID]) OpenFormYMF262(chipID);
                 if (setting.location.OpenYmf278b[chipID]) OpenFormYMF278B(chipID);
-                if (setting.location.OpenVrc6[chipID]) OpenFormVRC6(chipID);
                 if (setting.location.OpenVrc7[chipID]) OpenFormVRC7(chipID);
             }
 
@@ -563,18 +560,6 @@ namespace MDPlayer.form
                 OpenFormMIDI(1);
             }
 
-            if (frmVRC6[0] != null && !frmVRC6[0].isClosed)
-            {
-                OpenFormVRC6(0);
-                OpenFormVRC6(0);
-            }
-
-            if (frmVRC6[1] != null && !frmVRC6[1].isClosed)
-            {
-                OpenFormVRC6(1);
-                OpenFormVRC6(1);
-            }
-
             if (frmVRC7[0] != null && !frmVRC7[0].isClosed)
             {
                 OpenFormVRC7(0);
@@ -725,7 +710,6 @@ namespace MDPlayer.form
                 setting.location.OpenNESDMC[chipID] = false;
                 setting.location.OpenFDS[chipID] = false;
                 setting.location.OpenMMC5[chipID] = false;
-                setting.location.OpenVrc6[chipID] = false;
                 setting.location.OpenVrc7[chipID] = false;
                 setting.location.OpenOKIM6258[chipID] = false;
                 setting.location.OpenOKIM6295[chipID] = false;
@@ -842,11 +826,6 @@ namespace MDPlayer.form
                 {
                     frmMMC5[chipID].Close();
                     setting.location.OpenMMC5[chipID] = true;
-                }
-                if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed)
-                {
-                    frmVRC6[chipID].Close();
-                    setting.location.OpenVrc6[chipID] = true;
                 }
                 if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed)
                 {
@@ -1485,16 +1464,6 @@ namespace MDPlayer.form
         private void tsmiSFDS_Click(object sender, EventArgs e)
         {
             OpenFormFDS(1);
-        }
-
-        private void tsmiPVRC6_Click(object sender, EventArgs e)
-        {
-            OpenFormVRC6(0);
-        }
-
-        private void tsmiSVRC6_Click(object sender, EventArgs e)
-        {
-            OpenFormVRC6(1);
         }
 
         private void tsmiPVRC7_Click(object sender, EventArgs e)
@@ -3022,62 +2991,6 @@ namespace MDPlayer.form
             frmFDS[chipID] = null;
         }
 
-        private void OpenFormVRC6(int chipID, bool force = false)
-        {
-            if (frmVRC6[chipID] != null)// && frmInfo.isClosed)
-            {
-                if (!force)
-                {
-                    CloseFormVRC6(chipID);
-                    return;
-                }
-                else return;
-            }
-
-            frmVRC6[chipID] = new frmVRC6(this, chipID, setting.other.Zoom, newParam.vrc6[chipID] ,oldParam.vrc6[chipID]);
-
-            if (setting.location.PosVrc6[chipID] == System.Drawing.Point.Empty)
-            {
-                frmVRC6[chipID].x = this.Location.X;
-                frmVRC6[chipID].y = this.Location.Y + 264;
-            }
-            else
-            {
-                frmVRC6[chipID].x = setting.location.PosVrc6[chipID].X;
-                frmVRC6[chipID].y = setting.location.PosVrc6[chipID].Y;
-            }
-
-            frmVRC6[chipID].Show();
-            frmVRC6[chipID].update();
-            frmVRC6[chipID].Text = string.Format("VRC6 ({0})", chipID == 0 ? "Primary" : "Secondary");
-            oldParam.vrc6[chipID] = new MDChipParams.VRC6();
-
-            CheckAndSetForm(frmVRC6[chipID]);
-        }
-
-        private void CloseFormVRC6(int chipID)
-        {
-            if (frmVRC6[chipID] == null) return;
-
-            try
-            {
-                frmVRC6[chipID].Close();
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-            try
-            {
-                frmVRC6[chipID].Dispose();
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-            frmVRC6[chipID] = null;
-        }
-
         private void OpenFormVRC7(int chipID, bool force = false)
         {
             if (frmVRC7[chipID] != null)// && frmInfo.isClosed)
@@ -3678,9 +3591,6 @@ namespace MDPlayer.form
                     if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) frmMMC5[chipID].screenChangeParams();
                     else frmMMC5[chipID] = null;
 
-                    if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) frmVRC6[chipID].screenChangeParams();
-                    else frmVRC6[chipID] = null;
-
                     if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) frmVRC7[chipID].screenChangeParams();
                     else frmVRC7[chipID] = null;
 
@@ -3780,9 +3690,6 @@ namespace MDPlayer.form
 
                     if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) { frmNESDMC[chipID].screenDrawParams(); frmNESDMC[chipID].update(); }
                     else frmNESDMC[chipID] = null;
-
-                    if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) { frmVRC6[chipID].screenDrawParams(); frmVRC6[chipID].update(); }
-                    else frmVRC6[chipID] = null;
 
                     if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) { frmVRC7[chipID].screenDrawParams(); frmVRC7[chipID].update(); }
                     else frmVRC7[chipID] = null;
@@ -4284,9 +4191,6 @@ namespace MDPlayer.form
 
                     if (Audio.chipLED.PriFDS != 0) OpenFormFDS(0, true); else CloseFormFDS(0);
                     if (Audio.chipLED.SecFDS != 0) OpenFormFDS(1, true); else CloseFormFDS(1);
-
-                    if (Audio.chipLED.PriVRC6 != 0) OpenFormVRC6(0, true); else CloseFormVRC6(0);
-                    if (Audio.chipLED.SecVRC6 != 0) OpenFormVRC6(1, true); else CloseFormVRC6(1);
 
                     if (Audio.chipLED.PriVRC7 != 0) OpenFormVRC7(0, true); else CloseFormVRC7(0);
                     if (Audio.chipLED.SecVRC7 != 0) OpenFormVRC7(1, true); else CloseFormVRC7(1);

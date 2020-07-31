@@ -309,6 +309,12 @@
   <data name="tsmiPSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
   </data>
+  <data name="tsmiPVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
   <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -488,6 +494,12 @@
   </data>
   <data name="tsmiSSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
+  </data>
+  <data name="tsmiSVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
   </data>
   <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -1209,6 +1221,12 @@
   <data name="&gt;&gt;tsmiPSegaPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPVRC6.Name" xml:space="preserve">
+    <value>tsmiPVRC6</value>
+  </data>
+  <data name="&gt;&gt;tsmiPVRC6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiPVRC7.Name" xml:space="preserve">
     <value>tsmiPVRC7</value>
   </data>
@@ -1219,6 +1237,12 @@
     <value>tsmiYMZ280B</value>
   </data>
   <data name="&gt;&gt;tsmiYMZ280B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMultiPCM.Name" xml:space="preserve">
+    <value>tsmiPMultiPCM</value>
+  </data>
+  <data name="&gt;&gt;tsmiPMultiPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sencondryToolStripMenuItem.Name" xml:space="preserve">
@@ -1383,6 +1407,12 @@
   <data name="&gt;&gt;tsmiSSegaPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiSVRC6.Name" xml:space="preserve">
+    <value>tsmiSVRC6</value>
+  </data>
+  <data name="&gt;&gt;tsmiSVRC6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiSVRC7.Name" xml:space="preserve">
     <value>tsmiSVRC7</value>
   </data>
@@ -1393,6 +1423,12 @@
     <value>tsmiSYMZ280B</value>
   </data>
   <data name="&gt;&gt;tsmiSYMZ280B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSMultiPCM.Name" xml:space="preserve">
+    <value>tsmiSMultiPCM</value>
+  </data>
+  <data name="&gt;&gt;tsmiSMultiPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
@@ -1556,18 +1592,6 @@
   </data>
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;tsmiPMultiPCM.Name" xml:space="preserve">
-    <value>tsmiPMultiPCM</value>
-  </data>
-  <data name="&gt;&gt;tsmiPMultiPCM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMultiPCM.Name" xml:space="preserve">
-    <value>tsmiSMultiPCM</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMultiPCM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>
