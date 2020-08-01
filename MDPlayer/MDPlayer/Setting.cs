@@ -3498,6 +3498,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosN106 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosN106
+            {
+                get
+                {
+                    return _PosN106;
+                }
+
+                set
+                {
+                    _PosN106 = value;
+                }
+            }
+
+            private bool[] _OpenN106 = new bool[2] { false, false };
+            public bool[] OpenN106
+            {
+                get
+                {
+                    return _OpenN106;
+                }
+
+                set
+                {
+                    _OpenN106 = value;
+                }
+            }
+
             private Point[] _PosQSound = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosQSound
             {

@@ -769,6 +769,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap planeN106 {
+            get {
+                object obj = ResourceManager.GetObject("planeN106", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap planeNESDMC {
             get {
                 object obj = ResourceManager.GetObject("planeNESDMC", resourceCulture);
@@ -1492,6 +1502,16 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap rWavGraph {
             get {
                 object obj = ResourceManager.GetObject("rWavGraph", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap rWavGraph2 {
+            get {
+                object obj = ResourceManager.GetObject("rWavGraph2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

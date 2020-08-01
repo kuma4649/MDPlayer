@@ -4817,6 +4817,14 @@ namespace MDPlayer
             return nes_vrc7.GetVRC7regs();
         }
 
+        public ITrackInfo[] getN106Register(int chipID)
+        {
+            if (nes_n106 == null) return null;
+            if (chipID != 0) return null;
+
+            return nes_n106.GetTracksInfo();
+        }
+
 
 
         //public int x68Sound_TotalVolume(int vol, enmModel model)

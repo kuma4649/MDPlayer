@@ -123,6 +123,8 @@
             this.tsmiChangeZoomX4 = new System.Windows.Forms.ToolStripMenuItem();
             this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiPN106 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSN106 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -182,6 +184,7 @@
             this.tsmiPSegaPCM,
             this.tsmiPVRC6,
             this.tsmiPVRC7,
+            this.tsmiPN106,
             this.tsmiYMZ280B,
             this.tsmiPMultiPCM});
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
@@ -404,6 +407,7 @@
             this.tsmiSSegaPCM,
             this.tsmiSVRC6,
             this.tsmiSVRC7,
+            this.tsmiSN106,
             this.tsmiSYMZ280B,
             this.tsmiSMultiPCM});
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
@@ -783,6 +787,18 @@
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
+            // tsmiPN106
+            // 
+            this.tsmiPN106.Name = "tsmiPN106";
+            resources.ApplyResources(this.tsmiPN106, "tsmiPN106");
+            this.tsmiPN106.Click += new System.EventHandler(this.tsmiPN106_Click);
+            // 
+            // tsmiSN106
+            // 
+            this.tsmiSN106.Name = "tsmiSN106";
+            resources.ApplyResources(this.tsmiSN106, "tsmiSN106");
+            this.tsmiSN106.Click += new System.EventHandler(this.tsmiSN106_Click);
+            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -899,6 +915,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSMultiPCM;
         private System.Windows.Forms.ToolStripMenuItem tsmiPVRC6;
         private System.Windows.Forms.ToolStripMenuItem tsmiSVRC6;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPN106;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSN106;
     }
 }
 

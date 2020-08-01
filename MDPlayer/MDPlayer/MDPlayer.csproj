@@ -347,6 +347,12 @@
     <Compile Include="form\frmMultiPCM.Designer.cs">
       <DependentUpon>frmMultiPCM.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmN106.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmN106.Designer.cs">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmNESDMC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -594,6 +600,9 @@
     <EmbeddedResource Include="form\frmMultiPCM.resx">
       <DependentUpon>frmMultiPCM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmN106.resx">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmNESDMC.resx">
       <DependentUpon>frmNESDMC.cs</DependentUpon>
     </EmbeddedResource>
@@ -776,6 +785,7 @@
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
     <Content Include="Resources\planeMultiPCM.png" />
+    <Content Include="Resources\planeN106.png" />
     <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planeQSound.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
@@ -849,6 +859,7 @@
     <Content Include="Resources\rVol_02.png" />
     <Content Include="Resources\rVol_03.png" />
     <Content Include="Resources\rWavGraph.png" />
+    <Content Include="Resources\rWavGraph2.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\txtPL.png" />
     <Content Include="Resources\upPL.png" />

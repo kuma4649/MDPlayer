@@ -3576,7 +3576,7 @@ namespace MDPlayer
                 if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
                 if (((nsf)driverVirtual).use_fme7) chipLED.PriFME7 = 1;
                 if (((nsf)driverVirtual).use_mmc5) chipLED.PriMMC5 = 1;
-                if (((nsf)driverVirtual).use_n106) chipLED.PriN160 = 1;
+                if (((nsf)driverVirtual).use_n106) chipLED.PriN106 = 1;
                 if (((nsf)driverVirtual).use_vrc6) chipLED.PriVRC6 = 1;
                 if (((nsf)driverVirtual).use_vrc7) chipLED.PriVRC7 = 1;
 
@@ -6416,6 +6416,11 @@ namespace MDPlayer
         public static byte[] GetVRC7Register(int chipID)
         {
             return chipRegister.getVRC7Register(chipID);
+        }
+
+        public static ITrackInfo[] GetN106Register(int chipID)
+        {
+            return chipRegister.getN106Register(chipID);
         }
 
         public static int[][] GetYM2608Register(int chipID)

@@ -59,9 +59,11 @@ namespace MDPlayer
             public int[] inst = new int[48];
             public int[] typ = new int[48];
             public bool[] bit = new bool[48];
+            public short[] aryWave16bit = null;
 
             public Channel()
             {
+                aryWave16bit = null;
                 for (int i = 0; i < inst.Length; i++)
                 {
                     inst[i] = -1;
@@ -438,6 +440,19 @@ namespace MDPlayer
 
         }
         public VRC7[] vrc7 = new VRC7[] { new VRC7(), new VRC7() };
+
+        public class N106
+        {
+
+            public Channel[] channels = new Channel[8] {
+                new Channel(), new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel(), new Channel()
+            };
+
+        }
+        public N106[] n106 = new N106[] { new N106(), new N106() };
+
+
 
 
         public class Mixer
