@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+using MDPlayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace Driver.libsidplayfp.sidplayfp
             RESAMPLE_INTERPOLATE
         }
 
-        public const UInt32 DEFAULT_SAMPLING_FREQ = 44100;
+        public UInt32 DEFAULT_SAMPLING_FREQ = (uint)Common.SampleRate;
 
         /**
          * Intended c64 model when unknown or forced.

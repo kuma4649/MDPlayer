@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "document", "document", "{4B
 		..\LICENSE.txt = ..\LICENSE.txt
 		makeZip.bat = makeZip.bat
 		..\README.md = ..\README.md
+		MDPlayer\removeZoneIdent.bat = MDPlayer\removeZoneIdent.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "licenses", "licenses", "{B336E366-413C-4035-98C5-70D7BB32EF5D}"

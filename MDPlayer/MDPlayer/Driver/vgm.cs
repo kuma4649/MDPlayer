@@ -174,7 +174,7 @@ namespace MDPlayer
         {
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += 44100.0 / Common.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;

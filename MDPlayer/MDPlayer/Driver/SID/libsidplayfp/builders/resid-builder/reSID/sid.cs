@@ -18,6 +18,8 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
+using MDPlayer;
+using MDSound;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -337,7 +339,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             voice[1].set_sync_source(voice[0]);
             voice[2].set_sync_source(voice[1]);
 
-            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST, 44100);
+            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST,Common.SampleRate);
 
             bus_value = 0;
             bus_value_ttl = 0;
