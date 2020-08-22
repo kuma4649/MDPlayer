@@ -2570,7 +2570,7 @@ namespace MDPlayer.form
 
             frmYM2413[chipID].Show();
             frmYM2413[chipID].update();
-            frmYM2413[chipID].Text = string.Format("YM2413 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            frmYM2413[chipID].Text = string.Format("YM2413/VRC7 ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.ym2413[chipID] = new MDChipParams.YM2413();
 
             CheckAndSetForm(frmYM2413[chipID]);
@@ -3242,7 +3242,7 @@ namespace MDPlayer.form
 
             frmN106[chipID].Show();
             frmN106[chipID].update();
-            frmN106[chipID].Text = string.Format("N106 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            frmN106[chipID].Text = string.Format("N163(N106) ({0})", chipID == 0 ? "Primary" : "Secondary");
             oldParam.n106[chipID] = new MDChipParams.N106();
 
             CheckAndSetForm(frmN106[chipID]);

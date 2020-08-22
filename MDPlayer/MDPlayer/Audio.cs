@@ -4595,18 +4595,26 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).YM2413ClockValue != 0)
                 {
-                    MDSound.ym2413 ym2413 = new MDSound.ym2413();
+                    Instrument opll = null;
+                    if (!((vgm)driverVirtual).YM2413VRC7Flag)
+                    {
+                        opll = new MDSound.ym2413();
+                    }
+                    else
+                    {
+                        opll = new VRC7();
+                    }
 
                     for (int i = 0; i < (((vgm)driverVirtual).YM2413DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
                         chip.ID = (byte)i;
-                        chip.Instrument = ym2413;
-                        chip.Update = ym2413.Update;
-                        chip.Start = ym2413.Start;
-                        chip.Stop = ym2413.Stop;
-                        chip.Reset = ym2413.Reset;
+                        chip.Instrument = opll;
+                        chip.Update = opll.Update;
+                        chip.Start = opll.Start;
+                        chip.Stop = opll.Stop;
+                        chip.Reset = opll.Reset;
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.YM2413Volume;
                         chip.Clock = (((vgm)driverVirtual).YM2413ClockValue & 0x7fffffff);

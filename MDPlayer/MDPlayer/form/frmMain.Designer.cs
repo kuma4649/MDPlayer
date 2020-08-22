@@ -62,6 +62,7 @@
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPVRC6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPN106 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +94,7 @@
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSN106 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -123,8 +125,6 @@
             this.tsmiChangeZoomX4 = new System.Windows.Forms.ToolStripMenuItem();
             this.レジスタダンプ表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiPN106 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSN106 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -364,6 +364,12 @@
             resources.ApplyResources(this.tsmiPVRC7, "tsmiPVRC7");
             this.tsmiPVRC7.Click += new System.EventHandler(this.tsmiPVRC7_Click);
             // 
+            // tsmiPN106
+            // 
+            this.tsmiPN106.Name = "tsmiPN106";
+            resources.ApplyResources(this.tsmiPN106, "tsmiPN106");
+            this.tsmiPN106.Click += new System.EventHandler(this.tsmiPN106_Click);
+            // 
             // tsmiYMZ280B
             // 
             this.tsmiYMZ280B.Name = "tsmiYMZ280B";
@@ -581,6 +587,12 @@
             resources.ApplyResources(this.tsmiSVRC7, "tsmiSVRC7");
             this.tsmiSVRC7.Click += new System.EventHandler(this.tsmiSVRC7_Click);
             // 
+            // tsmiSN106
+            // 
+            this.tsmiSN106.Name = "tsmiSN106";
+            resources.ApplyResources(this.tsmiSN106, "tsmiSN106");
+            this.tsmiSN106.Click += new System.EventHandler(this.tsmiSN106_Click);
+            // 
             // tsmiSYMZ280B
             // 
             this.tsmiSYMZ280B.Name = "tsmiSYMZ280B";
@@ -786,18 +798,6 @@
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
-            // 
-            // tsmiPN106
-            // 
-            this.tsmiPN106.Name = "tsmiPN106";
-            resources.ApplyResources(this.tsmiPN106, "tsmiPN106");
-            this.tsmiPN106.Click += new System.EventHandler(this.tsmiPN106_Click);
-            // 
-            // tsmiSN106
-            // 
-            this.tsmiSN106.Name = "tsmiSN106";
-            resources.ApplyResources(this.tsmiSN106, "tsmiSN106");
-            this.tsmiSN106.Click += new System.EventHandler(this.tsmiSN106_Click);
             // 
             // frmMain
             // 

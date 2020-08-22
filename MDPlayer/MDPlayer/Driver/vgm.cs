@@ -79,6 +79,7 @@ namespace MDPlayer
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
         public bool YM2413DualChipFlag;
+        public bool YM2413VRC7Flag;
         public bool HuC6280DualChipFlag;
         public bool C140DualChipFlag;
         public bool C352DualChipFlag;
@@ -1936,8 +1937,17 @@ namespace MDPlayer
             {
                 YM2413ClockValue = YM2413clock & 0x3fffffff;
                 YM2413DualChipFlag = (YM2413clock & 0x40000000) != 0;
-                if (YM2413DualChipFlag) chips.Add("YM2413x2");
-                else chips.Add("YM2413");
+                YM2413VRC7Flag = (YM2413clock & 0x8000_0000) != 0;
+                if (!YM2413VRC7Flag)
+                {
+                    if (YM2413DualChipFlag) chips.Add("YM2413x2");
+                    else chips.Add("YM2413");
+                }
+                else
+                {
+                    if (YM2413DualChipFlag) chips.Add("VRC7x2");
+                    else chips.Add("VRC7");
+                }
             }
 
             TotalCounter = getLE32(0x18);

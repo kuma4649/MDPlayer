@@ -552,6 +552,7 @@
     <Compile Include="UnlhaWrap\UnlhaAPI.cs" />
     <Compile Include="UnlhaWrap\UnlhaCmd.cs" />
     <Compile Include="VisVolume.cs" />
+    <Compile Include="VRC7.cs" />
     <Compile Include="vstInfo.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />

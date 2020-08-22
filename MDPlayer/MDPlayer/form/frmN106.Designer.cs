@@ -53,7 +53,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmN106";
-            this.Text = "N106";
+            this.Text = "N163(N106)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmN106_FormClosed);
             this.Load += new System.EventHandler(this.frmN106_Load);
             this.Resize += new System.EventHandler(this.frmN106_Resize);
