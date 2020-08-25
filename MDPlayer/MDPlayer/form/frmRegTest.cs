@@ -11,7 +11,8 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmRegTest : Form {
+    public partial class frmRegTest : frmChipBase
+    {
         class ChipData {
 
             public delegate object GetRegisterDelegate(int Select);
@@ -165,8 +166,8 @@ namespace MDPlayer.form
         }
 
         public bool isClosed = false;
-        public int x = -1;
-        public int y = -1;
+        //public int x = -1;
+        //public int y = -1;
         public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;

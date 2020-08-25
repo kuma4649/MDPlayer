@@ -3128,6 +3128,17 @@ namespace MDPlayer.form
 
             frmRegTest = new frmRegTest(this, chipID, selectedChip, setting.other.Zoom);
 
+            if (setting.location.PosRegTest[chipID] == System.Drawing.Point.Empty)
+            {
+                frmRegTest.x = this.Location.X;
+                frmRegTest.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmRegTest.x = setting.location.PosRegTest[chipID].X;
+                frmRegTest.y = setting.location.PosRegTest[chipID].Y;
+            }
+
             frmRegTest.Show();
             frmRegTest.update();
             frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
