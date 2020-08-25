@@ -99,6 +99,11 @@ namespace MDPlayer.form
                 AddChip("YM3812", 1, 0x100, (Select) => {
                     return Audio.GetYM3812Register(0);
                 });
+
+                AddChip("NES", 1, 0x30, (Select) => {
+                    return Audio.GetAPURegister(0);
+                });
+
             }
 
             private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
@@ -193,6 +198,7 @@ namespace MDPlayer.form
             { EnmChip.YM2203, 16 },
             { EnmChip.YM2413, 17 },
             { EnmChip.YM3812, 18 },
+            { EnmChip.NES, 19 },
         };
 
         public frmRegTest(frmMain frm, int chipID,EnmChip enmPage, int zoom)
@@ -208,6 +214,14 @@ namespace MDPlayer.form
             InitializeComponent();
             frameBuffer.Add(pbScreen, new Bitmap(FormWidth, FormHeight), null, zoom);
             RegMan.setSelect(pageSel);
+            update();
+        }
+
+        public void changeChip(EnmChip chip)
+        {
+            _ = pageDict.TryGetValue(chip, out int pageSel);
+            RegMan.setSelect(pageSel);
+            RegMan.needRefresh = true;
             update();
         }
 
@@ -227,6 +241,15 @@ namespace MDPlayer.form
 
         private void frmRegTest_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosRegTest[chipID] = Location;
+            }
+            else
+            {
+                parent.setting.location.PosRegTest[chipID] = RestoreBounds.Location;
+            }
+            update();
             isClosed = true;
         }
 

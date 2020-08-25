@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using MDSound;
+using MDPlayer.Properties;
+using MDPlayer.Driver.ZGM.ZgmChip;
 
 namespace MDPlayer.form
 {
@@ -248,6 +250,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenYmf262[chipID]) OpenFormYMF262(chipID);
                 if (setting.location.OpenYmf278b[chipID]) OpenFormYMF278B(chipID);
                 if (setting.location.OpenVrc7[chipID]) OpenFormVRC7(chipID);
+                if (setting.location.OpenRegTest[chipID]) OpenFormRegTest(chipID);
             }
 
             log.ForcedWrite("frmMain_Load:STEP 08");
@@ -728,6 +731,7 @@ namespace MDPlayer.form
                 setting.location.OpenYm3812[chipID] = false;
                 setting.location.OpenYmf262[chipID] = false;
                 setting.location.OpenYmf278b[chipID] = false;
+                setting.location.OpenRegTest[chipID] = false;
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
@@ -912,6 +916,12 @@ namespace MDPlayer.form
                 {
                     frmYMF278B[chipID].Close();
                     setting.location.OpenYmf278b[chipID] = true;
+                }
+
+                if (frmRegTest != null && !frmRegTest.isClosed)
+                {
+                    frmRegTest.Close();
+                    setting.location.OpenRegTest[chipID] = true;
                 }
             }
 
@@ -3105,12 +3115,16 @@ namespace MDPlayer.form
         }
 
         private void OpenFormRegTest(int chipID, EnmChip selectedChip = EnmChip.Unuse, bool force = false) {
-            if (frmRegTest != null) {
+            if(frmRegTest != null) {
+                frmRegTest.changeChip(selectedChip);
+                return;
+            }
+            /*if (frmRegTest != null) {
                 if (!force) {
                     CloseFormRegTest(chipID);
                     return;
                 } else return;
-            }
+            }*/
 
             frmRegTest = new frmRegTest(this, chipID, selectedChip, setting.other.Zoom);
 
