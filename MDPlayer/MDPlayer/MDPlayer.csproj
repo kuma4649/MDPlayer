@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>フェーリ.ico</ApplicationIcon>
+    <ApplicationIcon>Feli.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -864,14 +864,14 @@
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\txtPL.png" />
     <Content Include="Resources\upPL.png" />
-    <Content Include="Resources\フェーリ.ico" />
-    <Content Include="Resources\フェーリ.png" />
-    <Content Include="Resources\フェーリ128.ico" />
-    <Content Include="Resources\フェーリ128.png" />
-    <Content Include="Resources\フェーリ48.png" />
-    <Content Include="Resources\フェーリ64.png" />
-    <None Include="Resources\フェーリAndMD2.png" />
-    <Content Include="フェーリ.ico" />
+    <Content Include="Resources\Feli.ico" />
+    <Content Include="Resources\Feli.png" />
+    <Content Include="Resources\Feli128.ico" />
+    <Content Include="Resources\Feli128.png" />
+    <Content Include="Resources\Feli48.png" />
+    <Content Include="Resources\Feli64.png" />
+    <None Include="Resources\FeliAndMD2.png" />
+    <Content Include="Feli.ico" />
     <None Include="Resources\planeC.png" />
   </ItemGroup>
   <ItemGroup>

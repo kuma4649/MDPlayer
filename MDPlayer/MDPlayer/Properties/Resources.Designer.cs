@@ -529,6 +529,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap FeliAndMD2 {
+            get {
+                object obj = ResourceManager.GetObject("FeliAndMD2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap imgPL {
             get {
                 object obj = ResourceManager.GetObject("imgPL", resourceCulture);
@@ -1542,16 +1552,6 @@ namespace MDPlayer.Properties {
         internal static System.Drawing.Bitmap upPL {
             get {
                 object obj = ResourceManager.GetObject("upPL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        internal static System.Drawing.Bitmap フェーリAndMD2 {
-            get {
-                object obj = ResourceManager.GetObject("フェーリAndMD2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
