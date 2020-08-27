@@ -3562,6 +3562,8 @@ namespace MDPlayer
                 }
             }
 
+            public int ChipSelect { get; set; }
+
             public Location Copy()
             {
                 Location Location = new Location();
@@ -3631,7 +3633,7 @@ namespace MDPlayer
                 Location.OpenMIDI = this.OpenMIDI;
                 Location.PosRegTest = this.PosRegTest;
                 Location.OpenRegTest = this.OpenRegTest;
-                
+                Location.ChipSelect = this.ChipSelect;
 
                 return Location;
             }

@@ -144,9 +144,9 @@ namespace MDPlayer.form
                 return $"#{Select - x.BaseIndex} REGISTER ({Select + 1}/{ChipList.Count})  ";
             }
 
-            //public int getRegisterSize() {
-            //    return ChipList[Select].MaxRegisterSize;
-            //}
+            public int getRegisterSize() {
+                return ChipList[Select].MaxRegisterSize;
+            }
 
             //public int getPageSize()
             //{
@@ -157,6 +157,10 @@ namespace MDPlayer.form
             {
                 var x = ChipList[Select];
                 return Select - x.BaseIndex;
+            }
+            public int getSelect()
+            {
+                return Select;
             }
 
             public void setSelect(int val)
@@ -250,6 +254,7 @@ namespace MDPlayer.form
             {
                 parent.setting.location.PosRegTest[chipID] = RestoreBounds.Location;
             }
+            parent.setting.location.ChipSelect = RegMan.getSelect();
             update();
             isClosed = true;
         }
@@ -257,6 +262,7 @@ namespace MDPlayer.form
         private void frmRegTest_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
+            RegMan.setSelect(parent.setting.location.ChipSelect);
 
             frameSizeW = this.Width - this.ClientSize.Width;
             frameSizeH = this.Height - this.ClientSize.Height;
@@ -338,7 +344,8 @@ namespace MDPlayer.form
             else if (Reg is int[])
             {
                 int[] r = (int[])Reg;
-                for (var i = 0; i < r.Length; i++)
+                int ms = RegMan.getRegisterSize();
+                for (var i = 0; i < Math.Min(r.Length,ms); i++)
                 {
                     if (i % 16 == 0)
                     {
