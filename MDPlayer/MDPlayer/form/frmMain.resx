@@ -327,11 +327,23 @@
   <data name="tsmiPSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
   </data>
+  <data name="tsmiPVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
   <data name="tsmiPVRC7.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
   <data name="tsmiPVRC7.Text" xml:space="preserve">
     <value>VRC7</value>
+  </data>
+  <data name="tsmiPN106.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPN106.Text" xml:space="preserve">
+    <value>N163(N106)</value>
   </data>
   <data name="tsmiYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
@@ -507,11 +519,23 @@
   <data name="tsmiSSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
   </data>
+  <data name="tsmiSVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
   <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
   </data>
   <data name="tsmiSVRC7.Text" xml:space="preserve">
     <value>VRC7</value>
+  </data>
+  <data name="tsmiSN106.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSN106.Text" xml:space="preserve">
+    <value>N163(N106)</value>
   </data>
   <data name="tsmiSYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 22</value>
@@ -1308,10 +1332,22 @@
   <data name="&gt;&gt;tsmiPSegaPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPVRC6.Name" xml:space="preserve">
+    <value>tsmiPVRC6</value>
+  </data>
+  <data name="&gt;&gt;tsmiPVRC6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiPVRC7.Name" xml:space="preserve">
     <value>tsmiPVRC7</value>
   </data>
   <data name="&gt;&gt;tsmiPVRC7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiPN106.Name" xml:space="preserve">
+    <value>tsmiPN106</value>
+  </data>
+  <data name="&gt;&gt;tsmiPN106.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiYMZ280B.Name" xml:space="preserve">
@@ -1488,10 +1524,22 @@
   <data name="&gt;&gt;tsmiSSegaPCM.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiSVRC6.Name" xml:space="preserve">
+    <value>tsmiSVRC6</value>
+  </data>
+  <data name="&gt;&gt;tsmiSVRC6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiSVRC7.Name" xml:space="preserve">
     <value>tsmiSVRC7</value>
   </data>
   <data name="&gt;&gt;tsmiSVRC7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSN106.Name" xml:space="preserve">
+    <value>tsmiSN106</value>
+  </data>
+  <data name="&gt;&gt;tsmiSN106.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiSYMZ280B.Name" xml:space="preserve">
@@ -1758,12 +1806,14 @@
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
+
   <data name="&gt;&gt;yM3812ToolStripMenuItem.Name" xml:space="preserve">
     <value>yM3812ToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;yM3812ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>
   </data>

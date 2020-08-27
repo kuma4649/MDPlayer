@@ -276,10 +276,32 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・起動しない  
   
     Case1  
+      ゾーン識別子がファイルに付加されてしまっている為起動中にエラーがでてしまう為です。  
+    ゾーン識別子はOSの保護機能のひとつで、ネットからダウンロードしたファイルに自動的に付加され意図しないファイルの実行を防ぎます。  
+    が、意図してダウンロードしたものに対しては今回の様に邪魔してしまうことになります。  
+    →解凍するとできるremoveZoneIdent.batをダブルクリックして実行してください。  
+    このバッチファイルはゾーン識別子を一括削除します。  
+    因みに以下のようなメッセージが表示されます。  
+        不明なエラーが発生しました。  
+        Exception Message:
+        Could not load file or assembly
+        'file://.....dll' or one of its dependencies,Operation is not supported.
+        (Exception from HRESULT:xxxx)
+
+    Case2  
       主に実チップ使用時に発生します。SCCIがc86ctlを使用する状態になっている為です。  
     MDPlayerもc86ctlを使用するため取り合いになってしまい、起動に失敗します。  
     →scciconfig.exeを使用してc86ctlの設定項目である「enable」のチェックを外してください。  
   
+    Case3  
+      .NETframeworkのバージョンが違う為です。  
+    →最新の.NETframeworkをインストールすることで改善することがあります。  
+    因みに以下のようなメッセージが表示されます。  
+        不明なエラーが発生しました。  
+        Exception Message:
+        Could not load file or assembly
+        'netstandard, Version=..., Culture=..., PublicKeyToken=...' or one of its dependencies.指定されたファイルが見つかりません。  
+
     CaseX  
       TBD  
   

@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>フェーリ.ico</ApplicationIcon>
+    <ApplicationIcon>Feli.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -347,6 +347,12 @@
     <Compile Include="form\frmMultiPCM.Designer.cs">
       <DependentUpon>frmMultiPCM.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmN106.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmN106.Designer.cs">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmNESDMC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +418,12 @@
     </Compile>
     <Compile Include="form\frmTPPut.Designer.cs">
       <DependentUpon>frmTPPut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmVRC6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmVRC6.Designer.cs">
+      <DependentUpon>frmVRC6.cs</DependentUpon>
     </Compile>
     <Compile Include="form\frmVRC7.cs">
       <SubType>Form</SubType>
@@ -540,6 +552,7 @@
     <Compile Include="UnlhaWrap\UnlhaAPI.cs" />
     <Compile Include="UnlhaWrap\UnlhaCmd.cs" />
     <Compile Include="VisVolume.cs" />
+    <Compile Include="VRC7.cs" />
     <Compile Include="vstInfo.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
@@ -588,6 +601,9 @@
     <EmbeddedResource Include="form\frmMultiPCM.resx">
       <DependentUpon>frmMultiPCM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmN106.resx">
+      <DependentUpon>frmN106.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmNESDMC.resx">
       <DependentUpon>frmNESDMC.cs</DependentUpon>
     </EmbeddedResource>
@@ -623,6 +639,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmTPPut.resx">
       <DependentUpon>frmTPPut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmVRC6.resx">
+      <DependentUpon>frmVRC6.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmVRC7.resx">
       <DependentUpon>frmVRC7.cs</DependentUpon>
@@ -767,10 +786,12 @@
     <Content Include="Resources\planeMSM6258.png" />
     <Content Include="Resources\planeMSM6295.png" />
     <Content Include="Resources\planeMultiPCM.png" />
+    <Content Include="Resources\planeN106.png" />
     <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planeQSound.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
+    <Content Include="Resources\planeVRC6.png" />
     <Content Include="Resources\planeVRC7.png" />
     <Content Include="Resources\planeY8950.png" />
     <Content Include="Resources\planeYM2203.png" />
@@ -839,17 +860,18 @@
     <Content Include="Resources\rVol_02.png" />
     <Content Include="Resources\rVol_03.png" />
     <Content Include="Resources\rWavGraph.png" />
+    <Content Include="Resources\rWavGraph2.png" />
     <Content Include="Resources\savePL.png" />
     <Content Include="Resources\txtPL.png" />
     <Content Include="Resources\upPL.png" />
-    <Content Include="Resources\フェーリ.ico" />
-    <Content Include="Resources\フェーリ.png" />
-    <Content Include="Resources\フェーリ128.ico" />
-    <Content Include="Resources\フェーリ128.png" />
-    <Content Include="Resources\フェーリ48.png" />
-    <Content Include="Resources\フェーリ64.png" />
-    <None Include="Resources\フェーリAndMD2.png" />
-    <Content Include="フェーリ.ico" />
+    <Content Include="Resources\Feli.ico" />
+    <Content Include="Resources\Feli.png" />
+    <Content Include="Resources\Feli128.ico" />
+    <Content Include="Resources\Feli128.png" />
+    <Content Include="Resources\Feli48.png" />
+    <Content Include="Resources\Feli64.png" />
+    <None Include="Resources\FeliAndMD2.png" />
+    <Content Include="Feli.ico" />
     <None Include="Resources\planeC.png" />
   </ItemGroup>
   <ItemGroup>

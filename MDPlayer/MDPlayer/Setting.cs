@@ -3442,6 +3442,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosVrc6 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosVrc6
+            {
+                get
+                {
+                    return _PosVrc6;
+                }
+
+                set
+                {
+                    _PosVrc6 = value;
+                }
+            }
+
+            private bool[] _OpenVrc6 = new bool[2] { false, false };
+            public bool[] OpenVrc6
+            {
+                get
+                {
+                    return _OpenVrc6;
+                }
+
+                set
+                {
+                    _OpenVrc6 = value;
+                }
+            }
+
             private Point[] _PosVrc7 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosVrc7
             {
@@ -3467,6 +3495,34 @@ namespace MDPlayer
                 set
                 {
                     _OpenVrc7 = value;
+                }
+            }
+
+            private Point[] _PosN106 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosN106
+            {
+                get
+                {
+                    return _PosN106;
+                }
+
+                set
+                {
+                    _PosN106 = value;
+                }
+            }
+
+            private bool[] _OpenN106 = new bool[2] { false, false };
+            public bool[] OpenN106
+            {
+                get
+                {
+                    return _OpenN106;
+                }
+
+                set
+                {
+                    _OpenN106 = value;
                 }
             }
 

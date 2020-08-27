@@ -4632,7 +4632,7 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logoPictureBox.Image = global::MDPlayer.Properties.Resources.フェーリAndMD2;
+            this.logoPictureBox.Image = global::MDPlayer.Properties.Resources.FeliAndMD2;
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);

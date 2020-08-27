@@ -555,7 +555,7 @@ namespace MDPlayer
             HESHES THIS_ = pNezPlay.heshes;
             UInt32 i, initbreak;
             //UInt32 freq = NESAudioFrequencyGet(pNezPlay);
-            UInt32 freq = 44100;
+            UInt32 freq = (uint)Common.SampleRate;
 
             //THIS_.hessnd.reset(THIS_.hessnd.ctx, HES_BASECYCLES, freq);
             THIS_.hespcm.reset(THIS_.hespcm.ctx, HES_BASECYCLES, freq);

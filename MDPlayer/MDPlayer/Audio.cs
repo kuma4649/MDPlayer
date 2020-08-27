@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using MDPlayer.form;
 using musicDriverInterface;
+using MDSound.np.chip;
 
 namespace MDPlayer
 {
@@ -3575,7 +3576,7 @@ namespace MDPlayer
                 if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
                 if (((nsf)driverVirtual).use_fme7) chipLED.PriFME7 = 1;
                 if (((nsf)driverVirtual).use_mmc5) chipLED.PriMMC5 = 1;
-                if (((nsf)driverVirtual).use_n106) chipLED.PriN160 = 1;
+                if (((nsf)driverVirtual).use_n106) chipLED.PriN106 = 1;
                 if (((nsf)driverVirtual).use_vrc6) chipLED.PriVRC6 = 1;
                 if (((nsf)driverVirtual).use_vrc7) chipLED.PriVRC7 = 1;
 
@@ -4594,18 +4595,26 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).YM2413ClockValue != 0)
                 {
-                    MDSound.ym2413 ym2413 = new MDSound.ym2413();
+                    Instrument opll = null;
+                    if (!((vgm)driverVirtual).YM2413VRC7Flag)
+                    {
+                        opll = new MDSound.ym2413();
+                    }
+                    else
+                    {
+                        opll = new VRC7();
+                    }
 
                     for (int i = 0; i < (((vgm)driverVirtual).YM2413DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
                         chip.ID = (byte)i;
-                        chip.Instrument = ym2413;
-                        chip.Update = ym2413.Update;
-                        chip.Start = ym2413.Start;
-                        chip.Stop = ym2413.Stop;
-                        chip.Reset = ym2413.Reset;
+                        chip.Instrument = opll;
+                        chip.Update = opll.Update;
+                        chip.Start = opll.Start;
+                        chip.Stop = opll.Stop;
+                        chip.Reset = opll.Reset;
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.YM2413Volume;
                         chip.Clock = (((vgm)driverVirtual).YM2413ClockValue & 0x7fffffff);
@@ -6407,9 +6416,19 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2413[chipID];
         }
 
+        public static ITrackInfo[] GetVRC6Register(int chipID)
+        {
+            return chipRegister.getVRC6Register(chipID);
+        }
+
         public static byte[] GetVRC7Register(int chipID)
         {
             return chipRegister.getVRC7Register(chipID);
+        }
+
+        public static ITrackInfo[] GetN106Register(int chipID)
+        {
+            return chipRegister.getN106Register(chipID);
         }
 
         public static int[][] GetYM2608Register(int chipID)

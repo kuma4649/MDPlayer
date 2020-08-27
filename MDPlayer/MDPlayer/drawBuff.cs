@@ -24,6 +24,7 @@ namespace MDPlayer
         private static byte[][] rType;
         private static byte[][] rVol;
         private static byte[] rWavGraph;
+        private static byte[] rWavGraph2;
         private static byte[] rFader;
         private static byte[][] rMIDILCD_Fader;
         private static byte[] rMIDILCD_KBD;
@@ -101,6 +102,7 @@ namespace MDPlayer
             rVol[2] = getByteArray(Properties.Resources.rVol_03);
 
             rWavGraph = getByteArray(Properties.Resources.rWavGraph);
+            rWavGraph2 = getByteArray(Properties.Resources.rWavGraph2);
             rFader = getByteArray(Properties.Resources.rFader);
             rNESDMC = getByteArray(Properties.Resources.rNESDMC);
 
@@ -1907,6 +1909,20 @@ namespace MDPlayer
                 screen.drawByteArray(x, y - 16, rWavGraph, 64, m, 0, 1, 8);
                 m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
                 screen.drawByteArray(x, y - 23, rWavGraph, 64, m + 1, 0, 1, 7);
+
+                oi[i] = ni[i];
+            }
+        }
+
+        public static void WaveFormToN106(FrameBuffer screen, int x, int y, ref short[] oi, short[] ni)
+        {
+            if (ni == null) return;
+
+            for (int i = 0; i < ni.Length; i++)
+            {
+                if (oi[i] == ni[i]) continue;
+
+                screen.drawByteArray(x+i, y, rWavGraph2, 33, ni[i] % 33, 0, 1, 16);
 
                 oi[i] = ni[i];
             }
