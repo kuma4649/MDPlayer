@@ -3540,6 +3540,28 @@ namespace MDPlayer
                 }
             }
 
+
+            private Point[] _PosRegTest = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosRegTest
+            {
+                get { return _PosRegTest; }
+                set { _PosRegTest = value; }
+            }
+
+            private bool[] _OpenRegTest = new bool[2] { false, false };
+            public bool[] OpenRegTest
+            {
+                get
+                {
+                    return _OpenRegTest;
+                }
+
+                set
+                {
+                    _OpenRegTest = value;
+                }
+            }
+
             public Location Copy()
             {
                 Location Location = new Location();
@@ -3607,6 +3629,9 @@ namespace MDPlayer
                 Location.OpenVrc7 = this.OpenVrc7;
                 Location.PosMIDI = this.PosMIDI;
                 Location.OpenMIDI = this.OpenMIDI;
+                Location.PosRegTest = this.PosRegTest;
+                Location.OpenRegTest = this.OpenRegTest;
+                
 
                 return Location;
             }

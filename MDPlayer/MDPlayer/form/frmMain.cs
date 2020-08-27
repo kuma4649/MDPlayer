@@ -8,6 +8,9 @@ using NAudio.Midi;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using MDSound;
+using MDPlayer.Properties;
+using MDPlayer.Driver.ZGM.ZgmChip;
 
 namespace MDPlayer.form
 {
@@ -251,6 +254,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenYmf278b[chipID]) OpenFormYMF278B(chipID);
                 if (setting.location.OpenVrc6[chipID]) OpenFormVRC6(chipID);
                 if (setting.location.OpenVrc7[chipID]) OpenFormVRC7(chipID);
+                if (setting.location.OpenRegTest[chipID]) OpenFormRegTest(chipID);
                 if (setting.location.OpenN106[chipID]) OpenFormN106(chipID);
             }
 
@@ -757,6 +761,7 @@ namespace MDPlayer.form
                 setting.location.OpenYm3812[chipID] = false;
                 setting.location.OpenYmf262[chipID] = false;
                 setting.location.OpenYmf278b[chipID] = false;
+                setting.location.OpenRegTest[chipID] = false;
             }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 04");
@@ -946,6 +951,12 @@ namespace MDPlayer.form
                 {
                     frmYMF278B[chipID].Close();
                     setting.location.OpenYmf278b[chipID] = true;
+                }
+
+                if (frmRegTest != null && !frmRegTest.isClosed)
+                {
+                    frmRegTest.Close();
+                    setting.location.OpenRegTest[chipID] = true;
                 }
             }
 
@@ -3215,6 +3226,33 @@ namespace MDPlayer.form
             frmMMC5[chipID] = null;
         }
 
+        private void OpenFormRegTest(int chipID, EnmChip selectedChip = EnmChip.Unuse, bool force = false) {
+            if(frmRegTest != null) {
+                frmRegTest.changeChip(selectedChip);
+                return;
+            }
+            
+            frmRegTest = new frmRegTest(this, chipID, selectedChip, setting.other.Zoom);
+
+            if (setting.location.PosRegTest[chipID] == System.Drawing.Point.Empty)
+            {
+                frmRegTest.x = this.Location.X;
+                frmRegTest.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmRegTest.x = setting.location.PosRegTest[chipID].X;
+                frmRegTest.y = setting.location.PosRegTest[chipID].Y;
+            }
+
+            frmRegTest.Show();
+            frmRegTest.update();
+            frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
+
+            CheckAndSetForm(frmRegTest);
+        }
+
+
         private void OpenFormN106(int chipID, bool force = false)
         {
             if (frmN106[chipID] != null)// && frmInfo.isClosed)
@@ -3273,23 +3311,6 @@ namespace MDPlayer.form
 
 
 
-
-        private void OpenFormRegTest(int chipID, bool force = false) {
-            if (frmRegTest != null) {
-                if (!force) {
-                    CloseFormRegTest(chipID);
-                    return;
-                } else return;
-            }
-
-            frmRegTest = new frmRegTest(this, chipID, setting.other.Zoom);
-
-            frmRegTest.Show();
-            frmRegTest.update();
-            frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
-
-            CheckAndSetForm(frmRegTest);
-        }
 
         private void CloseFormRegTest(int chipID) {
             if (frmRegTest == null) return;
@@ -7346,7 +7367,23 @@ namespace MDPlayer.form
         }
 
         private void RegisterDumpMenuItem_Click(object sender, EventArgs e) {
-            OpenFormRegTest(0);
+            if (sender == yM2612ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2612);
+            else if (sender == ym2151ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2151);
+            else if (sender == ym2203ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2203);
+            else if (sender == ym2413ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2413);
+            else if (sender == ym2608ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2608);
+            else if (sender == yMF278BToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMF278B);
+            else if (sender == yMF262ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMF262);
+            else if (sender == yM2610ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM2610);
+            else if (sender == qSoundToolStripMenuItem) OpenFormRegTest(0, EnmChip.QSound);
+            else if (sender == segaPCMToolStripMenuItem) OpenFormRegTest(0, EnmChip.SEGAPCM);
+            else if (sender == yMZ280BToolStripMenuItem) OpenFormRegTest(0, EnmChip.YMZ280B);
+            else if (sender == sN76489ToolStripMenuItem) OpenFormRegTest(0, EnmChip.SN76489);
+            else if (sender == aY8910ToolStripMenuItem) OpenFormRegTest(0, EnmChip.AY8910);
+            else if (sender == c140ToolStripMenuItem) OpenFormRegTest(0, EnmChip.C140);
+            else if (sender == c352ToolStripMenuItem) OpenFormRegTest(0, EnmChip.C352);
+            else if (sender == yM3812ToolStripMenuItem) OpenFormRegTest(0, EnmChip.YM3812);
+            else OpenFormRegTest(0);
         }
     }
 }
