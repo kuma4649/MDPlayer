@@ -2008,6 +2008,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _SAA1099Volume = 0;
+            public int SAA1099Volume
+            {
+                get
+                {
+                    if (_SAA1099Volume > 20 || _SAA1099Volume < -192) _SAA1099Volume = 0;
+                    return _SAA1099Volume;
+                }
+
+                set
+                {
+                    _SAA1099Volume = value;
+                    if (_SAA1099Volume > 20 || _SAA1099Volume < -192) _SAA1099Volume = 0;
+                }
+            }
+
             private int _K054539Volume = 0;
             public int K054539Volume
             {

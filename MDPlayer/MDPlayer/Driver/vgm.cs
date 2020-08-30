@@ -50,6 +50,7 @@ namespace MDPlayer
         public uint YM2413ClockValue;
         public uint HuC6280ClockValue;
         public uint QSoundClockValue;
+        public uint SAA1099ClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
         public uint GA20ClockValue;
@@ -82,6 +83,7 @@ namespace MDPlayer
         public bool YM2413VRC7Flag;
         public bool HuC6280DualChipFlag;
         public bool C140DualChipFlag;
+        public bool SAA1099DualChipFlag;
         public bool C352DualChipFlag;
         public bool GA20DualChipFlag;
         public bool K053260DualChipFlag;
@@ -469,7 +471,7 @@ namespace MDPlayer
             vgmCmdTbl[0xba] = vcK053260;
             vgmCmdTbl[0xbb] = vcDummy2Ope;
             vgmCmdTbl[0xbc] = vcDummy2Ope;
-            vgmCmdTbl[0xbd] = vcDummy2Ope;
+            vgmCmdTbl[0xbd] = vcSAA1099;
             vgmCmdTbl[0xbe] = vcDummy2Ope;
             vgmCmdTbl[0xbf] = vcGA20;
 
@@ -775,6 +777,12 @@ namespace MDPlayer
         private void vcOKIM6295()
         {
             chipRegister.writeOKIM6295((byte)((vgmBuf[vgmAdr + 0x01] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 0x01] & 0x7F), vgmBuf[vgmAdr + 0x02], model);
+            vgmAdr += 3;
+        }
+
+        private void vcSAA1099()
+        {
+            chipRegister.writeSAA1099((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1906,6 +1914,7 @@ namespace MDPlayer
             K054539ClockValue = 0;
             NESClockValue = 0;
             MultiPCMClockValue = 0;
+            SAA1099ClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -2335,6 +2344,19 @@ namespace MDPlayer
                 }
                 //if (version >= 0x0171)
                 {
+                    if (vgmDataOffset > 0xc8)
+                    {
+
+                        uint SAA1099clock = getLE32(0xc8);
+                        if (SAA1099clock != 0)
+                        {
+                            SAA1099ClockValue = SAA1099clock & 0x3fff_ffff;
+                            SAA1099DualChipFlag = (SAA1099clock & 0x4000_0000) != 0;
+                            if (SAA1099DualChipFlag) chips.Add("SAA1099x2");
+                            else chips.Add("SAA1099");
+                        }
+                    }
+
                     if (vgmDataOffset > 0xdc)
                     {
 

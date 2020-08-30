@@ -4304,6 +4304,17 @@ namespace MDPlayer
             }
         }
 
+        public void writeSAA1099(byte ChipID, byte Port, byte Data, EnmModel model)
+        {
+            if (ChipID == 0) chipLED.PriSAA = 2;
+            else chipLED.SecSAA = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WriteSAA1099(ChipID, Port, Data);
+            }
+        }
+
         public void writeOKIM6295PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
         {
             if (chipid == 0) chipLED.PriOKI9 = 2;

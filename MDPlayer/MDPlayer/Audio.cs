@@ -4684,6 +4684,32 @@ namespace MDPlayer
                     useChip.Add(EnmChip.QSound);
                 }
 
+                if (((vgm)driverVirtual).SAA1099ClockValue != 0)
+                {
+                    MDSound.saa1099 saa1099 = new saa1099();
+                    for (int i = 0; i < (((vgm)driverVirtual).SAA1099DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.SAA1099;
+                        chip.ID = (byte)i;
+                        chip.Instrument = saa1099;
+                        chip.Update = saa1099.Update;
+                        chip.Start = saa1099.Start;
+                        chip.Stop = saa1099.Stop;
+                        chip.Reset = saa1099.Reset;
+                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.Volume = setting.balance.SAA1099Volume;
+                        chip.Clock = (((vgm)driverVirtual).SAA1099ClockValue & 0x3fffffff);
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriSAA = 1;
+                        else chipLED.SecSAA = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.SAA1099 : EnmChip.S_SAA1099);
+                    }
+                }
+
                 if (((vgm)driverVirtual).C352ClockValue != 0)
                 {
                     MDSound.c352 c352 = new c352();
