@@ -4472,6 +4472,31 @@ namespace MDPlayer
                 }
             }
 
+            public int _HPF = 92;
+            public int HPF {
+                get
+                {
+                    return _HPF;
+                }
+
+                set
+                {
+                    _HPF = value;
+                }
+            }
+
+            public int _LPF = 112;
+            public int LPF {
+                get
+                {
+                    return _LPF;
+                }
+
+                set
+                {
+                    _LPF = value;
+                }
+            }
 
             public NSF Copy()
             {
@@ -4499,6 +4524,9 @@ namespace MDPlayer
                 NSF.MMC5PhaseRefresh = this.MMC5PhaseRefresh;
 
                 NSF.N160Serial = this.N160Serial;
+
+                NSF.HPF = this.HPF;
+                NSF.LPF = this.LPF;
 
                 return NSF;
             }

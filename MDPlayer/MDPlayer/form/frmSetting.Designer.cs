@@ -416,6 +416,10 @@
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
+            this.trkbNSFHPF = new System.Windows.Forms.TrackBar();
+            this.trkbNSFLPF = new System.Windows.Forms.TrackBar();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -507,6 +511,8 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -1073,6 +1079,10 @@
             // 
             // tpNSF
             // 
+            this.tpNSF.Controls.Add(this.trkbNSFLPF);
+            this.tpNSF.Controls.Add(this.label53);
+            this.tpNSF.Controls.Add(this.label52);
+            this.tpNSF.Controls.Add(this.trkbNSFHPF);
             this.tpNSF.Controls.Add(this.groupBox10);
             this.tpNSF.Controls.Add(this.groupBox12);
             this.tpNSF.Controls.Add(this.groupBox11);
@@ -4716,6 +4726,42 @@
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
+            // trkbNSFHPF
+            // 
+            this.trkbNSFHPF.Location = new System.Drawing.Point(46, 287);
+            this.trkbNSFHPF.Maximum = 256;
+            this.trkbNSFHPF.Name = "trkbNSFHPF";
+            this.trkbNSFHPF.Size = new System.Drawing.Size(104, 45);
+            this.trkbNSFHPF.TabIndex = 9;
+            this.trkbNSFHPF.TickFrequency = 10;
+            // 
+            // trkbNSFLPF
+            // 
+            this.trkbNSFLPF.Location = new System.Drawing.Point(196, 287);
+            this.trkbNSFLPF.Maximum = 400;
+            this.trkbNSFLPF.Name = "trkbNSFLPF";
+            this.trkbNSFLPF.Size = new System.Drawing.Size(104, 45);
+            this.trkbNSFLPF.TabIndex = 9;
+            this.trkbNSFLPF.TickFrequency = 10;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(13, 287);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(27, 12);
+            this.label52.TabIndex = 10;
+            this.label52.Text = "HPF";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(165, 287);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(25, 12);
+            this.label53.TabIndex = 10;
+            this.label53.Text = "LPF";
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -4752,6 +4798,7 @@
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             this.tpNSF.ResumeLayout(false);
+            this.tpNSF.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -4864,6 +4911,8 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5259,5 +5308,9 @@
         private System.Windows.Forms.CheckBox cbExALL;
         private System.Windows.Forms.CheckBox cbNonRenderingForPause;
         private System.Windows.Forms.LinkLabel llOpenGithub;
+        private System.Windows.Forms.TrackBar trkbNSFLPF;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.TrackBar trkbNSFHPF;
     }
 }

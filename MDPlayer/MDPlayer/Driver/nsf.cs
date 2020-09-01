@@ -228,6 +228,8 @@ namespace MDPlayer
         private Bus apu_bus;
         private Bus stack;
         private Layer layer;
+        private MDSound.np.DCFilter dcf;                        // 最終出力段に掛ける直流フィルタ
+        private MDSound.np.Filter lpf;                          // 最終出力に掛けるローパスフィルタ
 
         //private nes_bank nes_bank = null;
         //private nes_mem nes_mem = null;
@@ -303,6 +305,17 @@ namespace MDPlayer
             stack = new Bus();
             layer = new Layer();
             apu_bus = new Bus();
+
+            dcf = new DCFilter();
+            lpf = new Filter();
+            lpf.SetRate(Common.SampleRate);
+            lpf.Reset();
+            dcf.SetRate(Common.SampleRate);
+            dcf.Reset();
+            dcf.SetParam(270, 256 - setting.nsf.HPF);//HPF:256-(Range0-256(Def:92))
+            lpf.SetParam(4700.0, setting.nsf.LPF); //LPF:(Range 0-400(Def:112))
+            //Console.WriteLine("dcf:{0}", dcf.GetFactor());
+            //Console.WriteLine("lpf:{0}", lpf.GetFactor());
 
             int i, bmax = 0;
 
@@ -598,6 +611,9 @@ namespace MDPlayer
                 if (outm == last_out) silent_length++;
                 else silent_length = 0;
                 last_out = outm;
+
+                dcf.FastRender(_out);
+                lpf.FastRender(_out);
 
                 _out[0] = (Int32)((_out[0] * master_volume) >> 9);
                 _out[1] = (Int32)((_out[1] * master_volume) >> 9);

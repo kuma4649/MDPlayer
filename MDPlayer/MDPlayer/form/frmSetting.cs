@@ -595,7 +595,8 @@ namespace MDPlayer.form
                 //}
             }
 
-
+            trkbNSFHPF.Value = setting.nsf.HPF;
+            trkbNSFLPF.Value = setting.nsf.LPF;
             cbNFSNes_UnmuteOnReset.Checked = setting.nsf.NESUnmuteOnReset;
             cbNFSNes_NonLinearMixer.Checked = setting.nsf.NESNonLinearMixer;
             cbNFSNes_PhaseRefresh.Checked = setting.nsf.NESPhaseRefresh;
@@ -1535,6 +1536,8 @@ namespace MDPlayer.form
             setting.nsf.MMC5PhaseRefresh = cbNSFMmc5_PhaseRefresh.Checked;
 
             setting.nsf.N160Serial = cbNSFN160_Serial.Checked;
+            setting.nsf.HPF = trkbNSFHPF.Value;
+            setting.nsf.LPF = trkbNSFLPF.Value;
 
             setting.sid = new Setting.SID();
             setting.sid.RomKernalPath = tbSIDKernal.Text;
