@@ -2024,6 +2024,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _X1_010Volume = 0;
+            public int X1_010Volume
+            {
+                get
+                {
+                    if (_X1_010Volume > 20 || _X1_010Volume < -192) _X1_010Volume = 0;
+                    return _X1_010Volume;
+                }
+
+                set
+                {
+                    _X1_010Volume = value;
+                    if (_X1_010Volume > 20 || _X1_010Volume < -192) _X1_010Volume = 0;
+                }
+            }
+
             private int _K054539Volume = 0;
             public int K054539Volume
             {

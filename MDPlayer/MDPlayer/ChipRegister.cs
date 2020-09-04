@@ -1465,6 +1465,21 @@ namespace MDPlayer
             return QSoundRegister[chipID];
         }
 
+        public void setX1_010Register(int chipID, byte mm, byte ll, byte rr, EnmModel model)
+        {
+            if (chipID == 0) chipLED.PriX1010 = 2;
+            else chipLED.SecX1010 = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WriteX1_010((byte)chipID, 0, (int)(mm * 0x100 + ll), rr);
+
+            }
+            else
+            {
+            }
+        }
+
         public void setGA20Register(int chipID, Int32 Adr, byte Dat, EnmModel model)
         {
             if (chipID == 0) chipLED.PriGA20 = 2;
@@ -4227,6 +4242,15 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
                 mds.WriteQSoundCtrPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeX1_010PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
+        {
+            if (chipid == 0) chipLED.PriX1010 = 2;
+            else chipLED.SecX1010 = 2;
+
+            if (model == EnmModel.VirtualModel)
+                mds.WriteX1_010PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeC352(byte chipid, uint adr, uint data, EnmModel model)

@@ -4710,6 +4710,32 @@ namespace MDPlayer
                     }
                 }
 
+                if (((vgm)driverVirtual).X1_010ClockValue != 0)
+                {
+                    MDSound.x1_010 X1_010 = new x1_010();
+                    for (int i = 0; i < (((vgm)driverVirtual).X1_010DualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.X1_010;
+                        chip.ID = (byte)i;
+                        chip.Instrument = X1_010;
+                        chip.Update = X1_010.Update;
+                        chip.Start = X1_010.Start;
+                        chip.Stop = X1_010.Stop;
+                        chip.Reset = X1_010.Reset;
+                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.Volume = setting.balance.X1_010Volume;
+                        chip.Clock = (((vgm)driverVirtual).X1_010ClockValue & 0x3fffffff);
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriX1010 = 1;
+                        else chipLED.SecX1010 = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.X1_010 : EnmChip.S_X1_010);
+                    }
+                }
+
                 if (((vgm)driverVirtual).C352ClockValue != 0)
                 {
                     MDSound.c352 c352 = new c352();

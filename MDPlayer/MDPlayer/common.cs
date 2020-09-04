@@ -500,6 +500,7 @@ namespace MDPlayer
         , K054539
         , DMG
         , SAA1099
+        , X1_010
 
         , S_SN76489
         , S_YM2612
@@ -542,6 +543,7 @@ namespace MDPlayer
         , S_K054539
         , S_DMG
         , S_SAA1099
+        , S_X1_010
     }
 
     public enum EnmRealChipType : int

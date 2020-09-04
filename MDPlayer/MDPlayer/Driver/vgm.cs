@@ -51,6 +51,7 @@ namespace MDPlayer
         public uint HuC6280ClockValue;
         public uint QSoundClockValue;
         public uint SAA1099ClockValue;
+        public uint X1_010ClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
         public uint GA20ClockValue;
@@ -84,6 +85,7 @@ namespace MDPlayer
         public bool HuC6280DualChipFlag;
         public bool C140DualChipFlag;
         public bool SAA1099DualChipFlag;
+        public bool X1_010DualChipFlag;
         public bool C352DualChipFlag;
         public bool GA20DualChipFlag;
         public bool K053260DualChipFlag;
@@ -482,7 +484,7 @@ namespace MDPlayer
             vgmCmdTbl[0xc6] = vcDummy3Ope;
             vgmCmdTbl[0xc7] = vcDummy3Ope;
 
-            vgmCmdTbl[0xc8] = vcDummy3Ope;
+            vgmCmdTbl[0xc8] = vcX1_010;
             vgmCmdTbl[0xc9] = vcDummy3Ope;
             vgmCmdTbl[0xca] = vcDummy3Ope;
             vgmCmdTbl[0xcb] = vcDummy3Ope;
@@ -618,6 +620,12 @@ namespace MDPlayer
         private void vcQSound()
         {
             chipRegister.setQSoundRegister(0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], model);
+            vgmAdr += 4;
+        }
+
+        private void vcX1_010()
+        {
+            chipRegister.setX1_010Register((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], vgmBuf[vgmAdr + 3], model);
             vgmAdr += 4;
         }
 
@@ -1016,6 +1024,12 @@ namespace MDPlayer
                             // QSound
                             chipRegister.writeQSoundPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "QSound_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x91:
+                            // X1-010
+                            chipRegister.writeX1_010PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "X1-010_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x92:
@@ -1915,6 +1929,7 @@ namespace MDPlayer
             NESClockValue = 0;
             MultiPCMClockValue = 0;
             SAA1099ClockValue = 0;
+            X1_010ClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -2354,6 +2369,19 @@ namespace MDPlayer
                             SAA1099DualChipFlag = (SAA1099clock & 0x4000_0000) != 0;
                             if (SAA1099DualChipFlag) chips.Add("SAA1099x2");
                             else chips.Add("SAA1099");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xd8)
+                    {
+
+                        uint X1_010clock = getLE32(0xd8);
+                        if (X1_010clock != 0)
+                        {
+                            X1_010ClockValue = X1_010clock & 0x3fff_ffff;
+                            X1_010DualChipFlag = (X1_010clock & 0x4000_0000) != 0;
+                            if (X1_010DualChipFlag) chips.Add("X1_010x2");
+                            else chips.Add("X1_010");
                         }
                     }
 

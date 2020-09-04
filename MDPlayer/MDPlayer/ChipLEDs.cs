@@ -50,6 +50,7 @@ namespace MDPlayer
         public byte PriSID = 0;
         public byte PriMID = 0;
         public byte PriSAA = 0;
+        public byte PriX1010 = 0;
 
         public byte SecOPN = 0;
         public byte SecOPN2 = 0;
@@ -92,6 +93,7 @@ namespace MDPlayer
         public byte SecSID = 0;
         public byte SecMID = 0;
         public byte SecSAA = 0;
+        public byte SecX1010 = 0;
 
     }
 }
