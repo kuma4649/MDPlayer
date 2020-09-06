@@ -234,11 +234,12 @@ namespace MDPlayer.Properties {
         ///MDRファイル(*.mdr)|*.mdr|
         ///MDXファイル(*.mdx)|*.mdx|
         ///MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
+        ///PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
         ///StandardMIDIファイル(*.mid)|*.mid|
         ///RCPファイル(*.rcp)|*.rcp|
         ///M3Uファイル(*.m3u)|*.m3u|
         ///アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
-        ///すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*. [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string cntSupportFile {
             get {

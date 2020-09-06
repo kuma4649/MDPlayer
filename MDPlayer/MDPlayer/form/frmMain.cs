@@ -4597,6 +4597,18 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".m" || ext == ".m2" || ext == ".mz")
+            {
+                format = EnmFileFormat.M;
+                return buf;
+            }
+
+            if (ext == ".mml")
+            {
+                format = EnmFileFormat.MML;
+                return buf;
+            }
+
             if (ext == ".xgm")
             {
                 format = EnmFileFormat.XGM;
@@ -7241,7 +7253,7 @@ namespace MDPlayer.form
 
                     if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
                     {
-                        loadAndPlay(0, 0, fn[0], "");
+                        if (!loadAndPlay(0, 0, fn[0], "")) return;
                         frmPlayList.setStart(-1);
                     }
                     oldParam = new MDChipParams();

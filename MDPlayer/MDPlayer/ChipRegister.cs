@@ -3452,6 +3452,49 @@ namespace MDPlayer
 
         }
 
+        public void PPSDRVLoad(int ChipID, byte[] addtionalData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriPPSDRV = 2;
+            else chipLED.SecPPSDRV = 2;
+
+            mds.WritePPSDRVPCMData((byte)ChipID, addtionalData);
+        }
+
+        public void PPSDRVWrite(int ChipID, int dPort, int dAddr, int dData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriPPSDRV = 2;
+            else chipLED.SecPPSDRV = 2;
+
+            if (dPort == -1 && dAddr == -1 && dData == -1) return;
+            mds.WritePPSDRV((byte)ChipID, dPort, dAddr, dData, null);
+
+        }
+
+        public void PPZ8LoadPcm(int ChipID, byte bank, byte mode, byte[] pcmData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriPPZ8 = 2;
+            else chipLED.SecPPZ8 = 2;
+
+            mds.WritePPZ8PCMData((byte)ChipID, bank, mode, pcmData);
+        }
+
+        public void PPZ8Write(int ChipID, int dPort, int dAddr, int dData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriPPZ8 = 2;
+            else chipLED.SecPPZ8 = 2;
+
+            if (dPort == -1 && dAddr == -1 && dData == -1) return;
+            mds.WritePPZ8((byte)ChipID, dPort, dAddr, dData, null);
+
+        }
 
 
         public void setMaskAY8910(int chipID,int ch,bool mask)

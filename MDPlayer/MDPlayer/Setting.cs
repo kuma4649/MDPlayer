@@ -748,6 +748,21 @@ namespace MDPlayer
         public AutoBalance autoBalance {
             get => _autoBalance; set => _autoBalance = value;
         }
+
+        private PMDDotNET _PMDDotNET = new PMDDotNET();
+        public PMDDotNET pmdDotNET
+        {
+            get
+            {
+                return _PMDDotNET;
+            }
+
+            set
+            {
+                _PMDDotNET = value;
+            }
+        }
+
         public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
         private KeyBoardHook _keyBoardHook = new KeyBoardHook();
 
@@ -4614,6 +4629,51 @@ namespace MDPlayer
             }
         }
 
+        [Serializable]
+        public class PMDDotNET
+        {
+            public string compilerArguments = "/v /C";
+            public bool isAuto = true;
+            public int soundBoard = 1;
+            public bool usePPSDRV = true;
+            public bool usePPZ8 = true;
+            public string driverArguments = "";
+            public bool setManualVolume = false;
+            public bool usePPSDRVUseInterfaceDefaultFreq = true;
+            public int PPSDRVManualFreq = 2000;
+            public int PPSDRVManualWait = 1;
+            public int volumeFM = 0;
+            public int volumeSSG = 0;
+            public int volumeRhythm = 0;
+            public int volumeAdpcm = 0;
+            public int volumeGIMICSSG = 31;
+
+            public PMDDotNET Copy()
+            {
+                PMDDotNET p = new PMDDotNET();
+                p.compilerArguments = this.compilerArguments;
+                p.isAuto = this.isAuto;
+                p.soundBoard = this.soundBoard;
+                p.usePPSDRV = this.usePPSDRV;
+                p.usePPZ8 = this.usePPZ8;
+                p.driverArguments = this.driverArguments;
+                p.setManualVolume = this.setManualVolume;
+                p.usePPSDRVUseInterfaceDefaultFreq = this.usePPSDRVUseInterfaceDefaultFreq;
+                p.PPSDRVManualFreq = this.PPSDRVManualFreq;
+                p.PPSDRVManualWait = this.PPSDRVManualWait;
+                p.volumeFM = this.volumeFM;
+                p.volumeSSG = this.volumeSSG;
+                p.volumeRhythm = this.volumeRhythm;
+                p.volumeAdpcm = this.volumeAdpcm;
+                p.volumeGIMICSSG = this.volumeGIMICSSG;
+
+                return p;
+            }
+        }
+
+
+
+
         public Setting Copy()
         {
             Setting setting = new Setting();
@@ -4658,6 +4718,7 @@ namespace MDPlayer
             setting.sid = this.sid.Copy();
             setting.nukedOPN2 = this.nukedOPN2.Copy();
             setting.autoBalance = this.autoBalance.Copy();
+            setting.pmdDotNET = this.pmdDotNET.Copy();
 
             setting.keyBoardHook = this.keyBoardHook.Copy();
 

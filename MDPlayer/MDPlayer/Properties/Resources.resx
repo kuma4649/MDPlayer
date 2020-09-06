@@ -894,12 +894,13 @@ MNDファイル(*.mnd)|*.mnd|
 MDRファイル(*.mdr)|*.mdr|
 MDXファイル(*.mdx)|*.mdx|
 MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
+PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
 StandardMIDIファイル(*.mid)|*.mid|
 RCPファイル(*.rcp)|*.rcp|
 M3Uファイル(*.m3u)|*.m3u|
 アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
-すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u)|
-*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.mid;*.rcp;*.m3u|
+すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.m3u)|
+*.vgm;*.vgz;*.zip;*.lzh;*.nrd;*.xgm;*.zgm;*.s98;*.nsf;*.hes;*.sid;*.mnd;*.mdr;*.mdx;*.mub;*.muc;*.m;*.m2;*.mz;*.mml;*.mid;*.rcp;*.m3u|
 すべてのファイル(*.*)|*.*</value>
   </data>
   <data name="planeYMZ280B" type="System.Resources.ResXFileRef, System.Windows.Forms">

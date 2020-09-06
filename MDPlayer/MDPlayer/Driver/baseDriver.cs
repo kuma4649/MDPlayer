@@ -35,6 +35,7 @@ namespace MDPlayer
         public string errMsg { get; internal set; }
 
         public abstract bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime);
+        public abstract bool init(byte[] vgmBuf,int fileType, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime);
         public abstract void oneFrameProc();
         public abstract GD3 getGD3Info(byte[] buf, uint vgmGd3);
 

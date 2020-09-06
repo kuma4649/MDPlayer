@@ -159,6 +159,7 @@
     <Compile Include="Driver\MXDRV\xReg.cs" />
     <Compile Include="Driver\nsf.cs" />
     <Compile Include="Driver\MID.cs" />
+    <Compile Include="Driver\PMDDotNET.cs" />
     <Compile Include="Driver\RCP\MIDIEvent.cs" />
     <Compile Include="Driver\RCP\MIDIPart.cs" />
     <Compile Include="Driver\RCP\MIDITrack.cs" />
@@ -727,6 +728,8 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lang\PMDDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\PMDDotNETmessage.txt" />
     <Content Include="lib\c86ctl.dll" />
     <Content Include="lib\Jacobi.Vst.Core.dll" />
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
@@ -740,6 +743,9 @@
     <Content Include="lib\RealChipCtlWrap.dll" />
     <Content Include="lib\scci.dll" />
     <Content Include="lib\scciconfig.exe" />
+    <Content Include="plugin\driver\PMDDotNETCommon.dll" />
+    <Content Include="plugin\driver\PMDDotNETCompiler.dll" />
+    <Content Include="plugin\driver\PMDDotNETDriver.dll" />
     <Content Include="Resources\addFolderPL.png" />
     <Content Include="Resources\addPL.png" />
     <Content Include="Resources\ccFadeout.png" />

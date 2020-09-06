@@ -1,0 +1,59 @@
+﻿;英語メッセージ定義
+;I 通常のメッセージ
+;E エラーメッセージ
+
+;English Message Definition Table
+;I Info
+;E Error
+
+;mc.cs 0100
+W0100=You can specify a tone number from 0 to 9 for the PSG part (value:{0}).
+E0100=wrong optional specification.
+E0101=There are unintelligible characters in the MML.
+E0102=Specified number is abnormal.
+E0103=MML file cannot be read.
+E0104=M file cannot be written.
+E0105=FF file cannot be written.
+E0106=not enough parameters.
+E0107=Unavailable characters are specified.
+E0108=The specified note length is too long.
+E0109=No portamento end symbol }.
+E0110=There is no sound length specification after the L command.
+E0111=Hard LFO cannot be used in the sound effect part.
+E0112=The tempo command cannot be used in the sound effect part.
+E0113=No portmanteau start sign {.
+E0114=Incorrect specifications in the portamento command.
+E0115=Rest command in portamento command found.
+E0116=Specify immediately after the pitch command.
+E0117=This command is not available here.
+E0118=MML size is too large.
+E0119=Over-sized after compilation.
+E0120=It is not possible to specify a sound length that exceeds 255steps when the W/S command is used.
+E0121=Specified unavailable pitch length.
+E0122=The tie is not specified immediately after the pitch instruction.
+E0123=No loop start symbol [.
+E0124=No instruction with a note length found during infinite loop.
+E0125=There are more than two escape signs in one loop.
+E0126=Pitch is out of bounds.
+E0127=MML variable not defined.
+E0128=Specify either a voice file or the /V option.
+E0129=The R part is not defined as required.
+E0130=Tone is not defined.
+E0131=The length of the previous note has been compressed or processed.
+E0132=You can't use the tie slur in the R part.
+E0133=The number of variable length MML variable definitions has been exceeded by 256.
+E0134=No dispersion chord start command {{
+E0135=Incorrectly specified in the dispersion chord command.
+
+E0200=: Cannot read a tone file ({0}).
+E0201=Failed to read the file ({0}).
+
+;common
+E0000=Exception message:\r\n{0}\r\nException stacktrace:\r\n{1}\r\n
+
+;PmdException.cs 0300
+E0300=[row:{0} column:{1}]{2}
+
+;Console
+E0600=MC's argument not found.\r\nUsage:  MC [/DotNEToption] [/option] filename[.MML] [filename[.FF] [filename[.M]]]\r\nDotNETOption: -LOGLEVEL=[FATAL|ERROR|WARNING|INFO|DEBUG|TRACE] Set LOG Level.(Default:INFO)\r\n              -XML                                             output xml File\r\nOption:       /V  Compile with Tonedatas & Messages & Filenames\r\n              /VW Write Tonedata after Compile\r\n              /N  Compile on OPN   Mode(Default)\r\n              /L  Compile on OPL   Mode\r\n              /M  Compile on OPM   Mode\r\n              /T  Compile on TOWNS Mode\r\n              /P  Play after Compile Complete\r\n              /S  Not Write Compiled File & Play\r\n              /A  Not Set ADPCM_File before Play\r\n              /O  Not Put Title Messages after Play\r\n              /C  Calculate & Put Total Length of Parts\r\n
+E0601=Please specify the .MML file.

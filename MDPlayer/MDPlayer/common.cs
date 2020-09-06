@@ -282,6 +282,10 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mdx") != -1) return EnmFileFormat.MDX;
             if (filename.ToLower().LastIndexOf(".mub") != -1) return EnmFileFormat.MUB;
             if (filename.ToLower().LastIndexOf(".muc") != -1) return EnmFileFormat.MUC;
+            if (filename.ToLower().LastIndexOf(".mml") != -1) return EnmFileFormat.MML;
+            if (filename.ToLower().LastIndexOf(".m") != -1) return EnmFileFormat.M;
+            if (filename.ToLower().LastIndexOf(".m2") != -1) return EnmFileFormat.M;
+            if (filename.ToLower().LastIndexOf(".mz") != -1) return EnmFileFormat.M;
             if (filename.ToLower().LastIndexOf(".rcp") != -1) return EnmFileFormat.RCP;
             if (filename.ToLower().LastIndexOf(".s98") != -1) return EnmFileFormat.S98;
             if (filename.ToLower().LastIndexOf(".vgm") != -1) return EnmFileFormat.VGM;
@@ -501,6 +505,8 @@ namespace MDPlayer
         , DMG
         , SAA1099
         , X1_010
+        , PPZ8
+        , PPSDRV
 
         , S_SN76489
         , S_YM2612
@@ -544,6 +550,8 @@ namespace MDPlayer
         , S_DMG
         , S_SAA1099
         , S_X1_010
+        , S_PPZ8
+        , S_PPSDRV
     }
 
     public enum EnmRealChipType : int
@@ -599,6 +607,8 @@ namespace MDPlayer
         MUB = 16,
         MUC = 17,
         ZGM = 18,
+        MML = 19,
+        M   = 20
     }
 
     public enum EnmArcType : int

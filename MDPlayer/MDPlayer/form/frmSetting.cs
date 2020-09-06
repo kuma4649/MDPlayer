@@ -730,6 +730,33 @@ namespace MDPlayer.form
 
             cbExALL.Checked = setting.other.ExAll;
             cbNonRenderingForPause.Checked = setting.other.NonRenderingForPause;
+
+
+
+            tbPMDCompilerArguments.Text = setting.pmdDotNET.compilerArguments;
+            rbPMDAuto.Checked = setting.pmdDotNET.isAuto;
+            rbPMDManual.Checked = !setting.pmdDotNET.isAuto;
+            rbPMDNrmB.Checked = setting.pmdDotNET.soundBoard == 0;
+            rbPMDSpbB.Checked = setting.pmdDotNET.soundBoard == 1;
+            rbPMD86B.Checked = setting.pmdDotNET.soundBoard == 2;
+            cbPMDSetManualVolume.Checked = setting.pmdDotNET.setManualVolume;
+            cbPMDUsePPSDRV.Checked = setting.pmdDotNET.usePPSDRV;
+            cbPMDUsePPZ8.Checked = setting.pmdDotNET.usePPZ8;
+            tbPMDDriverArguments.Text = setting.pmdDotNET.driverArguments;
+            rbPMDUsePPSDRVFreqDefault.Checked = setting.pmdDotNET.usePPSDRVUseInterfaceDefaultFreq;
+            rbPMDUsePPSDRVManualFreq.Checked = !setting.pmdDotNET.usePPSDRVUseInterfaceDefaultFreq;
+            tbPMDPPSDRVFreq.Text = setting.pmdDotNET.PPSDRVManualFreq.ToString();
+            tbPMDPPSDRVManualWait.Text = setting.pmdDotNET.PPSDRVManualWait.ToString();
+            tbPMDVolumeFM.Text = setting.pmdDotNET.volumeFM.ToString();
+            tbPMDVolumeSSG.Text = setting.pmdDotNET.volumeSSG.ToString();
+            tbPMDVolumeRhythm.Text = setting.pmdDotNET.volumeRhythm.ToString();
+            tbPMDVolumeAdpcm.Text = setting.pmdDotNET.volumeAdpcm.ToString();
+            tbPMDVolumeGIMICSSG.Text = setting.pmdDotNET.volumeGIMICSSG.ToString();
+
+            rbPMDManual_CheckedChanged(null, null);
+            cbPMDSetManualVolume_CheckedChanged(null, null);
+            cbPMDUsePPSDRV_CheckedChanged(null, null);
+            rbPMDUsePPSDRVManualFreq_CheckedChanged(null, null);
         }
 
         private void SetSCCICombo(EnmRealChipType scciType, ComboBox cmbP, RadioButton rbP, ComboBox cmbS, RadioButton rbS)
@@ -1569,6 +1596,40 @@ namespace MDPlayer.form
             setting.autoBalance.LoadDriverBalance= rbAutoBalanceLoadDriverBalance.Checked;
             setting.autoBalance.SaveSongBalance = rbAutoBalanceSaveSongBalance.Checked;
             setting.autoBalance.SamePositionAsSongData= rbAutoBalanceSamePositionAsSongData.Checked;
+
+
+
+            setting.pmdDotNET.compilerArguments = tbPMDCompilerArguments.Text;
+            setting.pmdDotNET.isAuto = rbPMDAuto.Checked;
+            setting.pmdDotNET.soundBoard = rbPMDNrmB.Checked ? 0 : (rbPMDSpbB.Checked ? 1 : 2);
+            setting.pmdDotNET.setManualVolume = cbPMDSetManualVolume.Checked;
+            setting.pmdDotNET.usePPSDRV = cbPMDUsePPSDRV.Checked;
+            setting.pmdDotNET.usePPZ8 = cbPMDUsePPZ8.Checked;
+            setting.pmdDotNET.driverArguments = tbPMDDriverArguments.Text;
+            setting.pmdDotNET.usePPSDRVUseInterfaceDefaultFreq = rbPMDUsePPSDRVFreqDefault.Checked;
+            int nn;
+            if (!int.TryParse(tbPMDPPSDRVFreq.Text, out nn)) nn = 2000;
+            setting.pmdDotNET.PPSDRVManualFreq = nn;
+            if (!int.TryParse(tbPMDPPSDRVManualWait.Text, out nn)) nn = 1;
+            nn = Math.Min(Math.Max(nn, 0), 100);
+            setting.pmdDotNET.PPSDRVManualWait = nn;
+            if (!int.TryParse(tbPMDVolumeFM.Text, out nn)) nn = 0;
+            nn = Math.Min(Math.Max(nn, -191), 20);
+            setting.pmdDotNET.volumeFM = nn;
+            if (!int.TryParse(tbPMDVolumeSSG.Text, out nn)) nn = 0;
+            nn = Math.Min(Math.Max(nn, -191), 20);
+            setting.pmdDotNET.volumeSSG = nn;
+            if (!int.TryParse(tbPMDVolumeRhythm.Text, out nn)) nn = 0;
+            nn = Math.Min(Math.Max(nn, -191), 20);
+            setting.pmdDotNET.volumeRhythm = nn;
+            if (!int.TryParse(tbPMDVolumeAdpcm.Text, out nn)) nn = 0;
+            nn = Math.Min(Math.Max(nn, -191), 20);
+            setting.pmdDotNET.volumeAdpcm = nn;
+            if (!int.TryParse(tbPMDVolumeGIMICSSG.Text, out nn)) nn = 31;
+            nn = Math.Min(Math.Max(nn, 0), 127);
+            setting.pmdDotNET.volumeGIMICSSG = nn;
+
+
 
 
             setting.keyBoardHook.UseKeyBoardHook = cbUseKeyBoardHook.Checked;
@@ -2412,6 +2473,52 @@ namespace MDPlayer.form
             llOpenGithub.LinkVisited = true;
             System.Diagnostics.Process.Start("https://github.com/kuma4649/MDPlayer/releases/latest");
         }
+
+        private void rbPMDManual_CheckedChanged(object sender, EventArgs e)
+        {
+            gbPMDManual.Enabled = rbPMDManual.Checked;
+        }
+
+        private void btnPMDResetCompilerArhguments_Click(object sender, EventArgs e)
+        {
+            tbPMDCompilerArguments.Text = "/v /C";
+        }
+
+        private void btnPMDResetDriverArguments_Click(object sender, EventArgs e)
+        {
+            tbPMDDriverArguments.Text = "";
+        }
+
+        private void cbPMDUsePPSDRV_CheckedChanged(object sender, EventArgs e)
+        {
+            gbPPSDRV.Enabled = cbPMDUsePPSDRV.Checked;
+        }
+
+        private void cbPMDSetManualVolume_CheckedChanged(object sender, EventArgs e)
+        {
+            gbPMDSetManualVolume.Enabled = cbPMDSetManualVolume.Checked;
+        }
+
+        private void rbPMDUsePPSDRVManualFreq_CheckedChanged(object sender, EventArgs e)
+        {
+            tbPMDPPSDRVFreq.Enabled = rbPMDUsePPSDRVManualFreq.Checked;
+        }
+
+        private void btnPMDPPSDRVManualWait_Click(object sender, EventArgs e)
+        {
+            tbPMDPPSDRVManualWait.Text = "1";
+        }
+
+        private void tbPMDPPSDRVFreq_Click(object sender, EventArgs e)
+        {
+            rbPMDUsePPSDRVManualFreq_CheckedChanged(null, null);
+        }
+
+        private void tbPMDPPSDRVFreq_MouseClick(object sender, MouseEventArgs e)
+        {
+            rbPMDUsePPSDRVManualFreq_CheckedChanged(null, null);
+        }
+
     }
 
 

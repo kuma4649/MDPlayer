@@ -77,6 +77,10 @@
             this.rbNukedOPN2OptionASIClp = new System.Windows.Forms.RadioButton();
             this.rbNukedOPN2OptionASIC = new System.Windows.Forms.RadioButton();
             this.tpNSF = new System.Windows.Forms.TabPage();
+            this.trkbNSFLPF = new System.Windows.Forms.TrackBar();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.trkbNSFHPF = new System.Windows.Forms.TrackBar();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.cbNSFDmc_TriNull = new System.Windows.Forms.CheckBox();
             this.cbNSFDmc_TriMute = new System.Windows.Forms.CheckBox();
@@ -124,6 +128,45 @@
             this.tbSIDOutputBufferSize = new System.Windows.Forms.TextBox();
             this.label51 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
+            this.tpPMDDotNET = new System.Windows.Forms.TabPage();
+            this.rbPMDManual = new System.Windows.Forms.RadioButton();
+            this.rbPMDAuto = new System.Windows.Forms.RadioButton();
+            this.btnPMDResetDriverArguments = new System.Windows.Forms.Button();
+            this.label54 = new System.Windows.Forms.Label();
+            this.btnPMDResetCompilerArhguments = new System.Windows.Forms.Button();
+            this.tbPMDDriverArguments = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.tbPMDCompilerArguments = new System.Windows.Forms.TextBox();
+            this.gbPMDManual = new System.Windows.Forms.GroupBox();
+            this.cbPMDSetManualVolume = new System.Windows.Forms.CheckBox();
+            this.cbPMDUsePPZ8 = new System.Windows.Forms.CheckBox();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.rbPMD86B = new System.Windows.Forms.RadioButton();
+            this.rbPMDSpbB = new System.Windows.Forms.RadioButton();
+            this.rbPMDNrmB = new System.Windows.Forms.RadioButton();
+            this.cbPMDUsePPSDRV = new System.Windows.Forms.CheckBox();
+            this.gbPPSDRV = new System.Windows.Forms.GroupBox();
+            this.groupBox33 = new System.Windows.Forms.GroupBox();
+            this.rbPMDUsePPSDRVManualFreq = new System.Windows.Forms.RadioButton();
+            this.label56 = new System.Windows.Forms.Label();
+            this.rbPMDUsePPSDRVFreqDefault = new System.Windows.Forms.RadioButton();
+            this.btnPMDPPSDRVManualWait = new System.Windows.Forms.Button();
+            this.label57 = new System.Windows.Forms.Label();
+            this.tbPMDPPSDRVFreq = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.tbPMDPPSDRVManualWait = new System.Windows.Forms.TextBox();
+            this.gbPMDSetManualVolume = new System.Windows.Forms.GroupBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.tbPMDVolumeAdpcm = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbPMDVolumeRhythm = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.tbPMDVolumeSSG = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.tbPMDVolumeGIMICSSG = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.tbPMDVolumeFM = new System.Windows.Forms.TextBox();
             this.tpMIDIOut = new System.Windows.Forms.TabPage();
             this.btnAddVST = new System.Windows.Forms.Button();
             this.tbcMIDIoutList = new System.Windows.Forms.TabControl();
@@ -416,10 +459,6 @@
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.trkbNSFHPF = new System.Windows.Forms.TrackBar();
-            this.trkbNSFLPF = new System.Windows.Forms.TrackBar();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -433,6 +472,8 @@
             this.tpNuked.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.tpNSF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).BeginInit();
             this.groupBox10.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -441,6 +482,12 @@
             this.tpSID.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
+            this.tpPMDDotNET.SuspendLayout();
+            this.gbPMDManual.SuspendLayout();
+            this.groupBox32.SuspendLayout();
+            this.gbPPSDRV.SuspendLayout();
+            this.groupBox33.SuspendLayout();
+            this.gbPMDSetManualVolume.SuspendLayout();
             this.tpMIDIOut.SuspendLayout();
             this.tbcMIDIoutList.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -511,8 +558,6 @@
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -718,6 +763,7 @@
             this.tcSetting.Controls.Add(this.tpNuked);
             this.tcSetting.Controls.Add(this.tpNSF);
             this.tcSetting.Controls.Add(this.tpSID);
+            this.tcSetting.Controls.Add(this.tpPMDDotNET);
             this.tcSetting.Controls.Add(this.tpMIDIOut);
             this.tcSetting.Controls.Add(this.tpMIDIOut2);
             this.tcSetting.Controls.Add(this.tabMIDIExp);
@@ -1094,6 +1140,42 @@
             this.tpNSF.TabIndex = 9;
             this.tpNSF.Text = "NSF";
             this.tpNSF.UseVisualStyleBackColor = true;
+            // 
+            // trkbNSFLPF
+            // 
+            this.trkbNSFLPF.Location = new System.Drawing.Point(196, 287);
+            this.trkbNSFLPF.Maximum = 400;
+            this.trkbNSFLPF.Name = "trkbNSFLPF";
+            this.trkbNSFLPF.Size = new System.Drawing.Size(104, 45);
+            this.trkbNSFLPF.TabIndex = 9;
+            this.trkbNSFLPF.TickFrequency = 10;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(165, 287);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(25, 12);
+            this.label53.TabIndex = 10;
+            this.label53.Text = "LPF";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(13, 287);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(27, 12);
+            this.label52.TabIndex = 10;
+            this.label52.Text = "HPF";
+            // 
+            // trkbNSFHPF
+            // 
+            this.trkbNSFHPF.Location = new System.Drawing.Point(46, 287);
+            this.trkbNSFHPF.Maximum = 256;
+            this.trkbNSFHPF.Name = "trkbNSFHPF";
+            this.trkbNSFHPF.Size = new System.Drawing.Size(104, 45);
+            this.trkbNSFHPF.TabIndex = 9;
+            this.trkbNSFHPF.TickFrequency = 10;
             // 
             // groupBox10
             // 
@@ -1574,6 +1656,401 @@
             this.label49.Size = new System.Drawing.Size(95, 12);
             this.label49.TabIndex = 0;
             this.label49.Text = "OutputBuffer size";
+            // 
+            // tpPMDDotNET
+            // 
+            this.tpPMDDotNET.Controls.Add(this.rbPMDManual);
+            this.tpPMDDotNET.Controls.Add(this.rbPMDAuto);
+            this.tpPMDDotNET.Controls.Add(this.btnPMDResetDriverArguments);
+            this.tpPMDDotNET.Controls.Add(this.label54);
+            this.tpPMDDotNET.Controls.Add(this.btnPMDResetCompilerArhguments);
+            this.tpPMDDotNET.Controls.Add(this.tbPMDDriverArguments);
+            this.tpPMDDotNET.Controls.Add(this.label55);
+            this.tpPMDDotNET.Controls.Add(this.tbPMDCompilerArguments);
+            this.tpPMDDotNET.Controls.Add(this.gbPMDManual);
+            this.tpPMDDotNET.Location = new System.Drawing.Point(4, 22);
+            this.tpPMDDotNET.Name = "tpPMDDotNET";
+            this.tpPMDDotNET.Size = new System.Drawing.Size(443, 371);
+            this.tpPMDDotNET.TabIndex = 15;
+            this.tpPMDDotNET.Text = "PMDDotNET";
+            this.tpPMDDotNET.UseVisualStyleBackColor = true;
+            // 
+            // rbPMDManual
+            // 
+            this.rbPMDManual.AutoSize = true;
+            this.rbPMDManual.Location = new System.Drawing.Point(7, 42);
+            this.rbPMDManual.Name = "rbPMDManual";
+            this.rbPMDManual.Size = new System.Drawing.Size(59, 16);
+            this.rbPMDManual.TabIndex = 16;
+            this.rbPMDManual.TabStop = true;
+            this.rbPMDManual.Text = "Manual";
+            this.rbPMDManual.UseVisualStyleBackColor = true;
+            this.rbPMDManual.CheckedChanged += new System.EventHandler(this.rbPMDManual_CheckedChanged);
+            // 
+            // rbPMDAuto
+            // 
+            this.rbPMDAuto.AutoSize = true;
+            this.rbPMDAuto.Location = new System.Drawing.Point(7, 21);
+            this.rbPMDAuto.Name = "rbPMDAuto";
+            this.rbPMDAuto.Size = new System.Drawing.Size(47, 16);
+            this.rbPMDAuto.TabIndex = 17;
+            this.rbPMDAuto.TabStop = true;
+            this.rbPMDAuto.Text = "Auto";
+            this.rbPMDAuto.UseVisualStyleBackColor = true;
+            // 
+            // btnPMDResetDriverArguments
+            // 
+            this.btnPMDResetDriverArguments.Location = new System.Drawing.Point(374, 347);
+            this.btnPMDResetDriverArguments.Name = "btnPMDResetDriverArguments";
+            this.btnPMDResetDriverArguments.Size = new System.Drawing.Size(64, 23);
+            this.btnPMDResetDriverArguments.TabIndex = 14;
+            this.btnPMDResetDriverArguments.Text = "clear";
+            this.btnPMDResetDriverArguments.UseVisualStyleBackColor = true;
+            this.btnPMDResetDriverArguments.Click += new System.EventHandler(this.btnPMDResetDriverArguments_Click);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(5, 353);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(93, 12);
+            this.label54.TabIndex = 12;
+            this.label54.Text = "Driver arguments";
+            // 
+            // btnPMDResetCompilerArhguments
+            // 
+            this.btnPMDResetCompilerArhguments.Location = new System.Drawing.Point(374, 2);
+            this.btnPMDResetCompilerArhguments.Name = "btnPMDResetCompilerArhguments";
+            this.btnPMDResetCompilerArhguments.Size = new System.Drawing.Size(64, 23);
+            this.btnPMDResetCompilerArhguments.TabIndex = 15;
+            this.btnPMDResetCompilerArhguments.Text = "reset";
+            this.btnPMDResetCompilerArhguments.UseVisualStyleBackColor = true;
+            this.btnPMDResetCompilerArhguments.Click += new System.EventHandler(this.btnPMDResetCompilerArhguments_Click);
+            // 
+            // tbPMDDriverArguments
+            // 
+            this.tbPMDDriverArguments.Location = new System.Drawing.Point(118, 350);
+            this.tbPMDDriverArguments.Name = "tbPMDDriverArguments";
+            this.tbPMDDriverArguments.Size = new System.Drawing.Size(250, 19);
+            this.tbPMDDriverArguments.TabIndex = 10;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(5, 7);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(107, 12);
+            this.label55.TabIndex = 13;
+            this.label55.Text = "Compiler arguments";
+            // 
+            // tbPMDCompilerArguments
+            // 
+            this.tbPMDCompilerArguments.Location = new System.Drawing.Point(118, 4);
+            this.tbPMDCompilerArguments.Name = "tbPMDCompilerArguments";
+            this.tbPMDCompilerArguments.Size = new System.Drawing.Size(250, 19);
+            this.tbPMDCompilerArguments.TabIndex = 11;
+            // 
+            // gbPMDManual
+            // 
+            this.gbPMDManual.Controls.Add(this.cbPMDSetManualVolume);
+            this.gbPMDManual.Controls.Add(this.cbPMDUsePPZ8);
+            this.gbPMDManual.Controls.Add(this.groupBox32);
+            this.gbPMDManual.Controls.Add(this.cbPMDUsePPSDRV);
+            this.gbPMDManual.Controls.Add(this.gbPPSDRV);
+            this.gbPMDManual.Controls.Add(this.gbPMDSetManualVolume);
+            this.gbPMDManual.Location = new System.Drawing.Point(14, 44);
+            this.gbPMDManual.Name = "gbPMDManual";
+            this.gbPMDManual.Size = new System.Drawing.Size(424, 303);
+            this.gbPMDManual.TabIndex = 18;
+            this.gbPMDManual.TabStop = false;
+            // 
+            // cbPMDSetManualVolume
+            // 
+            this.cbPMDSetManualVolume.AutoSize = true;
+            this.cbPMDSetManualVolume.Location = new System.Drawing.Point(8, 55);
+            this.cbPMDSetManualVolume.Name = "cbPMDSetManualVolume";
+            this.cbPMDSetManualVolume.Size = new System.Drawing.Size(125, 16);
+            this.cbPMDSetManualVolume.TabIndex = 10;
+            this.cbPMDSetManualVolume.Text = "Set volume(manual)";
+            this.cbPMDSetManualVolume.UseVisualStyleBackColor = true;
+            this.cbPMDSetManualVolume.CheckedChanged += new System.EventHandler(this.cbPMDSetManualVolume_CheckedChanged);
+            // 
+            // cbPMDUsePPZ8
+            // 
+            this.cbPMDUsePPZ8.AutoSize = true;
+            this.cbPMDUsePPZ8.Location = new System.Drawing.Point(6, 280);
+            this.cbPMDUsePPZ8.Name = "cbPMDUsePPZ8";
+            this.cbPMDUsePPZ8.Size = new System.Drawing.Size(75, 16);
+            this.cbPMDUsePPZ8.TabIndex = 6;
+            this.cbPMDUsePPZ8.Text = "Use PPZ8";
+            this.cbPMDUsePPZ8.UseVisualStyleBackColor = true;
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.rbPMD86B);
+            this.groupBox32.Controls.Add(this.rbPMDSpbB);
+            this.groupBox32.Controls.Add(this.rbPMDNrmB);
+            this.groupBox32.Location = new System.Drawing.Point(6, 17);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(285, 36);
+            this.groupBox32.TabIndex = 4;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "Select board";
+            // 
+            // rbPMD86B
+            // 
+            this.rbPMD86B.AutoSize = true;
+            this.rbPMD86B.Enabled = false;
+            this.rbPMD86B.Location = new System.Drawing.Point(195, 14);
+            this.rbPMD86B.Name = "rbPMD86B";
+            this.rbPMD86B.Size = new System.Drawing.Size(67, 16);
+            this.rbPMD86B.TabIndex = 0;
+            this.rbPMD86B.TabStop = true;
+            this.rbPMD86B.Text = "86 board";
+            this.rbPMD86B.UseVisualStyleBackColor = true;
+            // 
+            // rbPMDSpbB
+            // 
+            this.rbPMDSpbB.AutoSize = true;
+            this.rbPMDSpbB.Location = new System.Drawing.Point(103, 14);
+            this.rbPMDSpbB.Name = "rbPMDSpbB";
+            this.rbPMDSpbB.Size = new System.Drawing.Size(86, 16);
+            this.rbPMDSpbB.TabIndex = 0;
+            this.rbPMDSpbB.TabStop = true;
+            this.rbPMDSpbB.Text = "Speak board";
+            this.rbPMDSpbB.UseVisualStyleBackColor = true;
+            // 
+            // rbPMDNrmB
+            // 
+            this.rbPMDNrmB.AutoSize = true;
+            this.rbPMDNrmB.Location = new System.Drawing.Point(6, 14);
+            this.rbPMDNrmB.Name = "rbPMDNrmB";
+            this.rbPMDNrmB.Size = new System.Drawing.Size(91, 16);
+            this.rbPMDNrmB.TabIndex = 0;
+            this.rbPMDNrmB.TabStop = true;
+            this.rbPMDNrmB.Text = "Normal board";
+            this.rbPMDNrmB.UseVisualStyleBackColor = true;
+            // 
+            // cbPMDUsePPSDRV
+            // 
+            this.cbPMDUsePPSDRV.AutoSize = true;
+            this.cbPMDUsePPSDRV.Location = new System.Drawing.Point(6, 150);
+            this.cbPMDUsePPSDRV.Name = "cbPMDUsePPSDRV";
+            this.cbPMDUsePPSDRV.Size = new System.Drawing.Size(93, 16);
+            this.cbPMDUsePPSDRV.TabIndex = 5;
+            this.cbPMDUsePPSDRV.Text = "Use PPSDRV";
+            this.cbPMDUsePPSDRV.UseVisualStyleBackColor = true;
+            this.cbPMDUsePPSDRV.CheckedChanged += new System.EventHandler(this.cbPMDUsePPSDRV_CheckedChanged);
+            // 
+            // gbPPSDRV
+            // 
+            this.gbPPSDRV.Controls.Add(this.groupBox33);
+            this.gbPPSDRV.Location = new System.Drawing.Point(12, 149);
+            this.gbPPSDRV.Name = "gbPPSDRV";
+            this.gbPPSDRV.Size = new System.Drawing.Size(406, 125);
+            this.gbPPSDRV.TabIndex = 8;
+            this.gbPPSDRV.TabStop = false;
+            // 
+            // groupBox33
+            // 
+            this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVManualFreq);
+            this.groupBox33.Controls.Add(this.label56);
+            this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVFreqDefault);
+            this.groupBox33.Controls.Add(this.btnPMDPPSDRVManualWait);
+            this.groupBox33.Controls.Add(this.label57);
+            this.groupBox33.Controls.Add(this.tbPMDPPSDRVFreq);
+            this.groupBox33.Controls.Add(this.label58);
+            this.groupBox33.Controls.Add(this.tbPMDPPSDRVManualWait);
+            this.groupBox33.Enabled = false;
+            this.groupBox33.Location = new System.Drawing.Point(6, 18);
+            this.groupBox33.Name = "groupBox33";
+            this.groupBox33.Size = new System.Drawing.Size(394, 100);
+            this.groupBox33.TabIndex = 12;
+            this.groupBox33.TabStop = false;
+            this.groupBox33.Text = "TBD";
+            // 
+            // rbPMDUsePPSDRVManualFreq
+            // 
+            this.rbPMDUsePPSDRVManualFreq.AutoSize = true;
+            this.rbPMDUsePPSDRVManualFreq.Location = new System.Drawing.Point(221, 44);
+            this.rbPMDUsePPSDRVManualFreq.Name = "rbPMDUsePPSDRVManualFreq";
+            this.rbPMDUsePPSDRVManualFreq.Size = new System.Drawing.Size(14, 13);
+            this.rbPMDUsePPSDRVManualFreq.TabIndex = 8;
+            this.rbPMDUsePPSDRVManualFreq.TabStop = true;
+            this.rbPMDUsePPSDRVManualFreq.UseVisualStyleBackColor = true;
+            this.rbPMDUsePPSDRVManualFreq.CheckedChanged += new System.EventHandler(this.rbPMDUsePPSDRVManualFreq_CheckedChanged);
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(12, 19);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(175, 12);
+            this.label56.TabIndex = 1;
+            this.label56.Text = "(Real Chip) Rendering Frequency";
+            // 
+            // rbPMDUsePPSDRVFreqDefault
+            // 
+            this.rbPMDUsePPSDRVFreqDefault.AutoSize = true;
+            this.rbPMDUsePPSDRVFreqDefault.Location = new System.Drawing.Point(221, 17);
+            this.rbPMDUsePPSDRVFreqDefault.Name = "rbPMDUsePPSDRVFreqDefault";
+            this.rbPMDUsePPSDRVFreqDefault.Size = new System.Drawing.Size(131, 16);
+            this.rbPMDUsePPSDRVFreqDefault.TabIndex = 8;
+            this.rbPMDUsePPSDRVFreqDefault.TabStop = true;
+            this.rbPMDUsePPSDRVFreqDefault.Text = "Use interface default";
+            this.rbPMDUsePPSDRVFreqDefault.UseVisualStyleBackColor = true;
+            // 
+            // btnPMDPPSDRVManualWait
+            // 
+            this.btnPMDPPSDRVManualWait.Location = new System.Drawing.Point(298, 71);
+            this.btnPMDPPSDRVManualWait.Name = "btnPMDPPSDRVManualWait";
+            this.btnPMDPPSDRVManualWait.Size = new System.Drawing.Size(64, 23);
+            this.btnPMDPPSDRVManualWait.TabIndex = 2;
+            this.btnPMDPPSDRVManualWait.Text = "reset";
+            this.btnPMDPPSDRVManualWait.UseVisualStyleBackColor = true;
+            this.btnPMDPPSDRVManualWait.Click += new System.EventHandler(this.btnPMDPPSDRVManualWait_Click);
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(347, 44);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(18, 12);
+            this.label57.TabIndex = 1;
+            this.label57.Text = "Hz";
+            // 
+            // tbPMDPPSDRVFreq
+            // 
+            this.tbPMDPPSDRVFreq.Location = new System.Drawing.Point(241, 41);
+            this.tbPMDPPSDRVFreq.Name = "tbPMDPPSDRVFreq";
+            this.tbPMDPPSDRVFreq.Size = new System.Drawing.Size(100, 19);
+            this.tbPMDPPSDRVFreq.TabIndex = 7;
+            this.tbPMDPPSDRVFreq.Click += new System.EventHandler(this.tbPMDPPSDRVFreq_Click);
+            this.tbPMDPPSDRVFreq.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbPMDPPSDRVFreq_MouseClick);
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(12, 76);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(182, 12);
+            this.label58.TabIndex = 1;
+            this.label58.Text = "(SCCI) Send syncronize wait value";
+            // 
+            // tbPMDPPSDRVManualWait
+            // 
+            this.tbPMDPPSDRVManualWait.Location = new System.Drawing.Point(241, 73);
+            this.tbPMDPPSDRVManualWait.Name = "tbPMDPPSDRVManualWait";
+            this.tbPMDPPSDRVManualWait.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDPPSDRVManualWait.TabIndex = 7;
+            // 
+            // gbPMDSetManualVolume
+            // 
+            this.gbPMDSetManualVolume.Controls.Add(this.label59);
+            this.gbPMDSetManualVolume.Controls.Add(this.label60);
+            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeAdpcm);
+            this.gbPMDSetManualVolume.Controls.Add(this.label61);
+            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeRhythm);
+            this.gbPMDSetManualVolume.Controls.Add(this.label62);
+            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeSSG);
+            this.gbPMDSetManualVolume.Controls.Add(this.label63);
+            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeGIMICSSG);
+            this.gbPMDSetManualVolume.Controls.Add(this.label64);
+            this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeFM);
+            this.gbPMDSetManualVolume.Location = new System.Drawing.Point(13, 54);
+            this.gbPMDSetManualVolume.Name = "gbPMDSetManualVolume";
+            this.gbPMDSetManualVolume.Size = new System.Drawing.Size(405, 93);
+            this.gbPMDSetManualVolume.TabIndex = 11;
+            this.gbPMDSetManualVolume.TabStop = false;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(5, 18);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(219, 12);
+            this.label59.TabIndex = 1;
+            this.label59.Text = "OPNA emulator volume(Min:-191  Max:20)";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(6, 64);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(189, 12);
+            this.label60.TabIndex = 1;
+            this.label60.Text = "(GIMIC) SSG volume(Min:0 Max:127)";
+            // 
+            // tbPMDVolumeAdpcm
+            // 
+            this.tbPMDVolumeAdpcm.Location = new System.Drawing.Point(342, 33);
+            this.tbPMDVolumeAdpcm.Name = "tbPMDVolumeAdpcm";
+            this.tbPMDVolumeAdpcm.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDVolumeAdpcm.TabIndex = 9;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(10, 36);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(21, 12);
+            this.label61.TabIndex = 1;
+            this.label61.Text = "FM";
+            // 
+            // tbPMDVolumeRhythm
+            // 
+            this.tbPMDVolumeRhythm.Location = new System.Drawing.Point(234, 33);
+            this.tbPMDVolumeRhythm.Name = "tbPMDVolumeRhythm";
+            this.tbPMDVolumeRhythm.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDVolumeRhythm.TabIndex = 9;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(94, 36);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(27, 12);
+            this.label62.TabIndex = 1;
+            this.label62.Text = "SSG";
+            // 
+            // tbPMDVolumeSSG
+            // 
+            this.tbPMDVolumeSSG.Location = new System.Drawing.Point(127, 33);
+            this.tbPMDVolumeSSG.Name = "tbPMDVolumeSSG";
+            this.tbPMDVolumeSSG.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDVolumeSSG.TabIndex = 9;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(184, 36);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(44, 12);
+            this.label63.TabIndex = 1;
+            this.label63.Text = "Rhythm";
+            // 
+            // tbPMDVolumeGIMICSSG
+            // 
+            this.tbPMDVolumeGIMICSSG.Location = new System.Drawing.Point(201, 61);
+            this.tbPMDVolumeGIMICSSG.Name = "tbPMDVolumeGIMICSSG";
+            this.tbPMDVolumeGIMICSSG.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDVolumeGIMICSSG.TabIndex = 9;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(291, 36);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(45, 12);
+            this.label64.TabIndex = 1;
+            this.label64.Text = "ADPCM";
+            // 
+            // tbPMDVolumeFM
+            // 
+            this.tbPMDVolumeFM.Location = new System.Drawing.Point(37, 33);
+            this.tbPMDVolumeFM.Name = "tbPMDVolumeFM";
+            this.tbPMDVolumeFM.Size = new System.Drawing.Size(51, 19);
+            this.tbPMDVolumeFM.TabIndex = 9;
             // 
             // tpMIDIOut
             // 
@@ -4726,42 +5203,6 @@
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
-            // trkbNSFHPF
-            // 
-            this.trkbNSFHPF.Location = new System.Drawing.Point(46, 287);
-            this.trkbNSFHPF.Maximum = 256;
-            this.trkbNSFHPF.Name = "trkbNSFHPF";
-            this.trkbNSFHPF.Size = new System.Drawing.Size(104, 45);
-            this.trkbNSFHPF.TabIndex = 9;
-            this.trkbNSFHPF.TickFrequency = 10;
-            // 
-            // trkbNSFLPF
-            // 
-            this.trkbNSFLPF.Location = new System.Drawing.Point(196, 287);
-            this.trkbNSFLPF.Maximum = 400;
-            this.trkbNSFLPF.Name = "trkbNSFLPF";
-            this.trkbNSFLPF.Size = new System.Drawing.Size(104, 45);
-            this.trkbNSFLPF.TabIndex = 9;
-            this.trkbNSFLPF.TickFrequency = 10;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(13, 287);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(27, 12);
-            this.label52.TabIndex = 10;
-            this.label52.Text = "HPF";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(165, 287);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(25, 12);
-            this.label53.TabIndex = 10;
-            this.label53.Text = "LPF";
-            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -4799,6 +5240,8 @@
             this.groupBox26.PerformLayout();
             this.tpNSF.ResumeLayout(false);
             this.tpNSF.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -4815,6 +5258,17 @@
             this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
+            this.tpPMDDotNET.ResumeLayout(false);
+            this.tpPMDDotNET.PerformLayout();
+            this.gbPMDManual.ResumeLayout(false);
+            this.gbPMDManual.PerformLayout();
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
+            this.gbPPSDRV.ResumeLayout(false);
+            this.groupBox33.ResumeLayout(false);
+            this.groupBox33.PerformLayout();
+            this.gbPMDSetManualVolume.ResumeLayout(false);
+            this.gbPMDSetManualVolume.PerformLayout();
             this.tpMIDIOut.ResumeLayout(false);
             this.tpMIDIOut.PerformLayout();
             this.tbcMIDIoutList.ResumeLayout(false);
@@ -4911,8 +5365,6 @@
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFHPF)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5312,5 +5764,44 @@
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.TrackBar trkbNSFHPF;
+        private System.Windows.Forms.TabPage tpPMDDotNET;
+        private System.Windows.Forms.RadioButton rbPMDManual;
+        private System.Windows.Forms.RadioButton rbPMDAuto;
+        private System.Windows.Forms.Button btnPMDResetDriverArguments;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Button btnPMDResetCompilerArhguments;
+        private System.Windows.Forms.TextBox tbPMDDriverArguments;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.TextBox tbPMDCompilerArguments;
+        private System.Windows.Forms.GroupBox gbPMDManual;
+        private System.Windows.Forms.CheckBox cbPMDSetManualVolume;
+        private System.Windows.Forms.CheckBox cbPMDUsePPZ8;
+        private System.Windows.Forms.GroupBox groupBox32;
+        private System.Windows.Forms.RadioButton rbPMD86B;
+        private System.Windows.Forms.RadioButton rbPMDSpbB;
+        private System.Windows.Forms.RadioButton rbPMDNrmB;
+        private System.Windows.Forms.CheckBox cbPMDUsePPSDRV;
+        private System.Windows.Forms.GroupBox gbPPSDRV;
+        private System.Windows.Forms.GroupBox groupBox33;
+        private System.Windows.Forms.RadioButton rbPMDUsePPSDRVManualFreq;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.RadioButton rbPMDUsePPSDRVFreqDefault;
+        private System.Windows.Forms.Button btnPMDPPSDRVManualWait;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox tbPMDPPSDRVFreq;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.TextBox tbPMDPPSDRVManualWait;
+        private System.Windows.Forms.GroupBox gbPMDSetManualVolume;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.TextBox tbPMDVolumeAdpcm;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.TextBox tbPMDVolumeRhythm;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox tbPMDVolumeSSG;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TextBox tbPMDVolumeGIMICSSG;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox tbPMDVolumeFM;
     }
 }

@@ -102,6 +102,11 @@ namespace MDPlayer.Driver.MNDRV
             return true;
         }
 
+        public override bool init(byte[] vgmBuf, int fileType, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
+        {
+            throw new NotImplementedException("このdriverはこのメソッドを必要としない");
+        }
+
         public override void oneFrameProc()
         {
             //デバッグ向け

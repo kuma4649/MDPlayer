@@ -1,0 +1,57 @@
+﻿;日本語メッセージ定義
+;I 通常のメッセージ
+;E エラーメッセージ
+
+;
+
+;common
+E0000=Exception message:\r\n{0}\r\nException stacktrace:\r\n{1}\r\n
+
+;mc.cs 0100
+W0100=PSGパートに指定できる音色番号は0～9までです(値:{0})
+E0100=オプション指定が間違っています。
+E0101=MML中に理解不能な文字があります。
+E0102=指定された数値が異常です。
+E0103=MMLファイルが読み込めません。
+E0104=Mファイルが書き込めません。
+E0105=FFファイルが書き込めません。
+E0106=パラメータの指定が足りません。
+E0107=使用出来ない文字を指定しています。
+E0108=指定された音長が長すぎます。
+E0109=ポルタメント終了記号 } がありません。
+E0110=Lコマンド後に音長指定がありません。
+E0111=効果音パートでハードＬＦＯは使用出来ません。
+E0112=効果音パートでテンポ命令は使用出来ません。
+E0113=ポルタメント開始記号 { がありません。
+E0114=ポルタメントコマンド中の指定が間違っています。
+E0115=ポルタメントコマンド中に休符があります。
+E0116=音程コマンドの直後に指定して下さい。
+E0117=ここではこのコマンドは使用できません。
+E0118=MMLのサイズが大き過ぎます。
+E0119=コンパイル後のサイズが大き過ぎます。
+E0120=W/Sコマンド使用中に255stepを越える音長は指定出来ません。
+E0121=使用不可能な音長を指定しています。
+E0122=タイが音程命令直後に指定されていません。
+E0123=ループ開始記号 [ がありません。
+E0124=無限ループ中に音長を持つ命令がありません。
+E0125=１ループ中に脱出記号が２ヶ所以上あります。
+E0126=音程が限界を越えています。
+E0127=MML変数が定義されていません。
+E0128=音色ファイルか/Vオプションを指定してください。
+E0129=Ｒパートが必要分定義されていません。
+E0130=音色が定義されていません。
+E0131=直前の音符長が圧縮または加工されています。
+E0132=Rパートでタイ・スラーは使用出来ません。
+E0133=可変長MML変数の定義数が256を越えました。
+E0134=分散和音開始記号 {{ がありません。
+E0135=分散和音コマンド中の指定が間違っています。
+
+E0200=: 音色ファイル({0})が読み込めません．
+E0201=ファイル({0})の読み込みに失敗しました．
+
+;PmdException.cs 0300
+E0300=[行:{0} 桁:{1}]{2}
+
+;Console向け
+E0600=MCの引数がありません\r\nUsage:  MC [/DotNEToption] [/option] filename[.MML] [filename[.FF] [filename[.M]]]\r\nDotNETOption: -LOGLEVEL=[FATAL|ERROR|WARNING|INFO|DEBUG|TRACE] Set LOG Level.(Default:INFO)\r\n              -XML                                             output xml File\r\nOption:       /V  Compile with Tonedatas & Messages & Filenames\r\n              /VW Write Tonedata after Compile\r\n              /N  Compile on OPN   Mode(Default)\r\n              /L  Compile on OPL   Mode\r\n              /M  Compile on OPM   Mode\r\n              /T  Compile on TOWNS Mode\r\n              /P  Play after Compile Complete\r\n              /S  Not Write Compiled File & Play\r\n              /A  Not Set ADPCM_File before Play\r\n              /O  Not Put Title Messages after Play\r\n              /C  Calculate & Put Total Length of Parts\r\n
+E0601=.MMLファイルを指定してください
