@@ -285,6 +285,12 @@ namespace MDPlayer.form
                 tsmiPRF5C164_Click(null, null);
             }
 
+            if (frmRegTest != null && !frmRegTest.isClosed)
+            {
+                CloseFormRegTest(0);
+                OpenFormRegTest(0);
+            }
+
             if (frmC140[0] != null && !frmC140[0].isClosed)
             {
                 tsmiPC140_Click(null, null);

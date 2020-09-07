@@ -5497,6 +5497,7 @@ namespace MDPlayer
 
             try
             {
+                if(Paused) Pause();
 
                 if (Stopped)
                 {
@@ -5539,6 +5540,7 @@ namespace MDPlayer
                     timeout--;
                     if (timeout < 1) break;
                 };
+                Stopped = true;
 
                 softReset(EnmModel.VirtualModel);
                 softReset(EnmModel.RealModel);
