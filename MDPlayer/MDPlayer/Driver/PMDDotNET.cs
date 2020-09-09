@@ -37,6 +37,12 @@ namespace MDPlayer.Driver
 
             if (mtype == enmPMDFileType.MML)
             {
+                EnvironmentE env = new EnvironmentE();
+                env.AddEnv("pmd");
+                env.AddEnv("pmdopt");
+                envPmd = env.GetEnvVal("pmd");
+                envPmdOpt = env.GetEnvVal("pmdopt");
+
                 PMDCompiler = im.GetCompiler("PMDDotNET.Compiler.Compiler");
                 PMDCompiler.SetCompileSwitch((Func<string, Stream>)appendFileReaderCallback);
                 gt = PMDCompiler.GetGD3TagInfo(buf);
@@ -176,6 +182,10 @@ namespace MDPlayer.Driver
             CompilerInfo info = null;
             try
             {
+                PMDCompiler.SetCompileSwitch(string.Format(
+                    "PmdOption={0} \"{1}\""
+                    , setting.pmdDotNET.compilerArguments
+                    , PlayingFileName));
                 using (MemoryStream sourceMML = new MemoryStream(vgmBuf))
                     ret = PMDCompiler.Compile(sourceMML, appendFileReaderCallback);// wrkMUCFullPath, disp);
 
@@ -204,15 +214,51 @@ namespace MDPlayer.Driver
             bool isLoadADPCM = true;
             bool loadADPCMOnly = false;
 
-            PMDDriver.Init(PlayingFileName, chipWriteRegister, chipWaitSend, ret, new object[] {
-                      notSoundBoard2
-                    , isLoadADPCM
-                    , loadADPCMOnly
-                });
-            PMDDriver.StartRendering(Common.SampleRate
-                , new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
-            PMDDriver.MusicSTART(0);
+            isNRM = setting.pmdDotNET.soundBoard == 0;
+            isSPB = setting.pmdDotNET.soundBoard == 1;
+            isVA = false;
+            usePPS = setting.pmdDotNET.usePPSDRV;
+            usePPZ = setting.pmdDotNET.usePPZ8;
 
+            EnvironmentE env = new EnvironmentE();
+            env.AddEnv("pmd");
+            env.AddEnv("pmdopt");
+            envPmd = env.GetEnvVal("pmd");
+            envPmdOpt = env.GetEnvVal("pmdopt");
+
+            object[] addtionalPMDDotNETOption = new object[]{
+                isLoadADPCM,//bool
+                loadADPCMOnly,//bool
+                setting.pmdDotNET.isAuto,//bool isAUTO;
+                isVA,//bool
+                isNRM,//bool
+                usePPS,//bool
+                usePPZ,//bool
+                isSPB,//bool
+                envPmd,//string[] 環境変数PMD
+                envPmdOpt,//string[] 環境変数PMDOpt
+                PlayingFileName,//string srcFile;
+                "",//string PPCFileHeader無視されます(設定不要)
+                (Func<string,Stream>)appendFileReaderCallback
+            };
+
+            string[] addtionalPMDOption = GetPMDOption();
+
+            PMDDriver.Init(
+                PlayingFileName
+                , chipWriteRegister
+                , chipWaitSend
+                , ret
+                , new object[] {
+                      addtionalPMDDotNETOption //PMDDotNET option 
+                    , addtionalPMDOption // PMD option
+                    , (Func<ChipDatum, int>)PPZ8Write
+                    , (Func<ChipDatum, int>)PPSDRVWrite
+                });
+
+            PMDDriver.StartRendering(Common.SampleRate
+                , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
+            PMDDriver.MusicSTART(0);
             return true;
         }
 
@@ -338,7 +384,8 @@ namespace MDPlayer.Driver
         {
             string fn;
             fn = arg;
-            //if (!File.Exists(fn)) fn = Path.Combine(wrkMMLFullPath, fn);
+            string dir=Path.GetDirectoryName(arg);
+            if (string.IsNullOrEmpty(dir)) fn = Path.Combine(Path.GetDirectoryName(PlayingFileName), fn);
 
             if (envPmd != null)
             {
