@@ -49,6 +49,11 @@ namespace Driver.libsidplayfp.sidplayfp
         //class Player;
         private libsidplayfp.Player sidplayer;
 
+        public uint[][] GetSidRegister()
+        {
+            return this.sidplayer.GetSidRegister();
+        }
+
         //public sidplayfp() { }
         //~sidplayfp() { }
 

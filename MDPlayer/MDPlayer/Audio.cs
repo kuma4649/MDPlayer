@@ -105,6 +105,11 @@ namespace MDPlayer
             }
         }
 
+        internal static object GetSIDRegister(int chipID)
+        {
+            return chipRegister.getSIDRegister(chipID);
+        }
+
         internal static okim6295.okim6295Info GetOKIM6295Info(int chipID)
         {
             return chipRegister.GetOKIM6295Info(chipID);

@@ -197,6 +197,10 @@ namespace Driver.libsidplayfp
             eventScheduler = null;
         }
 
+        public virtual uint[] GetRegister()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

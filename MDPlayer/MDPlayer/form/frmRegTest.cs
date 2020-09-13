@@ -105,6 +105,9 @@ namespace MDPlayer.form
                     return Audio.GetAPURegister(0);
                 });
 
+                AddChip("SID", 1, 0x19, (Select) => {
+                    return Audio.GetSIDRegister(0);
+                });
             }
 
             private void AddChip(string ChipName, int Max, int regSize, ChipData.GetRegisterDelegate p) {
@@ -204,6 +207,7 @@ namespace MDPlayer.form
             { EnmChip.YM2413, 17 },
             { EnmChip.YM3812, 18 },
             { EnmChip.NES, 19 },
+            { EnmChip.SID, 20 },
         };
 
         public frmRegTest(frmMain frm, int chipID,EnmChip enmPage, int zoom)

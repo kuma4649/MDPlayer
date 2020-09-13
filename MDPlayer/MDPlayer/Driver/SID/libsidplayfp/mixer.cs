@@ -515,6 +515,17 @@ namespace Driver.libsidplayfp
             m_volume.Add(right);
         }
 
+
+        private uint[][] regs = new uint[5][];
+
+        public uint[][] GetSidRegister()
+        {
+            for (int i = 0; i < Math.Min(m_chips.Count, 5); i++)
+            {
+                regs[i] = m_chips[i].GetRegister();
+            }
+            return regs;
+        }
     }
 
 }

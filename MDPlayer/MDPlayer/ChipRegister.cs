@@ -8,6 +8,7 @@ using MDSound.np.cpu;
 using MDSound.np.chip;
 using NScci;
 using MDSound;
+using MDPlayer.Driver.SID;
 
 namespace MDPlayer
 {
@@ -65,6 +66,12 @@ namespace MDPlayer
 
         private byte[] algM = new byte[] { 0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f };
         private int[] opN = new int[] { 0, 2, 1, 3 };
+
+        public uint[] getSIDRegister(int chipID)
+        {
+            if (SID == null) return null;
+            return SID.GetRegisterFromSid()[0];
+        }
 
         private int[] noteTbl = new int[] { 2, 4, 5, -1, 6, 8, 9, -1, 10, 12, 13, -1, 14, 0, 1, -1 };
         private int[] noteTbl2 = new int[] { 13, 14, 0, -1, 1, 2, 4, -1, 5, 6, 8, -1, 9, 10, 12, -1 };
@@ -3850,6 +3857,7 @@ namespace MDPlayer
 
         int[] algVolTbl = new int[8] { 8, 8, 8, 8, 0xa, 0xe, 0xe, 0xf };
         private int[] HuC6280CurrentCh = new int[2] { 0, 0 };
+        internal sid SID;
 
         public void setFadeoutVolYM2203(int chipID, int v)
         {

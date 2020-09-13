@@ -746,6 +746,11 @@ namespace Driver.libsidplayfp
             m_tune.selectSong(0);
             initialise();
         }
+
+        public uint[][] GetSidRegister()
+        {
+            return m_mixer.GetSidRegister();
+        }
         //#endif
 
     }

@@ -130,18 +130,18 @@
             this.ym2413ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ym2608ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yM2610ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.c140ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yM3812ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yMF262ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yMF278BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yMZ280BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.c140ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.c352ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qSoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.segaPCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sN76489ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.yM3812ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -824,7 +824,8 @@
             this.qSoundToolStripMenuItem,
             this.segaPCMToolStripMenuItem,
             this.sN76489ToolStripMenuItem,
-            this.aY8910ToolStripMenuItem});
+            this.aY8910ToolStripMenuItem,
+            this.sIDToolStripMenuItem});
             this.レジスタダンプ表示ToolStripMenuItem.Name = "レジスタダンプ表示ToolStripMenuItem";
             resources.ApplyResources(this.レジスタダンプ表示ToolStripMenuItem, "レジスタダンプ表示ToolStripMenuItem");
             // 
@@ -864,11 +865,11 @@
             resources.ApplyResources(this.yM2610ToolStripMenuItem, "yM2610ToolStripMenuItem");
             this.yM2610ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
-            // c140ToolStripMenuItem
+            // yM3812ToolStripMenuItem
             // 
-            this.c140ToolStripMenuItem.Name = "c140ToolStripMenuItem";
-            resources.ApplyResources(this.c140ToolStripMenuItem, "c140ToolStripMenuItem");
-            this.c140ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            this.yM3812ToolStripMenuItem.Name = "yM3812ToolStripMenuItem";
+            resources.ApplyResources(this.yM3812ToolStripMenuItem, "yM3812ToolStripMenuItem");
+            this.yM3812ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
             // yMF262ToolStripMenuItem
             // 
@@ -887,6 +888,12 @@
             this.yMZ280BToolStripMenuItem.Name = "yMZ280BToolStripMenuItem";
             resources.ApplyResources(this.yMZ280BToolStripMenuItem, "yMZ280BToolStripMenuItem");
             this.yMZ280BToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            // 
+            // c140ToolStripMenuItem
+            // 
+            this.c140ToolStripMenuItem.Name = "c140ToolStripMenuItem";
+            resources.ApplyResources(this.c140ToolStripMenuItem, "c140ToolStripMenuItem");
+            this.c140ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
             // c352ToolStripMenuItem
             // 
@@ -918,15 +925,15 @@
             resources.ApplyResources(this.aY8910ToolStripMenuItem, "aY8910ToolStripMenuItem");
             this.aY8910ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
+            // sIDToolStripMenuItem
+            // 
+            this.sIDToolStripMenuItem.Name = "sIDToolStripMenuItem";
+            resources.ApplyResources(this.sIDToolStripMenuItem, "sIDToolStripMenuItem");
+            this.sIDToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
+            // 
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
-            // 
-            // yM3812ToolStripMenuItem
-            // 
-            this.yM3812ToolStripMenuItem.Name = "yM3812ToolStripMenuItem";
-            resources.ApplyResources(this.yM3812ToolStripMenuItem, "yM3812ToolStripMenuItem");
-            this.yM3812ToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
             // frmMain
             // 
@@ -1064,6 +1071,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSVRC6;
         private System.Windows.Forms.ToolStripMenuItem tsmiPN106;
         private System.Windows.Forms.ToolStripMenuItem tsmiSN106;
+        private System.Windows.Forms.ToolStripMenuItem sIDToolStripMenuItem;
     }
 }
 

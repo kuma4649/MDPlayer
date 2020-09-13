@@ -19,6 +19,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
 using MDPlayer;
+using MDPlayer.Driver.MNDRV;
 using MDSound;
 using System;
 using System.Collections.Generic;
@@ -210,6 +211,12 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
         // FIR_RES filter tables (FIR_N*FIR_RES).
         protected Int16[] fir;
+
+        private uint[] reg = new uint[0x19];
+        public uint[] GetRegister()
+        {
+            return reg;
+        }
 
 
 
@@ -488,6 +495,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         protected void write()
         {
+            reg[write_address] = bus_value;
+
             switch (write_address)
             {
                 case 0x00:

@@ -41,6 +41,8 @@ namespace Driver.libsidplayfp.builders.resid_builder
 
     public sealed class ReSID : sidemu
     {
+        public reSID.SID getSID() { return m_sid; }
+
         private reSID.SID m_sid;
         private byte m_voiceMask;
 
@@ -236,6 +238,11 @@ namespace Driver.libsidplayfp.builders.resid_builder
 
             m_sid.set_chip_model(chipModel);
             m_status = true;
+        }
+
+        public override uint[] GetRegister()
+        {
+            return m_sid.GetRegister();
         }
 
     }

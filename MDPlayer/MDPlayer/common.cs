@@ -507,6 +507,7 @@ namespace MDPlayer
         , X1_010
         , PPZ8
         , PPSDRV
+        , SID
 
         , S_SN76489
         , S_YM2612
@@ -552,6 +553,7 @@ namespace MDPlayer
         , S_X1_010
         , S_PPZ8
         , S_PPSDRV
+        , S_SID
     }
 
     public enum EnmRealChipType : int

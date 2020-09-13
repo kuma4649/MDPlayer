@@ -116,6 +116,7 @@ namespace MDPlayer.Driver.SID
                 return length;
             }
 
+            chipRegister.SID = this;
             m_engine.fastForward(100);
             m_engine.play(b, length);
             for (int i = 0; i < length/2; i++) oneFrameProc();
@@ -190,5 +191,16 @@ namespace MDPlayer.Driver.SID
             }
 
         }
+
+
+
+        public uint[][] GetRegisterFromSid()
+        {
+            if (m_engine == null) return null;
+            return m_engine.GetSidRegister();
+        }
+
+
+
     }
 }
