@@ -254,6 +254,7 @@ namespace MDPlayer.Driver
                     , addtionalPMDOption // PMD option
                     , (Func<ChipDatum, int>)PPZ8Write
                     , (Func<ChipDatum, int>)PPSDRVWrite
+                    , (Func<ChipDatum, int>)P86Write
                 });
 
             PMDDriver.StartRendering(Common.SampleRate
@@ -312,6 +313,7 @@ namespace MDPlayer.Driver
                     , addtionalPMDOption // PMD option
                     , (Func<ChipDatum, int>)PPZ8Write
                     , (Func<ChipDatum, int>)PPSDRVWrite
+                    , (Func<ChipDatum, int>)P86Write
                 });
 
             PMDDriver.StartRendering(Common.SampleRate
@@ -362,6 +364,23 @@ namespace MDPlayer.Driver
 
             return 0;
         }
+
+        private int P86Write(ChipDatum arg)
+        {
+            if (arg == null) return 0;
+
+            if (arg.port == 0x00)
+            {
+                chipRegister.P86LoadPcm(0, (byte)arg.address, (byte)arg.data, (byte[])arg.addtionalData, model);
+            }
+            else
+            {
+                chipRegister.P86Write(0, arg.port, arg.address, arg.data, model);
+            }
+
+            return 0;
+        }
+
 
         private int PPZ8Write(ChipDatum arg)
         {

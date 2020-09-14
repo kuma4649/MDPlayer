@@ -2015,6 +2015,27 @@ namespace MDPlayer
                 useChip.Add(EnmChip.PPSDRV);
 
 
+                MDSound.P86 P86 = null;
+                chip = new MDSound.MDSound.Chip();
+                chip.ID = (byte)0;
+                P86 = new MDSound.P86();
+                chip.type = MDSound.MDSound.enmInstrumentType.P86;
+                chip.Instrument = P86;
+                chip.Update = P86.Update;
+                chip.Start = P86.Start;
+                chip.Stop = P86.Stop;
+                chip.Reset = P86.Reset;
+                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.Volume = 0;// setting.balance.P86Volume;
+                chip.Clock = Driver.PMDDotNET.baseclock;
+                chip.Option = null;
+                chipLED.PriP86 = 1;
+                lstChips.Add(chip);
+                useChip.Add(EnmChip.P86);
+
+
+
+
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;

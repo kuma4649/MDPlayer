@@ -3504,6 +3504,29 @@ namespace MDPlayer
         }
 
 
+        public void P86LoadPcm(int ChipID, byte bank, byte mode, byte[] pcmData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriP86 = 2;
+            else chipLED.SecP86 = 2;
+
+            mds.WriteP86PCMData((byte)ChipID, bank, mode, pcmData);
+        }
+
+        public void P86Write(int ChipID, int dPort, int dAddr, int dData, EnmModel model)
+        {
+            if (model != EnmModel.VirtualModel) return;
+
+            if (ChipID == 0) chipLED.PriP86 = 2;
+            else chipLED.SecP86 = 2;
+
+            if (dPort == -1 && dAddr == -1 && dData == -1) return;
+            mds.WriteP86((byte)ChipID, dPort, dAddr, dData, null);
+
+        }
+
+
         public void setMaskAY8910(int chipID,int ch,bool mask)
         {
             maskPSGChAY8910[chipID][ch] = mask;
