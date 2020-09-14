@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC,MUBファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC,MUB,M,M2,MZファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -32,6 +32,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .MND (MNDRV X68000(OPM,OKIM6258) & まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
   .MUC (MUCOM88Windows 向けファイル)  
   .MUB (MUCOM88Windows 向けファイル)  
+  .M   (PMD 向けファイル)  
+  .M2  (PMD 向けファイル)  
+  .MZ  (PMD 向けファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -41,17 +44,17 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
       , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2610/B   , HuC6280  , C352  
       , K054539 , NES_APU  , NES_DMC , NES_FDS , MMC5    , FME7       , N160     , VRC6  
       , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B , YMZ280B    , DMG      , QSound  
-      , S5B     , GA20  
+      , S5B     , GA20     , X1-010  , SAA1099
       , RF5C68  , SID      , Y8950   , YM3526  , YM3812  , K053260    , K051649(K052539)  
   
   ・現在、以下の鍵盤表示が可能です。  
      
       YM2612        , SN76489    , RF5C164  
       , AY8910      , C140(C219) , C352    , SEGAPCM  
-      , Y8950       , YM2151     , YM2203  , YM2413  , YM2608 , YM2610/B , YM3526 , YM3812  
-      , YMF262      , YMF278B    
+      , Y8950       , YM2151     , YM2203  , YM2413     , YM2608 , YM2610/B , YM3526 , YM3812  
+      , YMF262      , YMF278B    , YMZ280B , MultiPCM   
       , HuC6280     , MIDI       
-      , NES_APU&DMC , NES_FDS    , MMC5    , VRC7    
+      , NES_APU&DMC , NES_FDS    , MMC5    , N106(N163) , VRC6     , VRC7    
   
   ・C#で作成されています。  
   
@@ -79,8 +82,6 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
   ・X68Soundのソースを参考、移植しています。  
   (m_puusanさん/rururutanさん版両方)  
-  
-  ・MUCOM88/MUCOM88windowsのソースを参考、移植しています。  
   
   ・CVS.EXEの出力を参考に同じデータが出力されるよう調整しています。  
   
@@ -164,10 +165,15 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     設定値は以下の通りです。  
       .vgm           ->  ファイル中に設定されている値を使用  
       .s98           ->  ファイル中に設定されている値を使用  
+      .mub(mucom88)  ->  OPNA:7987200Hz  
       .muc(mucom88)  ->  OPNA:7987200Hz  
       .nrd(NRTDRV)   ->  OPM:4000000Hz  
       .mdx(MXDRV)    ->  OPM:4000000Hz  
       .mnd(MNDRV)    ->  OPM:4000000Hz  OPNA:8000000Hz  
+      .mml(PMD)      ->  OPNA:7987200Hz  
+      .m(PMD)        ->  OPNA:7987200Hz  
+      .m2(PMD)       ->  OPNA:7987200Hz  
+      .mz(PMD)       ->  OPNA:7987200Hz  
   
   
 [必要な動作環境]  
@@ -283,10 +289,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     このバッチファイルはゾーン識別子を一括削除します。  
     因みに以下のようなメッセージが表示されます。  
         不明なエラーが発生しました。  
-        Exception Message:
-        Could not load file or assembly
-        'file://.....dll' or one of its dependencies,Operation is not supported.
-        (Exception from HRESULT:xxxx)
+        Exception Message:  
+        Could not load file or assembly  
+        'file://.....dll' or one of its dependencies,Operation is not supported.  
+        (Exception from HRESULT:xxxx)  
 
     Case2  
       主に実チップ使用時に発生します。SCCIがc86ctlを使用する状態になっている為です。  
@@ -298,9 +304,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     →最新の.NETframeworkをインストールすることで改善することがあります。  
     因みに以下のようなメッセージが表示されます。  
         不明なエラーが発生しました。  
-        Exception Message:
-        Could not load file or assembly
-        'netstandard, Version=..., Culture=..., PublicKeyToken=...' or one of its dependencies.指定されたファイルが見つかりません。  
+        Exception Message:  
+        Could not load file or assembly  
+        'netstandard, Version=..., Culture=..., PublicKeyToken=...' or one of its dependencies.指定されたファイルが見つかりません。    
 
     CaseX  
       TBD  
@@ -482,10 +488,12 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・X68Sound  
   (m_puusanさん/rururutanさん版両方)  
   ・MUCOM88  
-  ・MUCOM88windows  
+  ・MUCOM88windows(mucomDotNET)  
+  ・M86(M86DotNET)  
   ・VST.NET  
   ・NAudio  
   ・SCCI  
   ・c86ctl  
+  ・PMD(PMDDotNET)  
   
   
