@@ -4572,6 +4572,10 @@ namespace MDPlayer
             public string RomCharacterPath = "";
             public int Quality = 1;
             public int OutputBufferSize = 5000;
+            public int c64model = 0;
+            public bool c64modelForce = false;
+            public int sidmodel = 0;
+            public bool sidmodelForce = false;
 
             public SID Copy()
             {
@@ -4582,6 +4586,10 @@ namespace MDPlayer
                 SID.RomCharacterPath = this.RomCharacterPath;
                 SID.Quality = this.Quality;
                 SID.OutputBufferSize = this.OutputBufferSize;
+                SID.c64model = this.c64model;
+                SID.c64modelForce = this.c64modelForce;
+                SID.sidmodel = this.sidmodel;
+                SID.sidmodelForce = this.sidmodelForce;
 
                 return SID;
             }

@@ -107,6 +107,16 @@
             this.cbNFSFds_4085Reset = new System.Windows.Forms.CheckBox();
             this.cbNSFFDSWriteDisable8000 = new System.Windows.Forms.CheckBox();
             this.tpSID = new System.Windows.Forms.TabPage();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.cbSIDModel_Force = new System.Windows.Forms.CheckBox();
+            this.rbSIDModel_8580 = new System.Windows.Forms.RadioButton();
+            this.rbSIDModel_6581 = new System.Windows.Forms.RadioButton();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.cbSIDC64Model_Force = new System.Windows.Forms.CheckBox();
+            this.rbSIDC64Model_DREAN = new System.Windows.Forms.RadioButton();
+            this.rbSIDC64Model_OLDNTSC = new System.Windows.Forms.RadioButton();
+            this.rbSIDC64Model_NTSC = new System.Windows.Forms.RadioButton();
+            this.rbSIDC64Model_PAL = new System.Windows.Forms.RadioButton();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -480,6 +490,8 @@
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.tpSID.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            this.groupBox27.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tpPMDDotNET.SuspendLayout();
@@ -1439,6 +1451,8 @@
             // 
             // tpSID
             // 
+            this.tpSID.Controls.Add(this.groupBox28);
+            this.tpSID.Controls.Add(this.groupBox27);
             this.tpSID.Controls.Add(this.groupBox14);
             this.tpSID.Controls.Add(this.groupBox13);
             this.tpSID.Controls.Add(this.tbSIDOutputBufferSize);
@@ -1450,6 +1464,116 @@
             this.tpSID.TabIndex = 10;
             this.tpSID.Text = "SID";
             this.tpSID.UseVisualStyleBackColor = true;
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.cbSIDModel_Force);
+            this.groupBox28.Controls.Add(this.rbSIDModel_8580);
+            this.groupBox28.Controls.Add(this.rbSIDModel_6581);
+            this.groupBox28.Location = new System.Drawing.Point(215, 251);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(200, 100);
+            this.groupBox28.TabIndex = 3;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "SID model";
+            // 
+            // cbSIDModel_Force
+            // 
+            this.cbSIDModel_Force.AutoSize = true;
+            this.cbSIDModel_Force.Location = new System.Drawing.Point(10, 63);
+            this.cbSIDModel_Force.Name = "cbSIDModel_Force";
+            this.cbSIDModel_Force.Size = new System.Drawing.Size(53, 16);
+            this.cbSIDModel_Force.TabIndex = 2;
+            this.cbSIDModel_Force.Text = "Force";
+            this.cbSIDModel_Force.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDModel_8580
+            // 
+            this.rbSIDModel_8580.AutoSize = true;
+            this.rbSIDModel_8580.Location = new System.Drawing.Point(10, 40);
+            this.rbSIDModel_8580.Name = "rbSIDModel_8580";
+            this.rbSIDModel_8580.Size = new System.Drawing.Size(77, 16);
+            this.rbSIDModel_8580.TabIndex = 1;
+            this.rbSIDModel_8580.Text = "MOS-8580";
+            this.rbSIDModel_8580.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDModel_6581
+            // 
+            this.rbSIDModel_6581.AutoSize = true;
+            this.rbSIDModel_6581.Checked = true;
+            this.rbSIDModel_6581.Location = new System.Drawing.Point(10, 18);
+            this.rbSIDModel_6581.Name = "rbSIDModel_6581";
+            this.rbSIDModel_6581.Size = new System.Drawing.Size(120, 16);
+            this.rbSIDModel_6581.TabIndex = 1;
+            this.rbSIDModel_6581.TabStop = true;
+            this.rbSIDModel_6581.Text = "MOS-6581(default)";
+            this.rbSIDModel_6581.UseVisualStyleBackColor = true;
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.cbSIDC64Model_Force);
+            this.groupBox27.Controls.Add(this.rbSIDC64Model_DREAN);
+            this.groupBox27.Controls.Add(this.rbSIDC64Model_OLDNTSC);
+            this.groupBox27.Controls.Add(this.rbSIDC64Model_NTSC);
+            this.groupBox27.Controls.Add(this.rbSIDC64Model_PAL);
+            this.groupBox27.Location = new System.Drawing.Point(7, 251);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(200, 100);
+            this.groupBox27.TabIndex = 3;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "C64 Model";
+            // 
+            // cbSIDC64Model_Force
+            // 
+            this.cbSIDC64Model_Force.AutoSize = true;
+            this.cbSIDC64Model_Force.Location = new System.Drawing.Point(107, 63);
+            this.cbSIDC64Model_Force.Name = "cbSIDC64Model_Force";
+            this.cbSIDC64Model_Force.Size = new System.Drawing.Size(53, 16);
+            this.cbSIDC64Model_Force.TabIndex = 2;
+            this.cbSIDC64Model_Force.Text = "Force";
+            this.cbSIDC64Model_Force.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDC64Model_DREAN
+            // 
+            this.rbSIDC64Model_DREAN.AutoSize = true;
+            this.rbSIDC64Model_DREAN.Location = new System.Drawing.Point(107, 40);
+            this.rbSIDC64Model_DREAN.Name = "rbSIDC64Model_DREAN";
+            this.rbSIDC64Model_DREAN.Size = new System.Drawing.Size(62, 16);
+            this.rbSIDC64Model_DREAN.TabIndex = 1;
+            this.rbSIDC64Model_DREAN.Text = "DREAN";
+            this.rbSIDC64Model_DREAN.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDC64Model_OLDNTSC
+            // 
+            this.rbSIDC64Model_OLDNTSC.AutoSize = true;
+            this.rbSIDC64Model_OLDNTSC.Location = new System.Drawing.Point(6, 40);
+            this.rbSIDC64Model_OLDNTSC.Name = "rbSIDC64Model_OLDNTSC";
+            this.rbSIDC64Model_OLDNTSC.Size = new System.Drawing.Size(81, 16);
+            this.rbSIDC64Model_OLDNTSC.TabIndex = 1;
+            this.rbSIDC64Model_OLDNTSC.Text = "OLD-NTSC";
+            this.rbSIDC64Model_OLDNTSC.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDC64Model_NTSC
+            // 
+            this.rbSIDC64Model_NTSC.AutoSize = true;
+            this.rbSIDC64Model_NTSC.Location = new System.Drawing.Point(107, 18);
+            this.rbSIDC64Model_NTSC.Name = "rbSIDC64Model_NTSC";
+            this.rbSIDC64Model_NTSC.Size = new System.Drawing.Size(53, 16);
+            this.rbSIDC64Model_NTSC.TabIndex = 1;
+            this.rbSIDC64Model_NTSC.Text = "NTSC";
+            this.rbSIDC64Model_NTSC.UseVisualStyleBackColor = true;
+            // 
+            // rbSIDC64Model_PAL
+            // 
+            this.rbSIDC64Model_PAL.AutoSize = true;
+            this.rbSIDC64Model_PAL.Checked = true;
+            this.rbSIDC64Model_PAL.Location = new System.Drawing.Point(6, 18);
+            this.rbSIDC64Model_PAL.Name = "rbSIDC64Model_PAL";
+            this.rbSIDC64Model_PAL.Size = new System.Drawing.Size(87, 16);
+            this.rbSIDC64Model_PAL.TabIndex = 1;
+            this.rbSIDC64Model_PAL.TabStop = true;
+            this.rbSIDC64Model_PAL.Text = "PAL(default)";
+            this.rbSIDC64Model_PAL.UseVisualStyleBackColor = true;
             // 
             // groupBox14
             // 
@@ -5254,6 +5378,10 @@
             this.groupBox8.PerformLayout();
             this.tpSID.ResumeLayout(false);
             this.tpSID.PerformLayout();
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
@@ -5803,5 +5931,15 @@
         private System.Windows.Forms.TextBox tbPMDVolumeGIMICSSG;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.TextBox tbPMDVolumeFM;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.RadioButton rbSIDC64Model_PAL;
+        private System.Windows.Forms.RadioButton rbSIDC64Model_DREAN;
+        private System.Windows.Forms.RadioButton rbSIDC64Model_OLDNTSC;
+        private System.Windows.Forms.RadioButton rbSIDC64Model_NTSC;
+        private System.Windows.Forms.RadioButton rbSIDModel_8580;
+        private System.Windows.Forms.RadioButton rbSIDModel_6581;
+        private System.Windows.Forms.CheckBox cbSIDC64Model_Force;
+        private System.Windows.Forms.CheckBox cbSIDModel_Force;
     }
 }

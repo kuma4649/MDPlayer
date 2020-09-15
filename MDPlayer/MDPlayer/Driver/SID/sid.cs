@@ -182,6 +182,15 @@ namespace MDPlayer.Driver.SID
             cfg.samplingMethod = (setting.sid.Quality & 2) == 0 ? SidConfig.sampling_method_t.INTERPOLATE : SidConfig.sampling_method_t.RESAMPLE_INTERPOLATE;
             cfg.fastSampling = (setting.sid.Quality & 1) == 0;
             cfg.playback = SidConfig.playback_t.STEREO;
+            cfg.defaultC64Model = setting.sid.c64model == 0 ? SidConfig.c64_model_t.PAL : (
+                setting.sid.c64model == 1 ? SidConfig.c64_model_t.NTSC : (
+                setting.sid.c64model == 2 ? SidConfig.c64_model_t.OLD_NTSC : (
+                setting.sid.c64model == 3 ? SidConfig.c64_model_t.DREAN : SidConfig.c64_model_t.PAL)));// SidConfig.c64_model_t.PAL;
+            cfg.defaultSidModel = setting.sid.sidmodel == 0 ? SidConfig.sid_model_t.MOS6581 : (
+                setting.sid.sidmodel == 1 ? SidConfig.sid_model_t.MOS8580 : SidConfig.sid_model_t.MOS6581);// SidConfig.sid_model_t.MOS6581;
+            cfg.forceC64Model = setting.sid.c64modelForce;//強制的にdefaultC64Modelを使用するか
+            cfg.forceSidModel = setting.sid.sidmodelForce;//強制的にdefaultSidModelを使用するか
+
             cfg.sidEmulation = rs;
             
             if (!m_engine.config(ref cfg))

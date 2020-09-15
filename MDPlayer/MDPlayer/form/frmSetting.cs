@@ -640,6 +640,17 @@ namespace MDPlayer.form
             }
             tbSIDOutputBufferSize.Text = setting.sid.OutputBufferSize.ToString();
 
+            rbSIDC64Model_PAL.Checked = (setting.sid.c64model == 0);
+            rbSIDC64Model_NTSC.Checked = (setting.sid.c64model == 1);
+            rbSIDC64Model_OLDNTSC.Checked = (setting.sid.c64model == 2);
+            rbSIDC64Model_DREAN.Checked = (setting.sid.c64model == 3);
+            cbSIDC64Model_Force.Checked = setting.sid.c64modelForce;
+
+            rbSIDModel_6581.Checked = (setting.sid.sidmodel == 0);
+            rbSIDModel_8580.Checked = (setting.sid.sidmodel == 1);
+            cbSIDModel_Force.Checked = setting.sid.sidmodelForce;
+
+
             switch (setting.nukedOPN2.EmuType)
             {
                 case 0:
@@ -1582,6 +1593,19 @@ namespace MDPlayer.form
             {
                 setting.sid.OutputBufferSize = 5000;
             }
+
+            setting.sid.c64model = rbSIDC64Model_PAL.Checked ? 0 : (
+                rbSIDC64Model_NTSC.Checked ? 1 : (
+                rbSIDC64Model_OLDNTSC.Checked ? 2 : (
+                rbSIDC64Model_DREAN.Checked ? 3 : 0)));
+            setting.sid.c64modelForce = cbSIDC64Model_Force.Checked;
+
+            setting.sid.sidmodel = rbSIDModel_6581.Checked ? 0 : (
+                rbSIDModel_8580.Checked ? 1 : 0);
+            setting.sid.sidmodelForce = cbSIDModel_Force.Checked;
+
+
+
 
             setting.nukedOPN2 = new Setting.NukedOPN2();
             if (rbNukedOPN2OptionYM2612.Checked) setting.nukedOPN2.EmuType = 2;

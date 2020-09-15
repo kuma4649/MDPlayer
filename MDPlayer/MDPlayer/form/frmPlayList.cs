@@ -903,9 +903,14 @@ namespace MDPlayer.form
                         playList.AddFile(fn);
                         //AddList(fn);
 
-                        if (fn.ToLower().LastIndexOf(".lzh") == -1 && fn.ToLower().LastIndexOf(".zip") == -1 && fn.ToLower().LastIndexOf(".m3u") == -1)
+                        if (
+                            fn.ToLower().LastIndexOf(".lzh") == -1 
+                            && fn.ToLower().LastIndexOf(".zip") == -1
+                            && fn.ToLower().LastIndexOf(".m3u") == -1
+                            && fn.ToLower().LastIndexOf(".sid") == -1
+                            )
                         {
-                            frmMain.loadAndPlay(0,0, fn);
+                            frmMain.loadAndPlay(0, 0, fn);
                             setStart(-1);
                             frmMain.oldParam = new MDChipParams();
                             Play();
