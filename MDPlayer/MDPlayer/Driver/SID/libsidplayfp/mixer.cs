@@ -479,7 +479,7 @@ namespace Driver.libsidplayfp
             {
                 m_chips.Add(chip);
                 m_buffers.Add(chip.buffer());
-                m_iSamples=new List<int>(m_buffers.Count);
+                if (m_iSamples == null) m_iSamples = new List<int>();// m_buffers.Count);
                 m_iSamples.Add(0);
 
                 if (m_mix.Length > 0)

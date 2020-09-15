@@ -479,13 +479,21 @@ namespace Driver.libsidplayfp.c64
                 return false;
 
             // Add new SID bank
-            Tuple<int, Banks.ExtraSidBank> it = extraSidBanks[idx];
-            if (idx != extraSidBanks.Count - 1)
+            //extraSidBanks.Clear();
+            //for (int i = 0; i < 16; i++) extraSidBanks.Add(new Tuple<int, Banks.ExtraSidBank>(i, new Banks.ExtraSidBank()));
+
+            bool fnd = false;
+            foreach(Tuple<int, Banks.ExtraSidBank> ite in extraSidBanks)
             {
-                Banks.ExtraSidBank extraSidBank = it.Item2;
-                extraSidBank.addSID(s, address);
+                if (ite.Item1 == idx)
+                {
+                    fnd = true;
+                    Banks.ExtraSidBank extraSidBank = ite.Item2;
+                    extraSidBank.addSID(s, address);
+                    break;
+                }
             }
-            else
+            if (!fnd)
             {
                 extraSidBanks.Add(new Tuple<int, Banks.ExtraSidBank>(idx, new Banks.ExtraSidBank()));
                 Banks.ExtraSidBank extraSidBank = extraSidBanks[extraSidBanks.Count - 1].Item2;
@@ -493,6 +501,21 @@ namespace Driver.libsidplayfp.c64
                 ioBank.setBank(idx, extraSidBank);
                 extraSidBank.addSID(s, address);
             }
+
+            //Tuple<int, Banks.ExtraSidBank> it = extraSidBanks[idx];
+            //if (idx != extraSidBanks.Count - 1)
+            //{
+            //    Banks.ExtraSidBank extraSidBank = it.Item2;
+            //    extraSidBank.addSID(s, address);
+            //}
+            //else
+            //{
+            //    extraSidBanks.Add(new Tuple<int, Banks.ExtraSidBank>(idx, new Banks.ExtraSidBank()));
+            //    Banks.ExtraSidBank extraSidBank = extraSidBanks[extraSidBanks.Count - 1].Item2;
+            //    extraSidBank.resetSIDMapper(ioBank.getBank(idx));
+            //    ioBank.setBank(idx, extraSidBank);
+            //    extraSidBank.addSID(s, address);
+            //}
 
             return true;
         }
