@@ -175,8 +175,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
                 // Shift noise register once for each time accumulator bit 19 is set high.
                 // The shift is delayed 2 cycles.
-                //if ((accumulator_bits_set & 0x080000) != 0)
-                if (msb_rising)
+                if ((accumulator_bits_set & 0x080000) != 0)
+                //if (msb_rising)
                 {
                     // Pipeline: Detect rising bit, shift phase 1, shift phase 2.
                     shift_pipeline = 2;

@@ -728,6 +728,7 @@
     <None Include="Resources\plane.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Driver\SID\debugMemo.txt" />
     <Content Include="lang\PMDDotNETmessage.ja-JP.txt" />
     <Content Include="lang\PMDDotNETmessage.txt" />
     <Content Include="lib\c86ctl.dll" />

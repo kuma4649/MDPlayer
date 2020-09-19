@@ -23,7 +23,9 @@ using MDPlayer.Driver.MNDRV;
 using MDSound;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -1162,6 +1164,14 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 sample_offset = (next_sample_offset & Fixp_mask) - Fixp_shiftS15;
                 //buf[s * interleave + ptrBuf] = output();
                 buf[s * interleave + ptrBuf] = extfilt.output();
+                //if (gsample < 10000)
+                //{
+                //    Console.WriteLine("{0}", buf[s * interleave + ptrBuf]);
+                //    lstgsample.Add((byte)buf[s * interleave + ptrBuf]);
+                //    lstgsample.Add((byte)(buf[s * interleave + ptrBuf] >> 8));
+                //    gsample++;
+                //    if (gsample == 10000) File.WriteAllBytes("test.raw", lstgsample.ToArray());
+                //}
             }
 
             return s;
@@ -1229,14 +1239,14 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                     delta_t_sample = delta_t;
                 }
 
+                //Console.WriteLine("{0}", delta_t_sample);
                 for (int i = delta_t_sample; i > 0; i--)
                 {
                     clock();
                     if ((i <= 2))
                     {
                         sample_prev = sample_now;
-                        //sample_now = output();
-                        sample_now = extfilt.output();
+                        sample_now = output();
                     }
                 }
 
@@ -1248,12 +1258,25 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
                 sample_offset = next_sample_offset & (Int32)enmSID.FIXP_MASK;
 
-                buf[s * interleave + ptrBuf] =
-                  (Int16)(sample_prev + (sample_offset * (sample_now - sample_prev) >> (Int32)enmSID.FIXP_SHIFT));
+                buf[s * interleave + ptrBuf] = sample_now;
+                  //(Int16)(sample_prev + ((sample_offset * (sample_now - sample_prev)) >> (Int32)enmSID.FIXP_SHIFT));
+
+                //if (gsample < 10000)
+                //{
+                //    //Console.WriteLine("{0}", buf[s * interleave + ptrBuf]);
+                //    //Console.WriteLine("   {0}", ((sample_offset * (sample_now - sample_prev)) >> (Int32)enmSID.FIXP_SHIFT));
+                //    lstgsample.Add((byte)buf[s * interleave + ptrBuf]);
+                //    lstgsample.Add((byte)(buf[s * interleave + ptrBuf] >> 8));
+                //    gsample++;
+                //    if (gsample == 10000) File.WriteAllBytes("test.raw", lstgsample.ToArray());
+                //}
             }
 
             return s;
         }
+
+        //int gsample = 0;
+        //List<byte> lstgsample = new List<byte>();
 
         // ----------------------------------------------------------------------------
         // SID clocking with audio sampling - cycle based with audio resampling.

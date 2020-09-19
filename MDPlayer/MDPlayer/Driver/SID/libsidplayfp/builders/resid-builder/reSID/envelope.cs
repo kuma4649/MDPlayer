@@ -40,9 +40,11 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
         //# include "resid-config.h"
 
+        private static bool class_init = false;
 
-        public EnvelopeGenerator() {
-            bool class_init=false;
+        public EnvelopeGenerator()
+        {
+            //bool class_init=false;
 
             if (!class_init)
             {
@@ -56,18 +58,28 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 class_init = true;
             }
 
-            set_chip_model( siddefs.chip_model.MOS6581);
+            set_chip_model(siddefs.chip_model.MOS6581);
+
+            // Counter's odd bits are high on powerup
+            envelope_counter = 0xaa;
+
+            // just to avoid uninitialized access with delta clocking
+            next_state = State.RELEASE;
 
             reset();
         }
 
-        public enum State { ATTACK, DECAY_SUSTAIN, RELEASE };
-        public void set_chip_model(siddefs.chip_model model) { sid_model = model; }
+        public enum State { ATTACK, DECAY_SUSTAIN, RELEASE, FREEZED };
+
         //public void clock() { }
         //public void clock(Int32 delta_t) { }
-        public void reset() {
-            envelope_counter = 0;
+        public void reset()
+        {
+            //envelope_counter = 0;
             envelope_pipeline = 0;
+            exponential_pipeline = 0;
+
+            state_pipeline = 0;
 
             attack = 0;
             decay = 0;
@@ -79,11 +91,20 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             rate_counter = 0;
             exponential_counter = 0;
             exponential_counter_period = 1;
+            new_exponential_counter_period = 0;
+            reset_rate_counter = false;
 
             state = State.RELEASE;
             rate_period = rate_counter_period[release];
             hold_zero = true;
         }
+
+        public void set_chip_model(siddefs.chip_model model)
+        {
+            sid_model = model;
+        }
+
+
         public void writeCONTROL_REG(UInt32 control)
         {
             UInt32 gate_next = control & 0x01;
@@ -92,27 +113,46 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             // envelope counter starts counting up (attack) or down (release).
 
             // Gate bit on: Start attack, decay, sustain.
-            if (gate == 0 && gate_next != 0)
+            if (gate != gate_next)
             {
-                state = State.ATTACK;
-                rate_period = rate_counter_period[attack];
-
-                // Switching to attack state unlocks the zero freeze and aborts any
-                // pipelined envelope decrement.
-                hold_zero = false;
-                // FIXME: This is an assumption which should be checked using cycle exact
-                // envelope sampling.
-                envelope_pipeline = 0;
+                // Gate bit on: Start attack, decay, sustain.
+                // Gate bit off: Start release.
+                next_state = gate_next != 0 ? State.ATTACK : State.RELEASE;
+                if (next_state == State.ATTACK)
+                {
+                    // The decay register is "accidentally" activated during first cycle of attack phase
+                    state = State.DECAY_SUSTAIN;
+                    rate_period = rate_counter_period[decay];
+                    state_pipeline = 2;
+                    if (!reset_rate_counter || exponential_pipeline == 2)
+                    {
+                        envelope_pipeline = exponential_counter_period == 1 || exponential_pipeline == 2 ? 2 : 4;
+                    }
+                    else if (exponential_pipeline == 1) { state_pipeline = 3; }
+                }
+                else { state_pipeline = envelope_pipeline > 0 ? 3 : 2; }
+                gate = gate_next;
             }
-            // Gate bit off: Start release.
-            else if (gate != 0 && gate_next == 0)
-            {
-                state = State.RELEASE;
-                rate_period = rate_counter_period[release];
-            }
+            //state = State.ATTACK;
+            //    rate_period = rate_counter_period[attack];
 
-            gate = gate_next;
+            //    // Switching to attack state unlocks the zero freeze and aborts any
+            //    // pipelined envelope decrement.
+            //    hold_zero = false;
+            //    // FIXME: This is an assumption which should be checked using cycle exact
+            //    // envelope sampling.
+            //    envelope_pipeline = 0;
+            //}
+            //// Gate bit off: Start release.
+            //else if (gate != 0 && gate_next == 0)
+            //{
+            //    state = State.RELEASE;
+            //    rate_period = rate_counter_period[release];
+            //}
+
+            //gate = gate_next;
         }
+
         public void writeATTACK_DECAY(UInt32 attack_decay)
         {
             attack = (attack_decay >> 4) & 0x0f;
@@ -126,15 +166,23 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 rate_period = rate_counter_period[decay];
             }
         }
-        public void writeSUSTAIN_RELEASE(UInt32 sustain_release) {
+
+        public void writeSUSTAIN_RELEASE(UInt32 sustain_release)
+        {
             sustain = (sustain_release >> 4) & 0x0f;
             release = sustain_release & 0x0f;
-            if (state == State. RELEASE)
+            if (state == State.RELEASE)
             {
                 rate_period = rate_counter_period[release];
             }
         }
-        public UInt32 readENV() { return envelope_counter; }
+
+        public UInt32 readENV()
+        {
+            return env3;
+            //return envelope_counter; 
+        }
+
         // 8-bit envelope output.
         //public Int16 output() { return 0; }
 
@@ -144,10 +192,16 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         public UInt32 rate_period;//reg16
         public UInt32 exponential_counter;//reg8
         public UInt32 exponential_counter_period;//reg8
-        public UInt32 envelope_counter;//reg8
-                                       // Emulation of pipeline delay for envelope decrement.
+        public UInt32 new_exponential_counter_period;
+        public UInt32 envelope_counter;
+        public UInt32 env3;
+        // Emulation of pipeline delay for envelope decrement.
+
         public Int32 envelope_pipeline;
+        public Int32 exponential_pipeline;
+        public Int32 state_pipeline;
         public bool hold_zero;
+        public bool reset_rate_counter;
 
         public UInt32 attack;//reg4
         public UInt32 decay;//reg4
@@ -157,6 +211,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         public UInt32 gate;//reg8
 
         public State state;
+        public State next_state;
 
         protected siddefs.chip_model sid_model;
 
@@ -220,14 +275,80 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         public void clock()
         {
+            // The ENV3 value is sampled at the first phase of the clock
+            env3 = envelope_counter;
+
+            if (state_pipeline != 0)
+            {
+                state_change();
+            }
+
             // If the exponential counter period != 1, the envelope decrement is delayed
             // 1 cycle. This is only modeled for single cycle clocking.
-            if (envelope_pipeline!=0)
+            if (envelope_pipeline != 0 && (--envelope_pipeline == 0))
             {
-                --envelope_counter;
-                envelope_pipeline = 0;
-                // Check for change of exponential counter period.
-                set_exponential_counter();
+                if (!hold_zero)
+                {
+                    if (state == State.ATTACK)
+                    {
+                        ++envelope_counter;
+                        envelope_counter &= 0xff;
+                        if (envelope_counter == 0xff)
+                        {
+                            state = State.DECAY_SUSTAIN;
+                            rate_period = rate_counter_period[decay];
+                        }
+                    }
+                    else if ((state == State.DECAY_SUSTAIN) || (state == State.RELEASE))
+                    {
+                        --envelope_counter;
+                        envelope_counter &= 0xff;
+                    }
+
+                    set_exponential_counter();
+                }
+            }
+
+            if (exponential_pipeline != 0 && (--exponential_pipeline == 0))
+            {
+                exponential_counter = 0;
+
+                if (((state == State.DECAY_SUSTAIN) && (envelope_counter != sustain_level[sustain]))
+                    || (state == State.RELEASE))
+                {
+                    // The envelope counter can flip from 0x00 to 0xff by changing state to
+                    // attack, then to release. The envelope counter will then continue
+                    // counting down in the release state.
+                    // This has been verified by sampling ENV3.
+
+                    envelope_pipeline = 1;
+                }
+            }
+            else if (reset_rate_counter)
+            {
+                rate_counter = 0;
+                reset_rate_counter = false;
+
+                if (state == State.ATTACK)
+                {
+                    // The first envelope step in the attack state also resets the exponential
+                    // counter. This has been verified by sampling ENV3.
+                    exponential_counter = 0; // NOTE this is actually delayed one cycle, not modeled
+
+                    // The envelope counter can flip from 0xff to 0x00 by changing state to
+                    // release, then to attack. The envelope counter is then frozen at
+                    // zero; to unlock this situation the state must be changed to release,
+                    // then to attack. This has been verified by sampling ENV3.
+
+                    envelope_pipeline = 2;
+                }
+                else
+                {
+                    if ((!hold_zero) && ++exponential_counter == exponential_counter_period)
+                    {
+                        exponential_pipeline = exponential_counter_period != 1 ? 2 : 1;
+                    }
+                }
             }
 
             // Check for ADSR delay bug.
@@ -237,85 +358,16 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             // envelope can finally be stepped.
             // This has been verified by sampling ENV3.
             //
-            if ((++rate_counter & 0x8000) != 0)
+            if ((rate_counter != rate_period))
             {
-                ++rate_counter;
-                rate_counter &= 0x7fff;
-            }
-
-            if (rate_counter != rate_period)
-            {
-                return;
-            }
-
-            rate_counter = 0;
-
-            // The first envelope step in the attack state also resets the exponential
-            // counter. This has been verified by sampling ENV3.
-            //
-            if (state == State.ATTACK || ++exponential_counter == exponential_counter_period)
-            {
-                // likely (~50%)
-                exponential_counter = 0;
-
-                // Check whether the envelope counter is frozen at zero.
-                if (hold_zero)
+                if ((++rate_counter & 0x8000) != 0)
                 {
-                    return;
+                    ++rate_counter;
+                    rate_counter &= 0x7fff;
                 }
-
-                switch (state)
-                {
-                    case State.ATTACK:
-                        // The envelope counter can flip from 0xff to 0x00 by changing state to
-                        // release, then to attack. The envelope counter is then frozen at
-                        // zero; to unlock this situation the state must be changed to release,
-                        // then to attack. This has been verified by sampling ENV3.
-                        //
-                        ++envelope_counter;
-                        envelope_counter &= 0xff;
-                        if (envelope_counter == 0xff)
-                        {
-                            state = State.DECAY_SUSTAIN;
-                            rate_period = rate_counter_period[decay];
-                        }
-                        break;
-                    case State.DECAY_SUSTAIN:
-                        if (envelope_counter == sustain_level[sustain])
-                        {
-                            return;
-                        }
-                        if (exponential_counter_period != 1)
-                        {
-                            // unlikely (15%)
-                            // The decrement is delayed one cycle.
-                            envelope_pipeline = 1;
-                            return;
-                        }
-                        --envelope_counter;
-                        break;
-                    case State.RELEASE:
-                        // The envelope counter can flip from 0x00 to 0xff by changing state to
-                        // attack, then to release. The envelope counter will then continue
-                        // counting down in the release state.
-                        // This has been verified by sampling ENV3.
-                        // NB! The operation below requires two's complement integer.
-                        //
-                        if (exponential_counter_period != 1)
-                        {
-                            // likely (~50%)
-                            // The decrement is delayed one cycle.
-                            envelope_pipeline = 1;
-                            return;
-                        }
-                        --envelope_counter;
-                        envelope_counter &= 0xff;
-                        break;
-                }
-
-                // Check for change of exponential counter period.
-                set_exponential_counter();
             }
+            else
+                reset_rate_counter = true;
         }
 
 
@@ -326,6 +378,26 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         {
             // NB! Any pipelined envelope counter decrement from single cycle clocking
             // will be lost. It is not worth the trouble to flush the pipeline here.
+
+            if (state_pipeline != 0)
+            {
+                if (next_state == State.ATTACK)
+                {
+                    state = State.ATTACK;
+                    hold_zero = false;
+                    rate_period = rate_counter_period[attack];
+                }
+                else if (next_state == State.RELEASE)
+                {
+                    state = State.RELEASE;
+                    rate_period = rate_counter_period[release];
+                }
+                else if (next_state == State.FREEZED)
+                {
+                    hold_zero = true;
+                }
+                state_pipeline = 0;
+            }
 
             // Check for ADSR delay bug.
             // If the rate counter comparison value is set below the current value of the
@@ -348,7 +420,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                 {
                     // likely (~65%)
                     rate_counter += (UInt32)delta_t;
-                    if ((rate_counter & 0x8000)!=0)
+                    if ((rate_counter & 0x8000) != 0)
                     {
                         ++rate_counter;
                         rate_counter &= 0x7fff;
@@ -391,11 +463,10 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
                             }
                             break;
                         case State.DECAY_SUSTAIN:
-                            if (envelope_counter == sustain_level[sustain])
+                            if (envelope_counter != sustain_level[sustain])
                             {
-                                return;
+                                --envelope_counter;
                             }
-                            --envelope_counter;
                             break;
                         case State.RELEASE:
                             // The envelope counter can flip from 0x00 to 0xff by changing state to
@@ -411,9 +482,50 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
                     // Check for change of exponential counter period.
                     set_exponential_counter();
+                    if (new_exponential_counter_period > 0)
+                    {
+                        exponential_counter_period = new_exponential_counter_period;
+                        new_exponential_counter_period = 0;
+                        if (next_state == State.FREEZED)
+                        {
+                            hold_zero = true;
+                        }
+                    }
+
                 }
 
                 rate_step = (Int32)rate_period;
+            }
+        }
+
+
+        private void state_change()
+        {
+            state_pipeline--;
+
+            switch (next_state)
+            {
+                case State.ATTACK:
+                    if (state_pipeline == 0)
+                    {
+                        state = State.ATTACK;
+                        // The attack register is correctly activated during second cycle of attack phase
+                        rate_period = rate_counter_period[attack];
+                        hold_zero = false;
+                    }
+                    break;
+                case State.DECAY_SUSTAIN:
+                    break;
+                case State.RELEASE:
+                    if (((state == State.ATTACK) && (state_pipeline == 0))
+                        || ((state == State.DECAY_SUSTAIN) && (state_pipeline == 1)))
+                    {
+                        state = State.RELEASE;
+                        rate_period = rate_counter_period[release];
+                    }
+                    break;
+                case State.FREEZED:
+                    break;
             }
         }
 

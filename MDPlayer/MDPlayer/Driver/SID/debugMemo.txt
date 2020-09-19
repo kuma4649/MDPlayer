@@ -1,0 +1,24 @@
+﻿SIDのビルド手順メモ
+　msys64 を使用し以下の様にビルドする。
+　
+　libsidplayfpをビルド
+autoconf
+./configure
+make install
+
+　sidplayfpをビルド
+autoconf
+./configure
+make
+
+一旦ビルドできれば、
+後は解析用のコードを入れつつビルドして確認を繰り返す。
+　
+cd ../..
+cd libsidplayfp-2.0.4/
+make install
+cd ..
+cd sidplayfp-2.0.1/
+make
+cd src
+./sidplayfp.exe --resid -ri -f44100 2NY_01.sid

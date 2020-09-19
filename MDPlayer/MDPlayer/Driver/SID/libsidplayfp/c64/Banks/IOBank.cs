@@ -62,7 +62,7 @@ namespace Driver.libsidplayfp.c64.Banks
 
         public void poke(UInt16 addr, byte data)
         {
-            Console.WriteLine("{0}", addr >> 8 & 0xf);
+            //Console.WriteLine("{0}", addr >> 8 & 0xf);
             map[addr >> 8 & 0xf].poke(addr, data);
         }
 
