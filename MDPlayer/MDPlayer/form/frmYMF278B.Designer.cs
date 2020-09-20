@@ -1,4 +1,5 @@
-﻿namespace MDPlayer.form
+﻿using MDPlayer.Properties;
+namespace MDPlayer.form
 {
     partial class frmYMF278B
     {
@@ -35,7 +36,7 @@
             // 
             // pbScreen
             // 
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeYMF278B;
+            this.pbScreen.Image = Resources.planeYMF278B;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(656, 352);

@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using MDPlayer.Properties;
 
 namespace MDPlayer
 {
@@ -4736,7 +4737,7 @@ namespace MDPlayer
         public void Save()
         {
             string fullPath = Common.settingFilePath;
-            fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
+            fullPath = Path.Combine(fullPath, Resources.cntSettingFileName);
 
             XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());
             using (StreamWriter sw = new StreamWriter(fullPath, false, new UTF8Encoding(false)))
@@ -4749,7 +4750,7 @@ namespace MDPlayer
         {
             try
             {
-                string fn = Properties.Resources.cntSettingFileName;
+                string fn = Resources.cntSettingFileName;
                 if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn)))
                 {
                     Common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
@@ -4760,7 +4761,7 @@ namespace MDPlayer
                 }
 
                 string fullPath = Common.settingFilePath;
-                fullPath = Path.Combine(fullPath, Properties.Resources.cntSettingFileName);
+                fullPath = Path.Combine(fullPath, Resources.cntSettingFileName);
 
                 if (!File.Exists(fullPath)) { return new Setting(); }
                 XmlSerializer serializer = new XmlSerializer(typeof(Setting), typeof(Setting).GetNestedTypes());

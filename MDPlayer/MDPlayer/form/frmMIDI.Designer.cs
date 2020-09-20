@@ -1,4 +1,5 @@
-﻿namespace MDPlayer.form
+﻿using MDPlayer.Properties;
+namespace MDPlayer.form
 {
     partial class frmMIDI
     {
@@ -35,7 +36,7 @@
             // 
             // pbScreen
             // 
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMIDI_GM;
+            this.pbScreen.Image = Resources.planeMIDI_GM;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(440, 352);

@@ -83,6 +83,8 @@
     <Prefer32Bit>true</Prefer32Bit>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Jacobi.Vst.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=fa678e13c1efc859, processorArchitecture=x86">
@@ -523,7 +525,6 @@
       <DependentUpon>frmYMZ280B.cs</DependentUpon>
     </Compile>
     <Compile Include="FrameBuffer.cs" />
-    <Compile Include="HostCommandStub.cs" />
     <Compile Include="KeyboardHook3.cs" />
     <Compile Include="log.cs" />
     <Compile Include="M3U.cs" />
@@ -555,6 +556,7 @@
     <Compile Include="VisVolume.cs" />
     <Compile Include="VRC7.cs" />
     <Compile Include="vstInfo.cs" />
+    <Compile Include="vstMng.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
     <EmbeddedResource Include="form\frmAY8910.resx">
@@ -693,7 +695,7 @@
       <DependentUpon>frmYMZ280B.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

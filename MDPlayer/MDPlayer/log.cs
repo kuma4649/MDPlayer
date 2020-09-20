@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Reflection;
 using System.Text;
 using System.IO;
@@ -23,10 +24,10 @@ namespace MDPlayer
                 if (path == "")
                 {
                     string fullPath = Common.settingFilePath;
-                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
+                    path = Path.Combine(fullPath, Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
-                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
+                string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat);
 
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
@@ -46,19 +47,19 @@ namespace MDPlayer
                 if (path == "")
                 {
                     string fullPath = Common.settingFilePath;
-                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
+                    path = Path.Combine(fullPath, Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
-                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
+                string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat);
 
                 using (StreamWriter writer = new StreamWriter(path, true, sjisEnc))
                 {
-                    string msg = string.Format(Properties.Resources.cntExceptionFormat, e.GetType().Name, e.Message, e.Source, e.StackTrace);
+                    string msg = string.Format(Resources.cntExceptionFormat, e.GetType().Name, e.Message, e.Source, e.StackTrace);
                     Exception ie = e;
                     while (ie.InnerException != null)
                     {
                         ie = ie.InnerException;
-                        msg += string.Format(Properties.Resources.cntInnerExceptionFormat, ie.GetType().Name, ie.Message, ie.Source, ie.StackTrace);
+                        msg += string.Format(Resources.cntInnerExceptionFormat, ie.GetType().Name, ie.Message, ie.Source, ie.StackTrace);
                     }
 
                     writer.WriteLine(timefmt + msg);
@@ -79,10 +80,10 @@ namespace MDPlayer
                 if (path == "")
                 {
                     string fullPath = Common.settingFilePath;
-                    path = Path.Combine(fullPath, Properties.Resources.cntLogFilename);
+                    path = Path.Combine(fullPath, Resources.cntLogFilename);
                     if (File.Exists(path)) File.Delete(path);
                 }
-                string timefmt = DateTime.Now.ToString(Properties.Resources.cntTimeFormat);
+                string timefmt = DateTime.Now.ToString(Resources.cntTimeFormat);
 
                 if (consoleEchoBack) Console.WriteLine(timefmt + msg);
                 else

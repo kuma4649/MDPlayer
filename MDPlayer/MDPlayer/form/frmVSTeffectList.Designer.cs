@@ -1,4 +1,5 @@
-﻿namespace MDPlayer.form
+﻿using MDPlayer.Properties;
+namespace MDPlayer.form
 {
     partial class frmVSTeffectList
     {
@@ -201,7 +202,7 @@
             // tsbAddVST
             // 
             this.tsbAddVST.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddVST.Image = global::MDPlayer.Properties.Resources.addPL;
+            this.tsbAddVST.Image = Resources.addPL;
             this.tsbAddVST.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddVST.Name = "tsbAddVST";
             this.tsbAddVST.Size = new System.Drawing.Size(23, 22);
@@ -217,7 +218,7 @@
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbUp.Enabled = false;
-            this.tsbUp.Image = global::MDPlayer.Properties.Resources.upPL;
+            this.tsbUp.Image = Resources.upPL;
             this.tsbUp.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Size = new System.Drawing.Size(23, 22);
@@ -227,7 +228,7 @@
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDown.Enabled = false;
-            this.tsbDown.Image = global::MDPlayer.Properties.Resources.downPL;
+            this.tsbDown.Image = Resources.downPL;
             this.tsbDown.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Size = new System.Drawing.Size(23, 22);

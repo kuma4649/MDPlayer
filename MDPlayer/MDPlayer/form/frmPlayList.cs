@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -687,7 +688,7 @@ namespace MDPlayer.form
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = Properties.Resources.cntSupportFile.Replace("\r\n", "");
+            ofd.Filter = Resources.cntSupportFile.Replace("\r\n", "");
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;
 

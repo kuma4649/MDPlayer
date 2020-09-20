@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MDPlayer.Properties;
 
 namespace MDPlayer.form
 {
@@ -28,7 +29,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(pbScreen, Properties.Resources.planeF, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeF, null, zoom);
             screenInit();
             update();
         }
@@ -71,9 +72,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeF.Width * zoom, frameSizeH + Properties.Resources.planeF.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeF.Width * zoom, frameSizeH + Resources.planeF.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeF.Width * zoom, frameSizeH + Resources.planeF.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeF.Width * zoom, frameSizeH + Resources.planeF.Height * zoom);
             frmC140_Resize(null, null);
 
         }

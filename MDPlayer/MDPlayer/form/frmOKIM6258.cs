@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeMSM6258, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeMSM6258, null, zoom);
             DrawBuff.screenInitOKIM6258(frameBuffer);
             update();
         }
@@ -77,9 +78,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeMSM6258.Width * zoom, frameSizeH + Properties.Resources.planeMSM6258.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeMSM6258.Width * zoom, frameSizeH + Resources.planeMSM6258.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeMSM6258.Width * zoom, frameSizeH + Resources.planeMSM6258.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeMSM6258.Width * zoom, frameSizeH + Resources.planeMSM6258.Height * zoom);
             frmOKIM6258_Resize(null, null);
 
         }

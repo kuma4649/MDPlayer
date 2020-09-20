@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeYM3526, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeYM3526, null, zoom);
             bool YM3526Type = (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526SType.UseScci;
             int YM3526SoundLocation = (chipID == 0) ? parent.setting.YM3526Type.SoundLocation : parent.setting.YM3526SType.SoundLocation;
             int tp = !YM3526Type ? 0 : (YM3526SoundLocation < 0 ? 2 : 1);
@@ -81,9 +82,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM3526.Width * zoom, frameSizeH + Properties.Resources.planeYM3526.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM3526.Width * zoom, frameSizeH + Resources.planeYM3526.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM3526.Width * zoom, frameSizeH + Resources.planeYM3526.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYM3526.Width * zoom, frameSizeH + Resources.planeYM3526.Height * zoom);
             frmYM3526_Resize(null, null);
         }
 

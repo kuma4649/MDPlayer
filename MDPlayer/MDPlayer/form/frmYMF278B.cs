@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeYMF278B, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeYMF278B, null, zoom);
             bool YMF278BType = (chipID == 0) ? parent.setting.YMF278BType.UseScci : parent.setting.YMF278BType.UseScci;
             int tp = YMF278BType ? 1 : 0;
             DrawBuff.screenInitYMF278B(frameBuffer, tp);
@@ -78,9 +79,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF278B.Width * zoom, frameSizeH + Properties.Resources.planeYMF278B.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF278B.Width * zoom, frameSizeH + Properties.Resources.planeYMF278B.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF278B.Width * zoom, frameSizeH + Properties.Resources.planeYMF278B.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF278B.Width * zoom, frameSizeH + Resources.planeYMF278B.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF278B.Width * zoom, frameSizeH + Resources.planeYMF278B.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYMF278B.Width * zoom, frameSizeH + Resources.planeYMF278B.Height * zoom);
             frmYMF278B_Resize(null, null);
 
         }

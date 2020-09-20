@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeYMF262, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeYMF262, null, zoom);
             bool YMF262Type = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
             int YMF262SoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
             int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
@@ -80,9 +81,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF262.Width * zoom, frameSizeH + Properties.Resources.planeYMF262.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF262.Width * zoom, frameSizeH + Properties.Resources.planeYMF262.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYMF262.Width * zoom, frameSizeH + Properties.Resources.planeYMF262.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF262.Width * zoom, frameSizeH + Resources.planeYMF262.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYMF262.Width * zoom, frameSizeH + Resources.planeYMF262.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYMF262.Width * zoom, frameSizeH + Resources.planeYMF262.Height * zoom);
             frmYMF262_Resize(null, null);
 
         }

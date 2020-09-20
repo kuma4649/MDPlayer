@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mame", "mame", "{07460D4A-B
 		..\licenses\mame\mame_license.txt = ..\licenses\mame\mame_license.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDPlayerWithoutVST", "MDPlayerWithoutVST\MDPlayerWithoutVST.csproj", "{7A28AC87-D41F-4153-BA87-1B60DEE4810D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,14 @@ Global
 		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|x86.ActiveCfg = Release|Any CPU
 		{B44E36AE-56CD-491B-8583-35C53B5EED88}.Release|x86.Build.0 = Release|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Debug|x86.Build.0 = Debug|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Release|x86.ActiveCfg = Release|x86
+		{7A28AC87-D41F-4153-BA87-1B60DEE4810D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

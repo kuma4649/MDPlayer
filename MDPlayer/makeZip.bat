@@ -19,6 +19,8 @@ copy /Y .\MDPlayer\plugin\driver\*.*   .\output\plugin\driver
 copy /Y .\..\CHANGE.txt                .\output
 copy /Y .\..\LICENSE.txt               .\output
 copy /Y .\..\README.md                 .\output
+cd
+copy .\MDPlayerWithoutVST\bin\x86\Release\mdplayer.exe .\mdplayerWithoutVST.exe
 
 del /Q .\output\*.pdb
 del /Q .\output\*.config

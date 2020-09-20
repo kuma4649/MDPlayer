@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using MDSound;
-using MDPlayer.Properties;
+//using MDPlayer.Properties;
 using MDPlayer.Driver.ZGM.ZgmChip;
 
 namespace MDPlayer.form
@@ -192,7 +193,7 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_Load:STEP 06");
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, 1);
+            screen = new DoubleBuffer(pbScreen, Resources.planeControl, 1);
             screen.setting = setting;
             //oldParam = new MDChipParams();
             //newParam = new MDChipParams();
@@ -274,9 +275,9 @@ namespace MDPlayer.form
 
         private void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Properties.Resources.planeControl.Height * setting.other.Zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Properties.Resources.planeControl.Height * setting.other.Zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Properties.Resources.planeControl.Height * setting.other.Zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
             frmMain_Resize(null, null);
 
             if (frmMCD[0] != null && !frmMCD[0].isClosed)
@@ -692,7 +693,7 @@ namespace MDPlayer.form
 
             if (screen != null) screen.Dispose();
 
-            screen = new DoubleBuffer(pbScreen, Properties.Resources.planeControl, setting.other.Zoom);
+            screen = new DoubleBuffer(pbScreen, Resources.planeControl, setting.other.Zoom);
             screen.setting = setting;
             reqAllScreenInit = true;
             //screen.screenInitAll();
@@ -4491,7 +4492,7 @@ namespace MDPlayer.form
         private string[] fileOpen(bool flg)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = Properties.Resources.cntSupportFile.Replace("\r\n", "");
+            ofd.Filter = Resources.cntSupportFile.Replace("\r\n", "");
             ofd.Title = "ファイルを選択してください";
             ofd.FilterIndex = setting.other.FilterIndex;
 
@@ -6971,55 +6972,55 @@ namespace MDPlayer.form
                     {
                         case EnmFileFormat.VGM:
                             fn = "DriverBalance_VGM.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_VGM;
+                            defMbc = Resources.DefaultVolumeBalance_VGM;
                             break;
                         case EnmFileFormat.XGM:
                             fn = "DriverBalance_XGM.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_XGM;
+                            defMbc = Resources.DefaultVolumeBalance_XGM;
                             break;
                         case EnmFileFormat.ZGM:
                             fn = "DriverBalance_ZGM.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_ZGM;
+                            defMbc = Resources.DefaultVolumeBalance_ZGM;
                             break;
                         case EnmFileFormat.HES:
                             fn = "DriverBalance_HES.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_HES;
+                            defMbc = Resources.DefaultVolumeBalance_HES;
                             break;
                         case EnmFileFormat.NSF:
                             fn = "DriverBalance_NSF.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_NSF;
+                            defMbc = Resources.DefaultVolumeBalance_NSF;
                             break;
                         case EnmFileFormat.NRT:
                             fn = "DriverBalance_NRT.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_NRT;
+                            defMbc = Resources.DefaultVolumeBalance_NRT;
                             break;
                         case EnmFileFormat.MDR:
                             fn = "DriverBalance_MDR.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_MDR;
+                            defMbc = Resources.DefaultVolumeBalance_MDR;
                             break;
                         case EnmFileFormat.MDX:
                             fn = "DriverBalance_MDX.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_MDX;
+                            defMbc = Resources.DefaultVolumeBalance_MDX;
                             break;
                         case EnmFileFormat.MND:
                             fn = "DriverBalance_MND.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_MND;
+                            defMbc = Resources.DefaultVolumeBalance_MND;
                             break;
                         case EnmFileFormat.S98:
                             fn = "DriverBalance_S98.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_S98;
+                            defMbc = Resources.DefaultVolumeBalance_S98;
                             break;
                         case EnmFileFormat.SID:
                             fn = "DriverBalance_SID.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_SID;
+                            defMbc = Resources.DefaultVolumeBalance_SID;
                             break;
                         case EnmFileFormat.MUC:
                             fn = "DriverBalance_MUC.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_MUC;
+                            defMbc = Resources.DefaultVolumeBalance_MUC;
                             break;
                         case EnmFileFormat.MUB:
                             fn = "DriverBalance_MUB.mbc";
-                            defMbc = Properties.Resources.DefaultVolumeBalance_MUB;
+                            defMbc = Resources.DefaultVolumeBalance_MUB;
                             break;
                     }
 

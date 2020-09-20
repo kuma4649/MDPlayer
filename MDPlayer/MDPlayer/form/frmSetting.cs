@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -39,7 +40,7 @@ namespace MDPlayer.form
             this.labelVersion.Text = String.Format("バージョン {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = Properties.Resources.cntDescription;
+            this.textBoxDescription.Text = Resources.cntDescription;
 
             this.cmbLatency.SelectedIndex = 5;
             this.cmbWaitTime.SelectedIndex = 0;
@@ -2193,6 +2194,7 @@ namespace MDPlayer.form
             }
 
             vstInfo s = Audio.getVSTInfo(ofd.FileName);
+            if (s == null) return;
 
             setting.vst.DefaultPath = Path.GetDirectoryName(ofd.FileName);
 

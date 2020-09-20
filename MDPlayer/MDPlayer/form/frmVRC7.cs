@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeVRC7, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeVRC7, null, zoom);
             bool VRC7Type = false;
             int tp = VRC7Type ? 1 : 0;
             DrawBuff.screenInitVRC7(frameBuffer, tp);
@@ -78,9 +79,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeVRC7.Width * zoom, frameSizeH + Properties.Resources.planeVRC7.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeVRC7.Width * zoom, frameSizeH + Properties.Resources.planeVRC7.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeVRC7.Width * zoom, frameSizeH + Properties.Resources.planeVRC7.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeVRC7.Width * zoom, frameSizeH + Resources.planeVRC7.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeVRC7.Width * zoom, frameSizeH + Resources.planeVRC7.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeVRC7.Width * zoom, frameSizeH + Resources.planeVRC7.Height * zoom);
             frmVRC7_Resize(null, null);
 
         }

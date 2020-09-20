@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MDPlayer.form
@@ -62,7 +57,7 @@ namespace MDPlayer.form
             dispPluginList();
         }
 
-        private List<vstInfo2> vstInfos = null;
+        private List<vstMng.vstInfo2> vstInfos = null;
 
         public void dispPluginList()
         {
@@ -72,7 +67,7 @@ namespace MDPlayer.form
 
             foreach (vstInfo vi in vstInfos)
             {
-                if (((vstInfo2)vi).isInstrument) continue;
+                if (((vstMng.vstInfo2)vi).isInstrument) continue;
 
                 dgvList.Rows.Add(vi.key, vi.fileName, vi.power ? "ON" : "OFF", vi.editor ? "OPENED" : "CLOSED", vi.effectName);
                 //dgvList.Rows[0].Cells[2].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;

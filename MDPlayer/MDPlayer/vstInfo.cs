@@ -2,12 +2,12 @@
 using Jacobi.Vst.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MDPlayer
 {
+
+
+
     [Serializable]
     public class vstInfo
     {
@@ -26,18 +26,6 @@ namespace MDPlayer
 
     }
 
-    public class vstInfo2 : vstInfo
-    {
-        public VstPluginContext vstPlugins = null;
-        public form.frmVST vstPluginsForm = null;
 
-        //実際にVSTiかどうかは問わない
-        public bool isInstrument = false;
-        public List<VstMidiEvent> lstEvent = new List<VstMidiEvent>();
 
-        public void AddMidiEvent(VstMidiEvent evt)
-        {
-            lstEvent.Add(evt);
-        }
-    }
 }

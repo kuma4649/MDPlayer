@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MDPlayer.Properties;
 
 namespace MDPlayer.form
 {
@@ -34,7 +35,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeFDS, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeFDS, null, zoom);
             DrawBuff.screenInitFDS(frameBuffer);
             update();
         }
@@ -77,9 +78,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeFDS.Width * zoom, frameSizeH + Properties.Resources.planeFDS.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeFDS.Width * zoom, frameSizeH + Properties.Resources.planeFDS.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeFDS.Width * zoom, frameSizeH + Properties.Resources.planeFDS.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeFDS.Width * zoom, frameSizeH + Resources.planeFDS.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeFDS.Width * zoom, frameSizeH + Resources.planeFDS.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeFDS.Width * zoom, frameSizeH + Resources.planeFDS.Height * zoom);
             frmFDS_Resize(null, null);
 
         }

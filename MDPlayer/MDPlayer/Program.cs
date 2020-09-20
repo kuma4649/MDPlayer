@@ -16,7 +16,7 @@ namespace MDPlayer
         [STAThread]
         static void Main()
         {
-        string fn = checkFiles();
+            string fn = checkFiles();
             if (fn != null)
             {
                 MessageBox.Show(string.Format("動作に必要なファイル({0})がみつかりません。", fn), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -29,7 +29,7 @@ namespace MDPlayer
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmMain());
             }
-            catch (ObjectDisposedException )
+            catch (ObjectDisposedException)
             {
                 ;//無視する
             }
@@ -41,16 +41,15 @@ namespace MDPlayer
 
         static string checkFiles()
         {
-            string[] chkFn = new string[]
+            List<string> chkFn = new List<string>()
             {
                 "MDSound.dll"
                 , "NAudio.dll"
                 , "RealChipCtlWrap.dll"
                 , "scci.dll"
                 , "c86ctl.dll"
-                , "Jacobi.Vst.Core.dll"
-                , "Jacobi.Vst.Interop.dll"
             };
+            chkFn.AddRange(vstMng.chkFn);
 
             foreach (string fn in chkFn)
             {
@@ -59,5 +58,9 @@ namespace MDPlayer
 
             return null;
         }
+
+
+
+
     }
 }

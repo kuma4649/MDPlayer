@@ -1,4 +1,5 @@
-﻿namespace MDPlayer.form
+﻿using MDPlayer.Properties;
+namespace MDPlayer.form
 {
     partial class frmNESDMC
     {
@@ -36,7 +37,7 @@
             // pbScreen
             // 
             this.pbScreen.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeNESDMC;
+            this.pbScreen.Image = Resources.planeNESDMC;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 56);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             this.oldParam = oldParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeYM2413, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeYM2413, null, zoom);
             bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
             int tp = YM2413Type ? 1 : 0;
             DrawBuff.screenInitYM2413(frameBuffer, tp);
@@ -79,9 +80,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2413.Width * zoom, frameSizeH + Properties.Resources.planeYM2413.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2413.Width * zoom, frameSizeH + Properties.Resources.planeYM2413.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeYM2413.Width * zoom, frameSizeH + Properties.Resources.planeYM2413.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeYM2413.Width * zoom, frameSizeH + Resources.planeYM2413.Height * zoom);
             frmYM2413_Resize(null, null);
 
         }

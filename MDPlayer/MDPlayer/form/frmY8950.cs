@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +34,7 @@ namespace MDPlayer.form
             InitializeComponent();
 
             this.newParam = newParam;
-            frameBuffer.Add(pbScreen, Properties.Resources.planeY8950, null, zoom);
+            frameBuffer.Add(pbScreen, Resources.planeY8950, null, zoom);
             bool Y8950Type = false;// (chipID == 0) ? parent.setting.Y8950Type.UseScci : parent.setting.Y8950Type.UseScci;
             int tp = Y8950Type ? 1 : 0;
             DrawBuff.screenInitY8950(frameBuffer, tp);
@@ -120,9 +121,9 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeY8950.Width * zoom, frameSizeH + Properties.Resources.planeY8950.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Properties.Resources.planeY8950.Width * zoom, frameSizeH + Properties.Resources.planeY8950.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Properties.Resources.planeY8950.Width * zoom, frameSizeH + Properties.Resources.planeY8950.Height * zoom);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeY8950.Width * zoom, frameSizeH + Resources.planeY8950.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeY8950.Width * zoom, frameSizeH + Resources.planeY8950.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeY8950.Width * zoom, frameSizeH + Resources.planeY8950.Height * zoom);
             frmY8950_Resize(null, null);
         }
 

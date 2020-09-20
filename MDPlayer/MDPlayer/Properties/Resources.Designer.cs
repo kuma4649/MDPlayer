@@ -22,7 +22,7 @@ namespace MDPlayer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MDPlayer.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MDPlayer.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MDPlayer.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap addFolderPL {
+        public static System.Drawing.Bitmap addFolderPL {
             get {
                 object obj = ResourceManager.GetObject("addFolderPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap addPL {
+        public static System.Drawing.Bitmap addPL {
             get {
                 object obj = ResourceManager.GetObject("addPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccFadeout {
+        public static System.Drawing.Bitmap ccFadeout {
             get {
                 object obj = ResourceManager.GetObject("ccFadeout", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccFast {
+        public static System.Drawing.Bitmap ccFast {
             get {
                 object obj = ResourceManager.GetObject("ccFast", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccNext {
+        public static System.Drawing.Bitmap ccNext {
             get {
                 object obj = ResourceManager.GetObject("ccNext", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccPause {
+        public static System.Drawing.Bitmap ccPause {
             get {
                 object obj = ResourceManager.GetObject("ccPause", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccPlay {
+        public static System.Drawing.Bitmap ccPlay {
             get {
                 object obj = ResourceManager.GetObject("ccPlay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccPrevious {
+        public static System.Drawing.Bitmap ccPrevious {
             get {
                 object obj = ResourceManager.GetObject("ccPrevious", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccSlow {
+        public static System.Drawing.Bitmap ccSlow {
             get {
                 object obj = ResourceManager.GetObject("ccSlow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ccStop {
+        public static System.Drawing.Bitmap ccStop {
             get {
                 object obj = ResourceManager.GetObject("ccStop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -179,7 +179,7 @@ namespace MDPlayer.Properties {
         ///  
         ///[対応フォーマ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntDescription {
+        public static string cntDescription {
             get {
                 return ResourceManager.GetString("cntDescription", resourceCulture);
             }
@@ -188,7 +188,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   例外発生:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntExceptionFormat {
+        public static string cntExceptionFormat {
             get {
                 return ResourceManager.GetString("cntExceptionFormat", resourceCulture);
             }
@@ -197,7 +197,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   内部例外:\r\n- Type ------\r\n{0}\r\n- Message ------\r\n{1}\r\n- Source ------\r\n{2}\r\n- StackTrace ------\r\n{3}\r\n に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntInnerExceptionFormat {
+        public static string cntInnerExceptionFormat {
             get {
                 return ResourceManager.GetString("cntInnerExceptionFormat", resourceCulture);
             }
@@ -206,7 +206,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   log.txt に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntLogFilename {
+        public static string cntLogFilename {
             get {
                 return ResourceManager.GetString("cntLogFilename", resourceCulture);
             }
@@ -215,7 +215,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   Setting.xml に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntSettingFileName {
+        public static string cntSettingFileName {
             get {
                 return ResourceManager.GetString("cntSettingFileName", resourceCulture);
             }
@@ -241,7 +241,7 @@ namespace MDPlayer.Properties {
         ///アーカイブファイル(*.zip;*.lzh)|*.zip;*.lzh|
         ///すべてのサポートファイル(*.vgm;*.vgz;*.zip;*.lzh;*.nrd [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntSupportFile {
+        public static string cntSupportFile {
             get {
                 return ResourceManager.GetString("cntSupportFile", resourceCulture);
             }
@@ -250,7 +250,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   yyyy/MM/dd HH:mm:ss     に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string cntTimeFormat {
+        public static string cntTimeFormat {
             get {
                 return ResourceManager.GetString("cntTimeFormat", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_HES {
+        public static string DefaultVolumeBalance_HES {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_HES", resourceCulture);
             }
@@ -290,7 +290,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_MDR {
+        public static string DefaultVolumeBalance_MDR {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MDR", resourceCulture);
             }
@@ -310,7 +310,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVol [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_MDX {
+        public static string DefaultVolumeBalance_MDX {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MDX", resourceCulture);
             }
@@ -330,7 +330,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVol [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_MND {
+        public static string DefaultVolumeBalance_MND {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MND", resourceCulture);
             }
@@ -350,7 +350,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_MUB {
+        public static string DefaultVolumeBalance_MUB {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MUB", resourceCulture);
             }
@@ -370,7 +370,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_MUC {
+        public static string DefaultVolumeBalance_MUC {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_MUC", resourceCulture);
             }
@@ -390,7 +390,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_NRT {
+        public static string DefaultVolumeBalance_NRT {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_NRT", resourceCulture);
             }
@@ -410,7 +410,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_NSF {
+        public static string DefaultVolumeBalance_NSF {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_NSF", resourceCulture);
             }
@@ -430,7 +430,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVol [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_S98 {
+        public static string DefaultVolumeBalance_S98 {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_S98", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCM [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_SID {
+        public static string DefaultVolumeBalance_SID {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_SID", resourceCulture);
             }
@@ -471,7 +471,7 @@ namespace MDPlayer.Properties {
         ///  &lt;SEGAPCMVolume&gt;0&lt;/SEGAPCMVolume&gt;
         ///  &lt;AY8910Volume&gt;0&lt; [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_VGM {
+        public static string DefaultVolumeBalance_VGM {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_VGM", resourceCulture);
             }
@@ -491,7 +491,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_XGM {
+        public static string DefaultVolumeBalance_XGM {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_XGM", resourceCulture);
             }
@@ -511,7 +511,7 @@ namespace MDPlayer.Properties {
         ///  &lt;OKIM6295Volume&gt;-192&lt;/OKIM6295Volume&gt;
         ///  &lt;SEGAPCMVolume&gt;-192&lt;/SEGAPCMVolu [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DefaultVolumeBalance_ZGM {
+        public static string DefaultVolumeBalance_ZGM {
             get {
                 return ResourceManager.GetString("DefaultVolumeBalance_ZGM", resourceCulture);
             }
@@ -520,7 +520,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap downPL {
+        public static System.Drawing.Bitmap downPL {
             get {
                 object obj = ResourceManager.GetObject("downPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -530,7 +530,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap FeliAndMD2 {
+        public static System.Drawing.Bitmap FeliAndMD2 {
             get {
                 object obj = ResourceManager.GetObject("FeliAndMD2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -540,7 +540,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap imgPL {
+        public static System.Drawing.Bitmap imgPL {
             get {
                 object obj = ResourceManager.GetObject("imgPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -550,7 +550,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap japPL {
+        public static System.Drawing.Bitmap japPL {
             get {
                 object obj = ResourceManager.GetObject("japPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -560,7 +560,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap mmlPL {
+        public static System.Drawing.Bitmap mmlPL {
             get {
                 object obj = ResourceManager.GetObject("mmlPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -570,7 +570,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap openPL {
+        public static System.Drawing.Bitmap openPL {
             get {
                 object obj = ResourceManager.GetObject("openPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -580,7 +580,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap plane {
+        public static System.Drawing.Bitmap plane {
             get {
                 object obj = ResourceManager.GetObject("plane", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -590,7 +590,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeAY8910 {
+        public static System.Drawing.Bitmap planeAY8910 {
             get {
                 object obj = ResourceManager.GetObject("planeAY8910", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -600,7 +600,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeB {
+        public static System.Drawing.Bitmap planeB {
             get {
                 object obj = ResourceManager.GetObject("planeB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -610,7 +610,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeC {
+        public static System.Drawing.Bitmap planeC {
             get {
                 object obj = ResourceManager.GetObject("planeC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -620,7 +620,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeC352 {
+        public static System.Drawing.Bitmap planeC352 {
             get {
                 object obj = ResourceManager.GetObject("planeC352", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -630,7 +630,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeControl {
+        public static System.Drawing.Bitmap planeControl {
             get {
                 object obj = ResourceManager.GetObject("planeControl", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -640,7 +640,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeD {
+        public static System.Drawing.Bitmap planeD {
             get {
                 object obj = ResourceManager.GetObject("planeD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -650,7 +650,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeE {
+        public static System.Drawing.Bitmap planeE {
             get {
                 object obj = ResourceManager.GetObject("planeE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -660,7 +660,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeF {
+        public static System.Drawing.Bitmap planeF {
             get {
                 object obj = ResourceManager.GetObject("planeF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -670,7 +670,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeFDS {
+        public static System.Drawing.Bitmap planeFDS {
             get {
                 object obj = ResourceManager.GetObject("planeFDS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -680,7 +680,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeHuC6280 {
+        public static System.Drawing.Bitmap planeHuC6280 {
             get {
                 object obj = ResourceManager.GetObject("planeHuC6280", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -690,7 +690,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeK051649 {
+        public static System.Drawing.Bitmap planeK051649 {
             get {
                 object obj = ResourceManager.GetObject("planeK051649", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -700,7 +700,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMIDI_GM {
+        public static System.Drawing.Bitmap planeMIDI_GM {
             get {
                 object obj = ResourceManager.GetObject("planeMIDI_GM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -710,7 +710,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMIDI_GS {
+        public static System.Drawing.Bitmap planeMIDI_GS {
             get {
                 object obj = ResourceManager.GetObject("planeMIDI_GS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -720,7 +720,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMIDI_XG {
+        public static System.Drawing.Bitmap planeMIDI_XG {
             get {
                 object obj = ResourceManager.GetObject("planeMIDI_XG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -730,7 +730,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMixer {
+        public static System.Drawing.Bitmap planeMixer {
             get {
                 object obj = ResourceManager.GetObject("planeMixer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -740,7 +740,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMMC5 {
+        public static System.Drawing.Bitmap planeMMC5 {
             get {
                 object obj = ResourceManager.GetObject("planeMMC5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -750,7 +750,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMSM6258 {
+        public static System.Drawing.Bitmap planeMSM6258 {
             get {
                 object obj = ResourceManager.GetObject("planeMSM6258", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -760,7 +760,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMSM6295 {
+        public static System.Drawing.Bitmap planeMSM6295 {
             get {
                 object obj = ResourceManager.GetObject("planeMSM6295", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -770,7 +770,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeMultiPCM {
+        public static System.Drawing.Bitmap planeMultiPCM {
             get {
                 object obj = ResourceManager.GetObject("planeMultiPCM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -780,7 +780,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeN106 {
+        public static System.Drawing.Bitmap planeN106 {
             get {
                 object obj = ResourceManager.GetObject("planeN106", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -790,7 +790,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeNESDMC {
+        public static System.Drawing.Bitmap planeNESDMC {
             get {
                 object obj = ResourceManager.GetObject("planeNESDMC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -800,7 +800,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeQSound {
+        public static System.Drawing.Bitmap planeQSound {
             get {
                 object obj = ResourceManager.GetObject("planeQSound", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -810,7 +810,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeSEGAPCM {
+        public static System.Drawing.Bitmap planeSEGAPCM {
             get {
                 object obj = ResourceManager.GetObject("planeSEGAPCM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -820,7 +820,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeSN76489 {
+        public static System.Drawing.Bitmap planeSN76489 {
             get {
                 object obj = ResourceManager.GetObject("planeSN76489", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -830,7 +830,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeVRC6 {
+        public static System.Drawing.Bitmap planeVRC6 {
             get {
                 object obj = ResourceManager.GetObject("planeVRC6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -840,7 +840,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeVRC7 {
+        public static System.Drawing.Bitmap planeVRC7 {
             get {
                 object obj = ResourceManager.GetObject("planeVRC7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -850,7 +850,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeY8950 {
+        public static System.Drawing.Bitmap planeY8950 {
             get {
                 object obj = ResourceManager.GetObject("planeY8950", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -860,7 +860,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM2203 {
+        public static System.Drawing.Bitmap planeYM2203 {
             get {
                 object obj = ResourceManager.GetObject("planeYM2203", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -870,7 +870,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM2413 {
+        public static System.Drawing.Bitmap planeYM2413 {
             get {
                 object obj = ResourceManager.GetObject("planeYM2413", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -880,7 +880,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM2610 {
+        public static System.Drawing.Bitmap planeYM2610 {
             get {
                 object obj = ResourceManager.GetObject("planeYM2610", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -890,7 +890,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM2612 {
+        public static System.Drawing.Bitmap planeYM2612 {
             get {
                 object obj = ResourceManager.GetObject("planeYM2612", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -900,7 +900,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM2612MIDI {
+        public static System.Drawing.Bitmap planeYM2612MIDI {
             get {
                 object obj = ResourceManager.GetObject("planeYM2612MIDI", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -910,7 +910,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM3526 {
+        public static System.Drawing.Bitmap planeYM3526 {
             get {
                 object obj = ResourceManager.GetObject("planeYM3526", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -920,7 +920,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYM3812 {
+        public static System.Drawing.Bitmap planeYM3812 {
             get {
                 object obj = ResourceManager.GetObject("planeYM3812", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -930,7 +930,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYMF262 {
+        public static System.Drawing.Bitmap planeYMF262 {
             get {
                 object obj = ResourceManager.GetObject("planeYMF262", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -940,7 +940,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYMF278B {
+        public static System.Drawing.Bitmap planeYMF278B {
             get {
                 object obj = ResourceManager.GetObject("planeYMF278B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -950,7 +950,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap planeYMZ280B {
+        public static System.Drawing.Bitmap planeYMZ280B {
             get {
                 object obj = ResourceManager.GetObject("planeYMZ280B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -960,7 +960,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rChipName_01 {
+        public static System.Drawing.Bitmap rChipName_01 {
             get {
                 object obj = ResourceManager.GetObject("rChipName_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -970,7 +970,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rChipName_02 {
+        public static System.Drawing.Bitmap rChipName_02 {
             get {
                 object obj = ResourceManager.GetObject("rChipName_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -980,7 +980,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rChipName_03 {
+        public static System.Drawing.Bitmap rChipName_03 {
             get {
                 object obj = ResourceManager.GetObject("rChipName_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -990,7 +990,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] README {
+        public static byte[] README {
             get {
                 object obj = ResourceManager.GetObject("README", resourceCulture);
                 return ((byte[])(obj));
@@ -1000,7 +1000,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFader {
+        public static System.Drawing.Bitmap rFader {
             get {
                 object obj = ResourceManager.GetObject("rFader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1010,7 +1010,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_01 {
+        public static System.Drawing.Bitmap rFont_01 {
             get {
                 object obj = ResourceManager.GetObject("rFont_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1020,7 +1020,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_02 {
+        public static System.Drawing.Bitmap rFont_02 {
             get {
                 object obj = ResourceManager.GetObject("rFont_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1030,7 +1030,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_03 {
+        public static System.Drawing.Bitmap rFont_03 {
             get {
                 object obj = ResourceManager.GetObject("rFont_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1040,7 +1040,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_04 {
+        public static System.Drawing.Bitmap rFont_04 {
             get {
                 object obj = ResourceManager.GetObject("rFont_04", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1050,7 +1050,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_05 {
+        public static System.Drawing.Bitmap rFont_05 {
             get {
                 object obj = ResourceManager.GetObject("rFont_05", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1060,7 +1060,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rFont_06 {
+        public static System.Drawing.Bitmap rFont_06 {
             get {
                 object obj = ResourceManager.GetObject("rFont_06", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1070,7 +1070,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rKakko_00 {
+        public static System.Drawing.Bitmap rKakko_00 {
             get {
                 object obj = ResourceManager.GetObject("rKakko_00", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1080,7 +1080,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rKBD_01 {
+        public static System.Drawing.Bitmap rKBD_01 {
             get {
                 object obj = ResourceManager.GetObject("rKBD_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1090,7 +1090,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rKBD_02 {
+        public static System.Drawing.Bitmap rKBD_02 {
             get {
                 object obj = ResourceManager.GetObject("rKBD_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1100,7 +1100,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rKBD_03 {
+        public static System.Drawing.Bitmap rKBD_03 {
             get {
                 object obj = ResourceManager.GetObject("rKBD_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1110,7 +1110,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMenuButtons_01 {
+        public static System.Drawing.Bitmap rMenuButtons_01 {
             get {
                 object obj = ResourceManager.GetObject("rMenuButtons_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1120,7 +1120,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMenuButtons_02 {
+        public static System.Drawing.Bitmap rMenuButtons_02 {
             get {
                 object obj = ResourceManager.GetObject("rMenuButtons_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1130,7 +1130,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_01 {
+        public static System.Drawing.Bitmap rMIDILCD_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1140,7 +1140,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_02 {
+        public static System.Drawing.Bitmap rMIDILCD_02 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1150,7 +1150,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_03 {
+        public static System.Drawing.Bitmap rMIDILCD_03 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1160,7 +1160,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Fader_01 {
+        public static System.Drawing.Bitmap rMIDILCD_Fader_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Fader_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1170,7 +1170,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Fader_02 {
+        public static System.Drawing.Bitmap rMIDILCD_Fader_02 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Fader_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1180,7 +1180,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Fader_03 {
+        public static System.Drawing.Bitmap rMIDILCD_Fader_03 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Fader_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1190,7 +1190,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_01 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1200,7 +1200,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_02 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_02 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1210,7 +1210,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_03 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_03 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1220,7 +1220,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_04 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_04 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_04", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1230,7 +1230,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_05 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_05 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_05", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1240,7 +1240,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Font_06 {
+        public static System.Drawing.Bitmap rMIDILCD_Font_06 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Font_06", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1250,7 +1250,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_KBD_01 {
+        public static System.Drawing.Bitmap rMIDILCD_KBD_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_KBD_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1260,7 +1260,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Vol_01 {
+        public static System.Drawing.Bitmap rMIDILCD_Vol_01 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Vol_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1270,7 +1270,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Vol_02 {
+        public static System.Drawing.Bitmap rMIDILCD_Vol_02 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Vol_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1280,7 +1280,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rMIDILCD_Vol_03 {
+        public static System.Drawing.Bitmap rMIDILCD_Vol_03 {
             get {
                 object obj = ResourceManager.GetObject("rMIDILCD_Vol_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1290,7 +1290,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rNESDMC {
+        public static System.Drawing.Bitmap rNESDMC {
             get {
                 object obj = ResourceManager.GetObject("rNESDMC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1300,7 +1300,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPan_01 {
+        public static System.Drawing.Bitmap rPan_01 {
             get {
                 object obj = ResourceManager.GetObject("rPan_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1310,7 +1310,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPan_02 {
+        public static System.Drawing.Bitmap rPan_02 {
             get {
                 object obj = ResourceManager.GetObject("rPan_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1320,7 +1320,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPan_03 {
+        public static System.Drawing.Bitmap rPan_03 {
             get {
                 object obj = ResourceManager.GetObject("rPan_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1330,7 +1330,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPan2_01 {
+        public static System.Drawing.Bitmap rPan2_01 {
             get {
                 object obj = ResourceManager.GetObject("rPan2_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1340,7 +1340,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPan2_02 {
+        public static System.Drawing.Bitmap rPan2_02 {
             get {
                 object obj = ResourceManager.GetObject("rPan2_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1350,7 +1350,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGEnv {
+        public static System.Drawing.Bitmap rPSGEnv {
             get {
                 object obj = ResourceManager.GetObject("rPSGEnv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1360,7 +1360,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_01 {
+        public static System.Drawing.Bitmap rPSGMode_01 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1370,7 +1370,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_02 {
+        public static System.Drawing.Bitmap rPSGMode_02 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1380,7 +1380,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_03 {
+        public static System.Drawing.Bitmap rPSGMode_03 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1390,7 +1390,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_04 {
+        public static System.Drawing.Bitmap rPSGMode_04 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_04", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1400,7 +1400,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_05 {
+        public static System.Drawing.Bitmap rPSGMode_05 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_05", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1410,7 +1410,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rPSGMode_06 {
+        public static System.Drawing.Bitmap rPSGMode_06 {
             get {
                 object obj = ResourceManager.GetObject("rPSGMode_06", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1420,7 +1420,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_01 {
+        public static System.Drawing.Bitmap rType_01 {
             get {
                 object obj = ResourceManager.GetObject("rType_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1430,7 +1430,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_02 {
+        public static System.Drawing.Bitmap rType_02 {
             get {
                 object obj = ResourceManager.GetObject("rType_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1440,7 +1440,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_03 {
+        public static System.Drawing.Bitmap rType_03 {
             get {
                 object obj = ResourceManager.GetObject("rType_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1450,7 +1450,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_04 {
+        public static System.Drawing.Bitmap rType_04 {
             get {
                 object obj = ResourceManager.GetObject("rType_04", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1460,7 +1460,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_05 {
+        public static System.Drawing.Bitmap rType_05 {
             get {
                 object obj = ResourceManager.GetObject("rType_05", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1470,7 +1470,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rType_06 {
+        public static System.Drawing.Bitmap rType_06 {
             get {
                 object obj = ResourceManager.GetObject("rType_06", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1480,7 +1480,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rVol_01 {
+        public static System.Drawing.Bitmap rVol_01 {
             get {
                 object obj = ResourceManager.GetObject("rVol_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1490,7 +1490,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rVol_02 {
+        public static System.Drawing.Bitmap rVol_02 {
             get {
                 object obj = ResourceManager.GetObject("rVol_02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1500,7 +1500,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rVol_03 {
+        public static System.Drawing.Bitmap rVol_03 {
             get {
                 object obj = ResourceManager.GetObject("rVol_03", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1510,7 +1510,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rWavGraph {
+        public static System.Drawing.Bitmap rWavGraph {
             get {
                 object obj = ResourceManager.GetObject("rWavGraph", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1520,7 +1520,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap rWavGraph2 {
+        public static System.Drawing.Bitmap rWavGraph2 {
             get {
                 object obj = ResourceManager.GetObject("rWavGraph2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1530,7 +1530,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap savePL {
+        public static System.Drawing.Bitmap savePL {
             get {
                 object obj = ResourceManager.GetObject("savePL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1540,7 +1540,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap txtPL {
+        public static System.Drawing.Bitmap txtPL {
             get {
                 object obj = ResourceManager.GetObject("txtPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1550,7 +1550,7 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap upPL {
+        public static System.Drawing.Bitmap upPL {
             get {
                 object obj = ResourceManager.GetObject("upPL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
