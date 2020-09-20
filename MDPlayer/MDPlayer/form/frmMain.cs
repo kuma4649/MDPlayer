@@ -4713,6 +4713,11 @@ namespace MDPlayer.form
                 getInstChForMGSC(chip, ch, chipID);
                 return;
             }
+            if (chip == EnmChip.K051649)
+            {
+                getInstChForMGSC(chip, ch, chipID);
+                return;
+            }
 
             YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
 
@@ -5313,6 +5318,11 @@ namespace MDPlayer.form
                     Register[i] = r[i];
                 }
             }
+            else if (chip == EnmChip.K051649)
+            {
+                getInstChForMGSCSCC(ch, chipID);
+                return;
+            }
 
             if (Register == null) return;
             n = "@vXX = { \r\n";
@@ -5352,6 +5362,32 @@ namespace MDPlayer.form
                 );
 
 
+
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForMGSCSCC(int ch, int chipID)
+        {
+
+            int[] Register = null;
+
+            MDSound.K051649.k051649_state chip = Audio.GetK051649Register(chipID);
+            if (chip == null) return;
+            MDSound.K051649.k051649_sound_channel psg = chip.channel_list[ch];
+            if (psg == null) return;
+            Register = new int[32];
+            for (int i = 0; i < 32; i++) Register[i] = (int)psg.waveram[i];
+            if (Register == null) return;
+
+            string n = "@sXX = {";
+            for (int i = 0; i < 8; i++)
+            {
+                n += string.Format(" {0:x02}{1:x02}{2:x02}{3:x02}",
+                    (byte)Register[i * 4 + 0], (byte)Register[i * 4 + 1],
+                    (byte)Register[i * 4 + 2], (byte)Register[i * 4 + 3]
+                    );
+            }
+            n += " }\r\n";
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }
