@@ -12,6 +12,7 @@ using System.Drawing;
 using MDSound;
 //using MDPlayer.Properties;
 using MDPlayer.Driver.ZGM.ZgmChip;
+using MDSound.np.chip;
 
 namespace MDPlayer.form
 {
@@ -4718,6 +4719,11 @@ namespace MDPlayer.form
                 getInstChForMGSC(chip, ch, chipID);
                 return;
             }
+            if (chip == EnmChip.N160)
+            {
+                getInstChForMCK(chip, ch, chipID);
+                return;
+            }
 
             YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
 
@@ -5390,6 +5396,28 @@ namespace MDPlayer.form
             n += " }\r\n";
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForMCK(EnmChip chip,int ch,int chipID)
+        {
+            string n = "";
+
+            if (chip == EnmChip.N160)
+            {
+                TrackInfoN106[] info = (TrackInfoN106[])Audio.GetN106Register(0);
+                if (info == null) return;
+
+                n = "@Nxx = { ";
+                n += string.Format("{0} ", info[ch].wavelen);
+                for (int i = 0; i < info[ch].wavelen; i++)
+                {
+                    n += string.Format("{0} ", (byte)info[ch].wave[i]);
+                }
+                n += "}\r\n";
+
+                if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+            }
+
         }
 
         private void getInstChForTFI(EnmChip chip, int ch, int chipID)

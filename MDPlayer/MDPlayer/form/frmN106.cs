@@ -112,7 +112,13 @@ namespace MDPlayer.form
 
             int ch = (py / 8) - 1;
             if (ch < 0) return;
+            ch /= 3;
 
+            //音色で右クリックした場合は何もしない
+            if (e.Button == MouseButtons.Right) return;
+
+            //クリップボードに音色をコピーする
+            parent.getInstCh(EnmChip.N160, ch, chipID);
         }
 
         public void screenInit()
