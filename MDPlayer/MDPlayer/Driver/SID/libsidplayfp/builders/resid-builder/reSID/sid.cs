@@ -497,6 +497,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         protected void write()
         {
+            //Console.WriteLine("adr:{0} val:{1}", write_address, bus_value);
+
             if(write_address<reg.Length) reg[write_address] = bus_value;
 
             switch (write_address)

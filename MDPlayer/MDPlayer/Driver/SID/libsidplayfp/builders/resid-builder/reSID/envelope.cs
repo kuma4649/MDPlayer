@@ -96,7 +96,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
 
             state = State.RELEASE;
             rate_period = rate_counter_period[release];
-            hold_zero = true;
+            hold_zero = false;
         }
 
         public void set_chip_model(siddefs.chip_model model)
@@ -535,6 +535,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         public Int16 output()
         {
+            //Console.WriteLine("{0}",envelope_counter);
             // DAC imperfections are emulated by using envelope_counter as an index
             // into a DAC lookup table. readENV() uses envelope_counter directly.
             return (Int16)model_dac[(Int16)sid_model][envelope_counter];

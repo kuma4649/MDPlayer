@@ -21,4 +21,21 @@ cd ..
 cd sidplayfp-2.0.1/
 make
 cd src
-./sidplayfp.exe --resid -ri -f44100 2NY_01.sid
+./sidplayfp.exe --resid -ri -f44100 Artillery.sid
+
+
+------------------------
+
+
+チップ自体のエミュレーションは
+  libsidplayfp\builders\resid-builder\reSID\
+内の
+  sid.cs
+あたり。
+
+   write()
+でチップにデータ書き込み。
+   clock()
+などclockで始まるメソッドでレンダリング。
+
+

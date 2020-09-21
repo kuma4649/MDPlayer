@@ -483,6 +483,8 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         public void clock(Int32 voice1, Int32 voice2, Int32 voice3)
         {
+            //Console.WriteLine("v1:{0} v2:{0} v3:{0} ", voice1, voice2, voice3);
+
             model_filter_t f = model_filter[(Int32)sid_model];
 
             v1 = (voice1 * f.voice_scale_s14 >> 18) + f.voice_DC;
