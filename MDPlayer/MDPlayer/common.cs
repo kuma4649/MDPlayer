@@ -491,7 +491,7 @@ namespace MDPlayer
         , Y8950
         , YM3812
         , K051649
-        , N160
+        , N163
         , VRC6
         , FME7
         , RF5C68
@@ -538,7 +538,7 @@ namespace MDPlayer
         , S_Y8950
         , S_YM3812
         , S_K051649
-        , S_N160
+        , S_N163
         , S_VRC6
         , S_FME7
         , S_RF5C68

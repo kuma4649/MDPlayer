@@ -3630,7 +3630,7 @@ namespace MDPlayer
                 chip.Volume = setting.balance.N160Volume;
                 lstChips.Add(chip);
                 ((nsf)driverVirtual).cN160 = chip;
-                useChip.Add(EnmChip.N160);
+                useChip.Add(EnmChip.N163);
 
                 chip = new MDSound.MDSound.Chip();
                 chip.ID = 0;

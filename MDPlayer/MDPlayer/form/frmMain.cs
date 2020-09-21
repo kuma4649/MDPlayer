@@ -4719,7 +4719,7 @@ namespace MDPlayer.form
                 getInstChForMGSC(chip, ch, chipID);
                 return;
             }
-            if (chip == EnmChip.N160)
+            if (chip == EnmChip.N163)
             {
                 getInstChForMCK(chip, ch, chipID);
                 return;
@@ -5402,7 +5402,7 @@ namespace MDPlayer.form
         {
             string n = "";
 
-            if (chip == EnmChip.N160)
+            if (chip == EnmChip.N163)
             {
                 TrackInfoN106[] info = (TrackInfoN106[])Audio.GetN106Register(0);
                 if (info == null) return;
