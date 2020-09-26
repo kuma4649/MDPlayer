@@ -191,7 +191,13 @@ namespace MDPlayer.form
                     ff /= 1038f;
 
                     if ((fmKey[ch] & 1) != 0)
+                    {
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
+                        //if (ch == 0)
+                        //{
+                        //    Console.WriteLine("freq:{0}  masterClock:{1}  fmDiv:{2}  octav:{3} ff:{4}  n:{5}", freq, masterClock, fmDiv, octav,ff,n);
+                        //}
+                    }
 
                     byte con = (byte)(fmKey[ch]);
                     int v = 127;

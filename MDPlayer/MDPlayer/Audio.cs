@@ -2653,6 +2653,7 @@ namespace MDPlayer
                 chip.Volume = setting.balance.YM2612Volume;
                 chip.Clock = 7670454;
                 chip.Option = null;
+                clockYM2612 = 7670454;
                 chipLED.PriOPN2 = 1;
                 lstChips.Add(chip);
                 useChip.Add(EnmChip.YM2612);
