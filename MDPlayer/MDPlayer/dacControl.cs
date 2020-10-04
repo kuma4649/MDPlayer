@@ -432,14 +432,59 @@ namespace MDPlayer
         {
             switch (ChipType)
             {
+                case 0x01:  // YM2413+
+                    chipRegister.setYM2413Register(ChipID, Offset, Data, model);
+                    break;
                 case 0x02:  // YM2612
-                    chipRegister.setYM2612Register(ChipID,Port, Offset, Data, model,-1);
+                    chipRegister.setYM2612Register(ChipID, Port, Offset, Data, model, -1);
+                    break;
+                case 0x03:  // YM2151+
+                    chipRegister.setYM2151Register(ChipID, Port, Offset, Data, model, 0, 0);
+                    break;
+                case 0x06:  // YM2203+
+                    chipRegister.setYM2203Register(ChipID, Offset, Data, model);
+                    break;
+                case 0x07:  // YM2608+
+                    chipRegister.setYM2608Register(ChipID, Port, Offset, Data, model);
+                    break;
+                case 0x08:  // YM2610+
+                    chipRegister.setYM2610Register(ChipID, Port, Offset, Data, model);
+                    break;
+                case 0x09:  // YM3812+
+                    chipRegister.setYM3812Register(ChipID, Offset, Data, model);
+                    break;
+                case 0x0A:  // YM3526+
+                    chipRegister.setYM3526Register(ChipID, Offset, Data, model);
+                    break;
+                case 0x0B:  // Y8950+
+                    chipRegister.setY8950Register(ChipID, Offset, Data, model);
+                    break;
+                case 0x0C:  // YMF262+
+                    chipRegister.setYMF262Register(ChipID, Port, Offset, Data, model);
+                    break;
+                case 0x0D:  // YMF278B+
+                    chipRegister.setYMF278BRegister(ChipID, Port, Offset, Data, model);
+                    break;
+                case 0x0E:  // YMF271+
+                    chipRegister.setYMF271Register(ChipID, Port, Offset, Data, model);
+                    break;
+                case 0x0F:  // YMZ280B+
+                    chipRegister.setYMZ280BRegister(ChipID, Offset, Data, model);
                     break;
                 case 0x10:
                     chipRegister.writeRF5C164(ChipID, Offset, Data, model);
                     break;
                 case 0x11:  // PWM
                     chipRegister.writePWM(ChipID, Port, (uint)((Offset << 8) | (Data << 0)), model);
+                    break;
+                case 0x12:  // AY8910+
+                    chipRegister.setAY8910Register(ChipID, Offset, Data, model);
+                    break;
+                case 0x13:  // DMG+
+                    chipRegister.setDMGRegister(ChipID, Offset, Data, model);
+                    break;
+                case 0x14:  // NES+
+                    chipRegister.setNESRegister(ChipID, Offset, Data, model);
                     break;
                 case 0x17:  // OKIM6258
                     if(model== EnmModel.VirtualModel) //System.Console.Write("[DAC]");
