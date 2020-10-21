@@ -40,6 +40,7 @@ namespace MDPlayer
 
         public ChipRegister chipRegister;
         public hes.HESDetector ld;
+        private bool disableSendChip = false;
 
         //# include "neserr.h"
         //# include "handler.h"
@@ -337,6 +338,7 @@ namespace MDPlayer
                     //    (Int32)(a & 0xf),
                     //    (Int32)v
                     //    );
+                    if(!disableSendChip)
                     chipRegister.setHuC6280Register(0, (Int32)(a & 0xf), (Int32)v, EnmModel.VirtualModel);
                     ld.Write((UInt32)(a & 0xf), (UInt32)v, 0);
                     //THIS_.hessnd.write(THIS_.hessnd.ctx, a & 0xf, v);
@@ -465,6 +467,7 @@ namespace MDPlayer
         //ここからメモリービュアー設定
         public delegate UInt32 memview_memread(UInt32 a);
         private HESHES memview_context=null;
+
         //private Int32 MEM_MAX, MEM_IO, MEM_RAM, MEM_ROM;
         private UInt32 memview_memread_hes(UInt32 a)
         {
@@ -616,13 +619,30 @@ namespace MDPlayer
 
             /* request execute(5sec) */
             initbreak = 5 << 8;
+            
+            disableSendChip = true;
+
             while (THIS_.breaked == 0 && --initbreak != 0)
                 km6280_exec(THIS_.ctx, HES_BASECYCLES >> 8);
+
+            disableSendChip = false;
+            chipRegister.setHuC6280Register(0, 1, 0xff, EnmModel.VirtualModel);
 
             if (THIS_.breaked != 0)
             {
                 THIS_.breaked = 0;
                 THIS_.ctx.P &= 0xfffffffb;// ~km6280.K6280_FLAGS.K6280_I_FLAG;
+            }
+            else
+            {
+                THIS_.ctx.A = (UInt32)((pNezPlay.song.songno - 1) & 0xff);
+                THIS_.ctx.P = (UInt32)km6280.K6280_FLAGS.K6280_Z_FLAG + (UInt32)km6280.K6280_FLAGS.K6280_I_FLAG;
+                THIS_.ctx.X = THIS_.ctx.Y = 0;
+                THIS_.ctx.S = 0xFF;
+                THIS_.ctx.PC = THIS_.playerromaddr;
+                THIS_.ctx.iRequest = 0;
+                THIS_.ctx.iMask = 0xffffffff;// ~0;
+                THIS_.ctx.lowClockMode = 0;
             }
 
             THIS_.cpsrem = THIS_.cpsgap = THIS_.total_cycles = 0;

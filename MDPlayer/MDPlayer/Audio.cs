@@ -1503,11 +1503,11 @@ namespace MDPlayer
                 driverVirtual = new nsf();
                 driverVirtual.setting = setting;
                 driverReal = null;
-                if (setting.outputDevice.DeviceType != Common.DEV_Null)
-                {
-                    driverReal = new nsf();
-                    driverReal.setting = setting;
-                }
+                //if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                //{
+                //    driverReal = new nsf();
+                //    driverReal.setting = setting;
+                //}
                 return nsfPlay(setting);
             }
 
@@ -1517,11 +1517,11 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
 
                 driverReal = null;
-                if (setting.outputDevice.DeviceType != Common.DEV_Null)
-                {
-                    driverReal = new hes();
-                    driverReal.setting = setting;
-                }
+                //if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                //{
+                //    driverReal = new hes();
+                //    driverReal.setting = setting;
+                //}
                 return hesPlay(setting);
             }
 
@@ -1531,11 +1531,11 @@ namespace MDPlayer
                 driverVirtual.setting = setting;
 
                 driverReal = null;
-                if (setting.outputDevice.DeviceType != Common.DEV_Null)
-                {
-                    driverReal = new Driver.SID.sid();
-                    driverReal.setting = setting;
-                }
+                //if (setting.outputDevice.DeviceType != Common.DEV_Null)
+                //{
+                //    driverReal = new Driver.SID.sid();
+                //    driverReal.setting = setting;
+                //}
                 return sidPlay(setting);
             }
 
@@ -1597,7 +1597,7 @@ namespace MDPlayer
                 chip.Start = ym2608.Start;
                 chip.Stop = ym2608.Stop;
                 chip.Reset = ym2608.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
                 chip.Volume = setting.balance.YM2608Volume;
                 chip.Clock = Driver.MucomDotNET.baseclock;
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -2422,7 +2422,7 @@ namespace MDPlayer
                     chip.Start = opna.Start;
                     chip.Stop = opna.Stop;
                     chip.Reset = opna.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 8000000;// 7987200;
                     Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -2442,7 +2442,7 @@ namespace MDPlayer
                     chip.Start = opna.Start;
                     chip.Stop = opna.Stop;
                     chip.Reset = opna.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { Common.GetApplicationFolder() };
@@ -3016,7 +3016,7 @@ namespace MDPlayer
                             chip.Start = ym2608.Start;
                             chip.Stop = ym2608.Stop;
                             chip.Reset = ym2608.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
                             chip.Volume = setting.balance.YM2608Volume;
                             chip.Clock = dInfo.Clock;
                             YM2608ClockValue = (int)chip.Clock;
@@ -4261,7 +4261,7 @@ namespace MDPlayer
                         chip.Start = ym2608.Start;
                         chip.Stop = ym2608.Stop;
                         chip.Reset = ym2608.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.YM2608Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2608ClockValue;
                         Func<string, Stream> fn = Common.GetOPNARyhthmStream;
