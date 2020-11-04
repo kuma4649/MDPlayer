@@ -1,4 +1,7 @@
 更新履歴
+STBL086 2020/11/04
+  mucomDotNET dllの差し替えのみ
+
 STBL085 2020/10/21
   HES:DefleMaskが作成するhesファイルが演奏できなかったのを修正
 
