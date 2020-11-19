@@ -36,6 +36,7 @@ namespace MDPlayer
             public int volumeRL = -1;
             public int volumeRR = -1;
             public int flg16 = -1;
+            public int srcFreq = -1;
             public int freq = -1;
             public int bank = -1;
             public int sadr = -1;
@@ -451,6 +452,13 @@ namespace MDPlayer
 
         }
         public N106[] n106 = new N106[] { new N106(), new N106() };
+
+        public class PPZ8
+        {
+            public Channel[] channels = new Channel[8] { new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel() };
+        }
+
+        public PPZ8[] ppz8 = new PPZ8[] { new PPZ8(), new PPZ8() };
 
 
 

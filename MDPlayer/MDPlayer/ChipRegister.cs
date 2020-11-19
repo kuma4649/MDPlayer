@@ -304,6 +304,15 @@ namespace MDPlayer
             }
         };
 
+        private bool[][] maskChPPZ8 = new bool[][] {
+            new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+            ,new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+        };
+
         public ushort[][] pcmRegisterC352 = new ushort[2][] { null, null };
         public ushort[][] pcmKeyOnC352 = new ushort[2][] { null, null };
         private bool[][] maskChC352 = new bool[][] {
@@ -1373,6 +1382,10 @@ namespace MDPlayer
             else chipLED.SecMPCM = 2;
 
             return mds.ReadMultiPCMRegister(chipID);
+        }
+        public PPZ8.PPZChannelWork[] GetPPZ8Register(int chipID)
+        {
+            return mds.ReadPPZ8Status(chipID);
         }
 
         public void setMultiPCMSetBank(int chipID, int dCh, int dAddr, EnmModel model)
@@ -3570,6 +3583,11 @@ namespace MDPlayer
         public void setMaskC140(int chipID, int ch, bool mask)
         {
             maskChC140[chipID][ch] = mask;
+        }
+
+        public void setMaskPPZ8(int chipID, int ch, bool mask)
+        {
+            maskChPPZ8[chipID][ch] = mask;
         }
 
         public void setMaskC352(int chipID, int ch, bool mask)

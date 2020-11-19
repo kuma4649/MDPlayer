@@ -800,6 +800,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap planePPZ8 {
+            get {
+                object obj = ResourceManager.GetObject("planePPZ8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap planeQSound {
             get {
                 object obj = ResourceManager.GetObject("planeQSound", resourceCulture);

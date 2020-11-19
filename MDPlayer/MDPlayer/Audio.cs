@@ -20,6 +20,7 @@ namespace MDPlayer
         public static int clockAY8910 = 1789750;
         public static int clockK051649 = 1500000;
         public static int clockC140 = 21390;
+        public static int clockPPZ8 = Common.SampleRate;
         public static int clockC352 = 24192000;
         public static int clockFDS = 0;
         public static int clockHuC6280 = 0;
@@ -6263,6 +6264,11 @@ namespace MDPlayer
             return chipRegister.pcmRegisterC140[chipID];
         }
 
+        public static PPZ8.PPZChannelWork[] GetPPZ8Register(int chipID)
+        {
+            return chipRegister.GetPPZ8Register(chipID);
+        }
+
         public static bool[] GetC140KeyOn(int chipID)
         {
             return chipRegister.pcmKeyOnC140[chipID];
@@ -7171,6 +7177,12 @@ namespace MDPlayer
             chipRegister.setMaskC140(chipID, ch, true);
         }
 
+        public static void setPPZ8Mask(int chipID, int ch)
+        {
+            //mds.setPPZ8Mask(chipID, 1 << ch);
+            chipRegister.setMaskPPZ8(chipID, ch, true);
+        }
+
         public static void setC352Mask(int chipID, int ch)
         {
             chipRegister.setMaskC352(chipID, ch, true);
@@ -7373,6 +7385,16 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskC140(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetPPZ8Mask(int chipID, int ch)
+        {
+            //mds.resetPPZ8Mask(chipID, 1 << ch);
+            try
+            {
+                chipRegister.setMaskPPZ8(chipID, ch, false);
             }
             catch { }
         }

@@ -54,7 +54,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
       , Y8950       , YM2151     , YM2203  , YM2413     , YM2608 , YM2610/B , YM3526 , YM3812  
       , YMF262      , YMF278B    , YMZ280B , MultiPCM   
       , HuC6280     , MIDI       
-      , NES_APU&DMC , NES_FDS    , MMC5    , N106(N163) , VRC6     , VRC7    
+      , NES_APU&DMC , NES_FDS    , MMC5    , N106(N163) , VRC6     , VRC7 , PPZ8    
   
   ・C#で作成されています。  
   

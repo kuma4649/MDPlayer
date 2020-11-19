@@ -143,6 +143,8 @@ namespace MDPlayer.form
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiPPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -152,7 +154,7 @@ namespace MDPlayer.form
             // 
             this.pbScreen.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.pbScreen, "pbScreen");
-            this.pbScreen.Image = Resources.planeControl;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeControl;
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.TabStop = false;
             this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
@@ -204,7 +206,8 @@ namespace MDPlayer.form
             this.tsmiPVRC7,
             this.tsmiPN106,
             this.tsmiYMZ280B,
-            this.tsmiPMultiPCM});
+            this.tsmiPMultiPCM,
+            this.tsmiPPPZ8});
             this.primaryToolStripMenuItem.Name = "primaryToolStripMenuItem";
             resources.ApplyResources(this.primaryToolStripMenuItem, "primaryToolStripMenuItem");
             // 
@@ -433,7 +436,8 @@ namespace MDPlayer.form
             this.tsmiSVRC7,
             this.tsmiSN106,
             this.tsmiSYMZ280B,
-            this.tsmiSMultiPCM});
+            this.tsmiSMultiPCM,
+            this.tsmiSPPZ8});
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
             resources.ApplyResources(this.sencondryToolStripMenuItem, "sencondryToolStripMenuItem");
             // 
@@ -936,6 +940,18 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
+            // tsmiPPPZ8
+            // 
+            this.tsmiPPPZ8.Name = "tsmiPPPZ8";
+            resources.ApplyResources(this.tsmiPPPZ8, "tsmiPPPZ8");
+            this.tsmiPPPZ8.Click += new System.EventHandler(this.tsmiPPPZ8_Click);
+            // 
+            // tsmiSPPZ8
+            // 
+            this.tsmiSPPZ8.Name = "tsmiSPPZ8";
+            resources.ApplyResources(this.tsmiSPPZ8, "tsmiSPPZ8");
+            this.tsmiSPPZ8.Click += new System.EventHandler(this.tsmiSPPZ8_Click);
+            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1073,6 +1089,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiPN106;
         private System.Windows.Forms.ToolStripMenuItem tsmiSN106;
         private System.Windows.Forms.ToolStripMenuItem sIDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPPPZ8;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSPPZ8;
     }
 }
 

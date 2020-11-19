@@ -1308,6 +1308,18 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void PanType3(FrameBuffer screen, int c, ref int ot, int nt, int tp)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawPanType3P(screen, 24, 8 + c * 8, nt, tp);
+            ot = nt;
+        }
+
         public static void PanToOKIM6258(FrameBuffer screen, ref int ot, int nt, ref int otp, int ntp)
         {
 
@@ -3358,6 +3370,22 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
             p = ((t & 0xf0) >> 4);
             p = p == 0 ? 0 : (1 + p / 4);
+            screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+
+        }
+
+        public static void drawPanType3P(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            int p = (t & 0x0f);
+            p = p == 0 ? 0 : ((p + 1) / 4);
+            screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+            p = ((t & 0xf0) >> 4);
+            p = p == 0 ? 0 : ((p + 1) / 4);
             screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
 
         }
