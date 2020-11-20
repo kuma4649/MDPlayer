@@ -154,7 +154,7 @@ namespace MDPlayer.form
             // 
             this.pbScreen.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.pbScreen, "pbScreen");
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeControl;
+            this.pbScreen.Image = Resources.planeControl;
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.TabStop = false;
             this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);

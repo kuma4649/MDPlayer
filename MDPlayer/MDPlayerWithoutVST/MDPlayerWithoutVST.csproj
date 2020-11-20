@@ -667,6 +667,18 @@
       <Link>form\frmPlayList.designer.cs</Link>
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MDPlayer\form\frmPPZ8.cs">
+      <Link>form\frmPPZ8.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\MDPlayer\form\frmPPZ8.designer.cs">
+      <Link>form\frmPPZ8.designer.cs</Link>
+      <DependentUpon>frmPPZ8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\MDPlayer\form\frmQSound.cs">
+      <Link>form\frmQSound.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="..\MDPlayer\form\frmQSound.cs">
       <Link>form\frmQSound.cs</Link>
       <SubType>Form</SubType>
