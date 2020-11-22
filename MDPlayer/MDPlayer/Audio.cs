@@ -18,6 +18,7 @@ namespace MDPlayer
         private static Setting setting = null;
 
         public static int clockAY8910 = 1789750;
+        public static int clockS5B = 1789772;
         public static int clockK051649 = 1500000;
         public static int clockC140 = 21390;
         public static int clockPPZ8 = Common.SampleRate;
@@ -1725,7 +1726,7 @@ namespace MDPlayer
                 chip.Stop = ppz8.Stop;
                 chip.Reset = ppz8.Reset;
                 chip.SamplingRate = (UInt32)Common.SampleRate;
-                chip.Volume = 0;// setting.balance.PPZ8Volume;
+                chip.Volume = setting.balance.PPZ8Volume;
                 chip.Clock = Driver.PMDDotNET.baseclock;
                 chip.Option = null;
                 chipLED.PriPPZ8 = 1;
@@ -6046,6 +6047,12 @@ namespace MDPlayer
             vol = mds.getC352VisVolume();
             if (vol != null) visVolume.c352 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
+            vol = mds.getSAA1099VisVolume();
+            if (vol != null) visVolume.saa1099 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
+            vol = mds.getPPZ8VisVolume();
+            if (vol != null) visVolume.ppz8 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+
             vol = mds.getSegaPCMVisVolume();
             if (vol != null) visVolume.segaPCM = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
@@ -6374,6 +6381,25 @@ namespace MDPlayer
             if (reg == null) reg = chipRegister.getFDSRegister(chipID, EnmModel.VirtualModel);
 
             return reg;
+        }
+
+        private static byte[] s5bregs = new byte[0x20];
+        public static byte[] GetS5BRegister(int chipID)
+        {
+            //nsf向け
+            if (chipRegister == null) return null;
+            else if (chipRegister.nes_fme7 == null) return null;
+            else if (chipID == 1) return null;
+
+            uint dat = 0;
+            for (uint adr = 0x00; adr < 0x20; adr++)
+            {
+                dat = 0;
+                chipRegister.nes_fme7.Read(adr, ref dat);
+                s5bregs[adr] = (byte)dat;
+            }
+
+            return s5bregs;
         }
 
         private static byte[] mmc5regs = new byte[10];
@@ -6832,6 +6858,26 @@ namespace MDPlayer
             {
                 mds.SetVolumeC352(setting.balance.C352Volume
                     = Common.Range((isAbs ? 0 : setting.balance.C352Volume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetSA1099Volume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumeSAA1099(setting.balance.SAA1099Volume
+                    = Common.Range((isAbs ? 0 : setting.balance.SAA1099Volume) + volume, -192, 20));
+            }
+            catch { }
+        }
+
+        public static void SetPPZ8Volume(bool isAbs, int volume)
+        {
+            try
+            {
+                mds.SetVolumePPZ8(setting.balance.PPZ8Volume
+                    = Common.Range((isAbs ? 0 : setting.balance.PPZ8Volume) + volume, -192, 20));
             }
             catch { }
         }

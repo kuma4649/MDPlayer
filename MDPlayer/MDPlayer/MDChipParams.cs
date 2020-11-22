@@ -213,6 +213,15 @@ namespace MDPlayer
         }
         public AY8910[] ay8910 = new AY8910[] { new AY8910(), new AY8910() };
 
+        public class S5B
+        {
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
+            public Channel[] channels = new Channel[3] { new Channel(), new Channel(), new Channel() };
+        }
+        public S5B[] s5b = new S5B[] { new S5B(), new S5B() };
+
         public class YM2151
         {
             public int ne = -1;
@@ -500,6 +509,7 @@ namespace MDPlayer
             public VolumeInfo AY8910 = new VolumeInfo();
             public VolumeInfo SN76489 = new VolumeInfo();
             public VolumeInfo HuC6280 = new VolumeInfo();
+            public VolumeInfo SAA1099 = new VolumeInfo();
 
             public VolumeInfo RF5C164 = new VolumeInfo();
             public VolumeInfo RF5C68 = new VolumeInfo();
@@ -527,6 +537,7 @@ namespace MDPlayer
             public VolumeInfo FME7 = new VolumeInfo();
             public VolumeInfo DMG = new VolumeInfo();
 
+            public VolumeInfo PPZ8 = new VolumeInfo();
             public VolumeInfo GimicOPN = new VolumeInfo();
             public VolumeInfo GimicOPNA = new VolumeInfo();
         }

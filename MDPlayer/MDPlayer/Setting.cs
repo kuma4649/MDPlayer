@@ -2040,6 +2040,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _PPZ8Volume = 0;
+            public int PPZ8Volume
+            {
+                get
+                {
+                    if (_PPZ8Volume > 20 || _PPZ8Volume < -192) _PPZ8Volume = 0;
+                    return _PPZ8Volume;
+                }
+
+                set
+                {
+                    _PPZ8Volume = value;
+                    if (_PPZ8Volume > 20 || _PPZ8Volume < -192) _PPZ8Volume = 0;
+                }
+            }
+
             private int _X1_010Volume = 0;
             public int X1_010Volume
             {
@@ -2416,6 +2432,8 @@ namespace MDPlayer
                 Balance.AY8910Volume = this.AY8910Volume;
                 Balance.SN76489Volume = this.SN76489Volume;
                 Balance.HuC6280Volume = this.HuC6280Volume;
+                Balance.SAA1099Volume = this.SAA1099Volume;
+
                 Balance.RF5C164Volume = this.RF5C164Volume;
                 Balance.RF5C68Volume = this.RF5C68Volume;
                 Balance.PWMVolume = this.PWMVolume;
@@ -2448,6 +2466,7 @@ namespace MDPlayer
                 Balance.Y8950Volume = this.Y8950Volume;
                 Balance.YM3812Volume = this.YM3812Volume;
 
+                Balance.PPZ8Volume = this.PPZ8Volume;
                 Balance.GimicOPNVolume = this.GimicOPNVolume;
                 Balance.GimicOPNAVolume = this.GimicOPNAVolume;
 
@@ -2689,6 +2708,34 @@ namespace MDPlayer
                 set
                 {
                     _OpenC140 = value;
+                }
+            }
+
+            private Point[] _PosS5B = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosS5B
+            {
+                get
+                {
+                    return _PosS5B;
+                }
+
+                set
+                {
+                    _PosS5B = value;
+                }
+            }
+
+            private bool[] _OpenS5B = new bool[2] { false, false };
+            public bool[] OpenS5B
+            {
+                get
+                {
+                    return _OpenS5B;
+                }
+
+                set
+                {
+                    _OpenS5B = value;
                 }
             }
 
@@ -3661,6 +3708,8 @@ namespace MDPlayer
                 Location.OpenC140 = this.OpenC140;
                 Location.PosPPZ8 = this.PosPPZ8;
                 Location.OpenPPZ8 = this.OpenPPZ8;
+                Location.PosS5B = this.PosS5B;
+                Location.OpenS5B = this.OpenS5B;
                 Location.PosYMZ280B = this.PosYMZ280B;
                 Location.OpenYMZ280B = this.OpenYMZ280B;
                 Location.PosC352 = this.PosC352;

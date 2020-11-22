@@ -289,6 +289,12 @@
     <Compile Include="form\frmChipBase.Designer.cs">
       <DependentUpon>frmChipBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmDMG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmDMG.Designer.cs">
+      <DependentUpon>frmDMG.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmFDS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,6 +380,12 @@
     <Compile Include="form\frmOKIM6295.Designer.cs">
       <DependentUpon>frmOKIM6295.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmPCM8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmPCM8.Designer.cs">
+      <DependentUpon>frmPCM8.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmPlayList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +398,12 @@
     <Compile Include="form\frmPPZ8.Designer.cs">
       <DependentUpon>frmPPZ8.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmPWM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmPWM.Designer.cs">
+      <DependentUpon>frmPWM.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\frmQSound.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,6 +415,18 @@
     </Compile>
     <Compile Include="form\frmRegTest.Designer.cs">
       <DependentUpon>frmRegTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmS5B.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmS5B.Designer.cs">
+      <DependentUpon>frmS5B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmSAA1099.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmSAA1099.Designer.cs">
+      <DependentUpon>frmSAA1099.cs</DependentUpon>
     </Compile>
     <Compile Include="form\frmSegaPCM.cs">
       <SubType>Form</SubType>
@@ -637,6 +667,9 @@
     <EmbeddedResource Include="form\frmRegTest.resx">
       <DependentUpon>frmRegTest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmS5B.resx">
+      <DependentUpon>frmS5B.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmSegaPCM.resx">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </EmbeddedResource>
@@ -808,6 +841,7 @@
     <Content Include="Resources\planeNESDMC.png" />
     <Content Include="Resources\planePPZ8.png" />
     <Content Include="Resources\planeQSound.png" />
+    <Content Include="Resources\planeS5B.png" />
     <Content Include="Resources\planeSEGAPCM.png" />
     <Content Include="Resources\planeSN76489.png" />
     <Content Include="Resources\planeVRC6.png" />

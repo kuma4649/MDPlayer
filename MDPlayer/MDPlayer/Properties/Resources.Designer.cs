@@ -820,6 +820,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap planeS5B {
+            get {
+                object obj = ResourceManager.GetObject("planeS5B", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap planeSEGAPCM {
             get {
                 object obj = ResourceManager.GetObject("planeSEGAPCM", resourceCulture);

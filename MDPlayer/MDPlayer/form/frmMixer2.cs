@@ -154,6 +154,8 @@ namespace MDPlayer.form
             newParam.OKIM6295.Volume = parent.setting.balance.OKIM6295Volume;
             newParam.C140.Volume = parent.setting.balance.C140Volume;
             newParam.C352.Volume = parent.setting.balance.C352Volume;
+            newParam.SAA1099.Volume = parent.setting.balance.SAA1099Volume;
+            newParam.PPZ8.Volume = parent.setting.balance.PPZ8Volume;
             newParam.SEGAPCM.Volume = parent.setting.balance.SEGAPCMVolume;
             newParam.MultiPCM.Volume = parent.setting.balance.MultiPCMVolume;
             newParam.K051649.Volume = parent.setting.balance.K051649Volume;
@@ -420,6 +422,20 @@ namespace MDPlayer.form
                 newParam.C352.VisVol2Cnt = 30;
             }
 
+            newParam.SAA1099.VisVolume1 = Common.Range(Audio.visVolume.saa1099 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.SAA1099.VisVolume2 <= newParam.SAA1099.VisVolume1)
+            {
+                newParam.SAA1099.VisVolume2 = newParam.SAA1099.VisVolume1;
+                newParam.SAA1099.VisVol2Cnt = 30;
+            }
+
+            newParam.PPZ8.VisVolume1 = Common.Range(Audio.visVolume.ppz8 / 200, 0, 44);//(short.MaxValue / 44);
+            if (newParam.PPZ8.VisVolume2 <= newParam.PPZ8.VisVolume1)
+            {
+                newParam.PPZ8.VisVolume2 = newParam.PPZ8.VisVolume1;
+                newParam.PPZ8.VisVol2Cnt = 30;
+            }
+
             newParam.SEGAPCM.VisVolume1 = Common.Range(Audio.visVolume.segaPCM / 200, 0, 44);//(short.MaxValue / 44);
             if (newParam.SEGAPCM.VisVolume2 <= newParam.SEGAPCM.VisVolume1)
             {
@@ -566,7 +582,7 @@ namespace MDPlayer.form
             num++; oVI = oldParam.AY8910; nVI = newParam.AY8910; drawVolAndFader(num, oVI, nVI);
             num++; oVI = oldParam.SN76489; nVI = newParam.SN76489; drawVolAndFader(num, oVI, nVI);
             num++; oVI = oldParam.HuC6280; nVI = newParam.HuC6280; drawVolAndFader(num, oVI, nVI);
-            num++; 
+            num++; oVI = oldParam.SAA1099; nVI = newParam.SAA1099; drawVolAndFader(num, oVI, nVI);
             num++; 
             num++; 
             num++;
@@ -601,7 +617,7 @@ namespace MDPlayer.form
             num++;
             num++;
             num++;
-            num++;
+            num++; oVI = oldParam.PPZ8; nVI = newParam.PPZ8; drawVolAndFader(num, oVI, nVI);
             num++; oVI = oldParam.GimicOPN; nVI = newParam.GimicOPN; drawGVolAndFader(num, oVI, nVI);
             num++; oVI = oldParam.GimicOPNA; nVI = newParam.GimicOPNA; drawGVolAndFader(num, oVI, nVI);
 
@@ -695,6 +711,8 @@ namespace MDPlayer.form
             Audio.visVolume.okim6295 = -1;
             Audio.visVolume.c140 = -1;
             Audio.visVolume.c352 = -1;
+            Audio.visVolume.saa1099 = -1;
+            Audio.visVolume.ppz8 = -1;
             Audio.visVolume.segaPCM = -1;
             Audio.visVolume.multiPCM = -1;
             Audio.visVolume.k051649 = -1;
@@ -792,7 +810,7 @@ namespace MDPlayer.form
                 , Audio.SetYM2413Volume    , Audio.SetYM3526Volume       , Audio.SetY8950Volume        , Audio.SetYM3812Volume
                 , Audio.SetYMF262Volume    , Audio.SetYMF278BVolume      , Audio.SetYMZ280BVolume      , Audio.SetYMF271Volume
                 , null                     , Audio.SetAY8910Volume       , Audio.SetSN76489Volume      , Audio.SetHuC6280Volume
-                , null                     , null                        , null                        , null
+                , Audio.SetSA1099Volume    , null                        , null                        , null
 
                 , null                     , null                        , Audio.SetRF5C164Volume      , Audio.SetRF5C68Volume
                 , Audio.SetPWMVolume       , Audio.SetOKIM6258Volume     , Audio.SetOKIM6295Volume     , Audio.SetC140Volume
@@ -802,7 +820,7 @@ namespace MDPlayer.form
                 , Audio.SetAPUVolume       , Audio.SetDMCVolume          , Audio.SetFDSVolume          , Audio.SetMMC5Volume
                 , Audio.SetN160Volume      , Audio.SetVRC6Volume         , Audio.SetVRC7Volume         , Audio.SetFME7Volume
                 , Audio.SetDMGVolume       , null                        , null                        , null
-                , null                     , null                        , Audio.SetGimicOPNVolume     , Audio.SetGimicOPNAVolume
+                , null                     , Audio.SetPPZ8Volume         , Audio.SetGimicOPNVolume     , Audio.SetGimicOPNAVolume
         };
 
 

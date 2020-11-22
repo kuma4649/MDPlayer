@@ -1,14 +1,25 @@
-﻿using System;
+﻿using MDPlayer.Properties;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MDPlayer.Properties;
 
 namespace MDPlayer.form
 {
-    public partial class frmAY8910 : frmChipBase
+    public partial class frmS5B : Form
     {
+        public bool isClosed = false;
+        public int x = -1;
+        public int y = -1;
+        public frmMain parent = null;
+        private int frameSizeW = 0;
+        private int frameSizeH = 0;
+        private int chipID = 0;
+        private int zoom = 1;
+        private MDChipParams.S5B newParam = null;
+        private MDChipParams.S5B oldParam = new MDChipParams.S5B();
+        private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmAY8910(frmMain frm, int chipID, int zoom, MDChipParams.AY8910 newParam, MDChipParams.AY8910 oldParam) : base(frm, chipID, zoom, newParam)
+        public frmS5B(frmMain frm, int chipID, int zoom, MDChipParams.S5B newParam, MDChipParams.S5B oldParam)
         {
             InitializeComponent();
 
@@ -18,25 +29,38 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
 
-            frameBuffer.Add(this.pbScreen, Resources.planeAY8910, null, zoom);
-            DrawBuff.screenInitAY8910(frameBuffer);
+            frameBuffer.Add(this.pbScreen, Resources.planeS5B, null, zoom);
+            screenInit();
             update();
         }
 
-        private void frmAY8910_FormClosed(object sender, FormClosedEventArgs e)
+        public void update()
+        {
+            frameBuffer.Refresh(null);
+        }
+
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        private void frmS5B_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
             {
-                parent.setting.location.PosAY8910[chipID] = Location;
+                parent.setting.location.PosS5B[chipID] = Location;
             }
             else
             {
-                parent.setting.location.PosAY8910[chipID] = RestoreBounds.Location;
+                parent.setting.location.PosS5B[chipID] = RestoreBounds.Location;
             }
             isClosed = true;
         }
 
-        private void frmAY8910_Load(object sender, EventArgs e)
+        private void frmS5B_Load(object sender, EventArgs e)
         {
             this.Location = new Point(x, y);
 
@@ -48,35 +72,36 @@ namespace MDPlayer.form
 
         public void changeZoom()
         {
-            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeAY8910.Width * zoom, frameSizeH + Resources.planeAY8910.Height * zoom);
-            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeAY8910.Width * zoom, frameSizeH + Resources.planeAY8910.Height * zoom);
-            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeAY8910.Width * zoom, frameSizeH + Resources.planeAY8910.Height * zoom);
-            frmAY8910_Resize(null, null);
+            this.MaximumSize = new System.Drawing.Size(frameSizeW + Resources.planeS5B.Width * zoom, frameSizeH + Resources.planeS5B.Height * zoom);
+            this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeS5B.Width * zoom, frameSizeH + Resources.planeS5B.Height * zoom);
+            this.Size = new System.Drawing.Size(frameSizeW + Resources.planeS5B.Width * zoom, frameSizeH + Resources.planeS5B.Height * zoom);
+            frmS5B_Resize(null, null);
 
         }
 
-        private void frmAY8910_Resize(object sender, EventArgs e)
+        private void frmS5B_Resize(object sender, EventArgs e)
         {
 
         }
 
-        override public void screenChangeParams()
+        public void screenChangeParams()
         {
-            int[] AY8910Register = Audio.GetAY8910Register(chipID);
+            byte[] S5BRegister = Audio.GetS5BRegister(chipID);
+            if (S5BRegister == null) return;
 
             for (int ch = 0; ch < 3; ch++) //SSG
             {
                 MDChipParams.Channel channel = newParam.channels[ch];
 
-                bool t = (AY8910Register[0x07] & (0x1 << ch)) == 0;
-                bool n = (AY8910Register[0x07] & (0x8 << ch)) == 0;
-                //Console.WriteLine("r[8]={0:x} r[9]={1:x} r[10]={2:x}", AY8910Register[0x8], AY8910Register[0x9], AY8910Register[0xa]);
+                bool t = (S5BRegister[0x07] & (0x1 << ch)) == 0;
+                bool n = (S5BRegister[0x07] & (0x8 << ch)) == 0;
+                //Console.WriteLine("r[8]={0:x} r[9]={1:x} r[10]={2:x}", S5BRegister[0x8], S5BRegister[0x9], S5BRegister[0xa]);
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
-                newParam.nfrq = AY8910Register[0x06] & 0x1f;
-                newParam.efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
-                newParam.etype = (AY8910Register[0x0d] & 0x7) + 2;
+                newParam.nfrq = S5BRegister[0x06] & 0x1f;
+                newParam.efrq = S5BRegister[0x0c] * 0x100 + S5BRegister[0x0b];
+                newParam.etype = (S5BRegister[0x0d] & 0x7) + 2;
 
-                int v = (AY8910Register[0x08 + ch] & 0x1f);
+                int v = (S5BRegister[0x08 + ch] & 0x1f);
                 v = v > 15 ? 15 : v;
                 channel.volume = (int)(((t || n) ? 1 : 0) * v * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
@@ -90,20 +115,20 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    int ft = AY8910Register[0x00 + ch * 2];
-                    int ct = AY8910Register[0x01 + ch * 2];
+                    int ft = S5BRegister[0x00 + ch * 2];
+                    int ct = S5BRegister[0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
-                    float ftone = Audio.clockAY8910 / (8.0f * (float)tp); 
+                    float ftone = Audio.clockS5B / (8.0f * (float)tp);
                     channel.note = searchSSGNote(ftone);
                 }
 
             }
         }
 
-        override public void screenDrawParams()
+        public void screenDrawParams()
         {
-            //int tp = setting.AY8910Type.UseScci ? 1 : 0;
+            //int tp = setting.S5BType.UseScci ? 1 : 0;
             int tp = 0;
 
             for (int c = 0; c < 3; c++)
@@ -116,7 +141,7 @@ namespace MDPlayer.form
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
                 DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
 
-                DrawBuff.ChAY8910(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
+                DrawBuff.ChS5B(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
             }
 
@@ -126,13 +151,19 @@ namespace MDPlayer.form
 
         }
 
-        override public void screenInit()
+        public void screenInit()
         {
             for (int c = 0; c < newParam.channels.Length; c++)
             {
                 newParam.channels[c].note = -1;
                 newParam.channels[c].volume = -1;
                 newParam.channels[c].tn = -1;
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    DrawBuff.drawKbn(frameBuffer, 32 + kx, c * 8 + 8, kt, 0);
+                }
             }
             newParam.nfrq = 0;
             newParam.efrq = 0;
@@ -155,12 +186,12 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(EnmChip.AY8910, chipID, ch);
+                    parent.SetChannelMask(EnmChip.FME7, chipID, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 3; ch++) parent.ResetChannelMask(EnmChip.AY8910, chipID, ch);
+                for (ch = 0; ch < 3; ch++) parent.ResetChannelMask(EnmChip.FME7, chipID, ch);
                 return;
             }
 

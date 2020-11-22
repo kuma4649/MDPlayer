@@ -36,6 +36,7 @@ namespace MDPlayer
         public short ay8910 = 0;
         public short sn76489 = 0;
         public short huc6280 = 0;
+        public short saa1099 = 0;
 
         public short rf5c164 = 0;
         public short rf5c68 = 0;
@@ -51,6 +52,8 @@ namespace MDPlayer
         public short k054539 = 0;
         public short qSound = 0;
         public short ga20 = 0;
+
+        public short ppz8 = 0;
 
         public short APU = 0;
         public short DMC = 0;
