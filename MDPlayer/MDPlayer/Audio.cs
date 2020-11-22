@@ -1974,9 +1974,9 @@ namespace MDPlayer
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 if (useChip.Contains(EnmChip.YM2151) || useChip.Contains(EnmChip.S_YM2151))
-                    SetYM2151Volume(false, setting.balance.YM2151Volume);
+                    SetYM2151Volume(true, setting.balance.YM2151Volume);
                 if (useChip.Contains(EnmChip.AY8910))
-                    SetAY8910Volume(false, setting.balance.AY8910Volume);
+                    SetAY8910Volume(true, setting.balance.AY8910Volume);
 
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, 4000000, EnmModel.RealModel);
@@ -2272,7 +2272,7 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
-                SetYM2151Volume(false, setting.balance.YM2151Volume);
+                SetYM2151Volume(true, setting.balance.YM2151Volume);
 
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, 4000000, EnmModel.RealModel);
@@ -2484,7 +2484,7 @@ namespace MDPlayer
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 if (useChip.Contains(EnmChip.YM2151) || useChip.Contains(EnmChip.S_YM2151))
-                    SetYM2151Volume(false, setting.balance.YM2151Volume);
+                    SetYM2151Volume(true, setting.balance.YM2151Volume);
 
                 if (useChip.Contains(EnmChip.YM2608) || useChip.Contains(EnmChip.S_YM2608))
                 {
@@ -3267,13 +3267,13 @@ namespace MDPlayer
                     chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.RealModel);
                 }
                 if (useChip.Contains( EnmChip.YM2151) || useChip.Contains( EnmChip.S_YM2151))
-                    SetYM2151Volume(false, setting.balance.YM2151Volume);
+                    SetYM2151Volume(true, setting.balance.YM2151Volume);
                 if (useChip.Contains(EnmChip.YM2413) || useChip.Contains(EnmChip.S_YM2413))
                     SetYM2413Volume(true, setting.balance.YM2413Volume);
                 if (useChip.Contains(EnmChip.YM3526) || useChip.Contains(EnmChip.S_YM3526))
                     SetYM3526Volume(true, setting.balance.YM3526Volume);
                 if (useChip.Contains(EnmChip.AY8910) || useChip.Contains(EnmChip.S_AY8910))
-                    SetAY8910Volume(false, setting.balance.AY8910Volume);
+                    SetAY8910Volume(true, setting.balance.AY8910Volume);
 
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, YM2151ClockValue, EnmModel.RealModel);
