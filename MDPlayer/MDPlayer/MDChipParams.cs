@@ -222,6 +222,13 @@ namespace MDPlayer
         }
         public S5B[] s5b = new S5B[] { new S5B(), new S5B() };
 
+        public class DMG
+        {
+            public byte[] wf = new byte[32];
+            public Channel[] channels = new Channel[4] { new Channel(), new Channel(), new Channel(), new Channel() };
+        }
+        public DMG[] dmg = new DMG[] { new DMG(), new DMG() };
+
         public class YM2151
         {
             public int ne = -1;

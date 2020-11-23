@@ -683,6 +683,14 @@
       <Link>form\frmS5B.designer.cs</Link>
       <DependentUpon>frmS5B.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\MDPlayer\form\frmDMG.cs">
+      <Link>form\frmDMG.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\MDPlayer\form\frmDMG.designer.cs">
+      <Link>form\frmDMG.designer.cs</Link>
+      <DependentUpon>frmDMG.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\MDPlayer\form\frmQSound.cs">
       <Link>form\frmQSound.cs</Link>
       <SubType>Form</SubType>

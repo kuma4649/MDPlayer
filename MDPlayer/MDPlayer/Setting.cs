@@ -2739,6 +2739,34 @@ namespace MDPlayer
                 }
             }
 
+            private Point[] _PosDMG = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosDMG
+            {
+                get
+                {
+                    return _PosDMG;
+                }
+
+                set
+                {
+                    _PosDMG = value;
+                }
+            }
+
+            private bool[] _OpenDMG = new bool[2] { false, false };
+            public bool[] OpenDMG
+            {
+                get
+                {
+                    return _OpenDMG;
+                }
+
+                set
+                {
+                    _OpenDMG = value;
+                }
+            }
+
             private Point[] _PosPPZ8 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosPPZ8
             {
@@ -3710,6 +3738,8 @@ namespace MDPlayer
                 Location.OpenPPZ8 = this.OpenPPZ8;
                 Location.PosS5B = this.PosS5B;
                 Location.OpenS5B = this.OpenS5B;
+                Location.PosDMG = this.PosDMG;
+                Location.OpenDMG = this.OpenDMG;
                 Location.PosYMZ280B = this.PosYMZ280B;
                 Location.OpenYMZ280B = this.OpenYMZ280B;
                 Location.PosC352 = this.PosC352;

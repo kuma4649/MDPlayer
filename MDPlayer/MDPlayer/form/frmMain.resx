@@ -354,6 +354,12 @@
   <data name="tsmiSS5B.Text" xml:space="preserve">
     <value>S5B(FME7)</value>
   </data>
+  <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSDMG.Text" xml:space="preserve">
+    <value>DMG</value>
+  </data>
   <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -566,6 +572,12 @@
   </data>
   <data name="tsmiPPPZ8.Text" xml:space="preserve">
     <value>PPZ8</value>
+  </data>
+  <data name="tsmiPS5B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPS5B.Text" xml:space="preserve">
+    <value>S5B(FME7)</value>
   </data>
   <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>206, 21</value>
@@ -840,11 +852,11 @@
   <metadata name="keyboardHook1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>336, 17</value>
   </metadata>
-  <data name="tsmiPS5B.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsmiPDMG.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
-  <data name="tsmiPS5B.Text" xml:space="preserve">
-    <value>S5B(FME7)</value>
+  <data name="tsmiPDMG.Text" xml:space="preserve">
+    <value>DMG</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1398,6 +1410,12 @@
   <data name="&gt;&gt;tsmiPPPZ8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPS5B.Name" xml:space="preserve">
+    <value>tsmiPS5B</value>
+  </data>
+  <data name="&gt;&gt;tsmiPS5B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;sencondryToolStripMenuItem.Name" xml:space="preserve">
     <value>sencondryToolStripMenuItem</value>
   </data>
@@ -1594,6 +1612,12 @@
     <value>tsmiSPPZ8</value>
   </data>
   <data name="&gt;&gt;tsmiSPPZ8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSS5B.Name" xml:space="preserve">
+    <value>tsmiSS5B</value>
+  </data>
+  <data name="&gt;&gt;tsmiSS5B.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
@@ -1860,16 +1884,16 @@
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;tsmiPS5B.Name" xml:space="preserve">
-    <value>tsmiPS5B</value>
+  <data name="&gt;&gt;tsmiPDMG.Name" xml:space="preserve">
+    <value>tsmiPDMG</value>
   </data>
-  <data name="&gt;&gt;tsmiPS5B.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPDMG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSS5B.Name" xml:space="preserve">
-    <value>tsmiSS5B</value>
+  <data name="&gt;&gt;tsmiSDMG.Name" xml:space="preserve">
+    <value>tsmiSDMG</value>
   </data>
-  <data name="&gt;&gt;tsmiSS5B.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSDMG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

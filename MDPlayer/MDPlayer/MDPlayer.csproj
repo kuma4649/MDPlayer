@@ -607,6 +607,9 @@
     <EmbeddedResource Include="form\frmChipBase.resx">
       <DependentUpon>frmChipBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmDMG.resx">
+      <DependentUpon>frmDMG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmFDS.resx">
       <DependentUpon>frmFDS.cs</DependentUpon>
     </EmbeddedResource>
@@ -824,6 +827,7 @@
     <Content Include="Resources\planeC352.png" />
     <Content Include="Resources\planeControl.png" />
     <Content Include="Resources\planeD.png" />
+    <Content Include="Resources\planeDMG.png" />
     <Content Include="Resources\planeE.png" />
     <Content Include="Resources\planeF.png" />
     <Content Include="Resources\planeFDS.png" />

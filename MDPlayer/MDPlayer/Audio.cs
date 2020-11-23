@@ -6402,6 +6402,14 @@ namespace MDPlayer
             return s5bregs;
         }
 
+        public static gb.gb_sound_t GetDMGRegister(int chipID)
+        {
+            if (mds == null) return null;
+            else if (chipID == 1) return null;
+
+            return mds.ReadDMG((byte)chipID);
+        }
+
         private static byte[] mmc5regs = new byte[10];
         public static byte[] GetMMC5Register(int chipID)
         {

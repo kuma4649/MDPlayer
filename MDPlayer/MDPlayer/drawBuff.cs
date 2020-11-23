@@ -1140,6 +1140,43 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardDMG(FrameBuffer screen, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 312, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 312, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 328, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
         public static void KeyBoardToC140(FrameBuffer screen, int y, ref int ot, int nt,int tp)
         {
             if (ot == nt) return;
@@ -1948,6 +1985,28 @@ namespace MDPlayer
                 if (oi[i] == ni[i]) continue;
 
                 screen.drawByteArray(x+i, y, rWavGraph2, 33, ni[i] % 33, 0, 1, 16);
+
+                oi[i] = ni[i];
+            }
+        }
+
+        public static void WaveFormToDMG(FrameBuffer screen, int x, int y, ref byte[] oi, byte[] ni)
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                if (oi[i] == ni[i]) continue;
+
+                int n = ni[i];
+
+                int m = 0;
+                m = (n > 7) ? 8 : n;
+                screen.drawByteArray(x + i, y, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 15) ? 8 : ((n - 8) < 0 ? 0 : (n - 8));
+                screen.drawByteArray(x + i, y - 8, rWavGraph, 64, m, 0, 1, 8);
+                //m = (n > 23) ? 8 : ((n - 16) < 0 ? 0 : (n - 16));
+                //screen.drawByteArray(x + i, y - 16, rWavGraph, 64, m, 0, 1, 8);
+                //m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
+                //screen.drawByteArray(x + i, y - 23, rWavGraph, 64, m + 1, 0, 1, 7);
 
                 oi[i] = ni[i];
             }
