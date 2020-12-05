@@ -31,7 +31,7 @@ namespace MDPlayer.Driver.MXDRV
             public const int S0008 = 9; //public UInt32 S0008;    // bend delta
             public const int S000c = 13; //public UInt32 S000c;    // bend offset
             public const int S0010 = 17; //public UInt16 S0010;    // D
-            public const int S0012 = 19; //public UInt16 S0012;    // note+D
+            public const int S0012 = 19; //public UInt16 S0012;    // note+D ( >> 6でnote )
             public const int S0014 = 21; //public UInt16 S0014;    // note+D+bend+Pitch LFO offset
             public const int S0016 = 23; //public byte S0016;    // flags b3=keyon/off
             public const int S0017 = 24; //public byte S0017;    // flags b0:volChg

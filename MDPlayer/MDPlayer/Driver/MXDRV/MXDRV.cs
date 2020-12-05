@@ -258,7 +258,19 @@ namespace MDPlayer.Driver.MXDRV
             {
                 return 0;
             }
-            return mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
+            int ret= mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
+
+            //Console.WriteLine("0:{0:x08}", mm.ReadUInt32(MXWORK_CHBUF_FM[8] + MXWORK_CH.S0012));
+            Console.WriteLine("1:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0012) >> 6);
+            //Console.WriteLine("1a:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0014) >> 6);
+            //Console.WriteLine("2:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[1] + MXWORK_CH.S0004));
+            //Console.WriteLine("3:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[2] + MXWORK_CH.S0004));
+            //Console.WriteLine("4:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[3] + MXWORK_CH.S0004));
+            //Console.WriteLine("5:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[4] + MXWORK_CH.S0004));
+            //Console.WriteLine("6:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[5] + MXWORK_CH.S0004));
+            //Console.WriteLine("7:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[6] + MXWORK_CH.S0004));
+
+            return ret;
         }
 
         public MXDRV()

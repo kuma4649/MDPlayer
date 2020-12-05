@@ -288,6 +288,7 @@ namespace MDPlayer.form
 
             if (newParam.fileFormat == EnmFileFormat.XGM && Audio.driverVirtual is xgm)
             {
+
                 if (Audio.driverVirtual != null && ((xgm)Audio.driverVirtual).xgmpcm != null)
                 {
                     for (int i = 0; i < 4; i++)
@@ -379,6 +380,7 @@ namespace MDPlayer.form
                     {
                         if (oldParam.fileFormat != newParam.fileFormat)
                         {
+                            screenInit();
                             oldParam.fileFormat = newParam.fileFormat;
                         }
 
