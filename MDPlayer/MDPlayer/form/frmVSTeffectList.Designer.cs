@@ -202,7 +202,7 @@ namespace MDPlayer.form
             // tsbAddVST
             // 
             this.tsbAddVST.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddVST.Image = Resources.addPL;
+            this.tsbAddVST.Image = global::MDPlayer.Properties.Resources.addPL;
             this.tsbAddVST.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbAddVST.Name = "tsbAddVST";
             this.tsbAddVST.Size = new System.Drawing.Size(23, 22);
@@ -218,7 +218,7 @@ namespace MDPlayer.form
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbUp.Enabled = false;
-            this.tsbUp.Image = Resources.upPL;
+            this.tsbUp.Image = global::MDPlayer.Properties.Resources.upPL;
             this.tsbUp.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Size = new System.Drawing.Size(23, 22);
@@ -228,7 +228,7 @@ namespace MDPlayer.form
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDown.Enabled = false;
-            this.tsbDown.Image = Resources.downPL;
+            this.tsbDown.Image = global::MDPlayer.Properties.Resources.downPL;
             this.tsbDown.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Size = new System.Drawing.Size(23, 22);
@@ -268,7 +268,6 @@ namespace MDPlayer.form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 261);
             this.Controls.Add(this.toolStripContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 120);

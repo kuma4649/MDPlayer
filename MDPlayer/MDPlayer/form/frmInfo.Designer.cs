@@ -248,9 +248,9 @@ namespace MDPlayer.form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = Resources.planeB;
+            this.BackgroundImage = global::MDPlayer.Properties.Resources.planeB;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(324, 231);
+            this.ClientSize = new System.Drawing.Size(324, 229);
             this.Controls.Add(this.rtbLyrics);
             this.Controls.Add(this.lblComposerJ);
             this.Controls.Add(this.lblSystemJ);
@@ -265,7 +265,6 @@ namespace MDPlayer.form
             this.Controls.Add(this.lblGame);
             this.Controls.Add(this.lblTitleJ);
             this.Controls.Add(this.lblTitle);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(800, 268);
             this.MinimumSize = new System.Drawing.Size(252, 268);

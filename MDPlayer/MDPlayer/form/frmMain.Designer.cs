@@ -68,6 +68,7 @@ namespace MDPlayer.form
             this.tsmiPMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPS5B = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPDMG = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +103,7 @@ namespace MDPlayer.form
             this.tsmiSMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSS5B = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSDMG = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,8 +149,6 @@ namespace MDPlayer.form
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiPDMG = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSDMG = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -158,7 +158,7 @@ namespace MDPlayer.form
             // 
             this.pbScreen.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.pbScreen, "pbScreen");
-            this.pbScreen.Image = Resources.planeControl;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeControl;
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.TabStop = false;
             this.pbScreen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
@@ -421,6 +421,12 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tsmiPS5B, "tsmiPS5B");
             this.tsmiPS5B.Click += new System.EventHandler(this.tsmiPS5B_Click);
             // 
+            // tsmiPDMG
+            // 
+            this.tsmiPDMG.Name = "tsmiPDMG";
+            resources.ApplyResources(this.tsmiPDMG, "tsmiPDMG");
+            this.tsmiPDMG.Click += new System.EventHandler(this.tsmiPDMG_Click);
+            // 
             // sencondryToolStripMenuItem
             // 
             this.sencondryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -658,6 +664,12 @@ namespace MDPlayer.form
             this.tsmiSS5B.Name = "tsmiSS5B";
             resources.ApplyResources(this.tsmiSS5B, "tsmiSS5B");
             this.tsmiSS5B.Click += new System.EventHandler(this.tsmiSS5B_Click);
+            // 
+            // tsmiSDMG
+            // 
+            this.tsmiSDMG.Name = "tsmiSDMG";
+            resources.ApplyResources(this.tsmiSDMG, "tsmiSDMG");
+            this.tsmiSDMG.Click += new System.EventHandler(this.tsmiSDMG_Click);
             // 
             // cmsMenu
             // 
@@ -972,25 +984,13 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
-            // tsmiPDMG
-            // 
-            this.tsmiPDMG.Name = "tsmiPDMG";
-            resources.ApplyResources(this.tsmiPDMG, "tsmiPDMG");
-            this.tsmiPDMG.Click += new System.EventHandler(this.tsmiPDMG_Click);
-            // 
-            // tsmiSDMG
-            // 
-            this.tsmiSDMG.Name = "tsmiSDMG";
-            resources.ApplyResources(this.tsmiSDMG, "tsmiSDMG");
-            this.tsmiSDMG.Click += new System.EventHandler(this.tsmiSDMG_Click);
-            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.Controls.Add(this.pbScreen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);

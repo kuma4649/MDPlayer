@@ -45,7 +45,7 @@ namespace MDPlayer.form
             // pbScreen
             // 
             this.pbScreen.ContextMenuStrip = this.ctxtMenu;
-            this.pbScreen.Image = Resources.planeMixer;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMixer;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 288);
@@ -65,13 +65,13 @@ namespace MDPlayer.form
             this.tsmiSaveDriverBalance,
             this.tsmiSaveSongBalance});
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(269, 98);
+            this.ctxtMenu.Size = new System.Drawing.Size(224, 98);
             // 
             // tsmiLoadDriverBalance
             // 
             this.tsmiLoadDriverBalance.Enabled = false;
             this.tsmiLoadDriverBalance.Name = "tsmiLoadDriverBalance";
-            this.tsmiLoadDriverBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiLoadDriverBalance.Size = new System.Drawing.Size(223, 22);
             this.tsmiLoadDriverBalance.Text = "読込　ドライバーミキサーバランス";
             this.tsmiLoadDriverBalance.Click += new System.EventHandler(this.tsmiLoadDriverBalance_Click);
             // 
@@ -79,26 +79,26 @@ namespace MDPlayer.form
             // 
             this.tsmiLoadSongBalance.Enabled = false;
             this.tsmiLoadSongBalance.Name = "tsmiLoadSongBalance";
-            this.tsmiLoadSongBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiLoadSongBalance.Size = new System.Drawing.Size(223, 22);
             this.tsmiLoadSongBalance.Text = "読込　ソングミキサーバランス";
             this.tsmiLoadSongBalance.Click += new System.EventHandler(this.tsmiLoadSongBalance_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(265, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(220, 6);
             // 
             // tsmiSaveDriverBalance
             // 
             this.tsmiSaveDriverBalance.Name = "tsmiSaveDriverBalance";
-            this.tsmiSaveDriverBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiSaveDriverBalance.Size = new System.Drawing.Size(223, 22);
             this.tsmiSaveDriverBalance.Text = "保存　ドライバーミキサーバランス";
             this.tsmiSaveDriverBalance.Click += new System.EventHandler(this.tsmiSaveDriverBalance_Click);
             // 
             // tsmiSaveSongBalance
             // 
             this.tsmiSaveSongBalance.Name = "tsmiSaveSongBalance";
-            this.tsmiSaveSongBalance.Size = new System.Drawing.Size(268, 22);
+            this.tsmiSaveSongBalance.Size = new System.Drawing.Size(223, 22);
             this.tsmiSaveSongBalance.Text = "保存　ソングミキサーバランス";
             this.tsmiSaveSongBalance.Click += new System.EventHandler(this.tsmiSaveSongBalance_Click);
             // 
@@ -108,8 +108,9 @@ namespace MDPlayer.form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 288);
             this.Controls.Add(this.pbScreen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmMixer2";
             this.Text = "Mixer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMixer2_FormClosed);

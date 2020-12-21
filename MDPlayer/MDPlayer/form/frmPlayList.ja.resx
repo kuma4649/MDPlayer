@@ -119,40 +119,43 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="type設定ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="type設定ToolStripMenuItem.Text" xml:space="preserve">
     <value>Type設定</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>160, 6</value>
   </data>
   <data name="tsmiPlayThis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="tsmiPlayThis.Text" xml:space="preserve">
     <value>この曲を再生</value>
   </data>
   <data name="tsmiDelThis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="tsmiDelThis.Text" xml:space="preserve">
     <value>この曲を除去</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>160, 6</value>
   </data>
   <data name="tsmiDelAllMusic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="tsmiDelAllMusic.Text" xml:space="preserve">
     <value>全ての曲を除去</value>
+  </data>
+  <data name="tsmiOpenFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
   <data name="tsmiOpenFolder.Text" xml:space="preserve">
     <value>このフォルダーを開く</value>
   </data>
   <data name="cmsPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 148</value>
+    <value>164, 126</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

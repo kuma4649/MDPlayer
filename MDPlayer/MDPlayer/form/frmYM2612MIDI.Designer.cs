@@ -41,7 +41,7 @@ namespace MDPlayer.form
             // 
             // pbScreen
             // 
-            this.pbScreen.Image = Resources.planeYM2612MIDI;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeYM2612MIDI;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 184);
@@ -55,19 +55,19 @@ namespace MDPlayer.form
             this.ctsmiCopy,
             this.ctsmiPaste});
             this.cmsMIDIKBD.Name = "cmsMIDIKBD";
-            this.cmsMIDIKBD.Size = new System.Drawing.Size(153, 70);
+            this.cmsMIDIKBD.Size = new System.Drawing.Size(131, 48);
             // 
             // ctsmiCopy
             // 
             this.ctsmiCopy.Name = "ctsmiCopy";
-            this.ctsmiCopy.Size = new System.Drawing.Size(152, 22);
+            this.ctsmiCopy.Size = new System.Drawing.Size(130, 22);
             this.ctsmiCopy.Text = "コピー(&C)";
             this.ctsmiCopy.Click += new System.EventHandler(this.ctsmiCopy_Click);
             // 
             // ctsmiPaste
             // 
             this.ctsmiPaste.Name = "ctsmiPaste";
-            this.ctsmiPaste.Size = new System.Drawing.Size(152, 22);
+            this.ctsmiPaste.Size = new System.Drawing.Size(130, 22);
             this.ctsmiPaste.Text = "貼り付け(&P)";
             this.ctsmiPaste.Click += new System.EventHandler(this.ctsmiPaste_Click);
             // 
@@ -77,8 +77,9 @@ namespace MDPlayer.form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 184);
             this.Controls.Add(this.pbScreen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmYM2612MIDI";
             this.Text = "MIDI(YM2612)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmYM2612MIDI_FormClosed);

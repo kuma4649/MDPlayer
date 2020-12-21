@@ -37,7 +37,7 @@ namespace MDPlayer.form
             // 
             // pbScreen
             // 
-            this.pbScreen.Image = Resources.planeF;
+            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeF;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 201);
@@ -52,8 +52,9 @@ namespace MDPlayer.form
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(320, 201);
             this.Controls.Add(this.pbScreen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(336, 240);
             this.MinimumSize = new System.Drawing.Size(336, 240);
             this.Name = "frmC140";

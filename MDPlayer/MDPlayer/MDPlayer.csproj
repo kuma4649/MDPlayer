@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MDPlayer</RootNamespace>
     <AssemblyName>MDPlayer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -655,6 +655,9 @@
     <EmbeddedResource Include="form\frmOKIM6295.resx">
       <DependentUpon>frmOKIM6295.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmPCM8.resx">
+      <DependentUpon>frmPCM8.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmPlayList.ja.resx">
       <DependentUpon>frmPlayList.cs</DependentUpon>
     </EmbeddedResource>
@@ -664,6 +667,9 @@
     <EmbeddedResource Include="form\frmPPZ8.resx">
       <DependentUpon>frmPPZ8.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\frmPWM.resx">
+      <DependentUpon>frmPWM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\frmQSound.resx">
       <DependentUpon>frmQSound.cs</DependentUpon>
     </EmbeddedResource>
@@ -672,6 +678,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmS5B.resx">
       <DependentUpon>frmS5B.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmSAA1099.resx">
+      <DependentUpon>frmSAA1099.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmSegaPCM.resx">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
