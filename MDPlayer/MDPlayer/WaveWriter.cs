@@ -23,7 +23,14 @@ namespace MDPlayer
             if (!setting.other.WavSwitch) return;
 
             if (dest != null) Close();
-            dest = new FileStream(Path.Combine(setting.other.WavPath, Path.GetFileNameWithoutExtension(filename) + ".wav"), FileMode.Create, FileAccess.Write);
+            string fn = Path.Combine(setting.other.WavPath, Path.GetFileNameWithoutExtension(filename) + ".wav");
+            int i = 0;
+            while (filename == fn)
+            {
+                fn = Path.Combine(setting.other.WavPath, Path.GetFileNameWithoutExtension(filename) + string.Format("_{0}.wav", i));
+            }
+
+            dest = new FileStream(fn, FileMode.Create, FileAccess.Write);
 
             List<byte> des = new List<byte>();
             len = 0;

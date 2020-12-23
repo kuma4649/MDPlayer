@@ -186,7 +186,7 @@ namespace MDPlayer.form
                         newParam.channels[ch].volumeRR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] & 0xff) / 11.7), 0, 19);
                     }
 
-                    if (newParam.channels[ch].mask)
+                    if (newParam.channels[ch].mask == null || newParam.channels[ch].mask == false)
                     {
                         newParam.channels[ch].pan = 0;
                     }

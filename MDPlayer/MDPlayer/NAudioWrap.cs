@@ -253,16 +253,13 @@ namespace MDPlayer
 
         public class SineWaveProvider16 : WaveProvider16
         {
-
             public SineWaveProvider16()
             {
             }
 
-            public override int Read(short[] buffer, int offset, int sampleCount)
+            public override int Read(short[] buffer, int offset, int count)
             {
-
-                return callBack(buffer,offset, sampleCount);
-
+                return callBack(buffer,offset, count);
             }
 
         }

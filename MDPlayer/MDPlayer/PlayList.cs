@@ -301,6 +301,15 @@ namespace MDPlayer
                 case EnmFileFormat.LZH:
                     AddFileLZH(mc, entry);
                     break;
+                case EnmFileFormat.WAV:
+                    AddFileWAV(mc, entry);
+                    break;
+                case EnmFileFormat.MP3:
+                    AddFileMP3(mc, entry);
+                    break;
+                case EnmFileFormat.AIFF:
+                    AddFileAIFF(mc, entry);
+                    break;
             }
         }
 
@@ -635,6 +644,7 @@ namespace MDPlayer
         {
             AddFilexxx(mc, entry);
         }
+
         private void AddFileM(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
@@ -795,6 +805,21 @@ namespace MDPlayer
                 }
             }
 
+        }
+
+        private void AddFileWAV(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMP3(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileAIFF(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
         }
 
     }

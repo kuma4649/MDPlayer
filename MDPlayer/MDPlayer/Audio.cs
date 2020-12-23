@@ -8,6 +8,7 @@ using System.IO.Compression;
 using MDPlayer.form;
 using musicDriverInterface;
 using MDSound.np.chip;
+using NAudio.Wave;
 
 namespace MDPlayer
 {
@@ -566,6 +567,21 @@ namespace MDPlayer
                     music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
                 }
 
+            }
+            else if (file.ToLower().LastIndexOf(".wav") != -1)
+            {
+                music.format = EnmFileFormat.WAV;
+                music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+            }
+            else if (file.ToLower().LastIndexOf(".mp3") != -1)
+            {
+                music.format = EnmFileFormat.MP3;
+                music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
+            }
+            else if (file.ToLower().LastIndexOf(".aiff") != -1)
+            {
+                music.format = EnmFileFormat.AIFF;
+                music.title = string.Format("({0})", System.IO.Path.GetFileName(file));
             }
             else
             {
@@ -1293,6 +1309,20 @@ namespace MDPlayer
             chipRegister.SetFileName(playingFileName);//ExportMIDI向け
             ExtendFile = extFile;//追加ファイル
             Common.playingFilePath = Path.GetDirectoryName(playingFileName);
+
+            if (naudioFileReader != null)
+            {
+                NAudioStop();
+            }
+
+            if (format == EnmFileFormat.WAV || format == EnmFileFormat.MP3 || format == EnmFileFormat.AIFF)
+            {
+                naudioFileName = playingFileName;
+            }
+            else
+            {
+                naudioFileName = null;
+            }
         }
 
         public static void getPlayingFileName(out string playingFileName, out string playingArcFileName)
@@ -1558,6 +1588,16 @@ namespace MDPlayer
                     ((vgm)driverReal).dacControl.model = EnmModel.RealModel;
                 }
                 return vgmPlay(setting);
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.WAV
+                || PlayingFileFormat == EnmFileFormat.MP3
+                || PlayingFileFormat == EnmFileFormat.AIFF)
+            {
+                naudioFileReader = new AudioFileReader(naudioFileName);
+                naudioWs = new NAudio.Wave.SampleProviders.SampleToWaveProvider16(naudioFileReader);
+                Stopped = false;
+                return true;
             }
 
             return false;
@@ -5267,7 +5307,16 @@ namespace MDPlayer
                 if (Stopped)
                 {
                     trdClosed = true;
-                    while (!trdStopped) { Thread.Sleep(1); };
+                    while (!trdStopped) { Thread.Sleep(1); }
+
+                    if ((PlayingFileFormat != EnmFileFormat.WAV 
+                        || PlayingFileFormat != EnmFileFormat.MP3 
+                        || PlayingFileFormat != EnmFileFormat.AIFF )
+                        && naudioFileReader != null)
+                    {
+                        NAudioStop();
+                    }
+
                     return;
                 }
 
@@ -5288,6 +5337,12 @@ namespace MDPlayer
                     }
                 }
                 trdClosed = true;
+
+                if (naudioFileReader != null)
+                {
+                    NAudioStop();
+                    return;
+                }
 
                 softReset(EnmModel.VirtualModel);
                 softReset(EnmModel.RealModel);
@@ -5322,6 +5377,19 @@ namespace MDPlayer
                 log.ForcedWrite(ex);
             }
 
+        }
+
+        private static void NAudioStop()
+        {
+            try
+            {
+                AudioFileReader dmy = naudioFileReader;
+                NAudio.Wave.SampleProviders.SampleToWaveProvider16 dmy2 = naudioWs;
+                naudioFileReader = null;
+                naudioWs = null;
+                dmy.Dispose();
+            }
+            catch { }
         }
 
         public static void Close()
@@ -5802,6 +5870,19 @@ namespace MDPlayer
 
         internal static int trdVgmVirtualFunction(short[] buffer, int offset, int sampleCount)
         {
+            //return NaudioRead(buffer, offset, sampleCount);
+
+            if (naudioFileReader != null)
+            {
+                if (trdClosed)
+                {
+                    trdStopped = true;
+                    //vgmFadeout = false;
+                    //Stopped = true;
+                }
+                return NaudioRead(buffer, offset, sampleCount);
+            }
+
             int cnt = trdVgmVirtualMainFunction(buffer, offset, sampleCount);
 
             if (setting.midiKbd.UseMIDIKeyboard)
@@ -5823,6 +5904,7 @@ namespace MDPlayer
         private static int trdVgmVirtualMainFunction(short[] buffer, int offset, int sampleCount)
         {
             if (buffer == null || buffer.Length < 1 || sampleCount == 0) return 0;
+            if (driverVirtual == null) return sampleCount;
 
             try
             {
@@ -5961,6 +6043,53 @@ namespace MDPlayer
 
             return -1;
         }
+
+        private static string naudioFileName = null;
+        private static AudioFileReader naudioFileReader = null;
+        private static NAudio.Wave.SampleProviders.SampleToWaveProvider16 naudioWs = null;
+        private static byte[] naudioSrcbuffer = null;
+
+        public static int NaudioRead(short[] buffer, int offset, int count)
+        {
+            try
+            {
+                naudioSrcbuffer = Ensure(naudioSrcbuffer, count * 2);
+                naudioWs.Read(naudioSrcbuffer, 0, count * 2);
+                Convert2byteToShort(buffer, offset, naudioSrcbuffer, count);
+            }
+            catch
+            {
+
+            }
+
+            return count;
+        }
+
+        public static byte[] Ensure(byte[] buffer, int bytesRequired)
+        {
+            if (buffer == null || buffer.Length < bytesRequired)
+            {
+                buffer = new byte[bytesRequired];
+            }
+            return buffer;
+        }
+
+        private static unsafe void Convert2byteToShort(short[] destBuffer, int offset, byte[] source, int shortCount)
+        {
+            fixed (short* pDestBuffer = &destBuffer[offset])
+            fixed (byte* pSourceBuffer = &source[0])
+            {
+                short* psDestBuffer = pDestBuffer;
+                short* pfSourceBuffer = (short*)pSourceBuffer;
+
+                int samplesRead = shortCount;
+                for (int n = 0; n < samplesRead; n++)
+                {
+                    psDestBuffer[n] = pfSourceBuffer[n];// volume;
+                }
+            }
+        }
+
 
         private static void updateVisualVolume(short[] buffer, int offset)
         {

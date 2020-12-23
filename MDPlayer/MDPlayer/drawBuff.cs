@@ -416,11 +416,11 @@ namespace MDPlayer
 
                 if (y != 5)
                 {
-                    ChYM2612_P(screen, 1, y * 8 + 8, y, false, tp);
+                    //ChYM2612_P(screen, 1, y * 8 + 8, y, false, tp);
                 }
                 else
                 {
-                    Ch6YM2612_P(screen, 1, y * 8 + 8, 0, false, tp6);
+                    //Ch6YM2612_P(screen, 1, y * 8 + 8, 0, false, tp6);
                     d = -1;
                     Volume(screen, 289, 8 + y * 8, 0, ref d, 0, tp6);
                     d = -1;
@@ -445,7 +445,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
-                bool dm = true;
+                bool? dm = true;
                 DrawBuff.ChYM3526(screen, y, ref dm, false, tp);
 
                 //Volume
@@ -492,7 +492,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
                 }
 
-                bool dm = true;
+                bool? dm = true;
                 DrawBuff.ChYM3812(screen, y, ref dm, false, tp);
 
                 //Volume
@@ -600,7 +600,7 @@ namespace MDPlayer
                     drawKbn(screen, 32 + kx, ch * 16 + 8, kt, 0);
                 }
                 drawFont8(screen, 296, ch * 16 + 8, 1, "   ");
-                bool m = true;
+                bool? m = true;
                 ChNESDMC(screen, ch, ref m, false, 0);
             }
         }
@@ -616,7 +616,7 @@ namespace MDPlayer
                 drawKbn(screen, 32 + kx, 8, kt, 0);
             }
             drawFont8(screen, 296, 8, 1, "   ");
-            bool m = true;
+            bool? m = true;
             ChFDS(screen, 0, ref m, false, 0);
         }
 
@@ -1398,7 +1398,7 @@ namespace MDPlayer
 
 
 
-        public static void ChAY8910(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChAY8910(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1406,11 +1406,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChAY8910_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChAY8910_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChS5B(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChS5B(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1418,11 +1418,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChS5B_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChS5B_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChC140(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChC140(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1430,11 +1430,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChC140_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChC140_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChC352(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChC352(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1442,11 +1442,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChC352_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChC352_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChHuC6280(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChHuC6280(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1454,11 +1454,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChHuC6280_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChHuC6280_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChOKIM6295(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChOKIM6295(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1466,11 +1466,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChOKIM6295_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChOKIM6295_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChK051649(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChK051649(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1478,11 +1478,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChK051649_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChK051649_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChRF5C164(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChRF5C164(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1490,11 +1490,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChRF5C164_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChRF5C164_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChOKIM6258(FrameBuffer screen, ref bool om, bool nm, int tp)
+        public static void ChOKIM6258(FrameBuffer screen, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1502,11 +1502,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChOKIM6258_P(screen, 0, 8 + 0 * 8, nm, tp);
+            ChOKIM6258_P(screen, 0, 8 + 0 * 8, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChSegaPCM(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChSegaPCM(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1514,11 +1514,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChSegaPCM_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChSegaPCM_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChSN76489(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChSN76489(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1526,7 +1526,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChSN76489_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChSN76489_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -1540,7 +1540,7 @@ namespace MDPlayer
             osc.note = nsc.note;
         }
 
-        public static void ChYM2151(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2151(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1548,11 +1548,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2151_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChYM2151_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM2203(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2203(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1560,11 +1560,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2203_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChYM2203_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void Ch3YM2203(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        public static void Ch3YM2203(FrameBuffer screen, int ch, ref bool? om, bool? nm, ref bool oe, bool ne, int tp)
         {
 
             if (om == nm && oe == ne)
@@ -1572,12 +1572,12 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
 
-        public static void ChYM2413(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2413(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1585,11 +1585,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2413_P(screen, 0, ch < 9 ? (8 + ch * 8) : (8 + 9 * 8), ch, nm, tp);
+            ChYM2413_P(screen, 0, ch < 9 ? (8 + ch * 8) : (8 + 9 * 8), ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChY8950(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChY8950(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1600,11 +1600,11 @@ namespace MDPlayer
                 , ch < 9
                     ? (8 + ch * 8)
                     : (ch < 14 ? (8 + 10 * 8) : (8 + 9 * 8))
-                , ch, nm, tp);
+                , ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM3526(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM3526(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1615,11 +1615,11 @@ namespace MDPlayer
                 , ch < 9
                     ? (8 + ch * 8)
                     : (8 + 9 * 8)
-                , ch, nm, tp);
+                , ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM3812(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM3812(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1630,7 +1630,7 @@ namespace MDPlayer
                 , ch < 9
                     ? (8 + ch * 8)
                     : (8 + 9 * 8)
-                , ch, nm, tp);
+                , ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -1639,7 +1639,7 @@ namespace MDPlayer
                 0,3,1,4,2,5,6,7,8,9,12,10,13,11,14,15,16,17,
                 18,19,20,21,22
         };
-        public static void ChYMF262(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYMF262(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1650,7 +1650,7 @@ namespace MDPlayer
                 , ch < 18
                     ? (8 + ch * 8)
                     : (8 + 18 * 8)
-                , YMF262Ch[ch], nm, tp);
+                , YMF262Ch[ch], nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -1661,7 +1661,7 @@ namespace MDPlayer
                 23,24,25,26,27,28, 29,30,31,32,33,34,
                 35,36,37,38,39,40, 41,42,43,44,45,46
         };
-        public static void ChYMF278B(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYMF278B(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1673,11 +1673,11 @@ namespace MDPlayer
                     ? (8 + ch * 8)
                     : (ch < 23
                         ? (8 + 18 * 8)
-                        : (8 + (ch - 4) * 8)), YMF278BCh[ch], nm, tp);
+                        : (8 + (ch - 4) * 8)), YMF278BCh[ch], nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM2608(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2608(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1685,11 +1685,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2608_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChYM2608_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void Ch3YM2608(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        public static void Ch3YM2608(FrameBuffer screen, int ch, ref bool? om, bool? nm, ref bool oe, bool ne, int tp)
         {
 
             if (om == nm && oe == ne)
@@ -1697,12 +1697,12 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
 
-        public static void ChYM2608Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2608Rhythm(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1710,11 +1710,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2608Rhythm_P(screen, 0, 8 * 14, ch, nm, tp);
+            ChYM2608Rhythm_P(screen, 0, 8 * 14, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM2610(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2610(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1722,11 +1722,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2610_P(screen, 0, 8 + ch * 8, ch, nm, tp);
+            ChYM2610_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void Ch3YM2610(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        public static void Ch3YM2610(FrameBuffer screen, int ch, ref bool? om, bool? nm, ref bool oe, bool ne, int tp)
         {
 
             if (om == nm && oe == ne)
@@ -1734,12 +1734,12 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm, ne, tp);
+            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
 
-        public static void ChYM2610Rhythm(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2610Rhythm(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1747,11 +1747,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2610Rhythm_P(screen, 0, 8 * 13, ch, nm, tp);
+            ChYM2610Rhythm_P(screen, 0, 8 * 13, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChYM2612(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChYM2612(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1759,11 +1759,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2612_P(screen, 1, 8 + ch * 8, ch, nm, tp);
+            ChYM2612_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void Ch3YM2612(FrameBuffer screen, int ch, ref bool om, bool nm, ref bool oe, bool ne, int tp)
+        public static void Ch3YM2612(FrameBuffer screen, int ch, ref bool? om, bool? nm, ref bool oe, bool ne, int tp)
         {
 
             if (om == nm && oe == ne)
@@ -1771,12 +1771,12 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 1, 8 + ch * 8, ch, nm, ne, tp);
+            Ch3YM2612_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
 
-        public static void Ch6YM2612(FrameBuffer screen, int buff, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        public static void Ch6YM2612(FrameBuffer screen, int buff, ref int ot, int nt, ref bool? om, bool? nm, ref int otp, int ntp)
         {
             if (buff == 0)
             {
@@ -1786,13 +1786,13 @@ namespace MDPlayer
                 }
             }
 
-            Ch6YM2612_P(screen, 1, 48, nt, nm, ntp);
+            Ch6YM2612_P(screen, 1, 48, nt, nm == null ? false : (bool)nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
         }
 
-        public static void Ch6YM2612XGM(FrameBuffer screen,int buff, ref int ot, int nt, ref bool om, bool nm, ref int otp, int ntp)
+        public static void Ch6YM2612XGM(FrameBuffer screen,int buff, ref int ot, int nt, ref bool? om, bool? nm, ref int otp, int ntp)
         {
             if (buff == 0)
             {
@@ -1802,13 +1802,13 @@ namespace MDPlayer
                 }
             }
 
-            Ch6YM2612XGM_P(screen, 1, 48, nt, nm, ntp);
+            Ch6YM2612XGM_P(screen, 1, 48, nt, nm == null ? false : (bool)nm, ntp);
             ot = nt;
             om = nm;
             otp = ntp;
         }
 
-        public static void ChNESDMC(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChNESDMC(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1816,11 +1816,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChNESDMC_P(screen, ch, nm, tp);
+            ChNESDMC_P(screen, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChFDS(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChFDS(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1828,11 +1828,11 @@ namespace MDPlayer
                 return;
             }
 
-            ChFDS_P(screen, ch, nm, tp);
+            ChFDS_P(screen, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
-        public static void ChMMC5(FrameBuffer screen, int ch, ref bool om, bool nm, int tp)
+        public static void ChMMC5(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
             if (om == nm)
@@ -1840,7 +1840,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChMMC5_P(screen, ch, nm, tp);
+            ChMMC5_P(screen, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 

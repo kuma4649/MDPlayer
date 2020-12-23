@@ -294,6 +294,9 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".zgm") != -1) return EnmFileFormat.ZGM;
             if (filename.ToLower().LastIndexOf(".zip") != -1) return EnmFileFormat.ZIP;
             if (filename.ToLower().LastIndexOf(".lzh") != -1) return EnmFileFormat.LZH;
+            if (filename.ToLower().LastIndexOf(".wav") != -1) return EnmFileFormat.WAV;
+            if (filename.ToLower().LastIndexOf(".mp3") != -1) return EnmFileFormat.MP3;
+            if (filename.ToLower().LastIndexOf(".aiff") != -1) return EnmFileFormat.AIFF;
 
             return EnmFileFormat.unknown;
         }
@@ -612,7 +615,10 @@ namespace MDPlayer
         MUC = 17,
         ZGM = 18,
         MML = 19,
-        M   = 20
+        M = 20,
+        WAV = 21,
+        MP3 = 22,
+        AIFF = 23,
     }
 
     public enum EnmArcType : int

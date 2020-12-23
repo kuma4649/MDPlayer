@@ -179,7 +179,7 @@ namespace MDPlayer.form
                 d = 99;
                 DrawBuff.VolumeYM2610Rhythm(frameBuffer, y, 2, ref d, 0, tp);
             }
-            bool f = true;
+            bool? f = true;
             DrawBuff.ChYM2610Rhythm(frameBuffer, 0, ref f, false, tp);
         }
 

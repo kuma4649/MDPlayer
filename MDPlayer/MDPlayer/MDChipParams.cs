@@ -45,7 +45,7 @@ namespace MDPlayer
             public int leadr = -1;
             public int pcmMode = -1;
             public int pcmBuff = 0;
-            public bool mask = false;
+            public bool? mask = false;
             public byte slot = 0;
             public int tp = -1;
             public int kf = -1;//OPM only
@@ -183,7 +183,7 @@ namespace MDPlayer
             public int volumeL = -1;
             public int volumeR = -1;
             public bool keyon = false;
-            public bool mask = false;
+            public bool? mask = false;
 
         }
         public OKIM6258[] okim6258 = new OKIM6258[] { new OKIM6258(), new OKIM6258() };

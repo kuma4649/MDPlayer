@@ -156,143 +156,6 @@ namespace MDPlayer.form
             }
         }
 
-        //public const int FCC_VGM = 0x206D6756;	// "Vgm "
-
-        //public void AddList(string file)
-        //{
-        //    if (file.ToLower().LastIndexOf(".zip") != -1)
-        //    {
-        //        using (ZipArchive archive = ZipFile.OpenRead(file))
-        //        {
-        //            foreach (ZipArchiveEntry entry in archive.Entries)
-        //            {
-        //                string dummy;
-        //                byte[] buf = frmMain.getBytesFromZipFile(entry,out dummy);
-
-        //                if (buf != null)
-        //                {
-        //                    List<PlayList.music> zipmusics = Audio.getMusic(entry.FullName, buf, file);
-        //                    List<DataGridViewRow> ziprows = makeRow(zipmusics);
-
-        //                    foreach (DataGridViewRow ziprow in ziprows)
-        //                    {
-        //                        dgvList.Rows.Add(ziprow);
-        //                    }
-        //                    foreach (PlayList.music zipmusic in zipmusics)
-        //                    {
-        //                        playList.lstMusic.Add(zipmusic);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        return;
-        //    }
-
-        //    //if (file.ToLower().LastIndexOf(".m3u") != -1)
-        //    //{
-        //    //    PlayList pl= M3U.LoadM3U(file);
-        //    //    foreach (PlayList.music ms in pl.lstMusic)
-        //    //    {
-        //    //        AddList(ms);
-        //    //    }
-        //    //    return;
-        //    //}
-
-
-        //    enmFileFormat dmyFileFormat;
-        //    List<PlayList.music> musics = Audio.getMusic(file, frmMain.getAllBytes(file, out dmyFileFormat));
-
-        //    List<DataGridViewRow> rows = makeRow(musics);
-
-        //    foreach(DataGridViewRow row in rows) dgvList.Rows.Add(row);
-        //    foreach(PlayList.music music in musics) playList.lstMusic.Add(music);
-        //    //updatePlayingIndex(dgvList.Rows.Count - 1);
-        //}
-
-        //public void AddList(PlayList.music ms)
-        //{
-        //    if (ms.fileName.ToLower().LastIndexOf(".zip") != -1)
-        //    {
-        //        using (ZipArchive archive = ZipFile.OpenRead(ms.fileName))
-        //        {
-        //            foreach (ZipArchiveEntry entry in archive.Entries)
-        //            {
-        //                string dummy;
-        //                byte[] buf = frmMain.getBytesFromZipFile(entry, out dummy);
-
-        //                if (buf != null)
-        //                {
-        //                    List<PlayList.music> zipmusics = Audio.getMusic(entry.FullName, buf, ms.fileName);
-        //                    List<DataGridViewRow> ziprows = makeRow(zipmusics);
-
-        //                    foreach (DataGridViewRow ziprow in ziprows)
-        //                    {
-        //                        dgvList.Rows.Add(ziprow);
-        //                    }
-        //                    foreach (PlayList.music zipmusic in zipmusics)
-        //                    {
-        //                        playList.lstMusic.Add(zipmusic);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        return;
-        //    }
-
-        //    //if (ms.fileName.ToLower().LastIndexOf(".m3u") != -1)
-        //    //{
-        //    //    PlayList pl = M3U.LoadM3U(ms.fileName);
-        //    //    foreach (PlayList.music mms in pl.lstMusic)
-        //    //    {
-        //    //        AddList(mms);
-        //    //    }
-        //    //    return;
-        //    //}
-
-
-        //    enmFileFormat dmyFileFormat;
-        //    List<PlayList.music> musics = Audio.getMusic(ms, frmMain.getAllBytes(ms.fileName, out dmyFileFormat));
-
-        //    List<DataGridViewRow> rows = makeRow(musics);
-
-        //    foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
-        //    foreach (PlayList.music music in musics) playList.lstMusic.Add(music);
-        //    //updatePlayingIndex(dgvList.Rows.Count - 1);
-        //}
-
-        //private List<DataGridViewRow> makeRow(List<PlayList.music> musics)
-        //{
-        //    List<DataGridViewRow> ret = new List<DataGridViewRow>();
-
-        //    foreach (PlayList.music music in musics)
-        //    {
-        //        DataGridViewRow row = new DataGridViewRow();
-        //        row.CreateCells(dgvList);
-        //        row.Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
-        //        row.Cells[dgvList.Columns["clmKey"].Index].Value = 0;
-        //        row.Cells[dgvList.Columns["clmFileName"].Index].Value = music.fileName;
-        //        row.Cells[dgvList.Columns["clmZipFileName"].Index].Value = music.arcFileName;
-        //        row.Cells[dgvList.Columns["clmEXT"].Index].Value = Path.GetExtension(music.fileName).ToUpper();
-        //        row.Cells[dgvList.Columns["clmType"].Index].Value = music.type;
-        //        row.Cells[dgvList.Columns["clmTitle"].Index].Value = music.title;
-        //        row.Cells[dgvList.Columns["clmTitleJ"].Index].Value = music.titleJ;
-        //        row.Cells[dgvList.Columns["clmGame"].Index].Value = music.game;
-        //        row.Cells[dgvList.Columns["clmGameJ"].Index].Value = music.gameJ;
-        //        //row.Cells[dgvList.Columns["clmRemark"].Index].Value = music.remark;
-        //        row.Cells[dgvList.Columns["clmComposer"].Index].Value = music.composer;
-        //        row.Cells[dgvList.Columns["clmComposerJ"].Index].Value = music.composerJ;
-        //        row.Cells[dgvList.Columns["clmConverted"].Index].Value = music.converted;
-        //        row.Cells[dgvList.Columns["clmNotes"].Index].Value = music.notes;
-        //        row.Cells[dgvList.Columns["clmDuration"].Index].Value = music.duration;
-        //        row.Cells[dgvList.Columns["clmVGMby"].Index].Value = music.vgmby;
-        //        row.Cells[dgvList.Columns["clmSongNo"].Index].Value = music.songNo;
-        //        row.Tag = music;
-
-        //        ret.Add(row);
-        //    }
-        //    return ret;
-        //}
-
         public void updatePlayingIndex(int newPlayingIndex)
         {
             if (oldPlayIndex != -1)
@@ -500,30 +363,41 @@ namespace MDPlayer.form
         {
             if (e.RowIndex < 0) return;
 
+            dgvList.Enabled = false;
+
             playing = false;
 
-            string fn = (string)dgvList.Rows[e.RowIndex].Cells["clmFileName"].Value;
-            string zfn = (string)dgvList.Rows[e.RowIndex].Cells["clmZipFileName"].Value;
-            int m = 0;
-            int songNo = 0;
             try
             {
-                songNo = (Int32)dgvList.Rows[e.RowIndex].Cells["clmSongNo"].Value;
-            }
-            catch
-            {
-                songNo = 0;
-            }
-            if (dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
-            {
-                m = dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
-                if (m < 0 || m > 9) m = 0;
-            }
+                string fn = (string)dgvList.Rows[e.RowIndex].Cells["clmFileName"].Value;
+                string zfn = (string)dgvList.Rows[e.RowIndex].Cells["clmZipFileName"].Value;
+                int m = 0;
+                int songNo = 0;
+                try
+                {
+                    songNo = (Int32)dgvList.Rows[e.RowIndex].Cells["clmSongNo"].Value;
+                }
+                catch
+                {
+                    songNo = 0;
+                }
+                if (dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
+                {
+                    m = dgvList.Rows[e.RowIndex].Cells[dgvList.Columns["clmType"].Index].Value.ToString()[0] - 'A';
+                    if (m < 0 || m > 9) m = 0;
+                }
 
-            if (!frmMain.loadAndPlay(m, songNo, fn, zfn)) return;
-            updatePlayingIndex(e.RowIndex);
+                if (!frmMain.loadAndPlay(m, songNo, fn, zfn)) return;
+                updatePlayingIndex(e.RowIndex);
 
-            playing = true;
+                playing = true;
+            }
+            finally
+            {
+                //dgvList.MultiSelect = true;
+                dgvList.Enabled = true;
+                dgvList.Rows[e.RowIndex].Selected = true;
+            }
         }
 
         private void tsmiPlayThis_Click(object sender, EventArgs e)

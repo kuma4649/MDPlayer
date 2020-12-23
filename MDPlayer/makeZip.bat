@@ -1,3 +1,4 @@
+@echo off
 echo MDPlayer
 
 mkdir  .\output
@@ -20,12 +21,24 @@ copy /Y .\..\CHANGE.txt                .\output
 copy /Y .\..\LICENSE.txt               .\output
 copy /Y .\..\README.md                 .\output
 cd
-copy .\MDPlayerWithoutVST\bin\x86\Release\mdplayer.exe .\mdplayerWithoutVST.exe
 
 del /Q .\output\*.pdb
 del /Q .\output\*.config
 del /Q .\output\*.bat
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
-rem del /Q .\output\bin.zip
+
+rem -- withoutVST向け
+Xcopy   .\MDPlayer\*.*                                                         ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\ /E /R /Y /I /K
+copy /Y ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayerBackUp\VST\*.*               ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\VST
+copy /Y ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayerBackUp\App.config            ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer
+copy /Y ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayerBackUp\MDPlayer.csproj       ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer
+copy /Y ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayerBackUp\MDPlayer.csproj.user  ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer
+
+echo ----------------------------------------
+echo 注意
+echo withoutVSTのリビルドを行ってください
+echo ソリューションの構成が変わった場合はcsprojなどの構成ファイルを修正する必要があります
+echo ----------------------------------------
 
 pause
+echo on
