@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC,MUB,M,M2,MZファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC,MUB,M,M2,MZ,WAV,MP3,AIFFファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -12,8 +12,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・使用中に不具合を見つけた場合はお手数ですが以下までご連絡ください。  
     Twitter(@kumakumakumaT_T)  
     Github Issues(https://github.com/kuma4649/MDPlayer/issues)  
-  (VGMPlayやNRTDRV、その他素晴らしいソフトウェアの作者様方に、  
-  直接MDPlayerについての連絡がいくことの無い様にお願いします。)  
+  !!重要!!  
+  VGMPlayやNRTDRV、その他素晴らしいソフトウェアの作者様方に、  
+  直接MDPlayerについての連絡がいくことの無い様にお願いします。  
   できるかぎり対応させていただくつもりですが、ご希望に添えないことも多々あります。ご了承ください。  
   
 [対応フォーマット]  
@@ -35,6 +36,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .M   (PMD 向けファイル)  
   .M2  (PMD 向けファイル)  
   .MZ  (PMD 向けファイル)  
+  .WAV (音声ファイル)  
+  .MP3 (音声ファイル)  
+  .AIF (音声ファイル)  
   .M3U (プレイリスト)  
   
 [機能、特徴]  
@@ -103,9 +107,9 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・OPN,OPM,OPL系の音色パラメーターを左クリックするとクリップボードに音色パラメーターをテキストとしてコピーします。  
   パラメーターの形式はオプション設定から変更可能です。  
      
-      FMP7 , MDX , MUCOM88(MUSIC LALF) , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC  
+      FMP7 , MDX , MUCOM88(MUSIC LALF) , NRTDRV , HuSIC , MML2VGM , .TFI , MGSC , .DMP , .OPNI  
   
-  に対応しており、.TFIを選んだ場合はクリップボードの代わりにファイルに出力します。  
+  に対応しており、.TFI / .DMP / .OPNIを選んだ場合はクリップボードの代わりにファイルに出力します。  
   
   ・出来は今一歩ですが、YM2612 , YM2151 の演奏データをMIDIファイルとして出力が可能です。  
   VOPMexを使用すれば、FM音源の音色情報も反映させることが可能です。  

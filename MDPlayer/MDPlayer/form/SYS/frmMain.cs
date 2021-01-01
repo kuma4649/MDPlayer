@@ -5015,66 +5015,88 @@ namespace MDPlayer.form
 
         public void getInstCh(EnmChip chip, int ch, int chipID)
         {
-            if (chip == EnmChip.YM2413)
+            try
             {
-                getInstChForMGSC(chip, ch, chipID);
-                return;
-            }
-            if (chip == EnmChip.VRC7)
-            {
-                getInstChForMGSC(chip, ch, chipID);
-                return;
-            }
-            if (chip == EnmChip.K051649)
-            {
-                getInstChForMGSC(chip, ch, chipID);
-                return;
-            }
-            if (chip == EnmChip.N163)
-            {
-                getInstChForMCK(chip, ch, chipID);
-                return;
-            }
+                YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
 
-            YM2612MIDI.SetVoiceFromChipRegister(chip, chipID, ch);
+                if (!setting.other.UseGetInst) return;
 
-            if (!setting.other.UseGetInst) return;
-
-            switch (setting.other.InstFormat)
+                if (chip == EnmChip.YM2413)
+                {
+                    if (setting.other.InstFormat == EnmInstFormat.OPLI)
+                    {
+                        getInstChForOPLI(chip, ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForMGSC(chip, ch, chipID);
+                    }
+                    return;
+                }
+                else if (chip == EnmChip.VRC7)
+                {
+                    getInstChForMGSC(chip, ch, chipID);
+                    return;
+                }
+                else if (chip == EnmChip.K051649)
+                {
+                    getInstChForMGSC(chip, ch, chipID);
+                    return;
+                }
+                else if (chip == EnmChip.N163)
+                {
+                    getInstChForMCK(chip, ch, chipID);
+                    return;
+                }
+                else
+                {
+                    switch (setting.other.InstFormat)
+                    {
+                        case EnmInstFormat.FMP7:
+                            getInstChForFMP7(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.MDX:
+                            getInstChForMDX(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.MML2VGM:
+                            getInstChForMML2VGM(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.MUCOM88:
+                            getInstChForMucom88(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.MUSICLALF:
+                            getInstChForMUSICLALF(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.MUSICLALF2:
+                            getInstChForMUSICLALF2(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.TFI:
+                            getInstChForTFI(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.NRTDRV:
+                            getInstChForNRTDRV(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.HUSIC:
+                            getInstChForHuSIC(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.VOPM:
+                            getInstChForVOPM(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.PMD:
+                            getInstChForPMD(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.DMP:
+                            getInstChForDMP(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.OPNI:
+                            getInstChForOPNI(chip, ch, chipID);
+                            break;
+                    }
+                }
+            }
+            catch 
             {
-                case EnmInstFormat.FMP7:
-                    getInstChForFMP7(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.MDX:
-                    getInstChForMDX(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.MML2VGM:
-                    getInstChForMML2VGM(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.MUCOM88:
-                    getInstChForMucom88(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.MUSICLALF:
-                    getInstChForMUSICLALF(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.MUSICLALF2:
-                    getInstChForMUSICLALF2(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.TFI:
-                    getInstChForTFI(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.NRTDRV:
-                    getInstChForNRTDRV(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.HUSIC:
-                    getInstChForHuSIC(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.VOPM:
-                    getInstChForVOPM(chip, ch, chipID);
-                    break;
-                case EnmInstFormat.PMD:
-                    getInstChForPMD(chip, ch, chipID);
-                    break;
+                MessageBox.Show("音色出力エラー", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -5818,6 +5840,200 @@ namespace MDPlayer.form
                 fs.Write(n, 0, n.Length);
 
             }
+        }
+
+        private void getInstChForDMP(EnmChip chip, int ch, int chipID)
+        {
+
+            byte[] n = new byte[51];
+            n[0] = 0x0b;//FILE_VERSION
+            n[2] = 0x01;//Instrument Mode(1=FM)
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+
+                n[1] = 0x02;//SYSTEM_GENESIS
+
+                n[3] = (byte)(fmRegister[p][0xb4 + c] & 0x03);//LFO (FMS on YM2612, PMS on YM2151)
+                n[4] = (byte)((fmRegister[p][0xb0 + c] & 0x38) >> 3);//FB
+                n[5] = (byte)(fmRegister[p][0xb0 + c] & 0x07);//ALG
+                n[6] = (byte)((fmRegister[p][0xb4 + c] & 0x30) >> 4);//LFO2(AMS on YM2612, AMS on YM2151)
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 4 : ((i == 2) ? 8 : 12));
+                    int ops = i * 4;
+
+                    n[i * 11 + 7] = (byte)(fmRegister[p][0x30 + ops + c] & 0x0f);//ML
+                    n[i * 11 + 8] = (byte)(fmRegister[p][0x40 + ops + c] & 0x7f);//TL
+                    n[i * 11 + 9] = (byte)(fmRegister[p][0x50 + ops + c] & 0x1f); //AR
+                    n[i * 11 + 10] = (byte)(fmRegister[p][0x60 + ops + c] & 0x1f); //DR
+                    n[i * 11 + 11] = (byte)((fmRegister[p][0x80 + ops + c] & 0xf0) >> 4);//SL
+                    n[i * 11 + 12] = (byte)(fmRegister[p][0x80 + ops + c] & 0x0f); //RR
+                    n[i * 11 + 13] = (byte)((fmRegister[p][0x60 + ops + c] & 0x80) >> 7); //AM
+                    n[i * 11 + 14] = (byte)((fmRegister[p][0x50 + ops + c] & 0xc0) >> 6);//KS
+                    int dt = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;//DT
+                    dt = (dt == 4) ? 0 : dt;
+                    // 0>5(-3)  1>6(-2)  2>7(-1)  3>0/4  4>1  5>2  6>3  7>3
+                    dt = (dt > 4) ? (dt - 5) : (dt + 3);
+                    n[i * 11 + 15] = (byte)(dt & 7);
+                    n[i * 11 + 16] = (byte)(fmRegister[p][0x70 + ops + c] & 0x1f); //SR
+                    n[i * 11 + 17] = (byte)(fmRegister[p][0x90 + ops + c] & 0x0f);//SSG
+                }
+
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                n[1] = 0x08;//SYSTEM_YM2151
+
+                n[3] = (byte)((ym2151Register[0x38 + ch] & 0x70) >> 4);//LFO (FMS on YM2612, PMS on YM2151)
+                n[4] = (byte)((ym2151Register[0x20 + ch] & 0x38) >> 3);//FB
+                n[5] = (byte)(ym2151Register[0x20 + ch] & 0x07);//AL
+                n[6] = (byte)(ym2151Register[0x38 + ch] & 0x03);//LFO2(AMS on YM2612, AMS on YM2151)
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 16 : 24));
+                    int ops = i * 8;
+
+                    n[i * 11 + 7] = (byte)(ym2151Register[0x40 + ops + ch] & 0x0f);//ML
+                    n[i * 11 + 8] = (byte)(ym2151Register[0x60 + ops + ch] & 0x7f);//TL
+                    n[i * 11 + 9] = (byte)(ym2151Register[0x80 + ops + ch] & 0x1f); //AR
+                    n[i * 11 + 10] = (byte)(ym2151Register[0xa0 + ops + ch] & 0x1f); //DR
+                    n[i * 11 + 11] = (byte)((ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4);//SL
+                    n[i * 11 + 12] = (byte)(ym2151Register[0xe0 + ops + ch] & 0x0f); //RR
+                    n[i * 11 + 13] = (byte)((ym2151Register[0xa0 + ops + ch] & 0x80) >> 7); //AM
+                    n[i * 11 + 14] = (byte)((ym2151Register[0x80 + ops + ch] & 0xc0) >> 6);//KS
+                    int dt = ((ym2151Register[0x40 + ops + ch] & 0x70) >> 4);//DT
+                    dt = (dt == 4) ? 0 : dt;
+                    // 0>5(-3)  1>6(-2)  2>7(-1)  3>0/4  4>1  5>2  6>3  7>3
+                    dt = (dt > 4) ? (dt - 5) : (dt + 3);
+                    int dt2 = (byte)((ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6); //DT2
+                    n[i * 11 + 15] = (byte)((dt & 0x7) | (dt2 << 4));
+                    n[i * 11 + 16] = (byte)(ym2151Register[0xc0 + ops + ch] & 0x1f); //SR
+                    n[i * 11 + 17] = 0;
+                }
+
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = "音色ファイル.dmp";
+            sfd.Filter = "DMPファイル(*.dmp)|*.dmp|すべてのファイル(*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.Title = "名前を付けて保存";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (FileStream fs = new FileStream(
+                sfd.FileName,
+                FileMode.Create,
+                FileAccess.Write))
+            {
+
+                fs.Write(n, 0, n.Length);
+
+            }
+        }
+
+        private void getInstChForOPNI(EnmChip chip, int ch, int chipID)
+        {
+
+            byte[] n = new byte[77];
+            Array.Clear(n, 0, 77);
+            byte[] data = Encoding.UTF8.GetBytes("WOPN2-INST");
+            Array.Copy(data, 0, n, 0, 10);
+            n[10] = 0x00;
+            n[11] = 0x00;//0 - melodic, or 1 - percussion
+            data = Encoding.UTF8.GetBytes("MDPlayer");
+            Array.Copy(data, 0, n, 12, 8);
+            n[12 + 32 + 0] = 0x00;//Big-Endian 16-bit signed integer, MIDI key offset value
+            n[12 + 32 + 1] = 0x00;
+            n[12 + 32 + 2] = 0x00;//8-bit unsigned integer, Percussion instrument key number
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+
+                n[12 + 32 + 3] = (byte)(fmRegister[p][0xb0 + c] & 0x38);//FB & ALG
+                n[12 + 32 + 4] = 0x10;//0x00:OPN2  0x10:OPNA
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 4 : ((i == 2) ? 8 : 12));
+                    int ops = i * 4;
+                    n[i * 7 + 12 + 32 + 5] = (byte)fmRegister[p][0x30 + ops + c];//DT & ML
+                    n[i * 7 + 12 + 32 + 6] = (byte)(fmRegister[p][0x40 + ops + c] & 0x7f);//TL
+                    n[i * 7 + 12 + 32 + 7] = (byte)fmRegister[p][0x50 + ops + c];//KS & AR
+                    n[i * 7 + 12 + 32 + 8] = (byte)fmRegister[p][0x60 + ops + c]; //AM & DR
+                    n[i * 7 + 12 + 32 + 9] = (byte)fmRegister[p][0x70 + ops + c]; //SR
+                    n[i * 7 + 12 + 32 + 10] = (byte)fmRegister[p][0x80 + ops + c];//SL&RR
+                    n[i * 7 + 12 + 32 + 11] = (byte)fmRegister[p][0x90 + ops + c];//SSG
+                }
+
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                n[12 + 32 + 3] = (byte)ym2151Register[0x20 + ch];//FB & ALG
+                n[12 + 32 + 4] = 0x10;//0x00:OPN2  0x10:OPNA
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 16 : 24));
+                    int ops = i * 8;
+                    n[i * 7 + 12 + 32 + 5] = (byte)ym2151Register[0x40 + ops + ch];//DT & ML
+                    n[i * 7 + 12 + 32 + 6] = (byte)(ym2151Register[0x60 + ops + ch] & 0x7f);//TL
+                    n[i * 7 + 12 + 32 + 7] = (byte)ym2151Register[0x80 + ops + ch]; //KS & AR
+                    n[i * 7 + 12 + 32 + 8] = (byte)ym2151Register[0xa0 + ops + ch]; //AME DR
+                    n[i * 7 + 12 + 32 + 9] = (byte)ym2151Register[0xc0 + ops + ch]; //SR
+                    n[i * 7 + 12 + 32 + 10] = (byte)ym2151Register[0xe0 + ops + ch];//SL&RR
+                    n[i * 7 + 12 + 32 + 11] = 0;//SSG
+
+                    //int dt2 = (byte)((ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6); //DT2
+                }
+
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = "音色ファイル.opni";
+            sfd.Filter = "OPNIファイル(*.opni)|*.opni|すべてのファイル(*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.Title = "名前を付けて保存";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (FileStream fs = new FileStream(
+                sfd.FileName,
+                FileMode.Create,
+                FileAccess.Write))
+            {
+
+                fs.Write(n, 0, n.Length);
+
+            }
+        }
+
+        private void getInstChForOPLI(EnmChip chip, int ch, int chipID)
+        {
+
         }
 
         private void getInstChForVOPM(EnmChip chip, int ch, int chipID)

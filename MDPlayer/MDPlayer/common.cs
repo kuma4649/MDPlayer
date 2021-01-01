@@ -591,6 +591,9 @@ namespace MDPlayer
         VOPM=8,
         PMD=9,
         MUCOM88 = 10,
+        DMP = 11,
+        OPNI = 12,
+        OPLI = 13,
     }
 
     public enum EnmFileFormat : int
