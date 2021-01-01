@@ -608,6 +608,11 @@ namespace MDPlayer.form
 
             if (e.Button == MouseButtons.Left)
             {
+                if (ch < 18)
+                {
+                    parent.getInstCh(EnmChip.YMF278B, ch, chipID);
+                }
+
                 //マスク
                 parent.SetChannelMask(EnmChip.YMF278B, chipID, ch);
                 return;

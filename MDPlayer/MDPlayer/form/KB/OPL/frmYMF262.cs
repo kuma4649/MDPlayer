@@ -438,7 +438,17 @@ namespace MDPlayer.form
             int ch = (py / 8) - 1;
             if (ch < 0) return;
 
-            if (ch > 18) return;
+            if (ch > 18)
+            {
+                if (ch >= 20 && ch < 38)
+                {
+                    //音色欄をクリック
+                    //クリップボードに音色をコピーする
+                    if (e.Button == MouseButtons.Left)
+                        parent.getInstCh(EnmChip.YMF262, ch - 20, chipID);
+                }
+                return;
+            }
 
             if (ch == 18)
             {

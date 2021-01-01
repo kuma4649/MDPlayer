@@ -61,6 +61,7 @@ namespace MDPlayer.form
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -469,7 +470,6 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -971,6 +971,15 @@ namespace MDPlayer.form
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -4895,7 +4904,8 @@ namespace MDPlayer.form
             "PMD",
             "MUCOM88",
             ".DMP(ファイル出力)",
-            ".OPNI(ファイル出力)"});
+            ".OPNI(ファイル出力)",
+            ".OPLI(ファイル出力)"});
             this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);
@@ -5320,15 +5330,6 @@ namespace MDPlayer.form
             this.llOpenGithub.Text = "Open latest version page of Github.";
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
             // 
             // frmSetting
             // 

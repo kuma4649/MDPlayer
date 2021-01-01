@@ -5023,15 +5023,15 @@ namespace MDPlayer.form
 
                 if (chip == EnmChip.YM2413)
                 {
+                    getInstChForMGSC(chip, ch, chipID);
+                    return;
+                }
+                else if (chip == EnmChip.YMF262 || chip == EnmChip.YMF278B)
+                {
                     if (setting.other.InstFormat == EnmInstFormat.OPLI)
                     {
                         getInstChForOPLI(chip, ch, chipID);
                     }
-                    else
-                    {
-                        getInstChForMGSC(chip, ch, chipID);
-                    }
-                    return;
                 }
                 else if (chip == EnmChip.VRC7)
                 {
@@ -5949,7 +5949,7 @@ namespace MDPlayer.form
         {
 
             byte[] n = new byte[77];
-            Array.Clear(n, 0, 77);
+            Array.Clear(n, 0, n.Length);
             byte[] data = Encoding.UTF8.GetBytes("WOPN2-INST");
             Array.Copy(data, 0, n, 0, 10);
             n[10] = 0x00;
@@ -6033,7 +6033,153 @@ namespace MDPlayer.form
 
         private void getInstChForOPLI(EnmChip chip, int ch, int chipID)
         {
+            if (chip != EnmChip.YMF262 && chip!= EnmChip.YMF278B) return;
 
+            int[][] reg;
+            if (chip == EnmChip.YMF262) reg = Audio.GetYMF262Register(chipID);
+            else reg = Audio.GetYMF278BRegister(chipID);
+
+            byte[] n = new byte[76];
+            Array.Clear(n, 0, n.Length);
+            byte[] data = Encoding.UTF8.GetBytes("WOPL3-INST");
+            Array.Copy(data, 0, n, 0, 10);
+            n[10] = 0x00;
+            n[11] = 0x02;//Version 16bit-Integer LE
+            n[12] = 0x00;
+            n[13] = 0x00;//0 - melodic, or 1 - percussion
+
+            data = Encoding.UTF8.GetBytes("MDPlayer");
+            Array.Copy(data, 0, n, 14, 8);
+            n[14 + 32 + 0] = 0x00;//(mstr)Big-Endian 16-bit signed integer, MIDI key offset value
+            n[14 + 32 + 1] = 0x00;
+            n[14 + 32 + 2] = 0x00;//(sec)Big-Endian 16-bit signed integer, MIDI key offset value
+            n[14 + 32 + 3] = 0x00;
+            n[14 + 32 + 4] = 0x00;//8-bit signed integer, MIDI Velocity offset
+            n[14 + 32 + 5] = 0x00;//8-bit signed integer, Second voice detune
+            n[14 + 32 + 6] = 0x00;//8-bit unsigned integer, Percussion instrument key number
+
+            int[] op = new int[4] { 0, 0, 0, 0 };
+            bool isOP4 = false;
+            int c = ch;
+            if (ch < 6)
+            {
+                c -= ch % 2;
+                op[0] = c / 2;
+                op[1] = op[0] + 3;
+                op[2] = op[0] + 6;
+                op[3] = op[0] + 9;
+                isOP4 = (reg[1][0x04] & (0x1 << c)) != 0;
+                if (!isOP4 && ch % 2 != 0)
+                {
+                    c = ch;
+                    op[0] = op[2];
+                    op[1] = op[3];
+                }
+            }
+            else if (ch < 9)
+            {
+                op[0] = ch + 6;
+                op[1] = op[0] + 3;
+                isOP4 = false;
+            }
+            else if (ch < 15)
+            {
+                c -= (ch - 9) % 2;
+                op[0] = (c - 9) / 2 + 18;
+                op[1] = op[0] + 3;
+                op[2] = op[0] + 6;
+                op[3] = op[0] + 9;
+                isOP4 = (reg[1][0x04] & (0x1 << ((c - 9) + 3))) != 0;
+                if (!isOP4 && (ch - 9) % 2 != 0)
+                {
+                    c = ch;
+                    op[0] = op[2];
+                    op[1] = op[3];
+                }
+            }
+            else if (ch < 18)
+            {
+                op[0] = ch + 15;
+                op[1] = op[0] + 3;
+                isOP4 = false;
+            }
+
+            n[14 + 32 + 7] = (byte)(
+                (isOP4 ? 1 : 0)
+                );
+
+            int p = c / 9;
+            //int adr = c % 9;
+            int[] chTbl = new int[] { 0, 3, 1, 4, 2, 5, 6, 7, 8 };
+            //adr = chTbl[adr];
+
+            for (int i = 0; i < 4; i++)
+            {
+                op[i] -= (op[i] / 18) * 18;
+                op[i] = (op[i] % 6) + 8 * (op[i] / 6);
+            }
+
+            //OPLIはop1<->op2  op3<->op4がそれぞれ逆(?)
+            for (int i = 0; i < 2; i++)
+            {
+                int s = op[i * 2];
+                op[i * 2] = op[i * 2 + 1];
+                op[i * 2 + 1] = s;
+            }
+
+            if (!isOP4)
+            {
+                n[14 + 32 + 8] = (byte)(reg[p][0xc0 + chTbl[c % 9]]);//8-bit unsigned integer, Feedback / Connection
+                n[14 + 32 + 9] = 0x00;
+            }
+            else
+            {
+                n[14 + 32 + 8] = (byte)(reg[p][0xc0 + chTbl[c % 9]]);//8-bit unsigned integer, Feedback / Connection
+                n[14 + 32 + 9] = (byte)(reg[p][0xc0 + chTbl[(c + 1) % 9]]);//8-bit unsigned integer, Feedback / Connection
+            }
+
+            for(int i = 0; i < 4; i++)
+            {
+                if (isOP4 || i < 2)
+                {
+                    n[14 + 32 + 10 + i * 5] = (byte)reg[p][0x20 + op[i]];//AM/Vib/Env/Ksr/FMult characteristics
+                    n[14 + 32 + 11 + i * 5] = (byte)reg[p][0x40 + op[i]];//Key Scale Level / Total level register data
+                    n[14 + 32 + 12 + i * 5] = (byte)reg[p][0x60 + op[i]];//Attack / Decay
+                    n[14 + 32 + 13 + i * 5] = (byte)reg[p][0x80 + op[i]];//Sustain and Release register data
+                    n[14 + 32 + 14 + i * 5] = (byte)reg[p][0xe0 + op[i]];//WS
+                }
+                else
+                {
+                    n[14 + 32 + 10 + i * 5] = 0x00;//AM/Vib/Env/Ksr/FMult characteristics
+                    n[14 + 32 + 11 + i * 5] = 0x00;//Key Scale Level / Total level register data
+                    n[14 + 32 + 12 + i * 5] = 0x00;//Attack / Decay
+                    n[14 + 32 + 13 + i * 5] = 0x00;//Sustain and Release register data
+                    n[14 + 32 + 14 + i * 5] = 0x00;//WS
+                }
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = "音色ファイル.opli";
+            sfd.Filter = "OPLIファイル(*.opli)|*.opli|すべてのファイル(*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.Title = "名前を付けて保存";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (FileStream fs = new FileStream(
+                sfd.FileName,
+                FileMode.Create,
+                FileAccess.Write))
+            {
+
+                fs.Write(n, 0, n.Length);
+
+            }
         }
 
         private void getInstChForVOPM(EnmChip chip, int ch, int chipID)
