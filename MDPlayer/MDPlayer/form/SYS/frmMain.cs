@@ -6619,7 +6619,7 @@ namespace MDPlayer.form
                     }
                     break;
                 case EnmChip.YMF262:
-                    if (ch >= 0 && ch < 24)
+                    if (ch >= 0 && ch < 23)
                     {
                         if (newParam.ymf262[chipID].channels[ch].mask == false || newParam.ymf262[chipID].channels[ch].mask == null)
                             Audio.setYMF262Mask(chipID, ch);

@@ -438,6 +438,8 @@ namespace MDPlayer.form
             int ch = (py / 8) - 1;
             if (ch < 0) return;
 
+            if (ch > 18) return;
+
             if (ch == 18)
             {
                 int x = (px / 4 - 4);
@@ -446,6 +448,8 @@ namespace MDPlayer.form
                 if (x > 4) return;
                 ch += x;
             }
+
+            if (ch > 22) return;
 
             if (e.Button == MouseButtons.Left)
             {

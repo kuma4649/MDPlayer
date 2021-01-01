@@ -2362,7 +2362,7 @@ namespace MDPlayer
                     }
 
                 }
-                //if (version >= 0x0171)
+                if (version >= 0x0171)
                 {
                     if (vgmDataOffset > 0xc8)
                     {
