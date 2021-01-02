@@ -5026,7 +5026,7 @@ namespace MDPlayer.form
                     getInstChForMGSC(chip, ch, chipID);
                     return;
                 }
-                else if (chip == EnmChip.YMF262 || chip == EnmChip.YMF278B)
+                else if (chip == EnmChip.YM3812 || chip == EnmChip.YMF262 || chip == EnmChip.YMF278B)
                 {
                     if (setting.other.InstFormat == EnmInstFormat.OPLI)
                     {
@@ -6066,11 +6066,17 @@ namespace MDPlayer.form
 
         private void getInstChForOPLI(EnmChip chip, int ch, int chipID)
         {
-            if (chip != EnmChip.YMF262 && chip!= EnmChip.YMF278B) return;
+            if (chip != EnmChip.YM3812 && chip != EnmChip.YMF262 && chip != EnmChip.YMF278B) return;
 
             int[][] reg;
             if (chip == EnmChip.YMF262) reg = Audio.GetYMF262Register(chipID);
-            else reg = Audio.GetYMF278BRegister(chipID);
+            else if (chip == EnmChip.YMF278B) reg = Audio.GetYMF278BRegister(chipID);
+            else
+            {
+                int[] r = Audio.GetYM3812Register(chipID);
+                reg = new int[1][];
+                reg[0] = r;
+            }
 
             byte[] n = new byte[76];
             Array.Clear(n, 0, n.Length);
@@ -6101,7 +6107,7 @@ namespace MDPlayer.form
                 op[1] = op[0] + 3;
                 op[2] = op[0] + 6;
                 op[3] = op[0] + 9;
-                isOP4 = (reg[1][0x04] & (0x1 << c)) != 0;
+                isOP4 = (chip == EnmChip.YM3812) ? false : ((reg[1][0x04] & (0x1 << c)) != 0);
                 if (!isOP4 && ch % 2 != 0)
                 {
                     c = ch;

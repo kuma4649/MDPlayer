@@ -310,6 +310,11 @@ namespace MDPlayer.form
                 ch += x;
             }
 
+            if (e.Button == MouseButtons.Left && ch > 10 && ch < 20)
+            {
+                parent.getInstCh(EnmChip.YM3812, ch - 11, chipID);
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 //マスク
