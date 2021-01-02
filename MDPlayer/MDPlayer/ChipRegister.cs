@@ -473,8 +473,8 @@ namespace MDPlayer
                 fmRegisterYM2612[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2612[chipID][0][i] = -1;
-                    fmRegisterYM2612[chipID][1][i] = -1;
+                    fmRegisterYM2612[chipID][0][i] = 0;// -1;
+                    fmRegisterYM2612[chipID][1][i] = 0;// -1;
                 }
                 fmRegisterYM2612[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2612[chipID][0][0xb5] = 0xc0;
@@ -502,7 +502,7 @@ namespace MDPlayer
                 for (int i = 0; i < 0x100; i++)
                 {
                     fmRegisterYM2610[chipID][0][i] = 0;// -1;
-                    fmRegisterYM2610[chipID][1][i] = 0;//-1;
+                    fmRegisterYM2610[chipID][1][i] = 0;// -1;
                 }
                 fmRegisterYM2610[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2610[chipID][0][0xb5] = 0xc0;
