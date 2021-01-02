@@ -487,8 +487,8 @@ namespace MDPlayer
                 fmRegisterYM2608[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2608[chipID][0][i] = -1;
-                    fmRegisterYM2608[chipID][1][i] = -1;
+                    fmRegisterYM2608[chipID][0][i] = 0;// -1;
+                    fmRegisterYM2608[chipID][1][i] = 0;// -1;
                 }
                 fmRegisterYM2608[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2608[chipID][0][0xb5] = 0xc0;
@@ -501,8 +501,8 @@ namespace MDPlayer
                 fmRegisterYM2610[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2610[chipID][0][i] = -1;
-                    fmRegisterYM2610[chipID][1][i] = -1;
+                    fmRegisterYM2610[chipID][0][i] = 0;// -1;
+                    fmRegisterYM2610[chipID][1][i] = 0;//-1;
                 }
                 fmRegisterYM2610[chipID][0][0xb4] = 0xc0;
                 fmRegisterYM2610[chipID][0][0xb5] = 0xc0;
@@ -579,7 +579,7 @@ namespace MDPlayer
                 fmRegisterYM2203[chipID] = new int[0x100];
                 for (int i = 0; i < 0x100; i++)
                 {
-                    fmRegisterYM2203[chipID][i] = -1;
+                    fmRegisterYM2203[chipID][i] = 0;//-1;
                 }
                 fmKeyOnYM2203[chipID] = new int[6] { 0, 0, 0, 0, 0, 0 };
 

@@ -4905,7 +4905,8 @@ namespace MDPlayer.form
             "MUCOM88",
             ".DMP(ファイル出力)",
             ".OPNI(ファイル出力)",
-            ".OPLI(ファイル出力)"});
+            ".OPLI(ファイル出力)",
+            "MGSCSCC(PLAIN)"});
             this.cmbInstFormat.Location = new System.Drawing.Point(298, 19);
             this.cmbInstFormat.Name = "cmbInstFormat";
             this.cmbInstFormat.Size = new System.Drawing.Size(129, 20);

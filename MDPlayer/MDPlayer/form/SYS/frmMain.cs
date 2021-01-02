@@ -5040,7 +5040,14 @@ namespace MDPlayer.form
                 }
                 else if (chip == EnmChip.K051649)
                 {
-                    getInstChForMGSC(chip, ch, chipID);
+                    if (setting.other.InstFormat == EnmInstFormat.MGSCSCC_PLAIN)
+                    {
+                        getInstChForMGSCSCCPLAIN(ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForMGSC(chip, ch, chipID);
+                    }
                     return;
                 }
                 else if (chip == EnmChip.N163)
@@ -5727,6 +5734,32 @@ namespace MDPlayer.form
                     );
             }
             n += " }\r\n";
+
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForMGSCSCCPLAIN(int ch, int chipID)
+        {
+
+            int[] Register = null;
+
+            MDSound.K051649.k051649_state chip = Audio.GetK051649Register(chipID);
+            if (chip == null) return;
+            MDSound.K051649.k051649_sound_channel psg = chip.channel_list[ch];
+            if (psg == null) return;
+            Register = new int[32];
+            for (int i = 0; i < 32; i++) Register[i] = (int)psg.waveram[i];
+            if (Register == null) return;
+
+            string n = "";
+            for (int i = 0; i < 8; i++)
+            {
+                n += string.Format("{0:x02}{1:x02}{2:x02}{3:x02}",
+                    (byte)Register[i * 4 + 0], (byte)Register[i * 4 + 1],
+                    (byte)Register[i * 4 + 2], (byte)Register[i * 4 + 3]
+                    );
+            }
+            n += "\r\n";
 
             if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
         }

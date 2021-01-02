@@ -594,6 +594,7 @@ namespace MDPlayer
         DMP = 11,
         OPNI = 12,
         OPLI = 13,
+        MGSCSCC_PLAIN=14,
     }
 
     public enum EnmFileFormat : int
