@@ -230,7 +230,7 @@ namespace MDPlayer
             int countNum = 0;
             while (vgmWait <= 0)
             {
-                if (vgmAdr >= vgmBuf.Length || vgmAdr >= vgmEof)
+                if (vgmAdr >= vgmBuf.Length || (vgmEof != 0 && vgmAdr >= vgmEof))
                 {
                     if (LoopCounter != 0)
                     {
@@ -1948,9 +1948,13 @@ namespace MDPlayer
             vgmEof = getLE32(0x04);
 
             uint version = getLE32(0x08);
-            //バージョンチェック
-            if (version < 0x0101) return false;
             Version = string.Format("{0}.{1}{2}", (version & 0xf00) / 0x100, (version & 0xf0) / 0x10, (version & 0xf));
+            //バージョンチェック
+            if (version < 0x0101)
+            {
+                Console.WriteLine("Warning:This file is older version({0}).", Version);
+                //return false;
+            }
 
             uint SN76489clock = getLE32(0x0c);
             if (SN76489clock != 0)
