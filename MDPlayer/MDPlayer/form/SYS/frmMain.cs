@@ -5999,7 +5999,7 @@ namespace MDPlayer.form
                 int c = (ch > 2) ? ch - 3 : ch;
                 int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
 
-                n[12 + 32 + 3] = (byte)(fmRegister[p][0xb0 + c] & 0x38);//FB & ALG
+                n[12 + 32 + 3] = (byte)(fmRegister[p][0xb0 + c] & 0x3f);//FB & ALG
                 n[12 + 32 + 4] = 0x10;//0x00:OPN2  0x10:OPNA
 
                 for (int i = 0; i < 4; i++)
