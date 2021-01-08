@@ -470,6 +470,9 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.cbGensDACHPF = new System.Windows.Forms.CheckBox();
+            this.cbGensSSGEG = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -571,6 +574,7 @@ namespace MDPlayer.form
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.groupBox29.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -1059,12 +1063,13 @@ namespace MDPlayer.form
             // 
             // tpNuked
             // 
+            this.tpNuked.Controls.Add(this.groupBox29);
             this.tpNuked.Controls.Add(this.groupBox26);
             this.tpNuked.Location = new System.Drawing.Point(4, 22);
             this.tpNuked.Name = "tpNuked";
             this.tpNuked.Size = new System.Drawing.Size(443, 371);
             this.tpNuked.TabIndex = 14;
-            this.tpNuked.Text = "Nuked-OPN2";
+            this.tpNuked.Text = "OPN2";
             this.tpNuked.UseVisualStyleBackColor = true;
             // 
             // groupBox26
@@ -1079,7 +1084,7 @@ namespace MDPlayer.form
             this.groupBox26.Size = new System.Drawing.Size(318, 128);
             this.groupBox26.TabIndex = 0;
             this.groupBox26.TabStop = false;
-            this.groupBox26.Text = "Emulation type";
+            this.groupBox26.Text = "Nuked-OPN2 Emulation type";
             // 
             // rbNukedOPN2OptionYM2612u
             // 
@@ -5332,6 +5337,37 @@ namespace MDPlayer.form
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.cbGensSSGEG);
+            this.groupBox29.Controls.Add(this.cbGensDACHPF);
+            this.groupBox29.Location = new System.Drawing.Point(7, 137);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(318, 66);
+            this.groupBox29.TabIndex = 0;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "Gens Emulation option";
+            // 
+            // cbGensDACHPF
+            // 
+            this.cbGensDACHPF.AutoSize = true;
+            this.cbGensDACHPF.Location = new System.Drawing.Point(6, 18);
+            this.cbGensDACHPF.Name = "cbGensDACHPF";
+            this.cbGensDACHPF.Size = new System.Drawing.Size(137, 16);
+            this.cbGensDACHPF.TabIndex = 0;
+            this.cbGensDACHPF.Text = "DAC Highpass Enable";
+            this.cbGensDACHPF.UseVisualStyleBackColor = true;
+            // 
+            // cbGensSSGEG
+            // 
+            this.cbGensSSGEG.AutoSize = true;
+            this.cbGensSSGEG.Location = new System.Drawing.Point(6, 40);
+            this.cbGensSSGEG.Name = "cbGensSSGEG";
+            this.cbGensSSGEG.Size = new System.Drawing.Size(105, 16);
+            this.cbGensSSGEG.TabIndex = 1;
+            this.cbGensSSGEG.Text = "SSG-EG Enable";
+            this.cbGensSSGEG.UseVisualStyleBackColor = true;
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -5498,6 +5534,8 @@ namespace MDPlayer.form
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox29.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5946,5 +5984,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.RadioButton rbSIDModel_6581;
         private System.Windows.Forms.CheckBox cbSIDC64Model_Force;
         private System.Windows.Forms.CheckBox cbSIDModel_Force;
+        private System.Windows.Forms.GroupBox groupBox29;
+        private System.Windows.Forms.CheckBox cbGensSSGEG;
+        private System.Windows.Forms.CheckBox cbGensDACHPF;
     }
 }

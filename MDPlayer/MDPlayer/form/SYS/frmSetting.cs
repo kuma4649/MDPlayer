@@ -297,7 +297,7 @@ namespace MDPlayer.form
                     , ucSI.cmbYM2612P_SCCI
                     , null, null,null
                     , ucSI.rbYM2612P_EmuNuked
-                    , null);
+                    , ucSI.rbYM2612P_EmuMame);
                 SetSCCIParam(setting.YM2612SType
                     , ucSI.rbYM2612S_Silent
                     , ucSI.rbYM2612S_Emu
@@ -305,7 +305,7 @@ namespace MDPlayer.form
                     , ucSI.cmbYM2612S_SCCI
                     , null, null,null
                     , ucSI.rbYM2612S_EmuNuked
-                    , null);
+                    , ucSI.rbYM2612S_EmuMame);
 
                 ucSI.cbSendWait.Checked = setting.YM2612Type.UseWait;
                 ucSI.cbTwice.Checked = setting.YM2612Type.UseWaitBoost;
@@ -671,6 +671,9 @@ namespace MDPlayer.form
                     break;
             }
 
+            cbGensDACHPF.Checked = setting.nukedOPN2.GensDACHPF;
+            cbGensSSGEG.Checked = setting.nukedOPN2.GensSSGEG;
+
             cbAutoBalanceUseThis.Checked = setting.autoBalance.UseThis;
             rbAutoBalanceLoadSongBalance.Checked = setting.autoBalance.LoadSongBalance;
             rbAutoBalanceNotLoadSongBalance.Checked = !setting.autoBalance.LoadSongBalance;
@@ -959,6 +962,7 @@ namespace MDPlayer.form
             }
             setting.YM2612Type.UseEmu = (ucSI.rbYM2612P_Emu.Checked || ucSI.rbYM2612P_SCCI.Checked);
             setting.YM2612Type.UseEmu2 = ucSI.rbYM2612P_EmuNuked.Checked;
+            setting.YM2612Type.UseEmu3 = ucSI.rbYM2612P_EmuMame.Checked;
 
             setting.YM2612SType = new Setting.ChipType();
             setting.YM2612SType.UseScci = ucSI.rbYM2612S_SCCI.Checked;
@@ -977,6 +981,7 @@ namespace MDPlayer.form
             }
             setting.YM2612SType.UseEmu = (ucSI.rbYM2612S_Emu.Checked || ucSI.rbYM2612S_SCCI.Checked);
             setting.YM2612SType.UseEmu2 = ucSI.rbYM2612S_EmuNuked.Checked;
+            setting.YM2612SType.UseEmu3 = ucSI.rbYM2612S_EmuMame.Checked;
 
 
             setting.YM2612Type.UseWait = ucSI.cbSendWait.Checked;
@@ -1614,6 +1619,8 @@ namespace MDPlayer.form
             if (rbNukedOPN2OptionDiscrete.Checked) setting.nukedOPN2.EmuType = 0;
             if (rbNukedOPN2OptionYM2612u.Checked) setting.nukedOPN2.EmuType = 3;
             if (rbNukedOPN2OptionASIClp.Checked) setting.nukedOPN2.EmuType = 4;
+            setting.nukedOPN2.GensDACHPF = cbGensDACHPF.Checked;
+            setting.nukedOPN2.GensSSGEG = cbGensSSGEG.Checked;
 
             setting.autoBalance = new Setting.AutoBalance();
             setting.autoBalance.UseThis = cbAutoBalanceUseThis.Checked;

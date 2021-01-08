@@ -2650,8 +2650,10 @@ namespace MDPlayer
 
                 chip = new MDSound.MDSound.Chip();
                 chip.ID = (byte)0;
+                chip.Option = null;
                 MDSound.ym2612 ym2612 = null;
                 MDSound.ym3438 ym3438 = null;
+                MDSound.ym2612mame ym2612mame = null;
 
                 if (setting.YM2612Type.UseEmu)
                 {
@@ -2662,6 +2664,13 @@ namespace MDPlayer
                     chip.Start = ym2612.Start;
                     chip.Stop = ym2612.Stop;
                     chip.Reset = ym2612.Reset;
+                    chip.Option = new object[]
+                    {
+                        (int)(
+                            (setting.nukedOPN2.GensDACHPF ? 0x01: 0x00)
+                            |(setting.nukedOPN2.GensSSGEG ? 0x02: 0x00)
+                        )
+                    };
                 }
                 else if (setting.YM2612Type.UseEmu2)
                 {
@@ -2691,10 +2700,20 @@ namespace MDPlayer
                             break;
                     }
                 }
+                else if (setting.YM2612Type.UseEmu3)
+                {
+                    if (ym2612mame == null) ym2612mame = new ym2612mame();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2612mame;
+                    chip.Instrument = ym2612mame;
+                    chip.Update = ym2612mame.Update;
+                    chip.Start = ym2612mame.Start;
+                    chip.Stop = ym2612mame.Stop;
+                    chip.Reset = ym2612mame.Reset;
+                }
+
                 chip.SamplingRate = (UInt32)Common.SampleRate;
                 chip.Volume = setting.balance.YM2612Volume;
                 chip.Clock = 7670454;
-                chip.Option = null;
                 clockYM2612 = 7670454;
                 chipLED.PriOPN2 = 1;
                 lstChips.Add(chip);
@@ -2903,6 +2922,7 @@ namespace MDPlayer
                 ym2203 ym2203 = null;
                 ym2612 ym2612 = null;
                 ym3438 ym3438 = null;
+                ym2612mame ym2612mame = null;
                 ym2608 ym2608 = null;
                 ym2151 ym2151 = null;
                 ym2151_mame ym2151mame = null;
@@ -2981,10 +3001,12 @@ namespace MDPlayer
                             break;
                         case 3:
                             chip = new MDSound.MDSound.Chip();
+                            chip.Option = null;
                             if (ym2612 == null)
                             {
                                 ym2612 = new ym2612();
                                 ym3438 = new ym3438();
+                                ym2612mame = new ym2612mame();
                                 chip.ID = 0;
                                 chipLED.PriOPN = 1;
                             }
@@ -3002,6 +3024,13 @@ namespace MDPlayer
                                 chip.Start = ym2612.Start;
                                 chip.Stop = ym2612.Stop;
                                 chip.Reset = ym2612.Reset;
+                                chip.Option = new object[]
+                                {
+                                    (int)(
+                                        (setting.nukedOPN2.GensDACHPF ? 0x01: 0x00)
+                                        |(setting.nukedOPN2.GensSSGEG ? 0x02: 0x00)
+                                    )
+                                };
                             }
                             else if ((chip.ID == 0 && setting.YM2612Type.UseEmu2) || (chip.ID == 1 && setting.YM2612SType.UseEmu2))
                             {
@@ -3030,11 +3059,19 @@ namespace MDPlayer
                                         break;
                                 }
                             }
+                            else if ((chip.ID == 0 && setting.YM2612Type.UseEmu3) || (chip.ID == 1 && setting.YM2612SType.UseEmu3))
+                            {
+                                chip.type = MDSound.MDSound.enmInstrumentType.YM2612mame;
+                                chip.Instrument = ym2612mame;
+                                chip.Update = ym2612mame.Update;
+                                chip.Start = ym2612mame.Start;
+                                chip.Stop = ym2612mame.Stop;
+                                chip.Reset = ym2612mame.Reset;
+                            }
 
                             chip.SamplingRate = (UInt32)Common.SampleRate;
                             chip.Volume = setting.balance.YM2612Volume;
                             chip.Clock = dInfo.Clock;
-                            chip.Option = null;
                             lstChips.Add(chip);
                             useChip.Add(chip.ID == 0 ? EnmChip.YM2612 : EnmChip.S_YM2612);
 
@@ -4012,12 +4049,14 @@ namespace MDPlayer
                 {
                     MDSound.ym2612 ym2612 = null;
                     MDSound.ym3438 ym3438 = null;
+                    MDSound.ym2612mame ym2612mame = null;
 
                     for (int i = 0; i < (((vgm)driverVirtual).YM2612DualChipFlag ? 2 : 1); i++)
                     {
                         //MDSound.ym2612 ym2612 = new MDSound.ym2612();
                         chip = new MDSound.MDSound.Chip();
                         chip.ID = (byte)i;
+                        chip.Option = null;
 
                         if ((i == 0 && (setting.YM2612Type.UseEmu || setting.YM2612Type.UseScci))
                             || (i == 1 && setting.YM2612SType.UseEmu || setting.YM2612SType.UseScci))
@@ -4029,6 +4068,13 @@ namespace MDPlayer
                             chip.Start = ym2612.Start;
                             chip.Stop = ym2612.Stop;
                             chip.Reset = ym2612.Reset;
+                            chip.Option = new object[]
+                            {
+                                (int)(
+                                    (setting.nukedOPN2.GensDACHPF ? 0x01: 0x00)
+                                    |(setting.nukedOPN2.GensSSGEG ? 0x02: 0x00)
+                                )
+                            };
                         }
                         else if ((i == 0 && setting.YM2612Type.UseEmu2) || (i == 1 && setting.YM2612SType.UseEmu2))
                         {
@@ -4058,11 +4104,20 @@ namespace MDPlayer
                                     break;
                             }
                         }
+                        else if ((i == 0 && setting.YM2612Type.UseEmu3) || (i == 1 && setting.YM2612SType.UseEmu3))
+                        {
+                            if (ym2612mame == null) ym2612mame = new ym2612mame();
+                            chip.type = MDSound.MDSound.enmInstrumentType.YM2612mame;
+                            chip.Instrument = ym2612mame;
+                            chip.Update = ym2612mame.Update;
+                            chip.Start = ym2612mame.Start;
+                            chip.Stop = ym2612mame.Stop;
+                            chip.Reset = ym2612mame.Reset;
+                        }
 
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.YM2612Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2612ClockValue;
-                        chip.Option = null;
                         clockYM2612 = (int)((vgm)driverVirtual).YM2612ClockValue;
 
                         hiyorimiDeviceFlag |= (setting.YM2612Type.UseScci) ? 0x1 : 0x2;

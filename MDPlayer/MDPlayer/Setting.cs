@@ -4709,11 +4709,16 @@ namespace MDPlayer
         public class NukedOPN2
         {
             public int EmuType = 0;
+            //ごめんGensのオプションもここ。。。
+            public bool GensDACHPF = true;
+            public bool GensSSGEG = true;
 
             public NukedOPN2 Copy()
             {
                 NukedOPN2 no = new NukedOPN2();
                 no.EmuType = this.EmuType;
+                no.GensDACHPF = this.GensDACHPF;
+                no.GensSSGEG = this.GensSSGEG;
 
                 return no;
             }

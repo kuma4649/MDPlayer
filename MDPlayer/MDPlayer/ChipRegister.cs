@@ -3335,16 +3335,19 @@ namespace MDPlayer
                         {
                             if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
                             if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
                             if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                             if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }
@@ -3379,6 +3382,7 @@ namespace MDPlayer
                     //Console.WriteLine("{0}:{1:X02}:{2:X02}:{3:X02}", chipID, dPort, dAddr, dData);
                     if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                     if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
