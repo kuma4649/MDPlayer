@@ -4052,7 +4052,7 @@ namespace MDPlayer
 
                 int v = dData & 0xf;
                 v = v + nowSN76489FadeoutVol[chipID];
-                v += maskChSN76489[chipID][(dData & 0x60) >> 5] ? 15 : 0;
+                v = maskChSN76489[chipID][(dData & 0x60) >> 5] ? 15 : v;
                 v = Math.Min(v, 15);
                 dData = (dData & 0xf0) | v;
             }
