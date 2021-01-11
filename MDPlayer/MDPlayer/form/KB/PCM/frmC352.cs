@@ -177,16 +177,16 @@ namespace MDPlayer.form
 
                 if (c352key != null)
                 {
+                    newParam.channels[ch].pan = ((c352Register[ch * 8 + 0] >> 12) & 0xf) | (((((UInt16)c352Register[ch * 8 + 0] & 0xff) >> 4) & 0xf) << 4);
                     if ((c352Register[ch * 8 + 3] & 0x4000) != 0 && (c352key[ch] & 0x8000) != 0)
                     {
-                        newParam.channels[ch].pan = ((c352Register[ch * 8 + 0] >> 12) & 0xf) | (((((UInt16)c352Register[ch * 8 + 0] & 0xff) >> 4) & 0xf) << 4);
                         newParam.channels[ch].volumeL = Common.Range((int)(((UInt16)c352Register[ch * 8 + 0] >> 8) / 11.7), 0, 19);
                         newParam.channels[ch].volumeR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 0] & 0xff) / 11.7), 0, 19);
                         newParam.channels[ch].volumeRL = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] >> 8) / 11.7), 0, 19);
                         newParam.channels[ch].volumeRR = Common.Range((int)(((UInt16)c352Register[ch * 8 + 1] & 0xff) / 11.7), 0, 19);
                     }
 
-                    if (newParam.channels[ch].mask == null || newParam.channels[ch].mask == false)
+                    if (newParam.channels[ch].mask == null || newParam.channels[ch].mask==true)
                     {
                         newParam.channels[ch].pan = 0;
                     }
@@ -254,8 +254,8 @@ namespace MDPlayer.form
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 96, ch * 8 + 8, 0, ref oyc.eadr, nyc.eadr);
                 DrawBuff.font4Hex16Bit(frameBuffer, 4 * 101, ch * 8 + 8, 0, ref oyc.ladr, nyc.ladr);
                 DrawBuff.KeyBoardToC352(frameBuffer, ch, ref oyc.note, nyc.note, 0);
-                DrawBuff.PanType2(frameBuffer, ch, ref oyc.pan, nyc.pan, 0);
                 DrawBuff.ChC352(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
+                DrawBuff.PanType2(frameBuffer, ch, ref oyc.pan, nyc.pan, 0);
             }
         }
 

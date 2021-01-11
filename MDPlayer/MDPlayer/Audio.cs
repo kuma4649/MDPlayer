@@ -7349,6 +7349,26 @@ namespace MDPlayer
         {
             //mds.setSN76489Mask(chipID,1 << ch);
             chipRegister.setMaskSN76489(chipID, ch, true);
+            SN76489ForcedSendVolume(chipID, ch);
+        }
+
+        public static void resetSN76489Mask(int chipID, int ch)
+        {
+            try
+            {
+                //mds.resetSN76489Mask(chipID, 1 << ch);
+                chipRegister.setMaskSN76489(chipID, ch, false);
+                SN76489ForcedSendVolume(chipID, ch);
+            }
+            catch { }
+        }
+
+        private static void SN76489ForcedSendVolume(int chipID, int ch)
+        {
+            Setting.ChipType ct = (chipID == 0) ? setting.SN76489Type : setting.SN76489SType;
+            chipRegister.setSN76489Register(chipID
+                , (byte)(0x90 | ((ch & 3) << 5) | (15 - (Math.Max(chipRegister.sn76489Vol[chipID][ch][0], chipRegister.sn76489Vol[chipID][ch][1]) & 0xf)))
+                , ct.UseEmu ? EnmModel.VirtualModel : EnmModel.RealModel);
         }
 
         public static void setYM2151Mask(int chipID, int ch)
@@ -7519,16 +7539,6 @@ namespace MDPlayer
             try
             {
                 chipRegister.setMaskYM2413(chipID, ch, false);
-            }
-            catch { }
-        }
-
-        public static void resetSN76489Mask(int chipID, int ch)
-        {
-            try
-            {
-                //mds.resetSN76489Mask(chipID, 1 << ch);
-                chipRegister.setMaskSN76489(chipID, ch, false);
             }
             catch { }
         }

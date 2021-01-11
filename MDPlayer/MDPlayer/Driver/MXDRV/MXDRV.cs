@@ -261,7 +261,7 @@ namespace MDPlayer.Driver.MXDRV
             int ret= mdxPCM.x68sound[0].X68Sound_GetPcm(buffer, offset, (int)sampleCount, oneFrameProc2);
 
             //Console.WriteLine("0:{0:x08}", mm.ReadUInt32(MXWORK_CHBUF_FM[8] + MXWORK_CH.S0012));
-            Console.WriteLine("1:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0012) >> 6);
+            //Console.WriteLine("1:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0012) >> 6);
             //Console.WriteLine("1a:{0:x04}", mm.ReadUInt16(MXWORK_CHBUF_PCM[0] + MXWORK_CH.S0014) >> 6);
             //Console.WriteLine("2:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[1] + MXWORK_CH.S0004));
             //Console.WriteLine("3:{0}", mm.ReadUInt32(MXWORK_CHBUF_PCM[2] + MXWORK_CH.S0004));
