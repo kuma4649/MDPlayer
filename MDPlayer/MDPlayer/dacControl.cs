@@ -432,6 +432,9 @@ namespace MDPlayer
         {
             switch (ChipType)
             {
+                case 0x00:  // SN76489
+                    chipRegister.setSN76489Register(ChipID, Data, model);
+                    break;
                 case 0x01:  // YM2413+
                     chipRegister.setYM2413Register(ChipID, Offset, Data, model);
                     break;
