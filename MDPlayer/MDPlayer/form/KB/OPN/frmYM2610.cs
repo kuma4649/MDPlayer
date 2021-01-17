@@ -378,7 +378,7 @@ namespace MDPlayer.form
 
             newParam.nfrq = YM2610Register[0][0x06] & 0x1f;
             newParam.efrq = YM2610Register[0][0x0c] * 0x100 + YM2610Register[0][0x0b];
-            newParam.etype = (YM2610Register[0][0x0d] & 0x7) + 2;
+            newParam.etype = (YM2610Register[0][0x0d] & 0xf);
 
             //ADPCM B
             newParam.channels[12].pan = (YM2610Register[0][0x11] & 0xc0) >> 6;

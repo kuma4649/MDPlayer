@@ -3420,7 +3420,8 @@ namespace MDPlayer
         private static void drawEtypeP(FrameBuffer screen, int x, int y, int t)
         {
             if (screen == null) return;
-            screen.drawByteArray(x, y, rPSGEnv, 64, 8 * t, 0, 8, 8);
+            screen.drawByteArray(x, y, rPSGEnv, 128, 8 * t, 0, 8, 8);
+            drawFont4Int2(screen, x+12, y, 0, 2, t);
         }
 
         public static void drawPanP(FrameBuffer screen, int x, int y, int t, int tp)

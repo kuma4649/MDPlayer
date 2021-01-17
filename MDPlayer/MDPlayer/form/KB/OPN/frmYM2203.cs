@@ -285,7 +285,7 @@ namespace MDPlayer.form
 
             newParam.nfrq = ym2203Register[0x06] & 0x1f;
             newParam.efrq = ym2203Register[0x0c] * 0x100 + ym2203Register[0x0b];
-            newParam.etype = (ym2203Register[0x0d] & 0x7) + 2;
+            newParam.etype = (ym2203Register[0x0d] & 0xf);
 
         }
 

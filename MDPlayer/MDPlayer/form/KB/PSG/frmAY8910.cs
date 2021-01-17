@@ -74,7 +74,7 @@ namespace MDPlayer.form
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
                 newParam.nfrq = AY8910Register[0x06] & 0x1f;
                 newParam.efrq = AY8910Register[0x0c] * 0x100 + AY8910Register[0x0b];
-                newParam.etype = (AY8910Register[0x0d] & 0x7) + 2;
+                newParam.etype = (AY8910Register[0x0d] & 0xf);
 
                 int v = (AY8910Register[0x08 + ch] & 0x1f);
                 v = v > 15 ? 15 : v;
