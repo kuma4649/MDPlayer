@@ -838,6 +838,7 @@ namespace MDPlayer.form
             exts[2] = setting.other.ImageExt.Split(';');
 
             string bfn = Path.Combine(Path.GetDirectoryName(fn), Path.GetFileNameWithoutExtension(fn));
+            string bfnfld = Path.Combine(Path.GetDirectoryName(fn), Path.GetFileName(Path.GetDirectoryName(fn)));
 
             text = "";
             foreach (string ext in exts[0])
@@ -845,6 +846,11 @@ namespace MDPlayer.form
                 if (File.Exists(bfn + "." + ext))
                 {
                     text = bfn + "." + ext;
+                    break;
+                }
+                if (File.Exists(bfnfld + "." + ext))
+                {
+                    text = bfnfld + "." + ext;
                     break;
                 }
             }
@@ -856,6 +862,11 @@ namespace MDPlayer.form
                     mml = bfn + "." + ext;
                     break;
                 }
+                if (File.Exists(bfnfld + "." + ext))
+                {
+                    mml = bfnfld + "." + ext;
+                    break;
+                }
             }
             img = "";
             foreach (string ext in exts[2])
@@ -865,11 +876,20 @@ namespace MDPlayer.form
                     img = bfn + "." + ext;
                     break;
                 }
+                if (File.Exists(bfnfld + "." + ext))
+                {
+                    img = bfnfld + "." + ext;
+                    break;
+                }
             }
 
             tsbTextExt.Enabled = (text != "");
             tsbMMLExt.Enabled = (mml != "");
             tsbImgExt.Enabled = (img != "");
+
+            if (setting.other.AutoOpenText && text != "") tsbTextExt_Click(null, null);
+            if (setting.other.AutoOpenMML && mml != "") tsbMMLExt_Click(null, null);
+            if (setting.other.AutoOpenImg && img != "") tsbImgExt_Click(null, null);
         }
 
         private void tsbTextExt_Click(object sender, EventArgs e)

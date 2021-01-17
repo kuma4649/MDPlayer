@@ -1482,11 +1482,18 @@ namespace MDPlayer
             private string _TextExt = "txt;doc;hed";
             public string TextExt { get => _TextExt; set => _TextExt = value; }
 
-            private string _MMLExt = "mml;gwi";
+            private string _MMLExt = "mml;gwi;muc;mdl";
             public string MMLExt { get => _MMLExt; set => _MMLExt = value; }
 
             private string _ImageExt = "jpg;gif;png;mag";
             public string ImageExt { get => _ImageExt; set => _ImageExt = value; }
+
+            private bool _AutoOpenText = false;
+            public bool AutoOpenText { get => _AutoOpenText; set => _AutoOpenText = value; }
+            private bool _AutoOpenMML = false;
+            public bool AutoOpenMML { get => _AutoOpenMML; set => _AutoOpenMML = value; }
+            private bool _AutoOpenImg = false;
+            public bool AutoOpenImg { get => _AutoOpenImg; set => _AutoOpenImg = value; }
 
             private bool _InitAlways = false;
             public bool InitAlways { get => _InitAlways; set => _InitAlways = value; }
@@ -1515,6 +1522,9 @@ namespace MDPlayer
                 other.TextExt = this.TextExt;
                 other.MMLExt = this.MMLExt;
                 other.ImageExt = this.ImageExt;
+                other.AutoOpenText = this.AutoOpenText;
+                other.AutoOpenMML = this.AutoOpenMML;
+                other.AutoOpenImg = this.AutoOpenImg;
                 other.InitAlways = this.InitAlways;
                 other.EmptyPlayList = this.EmptyPlayList;
                 other.ExAll = this.ExAll;

@@ -479,6 +479,9 @@ namespace MDPlayer.form
             tbWavPath.Text = setting.other.WavPath;
             tbTextExt.Text = setting.other.TextExt;
             tbMMLExt.Text = setting.other.MMLExt;
+            cbAutoOpenText.Checked = setting.other.AutoOpenText;
+            cbAutoOpenMML.Checked = setting.other.AutoOpenMML;
+            cbAutoOpenImg.Checked = setting.other.AutoOpenImg;
             tbImageExt.Text = setting.other.ImageExt;
             cbInitAlways.Checked = setting.other.InitAlways;
             cbEmptyPlayList.Checked = setting.other.EmptyPlayList;
@@ -1485,6 +1488,9 @@ namespace MDPlayer.form
             setting.other.TextExt = tbTextExt.Text;
             setting.other.MMLExt = tbMMLExt.Text;
             setting.other.ImageExt = tbImageExt.Text;
+            setting.other.AutoOpenText = cbAutoOpenText.Checked;
+            setting.other.AutoOpenMML = cbAutoOpenMML.Checked;
+            setting.other.AutoOpenImg = cbAutoOpenImg.Checked;
             setting.other.InitAlways = cbInitAlways.Checked;
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
             setting.other.ExAll = cbExALL.Checked;

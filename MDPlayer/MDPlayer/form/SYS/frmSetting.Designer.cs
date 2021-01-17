@@ -61,7 +61,6 @@ namespace MDPlayer.form
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,6 +70,9 @@ namespace MDPlayer.form
             this.tbLatencySCCI = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tpNuked = new System.Windows.Forms.TabPage();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.cbGensSSGEG = new System.Windows.Forms.CheckBox();
+            this.cbGensDACHPF = new System.Windows.Forms.CheckBox();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.rbNukedOPN2OptionYM2612u = new System.Windows.Forms.RadioButton();
             this.rbNukedOPN2OptionYM2612 = new System.Windows.Forms.RadioButton();
@@ -470,9 +472,11 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.groupBox29 = new System.Windows.Forms.GroupBox();
-            this.cbGensDACHPF = new System.Windows.Forms.CheckBox();
-            this.cbGensSSGEG = new System.Windows.Forms.CheckBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
+            this.tpPlayList = new System.Windows.Forms.TabPage();
+            this.cbAutoOpenText = new System.Windows.Forms.CheckBox();
+            this.cbAutoOpenMML = new System.Windows.Forms.CheckBox();
+            this.cbAutoOpenImg = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -484,6 +488,7 @@ namespace MDPlayer.form
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tpNuked.SuspendLayout();
+            this.groupBox29.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.tpNSF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkbNSFLPF)).BeginInit();
@@ -574,7 +579,7 @@ namespace MDPlayer.form
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.groupBox29.SuspendLayout();
+            this.tpPlayList.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -787,6 +792,7 @@ namespace MDPlayer.form
             this.tcSetting.Controls.Add(this.tpMIDIKBD);
             this.tcSetting.Controls.Add(this.tpKeyBoard);
             this.tcSetting.Controls.Add(this.tpBalance);
+            this.tcSetting.Controls.Add(this.tpPlayList);
             this.tcSetting.Controls.Add(this.tpOther);
             this.tcSetting.Controls.Add(this.tpOmake);
             this.tcSetting.Controls.Add(this.tpAbout);
@@ -976,15 +982,6 @@ namespace MDPlayer.form
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "音源の割り当て";
             // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
@@ -1071,6 +1068,37 @@ namespace MDPlayer.form
             this.tpNuked.TabIndex = 14;
             this.tpNuked.Text = "OPN2";
             this.tpNuked.UseVisualStyleBackColor = true;
+            // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.cbGensSSGEG);
+            this.groupBox29.Controls.Add(this.cbGensDACHPF);
+            this.groupBox29.Location = new System.Drawing.Point(7, 137);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(318, 66);
+            this.groupBox29.TabIndex = 0;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "Gens Emulation option";
+            // 
+            // cbGensSSGEG
+            // 
+            this.cbGensSSGEG.AutoSize = true;
+            this.cbGensSSGEG.Location = new System.Drawing.Point(6, 40);
+            this.cbGensSSGEG.Name = "cbGensSSGEG";
+            this.cbGensSSGEG.Size = new System.Drawing.Size(105, 16);
+            this.cbGensSSGEG.TabIndex = 1;
+            this.cbGensSSGEG.Text = "SSG-EG Enable";
+            this.cbGensSSGEG.UseVisualStyleBackColor = true;
+            // 
+            // cbGensDACHPF
+            // 
+            this.cbGensDACHPF.AutoSize = true;
+            this.cbGensDACHPF.Location = new System.Drawing.Point(6, 18);
+            this.cbGensDACHPF.Name = "cbGensDACHPF";
+            this.cbGensDACHPF.Size = new System.Drawing.Size(137, 16);
+            this.cbGensDACHPF.TabIndex = 0;
+            this.cbGensDACHPF.Text = "DAC Highpass Enable";
+            this.cbGensDACHPF.UseVisualStyleBackColor = true;
             // 
             // groupBox26
             // 
@@ -4759,7 +4787,6 @@ namespace MDPlayer.form
             // 
             this.tpOther.Controls.Add(this.cbNonRenderingForPause);
             this.tpOther.Controls.Add(this.cbWavSwitch);
-            this.tpOther.Controls.Add(this.groupBox17);
             this.tpOther.Controls.Add(this.cbUseGetInst);
             this.tpOther.Controls.Add(this.groupBox4);
             this.tpOther.Controls.Add(this.cbDumpSwitch);
@@ -4776,7 +4803,6 @@ namespace MDPlayer.form
             this.tpOther.Controls.Add(this.btnResetPosition);
             this.tpOther.Controls.Add(this.btnOpenSettingFolder);
             this.tpOther.Controls.Add(this.cbExALL);
-            this.tpOther.Controls.Add(this.cbEmptyPlayList);
             this.tpOther.Controls.Add(this.cbInitAlways);
             this.tpOther.Controls.Add(this.cbAutoOpen);
             this.tpOther.Controls.Add(this.cbUseLoopTimes);
@@ -4810,15 +4836,18 @@ namespace MDPlayer.form
             // 
             // groupBox17
             // 
+            this.groupBox17.Controls.Add(this.cbAutoOpenImg);
             this.groupBox17.Controls.Add(this.tbImageExt);
+            this.groupBox17.Controls.Add(this.cbAutoOpenMML);
             this.groupBox17.Controls.Add(this.tbMMLExt);
             this.groupBox17.Controls.Add(this.tbTextExt);
+            this.groupBox17.Controls.Add(this.cbAutoOpenText);
             this.groupBox17.Controls.Add(this.label1);
             this.groupBox17.Controls.Add(this.label3);
             this.groupBox17.Controls.Add(this.label2);
-            this.groupBox17.Location = new System.Drawing.Point(7, 256);
+            this.groupBox17.Location = new System.Drawing.Point(7, 42);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(227, 83);
+            this.groupBox17.Size = new System.Drawing.Size(433, 83);
             this.groupBox17.TabIndex = 1;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "File Extension";
@@ -5101,7 +5130,7 @@ namespace MDPlayer.form
             // cbExALL
             // 
             this.cbExALL.AutoSize = true;
-            this.cbExALL.Location = new System.Drawing.Point(240, 323);
+            this.cbExALL.Location = new System.Drawing.Point(14, 298);
             this.cbExALL.Name = "cbExALL";
             this.cbExALL.Size = new System.Drawing.Size(192, 16);
             this.cbExALL.TabIndex = 0;
@@ -5112,17 +5141,17 @@ namespace MDPlayer.form
             // cbEmptyPlayList
             // 
             this.cbEmptyPlayList.AutoSize = true;
-            this.cbEmptyPlayList.Location = new System.Drawing.Point(240, 293);
+            this.cbEmptyPlayList.Location = new System.Drawing.Point(7, 20);
             this.cbEmptyPlayList.Name = "cbEmptyPlayList";
-            this.cbEmptyPlayList.Size = new System.Drawing.Size(177, 16);
+            this.cbEmptyPlayList.Size = new System.Drawing.Size(150, 16);
             this.cbEmptyPlayList.TabIndex = 0;
-            this.cbEmptyPlayList.Text = "起動時にプレイリストを空にする。";
+            this.cbEmptyPlayList.Text = "起動時にリストを空にする。";
             this.cbEmptyPlayList.UseVisualStyleBackColor = true;
             this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // cbInitAlways
             // 
-            this.cbInitAlways.Location = new System.Drawing.Point(240, 251);
+            this.cbInitAlways.Location = new System.Drawing.Point(14, 256);
             this.cbInitAlways.Name = "cbInitAlways";
             this.cbInitAlways.Size = new System.Drawing.Size(194, 39);
             this.cbInitAlways.TabIndex = 0;
@@ -5337,36 +5366,58 @@ namespace MDPlayer.form
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
-            // groupBox29
+            // ucSI
             // 
-            this.groupBox29.Controls.Add(this.cbGensSSGEG);
-            this.groupBox29.Controls.Add(this.cbGensDACHPF);
-            this.groupBox29.Location = new System.Drawing.Point(7, 137);
-            this.groupBox29.Name = "groupBox29";
-            this.groupBox29.Size = new System.Drawing.Size(318, 66);
-            this.groupBox29.TabIndex = 0;
-            this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "Gens Emulation option";
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
             // 
-            // cbGensDACHPF
+            // tpPlayList
             // 
-            this.cbGensDACHPF.AutoSize = true;
-            this.cbGensDACHPF.Location = new System.Drawing.Point(6, 18);
-            this.cbGensDACHPF.Name = "cbGensDACHPF";
-            this.cbGensDACHPF.Size = new System.Drawing.Size(137, 16);
-            this.cbGensDACHPF.TabIndex = 0;
-            this.cbGensDACHPF.Text = "DAC Highpass Enable";
-            this.cbGensDACHPF.UseVisualStyleBackColor = true;
+            this.tpPlayList.Controls.Add(this.groupBox17);
+            this.tpPlayList.Controls.Add(this.cbEmptyPlayList);
+            this.tpPlayList.Location = new System.Drawing.Point(4, 22);
+            this.tpPlayList.Name = "tpPlayList";
+            this.tpPlayList.Size = new System.Drawing.Size(443, 371);
+            this.tpPlayList.TabIndex = 16;
+            this.tpPlayList.Text = "PlayList";
+            this.tpPlayList.UseVisualStyleBackColor = true;
             // 
-            // cbGensSSGEG
+            // cbAutoOpenText
             // 
-            this.cbGensSSGEG.AutoSize = true;
-            this.cbGensSSGEG.Location = new System.Drawing.Point(6, 40);
-            this.cbGensSSGEG.Name = "cbGensSSGEG";
-            this.cbGensSSGEG.Size = new System.Drawing.Size(105, 16);
-            this.cbGensSSGEG.TabIndex = 1;
-            this.cbGensSSGEG.Text = "SSG-EG Enable";
-            this.cbGensSSGEG.UseVisualStyleBackColor = true;
+            this.cbAutoOpenText.AutoSize = true;
+            this.cbAutoOpenText.Location = new System.Drawing.Point(222, 14);
+            this.cbAutoOpenText.Name = "cbAutoOpenText";
+            this.cbAutoOpenText.Size = new System.Drawing.Size(132, 16);
+            this.cbAutoOpenText.TabIndex = 0;
+            this.cbAutoOpenText.Text = "自動的にテキストを開く";
+            this.cbAutoOpenText.UseVisualStyleBackColor = true;
+            this.cbAutoOpenText.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
+            // cbAutoOpenMML
+            // 
+            this.cbAutoOpenMML.AutoSize = true;
+            this.cbAutoOpenMML.Location = new System.Drawing.Point(222, 36);
+            this.cbAutoOpenMML.Name = "cbAutoOpenMML";
+            this.cbAutoOpenMML.Size = new System.Drawing.Size(120, 16);
+            this.cbAutoOpenMML.TabIndex = 0;
+            this.cbAutoOpenMML.Text = "自動的にMMLを開く";
+            this.cbAutoOpenMML.UseVisualStyleBackColor = true;
+            this.cbAutoOpenMML.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
+            // cbAutoOpenImg
+            // 
+            this.cbAutoOpenImg.AutoSize = true;
+            this.cbAutoOpenImg.Location = new System.Drawing.Point(222, 58);
+            this.cbAutoOpenImg.Name = "cbAutoOpenImg";
+            this.cbAutoOpenImg.Size = new System.Drawing.Size(120, 16);
+            this.cbAutoOpenImg.TabIndex = 0;
+            this.cbAutoOpenImg.Text = "自動的に画像を開く";
+            this.cbAutoOpenImg.UseVisualStyleBackColor = true;
+            this.cbAutoOpenImg.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // frmSetting
             // 
@@ -5401,6 +5452,8 @@ namespace MDPlayer.form
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tpNuked.ResumeLayout(false);
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox29.PerformLayout();
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             this.tpNSF.ResumeLayout(false);
@@ -5534,8 +5587,8 @@ namespace MDPlayer.form
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.groupBox29.ResumeLayout(false);
-            this.groupBox29.PerformLayout();
+            this.tpPlayList.ResumeLayout(false);
+            this.tpPlayList.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5987,5 +6040,9 @@ namespace MDPlayer.form
         private System.Windows.Forms.GroupBox groupBox29;
         private System.Windows.Forms.CheckBox cbGensSSGEG;
         private System.Windows.Forms.CheckBox cbGensDACHPF;
+        private System.Windows.Forms.TabPage tpPlayList;
+        private System.Windows.Forms.CheckBox cbAutoOpenImg;
+        private System.Windows.Forms.CheckBox cbAutoOpenMML;
+        private System.Windows.Forms.CheckBox cbAutoOpenText;
     }
 }

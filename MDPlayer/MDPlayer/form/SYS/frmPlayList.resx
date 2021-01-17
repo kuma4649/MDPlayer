@@ -140,6 +140,9 @@
   <data name="tsbAddMusic.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="tsmiF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 22</value>
+  </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
   </data>
@@ -148,12 +151,6 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tsmiG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
@@ -194,6 +191,9 @@
   </data>
   <data name="&gt;&gt;tsbAddMusic.Name" xml:space="preserve">
     <value>tsbAddMusic</value>
+  </data>
+  <data name="tsmiJ.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 22</value>
   </data>
   <data name="&gt;&gt;clmFileName.Name" xml:space="preserve">
     <value>clmFileName</value>
@@ -240,6 +240,9 @@
   <data name="&gt;&gt;tsbOpenPlayList.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;clmTitleJ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Parent" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
@@ -252,17 +255,20 @@
   <data name="tsbSavePlayList.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Black</value>
   </data>
-  <data name="clmVGMby.HeaderText" xml:space="preserve">
-    <value>VGMby</value>
+  <data name="tsmiE.Text" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="&gt;&gt;tsmiH.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="clmDuration.HeaderText" xml:space="preserve">
     <value>Duration</value>
   </data>
-  <data name="tsmiE.Text" xml:space="preserve">
-    <value>E</value>
-  </data>
   <data name="tsmiB.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 22</value>
+  </data>
+  <data name="tsbSavePlayList.Text" xml:space="preserve">
+    <value>プレイリストファイルを保存</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
     <value>toolStripContainer1</value>
@@ -284,6 +290,9 @@
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="tsbOpenPlayList.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
@@ -834,6 +843,9 @@
   <data name="&gt;&gt;clmComposer.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="tsbTextExt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
   <data name="&gt;&gt;tsbMMLExt.Name" xml:space="preserve">
     <value>tsbMMLExt</value>
   </data>
@@ -849,8 +861,8 @@
   <data name="&gt;&gt;clmGameJ.Name" xml:space="preserve">
     <value>clmGameJ</value>
   </data>
-  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="clmVGMby.HeaderText" xml:space="preserve">
+    <value>VGMby</value>
   </data>
   <data name="&gt;&gt;clmSongNo.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -879,11 +891,8 @@
   <data name="tsbImgExt.ToolTipText" xml:space="preserve">
     <value>画像表示</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.ContentPanel</value>
-  </data>
-  <data name="tsmiPlayThis.Text" xml:space="preserve">
-    <value>Play this music</value>
+  <data name="tsbAddFolder.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Black</value>
   </data>
   <data name="&gt;&gt;clmGameJ.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -903,23 +912,14 @@
   <data name="&gt;&gt;tsbUp.Name" xml:space="preserve">
     <value>tsbUp</value>
   </data>
-  <data name="&gt;&gt;tsbImgExt.Name" xml:space="preserve">
-    <value>tsbImgExt</value>
-  </data>
   <data name="&gt;&gt;tsmiE.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.RightToolStripPanel</value>
   </data>
   <data name="&gt;&gt;dgvList.Name" xml:space="preserve">
     <value>dgvList</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="tsbJapanese.Text" xml:space="preserve">
-    <value>日本語</value>
   </data>
   <data name="clmGameJ.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -930,17 +930,14 @@
   <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
     <value>toolStripContainer1.LeftToolStripPanel</value>
   </data>
-  <data name="tsbSavePlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
-  </data>
   <data name="type設定ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
   </data>
   <data name="&gt;&gt;type設定ToolStripMenuItem.Name" xml:space="preserve">
     <value>type設定ToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;tsmiH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmPlayList</value>
@@ -969,8 +966,8 @@
   <data name="tsbMMLExt.ToolTipText" xml:space="preserve">
     <value>MML表示</value>
   </data>
-  <data name="clmTitle.Width" type="System.Int32, mscorlib">
-    <value>200</value>
+  <data name="&gt;&gt;clmDuration.Name" xml:space="preserve">
+    <value>clmDuration</value>
   </data>
   <data name="&gt;&gt;dgvList.Parent" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
@@ -1041,14 +1038,14 @@
   <data name="&gt;&gt;type設定ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsbImgExt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
+  <data name="&gt;&gt;tsmiA.Name" xml:space="preserve">
+    <value>tsmiA</value>
   </data>
   <data name="&gt;&gt;tsmiDelThis.Name" xml:space="preserve">
     <value>tsmiDelThis</value>
   </data>
-  <data name="&gt;&gt;tsmiF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;clmType.Name" xml:space="preserve">
+    <value>clmType</value>
   </data>
   <data name="clmPlayingNow.HeaderText" xml:space="preserve">
     <value> </value>
@@ -1056,20 +1053,23 @@
   <data name="tsbMMLExt.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="&gt;&gt;tsmiA.Name" xml:space="preserve">
-    <value>tsmiA</value>
+  <data name="&gt;&gt;tsmiF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiDelAllMusic.Name" xml:space="preserve">
     <value>tsmiDelAllMusic</value>
   </data>
-  <data name="&gt;&gt;tsmiE.Name" xml:space="preserve">
-    <value>tsmiE</value>
+  <data name="&gt;&gt;toolStripContainer1.ContentPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.ContentPanel</value>
   </data>
   <data name="tsbMMLExt.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="clmNotes.HeaderText" xml:space="preserve">
     <value>Notes</value>
+  </data>
+  <data name="clmPlayingNow.Width" type="System.Int32, mscorlib">
+    <value>25</value>
   </data>
   <data name="tsmiA.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 22</value>
@@ -1083,8 +1083,8 @@
   <data name="tsbOpenPlayList.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="&gt;&gt;clmSpacer.Name" xml:space="preserve">
-    <value>clmSpacer</value>
+  <data name="tsbImgExt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
   </data>
   <data name="tsbAddMusic.Text" xml:space="preserve">
     <value>曲を追加</value>
@@ -1122,7 +1122,7 @@
   <data name="&gt;&gt;clmZipFileName.Name" xml:space="preserve">
     <value>clmZipFileName</value>
   </data>
-  <data name="tsbTextExt.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tsbSavePlayList.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
@@ -1137,11 +1137,11 @@
   <data name="clmTitle.HeaderText" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="clmGameJ.HeaderText" xml:space="preserve">
-    <value>ゲーム</value>
+  <data name="tsbJapanese.Text" xml:space="preserve">
+    <value>日本語</value>
   </data>
-  <data name="&gt;&gt;tsbUp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;clmSpacer.Name" xml:space="preserve">
+    <value>clmSpacer</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1161,8 +1161,8 @@
   <data name="&gt;&gt;tsmiC.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;tsmiB.Name" xml:space="preserve">
     <value>tsmiB</value>
@@ -1172,9 +1172,6 @@
   </data>
   <data name="&gt;&gt;tsmiB.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>585, 270</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1233,8 +1230,8 @@
   <data name="tsmiG.Text" xml:space="preserve">
     <value>G</value>
   </data>
-  <data name="&gt;&gt;clmType.Name" xml:space="preserve">
-    <value>clmType</value>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.RightToolStripPanel</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1245,14 +1242,14 @@
   <data name="tsbImgExt.Text" xml:space="preserve">
     <value>toolStripButton3</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="&gt;&gt;tsmiJ.Name" xml:space="preserve">
     <value>tsmiJ</value>
   </data>
-  <data name="tsmiD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 22</value>
+  <data name="&gt;&gt;tsbUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolStripContainer1.Text" xml:space="preserve">
     <value>toolStripContainer1</value>
@@ -1266,8 +1263,8 @@
   <data name="clmSpacer.HeaderText" xml:space="preserve">
     <value />
   </data>
-  <data name="tsmiJ.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 22</value>
+  <data name="&gt;&gt;clmTitle.Name" xml:space="preserve">
+    <value>clmTitle</value>
   </data>
   <data name="&gt;&gt;dgvList.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1284,14 +1281,11 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 6</value>
   </data>
-  <data name="&gt;&gt;tsmiD.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="tsbSavePlayList.Text" xml:space="preserve">
-    <value>プレイリストファイルを保存</value>
-  </data>
-  <data name="&gt;&gt;clmTitleJ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;clmGame.Name" xml:space="preserve">
+    <value>clmGame</value>
   </data>
   <data name="tsmiF.Text" xml:space="preserve">
     <value>F</value>
@@ -1323,23 +1317,26 @@
   <data name="&gt;&gt;clmSongNo.Name" xml:space="preserve">
     <value>clmSongNo</value>
   </data>
-  <data name="&gt;&gt;clmTitle.Name" xml:space="preserve">
-    <value>clmTitle</value>
+  <data name="&gt;&gt;tsmiD.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tsbJapanese.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
+  <data name="&gt;&gt;tsmiA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="clmSongNo.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;tsmiG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="clmTitleJ.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="tsbDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
+  </data>
+  <data name="tsbOpenPlayList.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Black</value>
   </data>
   <data name="&gt;&gt;tsmiDelAllMusic.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1356,14 +1353,14 @@
   <data name="openFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
   </data>
-  <data name="tsbOpenPlayList.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Black</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>585, 270</value>
   </data>
-  <data name="&gt;&gt;tsmiA.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tsbAddMusic.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tsmiF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 22</value>
+  <data name="clmGameJ.HeaderText" xml:space="preserve">
+    <value>ゲーム</value>
   </data>
   <data name="openFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Open folder</value>
@@ -1371,32 +1368,32 @@
   <data name="dgvList.Size" type="System.Drawing.Size, System.Drawing">
     <value>585, 245</value>
   </data>
+  <data name="tsmiD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 22</value>
+  </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
     <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;tsmiE.Name" xml:space="preserve">
+    <value>tsmiE</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;clmGame.Name" xml:space="preserve">
-    <value>clmGame</value>
-  </data>
   <data name="tsbUp.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Black</value>
-  </data>
-  <data name="&gt;&gt;clmDuration.Name" xml:space="preserve">
-    <value>clmDuration</value>
   </data>
   <data name="&gt;&gt;clmNotes.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="clmPlayingNow.Width" type="System.Int32, mscorlib">
-    <value>25</value>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
   </data>
   <data name="toolStripContainer1.Size" type="System.Drawing.Size, System.Drawing">
     <value>585, 270</value>
   </data>
-  <data name="&gt;&gt;tsbAddMusic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tsbImgExt.Name" xml:space="preserve">
+    <value>tsbImgExt</value>
   </data>
   <data name="tsbUp.Text" xml:space="preserve">
     <value>上の曲と入れ替える</value>
@@ -1419,11 +1416,14 @@
   <data name="&gt;&gt;tsmiOpenFolder.Name" xml:space="preserve">
     <value>tsmiOpenFolder</value>
   </data>
-  <data name="tsbAddFolder.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Black</value>
+  <data name="clmTitle.Width" type="System.Int32, mscorlib">
+    <value>200</value>
   </data>
   <data name="clmZipFileName.HeaderText" xml:space="preserve">
     <value>ZipFileName</value>
+  </data>
+  <data name="clmSongNo.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;tsbJapanese.Name" xml:space="preserve">
     <value>tsbJapanese</value>
@@ -1440,8 +1440,8 @@
   <data name="tsbTextExt.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Black</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="tsmiPlayThis.Text" xml:space="preserve">
+    <value>Play this music</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1449,8 +1449,8 @@
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 120</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ja</value>
+  <metadata name="clmSongNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>241, 17</value>
@@ -1482,8 +1482,8 @@
   <metadata name="clmKey.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="clmSongNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ja</value>
   </metadata>
   <metadata name="clmGame.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

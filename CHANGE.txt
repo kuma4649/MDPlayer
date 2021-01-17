@@ -1,4 +1,8 @@
 更新履歴
+STBL108 2021/01/17 2nd
+  PlayList:Text/MML/Img の自動オープン機能追加。
+  Setting:PlayListの設定項目を別タブに分けた。
+
 STBL107 2021/01/17
   DCSG:DAC controlに対応。
 
