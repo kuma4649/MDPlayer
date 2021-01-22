@@ -171,16 +171,16 @@ namespace MDPlayer.form
                 newParam.wf[i * 2 + 1] = (byte)(dat.snd_regs[0x20 + i] & 0xf);
             }
 
-
-            newParam.channels[0].volumeL = Math.Min((dat.snd_1.envelope_value * dat.snd_control.mode1_left) * 16 / 20, 19);
-            newParam.channels[0].volumeR = Math.Min((dat.snd_1.envelope_value * dat.snd_control.mode1_right) * 16 / 20, 19);
-            newParam.channels[1].volumeL = Math.Min((dat.snd_2.envelope_value * dat.snd_control.mode2_left) * 16 / 20, 19);
-            newParam.channels[1].volumeR = Math.Min((dat.snd_2.envelope_value * dat.snd_control.mode2_right) * 16 / 20, 19);
+            int r = 10;
+            newParam.channels[0].volumeL = Math.Min((dat.snd_1.envelope_value * dat.snd_control.mode1_left) * 16 / r, 19);
+            newParam.channels[0].volumeR = Math.Min((dat.snd_1.envelope_value * dat.snd_control.mode1_right) * 16 / r, 19);
+            newParam.channels[1].volumeL = Math.Min((dat.snd_2.envelope_value * dat.snd_control.mode2_left) * 16 / r, 19);
+            newParam.channels[1].volumeR = Math.Min((dat.snd_2.envelope_value * dat.snd_control.mode2_right) * 16 / r, 19);
             int lvl = dat.snd_3.level == 0 ? 0 : (19 >> (dat.snd_3.level - 1));
-            newParam.channels[2].volumeL = Math.Min(lvl * dat.snd_control.mode3_left * 19 / 20, 19);
-            newParam.channels[2].volumeR = Math.Min(lvl * dat.snd_control.mode3_right * 19 / 20, 19);
-            newParam.channels[3].volumeL = Math.Min((dat.snd_4.envelope_value * dat.snd_control.mode4_left) * 16 / 20, 19);
-            newParam.channels[3].volumeR = Math.Min((dat.snd_4.envelope_value * dat.snd_control.mode4_right) * 16 / 20, 19);
+            newParam.channels[2].volumeL = Math.Min(lvl * dat.snd_control.mode3_left * 19 / r, 19);
+            newParam.channels[2].volumeR = Math.Min(lvl * dat.snd_control.mode3_right * 19 / r, 19);
+            newParam.channels[3].volumeL = Math.Min((dat.snd_4.envelope_value * dat.snd_control.mode4_left) * 16 / r, 19);
+            newParam.channels[3].volumeR = Math.Min((dat.snd_4.envelope_value * dat.snd_control.mode4_right) * 16 / r, 19);
 
             float ftone;
 
@@ -214,6 +214,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int1(frameBuffer, 88, 48, 0, ref oyc.inst[4], nyc.inst[4]);//Sweep time
             DrawBuff.font4Int1(frameBuffer, 88, 64, 0, ref oyc.inst[5], nyc.inst[5]);//Sweep shift
             DrawBuff.KeyBoardDMG(frameBuffer, 0, ref oyc.note, nyc.note, 0);
+            DrawBuff.ChDMG(frameBuffer,  0, ref oyc.mask, nyc.mask,0);
 
             oyc = oldParam.channels[1];
             nyc = newParam.channels[1];
@@ -229,6 +230,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int2(frameBuffer, 148, 64, 0, 1, ref oyc.inst[2], nyc.inst[2]);//Len
             DrawBuff.font4Int1(frameBuffer, 152, 56, 0, ref oyc.inst[3], nyc.inst[3]);//Duty
             DrawBuff.KeyBoardDMG(frameBuffer, 1, ref oyc.note, nyc.note, 0);
+            DrawBuff.ChDMG(frameBuffer,  1, ref oyc.mask, nyc.mask, 0);
 
             oyc = oldParam.channels[2];
             nyc = newParam.channels[2];
@@ -242,6 +244,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int2(frameBuffer, 220, 56, 0, 3, ref oyc.inst[4], nyc.inst[4]);//Len
             DrawBuff.font4Int1(frameBuffer, 228, 64, 0, ref oyc.inst[5], nyc.inst[5]);//Vol
             DrawBuff.KeyBoardDMG(frameBuffer, 2, ref oyc.note, nyc.note, 0);
+            DrawBuff.ChDMG(frameBuffer,  2, ref oyc.mask, nyc.mask, 0);
 
             oyc = oldParam.channels[3];
             nyc = newParam.channels[3];
@@ -257,6 +260,7 @@ namespace MDPlayer.form
             DrawBuff.font4Int1(frameBuffer, 260, 48, 0, ref oyc.inst[0], nyc.inst[0]);//Env. Spd
             DrawBuff.font4Int2(frameBuffer, 256, 56, 0, 1, ref oyc.inst[1], nyc.inst[1]);//Env. Vol
             DrawBuff.font4Int2(frameBuffer, 284, 64, 0, 1, ref oyc.inst[2], nyc.inst[2]);//Len
+            DrawBuff.ChDMG(frameBuffer,  3, ref oyc.mask, nyc.mask, 0);
 
             DrawBuff.WaveFormToDMG(frameBuffer, 168, 58, ref oldParam.wf, newParam.wf);//wave form
         }
@@ -285,7 +289,7 @@ namespace MDPlayer.form
             if (py < 1 * 8) return;
 
             //鍵盤
-            if (py < 4 * 8)
+            if (py < 5 * 8)
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
@@ -298,7 +302,7 @@ namespace MDPlayer.form
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 3; ch++) parent.ResetChannelMask(EnmChip.DMG, chipID, ch);
+                for (ch = 0; ch < 4; ch++) parent.ResetChannelMask(EnmChip.DMG, chipID, ch);
                 return;
             }
 

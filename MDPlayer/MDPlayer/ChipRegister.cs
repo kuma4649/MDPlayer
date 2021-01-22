@@ -365,6 +365,12 @@ namespace MDPlayer
 
         public MIDIParam[] midiParams = new MIDIParam[] { null, null };
 
+        public bool[][] maskChDMG = new bool[][]
+        {
+            new bool[]{ false, false, false, false},
+            new bool[]{ false, false, false, false}
+        };
+
         public nes_bank nes_bank = null;
         public nes_mem nes_mem = null;
         public km6502 nes_cpu = null;
@@ -3826,6 +3832,19 @@ namespace MDPlayer
             maskChK051649[chipID][ch] = false;
             writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], EnmModel.VirtualModel);
         }
+
+        public void setDMGMask(int chipID, int ch)
+        {
+            maskChDMG[chipID][ch] = true;
+            mds.setDMGMask((byte)chipID, ch);
+        }
+
+        public void resetDMGMask(int chipID, int ch)
+        {
+            maskChDMG[chipID][ch] = false;
+            mds.resetDMGMask((byte)chipID, ch);
+        }
+
 
 
 

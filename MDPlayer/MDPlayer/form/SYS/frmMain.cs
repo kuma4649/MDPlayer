@@ -4610,6 +4610,7 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.DMC, chipID, ch);
                     for (int ch = 0; ch < 3; ch++) ResetChannelMask(EnmChip.MMC5, chipID, ch);
                     for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.PPZ8, chipID, ch, newParam.ppz8[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.DMG, chipID, ch, newParam.dmg[chipID].channels[ch].mask);
                     ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
@@ -7096,6 +7097,17 @@ namespace MDPlayer.form
                         newParam.k051649[chipID].channels[ch].mask = !newParam.k051649[chipID].channels[ch].mask;
                     }
                     break;
+                case EnmChip.DMG:
+                    if (ch >= 0 && ch < 4)
+                    {
+                        if (newParam.dmg[chipID].channels[ch].mask == false || newParam.dmg[chipID].channels[ch].mask == null)
+                            Audio.setDMGMask(chipID, ch);
+                        else
+                            Audio.resetDMGMask(chipID, ch);
+
+                        newParam.dmg[chipID].channels[ch].mask = !newParam.dmg[chipID].channels[ch].mask;
+                    }
+                    break;
             }
         }
 
@@ -7264,6 +7276,10 @@ namespace MDPlayer.form
                             break;
                     }
                     Audio.resetMMC5Mask(chipID, ch);
+                    break;
+                case EnmChip.DMG:
+                    newParam.dmg[chipID].channels[ch].mask = false;
+                    Audio.resetDMGMask(chipID, ch);
                     break;
 
             }
@@ -7519,6 +7535,14 @@ namespace MDPlayer.form
                         Audio.resetOKIM6295Mask(chipID, ch);
                     newParam.okim6295[chipID].channels[ch].mask = mask;
                     oldParam.okim6295[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.DMG:
+                    if (mask == true)
+                        Audio.setDMGMask(chipID, ch);
+                    else
+                        Audio.resetDMGMask(chipID, ch);
+                    newParam.dmg[chipID].channels[ch].mask = mask;
+                    oldParam.dmg[chipID].channels[ch].mask = !mask;
                     break;
             }
         }
