@@ -6683,6 +6683,8 @@ namespace MDPlayer.form
         public byte[] getBytesFromZipFile(ZipArchiveEntry entry, out string arcFn)
         {
             byte[] buf = null;
+            arcFn = "";
+            if (entry == null) return null;
             arcFn = entry.FullName;
             using (BinaryReader reader = new BinaryReader(entry.Open()))
             {

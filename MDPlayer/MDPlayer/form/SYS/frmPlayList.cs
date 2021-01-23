@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace MDPlayer.form
 {
@@ -30,6 +31,8 @@ namespace MDPlayer.form
 
         private Random rand = new System.Random();
         private bool IsInitialOpenFolder = true;
+
+        private string[] sext = ".vgm;.vgz;.zip;.lzh;.nrd;.xgm;.zgm;.s98;.nsf;.hes;.sid;.mnd;.mdr;.mdx;.mub;.muc;.m;.m2;.mz;.mml;.mid;.rcp;.wav;.mp3;.aiff;.m3u".Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 
         public frmPlayList(frmMain frm)
         {
@@ -768,6 +771,11 @@ namespace MDPlayer.form
             {
                 string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
 
+                List<string> result = new List<string>();
+                GetTrueFileNameList(result, filename);
+
+                filename = result.Distinct().ToArray();
+
                 Stop();
 
                 try
@@ -795,6 +803,29 @@ namespace MDPlayer.form
                     MessageBox.Show("ファイルの読み込みに失敗しました。");
                 }
 
+            }
+        }
+
+        private void GetTrueFileNameList(List<string> res, IEnumerable<string> files)
+        {
+            foreach (string f in files)
+            {
+                if (File.Exists(f))
+                {
+                    if (!res.Contains(f))
+                    {
+                        string ext = Path.GetExtension(f).ToLower();
+                        if (sext.Contains(ext)) res.Add(f);
+                    }
+                }
+                else
+                {
+                    if (Directory.Exists(f))
+                    {
+                        IEnumerable<string> fs = Directory.EnumerateFiles(f, "*", SearchOption.AllDirectories);
+                        GetTrueFileNameList(res, fs);
+                    }
+                }
             }
         }
 
