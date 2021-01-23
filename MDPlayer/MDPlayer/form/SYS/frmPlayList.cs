@@ -768,35 +768,33 @@ namespace MDPlayer.form
             {
                 string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
 
-                foreach (string fn in filename)
+                Stop();
+
+                try
                 {
-                    try
+                    foreach (string f in filename) playList.AddFile(f);
+
+                    string fn = filename[filename.Length - 1];
+
+                    if (
+                        fn.ToLower().LastIndexOf(".lzh") == -1
+                        && fn.ToLower().LastIndexOf(".zip") == -1
+                        && fn.ToLower().LastIndexOf(".m3u") == -1
+                        && fn.ToLower().LastIndexOf(".sid") == -1
+                        )
                     {
-
-                        Stop();
-
-                        playList.AddFile(fn);
-                        //AddList(fn);
-
-                        if (
-                            fn.ToLower().LastIndexOf(".lzh") == -1 
-                            && fn.ToLower().LastIndexOf(".zip") == -1
-                            && fn.ToLower().LastIndexOf(".m3u") == -1
-                            && fn.ToLower().LastIndexOf(".sid") == -1
-                            )
-                        {
-                            frmMain.loadAndPlay(0, 0, fn);
-                            setStart(-1);
-                            frmMain.oldParam = new MDChipParams();
-                            Play();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                        MessageBox.Show("ファイルの読み込みに失敗しました。");
+                        frmMain.loadAndPlay(0, 0, fn);
+                        setStart(-1);
+                        frmMain.oldParam = new MDChipParams();
+                        Play();
                     }
                 }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                    MessageBox.Show("ファイルの読み込みに失敗しました。");
+                }
+
             }
         }
 
