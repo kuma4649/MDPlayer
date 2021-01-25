@@ -3499,6 +3499,10 @@ namespace MDPlayer
         public void setMaskRF5C164(int chipID, int ch, bool mask)
         {
             maskChRF5C164[chipID][ch] = mask;
+            if(mask)
+                mds.setRf5c164Mask(chipID, ch);
+            else
+                mds.resetRf5c164Mask(chipID, ch);
         }
 
         public void setMaskSN76489(int chipID, int ch, bool mask)
@@ -4197,20 +4201,6 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (adr == 0x08)
-                {
-                    data = (byte)(
-                        (maskChRF5C164[chipid][0] ? 0 : (data & 0x01))
-                        | (maskChRF5C164[chipid][1] ? 0 : (data & 0x02))
-                        | (maskChRF5C164[chipid][2] ? 0 : (data & 0x04))
-                        | (maskChRF5C164[chipid][3] ? 0 : (data & 0x08))
-                        | (maskChRF5C164[chipid][4] ? 0 : (data & 0x10))
-                        | (maskChRF5C164[chipid][5] ? 0 : (data & 0x20))
-                        | (maskChRF5C164[chipid][6] ? 0 : (data & 0x40))
-                        | (maskChRF5C164[chipid][7] ? 0 : (data & 0x80))
-                        );
-                }
-
                 mds.WriteRF5C164(chipid, adr, data);
             }
         }
