@@ -11,7 +11,7 @@ namespace MDPlayer
         public delegate int naudioCallBack(short[] buffer, int offset, int sampleCount);
         public event EventHandler<StoppedEventArgs> PlaybackStopped;
 
-        private WaveOut waveOut;
+        private WaveOutEvent waveOut;
         private WasapiOut wasapiOut;
         private DirectSoundOut dsOut;
         private AsioOut asioOut;
@@ -58,7 +58,7 @@ namespace MDPlayer
                 switch (setting.outputDevice.DeviceType)
                 {
                     case 0:
-                        waveOut = new WaveOut();
+                        waveOut = new WaveOutEvent();
                         waveOut.DeviceNumber = 0;
                         waveOut.DesiredLatency = setting.outputDevice.Latency;
                         for (int i = 0; i < WaveOut.DeviceCount; i++)
@@ -149,7 +149,7 @@ namespace MDPlayer
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);
-                waveOut = new WaveOut();
+                waveOut = new WaveOutEvent();
                 waveOut.PlaybackStopped += DeviceOut_PlaybackStopped;
                 waveOut.Init(waveProvider);
                 waveOut.DeviceNumber = 0;
