@@ -75,6 +75,7 @@ namespace MDPlayer
         private int nsfDMCmask = 0;
         private int nsfFDSmask = 0;
         private int nsfMMC5mask = 0;
+        private int nsfVRC6mask = 0;
         private int nsfVRC7mask = 0;
 
         public ChipLEDs chipLED = new ChipLEDs();
@@ -3751,38 +3752,44 @@ namespace MDPlayer
 
         public void setNESMask(int chipID, int ch)
         {
-            switch (ch)
+            if (chipID == 0)
             {
-                case 0:
-                case 1:
-                    nsfAPUmask |= 1 << ch;
-                    if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                    nsfDMCmask |= 1 << (ch - 2);
-                    if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
-                    break;
+                switch (ch)
+                {
+                    case 0:
+                    case 1:
+                        nsfAPUmask |= 1 << ch;
+                        if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        nsfDMCmask |= 1 << (ch - 2);
+                        if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
+                        break;
+                }
             }
             mds.setNESMask(chipID, ch);
         }
 
         public void resetNESMask(int chipID, int ch)
         {
-            switch (ch)
+            if (chipID == 0)
             {
-                case 0:
-                case 1:
-                    nsfAPUmask &= ~(1 << ch);
-                    if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                    nsfDMCmask &= ~(1 << (ch - 2));
-                    if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
-                    break;
+                switch (ch)
+                {
+                    case 0:
+                    case 1:
+                        nsfAPUmask &= ~(1 << ch);
+                        if (nes_apu != null) nes_apu.SetMask(nsfAPUmask);
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        nsfDMCmask &= ~(1 << (ch - 2));
+                        if (nes_dmc != null) nes_dmc.SetMask(nsfDMCmask);
+                        break;
+                }
             }
             mds.resetNESMask(chipID, ch);
         }
@@ -3847,6 +3854,20 @@ namespace MDPlayer
         {
             maskChDMG[chipID][ch] = false;
             mds.resetDMGMask((byte)chipID, ch);
+        }
+
+        public void setVRC6Mask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            nsfVRC6mask |= 1 << ch;
+            if (nes_vrc6 != null) nes_vrc6.SetMask(nsfVRC6mask);
+        }
+
+        public void resetVRC6Mask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            nsfVRC6mask &= ~(1 << ch);
+            if (nes_vrc6 != null) nes_vrc6.SetMask(nsfVRC6mask);
         }
 
 

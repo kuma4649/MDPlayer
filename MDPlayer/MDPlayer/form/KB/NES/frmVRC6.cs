@@ -23,7 +23,7 @@ namespace MDPlayer.form
         private int chipID = 0;
         private int zoom = 1;
         private MDChipParams.VRC6 newParam = null;
-        private MDChipParams.VRC6 oldParam = new MDChipParams.VRC6();
+        private MDChipParams.VRC6 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmVRC6(frmMain frm, int chipID, int zoom, MDChipParams.VRC6 newParam, MDChipParams.VRC6 oldParam)
@@ -110,8 +110,26 @@ namespace MDPlayer.form
             //int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
 
+            if (e.Button == MouseButtons.Right)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    //マスク解除
+                    parent.ResetChannelMask(EnmChip.VRC6, chipID, i);
+                }
+
+                return;
+            }
+
             int ch = (py / 8) - 1;
             if (ch < 0) return;
+            ch /= 2;
+            if (e.Button == MouseButtons.Left)
+            {
+                //マスク
+                parent.SetChannelMask(EnmChip.VRC6, chipID, ch);
+                return;
+            }
 
         }
 
@@ -173,6 +191,7 @@ namespace MDPlayer.form
                     DrawBuff.font4Int2(frameBuffer, 6 * 4, ch * 16 + 16, 0, 2, ref oyc.kf, nyc.kf);
                     DrawBuff.font4Int2(frameBuffer, 10 * 4, ch * 16 + 16, 0, 2, ref oyc.volumeL, nyc.volumeL);
                     DrawBuff.Volume(frameBuffer, 256, 8 + ch * 2 * 8, 0, ref oyc.volume, nyc.volume, 0);
+                    DrawBuff.ChVRC6(frameBuffer, ch, ref oldParam.channels[ch].mask, newParam.channels[ch].mask, 0);
                 }
                 else
                 {
@@ -181,6 +200,7 @@ namespace MDPlayer.form
                     DrawBuff.drawNESSw(frameBuffer, 55 * 4, ch * 16 + 16
                         , ref oldParam.channels[ch].bit[1], newParam.channels[ch].bit[1]);
                     DrawBuff.font4Int1(frameBuffer, 62 * 4, ch * 16 + 16, 0, ref oyc.sadr, nyc.sadr);
+                    DrawBuff.ChVRC6(frameBuffer, ch, ref oldParam.channels[ch].mask, newParam.channels[ch].mask, 0);
                 }
 
                 DrawBuff.drawNESSw(frameBuffer, 13 * 4 , ch * 16 + 16

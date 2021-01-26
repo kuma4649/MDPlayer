@@ -1852,6 +1852,17 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChVRC6(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChVRC6_P(screen, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
 
 
 
@@ -4028,6 +4039,26 @@ namespace MDPlayer
                     break;
                 case 3:
                     screen.drawByteArray(0, 32, rType[tp * 2 + (mask ? 1 : 0)], 128, 96, 8, 24, 8);
+                    break;
+            }
+        }
+
+        private static void ChVRC6_P(FrameBuffer screen, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            switch (ch)
+            {
+                case 0:
+                    screen.drawByteArray(0, 8, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 8, mask ? 1 : 0, "1");
+                    break;
+                case 1:
+                    screen.drawByteArray(0, 24, rType[tp * 2 + (mask ? 1 : 0)], 128, 48, 8, 16, 8);
+                    drawFont8(screen, 16, 24, mask ? 1 : 0, "2");
+                    break;
+                case 2:
+                    screen.drawByteArray(0, 40, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 16, 16, 8);
                     break;
             }
         }
