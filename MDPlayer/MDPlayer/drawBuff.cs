@@ -1864,6 +1864,17 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChN163(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+
+            ChN163_P(screen, ch, nm == null ? false : (bool)nm, tp);
+            om = nm;
+        }
 
 
 
@@ -4061,6 +4072,14 @@ namespace MDPlayer
                     screen.drawByteArray(0, 40, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 16, 16, 8);
                     break;
             }
+        }
+
+        private static void ChN163_P(FrameBuffer screen, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(0, ch * 8 * 3 + 8, rType[tp * 2 + (mask ? 1 : 0)], 128, 112, 0, 16, 8);
+            drawFont8(screen, 16, ch * 8 * 3 + 8, mask ? 1 : 0, (ch + 1).ToString());
         }
 
 

@@ -941,6 +941,11 @@ namespace MDPlayer.form
                     frmVRC7[chipID].Close();
                     setting.location.OpenVrc7[chipID] = true;
                 }
+                if (frmN106[chipID] != null && !frmN106[chipID].isClosed)
+                {
+                    frmN106[chipID].Close();
+                    setting.location.OpenN106[chipID] = true;
+                }
                 if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed)
                 {
                     frmNESDMC[chipID].Close();
@@ -3541,6 +3546,11 @@ namespace MDPlayer.form
                 else return;
             }
 
+            oldParam.n106[chipID] = new MDChipParams.N106();
+            for (int i = 0; i < oldParam.n106[chipID].channels.Length; i++)
+            {
+                oldParam.n106[chipID].channels[i].mask = null;
+            }
             frmN106[chipID] = new frmN106(this, chipID, setting.other.Zoom, newParam.n106[chipID], oldParam.n106[chipID]);
 
             if (setting.location.PosN106[chipID] == System.Drawing.Point.Empty)
@@ -4617,6 +4627,7 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.PPZ8, chipID, ch, newParam.ppz8[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.DMG, chipID, ch, newParam.dmg[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 3; ch++) ForceChannelMask(EnmChip.VRC6, chipID, ch, newParam.vrc6[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.N163, chipID, ch, newParam.n106[chipID].channels[ch].mask);
                     ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
@@ -7127,6 +7138,17 @@ namespace MDPlayer.form
                         newParam.vrc6[chipID].channels[ch].mask = !newParam.vrc6[chipID].channels[ch].mask;
                     }
                     break;
+                case EnmChip.N163:
+                    if (ch >= 0 && ch < 8)
+                    {
+                        if (newParam.n106[chipID].channels[ch].mask == false || newParam.n106[chipID].channels[ch].mask == null)
+                            Audio.setN163Mask(chipID, ch);
+                        else
+                            Audio.resetN163Mask(chipID, ch);
+
+                        newParam.n106[chipID].channels[ch].mask = !newParam.n106[chipID].channels[ch].mask;
+                    }
+                    break;
             }
         }
 
@@ -7303,6 +7325,10 @@ namespace MDPlayer.form
                 case EnmChip.VRC6:
                     newParam.vrc6[chipID].channels[ch].mask = false;
                     Audio.resetVRC6Mask(chipID, ch);
+                    break;
+                case EnmChip.N163:
+                    newParam.n106[chipID].channels[ch].mask = false;
+                    Audio.resetN163Mask(chipID, ch);
                     break;
 
             }
@@ -7575,6 +7601,14 @@ namespace MDPlayer.form
                     newParam.vrc6[chipID].channels[ch].mask = mask;
                     oldParam.vrc6[chipID].channels[ch].mask = !mask;
                     break;
+                case EnmChip.N163:
+                    if (mask == true)
+                        Audio.setN163Mask(chipID, ch);
+                    else
+                        Audio.resetN163Mask(chipID, ch);
+                    newParam.n106[chipID].channels[ch].mask = mask;
+                    oldParam.n106[chipID].channels[ch].mask = !mask;
+                    break;
             }
         }
 
@@ -7603,7 +7637,7 @@ namespace MDPlayer.form
                 else
                 {
                     newParam.nesdmc[chipID].triChannel.mask = false;
-                    Audio.setDMCMask(chipID, 0);
+                    Audio.resetDMCMask(chipID, 0);
                 }
 
             }
@@ -7617,7 +7651,7 @@ namespace MDPlayer.form
                 else
                 {
                     newParam.nesdmc[chipID].noiseChannel.mask = false;
-                    Audio.setDMCMask(chipID, 1);
+                    Audio.resetDMCMask(chipID, 1);
                 }
 
             }
@@ -7631,7 +7665,7 @@ namespace MDPlayer.form
                 else
                 {
                     newParam.nesdmc[chipID].dmcChannel.mask = false;
-                    Audio.setDMCMask(chipID, 2);
+                    Audio.resetDMCMask(chipID, 2);
                 }
 
             }

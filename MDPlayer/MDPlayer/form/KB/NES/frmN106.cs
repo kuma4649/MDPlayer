@@ -23,7 +23,7 @@ namespace MDPlayer.form
         private int chipID = 0;
         private int zoom = 1;
         private MDChipParams.N106 newParam = null;
-        private MDChipParams.N106 oldParam = new MDChipParams.N106();
+        private MDChipParams.N106 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmN106(frmMain frm, int chipID, int zoom, MDChipParams.N106 newParam, MDChipParams.N106 oldParam)
@@ -112,13 +112,30 @@ namespace MDPlayer.form
 
             int ch = (py / 8) - 1;
             if (ch < 0) return;
+            int m = ch % 3;
             ch /= 3;
 
-            //音色で右クリックした場合は何もしない
-            if (e.Button == MouseButtons.Right) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    //マスク解除
+                    parent.ResetChannelMask(EnmChip.N163, chipID, i);
+                }
+                return;
+            }
 
-            //クリップボードに音色をコピーする
-            parent.getInstCh(EnmChip.N163, ch, chipID);
+            if (m != 0)
+            {
+                //クリップボードに音色をコピーする
+                parent.getInstCh(EnmChip.N163, ch, chipID);
+            }
+            else
+            {
+                //マスク
+                parent.SetChannelMask(EnmChip.N163, chipID, ch);
+                return;
+            }
         }
 
         public void screenInit()
@@ -177,6 +194,7 @@ namespace MDPlayer.form
                         }
                     }
                 }
+
             }
         }
 
@@ -210,6 +228,7 @@ namespace MDPlayer.form
 
                 if (oyc.aryWave16bit == null && nyc.aryWave16bit!=null) oyc.aryWave16bit = new short[nyc.aryWave16bit.Length];
                 DrawBuff.WaveFormToN106(frameBuffer, 10 * 4, ch * 24 + 16, ref oyc.aryWave16bit, nyc.aryWave16bit);
+                DrawBuff.ChN163(frameBuffer, ch, ref oldParam.channels[ch].mask, newParam.channels[ch].mask, 0);
 
             }
         }

@@ -77,6 +77,7 @@ namespace MDPlayer
         private int nsfMMC5mask = 0;
         private int nsfVRC6mask = 0;
         private int nsfVRC7mask = 0;
+        private int nsfN163mask = 0;
 
         public ChipLEDs chipLED = new ChipLEDs();
 
@@ -3868,6 +3869,20 @@ namespace MDPlayer
             if (chipID != 0) return;
             nsfVRC6mask &= ~(1 << ch);
             if (nes_vrc6 != null) nes_vrc6.SetMask(nsfVRC6mask);
+        }
+
+        public void setN163Mask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            nsfN163mask |= 1 << ch;
+            if (nes_n106 != null) nes_n106.SetMask(nsfN163mask);
+        }
+
+        public void resetN163Mask(int chipID, int ch)
+        {
+            if (chipID != 0) return;
+            nsfN163mask &= ~(1 << ch);
+            if (nes_n106 != null) nes_n106.SetMask(nsfN163mask);
         }
 
 

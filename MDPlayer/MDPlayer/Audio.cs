@@ -7519,6 +7519,10 @@ namespace MDPlayer
             chipRegister.setVRC6Mask(chipID, ch);
         }
 
+        public static void setN163Mask(int chipID, int ch)
+        {
+            chipRegister.setN163Mask(chipID, ch);
+        }
 
 
 
@@ -7726,6 +7730,10 @@ namespace MDPlayer
             chipRegister.resetVRC6Mask(chipID, ch);
         }
 
+        public static void resetN163Mask(int chipID, int ch)
+        {
+            chipRegister.resetN163Mask(chipID, ch);
+        }
     }
 
 
