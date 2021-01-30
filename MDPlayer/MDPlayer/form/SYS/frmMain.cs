@@ -799,6 +799,7 @@ namespace MDPlayer.form
                 setting.location.OpenMMC5[chipID] = false;
                 setting.location.OpenVrc6[chipID] = false;
                 setting.location.OpenVrc7[chipID] = false;
+                setting.location.OpenN106[chipID] = false;
                 setting.location.OpenOKIM6258[chipID] = false;
                 setting.location.OpenOKIM6295[chipID] = false;
                 setting.location.OpenRf5c164[chipID] = false;

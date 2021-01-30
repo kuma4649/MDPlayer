@@ -2626,6 +2626,10 @@ namespace MDPlayer
                 }
             }
 
+#if DEBUG
+            Console.WriteLine("OPNB P:{0:X02} A:{1:X02} D:{2:X02}", dPort, dAddr, dData);
+#endif 
+
             if ((model == EnmModel.RealModel && ctYM2610[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2610[chipID].UseScci))
             {
                 //fmRegisterYM2610[dPort][dAddr] = dData;

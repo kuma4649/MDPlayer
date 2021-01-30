@@ -4033,7 +4033,8 @@ namespace MDPlayer
                         chip.Reset = sn76489.Reset;
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.SN76489Volume;
-                        chip.Clock = ((vgm)driverVirtual).SN76489ClockValue;
+                        chip.Clock = ((vgm)driverVirtual).SN76489ClockValue
+                            | (((vgm)driverVirtual).SN76489NGPFlag ? 0x80000000 : 0);
                         chip.Option = null;
                         if (i == 0) chipLED.PriDCSG = 1;
                         else chipLED.SecDCSG = 1;
@@ -5180,6 +5181,18 @@ namespace MDPlayer
                     chipRegister.writeYMF262Clock(1, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
 
+                if (useChip.Contains(EnmChip.YM2610))
+                {
+                    //control2 レジスタのパンをセンターに予め設定
+                    chipRegister.setYM2610Register(0, 0, 0x11, 0xc0, EnmModel.RealModel);
+                    chipRegister.setYM2610Register(0, 0, 0x11, 0xc0, EnmModel.VirtualModel);
+                }
+                if (useChip.Contains(EnmChip.S_YM2610))
+                {
+                    //control2 レジスタのパンをセンターに予め設定
+                    chipRegister.setYM2610Register(1, 0, 0x11, 0xc0, EnmModel.RealModel);
+                    chipRegister.setYM2610Register(1, 0, 0x11, 0xc0, EnmModel.VirtualModel);
+                }
                 if (useChip.Contains(EnmChip.C140))
                     chipRegister.writeC140Type(0, ((vgm)driverVirtual).C140Type, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.SEGAPCM))

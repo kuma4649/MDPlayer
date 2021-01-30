@@ -77,6 +77,7 @@ namespace MDPlayer
         public bool YMZ280BDualChipFlag;
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
+        public bool SN76489NGPFlag;
         public bool RF5C68DualChipFlag;
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
@@ -1961,6 +1962,7 @@ namespace MDPlayer
             {
                 SN76489ClockValue = SN76489clock & 0x3fffffff;
                 SN76489DualChipFlag = (SN76489clock & 0x40000000) != 0;
+                SN76489NGPFlag = (SN76489clock & 0x80000000) != 0;
                 if (SN76489DualChipFlag) chips.Add("SN76489x2");
                 else chips.Add("SN76489");
             }
