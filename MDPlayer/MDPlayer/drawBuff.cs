@@ -2605,18 +2605,18 @@ namespace MDPlayer
             if (ot1 != nt1)
             {
                 //drawFont4Int2(mainScreen, 4 * 30 + c * 4 * 11, 0, 0, 3, nt1);
-                DrawBuff.drawFont8Int2(screen, 8 * 3 + c * 8 * 11, 16, 0, 3, nt1);
+                DrawBuff.drawFont8Int2(screen, 8 * 3-16 + c * 8 * 11+1, 1, 0, 3, nt1);
                 ot1 = nt1;
             }
             if (ot2 != nt2)
             {
-                DrawBuff.drawFont8Int2(screen, 8 * 7 + c * 8 * 11, 16, 0, 2, nt2);
+                DrawBuff.drawFont8Int2(screen, 8 * 7-16 + c * 8 * 11+1, 1, 0, 2, nt2);
                 //drawFont4Int2(mainScreen, 4 * 34 + c * 4 * 11, 0, 0, 2, nt2);
                 ot2 = nt2;
             }
             if (ot3 != nt3)
             {
-                DrawBuff.drawFont8Int2(screen, 8 * 10 + c * 8 * 11, 16, 0, 2, nt3);
+                DrawBuff.drawFont8Int2(screen, 8 * 10-16 + c * 8 * 11+1, 1, 0, 2, nt3);
                 //drawFont4Int2(mainScreen, 4 * 37 + c * 4 * 11, 0, 0, 2, nt3);
                 ot3 = nt3;
             }
@@ -2712,9 +2712,9 @@ namespace MDPlayer
                 return;
             }
 
-            drawFont8(mainScreen, 32 + c * 16, 24, 0, "  ");
-            drawFont8(mainScreen, 32 + c * 16, 32, 0, "  ");
-            drawButtonP(mainScreen,32 + c * 16, 24, nt * 18 + c, nm);
+            drawFont8(mainScreen, 17 + c * 16, 9, 0, "  ");
+            drawFont8(mainScreen, 17 + c * 16, 17, 0, "  ");
+            drawButtonP(mainScreen,17 + c * 16, 9, nt * 18 + c, nm);
 
             ot = nt;
             om = nm;

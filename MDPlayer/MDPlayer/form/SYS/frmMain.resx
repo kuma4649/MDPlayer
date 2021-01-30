@@ -129,7 +129,7 @@
     <value>0, 0</value>
   </data>
   <data name="pbScreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>318, 40</value>
+    <value>318, 24</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pbScreen.TabIndex" type="System.Int32, mscorlib">
@@ -868,7 +868,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>318, 40</value>
+    <value>318, 24</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1201,7 +1201,10 @@
 </value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>336, 261</value>
+    <value>334, 63</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>334, 63</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>MDPlayer</value>

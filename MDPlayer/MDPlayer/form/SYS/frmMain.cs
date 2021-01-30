@@ -1049,7 +1049,7 @@ namespace MDPlayer.form
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
 
-            if (py < 24)
+            if (py < 9)
             {
                 for (int n = 0; n < newButton.Length; n++)
                 {
@@ -1061,7 +1061,7 @@ namespace MDPlayer.form
             for (int n = 0; n < newButton.Length; n++)
             {
                 //if (px >= 320 - (16 - n) * 16 && px < 320 - (15 - n) * 16) newButton[n] = 1;
-                if (px >= n * 16 + 32 && px < n * 16 + 48) newButton[n] = 1;
+                if (px >= n * 16 + 17 && px < n * 16 + 33) newButton[n] = 1;
                 else newButton[n] = 0;
             }
 
@@ -1087,208 +1087,208 @@ namespace MDPlayer.form
             int px = e.Location.X / setting.other.Zoom;
             int py = e.Location.Y / setting.other.Zoom;
 
-            if (py < 16)
-            {
-                if (px < 8 * 2) return;
-                if (px < 8 * 5 + 4)
-                {
-                    if (py < 8) tsmiPAY8910_Click(null, null);
-                    else tsmiSAY8910_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 7)
-                {
-                    if (py < 8) tsmiPOPLL_Click(null, null);
-                    else tsmiSOPLL_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 9)
-                {
-                    if (py < 8) tsmiPOPN_Click(null, null);
-                    else tsmiSOPN_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 11)
-                {
-                    if (py < 8) tsmiPOPN2_Click(null, null);
-                    else tsmiSOPN2_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 13 + 4)
-                {
-                    if (py < 8) tsmiPOPNA_Click(null, null);
-                    else tsmiSOPNA_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 16)
-                {
-                    if (py < 8) tsmiPOPNB_Click(null, null);
-                    else tsmiSOPNB_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 18 + 4)
-                {
-                    if (py < 8) tsmiPOPM_Click(null, null);
-                    else tsmiSOPM_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 20 + 4)
-                {
-                    if (py < 8) tsmiPDCSG_Click(null, null);
-                    else tsmiSDCSG_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 23)
-                {
-                    if (py < 8) tsmiPRF5C164_Click(null, null);
-                    else tsmiSRF5C164_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 25 + 4)
-                {
-                    return;
-                }
-                if (px < 8 * 27 + 4)
-                {
-                    if (py < 8) tsmiPOKIM6258_Click(null, null);
-                    else tsmiSOKIM6258_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 30)
-                {
-                    if (py < 8) tsmiPOKIM6295_Click(null, null);
-                    else tsmiSOKIM6295_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 32 + 4)
-                {
-                    if (py < 8) tsmiPC140_Click(null, null);
-                    else tsmiSC140_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 35)
-                {
-                    if (py < 8) tsmiPSegaPCM_Click(null, null);
-                    else tsmiSSegaPCM_Click(null, null);
-                    return;
-                }
-                if (px < 8 * 37 + 4)
-                {
-                    if (py < 8) tsmiPHuC6280_Click(null, null);
-                    else tsmiSHuC6280_Click(null, null);
-                    return;
-                }
-                return;
-            }
+            //if (py < 16)
+            //{
+            //    if (px < 8 * 2) return;
+            //    if (px < 8 * 5 + 4)
+            //    {
+            //        if (py < 8) tsmiPAY8910_Click(null, null);
+            //        else tsmiSAY8910_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 7)
+            //    {
+            //        if (py < 8) tsmiPOPLL_Click(null, null);
+            //        else tsmiSOPLL_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 9)
+            //    {
+            //        if (py < 8) tsmiPOPN_Click(null, null);
+            //        else tsmiSOPN_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 11)
+            //    {
+            //        if (py < 8) tsmiPOPN2_Click(null, null);
+            //        else tsmiSOPN2_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 13 + 4)
+            //    {
+            //        if (py < 8) tsmiPOPNA_Click(null, null);
+            //        else tsmiSOPNA_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 16)
+            //    {
+            //        if (py < 8) tsmiPOPNB_Click(null, null);
+            //        else tsmiSOPNB_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 18 + 4)
+            //    {
+            //        if (py < 8) tsmiPOPM_Click(null, null);
+            //        else tsmiSOPM_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 20 + 4)
+            //    {
+            //        if (py < 8) tsmiPDCSG_Click(null, null);
+            //        else tsmiSDCSG_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 23)
+            //    {
+            //        if (py < 8) tsmiPRF5C164_Click(null, null);
+            //        else tsmiSRF5C164_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 25 + 4)
+            //    {
+            //        return;
+            //    }
+            //    if (px < 8 * 27 + 4)
+            //    {
+            //        if (py < 8) tsmiPOKIM6258_Click(null, null);
+            //        else tsmiSOKIM6258_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 30)
+            //    {
+            //        if (py < 8) tsmiPOKIM6295_Click(null, null);
+            //        else tsmiSOKIM6295_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 32 + 4)
+            //    {
+            //        if (py < 8) tsmiPC140_Click(null, null);
+            //        else tsmiSC140_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 35)
+            //    {
+            //        if (py < 8) tsmiPSegaPCM_Click(null, null);
+            //        else tsmiSSegaPCM_Click(null, null);
+            //        return;
+            //    }
+            //    if (px < 8 * 37 + 4)
+            //    {
+            //        if (py < 8) tsmiPHuC6280_Click(null, null);
+            //        else tsmiSHuC6280_Click(null, null);
+            //        return;
+            //    }
+            //    return;
+            //}
 
-            if (py < 24) return;
+            if (py < 9) return;
 
             // ボタンの判定
-
-            if (px >= 0 * 16 + 32 && px < 1 * 16 + 32)
+            int x=17;
+            if (px >= 0 * 16 + x && px < 1 * 16 + x)
             {
                 tsmiOption_Click(null, null);
                 return;
             }
 
-            if (px >= 1 * 16 + 32 && px < 2 * 16 + 32)
+            if (px >= 1 * 16 + x && px < 2 * 16 + x)
             {
                 tsmiStop_Click(null, null);
                 return;
             }
 
-            if (px >= 2 * 16 + 32 && px < 3 * 16 + 32)
+            if (px >= 2 * 16 + x && px < 3 * 16 + x)
             {
                 tsmiPause_Click(null,null);
                 return;
             }
 
-            if (px >= 3 * 16 + 32 && px < 4 * 16 + 32)
+            if (px >= 3 * 16 + x && px < 4 * 16 + x)
             {
                 tsmiFadeOut_Click(null,null);
                 return;
             }
 
-            if (px >= 4 * 16 + 32 && px < 5 * 16 + 32)
+            if (px >= 4 * 16 + x && px < 5 * 16 + x)
             {
                 prev();
                 oldParam = new MDChipParams();
                 return;
             }
 
-            if (px >= 5 * 16 + 32 && px < 6 * 16 + 32)
+            if (px >= 5 * 16 + x && px < 6 * 16 + x)
             {
                 tsmiSlow_Click(null, null);
                 return;
             }
 
-            if (px >= 6 * 16 + 32 && px < 7 * 16 + 32)
+            if (px >= 6 * 16 + x && px < 7 * 16 + x)
             {
                 tsmiPlay_Click(null, null);
                 return;
             }
 
-            if (px >= 7 * 16 + 32 && px < 8 * 16 + 32)
+            if (px >= 7 * 16 + x && px < 8 * 16 + x)
             {
                 tsmiFf_Click(null, null);
                 return;
             }
 
-            if (px >= 8 * 16 + 32 && px < 9 * 16 + 32)
+            if (px >= 8 * 16 + x && px < 9 * 16 + x)
             {
                 tsmiNext_Click(null, null);
                 return;
             }
 
-            if (px >= 9 * 16 + 32 && px < 10 * 16 + 32)
+            if (px >= 9 * 16 + x && px < 10 * 16 + x)
             {
                 tsmiPlayMode_Click(null, null);
                 return;
             }
 
-            if (px >= 10 * 16 + 32 && px < 11 * 16 + 32)
+            if (px >= 10 * 16 + x && px < 11 * 16 + x)
             {
                 tsmiOpenFile_Click(null, null);
                 return;
             }
 
-            if (px >= 11 * 16 + 32 && px < 12 * 16 + 32)
+            if (px >= 11 * 16 + x && px < 12 * 16 + x)
             {
                 tsmiPlayList_Click(null, null);
                 return;
             }
 
-            if (px >= 12 * 16 + 32 && px < 13 * 16 + 32)
+            if (px >= 12 * 16 + x && px < 13 * 16 + x)
             {
                 tsmiOpenInfo_Click(null, null);
                 return;
             }
 
-            if (px >= 13 * 16 + 32 && px < 14 * 16 + 32)
+            if (px >= 13 * 16 + x && px < 14 * 16 + x)
             {
                 tsmiOpenMixer_Click(null, null);
                 return;
             }
 
-            if (px >= 14 * 16 + 32 && px < 15 * 16 + 32)
+            if (px >= 14 * 16 + x && px < 15 * 16 + x)
             {
                 tsmiKBrd_Click(null,null);
                 return;
             }
 
-            if (px >= 15 * 16 + 32 && px < 16 * 16 + 32)
+            if (px >= 15 * 16 + x && px < 16 * 16 + x)
             {
                 tsmiVST_Click(null,null);
                 return;
             }
 
-            if (px >= 16 * 16 + 32 && px < 17 * 16 + 32)
+            if (px >= 16 * 16 + x && px < 17 * 16 + x)
             {
                 tsmiMIDIkbd_Click(null,null);
                 return;
             }
 
-            if (px >= 17 * 16 + 32 && px < 18 * 16 + 32)
+            if (px >= 17 * 16 + x && px < 18 * 16 + x)
             {
                 tsmiChangeZoom_Click(null, null);
                 return;
@@ -4301,43 +4301,43 @@ namespace MDPlayer.form
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
 
-            byte[] chips = Audio.GetChipStatus();
-            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
-            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
-            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
-            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
-            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
-            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
-            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
-            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
-            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
-            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
-            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
-            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
-            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
-            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
-            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
+            //byte[] chips = Audio.GetChipStatus();
+            //DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            //DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            //DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            //DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            //DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            //DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            //DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            //DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            //DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            //DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            //DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            //DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            //DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            //DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            //DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
 
-            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
-            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
-            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
-            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
-            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
-            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
-            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
-            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
-            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
-            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
-            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
-            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
-            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
-            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
-            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
+            //DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            //DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            //DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            //DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            //DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            //DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            //DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            //DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            //DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            //DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            //DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            //DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            //DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            //DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            //DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 1, 9, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 321-16, 9, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 1, 17, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 321-16, 17, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
             if (setting.Debug_DispFrameCounter)
             {
@@ -4354,7 +4354,29 @@ namespace MDPlayer.form
 
             Audio.updateVol();
 
+            string newInfo;
+            GD3 gd3 = Audio.GetGD3();
+            if (gd3 != null)
+            {
+                string title = gd3.TrackName;
+                string usedChips = gd3.UsedChips;
+                newInfo = string.Format("MDPlayer - [{0}] {1}", usedChips, title);
+            }
+            else
+            {
+                newInfo = "MDPlayer";
+            }
 
+            this.Invoke((Action<string>)SetTitle,newInfo);
+
+        }
+
+        private void SetTitle(string newInfo)
+        {
+            if (this.Text != newInfo)
+            {
+                this.Text = newInfo;
+            }
         }
 
         private void screenInit()
@@ -4391,43 +4413,43 @@ namespace MDPlayer.form
             oldParam.chipLED.SecOPLL = 255;
             oldParam.chipLED.SecHuC8 = 255;
 
-            byte[] chips = Audio.GetChipStatus();
-            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
-            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
-            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
-            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
-            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
-            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
-            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
-            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
-            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
-            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
-            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
-            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
-            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
-            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
-            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
+            //byte[] chips = Audio.GetChipStatus();
+            //DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 0 * 8, 0, ref oldParam.chipLED.PriOPN, chips[0]);
+            //DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 0 * 8, 1, ref oldParam.chipLED.PriOPN2, chips[1]);
+            //DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 0 * 8, 2, ref oldParam.chipLED.PriOPNA, chips[2]);
+            //DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 0 * 8, 3, ref oldParam.chipLED.PriOPNB, chips[3]);
+            //DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 0 * 8, 4, ref oldParam.chipLED.PriOPM, chips[4]);
+            //DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 0 * 8, 5, ref oldParam.chipLED.PriDCSG, chips[5]);
+            //DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 0 * 8, 6, ref oldParam.chipLED.PriRF5C, chips[6]);
+            //DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 0 * 8, 7, ref oldParam.chipLED.PriPWM, chips[7]);
+            //DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 0 * 8, 8, ref oldParam.chipLED.PriOKI5, chips[8]);
+            //DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 0 * 8, 9, ref oldParam.chipLED.PriOKI9, chips[9]);
+            //DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 0 * 8, 10, ref oldParam.chipLED.PriC140, chips[10]);
+            //DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 0 * 8, 11, ref oldParam.chipLED.PriSPCM, chips[11]);
+            //DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 0 * 8, 12, ref oldParam.chipLED.PriAY10, chips[12]);
+            //DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 0 * 8, 13, ref oldParam.chipLED.PriOPLL, chips[13]);
+            //DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.PriHuC8, chips[14]);
 
-            DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
-            DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
-            DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
-            DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
-            DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
-            DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
-            DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
-            DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
-            DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
-            DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
-            DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
-            DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
-            DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
-            DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
-            DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
+            //DrawBuff.drawChipName(screen.mainScreen, 14 * 4, 1 * 8, 0, ref oldParam.chipLED.SecOPN, chips[128 + 0]);
+            //DrawBuff.drawChipName(screen.mainScreen, 18 * 4, 1 * 8, 1, ref oldParam.chipLED.SecOPN2, chips[128 + 1]);
+            //DrawBuff.drawChipName(screen.mainScreen, 23 * 4, 1 * 8, 2, ref oldParam.chipLED.SecOPNA, chips[128 + 2]);
+            //DrawBuff.drawChipName(screen.mainScreen, 28 * 4, 1 * 8, 3, ref oldParam.chipLED.SecOPNB, chips[128 + 3]);
+            //DrawBuff.drawChipName(screen.mainScreen, 33 * 4, 1 * 8, 4, ref oldParam.chipLED.SecOPM, chips[128 + 4]);
+            //DrawBuff.drawChipName(screen.mainScreen, 37 * 4, 1 * 8, 5, ref oldParam.chipLED.SecDCSG, chips[128 + 5]);
+            //DrawBuff.drawChipName(screen.mainScreen, 42 * 4, 1 * 8, 6, ref oldParam.chipLED.SecRF5C, chips[128 + 6]);
+            //DrawBuff.drawChipName(screen.mainScreen, 47 * 4, 1 * 8, 7, ref oldParam.chipLED.SecPWM, chips[128 + 7]);
+            //DrawBuff.drawChipName(screen.mainScreen, 51 * 4, 1 * 8, 8, ref oldParam.chipLED.SecOKI5, chips[128 + 8]);
+            //DrawBuff.drawChipName(screen.mainScreen, 56 * 4, 1 * 8, 9, ref oldParam.chipLED.SecOKI9, chips[128 + 9]);
+            //DrawBuff.drawChipName(screen.mainScreen, 61 * 4, 1 * 8, 10, ref oldParam.chipLED.SecC140, chips[128 + 10]);
+            //DrawBuff.drawChipName(screen.mainScreen, 66 * 4, 1 * 8, 11, ref oldParam.chipLED.SecSPCM, chips[128 + 11]);
+            //DrawBuff.drawChipName(screen.mainScreen, 4 * 4, 1 * 8, 12, ref oldParam.chipLED.SecAY10, chips[128 + 12]);
+            //DrawBuff.drawChipName(screen.mainScreen, 9 * 4, 1 * 8, 13, ref oldParam.chipLED.SecOPLL, chips[128 + 13]);
+            //DrawBuff.drawChipName(screen.mainScreen, 71 * 4, 0 * 8, 14, ref oldParam.chipLED.SecHuC8, chips[128 + 14]);
 
-            DrawBuff.drawFont4(screen.mainScreen, 0, 24, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 24, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 0, 32, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
-            DrawBuff.drawFont4(screen.mainScreen, 12, 32, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 1, 9, 1, Audio.GetIsDataBlock(EnmModel.VirtualModel) ? "VD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 321-16, 9, 1, Audio.GetIsPcmRAMWrite(EnmModel.VirtualModel) ? "VP" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 1, 17, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
+            DrawBuff.drawFont4(screen.mainScreen, 321-16, 17, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
         }
 

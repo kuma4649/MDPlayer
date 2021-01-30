@@ -175,6 +175,7 @@ namespace MDPlayer.form
         public void screenChangeParams()
         {
             MDSound.multipcm._MultiPCM MultiPCMRegister = Audio.GetMultiPCMRegister(chipID);
+            if (MultiPCMRegister == null) return;
 
             for (int ch = 0; ch < 28; ch++)
             {
