@@ -4681,7 +4681,11 @@ namespace MDPlayer.form
                     if (Audio.chipLED.SecOPN2 != 0) OpenFormYM2612(1, true); else CloseFormYM2612(1);
 
                     if (Audio.chipLED.PriDCSG != 0) OpenFormSN76489(0, true); else CloseFormSN76489(0);
-                    if (Audio.chipLED.SecDCSG != 0) OpenFormSN76489(1, true); else CloseFormSN76489(1);
+                    if (Audio.chipLED.SecDCSG != 0)
+                    {
+                        if (!Audio.SN76489NGPFlag) OpenFormSN76489(1, true);
+                    }
+                    else CloseFormSN76489(1);
 
                     if (Audio.chipLED.PriPPZ8 != 0) OpenFormPPZ8(0, true); else CloseFormPPZ8(0);
                     if (Audio.chipLED.SecPPZ8 != 0) OpenFormPPZ8(1, true); else CloseFormPPZ8(1);

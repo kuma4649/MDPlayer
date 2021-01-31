@@ -110,36 +110,91 @@ namespace MDPlayer.form
         public void screenChangeParams()
         {
             int[] psgRegister = Audio.GetPSGRegister(chipID);
+            int[] psgRegister1 = null;
             int psgRegisterPan = Audio.GetPSGRegisterGGPanning(chipID);
             int[][] psgVol = Audio.GetPSGVolume(chipID);
-            if (psgRegister != null)
+            int[][] psgVol1 = null;
+            bool NGPFlag = Audio.SN76489NGPFlag;
+
+            if (NGPFlag && chipID==1)
             {
-                //Tone Ch
-                for (int ch = 0; ch < 3; ch++)
+                for (int ch = 0; ch < 4; ch++)
                 {
-                    if (psgRegister[ch * 2 + 1] != 15)
+                        newParam.channels[ch].note = -1;
+
+                    newParam.channels[ch].volumeL = 0;
+                    newParam.channels[ch].volumeR = 0;
+                    newParam.channels[ch].pan = 0;
+                }
+                //Noise Ch
+                newParam.channels[3].freq = 0;
+            }
+            else
+            {
+                if (psgRegister != null)
+                {
+                    if (NGPFlag)
                     {
-                        newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                        psgVol1 = Audio.GetPSGVolume(1);
+                        psgRegister1 = Audio.GetPSGRegister(1);
+
+                        //Tone Ch
+                        for (int ch = 0; ch < 3; ch++)
+                        {
+                            if (psgRegister[ch * 2 + 1] != 15)
+                            {
+                                newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                            }
+                            else
+                            {
+                                newParam.channels[ch].note = -1;
+                            }
+
+                            newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol1[ch][0]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeL,0),15)*0x10 
+                                + Math.Min(Math.Max(newParam.channels[ch].volumeR, 0), 15);
+                        }
+
+                        //Noise Ch
+                        newParam.channels[3].note = psgRegister1[6];
+                        newParam.channels[3].freq = psgRegister1[4];//ch3Freq
+                        newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol1[3][0]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeL, 0), 15) * 0x10 
+                            + Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15);
                     }
                     else
                     {
-                        newParam.channels[ch].note = -1;
+                        //Tone Ch
+                        for (int ch = 0; ch < 3; ch++)
+                        {
+                            if (psgRegister[ch * 2 + 1] != 15)
+                            {
+                                newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                            }
+                            else
+                            {
+                                newParam.channels[ch].note = -1;
+                            }
+
+                            newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol[ch][1]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].pan = (psgRegisterPan >> ch) & 0x11;
+                            newParam.channels[ch].pan = ((newParam.channels[ch].pan) & 0x1) | (newParam.channels[ch].pan >> 3);
+                        }
+
+                        //Noise Ch
+                        newParam.channels[3].note = psgRegister[6];
+                        newParam.channels[3].freq = psgRegister[4];//ch3Freq
+                        newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol[3][1]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].pan = (psgRegisterPan >> 3) & 0x11;
+                        newParam.channels[3].pan = ((newParam.channels[3].pan) & 0x1) | (newParam.channels[3].pan >> 3);
                     }
-
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol[ch][1]) / (15.0 / 19.0)), 0), 19);
-                    newParam.channels[ch].pan = (psgRegisterPan >> ch) & 0x11;
-                    newParam.channels[ch].pan = ((newParam.channels[ch].pan) & 0x1) | (newParam.channels[ch].pan >> 3);
                 }
-
-                //Noise Ch
-                newParam.channels[3].note = psgRegister[6];
-                newParam.channels[3].freq = psgRegister[4];//ch3Freq
-                newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
-                newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol[3][1]) / (15.0 / 19.0)), 0), 19);
-                newParam.channels[3].pan = (psgRegisterPan >> 3) & 0x11;
-                newParam.channels[3].pan = ((newParam.channels[3].pan) & 0x1) | (newParam.channels[3].pan >> 3);
             }
+
         }
 
         public void screenDrawParams()
@@ -148,6 +203,7 @@ namespace MDPlayer.form
             int tp = SN76489Type ? 1 : 0;
             MDChipParams.Channel osc;
             MDChipParams.Channel nsc;
+            bool NGPFlag = Audio.SN76489NGPFlag;
 
             for (int c = 0; c < 3; c++)
             {
@@ -158,7 +214,14 @@ namespace MDPlayer.form
                 DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref osc.note, nsc.note, tp);
                 DrawBuff.ChSN76489(frameBuffer, c, ref osc.mask, nsc.mask, tp);
-                DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+                if (NGPFlag)
+                {
+                    DrawBuff.PanType2(frameBuffer, c, ref osc.pan, nsc.pan, tp);
+                }
+                else
+                {
+                    DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+                }
             }
 
             osc = oldParam.channels[3];
@@ -167,7 +230,15 @@ namespace MDPlayer.form
             DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
             DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
             DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
-            DrawBuff.Pan(frameBuffer, 24, 8 + 3 * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+            if (NGPFlag)
+            {
+                DrawBuff.PanType2(frameBuffer, 3, ref osc.pan, nsc.pan, tp);
+
+            }
+            else
+            {
+                DrawBuff.Pan(frameBuffer, 24, 8 + 3 * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
+            }
             if (osc.freq != nsc.freq)
             {
                 DrawBuff.drawFont4(frameBuffer, 172, 32, 0, nsc.freq.ToString("0000"));
@@ -206,16 +277,23 @@ namespace MDPlayer.form
             {
                 int ch = (py / 8) - 1;
                 if (ch < 0) return;
+                
+                bool NGPFlag = Audio.SN76489NGPFlag;
 
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
                     parent.SetChannelMask(EnmChip.SN76489, chipID, ch);
+                    if(NGPFlag && chipID==0) parent.SetChannelMask(EnmChip.SN76489, 1, ch);
                     return;
                 }
 
                 //マスク解除
-                for (ch = 0; ch < 4; ch++) parent.ResetChannelMask(EnmChip.SN76489, chipID, ch);
+                for (ch = 0; ch < 4; ch++)
+                {
+                    parent.ResetChannelMask(EnmChip.SN76489, chipID, ch);
+                    if (NGPFlag && chipID == 0) parent.ResetChannelMask(EnmChip.SN76489, 1, ch);
+                }
                 return;
             }
 

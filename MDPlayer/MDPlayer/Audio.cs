@@ -4040,6 +4040,7 @@ namespace MDPlayer
                         else chipLED.SecDCSG = 1;
 
                         hiyorimiDeviceFlag |= (setting.SN76489Type.UseScci) ? 0x1 : 0x2;
+                        SN76489NGPFlag = ((vgm)driverVirtual).SN76489NGPFlag;
 
                         lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.SN76489 : EnmChip.S_SN76489);
@@ -5180,7 +5181,13 @@ namespace MDPlayer
                     chipRegister.setYMF262Register(1, 1,    5, 1, EnmModel.RealModel);//opl3mode
                     chipRegister.writeYMF262Clock(1, (int)((vgm)driverVirtual).YMF262ClockValue, EnmModel.RealModel);
                 }
-
+                if (SN76489NGPFlag)
+                {
+                    chipRegister.setSN76489Register(0, 0xe5, EnmModel.RealModel);//white noise mode 
+                    chipRegister.setSN76489Register(1, 0xe5, EnmModel.RealModel);//white noise mode 
+                    chipRegister.setSN76489Register(0, 0xe5, EnmModel.VirtualModel);//white noise mode 
+                    chipRegister.setSN76489Register(1, 0xe5, EnmModel.VirtualModel);//white noise mode 
+                }
                 if (useChip.Contains(EnmChip.YM2610))
                 {
                     //control2 レジスタのパンをセンターに予め設定
@@ -5349,6 +5356,8 @@ namespace MDPlayer
                 return Stopped;
             }
         }
+
+        public static bool SN76489NGPFlag { get; private set; } = false;
 
         public static void StepPlay(int Step)
         {
