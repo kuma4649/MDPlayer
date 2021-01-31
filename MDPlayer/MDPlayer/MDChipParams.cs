@@ -56,6 +56,7 @@ namespace MDPlayer
             public bool noise = false;//HuC6280
             public int nfrq = -1;//HuC6280
             public bool loopFlg = false;//YMZ280B
+            public int echo = -1;
 
             public int[] inst = new int[48];
             public int[] typ = new int[48];

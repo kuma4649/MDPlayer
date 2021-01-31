@@ -1319,6 +1319,41 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardToQSound(FrameBuffer screen, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            y = (y + 1) * 8;
+
+            if (ot >= 0)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, 32 + kx, y, kt, tp);
+            }
+
+            int x = 52;
+            if (nt >= 0)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, 32 + kx, y, kt, tp);
+                drawFont8(screen, x * 8 , y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 8)
+                {
+                    drawFont8(screen, (x+2) * 8 , y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+            else
+            {
+                drawFont8(screen, x * 8, y, 1, "   ");
+            }
+
+            ot = nt;
+        }
 
         public static void Pan(FrameBuffer screen,int x, int y, ref int ot, int nt, ref int otp, int ntp)
         {
