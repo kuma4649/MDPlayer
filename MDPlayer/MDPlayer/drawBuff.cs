@@ -1469,6 +1469,24 @@ namespace MDPlayer
             om = nm;
         }
 
+        public static void ChQSound(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
+        {
+
+            if (om == nm)
+            {
+                return;
+            }
+            if (ch < 16)
+            {
+                ChQSound_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            }
+            else
+            {
+                ChQSoundAdpcm_P(screen, 224, 8 + ch * 8, ch-16, nm == null ? false : (bool)nm, tp);
+            }
+            om = nm;
+        }
+
         public static void ChC352(FrameBuffer screen, int ch, ref bool? om, bool? nm, int tp)
         {
 
@@ -3563,6 +3581,25 @@ namespace MDPlayer
             //if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
             //else 
             drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d2"));
+        }
+
+        public static void ChQSound_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
+            //if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            //else 
+            drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d2"));
+        }
+        public static void ChQSoundAdpcm_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
+        {
+            if (screen == null) return;
+
+            screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 88, 0, 20, 8);
+            //if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+            //else 
+            drawFont4(screen, x + 20, y, mask ? 1 : 0, (1 + ch).ToString("d1"));
         }
 
         public static void ChC352_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)

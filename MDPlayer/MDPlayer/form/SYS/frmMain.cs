@@ -4642,6 +4642,7 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 24; ch++) ForceChannelMask(EnmChip.C140, chipID, ch, newParam.c140[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 32; ch++) ForceChannelMask(EnmChip.C352, chipID, ch, newParam.c352[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 16; ch++) ForceChannelMask(EnmChip.SEGAPCM, chipID, ch, newParam.segaPcm[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 19; ch++) ForceChannelMask(EnmChip.QSound, chipID, ch, newParam.qSound[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 6; ch++) ForceChannelMask(EnmChip.HuC6280, chipID, ch, newParam.huc6280[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.OKIM6295, chipID, ch, newParam.okim6295[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 2; ch++) ForceChannelMaskNES(EnmChip.NES, chipID, ch, newParam.nesdmc);
@@ -4718,7 +4719,7 @@ namespace MDPlayer.form
                     if (Audio.chipLED.SecMPCM != 0) OpenFormMultiPCM(1, true); else CloseFormMultiPCM(1);
 
                     if (Audio.chipLED.PriQsnd != 0) OpenFormQSound(0, true); else CloseFormQSound(0);
-                    //if (Audio.chipLED.SecQsnd != 0) OpenFormQSound(1, true); else CloseFormQSound(1);
+                    if (Audio.chipLED.SecQsnd != 0) OpenFormQSound(1, true); else CloseFormQSound(1);
 
                     if (Audio.chipLED.PriSPCM != 0) OpenFormSegaPCM(0, true); else CloseFormSegaPCM(0);
                     if (Audio.chipLED.SecSPCM != 0) OpenFormSegaPCM(1, true); else CloseFormSegaPCM(1);
@@ -7014,6 +7015,17 @@ namespace MDPlayer.form
                     }
                     newParam.segaPcm[chipID].channels[ch].mask = !newParam.segaPcm[chipID].channels[ch].mask;
                     break;
+                case EnmChip.QSound:
+                    if (newParam.qSound[chipID].channels[ch].mask == false || newParam.qSound[chipID].channels[ch].mask == null)
+                    {
+                        Audio.setQSoundMask(chipID, ch);
+                    }
+                    else
+                    {
+                        Audio.resetQSoundMask(chipID, ch);
+                    }
+                    newParam.qSound[chipID].channels[ch].mask = !newParam.qSound[chipID].channels[ch].mask;
+                    break;
                 case EnmChip.AY8910:
                     if (newParam.ay8910[chipID].channels[ch].mask == false || newParam.ay8910[chipID].channels[ch].mask == null)
                     {
@@ -7267,6 +7279,10 @@ namespace MDPlayer.form
                     newParam.segaPcm[chipID].channels[ch].mask = false;
                     if (ch < 16) Audio.resetSegaPCMMask(chipID, ch);
                     break;
+                case EnmChip.QSound:
+                    newParam.qSound[chipID].channels[ch].mask = false;
+                    if (ch < 19) Audio.resetQSoundMask(chipID, ch);
+                    break;
                 case EnmChip.AY8910:
                     newParam.ay8910[chipID].channels[ch].mask = false;
                     Audio.resetAY8910Mask(chipID, ch);
@@ -7412,6 +7428,14 @@ namespace MDPlayer.form
                         Audio.resetSegaPCMMask(chipID, ch);
                     newParam.segaPcm[chipID].channels[ch].mask = mask;
                     oldParam.segaPcm[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.QSound:
+                    if (mask == true)
+                        Audio.setQSoundMask(chipID, ch);
+                    else
+                        Audio.resetQSoundMask(chipID, ch);
+                    newParam.qSound[chipID].channels[ch].mask = mask;
+                    oldParam.qSound[chipID].channels[ch].mask = !mask;
                     break;
                 case EnmChip.YM2151:
                     if (mask == true)

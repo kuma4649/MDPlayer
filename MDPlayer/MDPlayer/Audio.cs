@@ -7474,6 +7474,11 @@ namespace MDPlayer
             chipRegister.setMaskSegaPCM(chipID,ch, true);
         }
 
+        public static void setQSoundMask(int chipID, int ch)
+        {
+            chipRegister.setMaskQSound(chipID, ch, true);
+        }
+
         public static void setAY8910Mask(int chipID, int ch)
         {
             //mds.setAY8910Mask(chipID, 1 << ch);
@@ -7698,6 +7703,11 @@ namespace MDPlayer
         {
             //mds.resetSegaPcmMask(chipID, 1 << ch);
             chipRegister.setMaskSegaPCM(chipID,ch, false);
+        }
+
+        public static void resetQSoundMask(int chipID, int ch)
+        {
+            chipRegister.setMaskQSound(chipID, ch, false);
         }
 
         public static void resetAY8910Mask(int chipID, int ch)

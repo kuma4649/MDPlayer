@@ -22,7 +22,7 @@ namespace MDPlayer.form
         private int chipID = 0;
         private int zoom = 1;
         private MDChipParams.QSound newParam = null;
-        private MDChipParams.QSound oldParam = new MDChipParams.QSound();
+        private MDChipParams.QSound oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
         public frmQSound(frmMain frm, int chipID, int zoom, MDChipParams.QSound newParam, MDChipParams.QSound oldParam)
@@ -106,7 +106,23 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            //int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
 
+            int ch = (py / 8) - 1;
+            if (ch < 0) return;
+
+            if (ch < 19)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    parent.SetChannelMask(EnmChip.QSound, chipID, ch);
+                    return;
+                }
+
+                for (ch = 0; ch < 19; ch++) parent.ResetChannelMask(EnmChip.QSound, chipID, ch);
+                return;
+            }
         }
 
         private void screenInit()
@@ -202,6 +218,8 @@ namespace MDPlayer.form
                 DrawBuff.VolumeXY(frameBuffer, 94, ch * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, 0);
                 DrawBuff.VolumeXY(frameBuffer, 94, ch * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, 0);
                 DrawBuff.KeyBoardToQSound(frameBuffer, ch , ref oyc.note, nyc.note, 0);
+
+                DrawBuff.ChQSound(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
             }
             //ADPCM 3ch
             for (int ch = 0; ch < 3; ch++)
@@ -214,6 +232,8 @@ namespace MDPlayer.form
                 //DrawBuff.PanType2(frameBuffer, (ch + 16), ref oyc.pan, nyc.pan, 0);
                 DrawBuff.VolumeXY(frameBuffer, 94, (ch + 16) * 2 + 2, 1, ref oyc.volumeL, nyc.volumeL, 0);
                 DrawBuff.VolumeXY(frameBuffer, 94, (ch + 16) * 2 + 3, 1, ref oyc.volumeR, nyc.volumeR, 0);
+
+                DrawBuff.ChQSound(frameBuffer, ch + 16, ref oyc.mask, nyc.mask, 0);
             }
 
             //echo

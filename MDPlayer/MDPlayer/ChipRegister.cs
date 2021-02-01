@@ -355,6 +355,15 @@ namespace MDPlayer
             }
         };
 
+        private bool[][] maskChQSound = new bool[][] {
+            new bool[19] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,false, false, false,
+            }
+            ,new bool[19] {
+                false, false, false, false, false, false, false, false,  false, false, false, false, false, false, false, false,false, false, false,
+            }
+        };
+
         public byte[] K051649tKeyOnOff = new byte[] { 0, 0 };
         public bool[][] maskChK051649 = new bool[][]
         {
@@ -3623,6 +3632,21 @@ namespace MDPlayer
         public void setMaskSegaPCM(int chipID, int ch, bool mask)
         {
             maskChSegaPCM[chipID][ch] = mask;
+        }
+
+        public void setMaskQSound(int chipID, int ch, bool mask)
+        {
+            maskChQSound[chipID][ch] = mask;
+            if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.QSound))
+            {
+                if (mask) mds.setQSoundMask(chipID, ch);
+                else mds.resetQSoundMask(chipID, ch);
+            }
+            if (dicChipsInfo.ContainsKey(MDSound.MDSound.enmInstrumentType.QSoundCtr))
+            {
+                if (mask) mds.setQSoundCtrMask(chipID, ch);
+                else mds.resetQSoundCtrMask(chipID, ch);
+            }
         }
 
         public void setMaskYM2608(int chipID, int ch, bool mask,bool noSend=false)

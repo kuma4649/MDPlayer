@@ -100,6 +100,7 @@ namespace MDPlayer
         public byte SecPPZ8 = 0;
         public byte SecPPSDRV = 0;
         public byte SecP86 = 0;
+        public byte SecQsnd = 0;
 
     }
 }
