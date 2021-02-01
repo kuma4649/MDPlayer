@@ -149,6 +149,8 @@ namespace MDPlayer.form
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiPRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -205,6 +207,7 @@ namespace MDPlayer.form
             this.tsmiPPWM,
             this.tsmiPQSound,
             this.tsmiPRF5C164,
+            this.tsmiPRF5C68,
             this.tsmiPSegaPCM,
             this.tsmiPVRC6,
             this.tsmiPVRC7,
@@ -455,6 +458,7 @@ namespace MDPlayer.form
             this.tsmiSOPNB,
             this.tsmiSPWM,
             this.tsmiSRF5C164,
+            this.tsmiSRF5C68,
             this.tsmiSSegaPCM,
             this.tsmiSVRC6,
             this.tsmiSVRC7,
@@ -984,6 +988,18 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
+            // tsmiPRF5C68
+            // 
+            this.tsmiPRF5C68.Name = "tsmiPRF5C68";
+            resources.ApplyResources(this.tsmiPRF5C68, "tsmiPRF5C68");
+            this.tsmiPRF5C68.Click += new System.EventHandler(this.tsmiPRF5C68_Click);
+            // 
+            // tsmiSRF5C68
+            // 
+            this.tsmiSRF5C68.Name = "tsmiSRF5C68";
+            resources.ApplyResources(this.tsmiSRF5C68, "tsmiSRF5C68");
+            this.tsmiSRF5C68.Click += new System.EventHandler(this.tsmiSRF5C68_Click);
+            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1127,6 +1143,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiSS5B;
         private System.Windows.Forms.ToolStripMenuItem tsmiPDMG;
         private System.Windows.Forms.ToolStripMenuItem tsmiSDMG;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPRF5C68;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSRF5C68;
     }
 }
 

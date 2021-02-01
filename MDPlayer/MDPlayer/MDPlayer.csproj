@@ -265,6 +265,12 @@
     <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="form\KB\PCM\frmRf5c68.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\PCM\frmRf5c68.Designer.cs">
+      <DependentUpon>frmRf5c68.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\KB\PSG\frmAY8910.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -595,6 +601,9 @@
     <Compile Include="VST\vstMng.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
+    <EmbeddedResource Include="form\KB\PCM\frmRf5c68.resx">
+      <DependentUpon>frmRf5c68.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\KB\PSG\frmAY8910.resx">
       <DependentUpon>frmAY8910.cs</DependentUpon>
     </EmbeddedResource>

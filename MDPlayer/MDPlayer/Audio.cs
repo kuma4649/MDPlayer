@@ -4154,6 +4154,9 @@ namespace MDPlayer
 
                         hiyorimiDeviceFlag |= 0x2;
 
+                        if (i == 0) chipLED.PriRF5C68 = 1;
+                        else chipLED.SecRF5C68 = 1;
+
                         lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.RF5C68 : EnmChip.S_RF5C68);
                     }
@@ -5618,6 +5621,8 @@ namespace MDPlayer
             chipRegister.chipLED.PriC352 = chipLED.PriC352;
             chips[16] = chipRegister.chipLED.PriK054539;
             chipRegister.chipLED.PriK054539 = chipLED.PriK054539;
+            chips[17] = chipRegister.chipLED.PriRF5C68;
+            chipRegister.chipLED.PriRF5C68 = chipLED.PriRF5C68;
 
 
             chips[128 + 0] = chipRegister.chipLED.SecOPN;
@@ -5657,6 +5662,8 @@ namespace MDPlayer
             chipRegister.chipLED.SecC352 = chipLED.SecC352;
             chips[128 + 16] = chipRegister.chipLED.SecK054539;
             chipRegister.chipLED.SecK054539 = chipLED.SecK054539;
+            chips[128 + 17] = chipRegister.chipLED.SecRF5C68;
+            chipRegister.chipLED.SecRF5C68 = chipLED.SecRF5C68;
 
 
             return chips;
@@ -6470,6 +6477,11 @@ namespace MDPlayer
         public static scd_pcm.pcm_chip_ GetRf5c164Register(int chipID)
         {
             return mds.ReadRf5c164Register(chipID);
+        }
+
+        public static MDSound.rf5c68.rf5c68_state GetRf5c68Register(int chipID)
+        {
+            return mds.ReadRf5c68Register(chipID);
         }
 
         public static byte[] GetC140Register(int chipID)
@@ -7367,6 +7379,12 @@ namespace MDPlayer
             chipRegister.setMaskRF5C164(chipID, ch, true);
         }
 
+        public static void setRF5C68Mask(int chipID, int ch)
+        {
+            //mds.setRf5c68Mask(chipID, ch);
+            chipRegister.setMaskRF5C68(chipID, ch, true);
+        }
+
         public static void setSN76489Mask(int chipID, int ch)
         {
             //mds.setSN76489Mask(chipID,1 << ch);
@@ -7592,6 +7610,16 @@ namespace MDPlayer
             {
                 //mds.resetRf5c164Mask(chipID, ch);
                 chipRegister.setMaskRF5C164(chipID, ch, false);
+            }
+            catch { }
+        }
+
+        public static void resetRF5C68Mask(int chipID, int ch)
+        {
+            try
+            {
+                //mds.resetRf5c68Mask(chipID, ch);
+                chipRegister.setMaskRF5C68(chipID, ch, false);
             }
             catch { }
         }

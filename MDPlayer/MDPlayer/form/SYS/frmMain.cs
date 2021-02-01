@@ -29,6 +29,7 @@ namespace MDPlayer.form
         private frmVSTeffectList frmVSTeffectList = null;
 
         private frmMegaCD[] frmMCD = new frmMegaCD[2] { null, null };
+        private frmRf5c68[] frmRf5c68 = new frmRf5c68[2] { null, null };
         private frmC140[] frmC140 = new frmC140[2] { null, null };
         private frmPPZ8[] frmPPZ8 = new frmPPZ8[2] { null, null };
         private frmS5B[] frmS5B = new frmS5B[2] { null, null };
@@ -248,6 +249,7 @@ namespace MDPlayer.form
                 if (setting.location.OpenOKIM6258[chipID]) OpenFormOKIM6258(chipID);
                 if (setting.location.OpenOKIM6295[chipID]) OpenFormOKIM6295(chipID);
                 if (setting.location.OpenRf5c164[chipID]) OpenFormMegaCD(chipID);
+                if (setting.location.OpenRf5c68[chipID]) OpenFormRf5c68(chipID);
                 if (setting.location.OpenSN76489[chipID]) OpenFormSN76489(chipID);
                 if (setting.location.OpenSegaPCM[chipID]) OpenFormSegaPCM(chipID);
                 if (setting.location.OpenYm2151[chipID]) OpenFormYM2151(chipID);
@@ -292,6 +294,12 @@ namespace MDPlayer.form
             {
                 tsmiPRF5C164_Click(null, null);
                 tsmiPRF5C164_Click(null, null);
+            }
+
+            if (frmRf5c68[0] != null && !frmRf5c68[0].isClosed)
+            {
+                tsmiPRF5C68_Click(null, null);
+                tsmiPRF5C68_Click(null, null);
             }
 
             if (frmRegTest != null && !frmRegTest.isClosed)
@@ -456,6 +464,12 @@ namespace MDPlayer.form
             {
                 tsmiSRF5C164_Click(null, null);
                 tsmiSRF5C164_Click(null, null);
+            }
+
+            if (frmRf5c68[1] != null && !frmRf5c68[1].isClosed)
+            {
+                tsmiSRF5C68_Click(null, null);
+                tsmiSRF5C68_Click(null, null);
             }
 
             if (frmC140[1] != null && !frmC140[1].isClosed)
@@ -803,6 +817,7 @@ namespace MDPlayer.form
                 setting.location.OpenOKIM6258[chipID] = false;
                 setting.location.OpenOKIM6295[chipID] = false;
                 setting.location.OpenRf5c164[chipID] = false;
+                setting.location.OpenRf5c68[chipID] = false;
                 setting.location.OpenSegaPCM[chipID] = false;
                 setting.location.OpenSN76489[chipID] = false;
                 setting.location.OpenYm2151[chipID] = false;
@@ -921,6 +936,11 @@ namespace MDPlayer.form
                 {
                     frmMCD[chipID].Close();
                     setting.location.OpenRf5c164[chipID] = true;
+                }
+                if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed)
+                {
+                    frmRf5c68[chipID].Close();
+                    setting.location.OpenRf5c68[chipID] = true;
                 }
                 if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed)
                 {
@@ -1332,6 +1352,11 @@ namespace MDPlayer.form
             OpenFormMegaCD(0);
         }
 
+        private void tsmiPRF5C68_Click(object sender, EventArgs e)
+        {
+            OpenFormRf5c68(0);
+        }
+
         private void tsmiPPWM_Click(object sender, EventArgs e)
         {
 
@@ -1490,6 +1515,11 @@ namespace MDPlayer.form
         private void tsmiSRF5C164_Click(object sender, EventArgs e)
         {
             OpenFormMegaCD(1);
+        }
+
+        private void tsmiSRF5C68_Click(object sender, EventArgs e)
+        {
+            OpenFormRf5c68(1);
         }
 
         private void tsmiSPWM_Click(object sender, EventArgs e)
@@ -1705,6 +1735,65 @@ namespace MDPlayer.form
             }
             frmMCD[chipID] = null;
         }
+
+
+        private void OpenFormRf5c68(int chipID, bool force = false)
+        {
+            if (frmRf5c68[chipID] != null)// && frmInfo.isClosed)
+            {
+                if (!force)
+                {
+                    CloseFormRf5c68(chipID);
+                    return;
+                }
+                else
+                    return;
+            }
+
+            frmRf5c68[chipID] = new frmRf5c68(this, chipID, setting.other.Zoom, newParam.rf5c68[chipID], oldParam.rf5c68[chipID]);
+            if (setting.location.PosRf5c68[chipID] == System.Drawing.Point.Empty)
+            {
+                frmRf5c68[chipID].x = this.Location.X;
+                frmRf5c68[chipID].y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmRf5c68[chipID].x = setting.location.PosRf5c68[chipID].X;
+                frmRf5c68[chipID].y = setting.location.PosRf5c68[chipID].Y;
+            }
+
+            frmRf5c68[chipID].Show();
+            frmRf5c68[chipID].update();
+            frmRf5c68[chipID].Text = string.Format("RF5C68 ({0})", chipID == 0 ? "Primary" : "Secondary");
+            oldParam.rf5c68[chipID] = new MDChipParams.RF5C68();
+
+            CheckAndSetForm(frmRf5c68[chipID]);
+        }
+
+        private void CloseFormRf5c68(int chipID)
+        {
+            if (frmRf5c68[chipID] == null) return;
+
+            try
+            {
+                frmRf5c68[chipID].Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+
+            }
+            try
+            {
+                frmRf5c68[chipID].Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmRf5c68[chipID] = null;
+        }
+
 
         private void OpenFormYM2608(int chipID, bool force = false)
         {
@@ -3986,6 +4075,9 @@ namespace MDPlayer.form
                     if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) frmMCD[chipID].screenChangeParams();
                     else frmMCD[chipID] = null;
 
+                    if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) frmRf5c68[chipID].screenChangeParams();
+                    else frmRf5c68[chipID] = null;
+
                     if (frmC140[chipID] != null && !frmC140[chipID].isClosed) frmC140[chipID].screenChangeParams();
                     else frmC140[chipID] = null;
 
@@ -4109,6 +4201,9 @@ namespace MDPlayer.form
                 {
                     if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) { frmMCD[chipID].screenDrawParams(); frmMCD[chipID].update(); }
                     else frmMCD[chipID] = null;
+
+                    if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) { frmRf5c68[chipID].screenDrawParams(); frmRf5c68[chipID].update(); }
+                    else frmRf5c68[chipID] = null;
 
                     if (frmC140[chipID] != null && !frmC140[chipID].isClosed) { frmC140[chipID].screenDrawParams(); frmC140[chipID].update(); }
                     else frmC140[chipID] = null;
@@ -4389,6 +4484,7 @@ namespace MDPlayer.form
             oldParam.chipLED.PriOPM = 255;
             oldParam.chipLED.PriDCSG = 255;
             oldParam.chipLED.PriRF5C = 255;
+            oldParam.chipLED.PriRF5C68 = 255;
             oldParam.chipLED.PriPWM = 255;
             oldParam.chipLED.PriOKI5 = 255;
             oldParam.chipLED.PriOKI9 = 255;
@@ -4404,6 +4500,7 @@ namespace MDPlayer.form
             oldParam.chipLED.SecOPM = 255;
             oldParam.chipLED.SecDCSG = 255;
             oldParam.chipLED.SecRF5C = 255;
+            oldParam.chipLED.SecRF5C68 = 255;
             oldParam.chipLED.SecPWM = 255;
             oldParam.chipLED.SecOKI5 = 255;
             oldParam.chipLED.SecOKI9 = 255;
@@ -4639,6 +4736,7 @@ namespace MDPlayer.form
                     for (int ch = 0; ch < 6; ch++) ForceChannelMask(EnmChip.YM2612, chipID, ch, newParam.ym2612[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 4; ch++) ForceChannelMask(EnmChip.SN76489, chipID, ch, newParam.sn76489[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.RF5C164, chipID, ch, newParam.rf5c164[chipID].channels[ch].mask);
+                    for (int ch = 0; ch < 8; ch++) ForceChannelMask(EnmChip.RF5C68, chipID, ch, newParam.rf5c68[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 24; ch++) ForceChannelMask(EnmChip.C140, chipID, ch, newParam.c140[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 32; ch++) ForceChannelMask(EnmChip.C352, chipID, ch, newParam.c352[chipID].channels[ch].mask);
                     for (int ch = 0; ch < 16; ch++) ForceChannelMask(EnmChip.SEGAPCM, chipID, ch, newParam.segaPcm[chipID].channels[ch].mask);
@@ -4699,6 +4797,9 @@ namespace MDPlayer.form
 
                     if (Audio.chipLED.PriRF5C != 0) OpenFormMegaCD(0, true); else CloseFormMegaCD(0);
                     if (Audio.chipLED.SecRF5C != 0) OpenFormMegaCD(1, true); else CloseFormMegaCD(1);
+
+                    if (Audio.chipLED.PriRF5C68 != 0) OpenFormRf5c68(0, true); else CloseFormRf5c68(0);
+                    if (Audio.chipLED.SecRF5C68 != 0) OpenFormRf5c68(1, true); else CloseFormRf5c68(1);
 
                     if (Audio.chipLED.PriOKI5 != 0) OpenFormOKIM6258(0, true); else CloseFormOKIM6258(0);
                     if (Audio.chipLED.SecOKI5 != 0) OpenFormOKIM6258(1, true); else CloseFormOKIM6258(1);
@@ -6960,6 +7061,17 @@ namespace MDPlayer.form
                     }
                     newParam.rf5c164[chipID].channels[ch].mask = !newParam.rf5c164[chipID].channels[ch].mask;
                     break;
+                case EnmChip.RF5C68:
+                    if (newParam.rf5c68[chipID].channels[ch].mask == false || newParam.rf5c68[chipID].channels[ch].mask == null)
+                    {
+                        Audio.setRF5C68Mask(chipID, ch);
+                    }
+                    else
+                    {
+                        Audio.resetRF5C68Mask(chipID, ch);
+                    }
+                    newParam.rf5c68[chipID].channels[ch].mask = !newParam.rf5c68[chipID].channels[ch].mask;
+                    break;
                 case EnmChip.YM2151:
                     if (newParam.ym2151[chipID].channels[ch].mask == false || newParam.ym2151[chipID].channels[ch].mask == null)
                     {
@@ -7203,6 +7315,10 @@ namespace MDPlayer.form
                     newParam.rf5c164[chipID].channels[ch].mask = false;
                     Audio.resetRF5C164Mask(chipID, ch);
                     break;
+                case EnmChip.RF5C68:
+                    newParam.rf5c68[chipID].channels[ch].mask = false;
+                    Audio.resetRF5C68Mask(chipID, ch);
+                    break;
                 case EnmChip.YM2151:
                     newParam.ym2151[chipID].channels[ch].mask = false;
                     Audio.resetYM2151Mask(chipID, ch);
@@ -7420,6 +7536,14 @@ namespace MDPlayer.form
                         Audio.resetRF5C164Mask(chipID, ch);
                     newParam.rf5c164[chipID].channels[ch].mask = mask;
                     oldParam.rf5c164[chipID].channels[ch].mask = !mask;
+                    break;
+                case EnmChip.RF5C68:
+                    if (mask == true)
+                        Audio.setRF5C68Mask(chipID, ch);
+                    else
+                        Audio.resetRF5C68Mask(chipID, ch);
+                    newParam.rf5c68[chipID].channels[ch].mask = mask;
+                    oldParam.rf5c68[chipID].channels[ch].mask = !mask;
                     break;
                 case EnmChip.SEGAPCM:
                     if (mask == true)

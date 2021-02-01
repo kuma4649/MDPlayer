@@ -206,6 +206,22 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitRF5C68(FrameBuffer screen)
+        {
+            //RF5C164
+            for (int ch = 0; ch < 8; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
+                }
+                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+                drawPanType2P(screen, 24, ch * 8 + 8, 0, 0);
+            }
+        }
+
         public static void screenInitMIDI(FrameBuffer screen)
         {
         }

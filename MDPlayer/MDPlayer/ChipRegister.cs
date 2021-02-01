@@ -337,6 +337,15 @@ namespace MDPlayer
             }
         };
 
+        private bool[][] maskChRF5C68 = new bool[][] {
+            new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+            ,new bool[8] {
+                false, false, false, false, false, false, false, false
+            }
+        };
+
         private bool[][] maskChHuC6280 = new bool[][] {
             new bool[6] {
                 false, false, false, false, false, false
@@ -3514,10 +3523,19 @@ namespace MDPlayer
         public void setMaskRF5C164(int chipID, int ch, bool mask)
         {
             maskChRF5C164[chipID][ch] = mask;
-            if(mask)
+            if (mask)
                 mds.setRf5c164Mask(chipID, ch);
             else
                 mds.resetRf5c164Mask(chipID, ch);
+        }
+
+        public void setMaskRF5C68(int chipID, int ch, bool mask)
+        {
+            maskChRF5C68[chipID][ch] = mask;
+            if (mask)
+                mds.setRf5c68Mask(chipID, ch);
+            else
+                mds.resetRf5c68Mask(chipID, ch);
         }
 
         public void setMaskSN76489(int chipID, int ch, bool mask)
@@ -4218,8 +4236,8 @@ namespace MDPlayer
 
         public void writeRF5C68PCMData(byte chipid, uint stAdr, uint dataSize, byte[] vgmBuf, uint vgmAdr, EnmModel model)
         {
-            //if (chipid == 0) chipLED.PriRF5C = 2;
-            //else chipLED.SecRF5C = 2;
+            if (chipid == 0) chipLED.PriRF5C68 = 2;
+            else chipLED.SecRF5C68 = 2;
 
             if (model == EnmModel.VirtualModel)
                 mds.WriteRF5C68PCMData(chipid, stAdr, dataSize, vgmBuf, vgmAdr);
@@ -4227,6 +4245,8 @@ namespace MDPlayer
 
         public void writeRF5C68(byte chipid, byte adr, byte data, EnmModel model)
         {
+            if (chipid == 0) chipLED.PriRF5C68 = 2;
+            else chipLED.SecRF5C68 = 2;
 
             if (model == EnmModel.VirtualModel)
             {
@@ -4236,6 +4256,9 @@ namespace MDPlayer
 
         public void writeRF5C68MemW(byte chipid, uint offset, byte data, EnmModel model)
         {
+            if (chipid == 0) chipLED.PriRF5C68 = 2;
+            else chipLED.SecRF5C68 = 2;
+
             if (model == EnmModel.VirtualModel)
                 mds.WriteRF5C68MemW(chipid, offset, data);
         }

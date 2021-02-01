@@ -2693,6 +2693,36 @@ namespace MDPlayer
                 }
             }
 
+
+            private Point[] _PosRf5c68 = new Point[2] { Point.Empty, Point.Empty };
+            public Point[] PosRf5c68
+            {
+                get
+                {
+                    return _PosRf5c68;
+                }
+
+                set
+                {
+                    _PosRf5c68 = value;
+                }
+            }
+
+            private bool[] _OpenRf5c68 = new bool[2] { false, false };
+            public bool[] OpenRf5c68
+            {
+                get
+                {
+                    return _OpenRf5c68;
+                }
+
+                set
+                {
+                    _OpenRf5c68 = value;
+                }
+            }
+
+
             private Point[] _PosC140 = new Point[2] { Point.Empty, Point.Empty };
             public Point[] PosC140
             {
@@ -3742,6 +3772,8 @@ namespace MDPlayer
                 Location.OpenMixer = this.OpenMixer;
                 Location.PosRf5c164 = this.PosRf5c164;
                 Location.OpenRf5c164 = this.OpenRf5c164;
+                Location.PosRf5c68 = this.PosRf5c68;
+                Location.OpenRf5c68 = this.OpenRf5c68;
                 Location.PosC140 = this.PosC140;
                 Location.OpenC140 = this.OpenC140;
                 Location.PosPPZ8 = this.PosPPZ8;
