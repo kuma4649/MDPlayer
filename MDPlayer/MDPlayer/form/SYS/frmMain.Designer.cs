@@ -60,6 +60,7 @@ namespace MDPlayer.form
             this.tsmiPPWM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPQSound = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPVRC6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPVRC7 = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,6 +96,7 @@ namespace MDPlayer.form
             this.tsmiSOPNB = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSPWM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSRF5C164 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
@@ -149,8 +151,8 @@ namespace MDPlayer.form
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiPRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSRF5C68 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPX = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPX = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -199,6 +201,7 @@ namespace MDPlayer.form
             this.tsmiPOPL2,
             this.tsmiPOPL3,
             this.tsmiPOPL4,
+            this.tsmiPOPX,
             this.tsmiPOPM,
             this.tsmiPOPN,
             this.tsmiPOPN2,
@@ -376,6 +379,12 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tsmiPRF5C164, "tsmiPRF5C164");
             this.tsmiPRF5C164.Click += new System.EventHandler(this.tsmiPRF5C164_Click);
             // 
+            // tsmiPRF5C68
+            // 
+            this.tsmiPRF5C68.Name = "tsmiPRF5C68";
+            resources.ApplyResources(this.tsmiPRF5C68, "tsmiPRF5C68");
+            this.tsmiPRF5C68.Click += new System.EventHandler(this.tsmiPRF5C68_Click);
+            // 
             // tsmiPSegaPCM
             // 
             this.tsmiPSegaPCM.Name = "tsmiPSegaPCM";
@@ -451,6 +460,7 @@ namespace MDPlayer.form
             this.tsmiSOPL2,
             this.tsmiSOPL3,
             this.tsmiSOPL4,
+            this.tsmiSOPX,
             this.tsmiSOPM,
             this.tsmiSOPN,
             this.tsmiSOPN2,
@@ -620,6 +630,12 @@ namespace MDPlayer.form
             this.tsmiSRF5C164.Name = "tsmiSRF5C164";
             resources.ApplyResources(this.tsmiSRF5C164, "tsmiSRF5C164");
             this.tsmiSRF5C164.Click += new System.EventHandler(this.tsmiSRF5C164_Click);
+            // 
+            // tsmiSRF5C68
+            // 
+            this.tsmiSRF5C68.Name = "tsmiSRF5C68";
+            resources.ApplyResources(this.tsmiSRF5C68, "tsmiSRF5C68");
+            this.tsmiSRF5C68.Click += new System.EventHandler(this.tsmiSRF5C68_Click);
             // 
             // tsmiSSegaPCM
             // 
@@ -988,17 +1004,17 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
-            // tsmiPRF5C68
+            // tsmiPOPX
             // 
-            this.tsmiPRF5C68.Name = "tsmiPRF5C68";
-            resources.ApplyResources(this.tsmiPRF5C68, "tsmiPRF5C68");
-            this.tsmiPRF5C68.Click += new System.EventHandler(this.tsmiPRF5C68_Click);
+            this.tsmiPOPX.Name = "tsmiPOPX";
+            resources.ApplyResources(this.tsmiPOPX, "tsmiPOPX");
+            this.tsmiPOPX.Click += new System.EventHandler(this.tsmiPOPX_Click);
             // 
-            // tsmiSRF5C68
+            // tsmiSOPX
             // 
-            this.tsmiSRF5C68.Name = "tsmiSRF5C68";
-            resources.ApplyResources(this.tsmiSRF5C68, "tsmiSRF5C68");
-            this.tsmiSRF5C68.Click += new System.EventHandler(this.tsmiSRF5C68_Click);
+            this.tsmiSOPX.Name = "tsmiSOPX";
+            resources.ApplyResources(this.tsmiSOPX, "tsmiSOPX");
+            this.tsmiSOPX.Click += new System.EventHandler(this.tsmiSOPX_Click);
             // 
             // frmMain
             // 
@@ -1145,6 +1161,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiSDMG;
         private System.Windows.Forms.ToolStripMenuItem tsmiPRF5C68;
         private System.Windows.Forms.ToolStripMenuItem tsmiSRF5C68;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPOPX;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSOPX;
     }
 }
 

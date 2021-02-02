@@ -35,6 +35,7 @@ namespace MDPlayer
         public static byte[][] rPlane_MIDI;
         private static byte[] rNESDMC;
         private static byte[] rKakko;
+        private static byte[] rType_YMF271;
         private static Bitmap[] bitmapMIDILyric = null;
         private static Graphics[] gMIDILyric = null;
         private static Font[] fntMIDILyric = null;
@@ -145,6 +146,8 @@ namespace MDPlayer
             fntMIDILyric = new Font[2];
             fntMIDILyric[0] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
             fntMIDILyric[1] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
+
+            rType_YMF271 = getByteArray(Resources.rType_YMF271);
         }
 
 
@@ -1408,6 +1411,18 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void PanType2(FrameBuffer screen, int x,int y, ref int ot, int nt, int tp)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawPanType2P(screen, x, y, nt, tp);
+            ot = nt;
+        }
+
         public static void PanToOKIM6258(FrameBuffer screen, ref int ot, int nt, ref int otp, int ntp)
         {
 
@@ -2586,6 +2601,17 @@ namespace MDPlayer
                 ot = nt;
             }
         }
+
+        public static void OpxOP(FrameBuffer screen, int x, int y, int t, ref int ot, int nt)
+        {
+            if (ot != nt)
+            {
+                screen.drawByteArray(x, y, rType_YMF271, 32, nt * 8, 0, 8, 32);
+
+                ot = nt;
+            }
+        }
+
 
         public static void LfoSw(FrameBuffer screen, int x, int y, ref bool olfosw, bool nlfosw)
         {

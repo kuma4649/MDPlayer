@@ -6484,6 +6484,12 @@ namespace MDPlayer
             return mds.ReadRf5c68Register(chipID);
         }
 
+        public static ymf271.YMF271Chip GetYMF271Register(int chipID)
+        {
+            return mds.ReadYMF271Register(chipID);
+        }
+
+
         public static byte[] GetC140Register(int chipID)
         {
             return chipRegister.pcmRegisterC140[chipID];

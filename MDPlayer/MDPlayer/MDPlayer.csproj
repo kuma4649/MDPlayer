@@ -265,6 +265,12 @@
     <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="form\KB\OPX\frmYMF271.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPX\frmYMF271.Designer.cs">
+      <DependentUpon>frmYMF271.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\KB\PCM\frmRf5c68.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -601,6 +607,9 @@
     <Compile Include="VST\vstMng.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
+    <EmbeddedResource Include="form\KB\OPX\frmYMF271.resx">
+      <DependentUpon>frmYMF271.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\KB\PCM\frmRf5c68.resx">
       <DependentUpon>frmRf5c68.cs</DependentUpon>
     </EmbeddedResource>
@@ -877,6 +886,7 @@
     <Content Include="Resources\planeYM3526.png" />
     <Content Include="Resources\planeYM3812.png" />
     <Content Include="Resources\planeYMF262.png" />
+    <Content Include="Resources\planeYMF271.png" />
     <Content Include="Resources\planeYMF278B.png" />
     <Content Include="Resources\planeYMZ280B.png" />
     <Content Include="Resources\rChipName_01.png" />
@@ -931,6 +941,7 @@
     <Content Include="Resources\rType_04.png" />
     <Content Include="Resources\rType_05.png" />
     <Content Include="Resources\rType_06.png" />
+    <Content Include="Resources\rType_YMF271.png" />
     <Content Include="Resources\rVol_01.png" />
     <Content Include="Resources\rVol_02.png" />
     <Content Include="Resources\rVol_03.png" />

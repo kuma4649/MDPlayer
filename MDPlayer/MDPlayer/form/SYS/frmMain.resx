@@ -258,6 +258,12 @@
   <data name="tsmiPOPL4.Text" xml:space="preserve">
     <value>OPL4</value>
   </data>
+  <data name="tsmiPOPX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiPOPX.Text" xml:space="preserve">
+    <value>OPX</value>
+  </data>
   <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -479,6 +485,12 @@
   </data>
   <data name="tsmiSOPL4.Text" xml:space="preserve">
     <value>OPL4</value>
+  </data>
+  <data name="tsmiSOPX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiSOPX.Text" xml:space="preserve">
+    <value>OPX</value>
   </data>
   <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -1383,6 +1395,12 @@
   <data name="&gt;&gt;tsmiPRF5C164.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiPRF5C68.Name" xml:space="preserve">
+    <value>tsmiPRF5C68</value>
+  </data>
+  <data name="&gt;&gt;tsmiPRF5C68.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiPSegaPCM.Name" xml:space="preserve">
     <value>tsmiPSegaPCM</value>
   </data>
@@ -1591,6 +1609,12 @@
     <value>tsmiSRF5C164</value>
   </data>
   <data name="&gt;&gt;tsmiSRF5C164.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSRF5C68.Name" xml:space="preserve">
+    <value>tsmiSRF5C68</value>
+  </data>
+  <data name="&gt;&gt;tsmiSRF5C68.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiSSegaPCM.Name" xml:space="preserve">
@@ -1911,16 +1935,16 @@
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;tsmiPRF5C68.Name" xml:space="preserve">
-    <value>tsmiPRF5C68</value>
+  <data name="&gt;&gt;tsmiPOPX.Name" xml:space="preserve">
+    <value>tsmiPOPX</value>
   </data>
-  <data name="&gt;&gt;tsmiPRF5C68.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiPOPX.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSRF5C68.Name" xml:space="preserve">
-    <value>tsmiSRF5C68</value>
+  <data name="&gt;&gt;tsmiSOPX.Name" xml:space="preserve">
+    <value>tsmiSOPX</value>
   </data>
-  <data name="&gt;&gt;tsmiSRF5C68.Type" xml:space="preserve">
+  <data name="&gt;&gt;tsmiSOPX.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
