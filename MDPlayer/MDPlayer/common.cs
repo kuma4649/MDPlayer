@@ -576,6 +576,8 @@ namespace MDPlayer
         , SPPCM = 42
         , C140 = 43
         , SEGAPCM = 44
+
+        ,YM2413 = 9000
     }
 
     public enum EnmInstFormat : int

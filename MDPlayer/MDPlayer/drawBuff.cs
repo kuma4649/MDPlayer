@@ -309,28 +309,6 @@ namespace MDPlayer
 
         }
 
-        public static void screenInitYM2413(FrameBuffer screen, int tp)
-        {
-            for (int y = 0; y < 9; y++)
-            {
-                //Note
-                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
-
-                //Keyboard
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                //Volume
-                int d = 99;
-                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
-            }
-
-        }
-
         public static void screenInitYM2608(FrameBuffer screen, int tp)
         {
             //YM2608

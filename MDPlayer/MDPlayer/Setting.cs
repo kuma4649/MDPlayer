@@ -4875,24 +4875,26 @@ namespace MDPlayer
 
             setting.YM2151Type = this.YM2151Type.Copy();
             setting.YM2203Type = this.YM2203Type.Copy();
-            setting.YMF262Type = this.YMF262Type.Copy();
-            setting.YM3526Type = this.YM3526Type.Copy();
-            setting.YM3812Type = this.YM3812Type.Copy();
+            setting.YM2413Type = this.YM2413Type.Copy();
             setting.YM2608Type = this.YM2608Type.Copy();
             setting.YM2610Type = this.YM2610Type.Copy();
             setting.YM2612Type = this.YM2612Type.Copy();
+            setting.YM3526Type = this.YM3526Type.Copy();
+            setting.YM3812Type = this.YM3812Type.Copy();
+            setting.YMF262Type = this.YMF262Type.Copy();
             setting.SN76489Type = this.SN76489Type.Copy();
             setting.C140Type = this.C140Type.Copy();
             setting.SEGAPCMType = this.SEGAPCMType.Copy();
 
             setting.YM2151SType = this.YM2151SType.Copy();
             setting.YM2203SType = this.YM2203SType.Copy();
-            setting.YM3526SType = this.YM3526SType.Copy();
-            setting.YM3812SType = this.YM3812SType.Copy();
-            setting.YMF262SType = this.YMF262SType.Copy();
+            setting.YM2413SType = this.YM2413SType.Copy();
             setting.YM2608SType = this.YM2608SType.Copy();
             setting.YM2610SType = this.YM2610SType.Copy();
             setting.YM2612SType = this.YM2612SType.Copy();
+            setting.YM3526SType = this.YM3526SType.Copy();
+            setting.YM3812SType = this.YM3812SType.Copy();
+            setting.YMF262SType = this.YMF262SType.Copy();
             setting.SN76489SType = this.SN76489SType.Copy();
             setting.C140SType = this.C140SType.Copy();
             setting.SEGAPCMSType = this.SEGAPCMSType.Copy();

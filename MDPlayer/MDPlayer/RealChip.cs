@@ -392,6 +392,19 @@ namespace MDPlayer
                                 ct.InterfaceName = gm.getMBInfo().Devname;
                             }
                             break;
+                        case EnmRealChipType.YM2413:
+                            if (cct == ChipType.CHIP_YM2413 || cct== ChipType.CHIP_UNKNOWN)
+                            {
+                                ct = new Setting.ChipType();
+                                ct.SoundLocation = -1;
+                                ct.BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.SoundChip = o;
+                                ct.ChipName = gm.getModuleInfo().Devname;
+                                ct.InterfaceName = gm.getMBInfo().Devname;
+                            }
+                            break;
                         case EnmRealChipType.YM2151:
                             if (cct == ChipType.CHIP_YM2151)
                             {

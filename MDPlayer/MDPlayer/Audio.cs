@@ -74,6 +74,7 @@ namespace MDPlayer
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
@@ -1060,6 +1061,8 @@ namespace MDPlayer
                 if (scYM2151[0] != null) scYM2151[0].init();
                 scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
                 if (scYM2203[0] != null) scYM2203[0].init();
+                scYM2413[0] = realChip.GetRealChip(Audio.setting.YM2413Type);
+                if (scYM2413[0] != null) scYM2413[0].init();
                 scYM3526[0] = realChip.GetRealChip(Audio.setting.YM3526Type);
                 if (scYM3526[0] != null) scYM3526[0].init();
                 scYM3812[0] = realChip.GetRealChip(Audio.setting.YM3812Type);
@@ -1087,6 +1090,8 @@ namespace MDPlayer
                 if (scYM2151[1] != null) scYM2151[1].init();
                 scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
                 if (scYM2203[1] != null) scYM2203[1].init();
+                scYM2413[1] = realChip.GetRealChip(Audio.setting.YM2413SType);
+                if (scYM2413[1] != null) scYM2413[1].init();
                 scYM3526[1] = realChip.GetRealChip(Audio.setting.YM3526SType);
                 if (scYM3526[1] != null) scYM3526[1].init();
                 scYM3812[1] = realChip.GetRealChip(Audio.setting.YM3812SType);
@@ -1115,6 +1120,7 @@ namespace MDPlayer
                 , scYM2608
                 , scYM2151
                 , scYM2203
+                , scYM2413
                 , scYM2610
                 , scYM2610EA
                 , scYM2610EB
@@ -2079,6 +2085,8 @@ namespace MDPlayer
         {
             chipRegister.setFadeoutVolYM2203(0, 0);
             chipRegister.setFadeoutVolYM2203(1, 0);
+            chipRegister.setFadeoutVolYM2413(0, 0);
+            chipRegister.setFadeoutVolYM2413(1, 0);
             chipRegister.setFadeoutVolYM2608(0, 0);
             chipRegister.setFadeoutVolYM2608(1, 0);
             chipRegister.setFadeoutVolYM2151(0, 0);
@@ -5831,6 +5839,7 @@ namespace MDPlayer
                         {
                             if (useChip.Contains(EnmChip.YM2151)) chipRegister.setFadeoutVolYM2151(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2203)) chipRegister.setFadeoutVolYM2203(0, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.YM2413)) chipRegister.setFadeoutVolYM2413(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2608)) chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2610)) chipRegister.setFadeoutVolYM2610(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2612)) chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
@@ -5841,6 +5850,7 @@ namespace MDPlayer
 
                             if (useChip.Contains(EnmChip.S_YM2151)) chipRegister.setFadeoutVolYM2151(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2203)) chipRegister.setFadeoutVolYM2203(1, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.S_YM2413)) chipRegister.setFadeoutVolYM2413(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2608)) chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2610)) chipRegister.setFadeoutVolYM2610(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2612)) chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
@@ -5933,6 +5943,8 @@ namespace MDPlayer
         {
             chipRegister.softResetYM2203(0, model);
             chipRegister.softResetYM2203(1, model);
+            chipRegister.softResetYM2413(0, model);
+            chipRegister.softResetYM2413(1, model);
             chipRegister.softResetYM2608(0, model);
             chipRegister.softResetYM2608(1, model);
             chipRegister.softResetYM2151(0, model);

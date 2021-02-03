@@ -46,7 +46,8 @@ namespace MDPlayer
         private RSoundChip[] scYM2612 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2608 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2151 =   new RSoundChip[2] { null, null };
-        private RSoundChip[] scYM2203 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EB = new RSoundChip[2] { null, null };
@@ -111,6 +112,8 @@ namespace MDPlayer
         //private int[] fmRegisterYM2413Ryhthm = new int[2] { 0, 0 };
         private ChipKeyInfo[] kiYM2413 = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
         private ChipKeyInfo[] kiYM2413ret = new ChipKeyInfo[2] { new ChipKeyInfo(14), new ChipKeyInfo(14) };
+        private int[] nowYM2413FadeoutVol = new int[] { 0, 0 };
+        private bool[] rmYM2413 = new bool[] { false, false };
         private bool[][] maskFMChYM2413 = new bool[][] {
             new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false}
             , new bool[14] { false, false, false, false, false, false, false, false, false, false, false, false, false, false}
@@ -419,6 +422,7 @@ namespace MDPlayer
             , RSoundChip[] scYM2608
             , RSoundChip[] scYM2151
             , RSoundChip[] scYM2203
+            , RSoundChip[] scYM2413
             , RSoundChip[] scYM2610
             , RSoundChip[] scYM2610EA
             , RSoundChip[] scYM2610EB
@@ -439,6 +443,7 @@ namespace MDPlayer
             this.scYM2151 = scYM2151;
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
+            this.scYM2413 = scYM2413;
             this.scYM3526 = scYM3526;
             this.scYM3812 = scYM3812;
             this.scYMF262 = scYMF262;
@@ -453,13 +458,13 @@ namespace MDPlayer
             this.ctYM2608 = new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType };
             this.ctYM2151 = new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType };
             this.ctYM2203 = new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType };
+            this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctYM2610 = new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType };
             this.ctYMF262 = new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType };
             this.ctYMF271 = new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType };
             this.ctYMF278B = new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType };
             this.ctYMZ280B = new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType };
             this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
-            this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
             this.ctYM3526 = new Setting.ChipType[] { setting.YM3526Type, setting.YM3526SType };
             this.ctYM3812 = new Setting.ChipType[] { setting.YM3812Type, setting.YM3812SType };
@@ -643,6 +648,7 @@ namespace MDPlayer
                 nowSN76489FadeoutVol[chipID] = 0;
                 nowYM2151FadeoutVol[chipID] = 0;
                 nowYM2203FadeoutVol[chipID] = 0;
+                nowYM2413FadeoutVol[chipID] = 0;
                 nowYM2608FadeoutVol[chipID] = 0;
                 nowYM2610FadeoutVol[chipID] = 0;
                 nowYM2612FadeoutVol[chipID] = 0;
@@ -828,6 +834,7 @@ namespace MDPlayer
                 nowSN76489FadeoutVol[chipID] = 0;
                 nowYM2151FadeoutVol[chipID] = 0;
                 nowYM2203FadeoutVol[chipID] = 0;
+                nowYM2413FadeoutVol[chipID] = 0;
                 nowYM2608FadeoutVol[chipID] = 0;
                 nowYM2610FadeoutVol[chipID] = 0;
                 nowYM2612FadeoutVol[chipID] = 0;
@@ -1490,6 +1497,11 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel) fmRegisterYM2413[chipID][dAddr] = dData;
 
+            if (dAddr == 0x0e)
+            {
+                rmYM2413[chipID] = (dData & 0x20) != 0;
+            }
+
             if (dAddr >= 0x20 && dAddr <= 0x28)
             {
                 int ch = dAddr - 0x20;
@@ -1506,6 +1518,24 @@ namespace MDPlayer
 
                 //mask適用
                 if (maskFMChYM2413[chipID][ch]) dData &= 0xef;
+            }
+
+            if (dAddr >= 0x30 && dAddr < 0x39)//TL
+            {
+                byte inst = (byte)(dData & 0xf0);
+                byte tl = (byte)(dData & 0x0f);
+                int ch = dAddr - 0x30;
+
+                if (dAddr<0x36 || !rmYM2413[chipID])
+                {
+                    dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
+                    dData = inst | dData;
+                }
+                else
+                {
+                    dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
+                    if (dAddr > 0x36) dData = (dData << 4) | dData;
+                }
             }
 
             if (dAddr == 0x0e)
@@ -1541,8 +1571,8 @@ namespace MDPlayer
             }
             else
             {
-                //if (scYM2413[chipID] == null) return;
-                //scYM2413[chipID].setRegister(dAddr, dData);
+                if (scYM2413[chipID] == null) return;
+                scYM2413[chipID].setRegister(dAddr, dData);
             }
 
         }
@@ -1848,6 +1878,28 @@ namespace MDPlayer
             {
                 writeYM2203(chipID, 0, i, 0x00, model);
             }
+
+        }
+
+        public void softResetYM2413(int chipID, EnmModel model)
+        {
+            int i;
+
+            // FM全チャネルキーオフ
+            for (int ch = 0; ch < 9; ch++)
+            {
+                setYM2413Register(chipID, 0x20 + ch, 0x00, model);
+            }
+            setYM2413Register(chipID, 0x0e, 0x00, model);
+
+            // FM TL=15
+            for (int ch = 0; ch < 9; ch++)
+            {
+                setYM2413Register(chipID, 0x30 + ch, 0x0f, model);
+            }
+            setYM2413Register(chipID, 0x36, 0x0f, model);
+            setYM2413Register(chipID, 0x37, 0xff, model);
+            setYM2413Register(chipID, 0x38, 0xff, model);
 
         }
 
@@ -3960,6 +4012,15 @@ namespace MDPlayer
                 if ((algVolTbl[alg] & 4) != 0) setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 2) != 0) setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 8) != 0) setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], EnmModel.RealModel);
+            }
+        }
+
+        public void setFadeoutVolYM2413(int chipID, int v)
+        {
+            nowYM2413FadeoutVol[chipID] = v / (128 / 16);
+            for (int c = 0; c < 9; c++)
+            {
+                setYM2413Register(chipID, 0x30 + c, fmRegisterYM2413[chipID][0x30 + c], EnmModel.RealModel);
             }
         }
 
