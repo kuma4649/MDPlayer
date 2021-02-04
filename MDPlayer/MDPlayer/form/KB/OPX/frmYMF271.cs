@@ -172,9 +172,10 @@ namespace MDPlayer.form
                     nrc.inst[10] = slt.feedback;//feedback(&0x7)
                     nrc.inst[11] = slt.accon;//accon(&0x80)
                     nrc.inst[12] = slt.algorithm;//algorithm(&0x0f)
+
                     nrc.inst[13] = slt.block;//block(&0x0f)
-                    
                     nrc.inst[14] = (int)slt.fns;//fns(&0x0fff)
+
                     nrc.inst[15] = (int)slt.startaddr;//(&0xffffff)
                     nrc.inst[16] = (int)slt.endaddr;//(&0xffffff)
                     nrc.inst[17] = (int)slt.loopaddr;//(&0xffffff)
@@ -189,6 +190,20 @@ namespace MDPlayer.form
                     nrc.inst[24] = slt.pms;//(&0x7)
                     nrc.inst[25] = slt.ams;//(&0x3)
 
+                    //note
+                    if (slt.active != 0)
+                    {// nrc.volumeL != 0 || nrc.volumeR != 0)
+                     //nrc.note = (int)(1200 * (((nrc.inst[13]+8)&0xf)-5) + 1200 * Math.Log((4096 + (nrc.inst[14] & 0xfff)) / 4096.0)) / 100;
+                        nrc.volumeL = Math.Min(Math.Max((slt.volume * slt.ch0_level) >> 23, 0), 19);
+                        nrc.volumeR = Math.Min(Math.Max((slt.volume * slt.ch1_level) >> 23, 0), 19);
+                        nrc.note = Common.searchSSGNote(nrc.inst[14]) + (((nrc.inst[13] + 8) & 0xf) - 11) * 12 - 7;
+                    }
+                    else
+                    {
+                        nrc.volumeL += nrc.volumeL > 0 ? -1 : 0;
+                        nrc.volumeR += nrc.volumeR > 0 ? -1 : 0;
+                        nrc.note = -1;
+                    }
 
                     if (i % 4 == 0)
                     {
@@ -212,6 +227,8 @@ namespace MDPlayer.form
                 DrawBuff.font4Int2(frameBuffer, 25, 8 + i * 8, 0, 2, ref orc.echo, slot+1);//slotnum
                 DrawBuff.PanType2(frameBuffer, 33, 8 + i * 8, ref orc.pan, nrc.pan, 0);
                 DrawBuff.PanType2(frameBuffer, 41, 8 + i * 8, ref orc.pantp, nrc.pantp, 0);
+
+                DrawBuff.KeyBoardXY(frameBuffer, 49, 8 + i * 8, ref orc.note, nrc.note, 0);
 
                 DrawBuff.font4Int2(frameBuffer, 357, 8 + i * 8, 0, 2, ref orc.inst[0], nrc.inst[0]);//AR
                 DrawBuff.font4Int2(frameBuffer, 365, 8 + i * 8, 0, 2, ref orc.inst[1], nrc.inst[1]);//DR

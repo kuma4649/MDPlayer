@@ -1100,6 +1100,41 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardXY(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 264 + x, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 264 + x, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 280 + x, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
         public static void KeyBoardOPNM(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;

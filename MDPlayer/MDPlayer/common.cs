@@ -353,14 +353,14 @@ namespace MDPlayer
             return n;
         }
 
-        public static int searchPCMNote(int ml)
+        public static int searchPCMNote(int ml,int mul)
         {
             int m = int.MaxValue;
-            ml = ml % 1024;
+            ml = ml % (1024*mul);
             int n = 0;
             for (int i = 0; i < 12; i++)
             {
-                int a = Math.Abs(ml - Tables.pcmpitchTbl[i]);
+                int a = Math.Abs(ml - Tables.pcmpitchTbl[i] * mul);
                 if (m > a)
                 {
                     m = a;

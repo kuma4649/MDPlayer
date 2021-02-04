@@ -412,7 +412,7 @@ namespace MDPlayer.form
                     if (pcmKey[c - 23] == 1)
                     {
                         //note
-                        nyc.note = ((nyc.inst[13] + 7) & 0xf) * 12 + Common.searchPCMNote(nyc.inst[14]) - 5;
+                        nyc.note = ((nyc.inst[13] + 7) & 0xf) * 12 + Common.searchPCMNote(nyc.inst[14], 1) - 5;
                         //Console.WriteLine("{0:x} {1:x}", nyc.inst[13], nyc.inst[14]);
                         nyc.volumeL = (127 - (ymf278bRegister[2][0x50 + (c - 23)] >> 1)) * (nyc.pan & 0xf) / 16 / 6;
                         nyc.volumeR = (127 - (ymf278bRegister[2][0x50 + (c - 23)] >> 1)) * (nyc.pan >> 4) / 16 / 6;
