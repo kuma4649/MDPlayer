@@ -444,8 +444,6 @@ namespace MDPlayer.form
             //音色で右クリックした場合は何もしない
             if (e.Button == MouseButtons.Right) return;
 
-            int px = e.Location.X / zoom;
-
             // 音色表示欄の判定
             int instCh = Math.Min(px / (13 * 8), 2);
 

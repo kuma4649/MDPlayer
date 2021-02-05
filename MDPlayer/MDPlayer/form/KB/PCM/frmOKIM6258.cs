@@ -203,9 +203,9 @@ namespace MDPlayer.form
                 if (px < 8)
                 {
                     if (newParam.mask == true)
-                        parent.ResetChannelMask(EnmChip.OKIM6258, chipID, ch);
+                        parent.ResetChannelMask(EnmChip.OKIM6258, chipID, 0);
                     else
-                        parent.SetChannelMask(EnmChip.OKIM6258, chipID, ch);
+                        parent.SetChannelMask(EnmChip.OKIM6258, chipID, 0);
                 }
                 return;
             }
