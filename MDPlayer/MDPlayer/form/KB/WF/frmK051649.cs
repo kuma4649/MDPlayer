@@ -158,10 +158,25 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
 
             //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (int ch = 0; ch < 5; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.K051649, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.K051649, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             //鍵盤
             if (py < 6 * 8)
@@ -183,8 +198,6 @@ namespace MDPlayer.form
 
             //音色で右クリックした場合は何もしない
             if (e.Button == MouseButtons.Right) return;
-
-            int px = e.Location.X / zoom;
 
             // 音色表示欄の判定
             int instCh = ((py < 12 * 8) ? 0 : 3) + px / (8*13);

@@ -192,7 +192,21 @@ namespace MDPlayer.form
             int px = e.Location.X / zoom;
 
             //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (int ch = 0; ch < 6; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.HuC6280, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.HuC6280, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             //鍵盤
             if (py < 7 * 8)
