@@ -4194,9 +4194,12 @@ namespace MDPlayer
             }
             else
             {
-                if (!ctSN76489[chipID].UseScci && ctSN76489[chipID].UseEmu)
+                if (!ctSN76489[chipID].UseScci)
                 {
-                    mds.WriteSN76489GGPanning((byte)chipID, (byte)dData);
+                    if (ctSN76489[chipID].UseEmu)
+                        mds.WriteSN76489GGPanning((byte)chipID, (byte)dData);
+                    else if (ctSN76489[chipID].UseEmu2)
+                        mds.WriteSN76496GGPanning((byte)chipID, (byte)dData);
                     sn76489RegisterGGPan[chipID] = dData;
                 }
             }
@@ -4233,9 +4236,12 @@ namespace MDPlayer
             }
             else
             {
-                if (!ctSN76489[chipID].UseScci && ctSN76489[chipID].UseEmu)
+                if (!ctSN76489[chipID].UseScci)
                 {
-                    mds.WriteSN76489((byte)chipID, (byte)dData);
+                    if (ctSN76489[chipID].UseEmu)
+                        mds.WriteSN76489((byte)chipID, (byte)dData);
+                    else if (ctSN76489[chipID].UseEmu2)
+                        mds.WriteSN76496((byte)chipID, (byte)dData);
                 }
             }
         }
@@ -4530,6 +4536,17 @@ namespace MDPlayer
             if (model == EnmModel.VirtualModel)
             {
                 mds.WriteSAA1099(ChipID, Port, Data);
+            }
+        }
+
+        public void writePOKEY(byte ChipID, byte Port, byte Data, EnmModel model)
+        {
+            if (ChipID == 0) chipLED.PriPOK = 2;
+            else chipLED.SecPOK = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WritePOKEY(ChipID, Port, Data);
             }
         }
 

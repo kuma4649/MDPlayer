@@ -512,6 +512,7 @@ namespace MDPlayer
         , PPSDRV
         , SID
         , P86
+        , POKEY
 
         , S_SN76489
         , S_YM2612
@@ -559,6 +560,8 @@ namespace MDPlayer
         , S_PPSDRV
         , S_SID
         , S_P86
+        , S_POKEY
+
     }
 
     public enum EnmRealChipType : int

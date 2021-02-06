@@ -2050,6 +2050,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _POKEYVolume = 0;
+            public int POKEYVolume
+            {
+                get
+                {
+                    if (_POKEYVolume > 20 || _POKEYVolume < -192) _POKEYVolume = 0;
+                    return _POKEYVolume;
+                }
+
+                set
+                {
+                    _POKEYVolume = value;
+                    if (_POKEYVolume > 20 || _POKEYVolume < -192) _POKEYVolume = 0;
+                }
+            }
+
             private int _PPZ8Volume = 0;
             public int PPZ8Volume
             {

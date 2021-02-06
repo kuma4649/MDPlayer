@@ -339,12 +339,16 @@ namespace MDPlayer.form
                     , ucSI.rbSN76489P_Silent
                     , ucSI.rbSN76489P_Emu
                     , ucSI.rbSN76489P_SCCI
-                    , ucSI.cmbSN76489P_SCCI);
+                    , ucSI.cmbSN76489P_SCCI
+                    , null,null,null
+                    , ucSI.rbSN76489P_Emu2);
                 SetRealParam(setting.SN76489SType
                     , ucSI.rbSN76489S_Silent
                     , ucSI.rbSN76489S_Emu
                     , ucSI.rbSN76489S_SCCI
-                    , ucSI.cmbSN76489S_SCCI);
+                    , ucSI.cmbSN76489S_SCCI
+                    , null,null,null
+                    , ucSI.rbSN76489S_Emu2);
 
                 SetRealParam(setting.YM2608Type
                     , ucSI.rbYM2608P_Silent
@@ -1032,6 +1036,7 @@ namespace MDPlayer.form
                 setting.SN76489Type.SoundChip = int.Parse(ns[3]);
             }
             setting.SN76489Type.UseEmu = ucSI.rbSN76489P_Emu.Checked;
+            setting.SN76489Type.UseEmu2 = ucSI.rbSN76489P_Emu2.Checked;
 
             setting.SN76489SType = new Setting.ChipType();
             setting.SN76489SType.UseScci = ucSI.rbSN76489S_SCCI.Checked;
@@ -1046,6 +1051,7 @@ namespace MDPlayer.form
                 setting.SN76489SType.SoundChip = int.Parse(ns[3]);
             }
             setting.SN76489SType.UseEmu = ucSI.rbSN76489S_Emu.Checked;
+            setting.SN76489SType.UseEmu2 = ucSI.rbSN76489S_Emu2.Checked;
 
             //setting.SN76489Type.LatencyForEmulation = 0;
             //if (int.TryParse(tbSN76489EmuDelay.Text, out i))

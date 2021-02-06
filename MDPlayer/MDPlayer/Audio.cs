@@ -4027,23 +4027,43 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).SN76489ClockValue != 0)
                 {
-                    MDSound.sn76489 sn76489 = new MDSound.sn76489();
+                    MDSound.sn76489 sn76489 = null;
+                    MDSound.SN76496 sn76496 = null;
 
                     for (int i = 0; i < (((vgm)driverVirtual).SN76489DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
                         chip.ID = (byte)i;
-                        chip.Instrument = sn76489;
-                        chip.Update = sn76489.Update;
-                        chip.Start = sn76489.Start;
-                        chip.Stop = sn76489.Stop;
-                        chip.Reset = sn76489.Reset;
+                        chip.Option = null;
+
+                        if ((i == 0 && setting.SN76489Type.UseEmu)
+                            || (i == 1 && setting.SN76489SType.UseEmu))
+                        {
+                            if (sn76489 == null) sn76489 = new sn76489();
+                            chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                            chip.Instrument = sn76489;
+                            chip.Update = sn76489.Update;
+                            chip.Start = sn76489.Start;
+                            chip.Stop = sn76489.Stop;
+                            chip.Reset = sn76489.Reset;
+                        }
+                        else if ((i == 0 && setting.SN76489Type.UseEmu2)
+                            || (i == 1 && setting.SN76489SType.UseEmu2))
+                        {
+                            if (sn76496 == null) sn76496 = new SN76496();
+                            chip.type = MDSound.MDSound.enmInstrumentType.SN76496;
+                            chip.Instrument = sn76496;
+                            chip.Update = sn76496.Update;
+                            chip.Start = sn76496.Start;
+                            chip.Stop = sn76496.Stop;
+                            chip.Reset = sn76496.Reset;
+                            chip.Option = ((vgm)driverVirtual).SN76489Option;
+                        }
+
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.SN76489Volume;
                         chip.Clock = ((vgm)driverVirtual).SN76489ClockValue
                             | (((vgm)driverVirtual).SN76489NGPFlag ? 0x80000000 : 0);
-                        chip.Option = null;
                         if (i == 0) chipLED.PriDCSG = 1;
                         else chipLED.SecDCSG = 1;
 
@@ -4786,6 +4806,32 @@ namespace MDPlayer
 
                         lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.SAA1099 : EnmChip.S_SAA1099);
+                    }
+                }
+
+                if (((vgm)driverVirtual).POKEYClockValue != 0)
+                {
+                    MDSound.pokey pokey = new pokey();
+                    for (int i = 0; i < (((vgm)driverVirtual).POKEYDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.POKEY;
+                        chip.ID = (byte)i;
+                        chip.Instrument = pokey;
+                        chip.Update = pokey.Update;
+                        chip.Start = pokey.Start;
+                        chip.Stop = pokey.Stop;
+                        chip.Reset = pokey.Reset;
+                        chip.SamplingRate = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);// (UInt32)Common.SampleRate;
+                        chip.Volume = setting.balance.POKEYVolume;
+                        chip.Clock = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriPOK = 1;
+                        else chipLED.SecPOK = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.POKEY : EnmChip.S_POKEY);
                     }
                 }
 

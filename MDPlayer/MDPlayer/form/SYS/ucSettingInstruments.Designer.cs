@@ -168,6 +168,8 @@
             this.rbYM2413P_Real = new System.Windows.Forms.RadioButton();
             this.rbYM2413P_Silent = new System.Windows.Forms.RadioButton();
             this.rbYM2413P_Emu = new System.Windows.Forms.RadioButton();
+            this.rbSN76489P_Emu2 = new System.Windows.Forms.RadioButton();
+            this.rbSN76489S_Emu2 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -940,7 +942,7 @@
             // 
             this.cmbSN76489P_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSN76489P_SCCI.FormattingEnabled = true;
-            this.cmbSN76489P_SCCI.Location = new System.Drawing.Point(220, 14);
+            this.cmbSN76489P_SCCI.Location = new System.Drawing.Point(220, 38);
             this.cmbSN76489P_SCCI.Name = "cmbSN76489P_SCCI";
             this.cmbSN76489P_SCCI.Size = new System.Drawing.Size(185, 20);
             this.cmbSN76489P_SCCI.TabIndex = 2;
@@ -948,7 +950,7 @@
             // rbSN76489P_SCCI
             // 
             this.rbSN76489P_SCCI.AutoSize = true;
-            this.rbSN76489P_SCCI.Location = new System.Drawing.Point(165, 15);
+            this.rbSN76489P_SCCI.Location = new System.Drawing.Point(165, 39);
             this.rbSN76489P_SCCI.Name = "rbSN76489P_SCCI";
             this.rbSN76489P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSN76489P_SCCI.TabIndex = 1;
@@ -961,10 +963,9 @@
             this.rbSN76489P_Emu.Checked = true;
             this.rbSN76489P_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSN76489P_Emu.Name = "rbSN76489P_Emu";
-            this.rbSN76489P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbSN76489P_Emu.Size = new System.Drawing.Size(132, 16);
             this.rbSN76489P_Emu.TabIndex = 0;
-            this.rbSN76489P_Emu.TabStop = true;
-            this.rbSN76489P_Emu.Text = "エミュレーション";
+            this.rbSN76489P_Emu.Text = "エミュレーション(maxim)";
             this.rbSN76489P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox11
@@ -972,10 +973,11 @@
             this.groupBox11.Controls.Add(this.cmbSN76489P_SCCI);
             this.groupBox11.Controls.Add(this.rbSN76489P_SCCI);
             this.groupBox11.Controls.Add(this.rbSN76489P_Silent);
+            this.groupBox11.Controls.Add(this.rbSN76489P_Emu2);
             this.groupBox11.Controls.Add(this.rbSN76489P_Emu);
             this.groupBox11.Location = new System.Drawing.Point(3, 1000);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(411, 40);
+            this.groupBox11.Size = new System.Drawing.Size(411, 64);
             this.groupBox11.TabIndex = 5;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "SN76489(Primary)";
@@ -995,10 +997,11 @@
             this.groupBox12.Controls.Add(this.cmbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_Silent);
+            this.groupBox12.Controls.Add(this.rbSN76489S_Emu2);
             this.groupBox12.Controls.Add(this.rbSN76489S_Emu);
-            this.groupBox12.Location = new System.Drawing.Point(3, 1046);
+            this.groupBox12.Location = new System.Drawing.Point(3, 1070);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(411, 40);
+            this.groupBox12.Size = new System.Drawing.Size(411, 64);
             this.groupBox12.TabIndex = 5;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "SN76489(Secondary)";
@@ -1007,7 +1010,7 @@
             // 
             this.cmbSN76489S_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSN76489S_SCCI.FormattingEnabled = true;
-            this.cmbSN76489S_SCCI.Location = new System.Drawing.Point(220, 14);
+            this.cmbSN76489S_SCCI.Location = new System.Drawing.Point(220, 38);
             this.cmbSN76489S_SCCI.Name = "cmbSN76489S_SCCI";
             this.cmbSN76489S_SCCI.Size = new System.Drawing.Size(185, 20);
             this.cmbSN76489S_SCCI.TabIndex = 2;
@@ -1015,7 +1018,7 @@
             // rbSN76489S_SCCI
             // 
             this.rbSN76489S_SCCI.AutoSize = true;
-            this.rbSN76489S_SCCI.Location = new System.Drawing.Point(165, 15);
+            this.rbSN76489S_SCCI.Location = new System.Drawing.Point(165, 39);
             this.rbSN76489S_SCCI.Name = "rbSN76489S_SCCI";
             this.rbSN76489S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbSN76489S_SCCI.TabIndex = 1;
@@ -1038,10 +1041,9 @@
             this.rbSN76489S_Emu.Checked = true;
             this.rbSN76489S_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSN76489S_Emu.Name = "rbSN76489S_Emu";
-            this.rbSN76489S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbSN76489S_Emu.Size = new System.Drawing.Size(132, 16);
             this.rbSN76489S_Emu.TabIndex = 0;
-            this.rbSN76489S_Emu.TabStop = true;
-            this.rbSN76489S_Emu.Text = "エミュレーション";
+            this.rbSN76489S_Emu.Text = "エミュレーション(maxim)";
             this.rbSN76489S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox13
@@ -1062,7 +1064,7 @@
             this.groupBox14.Controls.Add(this.rbC140S_SCCI);
             this.groupBox14.Controls.Add(this.rbC140S_Silent);
             this.groupBox14.Controls.Add(this.rbC140S_Emu);
-            this.groupBox14.Location = new System.Drawing.Point(3, 1138);
+            this.groupBox14.Location = new System.Drawing.Point(3, 1186);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(411, 40);
             this.groupBox14.TabIndex = 6;
@@ -1116,7 +1118,7 @@
             this.groupBox15.Controls.Add(this.rbC140P_SCCI);
             this.groupBox15.Controls.Add(this.rbC140P_Silent);
             this.groupBox15.Controls.Add(this.rbC140P_Emu);
-            this.groupBox15.Location = new System.Drawing.Point(3, 1092);
+            this.groupBox15.Location = new System.Drawing.Point(3, 1140);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(411, 40);
             this.groupBox15.TabIndex = 7;
@@ -1170,7 +1172,7 @@
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_SCCI);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Silent);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Emu);
-            this.groupBox16.Location = new System.Drawing.Point(3, 1230);
+            this.groupBox16.Location = new System.Drawing.Point(3, 1278);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(411, 40);
             this.groupBox16.TabIndex = 8;
@@ -1224,7 +1226,7 @@
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_SCCI);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Silent);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Emu);
-            this.groupBox17.Location = new System.Drawing.Point(3, 1184);
+            this.groupBox17.Location = new System.Drawing.Point(3, 1232);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(411, 40);
             this.groupBox17.TabIndex = 9;
@@ -1704,6 +1706,26 @@
             this.rbYM2413P_Emu.Text = "エミュレーション";
             this.rbYM2413P_Emu.UseVisualStyleBackColor = true;
             // 
+            // rbSN76489P_Emu2
+            // 
+            this.rbSN76489P_Emu2.AutoSize = true;
+            this.rbSN76489P_Emu2.Location = new System.Drawing.Point(200, 15);
+            this.rbSN76489P_Emu2.Name = "rbSN76489P_Emu2";
+            this.rbSN76489P_Emu2.Size = new System.Drawing.Size(129, 16);
+            this.rbSN76489P_Emu2.TabIndex = 0;
+            this.rbSN76489P_Emu2.Text = "エミュレーション(mame)";
+            this.rbSN76489P_Emu2.UseVisualStyleBackColor = true;
+            // 
+            // rbSN76489S_Emu2
+            // 
+            this.rbSN76489S_Emu2.AutoSize = true;
+            this.rbSN76489S_Emu2.Location = new System.Drawing.Point(200, 15);
+            this.rbSN76489S_Emu2.Name = "rbSN76489S_Emu2";
+            this.rbSN76489S_Emu2.Size = new System.Drawing.Size(129, 16);
+            this.rbSN76489S_Emu2.TabIndex = 0;
+            this.rbSN76489S_Emu2.Text = "エミュレーション(mame)";
+            this.rbSN76489S_Emu2.UseVisualStyleBackColor = true;
+            // 
             // ucSettingInstruments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1735,7 +1757,7 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Name = "ucSettingInstruments";
-            this.Size = new System.Drawing.Size(417, 1277);
+            this.Size = new System.Drawing.Size(417, 1330);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1931,5 +1953,7 @@
         public System.Windows.Forms.RadioButton rbYM2413P_Real;
         public System.Windows.Forms.RadioButton rbYM2413P_Silent;
         public System.Windows.Forms.RadioButton rbYM2413P_Emu;
+        public System.Windows.Forms.RadioButton rbSN76489P_Emu2;
+        public System.Windows.Forms.RadioButton rbSN76489S_Emu2;
     }
 }
