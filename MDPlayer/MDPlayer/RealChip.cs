@@ -40,6 +40,7 @@ namespace MDPlayer
 
         public RealChip() 
         {
+            //SCCIの存在確認
             log.ForcedWrite("RealChip:Ctr:STEP 00(Start)");
 
             int n = 0;
@@ -65,6 +66,7 @@ namespace MDPlayer
                 nScci = null;
             }
 
+            //GIMICの存在確認
             log.ForcedWrite("RealChip:Ctr:STEP 01");
             try
             {
@@ -381,6 +383,19 @@ namespace MDPlayer
                         case EnmRealChipType.YM2203:
                         case EnmRealChipType.YM2608:
                             if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288 || cct == ChipType.CHIP_YM2203)
+                            {
+                                ct = new Setting.ChipType();
+                                ct.SoundLocation = -1;
+                                ct.BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.SoundChip = o;
+                                ct.ChipName = gm.getModuleInfo().Devname;
+                                ct.InterfaceName = gm.getMBInfo().Devname;
+                            }
+                            break;
+                        case EnmRealChipType.AY8910:
+                            if (cct == ChipType.CHIP_UNKNOWN)
                             {
                                 ct = new Setting.ChipType();
                                 ct.SoundLocation = -1;

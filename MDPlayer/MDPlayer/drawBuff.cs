@@ -151,19 +151,6 @@ namespace MDPlayer
         }
 
 
-        public static void screenInitAY8910(FrameBuffer screen)
-        {
-            for (int ch = 0; ch < 3; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-            }
-        }
 
         public static void screenInitHuC6280(FrameBuffer screen)
         {

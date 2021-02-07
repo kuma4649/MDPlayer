@@ -114,6 +114,11 @@ namespace MDPlayer.form
                     , ucSI.cmbYM2413S_Real, ucSI.rbYM2413S_Real
                     );
 
+                SetRealCombo(EnmRealChipType.AY8910
+                    , ucSI.cmbAY8910P_Real, ucSI.rbAY8910P_Real
+                    , ucSI.cmbAY8910S_Real, ucSI.rbAY8910S_Real
+                    );
+
                 SetRealCombo(EnmRealChipType.SN76489
                     , ucSI.cmbSN76489P_SCCI, ucSI.rbSN76489P_SCCI
                     , ucSI.cmbSN76489S_SCCI, ucSI.rbSN76489S_SCCI
@@ -388,6 +393,17 @@ namespace MDPlayer.form
                     , ucSI.rbYM2203S_Emu
                     , ucSI.rbYM2203S_SCCI
                     , ucSI.cmbYM2203S_SCCI);
+
+                SetRealParam(setting.AY8910Type
+                    , ucSI.rbAY8910P_Silent
+                    , ucSI.rbAY8910P_Emu
+                    , ucSI.rbAY8910P_Real
+                    , ucSI.cmbAY8910P_Real);
+                SetRealParam(setting.AY8910SType
+                    , ucSI.rbAY8910S_Silent
+                    , ucSI.rbAY8910S_Emu
+                    , ucSI.rbAY8910S_Real
+                    , ucSI.cmbAY8910S_Real);
 
                 SetRealParam(setting.YM2413Type
                     , ucSI.rbYM2413P_Silent
@@ -951,6 +967,8 @@ namespace MDPlayer.form
 
             int i = 0;
 
+            #region 出力
+
             setting.outputDevice.DeviceType = Common.DEV_WaveOut;
             if (rbWaveOut.Checked) setting.outputDevice.DeviceType = Common.DEV_WaveOut;
             if (rbDirectSoundOut.Checked) setting.outputDevice.DeviceType = Common.DEV_DirectSound;
@@ -967,6 +985,8 @@ namespace MDPlayer.form
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
             setting.outputDevice.WaitTime = int.Parse(cmbWaitTime.SelectedItem.ToString());
+
+            #endregion
 
             setting.YM2612Type = new Setting.ChipType();
             setting.YM2612Type.UseScci = ucSI.rbYM2612P_SCCI.Checked;
@@ -1264,6 +1284,41 @@ namespace MDPlayer.form
                 }
             }
             setting.YM2203SType.UseEmu = ucSI.rbYM2203S_Emu.Checked;
+
+
+            setting.AY8910Type = new Setting.ChipType();
+            setting.AY8910Type.UseScci = ucSI.rbAY8910P_Real.Checked;
+            if (ucSI.rbAY8910P_Real.Checked)
+            {
+                if (ucSI.cmbAY8910P_Real.SelectedItem != null)
+                {
+                    string n = ucSI.cmbAY8910P_Real.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.AY8910Type.InterfaceName = ns[0];
+                    setting.AY8910Type.SoundLocation = int.Parse(ns[1]);
+                    setting.AY8910Type.BusID = int.Parse(ns[2]);
+                    setting.AY8910Type.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.AY8910Type.UseEmu = ucSI.rbAY8910P_Emu.Checked;
+
+            setting.AY8910SType = new Setting.ChipType();
+            setting.AY8910SType.UseScci = ucSI.rbAY8910S_Real.Checked;
+            if (ucSI.rbAY8910S_Real.Checked)
+            {
+                if (ucSI.cmbAY8910S_Real.SelectedItem != null)
+                {
+                    string n = ucSI.cmbAY8910S_Real.SelectedItem.ToString();
+                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                    string[] ns = n.Split(':');
+                    setting.AY8910SType.InterfaceName = ns[0];
+                    setting.AY8910SType.SoundLocation = int.Parse(ns[1]);
+                    setting.AY8910SType.BusID = int.Parse(ns[2]);
+                    setting.AY8910SType.SoundChip = int.Parse(ns[3]);
+                }
+            }
+            setting.AY8910SType.UseEmu = ucSI.rbAY8910S_Emu.Checked;
 
 
             setting.YM2413Type = new Setting.ChipType();

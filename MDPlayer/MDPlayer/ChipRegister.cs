@@ -47,6 +47,7 @@ namespace MDPlayer
         private RSoundChip[] scYM2608 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2151 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
@@ -431,6 +432,7 @@ namespace MDPlayer
             , RSoundChip[] scYMF262
             , RSoundChip[] scC140
             , RSoundChip[] scSEGAPCM
+            , RSoundChip[] scAY8910
             )
         {
             this.setting = setting;
@@ -452,19 +454,20 @@ namespace MDPlayer
             this.scYM2610EB = scYM2610EB;
             this.scC140 = scC140;
             this.scSEGAPCM = scSEGAPCM;
+            this.scAY8910 = scAY8910;
 
             this.ctYM2612 = new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType };
             this.ctSN76489 = new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType };
             this.ctYM2608 = new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType };
             this.ctYM2151 = new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType };
             this.ctYM2203 = new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType };
+            this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
             this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
             this.ctYM2610 = new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType };
             this.ctYMF262 = new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType };
             this.ctYMF271 = new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType };
             this.ctYMF278B = new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType };
             this.ctYMZ280B = new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType };
-            this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
             this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
             this.ctYM3526 = new Setting.ChipType[] { setting.YM3526Type, setting.YM3526SType };
             this.ctYM3812 = new Setting.ChipType[] { setting.YM3812Type, setting.YM3812SType };
@@ -1291,8 +1294,8 @@ namespace MDPlayer
             }
             else
             {
-                //if (scAY8910[chipID] == null) return;
-                //scAY8910[chipID].setRegister(dAddr, dData);
+                if (scAY8910[chipID] == null) return;
+                scAY8910[chipID].setRegister(dAddr + 0x100, dData);
             }
         }
 
@@ -1879,6 +1882,26 @@ namespace MDPlayer
                 writeYM2203(chipID, 0, i, 0x00, model);
             }
 
+        }
+
+        public void softResetAY8910(int chipID, EnmModel model)
+        {
+
+            // 全チャネルキーオフ
+            setAY8910Register(chipID, 0x07, 0x00, model);
+
+            // ボリュームオフ
+            for (int ch = 0; ch < 3; ch++)
+            {
+                setAY8910Register(chipID, 0x8 + ch, 0x00, model);
+            }
+
+            //ノイズ初期化
+            setAY8910Register(chipID, 0x06, 0x00, model);
+            //エンベロープ初期化
+            setAY8910Register(chipID, 0x0b, 0x00, model);
+            setAY8910Register(chipID, 0x0c, 0x00, model);
+            setAY8910Register(chipID, 0x0d, 0x00, model);
         }
 
         public void softResetYM2413(int chipID, EnmModel model)
@@ -4012,6 +4035,15 @@ namespace MDPlayer
                 if ((algVolTbl[alg] & 4) != 0) setYM2203Register((byte)chipID, 0x44 + c, fmRegisterYM2203[chipID][0x44 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 2) != 0) setYM2203Register((byte)chipID, 0x48 + c, fmRegisterYM2203[chipID][0x48 + c], EnmModel.RealModel);
                 if ((algVolTbl[alg] & 8) != 0) setYM2203Register((byte)chipID, 0x4c + c, fmRegisterYM2203[chipID][0x4c + c], EnmModel.RealModel);
+            }
+        }
+
+        public void setFadeoutVolAY8910(int chipID, int v)
+        {
+            nowAY8910FadeoutVol[chipID] = v;
+            for (int c = 0; c < 3; c++)
+            {
+                setAY8910Register(chipID, 0x8 + c, psgRegisterAY8910[chipID][0x8 + c], EnmModel.RealModel);
             }
         }
 
