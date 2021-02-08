@@ -1047,7 +1047,7 @@ namespace MDPlayer
             if (realChip == null && !emuOnly )
             {
                 log.ForcedWrite("Audio:Init:STEP 04");
-                realChip = new RealChip();
+                realChip = new RealChip(true);
             }
 
             if (realChip != null)

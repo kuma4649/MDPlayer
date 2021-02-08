@@ -1114,6 +1114,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _Type = 0;
+            public int Type
+            {
+                get
+                {
+                    return _Type;
+                }
+
+                set
+                {
+                    _Type = value;
+                }
+            }
+
             private string _InterfaceName2B = "";
             public string InterfaceName2B
             {
@@ -1288,6 +1302,7 @@ namespace MDPlayer
                 ct.OnlyPCMEmulation = this.OnlyPCMEmulation;
                 ct.LatencyForEmulation = this.LatencyForEmulation;
                 ct.LatencyForScci = this.LatencyForScci;
+                ct.Type = this.Type;
 
                 return ct;
             }
