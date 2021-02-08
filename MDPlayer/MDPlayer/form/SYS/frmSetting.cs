@@ -2558,6 +2558,10 @@ namespace MDPlayer.form
             rbPMDUsePPSDRVManualFreq_CheckedChanged(null, null);
         }
 
+        private void groupBox20_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
