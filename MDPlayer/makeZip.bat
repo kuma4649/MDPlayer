@@ -23,7 +23,7 @@ copy /Y .\..\README.md                 .\output
 cd
 
 del /Q .\output\*.pdb
-del /Q .\output\*.config
+rem del /Q .\output\*.config
 del /Q .\output\*.bat
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
 

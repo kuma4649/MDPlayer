@@ -730,6 +730,9 @@
     <EmbeddedResource Include="form\KB\PCM\frmSegaPCM.resx">
       <DependentUpon>frmSegaPCM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmSetting.ja.resx">
+      <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\SYS\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
