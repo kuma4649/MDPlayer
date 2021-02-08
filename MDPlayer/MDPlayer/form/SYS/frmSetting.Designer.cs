@@ -61,6 +61,7 @@ namespace MDPlayer.form
             this.cmbSPPCMDevice = new System.Windows.Forms.ComboBox();
             this.tpModule = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucSI = new MDPlayer.form.ucSettingInstruments();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbHiyorimiMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -419,16 +420,21 @@ namespace MDPlayer.form
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.rbAutoBalanceNotLoadDriverBalance = new System.Windows.Forms.RadioButton();
             this.rbAutoBalanceLoadDriverBalance = new System.Windows.Forms.RadioButton();
-            this.tpOther = new System.Windows.Forms.TabPage();
-            this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
-            this.cbWavSwitch = new System.Windows.Forms.CheckBox();
+            this.tpPlayList = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.cbAutoOpenImg = new System.Windows.Forms.CheckBox();
             this.tbImageExt = new System.Windows.Forms.TextBox();
+            this.cbAutoOpenMML = new System.Windows.Forms.CheckBox();
             this.tbMMLExt = new System.Windows.Forms.TextBox();
             this.tbTextExt = new System.Windows.Forms.TextBox();
+            this.cbAutoOpenText = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
+            this.tpOther = new System.Windows.Forms.TabPage();
+            this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
+            this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
@@ -453,7 +459,6 @@ namespace MDPlayer.form
             this.btnResetPosition = new System.Windows.Forms.Button();
             this.btnOpenSettingFolder = new System.Windows.Forms.Button();
             this.cbExALL = new System.Windows.Forms.CheckBox();
-            this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
             this.cbInitAlways = new System.Windows.Forms.CheckBox();
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
@@ -472,11 +477,6 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.ucSI = new MDPlayer.form.ucSettingInstruments();
-            this.tpPlayList = new System.Windows.Forms.TabPage();
-            this.cbAutoOpenText = new System.Windows.Forms.CheckBox();
-            this.cbAutoOpenMML = new System.Windows.Forms.CheckBox();
-            this.cbAutoOpenImg = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -569,8 +569,9 @@ namespace MDPlayer.form
             this.groupBox23.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.groupBox20.SuspendLayout();
-            this.tpOther.SuspendLayout();
+            this.tpPlayList.SuspendLayout();
             this.groupBox17.SuspendLayout();
+            this.tpOther.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.gbWav.SuspendLayout();
             this.gbDump.SuspendLayout();
@@ -579,7 +580,6 @@ namespace MDPlayer.form
             this.tpAbout.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.tpPlayList.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -727,10 +727,10 @@ namespace MDPlayer.form
             this.rbExclusive.AutoSize = true;
             this.rbExclusive.Location = new System.Drawing.Point(342, 31);
             this.rbExclusive.Name = "rbExclusive";
-            this.rbExclusive.Size = new System.Drawing.Size(47, 16);
+            this.rbExclusive.Size = new System.Drawing.Size(72, 16);
             this.rbExclusive.TabIndex = 7;
             this.rbExclusive.TabStop = true;
-            this.rbExclusive.Text = "排他";
+            this.rbExclusive.Text = "Exclusive";
             this.rbExclusive.UseVisualStyleBackColor = true;
             // 
             // rbShare
@@ -738,10 +738,10 @@ namespace MDPlayer.form
             this.rbShare.AutoSize = true;
             this.rbShare.Location = new System.Drawing.Point(342, 9);
             this.rbShare.Name = "rbShare";
-            this.rbShare.Size = new System.Drawing.Size(47, 16);
+            this.rbShare.Size = new System.Drawing.Size(58, 16);
             this.rbShare.TabIndex = 6;
             this.rbShare.TabStop = true;
-            this.rbShare.Text = "共有";
+            this.rbShare.Text = "Shared";
             this.rbShare.UseVisualStyleBackColor = true;
             // 
             // cmbWasapiDevice
@@ -828,7 +828,7 @@ namespace MDPlayer.form
             this.tpOutput.Padding = new System.Windows.Forms.Padding(3);
             this.tpOutput.Size = new System.Drawing.Size(443, 371);
             this.tpOutput.TabIndex = 0;
-            this.tpOutput.Text = "出力";
+            this.tpOutput.Text = "Output";
             this.tpOutput.UseVisualStyleBackColor = true;
             // 
             // rbNullDevice
@@ -837,7 +837,7 @@ namespace MDPlayer.form
             this.rbNullDevice.Name = "rbNullDevice";
             this.rbNullDevice.Size = new System.Drawing.Size(122, 29);
             this.rbNullDevice.TabIndex = 2;
-            this.rbNullDevice.Text = "NULL(サウンドデバイスを使用しない)";
+            this.rbNullDevice.Text = "NULL(No Sound Devices)";
             this.rbNullDevice.UseVisualStyleBackColor = true;
             this.rbNullDevice.CheckedChanged += new System.EventHandler(this.rbDirectSoundOut_CheckedChanged);
             // 
@@ -846,9 +846,9 @@ namespace MDPlayer.form
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(7, 7);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(67, 12);
+            this.label36.Size = new System.Drawing.Size(84, 12);
             this.label36.TabIndex = 3;
-            this.label36.Text = "出力デバイス";
+            this.label36.Text = "Output Devices";
             // 
             // lblWaitTime
             // 
@@ -873,18 +873,18 @@ namespace MDPlayer.form
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(7, 347);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(98, 12);
+            this.label28.Size = new System.Drawing.Size(129, 12);
             this.label28.TabIndex = 9;
-            this.label28.Text = "演奏開始待ち時間";
+            this.label28.Text = "Wait time before playing";
             // 
             // lblLatency
             // 
             this.lblLatency.AutoSize = true;
             this.lblLatency.Location = new System.Drawing.Point(7, 321);
             this.lblLatency.Name = "lblLatency";
-            this.lblLatency.Size = new System.Drawing.Size(145, 12);
+            this.lblLatency.Size = new System.Drawing.Size(144, 12);
             this.lblLatency.TabIndex = 9;
-            this.lblLatency.Text = "遅延時間(レンダリングバッファ)";
+            this.lblLatency.Text = "Latency (Rendering Buffer)";
             // 
             // cmbWaitTime
             // 
@@ -969,7 +969,7 @@ namespace MDPlayer.form
             this.tpModule.Name = "tpModule";
             this.tpModule.Size = new System.Drawing.Size(443, 371);
             this.tpModule.TabIndex = 3;
-            this.tpModule.Text = "音源";
+            this.tpModule.Text = "Sound";
             this.tpModule.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -980,7 +980,16 @@ namespace MDPlayer.form
             this.groupBox1.Size = new System.Drawing.Size(437, 280);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "音源の割り当て";
+            this.groupBox1.Text = "Sound Chip Selection";
+            // 
+            // ucSI
+            // 
+            this.ucSI.AutoScroll = true;
+            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSI.Location = new System.Drawing.Point(3, 15);
+            this.ucSI.Name = "ucSI";
+            this.ucSI.Size = new System.Drawing.Size(431, 262);
+            this.ucSI.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -996,16 +1005,16 @@ namespace MDPlayer.form
             this.groupBox3.Size = new System.Drawing.Size(434, 79);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "遅延演奏";
+            this.groupBox3.Text = "Delayed Playback";
             // 
             // cbHiyorimiMode
             // 
             this.cbHiyorimiMode.AutoSize = true;
             this.cbHiyorimiMode.Location = new System.Drawing.Point(8, 59);
             this.cbHiyorimiMode.Name = "cbHiyorimiMode";
-            this.cbHiyorimiMode.Size = new System.Drawing.Size(335, 16);
+            this.cbHiyorimiMode.Size = new System.Drawing.Size(388, 16);
             this.cbHiyorimiMode.TabIndex = 6;
-            this.cbHiyorimiMode.Text = "日和見モード(出力タブ：遅延時間100ms以下の時、使用を推奨)";
+            this.cbHiyorimiMode.Text = "Opportunistic mode (Recommended if rendering buffer is below 100ms)";
             this.cbHiyorimiMode.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -1013,9 +1022,9 @@ namespace MDPlayer.form
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(6, 18);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 12);
+            this.label13.Size = new System.Drawing.Size(55, 12);
             this.label13.TabIndex = 0;
-            this.label13.Text = "エミュレーション";
+            this.label13.Text = "Emulation";
             // 
             // label12
             // 
@@ -1804,7 +1813,7 @@ namespace MDPlayer.form
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(227, 38);
             this.label51.TabIndex = 0;
-            this.label51.Text = "テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。";
+            this.label51.Text = "Adjust this when tempo is too fast or sound stutters. Default:5000";
             // 
             // label49
             // 
@@ -2844,9 +2853,9 @@ namespace MDPlayer.form
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(7, 171);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(74, 12);
+            this.label18.Size = new System.Drawing.Size(73, 12);
             this.label18.TabIndex = 2;
-            this.label18.Text = "MIDI Outリスト";
+            this.label18.Text = "MIDI Out List";
             // 
             // dgvMIDIoutPallet
             // 
@@ -2907,9 +2916,9 @@ namespace MDPlayer.form
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(5, 5);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(126, 12);
+            this.label16.Size = new System.Drawing.Size(129, 12);
             this.label16.TabIndex = 0;
-            this.label16.Text = "MIDI Outデバイス パレット";
+            this.label16.Text = "MIDI Out Device Palette";
             // 
             // tpMIDIOut2
             // 
@@ -2946,7 +2955,7 @@ namespace MDPlayer.form
             this.btnBeforeSend_Default.Name = "btnBeforeSend_Default";
             this.btnBeforeSend_Default.Size = new System.Drawing.Size(75, 23);
             this.btnBeforeSend_Default.TabIndex = 2;
-            this.btnBeforeSend_Default.Text = "元に戻す";
+            this.btnBeforeSend_Default.Text = "Reset";
             this.btnBeforeSend_Default.UseVisualStyleBackColor = true;
             this.btnBeforeSend_Default.Click += new System.EventHandler(this.btnBeforeSend_Default_Click);
             // 
@@ -3042,7 +3051,7 @@ namespace MDPlayer.form
             this.cbUseMIDIExport.Name = "cbUseMIDIExport";
             this.cbUseMIDIExport.Size = new System.Drawing.Size(177, 16);
             this.cbUseMIDIExport.TabIndex = 1;
-            this.cbUseMIDIExport.Text = "演奏時MIDIファイルをexportする";
+            this.cbUseMIDIExport.Text = "Export MIDI File while playing";
             this.cbUseMIDIExport.UseVisualStyleBackColor = true;
             this.cbUseMIDIExport.CheckedChanged += new System.EventHandler(this.cbUseMIDIExport_CheckedChanged);
             // 
@@ -3066,9 +3075,9 @@ namespace MDPlayer.form
             this.cbMIDIKeyOnFnum.AutoSize = true;
             this.cbMIDIKeyOnFnum.Location = new System.Drawing.Point(21, 66);
             this.cbMIDIKeyOnFnum.Name = "cbMIDIKeyOnFnum";
-            this.cbMIDIKeyOnFnum.Size = new System.Drawing.Size(169, 16);
+            this.cbMIDIKeyOnFnum.Size = new System.Drawing.Size(177, 16);
             this.cbMIDIKeyOnFnum.TabIndex = 23;
-            this.cbMIDIKeyOnFnum.Text = "KeyON時のみfnumを評価する";
+            this.cbMIDIKeyOnFnum.Text = "Evaluate fnum only on KeyON";
             this.cbMIDIKeyOnFnum.UseVisualStyleBackColor = true;
             // 
             // cbMIDIUseVOPM
@@ -3076,9 +3085,9 @@ namespace MDPlayer.form
             this.cbMIDIUseVOPM.AutoSize = true;
             this.cbMIDIUseVOPM.Location = new System.Drawing.Point(21, 44);
             this.cbMIDIUseVOPM.Name = "cbMIDIUseVOPM";
-            this.cbMIDIUseVOPM.Size = new System.Drawing.Size(196, 16);
+            this.cbMIDIUseVOPM.Size = new System.Drawing.Size(151, 16);
             this.cbMIDIUseVOPM.TabIndex = 23;
-            this.cbMIDIUseVOPM.Text = "VOPMex向けコントロールを出力する";
+            this.cbMIDIUseVOPM.Text = "Add Control for VOPMex";
             this.cbMIDIUseVOPM.UseVisualStyleBackColor = true;
             // 
             // groupBox6
@@ -3100,7 +3109,7 @@ namespace MDPlayer.form
             this.groupBox6.Size = new System.Drawing.Size(188, 152);
             this.groupBox6.TabIndex = 22;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "出力対象音源";
+            this.groupBox6.Text = "Target IC";
             // 
             // cbMIDIYM2612
             // 
@@ -3240,9 +3249,9 @@ namespace MDPlayer.form
             this.cbMIDIPlayless.Enabled = false;
             this.cbMIDIPlayless.Location = new System.Drawing.Point(21, 22);
             this.cbMIDIPlayless.Name = "cbMIDIPlayless";
-            this.cbMIDIPlayless.Size = new System.Drawing.Size(141, 16);
+            this.cbMIDIPlayless.Size = new System.Drawing.Size(132, 16);
             this.cbMIDIPlayless.TabIndex = 20;
-            this.cbMIDIPlayless.Text = "演奏を行わずに出力する";
+            this.cbMIDIPlayless.Text = "Output without Audio";
             this.cbMIDIPlayless.UseVisualStyleBackColor = true;
             // 
             // btnMIDIOutputPath
@@ -3258,11 +3267,11 @@ namespace MDPlayer.form
             // lblOutputPath
             // 
             this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Location = new System.Drawing.Point(19, 91);
+            this.lblOutputPath.Location = new System.Drawing.Point(6, 91);
             this.lblOutputPath.Name = "lblOutputPath";
-            this.lblOutputPath.Size = new System.Drawing.Size(52, 12);
+            this.lblOutputPath.Size = new System.Drawing.Size(66, 12);
             this.lblOutputPath.TabIndex = 17;
-            this.lblOutputPath.Text = "出力Path";
+            this.lblOutputPath.Text = "Output Path";
             // 
             // tbMIDIOutputPath
             // 
@@ -3279,7 +3288,7 @@ namespace MDPlayer.form
             this.tpMIDIKBD.Name = "tpMIDIKBD";
             this.tpMIDIKBD.Size = new System.Drawing.Size(443, 371);
             this.tpMIDIKBD.TabIndex = 5;
-            this.tpMIDIKBD.Text = "MIDI鍵盤";
+            this.tpMIDIKBD.Text = "MIDI Keyboard";
             this.tpMIDIKBD.UseVisualStyleBackColor = true;
             // 
             // cbUseMIDIKeyboard
@@ -3287,9 +3296,9 @@ namespace MDPlayer.form
             this.cbUseMIDIKeyboard.AutoSize = true;
             this.cbUseMIDIKeyboard.Location = new System.Drawing.Point(11, 4);
             this.cbUseMIDIKeyboard.Name = "cbUseMIDIKeyboard";
-            this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(124, 16);
+            this.cbUseMIDIKeyboard.Size = new System.Drawing.Size(122, 16);
             this.cbUseMIDIKeyboard.TabIndex = 1;
-            this.cbUseMIDIKeyboard.Text = "MIDIキーボードを使う";
+            this.cbUseMIDIKeyboard.Text = "Use MIDI Keyboard";
             this.cbUseMIDIKeyboard.UseVisualStyleBackColor = true;
             this.cbUseMIDIKeyboard.CheckedChanged += new System.EventHandler(this.cbUseMIDIKeyboard_CheckedChanged);
             // 
@@ -3477,9 +3486,9 @@ namespace MDPlayer.form
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(42, 210);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(230, 12);
+            this.label17.Size = new System.Drawing.Size(277, 12);
             this.label17.TabIndex = 9;
-            this.label17.Text = "MONOモード時、選択ログをクリップボードに設定";
+            this.label17.Text = "Copy selected log to Clipboard when on MONO mode";
             // 
             // tbCCDelLog
             // 
@@ -3494,9 +3503,9 @@ namespace MDPlayer.form
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(42, 185);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(117, 12);
+            this.label15.Size = new System.Drawing.Size(80, 12);
             this.label15.TabIndex = 7;
-            this.label15.Text = "直近のログをひとつ削除";
+            this.label15.Text = "Delete last log";
             // 
             // tbCCChCopy
             // 
@@ -3511,18 +3520,18 @@ namespace MDPlayer.form
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 142);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(159, 12);
+            this.label8.Size = new System.Drawing.Size(193, 12);
             this.label8.TabIndex = 3;
-            this.label8.Text = "CC(Control Change)による操作";
+            this.label8.Text = "Control by CC(Control Change) Data";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(42, 160);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(261, 12);
+            this.label9.Size = new System.Drawing.Size(318, 12);
             this.label9.TabIndex = 5;
-            this.label9.Text = "1Chの音色を全てのチャンネルにコピー(選択状況無視)";
+            this.label9.Text = "Copy 1st channel FM patch to all channel (Ignores selection)";
             // 
             // gbUseChannel
             // 
@@ -3756,7 +3765,7 @@ namespace MDPlayer.form
             this.tpKeyBoard.Name = "tpKeyBoard";
             this.tpKeyBoard.Size = new System.Drawing.Size(443, 371);
             this.tpKeyBoard.TabIndex = 13;
-            this.tpKeyBoard.Text = "キーボード";
+            this.tpKeyBoard.Text = "HotKeys";
             this.tpKeyBoard.UseVisualStyleBackColor = true;
             // 
             // cbUseKeyBoardHook
@@ -3764,9 +3773,9 @@ namespace MDPlayer.form
             this.cbUseKeyBoardHook.AutoSize = true;
             this.cbUseKeyBoardHook.Location = new System.Drawing.Point(18, 3);
             this.cbUseKeyBoardHook.Name = "cbUseKeyBoardHook";
-            this.cbUseKeyBoardHook.Size = new System.Drawing.Size(124, 16);
+            this.cbUseKeyBoardHook.Size = new System.Drawing.Size(122, 16);
             this.cbUseKeyBoardHook.TabIndex = 27;
-            this.cbUseKeyBoardHook.Text = "キーボードフックを使う";
+            this.cbUseKeyBoardHook.Text = "Use keyboard hook";
             this.cbUseKeyBoardHook.UseVisualStyleBackColor = true;
             this.cbUseKeyBoardHook.CheckedChanged += new System.EventHandler(this.cbUseKeyBoardHook_CheckedChanged);
             // 
@@ -3853,9 +3862,9 @@ namespace MDPlayer.form
             this.lblKeyBoardHookNotice.ForeColor = System.Drawing.Color.Red;
             this.lblKeyBoardHookNotice.Location = new System.Drawing.Point(6, 277);
             this.lblKeyBoardHookNotice.Name = "lblKeyBoardHookNotice";
-            this.lblKeyBoardHookNotice.Size = new System.Drawing.Size(169, 12);
+            this.lblKeyBoardHookNotice.Size = new System.Drawing.Size(82, 12);
             this.lblKeyBoardHookNotice.TabIndex = 30;
-            this.lblKeyBoardHookNotice.Text = "設定したいキーを入力してください。";
+            this.lblKeyBoardHookNotice.Text = "Press key now.";
             this.lblKeyBoardHookNotice.Visible = false;
             // 
             // btNextClr
@@ -4239,9 +4248,9 @@ namespace MDPlayer.form
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(26, 45);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(29, 12);
+            this.label37.Size = new System.Drawing.Size(28, 12);
             this.label37.TabIndex = 26;
-            this.label37.Text = "停止";
+            this.label37.Text = "Stop";
             // 
             // cbStopAlt
             // 
@@ -4284,45 +4293,45 @@ namespace MDPlayer.form
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(26, 74);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(53, 12);
+            this.label38.Size = new System.Drawing.Size(36, 12);
             this.label38.TabIndex = 26;
-            this.label38.Text = "一時停止";
+            this.label38.Text = "Pause";
             // 
             // label39
             // 
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(26, 103);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(65, 12);
+            this.label39.Size = new System.Drawing.Size(52, 12);
             this.label39.TabIndex = 26;
-            this.label39.Text = "フェードアウト";
+            this.label39.Text = "Fade Out";
             // 
             // label40
             // 
             this.label40.AutoSize = true;
             this.label40.Location = new System.Drawing.Point(26, 132);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(29, 12);
+            this.label40.Size = new System.Drawing.Size(28, 12);
             this.label40.TabIndex = 26;
-            this.label40.Text = "前曲";
+            this.label40.Text = "Prev";
             // 
             // label41
             // 
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(26, 161);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(57, 12);
+            this.label41.Size = new System.Drawing.Size(55, 12);
             this.label41.TabIndex = 26;
-            this.label41.Text = "スロー再生";
+            this.label41.Text = "Slow Play";
             // 
             // label42
             // 
             this.label42.AutoSize = true;
             this.label42.Location = new System.Drawing.Point(26, 190);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(29, 12);
+            this.label42.Size = new System.Drawing.Size(27, 12);
             this.label42.TabIndex = 26;
-            this.label42.Text = "再生";
+            this.label42.Text = "Play";
             // 
             // cbNextCtrl
             // 
@@ -4338,9 +4347,9 @@ namespace MDPlayer.form
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(26, 219);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(59, 12);
+            this.label43.Size = new System.Drawing.Size(52, 12);
             this.label43.TabIndex = 26;
-            this.label43.Text = "3倍速再生";
+            this.label43.Text = "3x Speed";
             // 
             // cbFastCtrl
             // 
@@ -4356,9 +4365,9 @@ namespace MDPlayer.form
             this.label44.AutoSize = true;
             this.label44.Location = new System.Drawing.Point(26, 246);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(29, 12);
+            this.label44.Size = new System.Drawing.Size(26, 12);
             this.label44.TabIndex = 26;
-            this.label44.Text = "次曲";
+            this.label44.Text = "Fwd";
             // 
             // cbPlayCtrl
             // 
@@ -4585,7 +4594,7 @@ namespace MDPlayer.form
             this.tpBalance.Name = "tpBalance";
             this.tpBalance.Size = new System.Drawing.Size(443, 371);
             this.tpBalance.TabIndex = 12;
-            this.tpBalance.Text = "ミキサーバランス";
+            this.tpBalance.Text = "Mixer Balance";
             this.tpBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox25
@@ -4597,7 +4606,7 @@ namespace MDPlayer.form
             this.groupBox25.Size = new System.Drawing.Size(433, 41);
             this.groupBox25.TabIndex = 1;
             this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "ソングミキサーバランス参照フォルダー";
+            this.groupBox25.Text = "Song mixer balance read/write folder";
             // 
             // rbAutoBalanceNotSamePositionAsSongData
             // 
@@ -4605,20 +4614,20 @@ namespace MDPlayer.form
             this.rbAutoBalanceNotSamePositionAsSongData.Checked = true;
             this.rbAutoBalanceNotSamePositionAsSongData.Location = new System.Drawing.Point(6, 18);
             this.rbAutoBalanceNotSamePositionAsSongData.Name = "rbAutoBalanceNotSamePositionAsSongData";
-            this.rbAutoBalanceNotSamePositionAsSongData.Size = new System.Drawing.Size(110, 16);
+            this.rbAutoBalanceNotSamePositionAsSongData.Size = new System.Drawing.Size(148, 16);
             this.rbAutoBalanceNotSamePositionAsSongData.TabIndex = 0;
             this.rbAutoBalanceNotSamePositionAsSongData.TabStop = true;
-            this.rbAutoBalanceNotSamePositionAsSongData.Text = "設定ファイルと同じ";
+            this.rbAutoBalanceNotSamePositionAsSongData.Text = "Same folder with setting";
             this.rbAutoBalanceNotSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceSamePositionAsSongData
             // 
             this.rbAutoBalanceSamePositionAsSongData.AutoSize = true;
-            this.rbAutoBalanceSamePositionAsSongData.Location = new System.Drawing.Point(122, 18);
+            this.rbAutoBalanceSamePositionAsSongData.Location = new System.Drawing.Point(160, 18);
             this.rbAutoBalanceSamePositionAsSongData.Name = "rbAutoBalanceSamePositionAsSongData";
-            this.rbAutoBalanceSamePositionAsSongData.Size = new System.Drawing.Size(92, 16);
+            this.rbAutoBalanceSamePositionAsSongData.Size = new System.Drawing.Size(163, 16);
             this.rbAutoBalanceSamePositionAsSongData.TabIndex = 0;
-            this.rbAutoBalanceSamePositionAsSongData.Text = "曲データと同じ";
+            this.rbAutoBalanceSamePositionAsSongData.Text = "Same folder with song data";
             this.rbAutoBalanceSamePositionAsSongData.UseVisualStyleBackColor = true;
             // 
             // cbAutoBalanceUseThis
@@ -4628,9 +4637,9 @@ namespace MDPlayer.form
             this.cbAutoBalanceUseThis.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAutoBalanceUseThis.Location = new System.Drawing.Point(13, 3);
             this.cbAutoBalanceUseThis.Name = "cbAutoBalanceUseThis";
-            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(221, 16);
+            this.cbAutoBalanceUseThis.Size = new System.Drawing.Size(207, 16);
             this.cbAutoBalanceUseThis.TabIndex = 1;
-            this.cbAutoBalanceUseThis.Text = "ミキサーバランス自動設定機能を使用する";
+            this.cbAutoBalanceUseThis.Text = "Use Auto mixer balance set feature";
             this.cbAutoBalanceUseThis.UseVisualStyleBackColor = true;
             // 
             // groupBox18
@@ -4652,7 +4661,7 @@ namespace MDPlayer.form
             this.groupBox24.Size = new System.Drawing.Size(421, 127);
             this.groupBox24.TabIndex = 1;
             this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "保存";
+            this.groupBox24.Text = "When saving";
             // 
             // groupBox21
             // 
@@ -4663,7 +4672,7 @@ namespace MDPlayer.form
             this.groupBox21.Size = new System.Drawing.Size(409, 62);
             this.groupBox21.TabIndex = 0;
             this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "ソングミキサーバランス(曲データ毎)";
+            this.groupBox21.Text = "Song mixer balance (Per song data)";
             // 
             // rbAutoBalanceNotSaveSongBalance
             // 
@@ -4671,10 +4680,10 @@ namespace MDPlayer.form
             this.rbAutoBalanceNotSaveSongBalance.Checked = true;
             this.rbAutoBalanceNotSaveSongBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotSaveSongBalance.Name = "rbAutoBalanceNotSaveSongBalance";
-            this.rbAutoBalanceNotSaveSongBalance.Size = new System.Drawing.Size(153, 16);
+            this.rbAutoBalanceNotSaveSongBalance.Size = new System.Drawing.Size(152, 16);
             this.rbAutoBalanceNotSaveSongBalance.TabIndex = 0;
             this.rbAutoBalanceNotSaveSongBalance.TabStop = true;
-            this.rbAutoBalanceNotSaveSongBalance.Text = "保存しない(手動保存のみ)";
+            this.rbAutoBalanceNotSaveSongBalance.Text = "No Save (Save manually)";
             this.rbAutoBalanceNotSaveSongBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceSaveSongBalance
@@ -4684,7 +4693,7 @@ namespace MDPlayer.form
             this.rbAutoBalanceSaveSongBalance.Name = "rbAutoBalanceSaveSongBalance";
             this.rbAutoBalanceSaveSongBalance.Size = new System.Drawing.Size(150, 16);
             this.rbAutoBalanceSaveSongBalance.TabIndex = 0;
-            this.rbAutoBalanceSaveSongBalance.Text = "演奏停止時に自動で保存";
+            this.rbAutoBalanceSaveSongBalance.Text = "Save when song stopped";
             this.rbAutoBalanceSaveSongBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox22
@@ -4695,16 +4704,16 @@ namespace MDPlayer.form
             this.groupBox22.Size = new System.Drawing.Size(409, 35);
             this.groupBox22.TabIndex = 0;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "ドライバーミキサーバランス(ドライバ毎)";
+            this.groupBox22.Text = "Driver mixer balance";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 12);
+            this.label4.Size = new System.Drawing.Size(94, 12);
             this.label4.TabIndex = 1;
-            this.label4.Text = "手動保存のみ";
+            this.label4.Text = "Manual save only";
             // 
             // groupBox23
             // 
@@ -4715,7 +4724,7 @@ namespace MDPlayer.form
             this.groupBox23.Size = new System.Drawing.Size(421, 157);
             this.groupBox23.TabIndex = 1;
             this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "読み込み";
+            this.groupBox23.Text = "When reading";
             // 
             // groupBox19
             // 
@@ -4726,7 +4735,7 @@ namespace MDPlayer.form
             this.groupBox19.Size = new System.Drawing.Size(409, 63);
             this.groupBox19.TabIndex = 0;
             this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "ソングミキサーバランス(曲データ毎)";
+            this.groupBox19.Text = "Song mixer balance (Per song data)";
             // 
             // rbAutoBalanceNotLoadSongBalance
             // 
@@ -4734,10 +4743,10 @@ namespace MDPlayer.form
             this.rbAutoBalanceNotLoadSongBalance.Checked = true;
             this.rbAutoBalanceNotLoadSongBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotLoadSongBalance.Name = "rbAutoBalanceNotLoadSongBalance";
-            this.rbAutoBalanceNotLoadSongBalance.Size = new System.Drawing.Size(102, 16);
+            this.rbAutoBalanceNotLoadSongBalance.Size = new System.Drawing.Size(98, 16);
             this.rbAutoBalanceNotLoadSongBalance.TabIndex = 0;
             this.rbAutoBalanceNotLoadSongBalance.TabStop = true;
-            this.rbAutoBalanceNotLoadSongBalance.Text = "手動で読み込む";
+            this.rbAutoBalanceNotLoadSongBalance.Text = "Read manually";
             this.rbAutoBalanceNotLoadSongBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadSongBalance
@@ -4745,9 +4754,9 @@ namespace MDPlayer.form
             this.rbAutoBalanceLoadSongBalance.AutoSize = true;
             this.rbAutoBalanceLoadSongBalance.Location = new System.Drawing.Point(6, 18);
             this.rbAutoBalanceLoadSongBalance.Name = "rbAutoBalanceLoadSongBalance";
-            this.rbAutoBalanceLoadSongBalance.Size = new System.Drawing.Size(147, 16);
+            this.rbAutoBalanceLoadSongBalance.Size = new System.Drawing.Size(121, 16);
             this.rbAutoBalanceLoadSongBalance.TabIndex = 0;
-            this.rbAutoBalanceLoadSongBalance.Text = "再生時に自動で読み込む";
+            this.rbAutoBalanceLoadSongBalance.Text = "Read automatically";
             this.rbAutoBalanceLoadSongBalance.UseVisualStyleBackColor = true;
             // 
             // groupBox20
@@ -4759,16 +4768,17 @@ namespace MDPlayer.form
             this.groupBox20.Size = new System.Drawing.Size(409, 63);
             this.groupBox20.TabIndex = 0;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "ドライバーミキサーバランス(ドライバ毎)";
+            this.groupBox20.Text = "Driver mixer balance (Per driver)";
+            this.groupBox20.Enter += new System.EventHandler(this.groupBox20_Enter);
             // 
             // rbAutoBalanceNotLoadDriverBalance
             // 
             this.rbAutoBalanceNotLoadDriverBalance.AutoSize = true;
             this.rbAutoBalanceNotLoadDriverBalance.Location = new System.Drawing.Point(6, 40);
             this.rbAutoBalanceNotLoadDriverBalance.Name = "rbAutoBalanceNotLoadDriverBalance";
-            this.rbAutoBalanceNotLoadDriverBalance.Size = new System.Drawing.Size(102, 16);
+            this.rbAutoBalanceNotLoadDriverBalance.Size = new System.Drawing.Size(98, 16);
             this.rbAutoBalanceNotLoadDriverBalance.TabIndex = 0;
-            this.rbAutoBalanceNotLoadDriverBalance.Text = "手動で読み込む";
+            this.rbAutoBalanceNotLoadDriverBalance.Text = "Read manually";
             this.rbAutoBalanceNotLoadDriverBalance.UseVisualStyleBackColor = true;
             // 
             // rbAutoBalanceLoadDriverBalance
@@ -4780,8 +4790,129 @@ namespace MDPlayer.form
             this.rbAutoBalanceLoadDriverBalance.Size = new System.Drawing.Size(343, 16);
             this.rbAutoBalanceLoadDriverBalance.TabIndex = 0;
             this.rbAutoBalanceLoadDriverBalance.TabStop = true;
-            this.rbAutoBalanceLoadDriverBalance.Text = "再生時に自動で読み込む(曲データ毎のバランスファイルが無い場合)";
+            this.rbAutoBalanceLoadDriverBalance.Text = "Read automatically (When there are no per song balance files)";
             this.rbAutoBalanceLoadDriverBalance.UseVisualStyleBackColor = true;
+            // 
+            // tpPlayList
+            // 
+            this.tpPlayList.Controls.Add(this.groupBox17);
+            this.tpPlayList.Controls.Add(this.cbEmptyPlayList);
+            this.tpPlayList.Location = new System.Drawing.Point(4, 22);
+            this.tpPlayList.Name = "tpPlayList";
+            this.tpPlayList.Size = new System.Drawing.Size(443, 371);
+            this.tpPlayList.TabIndex = 16;
+            this.tpPlayList.Text = "PlayList";
+            this.tpPlayList.UseVisualStyleBackColor = true;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.cbAutoOpenImg);
+            this.groupBox17.Controls.Add(this.tbImageExt);
+            this.groupBox17.Controls.Add(this.cbAutoOpenMML);
+            this.groupBox17.Controls.Add(this.tbMMLExt);
+            this.groupBox17.Controls.Add(this.tbTextExt);
+            this.groupBox17.Controls.Add(this.cbAutoOpenText);
+            this.groupBox17.Controls.Add(this.label1);
+            this.groupBox17.Controls.Add(this.label3);
+            this.groupBox17.Controls.Add(this.label2);
+            this.groupBox17.Location = new System.Drawing.Point(7, 42);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(433, 83);
+            this.groupBox17.TabIndex = 1;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "File Extension";
+            // 
+            // cbAutoOpenImg
+            // 
+            this.cbAutoOpenImg.AutoSize = true;
+            this.cbAutoOpenImg.Location = new System.Drawing.Point(222, 58);
+            this.cbAutoOpenImg.Name = "cbAutoOpenImg";
+            this.cbAutoOpenImg.Size = new System.Drawing.Size(115, 16);
+            this.cbAutoOpenImg.TabIndex = 0;
+            this.cbAutoOpenImg.Text = "Auto open picture";
+            this.cbAutoOpenImg.UseVisualStyleBackColor = true;
+            this.cbAutoOpenImg.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
+            // tbImageExt
+            // 
+            this.tbImageExt.Location = new System.Drawing.Point(52, 58);
+            this.tbImageExt.Name = "tbImageExt";
+            this.tbImageExt.Size = new System.Drawing.Size(164, 19);
+            this.tbImageExt.TabIndex = 1;
+            // 
+            // cbAutoOpenMML
+            // 
+            this.cbAutoOpenMML.AutoSize = true;
+            this.cbAutoOpenMML.Location = new System.Drawing.Point(222, 36);
+            this.cbAutoOpenMML.Name = "cbAutoOpenMML";
+            this.cbAutoOpenMML.Size = new System.Drawing.Size(104, 16);
+            this.cbAutoOpenMML.TabIndex = 0;
+            this.cbAutoOpenMML.Text = "Auto open MML";
+            this.cbAutoOpenMML.UseVisualStyleBackColor = true;
+            this.cbAutoOpenMML.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
+            // tbMMLExt
+            // 
+            this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
+            this.tbMMLExt.Name = "tbMMLExt";
+            this.tbMMLExt.Size = new System.Drawing.Size(164, 19);
+            this.tbMMLExt.TabIndex = 1;
+            // 
+            // tbTextExt
+            // 
+            this.tbTextExt.Location = new System.Drawing.Point(52, 12);
+            this.tbTextExt.Name = "tbTextExt";
+            this.tbTextExt.Size = new System.Drawing.Size(164, 19);
+            this.tbTextExt.TabIndex = 1;
+            // 
+            // cbAutoOpenText
+            // 
+            this.cbAutoOpenText.AutoSize = true;
+            this.cbAutoOpenText.Location = new System.Drawing.Point(222, 14);
+            this.cbAutoOpenText.Name = "cbAutoOpenText";
+            this.cbAutoOpenText.Size = new System.Drawing.Size(136, 16);
+            this.cbAutoOpenText.TabIndex = 0;
+            this.cbAutoOpenText.Text = "Auto open Text editor";
+            this.cbAutoOpenText.UseVisualStyleBackColor = true;
+            this.cbAutoOpenText.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Text";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Image";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "MML";
+            // 
+            // cbEmptyPlayList
+            // 
+            this.cbEmptyPlayList.AutoSize = true;
+            this.cbEmptyPlayList.Location = new System.Drawing.Point(7, 20);
+            this.cbEmptyPlayList.Name = "cbEmptyPlayList";
+            this.cbEmptyPlayList.Size = new System.Drawing.Size(142, 16);
+            this.cbEmptyPlayList.TabIndex = 0;
+            this.cbEmptyPlayList.Text = "Empty Playlist on Boot";
+            this.cbEmptyPlayList.UseVisualStyleBackColor = true;
+            this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // tpOther
             // 
@@ -4820,7 +4951,7 @@ namespace MDPlayer.form
             this.cbNonRenderingForPause.Name = "cbNonRenderingForPause";
             this.cbNonRenderingForPause.Size = new System.Drawing.Size(156, 16);
             this.cbNonRenderingForPause.TabIndex = 24;
-            this.cbNonRenderingForPause.Text = "ポーズ時にレンダリングしない";
+            this.cbNonRenderingForPause.Text = "Don\'t render when paused";
             this.cbNonRenderingForPause.UseVisualStyleBackColor = true;
             // 
             // cbWavSwitch
@@ -4828,86 +4959,20 @@ namespace MDPlayer.form
             this.cbWavSwitch.AutoSize = true;
             this.cbWavSwitch.Location = new System.Drawing.Point(14, 202);
             this.cbWavSwitch.Name = "cbWavSwitch";
-            this.cbWavSwitch.Size = new System.Drawing.Size(177, 16);
+            this.cbWavSwitch.Size = new System.Drawing.Size(196, 16);
             this.cbWavSwitch.TabIndex = 0;
-            this.cbWavSwitch.Text = "演奏時に.wavファイルを出力する";
+            this.cbWavSwitch.Text = "Render to WAV File while playing";
             this.cbWavSwitch.UseVisualStyleBackColor = true;
             this.cbWavSwitch.CheckedChanged += new System.EventHandler(this.cbWavSwitch_CheckedChanged);
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.cbAutoOpenImg);
-            this.groupBox17.Controls.Add(this.tbImageExt);
-            this.groupBox17.Controls.Add(this.cbAutoOpenMML);
-            this.groupBox17.Controls.Add(this.tbMMLExt);
-            this.groupBox17.Controls.Add(this.tbTextExt);
-            this.groupBox17.Controls.Add(this.cbAutoOpenText);
-            this.groupBox17.Controls.Add(this.label1);
-            this.groupBox17.Controls.Add(this.label3);
-            this.groupBox17.Controls.Add(this.label2);
-            this.groupBox17.Location = new System.Drawing.Point(7, 42);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(433, 83);
-            this.groupBox17.TabIndex = 1;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "File Extension";
-            // 
-            // tbImageExt
-            // 
-            this.tbImageExt.Location = new System.Drawing.Point(52, 58);
-            this.tbImageExt.Name = "tbImageExt";
-            this.tbImageExt.Size = new System.Drawing.Size(164, 19);
-            this.tbImageExt.TabIndex = 1;
-            // 
-            // tbMMLExt
-            // 
-            this.tbMMLExt.Location = new System.Drawing.Point(52, 35);
-            this.tbMMLExt.Name = "tbMMLExt";
-            this.tbMMLExt.Size = new System.Drawing.Size(164, 19);
-            this.tbMMLExt.TabIndex = 1;
-            // 
-            // tbTextExt
-            // 
-            this.tbTextExt.Location = new System.Drawing.Point(52, 12);
-            this.tbTextExt.Name = "tbTextExt";
-            this.tbTextExt.Size = new System.Drawing.Size(164, 19);
-            this.tbTextExt.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Text";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Image";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "MML";
             // 
             // cbUseGetInst
             // 
             this.cbUseGetInst.AutoSize = true;
             this.cbUseGetInst.Location = new System.Drawing.Point(14, 31);
             this.cbUseGetInst.Name = "cbUseGetInst";
-            this.cbUseGetInst.Size = new System.Drawing.Size(286, 16);
+            this.cbUseGetInst.Size = new System.Drawing.Size(296, 16);
             this.cbUseGetInst.TabIndex = 12;
-            this.cbUseGetInst.Text = "音色欄をクリック時、その音色をクリップボードにコピーする";
+            this.cbUseGetInst.Text = "Copy sound patch to clipboard when clicking channel";
             this.cbUseGetInst.UseVisualStyleBackColor = true;
             this.cbUseGetInst.CheckedChanged += new System.EventHandler(this.cbUseGetInst_CheckedChanged);
             // 
@@ -4951,18 +5016,18 @@ namespace MDPlayer.form
             this.lblInstFormat.AutoSize = true;
             this.lblInstFormat.Location = new System.Drawing.Point(237, 22);
             this.lblInstFormat.Name = "lblInstFormat";
-            this.lblInstFormat.Size = new System.Drawing.Size(55, 12);
+            this.lblInstFormat.Size = new System.Drawing.Size(41, 12);
             this.lblInstFormat.TabIndex = 17;
-            this.lblInstFormat.Text = "フォーマット";
+            this.lblInstFormat.Text = "Format";
             // 
             // cbDumpSwitch
             // 
             this.cbDumpSwitch.AutoSize = true;
             this.cbDumpSwitch.Location = new System.Drawing.Point(14, 152);
             this.cbDumpSwitch.Name = "cbDumpSwitch";
-            this.cbDumpSwitch.Size = new System.Drawing.Size(220, 16);
+            this.cbDumpSwitch.Size = new System.Drawing.Size(112, 16);
             this.cbDumpSwitch.TabIndex = 0;
-            this.cbDumpSwitch.Text = "DataBlock処理時にその内容をダンプする";
+            this.cbDumpSwitch.Text = "Dump Datablock ";
             this.cbDumpSwitch.UseVisualStyleBackColor = true;
             this.cbDumpSwitch.CheckedChanged += new System.EventHandler(this.cbDumpSwitch_CheckedChanged);
             // 
@@ -4992,9 +5057,9 @@ namespace MDPlayer.form
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 12);
+            this.label7.Size = new System.Drawing.Size(66, 12);
             this.label7.TabIndex = 14;
-            this.label7.Text = "出力Path";
+            this.label7.Text = "Output Path";
             // 
             // tbWavPath
             // 
@@ -5029,9 +5094,9 @@ namespace MDPlayer.form
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 12);
+            this.label6.Size = new System.Drawing.Size(66, 12);
             this.label6.TabIndex = 14;
-            this.label6.Text = "出力Path";
+            this.label6.Text = "Output Path";
             // 
             // tbDumpPath
             // 
@@ -5061,18 +5126,18 @@ namespace MDPlayer.form
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(5, 132);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(69, 12);
+            this.label29.Size = new System.Drawing.Size(65, 12);
             this.label29.TabIndex = 19;
-            this.label29.Text = "フレームレート";
+            this.label29.Text = "Frame Rate";
             // 
             // lblLoopTimes
             // 
             this.lblLoopTimes.AutoSize = true;
             this.lblLoopTimes.Location = new System.Drawing.Point(340, 8);
             this.lblLoopTimes.Name = "lblLoopTimes";
-            this.lblLoopTimes.Size = new System.Drawing.Size(17, 12);
+            this.lblLoopTimes.Size = new System.Drawing.Size(44, 12);
             this.lblLoopTimes.TabIndex = 1;
-            this.lblLoopTimes.Text = "回";
+            this.lblLoopTimes.Text = "Time(s)";
             // 
             // btnDataPath
             // 
@@ -5105,25 +5170,25 @@ namespace MDPlayer.form
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 12);
             this.label19.TabIndex = 14;
-            this.label19.Text = "データPath";
+            this.label19.Text = "Data Path";
             // 
             // btnResetPosition
             // 
-            this.btnResetPosition.Location = new System.Drawing.Point(167, 345);
+            this.btnResetPosition.Location = new System.Drawing.Point(134, 345);
             this.btnResetPosition.Name = "btnResetPosition";
             this.btnResetPosition.Size = new System.Drawing.Size(142, 23);
             this.btnResetPosition.TabIndex = 13;
-            this.btnResetPosition.Text = "ウィンドウ位置をリセット";
+            this.btnResetPosition.Text = "Reset Window Positions";
             this.btnResetPosition.UseVisualStyleBackColor = true;
             this.btnResetPosition.Click += new System.EventHandler(this.btnResetPosition_Click);
             // 
             // btnOpenSettingFolder
             // 
-            this.btnOpenSettingFolder.Location = new System.Drawing.Point(315, 345);
+            this.btnOpenSettingFolder.Location = new System.Drawing.Point(282, 345);
             this.btnOpenSettingFolder.Name = "btnOpenSettingFolder";
-            this.btnOpenSettingFolder.Size = new System.Drawing.Size(125, 23);
+            this.btnOpenSettingFolder.Size = new System.Drawing.Size(158, 23);
             this.btnOpenSettingFolder.TabIndex = 13;
-            this.btnOpenSettingFolder.Text = "設定フォルダーを開く";
+            this.btnOpenSettingFolder.Text = "Open Configuration Folder";
             this.btnOpenSettingFolder.UseVisualStyleBackColor = true;
             this.btnOpenSettingFolder.Click += new System.EventHandler(this.btnOpenSettingFolder_Click);
             // 
@@ -5132,22 +5197,11 @@ namespace MDPlayer.form
             this.cbExALL.AutoSize = true;
             this.cbExALL.Location = new System.Drawing.Point(14, 298);
             this.cbExALL.Name = "cbExALL";
-            this.cbExALL.Size = new System.Drawing.Size(192, 16);
+            this.cbExALL.Size = new System.Drawing.Size(207, 16);
             this.cbExALL.TabIndex = 0;
-            this.cbExALL.Text = "キャリアとモジュレータの区別をしない";
+            this.cbExALL.Text = "Don\'t distinct Carrier and Modulator";
             this.cbExALL.UseVisualStyleBackColor = true;
             this.cbExALL.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
-            // 
-            // cbEmptyPlayList
-            // 
-            this.cbEmptyPlayList.AutoSize = true;
-            this.cbEmptyPlayList.Location = new System.Drawing.Point(7, 20);
-            this.cbEmptyPlayList.Name = "cbEmptyPlayList";
-            this.cbEmptyPlayList.Size = new System.Drawing.Size(150, 16);
-            this.cbEmptyPlayList.TabIndex = 0;
-            this.cbEmptyPlayList.Text = "起動時にリストを空にする。";
-            this.cbEmptyPlayList.UseVisualStyleBackColor = true;
-            this.cbEmptyPlayList.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // cbInitAlways
             // 
@@ -5155,7 +5209,7 @@ namespace MDPlayer.form
             this.cbInitAlways.Name = "cbInitAlways";
             this.cbInitAlways.Size = new System.Drawing.Size(194, 39);
             this.cbInitAlways.TabIndex = 0;
-            this.cbInitAlways.Text = "再生開始時に必ずデバイスを初期化する。";
+            this.cbInitAlways.Text = "Initialize audio devices always when music started playing";
             this.cbInitAlways.UseVisualStyleBackColor = true;
             this.cbInitAlways.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
@@ -5164,9 +5218,9 @@ namespace MDPlayer.form
             this.cbAutoOpen.AutoSize = true;
             this.cbAutoOpen.Location = new System.Drawing.Point(7, 82);
             this.cbAutoOpen.Name = "cbAutoOpen";
-            this.cbAutoOpen.Size = new System.Drawing.Size(167, 16);
+            this.cbAutoOpen.Size = new System.Drawing.Size(286, 16);
             this.cbAutoOpen.TabIndex = 0;
-            this.cbAutoOpen.Text = "使用音源の画面を自動で開く";
+            this.cbAutoOpen.Text = "Open used sound chip keyboard view automatically";
             this.cbAutoOpen.UseVisualStyleBackColor = true;
             this.cbAutoOpen.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
@@ -5175,9 +5229,9 @@ namespace MDPlayer.form
             this.cbUseLoopTimes.AutoSize = true;
             this.cbUseLoopTimes.Location = new System.Drawing.Point(7, 7);
             this.cbUseLoopTimes.Name = "cbUseLoopTimes";
-            this.cbUseLoopTimes.Size = new System.Drawing.Size(216, 16);
+            this.cbUseLoopTimes.Size = new System.Drawing.Size(217, 16);
             this.cbUseLoopTimes.TabIndex = 0;
-            this.cbUseLoopTimes.Text = "無限ループ時、指定の回数だけ繰り返す";
+            this.cbUseLoopTimes.Text = "Loop count when song loops infinitely";
             this.cbUseLoopTimes.UseVisualStyleBackColor = true;
             this.cbUseLoopTimes.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
@@ -5191,7 +5245,7 @@ namespace MDPlayer.form
             this.tpOmake.Name = "tpOmake";
             this.tpOmake.Size = new System.Drawing.Size(443, 371);
             this.tpOmake.TabIndex = 7;
-            this.tpOmake.Text = "おまけ";
+            this.tpOmake.Text = "Omake";
             this.tpOmake.UseVisualStyleBackColor = true;
             // 
             // label14
@@ -5238,9 +5292,9 @@ namespace MDPlayer.form
             this.cbDispFrameCounter.AutoSize = true;
             this.cbDispFrameCounter.Location = new System.Drawing.Point(6, 17);
             this.cbDispFrameCounter.Name = "cbDispFrameCounter";
-            this.cbDispFrameCounter.Size = new System.Drawing.Size(120, 16);
+            this.cbDispFrameCounter.Size = new System.Drawing.Size(127, 16);
             this.cbDispFrameCounter.TabIndex = 2;
-            this.cbDispFrameCounter.Text = "FrameCounter表示";
+            this.cbDispFrameCounter.Text = "Show FrameCounter";
             this.cbDispFrameCounter.UseVisualStyleBackColor = true;
             // 
             // tpAbout
@@ -5300,7 +5354,7 @@ namespace MDPlayer.form
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(284, 16);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "製品名";
+            this.labelProductName.Text = "Product name";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion
@@ -5312,7 +5366,7 @@ namespace MDPlayer.form
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(284, 16);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "バージョン";
+            this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -5324,7 +5378,7 @@ namespace MDPlayer.form
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(284, 16);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "著作権";
+            this.labelCopyright.Text = "Copyright";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName
@@ -5336,7 +5390,7 @@ namespace MDPlayer.form
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(284, 16);
             this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "会社名";
+            this.labelCompanyName.Text = "Company name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
@@ -5351,7 +5405,7 @@ namespace MDPlayer.form
             this.textBoxDescription.Size = new System.Drawing.Size(284, 189);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "説明";
+            this.textBoxDescription.Text = "Description";
             // 
             // llOpenGithub
             // 
@@ -5365,59 +5419,6 @@ namespace MDPlayer.form
             this.llOpenGithub.Text = "Open latest version page of Github.";
             this.llOpenGithub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
-            // 
-            // ucSI
-            // 
-            this.ucSI.AutoScroll = true;
-            this.ucSI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSI.Location = new System.Drawing.Point(3, 15);
-            this.ucSI.Name = "ucSI";
-            this.ucSI.Size = new System.Drawing.Size(431, 262);
-            this.ucSI.TabIndex = 7;
-            // 
-            // tpPlayList
-            // 
-            this.tpPlayList.Controls.Add(this.groupBox17);
-            this.tpPlayList.Controls.Add(this.cbEmptyPlayList);
-            this.tpPlayList.Location = new System.Drawing.Point(4, 22);
-            this.tpPlayList.Name = "tpPlayList";
-            this.tpPlayList.Size = new System.Drawing.Size(443, 371);
-            this.tpPlayList.TabIndex = 16;
-            this.tpPlayList.Text = "PlayList";
-            this.tpPlayList.UseVisualStyleBackColor = true;
-            // 
-            // cbAutoOpenText
-            // 
-            this.cbAutoOpenText.AutoSize = true;
-            this.cbAutoOpenText.Location = new System.Drawing.Point(222, 14);
-            this.cbAutoOpenText.Name = "cbAutoOpenText";
-            this.cbAutoOpenText.Size = new System.Drawing.Size(132, 16);
-            this.cbAutoOpenText.TabIndex = 0;
-            this.cbAutoOpenText.Text = "自動的にテキストを開く";
-            this.cbAutoOpenText.UseVisualStyleBackColor = true;
-            this.cbAutoOpenText.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
-            // 
-            // cbAutoOpenMML
-            // 
-            this.cbAutoOpenMML.AutoSize = true;
-            this.cbAutoOpenMML.Location = new System.Drawing.Point(222, 36);
-            this.cbAutoOpenMML.Name = "cbAutoOpenMML";
-            this.cbAutoOpenMML.Size = new System.Drawing.Size(120, 16);
-            this.cbAutoOpenMML.TabIndex = 0;
-            this.cbAutoOpenMML.Text = "自動的にMMLを開く";
-            this.cbAutoOpenMML.UseVisualStyleBackColor = true;
-            this.cbAutoOpenMML.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
-            // 
-            // cbAutoOpenImg
-            // 
-            this.cbAutoOpenImg.AutoSize = true;
-            this.cbAutoOpenImg.Location = new System.Drawing.Point(222, 58);
-            this.cbAutoOpenImg.Name = "cbAutoOpenImg";
-            this.cbAutoOpenImg.Size = new System.Drawing.Size(120, 16);
-            this.cbAutoOpenImg.TabIndex = 0;
-            this.cbAutoOpenImg.Text = "自動的に画像を開く";
-            this.cbAutoOpenImg.UseVisualStyleBackColor = true;
-            this.cbAutoOpenImg.CheckedChanged += new System.EventHandler(this.cbUseLoopTimes_CheckedChanged);
             // 
             // frmSetting
             // 
@@ -5435,7 +5436,7 @@ namespace MDPlayer.form
             this.MinimumSize = new System.Drawing.Size(480, 480);
             this.Name = "frmSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "オプション";
+            this.Text = "Options";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSetting_FormClosed);
             this.Load += new System.EventHandler(this.frmSetting_Load);
             this.gbWaveOut.ResumeLayout(false);
@@ -5569,10 +5570,12 @@ namespace MDPlayer.form
             this.groupBox19.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
-            this.tpOther.ResumeLayout(false);
-            this.tpOther.PerformLayout();
+            this.tpPlayList.ResumeLayout(false);
+            this.tpPlayList.PerformLayout();
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
+            this.tpOther.ResumeLayout(false);
+            this.tpOther.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.gbWav.ResumeLayout(false);
@@ -5587,8 +5590,6 @@ namespace MDPlayer.form
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.tpPlayList.ResumeLayout(false);
-            this.tpPlayList.PerformLayout();
             this.ResumeLayout(false);
 
         }

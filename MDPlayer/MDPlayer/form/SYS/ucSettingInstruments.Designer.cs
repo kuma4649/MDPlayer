@@ -244,10 +244,10 @@
             this.rbYM2151P_Emu.Checked = true;
             this.rbYM2151P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151P_Emu.Name = "rbYM2151P_Emu";
-            this.rbYM2151P_Emu.Size = new System.Drawing.Size(130, 16);
+            this.rbYM2151P_Emu.Size = new System.Drawing.Size(116, 16);
             this.rbYM2151P_Emu.TabIndex = 0;
             this.rbYM2151P_Emu.TabStop = true;
-            this.rbYM2151P_Emu.Text = "エミュレーション(fmgen)";
+            this.rbYM2151P_Emu.Text = "Emulation (fmgen)";
             this.rbYM2151P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -270,9 +270,9 @@
             this.rbYM2151P_EmuX68Sound.AutoSize = true;
             this.rbYM2151P_EmuX68Sound.Location = new System.Drawing.Point(4, 35);
             this.rbYM2151P_EmuX68Sound.Name = "rbYM2151P_EmuX68Sound";
-            this.rbYM2151P_EmuX68Sound.Size = new System.Drawing.Size(149, 16);
+            this.rbYM2151P_EmuX68Sound.Size = new System.Drawing.Size(135, 16);
             this.rbYM2151P_EmuX68Sound.TabIndex = 0;
-            this.rbYM2151P_EmuX68Sound.Text = "エミュレーション(X68Sound)";
+            this.rbYM2151P_EmuX68Sound.Text = "Emulation (X68Sound)";
             this.rbYM2151P_EmuX68Sound.UseVisualStyleBackColor = true;
             // 
             // rbYM2151P_EmuMame
@@ -280,9 +280,9 @@
             this.rbYM2151P_EmuMame.AutoSize = true;
             this.rbYM2151P_EmuMame.Location = new System.Drawing.Point(222, 13);
             this.rbYM2151P_EmuMame.Name = "rbYM2151P_EmuMame";
-            this.rbYM2151P_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2151P_EmuMame.Size = new System.Drawing.Size(115, 16);
             this.rbYM2151P_EmuMame.TabIndex = 0;
-            this.rbYM2151P_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2151P_EmuMame.Text = "Emulation (mame)";
             this.rbYM2151P_EmuMame.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -334,9 +334,9 @@
             this.rbYM2151S_EmuX68Sound.AutoSize = true;
             this.rbYM2151S_EmuX68Sound.Location = new System.Drawing.Point(4, 35);
             this.rbYM2151S_EmuX68Sound.Name = "rbYM2151S_EmuX68Sound";
-            this.rbYM2151S_EmuX68Sound.Size = new System.Drawing.Size(149, 16);
+            this.rbYM2151S_EmuX68Sound.Size = new System.Drawing.Size(135, 16);
             this.rbYM2151S_EmuX68Sound.TabIndex = 0;
-            this.rbYM2151S_EmuX68Sound.Text = "エミュレーション(X68Sound)";
+            this.rbYM2151S_EmuX68Sound.Text = "Emulation (X68Sound)";
             this.rbYM2151S_EmuX68Sound.UseVisualStyleBackColor = true;
             // 
             // rbYM2151S_EmuMame
@@ -344,9 +344,9 @@
             this.rbYM2151S_EmuMame.AutoSize = true;
             this.rbYM2151S_EmuMame.Location = new System.Drawing.Point(222, 13);
             this.rbYM2151S_EmuMame.Name = "rbYM2151S_EmuMame";
-            this.rbYM2151S_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2151S_EmuMame.Size = new System.Drawing.Size(115, 16);
             this.rbYM2151S_EmuMame.TabIndex = 0;
-            this.rbYM2151S_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2151S_EmuMame.Text = "Emulation (mame)";
             this.rbYM2151S_EmuMame.UseVisualStyleBackColor = true;
             // 
             // rbYM2151S_Emu
@@ -355,10 +355,10 @@
             this.rbYM2151S_Emu.Checked = true;
             this.rbYM2151S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151S_Emu.Name = "rbYM2151S_Emu";
-            this.rbYM2151S_Emu.Size = new System.Drawing.Size(130, 16);
+            this.rbYM2151S_Emu.Size = new System.Drawing.Size(116, 16);
             this.rbYM2151S_Emu.TabIndex = 0;
             this.rbYM2151S_Emu.TabStop = true;
-            this.rbYM2151S_Emu.Text = "エミュレーション(fmgen)";
+            this.rbYM2151S_Emu.Text = "Emulation (fmgen)";
             this.rbYM2151S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbYM2203P_SCCI
@@ -386,10 +386,10 @@
             this.rbYM2203P_Emu.Checked = true;
             this.rbYM2203P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2203P_Emu.Name = "rbYM2203P_Emu";
-            this.rbYM2203P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2203P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2203P_Emu.TabIndex = 0;
             this.rbYM2203P_Emu.TabStop = true;
-            this.rbYM2203P_Emu.Text = "エミュレーション";
+            this.rbYM2203P_Emu.Text = "Emulation";
             this.rbYM2203P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -463,10 +463,10 @@
             this.rbYM2203S_Emu.Checked = true;
             this.rbYM2203S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2203S_Emu.Name = "rbYM2203S_Emu";
-            this.rbYM2203S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2203S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2203S_Emu.TabIndex = 0;
             this.rbYM2203S_Emu.TabStop = true;
-            this.rbYM2203S_Emu.Text = "エミュレーション";
+            this.rbYM2203S_Emu.Text = "Emulation";
             this.rbYM2203S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbYM2608P_SCCI
@@ -494,10 +494,10 @@
             this.rbYM2608P_Emu.Checked = true;
             this.rbYM2608P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2608P_Emu.Name = "rbYM2608P_Emu";
-            this.rbYM2608P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2608P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2608P_Emu.TabIndex = 0;
             this.rbYM2608P_Emu.TabStop = true;
-            this.rbYM2608P_Emu.Text = "エミュレーション";
+            this.rbYM2608P_Emu.Text = "Emulation";
             this.rbYM2608P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -571,10 +571,10 @@
             this.rbYM2608S_Emu.Checked = true;
             this.rbYM2608S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2608S_Emu.Name = "rbYM2608S_Emu";
-            this.rbYM2608S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2608S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2608S_Emu.TabIndex = 0;
             this.rbYM2608S_Emu.TabStop = true;
-            this.rbYM2608S_Emu.Text = "エミュレーション";
+            this.rbYM2608S_Emu.Text = "Emulation";
             this.rbYM2608S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbYM2610BP_SCCI
@@ -602,10 +602,10 @@
             this.rbYM2610BP_Emu.Checked = true;
             this.rbYM2610BP_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2610BP_Emu.Name = "rbYM2610BP_Emu";
-            this.rbYM2610BP_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2610BP_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2610BP_Emu.TabIndex = 0;
             this.rbYM2610BP_Emu.TabStop = true;
-            this.rbYM2610BP_Emu.Text = "エミュレーション";
+            this.rbYM2610BP_Emu.Text = "Emulation";
             this.rbYM2610BP_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox7
@@ -751,10 +751,10 @@
             this.rbYM2610BS_Emu.Checked = true;
             this.rbYM2610BS_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2610BS_Emu.Name = "rbYM2610BS_Emu";
-            this.rbYM2610BS_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2610BS_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2610BS_Emu.TabIndex = 0;
             this.rbYM2610BS_Emu.TabStop = true;
-            this.rbYM2610BS_Emu.Text = "エミュレーション";
+            this.rbYM2610BS_Emu.Text = "Emulation";
             this.rbYM2610BS_Emu.UseVisualStyleBackColor = true;
             // 
             // rbYM2610BES_SCCI
@@ -772,9 +772,9 @@
             this.cbEmulationPCMOnly.AutoSize = true;
             this.cbEmulationPCMOnly.Location = new System.Drawing.Point(159, 18);
             this.cbEmulationPCMOnly.Name = "cbEmulationPCMOnly";
-            this.cbEmulationPCMOnly.Size = new System.Drawing.Size(154, 16);
+            this.cbEmulationPCMOnly.Size = new System.Drawing.Size(118, 16);
             this.cbEmulationPCMOnly.TabIndex = 5;
-            this.cbEmulationPCMOnly.Text = "PCMだけエミュレーションする";
+            this.cbEmulationPCMOnly.Text = "Emulate PCM only";
             this.cbEmulationPCMOnly.UseVisualStyleBackColor = true;
             // 
             // cbTwice
@@ -782,9 +782,9 @@
             this.cbTwice.AutoSize = true;
             this.cbTwice.Location = new System.Drawing.Point(22, 39);
             this.cbTwice.Name = "cbTwice";
-            this.cbTwice.Size = new System.Drawing.Size(104, 16);
+            this.cbTwice.Size = new System.Drawing.Size(84, 16);
             this.cbTwice.TabIndex = 4;
-            this.cbTwice.Text = "そのWait値を2倍";
+            this.cbTwice.Text = "Double wait";
             this.cbTwice.UseVisualStyleBackColor = true;
             // 
             // cbSendWait
@@ -792,9 +792,9 @@
             this.cbSendWait.AutoSize = true;
             this.cbSendWait.Location = new System.Drawing.Point(6, 18);
             this.cbSendWait.Name = "cbSendWait";
-            this.cbSendWait.Size = new System.Drawing.Size(109, 16);
+            this.cbSendWait.Size = new System.Drawing.Size(110, 16);
             this.cbSendWait.TabIndex = 3;
-            this.cbSendWait.Text = "Waitシグナル発信";
+            this.cbSendWait.Text = "Send Wait Signal";
             this.cbSendWait.UseVisualStyleBackColor = true;
             this.cbSendWait.CheckedChanged += new System.EventHandler(this.cbSendWait_CheckedChanged);
             // 
@@ -823,10 +823,10 @@
             this.rbYM2612P_Emu.Checked = true;
             this.rbYM2612P_Emu.Location = new System.Drawing.Point(234, 15);
             this.rbYM2612P_Emu.Name = "rbYM2612P_Emu";
-            this.rbYM2612P_Emu.Size = new System.Drawing.Size(125, 16);
+            this.rbYM2612P_Emu.Size = new System.Drawing.Size(111, 16);
             this.rbYM2612P_Emu.TabIndex = 0;
             this.rbYM2612P_Emu.TabStop = true;
-            this.rbYM2612P_Emu.Text = "エミュレーション(Gens)";
+            this.rbYM2612P_Emu.Text = "Emulation (Gens)";
             this.rbYM2612P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox9
@@ -859,9 +859,9 @@
             this.rbYM2612P_EmuNuked.AutoSize = true;
             this.rbYM2612P_EmuNuked.Location = new System.Drawing.Point(62, 15);
             this.rbYM2612P_EmuNuked.Name = "rbYM2612P_EmuNuked";
-            this.rbYM2612P_EmuNuked.Size = new System.Drawing.Size(166, 16);
+            this.rbYM2612P_EmuNuked.Size = new System.Drawing.Size(152, 16);
             this.rbYM2612P_EmuNuked.TabIndex = 0;
-            this.rbYM2612P_EmuNuked.Text = "エミュレーション(Nuked-OPN2)";
+            this.rbYM2612P_EmuNuked.Text = "Emulation (Nuked-OPN2)";
             this.rbYM2612P_EmuNuked.UseVisualStyleBackColor = true;
             // 
             // rbYM2612P_EmuMame
@@ -869,9 +869,9 @@
             this.rbYM2612P_EmuMame.AutoSize = true;
             this.rbYM2612P_EmuMame.Location = new System.Drawing.Point(4, 37);
             this.rbYM2612P_EmuMame.Name = "rbYM2612P_EmuMame";
-            this.rbYM2612P_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2612P_EmuMame.Size = new System.Drawing.Size(115, 16);
             this.rbYM2612P_EmuMame.TabIndex = 0;
-            this.rbYM2612P_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2612P_EmuMame.Text = "Emulation (mame)";
             this.rbYM2612P_EmuMame.UseVisualStyleBackColor = true;
             // 
             // groupBox10
@@ -923,9 +923,9 @@
             this.rbYM2612S_EmuNuked.AutoSize = true;
             this.rbYM2612S_EmuNuked.Location = new System.Drawing.Point(62, 15);
             this.rbYM2612S_EmuNuked.Name = "rbYM2612S_EmuNuked";
-            this.rbYM2612S_EmuNuked.Size = new System.Drawing.Size(166, 16);
+            this.rbYM2612S_EmuNuked.Size = new System.Drawing.Size(152, 16);
             this.rbYM2612S_EmuNuked.TabIndex = 0;
-            this.rbYM2612S_EmuNuked.Text = "エミュレーション(Nuked-OPN2)";
+            this.rbYM2612S_EmuNuked.Text = "Emulation (Nuked-OPN2)";
             this.rbYM2612S_EmuNuked.UseVisualStyleBackColor = true;
             // 
             // rbYM2612S_EmuMame
@@ -933,9 +933,9 @@
             this.rbYM2612S_EmuMame.AutoSize = true;
             this.rbYM2612S_EmuMame.Location = new System.Drawing.Point(4, 37);
             this.rbYM2612S_EmuMame.Name = "rbYM2612S_EmuMame";
-            this.rbYM2612S_EmuMame.Size = new System.Drawing.Size(129, 16);
+            this.rbYM2612S_EmuMame.Size = new System.Drawing.Size(115, 16);
             this.rbYM2612S_EmuMame.TabIndex = 0;
-            this.rbYM2612S_EmuMame.Text = "エミュレーション(mame)";
+            this.rbYM2612S_EmuMame.Text = "Emulation (mame)";
             this.rbYM2612S_EmuMame.UseVisualStyleBackColor = true;
             // 
             // rbYM2612S_Emu
@@ -944,10 +944,10 @@
             this.rbYM2612S_Emu.Checked = true;
             this.rbYM2612S_Emu.Location = new System.Drawing.Point(234, 15);
             this.rbYM2612S_Emu.Name = "rbYM2612S_Emu";
-            this.rbYM2612S_Emu.Size = new System.Drawing.Size(125, 16);
+            this.rbYM2612S_Emu.Size = new System.Drawing.Size(111, 16);
             this.rbYM2612S_Emu.TabIndex = 0;
             this.rbYM2612S_Emu.TabStop = true;
-            this.rbYM2612S_Emu.Text = "エミュレーション(Gens)";
+            this.rbYM2612S_Emu.Text = "Emulation (Gens)";
             this.rbYM2612S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbSN76489P_SCCI
@@ -975,10 +975,10 @@
             this.rbSN76489P_Emu.Checked = true;
             this.rbSN76489P_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSN76489P_Emu.Name = "rbSN76489P_Emu";
-            this.rbSN76489P_Emu.Size = new System.Drawing.Size(132, 16);
+            this.rbSN76489P_Emu.Size = new System.Drawing.Size(118, 16);
             this.rbSN76489P_Emu.TabIndex = 0;
             this.rbSN76489P_Emu.TabStop = true;
-            this.rbSN76489P_Emu.Text = "エミュレーション(maxim)";
+            this.rbSN76489P_Emu.Text = "Emulation (maxim)";
             this.rbSN76489P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox11
@@ -1010,9 +1010,9 @@
             this.rbSN76489P_Emu2.AutoSize = true;
             this.rbSN76489P_Emu2.Location = new System.Drawing.Point(200, 15);
             this.rbSN76489P_Emu2.Name = "rbSN76489P_Emu2";
-            this.rbSN76489P_Emu2.Size = new System.Drawing.Size(129, 16);
+            this.rbSN76489P_Emu2.Size = new System.Drawing.Size(115, 16);
             this.rbSN76489P_Emu2.TabIndex = 0;
-            this.rbSN76489P_Emu2.Text = "エミュレーション(mame)";
+            this.rbSN76489P_Emu2.Text = "Emulation (mame)";
             this.rbSN76489P_Emu2.UseVisualStyleBackColor = true;
             // 
             // groupBox12
@@ -1063,9 +1063,9 @@
             this.rbSN76489S_Emu2.AutoSize = true;
             this.rbSN76489S_Emu2.Location = new System.Drawing.Point(200, 15);
             this.rbSN76489S_Emu2.Name = "rbSN76489S_Emu2";
-            this.rbSN76489S_Emu2.Size = new System.Drawing.Size(129, 16);
+            this.rbSN76489S_Emu2.Size = new System.Drawing.Size(115, 16);
             this.rbSN76489S_Emu2.TabIndex = 0;
-            this.rbSN76489S_Emu2.Text = "エミュレーション(mame)";
+            this.rbSN76489S_Emu2.Text = "Emulation (mame)";
             this.rbSN76489S_Emu2.UseVisualStyleBackColor = true;
             // 
             // rbSN76489S_Emu
@@ -1074,10 +1074,10 @@
             this.rbSN76489S_Emu.Checked = true;
             this.rbSN76489S_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSN76489S_Emu.Name = "rbSN76489S_Emu";
-            this.rbSN76489S_Emu.Size = new System.Drawing.Size(132, 16);
+            this.rbSN76489S_Emu.Size = new System.Drawing.Size(118, 16);
             this.rbSN76489S_Emu.TabIndex = 0;
             this.rbSN76489S_Emu.TabStop = true;
-            this.rbSN76489S_Emu.Text = "エミュレーション(maxim)";
+            this.rbSN76489S_Emu.Text = "Emulation (maxim)";
             this.rbSN76489S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox13
@@ -1140,10 +1140,10 @@
             this.rbC140S_Emu.Checked = true;
             this.rbC140S_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbC140S_Emu.Name = "rbC140S_Emu";
-            this.rbC140S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbC140S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbC140S_Emu.TabIndex = 0;
             this.rbC140S_Emu.TabStop = true;
-            this.rbC140S_Emu.Text = "エミュレーション";
+            this.rbC140S_Emu.Text = "Emulation";
             this.rbC140S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox15
@@ -1194,10 +1194,10 @@
             this.rbC140P_Emu.Checked = true;
             this.rbC140P_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbC140P_Emu.Name = "rbC140P_Emu";
-            this.rbC140P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbC140P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbC140P_Emu.TabIndex = 0;
             this.rbC140P_Emu.TabStop = true;
-            this.rbC140P_Emu.Text = "エミュレーション";
+            this.rbC140P_Emu.Text = "Emulation";
             this.rbC140P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox16
@@ -1248,10 +1248,10 @@
             this.rbSEGAPCMS_Emu.Checked = true;
             this.rbSEGAPCMS_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSEGAPCMS_Emu.Name = "rbSEGAPCMS_Emu";
-            this.rbSEGAPCMS_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbSEGAPCMS_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbSEGAPCMS_Emu.TabIndex = 0;
             this.rbSEGAPCMS_Emu.TabStop = true;
-            this.rbSEGAPCMS_Emu.Text = "エミュレーション";
+            this.rbSEGAPCMS_Emu.Text = "Emulation";
             this.rbSEGAPCMS_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox17
@@ -1302,10 +1302,10 @@
             this.rbSEGAPCMP_Emu.Checked = true;
             this.rbSEGAPCMP_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbSEGAPCMP_Emu.Name = "rbSEGAPCMP_Emu";
-            this.rbSEGAPCMP_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbSEGAPCMP_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbSEGAPCMP_Emu.TabIndex = 0;
             this.rbSEGAPCMP_Emu.TabStop = true;
-            this.rbSEGAPCMP_Emu.Text = "エミュレーション";
+            this.rbSEGAPCMP_Emu.Text = "Emulation";
             this.rbSEGAPCMP_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox18
@@ -1356,10 +1356,10 @@
             this.rbYMF262P_Emu.Checked = true;
             this.rbYMF262P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYMF262P_Emu.Name = "rbYMF262P_Emu";
-            this.rbYMF262P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYMF262P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYMF262P_Emu.TabIndex = 0;
             this.rbYMF262P_Emu.TabStop = true;
-            this.rbYMF262P_Emu.Text = "エミュレーション";
+            this.rbYMF262P_Emu.Text = "Emulation";
             this.rbYMF262P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox19
@@ -1410,10 +1410,10 @@
             this.rbYMF262S_Emu.Checked = true;
             this.rbYMF262S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYMF262S_Emu.Name = "rbYMF262S_Emu";
-            this.rbYMF262S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYMF262S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYMF262S_Emu.TabIndex = 0;
             this.rbYMF262S_Emu.TabStop = true;
-            this.rbYMF262S_Emu.Text = "エミュレーション";
+            this.rbYMF262S_Emu.Text = "Emulation";
             this.rbYMF262S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox20
@@ -1464,10 +1464,10 @@
             this.rbYM3812P_Emu.Checked = true;
             this.rbYM3812P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM3812P_Emu.Name = "rbYM3812P_Emu";
-            this.rbYM3812P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM3812P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM3812P_Emu.TabIndex = 0;
             this.rbYM3812P_Emu.TabStop = true;
-            this.rbYM3812P_Emu.Text = "エミュレーション";
+            this.rbYM3812P_Emu.Text = "Emulation";
             this.rbYM3812P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox21
@@ -1518,10 +1518,10 @@
             this.rbYM3812S_Emu.Checked = true;
             this.rbYM3812S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM3812S_Emu.Name = "rbYM3812S_Emu";
-            this.rbYM3812S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM3812S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM3812S_Emu.TabIndex = 0;
             this.rbYM3812S_Emu.TabStop = true;
-            this.rbYM3812S_Emu.Text = "エミュレーション";
+            this.rbYM3812S_Emu.Text = "Emulation";
             this.rbYM3812S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox22
@@ -1572,10 +1572,10 @@
             this.rbYM3526S_Emu.Checked = true;
             this.rbYM3526S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM3526S_Emu.Name = "rbYM3526S_Emu";
-            this.rbYM3526S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM3526S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM3526S_Emu.TabIndex = 0;
             this.rbYM3526S_Emu.TabStop = true;
-            this.rbYM3526S_Emu.Text = "エミュレーション";
+            this.rbYM3526S_Emu.Text = "Emulation";
             this.rbYM3526S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox23
@@ -1626,10 +1626,10 @@
             this.rbYM3526P_Emu.Checked = true;
             this.rbYM3526P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM3526P_Emu.Name = "rbYM3526P_Emu";
-            this.rbYM3526P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM3526P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM3526P_Emu.TabIndex = 0;
             this.rbYM3526P_Emu.TabStop = true;
-            this.rbYM3526P_Emu.Text = "エミュレーション";
+            this.rbYM3526P_Emu.Text = "Emulation";
             this.rbYM3526P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox24
@@ -1680,10 +1680,10 @@
             this.rbYM2413S_Emu.Checked = true;
             this.rbYM2413S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2413S_Emu.Name = "rbYM2413S_Emu";
-            this.rbYM2413S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2413S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2413S_Emu.TabIndex = 0;
             this.rbYM2413S_Emu.TabStop = true;
-            this.rbYM2413S_Emu.Text = "エミュレーション";
+            this.rbYM2413S_Emu.Text = "Emulation";
             this.rbYM2413S_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox25
@@ -1734,10 +1734,10 @@
             this.rbYM2413P_Emu.Checked = true;
             this.rbYM2413P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2413P_Emu.Name = "rbYM2413P_Emu";
-            this.rbYM2413P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbYM2413P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbYM2413P_Emu.TabIndex = 0;
             this.rbYM2413P_Emu.TabStop = true;
-            this.rbYM2413P_Emu.Text = "エミュレーション";
+            this.rbYM2413P_Emu.Text = "Emulation";
             this.rbYM2413P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox26
@@ -1788,10 +1788,10 @@
             this.rbAY8910P_Emu.Checked = true;
             this.rbAY8910P_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbAY8910P_Emu.Name = "rbAY8910P_Emu";
-            this.rbAY8910P_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbAY8910P_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbAY8910P_Emu.TabIndex = 0;
             this.rbAY8910P_Emu.TabStop = true;
-            this.rbAY8910P_Emu.Text = "エミュレーション";
+            this.rbAY8910P_Emu.Text = "Emulation";
             this.rbAY8910P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox27
@@ -1842,10 +1842,10 @@
             this.rbAY8910S_Emu.Checked = true;
             this.rbAY8910S_Emu.Location = new System.Drawing.Point(62, 15);
             this.rbAY8910S_Emu.Name = "rbAY8910S_Emu";
-            this.rbAY8910S_Emu.Size = new System.Drawing.Size(91, 16);
+            this.rbAY8910S_Emu.Size = new System.Drawing.Size(73, 16);
             this.rbAY8910S_Emu.TabIndex = 0;
             this.rbAY8910S_Emu.TabStop = true;
-            this.rbAY8910S_Emu.Text = "エミュレーション";
+            this.rbAY8910S_Emu.Text = "Emulation";
             this.rbAY8910S_Emu.UseVisualStyleBackColor = true;
             // 
             // ucSettingInstruments
