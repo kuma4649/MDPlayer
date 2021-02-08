@@ -19,7 +19,12 @@ namespace MDPlayer.form
             this.oldParam = oldParam;
 
             frameBuffer.Add(this.pbScreen, Resources.planeAY8910, null, zoom);
-            DrawBuff.screenInitAY8910(frameBuffer);
+
+            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
+            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
+
+            screenInitAY8910(frameBuffer, tp);
             update();
         }
 
@@ -101,10 +106,32 @@ namespace MDPlayer.form
             }
         }
 
+        public static void screenInitAY8910(FrameBuffer screen, int tp)
+        {
+            for (int ch = 0; ch < 3; ch++)
+            {
+                for (int ot = 0; ot < 12 * 8; ot++)
+                {
+                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
+                    DrawBuff.drawKbn(screen, 32 + kx, ch * 8 + 8, kt, tp);
+                }
+                DrawBuff.drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
+
+                //Volume
+                int d = 99;
+                DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
+
+                bool? db = null;
+                DrawBuff.ChYM2413(screen, ch, ref db, false, tp);
+            }
+        }
+
         override public void screenDrawParams()
         {
-            //int tp = setting.AY8910Type.UseScci ? 1 : 0;
-            int tp = 0;
+            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
+            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
 
             for (int c = 0; c < 3; c++)
             {
@@ -114,7 +141,7 @@ namespace MDPlayer.form
 
                 DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volume, nyc.volume, tp);
                 DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
-                DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp);
+                DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2 + (nyc.mask == true ? 1 : 0));
 
                 DrawBuff.ChAY8910(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
 
@@ -141,10 +168,25 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
 
             //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (int ch = 0; ch < 3; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.AY8910, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.AY8910, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             //鍵盤
             if (py < 4 * 8)

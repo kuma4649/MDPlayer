@@ -62,6 +62,7 @@ namespace MDPlayer
         public uint DMGClockValue;
         public uint NESClockValue;
         public uint MultiPCMClockValue;
+        public uint POKEYClockValue;
 
         public bool YM2612DualChipFlag;
         public bool YM2151DualChipFlag;
@@ -78,6 +79,7 @@ namespace MDPlayer
         public bool OKIM6295DualChipFlag;
         public bool SN76489DualChipFlag;
         public bool SN76489NGPFlag;
+        public object[] SN76489Option;
         public bool RF5C68DualChipFlag;
         public bool RF5C164DualChipFlag;
         public bool AY8910DualChipFlag;
@@ -95,6 +97,7 @@ namespace MDPlayer
         public bool DMGDualChipFlag;
         public bool NESDualChipFlag;
         public bool MultiPCMDualChipFlag;
+        public bool POKEYDualChipFlag;
 
         public dacControl dacControl = new dacControl();
         public bool isPcmRAMWrite = false;
@@ -477,7 +480,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb8] = vcOKIM6295;
             vgmCmdTbl[0xb9] = vcHuC6280;
             vgmCmdTbl[0xba] = vcK053260;
-            vgmCmdTbl[0xbb] = vcDummy2Ope;
+            vgmCmdTbl[0xbb] = vcPOKEY;
             vgmCmdTbl[0xbc] = vcDummy2Ope;
             vgmCmdTbl[0xbd] = vcSAA1099;
             vgmCmdTbl[0xbe] = vcDummy2Ope;
@@ -797,6 +800,12 @@ namespace MDPlayer
         private void vcSAA1099()
         {
             chipRegister.writeSAA1099((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcPOKEY()
+        {
+            chipRegister.writePOKEY((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1963,6 +1972,24 @@ namespace MDPlayer
                 SN76489ClockValue = SN76489clock & 0x3fffffff;
                 SN76489DualChipFlag = (SN76489clock & 0x40000000) != 0;
                 SN76489NGPFlag = (SN76489clock & 0x80000000) != 0;
+                if (version < 0x0150)
+                {
+                    SN76489Option = new object[]{
+                                (byte)9,
+                                (byte)0,
+                                (byte)16,
+                                (byte)0
+                    };
+                }
+                else
+                {
+                    SN76489Option = new object[]{
+                                vgmBuf[0x28],
+                                vgmBuf[0x29],
+                                vgmBuf[0x2a],
+                                vgmBuf[0x2b]
+                    };
+                }
                 if (SN76489DualChipFlag) chips.Add("SN76489x2");
                 else chips.Add("SN76489");
             }
@@ -2335,6 +2362,19 @@ namespace MDPlayer
                             K053260DualChipFlag = (K053260clock & 0x40000000) != 0;
                             if (K053260DualChipFlag) chips.Add("K053260x2");
                             else chips.Add("K053260");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xb0)
+                    {
+
+                        uint POKEYclock = getLE32(0xb0);
+                        if (POKEYclock != 0)
+                        {
+                            POKEYClockValue = POKEYclock & 0x3fffffff;
+                            POKEYDualChipFlag = (POKEYclock & 0x40000000) != 0;
+                            if (POKEYDualChipFlag) chips.Add("POKEYx2");
+                            else chips.Add("POKEY");
                         }
                     }
 

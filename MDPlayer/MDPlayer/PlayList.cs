@@ -708,6 +708,8 @@ namespace MDPlayer
                     }
                 }
 
+                List<music> tMember = new List<music>();
+
                 foreach (ZipArchiveEntry ent in archive.Entries)
                 {
                     foreach (music m in mMember)
@@ -722,9 +724,16 @@ namespace MDPlayer
                             m.arcFileName = mc.arcFileName;
                             m.arcType = mc.arcType;
                             AddFileLoop(m, ent);
+                            
+                            //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
+                            //それを防ぐためここでbreakする
+                            break;
+
                         }
                     }
+
                 }
+
             }
         }
 
@@ -801,6 +810,10 @@ namespace MDPlayer
                         m.arcFileName = mc.arcFileName;
                         m.arcType = mc.arcType;
                         AddFileLoop(m, new Tuple<string, string>(m.arcFileName, ent.Item1));
+
+                        //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
+                        //それを防ぐためここでbreakする
+                        break;
                     }
                 }
             }

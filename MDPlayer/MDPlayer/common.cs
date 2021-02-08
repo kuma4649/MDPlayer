@@ -353,14 +353,14 @@ namespace MDPlayer
             return n;
         }
 
-        public static int searchPCMNote(int ml)
+        public static int searchPCMNote(int ml,int mul)
         {
             int m = int.MaxValue;
-            ml = ml % 1024;
+            ml = ml % (1024*mul);
             int n = 0;
             for (int i = 0; i < 12; i++)
             {
-                int a = Math.Abs(ml - Tables.pcmpitchTbl[i]);
+                int a = Math.Abs(ml - Tables.pcmpitchTbl[i] * mul);
                 if (m > a)
                 {
                     m = a;
@@ -512,6 +512,7 @@ namespace MDPlayer
         , PPSDRV
         , SID
         , P86
+        , POKEY
 
         , S_SN76489
         , S_YM2612
@@ -559,6 +560,8 @@ namespace MDPlayer
         , S_PPSDRV
         , S_SID
         , S_P86
+        , S_POKEY
+
     }
 
     public enum EnmRealChipType : int
@@ -572,10 +575,12 @@ namespace MDPlayer
         , SN76489 = 7
         , YM3812 = 8
         , YMF262 = 9
+        , YM2413 = 10
         , YM3526 = 11
         , SPPCM = 42
         , C140 = 43
         , SEGAPCM = 44
+
     }
 
     public enum EnmInstFormat : int

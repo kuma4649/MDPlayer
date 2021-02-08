@@ -38,18 +38,24 @@ namespace MDPlayer
 
         #endregion
 
-        public RealChip() 
+        public RealChip(bool sw) 
         {
             log.ForcedWrite("RealChip:Ctr:STEP 00(Start)");
+            if (!sw)
+            {
+                log.ForcedWrite("RealChip:Not Initialize(user)");
+                return;
+            }
 
+            //SCCIの存在確認
             int n = 0;
             try
             {
                 nScci = new NScci.NScci();
-                n = nScci.NSoundInterfaceManager_.getInterfaceCount();
+                n = nScci.NSoundInterfaceManager_ == null ? 0 : nScci.NSoundInterfaceManager_.getInterfaceCount();
                 if (n == 0)
                 {
-                    nScci.Dispose();
+                    if (nScci != null) nScci.Dispose();
                     nScci = null;
                     log.ForcedWrite("RealChip:Ctr:Not found SCCI.");
                 }
@@ -65,6 +71,7 @@ namespace MDPlayer
                 nScci = null;
             }
 
+            //GIMICの存在確認
             log.ForcedWrite("RealChip:Ctr:STEP 01");
             try
             {
@@ -390,6 +397,49 @@ namespace MDPlayer
                                 ct.SoundChip = o;
                                 ct.ChipName = gm.getModuleInfo().Devname;
                                 ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
+                            }
+                            break;
+                        case EnmRealChipType.AY8910:
+                            if (cct == ChipType.CHIP_UNKNOWN || cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288 || cct == ChipType.CHIP_YM2203)
+                            {
+                                ct = new Setting.ChipType();
+                                ct.SoundLocation = -1;
+                                ct.BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.SoundChip = o;
+                                ct.ChipName = gm.getModuleInfo().Devname;
+                                ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
+                            }
+                            break;
+                        case EnmRealChipType.YM2413:
+                            if (cct == ChipType.CHIP_YM2413 || cct== ChipType.CHIP_UNKNOWN)
+                            {
+                                ct = new Setting.ChipType();
+                                ct.SoundLocation = -1;
+                                ct.BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.SoundChip = o;
+                                ct.ChipName = gm.getModuleInfo().Devname;
+                                ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
+                            }
+                            break;
+                        case EnmRealChipType.YM2610:
+                            if (cct == ChipType.CHIP_YM2608 || cct == ChipType.CHIP_YMF288)
+                            {
+                                ct = new Setting.ChipType();
+                                ct.SoundLocation = -1;
+                                ct.BusID = i;
+                                string seri = gm.getModuleInfo().Serial;
+                                if (!int.TryParse(seri, out o)) o = -1;
+                                ct.SoundChip = o;
+                                ct.ChipName = gm.getModuleInfo().Devname;
+                                ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
                             }
                             break;
                         case EnmRealChipType.YM2151:
@@ -403,6 +453,7 @@ namespace MDPlayer
                                 ct.SoundChip = o;
                                 ct.ChipName = gm.getModuleInfo().Devname;
                                 ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
                             }
                             break;
                         case EnmRealChipType.YM3526:
@@ -418,6 +469,7 @@ namespace MDPlayer
                                 ct.SoundChip = o;
                                 ct.ChipName = gm.getModuleInfo().Devname;
                                 ct.InterfaceName = gm.getMBInfo().Devname;
+                                ct.Type = (int)cct;
                             }
                             break;
                     }

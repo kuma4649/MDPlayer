@@ -771,19 +771,22 @@ namespace MDPlayer.form
             {
                 string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
 
+                //ドロップされたアイテムがフォルダーの場合は下位フォルダー内も含めた
+                //実際のファイルのリストを取得する
                 List<string> result = new List<string>();
                 GetTrueFileNameList(result, filename);
-
+                //重複を取り除く
                 filename = result.Distinct().ToArray();
 
+                //曲を停止
                 Stop();
 
                 try
                 {
                     foreach (string f in filename) playList.AddFile(f);
 
+                    //一番最後に追加した筈の曲を再生する
                     string fn = filename[filename.Length - 1];
-
                     if (
                         fn.ToLower().LastIndexOf(".lzh") == -1
                         && fn.ToLower().LastIndexOf(".zip") == -1

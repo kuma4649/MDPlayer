@@ -36,9 +36,12 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeYM2413, null, zoom);
+
             bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
-            int tp = YM2413Type ? 1 : 0;
-            DrawBuff.screenInitYM2413(frameBuffer, tp);
+            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
+
+            screenInitYM2413(frameBuffer, tp);
             update();
         }
 
@@ -225,9 +228,37 @@ namespace MDPlayer.form
         }
 
 
+        public void screenInitYM2413(FrameBuffer screen, int tp)
+        {
+
+            for (int y = 0; y < 9; y++)
+            {
+                //Note
+                DrawBuff.drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+
+                //Keyboard
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    DrawBuff.drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //Volume
+                int d = 99;
+                DrawBuff.Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
+
+                bool? db = null;
+                DrawBuff.ChYM2413(screen, y, ref db, false, tp);
+            }
+
+        }
+
         public void screenDrawParams()
         {
-            int tp = parent.setting.YM2413Type.UseScci ? 1 : 0;
+            bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
+            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
@@ -320,11 +351,25 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            int py = e.Location.Y / zoom;
             int px = e.Location.X / zoom;
+            int py = e.Location.Y / zoom;
 
             //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (int ch = 0; ch < 14; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.YM2413, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.YM2413, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             //鍵盤
             if (py < 11 * 8)

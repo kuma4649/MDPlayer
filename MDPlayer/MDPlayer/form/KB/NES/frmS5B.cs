@@ -172,10 +172,25 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
+            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
 
             //上部のラベル行の場合は何もしない
-            if (py < 1 * 8) return;
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (int ch = 0; ch < 3; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.FME7, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.FME7, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             //鍵盤
             if (py < 4 * 8)

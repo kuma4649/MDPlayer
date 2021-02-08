@@ -74,6 +74,8 @@ namespace MDPlayer
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYMF262 = new RSoundChip[2] { null, null };
@@ -1045,7 +1047,7 @@ namespace MDPlayer
             if (realChip == null && !emuOnly )
             {
                 log.ForcedWrite("Audio:Init:STEP 04");
-                realChip = new RealChip();
+                realChip = new RealChip(true);
             }
 
             if (realChip != null)
@@ -1060,6 +1062,10 @@ namespace MDPlayer
                 if (scYM2151[0] != null) scYM2151[0].init();
                 scYM2203[0] = realChip.GetRealChip(Audio.setting.YM2203Type);
                 if (scYM2203[0] != null) scYM2203[0].init();
+                scAY8910[0] = realChip.GetRealChip(Audio.setting.AY8910Type);
+                if (scAY8910[0] != null) scAY8910[0].init();
+                scYM2413[0] = realChip.GetRealChip(Audio.setting.YM2413Type);
+                if (scYM2413[0] != null) scYM2413[0].init();
                 scYM3526[0] = realChip.GetRealChip(Audio.setting.YM3526Type);
                 if (scYM3526[0] != null) scYM3526[0].init();
                 scYM3812[0] = realChip.GetRealChip(Audio.setting.YM3812Type);
@@ -1087,6 +1093,10 @@ namespace MDPlayer
                 if (scYM2151[1] != null) scYM2151[1].init();
                 scYM2203[1] = realChip.GetRealChip(Audio.setting.YM2203SType);
                 if (scYM2203[1] != null) scYM2203[1].init();
+                scAY8910[1] = realChip.GetRealChip(Audio.setting.AY8910SType);
+                if (scAY8910[1] != null) scAY8910[1].init();
+                scYM2413[1] = realChip.GetRealChip(Audio.setting.YM2413SType);
+                if (scYM2413[1] != null) scYM2413[1].init();
                 scYM3526[1] = realChip.GetRealChip(Audio.setting.YM3526SType);
                 if (scYM3526[1] != null) scYM3526[1].init();
                 scYM3812[1] = realChip.GetRealChip(Audio.setting.YM3812SType);
@@ -1115,6 +1125,7 @@ namespace MDPlayer
                 , scYM2608
                 , scYM2151
                 , scYM2203
+                , scYM2413
                 , scYM2610
                 , scYM2610EA
                 , scYM2610EB
@@ -1123,6 +1134,7 @@ namespace MDPlayer
                 , scYMF262
                 , scC140
                 , scSEGAPCM
+                , scAY8910
                 );
             chipRegister.initChipRegister(null);
 
@@ -2079,6 +2091,10 @@ namespace MDPlayer
         {
             chipRegister.setFadeoutVolYM2203(0, 0);
             chipRegister.setFadeoutVolYM2203(1, 0);
+            chipRegister.setFadeoutVolAY8910(0, 0);
+            chipRegister.setFadeoutVolAY8910(1, 0);
+            chipRegister.setFadeoutVolYM2413(0, 0);
+            chipRegister.setFadeoutVolYM2413(1, 0);
             chipRegister.setFadeoutVolYM2608(0, 0);
             chipRegister.setFadeoutVolYM2608(1, 0);
             chipRegister.setFadeoutVolYM2151(0, 0);
@@ -4019,23 +4035,43 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).SN76489ClockValue != 0)
                 {
-                    MDSound.sn76489 sn76489 = new MDSound.sn76489();
+                    MDSound.sn76489 sn76489 = null;
+                    MDSound.SN76496 sn76496 = null;
 
                     for (int i = 0; i < (((vgm)driverVirtual).SN76489DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
                         chip.ID = (byte)i;
-                        chip.Instrument = sn76489;
-                        chip.Update = sn76489.Update;
-                        chip.Start = sn76489.Start;
-                        chip.Stop = sn76489.Stop;
-                        chip.Reset = sn76489.Reset;
+                        chip.Option = null;
+
+                        if ((i == 0 && setting.SN76489Type.UseEmu)
+                            || (i == 1 && setting.SN76489SType.UseEmu))
+                        {
+                            if (sn76489 == null) sn76489 = new sn76489();
+                            chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
+                            chip.Instrument = sn76489;
+                            chip.Update = sn76489.Update;
+                            chip.Start = sn76489.Start;
+                            chip.Stop = sn76489.Stop;
+                            chip.Reset = sn76489.Reset;
+                        }
+                        else if ((i == 0 && setting.SN76489Type.UseEmu2)
+                            || (i == 1 && setting.SN76489SType.UseEmu2))
+                        {
+                            if (sn76496 == null) sn76496 = new SN76496();
+                            chip.type = MDSound.MDSound.enmInstrumentType.SN76496;
+                            chip.Instrument = sn76496;
+                            chip.Update = sn76496.Update;
+                            chip.Start = sn76496.Start;
+                            chip.Stop = sn76496.Stop;
+                            chip.Reset = sn76496.Reset;
+                            chip.Option = ((vgm)driverVirtual).SN76489Option;
+                        }
+
                         chip.SamplingRate = (UInt32)Common.SampleRate;
                         chip.Volume = setting.balance.SN76489Volume;
                         chip.Clock = ((vgm)driverVirtual).SN76489ClockValue
                             | (((vgm)driverVirtual).SN76489NGPFlag ? 0x80000000 : 0);
-                        chip.Option = null;
                         if (i == 0) chipLED.PriDCSG = 1;
                         else chipLED.SecDCSG = 1;
 
@@ -4778,6 +4814,32 @@ namespace MDPlayer
 
                         lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.SAA1099 : EnmChip.S_SAA1099);
+                    }
+                }
+
+                if (((vgm)driverVirtual).POKEYClockValue != 0)
+                {
+                    MDSound.pokey pokey = new pokey();
+                    for (int i = 0; i < (((vgm)driverVirtual).POKEYDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.POKEY;
+                        chip.ID = (byte)i;
+                        chip.Instrument = pokey;
+                        chip.Update = pokey.Update;
+                        chip.Start = pokey.Start;
+                        chip.Stop = pokey.Stop;
+                        chip.Reset = pokey.Reset;
+                        chip.SamplingRate = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);// (UInt32)Common.SampleRate;
+                        chip.Volume = setting.balance.POKEYVolume;
+                        chip.Clock = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriPOK = 1;
+                        else chipLED.SecPOK = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.POKEY : EnmChip.S_POKEY);
                     }
                 }
 
@@ -5831,6 +5893,8 @@ namespace MDPlayer
                         {
                             if (useChip.Contains(EnmChip.YM2151)) chipRegister.setFadeoutVolYM2151(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2203)) chipRegister.setFadeoutVolYM2203(0, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.AY8910)) chipRegister.setFadeoutVolAY8910(0, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.YM2413)) chipRegister.setFadeoutVolYM2413(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2608)) chipRegister.setFadeoutVolYM2608(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2610)) chipRegister.setFadeoutVolYM2610(0, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.YM2612)) chipRegister.setFadeoutVolYM2612(0, vgmRealFadeoutVol);
@@ -5841,6 +5905,8 @@ namespace MDPlayer
 
                             if (useChip.Contains(EnmChip.S_YM2151)) chipRegister.setFadeoutVolYM2151(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2203)) chipRegister.setFadeoutVolYM2203(1, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.S_AY8910)) chipRegister.setFadeoutVolAY8910(1, vgmRealFadeoutVol);
+                            if (useChip.Contains(EnmChip.S_YM2413)) chipRegister.setFadeoutVolYM2413(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2608)) chipRegister.setFadeoutVolYM2608(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2610)) chipRegister.setFadeoutVolYM2610(1, vgmRealFadeoutVol);
                             if (useChip.Contains(EnmChip.S_YM2612)) chipRegister.setFadeoutVolYM2612(1, vgmRealFadeoutVol);
@@ -5933,6 +5999,10 @@ namespace MDPlayer
         {
             chipRegister.softResetYM2203(0, model);
             chipRegister.softResetYM2203(1, model);
+            chipRegister.softResetAY8910(0, model);
+            chipRegister.softResetAY8910(1, model);
+            chipRegister.softResetYM2413(0, model);
+            chipRegister.softResetYM2413(1, model);
             chipRegister.softResetYM2608(0, model);
             chipRegister.softResetYM2608(1, model);
             chipRegister.softResetYM2151(0, model);
@@ -6483,6 +6553,12 @@ namespace MDPlayer
         {
             return mds.ReadRf5c68Register(chipID);
         }
+
+        public static ymf271.YMF271Chip GetYMF271Register(int chipID)
+        {
+            return mds.ReadYMF271Register(chipID);
+        }
+
 
         public static byte[] GetC140Register(int chipID)
         {

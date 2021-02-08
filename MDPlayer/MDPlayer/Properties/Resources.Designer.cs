@@ -972,6 +972,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap planeYMF271 {
+            get {
+                object obj = ResourceManager.GetObject("planeYMF271", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap planeYMF278B {
             get {
                 object obj = ResourceManager.GetObject("planeYMF278B", resourceCulture);
@@ -1505,6 +1515,16 @@ namespace MDPlayer.Properties {
         public static System.Drawing.Bitmap rType_06 {
             get {
                 object obj = ResourceManager.GetObject("rType_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap rType_YMF271 {
+            get {
+                object obj = ResourceManager.GetObject("rType_YMF271", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

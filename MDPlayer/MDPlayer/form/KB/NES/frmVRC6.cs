@@ -107,8 +107,25 @@ namespace MDPlayer.form
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            //int px = e.Location.X / zoom;
+            int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
+            int ch;
+            //上部のラベル行の場合は何もしない
+            if (py < 1 * 8)
+            {
+                //但しchをクリックした場合はマスク反転
+                if (px < 8)
+                {
+                    for (ch = 0; ch < 3; ch++)
+                    {
+                        if (newParam.channels[ch].mask == true)
+                            parent.ResetChannelMask(EnmChip.VRC6, chipID, ch);
+                        else
+                            parent.SetChannelMask(EnmChip.VRC6, chipID, ch);
+                    }
+                }
+                return;
+            }
 
             if (e.Button == MouseButtons.Right)
             {
@@ -121,7 +138,7 @@ namespace MDPlayer.form
                 return;
             }
 
-            int ch = (py / 8) - 1;
+            ch = (py / 8) - 1;
             if (ch < 0) return;
             ch /= 2;
             if (e.Button == MouseButtons.Left)

@@ -379,6 +379,19 @@ namespace MDPlayer
         }
         public YMF262[] ymf262 = new YMF262[] { new YMF262(), new YMF262() };
 
+        public class YMF271
+        {
+            public Channel[] channels = new Channel[48] {
+                new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+                , new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel(), new Channel()
+            };
+        }
+        public YMF271[] ymf271 = new YMF271[] { new YMF271(), new YMF271() };
+
         public class YMF278B
         {
 

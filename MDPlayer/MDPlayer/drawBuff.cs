@@ -35,6 +35,7 @@ namespace MDPlayer
         public static byte[][] rPlane_MIDI;
         private static byte[] rNESDMC;
         private static byte[] rKakko;
+        private static byte[] rType_YMF271;
         private static Bitmap[] bitmapMIDILyric = null;
         private static Graphics[] gMIDILyric = null;
         private static Font[] fntMIDILyric = null;
@@ -145,22 +146,11 @@ namespace MDPlayer
             fntMIDILyric = new Font[2];
             fntMIDILyric[0] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
             fntMIDILyric[1] = new Font("MS UI Gothic", 8);//, FontStyle.Bold);
+
+            rType_YMF271 = getByteArray(Resources.rType_YMF271);
         }
 
 
-        public static void screenInitAY8910(FrameBuffer screen)
-        {
-            for (int ch = 0; ch < 3; ch++)
-            {
-                for (int ot = 0; ot < 12 * 8; ot++)
-                {
-                    int kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
-                    int kt = Tables.kbl[(ot % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, ch * 8 + 8, kt, 0);
-                }
-                drawFont8(screen, 296, ch * 8 + 8, 1, "   ");
-            }
-        }
 
         public static void screenInitHuC6280(FrameBuffer screen)
         {
@@ -302,28 +292,6 @@ namespace MDPlayer
                 {
                     ChYM2203_P(screen, 0, y * 8 + 8, y, false, tp);
                 }
-            }
-
-        }
-
-        public static void screenInitYM2413(FrameBuffer screen, int tp)
-        {
-            for (int y = 0; y < 9; y++)
-            {
-                //Note
-                drawFont8(screen, 296, y * 8 + 8, 1, "   ");
-
-                //Keyboard
-                for (int i = 0; i < 96; i++)
-                {
-                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
-                    int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
-                }
-
-                //Volume
-                int d = 99;
-                Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
             }
 
         }
@@ -1119,6 +1087,41 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void KeyBoardXY(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 264 + x, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 264 + x, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 280 + x, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
         public static void KeyBoardOPNM(FrameBuffer screen, int y, ref int ot, int nt, int tp)
         {
             if (ot == nt) return;
@@ -1405,6 +1408,18 @@ namespace MDPlayer
             }
 
             drawPanType3P(screen, 24, 8 + c * 8, nt, tp);
+            ot = nt;
+        }
+
+        public static void PanType2(FrameBuffer screen, int x,int y, ref int ot, int nt, int tp)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawPanType2P(screen, x, y, nt, tp);
             ot = nt;
         }
 
@@ -2586,6 +2601,17 @@ namespace MDPlayer
                 ot = nt;
             }
         }
+
+        public static void OpxOP(FrameBuffer screen, int x, int y, int t, ref int ot, int nt)
+        {
+            if (ot != nt)
+            {
+                screen.drawByteArray(x, y, rType_YMF271, 32, nt * 8, 0, 8, 32);
+
+                ot = nt;
+            }
+        }
+
 
         public static void LfoSw(FrameBuffer screen, int x, int y, ref bool olfosw, bool nlfosw)
         {

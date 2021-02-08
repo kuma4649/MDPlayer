@@ -930,4 +930,10 @@ M3Uファイル(*.m3u)|*.m3u|
   <data name="planeDMG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planeDMG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="planeYMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planeYMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rType_YMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rType_YMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

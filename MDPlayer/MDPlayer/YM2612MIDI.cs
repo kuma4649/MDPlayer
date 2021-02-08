@@ -560,56 +560,27 @@ namespace MDPlayer
 
         public void midiIn_MessageReceived(MidiInMessageEventArgs e)
         {
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
+            try
             {
-                NoteOnEvent noe = (NoteOnEvent)e.MidiEvent;
 
-                int ch = NoteON(noe.NoteNumber);
-
-                if (ch != -1)
+                if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
                 {
-                    int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
-                    n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
-                    NoteLog[ch][NoteLogPtr[ch]] = n;
-                    int p = NoteLogPtr[ch] - 9;
-                    if (p < 0) p += 100;
-                    for (int i = 0; i < 10; i++)
+                    NoteEvent noe = (NoteEvent)e.MidiEvent;
+
+                    if (noe.Velocity == 0)
                     {
-                        newParam.ym2612Midi.noteLog[ch][i] = NoteLog[ch][p];
-                        p++;
-                        if (p == 100) p = 0;
+                        NoteOFF(noe.NoteNumber);
+                        return;
                     }
-                    NoteLogPtr[ch]++;
-                    if (NoteLogPtr[ch] == 100) NoteLogPtr[ch] = 0;
-                }
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
-            {
-                NoteEvent ne = (NoteEvent)e.MidiEvent;
-                NoteOFF(ne.NoteNumber);
-                return;
-            }
-            if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
-            {
-                int cc = (int)(((ControlChangeEvent)e.MidiEvent).Controller);
-                Setting.MidiKbd mk = parent.setting.midiKbd;
-                if (cc == mk.MidiCtrl_CopyToneFromYM2612Ch1) VoiceCopy();
-                if (cc == mk.MidiCtrl_CopySelecttingLogToClipbrd)
-                {
-                    if (parent.setting.midiKbd.IsMONO) Log2MML66(parent.setting.midiKbd.UseMONOChannel);
-                }
-                if (cc == mk.MidiCtrl_DelOneLog)
-                {
-                    if (parent.setting.midiKbd.IsMONO)
+
+                    int ch = NoteON(noe.NoteNumber);
+
+                    if (ch != -1)
                     {
-                        int ch = parent.setting.midiKbd.UseMONOChannel;
-                        int ptr = NoteLogPtr[ch];
-                        ptr--;
-                        if (ptr < 0) ptr += 100;
-                        NoteLog[ch][ptr] = -1;
-                        NoteLogPtr[ch] = ptr;
-                        int p = NoteLogPtr[ch] - 10;
+                        int n = (noe.NoteNumber % 12) + (noe.NoteNumber / 12 - 1) * 12;
+                        n = Math.Max(Math.Min(n, 12 * 8 - 1), 0);
+                        NoteLog[ch][NoteLogPtr[ch]] = n;
+                        int p = NoteLogPtr[ch] - 9;
                         if (p < 0) p += 100;
                         for (int i = 0; i < 10; i++)
                         {
@@ -617,40 +588,87 @@ namespace MDPlayer
                             p++;
                             if (p == 100) p = 0;
                         }
+                        NoteLogPtr[ch]++;
+                        if (NoteLogPtr[ch] == 100) NoteLogPtr[ch] = 0;
+                    }
+                    return;
+                }
+                else if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+                {
+                    NoteEvent ne = (NoteEvent)e.MidiEvent;
+                    NoteOFF(ne.NoteNumber);
+                    return;
+                }
+                else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+                {
+                    int cc = (int)(((ControlChangeEvent)e.MidiEvent).Controller);
+                    Setting.MidiKbd mk = parent.setting.midiKbd;
+                    if (cc == mk.MidiCtrl_CopyToneFromYM2612Ch1) VoiceCopy();
+                    if (cc == mk.MidiCtrl_CopySelecttingLogToClipbrd)
+                    {
+                        if (parent.setting.midiKbd.IsMONO) Log2MML66(parent.setting.midiKbd.UseMONOChannel);
+                    }
+                    if (cc == mk.MidiCtrl_DelOneLog)
+                    {
+                        if (parent.setting.midiKbd.IsMONO)
+                        {
+                            int ch = parent.setting.midiKbd.UseMONOChannel;
+                            int ptr = NoteLogPtr[ch];
+                            ptr--;
+                            if (ptr < 0) ptr += 100;
+                            NoteLog[ch][ptr] = -1;
+                            NoteLogPtr[ch] = ptr;
+                            int p = NoteLogPtr[ch] - 10;
+                            if (p < 0) p += 100;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                newParam.ym2612Midi.noteLog[ch][i] = NoteLog[ch][p];
+                                p++;
+                                if (p == 100) p = 0;
+                            }
+                        }
+                    }
+                    if (cc == mk.MidiCtrl_Fadeout)
+                    {
+                        parent.fadeout();
+                    }
+                    if (cc == mk.MidiCtrl_Fast)
+                    {
+                        parent.ff();
+                    }
+                    if (cc == mk.MidiCtrl_Next)
+                    {
+                        parent.next();
+                    }
+                    if (cc == mk.MidiCtrl_Pause)
+                    {
+                        parent.pause();
+                    }
+                    if (cc == mk.MidiCtrl_Play)
+                    {
+                        parent.play();
+                    }
+                    if (cc == mk.MidiCtrl_Previous)
+                    {
+                        parent.prev();
+                    }
+                    if (cc == mk.MidiCtrl_Slow)
+                    {
+                        parent.slow();
+                    }
+                    if (cc == mk.MidiCtrl_Stop)
+                    {
+                        parent.stop();
                     }
                 }
-                if (cc == mk.MidiCtrl_Fadeout)
-                {
-                    parent.fadeout();
-                }
-                if (cc == mk.MidiCtrl_Fast)
-                {
-                    parent.ff();
-                }
-                if (cc == mk.MidiCtrl_Next)
-                {
-                    parent.next();
-                }
-                if (cc == mk.MidiCtrl_Pause)
-                {
-                    parent.pause();
-                }
-                if (cc == mk.MidiCtrl_Play)
-                {
-                    parent.play();
-                }
-                if (cc == mk.MidiCtrl_Previous)
-                {
-                    parent.prev();
-                }
-                if (cc == mk.MidiCtrl_Slow)
-                {
-                    parent.slow();
-                }
-                if (cc == mk.MidiCtrl_Stop)
-                {
-                    parent.stop();
-                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show(
+                    string.Format("Exception:\r\n{0}\r\nStackTrace:\r\n{1}\r\n", ex.Message, ex.StackTrace)
+                    ,"ERROR"
+                    , MessageBoxButtons.OK
+                    , MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -902,6 +920,10 @@ namespace MDPlayer
                 if (stage > 0)
                 {
                     int[] nums = numSplit(line);
+                    if(nums.Length==0 && line == "xx")
+                    {
+                        nums = new int[] { 0 };
+                    }
                     foreach (int n in nums)
                     {
                         stage++;
