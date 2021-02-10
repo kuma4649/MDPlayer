@@ -164,6 +164,13 @@ namespace MDPlayer.form
             newParam.nfrq = 0;
             newParam.efrq = 0;
             newParam.etype = 0;
+
+            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
+            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
+
+            screenInitAY8910(frameBuffer, tp);
+            update();
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)

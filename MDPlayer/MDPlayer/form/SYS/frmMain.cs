@@ -4091,7 +4091,7 @@ namespace MDPlayer.form
 
             for (int i = 0; i < 2; i++)
             {
-                //if (frmAY8910[i] != null) frmAY8910[i].screenInit();
+                if (frmAY8910[i] != null) frmAY8910[i].screenInit();
                 //if (frmC140[i] != null) frmC140[i].screenInit();
                 //if (frmC352[i] != null) frmC352[i].screenInit();
                 if (frmFDS[i] != null) frmFDS[i].screenInit();
@@ -4107,7 +4107,7 @@ namespace MDPlayer.form
                 //if (frmSN76489[i] != null) frmSN76489[i].screenInit();
                 //if (frmYM2151[i] != null) frmYM2151[i].screenInit();
                 //if (frmYM2203[i] != null) frmYM2203[i].screenInit();
-                //if (frmYM2413[i] != null) frmYM2413[i].screenInit();
+                if (frmYM2413[i] != null) frmYM2413[i].screenInit();
                 //if (frmYM2608[i] != null) frmYM2608[i].screenInit();
                 //if (frmYM2610[i] != null) frmYM2610[i].screenInit();
                 //if (frmYM2612[i] != null) frmYM2612[i].screenInit();

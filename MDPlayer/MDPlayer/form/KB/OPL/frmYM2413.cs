@@ -252,6 +252,19 @@ namespace MDPlayer.form
                 DrawBuff.ChYM2413(screen, y, ref db, false, tp);
             }
 
+            bool? dm;
+            dm = null; DrawBuff.ChYM2413(frameBuffer, 9, ref dm, newParam.channels[9].mask, tp);
+            dm = null; DrawBuff.ChYM2413(frameBuffer, 10, ref dm, newParam.channels[10].mask, tp);
+            dm = null; DrawBuff.ChYM2413(frameBuffer, 11, ref dm, newParam.channels[11].mask, tp);
+            dm = null; DrawBuff.ChYM2413(frameBuffer, 12, ref dm, newParam.channels[12].mask, tp);
+            dm = null; DrawBuff.ChYM2413(frameBuffer, 13, ref dm, newParam.channels[13].mask, tp);
+            int dv;
+            dv = 99; DrawBuff.VolumeXY(frameBuffer, 6, 20, 0, ref dv, newParam.channels[9].volume, tp);
+            dv = 99; DrawBuff.VolumeXY(frameBuffer, 21, 20, 0, ref dv, newParam.channels[10].volume, tp);
+            dv = 99; DrawBuff.VolumeXY(frameBuffer, 36, 20, 0, ref dv, newParam.channels[11].volume, tp);
+            dv = 99; DrawBuff.VolumeXY(frameBuffer, 51, 20, 0, ref dv, newParam.channels[12].volume, tp);
+            dv = 99; DrawBuff.VolumeXY(frameBuffer, 66, 20, 0, ref dv, newParam.channels[13].volume, tp);
+
         }
 
         public void screenDrawParams()
@@ -347,6 +360,12 @@ namespace MDPlayer.form
             newParam.channels[0].inst[26] = 0;
             newParam.channels[0].inst[27] = 0;
 
+            bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
+            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
+
+            screenInitYM2413(frameBuffer, tp);
+            update();
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
