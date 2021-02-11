@@ -4897,6 +4897,288 @@ namespace MDPlayer
         }
 
 
+        //多音源対応
+        [Serializable]
+        public class ChipType2
+        {
+            private bool[] _UseEmu = null;
+            public bool[] UseEmu
+            {
+                get
+                {
+                    return _UseEmu;
+                }
+
+                set
+                {
+                    _UseEmu = value;
+                }
+            }
+
+            private bool[] _UseReal = null;
+            public bool[] UseReal
+            {
+                get
+                {
+                    return _UseReal;
+                }
+
+                set
+                {
+                    _UseReal = value;
+                }
+            }
+
+            private RealChipInfo[] _realChipInfo = null;
+            public RealChipInfo[] realChipInfo
+            {
+                get
+                {
+                    return _realChipInfo;
+                }
+
+                set
+                {
+                    _realChipInfo = value;
+                }
+            }
+
+            public class RealChipInfo
+            {
+                //Chip共通　識別情報
+
+                private int _InterfaceType = -1;
+                public int InterfaceType
+                {
+                    get
+                    {
+                        return _InterfaceType;
+                    }
+
+                    set
+                    {
+                        _InterfaceType = value;
+                    }
+                }
+
+                private int _SoundLocation = -1;
+                public int SoundLocation
+                {
+                    get
+                    {
+                        return _SoundLocation;
+                    }
+
+                    set
+                    {
+                        _SoundLocation = value;
+                    }
+                }
+
+                private int _BusID = -1;
+                public int BusID
+                {
+                    get
+                    {
+                        return _BusID;
+                    }
+
+                    set
+                    {
+                        _BusID = value;
+                    }
+                }
+
+                private int _SoundChip = -1;
+                public int SoundChip
+                {
+                    get
+                    {
+                        return _SoundChip;
+                    }
+
+                    set
+                    {
+                        _SoundChip = value;
+                    }
+                }
+
+                private int _ChipType = 0;
+                public int ChipType
+                {
+                    get
+                    {
+                        return _ChipType;
+                    }
+
+                    set
+                    {
+                        _ChipType = value;
+                    }
+                }
+
+                private string _InterfaceName = "";
+                public string InterfaceName
+                {
+                    get
+                    {
+                        return _InterfaceName;
+                    }
+
+                    set
+                    {
+                        _InterfaceName = value;
+                    }
+                }
+
+                private string _ChipName = "";
+                public string ChipName
+                {
+                    get
+                    {
+                        return _ChipName;
+                    }
+
+                    set
+                    {
+                        _ChipName = value;
+                    }
+                }
+
+
+
+                //Chip固有の追加設定
+
+                //ウエイトコマンドをSCCIに送るか
+                private bool _UseWait = true;
+                public bool UseWait
+                {
+                    get
+                    {
+                        return _UseWait;
+                    }
+
+                    set
+                    {
+                        _UseWait = value;
+                    }
+                }
+
+                //ウエイトコマンドを2倍にするか
+                private bool _UseWaitBoost = false;
+                public bool UseWaitBoost
+                {
+                    get
+                    {
+                        return _UseWaitBoost;
+                    }
+
+                    set
+                    {
+                        _UseWaitBoost = value;
+                    }
+                }
+
+                //PCMのみエミュレーションするか
+                private bool _OnlyPCMEmulation = false;
+                public bool OnlyPCMEmulation
+                {
+                    get
+                    {
+                        return _OnlyPCMEmulation;
+                    }
+
+                    set
+                    {
+                        _OnlyPCMEmulation = value;
+                    }
+                }
+
+                public RealChipInfo Copy()
+                {
+                    RealChipInfo ret = new RealChipInfo();
+
+                    ret.InterfaceType = this.InterfaceType;
+                    ret.SoundLocation = this.SoundLocation;
+                    ret.BusID = this.BusID;
+                    ret.SoundChip = this.SoundChip;
+                    ret.ChipType = this.ChipType;
+                    ret.InterfaceName = this.InterfaceName;
+                    ret.ChipName = this.ChipName;
+
+                    ret.UseWait = this.UseWait;
+                    ret.UseWaitBoost = this.UseWaitBoost;
+                    ret.OnlyPCMEmulation = this.OnlyPCMEmulation;
+             
+                    return ret;
+                }
+            }
+
+            //Emulation時の遅延時間
+
+            private int _LatencyForEmulation = 0;
+            public int LatencyForEmulation
+            {
+                get
+                {
+                    return _LatencyForEmulation;
+                }
+
+                set
+                {
+                    _LatencyForEmulation = value;
+                }
+            }
+
+            //Real時の遅延時間
+
+            private int _LatencyForReal = 0;
+            public int LatencyForReal
+            {
+                get
+                {
+                    return _LatencyForReal;
+                }
+
+                set
+                {
+                    _LatencyForReal = value;
+                }
+            }
+
+
+            public ChipType2 Copy()
+            {
+                ChipType2 ct = new ChipType2();
+
+                ct.UseEmu = null;
+                if (this.UseEmu != null)
+                {
+                    ct.UseEmu = new bool[this.UseEmu.Length];
+                    for (int i = 0; i < this.UseEmu.Length; i++) ct.UseEmu[i] = this.UseEmu[i];
+                }
+
+                ct.UseReal = null;
+                if (this.UseReal != null)
+                {
+                    ct.UseReal = new bool[this.UseReal.Length];
+                    for (int i = 0; i < this.UseReal.Length; i++) ct.UseReal[i] = this.UseReal[i];
+                }
+
+                ct.realChipInfo = null;
+                if (this.realChipInfo != null)
+                {
+                    ct.realChipInfo = new RealChipInfo[this.realChipInfo.Length];
+                    for (int i = 0; i < this.realChipInfo.Length; i++) ct.realChipInfo[i] = this.realChipInfo[i].Copy();
+                }
+
+                ct.LatencyForEmulation = this.LatencyForEmulation;
+                ct.LatencyForReal = this.LatencyForReal;
+
+                return ct;
+            }
+        }
+
 
 
         public Setting Copy()
