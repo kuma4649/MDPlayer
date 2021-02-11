@@ -152,7 +152,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.HuC6280Type.UseScci ? 1 : 0;
+            int tp = parent.setting.HuC6280Type[0].UseReal[0] ? 1 : 0;
 
             for (int c = 0; c < 6; c++)
             {

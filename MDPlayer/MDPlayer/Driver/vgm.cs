@@ -942,7 +942,8 @@ namespace MDPlayer
                             }
                             if(model== EnmModel.RealModel)
                             {
-                                if ((chipID == 0 && setting.YM2608Type.UseScci) || (chipID == 1 && setting.YM2608SType.UseScci) )
+                                if ((chipID == 0 && setting.YM2608Type[0].UseReal[0])
+                                    || (chipID == 1 && setting.YM2608Type[1].UseReal[0]) )
                                 {
                                     System.Threading.Thread.Sleep(500);
                                 }

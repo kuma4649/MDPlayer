@@ -158,8 +158,12 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
-            int YM2151SoundLocation = (chipID == 0) ? parent.setting.YM2151Type.SoundLocation : parent.setting.YM2151SType.SoundLocation;
+            bool YM2151Type = (chipID == 0) 
+                ? parent.setting.YM2151Type[0].UseReal[0] 
+                : parent.setting.YM2151Type[1].UseReal[0];
+            int YM2151SoundLocation = (chipID == 0) 
+                ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation 
+                : parent.setting.YM2151Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2151Type ? 0 : (YM2151SoundLocation < 0 ? 2 : 1);
 
             for (int ch = 0; ch < 8; ch++)
@@ -279,8 +283,12 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2151Type = (chipID == 0) ? parent.setting.YM2151Type.UseScci : parent.setting.YM2151SType.UseScci;
-                int YM2151SoundLocation = (chipID == 0) ? parent.setting.YM2151Type.SoundLocation : parent.setting.YM2151SType.SoundLocation;
+                bool YM2151Type = (chipID == 0) 
+                    ? parent.setting.YM2151Type[0].UseReal[0]
+                    : parent.setting.YM2151Type[1].UseReal[0];
+                int YM2151SoundLocation = (chipID == 0) 
+                    ? parent.setting.YM2151Type[0].realChipInfo[0].SoundLocation 
+                    : parent.setting.YM2151Type[1].realChipInfo[0].SoundLocation;
                 int tp = !YM2151Type ? 0 : (YM2151SoundLocation < 0 ? 2 : 1);
 
                 DrawBuff.Inst(frameBuffer, 1, 11, c, oyc.inst, nyc.inst);

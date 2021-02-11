@@ -20,8 +20,12 @@ namespace MDPlayer.form
 
             frameBuffer.Add(this.pbScreen, Resources.planeAY8910, null, zoom);
 
-            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
-            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            bool AY8910Type = (chipID == 0) 
+                ? parent.setting.AY8910Type[0].UseReal[0] 
+                : parent.setting.AY8910Type[1].UseReal[0];
+            int AY8910SoundLocation = (chipID == 0) 
+                ? parent.setting.AY8910Type[0].realChipInfo[0].SoundLocation 
+                : parent.setting.AY8910Type[1].realChipInfo[0].SoundLocation;
             int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
 
             screenInitAY8910(frameBuffer, tp);
@@ -129,8 +133,12 @@ namespace MDPlayer.form
 
         override public void screenDrawParams()
         {
-            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
-            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            bool AY8910Type = (chipID == 0)
+                ? parent.setting.AY8910Type[0].UseReal[0]
+                : parent.setting.AY8910Type[1].UseReal[0];
+            int AY8910SoundLocation = (chipID == 0)
+                ? parent.setting.AY8910Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.AY8910Type[1].realChipInfo[0].SoundLocation;
             int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
 
             for (int c = 0; c < 3; c++)
@@ -165,8 +173,12 @@ namespace MDPlayer.form
             newParam.efrq = 0;
             newParam.etype = 0;
 
-            bool AY8910Type = (chipID == 0) ? parent.setting.AY8910Type.UseScci : parent.setting.AY8910SType.UseScci;
-            int AY8910SoundLocation = (chipID == 0) ? parent.setting.AY8910Type.SoundLocation : parent.setting.AY8910SType.SoundLocation;
+            bool AY8910Type = (chipID == 0)
+                ? parent.setting.AY8910Type[0].UseReal[0]
+                : parent.setting.AY8910Type[1].UseReal[0];
+            int AY8910SoundLocation = (chipID == 0)
+                ? parent.setting.AY8910Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.AY8910Type[1].realChipInfo[0].SoundLocation;
             int tp = !AY8910Type ? 0 : (AY8910SoundLocation < 0 ? 2 : 1);
 
             screenInitAY8910(frameBuffer, tp);

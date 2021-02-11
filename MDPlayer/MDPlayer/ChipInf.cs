@@ -14,7 +14,7 @@ namespace MDPlayer
         public int ID = 0;
 
         /// <summary>
-        /// ChipType
+        /// ChipType2
         /// </summary>
         public EnmChip type = EnmChip.Unuse;
 

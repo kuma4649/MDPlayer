@@ -29,9 +29,9 @@ namespace MDPlayer
                 _outputDevice = value;
             }
         }
-        
-        private ChipType _AY8910Type = new ChipType();
-        public ChipType AY8910Type
+
+        private ChipType2[] _AY8910Type = null;
+        public ChipType2[] AY8910Type
         {
             get
             {
@@ -44,22 +44,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _AY8910SType = new ChipType();
-        public ChipType AY8910SType
-        {
-            get
-            {
-                return _AY8910SType;
-            }
+        //private ChipType2[] _AY8910SType = new ChipType2();
+        //public ChipType2[] AY8910SType
+        //{
+        //    get
+        //    {
+        //        return _AY8910SType;
+        //    }
 
-            set
-            {
-                _AY8910SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _AY8910SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2151Type = new ChipType();
-        public ChipType YM2151Type
+        private ChipType2[] _YM2151Type = null;
+        public ChipType2[] YM2151Type
         {
             get
             {
@@ -72,8 +72,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2203Type = new ChipType();
-        public ChipType YM2203Type
+        private ChipType2[] _YM2203Type = null;
+        public ChipType2[] YM2203Type
         {
             get
             {
@@ -86,8 +86,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2413Type = new ChipType();
-        public ChipType YM2413Type
+        private ChipType2[] _YM2413Type = null;
+        public ChipType2[] YM2413Type
         {
             get
             {
@@ -100,8 +100,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _HuC6280Type = new ChipType();
-        public ChipType HuC6280Type
+        private ChipType2[] _HuC6280Type = null;
+        public ChipType2[] HuC6280Type
         {
             get
             {
@@ -114,8 +114,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _K051649Type = new ChipType();
-        public ChipType K051649Type
+        private ChipType2[] _K051649Type = null;
+        public ChipType2[] K051649Type
         {
             get
             {
@@ -128,22 +128,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2413SType = new ChipType();
-        public ChipType YM2413SType
-        {
-            get
-            {
-                return _YM2413SType;
-            }
+        //private ChipType2[] _YM2413SType = null;
+        //public ChipType2[] YM2413SType
+        //{
+        //    get
+        //    {
+        //        return _YM2413SType;
+        //    }
 
-            set
-            {
-                _YM2413SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2413SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2608Type = new ChipType();
-        public ChipType YM2608Type
+        private ChipType2[] _YM2608Type = null;
+        public ChipType2[] YM2608Type
         {
             get
             {
@@ -156,8 +156,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2610Type = new ChipType();
-        public ChipType YM2610Type
+        private ChipType2[] _YM2610Type = null;
+        public ChipType2[] YM2610Type
         {
             get
             {
@@ -170,8 +170,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YMF262Type = new ChipType();
-        public ChipType YMF262Type
+        private ChipType2[] _YMF262Type = null;
+        public ChipType2[] YMF262Type
         {
             get
             {
@@ -184,8 +184,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YMF271Type = new ChipType();
-        public ChipType YMF271Type
+        private ChipType2[] _YMF271Type = null;
+        public ChipType2[] YMF271Type
         {
             get
             {
@@ -198,8 +198,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YMF278BType = new ChipType();
-        public ChipType YMF278BType
+        private ChipType2[] _YMF278BType = null;
+        public ChipType2[] YMF278BType
         {
             get
             {
@@ -212,8 +212,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YMZ280BType = new ChipType();
-        public ChipType YMZ280BType
+        private ChipType2[] _YMZ280BType = null;
+        public ChipType2[] YMZ280BType
         {
             get
             {
@@ -226,8 +226,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2612Type = new ChipType();
-        public ChipType YM2612Type
+        private ChipType2[] _YM2612Type = null;
+        public ChipType2[] YM2612Type
         {
             get
             {
@@ -240,8 +240,8 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _SN76489Type = new ChipType();
-        public ChipType SN76489Type
+        private ChipType2[] _SN76489Type = null;
+        public ChipType2[] SN76489Type
         {
             get
             {
@@ -254,162 +254,162 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM2151SType = new ChipType();
-        public ChipType YM2151SType
-        {
-            get
-            {
-                return _YM2151SType;
-            }
+        //private ChipType2 _YM2151SType = new ChipType2();
+        //public ChipType2 YM2151SType
+        //{
+        //    get
+        //    {
+        //        return _YM2151SType;
+        //    }
 
-            set
-            {
-                _YM2151SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2151SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2203SType = new ChipType();
-        public ChipType YM2203SType
-        {
-            get
-            {
-                return _YM2203SType;
-            }
+        //private ChipType2 _YM2203SType = new ChipType2();
+        //public ChipType2 YM2203SType
+        //{
+        //    get
+        //    {
+        //        return _YM2203SType;
+        //    }
 
-            set
-            {
-                _YM2203SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2203SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2608SType = new ChipType();
-        public ChipType YM2608SType
-        {
-            get
-            {
-                return _YM2608SType;
-            }
+        //private ChipType2 _YM2608SType = new ChipType2();
+        //public ChipType2 YM2608SType
+        //{
+        //    get
+        //    {
+        //        return _YM2608SType;
+        //    }
 
-            set
-            {
-                _YM2608SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2608SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2610SType = new ChipType();
-        public ChipType YM2610SType
-        {
-            get
-            {
-                return _YM2610SType;
-            }
+        //private ChipType2 _YM2610SType = new ChipType2();
+        //public ChipType2 YM2610SType
+        //{
+        //    get
+        //    {
+        //        return _YM2610SType;
+        //    }
 
-            set
-            {
-                _YM2610SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2610SType = value;
+        //    }
+        //}
 
-        private ChipType _YM2612SType = new ChipType();
-        public ChipType YM2612SType
-        {
-            get
-            {
-                return _YM2612SType;
-            }
+        //private ChipType2 _YM2612SType = new ChipType2();
+        //public ChipType2 YM2612SType
+        //{
+        //    get
+        //    {
+        //        return _YM2612SType;
+        //    }
 
-            set
-            {
-                _YM2612SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM2612SType = value;
+        //    }
+        //}
 
-        private ChipType _YMF262SType = new ChipType();
-        public ChipType YMF262SType
-        {
-            get
-            {
-                return _YMF262SType;
-            }
+        //private ChipType2 _YMF262SType = new ChipType2();
+        //public ChipType2 YMF262SType
+        //{
+        //    get
+        //    {
+        //        return _YMF262SType;
+        //    }
 
-            set
-            {
-                _YMF262SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YMF262SType = value;
+        //    }
+        //}
 
-        private ChipType _YMF271SType = new ChipType();
-        public ChipType YMF271SType
-        {
-            get
-            {
-                return _YMF271SType;
-            }
+        //private ChipType2 _YMF271SType = new ChipType2();
+        //public ChipType2 YMF271SType
+        //{
+        //    get
+        //    {
+        //        return _YMF271SType;
+        //    }
 
-            set
-            {
-                _YMF271SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YMF271SType = value;
+        //    }
+        //}
 
-        private ChipType _YMF278BSType = new ChipType();
-        public ChipType YMF278BSType
-        {
-            get
-            {
-                return _YMF278BSType;
-            }
+        //private ChipType2 _YMF278BSType = new ChipType2();
+        //public ChipType2 YMF278BSType
+        //{
+        //    get
+        //    {
+        //        return _YMF278BSType;
+        //    }
 
-            set
-            {
-                _YMF278BSType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YMF278BSType = value;
+        //    }
+        //}
 
-        private ChipType _YMZ280BSType = new ChipType();
-        public ChipType YMZ280BSType
-        {
-            get
-            {
-                return _YMZ280BSType;
-            }
+        //private ChipType2 _YMZ280BSType = new ChipType2();
+        //public ChipType2 YMZ280BSType
+        //{
+        //    get
+        //    {
+        //        return _YMZ280BSType;
+        //    }
 
-            set
-            {
-                _YMZ280BSType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YMZ280BSType = value;
+        //    }
+        //}
 
-        private ChipType _SN76489SType = new ChipType();
-        public ChipType SN76489SType
-        {
-            get
-            {
-                return _SN76489SType;
-            }
+        //private ChipType2 _SN76489SType = new ChipType2();
+        //public ChipType2 SN76489SType
+        //{
+        //    get
+        //    {
+        //        return _SN76489SType;
+        //    }
 
-            set
-            {
-                _SN76489SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _SN76489SType = value;
+        //    }
+        //}
 
-        private ChipType _HuC6280SType = new ChipType();
-        public ChipType HuC6280SType
-        {
-            get
-            {
-                return _HuC6280SType;
-            }
+        //private ChipType2 _HuC6280SType = new ChipType2();
+        //public ChipType2 HuC6280SType
+        //{
+        //    get
+        //    {
+        //        return _HuC6280SType;
+        //    }
 
-            set
-            {
-                _HuC6280SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _HuC6280SType = value;
+        //    }
+        //}
 
-        private ChipType _YM3526Type = new ChipType();
-        public ChipType YM3526Type
+        private ChipType2[] _YM3526Type = null;
+        public ChipType2[] YM3526Type
         {
             get
             {
@@ -422,22 +422,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM3526SType = new ChipType();
-        public ChipType YM3526SType
-        {
-            get
-            {
-                return _YM3526SType;
-            }
+        //private ChipType2 _YM3526SType = new ChipType2();
+        //public ChipType2 YM3526SType
+        //{
+        //    get
+        //    {
+        //        return _YM3526SType;
+        //    }
 
-            set
-            {
-                _YM3526SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM3526SType = value;
+        //    }
+        //}
 
-        private ChipType _YM3812Type = new ChipType();
-        public ChipType YM3812Type
+        private ChipType2[] _YM3812Type = null;
+        public ChipType2[] YM3812Type
         {
             get
             {
@@ -450,22 +450,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _YM3812SType = new ChipType();
-        public ChipType YM3812SType
-        {
-            get
-            {
-                return _YM3812SType;
-            }
+        //private ChipType2 _YM3812SType = new ChipType2();
+        //public ChipType2 YM3812SType
+        //{
+        //    get
+        //    {
+        //        return _YM3812SType;
+        //    }
 
-            set
-            {
-                _YM3812SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _YM3812SType = value;
+        //    }
+        //}
 
-        private ChipType _Y8950Type = new ChipType();
-        public ChipType Y8950Type
+        private ChipType2[] _Y8950Type = null;
+        public ChipType2[] Y8950Type
         {
             get
             {
@@ -478,22 +478,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _Y8950SType = new ChipType();
-        public ChipType Y8950SType
-        {
-            get
-            {
-                return _Y8950SType;
-            }
+        //private ChipType2 _Y8950SType = new ChipType2();
+        //public ChipType2 Y8950SType
+        //{
+        //    get
+        //    {
+        //        return _Y8950SType;
+        //    }
 
-            set
-            {
-                _Y8950SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _Y8950SType = value;
+        //    }
+        //}
 
-        private ChipType _C140Type = new ChipType();
-        public ChipType C140Type
+        private ChipType2[] _C140Type = null;
+        public ChipType2[] C140Type
         {
             get
             {
@@ -506,22 +506,22 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _C140SType = new ChipType();
-        public ChipType C140SType
-        {
-            get
-            {
-                return _C140SType;
-            }
+        //private ChipType2 _C140SType = new ChipType2();
+        //public ChipType2 C140SType
+        //{
+        //    get
+        //    {
+        //        return _C140SType;
+        //    }
 
-            set
-            {
-                _C140SType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _C140SType = value;
+        //    }
+        //}
 
-        private ChipType _SEGAPCMType = new ChipType();
-        public ChipType SEGAPCMType
+        private ChipType2[] _SEGAPCMType = null;
+        public ChipType2[] SEGAPCMType
         {
             get
             {
@@ -534,19 +534,19 @@ namespace MDPlayer
             }
         }
 
-        private ChipType _SEGAPCMSType = new ChipType();
-        public ChipType SEGAPCMSType
-        {
-            get
-            {
-                return _SEGAPCMSType;
-            }
+        //private ChipType2 _SEGAPCMSType = new ChipType2();
+        //public ChipType2 SEGAPCMSType
+        //{
+        //    get
+        //    {
+        //        return _SEGAPCMSType;
+        //    }
 
-            set
-            {
-                _SEGAPCMSType = value;
-            }
-        }
+        //    set
+        //    {
+        //        _SEGAPCMSType = value;
+        //    }
+        //}
 
 
         private int _LatencyEmulation = 0;
@@ -899,414 +899,414 @@ namespace MDPlayer
             }
         }
 
-        [Serializable]
-        public class ChipType
-        {
-            private bool _UseEmu = true;
-            public bool UseEmu
-            {
-                get
-                {
-                    return _UseEmu;
-                }
+        //[Serializable]
+        //public class ChipType2
+        //{
+        //    private bool _UseEmu = true;
+        //    public bool UseEmu
+        //    {
+        //        get
+        //        {
+        //            return _UseEmu;
+        //        }
 
-                set
-                {
-                    _UseEmu = value;
-                }
-            }
+        //        set
+        //        {
+        //            _UseEmu = value;
+        //        }
+        //    }
 
-            private bool _UseEmu2 = false;
-            public bool UseEmu2
-            {
-                get
-                {
-                    return _UseEmu2;
-                }
+        //    private bool _UseEmu2 = false;
+        //    public bool UseEmu2
+        //    {
+        //        get
+        //        {
+        //            return _UseEmu2;
+        //        }
 
-                set
-                {
-                    _UseEmu2 = value;
-                }
-            }
+        //        set
+        //        {
+        //            _UseEmu2 = value;
+        //        }
+        //    }
 
-            private bool _UseEmu3 = false;
-            public bool UseEmu3
-            {
-                get
-                {
-                    return _UseEmu3;
-                }
+        //    private bool _UseEmu3 = false;
+        //    public bool UseEmu3
+        //    {
+        //        get
+        //        {
+        //            return _UseEmu3;
+        //        }
 
-                set
-                {
-                    _UseEmu3 = value;
-                }
-            }
-
-
-            private bool _UseScci = false;
-            public bool UseScci
-            {
-                get
-                {
-                    return _UseScci;
-                }
-
-                set
-                {
-                    _UseScci = value;
-                }
-            }
-
-            private string _InterfaceName = "";
-            public string InterfaceName
-            {
-                get
-                {
-                    return _InterfaceName;
-                }
-
-                set
-                {
-                    _InterfaceName = value;
-                }
-            }
-
-            private int _SoundLocation = -1;
-            public int SoundLocation
-            {
-                get
-                {
-                    return _SoundLocation;
-                }
-
-                set
-                {
-                    _SoundLocation = value;
-                }
-            }
-
-            private int _BusID = -1;
-            public int BusID
-            {
-                get
-                {
-                    return _BusID;
-                }
-
-                set
-                {
-                    _BusID = value;
-                }
-            }
-
-            private int _SoundChip = -1;
-            public int SoundChip
-            {
-                get
-                {
-                    return _SoundChip;
-                }
-
-                set
-                {
-                    _SoundChip = value;
-                }
-            }
-
-            private string _ChipName = "";
-            public string ChipName
-            {
-                get
-                {
-                    return _ChipName;
-                }
-
-                set
-                {
-                    _ChipName = value;
-                }
-            }
+        //        set
+        //        {
+        //            _UseEmu3 = value;
+        //        }
+        //    }
 
 
-            private bool _UseScci2 = false;
-            public bool UseScci2
-            {
-                get
-                {
-                    return _UseScci2;
-                }
+        //    private bool _UseScci = false;
+        //    public bool UseScci
+        //    {
+        //        get
+        //        {
+        //            return _UseScci;
+        //        }
 
-                set
-                {
-                    _UseScci2 = value;
-                }
-            }
+        //        set
+        //        {
+        //            _UseScci = value;
+        //        }
+        //    }
 
-            private string _InterfaceName2A = "";
-            public string InterfaceName2A
-            {
-                get
-                {
-                    return _InterfaceName2A;
-                }
+        //    private string _InterfaceName = "";
+        //    public string InterfaceName
+        //    {
+        //        get
+        //        {
+        //            return _InterfaceName;
+        //        }
 
-                set
-                {
-                    _InterfaceName2A = value;
-                }
-            }
+        //        set
+        //        {
+        //            _InterfaceName = value;
+        //        }
+        //    }
 
-            private int _SoundLocation2A = -1;
-            public int SoundLocation2A
-            {
-                get
-                {
-                    return _SoundLocation2A;
-                }
+        //    private int _SoundLocation = -1;
+        //    public int SoundLocation
+        //    {
+        //        get
+        //        {
+        //            return _SoundLocation;
+        //        }
 
-                set
-                {
-                    _SoundLocation2A = value;
-                }
-            }
+        //        set
+        //        {
+        //            _SoundLocation = value;
+        //        }
+        //    }
 
-            private int _BusID2A = -1;
-            public int BusID2A
-            {
-                get
-                {
-                    return _BusID2A;
-                }
+        //    private int _BusID = -1;
+        //    public int BusID
+        //    {
+        //        get
+        //        {
+        //            return _BusID;
+        //        }
 
-                set
-                {
-                    _BusID2A = value;
-                }
-            }
+        //        set
+        //        {
+        //            _BusID = value;
+        //        }
+        //    }
 
-            private int _SoundChip2A = -1;
-            public int SoundChip2A
-            {
-                get
-                {
-                    return _SoundChip2A;
-                }
+        //    private int _SoundChip = -1;
+        //    public int SoundChip
+        //    {
+        //        get
+        //        {
+        //            return _SoundChip;
+        //        }
 
-                set
-                {
-                    _SoundChip2A = value;
-                }
-            }
+        //        set
+        //        {
+        //            _SoundChip = value;
+        //        }
+        //    }
 
-            private string _ChipName2A = "";
-            public string ChipName2A
-            {
-                get
-                {
-                    return _ChipName2A;
-                }
+        //    private string _ChipName = "";
+        //    public string ChipName
+        //    {
+        //        get
+        //        {
+        //            return _ChipName;
+        //        }
 
-                set
-                {
-                    _ChipName2A = value;
-                }
-            }
-
-            private int _Type = 0;
-            public int Type
-            {
-                get
-                {
-                    return _Type;
-                }
-
-                set
-                {
-                    _Type = value;
-                }
-            }
-
-            private string _InterfaceName2B = "";
-            public string InterfaceName2B
-            {
-                get
-                {
-                    return _InterfaceName2B;
-                }
-
-                set
-                {
-                    _InterfaceName2B = value;
-                }
-            }
-
-            private int _SoundLocation2B = -1;
-            public int SoundLocation2B
-            {
-                get
-                {
-                    return _SoundLocation2B;
-                }
-
-                set
-                {
-                    _SoundLocation2B = value;
-                }
-            }
-
-            private int _BusID2B = -1;
-            public int BusID2B
-            {
-                get
-                {
-                    return _BusID2B;
-                }
-
-                set
-                {
-                    _BusID2B = value;
-                }
-            }
-
-            private int _SoundChip2B = -1;
-            public int SoundChip2B
-            {
-                get
-                {
-                    return _SoundChip2B;
-                }
-
-                set
-                {
-                    _SoundChip2B = value;
-                }
-            }
-
-            private string _ChipName2B = "";
-            public string ChipName2B
-            {
-                get
-                {
-                    return _ChipName2B;
-                }
-
-                set
-                {
-                    _ChipName2B = value;
-                }
-            }
+        //        set
+        //        {
+        //            _ChipName = value;
+        //        }
+        //    }
 
 
-            private bool _UseWait = true;
-            public bool UseWait
-            {
-                get
-                {
-                    return _UseWait;
-                }
+        //    private bool _UseScci2 = false;
+        //    public bool UseScci2
+        //    {
+        //        get
+        //        {
+        //            return _UseScci2;
+        //        }
 
-                set
-                {
-                    _UseWait = value;
-                }
-            }
+        //        set
+        //        {
+        //            _UseScci2 = value;
+        //        }
+        //    }
 
-            private bool _UseWaitBoost = false;
-            public bool UseWaitBoost
-            {
-                get
-                {
-                    return _UseWaitBoost;
-                }
+        //    private string _InterfaceName2A = "";
+        //    public string InterfaceName2A
+        //    {
+        //        get
+        //        {
+        //            return _InterfaceName2A;
+        //        }
 
-                set
-                {
-                    _UseWaitBoost = value;
-                }
-            }
+        //        set
+        //        {
+        //            _InterfaceName2A = value;
+        //        }
+        //    }
 
-            private bool _OnlyPCMEmulation = false;
-            public bool OnlyPCMEmulation
-            {
-                get
-                {
-                    return _OnlyPCMEmulation;
-                }
+        //    private int _SoundLocation2A = -1;
+        //    public int SoundLocation2A
+        //    {
+        //        get
+        //        {
+        //            return _SoundLocation2A;
+        //        }
 
-                set
-                {
-                    _OnlyPCMEmulation = value;
-                }
-            }
+        //        set
+        //        {
+        //            _SoundLocation2A = value;
+        //        }
+        //    }
 
-            private int _LatencyForEmulation = 0;
-            public int LatencyForEmulation
-            {
-                get
-                {
-                    return _LatencyForEmulation;
-                }
+        //    private int _BusID2A = -1;
+        //    public int BusID2A
+        //    {
+        //        get
+        //        {
+        //            return _BusID2A;
+        //        }
 
-                set
-                {
-                    _LatencyForEmulation = value;
-                }
-            }
+        //        set
+        //        {
+        //            _BusID2A = value;
+        //        }
+        //    }
 
-            private int _LatencyForScci = 0;
-            public int LatencyForScci
-            {
-                get
-                {
-                    return _LatencyForScci;
-                }
+        //    private int _SoundChip2A = -1;
+        //    public int SoundChip2A
+        //    {
+        //        get
+        //        {
+        //            return _SoundChip2A;
+        //        }
 
-                set
-                {
-                    _LatencyForScci = value;
-                }
-            }
+        //        set
+        //        {
+        //            _SoundChip2A = value;
+        //        }
+        //    }
+
+        //    private string _ChipName2A = "";
+        //    public string ChipName2A
+        //    {
+        //        get
+        //        {
+        //            return _ChipName2A;
+        //        }
+
+        //        set
+        //        {
+        //            _ChipName2A = value;
+        //        }
+        //    }
+
+        //    private int _Type = 0;
+        //    public int Type
+        //    {
+        //        get
+        //        {
+        //            return _Type;
+        //        }
+
+        //        set
+        //        {
+        //            _Type = value;
+        //        }
+        //    }
+
+        //    private string _InterfaceName2B = "";
+        //    public string InterfaceName2B
+        //    {
+        //        get
+        //        {
+        //            return _InterfaceName2B;
+        //        }
+
+        //        set
+        //        {
+        //            _InterfaceName2B = value;
+        //        }
+        //    }
+
+        //    private int _SoundLocation2B = -1;
+        //    public int SoundLocation2B
+        //    {
+        //        get
+        //        {
+        //            return _SoundLocation2B;
+        //        }
+
+        //        set
+        //        {
+        //            _SoundLocation2B = value;
+        //        }
+        //    }
+
+        //    private int _BusID2B = -1;
+        //    public int BusID2B
+        //    {
+        //        get
+        //        {
+        //            return _BusID2B;
+        //        }
+
+        //        set
+        //        {
+        //            _BusID2B = value;
+        //        }
+        //    }
+
+        //    private int _SoundChip2B = -1;
+        //    public int SoundChip2B
+        //    {
+        //        get
+        //        {
+        //            return _SoundChip2B;
+        //        }
+
+        //        set
+        //        {
+        //            _SoundChip2B = value;
+        //        }
+        //    }
+
+        //    private string _ChipName2B = "";
+        //    public string ChipName2B
+        //    {
+        //        get
+        //        {
+        //            return _ChipName2B;
+        //        }
+
+        //        set
+        //        {
+        //            _ChipName2B = value;
+        //        }
+        //    }
 
 
-            public ChipType Copy()
-            {
-                ChipType ct = new ChipType();
-                ct.UseEmu = this.UseEmu;
-                ct.UseEmu2 = this.UseEmu2;
-                ct.UseEmu3 = this.UseEmu3;
-                ct.UseScci = this.UseScci;
-                ct.SoundLocation = this.SoundLocation;
+        //    private bool _UseWait = true;
+        //    public bool UseWait
+        //    {
+        //        get
+        //        {
+        //            return _UseWait;
+        //        }
 
-                ct.BusID = this.BusID;
-                ct.InterfaceName = this.InterfaceName;
-                ct.SoundChip = this.SoundChip;
-                ct.ChipName = this.ChipName;
-                ct.UseScci2 = this.UseScci2;
-                ct.SoundLocation2A = this.SoundLocation2A;
+        //        set
+        //        {
+        //            _UseWait = value;
+        //        }
+        //    }
 
-                ct.InterfaceName2A = this.InterfaceName2A;
-                ct.BusID2A = this.BusID2A;
-                ct.SoundChip2A = this.SoundChip2A;
-                ct.ChipName2A = this.ChipName2A;
-                ct.SoundLocation2B = this.SoundLocation2B;
+        //    private bool _UseWaitBoost = false;
+        //    public bool UseWaitBoost
+        //    {
+        //        get
+        //        {
+        //            return _UseWaitBoost;
+        //        }
 
-                ct.InterfaceName2B = this.InterfaceName2B;
-                ct.BusID2B = this.BusID2B;
-                ct.SoundChip2B = this.SoundChip2B;
-                ct.ChipName2B = this.ChipName2B;
+        //        set
+        //        {
+        //            _UseWaitBoost = value;
+        //        }
+        //    }
 
-                ct.UseWait = this.UseWait;
-                ct.UseWaitBoost = this.UseWaitBoost;
-                ct.OnlyPCMEmulation = this.OnlyPCMEmulation;
-                ct.LatencyForEmulation = this.LatencyForEmulation;
-                ct.LatencyForScci = this.LatencyForScci;
-                ct.Type = this.Type;
+        //    private bool _OnlyPCMEmulation = false;
+        //    public bool OnlyPCMEmulation
+        //    {
+        //        get
+        //        {
+        //            return _OnlyPCMEmulation;
+        //        }
 
-                return ct;
-            }
-        }
+        //        set
+        //        {
+        //            _OnlyPCMEmulation = value;
+        //        }
+        //    }
+
+        //    private int _LatencyForEmulation = 0;
+        //    public int LatencyForEmulation
+        //    {
+        //        get
+        //        {
+        //            return _LatencyForEmulation;
+        //        }
+
+        //        set
+        //        {
+        //            _LatencyForEmulation = value;
+        //        }
+        //    }
+
+        //    private int _LatencyForScci = 0;
+        //    public int LatencyForScci
+        //    {
+        //        get
+        //        {
+        //            return _LatencyForScci;
+        //        }
+
+        //        set
+        //        {
+        //            _LatencyForScci = value;
+        //        }
+        //    }
+
+
+        //    public ChipType2 Copy()
+        //    {
+        //        ChipType2 ct = new ChipType2();
+        //        ct.UseEmu = this.UseEmu;
+        //        ct.UseEmu2 = this.UseEmu2;
+        //        ct.UseEmu3 = this.UseEmu3;
+        //        ct.UseScci = this.UseScci;
+        //        ct.SoundLocation = this.SoundLocation;
+
+        //        ct.BusID = this.BusID;
+        //        ct.InterfaceName = this.InterfaceName;
+        //        ct.SoundChip = this.SoundChip;
+        //        ct.ChipName = this.ChipName;
+        //        ct.UseScci2 = this.UseScci2;
+        //        ct.SoundLocation2A = this.SoundLocation2A;
+
+        //        ct.InterfaceName2A = this.InterfaceName2A;
+        //        ct.BusID2A = this.BusID2A;
+        //        ct.SoundChip2A = this.SoundChip2A;
+        //        ct.ChipName2A = this.ChipName2A;
+        //        ct.SoundLocation2B = this.SoundLocation2B;
+
+        //        ct.InterfaceName2B = this.InterfaceName2B;
+        //        ct.BusID2B = this.BusID2B;
+        //        ct.SoundChip2B = this.SoundChip2B;
+        //        ct.ChipName2B = this.ChipName2B;
+
+        //        ct.UseWait = this.UseWait;
+        //        ct.UseWaitBoost = this.UseWaitBoost;
+        //        ct.OnlyPCMEmulation = this.OnlyPCMEmulation;
+        //        ct.LatencyForEmulation = this.LatencyForEmulation;
+        //        ct.LatencyForScci = this.LatencyForScci;
+        //        ct.Type = this.Type;
+
+        //        return ct;
+        //    }
+        //}
 
         [Serializable]
         public class Other
@@ -5169,7 +5169,7 @@ namespace MDPlayer
                 if (this.realChipInfo != null)
                 {
                     ct.realChipInfo = new RealChipInfo[this.realChipInfo.Length];
-                    for (int i = 0; i < this.realChipInfo.Length; i++) ct.realChipInfo[i] = this.realChipInfo[i].Copy();
+                    for (int i = 0; i < this.realChipInfo.Length; i++) if (this.realChipInfo[i] != null) ct.realChipInfo[i] = this.realChipInfo[i].Copy();
                 }
 
                 ct.LatencyForEmulation = this.LatencyForEmulation;
@@ -5186,33 +5186,110 @@ namespace MDPlayer
             Setting setting = new Setting();
             setting.outputDevice = this.outputDevice.Copy();
 
-            setting.YM2151Type = this.YM2151Type.Copy();
-            setting.YM2203Type = this.YM2203Type.Copy();
-            setting.YM2413Type = this.YM2413Type.Copy();
-            setting.AY8910Type = this.AY8910Type.Copy();
-            setting.YM2608Type = this.YM2608Type.Copy();
-            setting.YM2610Type = this.YM2610Type.Copy();
-            setting.YM2612Type = this.YM2612Type.Copy();
-            setting.YM3526Type = this.YM3526Type.Copy();
-            setting.YM3812Type = this.YM3812Type.Copy();
-            setting.YMF262Type = this.YMF262Type.Copy();
-            setting.SN76489Type = this.SN76489Type.Copy();
-            setting.C140Type = this.C140Type.Copy();
-            setting.SEGAPCMType = this.SEGAPCMType.Copy();
+            setting.AY8910Type = null;
+            if (this.AY8910Type != null)
+            {
+                setting.AY8910Type = new ChipType2[this.AY8910Type.Length];
+                for (int i = 0; i < this.AY8910Type.Length; i++) setting.AY8910Type[i] = this.AY8910Type[i].Copy();
+            }
 
-            setting.YM2151SType = this.YM2151SType.Copy();
-            setting.YM2203SType = this.YM2203SType.Copy();
-            setting.YM2413SType = this.YM2413SType.Copy();
-            setting.AY8910SType = this.AY8910SType.Copy();
-            setting.YM2608SType = this.YM2608SType.Copy();
-            setting.YM2610SType = this.YM2610SType.Copy();
-            setting.YM2612SType = this.YM2612SType.Copy();
-            setting.YM3526SType = this.YM3526SType.Copy();
-            setting.YM3812SType = this.YM3812SType.Copy();
-            setting.YMF262SType = this.YMF262SType.Copy();
-            setting.SN76489SType = this.SN76489SType.Copy();
-            setting.C140SType = this.C140SType.Copy();
-            setting.SEGAPCMSType = this.SEGAPCMSType.Copy();
+            setting.YM2151Type = null;
+            if (this.YM2151Type != null)
+            {
+                setting.YM2151Type = new ChipType2[this.YM2151Type.Length];
+                for (int i = 0; i < this.YM2151Type.Length; i++) setting.YM2151Type[i] = this.YM2151Type[i].Copy();
+            }
+
+            setting.YM2203Type = null;
+            if (this.YM2203Type != null)
+            {
+                setting.YM2203Type = new ChipType2[this.YM2203Type.Length];
+                for (int i = 0; i < this.YM2203Type.Length; i++) setting.YM2203Type[i] = this.YM2203Type[i].Copy();
+            }
+
+            setting.YM2413Type = null;
+            if (this.YM2413Type != null)
+            {
+                setting.YM2413Type = new ChipType2[this.YM2413Type.Length];
+                for (int i = 0; i < this.YM2413Type.Length; i++) setting.YM2413Type[i] = this.YM2413Type[i].Copy();
+            }
+
+            setting.YM2608Type = null;
+            if (this.YM2608Type != null)
+            {
+                setting.YM2608Type = new ChipType2[this.YM2608Type.Length];
+                for (int i = 0; i < this.YM2608Type.Length; i++) setting.YM2608Type[i] = this.YM2608Type[i].Copy();
+            }
+
+            setting.YM2610Type = null;
+            if (this.YM2610Type != null)
+            {
+                setting.YM2610Type = new ChipType2[this.YM2610Type.Length];
+                for (int i = 0; i < this.YM2610Type.Length; i++) setting.YM2610Type[i] = this.YM2610Type[i].Copy();
+            }
+
+            setting.YM2612Type = null;
+            if (this.YM2612Type != null)
+            {
+                setting.YM2612Type = new ChipType2[this.YM2612Type.Length];
+                for (int i = 0; i < this.YM2612Type.Length; i++) setting.YM2612Type[i] = this.YM2612Type[i].Copy();
+            }
+
+            setting.YM3526Type = null;
+            if (this.YM3526Type != null)
+            {
+                setting.YM3526Type = new ChipType2[this.YM3526Type.Length];
+                for (int i = 0; i < this.YM3526Type.Length; i++) setting.YM3526Type[i] = this.YM3526Type[i].Copy();
+            }
+
+            setting.YM3812Type = null;
+            if (this.YM3812Type != null)
+            {
+                setting.YM3812Type = new ChipType2[this.YM3812Type.Length];
+                for (int i = 0; i < this.YM3812Type.Length; i++) setting.YM3812Type[i] = this.YM3812Type[i].Copy();
+            }
+
+            setting.YMF262Type = null;
+            if (this.YMF262Type != null)
+            {
+                setting.YMF262Type = new ChipType2[this.YMF262Type.Length];
+                for (int i = 0; i < this.YMF262Type.Length; i++) setting.YMF262Type[i] = this.YMF262Type[i].Copy();
+            }
+
+            setting.SN76489Type = null;
+            if (this.SN76489Type != null)
+            {
+                setting.SN76489Type = new ChipType2[this.SN76489Type.Length];
+                for (int i = 0; i < this.SN76489Type.Length; i++) setting.SN76489Type[i] = this.SN76489Type[i].Copy();
+            }
+
+            setting.C140Type = null;
+            if (this.C140Type != null)
+            {
+                setting.C140Type = new ChipType2[this.C140Type.Length];
+                for (int i = 0; i < this.C140Type.Length; i++) setting.C140Type[i] = this.C140Type[i].Copy();
+            }
+
+            setting.SEGAPCMType = null;
+            if (this.SEGAPCMType != null)
+            {
+                setting.SEGAPCMType = new ChipType2[this.SEGAPCMType.Length];
+                for (int i = 0; i < this.SEGAPCMType.Length; i++) setting.SEGAPCMType[i] = this.SEGAPCMType[i].Copy();
+            }
+
+            //setting.YM2151SType = this.YM2151SType.Copy();
+            //setting.YM2203SType = this.YM2203SType.Copy();
+            //setting.YM2413SType = this.YM2413SType.Copy();
+            //setting.AY8910SType = this.AY8910SType.Copy();
+            //setting.YM2608SType = this.YM2608SType.Copy();
+            //setting.YM2610SType = this.YM2610SType.Copy();
+            //setting.YM2612SType = this.YM2612SType.Copy();
+            //setting.YM3526SType = this.YM3526SType.Copy();
+            //setting.YM3812SType = this.YM3812SType.Copy();
+            //setting.YMF262SType = this.YMF262SType.Copy();
+            //setting.SN76489SType = this.SN76489SType.Copy();
+            //setting.C140SType = this.C140SType.Copy();
+            //setting.SEGAPCMSType = this.SEGAPCMSType.Copy();
 
             setting.other = this.other.Copy();
             setting.balance = this.balance.Copy();

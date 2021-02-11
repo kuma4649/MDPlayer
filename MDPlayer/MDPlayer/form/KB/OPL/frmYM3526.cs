@@ -36,8 +36,12 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeYM3526, null, zoom);
-            bool YM3526Type = (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526SType.UseScci;
-            int YM3526SoundLocation = (chipID == 0) ? parent.setting.YM3526Type.SoundLocation : parent.setting.YM3526SType.SoundLocation;
+            bool YM3526Type = (chipID == 0)
+                ? parent.setting.YM3526Type[0].UseReal[0]
+                : parent.setting.YM3526Type[1].UseReal[0];
+            int YM3526SoundLocation = (chipID == 0)
+                ? parent.setting.YM3526Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM3526Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM3526Type ? 0 : (YM3526SoundLocation < 0 ? 2 : 1);
 
             DrawBuff.screenInitYM3526(frameBuffer, tp);
@@ -233,8 +237,12 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool YM3526Type = (chipID == 0) ? parent.setting.YM3526Type.UseScci : parent.setting.YM3526SType.UseScci;
-            int YM3526SoundLocation = (chipID == 0) ? parent.setting.YM3526Type.SoundLocation : parent.setting.YM3526SType.SoundLocation;
+            bool YM3526Type = (chipID == 0)
+                ? parent.setting.YM3526Type[0].UseReal[0]
+                : parent.setting.YM3526Type[1].UseReal[0];
+            int YM3526SoundLocation = (chipID == 0)
+                ? parent.setting.YM3526Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM3526Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM3526Type ? 0 : (YM3526SoundLocation < 0 ? 2 : 1);
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;

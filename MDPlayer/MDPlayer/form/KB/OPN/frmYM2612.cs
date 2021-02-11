@@ -36,9 +36,12 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type.UseScci : parent.setting.YM2612SType.UseScci;
+            bool YM2612Type = (chipID == 0) ? parent.setting.YM2612Type[0].UseReal[0] : parent.setting.YM2612Type[1].UseReal[0];
             int tp = YM2612Type ? 1 : 0;
-            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0) ? parent.setting.YM2612Type.OnlyPCMEmulation : parent.setting.YM2612SType.OnlyPCMEmulation, newParam.fileFormat == EnmFileFormat.XGM);
+            DrawBuff.screenInitYM2612(frameBuffer, tp, (chipID == 0) 
+                ? parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation 
+                : parent.setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation
+                , newParam.fileFormat == EnmFileFormat.XGM);
             newParam.channels[5].pcmBuff = 100;
         }
 
@@ -320,7 +323,9 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2612type = (chipID == 0) ? parent.setting.YM2612Type.UseScci : parent.setting.YM2612SType.UseScci;
+                bool YM2612type = (chipID == 0) 
+                    ? parent.setting.YM2612Type[0].UseReal[0] 
+                    : parent.setting.YM2612Type[1].UseReal[0];
                 int tp = YM2612type ? 1 : 0;
 
                 if (c == 2)
@@ -349,7 +354,7 @@ namespace MDPlayer.form
                 {
                     int tp6 = tp;
                     int tp6v = tp;
-                    if (tp6 == 1 && parent.setting.YM2612Type.OnlyPCMEmulation)
+                    if (tp6 == 1 && parent.setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation)
                     {
                         tp6v = newParam.channels[5].pcmMode == 0 ? 1 : 0;//volumeのみモードの判定を行う
                                                                          //tp6 = 0;

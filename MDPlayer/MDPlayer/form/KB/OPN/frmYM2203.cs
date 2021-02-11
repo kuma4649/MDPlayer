@@ -36,8 +36,12 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeYM2203, null, zoom);
-            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
-            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            bool YM2203Type = (chipID == 0)
+                ? parent.setting.YM2203Type[0].UseReal[0]
+                : parent.setting.YM2203Type[1].UseReal[0];
+            int YM2203SoundLocation = (chipID == 0)
+                ? parent.setting.YM2203Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM2203Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYM2203(frameBuffer, tp);
             update();
@@ -292,8 +296,12 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
-            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            bool YM2203Type = (chipID == 0)
+                ? parent.setting.YM2203Type[0].UseReal[0]
+                : parent.setting.YM2203Type[1].UseReal[0];
+            int YM2203SoundLocation = (chipID == 0)
+                ? parent.setting.YM2203Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM2203Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
 
             for (int c = 0; c < 6; c++)
@@ -347,8 +355,12 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool YM2203Type = (chipID == 0) ? parent.setting.YM2203Type.UseScci : parent.setting.YM2203SType.UseScci;
-            int YM2203SoundLocation = (chipID == 0) ? parent.setting.YM2203Type.SoundLocation : parent.setting.YM2203SType.SoundLocation;
+            bool YM2203Type = (chipID == 0)
+                ? parent.setting.YM2203Type[0].UseReal[0]
+                : parent.setting.YM2203Type[1].UseReal[0];
+            int YM2203SoundLocation = (chipID == 0)
+                ? parent.setting.YM2203Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM2203Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2203Type ? 0 : (YM2203SoundLocation < 0 ? 2 : 1);
 
             for (int ch = 0; ch < 3; ch++)

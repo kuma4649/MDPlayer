@@ -189,7 +189,7 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                bool YM2612type = parent.setting.YM2612Type.UseScci;
+                bool YM2612type = parent.setting.YM2612Type[0].UseReal[0];
                 int tp = YM2612type ? 1 : 0;
 
                 DrawBuff.Inst(frameBuffer, 1, 6 + (c > 2 ? 3 : 0), c, oyc.inst, nyc.inst, oyc.typ, nyc.typ);

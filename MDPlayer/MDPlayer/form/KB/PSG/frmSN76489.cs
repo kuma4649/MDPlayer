@@ -37,7 +37,7 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeSN76489, null, zoom);
-            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
+            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
             int tp = SN76489Type ? 1 : 0;
             DrawBuff.screenInitSN76489(frameBuffer, tp);
             update();
@@ -199,7 +199,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type.UseScci : parent.setting.SN76489SType.UseScci;
+            bool SN76489Type = (chipID == 0) ? parent.setting.SN76489Type[0].UseReal[0] : parent.setting.SN76489Type[1].UseReal[0];
             int tp = SN76489Type ? 1 : 0;
             MDChipParams.Channel osc;
             MDChipParams.Channel nsc;

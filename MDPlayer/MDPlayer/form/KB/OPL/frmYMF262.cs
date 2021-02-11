@@ -36,8 +36,12 @@ namespace MDPlayer.form
             this.newParam = newParam;
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeYMF262, null, zoom);
-            bool YMF262Type = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
-            int YMF262SoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
+            bool YMF262Type = (chipID == 0)
+                ? parent.setting.YMF262Type[0].UseReal[0]
+                : parent.setting.YMF262Type[1].UseReal[0];
+            int YMF262SoundLocation = (chipID == 0)
+                ? parent.setting.YMF262Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YMF262Type[1].realChipInfo[0].SoundLocation;
             int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYMF262(frameBuffer, tp);
             update();
@@ -117,8 +121,12 @@ namespace MDPlayer.form
             {
                 newParam.channels[c].note = -1;
             }
-            bool YMF262Type = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
-            int YMF262SoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
+            bool YMF262Type = (chipID == 0)
+                ? parent.setting.YMF262Type[0].UseReal[0]
+                : parent.setting.YMF262Type[1].UseReal[0];
+            int YMF262SoundLocation = (chipID == 0)
+                ? parent.setting.YMF262Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YMF262Type[1].realChipInfo[0].SoundLocation;
             int tp = !YMF262Type ? 0 : (YMF262SoundLocation < 0 ? 2 : 1);
             DrawBuff.screenInitYMF262(frameBuffer, tp);
         }
@@ -361,9 +369,13 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool chipType = (chipID == 0) ? parent.setting.YMF262Type.UseScci : parent.setting.YMF262SType.UseScci;
-            int chipSoundLocation = (chipID == 0) ? parent.setting.YMF262Type.SoundLocation : parent.setting.YMF262SType.SoundLocation;
-            int tp = !chipType ? 0 : (chipSoundLocation < 0 ? 2 : 1);
+            bool ChipType2 = (chipID == 0)
+                ? parent.setting.YMF262Type[0].UseReal[0]
+                : parent.setting.YMF262Type[1].UseReal[0];
+            int chipSoundLocation = (chipID == 0)
+                ? parent.setting.YMF262Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YMF262Type[1].realChipInfo[0].SoundLocation;
+            int tp = !ChipType2 ? 0 : (chipSoundLocation < 0 ? 2 : 1);
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
 

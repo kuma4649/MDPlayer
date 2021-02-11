@@ -152,7 +152,13 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
+            int tp = (
+                        (chipID == 0)
+                        ? (parent.setting.YM2610Type[0].UseReal[0] || (parent.setting.YM2610Type[0].UseReal.Length > 1 && parent.setting.YM2610Type[0].UseReal[1]))
+                        : (parent.setting.YM2610Type[1].UseReal[0] || (parent.setting.YM2610Type[1].UseReal.Length > 1 && parent.setting.YM2610Type[1].UseReal[1]))
+                    )
+                    ? 1
+                    : 0;
 
             for (int y = 0; y < 14; y++)
             {
@@ -420,7 +426,13 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = ((chipID == 0) ? (parent.setting.YM2610Type.UseScci || parent.setting.YM2610Type.UseScci2) : parent.setting.YM2610SType.UseScci) ? 1 : 0;
+            int tp = (
+                        (chipID == 0)
+                        ? (parent.setting.YM2610Type[0].UseReal[0] || (parent.setting.YM2610Type[0].UseReal.Length > 1 && parent.setting.YM2610Type[0].UseReal[1]))
+                        : (parent.setting.YM2610Type[1].UseReal[0] || (parent.setting.YM2610Type[1].UseReal.Length > 1 && parent.setting.YM2610Type[1].UseReal[1]))
+                    )
+                    ? 1
+                    : 0;
 
             for (int c = 0; c < 9; c++)
             {

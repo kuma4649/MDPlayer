@@ -170,7 +170,7 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool C140Type = (chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci;
+            bool C140Type = (chipID == 0) ? parent.setting.C140Type[0].UseReal[0] : parent.setting.C140Type[1].UseReal[0];
             int tp = C140Type ? 1 : 0;
             for (int ch = 0; ch < 24; ch++)
             {
@@ -241,7 +241,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = ((chipID == 0) ? parent.setting.C140Type.UseScci : parent.setting.C140SType.UseScci) ? 1 : 0;
+            int tp = ((chipID == 0) ? parent.setting.C140Type[0].UseReal[0] : parent.setting.C140Type[1].UseReal[0]) ? 1 : 0;
 
             for (int c = 0; c < 24; c++)
             {

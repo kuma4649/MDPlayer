@@ -22,24 +22,24 @@ namespace MDPlayer
 
         private Dictionary<MDSound.MDSound.enmInstrumentType, MDSound.MDSound.Chip> dicChipsInfo = new Dictionary<MDSound.MDSound.enmInstrumentType, MDSound.MDSound.Chip>();
 
-        private Setting.ChipType[] ctSN76489 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2612 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2608 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2151 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2203 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2610 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM3526 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM3812 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYMF262 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYMF271 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYMF278B = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYMZ280B = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctAY8910 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctYM2413 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctHuC6280 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctY8950 = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctSEGAPCM = new Setting.ChipType[2] { null, null };
-        private Setting.ChipType[] ctC140 = new Setting.ChipType[2] { null, null };
+        private Setting.ChipType2[] ctSN76489 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2612 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2608 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2151 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2203 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2610 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM3526 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM3812 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYMF262 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYMF271 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYMF278B = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYMZ280B = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctAY8910 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctYM2413 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctHuC6280 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctY8950 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctSEGAPCM = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctC140 = new Setting.ChipType2[2] { null, null };
 
         private RealChip realChip = null;
         private RSoundChip[] scSN76489 =  new RSoundChip[2] { null, null };
@@ -456,24 +456,24 @@ namespace MDPlayer
             this.scSEGAPCM = scSEGAPCM;
             this.scAY8910 = scAY8910;
 
-            this.ctYM2612 = new Setting.ChipType[] { setting.YM2612Type, setting.YM2612SType };
-            this.ctSN76489 = new Setting.ChipType[] { setting.SN76489Type, setting.SN76489SType };
-            this.ctYM2608 = new Setting.ChipType[] { setting.YM2608Type, setting.YM2608SType };
-            this.ctYM2151 = new Setting.ChipType[] { setting.YM2151Type, setting.YM2151SType };
-            this.ctYM2203 = new Setting.ChipType[] { setting.YM2203Type, setting.YM2203SType };
-            this.ctAY8910 = new Setting.ChipType[] { setting.AY8910Type, setting.AY8910SType };
-            this.ctYM2413 = new Setting.ChipType[] { setting.YM2413Type, setting.YM2413SType };
-            this.ctYM2610 = new Setting.ChipType[] { setting.YM2610Type, setting.YM2610SType };
-            this.ctYMF262 = new Setting.ChipType[] { setting.YMF262Type, setting.YMF262SType };
-            this.ctYMF271 = new Setting.ChipType[] { setting.YMF271Type, setting.YMF271SType };
-            this.ctYMF278B = new Setting.ChipType[] { setting.YMF278BType, setting.YMF278BSType };
-            this.ctYMZ280B = new Setting.ChipType[] { setting.YMZ280BType, setting.YMZ280BSType };
-            this.ctHuC6280 = new Setting.ChipType[] { setting.HuC6280Type, setting.HuC6280SType };
-            this.ctYM3526 = new Setting.ChipType[] { setting.YM3526Type, setting.YM3526SType };
-            this.ctYM3812 = new Setting.ChipType[] { setting.YM3812Type, setting.YM3812SType };
-            this.ctY8950 = new Setting.ChipType[] { setting.Y8950Type, setting.Y8950SType };
-            this.ctC140 = new Setting.ChipType[] { setting.C140Type, setting.C140SType };
-            this.ctSEGAPCM = new Setting.ChipType[] { setting.SEGAPCMType, setting.SEGAPCMSType };
+            this.ctYM2612 = new Setting.ChipType2[] { setting.YM2612Type[0], setting.YM2612Type[1] };
+            this.ctSN76489 = new Setting.ChipType2[] { setting.SN76489Type[0], setting.SN76489Type[1] };
+            this.ctYM2608 = new Setting.ChipType2[] { setting.YM2608Type[0], setting.YM2608Type[1] };
+            this.ctYM2151 = new Setting.ChipType2[] { setting.YM2151Type[0], setting.YM2151Type[1] };
+            this.ctYM2203 = new Setting.ChipType2[] { setting.YM2203Type[0], setting.YM2203Type[1] };
+            this.ctAY8910 = new Setting.ChipType2[] { setting.AY8910Type[0], setting.AY8910Type[1] };
+            this.ctYM2413 = new Setting.ChipType2[] { setting.YM2413Type[0], setting.YM2413Type[1] };
+            this.ctYM2610 = new Setting.ChipType2[] { setting.YM2610Type[0], setting.YM2610Type[1] };
+            this.ctYMF262 = new Setting.ChipType2[] { setting.YMF262Type[0], setting.YMF262Type[1] };
+            this.ctYMF271 = new Setting.ChipType2[] { setting.YMF271Type[0], setting.YMF271Type[1] };
+            this.ctYMF278B = new Setting.ChipType2[] { setting.YMF278BType[0], setting.YMF278BType[1] };
+            this.ctYMZ280B = new Setting.ChipType2[] { setting.YMZ280BType[0], setting.YMZ280BType[1] };
+            this.ctHuC6280 = new Setting.ChipType2[] { setting.HuC6280Type[0], setting.HuC6280Type[1] };
+            this.ctYM3526 = new Setting.ChipType2[] { setting.YM3526Type[0], setting.YM3526Type[1] };
+            this.ctYM3812 = new Setting.ChipType2[] { setting.YM3812Type[0], setting.YM3812Type[1] };
+            this.ctY8950 = new Setting.ChipType2[] { setting.Y8950Type[0], setting.Y8950Type[1] };
+            this.ctC140 = new Setting.ChipType2[] { setting.C140Type[0], setting.C140Type[1] };
+            this.ctSEGAPCM = new Setting.ChipType2[] { setting.SEGAPCMType[0], setting.SEGAPCMType[1] };
 
             initChipRegister(null);
 
@@ -1067,7 +1067,7 @@ namespace MDPlayer
             else chipLED.SecOPM = 2;
 
             if (
-                (model == EnmModel.VirtualModel && (ctYM2151[chipID] == null || !ctYM2151[chipID].UseScci))
+                (model == EnmModel.VirtualModel && (ctYM2151[chipID] == null || !ctYM2151[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scYM2151 != null && scYM2151[chipID] != null))
                 )
             {
@@ -1075,7 +1075,7 @@ namespace MDPlayer
                 midiExport.outMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
             }
 
-            if ((model == EnmModel.RealModel && ctYM2151[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2151[chipID].UseScci))
+            if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2151[chipID].UseReal[0]))
             {
                 if (dAddr == 0x08) //Key-On/Off
                 {
@@ -1123,11 +1123,11 @@ namespace MDPlayer
                         {
                             if (model == EnmModel.VirtualModel)
                             {
-                                if (!ctYM2151[chipID].UseScci)
+                                if (!ctYM2151[chipID].UseReal[0])
                                 {
-                                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
-                                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
-                                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu[0]) mds.WriteYM2151((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu[1]) mds.WriteYM2151mame((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
+                                    if (ctYM2151[chipID].UseEmu[2]) mds.WriteYM2151x68sound((byte)chipID, (byte)(0x60 + i * 8 + ch), (byte)127);
                                 }
                             }
                             else
@@ -1150,11 +1150,11 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2151[chipID].UseScci)
+                if (!ctYM2151[chipID].UseReal[0])
                 {
-                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
-                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
-                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[0]) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[1]) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[2]) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -1201,11 +1201,11 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2151[chipID].UseScci)
+                if (!ctYM2151[chipID].UseReal[0])
                 {
-                    if (ctYM2151[chipID].UseEmu) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
-                    if (ctYM2151[chipID].UseEmu2) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
-                    if (ctYM2151[chipID].UseEmu3) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[0]) mds.WriteYM2151((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[1]) mds.WriteYM2151mame((byte)chipID, (byte)dAddr, (byte)dData);
+                    if (ctYM2151[chipID].UseEmu[2]) mds.WriteYM2151x68sound((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -1287,7 +1287,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctAY8910[chipID].UseScci)
+                if (!ctAY8910[chipID].UseReal[0])
                 {
                     mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -1567,7 +1567,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2413[chipID].UseScci)
+                if (!ctYM2413[chipID].UseReal[0])
                 {
                     mds.WriteYM2413((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -1665,7 +1665,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctHuC6280[chipID].UseScci)
+                if (!ctHuC6280[chipID].UseReal[0])
                 {
                     if (dAddr == 0)
                     {
@@ -1707,7 +1707,7 @@ namespace MDPlayer
                 }
             }
 
-            if ((model == EnmModel.RealModel && ctYM2203[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2203[chipID].UseScci))
+            if ((model == EnmModel.RealModel && ctYM2203[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2203[chipID].UseReal[0]))
             {
                 if (dAddr == 0x28)
                 {
@@ -1789,7 +1789,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2203[chipID].UseScci)
+                if (!ctYM2203[chipID].UseReal[0])
                 {
                     mds.WriteYM2203((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -1806,7 +1806,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2203[chipID].UseScci)
+                if (!ctYM2203[chipID].UseReal[0])
                 {
                     mds.WriteYM2203((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -2029,7 +2029,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM3526[chipID].UseScci)
+                if (!ctYM3526[chipID].UseReal[0])
                 {
                     mds.WriteYM3526((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -2169,7 +2169,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM3812[chipID].UseScci)
+                if (!ctYM3812[chipID].UseReal[0])
                 {
                     mds.WriteYM3812((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -2330,7 +2330,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYMF262[chipID].UseScci)
+                if (!ctYMF262[chipID].UseReal[0])
                 {
                     mds.WriteYMF262((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -2347,7 +2347,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYMF262[chipID].UseScci)
+                if (!ctYMF262[chipID].UseReal[0])
                 {
                     mds.WriteYMF262((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -2402,7 +2402,7 @@ namespace MDPlayer
             else chipLED.SecOPNA = 2;
 
             if (
-                (model == EnmModel.VirtualModel && (ctYM2608[chipID] == null || !ctYM2608[chipID].UseScci))
+                (model == EnmModel.VirtualModel && (ctYM2608[chipID] == null || !ctYM2608[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scYM2608 != null && scYM2608[chipID] != null))
                 )
             {
@@ -2416,7 +2416,7 @@ namespace MDPlayer
                 }
             }
 
-            if ((model == EnmModel.RealModel && ctYM2608[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2608[chipID].UseScci))
+            if ((model == EnmModel.RealModel && ctYM2608[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2608[chipID].UseReal[0]))
             {
                 if (dPort == 0 && dAddr == 0x28)
                 {
@@ -2557,7 +2557,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
+                if (!ctYM2608[chipID].UseReal[0] && ctYM2608[chipID].UseEmu[0])
                 {
                     //if(dAddr==0x29) Console.Write("{0:x2}:{1:x2}:{2:x2}  ", dPort, dAddr, dData);
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
@@ -2593,7 +2593,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2608[chipID].UseScci && ctYM2608[chipID].UseEmu)
+                if (!ctYM2608[chipID].UseReal[0] && ctYM2608[chipID].UseEmu[0])
                 {
                     mds.WriteYM2608((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -2705,7 +2705,7 @@ namespace MDPlayer
 
 
             if (
-                (model == EnmModel.VirtualModel && (ctYM2610[chipID] == null || !ctYM2610[chipID].UseScci))
+                (model == EnmModel.VirtualModel && (ctYM2610[chipID] == null || !ctYM2610[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scYM2610 != null && scYM2610[chipID] != null))
                 )
             {
@@ -2723,7 +2723,7 @@ namespace MDPlayer
             //Console.WriteLine("OPNB P:{0:X02} A:{1:X02} D:{2:X02}", dPort, dAddr, dData);
 #endif 
 
-            if ((model == EnmModel.RealModel && ctYM2610[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2610[chipID].UseScci))
+            if ((model == EnmModel.RealModel && ctYM2610[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2610[chipID].UseReal[0]))
             {
                 //fmRegisterYM2610[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -2883,7 +2883,10 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYM2610[chipID].UseScci && !ctYM2610[chipID].UseScci2)
+                if (
+                    (ctYM2610[chipID].UseReal.Length > 0 && !ctYM2610[chipID].UseReal[0])
+                    && (ctYM2610[chipID].UseReal.Length < 2 || (ctYM2610[chipID].UseReal.Length > 1 && !ctYM2610[chipID].UseReal[1]))
+                    )
                 {
                     mds.WriteYM2610((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -3122,7 +3125,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYMF271[chipID].UseScci)
+                if (!ctYMF271[chipID].UseReal[0])
                 {
                     mds.WriteYMF271((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -3201,7 +3204,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYMF278B[chipID].UseScci)
+                if (!ctYMF278B[chipID].UseReal[0])
                 {
                     mds.WriteYMF278B((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
@@ -3306,7 +3309,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctYMZ280B[chipID].UseScci)
+                if (!ctYMZ280B[chipID].UseReal[0])
                 {
                     mds.WriteYMZ280B((byte)chipID, (byte)dAddr, (byte)dData);
                 }
@@ -3333,7 +3336,7 @@ namespace MDPlayer
                 midiExport.outMIDIData(EnmChip.YM2612, chipID, dPort, dAddr, dData, 0, vgmFrameCounter);
             }
 
-            if ((model == EnmModel.RealModel && ctYM2612[chipID].UseScci) || (model == EnmModel.VirtualModel && !ctYM2612[chipID].UseScci))
+            if ((model == EnmModel.RealModel && ctYM2612[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2612[chipID].UseReal[0]))
             {
                 //fmRegister[dPort][dAddr] = dData;
                 if (dPort == 0 && dAddr == 0x28)
@@ -3430,29 +3433,29 @@ namespace MDPlayer
 
                 //仮想音源の処理
 
-                if (ctYM2612[chipID].UseScci)
+                if (ctYM2612[chipID].UseReal[0])
                 {
                     //Scciを使用する場合でも
                     //PCM(6Ch)だけエミュで発音するとき
-                    if (ctYM2612[chipID].OnlyPCMEmulation)
+                    if (ctYM2612[chipID].realChipInfo[0].OnlyPCMEmulation)
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
-                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
-                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
-                            if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }
@@ -3480,14 +3483,14 @@ namespace MDPlayer
                     //return;
 #endif
 
-                    if (ctYM2612[chipID].UseEmu2 && dAddr == 0x21) 
+                    if (ctYM2612[chipID].UseEmu[1] && dAddr == 0x21) 
                         return;//TESTレジスタへのデータ送信をキャンセルする
 
                     //エミュを使用する場合のみMDSoundへデータを送る
                     //Console.WriteLine("{0}:{1:X02}:{2:X02}:{3:X02}", chipID, dPort, dAddr, dData);
-                    if (ctYM2612[chipID].UseEmu) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                    if (ctYM2612[chipID].UseEmu2) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                    if (ctYM2612[chipID].UseEmu3) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                    if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                 }
             }
             else
@@ -3498,7 +3501,7 @@ namespace MDPlayer
                 if (scYM2612[chipID] == null) return;
 
                 //PCM(6Ch)だけエミュで発音するとき
-                if (ctYM2612[chipID].OnlyPCMEmulation)
+                if (ctYM2612[chipID].realChipInfo[0].OnlyPCMEmulation)
                 {
                     //アドレスを調べてPCMにはデータを送らない
                     if (dPort == 0 && dAddr == 0x2b)
@@ -4156,25 +4159,25 @@ namespace MDPlayer
 
         public void setYM2151SyncWait(byte chipID, int wait)
         {
-            if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
+            if (scYM2151[chipID] != null && ctYM2151[chipID].realChipInfo[0].UseWait)
             {
-                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151[chipID].UseWaitBoost ? 2.0 : 1.0)));
+                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
         public void setYM2608SyncWait(byte chipID, int wait)
         {
-            if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
+            if (scYM2608[chipID] != null && ctYM2608[chipID].realChipInfo[0].UseWait)
             {
-                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608[chipID].UseWaitBoost ? 2.0 : 1.0)));
+                scYM2608[chipID].setRegister(-1, (int)(wait * (ctYM2608[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
         public void setYM2612SyncWait(byte chipID, int wait)
         {
-            if (scYM2612[chipID] != null && ctYM2612[chipID].UseWait)
+            if (scYM2612[chipID] != null && ctYM2612[chipID].realChipInfo[0].UseWait)
             {
-                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612[chipID].UseWaitBoost ? 2.0 : 1.0)));
+                scYM2612[chipID].setRegister(-1, (int)(wait * (ctYM2612[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -4183,7 +4186,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel) return;
 
-            if (scYM2151[chipID] != null && ctYM2151[chipID].UseWait)
+            if (scYM2151[chipID] != null && ctYM2151[chipID].realChipInfo[0].UseWait)
             {
                 realChip.SendData();
                 while (!scYM2151[chipID].isBufferEmpty()) { }
@@ -4194,7 +4197,7 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel) return;
 
-            if (scYM2608[chipID] != null && ctYM2608[chipID].UseWait)
+            if (scYM2608[chipID] != null && ctYM2608[chipID].realChipInfo[0].UseWait)
             {
                 realChip.SendData();
                 while (!scYM2608[chipID].isBufferEmpty()) { }
@@ -4219,18 +4222,18 @@ namespace MDPlayer
 
             if (model == EnmModel.RealModel)
             {
-                if (ctSN76489[chipID].UseScci)
+                if (ctSN76489[chipID].UseReal[0])
                 {
                     if (scSN76489[chipID] == null) return;
                 }
             }
             else
             {
-                if (!ctSN76489[chipID].UseScci)
+                if (!ctSN76489[chipID].UseReal[0])
                 {
-                    if (ctSN76489[chipID].UseEmu)
+                    if (ctSN76489[chipID].UseEmu[0])
                         mds.WriteSN76489GGPanning((byte)chipID, (byte)dData);
-                    else if (ctSN76489[chipID].UseEmu2)
+                    else if (ctSN76489[chipID].UseEmu[1])
                         mds.WriteSN76496GGPanning((byte)chipID, (byte)dData);
                     sn76489RegisterGGPan[chipID] = dData;
                 }
@@ -4260,7 +4263,7 @@ namespace MDPlayer
 
             if (model == EnmModel.RealModel)
             {
-                if (ctSN76489[chipID].UseScci)
+                if (ctSN76489[chipID].UseReal[0])
                 {
                     if (scSN76489[chipID] == null) return;
                     scSN76489[chipID].setRegister(0, dData);
@@ -4268,11 +4271,11 @@ namespace MDPlayer
             }
             else
             {
-                if (!ctSN76489[chipID].UseScci)
+                if (!ctSN76489[chipID].UseReal[0])
                 {
-                    if (ctSN76489[chipID].UseEmu)
+                    if (ctSN76489[chipID].UseEmu[0])
                         mds.WriteSN76489((byte)chipID, (byte)dData);
-                    else if (ctSN76489[chipID].UseEmu2)
+                    else if (ctSN76489[chipID].UseEmu[1])
                         mds.WriteSN76496((byte)chipID, (byte)dData);
                 }
             }
@@ -4280,9 +4283,9 @@ namespace MDPlayer
 
         public void setSN76489SyncWait(byte chipID, int wait)
         {
-            if (scSN76489 != null && ctSN76489[chipID].UseWait)
+            if (scSN76489 != null && ctSN76489[chipID].realChipInfo[0].UseWait)
             {
-                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489[chipID].UseWaitBoost ? 2.0 : 1.0)));
+                scSN76489[chipID].setRegister(-1, (int)(wait * (ctSN76489[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -4642,7 +4645,7 @@ namespace MDPlayer
             else chipLED.SecSPCM = 2;
 
             if (
-                (model == EnmModel.VirtualModel && (ctSEGAPCM[chipID] == null || !ctSEGAPCM[chipID].UseScci))
+                (model == EnmModel.VirtualModel && (ctSEGAPCM[chipID] == null || !ctSEGAPCM[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scSEGAPCM != null && scSEGAPCM[chipID] != null))
                 )
             {
@@ -4658,7 +4661,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctSEGAPCM[chipID].UseScci)
+                if (!ctSEGAPCM[chipID].UseReal[0])
                     mds.WriteSEGAPCM(chipID, offset, data);
                 //System.Console.WriteLine("ChipID={0} Offset={1:X} Data={2:X} ", ChipID, Offset, Data);
             }
@@ -4722,7 +4725,7 @@ namespace MDPlayer
                 {
                     if(scYM2203[chipID] is RC86ctlSoundChip)
                     {
-                        Nc86ctl.ChipType ct = ((RC86ctlSoundChip)scYM2203[chipID]).chiptype;
+                        Nc86ctl.ChipType ct = ((RC86ctlSoundChip)scYM2203[chipID]).ChipType;
                         //OPNA/OPN3Lが選ばれている場合は周波数を2倍にする
                         if (ct == Nc86ctl.ChipType.CHIP_OPN3L || ct == Nc86ctl.ChipType.CHIP_OPNA)
                         {
@@ -4757,7 +4760,8 @@ namespace MDPlayer
             {
                 if (scYM3526 != null && scYM3526[chipID] != null)
                 {
-                    if (scYM3526[chipID] is RC86ctlSoundChip && ((RC86ctlSoundChip)scYM3526[chipID]).chiptype == Nc86ctl.ChipType.CHIP_OPL3) clock *= 4;
+                    if (scYM3526[chipID] is RC86ctlSoundChip 
+                        && ((RC86ctlSoundChip)scYM3526[chipID]).ChipType == Nc86ctl.ChipType.CHIP_OPL3) clock *= 4;
                     scYM3526[chipID].dClock = scYM3526[chipID].SetMasterClock((uint)clock);
                 }
             }
@@ -4839,7 +4843,7 @@ namespace MDPlayer
             else chipLED.SecC140 = 2;
 
             if (
-                (model == EnmModel.VirtualModel && (ctC140[chipID] == null || !ctC140[chipID].UseScci))
+                (model == EnmModel.VirtualModel && (ctC140[chipID] == null || !ctC140[chipID].UseReal[0]))
                 || (model == EnmModel.RealModel && (scC140 != null && scC140[chipID] != null))
                 )
             {
@@ -4859,7 +4863,7 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (ctC140[chipID] == null || !ctC140[chipID].UseScci)
+                if (ctC140[chipID] == null || !ctC140[chipID].UseReal[0])
                     mds.WriteC140(chipID, adr, data);
             }
             else

@@ -117,7 +117,7 @@
             this.rbC140S_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.cmbC140P_SCCI = new System.Windows.Forms.ComboBox();
-            this.rbC140P_SCCI = new System.Windows.Forms.RadioButton();
+            this.rbC140P_Real = new System.Windows.Forms.RadioButton();
             this.rbC140P_Silent = new System.Windows.Forms.RadioButton();
             this.rbC140P_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -1149,7 +1149,7 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.cmbC140P_SCCI);
-            this.groupBox15.Controls.Add(this.rbC140P_SCCI);
+            this.groupBox15.Controls.Add(this.rbC140P_Real);
             this.groupBox15.Controls.Add(this.rbC140P_Silent);
             this.groupBox15.Controls.Add(this.rbC140P_Emu);
             this.groupBox15.Location = new System.Drawing.Point(3, 1140);
@@ -1170,13 +1170,13 @@
             // 
             // rbC140P_SCCI
             // 
-            this.rbC140P_SCCI.AutoSize = true;
-            this.rbC140P_SCCI.Location = new System.Drawing.Point(165, 15);
-            this.rbC140P_SCCI.Name = "rbC140P_SCCI";
-            this.rbC140P_SCCI.Size = new System.Drawing.Size(46, 16);
-            this.rbC140P_SCCI.TabIndex = 1;
-            this.rbC140P_SCCI.Text = "Real";
-            this.rbC140P_SCCI.UseVisualStyleBackColor = true;
+            this.rbC140P_Real.AutoSize = true;
+            this.rbC140P_Real.Location = new System.Drawing.Point(165, 15);
+            this.rbC140P_Real.Name = "rbC140P_SCCI";
+            this.rbC140P_Real.Size = new System.Drawing.Size(46, 16);
+            this.rbC140P_Real.TabIndex = 1;
+            this.rbC140P_Real.Text = "Real";
+            this.rbC140P_Real.UseVisualStyleBackColor = true;
             // 
             // rbC140P_Silent
             // 
@@ -2012,7 +2012,7 @@
         public System.Windows.Forms.RadioButton rbC140S_Emu;
         private System.Windows.Forms.GroupBox groupBox15;
         public System.Windows.Forms.ComboBox cmbC140P_SCCI;
-        public System.Windows.Forms.RadioButton rbC140P_SCCI;
+        public System.Windows.Forms.RadioButton rbC140P_Real;
         public System.Windows.Forms.RadioButton rbC140P_Silent;
         public System.Windows.Forms.RadioButton rbC140P_Emu;
         private System.Windows.Forms.GroupBox groupBox16;

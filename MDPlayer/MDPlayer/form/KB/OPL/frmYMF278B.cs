@@ -35,7 +35,12 @@ namespace MDPlayer.form
 
             this.newParam = newParam;
             frameBuffer.Add(pbScreen, Resources.planeYMF278B, null, zoom);
-            bool YMF278BType = (chipID == 0) ? parent.setting.YMF278BType.UseScci : parent.setting.YMF278BType.UseScci;
+            bool YMF278BType = (chipID == 0)
+                ? parent.setting.YMF278BType[0].UseReal[0]
+                : parent.setting.YMF278BType[1].UseReal[0];
+            int YMF278BSoundLocation = (chipID == 0)
+                ? parent.setting.YMF278BType[0].realChipInfo[0].SoundLocation
+                : parent.setting.YMF278BType[1].realChipInfo[0].SoundLocation;
             int tp = YMF278BType ? 1 : 0;
             DrawBuff.screenInitYMF278B(frameBuffer, tp);
             update();
@@ -481,7 +486,14 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.YMF278BType.UseScci ? 1 : 0;
+            bool YMF278BType = (chipID == 0)
+                ? parent.setting.YMF278BType[0].UseReal[0]
+                : parent.setting.YMF278BType[1].UseReal[0];
+            int YMF278BSoundLocation = (chipID == 0)
+                ? parent.setting.YMF278BType[0].realChipInfo[0].SoundLocation
+                : parent.setting.YMF278BType[1].realChipInfo[0].SoundLocation;
+            int tp = YMF278BType ? 1 : 0;
+
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
 

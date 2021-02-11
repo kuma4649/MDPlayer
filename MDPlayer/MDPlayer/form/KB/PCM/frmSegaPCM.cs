@@ -148,7 +148,7 @@ namespace MDPlayer.form
 
         public void screenInit()
         {
-            bool SEGAPCMType = (chipID == 0) ? parent.setting.SEGAPCMType.UseScci : parent.setting.SEGAPCMSType.UseScci;
+            bool SEGAPCMType = (chipID == 0) ? parent.setting.SEGAPCMType[0].UseReal[0] : parent.setting.SEGAPCMType[1].UseReal[0];
             int tp = SEGAPCMType ? 1 : 0;
             for (int ch = 0; ch < 16; ch++)
             {
@@ -244,7 +244,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = ((chipID == 0) ? parent.setting.SEGAPCMType.UseScci : parent.setting.SEGAPCMSType.UseScci) ? 1 : 0;
+            int tp = ((chipID == 0) ? parent.setting.SEGAPCMType[0].UseReal[0] : parent.setting.SEGAPCMType[1].UseReal[0]) ? 1 : 0;
 
             for (int c = 0; c < 16; c++)
             {

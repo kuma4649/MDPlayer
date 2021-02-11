@@ -37,8 +37,12 @@ namespace MDPlayer.form
             this.oldParam = oldParam;
             frameBuffer.Add(pbScreen, Resources.planeYM2413, null, zoom);
 
-            bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
-            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            bool YM2413Type = (chipID == 0) 
+                ? parent.setting.YM2413Type[0].UseReal[0]
+                : parent.setting.YM2413Type[1].UseReal[0];
+            int YM2413SoundLocation = (chipID == 0) 
+                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation 
+                : parent.setting.YM2413Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
             screenInitYM2413(frameBuffer, tp);
@@ -269,8 +273,12 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
-            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            bool YM2413Type = (chipID == 0) 
+                ? parent.setting.YM2413Type[0].UseReal[0]
+                : parent.setting.YM2413Type[1].UseReal[0];
+            int YM2413SoundLocation = (chipID == 0) 
+                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation 
+                : parent.setting.YM2413Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
             MDChipParams.Channel oyc;
@@ -360,8 +368,12 @@ namespace MDPlayer.form
             newParam.channels[0].inst[26] = 0;
             newParam.channels[0].inst[27] = 0;
 
-            bool YM2413Type = (chipID == 0) ? parent.setting.YM2413Type.UseScci : parent.setting.YM2413SType.UseScci;
-            int YM2413SoundLocation = (chipID == 0) ? parent.setting.YM2413Type.SoundLocation : parent.setting.YM2413SType.SoundLocation;
+            bool YM2413Type = (chipID == 0)
+                ? parent.setting.YM2413Type[0].UseReal[0]
+                : parent.setting.YM2413Type[1].UseReal[0];
+            int YM2413SoundLocation = (chipID == 0)
+                ? parent.setting.YM2413Type[0].realChipInfo[0].SoundLocation
+                : parent.setting.YM2413Type[1].realChipInfo[0].SoundLocation;
             int tp = !YM2413Type ? 0 : (YM2413SoundLocation < 0 ? 2 : 1);
 
             screenInitYM2413(frameBuffer, tp);

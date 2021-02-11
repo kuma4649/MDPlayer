@@ -128,7 +128,8 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = parent.setting.K051649Type.UseScci ? 1 : 0;
+            int tp = 0;
+            //int tp = parent.setting.K051649Type[0].UseReal[0] ? 1 : 0;
 
             for (int c = 0; c < 5; c++)
             {
