@@ -300,7 +300,7 @@ namespace MDPlayer
         private void oneFrameMID()
         {
 #if DEBUG
-            //if (model == enmModel.RealModel) return;
+            if (model == EnmModel.VirtualModel) return;
 #endif
             bool trksEnd = true;
             for (int trk = 0; trk < trkCount; trk++)
@@ -518,7 +518,7 @@ namespace MDPlayer
                                 midiEvent = midiEventBackup[trk];
                                 midiEventCh = midiEventChBackup;
 
-                                if ((cmd & 0xf0) != 0xC0 && (cmd & 0xf0) != 0xD0)
+                                if ((midiEvent & 0xf0) != 0xC0 && (midiEvent & 0xf0) != 0xD0)
                                 {
                                     chipRegister.sendMIDIout(model, trkPort[trk], midiEvent, cmd, vgmBuf[ptr], vstDelta);
 #if DEBUG
