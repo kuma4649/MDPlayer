@@ -283,13 +283,14 @@ namespace MDPlayer.form
             newParam.channels[14].inst[12] = Y8950Register[0x10]
                 + (Y8950Register[0x11] << 8);
 
-            if (ki.On[14] || ki.Off[14])
+            if (ki.On[14])
             {
                 //fSample = deltaN * 50KHz / (2^16)
                 double fSample = newParam.channels[14].inst[12] * 50000.0 / (double)(1 << 16);
-                int pnt = ki.Off[14] ? -1 : Common.searchSegaPCMNote(fSample / 8000.0);
+                //int pnt = ki.Off[14] ? -1 : Common.searchSegaPCMNote(fSample / 8000.0);
+                int pnt = Common.searchSegaPCMNote(fSample / 8000.0);
 
-                if (newParam.channels[14].note != pnt || ki.Off[14])
+                if (newParam.channels[14].note != pnt)
                 {
                     newParam.channels[14].note = pnt;
                     int tl = Y8950Register[0x12];
@@ -300,7 +301,9 @@ namespace MDPlayer.form
                     newParam.channels[14].volume--; if (newParam.channels[14].volume < 0) newParam.channels[14].volume = 0;
                 }
             }
-            else
+
+            newParam.channels[14].volume--;
+            if (newParam.channels[14].volume <= 0)
             {
                 newParam.channels[14].note = -1;
                 newParam.channels[14].volume--; if (newParam.channels[14].volume < 0) newParam.channels[14].volume = 0;

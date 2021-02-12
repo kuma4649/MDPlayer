@@ -143,7 +143,9 @@ namespace MDPlayer.form
                         {
                             if (psgRegister[ch * 2 + 1] != 15)
                             {
-                                newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
+                                float ftone = Audio.clockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
+
+                                newParam.channels[ch].note = searchSSGNote(ftone);// searchPSGNote(psgRegister[ch * 2]);
                             }
                             else
                             {
@@ -152,8 +154,8 @@ namespace MDPlayer.form
 
                             newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
                             newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol1[ch][0]) / (15.0 / 19.0)), 0), 19);
-                            newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeL,0),15)*0x10 
-                                + Math.Min(Math.Max(newParam.channels[ch].volumeR, 0), 15);
+                            newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeR,0),15)*0x10 
+                                + Math.Min(Math.Max(newParam.channels[ch].volumeL, 0), 15);
                         }
 
                         //Noise Ch
@@ -161,8 +163,8 @@ namespace MDPlayer.form
                         newParam.channels[3].freq = psgRegister1[4];//ch3Freq
                         newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
                         newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol1[3][0]) / (15.0 / 19.0)), 0), 19);
-                        newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeL, 0), 15) * 0x10 
-                            + Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15);
+                        newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15) * 0x10 
+                            + Math.Min(Math.Max(newParam.channels[3].volumeL, 0), 15);
                     }
                     else
                     {
@@ -333,6 +335,21 @@ namespace MDPlayer.form
             return n;
         }
 
+        private int searchSSGNote(float freq)
+        {
+            float m = float.MaxValue;
+            int n = 0;
+            for (int i = 0; i < 12 * 8; i++)
+            {
+                float a = Math.Abs(freq - Tables.freqTbl[i]);
+                if (m > a)
+                {
+                    m = a;
+                    n = i;
+                }
+            }
+            return n;
+        }
 
     }
 }

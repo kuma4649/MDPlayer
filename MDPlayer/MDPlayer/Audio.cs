@@ -4226,13 +4226,14 @@ namespace MDPlayer
                         chip.Volume = setting.balance.SN76489Volume;
                         chip.Clock = ((vgm)driverVirtual).SN76489ClockValue
                             | (((vgm)driverVirtual).SN76489NGPFlag ? 0x80000000 : 0);
+                        clockSN76489 = (int)(chip.Clock & 0x7fff_ffff);
                         if (i == 0) chipLED.PriDCSG = 1;
                         else chipLED.SecDCSG = 1;
 
                         hiyorimiDeviceFlag |= (setting.SN76489Type[0].UseReal[0]) ? 0x1 : 0x2;
                         SN76489NGPFlag = ((vgm)driverVirtual).SN76489NGPFlag;
 
-                        lstChips.Add(chip);
+                        if (chip.Start != null) lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.SN76489 : EnmChip.S_SN76489);
                     }
                 }

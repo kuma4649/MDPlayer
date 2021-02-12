@@ -3279,6 +3279,7 @@ namespace MDPlayer
                     else
                     {
                         kiY8950[chipID].On[14] = true;
+                        kiY8950[chipID].Off[14] = false;
                     }
                     if (maskFMChY8950[chipID][14]) dData &= 0x7f;
                 }
