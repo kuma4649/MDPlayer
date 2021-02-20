@@ -1058,6 +1058,12 @@ namespace MDPlayer
             vstMng.resetAllMIDIout(EnmModel.VirtualModel);
         }
 
+        public void softResetMIDI(int chipID, EnmModel model)
+        {
+            resetAllMIDIout();
+        }
+
+
 
         public void setYM2151Register(int chipID, int dPort, int dAddr, int dData, EnmModel model, int hosei, long vgmFrameCounter)
         {

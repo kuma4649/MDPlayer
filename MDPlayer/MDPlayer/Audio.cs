@@ -6365,6 +6365,8 @@ namespace MDPlayer
             chipRegister.softResetYM3812(1, model);
             chipRegister.softResetYMF262(0, model);
             chipRegister.softResetYMF262(1, model);
+            chipRegister.softResetMIDI(0, model);
+            chipRegister.softResetMIDI(1, model);
 
             if (model == EnmModel.RealModel && realChip != null)
             {
