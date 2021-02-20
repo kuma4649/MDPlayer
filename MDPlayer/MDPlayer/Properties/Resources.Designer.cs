@@ -223,25 +223,25 @@ namespace MDPlayer.Properties {
         
         /// <summary>
         ///   VGMファイル(*.vgm;*.vgz)|*.vgm;*.vgz|
-        ///NRDファイル(*.nrd)|*.nrd|
         ///XGMファイル(*.xgm)|*.xgm|
         ///ZGMファイル(*.zgm)|*.zgm|
-        ///S98ファイル(*.s98)|*.s98|
-        ///NSFファイル(*.nsf)|*.nsf|
         ///HESファイル(*.hes)|*.hes|
-        ///SIDファイル(*.sid)|*.sid|
-        ///MNDファイル(*.mnd)|*.mnd|
         ///MDRファイル(*.mdr)|*.mdr|
         ///MDXファイル(*.mdx)|*.mdx|
+        ///MGSファイル(*.mgs)|*.mgs|
+        ///MNDファイル(*.mnd)|*.mnd|
         ///MUCOM88ファイル(*.mub;*.muc)|*.mub;*.muc|
+        ///NRDファイル(*.nrd)|*.nrd|
+        ///NSFファイル(*.nsf)|*.nsf|
         ///PMDファイル(*.m;*.m2;*.mz;*.mml)|*.m;*.m2;*.mz;*.mml|
-        ///StandardMIDIファイル(*.mid)|*.mid|
         ///RCPファイル(*.rcp)|*.rcp|
+        ///S98ファイル(*.s98)|*.s98|
+        ///SIDファイル(*.sid)|*.sid|
+        ///StandardMIDIファイル(*.mid)|*.mid|
         ///WAVファイル(*.wav)|*.wav|
         ///MP3ファイル(*.mp3)|*.mp3|
         ///AIFFファイル(*.aiff)|*.aiff|
-        ///M3Uファイル(*.m3u)|*.m3u|
-        ///アーカイブファ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///M3Uファイル [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string cntSupportFile {
             get {

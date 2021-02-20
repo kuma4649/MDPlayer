@@ -628,6 +628,7 @@ namespace MDPlayer
         WAV = 21,
         MP3 = 22,
         AIFF = 23,
+        MGS = 24,
     }
 
     public enum EnmArcType : int

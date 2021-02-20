@@ -150,6 +150,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Z80dotNet, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Z80dotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio.cs" />
@@ -164,6 +168,17 @@
     <Compile Include="Driver\HES\km6280.cs" />
     <Compile Include="Driver\HES\kmevent.cs" />
     <Compile Include="Driver\HES\m_hes.cs" />
+    <Compile Include="Driver\MGSDRV\Cartridge.cs" />
+    <Compile Include="Driver\MGSDRV\iMapper.cs" />
+    <Compile Include="Driver\MGSDRV\Mapper.cs" />
+    <Compile Include="Driver\MGSDRV\MapperRAMCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\MGSDRV.cs" />
+    <Compile Include="Driver\MGSDRV\MsxMemory.cs" />
+    <Compile Include="Driver\MGSDRV\MSXMusicCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\MsxPort.cs" />
+    <Compile Include="Driver\MGSDRV\MSXSlot.cs" />
+    <Compile Include="Driver\MGSDRV\SCCCartridge.cs" />
+    <Compile Include="Driver\MGSDRV\Slot.cs" />
     <Compile Include="Driver\MNDRV\comanalyze.cs" />
     <Compile Include="Driver\MNDRV\comcmds.cs" />
     <Compile Include="Driver\MNDRV\comlfo.cs" />
@@ -810,6 +825,7 @@
       <DependentUpon>ucSettingInstruments.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="lib\c86ctl.ini" />
+    <None Include="lib\MGSDRV.COM" />
     <None Include="lib\scci.ini" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BindData.datasource" />
@@ -839,6 +855,7 @@
     <Content Include="lib\Jacobi.Vst.Core.dll" />
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
+    <Content Include="lib\Z80dotNet.dll" />
     <Content Include="plugin\driver\mucomDotNETCommon.dll" />
     <Content Include="plugin\driver\mucomDotNETCompiler.dll" />
     <Content Include="plugin\driver\mucomDotNETDriver.dll" />

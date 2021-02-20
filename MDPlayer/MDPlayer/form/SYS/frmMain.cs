@@ -5128,6 +5128,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".mgs")
+            {
+                format = EnmFileFormat.MGS;
+                return buf;
+            }
+
             if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;

@@ -3,7 +3,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   
 [概要]  
   このツールは、鍵盤表示を行いながらVGMファイルの再生を行います。  
-  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MDR,MDX,MND,MUC,MUB,M,M2,MZ,WAV,MP3,AIFFファイルにも対応。)  
+  (NRD,XGM,S98,MID,RCP,NSF,HES,SID,MGS,MDR,MDX,MND,MUC,MUB,M,M2,MZ,WAV,MP3,AIFFファイルにも対応。)  
   
 [注意]  
   ・再生時の音量に注意してください。バグによる雑音が大音量で再生される場合もあります。  
@@ -28,6 +28,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   .NSF (NES Sound Format)  
   .HES (HESファイル)  
   .SID (コモドール向けファイル)  
+  .MGS (MGSDRVファイル 演奏するにはMGSDRV.COMが必要です)  
   .MDR (MoonDriver MSXで,MoonSound(OPL4)を鳴らすドライバの演奏ファイル)  
   .MDX (MXDRV向けファイル)  
   .MND (MNDRV X68000(OPM,OKIM6258) & まーきゅりーゆにっと(OPNAx2)を使用するドライバの演奏ファイル)  
@@ -100,6 +101,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   またSPPCMにも対応しています。  
   
   ・GIMIC(C86ctl)を利用して本物のYM2608,YM2151,YMF262から再生が可能です。  
+  
+  ・Z80dotNetを利用しています。  
   
   ・ボタンは以下の順に並んでいます。  
      
@@ -227,6 +230,10 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   使用するChipなどによって必要な処理量が変わります。  
   私はi7-9700K 3.6GHzを使用しています。  
   
+  ・MGSDRVのファイルを演奏するには、以下のファイルが必要です。  
+  (公式サイトから入手してください。)
+    MGSDRV.COM  
+
   
 [同期のすゝめ]  
     
@@ -419,6 +426,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・MUCOM88  
     ・MUCOM88windows  
     ・C86ctlのソース  
+    ・MGSDRV  
+    ・Z80dotNET  
      
     ・SMS Power!  
     ・DOBON.NET  
@@ -518,5 +527,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
   ・SCCI  
   ・c86ctl  
   ・PMD(PMDDotNET)  
+  ・MGSDRV  
+  ・Z80dotNet  
   
   

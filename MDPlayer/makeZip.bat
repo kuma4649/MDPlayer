@@ -25,6 +25,7 @@ cd
 del /Q .\output\*.pdb
 rem del /Q .\output\*.config
 del /Q .\output\*.bat
+del /Q .\output\MGSDRV.COM
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
 
 rem -- withoutVSTŒü‚¯
