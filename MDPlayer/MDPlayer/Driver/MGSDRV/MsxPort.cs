@@ -11,14 +11,15 @@ namespace MDPlayer.Driver.MGSDRV
     {
         private MSXSlot slot;
         private ChipRegister chipRegister;
+        private EnmModel model;
         private byte opllAdr;
-        private EnmModel model= EnmModel.VirtualModel;
         private byte ay8910Adr;
 
-        public MsxPort(MSXSlot slot, ChipRegister chipRegister)
+        public MsxPort(MSXSlot slot, ChipRegister chipRegister,EnmModel model)
         {
             this.slot = slot;
             this.chipRegister= chipRegister;
+            this.model = model;
         }
 
         public byte this[int address]

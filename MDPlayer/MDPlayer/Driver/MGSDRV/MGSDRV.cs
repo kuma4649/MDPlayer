@@ -13,12 +13,24 @@ namespace MDPlayer.Driver.MGSDRV
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
-            throw new NotImplementedException();
+            GD3 ret = new GD3();
+            if (buf != null && buf.Length > 8)
+            {
+                vgmGd3 = 8;
+                ret.TrackName = Common.getNRDString(buf, ref vgmGd3);
+                ret.TrackNameJ = ret.TrackName;
+            }
+
+            return ret;
         }
 
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             this.chipRegister = chipRegister;
+            LoopCounter = 0;
+            vgmCurLoop = 0;
+            this.model = model;
+            vgmFrameCounter = -latency - waitTime;
 
             try
             {
@@ -93,6 +105,7 @@ namespace MDPlayer.Driver.MGSDRV
 
             byte PLAYFG = z80.Registers.A;
             if (PLAYFG == 0) Stopped = true;
+            vgmCurLoop = z80.Registers.D;
         }
 
         private static byte[] program = null;
@@ -102,7 +115,6 @@ namespace MDPlayer.Driver.MGSDRV
         internal static uint baseclockAY8910 = 1789773;
         internal static uint baseclockYM2413 = 3579545;
         internal static uint baseclockK051649 = 1789773;
-        private ChipRegister chipRegister;
 
         private void Run(byte[] vgmBuf)
         {
@@ -112,8 +124,8 @@ namespace MDPlayer.Driver.MGSDRV
             z80 = new Z80Processor();
             z80.ClockSynchronizer = null;
             z80.AutoStopOnRetWithStackEmpty = true;
-            z80.Memory = new MsxMemory(chipRegister);
-            z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister);
+            z80.Memory = new MsxMemory(chipRegister, model);
+            z80.PortsSpace = new MsxPort(((MsxMemory)z80.Memory).slot, chipRegister, model);
             z80.BeforeInstructionFetch += Z80OnBeforeInstructionFetch;
 
             mapper = new Mapper((MapperRAMCartridge)((MsxMemory)z80.Memory).slot.slots[3][1], (MsxMemory)z80.Memory);

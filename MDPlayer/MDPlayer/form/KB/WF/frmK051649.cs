@@ -120,7 +120,7 @@ namespace MDPlayer.form
                 channel.freq = psg.frequency;
                 channel.volume = psg.key != 0 ? (int)(psg.volume * 1.33) : 0;
                 channel.volumeL = psg.volume;
-                channel.note = psg.key != 0 ? searchSSGNote(ftone) : -1;
+                channel.note = (psg.key != 0 && channel.volume != 0) ? searchSSGNote(ftone) : -1;
                 channel.dda = psg.key != 0;
 
             }

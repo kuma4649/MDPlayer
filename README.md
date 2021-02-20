@@ -428,14 +428,19 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミュレーションによる演奏ツ
     ・C86ctlのソース  
     ・MGSDRV  
     ・Z80dotNET  
+    ・blueMSX  
      
     ・SMS Power!  
     ・DOBON.NET  
     ・Wikipedia  
     ・GitHub  
     ・ぬるり。  
-  
-  
+    ・Gigamix Online  
+    ・MSX Datapack wiki化計画  
+    ・MSX Resource Center  
+    ・msxnet  
+    ・Xyzさんのツイートのリンク先(https://twitter.com/XyzGonGivItToYa/status/1216942514902634496?s=20)  
+
 [FAQ]  
   
   ・起動しない  

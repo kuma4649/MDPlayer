@@ -8,7 +8,7 @@ namespace MDPlayer.Driver.MGSDRV
 {
     public class MSXSlot : Slot
     {
-        public MSXSlot(ChipRegister chipRegister)
+        public MSXSlot(ChipRegister chipRegister,EnmModel model)
         {
             slots = new Cartridge[4][]
             {
@@ -20,7 +20,7 @@ namespace MDPlayer.Driver.MGSDRV
                 //extSlot2-1 MapperROM 64k
                 //extSlot2-2 MapperROM 64k
                 //extSlot2-3 MapperROM 64k
-                new Cartridge[4]{ new SCCCartridge(chipRegister) ,new MapperRAMCartridge(4),new MapperRAMCartridge(4),new MapperRAMCartridge(4) },
+                new Cartridge[4]{ new SCCCartridge(chipRegister,model) ,new MapperRAMCartridge(4),new MapperRAMCartridge(4),new MapperRAMCartridge(4) },
                 //extSlot3-0 MSX Music(OPLL)
                 //extSlot3-1 MapperROM 512k
                 //extSlot3-2 MapperROM 64k

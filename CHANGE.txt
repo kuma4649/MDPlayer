@@ -1,4 +1,13 @@
 更新履歴
+STBL138 2021/02/20 2nd
+  Core:MGSDRV:実チップに対応
+  Core:MGSDRV:ループ回数検出機能実装
+  Core:MGSDRV:AY8910オクターブ違い修正
+  Core:MGSDRV:遅延演奏に対応
+  鍵盤:MGSDRV:トラックオフセット情報より使用音源の判断
+  鍵盤:SCC:ボリューム0の時はノートを消去するよう修正
+  プレイリスト:MGSDRV:タイトル情報を取得するよう修正
+
 STBL137 2021/02/20
   Core:MGSDRV:MGSDRV暫定対応
 

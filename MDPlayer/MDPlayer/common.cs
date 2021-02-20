@@ -182,6 +182,8 @@ namespace MDPlayer
                 List<byte> lst = new List<byte>();
                 for (; buf[index] != 0; index++)
                 {
+                    if (buf.Length > index + 1 && buf[index] == 0x1a && buf[index + 1] == 0x00)
+                        break;
                     lst.Add(buf[index]);
                 }
 
