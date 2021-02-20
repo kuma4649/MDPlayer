@@ -42,6 +42,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mame", "mame", "{07460D4A-B
 		..\licenses\mame\mame_license.txt = ..\licenses\mame\mame_license.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MGSDRV", "MGSDRV", "{0942FE22-9C0F-4C41-9950-51C3A722B2F9}"
+	ProjectSection(SolutionItems) = preProject
+		..\licenses\MGSDRV\MGSDR320.TXT = ..\licenses\MGSDRV\MGSDR320.TXT
+		..\licenses\MGSDRV\MGSDRV.HED = ..\licenses\MGSDRV\MGSDRV.HED
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +82,7 @@ Global
 		{288B52C3-3470-4E7C-A104-246326206697} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 		{D55D1918-56B0-4305-BD88-985BC75A01CC} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 		{07460D4A-BCDC-4952-B595-44A9E4F5D994} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
+		{0942FE22-9C0F-4C41-9950-51C3A722B2F9} = {B336E366-413C-4035-98C5-70D7BB32EF5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFAB7D8F-51EE-49D9-AE16-CBBBBB8774C9}
