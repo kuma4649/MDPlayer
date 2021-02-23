@@ -147,7 +147,7 @@ namespace MDPlayer.Driver.MoonDriver
 
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -242,7 +242,7 @@ namespace MDPlayer.Driver.MoonDriver
                 if (ntscCounter <= 0)
                 {
                     EntryPoints(0x4003);
-                    ntscStep = setting.outputDevice.SampleRate / 60.0;
+                    ntscStep = Common.VGMProcSampleRate / 60.0;
                     ntscCounter += ntscStep;
                 }
             }

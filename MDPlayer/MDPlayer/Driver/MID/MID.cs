@@ -8,12 +8,10 @@ namespace MDPlayer
 {
     public class MID : baseDriver
     {
-        private Setting setting;
 
-        public MID(Setting setting)
+        public MID()
         {
-            this.setting = setting;
-            musicStep = setting.outputDevice.SampleRate / 60.0;
+            musicStep = Common.VGMProcSampleRate / 60.0;// setting.outputDevice.SampleRate / 60.0;
         }
 
     public const int FCC_MID = 0x6468544d;
@@ -252,7 +250,7 @@ namespace MDPlayer
             try
             {
                 vstDelta++;
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -282,7 +280,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = setting.outputDevice.SampleRate * oneSyncTime;
+                musicStep = Common.VGMProcSampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

@@ -12,7 +12,7 @@ namespace MDPlayer
         public xgm(Setting setting)
         {
             this.setting = setting;
-            musicStep = setting.outputDevice.SampleRate / 60.0;
+            musicStep = Common.VGMProcSampleRate / 60.0;// setting.outputDevice.SampleRate / 60.0;
             pcmStep = setting.outputDevice.SampleRate / 14000.0;
         }
 
@@ -82,7 +82,7 @@ namespace MDPlayer
         {
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -95,6 +95,14 @@ namespace MDPlayer
                         vgmFrameCounter++;
                     }
                 }
+
+                pcmSpeedCounter++;//= (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
+                while (pcmSpeedCounter >= 1.0 && !Stopped)
+                {
+                    pcmSpeedCounter -= 1.0;
+                    onePCMFrameMain();
+                }
+
                 //Stopped = !IsPlaying();
             }
             catch (Exception ex)
@@ -195,7 +203,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = setting.outputDevice.SampleRate / (isNTSC ? 60.0 : 50.0);
+                musicStep = Common.VGMProcSampleRate / (isNTSC ? 60.0 : 50.0);
 
                 if (musicDownCounter <= 0.0)
                 {
@@ -205,6 +213,25 @@ namespace MDPlayer
                 }
                 musicDownCounter -= 1.0;
 
+                //if (pcmDownCounter <= 0.0)
+                //{
+                //    //pcm処理
+                //    oneFramePCM();
+                //    pcmDownCounter += pcmStep;
+                //}
+                //pcmDownCounter -= 1.0;
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+
+            }
+        }
+        private void onePCMFrameMain()
+        {
+            try
+            {
                 if (pcmDownCounter <= 0.0)
                 {
                     //pcm処理
@@ -329,6 +356,7 @@ namespace MDPlayer
         }
 
         public XGMPCM[] xgmpcm = null;
+        private double pcmSpeedCounter;
 
         private void PlayPCM(byte X)
         {

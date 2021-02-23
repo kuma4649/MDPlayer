@@ -535,7 +535,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".mid") != -1)
             {
                 music.format = EnmFileFormat.MID;
-                GD3 gd3 = new MID(setting).getGD3Info(buf, 0);
+                GD3 gd3 = new MID().getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -563,7 +563,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".rcp") != -1)
             {
                 music.format = EnmFileFormat.RCP;
-                GD3 gd3 = new RCP(setting).getGD3Info(buf, 0);
+                GD3 gd3 = new RCP().getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -876,7 +876,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".mid") != -1)
             {
                 music.format = EnmFileFormat.MID;
-                GD3 gd3 = new MID(setting).getGD3Info(buf, 0);
+                GD3 gd3 = new MID().getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -904,7 +904,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".rcp") != -1)
             {
                 music.format = EnmFileFormat.RCP;
-                GD3 gd3 = new RCP(setting).getGD3Info(buf, 0);
+                GD3 gd3 = new RCP().getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -1666,6 +1666,7 @@ namespace MDPlayer
             {
                 driverVirtual = new Driver.MNDRV.mndrv();
                 driverVirtual.setting = setting;
+
                 ((Driver.MNDRV.mndrv)driverVirtual).ExtendFile = ExtendFile;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
@@ -1721,12 +1722,12 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.MID)
             {
-                driverVirtual = new MID(setting);
+                driverVirtual = new MID();
                 driverVirtual.setting = setting;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new MID(setting);
+                    driverReal = new MID();
                     driverReal.setting = setting;
                 }
                 return midPlay(setting);
@@ -1734,13 +1735,13 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.RCP)
             {
-                driverVirtual = new RCP(setting);
+                driverVirtual = new RCP();
                 driverVirtual.setting = setting;
                 ((RCP)driverVirtual).ExtendFile = ExtendFile;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new RCP(setting);
+                    driverReal = new RCP();
                     driverReal.setting = setting;
                     ((RCP)driverReal).ExtendFile = ExtendFile;
                 }
@@ -2575,7 +2576,10 @@ namespace MDPlayer
             {
 
                 if (vgmBuf == null || setting == null) return false;
-
+                if (setting.outputDevice.SampleRate != 44100)
+                {
+                    return false;
+                }
                 //Stop();
 
                 chipRegister.resetChips();

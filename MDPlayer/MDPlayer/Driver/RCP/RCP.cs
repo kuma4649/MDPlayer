@@ -8,11 +8,9 @@ namespace MDPlayer
 {
     public class RCP : baseDriver
     {
-        private Setting setting;
-        public RCP(Setting setting)
+        public RCP()
         {
-            this.setting = setting;
-            musicStep = setting.outputDevice.SampleRate / 60.0;
+            musicStep = Common.VGMProcSampleRate / 60.0;
         }
 
 
@@ -237,7 +235,7 @@ namespace MDPlayer
             try
             {
                 vstDelta++;
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -1145,7 +1143,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = setting.outputDevice.SampleRate * oneSyncTime;
+                musicStep = Common.VGMProcSampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

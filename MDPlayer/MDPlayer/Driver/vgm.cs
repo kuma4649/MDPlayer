@@ -194,7 +194,7 @@ namespace MDPlayer
         {
             try
             {
-                vgmSpeedCounter += 44100.0 / setting.outputDevice.SampleRate * vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;

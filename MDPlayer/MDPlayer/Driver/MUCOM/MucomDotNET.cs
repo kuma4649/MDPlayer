@@ -99,7 +99,7 @@ namespace MDPlayer.Driver
 
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -206,7 +206,7 @@ namespace MDPlayer.Driver
                     , isLoadADPCM
                     , loadADPCMOnly
                 });
-            mucomDriver.StartRendering(setting.outputDevice.SampleRate
+            mucomDriver.StartRendering(Common.VGMProcSampleRate
                 ,new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
 
@@ -227,7 +227,7 @@ namespace MDPlayer.Driver
                     , isLoadADPCM
                     , loadADPCMOnly
                 });
-            mucomDriver.StartRendering(setting.outputDevice.SampleRate
+            mucomDriver.StartRendering(Common.VGMProcSampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
 

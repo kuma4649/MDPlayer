@@ -53,7 +53,7 @@ namespace MDPlayer.Driver.MGSDRV
         {
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -83,7 +83,7 @@ namespace MDPlayer.Driver.MGSDRV
                 Counter++;
                 vgmFrameCounter++;
 
-                if (vgmFrameCounter % (44100 / 60) == 0)
+                if (vgmFrameCounter % (Common.VGMProcSampleRate / 60) == 0)
                 {
                     interrupt();
                 }

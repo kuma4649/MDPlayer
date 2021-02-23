@@ -11,6 +11,7 @@ namespace MDPlayer
         private const byte DCTRL_LMODE_MSEC = 0x02;
         private const byte DCTRL_LMODE_TOEND = 0x03;
         public const byte DCTRL_LMODE_BYTES = 0x0F;
+        private const int DAC_SMPL_RATE = 44100;//DAC control独自のサンプルレートです(Fixed)
 
         private const int MAX_CHIPS = 0xFF;
         private dac_control[] DACData = new dac_control[MAX_CHIPS];
@@ -187,7 +188,7 @@ namespace MDPlayer
             {
                 // very effective Speed Hack for fast seeking
                 NewPos = chip.Step + (samples - 0x10);
-                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, (UInt32)setting.outputDevice.SampleRate);// DAC_SMPL_RATE);
+                NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, DAC_SMPL_RATE);// (UInt32)setting.outputDevice.SampleRate);
                 while (chip.RemainCmds > 0 && chip.Pos < NewPos)
                 {
                     chip.Pos += chip.DataStep;
@@ -198,7 +199,7 @@ namespace MDPlayer
 
             chip.Step += samples;
             // Formula: Step * Freq / SampleRate
-            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, (UInt32)setting.outputDevice.SampleRate);// DAC_SMPL_RATE);
+            NewPos = muldiv64round(chip.Step * chip.DataStep, chip.Frequency, DAC_SMPL_RATE);// (UInt32)setting.outputDevice.SampleRate);
             //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)setting.outputDevice.SampleRate);
             sendCommand(chip);
 

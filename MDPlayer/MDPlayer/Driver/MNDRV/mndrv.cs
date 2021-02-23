@@ -119,7 +119,7 @@ namespace MDPlayer.Driver.MNDRV
 
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -185,8 +185,8 @@ namespace MDPlayer.Driver.MNDRV
             devpsgemu = new devpsgemu();
             devrhy = new devrhy();
             interrupt = new interrupt();
-            timerOPM = new FMTimer(true, null, 4000000, setting);
-            timerOPN = new FMTimer(false, null, 8000000, setting);
+            timerOPM = new FMTimer(true, null, 4000000);
+            timerOPN = new FMTimer(false, null, 8000000);
 
             comanalyze.reg = reg;
             comanalyze.ab = ab;

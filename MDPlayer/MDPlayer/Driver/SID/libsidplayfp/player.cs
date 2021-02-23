@@ -62,12 +62,6 @@ namespace Driver.libsidplayfp
 : testEnv
     //#endif
     {
-        private MDPlayer.Setting setting;
-        public Player(MDPlayer.Setting setting)
-        {
-            this.setting = setting;
-            m_cfg = new sidplayfp.SidConfig(setting);
-        }
 
         private enum state_t
         {
@@ -242,8 +236,18 @@ namespace Driver.libsidplayfp
             public string message() { return m_msg; }
         }
 
-        public Player()
+        private MDPlayer.Setting setting;
+        //public Player(MDPlayer.Setting setting)
+        //{
+        //    this.setting = setting;
+        //    m_cfg = new sidplayfp.SidConfig(setting);
+        //}
+
+        public Player(MDPlayer.Setting setting)
         {
+            this.setting = setting;
+            m_cfg = new sidplayfp.SidConfig(setting);
+
             // Set default settings for system
             m_tune = null;
             m_errorString = ERR_NA;

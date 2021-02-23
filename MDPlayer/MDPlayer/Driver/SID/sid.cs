@@ -150,7 +150,7 @@ namespace MDPlayer.Driver.SID
                     fs.Read(aryCharacter, 0, aryCharacter.Length);
                 }
 
-            m_engine = new sidplayfp();
+            m_engine = new sidplayfp(setting);
             m_engine.debug(false, null);
             m_engine.setRoms(aryKernal, aryBasic, aryCharacter);
 

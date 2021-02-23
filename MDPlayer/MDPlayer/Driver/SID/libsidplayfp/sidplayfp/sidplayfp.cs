@@ -204,9 +204,9 @@ namespace Driver.libsidplayfp.sidplayfp
         //# include "sidplayfp.h"
         //# include "player.h"
 
-        public sidplayfp()
+        public sidplayfp(MDPlayer.Setting setting)
         {
-            sidplayer = new libsidplayfp.Player();
+            sidplayer = new libsidplayfp.Player(setting);
         }
 
         ~sidplayfp()

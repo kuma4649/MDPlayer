@@ -63,7 +63,7 @@ namespace MDPlayer
 
             GD3 = getGD3Info(vgmBuf, 0);
 
-            m_hes = new m_hes(setting);
+            m_hes = new m_hes();
             m_hes.chipRegister = chipRegister;
             m_hes.ld = ld;
             nez_play = new m_hes.NEZ_PLAY();
@@ -78,7 +78,7 @@ namespace MDPlayer
             if (m_hes == null) return;
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0 && !Stopped)
                 {
                     vgmSpeedCounter -= 1.0;

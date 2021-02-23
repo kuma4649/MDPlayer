@@ -108,7 +108,7 @@ namespace MDPlayer.Driver
 
             try
             {
-                vgmSpeedCounter += vgmSpeed;
+                vgmSpeedCounter += (double)Common.VGMProcSampleRate / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;
@@ -257,7 +257,7 @@ namespace MDPlayer.Driver
                     , (Func<ChipDatum, int>)P86Write
                 });
 
-            PMDDriver.StartRendering(setting.outputDevice.SampleRate
+            PMDDriver.StartRendering(Common.VGMProcSampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
             PMDDriver.MusicSTART(0);
             return true;
@@ -316,7 +316,7 @@ namespace MDPlayer.Driver
                     , (Func<ChipDatum, int>)P86Write
                 });
 
-            PMDDriver.StartRendering(setting.outputDevice.SampleRate
+            PMDDriver.StartRendering(Common.VGMProcSampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
             PMDDriver.MusicSTART(0);
 
