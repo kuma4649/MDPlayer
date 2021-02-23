@@ -8,10 +8,16 @@ namespace MDPlayer
 {
     public class RCP : baseDriver
     {
+        private Setting setting;
+        public RCP(Setting setting)
+        {
+            this.setting = setting;
+            musicStep = setting.outputDevice.SampleRate / 60.0;
+        }
 
 
         private double oneSyncTime = 0.009;
-        private double musicStep = Common.SampleRate / 60.0;
+        private double musicStep = 1;// setting.outputDevice.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
         private List<CtlSysex>[] beforeSend = null;
@@ -1139,7 +1145,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = Common.SampleRate * oneSyncTime;
+                musicStep = setting.outputDevice.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

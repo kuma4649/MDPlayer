@@ -8,6 +8,14 @@ namespace MDPlayer
 {
     public class xgm : baseDriver
     {
+        private Setting setting;
+        public xgm(Setting setting)
+        {
+            this.setting = setting;
+            musicStep = setting.outputDevice.SampleRate / 60.0;
+            pcmStep = setting.outputDevice.SampleRate / 14000.0;
+        }
+
         public const int FCC_XGM = 0x204d4758;	// "XGM "
         public const int FCC_GD3 = 0x20336447;  // "Gd3 "
 
@@ -171,8 +179,8 @@ namespace MDPlayer
         }
 
 
-        private double musicStep = Common.SampleRate / 60.0;
-        private double pcmStep = Common.SampleRate / 14000.0;
+        private double musicStep = 1;// setting.outputDevice.SampleRate / 60.0;
+        private double pcmStep = 1;// setting.outputDevice.SampleRate / 14000.0;
         private double musicDownCounter = 0.0;
         private double pcmDownCounter = 0.0;
         private uint musicPtr = 0;
@@ -187,7 +195,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = Common.SampleRate / (isNTSC ? 60.0 : 50.0);
+                musicStep = setting.outputDevice.SampleRate / (isNTSC ? 60.0 : 50.0);
 
                 if (musicDownCounter <= 0.0)
                 {

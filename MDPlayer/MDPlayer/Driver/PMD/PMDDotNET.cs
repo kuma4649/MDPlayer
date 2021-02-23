@@ -257,7 +257,7 @@ namespace MDPlayer.Driver
                     , (Func<ChipDatum, int>)P86Write
                 });
 
-            PMDDriver.StartRendering(Common.SampleRate
+            PMDDriver.StartRendering(setting.outputDevice.SampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
             PMDDriver.MusicSTART(0);
             return true;
@@ -316,7 +316,7 @@ namespace MDPlayer.Driver
                     , (Func<ChipDatum, int>)P86Write
                 });
 
-            PMDDriver.StartRendering(Common.SampleRate
+            PMDDriver.StartRendering(setting.outputDevice.SampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
             PMDDriver.MusicSTART(0);
 

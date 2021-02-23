@@ -16,13 +16,13 @@ namespace MDPlayer
     {
         public static frmMain frmMain = null;
         public static vstMng vstMng = new vstMng();
-        private static Setting setting = null;
+        public static Setting setting = null;
 
         public static int clockAY8910 = 1789750;
         public static int clockS5B = 1789772;
         public static int clockK051649 = 1500000;
         public static int clockC140 = 21390;
-        public static int clockPPZ8 = Common.SampleRate;
+        public static int clockPPZ8 = 44100;// setting.outputDevice.SampleRate;
         public static int clockC352 = 24192000;
         public static int clockFDS = 0;
         public static int clockHuC6280 = 0;
@@ -206,7 +206,7 @@ namespace MDPlayer
 
                 music.format = EnmFileFormat.NRT;
                 uint index = 42;
-                GD3 gd3 = (new NRTDRV()).getGD3Info(buf, index);
+                GD3 gd3 = (new NRTDRV(setting)).getGD3Info(buf, index);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -370,7 +370,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".xgm") != -1)
             {
                 music.format = EnmFileFormat.XGM;
-                GD3 gd3 = new xgm().getGD3Info(buf, 0);
+                GD3 gd3 = new xgm(setting).getGD3Info(buf, 0);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -410,7 +410,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".s98") != -1)
             {
                 music.format = EnmFileFormat.S98;
-                GD3 gd3 = new S98().getGD3Info(buf, 0);
+                GD3 gd3 = new S98(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -432,7 +432,7 @@ namespace MDPlayer
             }
             else if (file.ToLower().LastIndexOf(".nsf") != -1)
             {
-                nsf nsf = new nsf();
+                nsf nsf = new nsf(setting);
                 GD3 gd3 = nsf.getGD3Info(buf, 0);
 
                 if (gd3 != null)
@@ -535,7 +535,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".mid") != -1)
             {
                 music.format = EnmFileFormat.MID;
-                GD3 gd3 = new MID().getGD3Info(buf, 0);
+                GD3 gd3 = new MID(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -563,7 +563,7 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".rcp") != -1)
             {
                 music.format = EnmFileFormat.RCP;
-                GD3 gd3 = new RCP().getGD3Info(buf, 0);
+                GD3 gd3 = new RCP(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -683,7 +683,7 @@ namespace MDPlayer
                         musics.Add(music);
                         return musics;
                     }
-                    gd3 = (new vgm()).getGD3Info(buf, vgmGd3);
+                    gd3 = (new vgm(setting)).getGD3Info(buf, vgmGd3);
                 }
 
                 uint TotalCounter = Common.getLE32(buf, 0x18);
@@ -701,7 +701,7 @@ namespace MDPlayer
                 music.converted = gd3.Converted;
                 music.notes = gd3.Notes;
 
-                double sec = (double)TotalCounter / (double)Common.SampleRate;
+                double sec = (double)TotalCounter / (double)setting.outputDevice.SampleRate;
                 int TCminutes = (int)(sec / 60);
                 sec -= TCminutes * 60;
                 int TCsecond = (int)sec;
@@ -739,7 +739,7 @@ namespace MDPlayer
 
                 music.format = EnmFileFormat.NRT;
                 uint index = 42;
-                GD3 gd3 = (new NRTDRV()).getGD3Info(buf, index);
+                GD3 gd3 = (new NRTDRV(setting)).getGD3Info(buf, index);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -773,7 +773,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".xgm") != -1)
             {
                 music.format = EnmFileFormat.XGM;
-                GD3 gd3 = new xgm().getGD3Info(buf, 0);
+                GD3 gd3 = new xgm(setting).getGD3Info(buf, 0);
                 music.title = gd3.TrackName;
                 music.titleJ = gd3.TrackNameJ;
                 music.game = gd3.GameName;
@@ -793,7 +793,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".s98") != -1)
             {
                 music.format = EnmFileFormat.S98;
-                GD3 gd3 = new S98().getGD3Info(buf, 0);
+                GD3 gd3 = new S98(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -815,7 +815,7 @@ namespace MDPlayer
             }
             else if (ms.fileName.ToLower().LastIndexOf(".nsf") != -1)
             {
-                nsf nsf = new nsf();
+                nsf nsf = new nsf(setting);
                 GD3 gd3 = nsf.getGD3Info(buf, 0);
 
                 if (gd3 != null)
@@ -876,7 +876,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".mid") != -1)
             {
                 music.format = EnmFileFormat.MID;
-                GD3 gd3 = new MID().getGD3Info(buf, 0);
+                GD3 gd3 = new MID(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -904,7 +904,7 @@ namespace MDPlayer
             else if (ms.fileName.ToLower().LastIndexOf(".rcp") != -1)
             {
                 music.format = EnmFileFormat.RCP;
-                GD3 gd3 = new RCP().getGD3Info(buf, 0);
+                GD3 gd3 = new RCP(setting).getGD3Info(buf, 0);
                 if (gd3 != null)
                 {
                     music.title = gd3.TrackName;
@@ -956,7 +956,7 @@ namespace MDPlayer
                         musics.Add(music);
                         return musics;
                     }
-                    gd3 = (new vgm()).getGD3Info(buf, vgmGd3);
+                    gd3 = (new vgm(setting)).getGD3Info(buf, vgmGd3);
                 }
 
                 uint TotalCounter = Common.getLE32(buf, 0x18);
@@ -974,7 +974,7 @@ namespace MDPlayer
                 music.converted = gd3.Converted;
                 music.notes = gd3.Notes;
 
-                double sec = (double)TotalCounter / (double)Common.SampleRate;
+                double sec = (double)TotalCounter / (double)setting.outputDevice.SampleRate;
                 int TCminutes = (int)(sec / 60);
                 sec -= TCminutes * 60;
                 int TCsecond = (int)sec;
@@ -1023,7 +1023,7 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:STEP 01");
 
-            naudioWrap = new NAudioWrap((int)Common.SampleRate, trdVgmVirtualFunction);
+            naudioWrap = new NAudioWrap((int)setting.outputDevice.SampleRate, trdVgmVirtualFunction);
             naudioWrap.PlaybackStopped += NaudioWrap_PlaybackStopped;
 
             log.ForcedWrite("Audio:Init:STEP 02");
@@ -1217,9 +1217,9 @@ namespace MDPlayer
             }
 
             if (mds == null)
-                mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, null);
+                mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, null);
             else
-                mds.Init((UInt32)Common.SampleRate, samplingBuffer, null);
+                mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, null);
 
             List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
             MDSound.MDSound.Chip chip;
@@ -1233,7 +1233,7 @@ namespace MDPlayer
             chip.Start = ym2612.Start;
             chip.Stop = ym2612.Stop;
             chip.Reset = ym2612.Reset;
-            chip.SamplingRate = (UInt32)Common.SampleRate;
+            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
             chip.Volume = setting.balance.YM2612Volume;
             chip.Clock = 7670454;
             chip.Option = null;
@@ -1249,7 +1249,7 @@ namespace MDPlayer
             chip.Start = sn76489.Start;
             chip.Stop = sn76489.Stop;
             chip.Reset = sn76489.Reset;
-            chip.SamplingRate = (UInt32)Common.SampleRate;
+            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
             chip.Volume = setting.balance.SN76489Volume;
             chip.Clock = 3579545;
             chip.Option = null;
@@ -1257,9 +1257,9 @@ namespace MDPlayer
             lstChips.Add(chip);
 
             if (mdsMIDI == null)
-                mdsMIDI = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                mdsMIDI = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
             else
-                mdsMIDI.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                mdsMIDI.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
             if (realChip == null && !emuOnly )
             {
@@ -1494,7 +1494,7 @@ namespace MDPlayer
         {
             if (setting.outputDevice.DeviceType != Common.DEV_AsioOut)
             {
-                return (int)Common.SampleRate * setting.outputDevice.Latency / 1000;
+                return (int)setting.outputDevice.SampleRate * setting.outputDevice.Latency / 1000;
             }
             return naudioWrap.getAsioLatency();
         }
@@ -1621,12 +1621,12 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.NRT)
             {
-                driverVirtual = new NRTDRV();
+                driverVirtual = new NRTDRV(setting);
                 driverVirtual.setting = setting;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new NRTDRV();
+                    driverReal = new NRTDRV(setting);
                     driverReal.setting = setting;
                 }
                 return nrdPlay(setting);
@@ -1679,12 +1679,12 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.XGM)
             {
-                driverVirtual = new xgm();
+                driverVirtual = new xgm(setting);
                 driverVirtual.setting = setting;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new xgm();
+                    driverReal = new xgm(setting);
                     driverReal.setting = setting;
                 }
 
@@ -1707,12 +1707,12 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.S98)
             {
-                driverVirtual = new S98();
+                driverVirtual = new S98(setting);
                 driverVirtual.setting = setting;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new S98();
+                    driverReal = new S98(setting);
                     driverReal.setting = setting;
                 }
 
@@ -1721,12 +1721,12 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.MID)
             {
-                driverVirtual = new MID();
+                driverVirtual = new MID(setting);
                 driverVirtual.setting = setting;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new MID();
+                    driverReal = new MID(setting);
                     driverReal.setting = setting;
                 }
                 return midPlay(setting);
@@ -1734,13 +1734,13 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.RCP)
             {
-                driverVirtual = new RCP();
+                driverVirtual = new RCP(setting);
                 driverVirtual.setting = setting;
                 ((RCP)driverVirtual).ExtendFile = ExtendFile;
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new RCP();
+                    driverReal = new RCP(setting);
                     driverReal.setting = setting;
                     ((RCP)driverReal).ExtendFile = ExtendFile;
                 }
@@ -1749,7 +1749,7 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.NSF)
             {
-                driverVirtual = new nsf();
+                driverVirtual = new nsf(setting);
                 driverVirtual.setting = setting;
                 driverReal = null;
                 //if (setting.outputDevice.DeviceType != Common.DEV_Null)
@@ -1790,7 +1790,7 @@ namespace MDPlayer
 
             if (PlayingFileFormat == EnmFileFormat.VGM)
             {
-                driverVirtual = new vgm();
+                driverVirtual = new vgm(setting);
                 driverVirtual.setting = setting;
                 ((vgm)driverVirtual).dacControl.chipRegister = chipRegister;
                 ((vgm)driverVirtual).dacControl.model = EnmModel.VirtualModel;
@@ -1799,7 +1799,7 @@ namespace MDPlayer
                 driverReal = null;
                 if (setting.outputDevice.DeviceType != Common.DEV_Null)
                 {
-                    driverReal = new vgm();
+                    driverReal = new vgm(setting);
                     driverReal.setting = setting;
                     ((vgm)driverReal).dacControl.chipRegister = chipRegister;
                     ((vgm)driverReal).dacControl.model = EnmModel.RealModel;
@@ -1876,7 +1876,7 @@ namespace MDPlayer
                     chip.Start = ay8910.Start;
                     chip.Stop = ay8910.Stop;
                     chip.Reset = ay8910.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.AY8910Volume;
                     chip.Clock = Driver.MGSDRV.MGSDRV.baseclockAY8910 / 2;
                     chip.Option = null;
@@ -1898,7 +1898,7 @@ namespace MDPlayer
                     chip.Start = ym2413.Start;
                     chip.Stop = ym2413.Stop;
                     chip.Reset = ym2413.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2413Volume;
                     chip.Clock = Driver.MGSDRV.MGSDRV.baseclockYM2413;
                     chip.Option = null;
@@ -1920,7 +1920,7 @@ namespace MDPlayer
                     chip.Start = K051649.Start;
                     chip.Stop = K051649.Stop;
                     chip.Reset = K051649.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.K051649Volume;
                     chip.Clock = Driver.MGSDRV.MGSDRV.baseclockK051649;
                     chip.Option = null;
@@ -1933,20 +1933,20 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.AY8910, EnmChip.YM2413, EnmChip.K051649 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.AY8910 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 //Play
@@ -2001,7 +2001,7 @@ namespace MDPlayer
                 chip.Start = ym2608.Start;
                 chip.Stop = ym2608.Stop;
                 chip.Reset = ym2608.Reset;
-                chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.YM2608Volume;
                 chip.Clock = Driver.MucomDotNET.baseclock;
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -2014,9 +2014,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2042,13 +2042,13 @@ namespace MDPlayer
 
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2608 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2608 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 //Play
@@ -2108,7 +2108,7 @@ namespace MDPlayer
                 chip.Start = ym2608.Start;
                 chip.Stop = ym2608.Stop;
                 chip.Reset = ym2608.Reset;
-                chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.YM2608Volume;
                 chip.Clock = Driver.PMDDotNET.baseclock;
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -2127,7 +2127,7 @@ namespace MDPlayer
                 chip.Start = ppz8.Start;
                 chip.Stop = ppz8.Stop;
                 chip.Reset = ppz8.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.PPZ8Volume;
                 chip.Clock = Driver.PMDDotNET.baseclock;
                 chip.Option = null;
@@ -2146,7 +2146,7 @@ namespace MDPlayer
                 chip.Start = ppsdrv.Start;
                 chip.Stop = ppsdrv.Stop;
                 chip.Reset = ppsdrv.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = 0;// setting.balance.PPZ8Volume;
                 chip.Clock = Driver.PMDDotNET.baseclock;
                 chip.Option = null;
@@ -2165,7 +2165,7 @@ namespace MDPlayer
                 chip.Start = P86.Start;
                 chip.Stop = P86.Stop;
                 chip.Reset = P86.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = 0;// setting.balance.P86Volume;
                 chip.Clock = Driver.PMDDotNET.baseclock;
                 chip.Option = null;
@@ -2181,9 +2181,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2209,13 +2209,13 @@ namespace MDPlayer
 
 
                 if (!driverVirtual.init(vgmBuf, fileType, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2608 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, fileType, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2608 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 //Play
@@ -2324,7 +2324,7 @@ namespace MDPlayer
                             chip.Reset = ym2151_x68sound.Reset;
                         }
 
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = 4000000;
                         chip.Option = null;
@@ -2353,7 +2353,7 @@ namespace MDPlayer
                     chip.Start = ay8910.Start;
                     chip.Stop = ay8910.Stop;
                     chip.Reset = ay8910.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.AY8910Volume;
                     chip.Clock = 2000000 / 2;
                     clockAY8910 = (int)chip.Clock;
@@ -2370,9 +2370,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2397,16 +2397,16 @@ namespace MDPlayer
                 if (driverVirtual != null)
                 {
                     driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2151, EnmChip.AY8910 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000));
                     ((NRTDRV)driverVirtual).Call(0);//
                 }
 
                 if (driverReal != null)
                 {
                     driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2151, EnmChip.AY8910 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000));
                     ((NRTDRV)driverReal).Call(0);//
                 }
 
@@ -2513,7 +2513,7 @@ namespace MDPlayer
                 chip.Start = ymf278b.Start;
                 chip.Stop = ymf278b.Stop;
                 chip.Reset = ymf278b.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.YMF278BVolume;
                 chip.Clock = 33868800;// 4000000;
                 chip.Option = new object[] { Common.GetApplicationFolder() };
@@ -2529,9 +2529,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2542,13 +2542,13 @@ namespace MDPlayer
                 //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000));
                 if (driverReal != null)
                 {
                     driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000));
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000));
                 }
 
                 Paused = false;
@@ -2614,7 +2614,7 @@ namespace MDPlayer
                     chip.Start = ym2151.Start;
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = null;
@@ -2630,7 +2630,7 @@ namespace MDPlayer
                     chip.Start = ym2151mame.Start;
                     chip.Stop = ym2151mame.Stop;
                     chip.Reset = ym2151mame.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = null;
@@ -2646,7 +2646,7 @@ namespace MDPlayer
                     chip.Start = mdxOPM.Start;
                     chip.Stop = mdxOPM.Stop;
                     chip.Reset = mdxOPM.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = new object[3] { 1, 0, 0 };
@@ -2673,9 +2673,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2693,15 +2693,15 @@ namespace MDPlayer
                 //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 bool retV = ((MDPlayer.Driver.MXDRV.MXDRV)driverVirtual).init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
                     , mdxPCM_V);
                 bool retR = true;
                 if (driverReal != null)
                 {
                     retR = ((MDPlayer.Driver.MXDRV.MXDRV)driverReal).init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
                         , mdxPCM_R);
                 }
 
@@ -2776,7 +2776,7 @@ namespace MDPlayer
                     chip.Start = ym2151.Start;
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = null;
@@ -2792,7 +2792,7 @@ namespace MDPlayer
                     chip.Start = ym2151mame.Start;
                     chip.Stop = ym2151mame.Stop;
                     chip.Reset = ym2151mame.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = null;
@@ -2808,7 +2808,7 @@ namespace MDPlayer
                     chip.Start = mdxOPM.Start;
                     chip.Stop = mdxOPM.Stop;
                     chip.Reset = mdxOPM.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
                     chip.Option = new object[3] { 1, 0, 0 };
@@ -2830,7 +2830,7 @@ namespace MDPlayer
                     chip.Start = opna.Start;
                     chip.Stop = opna.Stop;
                     chip.Reset = opna.Reset;
-                    chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 8000000;// 7987200;
                     Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -2850,7 +2850,7 @@ namespace MDPlayer
                     chip.Start = opna.Start;
                     chip.Stop = opna.Stop;
                     chip.Reset = opna.Reset;
-                    chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2608Volume;
                     chip.Clock = 8000000;// 7987200;
                     chip.Option = new object[] { Common.GetApplicationFolder() };
@@ -2868,7 +2868,7 @@ namespace MDPlayer
                 chip.Start = mpcm.Start;
                 chip.Stop = mpcm.Stop;
                 chip.Reset = mpcm.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.OKIM6258Volume;
                 chip.Clock = 15600;
                 chip.Option = new object[] { Common.GetApplicationFolder() };
@@ -2884,9 +2884,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -2942,15 +2942,15 @@ namespace MDPlayer
                     chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, EnmModel.RealModel);
 
                 bool retV = ((MDPlayer.Driver.MNDRV.mndrv)driverVirtual).init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2151, EnmChip.YM2608 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
                     );
                 bool retR = true;
                 if (driverReal != null)
                 {
                     retR = ((MDPlayer.Driver.MNDRV.mndrv)driverReal).init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2151, EnmChip.YM2608 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)
                         );
                 }
 
@@ -3077,7 +3077,7 @@ namespace MDPlayer
                     chip.Reset = ym2612mame.Reset;
                 }
 
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.YM2612Volume;
                 chip.Clock = 7670454;
                 clockYM2612 = 7670454;
@@ -3094,7 +3094,7 @@ namespace MDPlayer
                 chip.Start = sn76489.Start;
                 chip.Stop = sn76489.Stop;
                 chip.Reset = sn76489.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.SN76489Volume;
                 chip.Clock = 3579545;
                 chip.Option = null;
@@ -3106,9 +3106,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -3120,13 +3120,13 @@ namespace MDPlayer
                 //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2612, EnmChip.SN76489 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2612, EnmChip.SN76489 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
                 //Play
 
@@ -3185,8 +3185,8 @@ namespace MDPlayer
                     , chipRegister
                     , EnmModel.VirtualModel
                     , new EnmChip[] { EnmChip.YM2203 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)))
                     return false;
 
                 //MIDIに対応するまで封印
@@ -3194,8 +3194,8 @@ namespace MDPlayer
                 //    , chipRegister
                 //    , EnmModel.RealModel
                 //    , new EnmChip[] { EnmChip.YM2203 }
-                //    , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                //    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                //    , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                //    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)))
                 //    return false;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
@@ -3215,9 +3215,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -3273,13 +3273,13 @@ namespace MDPlayer
                 MasterVolume = setting.balance.MasterVolume;
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YM2203 }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2203 }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 List<S98.S98DevInfo> s98DInfo = ((S98)driverVirtual).s98Info.DeviceInfos;
@@ -3328,7 +3328,7 @@ namespace MDPlayer
                             chip.Start = ym2149.Start;
                             chip.Stop = ym2149.Stop;
                             chip.Reset = ym2149.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.AY8910Volume;
                             chip.Clock = dInfo.Clock / 4;
                             clockAY8910 = (int)chip.Clock;
@@ -3356,7 +3356,7 @@ namespace MDPlayer
                             chip.Start = ym2203.Start;
                             chip.Stop = ym2203.Stop;
                             chip.Reset = ym2203.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2203Volume;
                             chip.Clock = dInfo.Clock;
                             YM2203ClockValue = (int)chip.Clock;
@@ -3374,12 +3374,12 @@ namespace MDPlayer
                                 ym3438 = new ym3438();
                                 ym2612mame = new ym2612mame();
                                 chip.ID = 0;
-                                chipLED.PriOPN = 1;
+                                chipLED.PriOPN2 = 1;
                             }
                             else
                             {
                                 chip.ID = 1;
-                                chipLED.SecOPN = 1;
+                                chipLED.SecOPN2 = 1;
                             }
 
                             if ((chip.ID == 0 && setting.YM2612Type[0].UseEmu[0]) || (chip.ID == 1 && setting.YM2612Type[1].UseEmu[0]))
@@ -3435,7 +3435,7 @@ namespace MDPlayer
                                 chip.Reset = ym2612mame.Reset;
                             }
 
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2612Volume;
                             chip.Clock = dInfo.Clock;
                             lstChips.Add(chip);
@@ -3461,7 +3461,7 @@ namespace MDPlayer
                             chip.Start = ym2608.Start;
                             chip.Stop = ym2608.Stop;
                             chip.Reset = ym2608.Reset;
-                            chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                            chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2608Volume;
                             chip.Clock = dInfo.Clock;
                             YM2608ClockValue = (int)chip.Clock;
@@ -3515,7 +3515,7 @@ namespace MDPlayer
                                 chip.Reset = ym2151_x68sound.Reset;
                             }
 
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2151Volume;
                             chip.Clock = dInfo.Clock;
                             YM2151ClockValue = (int)chip.Clock;
@@ -3545,7 +3545,7 @@ namespace MDPlayer
                             chip.Start = ym2413.Start;
                             chip.Stop = ym2413.Stop;
                             chip.Reset = ym2413.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2413Volume;
                             chip.Clock = dInfo.Clock;
                             chip.Option = null;
@@ -3573,7 +3573,7 @@ namespace MDPlayer
                             chip.Start = ym3526.Start;
                             chip.Stop = ym3526.Stop;
                             chip.Reset = ym3526.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM3526Volume;
                             chip.Clock = dInfo.Clock;
                             chip.Option = null;
@@ -3601,7 +3601,7 @@ namespace MDPlayer
                             chip.Start = ym3812.Start;
                             chip.Stop = ym3812.Stop;
                             chip.Reset = ym3812.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM3812Volume;
                             chip.Clock = dInfo.Clock;
                             chip.Option = null;
@@ -3629,7 +3629,7 @@ namespace MDPlayer
                             chip.Start = ymf262.Start;
                             chip.Stop = ymf262.Stop;
                             chip.Reset = ymf262.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YMF262Volume;
                             chip.Clock = dInfo.Clock;
                             YMF262ClockValue = (int)chip.Clock;
@@ -3658,7 +3658,7 @@ namespace MDPlayer
                             chip.Start = ay8910.Start;
                             chip.Stop = ay8910.Stop;
                             chip.Reset = ay8910.Reset;
-                            chip.SamplingRate = (UInt32)Common.SampleRate;
+                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.AY8910Volume;
                             chip.Clock = dInfo.Clock;
                             clockAY8910 = (int)chip.Clock;
@@ -3675,9 +3675,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -3831,13 +3831,13 @@ namespace MDPlayer
                 chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
@@ -3906,13 +3906,13 @@ namespace MDPlayer
                 chipRegister.setMIDIout(setting.midiOut.lstMidiOutInfo[MidiMode], midiOuts, midiOutsType);
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
@@ -3977,14 +3977,14 @@ namespace MDPlayer
 
                 ((nsf)driverVirtual).song = SongNo;
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     ((nsf)driverReal).song = SongNo;
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 if (((nsf)driverVirtual).use_fds) chipLED.PriFDS = 1;
@@ -4006,7 +4006,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.APUVolume;
                 chip.Clock = 0;
                 chip.Option = null;
@@ -4022,7 +4022,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.DMCVolume;
@@ -4038,7 +4038,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.FDSVolume;
@@ -4054,7 +4054,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.MMC5Volume;
@@ -4070,7 +4070,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.N160Volume;
@@ -4086,7 +4086,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.VRC6Volume;
@@ -4102,7 +4102,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.VRC7Volume;
@@ -4118,7 +4118,7 @@ namespace MDPlayer
                 chip.Start = nes.Start;
                 chip.Stop = nes.Stop;
                 chip.Reset = nes.Reset;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Clock = 0;
                 chip.Option = null;
                 chip.Volume = setting.balance.FME7Volume;
@@ -4130,9 +4130,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegisterNSF(lstChips.ToArray());
 
@@ -4208,7 +4208,7 @@ namespace MDPlayer
                 chip.Stop = huc.Stop;
                 chip.Reset = huc.Reset;
                 chip.AdditionalUpdate = ((hes)driverVirtual).AdditionalUpdate;
-                chip.SamplingRate = (UInt32)Common.SampleRate;
+                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                 chip.Volume = setting.balance.HuC6280Volume;
                 chip.Clock = 3579545;
                 chip.Option = null;
@@ -4220,22 +4220,22 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
                 ((hes)driverVirtual).song = (byte)SongNo;
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     ((hes)driverReal).song = (byte)SongNo;
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
                 //Play
 
@@ -4296,14 +4296,14 @@ namespace MDPlayer
 
                 ((Driver.SID.sid)driverVirtual).song = (byte)SongNo + 1;
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 if (driverReal != null)
                 {
                     ((Driver.SID.sid)driverReal).song = (byte)SongNo + 1;
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.Unuse }
-                        , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                        , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
                 }
 
                 Paused = false;
@@ -4364,16 +4364,16 @@ namespace MDPlayer
                     , chipRegister
                     , EnmModel.VirtualModel
                     , new EnmChip[] { EnmChip.YM2203 }// usechip.ToArray()
-                    , (uint)(Common.SampleRate * setting.LatencyEmulation / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)))
                     return false;
 
                 if (driverReal != null && !driverReal.init(vgmBuf
                     , chipRegister
                     , EnmModel.RealModel
                     , new EnmChip[]{ EnmChip.YM2203 }// usechip.ToArray()
-                    , (uint)(Common.SampleRate * setting.LatencySCCI / 1000)
-                    , (uint)(Common.SampleRate * setting.outputDevice.WaitTime / 1000)))
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)))
                     return false;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
@@ -4418,7 +4418,7 @@ namespace MDPlayer
                             chip.Option = ((vgm)driverVirtual).SN76489Option;
                         }
 
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.SN76489Volume;
                         chip.Clock = ((vgm)driverVirtual).SN76489ClockValue
                             | (((vgm)driverVirtual).SN76489NGPFlag ? 0x80000000 : 0);
@@ -4504,7 +4504,7 @@ namespace MDPlayer
                             chip.Reset = ym2612mame.Reset;
                         }
 
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2612Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2612ClockValue;
                         clockYM2612 = (int)((vgm)driverVirtual).YM2612ClockValue;
@@ -4535,7 +4535,7 @@ namespace MDPlayer
                         chip.Start = rf5c68.Start;
                         chip.Stop = rf5c68.Stop;
                         chip.Reset = rf5c68.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.RF5C68Volume;
                         chip.Clock = ((vgm)driverVirtual).RF5C68ClockValue;
                         chip.Option = null;
@@ -4564,7 +4564,7 @@ namespace MDPlayer
                         chip.Start = rf5c164.Start;
                         chip.Stop = rf5c164.Stop;
                         chip.Reset = rf5c164.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.RF5C164Volume;
                         chip.Clock = ((vgm)driverVirtual).RF5C164ClockValue;
                         chip.Option = null;
@@ -4590,7 +4590,7 @@ namespace MDPlayer
                     chip.Start = pwm.Start;
                     chip.Stop = pwm.Stop;
                     chip.Reset = pwm.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.PWMVolume;
                     chip.Clock = ((vgm)driverVirtual).PWMClockValue;
                     chip.Option = null;
@@ -4616,7 +4616,7 @@ namespace MDPlayer
                         chip.Start = c140.Start;
                         chip.Stop = c140.Stop;
                         chip.Reset = c140.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.C140Volume;
                         chip.Clock = ((vgm)driverVirtual).C140ClockValue;
                         chip.Option = new object[1] { ((vgm)driverVirtual).C140Type };
@@ -4644,7 +4644,7 @@ namespace MDPlayer
                         chip.Start = multipcm.Start;
                         chip.Stop = multipcm.Stop;
                         chip.Reset = multipcm.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.MultiPCMVolume;
                         chip.Clock = ((vgm)driverVirtual).MultiPCMClockValue;
                         chip.Option = null;
@@ -4670,7 +4670,7 @@ namespace MDPlayer
                     chip.Start = okim6258.Start;
                     chip.Stop = okim6258.Stop;
                     chip.Reset = okim6258.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.OKIM6258Volume;
                     chip.Clock = ((vgm)driverVirtual).OKIM6258ClockValue;
                     chip.Option = new object[1] { (int)((vgm)driverVirtual).OKIM6258Type };
@@ -4698,7 +4698,7 @@ namespace MDPlayer
                         chip.Start = okim6295.Start;
                         chip.Stop = okim6295.Stop;
                         chip.Reset = okim6295.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.OKIM6295Volume;
                         chip.Clock = ((vgm)driverVirtual).OKIM6295ClockValue;
                         chip.Option = null;
@@ -4725,7 +4725,7 @@ namespace MDPlayer
                     chip.Start = segapcm.Start;
                     chip.Stop = segapcm.Stop;
                     chip.Reset = segapcm.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.SEGAPCMVolume;
                     chip.Clock = ((vgm)driverVirtual).SEGAPCMClockValue;
                     chip.Option = new object[1] { ((vgm)driverVirtual).SEGAPCMInterface };
@@ -4751,7 +4751,7 @@ namespace MDPlayer
                         chip.Start = ym2608.Start;
                         chip.Stop = ym2608.Stop;
                         chip.Reset = ym2608.Reset;
-                        chip.SamplingRate = 55467;// (UInt32)Common.SampleRate;
+                        chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2608Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2608ClockValue;
                         Func<string, Stream> fn = Common.GetOPNARyhthmStream;
@@ -4808,7 +4808,7 @@ namespace MDPlayer
                             chip.Reset = ym2151_x68sound.Reset;
                         }
 
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2151ClockValue;
                         chip.Option = null;
@@ -4838,7 +4838,7 @@ namespace MDPlayer
                         chip.Start = ym2203.Start;
                         chip.Stop = ym2203.Stop;
                         chip.Reset = ym2203.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2203Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2203ClockValue;
                         chip.Option = null;
@@ -4868,7 +4868,7 @@ namespace MDPlayer
                         chip.Start = ym2610.Start;
                         chip.Stop = ym2610.Stop;
                         chip.Reset = ym2610.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2610Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2610ClockValue & 0x7fffffff;
                         chip.Option = null;
@@ -4896,7 +4896,7 @@ namespace MDPlayer
                         chip.Start = ym3812.Start;
                         chip.Stop = ym3812.Stop;
                         chip.Reset = ym3812.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM3812Volume;
                         chip.Clock = ((vgm)driverVirtual).YM3812ClockValue & 0x7fffffff;
                         chip.Option = null;
@@ -4924,7 +4924,7 @@ namespace MDPlayer
                         chip.Start = ymf262.Start;
                         chip.Stop = ymf262.Stop;
                         chip.Reset = ymf262.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YMF262Volume;
                         chip.Clock = ((vgm)driverVirtual).YMF262ClockValue & 0x7fffffff;
                         chip.Option = null;
@@ -4952,7 +4952,7 @@ namespace MDPlayer
                         chip.Start = ymf271.Start;
                         chip.Stop = ymf271.Stop;
                         chip.Reset = ymf271.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YMF271Volume;
                         chip.Clock = ((vgm)driverVirtual).YMF271ClockValue & 0x7fffffff;
                         chip.Option = null;
@@ -4980,7 +4980,7 @@ namespace MDPlayer
                         chip.Start = ymf278b.Start;
                         chip.Stop = ymf278b.Stop;
                         chip.Reset = ymf278b.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YMF278BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMF278BClockValue & 0x7fffffff;
                         chip.Option = new object[] { Common.GetApplicationFolder() };
@@ -5008,7 +5008,7 @@ namespace MDPlayer
                         chip.Start = ymz280b.Start;
                         chip.Stop = ymz280b.Stop;
                         chip.Reset = ymz280b.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YMZ280BVolume;
                         chip.Clock = ((vgm)driverVirtual).YMZ280BClockValue & 0x7fffffff;
                         chip.Option = null;
@@ -5036,7 +5036,7 @@ namespace MDPlayer
                         chip.Start = ay8910.Start;
                         chip.Stop = ay8910.Stop;
                         chip.Reset = ay8910.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.AY8910Volume;
                         chip.Clock = (((vgm)driverVirtual).AY8910ClockValue & 0x7fffffff) / 2;
                         clockAY8910 = (int)chip.Clock;
@@ -5074,7 +5074,7 @@ namespace MDPlayer
                         chip.Start = opll.Start;
                         chip.Stop = opll.Stop;
                         chip.Reset = opll.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2413Volume;
                         chip.Clock = (((vgm)driverVirtual).YM2413ClockValue & 0x7fffffff);
                         chip.Option = null;
@@ -5102,7 +5102,7 @@ namespace MDPlayer
                         chip.Start = huc6280.Start;
                         chip.Stop = huc6280.Stop;
                         chip.Reset = huc6280.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.HuC6280Volume;
                         chip.Clock = (((vgm)driverVirtual).HuC6280ClockValue & 0x7fffffff);
                         chip.Option = null;
@@ -5128,7 +5128,7 @@ namespace MDPlayer
                     chip.Start = qsound.Start;
                     chip.Stop = qsound.Stop;
                     chip.Reset = qsound.Reset;
-                    chip.SamplingRate = (UInt32)Common.SampleRate;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.QSoundVolume;
                     chip.Clock = (((vgm)driverVirtual).QSoundClockValue);// & 0x7fffffff);
                     chip.Option = null;
@@ -5156,7 +5156,7 @@ namespace MDPlayer
                         chip.Start = saa1099.Start;
                         chip.Stop = saa1099.Stop;
                         chip.Reset = saa1099.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.SAA1099Volume;
                         chip.Clock = (((vgm)driverVirtual).SAA1099ClockValue & 0x3fffffff);
                         hiyorimiDeviceFlag |= 0x2;
@@ -5182,7 +5182,7 @@ namespace MDPlayer
                         chip.Start = pokey.Start;
                         chip.Stop = pokey.Stop;
                         chip.Reset = pokey.Reset;
-                        chip.SamplingRate = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);// (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);// (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.POKEYVolume;
                         chip.Clock = (((vgm)driverVirtual).POKEYClockValue & 0x3fffffff);
                         hiyorimiDeviceFlag |= 0x2;
@@ -5208,7 +5208,7 @@ namespace MDPlayer
                         chip.Start = X1_010.Start;
                         chip.Stop = X1_010.Stop;
                         chip.Reset = X1_010.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.X1_010Volume;
                         chip.Clock = (((vgm)driverVirtual).X1_010ClockValue & 0x3fffffff);
                         hiyorimiDeviceFlag |= 0x2;
@@ -5234,7 +5234,7 @@ namespace MDPlayer
                         chip.Start = c352.Start;
                         chip.Stop = c352.Stop;
                         chip.Reset = c352.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.C352Volume;
                         chip.Clock = (((vgm)driverVirtual).C352ClockValue & 0x7fffffff);
                         chip.Option = new object[1] { (((vgm)driverVirtual).C352ClockDivider) };
@@ -5264,7 +5264,7 @@ namespace MDPlayer
                         chip.Start = ga20.Start;
                         chip.Stop = ga20.Stop;
                         chip.Reset = ga20.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.GA20Volume;
                         chip.Clock = (((vgm)driverVirtual).GA20ClockValue & 0x7fffffff);
                         chip.Option = null;
@@ -5292,7 +5292,7 @@ namespace MDPlayer
                         chip.Start = k053260.Start;
                         chip.Stop = k053260.Stop;
                         chip.Reset = k053260.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.K053260Volume;
                         chip.Clock = ((vgm)driverVirtual).K053260ClockValue;
                         chip.Option = null;
@@ -5320,7 +5320,7 @@ namespace MDPlayer
                         chip.Start = k054539.Start;
                         chip.Stop = k054539.Stop;
                         chip.Reset = k054539.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.K054539Volume;
                         chip.Clock = ((vgm)driverVirtual).K054539ClockValue;
                         chip.Option = null;
@@ -5348,7 +5348,7 @@ namespace MDPlayer
                         chip.Start = k051649.Start;
                         chip.Stop = k051649.Stop;
                         chip.Reset = k051649.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.K051649Volume;
                         chip.Clock = ((vgm)driverVirtual).K051649ClockValue;
                         clockK051649 = (int)chip.Clock;
@@ -5377,7 +5377,7 @@ namespace MDPlayer
                         chip.Start = ym3526.Start;
                         chip.Stop = ym3526.Stop;
                         chip.Reset = ym3526.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM3526Volume;
                         chip.Clock = ((vgm)driverVirtual).YM3526ClockValue;
                         chip.Option = null;
@@ -5405,7 +5405,7 @@ namespace MDPlayer
                         chip.Start = y8950.Start;
                         chip.Stop = y8950.Stop;
                         chip.Reset = y8950.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.Y8950Volume;
                         chip.Clock = ((vgm)driverVirtual).Y8950ClockValue;
                         chip.Option = null;
@@ -5433,7 +5433,7 @@ namespace MDPlayer
                         chip.Start = dmg.Start;
                         chip.Stop = dmg.Stop;
                         chip.Reset = dmg.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.DMGVolume;
                         chip.Clock = ((vgm)driverVirtual).DMGClockValue;
                         chip.Option = null;
@@ -5461,7 +5461,7 @@ namespace MDPlayer
                         chip.Start = nes.Start;
                         chip.Stop = nes.Stop;
                         chip.Reset = nes.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.APUVolume;
                         chip.Clock = ((vgm)driverVirtual).NESClockValue;
                         chip.Option = null;
@@ -5479,7 +5479,7 @@ namespace MDPlayer
                         chip.Start = nes.Start;
                         chip.Stop = nes.Stop;
                         chip.Reset = nes.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.DMCVolume;
                         chip.Clock = ((vgm)driverVirtual).NESClockValue;
                         chip.Option = null;
@@ -5498,7 +5498,7 @@ namespace MDPlayer
                         chip.Start = nes.Start;
                         chip.Stop = nes.Stop;
                         chip.Reset = nes.Reset;
-                        chip.SamplingRate = (UInt32)Common.SampleRate;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.FDSVolume;
                         chip.Clock = ((vgm)driverVirtual).NESClockValue;
                         chip.Option = null;
@@ -5518,9 +5518,9 @@ namespace MDPlayer
                 else hiyorimiNecessary = false;
 
                 if (mds == null)
-                    mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
                 else
-                    mds.Init((UInt32)Common.SampleRate, samplingBuffer, lstChips.ToArray());
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
@@ -5710,11 +5710,11 @@ namespace MDPlayer
 
             // quick and dirty hack to make sample rate changes work
             CAA.SamplingRate = (uint)NewSmplRate;
-            if (CAA.SamplingRate < Common.SampleRate)//SampleRate)
+            if (CAA.SamplingRate < setting.outputDevice.SampleRate)//SampleRate)
                 CAA.Resampler = 0x01;
-            else if (CAA.SamplingRate == Common.SampleRate)//SampleRate)
+            else if (CAA.SamplingRate == setting.outputDevice.SampleRate)//SampleRate)
                 CAA.Resampler = 0x02;
-            else if (CAA.SamplingRate > Common.SampleRate)//SampleRate)
+            else if (CAA.SamplingRate > setting.outputDevice.SampleRate)//SampleRate)
                 CAA.Resampler = 0x03;
             CAA.SmpP = 1;
             CAA.SmpNext -= CAA.SmpLast;
@@ -6204,7 +6204,7 @@ namespace MDPlayer
             }
 
             double o = sw.ElapsedTicks / swFreq;
-            double step = 1 / (double)Common.SampleRate;
+            double step = 1 / (double)setting.outputDevice.SampleRate;
             trdStopped = false;
             try
             {
@@ -6214,7 +6214,7 @@ namespace MDPlayer
 
                     double el1 = sw.ElapsedTicks / swFreq;
                     if (el1 - o < step) continue;
-                    if (el1 - o >= step * Common.SampleRate / 100.0)//閾値10ms
+                    if (el1 - o >= step * setting.outputDevice.SampleRate / 100.0)//閾値10ms
                     {
                         do
                         {
@@ -6290,7 +6290,7 @@ namespace MDPlayer
                     {
                         //long v;
                         //v = driverReal.vgmFrameCounter - driverVirtual.vgmFrameCounter;
-                        //long d = common.SampleRate * (setting.LatencySCCI - common.SampleRate * setting.LatencyEmulation) / 1000;
+                        //long d = setting.outputDevice.SampleRate * (setting.LatencySCCI - setting.outputDevice.SampleRate * setting.LatencyEmulation) / 1000;
                         //long l = getLatency() / 4;
 
                         //int m = 0;
@@ -6301,13 +6301,13 @@ namespace MDPlayer
                         //}
                         //else
                         //{
-                        //    d = Math.Abs(common.SampleRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
+                        //    d = Math.Abs(setting.outputDevice.SampleRate * ((uint)setting.LatencyEmulation - (uint)setting.LatencySCCI) / 1000);
                         //    if (v >= d - l && v <= d + l) m = 0;
                         //    else m = (v - d > l) ? 1 : 2;
                         //}
 
-                        double dEMU = Common.SampleRate * setting.LatencyEmulation / 1000.0;
-                        double dSCCI = Common.SampleRate * setting.LatencySCCI / 1000.0;
+                        double dEMU = setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000.0;
+                        double dSCCI = setting.outputDevice.SampleRate * setting.LatencySCCI / 1000.0;
                         double abs = Math.Abs((driverReal.vgmFrameCounter - dSCCI) - (driverVirtual.vgmFrameCounter - dEMU));
                         int m = 0;
                         long l = getLatency() / 10;
@@ -6512,9 +6512,9 @@ namespace MDPlayer
                         waveWriter.Close();
 
                         if (mds == null)
-                            mds = new MDSound.MDSound((UInt32)Common.SampleRate, samplingBuffer, null);
+                            mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, null);
                         else
-                            mds.Init((UInt32)Common.SampleRate, samplingBuffer, null);
+                            mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, null);
 
 
                         chipRegister.Close();

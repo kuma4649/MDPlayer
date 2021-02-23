@@ -54,10 +54,10 @@ namespace MDPlayer
             // チャンネル数(ステレオ)
             des.Add(0x02); des.Add(0x00);
             //サンプリング周波数(44100Hz)
-            des.Add((byte)(Common.SampleRate >> 0));
-            des.Add((byte)(Common.SampleRate >> 8));
-            des.Add((byte)(Common.SampleRate >> 16));
-            des.Add((byte)(Common.SampleRate >> 24));
+            des.Add((byte)(setting.outputDevice.SampleRate >> 0));
+            des.Add((byte)(setting.outputDevice.SampleRate >> 8));
+            des.Add((byte)(setting.outputDevice.SampleRate >> 16));
+            des.Add((byte)(setting.outputDevice.SampleRate >> 24));
             //平均データ割合
             des.Add(0x10); des.Add(0xb1); des.Add(0x02); des.Add(0); //10 B1 02 00
             //ブロックサイズ(4)

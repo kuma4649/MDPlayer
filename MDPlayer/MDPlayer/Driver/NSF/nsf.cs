@@ -12,6 +12,12 @@ namespace MDPlayer
 {
     public class nsf : baseDriver
     {
+        private Setting setting;
+        public nsf(Setting setting)
+        {
+            this.setting = setting;
+            rate = setting.outputDevice.SampleRate;
+        }
 
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
@@ -253,9 +259,9 @@ namespace MDPlayer
         public MDSound.MDSound.Chip cFME7 = null;
 
         private NESDetector ld = null;
-//        private NESDetectorEx ld = null;
+        //        private NESDetectorEx ld = null;
 
-        private double rate = Common.SampleRate;
+        private double rate = 1;// setting.outputDevice.SampleRate;
         private double cpu_clock_rest;
         private double apu_clock_rest;
         private Int32 time_in_ms;
@@ -276,27 +282,27 @@ namespace MDPlayer
             chipRegister.nes_fme7 = new nes_fme7();
             chipRegister.nes_vrc7 = new nes_vrc7();
 
-            chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(Common.NsfClock, Common.SampleRate);
+            chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_apu.Reset();
-            chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(Common.NsfClock, Common.SampleRate);
+            chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_dmc.Reset();
-            chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(Common.NsfClock, Common.SampleRate);
+            chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_fds.Reset();
             chipRegister.nes_n106.SetClock(Common.NsfClock);
-            chipRegister.nes_n106.SetRate(Common.SampleRate);
+            chipRegister.nes_n106.SetRate(setting.outputDevice.SampleRate);
             chipRegister.nes_n106.Reset();
             chipRegister.nes_vrc6.SetClock(Common.NsfClock);
-            chipRegister.nes_vrc6.SetRate(Common.SampleRate);
+            chipRegister.nes_vrc6.SetRate(setting.outputDevice.SampleRate);
             chipRegister.nes_vrc6.Reset();
             chipRegister.nes_mmc5.SetClock(Common.NsfClock);
-            chipRegister.nes_mmc5.SetRate(Common.SampleRate);
+            chipRegister.nes_mmc5.SetRate(setting.outputDevice.SampleRate);
             chipRegister.nes_mmc5.Reset();
             chipRegister.nes_mmc5.SetCPU(chipRegister.nes_cpu);
             chipRegister.nes_fme7.SetClock(Common.NsfClock);
-            chipRegister.nes_fme7.SetRate(Common.SampleRate);
+            chipRegister.nes_fme7.SetRate(setting.outputDevice.SampleRate);
             chipRegister.nes_fme7.Reset();
             chipRegister.nes_vrc7.SetClock(Common.NsfClock);
-            chipRegister.nes_vrc7.SetRate(Common.SampleRate);
+            chipRegister.nes_vrc7.SetRate(setting.outputDevice.SampleRate);
             chipRegister.nes_vrc7.Reset();
 
             chipRegister.nes_dmc.dmc.nes_apu = chipRegister.nes_apu.apu;
@@ -308,9 +314,9 @@ namespace MDPlayer
 
             dcf = new DCFilter();
             lpf = new Filter();
-            lpf.SetRate(Common.SampleRate);
+            lpf.SetRate(setting.outputDevice.SampleRate);
             lpf.Reset();
-            dcf.SetRate(Common.SampleRate);
+            dcf.SetRate(setting.outputDevice.SampleRate);
             dcf.Reset();
             dcf.SetParam(270, 256 - setting.nsf.HPF);//HPF:256-(Range0-256(Def:92))
             lpf.SetParam(4700.0, setting.nsf.LPF); //LPF:(Range 0-400(Def:112))
@@ -664,18 +670,18 @@ namespace MDPlayer
             if (ld.IsLooped(time_in_ms, 30000, 5000) && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * Common.SampleRate / 1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * setting.outputDevice.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
-                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * Common.SampleRate / 1000L);
+                LoopCounter = (long)((ld.GetLoopEnd()- ld.GetLoopStart()) * setting.outputDevice.SampleRate / 1000L);
             }
         }
 
         public void DetectSilent()
         {
-            if (silent_length> Common.SampleRate * 3 && !playtime_detected)
+            if (silent_length> setting.outputDevice.SampleRate * 3 && !playtime_detected)
             {
                 playtime_detected = true;
-                TotalCounter = (long)(ld.GetLoopEnd() * Common.SampleRate / 1000L);
+                TotalCounter = (long)(ld.GetLoopEnd() * setting.outputDevice.SampleRate / 1000L);
                 if (TotalCounter == 0) TotalCounter = Counter;
                 LoopCounter = 0;
                 Stopped = true;

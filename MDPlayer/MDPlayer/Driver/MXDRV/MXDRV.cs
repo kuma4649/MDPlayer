@@ -98,7 +98,7 @@ namespace MDPlayer.Driver.MXDRV
             //if (!string.IsNullOrEmpty(pdxFileName) && pdx == null) return false;
 
             //int ret;
-            //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0);
+            //ret = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0);
 
             //UInt32 memind = (UInt32)mm.mm.Length;
             //mdxPtr = memind;
@@ -172,12 +172,12 @@ namespace MDPlayer.Driver.MXDRV
             int ret;
             if (model == EnmModel.VirtualModel)
             {
-                //ret = MXDRV_Start(common.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
-                ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
+                //ret = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, 64 * 1024, 1024 * 1024, 0, -1, model == enmModel.VirtualModel ? 1 : -1);
+                ret = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, 1);
             }
             else
             {
-                ret = MXDRV_Start(Common.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
+                ret = MXDRV_Start(setting.outputDevice.SampleRate, 0, 0, 0, mdxsize, pdxsize, 0, -1, -1);
             }
             UInt32 memind = (UInt32)mm.mm.Length;
             mdxPtr = memind;
@@ -192,7 +192,7 @@ namespace MDPlayer.Driver.MXDRV
 
             uint playtime=MXDRV_MeasurePlayTime(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr, 1, depend.TRUE);
             //Console.WriteLine("({0}:{1:d02}) {2}", playtime / 1000 / 60, playtime / 1000 % 60, "");
-            TotalCounter = playtime * Common.SampleRate/1000;
+            TotalCounter = playtime * setting.outputDevice.SampleRate/1000;
             TerminatePlay = false;
             MXDRV_Play(mdx, mdxsize, mdxPtr, pdx, pdxsize, pdxPtr);
 

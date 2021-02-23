@@ -185,8 +185,8 @@ namespace MDPlayer.Driver.MNDRV
             devpsgemu = new devpsgemu();
             devrhy = new devrhy();
             interrupt = new interrupt();
-            timerOPM = new FMTimer(true, null, 4000000);
-            timerOPN = new FMTimer(false, null, 8000000);
+            timerOPM = new FMTimer(true, null, 4000000, setting);
+            timerOPN = new FMTimer(false, null, 8000000, setting);
 
             comanalyze.reg = reg;
             comanalyze.ab = ab;

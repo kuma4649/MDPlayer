@@ -4453,7 +4453,7 @@ namespace MDPlayer.form
         {
 
             long w = Audio.GetCounter();
-            double sec = (double)w / (double)Common.SampleRate;
+            double sec = (double)w / (double)setting.outputDevice.SampleRate;
             newParam.Cminutes = (int)(sec / 60);
             sec -= newParam.Cminutes * 60;
             newParam.Csecond = (int)sec;
@@ -4461,7 +4461,7 @@ namespace MDPlayer.form
             newParam.Cmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetTotalCounter();
-            sec = (double)w / (double)Common.SampleRate;
+            sec = (double)w / (double)setting.outputDevice.SampleRate;
             newParam.TCminutes = (int)(sec / 60);
             sec -= newParam.TCminutes * 60;
             newParam.TCsecond = (int)sec;
@@ -4469,7 +4469,7 @@ namespace MDPlayer.form
             newParam.TCmillisecond = (int)(sec * 100.0);
 
             w = Audio.GetLoopCounter();
-            sec = (double)w / (double)Common.SampleRate;
+            sec = (double)w / (double)setting.outputDevice.SampleRate;
             newParam.LCminutes = (int)(sec / 60);
             sec -= newParam.LCminutes * 60;
             newParam.LCsecond = (int)sec;

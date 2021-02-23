@@ -8,14 +8,22 @@ namespace MDPlayer
 {
     public class MID : baseDriver
     {
-        public const int FCC_MID = 0x6468544d;
+        private Setting setting;
+
+        public MID(Setting setting)
+        {
+            this.setting = setting;
+            musicStep = setting.outputDevice.SampleRate / 60.0;
+        }
+
+    public const int FCC_MID = 0x6468544d;
         public const int FCC_TRK = 0x6b72544d;
         public uint format = 0;
         public uint trkCount = 0;
         public uint reso = 196;
 
         private double oneSyncTime = 0.0001;
-        private double musicStep = Common.SampleRate / 60.0;
+        private double musicStep = 0;// setting.outputDevice.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
 
         private List<RCP.CtlSysex>[] beforeSend = null;
@@ -274,7 +282,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = Common.SampleRate * oneSyncTime;
+                musicStep = setting.outputDevice.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

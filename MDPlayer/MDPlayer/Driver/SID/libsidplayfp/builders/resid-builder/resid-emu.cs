@@ -41,6 +41,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
 
     public sealed class ReSID : sidemu
     {
+
         public reSID.SID getSID() { return m_sid; }
 
         private reSID.SID m_sid;
@@ -123,9 +124,9 @@ namespace Driver.libsidplayfp.builders.resid_builder
             return credits;
         }
 
-        public ReSID(libsidplayfp.sidplayfp.sidbuilder builder) : base(builder)
+        public ReSID(libsidplayfp.sidplayfp.sidbuilder builder,MDPlayer.Setting setting) : base(builder)
         {
-            m_sid = new reSID.SID();
+            m_sid = new reSID.SID(setting);
             m_voiceMask = 0x07;
             m_buffer = new short[(int)libsidplayfp.sidemu.output.OUTPUTBUFFERSIZE];
             reset(0);

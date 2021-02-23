@@ -62,6 +62,13 @@ namespace Driver.libsidplayfp
 : testEnv
     //#endif
     {
+        private MDPlayer.Setting setting;
+        public Player(MDPlayer.Setting setting)
+        {
+            this.setting = setting;
+            m_cfg = new sidplayfp.SidConfig(setting);
+        }
+
         private enum state_t
         {
             STOPPED,
@@ -83,7 +90,7 @@ namespace Driver.libsidplayfp
         private SidInfoImpl m_info=new SidInfoImpl();
 
         /// User Configuration Settings
-        private sidplayfp.SidConfig m_cfg=new sidplayfp.SidConfig();
+        private sidplayfp.SidConfig m_cfg = null;
 
         /// Error message
         private string m_errorString;

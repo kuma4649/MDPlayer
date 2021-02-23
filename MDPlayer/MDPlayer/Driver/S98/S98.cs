@@ -8,6 +8,13 @@ namespace MDPlayer
 {
     public class S98 : baseDriver
     {
+        private Setting setting;
+        public S98(Setting setting)
+        {
+            this.setting = setting;
+            musicStep = setting.outputDevice.SampleRate / 60.0;
+        }
+
         public const int FCC_S98 = 0x00383953;	// "S98 "
         public const int FCC_BOM = 0x00BFBBEF;	// BOM
 
@@ -15,7 +22,7 @@ namespace MDPlayer
         private List<string> chips = null;
         private uint musicPtr = 0;
         private double oneSyncTime;
-        private double musicStep = Common.SampleRate / 60.0;
+        private double musicStep = 1;// setting.outputDevice.SampleRate / 60.0;
         private double musicDownCounter = 0.0;
         private int s98WaitCounter;
         public int SSGVolumeFromTAG = -1;
@@ -399,7 +406,7 @@ namespace MDPlayer
                 Counter++;
                 vgmFrameCounter++;
 
-                musicStep = Common.SampleRate * oneSyncTime;
+                musicStep = setting.outputDevice.SampleRate * oneSyncTime;
 
                 if (musicDownCounter <= 0.0)
                 {

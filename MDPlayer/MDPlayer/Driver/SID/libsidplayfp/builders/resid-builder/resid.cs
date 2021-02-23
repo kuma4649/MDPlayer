@@ -37,9 +37,11 @@ namespace Driver.libsidplayfp.builders.resid_builder
 
         //# include "sidplayfp/sidbuilder.h"
         //# include "sidplayfp/siddefs.h"
+        private MDPlayer.Setting setting;
 
-        public ReSIDBuilder(string name) : base(name)
+        public ReSIDBuilder(string name,MDPlayer.Setting setting) : base(name)
         {
+            this.setting = setting;
         }
         //~ReSIDBuilder() { }
 
@@ -122,7 +124,7 @@ namespace Driver.libsidplayfp.builders.resid_builder
             {
                 try
                 {
-                    sidobjs.Add(new ReSID(this));
+                    sidobjs.Add(new ReSID(this, setting));
                 }
                 // Memory alloc failed?
                 catch //(bad_alloc )

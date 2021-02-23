@@ -242,7 +242,7 @@ namespace MDPlayer.Driver.MoonDriver
                 if (ntscCounter <= 0)
                 {
                     EntryPoints(0x4003);
-                    ntscStep = Common.SampleRate / 60.0;
+                    ntscStep = setting.outputDevice.SampleRate / 60.0;
                     ntscCounter += ntscStep;
                 }
             }

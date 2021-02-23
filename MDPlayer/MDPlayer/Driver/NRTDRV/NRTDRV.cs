@@ -9,6 +9,13 @@ namespace MDPlayer
 {
     public class NRTDRV : baseDriver
     {
+        private Setting setting;
+        public NRTDRV(Setting setting)
+        {
+            this.setting = setting;
+            CTCStep = 4000000.0f / setting.outputDevice.SampleRate;
+            CTC1Step = 4000000.0f / (UInt32)setting.outputDevice.SampleRate;
+        }
 
         private byte[] ram;
         public Work work = new Work();
@@ -473,8 +480,8 @@ namespace MDPlayer
         private float CTC3DownCounter = 0.0f;
         private float CTC3DownCounterMAX = 0.0f;
         //private bool CTC3Paluse = false;
-        private float CTCStep = 4000000.0f / Common.SampleRate;
-        private float CTC1Step = 4000000.0f / (UInt32)Common.SampleRate;
+        private float CTCStep = 4000000.0f / 1;// setting.outputDevice.SampleRate;
+        private float CTC1Step = 4000000.0f / 1;// (UInt32)setting.outputDevice.SampleRate;
 
         public override void oneFrameProc()
         {

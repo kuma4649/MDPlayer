@@ -9,6 +9,12 @@ namespace MDPlayer
 {
     public class m_hes
     {
+        private Setting setting;
+        public m_hes(Setting setting)
+        {
+            this.setting = setting;
+        }
+
         private kmevent kmevent = new kmevent();
         private km6280 km6280 = new km6280();
         public class NEZ_PLAY
@@ -558,7 +564,7 @@ namespace MDPlayer
             HESHES THIS_ = pNezPlay.heshes;
             UInt32 i, initbreak;
             //UInt32 freq = NESAudioFrequencyGet(pNezPlay);
-            UInt32 freq = (uint)Common.SampleRate;
+            UInt32 freq = (uint)setting.outputDevice.SampleRate;
 
             //THIS_.hessnd.reset(THIS_.hessnd.ctx, HES_BASECYCLES, freq);
             THIS_.hespcm.reset(THIS_.hespcm.ctx, HES_BASECYCLES, freq);

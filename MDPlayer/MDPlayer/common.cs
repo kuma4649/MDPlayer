@@ -17,7 +17,7 @@ namespace MDPlayer
         public const int DEV_SPPCM = 4;
         public const int DEV_Null = 5;
 
-        public static Int32 SampleRate = 44100;//55467;
+//        public static Int32 SampleRate = 44100;//55467;
         public static Int32 NsfClock = 1789773;
         public static string settingFilePath = "";
         public static string playingFilePath = "";

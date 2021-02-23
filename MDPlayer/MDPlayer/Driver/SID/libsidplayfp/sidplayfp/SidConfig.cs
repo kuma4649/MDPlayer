@@ -75,7 +75,7 @@ namespace Driver.libsidplayfp.sidplayfp
             RESAMPLE_INTERPOLATE
         }
 
-        public UInt32 DEFAULT_SAMPLING_FREQ = (uint)Common.SampleRate;
+        public UInt32 DEFAULT_SAMPLING_FREQ = 1;// (uint)setting.outputDevice.SampleRate;
 
         /**
          * Intended c64 model when unknown or forced.
@@ -190,8 +190,9 @@ namespace Driver.libsidplayfp.sidplayfp
         //# include "mixer.h"
         //# include "sidcxx11.h"
 
-        public SidConfig()
+        public SidConfig(Setting setting)
         {
+            DEFAULT_SAMPLING_FREQ = (uint)setting.outputDevice.SampleRate;
             defaultC64Model = c64_model_t.PAL;
             forceC64Model = false;
             defaultSidModel = sid_model_t.MOS6581;

@@ -63,7 +63,7 @@ namespace MDPlayer
 
             GD3 = getGD3Info(vgmBuf, 0);
 
-            m_hes = new m_hes();
+            m_hes = new m_hes(setting);
             m_hes.chipRegister = chipRegister;
             m_hes.ld = ld;
             nez_play = new m_hes.NEZ_PLAY();
@@ -148,20 +148,20 @@ namespace MDPlayer
                     }
                 }
 
-                if (!playtime_detected && silent_length > Common.SampleRate * 3)
+                if (!playtime_detected && silent_length > setting.outputDevice.SampleRate * 3)
                 {
                     playtime_detected = true;
                     LoopCounter = 0;
                     Stopped = true;
                 }
 
-                time_in_ms += (1000 * Length / (double)Common.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
+                time_in_ms += (1000 * Length / (double)setting.outputDevice.SampleRate * vgmSpeed);// ((* config)["MULT_SPEED"].GetInt()) / 256);
                 if (!playtime_detected && ld.IsLooped((int)time_in_ms, 30000, 5000))
                 {
                     playtime_detected = true;
-                    TotalCounter = (long)ld.GetLoopEnd() * (long)Common.SampleRate / 1000L;
+                    TotalCounter = (long)ld.GetLoopEnd() * (long)setting.outputDevice.SampleRate / 1000L;
                     if (TotalCounter == 0) TotalCounter = Counter;
-                    LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)Common.SampleRate / 1000L);
+                    LoopCounter = (long)(((long)ld.GetLoopEnd() - (long)ld.GetLoopStart()) * (long)setting.outputDevice.SampleRate / 1000L);
                 }
 
                 if (!playtime_detected) vgmCurLoop = 0;

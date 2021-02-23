@@ -883,6 +883,20 @@ namespace MDPlayer
                 }
             }
 
+            private int _SampleRate = 44100;
+            public int SampleRate
+            {
+                get
+                {
+                    return _SampleRate;
+                }
+
+                set
+                {
+                    _SampleRate = value;
+                }
+            }
+
             public OutputDevice Copy()
             {
                 OutputDevice outputDevice = new OutputDevice();
@@ -894,6 +908,7 @@ namespace MDPlayer
                 outputDevice.WasapiDeviceName = this.WasapiDeviceName;
                 outputDevice.WasapiShareMode = this.WasapiShareMode;
                 outputDevice.AsioDeviceName = this.AsioDeviceName;
+                outputDevice.SampleRate = this.SampleRate;
 
                 return outputDevice;
             }

@@ -78,7 +78,7 @@ namespace MDPlayer
             vi.isInstrument = true;
 
             ctx.PluginCommandStub.SetBlockSize(512);
-            ctx.PluginCommandStub.SetSampleRate(Common.SampleRate);
+            ctx.PluginCommandStub.SetSampleRate(setting.outputDevice.SampleRate);
             ctx.PluginCommandStub.MainsChanged(true);
             ctx.PluginCommandStub.StartProcess();
             vi.effectName = ctx.PluginCommandStub.GetEffectName();
@@ -109,7 +109,7 @@ namespace MDPlayer
                 vi.key = setting.vst.VSTInfo[i].key;
 
                 ctx.PluginCommandStub.SetBlockSize(512);
-                ctx.PluginCommandStub.SetSampleRate(Common.SampleRate / 1000.0f);
+                ctx.PluginCommandStub.SetSampleRate(setting.outputDevice.SampleRate / 1000.0f);
                 ctx.PluginCommandStub.MainsChanged(true);
                 ctx.PluginCommandStub.StartProcess();
                 vi.effectName = ctx.PluginCommandStub.GetEffectName();
@@ -507,7 +507,7 @@ namespace MDPlayer
         {
             try
             {
-                HostCommandStub hostCmdStub = new HostCommandStub();
+                HostCommandStub hostCmdStub = new HostCommandStub(setting);
                 hostCmdStub.PluginCalled += new EventHandler<PluginCalledEventArgs>(HostCmdStub_PluginCalled);
 
                 VstPluginContext ctx = VstPluginContext.Create(pluginPath, hostCmdStub);
@@ -582,7 +582,7 @@ namespace MDPlayer
             Thread.Sleep(1);
 
             ctx.PluginCommandStub.SetBlockSize(512);
-            ctx.PluginCommandStub.SetSampleRate(Common.SampleRate);
+            ctx.PluginCommandStub.SetSampleRate(setting.outputDevice.SampleRate);
             ctx.PluginCommandStub.MainsChanged(true);
             ctx.PluginCommandStub.StartProcess();
             vi.effectName = ctx.PluginCommandStub.GetEffectName();
@@ -697,6 +697,13 @@ namespace MDPlayer
         /// </summary>
         public class HostCommandStub : IVstHostCommandStub
         {
+            private Setting setting;
+
+            public HostCommandStub(Setting setting)
+            {
+                this.setting = setting;
+            }
+
             /// <summary>
             /// Raised when one of the methods is called.
             /// </summary>
@@ -810,7 +817,7 @@ namespace MDPlayer
             public float GetSampleRate()
             {
                 RaisePluginCalled("GetSampleRate()");
-                return Common.SampleRate / 1000.0f;
+                return setting.outputDevice.SampleRate / 1000.0f;
             }
 
             /// <inheritdoc />
@@ -819,7 +826,7 @@ namespace MDPlayer
                 //RaisePluginCalled("GetTimeInfo(" + filterFlags + ")");
                 VstTimeInfo vti = new VstTimeInfo();
                 vti.SamplePosition = 0;
-                vti.SampleRate = Common.SampleRate / 1000.0f;
+                vti.SampleRate = setting.outputDevice.SampleRate / 1000.0f;
                 vti.NanoSeconds = 0;
                 vti.PpqPosition = 0;
                 vti.Tempo = 120;

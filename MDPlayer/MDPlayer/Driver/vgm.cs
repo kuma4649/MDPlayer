@@ -7,6 +7,12 @@ namespace MDPlayer
 {
     public class vgm : baseDriver
     {
+        private Setting setting;
+        public vgm(Setting setting)
+        {
+            this.setting = setting;
+            dacControl = new dacControl(setting);
+        }
 
         public const int FCC_VGM = 0x206D6756;	// "Vgm "
         public const int FCC_GD3 = 0x20336447;  // "Gd3 "
@@ -99,7 +105,7 @@ namespace MDPlayer
         public bool MultiPCMDualChipFlag;
         public bool POKEYDualChipFlag;
 
-        public dacControl dacControl = new dacControl();
+        public dacControl dacControl = null;
         public bool isPcmRAMWrite = false;
         public bool useChipYM2612Ch6 = false;
         //public Setting setting = null;
@@ -188,7 +194,7 @@ namespace MDPlayer
         {
             try
             {
-                vgmSpeedCounter += 44100.0 / Common.SampleRate * vgmSpeed;
+                vgmSpeedCounter += 44100.0 / setting.outputDevice.SampleRate * vgmSpeed;
                 while (vgmSpeedCounter >= 1.0)
                 {
                     vgmSpeedCounter -= 1.0;

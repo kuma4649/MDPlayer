@@ -206,7 +206,7 @@ namespace MDPlayer.Driver
                     , isLoadADPCM
                     , loadADPCMOnly
                 });
-            mucomDriver.StartRendering(Common.SampleRate
+            mucomDriver.StartRendering(setting.outputDevice.SampleRate
                 ,new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
 
@@ -227,7 +227,7 @@ namespace MDPlayer.Driver
                     , isLoadADPCM
                     , loadADPCMOnly
                 });
-            mucomDriver.StartRendering(Common.SampleRate
+            mucomDriver.StartRendering(setting.outputDevice.SampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
 

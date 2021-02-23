@@ -332,7 +332,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
         // ----------------------------------------------------------------------------
         // Constructor.
         // ----------------------------------------------------------------------------
-        public SID()
+        public SID(Setting setting)
         {
             // Initialize pointers.
             sample = null;
@@ -348,7 +348,7 @@ namespace Driver.libsidplayfp.builders.resid_builder.reSID
             voice[1].set_sync_source(voice[0]);
             voice[2].set_sync_source(voice[1]);
 
-            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST,Common.SampleRate);
+            set_sampling_parameters(985248, siddefs.sampling_method.SAMPLE_FAST,setting.outputDevice.SampleRate);
 
             bus_value = 0;
             bus_value_ttl = 0;

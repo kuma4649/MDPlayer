@@ -472,6 +472,15 @@ namespace MDPlayer.form
                     , ucSI.cmbSEGAPCMS_SCCI);
             }
 
+            for(int i = 0; i < cmbSampleRate.Items.Count; i++)
+            {
+                if (cmbSampleRate.Items[i].ToString() == setting.outputDevice.SampleRate.ToString())
+                {
+                    cmbSampleRate.SelectedIndex = i;
+                    break;
+                }
+            }
+
             cbUseMIDIKeyboard.Checked = setting.midiKbd.UseMIDIKeyboard;
 
             cbFM1.Checked = setting.midiKbd.UseChannel[0];
@@ -1024,6 +1033,7 @@ namespace MDPlayer.form
             setting.outputDevice.WasapiShareMode = rbShare.Checked;
             setting.outputDevice.Latency = int.Parse(cmbLatency.SelectedItem.ToString());
             setting.outputDevice.WaitTime = int.Parse(cmbWaitTime.SelectedItem.ToString());
+            setting.outputDevice.SampleRate = int.Parse(cmbSampleRate.SelectedItem.ToString());
 
             #endregion
 

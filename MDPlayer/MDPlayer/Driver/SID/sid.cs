@@ -154,7 +154,7 @@ namespace MDPlayer.Driver.SID
             m_engine.debug(false, null);
             m_engine.setRoms(aryKernal, aryBasic, aryCharacter);
 
-            ReSIDBuilder rs = new ReSIDBuilder("ReSID");
+            ReSIDBuilder rs = new ReSIDBuilder("ReSID",setting);
 
             uint maxsids = (m_engine.info()).maxsids();
             rs.create(maxsids);
@@ -177,8 +177,8 @@ namespace MDPlayer.Driver.SID
             //if (!createSidEmu(m_driver.sid))
             //    return false;
 
-            SidConfig cfg = new SidConfig();
-            cfg.frequency = (uint)Common.SampleRate;
+            SidConfig cfg = new SidConfig(setting);
+            cfg.frequency = (uint)setting.outputDevice.SampleRate;
             cfg.samplingMethod = (setting.sid.Quality & 2) == 0 ? SidConfig.sampling_method_t.INTERPOLATE : SidConfig.sampling_method_t.RESAMPLE_INTERPOLATE;
             cfg.fastSampling = (setting.sid.Quality & 1) == 0;
             cfg.playback = SidConfig.playback_t.STEREO;
