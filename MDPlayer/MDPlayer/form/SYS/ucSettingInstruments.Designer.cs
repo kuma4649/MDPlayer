@@ -252,6 +252,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_Silent);
@@ -287,6 +289,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_Silent);
@@ -394,6 +398,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.cmbYM2203P_SCCI);
             this.groupBox3.Controls.Add(this.rbYM2203P_SCCI);
             this.groupBox3.Controls.Add(this.rbYM2203P_Silent);
@@ -417,6 +423,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.cmbYM2203S_SCCI);
             this.groupBox4.Controls.Add(this.rbYM2203S_SCCI);
             this.groupBox4.Controls.Add(this.rbYM2203S_Silent);
@@ -502,6 +510,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.cmbYM2608P_SCCI);
             this.groupBox5.Controls.Add(this.rbYM2608P_SCCI);
             this.groupBox5.Controls.Add(this.rbYM2608P_Silent);
@@ -525,6 +535,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.cmbYM2608S_SCCI);
             this.groupBox6.Controls.Add(this.rbYM2608S_SCCI);
             this.groupBox6.Controls.Add(this.rbYM2608S_Silent);
@@ -610,6 +622,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.label1);
             this.groupBox7.Controls.Add(this.cmbYM2610BEP_SCCI);
             this.groupBox7.Controls.Add(this.cmbSPPCMP_SCCI);
@@ -674,6 +688,8 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox8.Controls.Add(this.label2);
             this.groupBox8.Controls.Add(this.cmbYM2610BS_SCCI);
             this.groupBox8.Controls.Add(this.cmbYM2610BES_SCCI);
@@ -831,6 +847,8 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox9.Controls.Add(this.rbYM2612P_Silent);
             this.groupBox9.Controls.Add(this.cmbYM2612P_SCCI);
             this.groupBox9.Controls.Add(this.rbYM2612P_SCCI);
@@ -876,6 +894,8 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox10.Controls.Add(this.rbYM2612S_Silent);
             this.groupBox10.Controls.Add(this.cmbYM2612S_SCCI);
             this.groupBox10.Controls.Add(this.rbYM2612S_SCCI);
@@ -983,6 +1003,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox11.Controls.Add(this.cmbSN76489P_SCCI);
             this.groupBox11.Controls.Add(this.rbSN76489P_SCCI);
             this.groupBox11.Controls.Add(this.rbSN76489P_Silent);
@@ -1017,6 +1039,8 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox12.Controls.Add(this.cmbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_SCCI);
             this.groupBox12.Controls.Add(this.rbSN76489S_Silent);
@@ -1082,6 +1106,8 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox13.Controls.Add(this.cbSendWait);
             this.groupBox13.Controls.Add(this.cbEmulationPCMOnly);
             this.groupBox13.Controls.Add(this.cbTwice);
@@ -1094,6 +1120,8 @@
             // 
             // groupBox14
             // 
+            this.groupBox14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox14.Controls.Add(this.cmbC140S_SCCI);
             this.groupBox14.Controls.Add(this.rbC140S_SCCI);
             this.groupBox14.Controls.Add(this.rbC140S_Silent);
@@ -1148,6 +1176,8 @@
             // 
             // groupBox15
             // 
+            this.groupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox15.Controls.Add(this.cmbC140P_SCCI);
             this.groupBox15.Controls.Add(this.rbC140P_Real);
             this.groupBox15.Controls.Add(this.rbC140P_Silent);
@@ -1168,11 +1198,11 @@
             this.cmbC140P_SCCI.Size = new System.Drawing.Size(185, 20);
             this.cmbC140P_SCCI.TabIndex = 2;
             // 
-            // rbC140P_SCCI
+            // rbC140P_Real
             // 
             this.rbC140P_Real.AutoSize = true;
             this.rbC140P_Real.Location = new System.Drawing.Point(165, 15);
-            this.rbC140P_Real.Name = "rbC140P_SCCI";
+            this.rbC140P_Real.Name = "rbC140P_Real";
             this.rbC140P_Real.Size = new System.Drawing.Size(46, 16);
             this.rbC140P_Real.TabIndex = 1;
             this.rbC140P_Real.Text = "Real";
@@ -1202,6 +1232,8 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox16.Controls.Add(this.cmbSEGAPCMS_SCCI);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_SCCI);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Silent);
@@ -1256,6 +1288,8 @@
             // 
             // groupBox17
             // 
+            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox17.Controls.Add(this.cmbSEGAPCMP_SCCI);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_SCCI);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Silent);
@@ -1310,6 +1344,8 @@
             // 
             // groupBox18
             // 
+            this.groupBox18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox18.Controls.Add(this.cmbYMF262P_SCCI);
             this.groupBox18.Controls.Add(this.rbYMF262P_SCCI);
             this.groupBox18.Controls.Add(this.rbYMF262P_Silent);
@@ -1364,6 +1400,8 @@
             // 
             // groupBox19
             // 
+            this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox19.Controls.Add(this.cmbYMF262S_SCCI);
             this.groupBox19.Controls.Add(this.rbYMF262S_SCCI);
             this.groupBox19.Controls.Add(this.rbYMF262S_Silent);
@@ -1418,6 +1456,8 @@
             // 
             // groupBox20
             // 
+            this.groupBox20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox20.Controls.Add(this.cmbYM3812P_SCCI);
             this.groupBox20.Controls.Add(this.rbYM3812P_SCCI);
             this.groupBox20.Controls.Add(this.rbYM3812P_Silent);
@@ -1472,6 +1512,8 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox21.Controls.Add(this.cmbYM3812S_SCCI);
             this.groupBox21.Controls.Add(this.rbYM3812S_SCCI);
             this.groupBox21.Controls.Add(this.rbYM3812S_Silent);
@@ -1526,6 +1568,8 @@
             // 
             // groupBox22
             // 
+            this.groupBox22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox22.Controls.Add(this.cmbYM3526S_SCCI);
             this.groupBox22.Controls.Add(this.rbYM3526S_SCCI);
             this.groupBox22.Controls.Add(this.rbYM3526S_Silent);
@@ -1580,6 +1624,8 @@
             // 
             // groupBox23
             // 
+            this.groupBox23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox23.Controls.Add(this.cmbYM3526P_SCCI);
             this.groupBox23.Controls.Add(this.rbYM3526P_SCCI);
             this.groupBox23.Controls.Add(this.rbYM3526P_Silent);
@@ -1634,6 +1680,8 @@
             // 
             // groupBox24
             // 
+            this.groupBox24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox24.Controls.Add(this.cmbYM2413S_Real);
             this.groupBox24.Controls.Add(this.rbYM2413S_Real);
             this.groupBox24.Controls.Add(this.rbYM2413S_Silent);
@@ -1688,6 +1736,8 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox25.Controls.Add(this.cmbYM2413P_Real);
             this.groupBox25.Controls.Add(this.rbYM2413P_Real);
             this.groupBox25.Controls.Add(this.rbYM2413P_Silent);
@@ -1742,6 +1792,8 @@
             // 
             // groupBox26
             // 
+            this.groupBox26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox26.Controls.Add(this.cmbAY8910P_Real);
             this.groupBox26.Controls.Add(this.rbAY8910P_Real);
             this.groupBox26.Controls.Add(this.rbAY8910P_Silent);
@@ -1796,6 +1848,8 @@
             // 
             // groupBox27
             // 
+            this.groupBox27.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox27.Controls.Add(this.cmbAY8910S_Real);
             this.groupBox27.Controls.Add(this.rbAY8910S_Real);
             this.groupBox27.Controls.Add(this.rbAY8910S_Silent);

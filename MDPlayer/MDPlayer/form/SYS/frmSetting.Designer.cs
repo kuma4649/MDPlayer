@@ -712,6 +712,7 @@ namespace MDPlayer.form
             // 
             // tcSetting
             // 
+            resources.ApplyResources(this.tcSetting, "tcSetting");
             this.tcSetting.Controls.Add(this.tpOutput);
             this.tcSetting.Controls.Add(this.tpModule);
             this.tcSetting.Controls.Add(this.tpNuked);
@@ -729,7 +730,7 @@ namespace MDPlayer.form
             this.tcSetting.Controls.Add(this.tpOmake);
             this.tcSetting.Controls.Add(this.tpAbout);
             this.tcSetting.HotTrack = true;
-            resources.ApplyResources(this.tcSetting, "tcSetting");
+            this.tcSetting.Multiline = true;
             this.tcSetting.Name = "tcSetting";
             this.tcSetting.SelectedIndex = 0;
             // 
@@ -823,6 +824,7 @@ namespace MDPlayer.form
             // 
             // cmbSampleRate
             // 
+            resources.ApplyResources(this.cmbSampleRate, "cmbSampleRate");
             this.cmbSampleRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSampleRate.FormattingEnabled = true;
             this.cmbSampleRate.Items.AddRange(new object[] {
@@ -833,7 +835,6 @@ namespace MDPlayer.form
             resources.GetString("cmbSampleRate.Items4"),
             resources.GetString("cmbSampleRate.Items5"),
             resources.GetString("cmbSampleRate.Items6")});
-            resources.ApplyResources(this.cmbSampleRate, "cmbSampleRate");
             this.cmbSampleRate.Name = "cmbSampleRate";
             // 
             // cmbLatency
@@ -883,8 +884,8 @@ namespace MDPlayer.form
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ucSI);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.ucSI);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -895,6 +896,7 @@ namespace MDPlayer.form
             // 
             // groupBox3
             // 
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.cbHiyorimiMode);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label12);
@@ -902,7 +904,6 @@ namespace MDPlayer.form
             this.groupBox3.Controls.Add(this.tbLatencyEmu);
             this.groupBox3.Controls.Add(this.tbLatencySCCI);
             this.groupBox3.Controls.Add(this.label10);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
@@ -1508,13 +1509,13 @@ namespace MDPlayer.form
             // 
             // gbPMDManual
             // 
+            resources.ApplyResources(this.gbPMDManual, "gbPMDManual");
             this.gbPMDManual.Controls.Add(this.cbPMDSetManualVolume);
             this.gbPMDManual.Controls.Add(this.cbPMDUsePPZ8);
             this.gbPMDManual.Controls.Add(this.groupBox32);
             this.gbPMDManual.Controls.Add(this.cbPMDUsePPSDRV);
             this.gbPMDManual.Controls.Add(this.gbPPSDRV);
             this.gbPMDManual.Controls.Add(this.gbPMDSetManualVolume);
-            resources.ApplyResources(this.gbPMDManual, "gbPMDManual");
             this.gbPMDManual.Name = "gbPMDManual";
             this.gbPMDManual.TabStop = false;
             // 
@@ -1570,13 +1571,14 @@ namespace MDPlayer.form
             // 
             // gbPPSDRV
             // 
-            this.gbPPSDRV.Controls.Add(this.groupBox33);
             resources.ApplyResources(this.gbPPSDRV, "gbPPSDRV");
+            this.gbPPSDRV.Controls.Add(this.groupBox33);
             this.gbPPSDRV.Name = "gbPPSDRV";
             this.gbPPSDRV.TabStop = false;
             // 
             // groupBox33
             // 
+            resources.ApplyResources(this.groupBox33, "groupBox33");
             this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVManualFreq);
             this.groupBox33.Controls.Add(this.label56);
             this.groupBox33.Controls.Add(this.rbPMDUsePPSDRVFreqDefault);
@@ -1585,7 +1587,6 @@ namespace MDPlayer.form
             this.groupBox33.Controls.Add(this.tbPMDPPSDRVFreq);
             this.groupBox33.Controls.Add(this.label58);
             this.groupBox33.Controls.Add(this.tbPMDPPSDRVManualWait);
-            resources.ApplyResources(this.groupBox33, "groupBox33");
             this.groupBox33.Name = "groupBox33";
             this.groupBox33.TabStop = false;
             // 
@@ -1640,6 +1641,7 @@ namespace MDPlayer.form
             // 
             // gbPMDSetManualVolume
             // 
+            resources.ApplyResources(this.gbPMDSetManualVolume, "gbPMDSetManualVolume");
             this.gbPMDSetManualVolume.Controls.Add(this.label59);
             this.gbPMDSetManualVolume.Controls.Add(this.label60);
             this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeAdpcm);
@@ -1651,7 +1653,6 @@ namespace MDPlayer.form
             this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeGIMICSSG);
             this.gbPMDSetManualVolume.Controls.Add(this.label64);
             this.gbPMDSetManualVolume.Controls.Add(this.tbPMDVolumeFM);
-            resources.ApplyResources(this.gbPMDSetManualVolume, "gbPMDSetManualVolume");
             this.gbPMDSetManualVolume.Name = "gbPMDSetManualVolume";
             this.gbPMDSetManualVolume.TabStop = false;
             // 
@@ -1732,6 +1733,7 @@ namespace MDPlayer.form
             // 
             // tbcMIDIoutList
             // 
+            resources.ApplyResources(this.tbcMIDIoutList, "tbcMIDIoutList");
             this.tbcMIDIoutList.Controls.Add(this.tabPage1);
             this.tbcMIDIoutList.Controls.Add(this.tabPage2);
             this.tbcMIDIoutList.Controls.Add(this.tabPage3);
@@ -1742,7 +1744,6 @@ namespace MDPlayer.form
             this.tbcMIDIoutList.Controls.Add(this.tabPage8);
             this.tbcMIDIoutList.Controls.Add(this.tabPage9);
             this.tbcMIDIoutList.Controls.Add(this.tabPage10);
-            resources.ApplyResources(this.tbcMIDIoutList, "tbcMIDIoutList");
             this.tbcMIDIoutList.Name = "tbcMIDIoutList";
             this.tbcMIDIoutList.SelectedIndex = 0;
             // 
@@ -1761,6 +1762,7 @@ namespace MDPlayer.form
             this.dgvMIDIoutListA.AllowUserToAddRows = false;
             this.dgvMIDIoutListA.AllowUserToDeleteRows = false;
             this.dgvMIDIoutListA.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dgvMIDIoutListA, "dgvMIDIoutListA");
             this.dgvMIDIoutListA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutListA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -1771,7 +1773,6 @@ namespace MDPlayer.form
             this.ClmBeforeSend,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            resources.ApplyResources(this.dgvMIDIoutListA, "dgvMIDIoutListA");
             this.dgvMIDIoutListA.MultiSelect = false;
             this.dgvMIDIoutListA.Name = "dgvMIDIoutListA";
             this.dgvMIDIoutListA.RowHeadersVisible = false;
@@ -2217,13 +2218,13 @@ namespace MDPlayer.form
             this.dgvMIDIoutPallet.AllowUserToAddRows = false;
             this.dgvMIDIoutPallet.AllowUserToDeleteRows = false;
             this.dgvMIDIoutPallet.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dgvMIDIoutPallet, "dgvMIDIoutPallet");
             this.dgvMIDIoutPallet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMIDIoutPallet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmID,
             this.clmDeviceName,
             this.clmManufacturer,
             this.clmSpacer});
-            resources.ApplyResources(this.dgvMIDIoutPallet, "dgvMIDIoutPallet");
             this.dgvMIDIoutPallet.MultiSelect = false;
             this.dgvMIDIoutPallet.Name = "dgvMIDIoutPallet";
             this.dgvMIDIoutPallet.RowHeadersVisible = false;
@@ -2275,6 +2276,7 @@ namespace MDPlayer.form
             // 
             // groupBox15
             // 
+            resources.ApplyResources(this.groupBox15, "groupBox15");
             this.groupBox15.Controls.Add(this.btnBeforeSend_Default);
             this.groupBox15.Controls.Add(this.tbBeforeSend_Custom);
             this.groupBox15.Controls.Add(this.tbBeforeSend_XGReset);
@@ -2285,7 +2287,6 @@ namespace MDPlayer.form
             this.groupBox15.Controls.Add(this.label33);
             this.groupBox15.Controls.Add(this.tbBeforeSend_GMReset);
             this.groupBox15.Controls.Add(this.label31);
-            resources.ApplyResources(this.groupBox15, "groupBox15");
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.TabStop = false;
             // 
@@ -2358,6 +2359,7 @@ namespace MDPlayer.form
             // 
             // gbMIDIExport
             // 
+            resources.ApplyResources(this.gbMIDIExport, "gbMIDIExport");
             this.gbMIDIExport.Controls.Add(this.cbMIDIKeyOnFnum);
             this.gbMIDIExport.Controls.Add(this.cbMIDIUseVOPM);
             this.gbMIDIExport.Controls.Add(this.groupBox6);
@@ -2365,7 +2367,6 @@ namespace MDPlayer.form
             this.gbMIDIExport.Controls.Add(this.btnMIDIOutputPath);
             this.gbMIDIExport.Controls.Add(this.lblOutputPath);
             this.gbMIDIExport.Controls.Add(this.tbMIDIOutputPath);
-            resources.ApplyResources(this.gbMIDIExport, "gbMIDIExport");
             this.gbMIDIExport.Name = "gbMIDIExport";
             this.gbMIDIExport.TabStop = false;
             // 
@@ -2513,6 +2514,7 @@ namespace MDPlayer.form
             // 
             // gbMIDIKeyboard
             // 
+            resources.ApplyResources(this.gbMIDIKeyboard, "gbMIDIKeyboard");
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox8);
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox7);
             this.gbMIDIKeyboard.Controls.Add(this.pictureBox6);
@@ -2539,7 +2541,6 @@ namespace MDPlayer.form
             this.gbMIDIKeyboard.Controls.Add(this.gbUseChannel);
             this.gbMIDIKeyboard.Controls.Add(this.cmbMIDIIN);
             this.gbMIDIKeyboard.Controls.Add(this.label5);
-            resources.ApplyResources(this.gbMIDIKeyboard, "gbMIDIKeyboard");
             this.gbMIDIKeyboard.Name = "gbMIDIKeyboard";
             this.gbMIDIKeyboard.TabStop = false;
             // 
@@ -2846,6 +2847,7 @@ namespace MDPlayer.form
             // 
             // gbUseKeyBoardHook
             // 
+            resources.ApplyResources(this.gbUseKeyBoardHook, "gbUseKeyBoardHook");
             this.gbUseKeyBoardHook.Controls.Add(this.lblKeyBoardHookNotice);
             this.gbUseKeyBoardHook.Controls.Add(this.btNextClr);
             this.gbUseKeyBoardHook.Controls.Add(this.btPrevClr);
@@ -2915,7 +2917,6 @@ namespace MDPlayer.form
             this.gbUseKeyBoardHook.Controls.Add(this.cbPlayShift);
             this.gbUseKeyBoardHook.Controls.Add(this.cbNextShift);
             this.gbUseKeyBoardHook.Controls.Add(this.cbFastShift);
-            resources.ApplyResources(this.gbUseKeyBoardHook, "gbUseKeyBoardHook");
             this.gbUseKeyBoardHook.Name = "gbUseKeyBoardHook";
             this.gbUseKeyBoardHook.TabStop = false;
             // 
@@ -3401,9 +3402,9 @@ namespace MDPlayer.form
             // 
             // groupBox25
             // 
+            resources.ApplyResources(this.groupBox25, "groupBox25");
             this.groupBox25.Controls.Add(this.rbAutoBalanceNotSamePositionAsSongData);
             this.groupBox25.Controls.Add(this.rbAutoBalanceSamePositionAsSongData);
-            resources.ApplyResources(this.groupBox25, "groupBox25");
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.TabStop = false;
             // 
@@ -3431,9 +3432,9 @@ namespace MDPlayer.form
             // 
             // groupBox18
             // 
+            resources.ApplyResources(this.groupBox18, "groupBox18");
             this.groupBox18.Controls.Add(this.groupBox24);
             this.groupBox18.Controls.Add(this.groupBox23);
-            resources.ApplyResources(this.groupBox18, "groupBox18");
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.TabStop = false;
             // 
@@ -3481,9 +3482,9 @@ namespace MDPlayer.form
             // 
             // groupBox23
             // 
+            resources.ApplyResources(this.groupBox23, "groupBox23");
             this.groupBox23.Controls.Add(this.groupBox19);
             this.groupBox23.Controls.Add(this.groupBox20);
-            resources.ApplyResources(this.groupBox23, "groupBox23");
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.TabStop = false;
             // 
@@ -3511,9 +3512,9 @@ namespace MDPlayer.form
             // 
             // groupBox20
             // 
+            resources.ApplyResources(this.groupBox20, "groupBox20");
             this.groupBox20.Controls.Add(this.rbAutoBalanceNotLoadDriverBalance);
             this.groupBox20.Controls.Add(this.rbAutoBalanceLoadDriverBalance);
-            resources.ApplyResources(this.groupBox20, "groupBox20");
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.TabStop = false;
             this.groupBox20.Enter += new System.EventHandler(this.groupBox20_Enter);
@@ -3542,6 +3543,7 @@ namespace MDPlayer.form
             // 
             // groupBox17
             // 
+            resources.ApplyResources(this.groupBox17, "groupBox17");
             this.groupBox17.Controls.Add(this.cbAutoOpenImg);
             this.groupBox17.Controls.Add(this.tbImageExt);
             this.groupBox17.Controls.Add(this.cbAutoOpenMML);
@@ -3551,7 +3553,6 @@ namespace MDPlayer.form
             this.groupBox17.Controls.Add(this.label1);
             this.groupBox17.Controls.Add(this.label3);
             this.groupBox17.Controls.Add(this.label2);
-            resources.ApplyResources(this.groupBox17, "groupBox17");
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.TabStop = false;
             // 
@@ -3948,7 +3949,6 @@ namespace MDPlayer.form
             this.Controls.Add(this.tcSetting);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmSetting";

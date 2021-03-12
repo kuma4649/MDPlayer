@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>296, 406</value>
+    <value>341, 446</value>
   </data>
   <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -151,7 +151,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>377, 406</value>
+    <value>422, 446</value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -175,7 +175,7 @@
     <value>1</value>
   </data>
   <data name="gbWaveOut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Left, Right</value>
   </data>
   <data name="cmbWaveOutDevice.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -184,7 +184,7 @@
     <value>6, 18</value>
   </data>
   <data name="cmbWaveOutDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>417, 20</value>
+    <value>466, 20</value>
   </data>
   <data name="cmbWaveOutDevice.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -205,7 +205,7 @@
     <value>7, 31</value>
   </data>
   <data name="gbWaveOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 48</value>
+    <value>478, 48</value>
   </data>
   <data name="gbWaveOut.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -304,13 +304,13 @@
     <value>16</value>
   </data>
   <data name="gbAsioOut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Left, Right</value>
   </data>
   <data name="btnASIOControlPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="btnASIOControlPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 8</value>
+    <value>391, 8</value>
   </data>
   <data name="btnASIOControlPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 39</value>
@@ -340,7 +340,7 @@
     <value>6, 18</value>
   </data>
   <data name="cmbAsioDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 20</value>
+    <value>379, 20</value>
   </data>
   <data name="cmbAsioDevice.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -361,7 +361,7 @@
     <value>7, 195</value>
   </data>
   <data name="gbAsioOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 50</value>
+    <value>478, 50</value>
   </data>
   <data name="gbAsioOut.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -406,13 +406,16 @@
     <value>12</value>
   </data>
   <data name="gbWasapiOut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="rbExclusive.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="rbExclusive.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="rbExclusive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 31</value>
+    <value>391, 31</value>
   </data>
   <data name="rbExclusive.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 16</value>
@@ -435,11 +438,14 @@
   <data name="&gt;&gt;rbExclusive.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="rbShare.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="rbShare.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="rbShare.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 9</value>
+    <value>391, 9</value>
   </data>
   <data name="rbShare.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 16</value>
@@ -469,7 +475,7 @@
     <value>6, 18</value>
   </data>
   <data name="cmbWasapiDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 20</value>
+    <value>379, 20</value>
   </data>
   <data name="cmbWasapiDevice.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -490,7 +496,7 @@
     <value>7, 139</value>
   </data>
   <data name="gbWasapiOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 50</value>
+    <value>478, 50</value>
   </data>
   <data name="gbWasapiOut.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -508,7 +514,7 @@
     <value>20</value>
   </data>
   <data name="gbDirectSound.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Left, Right</value>
   </data>
   <data name="cmbDirectSoundDevice.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -517,7 +523,7 @@
     <value>6, 18</value>
   </data>
   <data name="cmbDirectSoundDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>417, 20</value>
+    <value>466, 20</value>
   </data>
   <data name="cmbDirectSoundDevice.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -538,7 +544,7 @@
     <value>7, 85</value>
   </data>
   <data name="gbDirectSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 48</value>
+    <value>478, 48</value>
   </data>
   <data name="gbDirectSound.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -555,8 +561,14 @@
   <data name="&gt;&gt;gbDirectSound.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
+  <data name="tcSetting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="rbNullDevice.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="rbNullDevice.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 265</value>
+    <value>293, 265</value>
   </data>
   <data name="rbNullDevice.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 29</value>
@@ -633,6 +645,9 @@
   <data name="&gt;&gt;lblWaitTime.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="label66.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label66.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -640,7 +655,7 @@
     <value>NoControl</value>
   </data>
   <data name="label66.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 10</value>
+    <value>459, 10</value>
   </data>
   <data name="label66.Size" type="System.Drawing.Size, System.Drawing">
     <value>18, 12</value>
@@ -717,6 +732,9 @@
   <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="label65.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label65.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -724,7 +742,7 @@
     <value>NoControl</value>
   </data>
   <data name="label65.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 10</value>
+    <value>282, 10</value>
   </data>
   <data name="label65.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 12</value>
@@ -828,6 +846,9 @@
   <data name="&gt;&gt;cmbWaitTime.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="cmbSampleRate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="cmbSampleRate.Items" xml:space="preserve">
     <value>4000</value>
   </data>
@@ -850,7 +871,7 @@
     <value>192000</value>
   </data>
   <data name="cmbSampleRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 7</value>
+    <value>358, 7</value>
   </data>
   <data name="cmbSampleRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -946,7 +967,7 @@
     <value>11</value>
   </data>
   <data name="groupBox16.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Left, Right</value>
   </data>
   <data name="cmbSPPCMDevice.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -955,7 +976,7 @@
     <value>6, 19</value>
   </data>
   <data name="cmbSPPCMDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 20</value>
+    <value>265, 20</value>
   </data>
   <data name="cmbSPPCMDevice.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -979,7 +1000,7 @@
     <value>7, 251</value>
   </data>
   <data name="groupBox16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 48</value>
+    <value>277, 48</value>
   </data>
   <data name="groupBox16.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -997,13 +1018,13 @@
     <value>17</value>
   </data>
   <data name="tpOutput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpOutput.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpOutput.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1023,17 +1044,20 @@
   <data name="&gt;&gt;tpOutput.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="ucSI.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="ucSI.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="ucSI.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
   </data>
   <data name="ucSI.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 15</value>
   </data>
   <data name="ucSI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 262</value>
+    <value>480, 281</value>
   </data>
   <data name="ucSI.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1054,7 +1078,7 @@
     <value>3, 3</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>437, 280</value>
+    <value>486, 302</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1073,6 +1097,9 @@
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="groupBox3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
   <data name="cbHiyorimiMode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1252,10 +1279,10 @@
     <value>6</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 289</value>
+    <value>3, 311</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>434, 79</value>
+    <value>483, 79</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1276,10 +1303,10 @@
     <value>1</value>
   </data>
   <data name="tpModule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpModule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpModule.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1537,10 +1564,10 @@
     <value>1</value>
   </data>
   <data name="tpNuked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpNuked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpNuked.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -2311,10 +2338,10 @@
     <value>8</value>
   </data>
   <data name="tpNSF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpNSF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpNSF.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -3127,10 +3154,10 @@
     <value>6</value>
   </data>
   <data name="tpSID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpSID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpSID.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -3204,8 +3231,11 @@
   <data name="&gt;&gt;rbPMDAuto.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btnPMDResetDriverArguments.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="btnPMDResetDriverArguments.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 347</value>
+    <value>417, 360</value>
   </data>
   <data name="btnPMDResetDriverArguments.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 23</value>
@@ -3228,11 +3258,14 @@
   <data name="&gt;&gt;btnPMDResetDriverArguments.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="label54.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="label54.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 353</value>
+    <value>5, 365</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 12</value>
@@ -3255,8 +3288,11 @@
   <data name="&gt;&gt;label54.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="btnPMDResetCompilerArhguments.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="btnPMDResetCompilerArhguments.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 2</value>
+    <value>423, 3</value>
   </data>
   <data name="btnPMDResetCompilerArhguments.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 23</value>
@@ -3279,11 +3315,14 @@
   <data name="&gt;&gt;btnPMDResetCompilerArhguments.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="tbPMDDriverArguments.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <data name="tbPMDDriverArguments.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 350</value>
+    <value>118, 362</value>
   </data>
   <data name="tbPMDDriverArguments.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 19</value>
+    <value>293, 19</value>
   </data>
   <data name="tbPMDDriverArguments.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -3327,11 +3366,14 @@
   <data name="&gt;&gt;label55.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="tbPMDCompilerArguments.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbPMDCompilerArguments.Location" type="System.Drawing.Point, System.Drawing">
     <value>118, 4</value>
   </data>
   <data name="tbPMDCompilerArguments.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 19</value>
+    <value>299, 19</value>
   </data>
   <data name="tbPMDCompilerArguments.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -3347,6 +3389,9 @@
   </data>
   <data name="&gt;&gt;tbPMDCompilerArguments.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="gbPMDManual.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="cbPMDSetManualVolume.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3536,6 +3581,12 @@
   </data>
   <data name="&gt;&gt;cbPMDUsePPSDRV.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="gbPPSDRV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="groupBox33.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="rbPMDUsePPSDRVManualFreq.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3742,7 +3793,7 @@
     <value>6, 18</value>
   </data>
   <data name="groupBox33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 100</value>
+    <value>443, 100</value>
   </data>
   <data name="groupBox33.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -3766,7 +3817,7 @@
     <value>12, 149</value>
   </data>
   <data name="gbPPSDRV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 125</value>
+    <value>455, 125</value>
   </data>
   <data name="gbPPSDRV.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -3782,6 +3833,9 @@
   </data>
   <data name="&gt;&gt;gbPPSDRV.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="gbPMDSetManualVolume.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="label59.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4054,7 +4108,7 @@
     <value>13, 54</value>
   </data>
   <data name="gbPMDSetManualVolume.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 93</value>
+    <value>454, 93</value>
   </data>
   <data name="gbPMDSetManualVolume.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -4075,7 +4129,7 @@
     <value>14, 44</value>
   </data>
   <data name="gbPMDManual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>424, 303</value>
+    <value>473, 303</value>
   </data>
   <data name="gbPMDManual.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -4093,10 +4147,10 @@
     <value>8</value>
   </data>
   <data name="tpPMDDotNET.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpPMDDotNET.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpPMDDotNET.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -4139,6 +4193,12 @@
   </data>
   <data name="&gt;&gt;btnAddVST.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="tbcMIDIoutList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="dgvMIDIoutListA.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -4207,10 +4267,10 @@
     <value />
   </data>
   <data name="dgvMIDIoutListA.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>0, 3</value>
   </data>
   <data name="dgvMIDIoutListA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 153</value>
+    <value>442, 169</value>
   </data>
   <data name="dgvMIDIoutListA.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -4227,8 +4287,11 @@
   <data name="&gt;&gt;dgvMIDIoutListA.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="btnUP_A.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="btnUP_A.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 0</value>
+    <value>449, 6</value>
   </data>
   <data name="btnUP_A.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 58</value>
@@ -4251,8 +4314,11 @@
   <data name="&gt;&gt;btnUP_A.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btnDOWN_A.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="btnDOWN_A.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 95</value>
+    <value>449, 113</value>
   </data>
   <data name="btnDOWN_A.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 58</value>
@@ -4282,7 +4348,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>428, 156</value>
+    <value>476, 175</value>
   </data>
   <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -5146,7 +5212,7 @@
     <value>4, 186</value>
   </data>
   <data name="tbcMIDIoutList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 182</value>
+    <value>484, 201</value>
   </data>
   <data name="tbcMIDIoutList.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -5238,6 +5304,9 @@
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="dgvMIDIoutPallet.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <metadata name="clmID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -5275,7 +5344,7 @@
     <value>4, 20</value>
   </data>
   <data name="dgvMIDIoutPallet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 133</value>
+    <value>485, 133</value>
   </data>
   <data name="dgvMIDIoutPallet.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5320,10 +5389,10 @@
     <value>6</value>
   </data>
   <data name="tpMIDIOut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpMIDIOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpMIDIOut.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -5343,8 +5412,14 @@
   <data name="&gt;&gt;tpMIDIOut.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="groupBox15.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnBeforeSend_Default.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="btnBeforeSend_Default.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 123</value>
+    <value>401, 124</value>
   </data>
   <data name="btnBeforeSend_Default.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -5367,11 +5442,14 @@
   <data name="&gt;&gt;btnBeforeSend_Default.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="tbBeforeSend_Custom.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbBeforeSend_Custom.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 98</value>
   </data>
   <data name="tbBeforeSend_Custom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 19</value>
+    <value>386, 19</value>
   </data>
   <data name="tbBeforeSend_Custom.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5388,11 +5466,14 @@
   <data name="&gt;&gt;tbBeforeSend_Custom.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="tbBeforeSend_XGReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbBeforeSend_XGReset.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 48</value>
   </data>
   <data name="tbBeforeSend_XGReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 19</value>
+    <value>386, 19</value>
   </data>
   <data name="tbBeforeSend_XGReset.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5495,11 +5576,14 @@
   <data name="&gt;&gt;label32.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="tbBeforeSend_GSReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbBeforeSend_GSReset.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 73</value>
   </data>
   <data name="tbBeforeSend_GSReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 19</value>
+    <value>386, 19</value>
   </data>
   <data name="tbBeforeSend_GSReset.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5543,11 +5627,14 @@
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="tbBeforeSend_GMReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbBeforeSend_GMReset.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 23</value>
   </data>
   <data name="tbBeforeSend_GMReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 19</value>
+    <value>386, 19</value>
   </data>
   <data name="tbBeforeSend_GMReset.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5595,7 +5682,7 @@
     <value>7, 3</value>
   </data>
   <data name="groupBox15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 199</value>
+    <value>482, 199</value>
   </data>
   <data name="groupBox15.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -5616,10 +5703,10 @@
     <value>0</value>
   </data>
   <data name="tpMIDIOut2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tpMIDIOut2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tpMIDIOut2.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -5665,6 +5752,9 @@
   </data>
   <data name="&gt;&gt;cbUseMIDIExport.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="gbMIDIExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="cbMIDIKeyOnFnum.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6128,8 +6218,11 @@
   <data name="&gt;&gt;cbMIDIPlayless.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="btnMIDIOutputPath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="btnMIDIOutputPath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 86</value>
+    <value>449, 86</value>
   </data>
   <data name="btnMIDIOutputPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 23</value>
@@ -6179,11 +6272,14 @@
   <data name="&gt;&gt;lblOutputPath.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="tbMIDIOutputPath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="tbMIDIOutputPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 88</value>
   </data>
   <data name="tbMIDIOutputPath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 19</value>
+    <value>366, 19</value>
   </data>
   <data name="tbMIDIOutputPath.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -6204,7 +6300,7 @@
     <value>7, 3</value>
   </data>
   <data name="gbMIDIExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 365</value>
+    <value>478, 381</value>
   </data>
   <data name="gbMIDIExport.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -6222,10 +6318,10 @@
     <value>1</value>
   </data>
   <data name="tabMIDIExp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 40</value>
   </data>
   <data name="tabMIDIExp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>492, 393</value>
   </data>
   <data name="tabMIDIExp.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -6271,6 +6367,9 @@
   </data>
   <data name="&gt;&gt;cbUseMIDIKeyboard.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="gbMIDIKeyboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="pictureBox8.Location" type="System.Drawing.Point, System.Drawing">
     <value>371, 257</value>
@@ -7311,7 +7410,7 @@
     <value>3, 6</value>
   </data>
   <data name="gbMIDIKeyboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>437, 362</value>
+    <value>437, 366</value>
   </data>
   <data name="gbMIDIKeyboard.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -7329,10 +7428,10 @@
     <value>1</value>
   </data>
   <data name="tpMIDIKBD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpMIDIKBD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 375</value>
   </data>
   <data name="tpMIDIKBD.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -7378,6 +7477,9 @@
   </data>
   <data name="&gt;&gt;cbUseKeyBoardHook.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="gbUseKeyBoardHook.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="lblKeyBoardHookNotice.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9081,7 +9183,7 @@
     <value>7, 3</value>
   </data>
   <data name="gbUseKeyBoardHook.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 305</value>
+    <value>433, 360</value>
   </data>
   <data name="gbUseKeyBoardHook.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -9345,10 +9447,10 @@
     <value>10</value>
   </data>
   <data name="tpKeyBoard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpKeyBoard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 375</value>
   </data>
   <data name="tpKeyBoard.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -9367,6 +9469,9 @@
   </data>
   <data name="&gt;&gt;tpKeyBoard.ZOrder" xml:space="preserve">
     <value>10</value>
+  </data>
+  <data name="groupBox25.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="rbAutoBalanceNotSamePositionAsSongData.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9426,7 +9531,7 @@
     <value>7, 327</value>
   </data>
   <data name="groupBox25.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 41</value>
+    <value>431, 42</value>
   </data>
   <data name="groupBox25.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -9472,6 +9577,9 @@
   </data>
   <data name="&gt;&gt;cbAutoBalanceUseThis.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="groupBox18.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="rbAutoBalanceNotSaveSongBalance.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9626,6 +9734,9 @@
   <data name="&gt;&gt;groupBox24.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="groupBox23.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="rbAutoBalanceNotLoadSongBalance.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -9703,6 +9814,9 @@
   </data>
   <data name="&gt;&gt;groupBox19.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="groupBox20.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="rbAutoBalanceNotLoadDriverBalance.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9810,7 +9924,7 @@
     <value>7, 3</value>
   </data>
   <data name="groupBox18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 318</value>
+    <value>431, 318</value>
   </data>
   <data name="groupBox18.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -9828,10 +9942,10 @@
     <value>2</value>
   </data>
   <data name="tpBalance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpBalance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 375</value>
   </data>
   <data name="tpBalance.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -9850,6 +9964,9 @@
   </data>
   <data name="&gt;&gt;tpBalance.ZOrder" xml:space="preserve">
     <value>11</value>
+  </data>
+  <data name="groupBox17.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="cbAutoOpenImg.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10128,10 +10245,10 @@
     <value>1</value>
   </data>
   <data name="tpPlayList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 355</value>
   </data>
   <data name="tpPlayList.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -10754,8 +10871,11 @@
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
+  <data name="btnResetPosition.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="btnResetPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 345</value>
+    <value>129, 321</value>
   </data>
   <data name="btnResetPosition.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 23</value>
@@ -10778,8 +10898,11 @@
   <data name="&gt;&gt;btnResetPosition.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <data name="btnOpenSettingFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="btnOpenSettingFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>282, 345</value>
+    <value>277, 321</value>
   </data>
   <data name="btnOpenSettingFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 23</value>
@@ -10908,10 +11031,10 @@
     <value>20</value>
   </data>
   <data name="tpOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 355</value>
   </data>
   <data name="tpOther.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -11064,10 +11187,10 @@
     <value>3</value>
   </data>
   <data name="tpOmake.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpOmake.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 335</value>
   </data>
   <data name="tpOmake.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -11097,7 +11220,7 @@
     <value>3, 3</value>
   </data>
   <data name="logoPictureBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 359</value>
+    <value>138, 323</value>
   </data>
   <data name="logoPictureBox.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>CenterImage</value>
@@ -11157,7 +11280,7 @@
     <value>Fill</value>
   </data>
   <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 36</value>
+    <value>150, 32</value>
   </data>
   <data name="labelVersion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 3, 0</value>
@@ -11193,7 +11316,7 @@
     <value>Fill</value>
   </data>
   <data name="labelCopyright.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 72</value>
+    <value>150, 64</value>
   </data>
   <data name="labelCopyright.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 3, 0</value>
@@ -11229,7 +11352,7 @@
     <value>Fill</value>
   </data>
   <data name="labelCompanyName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 108</value>
+    <value>150, 96</value>
   </data>
   <data name="labelCompanyName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 3, 0</value>
@@ -11265,7 +11388,7 @@
     <value>Fill</value>
   </data>
   <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 140</value>
+    <value>150, 125</value>
   </data>
   <data name="textBoxDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 3, 3, 3</value>
@@ -11277,7 +11400,7 @@
     <value>Both</value>
   </data>
   <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>284, 189</value>
+    <value>284, 169</value>
   </data>
   <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -11304,10 +11427,10 @@
     <value>Fill</value>
   </data>
   <data name="llOpenGithub.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 332</value>
+    <value>147, 297</value>
   </data>
   <data name="llOpenGithub.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 33</value>
+    <value>287, 32</value>
   </data>
   <data name="llOpenGithub.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -11340,7 +11463,7 @@
     <value>6</value>
   </data>
   <data name="tableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>437, 365</value>
+    <value>437, 329</value>
   </data>
   <data name="tableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -11361,13 +11484,13 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="logoPictureBox" Row="0" RowSpan="6" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelProductName" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelVersion" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelCompanyName" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="textBoxDescription" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="llOpenGithub" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,Percent,67" /&gt;&lt;Rows Styles="Percent,10,Percent,10,Percent,10,Percent,8.070175,Percent,53.33333,Percent,8.421053" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tpAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 58</value>
   </data>
   <data name="tpAbout.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 371</value>
+    <value>443, 335</value>
   </data>
   <data name="tpAbout.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -11391,7 +11514,7 @@
     <value>1, 3</value>
   </data>
   <data name="tcSetting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 397</value>
+    <value>500, 437</value>
   </data>
   <data name="tcSetting.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -11415,13 +11538,10 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>464, 441</value>
-  </data>
-  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>480, 480</value>
+    <value>504, 481</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>480, 480</value>
+    <value>520, 520</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
