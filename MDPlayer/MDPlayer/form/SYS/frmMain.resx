@@ -145,133 +145,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pbScreen.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>20</value>
   </data>
   <metadata name="cmsOpenOtherPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Primary</value>
-  </data>
-  <data name="tsmiCSPSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSPSG.Text" xml:space="preserve">
-    <value>PSG</value>
-  </data>
-  <data name="tsmiCSWF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSWF.Text" xml:space="preserve">
-    <value>WF</value>
-  </data>
-  <data name="tsmiCSOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSOPL.Text" xml:space="preserve">
-    <value>OPL</value>
-  </data>
-  <data name="tsmiCSOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSOPN.Text" xml:space="preserve">
-    <value>OPN</value>
-  </data>
-  <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSOPM.Text" xml:space="preserve">
-    <value>OPM</value>
-  </data>
-  <data name="tsmiSOPX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSOPX.Text" xml:space="preserve">
-    <value>OPX</value>
-  </data>
-  <data name="tsmiSYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSYMZ280B.Text" xml:space="preserve">
-    <value>YMZ280B</value>
-  </data>
-  <data name="tsmiCSPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSPCM.Text" xml:space="preserve">
-    <value>PCM</value>
-  </data>
-  <data name="tsmiSMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSMIDI.Text" xml:space="preserve">
-    <value>MIDI</value>
-  </data>
-  <data name="tsmiSFDS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSFDS.Text" xml:space="preserve">
-    <value>FDS</value>
-  </data>
-  <data name="tsmiSMMC5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSMMC5.Text" xml:space="preserve">
-    <value>MMC5</value>
-  </data>
-  <data name="tsmiSNESDMC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSNESDMC.Text" xml:space="preserve">
-    <value>NES&amp;&amp;DMC</value>
-  </data>
-  <data name="tsmiSVRC6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSVRC6.Text" xml:space="preserve">
-    <value>VRC6</value>
-  </data>
-  <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSVRC7.Text" xml:space="preserve">
-    <value>VRC7</value>
-  </data>
-  <data name="tsmiSN106.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSN106.Text" xml:space="preserve">
-    <value>N163(N106)</value>
-  </data>
-  <data name="tsmiSS5B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSS5B.Text" xml:space="preserve">
-    <value>S5B(FME7)</value>
-  </data>
-  <data name="tsmiCSNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiCSNES.Text" xml:space="preserve">
-    <value>NES</value>
-  </data>
-  <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="tsmiSDMG.Text" xml:space="preserve">
-    <value>DMG</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Secondary</value>
-  </data>
   <data name="cmsOpenOtherPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
+    <value>130, 48</value>
   </data>
   <data name="&gt;&gt;cmsOpenOtherPanel.Name" xml:space="preserve">
     <value>cmsOpenOtherPanel</value>
@@ -279,8 +159,14 @@
   <data name="&gt;&gt;cmsOpenOtherPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="primaryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="primaryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Primary</value>
+  </data>
   <data name="tsmiCPPSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPPSG.Text" xml:space="preserve">
     <value>PSG</value>
@@ -298,7 +184,7 @@
     <value>DCSG</value>
   </data>
   <data name="tsmiCPWF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPWF.Text" xml:space="preserve">
     <value>WF</value>
@@ -322,7 +208,7 @@
     <value>123</value>
   </data>
   <data name="tsmiCPOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPOPL.Text" xml:space="preserve">
     <value>OPL</value>
@@ -364,7 +250,7 @@
     <value>OPL4</value>
   </data>
   <data name="tsmiCPOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPOPN.Text" xml:space="preserve">
     <value>OPN</value>
@@ -394,25 +280,25 @@
     <value>OPNB</value>
   </data>
   <data name="tsmiPOPM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPOPM.Text" xml:space="preserve">
     <value>OPM</value>
   </data>
   <data name="tsmiPOPX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPOPX.Text" xml:space="preserve">
     <value>OPX</value>
   </data>
   <data name="tsmiYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiYMZ280B.Text" xml:space="preserve">
     <value>YMZ280B</value>
   </data>
   <data name="tsmiCPPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPPCM.Text" xml:space="preserve">
     <value>PCM</value>
@@ -484,13 +370,13 @@
     <value>SEGA PCM</value>
   </data>
   <data name="tsmiPMIDI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPMIDI.Text" xml:space="preserve">
     <value>MIDI</value>
   </data>
   <data name="tsmiCPNES.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiCPNES.Text" xml:space="preserve">
     <value>NES</value>
@@ -538,154 +424,268 @@
     <value>S5B(FME7)</value>
   </data>
   <data name="tsmiPDMG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="tsmiPDMG.Text" xml:space="preserve">
     <value>DMG</value>
   </data>
+  <data name="sencondryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="sencondryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="tsmiCSPSG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSPSG.Text" xml:space="preserve">
+    <value>PSG</value>
+  </data>
   <data name="tsmiSAY8910.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>112, 22</value>
   </data>
   <data name="tsmiSAY8910.Text" xml:space="preserve">
     <value>AY8910</value>
   </data>
   <data name="tsmiSDCSG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>112, 22</value>
   </data>
   <data name="tsmiSDCSG.Text" xml:space="preserve">
     <value>DCSG</value>
   </data>
+  <data name="tsmiCSWF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSWF.Text" xml:space="preserve">
+    <value>WF</value>
+  </data>
   <data name="tsmiSHuC6280.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>121, 22</value>
   </data>
   <data name="tsmiSHuC6280.Text" xml:space="preserve">
     <value>HuC6280</value>
   </data>
   <data name="tsmiSK051649.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>121, 22</value>
   </data>
   <data name="tsmiSK051649.Text" xml:space="preserve">
     <value>K051649</value>
   </data>
+  <data name="tsmiCSOPL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSOPL.Text" xml:space="preserve">
+    <value>OPL</value>
+  </data>
   <data name="tsmiSOPLL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSOPLL.Text" xml:space="preserve">
     <value>OPLL</value>
   </data>
   <data name="tsmiSOPL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSOPL.Text" xml:space="preserve">
     <value>OPL</value>
   </data>
   <data name="tsmiSY8950.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSY8950.Text" xml:space="preserve">
     <value>Y8950</value>
   </data>
   <data name="tsmiSOPL2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSOPL2.Text" xml:space="preserve">
     <value>OPL2</value>
   </data>
   <data name="tsmiSOPL3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSOPL3.Text" xml:space="preserve">
     <value>OPL3</value>
   </data>
   <data name="tsmiSOPL4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="tsmiSOPL4.Text" xml:space="preserve">
     <value>OPL4</value>
   </data>
+  <data name="tsmiCSOPN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSOPN.Text" xml:space="preserve">
+    <value>OPN</value>
+  </data>
   <data name="tsmiSOPN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>107, 22</value>
   </data>
   <data name="tsmiSOPN.Text" xml:space="preserve">
     <value>OPN</value>
   </data>
   <data name="tsmiSOPN2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>107, 22</value>
   </data>
   <data name="tsmiSOPN2.Text" xml:space="preserve">
     <value>OPN2</value>
   </data>
   <data name="tsmiSOPNA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>107, 22</value>
   </data>
   <data name="tsmiSOPNA.Text" xml:space="preserve">
     <value>OPNA</value>
   </data>
   <data name="tsmiSOPNB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>107, 22</value>
   </data>
   <data name="tsmiSOPNB.Text" xml:space="preserve">
     <value>OPNB</value>
   </data>
+  <data name="tsmiSOPM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiSOPM.Text" xml:space="preserve">
+    <value>OPM</value>
+  </data>
+  <data name="tsmiSOPX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiSOPX.Text" xml:space="preserve">
+    <value>OPX</value>
+  </data>
+  <data name="tsmiSYMZ280B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiSYMZ280B.Text" xml:space="preserve">
+    <value>YMZ280B</value>
+  </data>
+  <data name="tsmiCSPCM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSPCM.Text" xml:space="preserve">
+    <value>PCM</value>
+  </data>
   <data name="tsmiSC140.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSC140.Text" xml:space="preserve">
     <value>C140</value>
   </data>
   <data name="tsmiSC352.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSC352.Text" xml:space="preserve">
     <value>C352</value>
   </data>
   <data name="tsmiSOKIM6258.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSOKIM6258.Text" xml:space="preserve">
     <value>OKIM6258</value>
   </data>
   <data name="tsmiSOKIM6295.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSOKIM6295.Text" xml:space="preserve">
     <value>OKIM6295</value>
   </data>
   <data name="tsmiSPWM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSPWM.Text" xml:space="preserve">
     <value>PWM</value>
   </data>
   <data name="tsmiSRF5C164.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSRF5C164.Text" xml:space="preserve">
     <value>RF5C164</value>
   </data>
   <data name="tsmiSRF5C68.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSRF5C68.Text" xml:space="preserve">
     <value>RF5C68</value>
   </data>
   <data name="tsmiSSegaPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSSegaPCM.Text" xml:space="preserve">
     <value>SEGA PCM</value>
   </data>
   <data name="tsmiSMultiPCM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSMultiPCM.Text" xml:space="preserve">
     <value>MultiPCM</value>
   </data>
   <data name="tsmiSPPZ8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>130, 22</value>
   </data>
   <data name="tsmiSPPZ8.Text" xml:space="preserve">
     <value>PPZ8</value>
+  </data>
+  <data name="tsmiSMIDI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiSMIDI.Text" xml:space="preserve">
+    <value>MIDI</value>
+  </data>
+  <data name="tsmiCSNES.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiCSNES.Text" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="tsmiSFDS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSFDS.Text" xml:space="preserve">
+    <value>FDS</value>
+  </data>
+  <data name="tsmiSMMC5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSMMC5.Text" xml:space="preserve">
+    <value>MMC5</value>
+  </data>
+  <data name="tsmiSNESDMC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSNESDMC.Text" xml:space="preserve">
+    <value>NES&amp;&amp;DMC</value>
+  </data>
+  <data name="tsmiSVRC6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSVRC6.Text" xml:space="preserve">
+    <value>VRC6</value>
+  </data>
+  <data name="tsmiSVRC7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSVRC7.Text" xml:space="preserve">
+    <value>VRC7</value>
+  </data>
+  <data name="tsmiSN106.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSN106.Text" xml:space="preserve">
+    <value>N163(N106)</value>
+  </data>
+  <data name="tsmiSS5B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
+  </data>
+  <data name="tsmiSS5B.Text" xml:space="preserve">
+    <value>S5B(FME7)</value>
+  </data>
+  <data name="tsmiSDMG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="tsmiSDMG.Text" xml:space="preserve">
+    <value>DMG</value>
   </data>
   <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>206, 21</value>
@@ -956,6 +956,606 @@
   </data>
   <data name="sIDToolStripMenuItem.Text" xml:space="preserve">
     <value>SID</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>475, 17</value>
+  </metadata>
+  <data name="opeButtonSetting.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonSetting.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonSetting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 0</value>
+  </data>
+  <data name="opeButtonSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonSetting.ToolTip" xml:space="preserve">
+    <value>Open Setting</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSetting.Name" xml:space="preserve">
+    <value>opeButtonSetting</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSetting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSetting.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSetting.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>475, 17</value>
+  </metadata>
+  <data name="opeButtonStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonStop.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 0</value>
+  </data>
+  <data name="opeButtonStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonStop.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonStop.ToolTip" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="&gt;&gt;opeButtonStop.Name" xml:space="preserve">
+    <value>opeButtonStop</value>
+  </data>
+  <data name="&gt;&gt;opeButtonStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonStop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonStop.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="opeButtonPause.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonPause.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonPause.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonPause.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 0</value>
+  </data>
+  <data name="opeButtonPause.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonPause.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonPause.ToolTip" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPause.Name" xml:space="preserve">
+    <value>opeButtonPause</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPause.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPause.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPause.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="opeButtonFadeout.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonFadeout.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonFadeout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonFadeout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 0</value>
+  </data>
+  <data name="opeButtonFadeout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonFadeout.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonFadeout.ToolTip" xml:space="preserve">
+    <value>Fade out</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFadeout.Name" xml:space="preserve">
+    <value>opeButtonFadeout</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFadeout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFadeout.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFadeout.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="opeButtonPrevious.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonPrevious.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonPrevious.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonPrevious.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 0</value>
+  </data>
+  <data name="opeButtonPrevious.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonPrevious.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonPrevious.ToolTip" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPrevious.Name" xml:space="preserve">
+    <value>opeButtonPrevious</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPrevious.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPrevious.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPrevious.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="opeButtonSlow.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonSlow.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonSlow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonSlow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 0</value>
+  </data>
+  <data name="opeButtonSlow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonSlow.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonSlow.ToolTip" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSlow.Name" xml:space="preserve">
+    <value>opeButtonSlow</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSlow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSlow.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonSlow.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="opeButtonPlay.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonPlay.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonPlay.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>113, 0</value>
+  </data>
+  <data name="opeButtonPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonPlay.ToolTip" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlay.Name" xml:space="preserve">
+    <value>opeButtonPlay</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlay.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlay.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="opeButtonFast.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonFast.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonFast.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonFast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 0</value>
+  </data>
+  <data name="opeButtonFast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonFast.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonFast.ToolTip" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFast.Name" xml:space="preserve">
+    <value>opeButtonFast</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFast.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonFast.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="opeButtonNext.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonNext.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonNext.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonNext.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 0</value>
+  </data>
+  <data name="opeButtonNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonNext.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="opeButtonNext.ToolTip" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="&gt;&gt;opeButtonNext.Name" xml:space="preserve">
+    <value>opeButtonNext</value>
+  </data>
+  <data name="&gt;&gt;opeButtonNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonNext.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonNext.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="opeButtonZoom.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonZoom.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonZoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonZoom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>289, 0</value>
+  </data>
+  <data name="opeButtonZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonZoom.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="opeButtonZoom.ToolTip" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="&gt;&gt;opeButtonZoom.Name" xml:space="preserve">
+    <value>opeButtonZoom</value>
+  </data>
+  <data name="&gt;&gt;opeButtonZoom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonZoom.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonZoom.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="opeButtonMIDIKBD.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonMIDIKBD.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonMIDIKBD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonMIDIKBD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>273, 0</value>
+  </data>
+  <data name="opeButtonMIDIKBD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonMIDIKBD.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="opeButtonMIDIKBD.ToolTip" xml:space="preserve">
+    <value>Open MIDI Keyboard</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMIDIKBD.Name" xml:space="preserve">
+    <value>opeButtonMIDIKBD</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMIDIKBD.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMIDIKBD.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMIDIKBD.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="opeButtonVST.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonVST.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonVST.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonVST.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 0</value>
+  </data>
+  <data name="opeButtonVST.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonVST.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="opeButtonVST.ToolTip" xml:space="preserve">
+    <value>Open VST panel</value>
+  </data>
+  <data name="&gt;&gt;opeButtonVST.Name" xml:space="preserve">
+    <value>opeButtonVST</value>
+  </data>
+  <data name="&gt;&gt;opeButtonVST.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonVST.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonVST.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="opeButtonKBD.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonKBD.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonKBD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonKBD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>241, 0</value>
+  </data>
+  <data name="opeButtonKBD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonKBD.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="opeButtonKBD.ToolTip" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="&gt;&gt;opeButtonKBD.Name" xml:space="preserve">
+    <value>opeButtonKBD</value>
+  </data>
+  <data name="&gt;&gt;opeButtonKBD.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonKBD.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonKBD.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="opeButtonMixer.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonMixer.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonMixer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonMixer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 0</value>
+  </data>
+  <data name="opeButtonMixer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonMixer.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="opeButtonMixer.ToolTip" xml:space="preserve">
+    <value>Mixer</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMixer.Name" xml:space="preserve">
+    <value>opeButtonMixer</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMixer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMixer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMixer.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="opeButtonInformation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonInformation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonInformation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonInformation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>209, 0</value>
+  </data>
+  <data name="opeButtonInformation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonInformation.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="opeButtonInformation.ToolTip" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="&gt;&gt;opeButtonInformation.Name" xml:space="preserve">
+    <value>opeButtonInformation</value>
+  </data>
+  <data name="&gt;&gt;opeButtonInformation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonInformation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonInformation.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="opeButtonPlayList.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonPlayList.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonPlayList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonPlayList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>193, 0</value>
+  </data>
+  <data name="opeButtonPlayList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonPlayList.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="opeButtonPlayList.ToolTip" xml:space="preserve">
+    <value>Open PlayList</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlayList.Name" xml:space="preserve">
+    <value>opeButtonPlayList</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlayList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlayList.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonPlayList.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="opeButtonOpen.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonOpen.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonOpen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonOpen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 0</value>
+  </data>
+  <data name="opeButtonOpen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonOpen.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="opeButtonOpen.ToolTip" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="&gt;&gt;opeButtonOpen.Name" xml:space="preserve">
+    <value>opeButtonOpen</value>
+  </data>
+  <data name="&gt;&gt;opeButtonOpen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonOpen.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonOpen.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="opeButtonMode.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="opeButtonMode.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="opeButtonMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opeButtonMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>161, 0</value>
+  </data>
+  <data name="opeButtonMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="opeButtonMode.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="opeButtonMode.ToolTip" xml:space="preserve">
+    <value>Next Mode </value>
+  </data>
+  <data name="&gt;&gt;opeButtonMode.Name" xml:space="preserve">
+    <value>opeButtonMode</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opeButtonMode.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <metadata name="keyboardHook1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>336, 17</value>
@@ -1302,6 +1902,9 @@
         ////////////////////////
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>334, 63</value>
   </data>
@@ -1587,36 +2190,6 @@
   <data name="&gt;&gt;sencondryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsmiSMIDI.Name" xml:space="preserve">
-    <value>tsmiSMIDI</value>
-  </data>
-  <data name="&gt;&gt;tsmiSMIDI.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPX.Name" xml:space="preserve">
-    <value>tsmiSOPX</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPX.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPM.Name" xml:space="preserve">
-    <value>tsmiSOPM</value>
-  </data>
-  <data name="&gt;&gt;tsmiSOPM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSYMZ280B.Name" xml:space="preserve">
-    <value>tsmiSYMZ280B</value>
-  </data>
-  <data name="&gt;&gt;tsmiSYMZ280B.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiSDMG.Name" xml:space="preserve">
-    <value>tsmiSDMG</value>
-  </data>
-  <data name="&gt;&gt;tsmiSDMG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;tsmiCSPSG.Name" xml:space="preserve">
     <value>tsmiCSPSG</value>
   </data>
@@ -1725,6 +2298,24 @@
   <data name="&gt;&gt;tsmiSOPNB.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiSOPM.Name" xml:space="preserve">
+    <value>tsmiSOPM</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPX.Name" xml:space="preserve">
+    <value>tsmiSOPX</value>
+  </data>
+  <data name="&gt;&gt;tsmiSOPX.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSYMZ280B.Name" xml:space="preserve">
+    <value>tsmiSYMZ280B</value>
+  </data>
+  <data name="&gt;&gt;tsmiSYMZ280B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiCSPCM.Name" xml:space="preserve">
     <value>tsmiCSPCM</value>
   </data>
@@ -1791,6 +2382,12 @@
   <data name="&gt;&gt;tsmiSPPZ8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiSMIDI.Name" xml:space="preserve">
+    <value>tsmiSMIDI</value>
+  </data>
+  <data name="&gt;&gt;tsmiSMIDI.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiCSNES.Name" xml:space="preserve">
     <value>tsmiCSNES</value>
   </data>
@@ -1837,6 +2434,12 @@
     <value>tsmiSS5B</value>
   </data>
   <data name="&gt;&gt;tsmiSS5B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiSDMG.Name" xml:space="preserve">
+    <value>tsmiSDMG</value>
+  </data>
+  <data name="&gt;&gt;tsmiSDMG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
@@ -2096,6 +2699,12 @@
   </data>
   <data name="&gt;&gt;sIDToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;keyboardHook1.Name" xml:space="preserve">
     <value>keyboardHook1</value>

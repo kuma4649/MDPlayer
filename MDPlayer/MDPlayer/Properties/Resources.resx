@@ -937,4 +937,106 @@ M3Uファイル(*.m3u)|*.m3u|
   <data name="rType_YMF271" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rType_YMF271.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ccInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ccZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ccZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chFadeout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chFadeout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chFast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chFast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chLoop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chLoopOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chLoopOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chMIDIKBD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chMIDIKBD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chMixer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chMixer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chOpenFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chOpenFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPlayList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chRandom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chSlow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chSlow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chStep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chStep.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chVST" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chVST.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -79,11 +79,6 @@ namespace MDPlayer.form
             this.tsmiPS5B = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPDMG = new System.Windows.Forms.ToolStripMenuItem();
             this.sencondryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSMIDI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPX = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPM = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSDMG = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCSPSG = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSAY8910 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSDCSG = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +97,9 @@ namespace MDPlayer.form
             this.tsmiSOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNA = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNB = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPX = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCSPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC140 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSC352 = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +111,7 @@ namespace MDPlayer.form
             this.tsmiSSegaPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSMultiPCM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSPPZ8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSMIDI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCSNES = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSFDS = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSMMC5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,6 +120,7 @@ namespace MDPlayer.form
             this.tsmiSVRC7 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSN106 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSS5B = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSDMG = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,6 +165,25 @@ namespace MDPlayer.form
             this.sN76489ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.opeButtonSetting = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.opeButtonStop = new System.Windows.Forms.Button();
+            this.opeButtonPause = new System.Windows.Forms.Button();
+            this.opeButtonFadeout = new System.Windows.Forms.Button();
+            this.opeButtonPrevious = new System.Windows.Forms.Button();
+            this.opeButtonSlow = new System.Windows.Forms.Button();
+            this.opeButtonPlay = new System.Windows.Forms.Button();
+            this.opeButtonFast = new System.Windows.Forms.Button();
+            this.opeButtonNext = new System.Windows.Forms.Button();
+            this.opeButtonZoom = new System.Windows.Forms.Button();
+            this.opeButtonMIDIKBD = new System.Windows.Forms.Button();
+            this.opeButtonVST = new System.Windows.Forms.Button();
+            this.opeButtonKBD = new System.Windows.Forms.Button();
+            this.opeButtonMixer = new System.Windows.Forms.Button();
+            this.opeButtonInformation = new System.Windows.Forms.Button();
+            this.opeButtonPlayList = new System.Windows.Forms.Button();
+            this.opeButtonOpen = new System.Windows.Forms.Button();
+            this.opeButtonMode = new System.Windows.Forms.Button();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
@@ -523,36 +542,6 @@ namespace MDPlayer.form
             this.sencondryToolStripMenuItem.Name = "sencondryToolStripMenuItem";
             resources.ApplyResources(this.sencondryToolStripMenuItem, "sencondryToolStripMenuItem");
             // 
-            // tsmiSMIDI
-            // 
-            this.tsmiSMIDI.Name = "tsmiSMIDI";
-            resources.ApplyResources(this.tsmiSMIDI, "tsmiSMIDI");
-            this.tsmiSMIDI.Click += new System.EventHandler(this.tsmiSMIDI_Click);
-            // 
-            // tsmiSOPX
-            // 
-            this.tsmiSOPX.Name = "tsmiSOPX";
-            resources.ApplyResources(this.tsmiSOPX, "tsmiSOPX");
-            this.tsmiSOPX.Click += new System.EventHandler(this.tsmiSOPX_Click);
-            // 
-            // tsmiSOPM
-            // 
-            this.tsmiSOPM.Name = "tsmiSOPM";
-            resources.ApplyResources(this.tsmiSOPM, "tsmiSOPM");
-            this.tsmiSOPM.Click += new System.EventHandler(this.tsmiSOPM_Click);
-            // 
-            // tsmiSYMZ280B
-            // 
-            this.tsmiSYMZ280B.Name = "tsmiSYMZ280B";
-            resources.ApplyResources(this.tsmiSYMZ280B, "tsmiSYMZ280B");
-            this.tsmiSYMZ280B.Click += new System.EventHandler(this.tsmiSYMZ280B_Click);
-            // 
-            // tsmiSDMG
-            // 
-            this.tsmiSDMG.Name = "tsmiSDMG";
-            resources.ApplyResources(this.tsmiSDMG, "tsmiSDMG");
-            this.tsmiSDMG.Click += new System.EventHandler(this.tsmiSDMG_Click);
-            // 
             // tsmiCSPSG
             // 
             this.tsmiCSPSG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -675,6 +664,24 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tsmiSOPNB, "tsmiSOPNB");
             this.tsmiSOPNB.Click += new System.EventHandler(this.tsmiSOPNB_Click);
             // 
+            // tsmiSOPM
+            // 
+            this.tsmiSOPM.Name = "tsmiSOPM";
+            resources.ApplyResources(this.tsmiSOPM, "tsmiSOPM");
+            this.tsmiSOPM.Click += new System.EventHandler(this.tsmiSOPM_Click);
+            // 
+            // tsmiSOPX
+            // 
+            this.tsmiSOPX.Name = "tsmiSOPX";
+            resources.ApplyResources(this.tsmiSOPX, "tsmiSOPX");
+            this.tsmiSOPX.Click += new System.EventHandler(this.tsmiSOPX_Click);
+            // 
+            // tsmiSYMZ280B
+            // 
+            this.tsmiSYMZ280B.Name = "tsmiSYMZ280B";
+            resources.ApplyResources(this.tsmiSYMZ280B, "tsmiSYMZ280B");
+            this.tsmiSYMZ280B.Click += new System.EventHandler(this.tsmiSYMZ280B_Click);
+            // 
             // tsmiCSPCM
             // 
             this.tsmiCSPCM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -751,6 +758,12 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tsmiSPPZ8, "tsmiSPPZ8");
             this.tsmiSPPZ8.Click += new System.EventHandler(this.tsmiSPPZ8_Click);
             // 
+            // tsmiSMIDI
+            // 
+            this.tsmiSMIDI.Name = "tsmiSMIDI";
+            resources.ApplyResources(this.tsmiSMIDI, "tsmiSMIDI");
+            this.tsmiSMIDI.Click += new System.EventHandler(this.tsmiSMIDI_Click);
+            // 
             // tsmiCSNES
             // 
             this.tsmiCSNES.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -805,6 +818,12 @@ namespace MDPlayer.form
             this.tsmiSS5B.Name = "tsmiSS5B";
             resources.ApplyResources(this.tsmiSS5B, "tsmiSS5B");
             this.tsmiSS5B.Click += new System.EventHandler(this.tsmiSS5B_Click);
+            // 
+            // tsmiSDMG
+            // 
+            this.tsmiSDMG.Name = "tsmiSDMG";
+            resources.ApplyResources(this.tsmiSDMG, "tsmiSDMG");
+            this.tsmiSDMG.Click += new System.EventHandler(this.tsmiSDMG_Click);
             // 
             // cmsMenu
             // 
@@ -1115,6 +1134,312 @@ namespace MDPlayer.form
             resources.ApplyResources(this.sIDToolStripMenuItem, "sIDToolStripMenuItem");
             this.sIDToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
+            // opeButtonSetting
+            // 
+            this.opeButtonSetting.BackColor = System.Drawing.Color.Black;
+            this.opeButtonSetting.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonSetting, "opeButtonSetting");
+            this.opeButtonSetting.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonSetting.FlatAppearance.BorderSize = 0;
+            this.opeButtonSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonSetting.Name = "opeButtonSetting";
+            this.opeButtonSetting.Tag = "0";
+            this.toolTip1.SetToolTip(this.opeButtonSetting, resources.GetString("opeButtonSetting.ToolTip"));
+            this.opeButtonSetting.UseVisualStyleBackColor = false;
+            this.opeButtonSetting.Click += new System.EventHandler(this.opeButtonSetting_Click);
+            this.opeButtonSetting.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonSetting.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonStop
+            // 
+            this.opeButtonStop.BackColor = System.Drawing.Color.Black;
+            this.opeButtonStop.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonStop, "opeButtonStop");
+            this.opeButtonStop.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonStop.FlatAppearance.BorderSize = 0;
+            this.opeButtonStop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonStop.Name = "opeButtonStop";
+            this.opeButtonStop.Tag = "1";
+            this.toolTip1.SetToolTip(this.opeButtonStop, resources.GetString("opeButtonStop.ToolTip"));
+            this.opeButtonStop.UseVisualStyleBackColor = false;
+            this.opeButtonStop.Click += new System.EventHandler(this.opeButtonStop_Click);
+            this.opeButtonStop.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonStop.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonPause
+            // 
+            this.opeButtonPause.BackColor = System.Drawing.Color.Black;
+            this.opeButtonPause.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonPause, "opeButtonPause");
+            this.opeButtonPause.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonPause.FlatAppearance.BorderSize = 0;
+            this.opeButtonPause.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonPause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonPause.Name = "opeButtonPause";
+            this.opeButtonPause.Tag = "2";
+            this.toolTip1.SetToolTip(this.opeButtonPause, resources.GetString("opeButtonPause.ToolTip"));
+            this.opeButtonPause.UseVisualStyleBackColor = false;
+            this.opeButtonPause.Click += new System.EventHandler(this.opeButtonPause_Click);
+            this.opeButtonPause.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonPause.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonFadeout
+            // 
+            this.opeButtonFadeout.BackColor = System.Drawing.Color.Black;
+            this.opeButtonFadeout.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonFadeout, "opeButtonFadeout");
+            this.opeButtonFadeout.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonFadeout.FlatAppearance.BorderSize = 0;
+            this.opeButtonFadeout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonFadeout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonFadeout.Name = "opeButtonFadeout";
+            this.opeButtonFadeout.Tag = "3";
+            this.toolTip1.SetToolTip(this.opeButtonFadeout, resources.GetString("opeButtonFadeout.ToolTip"));
+            this.opeButtonFadeout.UseVisualStyleBackColor = false;
+            this.opeButtonFadeout.Click += new System.EventHandler(this.opeButtonFadeout_Click);
+            this.opeButtonFadeout.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonFadeout.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonPrevious
+            // 
+            this.opeButtonPrevious.BackColor = System.Drawing.Color.Black;
+            this.opeButtonPrevious.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonPrevious, "opeButtonPrevious");
+            this.opeButtonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonPrevious.FlatAppearance.BorderSize = 0;
+            this.opeButtonPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonPrevious.Name = "opeButtonPrevious";
+            this.opeButtonPrevious.Tag = "4";
+            this.toolTip1.SetToolTip(this.opeButtonPrevious, resources.GetString("opeButtonPrevious.ToolTip"));
+            this.opeButtonPrevious.UseVisualStyleBackColor = false;
+            this.opeButtonPrevious.Click += new System.EventHandler(this.opeButtonPrevious_Click);
+            this.opeButtonPrevious.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonPrevious.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonSlow
+            // 
+            this.opeButtonSlow.BackColor = System.Drawing.Color.Black;
+            this.opeButtonSlow.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonSlow, "opeButtonSlow");
+            this.opeButtonSlow.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonSlow.FlatAppearance.BorderSize = 0;
+            this.opeButtonSlow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonSlow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonSlow.Name = "opeButtonSlow";
+            this.opeButtonSlow.Tag = "5";
+            this.toolTip1.SetToolTip(this.opeButtonSlow, resources.GetString("opeButtonSlow.ToolTip"));
+            this.opeButtonSlow.UseVisualStyleBackColor = false;
+            this.opeButtonSlow.Click += new System.EventHandler(this.opeButtonSlow_Click);
+            this.opeButtonSlow.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonSlow.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonPlay
+            // 
+            this.opeButtonPlay.BackColor = System.Drawing.Color.Black;
+            this.opeButtonPlay.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonPlay, "opeButtonPlay");
+            this.opeButtonPlay.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonPlay.FlatAppearance.BorderSize = 0;
+            this.opeButtonPlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonPlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonPlay.Name = "opeButtonPlay";
+            this.opeButtonPlay.Tag = "6";
+            this.toolTip1.SetToolTip(this.opeButtonPlay, resources.GetString("opeButtonPlay.ToolTip"));
+            this.opeButtonPlay.UseVisualStyleBackColor = false;
+            this.opeButtonPlay.Click += new System.EventHandler(this.opeButtonPlay_Click);
+            this.opeButtonPlay.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonPlay.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonFast
+            // 
+            this.opeButtonFast.BackColor = System.Drawing.Color.Black;
+            this.opeButtonFast.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonFast, "opeButtonFast");
+            this.opeButtonFast.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonFast.FlatAppearance.BorderSize = 0;
+            this.opeButtonFast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonFast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonFast.Name = "opeButtonFast";
+            this.opeButtonFast.Tag = "7";
+            this.toolTip1.SetToolTip(this.opeButtonFast, resources.GetString("opeButtonFast.ToolTip"));
+            this.opeButtonFast.UseVisualStyleBackColor = false;
+            this.opeButtonFast.Click += new System.EventHandler(this.opeButtonFast_Click);
+            this.opeButtonFast.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonFast.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonNext
+            // 
+            this.opeButtonNext.BackColor = System.Drawing.Color.Black;
+            this.opeButtonNext.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonNext, "opeButtonNext");
+            this.opeButtonNext.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonNext.FlatAppearance.BorderSize = 0;
+            this.opeButtonNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonNext.Name = "opeButtonNext";
+            this.opeButtonNext.Tag = "8";
+            this.toolTip1.SetToolTip(this.opeButtonNext, resources.GetString("opeButtonNext.ToolTip"));
+            this.opeButtonNext.UseVisualStyleBackColor = false;
+            this.opeButtonNext.Click += new System.EventHandler(this.opeButtonNext_Click);
+            this.opeButtonNext.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonNext.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonZoom
+            // 
+            this.opeButtonZoom.BackColor = System.Drawing.Color.Black;
+            this.opeButtonZoom.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonZoom, "opeButtonZoom");
+            this.opeButtonZoom.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonZoom.FlatAppearance.BorderSize = 0;
+            this.opeButtonZoom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonZoom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonZoom.Name = "opeButtonZoom";
+            this.opeButtonZoom.Tag = "17";
+            this.toolTip1.SetToolTip(this.opeButtonZoom, resources.GetString("opeButtonZoom.ToolTip"));
+            this.opeButtonZoom.UseVisualStyleBackColor = false;
+            this.opeButtonZoom.Click += new System.EventHandler(this.opeButtonZoom_Click);
+            this.opeButtonZoom.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonZoom.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonMIDIKBD
+            // 
+            this.opeButtonMIDIKBD.BackColor = System.Drawing.Color.Black;
+            this.opeButtonMIDIKBD.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonMIDIKBD, "opeButtonMIDIKBD");
+            this.opeButtonMIDIKBD.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonMIDIKBD.FlatAppearance.BorderSize = 0;
+            this.opeButtonMIDIKBD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonMIDIKBD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonMIDIKBD.Name = "opeButtonMIDIKBD";
+            this.opeButtonMIDIKBD.Tag = "16";
+            this.toolTip1.SetToolTip(this.opeButtonMIDIKBD, resources.GetString("opeButtonMIDIKBD.ToolTip"));
+            this.opeButtonMIDIKBD.UseVisualStyleBackColor = false;
+            this.opeButtonMIDIKBD.Click += new System.EventHandler(this.opeButtonMIDIKBD_Click);
+            this.opeButtonMIDIKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonMIDIKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonVST
+            // 
+            this.opeButtonVST.BackColor = System.Drawing.Color.Black;
+            this.opeButtonVST.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonVST, "opeButtonVST");
+            this.opeButtonVST.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonVST.FlatAppearance.BorderSize = 0;
+            this.opeButtonVST.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonVST.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonVST.Name = "opeButtonVST";
+            this.opeButtonVST.Tag = "15";
+            this.toolTip1.SetToolTip(this.opeButtonVST, resources.GetString("opeButtonVST.ToolTip"));
+            this.opeButtonVST.UseVisualStyleBackColor = false;
+            this.opeButtonVST.Click += new System.EventHandler(this.opeButtonVST_Click);
+            this.opeButtonVST.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonVST.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonKBD
+            // 
+            this.opeButtonKBD.BackColor = System.Drawing.Color.Black;
+            this.opeButtonKBD.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonKBD, "opeButtonKBD");
+            this.opeButtonKBD.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonKBD.FlatAppearance.BorderSize = 0;
+            this.opeButtonKBD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonKBD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonKBD.Name = "opeButtonKBD";
+            this.opeButtonKBD.Tag = "14";
+            this.toolTip1.SetToolTip(this.opeButtonKBD, resources.GetString("opeButtonKBD.ToolTip"));
+            this.opeButtonKBD.UseVisualStyleBackColor = false;
+            this.opeButtonKBD.Click += new System.EventHandler(this.opeButtonKBD_Click);
+            this.opeButtonKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonMixer
+            // 
+            this.opeButtonMixer.BackColor = System.Drawing.Color.Black;
+            this.opeButtonMixer.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonMixer, "opeButtonMixer");
+            this.opeButtonMixer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonMixer.FlatAppearance.BorderSize = 0;
+            this.opeButtonMixer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonMixer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonMixer.Name = "opeButtonMixer";
+            this.opeButtonMixer.Tag = "13";
+            this.toolTip1.SetToolTip(this.opeButtonMixer, resources.GetString("opeButtonMixer.ToolTip"));
+            this.opeButtonMixer.UseVisualStyleBackColor = false;
+            this.opeButtonMixer.Click += new System.EventHandler(this.opeButtonMixer_Click);
+            this.opeButtonMixer.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonMixer.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonInformation
+            // 
+            this.opeButtonInformation.BackColor = System.Drawing.Color.Black;
+            this.opeButtonInformation.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonInformation, "opeButtonInformation");
+            this.opeButtonInformation.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonInformation.FlatAppearance.BorderSize = 0;
+            this.opeButtonInformation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonInformation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonInformation.Name = "opeButtonInformation";
+            this.opeButtonInformation.Tag = "12";
+            this.toolTip1.SetToolTip(this.opeButtonInformation, resources.GetString("opeButtonInformation.ToolTip"));
+            this.opeButtonInformation.UseVisualStyleBackColor = false;
+            this.opeButtonInformation.Click += new System.EventHandler(this.opeButtonInformation_Click);
+            this.opeButtonInformation.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonInformation.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonPlayList
+            // 
+            this.opeButtonPlayList.BackColor = System.Drawing.Color.Black;
+            this.opeButtonPlayList.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonPlayList, "opeButtonPlayList");
+            this.opeButtonPlayList.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonPlayList.FlatAppearance.BorderSize = 0;
+            this.opeButtonPlayList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonPlayList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonPlayList.Name = "opeButtonPlayList";
+            this.opeButtonPlayList.Tag = "11";
+            this.toolTip1.SetToolTip(this.opeButtonPlayList, resources.GetString("opeButtonPlayList.ToolTip"));
+            this.opeButtonPlayList.UseVisualStyleBackColor = false;
+            this.opeButtonPlayList.Click += new System.EventHandler(this.opeButtonPlayList_Click);
+            this.opeButtonPlayList.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonPlayList.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonOpen
+            // 
+            this.opeButtonOpen.BackColor = System.Drawing.Color.Black;
+            this.opeButtonOpen.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonOpen, "opeButtonOpen");
+            this.opeButtonOpen.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonOpen.FlatAppearance.BorderSize = 0;
+            this.opeButtonOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonOpen.Name = "opeButtonOpen";
+            this.opeButtonOpen.Tag = "10";
+            this.toolTip1.SetToolTip(this.opeButtonOpen, resources.GetString("opeButtonOpen.ToolTip"));
+            this.opeButtonOpen.UseVisualStyleBackColor = false;
+            this.opeButtonOpen.Click += new System.EventHandler(this.opeButtonOpen_Click);
+            this.opeButtonOpen.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonOpen.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
+            // opeButtonMode
+            // 
+            this.opeButtonMode.BackColor = System.Drawing.Color.Black;
+            this.opeButtonMode.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
+            resources.ApplyResources(this.opeButtonMode, "opeButtonMode");
+            this.opeButtonMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.opeButtonMode.FlatAppearance.BorderSize = 0;
+            this.opeButtonMode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.opeButtonMode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.opeButtonMode.Name = "opeButtonMode";
+            this.opeButtonMode.Tag = "9";
+            this.toolTip1.SetToolTip(this.opeButtonMode, resources.GetString("opeButtonMode.ToolTip"));
+            this.opeButtonMode.UseVisualStyleBackColor = false;
+            this.opeButtonMode.Click += new System.EventHandler(this.opeButtonMode_Click);
+            this.opeButtonMode.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
+            this.opeButtonMode.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
+            // 
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
@@ -1124,6 +1449,24 @@ namespace MDPlayer.form
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Controls.Add(this.opeButtonZoom);
+            this.Controls.Add(this.opeButtonMIDIKBD);
+            this.Controls.Add(this.opeButtonVST);
+            this.Controls.Add(this.opeButtonKBD);
+            this.Controls.Add(this.opeButtonMixer);
+            this.Controls.Add(this.opeButtonInformation);
+            this.Controls.Add(this.opeButtonPlayList);
+            this.Controls.Add(this.opeButtonOpen);
+            this.Controls.Add(this.opeButtonMode);
+            this.Controls.Add(this.opeButtonNext);
+            this.Controls.Add(this.opeButtonFast);
+            this.Controls.Add(this.opeButtonPlay);
+            this.Controls.Add(this.opeButtonSlow);
+            this.Controls.Add(this.opeButtonPrevious);
+            this.Controls.Add(this.opeButtonFadeout);
+            this.Controls.Add(this.opeButtonPause);
+            this.Controls.Add(this.opeButtonStop);
+            this.Controls.Add(this.opeButtonSetting);
             this.Controls.Add(this.pbScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1279,6 +1622,25 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiCSOPN;
         private System.Windows.Forms.ToolStripMenuItem tsmiCSPCM;
         private System.Windows.Forms.ToolStripMenuItem tsmiCSNES;
+        private System.Windows.Forms.Button opeButtonSetting;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button opeButtonStop;
+        private System.Windows.Forms.Button opeButtonPause;
+        private System.Windows.Forms.Button opeButtonFadeout;
+        private System.Windows.Forms.Button opeButtonPrevious;
+        private System.Windows.Forms.Button opeButtonSlow;
+        private System.Windows.Forms.Button opeButtonPlay;
+        private System.Windows.Forms.Button opeButtonFast;
+        private System.Windows.Forms.Button opeButtonNext;
+        private System.Windows.Forms.Button opeButtonZoom;
+        private System.Windows.Forms.Button opeButtonMIDIKBD;
+        private System.Windows.Forms.Button opeButtonVST;
+        private System.Windows.Forms.Button opeButtonKBD;
+        private System.Windows.Forms.Button opeButtonMixer;
+        private System.Windows.Forms.Button opeButtonInformation;
+        private System.Windows.Forms.Button opeButtonPlayList;
+        private System.Windows.Forms.Button opeButtonOpen;
+        private System.Windows.Forms.Button opeButtonMode;
     }
 }
 

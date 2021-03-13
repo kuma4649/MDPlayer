@@ -291,6 +291,7 @@ namespace MDPlayer.form
             this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
             this.Size = new System.Drawing.Size(frameSizeW + Resources.planeControl.Width * setting.other.Zoom, frameSizeH + Resources.planeControl.Height * setting.other.Zoom);
             frmMain_Resize(null, null);
+            RelocateOpeButton(setting.other.Zoom);
 
             if (frmMCD[0] != null && !frmMCD[0].isClosed)
             {
@@ -1124,8 +1125,8 @@ namespace MDPlayer.form
                 return;
             }
 
-            int px = e.Location.X / setting.other.Zoom;
-            int py = e.Location.Y / setting.other.Zoom;
+            //int px = e.Location.X / setting.other.Zoom;
+            //int py = e.Location.Y / setting.other.Zoom;
 
             //if (py < 16)
             //{
@@ -1221,118 +1222,6 @@ namespace MDPlayer.form
             //    return;
             //}
 
-            if (py < 9) return;
-
-            // ボタンの判定
-            int x=17;
-            if (px >= 0 * 16 + x && px < 1 * 16 + x)
-            {
-                tsmiOption_Click(null, null);
-                return;
-            }
-
-            if (px >= 1 * 16 + x && px < 2 * 16 + x)
-            {
-                tsmiStop_Click(null, null);
-                return;
-            }
-
-            if (px >= 2 * 16 + x && px < 3 * 16 + x)
-            {
-                tsmiPause_Click(null,null);
-                return;
-            }
-
-            if (px >= 3 * 16 + x && px < 4 * 16 + x)
-            {
-                tsmiFadeOut_Click(null,null);
-                return;
-            }
-
-            if (px >= 4 * 16 + x && px < 5 * 16 + x)
-            {
-                prev();
-                oldParam = new MDChipParams();
-                return;
-            }
-
-            if (px >= 5 * 16 + x && px < 6 * 16 + x)
-            {
-                tsmiSlow_Click(null, null);
-                return;
-            }
-
-            if (px >= 6 * 16 + x && px < 7 * 16 + x)
-            {
-                tsmiPlay_Click(null, null);
-                return;
-            }
-
-            if (px >= 7 * 16 + x && px < 8 * 16 + x)
-            {
-                tsmiFf_Click(null, null);
-                return;
-            }
-
-            if (px >= 8 * 16 + x && px < 9 * 16 + x)
-            {
-                tsmiNext_Click(null, null);
-                return;
-            }
-
-            if (px >= 9 * 16 + x && px < 10 * 16 + x)
-            {
-                tsmiPlayMode_Click(null, null);
-                return;
-            }
-
-            if (px >= 10 * 16 + x && px < 11 * 16 + x)
-            {
-                tsmiOpenFile_Click(null, null);
-                return;
-            }
-
-            if (px >= 11 * 16 + x && px < 12 * 16 + x)
-            {
-                tsmiPlayList_Click(null, null);
-                return;
-            }
-
-            if (px >= 12 * 16 + x && px < 13 * 16 + x)
-            {
-                tsmiOpenInfo_Click(null, null);
-                return;
-            }
-
-            if (px >= 13 * 16 + x && px < 14 * 16 + x)
-            {
-                tsmiOpenMixer_Click(null, null);
-                return;
-            }
-
-            if (px >= 14 * 16 + x && px < 15 * 16 + x)
-            {
-                tsmiKBrd_Click(null,null);
-                return;
-            }
-
-            if (px >= 15 * 16 + x && px < 16 * 16 + x)
-            {
-                tsmiVST_Click(null,null);
-                return;
-            }
-
-            if (px >= 16 * 16 + x && px < 17 * 16 + x)
-            {
-                tsmiMIDIkbd_Click(null,null);
-                return;
-            }
-
-            if (px >= 17 * 16 + x && px < 18 * 16 + x)
-            {
-                tsmiChangeZoom_Click(null, null);
-                return;
-            }
         }
 
 
@@ -4483,7 +4372,7 @@ namespace MDPlayer.form
 
             // 描画
 
-            DrawBuff.drawButtons(screen.mainScreen, oldButton, newButton, oldButtonMode, newButtonMode);
+            //DrawBuff.drawButtons(screen.mainScreen, oldButton, newButton, oldButtonMode, newButtonMode);
 
             DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
@@ -8628,5 +8517,231 @@ namespace MDPlayer.form
             else OpenFormRegTest(0);
         }
 
+        private Bitmap[] lstOpeButtonEnterImage = new Bitmap[]
+        {
+            Resources.chSetting,
+            Resources.chStop,
+            Resources.chPause,
+            Resources.chFadeout,
+            Resources.chPrevious,
+            Resources.chSlow,
+            Resources.chPlay,
+            Resources.chFast,
+            Resources.chNext,
+            Resources.chStep,
+            Resources.chOpenFolder,
+            Resources.chPlayList,
+            Resources.chInformation,
+            Resources.chMixer,
+            Resources.chKBD,
+            Resources.chVST,
+            Resources.chMIDIKBD,
+            Resources.chZoom,
+            Resources.chRandom,
+            Resources.chLoop,
+            Resources.chLoopOne
+        };
+        private Bitmap[] lstOpeButtonLeaveImage = new Bitmap[]
+        {
+            Resources.ccSetting,
+            Resources.ccStop,
+            Resources.ccPause,
+            Resources.ccFadeout,
+            Resources.ccPrevious,
+            Resources.ccSlow,
+            Resources.ccPlay,
+            Resources.ccFast,
+            Resources.ccNext,
+            Resources.ccStep,
+            Resources.ccOpenFolder,
+            Resources.ccPlayList,
+            Resources.ccInformation,
+            Resources.ccMixer,
+            Resources.ccKBD,
+            Resources.ccVST,
+            Resources.ccMIDIKBD,
+            Resources.ccZoom,
+            Resources.ccRandom,
+            Resources.ccLoop,
+            Resources.ccLoopOne
+        };
+
+        private void RelocateOpeButton(int zoom)
+        {
+            opeButtonSetting.Location = new Point((17 + 0) * zoom, 9 * zoom);
+            opeButtonStop.Location = new Point((17 + 16 * 1) * zoom, 9 * zoom);
+            opeButtonPause.Location = new Point((17 + 16 * 2) * zoom, 9 * zoom);
+            opeButtonFadeout.Location = new Point((17 + 16 * 3) * zoom, 9 * zoom);
+            opeButtonPrevious.Location = new Point((17 + 16 * 4) * zoom, 9 * zoom);
+            opeButtonSlow.Location = new Point((17 + 16 * 5) * zoom, 9 * zoom);
+            opeButtonPlay.Location = new Point((17 + 16 * 6) * zoom, 9 * zoom);
+            opeButtonFast.Location = new Point((17 + 16 * 7) * zoom, 9 * zoom);
+            opeButtonNext.Location = new Point((17 + 16 * 8) * zoom, 9 * zoom);
+            opeButtonMode.Location = new Point((17 + 16 * 9) * zoom, 9 * zoom);
+            opeButtonOpen.Location = new Point((17 + 16 * 10) * zoom, 9 * zoom);
+            opeButtonPlayList.Location = new Point((17 + 16 * 11) * zoom, 9 * zoom);
+            opeButtonInformation.Location = new Point((17 + 16 * 12) * zoom, 9 * zoom);
+            opeButtonMixer.Location = new Point((17 + 16 * 13) * zoom, 9 * zoom);
+            opeButtonKBD.Location = new Point((17 + 16 * 14) * zoom, 9 * zoom);
+            opeButtonVST.Location = new Point((17 + 16 * 15) * zoom, 9 * zoom);
+            opeButtonMIDIKBD.Location = new Point((17 + 16 * 16) * zoom, 9 * zoom);
+            opeButtonZoom.Location = new Point((17 + 16 * 17) * zoom, 9 * zoom);
+
+            RedrawButton(opeButtonSetting, setting.other.Zoom, lstOpeButtonLeaveImage[0]);
+            RedrawButton(opeButtonStop, setting.other.Zoom, lstOpeButtonLeaveImage[1]);
+            RedrawButton(opeButtonPause, setting.other.Zoom, lstOpeButtonLeaveImage[2]);
+            RedrawButton(opeButtonFadeout, setting.other.Zoom, lstOpeButtonLeaveImage[3]);
+            RedrawButton(opeButtonPrevious, setting.other.Zoom, lstOpeButtonLeaveImage[4]);
+            RedrawButton(opeButtonSlow, setting.other.Zoom, lstOpeButtonLeaveImage[5]);
+            RedrawButton(opeButtonPlay, setting.other.Zoom, lstOpeButtonLeaveImage[6]);
+            RedrawButton(opeButtonFast, setting.other.Zoom, lstOpeButtonLeaveImage[7]);
+            RedrawButton(opeButtonNext, setting.other.Zoom, lstOpeButtonLeaveImage[8]);
+            int m = newButtonMode[9] == 0 ? 9 : (newButtonMode[9] == 1 ? 18 : (newButtonMode[9] == 2 ? 19 : 20));
+            RedrawButton(opeButtonMode, setting.other.Zoom, lstOpeButtonLeaveImage[m]);
+            RedrawButton(opeButtonOpen, setting.other.Zoom, lstOpeButtonLeaveImage[10]);
+            RedrawButton(opeButtonPlayList, setting.other.Zoom, lstOpeButtonLeaveImage[11]);
+            RedrawButton(opeButtonInformation, setting.other.Zoom, lstOpeButtonLeaveImage[12]);
+            RedrawButton(opeButtonMixer, setting.other.Zoom, lstOpeButtonLeaveImage[13]);
+            RedrawButton(opeButtonKBD, setting.other.Zoom, lstOpeButtonLeaveImage[14]);
+            RedrawButton(opeButtonVST, setting.other.Zoom, lstOpeButtonLeaveImage[15]);
+            RedrawButton(opeButtonMIDIKBD, setting.other.Zoom, lstOpeButtonLeaveImage[16]);
+            RedrawButton(opeButtonZoom, setting.other.Zoom, lstOpeButtonLeaveImage[17]);
+        }
+
+        private void opeButton_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int index =int.Parse(btn.Tag.ToString());
+            int m = index;
+            if (m == 9)
+            {
+                m = newButtonMode[9] == 0 ? 9 : (newButtonMode[9] == 1 ? 18 : (newButtonMode[9] == 2 ? 19 : 20));
+            }
+            RedrawButton(btn, setting.other.Zoom, lstOpeButtonEnterImage[m]);
+        }
+
+        private void opeButton_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int index = int.Parse(btn.Tag.ToString());
+            int m = index;
+            if (m == 9)
+            {
+                m = newButtonMode[9] == 0 ? 9 : (newButtonMode[9] == 1 ? 18 : (newButtonMode[9] == 2 ? 19 : 20));
+            }
+            RedrawButton(btn, setting.other.Zoom, lstOpeButtonLeaveImage[m]);
+        }
+
+        private void RedrawButton(Button button, int zoom, Bitmap image)
+        {
+            const int size = 16;
+            if (button.Size.Width != size * zoom) button.Size = new Size(size * zoom, size * zoom);
+
+            Bitmap canvas;
+            if (button.BackgroundImage != null && button.BackgroundImage.Width == size * zoom)
+                canvas = new Bitmap(button.BackgroundImage);
+            else
+                canvas = new Bitmap(button.Width, button.Height);
+            using (Graphics g = Graphics.FromImage(canvas))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                g.Clear(Color.Black);
+                g.DrawImage(image, 0, 0, size * zoom, size * zoom);
+            }
+
+            button.BackgroundImage = canvas;
+        }
+
+        private void opeButtonSetting_Click(object sender, EventArgs e)
+        {
+            tsmiOption_Click(null, null);
+        }
+
+        private void opeButtonStop_Click(object sender, EventArgs e)
+        {
+            tsmiStop_Click(null, null);
+        }
+
+        private void opeButtonPause_Click(object sender, EventArgs e)
+        {
+            tsmiPause_Click(null, null);
+        }
+
+        private void opeButtonFadeout_Click(object sender, EventArgs e)
+        {
+            tsmiFadeOut_Click(null, null);
+        }
+
+        private void opeButtonPrevious_Click(object sender, EventArgs e)
+        {
+            prev();
+            oldParam = new MDChipParams();
+        }
+
+        private void opeButtonSlow_Click(object sender, EventArgs e)
+        {
+            tsmiSlow_Click(null, null);
+        }
+
+        private void opeButtonPlay_Click(object sender, EventArgs e)
+        {
+            tsmiPlay_Click(null, null);
+        }
+
+        private void opeButtonFast_Click(object sender, EventArgs e)
+        {
+            tsmiFf_Click(null, null);
+        }
+
+        private void opeButtonNext_Click(object sender, EventArgs e)
+        {
+            tsmiNext_Click(null, null);
+        }
+
+        private void opeButtonMode_Click(object sender, EventArgs e)
+        {
+            tsmiPlayMode_Click(null, null);
+            opeButton_MouseEnter(opeButtonMode, null);
+        }
+
+        private void opeButtonOpen_Click(object sender, EventArgs e)
+        {
+            tsmiOpenFile_Click(null, null);
+        }
+
+        private void opeButtonPlayList_Click(object sender, EventArgs e)
+        {
+            tsmiPlayList_Click(null, null);
+        }
+
+        private void opeButtonInformation_Click(object sender, EventArgs e)
+        {
+            tsmiOpenInfo_Click(null, null);
+        }
+
+        private void opeButtonMixer_Click(object sender, EventArgs e)
+        {
+            tsmiOpenMixer_Click(null, null);
+        }
+
+        private void opeButtonKBD_Click(object sender, EventArgs e)
+        {
+            tsmiKBrd_Click(null, null);
+        }
+
+        private void opeButtonVST_Click(object sender, EventArgs e)
+        {
+            tsmiVST_Click(null, null);
+        }
+
+        private void opeButtonMIDIKBD_Click(object sender, EventArgs e)
+        {
+            tsmiMIDIkbd_Click(null, null);
+        }
+
+        private void opeButtonZoom_Click(object sender, EventArgs e)
+        {
+            tsmiChangeZoom_Click(null, null);
+        }
     }
 }
