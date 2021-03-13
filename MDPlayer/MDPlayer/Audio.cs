@@ -5729,6 +5729,7 @@ namespace MDPlayer
 
         public static void FF()
         {
+            if (driverVirtual == null) return;
             vgmSpeed = (vgmSpeed == 1) ? 4 : 1;
             driverVirtual.vgmSpeed = vgmSpeed;
             if (driverReal != null) driverReal.vgmSpeed = vgmSpeed;

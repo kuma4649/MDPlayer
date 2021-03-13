@@ -110,6 +110,8 @@ namespace MDPlayer.form
             }
         }
 
+        public List<Tuple<string,string>> randomStack = new List<Tuple<string,string>>();
+
         protected override void WndProc(ref Message m)
         {
             if (frmMain != null)
@@ -278,10 +280,13 @@ namespace MDPlayer.form
 
         public void nextPlayMode(int mode)
         {
-            if (!playing) return;
+            if (!playing) {
+                playIndex = -1;
+            }
 
             int pi = playIndex;
             playing = false;
+            string fn,zfn;
 
             switch (mode)
             {
@@ -290,6 +295,18 @@ namespace MDPlayer.form
                     pi++;
                     break;
                 case 1:// ランダム
+
+                    if (pi != -1)
+                    {
+                        //再生履歴の更新
+                        fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+                        zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+
+                        randomStack.Add(new Tuple<string, string>(fn, zfn));
+                        while (randomStack.Count > 1000)
+                            randomStack.RemoveAt(0);
+                    }
+
                     pi = rand.Next(dgvList.Rows.Count);
                     break;
                 case 2:// 全曲ループ
@@ -303,8 +320,14 @@ namespace MDPlayer.form
                     break;
             }
 
-            string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
-            string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            if (pi + 1 > dgvList.Rows.Count)
+            {
+                playing = false;
+                return;
+            }
+
+            fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+            zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
             int m = 0;
             if (dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
             {
@@ -326,21 +349,66 @@ namespace MDPlayer.form
                 playing = false;
                 return;
             }
+
             updatePlayingIndex(pi);
             playing = true;
         }
 
-        public void prevPlay()
+        public void prevPlay(int mode)
         {
             if (!playing) return;
-            if (playIndex < 1) return;
+            if (mode != 1 && playIndex < 1) return;
 
             int pi = playIndex;
             playing = false;
-            pi--;
+            string fn, zfn;
 
-            string fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
-            string zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            if (mode != 1)
+            {
+                pi--;
+                fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+                zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+            }
+            else
+            {
+                pi = 0;
+                if (randomStack.Count > 0)
+                {
+                    while (true)
+                    {
+                        string hfn = randomStack[randomStack.Count - 1].Item1;
+                        string hzfn = randomStack[randomStack.Count - 1].Item2;
+                        randomStack.RemoveAt(randomStack.Count - 1);
+
+                        for (; pi < dgvList.Rows.Count; pi++)
+                        {
+                            fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+                            zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+                            if (hfn == fn && hzfn == zfn)
+                            {
+                                goto loopEx;
+                            }
+                        }
+
+                        if (randomStack.Count == 0) break;
+                    }
+
+                    if (playIndex < 1) return;
+                    pi = playIndex - 1;
+                    fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+                    zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+                }
+                else
+                {
+                    pi = playIndex;
+                    pi--;
+                    if (pi < 0) pi = 0;
+                    fn = (string)dgvList.Rows[pi].Cells["clmFileName"].Value;
+                    zfn = (string)dgvList.Rows[pi].Cells["clmZipFileName"].Value;
+                }
+            loopEx:;
+            }
+
             int m = 0;
             if (dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value != null && dgvList.Rows[pi].Cells[dgvList.Columns["clmType"].Index].Value.ToString() != "-")
             {

@@ -4573,7 +4573,7 @@ namespace MDPlayer.form
                 Audio.Pause();
             }
 
-            frmPlayList.prevPlay();
+            frmPlayList.prevPlay(newButtonMode[9]);
         }
 
         public void play()
@@ -4881,7 +4881,8 @@ namespace MDPlayer.form
             Audio.Stop();
             screenInit();
 
-            frmPlayList.nextPlay();
+            //frmPlayList.nextPlay();
+            frmPlayList.nextPlayMode(newButtonMode[9]);
         }
 
         private void nextPlayMode()
@@ -8407,8 +8408,17 @@ namespace MDPlayer.form
 
         private void tsmiPlay_Click(object sender, EventArgs e)
         {
-            play();
-            oldParam = new MDChipParams();
+            int n = frmPlayList.getMusicCount();
+
+            if (newButtonMode[9] != 1 || n<1)
+            {
+                play();
+                oldParam = new MDChipParams();
+            }
+            else
+            {
+                next();
+            }
         }
 
         private void tsmiStop_Click(object sender, EventArgs e)
