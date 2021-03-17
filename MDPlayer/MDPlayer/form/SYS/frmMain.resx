@@ -690,8 +690,86 @@
   <metadata name="cmsMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>206, 21</value>
   </metadata>
+  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="tsmiOption.Text" xml:space="preserve">
+    <value>Option</value>
+  </data>
+  <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="tsmiPlayList.Text" xml:space="preserve">
+    <value>Playlist</value>
+  </data>
+  <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="tsmiOpenInfo.Text" xml:space="preserve">
+    <value>Music Information</value>
+  </data>
+  <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="tsmiOpenMixer.Text" xml:space="preserve">
+    <value>Mixer</value>
+  </data>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="tsmiChangeZoomX1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiChangeZoomX1.Text" xml:space="preserve">
+    <value>x1</value>
+  </data>
+  <data name="tsmiChangeZoomX2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiChangeZoomX2.Text" xml:space="preserve">
+    <value>x2</value>
+  </data>
+  <data name="tsmiChangeZoomX3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiChangeZoomX3.Text" xml:space="preserve">
+    <value>x3</value>
+  </data>
+  <data name="tsmiChangeZoomX4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="tsmiChangeZoomX4.Text" xml:space="preserve">
+    <value>x4</value>
+  </data>
+  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 26</value>
+  </data>
+  <data name="tsmiChangeZoom.Text" xml:space="preserve">
+    <value>Resize window</value>
+  </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 26</value>
+  </data>
+  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Register dump</value>
+  </data>
   <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 202</value>
+    <value>185, 260</value>
   </data>
   <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
     <value>cmsMenu</value>
@@ -699,260 +777,182 @@
   <data name="&gt;&gt;cmsMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
   <data name="tsmiOpenFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="tsmiOpenFile.Text" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="tsmiExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="tsmiExit.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Operation</value>
-  </data>
   <data name="tsmiPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiPlay.Text" xml:space="preserve">
     <value>Play</value>
   </data>
   <data name="tsmiStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiStop.Text" xml:space="preserve">
     <value>Stop</value>
   </data>
   <data name="tsmiPause.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiPause.Text" xml:space="preserve">
     <value>Pause</value>
   </data>
   <data name="tsmiFadeOut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiFadeOut.Text" xml:space="preserve">
     <value>Fade out</value>
   </data>
   <data name="tsmiSlow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiSlow.Text" xml:space="preserve">
     <value>Slow</value>
   </data>
   <data name="tsmiFf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiFf.Text" xml:space="preserve">
     <value>x3 speed</value>
   </data>
   <data name="tsmiNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiNext.Text" xml:space="preserve">
     <value>Next</value>
   </data>
   <data name="tsmiPlayMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>199, 26</value>
   </data>
   <data name="tsmiPlayMode.Text" xml:space="preserve">
     <value>Change playback order</value>
   </data>
-  <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="tsmiOption.Text" xml:space="preserve">
-    <value>Option</value>
-  </data>
-  <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="tsmiPlayList.Text" xml:space="preserve">
-    <value>Playlist</value>
-  </data>
-  <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="tsmiOpenInfo.Text" xml:space="preserve">
-    <value>Music Information</value>
-  </data>
-  <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="tsmiOpenMixer.Text" xml:space="preserve">
-    <value>Mixer</value>
-  </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Other</value>
-  </data>
   <data name="tsmiKBrd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="tsmiKBrd.Text" xml:space="preserve">
     <value>Various keyboards</value>
   </data>
   <data name="tsmiVST.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="tsmiVST.Text" xml:space="preserve">
     <value>VST</value>
   </data>
   <data name="tsmiMIDIkbd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="tsmiMIDIkbd.Text" xml:space="preserve">
     <value>MIDI keyboard</value>
   </data>
-  <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="tsmiChangeZoom.Text" xml:space="preserve">
-    <value>Resize window</value>
-  </data>
-  <data name="tsmiChangeZoomX1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
-  </data>
-  <data name="tsmiChangeZoomX1.Text" xml:space="preserve">
-    <value>x1</value>
-  </data>
-  <data name="tsmiChangeZoomX2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
-  </data>
-  <data name="tsmiChangeZoomX2.Text" xml:space="preserve">
-    <value>x2</value>
-  </data>
-  <data name="tsmiChangeZoomX3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
-  </data>
-  <data name="tsmiChangeZoomX3.Text" xml:space="preserve">
-    <value>x3</value>
-  </data>
-  <data name="tsmiChangeZoomX4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
-  </data>
-  <data name="tsmiChangeZoomX4.Text" xml:space="preserve">
-    <value>x4</value>
-  </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
-  </data>
-  <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Register dump</value>
-  </data>
   <data name="yM2612ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yM2612ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2612</value>
   </data>
   <data name="ym2151ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ym2151ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2151</value>
   </data>
   <data name="ym2203ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ym2203ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2203</value>
   </data>
   <data name="ym2413ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ym2413ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2413</value>
   </data>
   <data name="ym2608ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ym2608ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2608</value>
   </data>
   <data name="yM2610ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yM2610ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM2610</value>
   </data>
   <data name="yM3812ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yM3812ToolStripMenuItem.Text" xml:space="preserve">
     <value>YM3812</value>
   </data>
   <data name="yMF262ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yMF262ToolStripMenuItem.Text" xml:space="preserve">
     <value>YMF262</value>
   </data>
   <data name="yMF278BToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yMF278BToolStripMenuItem.Text" xml:space="preserve">
     <value>YMF278B</value>
   </data>
   <data name="yMZ280BToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="yMZ280BToolStripMenuItem.Text" xml:space="preserve">
     <value>YMZ280B</value>
   </data>
   <data name="c140ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="c140ToolStripMenuItem.Text" xml:space="preserve">
     <value>C140</value>
   </data>
   <data name="c352ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="c352ToolStripMenuItem.Text" xml:space="preserve">
     <value>C352</value>
   </data>
   <data name="qSoundToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="qSoundToolStripMenuItem.Text" xml:space="preserve">
     <value>QSound</value>
   </data>
   <data name="segaPCMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="segaPCMToolStripMenuItem.Text" xml:space="preserve">
     <value>SegaPCM</value>
   </data>
   <data name="sN76489ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="sN76489ToolStripMenuItem.Text" xml:space="preserve">
     <value>SN76489</value>
   </data>
   <data name="aY8910ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="aY8910ToolStripMenuItem.Text" xml:space="preserve">
     <value>AY8910</value>
   </data>
   <data name="sIDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="sIDToolStripMenuItem.Text" xml:space="preserve">
     <value>SID</value>
@@ -970,7 +970,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonSetting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 0</value>
+    <value>17, 9</value>
   </data>
   <data name="opeButtonSetting.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1006,7 +1006,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonStop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 0</value>
+    <value>33, 9</value>
   </data>
   <data name="opeButtonStop.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1039,7 +1039,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonPause.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 0</value>
+    <value>49, 9</value>
   </data>
   <data name="opeButtonPause.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1072,7 +1072,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonFadeout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 0</value>
+    <value>65, 9</value>
   </data>
   <data name="opeButtonFadeout.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1105,7 +1105,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonPrevious.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 0</value>
+    <value>81, 9</value>
   </data>
   <data name="opeButtonPrevious.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1138,7 +1138,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonSlow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 0</value>
+    <value>97, 9</value>
   </data>
   <data name="opeButtonSlow.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1171,7 +1171,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 0</value>
+    <value>113, 9</value>
   </data>
   <data name="opeButtonPlay.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1204,7 +1204,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonFast.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 0</value>
+    <value>129, 9</value>
   </data>
   <data name="opeButtonFast.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1237,7 +1237,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 0</value>
+    <value>145, 9</value>
   </data>
   <data name="opeButtonNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1270,7 +1270,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonZoom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>289, 0</value>
+    <value>289, 9</value>
   </data>
   <data name="opeButtonZoom.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1303,7 +1303,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonMIDIKBD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 0</value>
+    <value>273, 9</value>
   </data>
   <data name="opeButtonMIDIKBD.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1336,7 +1336,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonVST.Location" type="System.Drawing.Point, System.Drawing">
-    <value>257, 0</value>
+    <value>257, 9</value>
   </data>
   <data name="opeButtonVST.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1369,7 +1369,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonKBD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 0</value>
+    <value>241, 9</value>
   </data>
   <data name="opeButtonKBD.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1402,7 +1402,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonMixer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 0</value>
+    <value>225, 9</value>
   </data>
   <data name="opeButtonMixer.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1435,7 +1435,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonInformation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 0</value>
+    <value>209, 9</value>
   </data>
   <data name="opeButtonInformation.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1468,7 +1468,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonPlayList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 0</value>
+    <value>193, 9</value>
   </data>
   <data name="opeButtonPlayList.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1501,7 +1501,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonOpen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 0</value>
+    <value>177, 9</value>
   </data>
   <data name="opeButtonOpen.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1534,7 +1534,7 @@
     <value>NoControl</value>
   </data>
   <data name="opeButtonMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 0</value>
+    <value>161, 9</value>
   </data>
   <data name="opeButtonMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1901,9 +1901,6 @@
         ///8f///////////////////////////////////////////////////////////////////////////
         ////////////////////////
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>334, 63</value>

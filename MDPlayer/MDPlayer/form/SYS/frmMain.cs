@@ -739,7 +739,8 @@ namespace MDPlayer.form
                 if (!loadAndPlay(0, 0, args[1], ""))
                 {
                     frmPlayList.Stop();
-                    Audio.Stop();
+                    OpeManager.RequestToAudio(new Request(enmRequest.Stop));
+                    //Audio.Stop();
                     return;
                 }
 
@@ -787,8 +788,12 @@ namespace MDPlayer.form
             log.ForcedWrite("frmMain_FormClosing:STEP 01");
 
             StopMIDIInMonitoring();
-            Audio.Close();
-            Audio.RealChipClose();
+            Request req = new Request(enmRequest.Die);
+            OpeManager.RequestToAudio(req);
+            while (!req.end)//自殺リクエストはコールバック無し
+            {
+                System.Threading.Thread.Sleep(1);
+            }
 
             log.ForcedWrite("frmMain_FormClosing:STEP 02");
 
@@ -3820,7 +3825,10 @@ namespace MDPlayer.form
 
             StopMIDIInMonitoring();
             frmPlayList.Stop();
-            Audio.Stop();
+            Request req = new Request(enmRequest.Stop);
+            OpeManager.RequestToAudio(req);
+            while (!req.end) System.Threading.Thread.Sleep(1);
+            //Audio.Stop();
             Audio.Close();
 
             this.setting = setting;
@@ -3976,7 +3984,7 @@ namespace MDPlayer.form
             DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 2, ref oldParam.LCminutes, ref oldParam.LCsecond, ref oldParam.LCmillisecond, newParam.LCminutes, newParam.LCsecond, newParam.LCmillisecond);
-            screenInit();
+            screenInit(null);
 
             for (int i = 0; i < 2; i++)
             {
@@ -4315,7 +4323,12 @@ namespace MDPlayer.form
                     log.ForcedWrite("AudioでFatalErrorが発生。再度Audio初期化処理開始");
 
                     frmPlayList.Stop();
-                    try { Audio.Stop(); }
+                    try {
+                        Request req = new Request(enmRequest.Stop);
+                        OpeManager.RequestToAudio(req);
+                        while (!req.end) System.Threading.Thread.Sleep(1);
+                        //Audio.Stop();
+                    }
                     catch (Exception ex)
                     {
                         log.ForcedWrite(ex);
@@ -4456,7 +4469,7 @@ namespace MDPlayer.form
             }
         }
 
-        private void screenInit()
+        private void screenInit(object dmy)
         {
 
             oldParam.chipLED.PriOPN = 255;
@@ -4547,8 +4560,9 @@ namespace MDPlayer.form
             }
 
             frmPlayList.Stop();
-            Audio.Stop();
-            screenInit();
+            OpeManager.RequestToAudio(new Request(enmRequest.Stop, null, screenInit));
+            //Audio.Stop();
+            //screenInit();
         }
 
         public void pause()
@@ -4693,7 +4707,10 @@ namespace MDPlayer.form
                     try
                     {
                         frmPlayList.Stop();
-                        Audio.Stop();
+                        Request req = new Request(enmRequest.Stop);
+                        OpeManager.RequestToAudio(req);
+                        //while (!req.end) System.Threading.Thread.Sleep(1);
+                        //Audio.Stop();
                     }
                     catch (Exception ex)
                     {
@@ -4878,8 +4895,13 @@ namespace MDPlayer.form
             {
                 Audio.Pause();
             }
-            Audio.Stop();
-            screenInit();
+
+            Request req = new Request(enmRequest.Stop);
+            OpeManager.RequestToAudio(req);
+            while (!req.end) System.Threading.Thread.Sleep(1);
+            //Audio.Stop();
+
+            screenInit(null);
 
             //frmPlayList.nextPlay();
             frmPlayList.nextPlayMode(newButtonMode[9]);
@@ -6564,7 +6586,9 @@ namespace MDPlayer.form
                     if (!loadAndPlay(0, 0, sParam))
                     {
                         frmPlayList.Stop();
-                        Audio.Stop();
+                        Request req = new Request(enmRequest.Stop);
+                        OpeManager.RequestToAudio(req);
+                        //Audio.Stop();
                         return;
                     }
 

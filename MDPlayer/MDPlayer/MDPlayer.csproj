@@ -524,6 +524,8 @@
     <Compile Include="form\KB\NES\frmVRC7.Designer.cs">
       <DependentUpon>frmVRC7.cs</DependentUpon>
     </Compile>
+    <Compile Include="OpeManager.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="VST\frmVST.cs">
       <SubType>Form</SubType>
     </Compile>
