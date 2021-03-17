@@ -127,7 +127,7 @@ namespace MDPlayer.form
                 DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
 
                 bool? db = null;
-                DrawBuff.ChYM2413(screen, ch, ref db, false, tp);
+                DrawBuff.ChAY8910(screen, ch, ref db, false, tp);
             }
         }
 

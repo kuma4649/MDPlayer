@@ -388,7 +388,7 @@ namespace MDPlayer.Driver
 
             if (arg.port == 0x03)
             {
-                chipRegister.PPZ8LoadPcm(0, (byte)arg.address, (byte)arg.data, (byte[])arg.addtionalData, model);
+                chipRegister.PPZ8LoadPcm(0, (byte)arg.address, (byte)arg.data, (byte[][])arg.addtionalData, model);
             }
             else
             {

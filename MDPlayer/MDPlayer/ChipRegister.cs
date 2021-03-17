@@ -3554,7 +3554,7 @@ namespace MDPlayer
 
         }
 
-        public void PPZ8LoadPcm(int ChipID, byte bank, byte mode, byte[] pcmData, EnmModel model)
+        public void PPZ8LoadPcm(int ChipID, byte bank, byte mode, byte[][] pcmData, EnmModel model)
         {
             if (model != EnmModel.VirtualModel) return;
 

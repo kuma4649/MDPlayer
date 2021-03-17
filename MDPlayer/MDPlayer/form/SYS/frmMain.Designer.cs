@@ -846,6 +846,7 @@ namespace MDPlayer.form
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiOpenFile,
             this.tsmiExit});
+            this.ファイルToolStripMenuItem.Image = global::MDPlayer.Properties.Resources.ccOpenFolder;
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(this.ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
@@ -877,72 +878,84 @@ namespace MDPlayer.form
             // 
             // tsmiPlay
             // 
+            this.tsmiPlay.Image = global::MDPlayer.Properties.Resources.ccPlay;
             this.tsmiPlay.Name = "tsmiPlay";
             resources.ApplyResources(this.tsmiPlay, "tsmiPlay");
             this.tsmiPlay.Click += new System.EventHandler(this.tsmiPlay_Click);
             // 
             // tsmiStop
             // 
+            this.tsmiStop.Image = global::MDPlayer.Properties.Resources.ccStop;
             this.tsmiStop.Name = "tsmiStop";
             resources.ApplyResources(this.tsmiStop, "tsmiStop");
             this.tsmiStop.Click += new System.EventHandler(this.tsmiStop_Click);
             // 
             // tsmiPause
             // 
+            this.tsmiPause.Image = global::MDPlayer.Properties.Resources.ccPause;
             this.tsmiPause.Name = "tsmiPause";
             resources.ApplyResources(this.tsmiPause, "tsmiPause");
             this.tsmiPause.Click += new System.EventHandler(this.tsmiPause_Click);
             // 
             // tsmiFadeOut
             // 
+            this.tsmiFadeOut.Image = global::MDPlayer.Properties.Resources.ccFadeout;
             this.tsmiFadeOut.Name = "tsmiFadeOut";
             resources.ApplyResources(this.tsmiFadeOut, "tsmiFadeOut");
             this.tsmiFadeOut.Click += new System.EventHandler(this.tsmiFadeOut_Click);
             // 
             // tsmiSlow
             // 
+            this.tsmiSlow.Image = global::MDPlayer.Properties.Resources.ccSlow;
             this.tsmiSlow.Name = "tsmiSlow";
             resources.ApplyResources(this.tsmiSlow, "tsmiSlow");
             this.tsmiSlow.Click += new System.EventHandler(this.tsmiSlow_Click);
             // 
             // tsmiFf
             // 
+            this.tsmiFf.Image = global::MDPlayer.Properties.Resources.ccFast;
             this.tsmiFf.Name = "tsmiFf";
             resources.ApplyResources(this.tsmiFf, "tsmiFf");
             this.tsmiFf.Click += new System.EventHandler(this.tsmiFf_Click);
             // 
             // tsmiNext
             // 
+            this.tsmiNext.Image = global::MDPlayer.Properties.Resources.ccNext;
             this.tsmiNext.Name = "tsmiNext";
             resources.ApplyResources(this.tsmiNext, "tsmiNext");
             this.tsmiNext.Click += new System.EventHandler(this.tsmiNext_Click);
             // 
             // tsmiPlayMode
             // 
+            this.tsmiPlayMode.Image = global::MDPlayer.Properties.Resources.ccStep;
             this.tsmiPlayMode.Name = "tsmiPlayMode";
             resources.ApplyResources(this.tsmiPlayMode, "tsmiPlayMode");
             this.tsmiPlayMode.Click += new System.EventHandler(this.tsmiPlayMode_Click);
             // 
             // tsmiOption
             // 
+            this.tsmiOption.Image = global::MDPlayer.Properties.Resources.ccSetting;
             this.tsmiOption.Name = "tsmiOption";
             resources.ApplyResources(this.tsmiOption, "tsmiOption");
             this.tsmiOption.Click += new System.EventHandler(this.tsmiOption_Click);
             // 
             // tsmiPlayList
             // 
+            this.tsmiPlayList.Image = global::MDPlayer.Properties.Resources.ccPlayList;
             this.tsmiPlayList.Name = "tsmiPlayList";
             resources.ApplyResources(this.tsmiPlayList, "tsmiPlayList");
             this.tsmiPlayList.Click += new System.EventHandler(this.tsmiPlayList_Click);
             // 
             // tsmiOpenInfo
             // 
+            this.tsmiOpenInfo.Image = global::MDPlayer.Properties.Resources.ccInformation;
             this.tsmiOpenInfo.Name = "tsmiOpenInfo";
             resources.ApplyResources(this.tsmiOpenInfo, "tsmiOpenInfo");
             this.tsmiOpenInfo.Click += new System.EventHandler(this.tsmiOpenInfo_Click);
             // 
             // tsmiOpenMixer
             // 
+            this.tsmiOpenMixer.Image = global::MDPlayer.Properties.Resources.ccMixer;
             this.tsmiOpenMixer.Name = "tsmiOpenMixer";
             resources.ApplyResources(this.tsmiOpenMixer, "tsmiOpenMixer");
             this.tsmiOpenMixer.Click += new System.EventHandler(this.tsmiOpenMixer_Click);
@@ -958,18 +971,21 @@ namespace MDPlayer.form
             // 
             // tsmiKBrd
             // 
+            this.tsmiKBrd.Image = global::MDPlayer.Properties.Resources.ccKBD;
             this.tsmiKBrd.Name = "tsmiKBrd";
             resources.ApplyResources(this.tsmiKBrd, "tsmiKBrd");
             this.tsmiKBrd.Click += new System.EventHandler(this.tsmiKBrd_Click);
             // 
             // tsmiVST
             // 
+            this.tsmiVST.Image = global::MDPlayer.Properties.Resources.ccVST;
             this.tsmiVST.Name = "tsmiVST";
             resources.ApplyResources(this.tsmiVST, "tsmiVST");
             this.tsmiVST.Click += new System.EventHandler(this.tsmiVST_Click);
             // 
             // tsmiMIDIkbd
             // 
+            this.tsmiMIDIkbd.Image = global::MDPlayer.Properties.Resources.ccMIDIKBD;
             this.tsmiMIDIkbd.Name = "tsmiMIDIkbd";
             resources.ApplyResources(this.tsmiMIDIkbd, "tsmiMIDIkbd");
             this.tsmiMIDIkbd.Click += new System.EventHandler(this.tsmiMIDIkbd_Click);
@@ -981,6 +997,7 @@ namespace MDPlayer.form
             this.tsmiChangeZoomX2,
             this.tsmiChangeZoomX3,
             this.tsmiChangeZoomX4});
+            this.tsmiChangeZoom.Image = global::MDPlayer.Properties.Resources.ccZoom;
             this.tsmiChangeZoom.Name = "tsmiChangeZoom";
             resources.ApplyResources(this.tsmiChangeZoom, "tsmiChangeZoom");
             this.tsmiChangeZoom.Click += new System.EventHandler(this.tsmiChangeZoom_Click);

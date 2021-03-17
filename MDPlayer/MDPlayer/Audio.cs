@@ -1417,6 +1417,42 @@ namespace MDPlayer
 
             log.ForcedWrite("Audio:Init:Complete");
 
+            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
+            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+            trd.Start();
+
+        }
+
+        private static void trdIF()
+        {
+            while (true)
+            {
+                Request req = OpeManager.GetRequestToAudio();
+                if (req == null)
+                {
+                    Thread.Sleep(1);
+                    continue;
+                }
+
+                switch (req.request)
+                {
+                    case enmRequest.Die://自殺してください
+                        seqDie();
+                        req.end = true;
+                        return;
+                    case enmRequest.Stop:
+                        Stop();
+                        req.end = true;
+                        OpeManager.CompleteRequestToAudio(req);
+                        break;
+                }
+            }
+        }
+
+        private static void seqDie()
+        {
+            Close();
+            RealChipClose();
         }
 
         private static void MakeMIDIout(Setting setting, int m)
@@ -5821,15 +5857,15 @@ namespace MDPlayer
 
                 if (!Paused)
                 {
-                    NAudio.Wave.PlaybackState? ps = naudioWrap.GetPlaybackState();
-                    if (ps != null && ps != NAudio.Wave.PlaybackState.Stopped)
+                    PlaybackState? ps = naudioWrap.GetPlaybackState();
+                    if (ps != null && ps != PlaybackState.Stopped)
                     {
                         vgmFadeoutCounterV = 0.1;
                         vgmFadeout = true;
                         int cnt = 0;
                         while (!Stopped && cnt < 100)
                         {
-                            System.Threading.Thread.Sleep(1);
+                            Thread.Sleep(1);
                             System.Windows.Forms.Application.DoEvents();
                             cnt++;
                         }
@@ -5865,8 +5901,11 @@ namespace MDPlayer
                 softReset(EnmModel.RealModel);
 
                 //chipRegister.outMIDIData_Close();
-                Thread.Sleep(500);
-                waveWriter.Close();
+                if (setting.other.WavSwitch)
+                {
+                    Thread.Sleep(500);
+                    waveWriter.Close();
+                }
 
                 //DEBUG
                 //vstparse();
