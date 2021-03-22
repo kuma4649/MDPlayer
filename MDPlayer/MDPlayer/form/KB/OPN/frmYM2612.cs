@@ -461,8 +461,10 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    if (ch < 6) parent.SetChannelMask(EnmChip.YM2612, chipID, ch);
-                    else parent.SetChannelMask(EnmChip.YM2612, chipID, 2);
+                    if (newParam.channels[ch].mask == true)
+                        parent.ResetChannelMask(EnmChip.YM2612, chipID, ch);
+                    else
+                        parent.SetChannelMask(EnmChip.YM2612, chipID, ch);
                     return;
                 }
 

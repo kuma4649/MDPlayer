@@ -424,7 +424,7 @@ namespace MDPlayer.form
                 //但しchをクリックした場合はマスク反転
                 if (px < 8)
                 {
-                    for (int ch = 0; ch < 9; ch++)
+                    for (int ch = 0; ch < 6; ch++)
                     {
                         if (newParam.channels[ch].mask == true)
                             parent.ResetChannelMask(EnmChip.YM2203, chipID, ch);
@@ -444,7 +444,10 @@ namespace MDPlayer.form
                 if (e.Button == MouseButtons.Left)
                 {
                     //マスク
-                    parent.SetChannelMask(EnmChip.YM2203, chipID, ch);
+                    if (newParam.channels[ch].mask == true)
+                        parent.ResetChannelMask(EnmChip.YM2203, chipID, ch);
+                    else
+                        parent.SetChannelMask(EnmChip.YM2203, chipID, ch);
                     return;
                 }
 

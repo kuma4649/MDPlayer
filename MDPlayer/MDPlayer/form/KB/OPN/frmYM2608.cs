@@ -441,6 +441,7 @@ namespace MDPlayer.form
             int px = e.Location.X / zoom;
             int py = e.Location.Y / zoom;
             int ch;
+
             //上部のラベル行の場合は何もしない
             if (py < 1 * 8)
             {
@@ -449,6 +450,8 @@ namespace MDPlayer.form
                 {
                     for (ch = 0; ch < 14; ch++)
                     {
+                        if (ch >= 9 && ch <= 11) continue;
+
                         if (newParam.channels[ch].mask == true)
                             parent.ResetChannelMask(EnmChip.YM2608, chipID, ch);
                         else
@@ -466,7 +469,11 @@ namespace MDPlayer.form
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    parent.SetChannelMask(EnmChip.YM2608, chipID, ch);
+                    //マスク
+                    if (newParam.channels[ch].mask == true)
+                        parent.ResetChannelMask(EnmChip.YM2608, chipID, ch);
+                    else
+                        parent.SetChannelMask(EnmChip.YM2608, chipID, ch);
                     return;
                 }
 
