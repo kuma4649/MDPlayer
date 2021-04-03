@@ -4256,16 +4256,19 @@ namespace MDPlayer
 
             SN76489_Write(chipID, dData);
 
-            if ((dData & 0x90) == 0x90)
+            if ((dData & 0x10) !=0)
             {
-                sn76489Vol[chipID][(dData & 0x60) >> 5][0] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> (((dData & 0x60) >> 5) + 4)) & 0x1);
-                sn76489Vol[chipID][(dData & 0x60) >> 5][1] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> ((dData & 0x60) >> 5)) & 0x1);
+                if (LatchedRegister[chipID] != 0 && LatchedRegister[chipID] != 2 && LatchedRegister[chipID] != 4 && LatchedRegister[chipID] != 6)
+                {
+                    sn76489Vol[chipID][(dData & 0x60) >> 5][0] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> (((dData & 0x60) >> 5) + 4)) & 0x1);
+                    sn76489Vol[chipID][(dData & 0x60) >> 5][1] = (15 - (dData & 0xf)) * ((sn76489RegisterGGPan[chipID] >> ((dData & 0x60) >> 5)) & 0x1);
 
-                int v = dData & 0xf;
-                v = v + nowSN76489FadeoutVol[chipID];
-                v = maskChSN76489[chipID][(dData & 0x60) >> 5] ? 15 : v;
-                v = Math.Min(v, 15);
-                dData = (dData & 0xf0) | v;
+                    int v = dData & 0xf;
+                    v = v + nowSN76489FadeoutVol[chipID];
+                    v = maskChSN76489[chipID][(dData & 0x60) >> 5] ? 15 : v;
+                    v = Math.Min(v, 15);
+                    dData = (dData & 0xf0) | v;
+                }
             }
 
             if (model == EnmModel.RealModel)
@@ -4308,7 +4311,7 @@ namespace MDPlayer
 
         private void SN76489_Write(int chipID, int data)
         {
-            if ((data & 0x80) > 0)
+            if ((data & 0x80) != 0)
             {
                 /* Latch/data byte  %1 cc t dddd */
                 LatchedRegister[chipID] = (data >> 4) & 0x07;

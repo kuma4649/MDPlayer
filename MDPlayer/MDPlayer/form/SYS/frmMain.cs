@@ -7027,7 +7027,7 @@ namespace MDPlayer.form
                         if (ch == 12) c = 13;
                         if (ch == 13) c = 12;
 
-                        Audio.setYM2610Mask(chipID, c);
+                        Audio.setYM2610Mask(chipID, ch);
                         newParam.ym2610[chipID].channels[c].mask = true;
 
                         //FM(2ch) FMex
@@ -7387,7 +7387,7 @@ namespace MDPlayer.form
                         if (ch == 12) c = 13;
                         if (ch == 13) c = 12;
 
-                        Audio.resetYM2610Mask(chipID, c);
+                        Audio.resetYM2610Mask(chipID, ch);
                         newParam.ym2610[chipID].channels[c].mask = false;
 
                         //FM(2ch) FMex

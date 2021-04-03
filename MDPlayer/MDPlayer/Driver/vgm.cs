@@ -2019,6 +2019,27 @@ namespace MDPlayer
                 }
             }
 
+            if (version == 0x0101)
+            {
+                uint YM2612clock = getLE32(0x10);
+                if (YM2612clock != 0)
+                {
+                    YM2612ClockValue = YM2612clock & 0x3fffffff;
+                    YM2612DualChipFlag = (YM2612clock & 0x40000000) != 0;
+                    if (YM2612DualChipFlag) chips.Add("YM2612x2");
+                    else chips.Add("YM2612");
+                }
+
+                uint YM2151clock = getLE32(0x10);
+                if (YM2151clock != 0)
+                {
+                    YM2151ClockValue = YM2151clock & 0x3fffffff;
+                    YM2151DualChipFlag = (YM2151clock & 0x40000000) != 0;
+                    if (YM2151DualChipFlag) chips.Add("YM2151x2");
+                    else chips.Add("YM2151");
+                }
+            }
+
             TotalCounter = getLE32(0x18);
             if (TotalCounter < 0) return false;
 

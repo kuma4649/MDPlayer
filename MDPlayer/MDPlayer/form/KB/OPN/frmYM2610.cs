@@ -449,6 +449,7 @@ namespace MDPlayer.form
                     ? 1
                     : 0;
 
+            //FM - SSG
             for (int c = 0; c < 9; c++)
             {
 
@@ -483,6 +484,7 @@ namespace MDPlayer.form
 
             }
 
+            //FMex
             for (int c = 0; c < 3; c++)
             {
                 MDChipParams.Channel oyc = oldParam.channels[c + 9];
@@ -495,12 +497,14 @@ namespace MDPlayer.form
                 DrawBuff.ChYM2610(frameBuffer, c + 9, ref oyc.mask, nyc.mask, tp);
             }
 
+            //ADPCM B
             DrawBuff.Volume(frameBuffer, 256, 8 + 13 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
             DrawBuff.Volume(frameBuffer, 256, 8 + 13 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
             DrawBuff.Pan(frameBuffer, 24, 8 + 13 * 8, ref oldParam.channels[12].pan, newParam.channels[12].pan, ref oldParam.channels[12].pantp, tp);
             DrawBuff.KeyBoard(frameBuffer, 13, ref oldParam.channels[12].note, newParam.channels[12].note, tp);
             DrawBuff.ChYM2610(frameBuffer, 13, ref oldParam.channels[12].mask, newParam.channels[12].mask, tp);
 
+            //ADPCM A(Rhythm)
             for (int c = 0; c < 6; c++)
             {
                 MDChipParams.Channel oyc = oldParam.channels[c + 13];
@@ -513,6 +517,7 @@ namespace MDPlayer.form
             }
             DrawBuff.ChYM2610Rhythm(frameBuffer, 0, ref oldParam.channels[13].mask, newParam.channels[13].mask, tp);
 
+            //HardLFO NOISE ENV
             DrawBuff.LfoSw(frameBuffer, 16, 216, ref oldParam.lfoSw, newParam.lfoSw);
             DrawBuff.LfoFrq(frameBuffer, 64, 216, ref oldParam.lfoFrq, newParam.lfoFrq);
 
