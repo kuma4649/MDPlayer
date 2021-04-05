@@ -420,8 +420,22 @@ namespace MDPlayer.form
 
             //ADPCM B
             newParam.channels[12].pan = (YM2610Register[0][0x11] & 0xc0) >> 6;
-            newParam.channels[12].volumeL = Math.Min(Math.Max(YM2610AdpcmVol[0] / 80, 0), 19);
-            newParam.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] / 80, 0), 19);
+            if (YM2610AdpcmVol[0] != 0)
+            {
+                newParam.channels[12].volumeL = Math.Min(Math.Max(YM2610AdpcmVol[0] * YM2610Register[0][0x1b], 0), 19);
+            }
+            else
+            {
+                if (newParam.channels[12].volumeL > 0) newParam.channels[12].volumeL--;
+            }
+            if (YM2610AdpcmVol[1] != 0)
+            {
+                newParam.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] * YM2610Register[0][0x1b], 0), 19);
+            }
+            else
+            {
+                if (newParam.channels[12].volumeR > 0) newParam.channels[12].volumeR--;
+            }
             delta = (YM2610Register[0][0x1a] << 8) | YM2610Register[0][0x19];
             frq = (float)(delta / 9447.0f);//Delta=9447 at freq=8kHz
             newParam.channels[12].note = (YM2610Register[0][0x10] & 0x80) != 0 ? Common.searchYM2608Adpcm(frq) : -1;
@@ -431,11 +445,32 @@ namespace MDPlayer.form
             }
 
 
+            int tl = YM2610Register[1][0x01] & 0x3f;
             for (int ch = 13; ch < 19; ch++) //ADPCM A
             {
                 newParam.channels[ch].pan = (YM2610Register[1][0x08 + ch - 13] & 0xc0) >> 6;
-                newParam.channels[ch].volumeL = Math.Min(Math.Max(YM2610Rhythm[ch - 13][0] / 80, 0), 19);
-                newParam.channels[ch].volumeR = Math.Min(Math.Max(YM2610Rhythm[ch - 13][1] / 80, 0), 19);
+                //newParam.channels[ch].volumeL = Math.Min(Math.Max(YM2610Rhythm[ch - 13][0] / 80, 0), 19);
+                //newParam.channels[ch].volumeR = Math.Min(Math.Max(YM2610Rhythm[ch - 13][1] / 80, 0), 19);
+                int il = YM2610Register[1][0x08 + ch - 13] & 0x1f;
+
+                if (YM2610Rhythm[ch - 13][0] != 0)
+                {
+                    newParam.channels[ch].volumeL = Math.Min(Math.Max(YM2610Rhythm[ch - 13][0] * tl * il / 128, 0), 19);
+                    //newParam.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] * YM2610Register[0][0x1b], 0), 19);
+                }
+                else
+                {
+                    if (newParam.channels[ch].volumeL > 0) newParam.channels[ch].volumeL--;
+                }
+                if (YM2610Rhythm[ch - 13][1] != 0)
+                {
+                    newParam.channels[ch].volumeR = Math.Min(Math.Max(YM2610Rhythm[ch - 13][1] * tl * il / 128, 0), 19);
+                    //newParam.channels[12].volumeR = Math.Min(Math.Max(YM2610AdpcmVol[1] * YM2610Register[0][0x1b], 0), 19);
+                }
+                else
+                {
+                    if (newParam.channels[ch].volumeR > 0) newParam.channels[ch].volumeR--;
+                }
             }
         }
 

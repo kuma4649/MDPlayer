@@ -2760,6 +2760,7 @@ namespace MDPlayer
                     }
                 }
 
+
                 // ADPCM B KEYON
                 if (dPort == 0 && dAddr == 0x10)
                 {
@@ -2770,13 +2771,13 @@ namespace MDPlayer
                         if (fmVolYM2610AdpcmPan[chipID] != p)
                             fmVolYM2610AdpcmPan[chipID] = p;
 
-                        //if (fmVolYM2610AdpcmPan > 0)
-                        //{
-                        fmVolYM2610Adpcm[chipID][0] = (int)((256 * 6.0 * fmRegisterYM2610[chipID][0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan[chipID] & 0x02) > 0 ? 1 : 0));
-                        fmVolYM2610Adpcm[chipID][1] = (int)((256 * 6.0 * fmRegisterYM2610[chipID][0][0x1b] / 64.0) * ((fmVolYM2610AdpcmPan[chipID] & 0x01) > 0 ? 1 : 0));
-                        //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x09, fmRegisterYM2610[1][0x09]);
-                        //                        System.Console.WriteLine("{0:X2}:{1:X2}", 0x0A, fmRegisterYM2610[1][0x0A]);
-                        //}
+                        fmVolYM2610Adpcm[chipID][0] = ((fmVolYM2610AdpcmPan[chipID] & 0x02) != 0 ? 1 : 0);
+                        fmVolYM2610Adpcm[chipID][1] = ((fmVolYM2610AdpcmPan[chipID] & 0x01) != 0 ? 1 : 0);
+                    }
+                    else
+                    {
+                        fmVolYM2610Adpcm[chipID][0] = 0;
+                        fmVolYM2610Adpcm[chipID][1] = 0;
                     }
                 }
 
@@ -2788,12 +2789,19 @@ namespace MDPlayer
                         int tl = fmRegisterYM2610[chipID][1][0x01] & 0x3f;
                         for (int i = 0; i < 6; i++)
                         {
-                            if ((dData & (0x1 << i)) > 0)
+                            if ((dData & (0x1 << i)) != 0)
                             {
-                                int il = fmRegisterYM2610[chipID][1][0x08 + i] & 0x1f;
+                                //int il = fmRegisterYM2610[chipID][1][0x08 + i] & 0x1f;
                                 int pan = (fmRegisterYM2610[chipID][1][0x08 + i] & 0xc0) >> 6;
-                                fmVolYM2610Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
-                                fmVolYM2610Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                                //fmVolYM2610Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
+                                //fmVolYM2610Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
+                                fmVolYM2610Rhythm[chipID][i][0] = ((pan & 2) > 0 ? 1 : 0);
+                                fmVolYM2610Rhythm[chipID][i][1] = ((pan & 1) > 0 ? 1 : 0);
+                            }
+                            else
+                            {
+                                fmVolYM2610Rhythm[chipID][i][0] = 0;
+                                fmVolYM2610Rhythm[chipID][i][1] = 0;
                             }
                         }
                     }
@@ -2856,7 +2864,7 @@ namespace MDPlayer
             {
                 int d = nowYM2610FadeoutVol[chipID] >> 1;
                 dData = Math.Max(dData - d, 0);
-                dData = maskFMChYM2610[chipID][12] ? 0 : dData;
+                //dData = maskFMChYM2610[chipID][12] ? 0 : dData;
             }
 
             //Rhythm
@@ -2864,7 +2872,7 @@ namespace MDPlayer
             {
                 if (maskFMChYM2610[chipID][12])
                 {
-                    dData = 0;
+                    dData = 0xbf;
                 }
             }
 
@@ -3841,6 +3849,14 @@ namespace MDPlayer
                 setYM2610Register((byte)chipID, 0, 0x44 + 2, fmRegisterYM2610[chipID][0][0x44 + 2], EnmModel.RealModel);
                 setYM2610Register((byte)chipID, 0, 0x48 + 2, fmRegisterYM2610[chipID][0][0x48 + 2], EnmModel.RealModel);
                 setYM2610Register((byte)chipID, 0, 0x4c + 2, fmRegisterYM2610[chipID][0][0x4c + 2], EnmModel.RealModel);
+            }
+            else if (ch == 12)
+            {
+                if (maskFMChYM2610[chipID][12])
+                {
+                    setYM2610Register((byte)chipID, 1, 0x00, 1, EnmModel.VirtualModel);
+                    setYM2610Register((byte)chipID, 1, 0x00, 1, EnmModel.RealModel);
+                }
             }
         }
 

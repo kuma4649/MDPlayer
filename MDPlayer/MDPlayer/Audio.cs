@@ -5588,6 +5588,7 @@ namespace MDPlayer
 
                 if (useChip.Contains(EnmChip.YM2610) || useChip.Contains(EnmChip.S_YM2610))
                 {
+
                     SetYM2610FMVolume(true, setting.balance.YM2610FMVolume);
                     SetYM2610PSGVolume(true, setting.balance.YM2610PSGVolume);
                     SetYM2610AdpcmAVolume(true, setting.balance.YM2610AdpcmAVolume);
