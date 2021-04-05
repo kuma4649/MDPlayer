@@ -5816,6 +5816,27 @@ namespace MDPlayer
             }
         }
 
+        public static bool isFadeOut
+        {
+            get
+            {
+                return vgmFadeout;
+            }
+        }
+        public static bool isSlow {
+            get
+            {
+                return isStopped ? false : (vgmSpeed < 1.0);
+            }
+        }
+        public static bool isFF
+        {
+            get
+            {
+                return isStopped ? false : (vgmSpeed > 1.0);
+            }
+        }
+
         public static bool SN76489NGPFlag { get; private set; } = false;
 
         public static void StepPlay(int Step)

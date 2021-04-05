@@ -91,7 +91,19 @@ namespace MDPlayer.form
                 parent.windowsMessage(ref m);
             }
 
-            try { base.WndProc(ref m); }
+            try
+            {
+                int WM_NCLBUTTONDBLCLK = 0xA3;
+                if (m.Msg == WM_NCLBUTTONDBLCLK)
+                {
+                    TopMost = !TopMost;
+                    if (TopMost)
+                        this.Icon = Resources.FeliTop;
+                    else
+                        this.Icon = Resources.Feli128;
+                }
+                base.WndProc(ref m);
+            }
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);

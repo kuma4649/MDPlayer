@@ -292,6 +292,30 @@ namespace MDPlayer.form
 
             changeZoom();
             toolTip1.SetToolTip(opeButtonMode, modeTip[newButtonMode[9]]);
+            lstOpeButtonControl = new Button[]
+            {
+            opeButtonSetting,
+            opeButtonStop,
+            opeButtonPause,
+            opeButtonFadeout,
+            opeButtonPrevious,
+            opeButtonSlow,
+            opeButtonPlay,
+            opeButtonFast,
+            opeButtonNext,
+            opeButtonMode,
+            opeButtonOpen,
+            opeButtonPlayList,
+            opeButtonInformation,
+            opeButtonMixer,
+            opeButtonKBD,
+            opeButtonVST,
+            opeButtonMIDIKBD,
+            opeButtonZoom,
+            opeButtonMode,
+            opeButtonMode,
+            opeButtonMode
+            };
 
         }
 
@@ -4395,14 +4419,25 @@ namespace MDPlayer.form
             sec -= newParam.LCsecond;
             newParam.LCmillisecond = (int)(sec * 100.0);
 
+            UpdateOpeButtonActiveState();
+
         }
 
         private void screenDrawParams()
         {
-
             // 描画
 
-            //DrawBuff.drawButtons(screen.mainScreen, oldButton, newButton, oldButtonMode, newButtonMode);
+            for (int i = 0; i < lstOpeButtonActive.Length; i++)
+            {
+                if (lstOpeButtonActive[i] != lstOpeButtonActiveOld[i])
+                {
+                    lstOpeButtonActiveOld[i] = lstOpeButtonActive[i];
+                    RedrawButton(lstOpeButtonControl[i]
+                        , setting.other.Zoom
+                        , lstOpeButtonActive[i] ? lstOpeButtonActiveImage[i] : lstOpeButtonLeaveImage[i]
+                        );
+                }
+            }
 
             DrawBuff.drawTimer(screen.mainScreen, 0, ref oldParam.Cminutes, ref oldParam.Csecond, ref oldParam.Cmillisecond, newParam.Cminutes, newParam.Csecond, newParam.Cmillisecond);
             DrawBuff.drawTimer(screen.mainScreen, 1, ref oldParam.TCminutes, ref oldParam.TCsecond, ref oldParam.TCmillisecond, newParam.TCminutes, newParam.TCsecond, newParam.TCmillisecond);
@@ -8641,6 +8676,79 @@ namespace MDPlayer.form
             Resources.ccLoop,
             Resources.ccLoopOne
         };
+        private Bitmap[] lstOpeButtonActiveImage = new Bitmap[]
+        {
+            Resources.ciSetting,
+            Resources.ciStop,
+            Resources.ciPause,
+            Resources.ciFadeout,
+            Resources.ciPrevious,
+            Resources.ciSlow,
+            Resources.ciPlay,
+            Resources.ciFast,
+            Resources.ciNext,
+            Resources.ciStep,
+            Resources.ciOpenFolder,
+            Resources.ciPlayList,
+            Resources.ciInformation,
+            Resources.ciMixer,
+            Resources.ciKBD,
+            Resources.ciVST,
+            Resources.ciMIDIKBD,
+            Resources.ciZoom,
+            Resources.ciRandom,
+            Resources.ciLoop,
+            Resources.ciLoopOne
+        };
+        private bool[] lstOpeButtonActive = new bool[]
+        {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+        private bool[] lstOpeButtonActiveOld = new bool[]
+        {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+        private Button[] lstOpeButtonControl;
 
         private void RelocateOpeButton(int zoom)
         {
@@ -8705,7 +8813,8 @@ namespace MDPlayer.form
             {
                 m = newButtonMode[9] == 0 ? 9 : (newButtonMode[9] == 1 ? 18 : (newButtonMode[9] == 2 ? 19 : 20));
             }
-            RedrawButton(btn, setting.other.Zoom, lstOpeButtonLeaveImage[m]);
+
+            RedrawButton(btn, setting.other.Zoom, lstOpeButtonActive[m] ? lstOpeButtonActiveImage[m] : lstOpeButtonLeaveImage[m]);
         }
 
         private void RedrawButton(Button button, int zoom, Bitmap image)
@@ -8818,6 +8927,16 @@ namespace MDPlayer.form
         private void opeButtonZoom_Click(object sender, EventArgs e)
         {
             tsmiChangeZoom_Click(null, null);
+        }
+
+        private void UpdateOpeButtonActiveState()
+        {
+            lstOpeButtonActive[1] = (Audio.isStopped);//STOP button
+            lstOpeButtonActive[2] = Audio.isStopped ? false : Audio.isPaused;//PAUSE button
+            lstOpeButtonActive[3] = Audio.isStopped ? false : Audio.isFadeOut;//Fade button
+            lstOpeButtonActive[5] = Audio.isSlow;//Slowbutton
+            lstOpeButtonActive[6] = Audio.isPaused ? false : (Audio.isSlow || Audio.isFF || Audio.isFadeOut ? false : !Audio.isStopped);//PLAY button
+            lstOpeButtonActive[7] = Audio.isFF;//FFbutton
         }
     }
 }
