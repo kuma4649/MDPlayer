@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmDMG : Form
+    public partial class frmDMG : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -25,11 +24,10 @@ namespace MDPlayer.form
         private MDChipParams.DMG oldParam = new MDChipParams.DMG();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmDMG(frmMain frm, int chipID, int zoom, MDChipParams.DMG newParam, MDChipParams.DMG oldParam)
+        public frmDMG(frmMain frm, int chipID, int zoom, MDChipParams.DMG newParam, MDChipParams.DMG oldParam) : base(frm)
         {
             InitializeComponent();
 
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             this.newParam = newParam;

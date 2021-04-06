@@ -5,12 +5,11 @@ using MDPlayer.Properties;
 
 namespace MDPlayer.form
 {
-    public partial class frmC352 : Form
+    public partial class frmC352 : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -19,7 +18,7 @@ namespace MDPlayer.form
         private MDChipParams.C352 oldParam = new MDChipParams.C352();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmC352(frmMain frm, int chipID, int zoom, MDChipParams.C352 newParam, MDChipParams.C352 oldParam)
+        public frmC352(frmMain frm, int chipID, int zoom, MDChipParams.C352 newParam, MDChipParams.C352 oldParam) : base(frm)
         {
             InitializeComponent();
 
@@ -84,20 +83,7 @@ namespace MDPlayer.form
 
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
+  
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / zoom;

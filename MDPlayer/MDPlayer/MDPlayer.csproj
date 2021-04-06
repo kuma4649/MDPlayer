@@ -307,6 +307,12 @@
     <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="form\frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\KB\OPX\frmYMF271.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -651,6 +657,9 @@
     <Compile Include="VST\vstMng.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="YM2612MIDI.cs" />
+    <EmbeddedResource Include="form\frmBase.resx">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\KB\OPX\frmYMF271.resx">
       <DependentUpon>frmYMF271.cs</DependentUpon>
     </EmbeddedResource>

@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmY8950 : Form
+    public partial class frmY8950 : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -26,9 +25,8 @@ namespace MDPlayer.form
         private MDChipParams.Y8950 oldParam = new MDChipParams.Y8950();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmY8950(frmMain frm, int chipID, int zoom, MDChipParams.Y8950 newParam)
+        public frmY8950(frmMain frm, int chipID, int zoom, MDChipParams.Y8950 newParam) : base(frm)
         {
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             InitializeComponent();
@@ -139,20 +137,6 @@ namespace MDPlayer.form
             this.MinimumSize = new System.Drawing.Size(frameSizeW + Resources.planeY8950.Width * zoom, frameSizeH + Resources.planeY8950.Height * zoom);
             this.Size = new System.Drawing.Size(frameSizeW + Resources.planeY8950.Width * zoom, frameSizeH + Resources.planeY8950.Height * zoom);
             frmY8950_Resize(null, null);
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
         }
 
         public void screenInit()

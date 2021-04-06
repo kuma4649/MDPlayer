@@ -812,6 +812,7 @@ namespace MDPlayer.form
             screen.setting = setting;
             reqAllScreenInit = true;
             //screen.screenInitAll();
+            
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -4595,6 +4596,10 @@ namespace MDPlayer.form
             DrawBuff.drawFont4(screen.mainScreen, 1, 17, 1, Audio.GetIsDataBlock(EnmModel.RealModel) ? "RD" : "  ");
             DrawBuff.drawFont4(screen.mainScreen, 321-16, 17, 1, Audio.GetIsPcmRAMWrite(EnmModel.RealModel) ? "RP" : "  ");
 
+            oldParam.Cminutes = -1; oldParam.Csecond = -1; oldParam.Cmillisecond = -1;
+            oldParam.TCminutes = -1; oldParam.TCsecond = -1; oldParam.TCmillisecond = -1;
+            oldParam.LCminutes = -1; oldParam.LCsecond = -1; oldParam.LCmillisecond = -1;
+
         }
 
 
@@ -6663,6 +6668,16 @@ namespace MDPlayer.form
         //メッセージ処理
         protected override void WndProc(ref Message m)
         {
+            int WM_NCLBUTTONDBLCLK = 0xA3;
+            if (m.Msg == WM_NCLBUTTONDBLCLK)
+            {
+                TopMost = !TopMost;
+                if (TopMost)
+                    this.Icon = Resources.FeliTop;
+                else
+                    this.Icon = Resources.Feli128;
+            }
+
             windowsMessage(ref m);
             base.WndProc(ref m);
         }

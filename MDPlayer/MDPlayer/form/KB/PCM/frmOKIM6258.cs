@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmOKIM6258 : Form
+    public partial class frmOKIM6258 : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -26,9 +25,8 @@ namespace MDPlayer.form
         private MDChipParams.OKIM6258 oldParam = new MDChipParams.OKIM6258();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmOKIM6258(frmMain frm, int chipID, int zoom, MDChipParams.OKIM6258 newParam)
+        public frmOKIM6258(frmMain frm, int chipID, int zoom, MDChipParams.OKIM6258 newParam) : base(frm)
         {
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
 
@@ -88,20 +86,6 @@ namespace MDPlayer.form
         private void frmOKIM6258_Resize(object sender, EventArgs e)
         {
 
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
         }
 
         public void screenChangeParams()

@@ -5,12 +5,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmS5B : Form
+    public partial class frmS5B : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -19,11 +18,10 @@ namespace MDPlayer.form
         private MDChipParams.S5B oldParam = new MDChipParams.S5B();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmS5B(frmMain frm, int chipID, int zoom, MDChipParams.S5B newParam, MDChipParams.S5B oldParam)
+        public frmS5B(frmMain frm, int chipID, int zoom, MDChipParams.S5B newParam, MDChipParams.S5B oldParam) : base(frm)
         {
             InitializeComponent();
 
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             this.newParam = newParam;

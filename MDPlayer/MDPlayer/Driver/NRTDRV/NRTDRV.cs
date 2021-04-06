@@ -9,7 +9,6 @@ namespace MDPlayer
 {
     public class NRTDRV : baseDriver
     {
-        private Setting setting;
         public NRTDRV(Setting setting)
         {
             this.setting = setting;

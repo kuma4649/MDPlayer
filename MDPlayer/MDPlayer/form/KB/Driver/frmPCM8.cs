@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmPCM8 : Form
+    public partial class frmPCM8 : frmBase
     {
         public frmPCM8()
         {

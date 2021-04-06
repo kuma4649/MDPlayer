@@ -8,7 +8,6 @@ namespace MDPlayer
 {
     public class S98 : baseDriver
     {
-        private Setting setting;
         public S98(Setting setting)
         {
             this.setting = setting;

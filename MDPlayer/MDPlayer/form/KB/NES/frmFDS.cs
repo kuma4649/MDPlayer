@@ -11,12 +11,11 @@ using MDPlayer.Properties;
 
 namespace MDPlayer.form
 {
-    public partial class frmFDS : Form
+    public partial class frmFDS : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -26,9 +25,8 @@ namespace MDPlayer.form
         private MDChipParams.FDS oldParam = new MDChipParams.FDS();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmFDS(frmMain frm, int chipID, int zoom, MDChipParams.FDS newParam)
+        public frmFDS(frmMain frm, int chipID, int zoom, MDChipParams.FDS newParam) : base(frm)
         {
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
 
@@ -90,19 +88,6 @@ namespace MDPlayer.form
 
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
 
         public void screenChangeParams()
         {

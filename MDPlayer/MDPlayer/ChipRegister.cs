@@ -1912,7 +1912,6 @@ namespace MDPlayer
 
         public void softResetYM2413(int chipID, EnmModel model)
         {
-            int i;
 
             // FM全チャネルキーオフ
             for (int ch = 0; ch < 9; ch++)

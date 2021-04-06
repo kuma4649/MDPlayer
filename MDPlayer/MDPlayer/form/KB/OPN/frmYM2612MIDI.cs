@@ -12,12 +12,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYM2612MIDI : Form
+    public partial class frmYM2612MIDI : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int zoom = 1;
@@ -26,9 +25,8 @@ namespace MDPlayer.form
         private MDChipParams.YM2612MIDI oldParam = new MDChipParams.YM2612MIDI();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYM2612MIDI(frmMain frm, int zoom, MDChipParams.YM2612MIDI newParam)
+        public frmYM2612MIDI(frmMain frm, int zoom, MDChipParams.YM2612MIDI newParam) : base(frm)
         {
-            parent = frm;
             this.zoom = zoom;
 
             InitializeComponent();
@@ -88,20 +86,6 @@ namespace MDPlayer.form
         private void frmYM2612MIDI_Resize(object sender, EventArgs e)
         {
 
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
         }
 
         public void screenChangeParams()

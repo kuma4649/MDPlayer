@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmPWM : Form
+    public partial class frmPWM : frmBase
     {
         public frmPWM()
         {

@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmMultiPCM : Form
+    public partial class frmMultiPCM : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -25,11 +24,10 @@ namespace MDPlayer.form
         private MDChipParams.MultiPCM oldParam = new MDChipParams.MultiPCM();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmMultiPCM(frmMain frm, int chipID, int zoom, MDChipParams.MultiPCM newParam, MDChipParams.MultiPCM oldParam)
+        public frmMultiPCM(frmMain frm, int chipID, int zoom, MDChipParams.MultiPCM newParam, MDChipParams.MultiPCM oldParam) : base(frm)
         {
             InitializeComponent();
 
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             this.newParam = newParam;
@@ -90,19 +88,6 @@ namespace MDPlayer.form
 
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {

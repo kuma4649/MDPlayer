@@ -172,19 +172,19 @@ namespace MDPlayer.form
             }
         }
 
-        public bool isClosed = false;
-        //public int x = -1;
-        //public int y = -1;
-        public frmMain parent = null;
-        private int frameSizeW = 0;
-        private int frameSizeH = 0;
-        private int chipID = 0;
-        private int zoom = 1;
+        //public bool isClosed = false;
+        ////public int x = -1;
+        ////public int y = -1;
+        //public frmMain parent = null;
+        //private int frameSizeW = 0;
+        //private int frameSizeH = 0;
+        //private int chipID = 0;
+        //private int zoom = 1;
 
         private int FormWidth;
         private int FormHeight;
 
-        private FrameBuffer frameBuffer = new FrameBuffer();
+        //private FrameBuffer frameBuffer = new FrameBuffer();
 
         RegisterManager RegMan = new RegisterManager();
 
@@ -234,7 +234,7 @@ namespace MDPlayer.form
             update();
         }
 
-        public void update()
+        public new void update()
         {
             if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             frameBuffer.Refresh(null);
@@ -300,11 +300,11 @@ namespace MDPlayer.form
             }
         }
 
-        public void screenChangeParams()
+        public new void screenChangeParams()
         {
         }
 
-        public void screenDrawParams()
+        public new void screenDrawParams()
         {
             //if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             var Name = RegMan.GetName();
@@ -424,8 +424,5 @@ namespace MDPlayer.form
         }
 
 
-        public void screenInit()
-        {
-        }
     }
 }

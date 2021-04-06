@@ -5,12 +5,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmYMZ280B : Form
+    public partial class frmYMZ280B : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -19,11 +18,10 @@ namespace MDPlayer.form
         private MDChipParams.YMZ280B oldParam = new MDChipParams.YMZ280B();
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmYMZ280B(frmMain frm, int chipID, int zoom, MDChipParams.YMZ280B newParam, MDChipParams.YMZ280B oldParam)
+        public frmYMZ280B(frmMain frm, int chipID, int zoom, MDChipParams.YMZ280B newParam, MDChipParams.YMZ280B oldParam) : base(frm)
         {
             InitializeComponent();
 
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             this.newParam = newParam;
@@ -82,20 +80,6 @@ namespace MDPlayer.form
         private void frmYMZ280B_Resize(object sender, EventArgs e)
         {
 
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
         }
 
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)

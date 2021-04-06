@@ -12,12 +12,11 @@ using System.Windows.Forms;
 
 namespace MDPlayer.form
 {
-    public partial class frmN106 : Form
+    public partial class frmN106 : frmBase
     {
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
-        public frmMain parent = null;
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -26,11 +25,10 @@ namespace MDPlayer.form
         private MDChipParams.N106 oldParam = null;
         private FrameBuffer frameBuffer = new FrameBuffer();
 
-        public frmN106(frmMain frm, int chipID, int zoom, MDChipParams.N106 newParam, MDChipParams.N106 oldParam)
+        public frmN106(frmMain frm, int chipID, int zoom, MDChipParams.N106 newParam, MDChipParams.N106 oldParam) : base(frm)
         {
             InitializeComponent();
 
-            parent = frm;
             this.chipID = chipID;
             this.zoom = zoom;
             this.newParam = newParam;
@@ -91,20 +89,7 @@ namespace MDPlayer.form
 
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (parent != null)
-            {
-                parent.windowsMessage(ref m);
-            }
-
-            try { base.WndProc(ref m); }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
+    
         private void pbScreen_MouseClick(object sender, MouseEventArgs e)
         {
             int px = e.Location.X / zoom;

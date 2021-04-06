@@ -7,7 +7,7 @@ namespace MDPlayer
 {
     public class vgm : baseDriver
     {
-        private Setting setting;
+
         public vgm(Setting setting)
         {
             this.setting = setting;

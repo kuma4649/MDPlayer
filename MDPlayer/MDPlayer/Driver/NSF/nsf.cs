@@ -12,7 +12,6 @@ namespace MDPlayer
 {
     public class nsf : baseDriver
     {
-        private Setting setting;
         public nsf(Setting setting)
         {
             this.setting = setting;
