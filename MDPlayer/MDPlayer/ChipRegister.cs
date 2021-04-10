@@ -1283,6 +1283,16 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel) psgRegisterAY8910[chipID][dAddr] = dData;
 
+            //psg mixer
+            if (dAddr == 0x07)
+            {
+                byte maskData = 0;
+                if (maskPSGChAY8910[chipID][0]) maskData |= 0x9 << 0;
+                if (maskPSGChAY8910[chipID][1]) maskData |= 0x9 << 1;
+                if (maskPSGChAY8910[chipID][2]) maskData |= 0x9 << 2;
+                dData |= maskData;
+            }
+
             //psg level
             if ((dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
             {
@@ -1783,6 +1793,16 @@ namespace MDPlayer
                         }
                     }
                 }
+            }
+
+            //ssg mixer
+            if (dAddr == 0x07)
+            {
+                byte maskData = 0;
+                if (maskFMChYM2203[chipID][3]) maskData |= 0x9 << 0;
+                if (maskFMChYM2203[chipID][4]) maskData |= 0x9 << 1;
+                if (maskFMChYM2203[chipID][5]) maskData |= 0x9 << 2;
+                dData |= maskData;
             }
 
             //ssg level
@@ -2519,6 +2539,16 @@ namespace MDPlayer
                 }
             }
 
+            //ssg mixer
+            if (dPort == 0 && dAddr == 0x07)
+            {
+                byte maskData = 0;
+                if (maskFMChYM2608[chipID][6]) maskData |= 0x9 << 0;
+                if (maskFMChYM2608[chipID][7]) maskData |= 0x9 << 1;
+                if (maskFMChYM2608[chipID][8]) maskData |= 0x9 << 2;
+                dData |= maskData;
+            }
+
             //ssg level
             if (dPort == 0 && (dAddr == 0x08 || dAddr == 0x09 || dAddr == 0x0a))
             {
@@ -2848,6 +2878,16 @@ namespace MDPlayer
                         }
                     }
                 }
+            }
+
+            //ssg mixer
+            if (dPort == 0 && dAddr == 0x07)
+            {
+                byte maskData = 0;
+                if (maskFMChYM2610[chipID][6]) maskData |= 0x9 << 0;
+                if (maskFMChYM2610[chipID][7]) maskData |= 0x9 << 1;
+                if (maskFMChYM2610[chipID][8]) maskData |= 0x9 << 2;
+                dData |= maskData;
             }
 
             //ssg level
@@ -3607,9 +3647,12 @@ namespace MDPlayer
         }
 
 
-        public void setMaskAY8910(int chipID,int ch,bool mask)
+        public void setMaskAY8910(int chipID, int ch, bool mask)
         {
             maskPSGChAY8910[chipID][ch] = mask;
+
+            setAY8910Register(chipID, (byte)(0x8 + ch), (byte)psgRegisterAY8910[chipID][8 + ch], EnmModel.VirtualModel);
+            setAY8910Register(chipID, (byte)(0x8 + ch), (byte)psgRegisterAY8910[chipID][8 + ch], EnmModel.RealModel);
         }
 
         public void setMaskRF5C164(int chipID, int ch, bool mask)
