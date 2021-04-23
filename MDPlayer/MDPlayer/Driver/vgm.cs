@@ -1004,6 +1004,12 @@ namespace MDPlayer
                             dumpData(model, "YMZ280B_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
+                        case 0x87:
+                            // YMF278B
+                            chipRegister.writeYMF278BPCMRAMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "YMF278B_PCMRAMData", vgmAdr + 15, bLen - 8);
+                            break;
+
                         case 0x88:
                             // Y8950
                             chipRegister.writeY8950PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);

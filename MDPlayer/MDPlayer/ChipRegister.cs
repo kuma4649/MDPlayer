@@ -4689,6 +4689,15 @@ namespace MDPlayer
                 mds.WriteYMF278BPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
+        public void writeYMF278BPCMRAMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
+        {
+            if (chipid == 0) chipLED.PriOPL4 = 2;
+            else chipLED.SecOPL4 = 2;
+
+            if (model == EnmModel.VirtualModel)
+                mds.WriteYMF278BPCMRAMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
         public void writeYMZ280BPCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
         {
             if (chipid == 0) chipLED.PriYMZ = 2;

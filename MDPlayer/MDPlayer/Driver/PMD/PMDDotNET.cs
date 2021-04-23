@@ -244,11 +244,30 @@ namespace MDPlayer.Driver
 
             string[] addtionalPMDOption = GetPMDOption();
 
+            //PMDDriver.Init(
+            //    PlayingFileName
+            //    , chipWriteRegister
+            //    , chipWaitSend
+            //    , ret
+            //    , new object[] {
+            //          addtionalPMDDotNETOption //PMDDotNET option 
+            //        , addtionalPMDOption // PMD option
+            //        , (Func<ChipDatum, int>)PPZ8Write
+            //        , (Func<ChipDatum, int>)PPSDRVWrite
+            //        , (Func<ChipDatum, int>)P86Write
+            //    });
+
+            List<ChipAction> lca = new List<ChipAction>();
+            PMDChipAction ca = new PMDChipAction(OPNA1Write, OPNAWaitSend);
+            lca.Add(ca);
+
             PMDDriver.Init(
-                PlayingFileName
-                , chipWriteRegister
-                , chipWaitSend
+                lca
+                //fileName
+                //, oPNAWrite
+                //, oPNAWaitSend
                 , ret
+                , null//ここのコールバックは未使用
                 , new object[] {
                       addtionalPMDDotNETOption //PMDDotNET option 
                     , addtionalPMDOption // PMD option
@@ -257,12 +276,69 @@ namespace MDPlayer.Driver
                     , (Func<ChipDatum, int>)P86Write
                 });
 
+
             PMDDriver.StartRendering(Common.VGMProcSampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("YM2608", baseclock) });
             PMDDriver.MusicSTART(0);
             return true;
         }
 
+        private void OPNA1Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+            if (cd.port == -1) return;
+
+            chipRegister.setYM2608Register(0, cd.port, cd.address, cd.data, model);
+        }
+
+        private void OPNAWaitSend(long size, int elapsed)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+                //MessageBox.Show(string.Format("elapsed:{0} size:{1}", elapsed, size));
+                //int n = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+                //Thread.Sleep(n);
+                return;
+            }
+
+            //サイズと経過時間から、追加でウエイトする。
+            int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+            Thread.Sleep(m);
+        }
+
+        public class PMDChipAction : ChipAction
+        {
+            private Action<ChipDatum> oPNAWrite;
+            private Action<long, int> oPNAWaitSend;
+
+            public PMDChipAction(Action<ChipDatum> oPNAWrite, Action<long, int> oPNAWaitSend)
+            {
+                this.oPNAWrite = oPNAWrite;
+                this.oPNAWaitSend = oPNAWaitSend;
+            }
+
+            public override string GetChipName()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WaitSend(long t1, int t2)
+            {
+                oPNAWaitSend(t1, t2);
+            }
+
+            public override void WritePCMData(byte[] data, int startAddress, int endAddress)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WriteRegister(ChipDatum cd)
+            {
+                oPNAWrite(cd);
+            }
+        }
         private bool initM()
         {
             if (PMDDriver == null) PMDDriver = im.GetDriver("PMDDotNET.Driver.Driver");
@@ -303,11 +379,29 @@ namespace MDPlayer.Driver
 
             string[] addtionalPMDOption = GetPMDOption();
 
+            //PMDDriver.Init(
+            //    PlayingFileName
+            //    , chipWriteRegister
+            //    , chipWaitSend
+            //    , buf.ToArray()
+            //    , new object[] {
+            //          addtionalPMDDotNETOption //PMDDotNET option 
+            //        , addtionalPMDOption // PMD option
+            //        , (Func<ChipDatum, int>)PPZ8Write
+            //        , (Func<ChipDatum, int>)PPSDRVWrite
+            //        , (Func<ChipDatum, int>)P86Write
+            //    });
+            List<ChipAction> lca = new List<ChipAction>();
+            PMDChipAction ca = new PMDChipAction(OPNA1Write, OPNAWaitSend);
+            lca.Add(ca);
+
             PMDDriver.Init(
-                PlayingFileName
-                , chipWriteRegister
-                , chipWaitSend
+                lca
+                //fileName
+                //, oPNAWrite
+                //, oPNAWaitSend
                 , buf.ToArray()
+                , null//ここのコールバックは未使用
                 , new object[] {
                       addtionalPMDDotNETOption //PMDDotNET option 
                     , addtionalPMDOption // PMD option

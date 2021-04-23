@@ -201,11 +201,28 @@ namespace MDPlayer.Driver
             bool isLoadADPCM = true;
             bool loadADPCMOnly = false;
 
-            mucomDriver.Init(PlayingFileName,chipWriteRegister,chipWaitSend, ret, new object[] {
+            //mucomDriver.Init(PlayingFileName,chipWriteRegister,chipWaitSend, ret, new object[] {
+            //          notSoundBoard2
+            //        , isLoadADPCM
+            //        , loadADPCMOnly
+            //    });
+            List<ChipAction> lca = new List<ChipAction>();
+            mucomChipAction ca;
+            ca = new mucomChipAction(OPNA1Write, null, OPNAWaitSend); lca.Add(ca);
+            ca = new mucomChipAction(OPNA2Write, null, null); lca.Add(ca);
+            ca = new mucomChipAction(OPNB1Write, WriteOPNB1PCMData, null); lca.Add(ca);
+            ca = new mucomChipAction(OPNB2Write, WriteOPNB2PCMData, null); lca.Add(ca);
+            mucomDriver.Init(
+                lca,
+                ret
+                , null
+                , new object[] {
                       notSoundBoard2
                     , isLoadADPCM
                     , loadADPCMOnly
+                    , PlayingFileName
                 });
+
             mucomDriver.StartRendering(Common.VGMProcSampleRate
                 ,new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
@@ -222,11 +239,29 @@ namespace MDPlayer.Driver
             bool loadADPCMOnly = false;
             List<MmlDatum> buf = new List<MmlDatum>();
             foreach(byte b in vgmBuf) buf.Add(new MmlDatum(b));
-            mucomDriver.Init(PlayingFileName, chipWriteRegister, chipWaitSend, buf.ToArray(), new object[] {
+            //mucomDriver.Init(PlayingFileName, chipWriteRegister, chipWaitSend, buf.ToArray(), new object[] {
+            //          notSoundBoard2
+            //        , isLoadADPCM
+            //        , loadADPCMOnly
+            //    });
+
+            List<ChipAction> lca = new List<ChipAction>();
+            mucomChipAction ca;
+            ca = new mucomChipAction(OPNA1Write, null, OPNAWaitSend); lca.Add(ca);
+            ca = new mucomChipAction(OPNA2Write, null, null); lca.Add(ca);
+            ca = new mucomChipAction(OPNB1Write, WriteOPNB1PCMData, null); lca.Add(ca);
+            ca = new mucomChipAction(OPNB2Write, WriteOPNB2PCMData, null); lca.Add(ca);
+            mucomDriver.Init(
+                lca,
+                buf.ToArray()
+                ,null
+                , new object[] {
                       notSoundBoard2
                     , isLoadADPCM
                     , loadADPCMOnly
+                    , PlayingFileName
                 });
+
             mucomDriver.StartRendering(Common.VGMProcSampleRate
                 , new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
             mucomDriver.MusicSTART(0);
@@ -234,7 +269,61 @@ namespace MDPlayer.Driver
             return true;
         }
 
-        private void chipWaitSend(long elapsed, int size)
+        private void OPNA1Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+            if (cd.port == -1) return;
+
+            chipRegister.setYM2608Register(0, cd.port, cd.address, cd.data, model);
+        }
+        private void OPNA2Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+            if (cd.port == -1) return;
+
+            chipRegister.setYM2608Register(1, cd.port, cd.address, cd.data, model);
+
+        }
+
+        private void OPNB1Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+            if (cd.port == -1) return;
+
+            chipRegister.setYM2610Register(0, cd.port, cd.address, cd.data, model);
+        }
+        private void OPNB2Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+            if (cd.port == -1) return;
+
+            chipRegister.setYM2610Register(1, cd.port, cd.address, cd.data, model);
+        }
+
+        private void WriteOPNB1PCMData(byte[] dat, int v, int v2)
+        {
+            if (v == 0)
+                chipRegister.WriteYM2610_SetAdpcmA(0, dat, EnmModel.VirtualModel);
+            else
+                chipRegister.WriteYM2610_SetAdpcmB(0, dat, EnmModel.VirtualModel);
+        }
+        private void WriteOPNB2PCMData(byte[] dat, int v, int v2)
+        {
+            if (v == 0)
+                chipRegister.WriteYM2610_SetAdpcmA(1, dat, EnmModel.VirtualModel);
+            else
+                chipRegister.WriteYM2610_SetAdpcmB(1, dat, EnmModel.VirtualModel);
+        }
+
+        private void OPNAWaitSend(long size, int elapsed)
         {
             if (model == EnmModel.VirtualModel)
             {
@@ -249,16 +338,65 @@ namespace MDPlayer.Driver
             Thread.Sleep(m);
         }
 
-        private void chipWriteRegister(ChipDatum dat)
+        public class mucomChipAction : ChipAction
         {
-            if (dat == null) return;
-            if (dat.address == -1) return;
-            if (dat.data == -1) return;
-            if (dat.port == -1) return;
+            private Action<ChipDatum> _Write;
+            private Action<byte[], int, int> _WritePCMData;
+            private Action<long, int> _WaitSend;
 
-            chipRegister.setYM2608Register(0, dat.port, dat.address, dat.data, model);
-            //Console.WriteLine("{0} {1}", dat.address, dat.data);
+            public mucomChipAction(Action<ChipDatum> Write, Action<byte[], int, int> WritePCMData, Action<long, int> WaitSend)
+            {
+                _Write = Write;
+                _WritePCMData = WritePCMData;
+                _WaitSend = WaitSend;
+            }
+
+            public override string GetChipName()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WaitSend(long t1, int t2)
+            {
+                _WaitSend?.Invoke(t1, t2);
+            }
+
+            public override void WritePCMData(byte[] data, int startAddress, int endAddress)
+            {
+                _WritePCMData?.Invoke(data, startAddress, endAddress);
+            }
+
+            public override void WriteRegister(ChipDatum cd)
+            {
+                _Write?.Invoke(cd);
+            }
         }
+
+        //private void chipWaitSend(long elapsed, int size)
+        //{
+        //    if (model == EnmModel.VirtualModel)
+        //    {
+        //        //MessageBox.Show(string.Format("elapsed:{0} size:{1}", elapsed, size));
+        //        //int n = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+        //        //Thread.Sleep(n);
+        //        return;
+        //    }
+
+        //    //サイズと経過時間から、追加でウエイトする。
+        //    int m = Math.Max((int)(size / 20 - elapsed), 0);//20 閾値(magic number)
+        //    Thread.Sleep(m);
+        //}
+
+        //private void chipWriteRegister(ChipDatum dat)
+        //{
+        //    if (dat == null) return;
+        //    if (dat.address == -1) return;
+        //    if (dat.data == -1) return;
+        //    if (dat.port == -1) return;
+
+        //    chipRegister.setYM2608Register(0, dat.port, dat.address, dat.data, model);
+        //    //Console.WriteLine("{0} {1}", dat.address, dat.data);
+        //}
 
         private Stream appendFileReaderCallback(string arg)
         {
@@ -267,6 +405,8 @@ namespace MDPlayer.Driver
                 Path.GetDirectoryName(PlayingFileName)
                 , arg
                 );
+
+            if (!File.Exists(fn)) return null;
 
             FileStream strm;
             try

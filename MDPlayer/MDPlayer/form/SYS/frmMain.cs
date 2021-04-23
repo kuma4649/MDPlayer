@@ -3641,6 +3641,7 @@ namespace MDPlayer.form
 
             frmRegTest.Show();
             frmRegTest.update();
+            frmRegTest.changeChip(selectedChip);
             frmRegTest.Text = string.Format("RegTest ({0})", chipID == 0 ? "Primary" : "Secondary");
 
             CheckAndSetForm(frmRegTest);

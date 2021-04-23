@@ -1,4 +1,12 @@
 更新履歴
+STBL153 2021/04/23
+  インターフェイスを新しくしたPMDDotNET/mucomDotNETを入れ替え。
+  Core:VGM:YMF278BのRAMのBlock転送を実装
+
+STBL152 2021/04/10 2nd
+  レジスタダンプ画面:画面を開くとき、選択したChipの画面にならないバグを修正
+  メイン画面:鍵盤など:タイトルバーをダブルクリックしたときの生首を修正。
+
 STBL151 2021/04/10
   鍵盤:AY/OPN/OPNA/OPNB:SSG/PSGのMASK処理の強化
 
