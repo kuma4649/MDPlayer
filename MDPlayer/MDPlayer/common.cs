@@ -285,6 +285,7 @@ namespace MDPlayer
             if (filename.ToLower().LastIndexOf(".mub") != -1) return EnmFileFormat.MUB;
             if (filename.ToLower().LastIndexOf(".muc") != -1) return EnmFileFormat.MUC;
             if (filename.ToLower().LastIndexOf(".mml") != -1) return EnmFileFormat.MML;
+            if (filename.ToLower().LastIndexOf(".mgs") != -1) return EnmFileFormat.MGS;
             if (filename.ToLower().LastIndexOf(".m") != -1) return EnmFileFormat.M;
             if (filename.ToLower().LastIndexOf(".m2") != -1) return EnmFileFormat.M;
             if (filename.ToLower().LastIndexOf(".mz") != -1) return EnmFileFormat.M;
