@@ -828,12 +828,29 @@ namespace MDPlayer.form
 
         }
 
-        private void frmPlayList_DragEnter(object sender, DragEventArgs e)
+        private void dgvList_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
+            Point cp = dgvList.PointToClient(new Point(e.X, e.Y));
+            DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X,cp.Y);
+            if (hti.Type!= DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvList.Rows.Count) return;
+            dgvList.MultiSelect = false;
+            dgvList.MultiSelect = true;
+            dgvList.Rows[hti.RowIndex].Selected = true;
         }
 
-        private void frmPlayList_DragDrop(object sender, DragEventArgs e)
+        private void dgvList_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+            Point cp = dgvList.PointToClient(new Point(e.X, e.Y));
+            DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X, cp.Y);
+            if (hti.Type != DataGridViewHitTestType.Cell || hti.RowIndex < 0 || hti.RowIndex >= dgvList.Rows.Count) return;
+            dgvList.MultiSelect = false;
+            dgvList.MultiSelect = true;
+            dgvList.Rows[hti.RowIndex].Selected = true;
+        }
+
+        private void dgvList_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -846,24 +863,35 @@ namespace MDPlayer.form
                 //重複を取り除く
                 filename = result.Distinct().ToArray();
 
+                int i = playList.lstMusic.Count;
+                Point cp = dgvList.PointToClient(new Point(e.X, e.Y));
+                DataGridView.HitTestInfo hti = dgvList.HitTest(cp.X, cp.Y);
+                if (hti.Type == DataGridViewHitTestType.Cell && hti.RowIndex >= 0 && hti.RowIndex < dgvList.Rows.Count)
+                {
+                    if (hti.RowIndex < playList.lstMusic.Count) i = hti.RowIndex;
+                }
+
                 //曲を停止
                 Stop();
+                frmMain.stop();
+                while(!Audio.isStopped)
+                    Application.DoEvents();
 
                 try
                 {
-                    foreach (string f in filename) playList.AddFile(f);
+                    playList.InsertFile(i,filename);
 
-                    //一番最後に追加した筈の曲を再生する
-                    string fn = filename[filename.Length - 1];
+                    //選択位置の曲を再生する
+                    string fn = playList.lstMusic[i].fileName;
                     if (
                         fn.ToLower().LastIndexOf(".lzh") == -1
                         && fn.ToLower().LastIndexOf(".zip") == -1
                         && fn.ToLower().LastIndexOf(".m3u") == -1
-                        && fn.ToLower().LastIndexOf(".sid") == -1
+                        //&& fn.ToLower().LastIndexOf(".sid") == -1
                         )
                     {
                         frmMain.loadAndPlay(0, 0, fn);
-                        setStart(-1);
+                        setStart(i);// -1);
                         frmMain.oldParam = new MDChipParams();
                         Play();
                     }
@@ -1029,5 +1057,6 @@ namespace MDPlayer.form
                 ;
             }
         }
+
     }
 }

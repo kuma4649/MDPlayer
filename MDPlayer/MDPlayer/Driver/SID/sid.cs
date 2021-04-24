@@ -29,12 +29,12 @@ namespace MDPlayer.Driver.SID
             songs = (int)Common.getBE16(buf, 0x0e);
 
             GD3 gd3 = new GD3();
-            gd3.TrackName = Encoding.ASCII.GetString(buf, 0x16, 32).Trim();
-            gd3.TrackName = gd3.TrackName.Substring(0, gd3.TrackName.IndexOf((char)0));
-            gd3.Composer = Encoding.ASCII.GetString(buf, 0x36, 32).Trim();
-            gd3.Composer = gd3.Composer.Substring(0, gd3.Composer.IndexOf((char)0));
-            gd3.Notes = Encoding.ASCII.GetString(buf, 0x56, 32).Trim();
-            gd3.Notes = gd3.Notes.Substring(0, gd3.Notes.IndexOf((char)0));
+            try { gd3.TrackName = Encoding.ASCII.GetString(buf, 0x16, 32).Trim(); } catch { }
+            try { gd3.TrackName = gd3.TrackName.Substring(0, gd3.TrackName.IndexOf((char)0)); } catch { }
+            try { gd3.Composer = Encoding.ASCII.GetString(buf, 0x36, 32).Trim(); } catch { }
+            try { gd3.Composer = gd3.Composer.Substring(0, gd3.Composer.IndexOf((char)0)); } catch { }
+            try { gd3.Notes = Encoding.ASCII.GetString(buf, 0x56, 32).Trim(); } catch { }
+            try { gd3.Notes = gd3.Notes.Substring(0, gd3.Notes.IndexOf((char)0)); } catch { }
 
             return gd3;
         }

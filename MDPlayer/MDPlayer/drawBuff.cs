@@ -3916,8 +3916,6 @@ namespace MDPlayer
             if (ch < 18)
             {
                 screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 0, 0, 16, 8);
-                //if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
-                //else
                 drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d2"));
             }
             else if (ch < 23)
@@ -3945,8 +3943,7 @@ namespace MDPlayer
             {
                 screen.drawByteArray(x, y, rType[tp * 2 + (mask ? 1 : 0)], 128, 16, 0, 16, 8);
                 ch -= 23;
-                if (ch < 9) drawFont8(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
-                else drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString());
+                drawFont4(screen, x + 16, y, mask ? 1 : 0, (1 + ch).ToString("d2"));
             }
         }
 

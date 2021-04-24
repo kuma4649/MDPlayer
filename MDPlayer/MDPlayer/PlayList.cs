@@ -235,6 +235,32 @@ namespace MDPlayer
             }
         }
 
+        public void InsertFile(int index,string[] filenames)
+        {
+            try
+            {
+                for (int i = 0; i < filenames.Length; i++)
+                {
+                    string filename = filenames[i];
+
+                    music mc = new music();
+                    mc.format = Common.CheckExt(filename);
+                    mc.fileName = filename;
+                    rootPath = Path.GetDirectoryName(filename);
+
+                    AddFileLoop(ref index, mc);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("ファイル追加に失敗しました。\r\n詳細\r\nMessage={0}", ex.Message)
+                    , "エラー"
+                    , MessageBoxButtons.OK
+                    , MessageBoxIcon.Error);
+                log.ForcedWrite(ex);
+            }
+        }
+
         private void AddFileLoop(music mc, object entry = null)
         {
             switch (mc.format)
@@ -313,6 +339,84 @@ namespace MDPlayer
             }
         }
 
+        private void AddFileLoop(ref int index, music mc, object entry = null)
+        {
+            switch (mc.format)
+            {
+                case EnmFileFormat.unknown:
+                    break;
+                case EnmFileFormat.MID:
+                    AddFileMID(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.NRT:
+                    AddFileNRT(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MDR:
+                    AddFileMDR(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MND:
+                    AddFileMND(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MDX:
+                    AddFileMDX(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MUB:
+                    AddFileMUB(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MUC:
+                    AddFileMUC(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MML:
+                    AddFileMML(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.M:
+                    AddFileM(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.RCP:
+                    AddFileRCP(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.S98:
+                    AddFileS98(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.VGM:
+                    AddFileVGM(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.XGM:
+                    AddFileXGM(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.ZGM:
+                    AddFileZGM(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.WAV:
+                    AddFileWAV(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.MP3:
+                    AddFileMP3(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.AIFF:
+                    AddFileAIFF(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.ZIP:
+                    AddFileZIP(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.LZH:
+                    AddFileLZH(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.M3U:
+                    AddFileM3U(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.NSF:
+                    AddFileNSF(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.HES:
+                    AddFileHES(ref index, mc, entry);
+                    break;
+                case EnmFileFormat.SID:
+                    AddFileSID(ref index, mc, entry);
+                    break;
+            }
+        }
+
         /// <summary>
         /// 汎用
         /// </summary>
@@ -381,8 +485,85 @@ namespace MDPlayer
                 if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
                 else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
                 List<DataGridViewRow> rows = makeRow(musics);
-                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
-                foreach (PlayList.music music in musics) lstMusic.Add(music);
+
+                dgvList.Rows.AddRange(rows.ToArray());
+                lstMusic.AddRange(musics);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFilexxx(ref int index,music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    try
+                    {
+                        buf = File.ReadAllBytes(mc.fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.ForcedWrite(ex);
+                        buf = null;
+                    }
+                    if (buf == null && mc.format == EnmFileFormat.VGM)
+                    {
+                        if (Path.GetExtension(mc.fileName).ToLower() == ".vgm")
+                        {
+                            mc.fileName = Path.ChangeExtension(mc.fileName, ".vgz");
+                        }
+                        else
+                        {
+                            mc.fileName = Path.ChangeExtension(mc.fileName, ".vgm");
+                        }
+                        try
+                        {
+                            buf = File.ReadAllBytes(mc.fileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.ForcedWrite(ex);
+                            buf = null;
+                        }
+                    }
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            try
+                            {
+                                buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                            }
+                            catch (Exception ex)
+                            {
+                                log.ForcedWrite(ex);
+                                buf = null;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+                List<DataGridViewRow> rows = makeRow(musics);
+
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                lstMusic.InsertRange(index, musics);
+                index += rows.Count;
             }
             catch (Exception ex)
             {
@@ -395,9 +576,19 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileMID(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileNRT(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileNRT(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileRCP(music mc, object entry = null)
@@ -405,9 +596,19 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileRCP(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileS98(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileS98(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileVGM(music mc, object entry = null)
@@ -415,9 +616,19 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileVGM(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileXGM(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileXGM(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileZGM(music mc, object entry = null)
@@ -425,194 +636,9 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
-        private void AddFileM3U(music mc, object entry = null)
+        private void AddFileZGM(ref int index, music mc, object entry = null)
         {
-
-            PlayList pl;
-            if (entry == null) pl = M3U.LoadM3U(mc.fileName,rootPath);
-            else pl = M3U.LoadM3U(entry, mc.arcFileName);
-            if (pl == null) return;
-            if (pl.lstMusic == null || pl.lstMusic.Count < 1) return;
-
-            foreach (music m in pl.lstMusic) AddFileLoop(m, entry);
-        }
-
-        private void AddFileNSF(music mc, object entry = null)
-        {
-            try
-            {
-                byte[] buf = null;
-                if (entry == null)
-                {
-                    buf = File.ReadAllBytes(mc.fileName);
-                }
-                else
-                {
-                    if (entry is ZipArchiveEntry)
-                    {
-
-                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
-                        {
-                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
-                        }
-                    }
-                    else
-                    {
-                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
-                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
-                    }
-
-                }
-
-                List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
-
-                if (mc.songNo != -1)
-                {
-                    PlayList.music music = null;
-                    if (musics.Count > 0)
-                    {
-                        music = musics[0];
-                        music.songNo = mc.songNo;
-                        music.title = mc.title;
-                        music.titleJ = mc.titleJ;
-
-                        musics.Clear();
-                        musics.Add(music);
-                    }
-                    else
-                    {
-                        musics.Clear();
-                    }
-                }
-
-                List<DataGridViewRow> rows = makeRow(musics);
-                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
-                foreach (PlayList.music music in musics) lstMusic.Add(music);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
-        private void AddFileHES(music mc, object entry = null)
-        {
-            try
-            {
-                byte[] buf = null;
-                if (entry == null)
-                {
-                    buf = File.ReadAllBytes(mc.fileName);
-                }
-                else
-                {
-                    if (entry is ZipArchiveEntry)
-                    {
-
-                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
-                        {
-                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
-                        }
-                    }
-                    else
-                    {
-                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
-                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
-                    }
-                }
-
-                List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
-
-                if (mc.songNo != -1)
-                {
-                    PlayList.music music = null;
-                    if (musics.Count > 0)
-                    {
-                        music = musics[0];
-                        music.songNo = mc.songNo;
-                        music.title = mc.title;
-                        music.titleJ = mc.titleJ;
-
-                        musics.Clear();
-                        musics.Add(music);
-                    }
-                    else
-                    {
-                        musics.Clear();
-                    }
-                }
-
-                List<DataGridViewRow> rows = makeRow(musics);
-                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
-                foreach (PlayList.music music in musics) lstMusic.Add(music);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
-        }
-
-        private void AddFileSID(music mc, object entry = null)
-        {
-            try
-            {
-                byte[] buf = null;
-                if (entry == null)
-                {
-                    buf = File.ReadAllBytes(mc.fileName);
-                }
-                else
-                {
-                    if (entry is ZipArchiveEntry)
-                    {
-
-                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
-                        {
-                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
-                        }
-                    }
-                    else
-                    {
-                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
-                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
-                    }
-                }
-
-                List<PlayList.music> musics;
-                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
-                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
-
-                if (mc.songNo != -1)
-                {
-                    PlayList.music music = null;
-                    if (musics.Count > 0)
-                    {
-                        music = musics[0];
-                        music.songNo = mc.songNo;
-                        music.title = mc.title;
-                        music.titleJ = mc.titleJ;
-
-                        musics.Clear();
-                        musics.Add(music);
-                    }
-                    else
-                    {
-                        musics.Clear();
-                    }
-                }
-
-                List<DataGridViewRow> rows = makeRow(musics);
-                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
-                foreach (PlayList.music music in musics) lstMusic.Add(music);
-            }
-            catch (Exception ex)
-            {
-                log.ForcedWrite(ex);
-            }
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileMDR(music mc, object entry = null)
@@ -620,9 +646,19 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileMDR(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileMND(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMND(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileMDX(music mc, object entry = null)
@@ -630,9 +666,19 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileMDX(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileMUB(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMUB(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileMUC(music mc, object entry = null)
@@ -640,15 +686,62 @@ namespace MDPlayer
             AddFilexxx(mc, entry);
         }
 
+        private void AddFileMUC(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
         private void AddFileMML(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMML(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
         }
 
         private void AddFileM(music mc, object entry = null)
         {
             AddFilexxx(mc, entry);
         }
+
+        private void AddFileM(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileWAV(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileWAV(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileMP3(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileMP3(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+        private void AddFileAIFF(music mc, object entry = null)
+        {
+            AddFilexxx(mc, entry);
+        }
+
+        private void AddFileAIFF(ref int index, music mc, object entry = null)
+        {
+            AddFilexxx(ref index, mc, entry);
+        }
+
+
 
         private void AddFileZIP(music mc, object entry = null)
         {
@@ -684,7 +777,7 @@ namespace MDPlayer
                             break;
                         }
                     }
-                    if (!found && Common.CheckExt(zm)== EnmFileFormat.VGM)
+                    if (!found && Common.CheckExt(zm) == EnmFileFormat.VGM)
                     {
                         string vzm = "";
                         if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
@@ -724,7 +817,94 @@ namespace MDPlayer
                             m.arcFileName = mc.arcFileName;
                             m.arcType = mc.arcType;
                             AddFileLoop(m, ent);
-                            
+
+                            //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
+                            //それを防ぐためここでbreakする
+                            break;
+
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        private void AddFileZIP(ref int index, music mc, object entry = null)
+        {
+            if (entry != null) return;
+
+            using (ZipArchive archive = ZipFile.OpenRead(mc.fileName))
+            {
+                mc.arcFileName = mc.fileName;
+                mc.arcType = EnmArcType.ZIP;
+                List<string> zipMember = new List<string>();
+                List<music> mMember = new List<music>();
+                foreach (ZipArchiveEntry ent in archive.Entries)
+                {
+                    if (Common.CheckExt(ent.FullName) != EnmFileFormat.M3U)
+                    {
+                        zipMember.Add(ent.FullName);
+                    }
+                    else
+                    {
+                        PlayList pl = M3U.LoadM3U(ent, mc.arcFileName);
+                        foreach (music m in pl.lstMusic) mMember.Add(m);
+                    }
+                }
+
+                foreach (string zm in zipMember)
+                {
+                    bool found = false;
+                    foreach (music m in mMember)
+                    {
+                        if (m.fileName == zm)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found && Common.CheckExt(zm) == EnmFileFormat.VGM)
+                    {
+                        string vzm = "";
+                        if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
+                        else vzm = Path.ChangeExtension(zm, ".vgm");
+                        foreach (music m in mMember)
+                        {
+                            if (m.fileName == vzm)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found)
+                    {
+                        music zmc = new music();
+                        zmc.fileName = zm;
+                        zmc.arcFileName = mc.arcFileName;
+                        zmc.arcType = mc.arcType;
+                        mMember.Add(zmc);
+                    }
+                }
+
+                List<music> tMember = new List<music>();
+
+                foreach (ZipArchiveEntry ent in archive.Entries)
+                {
+                    foreach (music m in mMember)
+                    {
+                        string vzm = "";
+                        if (Path.GetExtension(m.fileName).ToLower() == ".vgm") vzm = Path.ChangeExtension(m.fileName, ".vgz");
+                        else if (Path.GetExtension(m.fileName).ToLower() == ".vgz") vzm = Path.ChangeExtension(m.fileName, ".vgm");
+
+                        if (ent.FullName == m.fileName || ent.FullName == vzm)
+                        {
+                            m.format = Common.CheckExt(m.fileName);
+                            m.arcFileName = mc.arcFileName;
+                            m.arcType = mc.arcType;
+                            AddFileLoop(ref index, m, ent);
+
                             //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
                             //それを防ぐためここでbreakする
                             break;
@@ -820,20 +1000,470 @@ namespace MDPlayer
 
         }
 
-        private void AddFileWAV(music mc, object entry = null)
+        private void AddFileLZH(ref int index, music mc, object entry = null)
         {
-            AddFilexxx(mc, entry);
+            if (entry != null) return;
+
+            UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+            List<Tuple<string, UInt64>> res = cmd.GetFileList(mc.fileName, "*.*");
+            mc.arcFileName = mc.fileName;
+            mc.arcType = EnmArcType.LZH;
+            List<string> zipMember = new List<string>();
+            List<music> mMember = new List<music>();
+
+            foreach (Tuple<string, UInt64> ent in res)
+            {
+                if (Common.CheckExt(ent.Item1) != EnmFileFormat.M3U)
+                {
+                    zipMember.Add(ent.Item1);
+                }
+                else
+                {
+                    PlayList pl = M3U.LoadM3U(ent, mc.arcFileName);
+                    foreach (music m in pl.lstMusic) mMember.Add(m);
+                }
+            }
+
+            foreach (string zm in zipMember)
+            {
+                bool found = false;
+                foreach (music m in mMember)
+                {
+                    if (m.fileName == zm)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found && Common.CheckExt(zm) == EnmFileFormat.VGM)
+                {
+                    string vzm = "";
+                    if (Path.GetExtension(zm).ToLower() == ".vgm") vzm = Path.ChangeExtension(zm, ".vgz");
+                    else vzm = Path.ChangeExtension(zm, ".vgm");
+                    foreach (music m in mMember)
+                    {
+                        if (m.fileName == vzm)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found)
+                {
+                    music zmc = new music();
+                    zmc.fileName = zm;
+                    zmc.arcFileName = mc.arcFileName;
+                    zmc.arcType = mc.arcType;
+                    mMember.Add(zmc);
+                }
+            }
+
+            foreach (Tuple<string, UInt64> ent in res)
+            {
+                foreach (music m in mMember)
+                {
+                    string vzm = "";
+                    if (Path.GetExtension(m.fileName).ToLower() == ".vgm") vzm = Path.ChangeExtension(m.fileName, ".vgz");
+                    else if (Path.GetExtension(m.fileName).ToLower() == ".vgz") vzm = Path.ChangeExtension(m.fileName, ".vgm");
+
+                    if (ent.Item1 == m.fileName || ent.Item1 == vzm)
+                    {
+                        m.format = Common.CheckExt(m.fileName);
+                        m.arcFileName = mc.arcFileName;
+                        m.arcType = mc.arcType;
+                        AddFileLoop(ref index, m, new Tuple<string, string>(m.arcFileName, ent.Item1));
+
+                        //m3uが複数同梱されている時、同名のファイルが多数追加されることになるケースがある。
+                        //それを防ぐためここでbreakする
+                        break;
+                    }
+                }
+            }
+
         }
 
-        private void AddFileMP3(music mc, object entry = null)
+        private void AddFileM3U(music mc, object entry = null)
         {
-            AddFilexxx(mc, entry);
+
+            PlayList pl;
+            if (entry == null) pl = M3U.LoadM3U(mc.fileName, rootPath);
+            else pl = M3U.LoadM3U(entry, mc.arcFileName);
+            if (pl == null) return;
+            if (pl.lstMusic == null || pl.lstMusic.Count < 1) return;
+
+            foreach (music m in pl.lstMusic) AddFileLoop(m, entry);
         }
 
-        private void AddFileAIFF(music mc, object entry = null)
+        private void AddFileM3U(ref int index, music mc, object entry = null)
         {
-            AddFilexxx(mc, entry);
+
+            PlayList pl;
+            if (entry == null) pl = M3U.LoadM3U(mc.fileName, rootPath);
+            else pl = M3U.LoadM3U(entry, mc.arcFileName);
+            if (pl == null) return;
+            if (pl.lstMusic == null || pl.lstMusic.Count < 1) return;
+
+            foreach (music m in pl.lstMusic) AddFileLoop(ref index, m, entry);
         }
 
+        private void AddFileNSF(music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.music music in musics) lstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileNSF(ref int index, music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                lstMusic.InsertRange(index,musics);
+                index += rows.Count;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileHES(music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.music music in musics) lstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileHES(ref int index, music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                lstMusic.InsertRange(index, musics);
+                index += rows.Count;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileSID(music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                foreach (DataGridViewRow row in rows) dgvList.Rows.Add(row);
+                foreach (PlayList.music music in musics) lstMusic.Add(music);
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+        private void AddFileSID(ref int index, music mc, object entry = null)
+        {
+            try
+            {
+                byte[] buf = null;
+                if (entry == null)
+                {
+                    buf = File.ReadAllBytes(mc.fileName);
+                }
+                else
+                {
+                    if (entry is ZipArchiveEntry)
+                    {
+
+                        using (BinaryReader reader = new BinaryReader(((ZipArchiveEntry)entry).Open()))
+                        {
+                            buf = reader.ReadBytes((int)((ZipArchiveEntry)entry).Length);
+                        }
+                    }
+                    else
+                    {
+                        UnlhaWrap.UnlhaCmd cmd = new UnlhaWrap.UnlhaCmd();
+                        buf = cmd.GetFileByte(((Tuple<string, string>)entry).Item1, ((Tuple<string, string>)entry).Item2);
+                    }
+                }
+
+                List<PlayList.music> musics;
+                if (entry == null) musics = Audio.getMusic(mc.fileName, buf);
+                else musics = Audio.getMusic(mc.fileName, buf, mc.arcFileName, entry);
+
+                if (mc.songNo != -1)
+                {
+                    PlayList.music music = null;
+                    if (musics.Count > 0)
+                    {
+                        music = musics[0];
+                        music.songNo = mc.songNo;
+                        music.title = mc.title;
+                        music.titleJ = mc.titleJ;
+
+                        musics.Clear();
+                        musics.Add(music);
+                    }
+                    else
+                    {
+                        musics.Clear();
+                    }
+                }
+
+                List<DataGridViewRow> rows = makeRow(musics);
+                dgvList.Rows.InsertRange(index, rows.ToArray());
+                lstMusic.InsertRange(index, musics);
+                index += rows.Count;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
     }
 }
