@@ -6549,7 +6549,7 @@ namespace MDPlayer
                 for (i = 0; i < sampleCount; i++)
                 {
                     int mul = (int)(16384.0 * Math.Pow(10.0, MasterVolume / 40.0));
-                    buffer[offset + i] = (short)Limit((buffer[offset + i] * mul) >> 14, 0x7fff, -0x8000);
+                    buffer[offset + i] = (short)Limit((buffer[offset + i] * mul) >> 13, 0x7fff, -0x8000);
 
                     if (!vgmFadeout) continue;
 

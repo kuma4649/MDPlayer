@@ -4561,7 +4561,8 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriC352 = 2;
             else chipLED.SecC352 = 2;
 
-            pcmRegisterC352[chipid][adr] = (ushort)data;
+            if (adr < pcmRegisterC352[chipid].Length) 
+                pcmRegisterC352[chipid][adr] = (ushort)data;
             int c = (int)adr / 8;
             if (adr < 0x100 && (adr % 8) == 3 && maskChC352[chipid][adr / 8])
             {
