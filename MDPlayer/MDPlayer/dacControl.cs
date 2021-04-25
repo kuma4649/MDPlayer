@@ -30,7 +30,7 @@ namespace MDPlayer
             byte Command;
             byte Data;
 
-            if ((chip.Running & 0x10) > 0)   // command already sent
+            if ((chip.Running & 0x10) != 0)   // command already sent
                 return;
             if (chip.DataStart + chip.RealPos >= chip.DataLen)
                 return;
@@ -61,7 +61,7 @@ namespace MDPlayer
                 case 0x00:  // SN76496 (4-bit Register, 4-bit/10-bit Data)
                     Command = (byte)((chip.DstCommand & 0x00F0) >> 0);
                     Data = (byte)(chip.Data[chip.DataStart + chip.RealPos] & 0x0F);
-                    if ((Command & 0x10) > 0)
+                    if ((Command & 0x10) != 0)
                     {
                         // Volume Change (4-Bit value)
                         chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, 0x00, (byte)(Command | Data));
@@ -142,10 +142,32 @@ namespace MDPlayer
                     Command = (byte)((chip.DstCommand & 0x00FF) >> 0);
                     Data = chip.Data[chip.DataStart + chip.RealPos];
 
-                    if (Port != 0xFF)   // Send Channel Select
+                    if (Port == 0xFF)   // Send Channel Select
+                        chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command & 0x0f), Data);
+                    else
+                    {
+                        byte prevChn;
+
+                        prevChn = Port; // by default don't restore channel
+                                        // get current channel for supported chips
+                        if (chip.DstChipType2 == 0x05)
+                            ;   // TODO
+                        else if (chip.DstChipType2 == 0x05)
+                            ;   // TODO
+                        else if (chip.DstChipType2 == 0x1B)
+                            prevChn = chipRegister.ReadHuC6280Register(chip.DstChipID, 0x00, model);
+
+                        // Send Channel Select
                         chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command >> 4), Port);
-                    // Send Data
-                    chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command & 0x0F), Data);
+                        // Send Data
+                        chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command & 0x0F), Data);
+                        // restore old channel
+                        if (prevChn != Port)
+                            chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command >> 4), prevChn);
+
+                        // Send Data
+                        chip_reg_write(chip.DstChipType2, chip.DstChipID, 0x00, (byte)(Command & 0x0F), Data);
+                    }
                     break;
                 // Generic support: 8-bit Register, 16-bit Data
                 case 0x1F:  // QSound
@@ -189,7 +211,7 @@ namespace MDPlayer
                 // very effective Speed Hack for fast seeking
                 NewPos = chip.Step + (samples - 0x10);
                 NewPos = muldiv64round(NewPos * chip.DataStep, chip.Frequency, DAC_SMPL_RATE);// (UInt32)setting.outputDevice.SampleRate);
-                while (chip.RemainCmds > 0 && chip.Pos < NewPos)
+                while (chip.RemainCmds != 0 && chip.Pos < NewPos)
                 {
                     chip.Pos += chip.DataStep;
                     chip.RealPos = (uint)((int)chip.RealPos + RealDataStp);
@@ -203,7 +225,7 @@ namespace MDPlayer
             //System.Console.Write("NewPos{0} chip.Step{1} chip.DataStep{2} chip.Frequency{3} DAC_SMPL_RATE{4} \n", NewPos, chip.Step, chip.DataStep, chip.Frequency, (UInt32)setting.outputDevice.SampleRate);
             sendCommand(chip);
 
-            while (chip.RemainCmds > 0 && chip.Pos < NewPos)
+            while (chip.RemainCmds != 0 && chip.Pos < NewPos)
             {
                 sendCommand(chip);
                 chip.Pos += chip.DataStep;
@@ -213,7 +235,7 @@ namespace MDPlayer
                 chip.RemainCmds--;
             }
 
-            if (chip.RemainCmds == 0 && ((chip.Running & 0x04) > 0))
+            if (chip.RemainCmds == 0 && ((chip.Running & 0x04) != 0))
             {
                 // loop back to start
                 chip.RemainCmds = chip.CmdsToSend;
@@ -247,6 +269,15 @@ namespace MDPlayer
             chip.Running = 0xFF;   // disable all actions (except setup_chip)
 
             return 1;
+        }
+
+        public void device_stop_daccontrol(byte ChipID)
+        {
+            dac_control chip = DACData[ChipID];
+
+            chip.Running = 0xFF;
+
+            return;
         }
 
         public void device_reset_daccontrol(byte ChipID)
@@ -337,7 +368,7 @@ namespace MDPlayer
             // Should be called to fix the data pointer. (e.g. after a realloc)
             dac_control chip = DACData[ChipID];
 
-            if ((chip.Running & 0x80) > 0)
+            if ((chip.Running & 0x80)!= 0)
                 return;
 
             if (DataLen > 0 && Data != null)
@@ -359,9 +390,11 @@ namespace MDPlayer
             //System.Console.WriteLine("ChipID{0} Frequency{1}", ChipID, Frequency);
             dac_control chip = DACData[ChipID];
 
-            if ((chip.Running & 0x80) > 0)
+            if ((chip.Running & 0x80) != 0)
                 return;
 
+            if (Frequency!=0)
+                chip.Step = chip.Step * chip.Frequency / Frequency;
             chip.Frequency = Frequency;
 
             return;
@@ -372,7 +405,7 @@ namespace MDPlayer
             dac_control chip = DACData[ChipID];
             uint CmdStepBase;
 
-            if ((chip.Running & 0x80) > 0)
+            if ((chip.Running & 0x80) != 0)
                 return;
 
             CmdStepBase = (uint)(chip.CmdSize * chip.StepBase);
@@ -414,7 +447,7 @@ namespace MDPlayer
                 chip.RealPos = (chip.CmdsToSend - 0x01) * chip.DataStep;
 
             chip.Running &= 0xfb;// ~0x04;
-            chip.Running |= (byte)((LenMode & 0x80) > 0 ? 0x04 : 0x00);    // set loop mode
+            chip.Running |= (byte)((LenMode & 0x80) != 0 ? 0x04 : 0x00);    // set loop mode
 
             chip.Running |= 0x01;  // start
             chip.Running &= 0xef;// ~0x10; // command isn't yet sent
@@ -426,7 +459,7 @@ namespace MDPlayer
         {
             dac_control chip = DACData[ChipID];
 
-            if ((chip.Running & 0x80) > 0)
+            if ((chip.Running & 0x80) != 0)
                 return;
 
             chip.Running &= 0xfe;// ~0x01; // stop

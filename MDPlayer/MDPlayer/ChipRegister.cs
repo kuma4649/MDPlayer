@@ -131,6 +131,7 @@ namespace MDPlayer
         private bool[][] maskFMChYM2612 = new bool[][] { new bool[6] { false, false, false, false, false, false }, new bool[6] { false, false, false, false, false, false } };
 
         public int[][][] fmRegisterYM2608 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
+
         public int[][] fmKeyOnYM2608 = new int[][] { null, null };
         public int[][] fmVolYM2608 = new int[][] {
             new int[9] { 0,0,0,0,0,0,0,0,0 }
@@ -1700,6 +1701,22 @@ namespace MDPlayer
                 //if (scHuC6280[chipID] == null) return;
             }
         }
+
+        public byte ReadHuC6280Register(byte chipID, byte adr, EnmModel model)
+        {
+            if (ctHuC6280 == null) return 0;
+
+            if (chipID == 0) chipLED.PriHuC = 2;
+            else chipLED.SecHuC = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                return mds.ReadHuC6280(chipID, adr);
+            }
+
+            return 0;
+        }
+
 
 
 
