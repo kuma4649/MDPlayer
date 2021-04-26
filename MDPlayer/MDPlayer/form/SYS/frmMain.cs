@@ -3868,9 +3868,15 @@ namespace MDPlayer.form
 
             StopMIDIInMonitoring();
             frmPlayList.Stop();
+            
             Request req = new Request(enmRequest.Stop);
             OpeManager.RequestToAudio(req);
             while (!req.end) System.Threading.Thread.Sleep(1);
+            
+            req = new Request(enmRequest.Die);
+            OpeManager.RequestToAudio(req);
+            while (!req.end) System.Threading.Thread.Sleep(1);
+            
             //Audio.Stop();
             Audio.Close();
 

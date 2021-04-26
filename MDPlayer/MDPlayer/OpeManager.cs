@@ -35,7 +35,7 @@ namespace MDPlayer
                 if (reqToAudio.Count < 1) return null;
 
                 Request req = reqToAudio[reqToAudio.Count - 1];
-                reqToAudio.Clear();
+                reqToAudio.Remove(req);//.Clear();
 
                 return req;
             }

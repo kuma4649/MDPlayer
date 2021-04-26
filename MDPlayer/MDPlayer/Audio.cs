@@ -1135,16 +1135,25 @@ namespace MDPlayer
                     Audio.setting.YM2608Type[i].UseReal = new bool[1];
                 }
             }
-            if (Audio.setting.YM2610Type == null || Audio.setting.YM2610Type.Length < 2)
+
+            if (Audio.setting.YM2610Type == null 
+                || Audio.setting.YM2610Type.Length < 2
+                || Audio.setting.YM2610Type[0].UseReal == null
+                || Audio.setting.YM2610Type[0].UseReal.Length < 3
+                || Audio.setting.YM2610Type[1].UseReal == null
+                || Audio.setting.YM2610Type[1].UseReal.Length < 3
+                )
             {
                 Audio.setting.YM2610Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
                 for (int i = 0; i < 2; i++)
                 {
                     Audio.setting.YM2610Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo(), new Setting.ChipType2.RealChipInfo(), new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2610Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2610Type[i].UseEmu[0] = true;
                     Audio.setting.YM2610Type[i].UseReal = new bool[3];
                 }
             }
+
             if (Audio.setting.YM2612Type == null || Audio.setting.YM2612Type.Length < 2)
             {
                 Audio.setting.YM2612Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };

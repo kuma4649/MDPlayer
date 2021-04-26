@@ -1697,7 +1697,7 @@ namespace MDPlayer.form
             , ComboBox cmb_SCCI_E2
             )
         {
-            ct.UseReal = new bool[1];
+            ct.UseReal = new bool[rb_SCCI_E == null ? 1 : 3];
             ct.UseReal[0] = rb_SCCI.Checked;
             ct.realChipInfo = new Setting.ChipType2.RealChipInfo[rb_SCCI_E == null ? 1 : 3];
             for (int i = 0; i < ct.realChipInfo.Length; i++) ct.realChipInfo[i] = new Setting.ChipType2.RealChipInfo();
