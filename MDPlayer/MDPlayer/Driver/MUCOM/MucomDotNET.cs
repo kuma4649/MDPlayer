@@ -17,7 +17,8 @@ namespace MDPlayer.Driver
         private iDriver mucomDriver = null;
 
         public string PlayingFileName { get; internal set; }
-        public const int baseclock = 7987200;
+        public const int OPNAbaseclock = 7987200;
+        public const int OPNBbaseclock = 8000000;
         private enmMUCOMFileType mtype;
 
         public MucomDotNET(InstanceMarker mucomDotNET_Im)
@@ -50,6 +51,138 @@ namespace MDPlayer.Driver
             g.Converted = gt.dicItem.ContainsKey(enmTag.ReleaseDate) ? gt.dicItem[enmTag.ReleaseDate][0] : "";
 
             return g;
+        }
+
+        public EnmChip[] useChipsFromMub(byte[] buf)
+        {
+            List<EnmChip> ret = new List<EnmChip>();
+            ret.Add(EnmChip.YM2608);
+            ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
+
+            //標準的なmubファイル
+            if (buf[0] == 0x4d
+                && buf[1] == 0x55
+                && buf[2] == 0x43
+                && buf[3] == 0x38)
+            {
+                return ret.ToArray();
+            }
+            //標準的なmubファイル
+            if (buf[0] == 0x4d
+                && buf[1] == 0x55
+                && buf[2] == 0x42
+                && buf[3] == 0x38)
+            {
+                return ret.ToArray();
+            }
+            //拡張mubファイル？
+            if (buf[0] != 'm'
+                || buf[1] != 'u'
+                || buf[2] != 'P'
+                || buf[3] != 'b')
+            {
+                //見知らぬファイル
+                return null;
+            }
+
+            uint chipsCount = buf[0x0009];
+            int ptr = 0x0022;
+            uint[] partCount = new uint[chipsCount];
+            uint[][] pageCount = new uint[chipsCount][];
+            uint[][][] pageLength = new uint[chipsCount][][];
+            for (int i = 0; i < chipsCount; i++)
+            {
+                partCount[i] = buf[ptr + 0x16];
+                int instCount = buf[ptr + 0x17];
+                ptr += 2 * instCount + 0x18;
+                int pcmCount = buf[ptr];
+                ptr += 2 * pcmCount + 1;
+            }
+
+            for (int i = 0; i < chipsCount; i++)
+            {
+                pageCount[i] = new uint[partCount[i]];
+                pageLength[i] = new uint[partCount[i]][];
+                for (int j = 0; j < partCount[i]; j++)
+                {
+                    pageCount[i][j] = buf[ptr++];
+                }
+            }
+
+            for (int i = 0; i < chipsCount; i++)
+            {
+                for (int j = 0; j < partCount[i]; j++)
+                {
+                    pageLength[i][j] = new uint[pageCount[i][j]];
+                    for (int k = 0; k < pageCount[i][j]; k++)
+                    {
+                        pageLength[i][j][k] = Common.getLE32(buf, (uint)ptr);
+                        ptr += 8;
+                    }
+                }
+            }
+
+            ret.Clear();
+            ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
+
+            if (chipsCount > 0)
+            {
+                if (partCount[0] > 0)
+                {
+                    uint n = 0;
+                    for (int i = 0; i < partCount[0]; i++)
+                    {
+                        n += pageCount[0][i];
+                    }
+                    if (n > 0) ret[0] = EnmChip.YM2608;
+                }
+            }
+
+            if (chipsCount > 1)
+            {
+                if (partCount[1] > 0)
+                {
+                    uint n = 0;
+                    for (int i = 0; i < partCount[1]; i++)
+                    {
+                        n += pageCount[1][i];
+                    }
+                    if (n > 0) ret[1] = EnmChip.S_YM2608;
+                }
+            }
+
+            if (chipsCount > 2)
+            {
+                if (partCount[2] > 0)
+                {
+                    uint n = 0;
+                    for (int i = 0; i < partCount[2]; i++)
+                    {
+                        n += pageCount[2][i];
+                    }
+                    if (n > 0) ret[2] = EnmChip.YM2610;
+                }
+            }
+
+            if (chipsCount > 3)
+            {
+                if (partCount[3] > 0)
+                {
+                    uint n = 0;
+                    for (int i = 0; i < partCount[3]; i++)
+                    {
+                        n += pageCount[3][i];
+                    }
+                    if (n > 0) ret[3] = EnmChip.S_YM2610;
+                }
+            }
+
+            return ret.ToArray();
         }
 
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
@@ -138,6 +271,45 @@ namespace MDPlayer.Driver
             MUC
         }
         
+        public byte[] Compile(byte[] vgmBuf)
+        {
+            if(mucomCompiler==null) mucomCompiler = im.GetCompiler("mucomDotNET.Compiler.Compiler");
+            mucomCompiler.Init();
+
+            MmlDatum[] ret;
+            CompilerInfo info = null;
+            try
+            {
+                using (MemoryStream sourceMML = new MemoryStream(vgmBuf))
+                    ret = mucomCompiler.Compile(sourceMML, appendFileReaderCallback);// wrkMUCFullPath, disp);
+
+                info = mucomCompiler.GetCompilerInfo();
+
+            }
+            catch
+            {
+                ret = null;
+                info = null;
+            }
+
+            if (ret == null || info == null) return null;
+            if (info.errorList.Count > 0)
+            {
+                if (model == EnmModel.VirtualModel)
+                {
+                    System.Windows.Forms.MessageBox.Show("Compile error");
+                }
+                return null;
+            }
+            
+            List<byte> dest = new List<byte>();
+            foreach(MmlDatum md in ret)
+            {
+                dest.Add(md != null ? (byte)md.dat : (byte)0);
+            }
+
+            return dest.ToArray();
+        }
 
 
         private enmMUCOMFileType CheckFileType(byte[] buf)
@@ -161,9 +333,17 @@ namespace MDPlayer.Driver
             {
                 return enmMUCOMFileType.MUB;
             }
+            if (buf[0] == 'm'
+                && buf[1] == 'u'
+                && buf[2] == 'P'
+                && buf[3] == 'b')
+            {
+                return enmMUCOMFileType.MUB;
+            }
 
             return enmMUCOMFileType.MUC;
         }
+
 
         private bool initMUC()
         {
@@ -224,7 +404,7 @@ namespace MDPlayer.Driver
                 });
 
             mucomDriver.StartRendering(Common.VGMProcSampleRate
-                ,new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
+                ,new Tuple<string, int>[] { new Tuple<string, int>("", OPNAbaseclock) });
             mucomDriver.MusicSTART(0);
 
             return true;
@@ -263,7 +443,7 @@ namespace MDPlayer.Driver
                 });
 
             mucomDriver.StartRendering(Common.VGMProcSampleRate
-                , new Tuple<string, int>[] { new Tuple<string, int>("", baseclock) });
+                , new Tuple<string, int>[] { new Tuple<string, int>("", OPNAbaseclock) });
             mucomDriver.MusicSTART(0);
 
             return true;

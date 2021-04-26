@@ -1622,7 +1622,7 @@ namespace MDPlayer
                     driverReal.setting = setting;
                     ((Driver.MucomDotNET)driverReal).PlayingFileName = PlayingFileName;
                 }
-                return mucPlay_mucomDotNET(setting);
+                return mucPlay_mucomDotNET(setting, Driver.MucomDotNET.enmMUCOMFileType.MUB);
             }
 
             if (PlayingFileFormat == EnmFileFormat.MUC)
@@ -1637,7 +1637,8 @@ namespace MDPlayer
                     driverReal.setting = setting;
                     ((Driver.MucomDotNET)driverReal).PlayingFileName = PlayingFileName;
                 }
-                return mucPlay_mucomDotNET(setting);
+                
+                return mucPlay_mucomDotNET(setting, Driver.MucomDotNET.enmMUCOMFileType.MUC);
             }
 
             if (PlayingFileFormat == EnmFileFormat.MML || PlayingFileFormat == EnmFileFormat.M)
@@ -2003,7 +2004,7 @@ namespace MDPlayer
 
         }
 
-        public static bool mucPlay_mucomDotNET(Setting setting)
+        public static bool mucPlay_mucomDotNET(Setting setting,Driver.MucomDotNET.enmMUCOMFileType fileType)
         {
 
             try
@@ -2011,8 +2012,13 @@ namespace MDPlayer
 
                 if (vgmBuf == null || setting == null) return false;
 
-                //Stop();
+                if (fileType == Driver.MucomDotNET.enmMUCOMFileType.MUC)
+                {
+                    vgmBuf = ((Driver.MucomDotNET)driverVirtual).Compile(vgmBuf);
+                }
+                EnmChip[] useChipFromMub = ((Driver.MucomDotNET)driverVirtual).useChipsFromMub(vgmBuf);
 
+                //Stop();
                 chipRegister.resetChips();
                 ResetFadeOutParam();
                 useChip.Clear();
@@ -2028,24 +2034,88 @@ namespace MDPlayer
                 MasterVolume = setting.balance.MasterVolume;
 
                 ym2608 ym2608 = null;
-                chip = new MDSound.MDSound.Chip();
                 ym2608 = new ym2608();
-                chip.ID = 0;
-                chipLED.PriOPNA = 1;
-                chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
-                chip.Instrument = ym2608;
-                chip.Update = ym2608.Update;
-                chip.Start = ym2608.Start;
-                chip.Stop = ym2608.Stop;
-                chip.Reset = ym2608.Reset;
-                chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
-                chip.Volume = setting.balance.YM2608Volume;
-                chip.Clock = Driver.MucomDotNET.baseclock;
+                ym2610 ym2610 = null;
+                ym2610 = new ym2610();
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
-                chip.Option = new object[] { fn };
-                lstChips.Add(chip);
-                useChip.Add(EnmChip.YM2608);
-                clockYM2608 = Driver.MucomDotNET.baseclock;
+
+                if (useChipFromMub[0] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 0;
+                    chipLED.PriOPNA = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                    chip.Instrument = ym2608;
+                    chip.Update = ym2608.Update;
+                    chip.Start = ym2608.Start;
+                    chip.Stop = ym2608.Stop;
+                    chip.Reset = ym2608.Reset;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2608Volume;
+                    chip.Clock = Driver.MucomDotNET.OPNAbaseclock;
+                    chip.Option = new object[] { fn };
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YM2608);
+                    clockYM2608 = Driver.MucomDotNET.OPNAbaseclock;
+                }
+
+                if (useChipFromMub[1] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 1;
+                    chipLED.SecOPNA = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2608;
+                    chip.Instrument = ym2608;
+                    chip.Update = ym2608.Update;
+                    chip.Start = ym2608.Start;
+                    chip.Stop = ym2608.Stop;
+                    chip.Reset = ym2608.Reset;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2608Volume;
+                    chip.Clock = Driver.MucomDotNET.OPNAbaseclock;
+                    chip.Option = new object[] { fn };
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.S_YM2608);
+                }
+
+                if (useChipFromMub[2] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 0;
+                    chipLED.PriOPNB = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2610;
+                    chip.Instrument = ym2610;
+                    chip.Update = ym2610.Update;
+                    chip.Start = ym2610.Start;
+                    chip.Stop = ym2610.Stop;
+                    chip.Reset = ym2610.Reset;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2610Volume;
+                    chip.Clock = Driver.MucomDotNET.OPNBbaseclock;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YM2610);
+                    clockYM2610 = Driver.MucomDotNET.OPNBbaseclock;
+                }
+
+                if (useChipFromMub[3] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 1;
+                    chipLED.SecOPNB = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2610;
+                    chip.Instrument = ym2610;
+                    chip.Update = ym2610.Update;
+                    chip.Start = ym2610.Start;
+                    chip.Stop = ym2610.Stop;
+                    chip.Reset = ym2610.Reset;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2610Volume;
+                    chip.Clock = Driver.MucomDotNET.OPNBbaseclock;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.S_YM2610);
+                }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2072,8 +2142,8 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.RealModel);
 
-                chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.baseclock, EnmModel.RealModel);
-                chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.baseclock, EnmModel.RealModel);
+                chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
+                chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
                 chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
                 chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
 
