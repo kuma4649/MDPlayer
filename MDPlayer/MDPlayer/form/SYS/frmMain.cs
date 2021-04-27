@@ -67,6 +67,7 @@ namespace MDPlayer.form
         private frmVRC7[] frmVRC7 = new frmVRC7[2] { null, null };
         private frmN106[] frmN106 = new frmN106[2] { null, null };
         private frmRegTest frmRegTest;
+        private frmVisWave frmVisWave;
 
         private List<Form[]> lstForm = new List<Form[]>();
 
@@ -764,7 +765,7 @@ namespace MDPlayer.form
             }
 
             log.ForcedWrite("frmMain_Shown:STEP 10");
-
+            
             try
             {
 
@@ -1120,6 +1121,11 @@ namespace MDPlayer.form
                 {
                     frmRegTest.Close();
                     setting.location.OpenRegTest[chipID] = true;
+                }
+
+                if (frmVisWave != null && !frmVisWave.isClosed)
+                {
+                    frmVisWave.Close();
                 }
             }
 
@@ -1643,6 +1649,10 @@ namespace MDPlayer.form
             OpenFormN106(1);
         }
 
+        private void tsmiVisWave_Click(object sender, EventArgs e)
+        {
+            OpenFormVisWave();
+        }
 
 
         private void OpenFormMegaCD(int chipID, bool force = false)
@@ -3647,6 +3657,19 @@ namespace MDPlayer.form
             CheckAndSetForm(frmRegTest);
         }
 
+        private void OpenFormVisWave()
+        {
+            if (frmVisWave != null)
+            {
+                frmVisWave.Focus();
+                return;
+            }
+
+            frmVisWave = new frmVisWave();
+            frmVisWave.Show();
+
+            CheckAndSetForm(frmVisWave);
+        }
 
         private void OpenFormN106(int chipID, bool force = false)
         {
@@ -3728,6 +3751,28 @@ namespace MDPlayer.form
             frmRegTest = null;
         }
 
+        private void CloseFormVisWave()
+        {
+            if (frmVisWave == null) return;
+
+            try
+            {
+                frmVisWave.Close();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            try
+            {
+                frmVisWave.Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            frmVisWave = null;
+        }
 
 
         private void openInfo()

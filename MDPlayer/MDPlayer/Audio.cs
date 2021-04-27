@@ -68,7 +68,6 @@ namespace MDPlayer
         private static NAudioWrap naudioWrap;
         private static WaveWriter waveWriter = null;
 
-
         private static RSoundChip[] scYM2612 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scSN76489 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
@@ -185,6 +184,12 @@ namespace MDPlayer
         public static bool delVSTeffect(string key)
         {
             return vstMng.delVSTeffect(key);
+        }
+
+        public static void CopyWaveBuffer(short[][] dest)
+        {
+            if (mds == null) return;
+            mds.visWaveBuffer.Copy(dest);
         }
 
         public static List<PlayList.music> getMusic(string file, byte[] buf, string zipFile = null, object entry = null)

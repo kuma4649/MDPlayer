@@ -185,6 +185,7 @@ namespace MDPlayer.form
             this.opeButtonOpen = new System.Windows.Forms.Button();
             this.opeButtonMode = new System.Windows.Forms.Button();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiVisualizer = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -837,7 +838,8 @@ namespace MDPlayer.form
             this.tsmiOpenMixer,
             this.その他ウィンドウ表示ToolStripMenuItem,
             this.tsmiChangeZoom,
-            this.レジスタダンプ表示ToolStripMenuItem});
+            this.レジスタダンプ表示ToolStripMenuItem,
+            this.tsmiVisualizer});
             this.cmsMenu.Name = "contextMenuStrip1";
             resources.ApplyResources(this.cmsMenu, "cmsMenu");
             // 
@@ -1461,6 +1463,12 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
+            // tsmiVisualizer
+            // 
+            this.tsmiVisualizer.Name = "tsmiVisualizer";
+            resources.ApplyResources(this.tsmiVisualizer, "tsmiVisualizer");
+            this.tsmiVisualizer.Click += new System.EventHandler(this.tsmiVisWave_Click);
+            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1658,6 +1666,7 @@ namespace MDPlayer.form
         private System.Windows.Forms.Button opeButtonPlayList;
         private System.Windows.Forms.Button opeButtonOpen;
         private System.Windows.Forms.Button opeButtonMode;
+        private System.Windows.Forms.ToolStripMenuItem tsmiVisualizer;
     }
 }
 

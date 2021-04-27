@@ -530,6 +530,12 @@
     <Compile Include="form\KB\NES\frmVRC7.Designer.cs">
       <DependentUpon>frmVRC7.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\SYS\frmVisWave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SYS\frmVisWave.Designer.cs">
+      <DependentUpon>frmVisWave.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpeManager.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="VST\frmVST.cs">
@@ -776,6 +782,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\KB\NES\frmVRC7.resx">
       <DependentUpon>frmVRC7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SYS\frmVisWave.resx">
+      <DependentUpon>frmVisWave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VST\frmVST.resx">
       <DependentUpon>frmVST.cs</DependentUpon>
