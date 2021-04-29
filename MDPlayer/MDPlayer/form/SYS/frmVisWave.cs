@@ -13,13 +13,18 @@ namespace MDPlayer.form
     public partial class frmVisWave : frmBase
     {
         public bool isClosed = false;
+        public int x = -1;
+        public int y = -1;
 
         private short[][] buf = new short[2][] { new short[2048], new short[2048] };
         private Graphics g;
         private Bitmap bmp;
+        private int dispType=1;
+        private double dispHeight=1.0;
 
-        public frmVisWave()
+        public frmVisWave(frmMain frm)
         {
+            parent = frm;
             InitializeComponent();
             bmp = new Bitmap(400,400);
         }
@@ -32,17 +37,30 @@ namespace MDPlayer.form
 
             for (int ch = 0; ch < 2; ch++)
             {
-                int hPos = bmp.Height / 4 + ch * bmp.Height / 2;
-                int ox = 0;
-                int oy = hPos;
-
-                for (int i = 0; i < 2048; i++)
+                if (dispType <= 1)
                 {
-                    int x = (i * bmp.Width) / 2048;
-                    int y = buf[ch][i] * bmp.Height / 65536 + hPos;
-                    g.DrawLine(Pens.Green, ox, oy, x, y);
-                    ox = x;
-                    oy = y;
+                    int hPos = bmp.Height / 4 + ch * bmp.Height / 2;
+                    int ox = 0;
+                    int oy = hPos;
+
+                    for (int i = 0; i < 2048; i++)
+                    {
+                        int x = (i * bmp.Width) / 2048;
+                        int y = (int)(buf[ch][i]*dispHeight) * bmp.Height / 65536 + hPos;
+                        g.DrawLine(Pens.SteelBlue, ox, oy, x, y);
+                        ox = x;
+                        oy = y;
+                    }
+                }
+                else
+                {
+                    int hPos = bmp.Height / 4 + ch * bmp.Height / 2;
+                    for (int i = 0; i < 2048; i++)
+                    {
+                        int x = (i * bmp.Width) / 2048;
+                        int y = (int)(buf[ch][i] * dispHeight) * bmp.Height / 65536 + hPos;
+                        g.DrawLine(Pens.Khaki, x, hPos, x, y);
+                    }
                 }
             }
 
@@ -55,6 +73,59 @@ namespace MDPlayer.form
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             
+        }
+
+        private void frmVisWave_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                parent.setting.location.PosVisWave = Location;
+            }
+            else
+            {
+                parent.setting.location.PosVisWave = RestoreBounds.Location;
+            }
+            isClosed = true;
+        }
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+        private void frmVisWave_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(x, y);
+        }
+
+        private void tsbDispType2_Click(object sender, EventArgs e)
+        {
+            dispType = 2;
+        }
+
+        private void tsbDispType1_Click(object sender, EventArgs e)
+        {
+            dispType = 1;
+
+        }
+
+        private void tsbHeight3_Click(object sender, EventArgs e)
+        {
+            dispHeight = 3;
+
+        }
+
+        private void tsbHeight2_Click(object sender, EventArgs e)
+        {
+            dispHeight = 1.0;
+
+        }
+
+        private void tsbHeight1_Click(object sender, EventArgs e)
+        {
+            dispHeight = 0.3;
+
         }
     }
 }

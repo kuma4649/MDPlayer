@@ -3826,6 +3826,27 @@ namespace MDPlayer
                 }
             }
 
+            private Point _PosVisWave = Point.Empty;
+            public Point PosVisWave
+            {
+                get { return _PosVisWave; }
+                set { _PosVisWave = value; }
+            }
+
+            private bool _OpenVisWave = false;
+            public bool OpenVisWave
+            {
+                get
+                {
+                    return _OpenVisWave;
+                }
+
+                set
+                {
+                    _OpenVisWave = value;
+                }
+            }
+
             public int ChipSelect { get; set; }
 
             public Location Copy()
@@ -3907,6 +3928,8 @@ namespace MDPlayer
                 Location.OpenMIDI = this.OpenMIDI;
                 Location.PosRegTest = this.PosRegTest;
                 Location.OpenRegTest = this.OpenRegTest;
+                Location.PosVisWave = this.PosVisWave;
+                Location.OpenVisWave = this.OpenVisWave;
                 Location.ChipSelect = this.ChipSelect;
 
                 return Location;

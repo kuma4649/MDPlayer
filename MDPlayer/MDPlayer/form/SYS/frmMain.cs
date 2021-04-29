@@ -244,6 +244,7 @@ namespace MDPlayer.form
             if (setting.location.OInfo) openInfo();
             if (setting.location.OMixer) openMixer();
             if (setting.location.OpenYm2612MIDI) openMIDIKeyboard();
+            if (setting.location.OpenVisWave) OpenFormVisWave();
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
@@ -858,6 +859,7 @@ namespace MDPlayer.form
             setting.location.OPlayList = false;
             setting.location.OMixer = false;
             setting.location.OpenYm2612MIDI = false;
+            setting.location.OpenVisWave = false;
             for (int chipID = 0; chipID < 2; chipID++)
             {
                 setting.location.OpenAY8910[chipID] = false;
@@ -1126,6 +1128,7 @@ namespace MDPlayer.form
                 if (frmVisWave != null && !frmVisWave.isClosed)
                 {
                     frmVisWave.Close();
+                    setting.location.OpenVisWave = true;
                 }
             }
 
@@ -3659,13 +3662,25 @@ namespace MDPlayer.form
 
         private void OpenFormVisWave()
         {
-            if (frmVisWave != null)
+            if (frmVisWave != null && !frmVisWave.isClosed)
             {
                 frmVisWave.Focus();
                 return;
             }
 
-            frmVisWave = new frmVisWave();
+            frmVisWave = new frmVisWave(this);
+
+            if (setting.location.PosVisWave == System.Drawing.Point.Empty)
+            {
+                frmVisWave.x = this.Location.X;
+                frmVisWave.y = this.Location.Y + 264;
+            }
+            else
+            {
+                frmVisWave.x = setting.location.PosVisWave.X;
+                frmVisWave.y = setting.location.PosVisWave.Y;
+            }
+
             frmVisWave.Show();
 
             CheckAndSetForm(frmVisWave);
