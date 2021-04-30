@@ -17,6 +17,8 @@ namespace MDPlayer.Driver.SID
         private sidplayfp m_engine;
         private bool initial = false;
 
+        public SidConfig cfg;
+        public SidTuneInfo tuneInfo;
         public override GD3 getGD3Info(byte[] buf, uint vgmGd3)
         {
             if (buf == null) return null;
@@ -169,7 +171,7 @@ namespace MDPlayer.Driver.SID
             }
 
             // Get tune details
-            global::Driver.libsidplayfp.sidplayfp.SidTuneInfo tuneInfo = tune.getInfo();
+            tuneInfo = tune.getInfo();
             //if (!m_track.single)
             //    m_track.songs = (UInt16)tuneInfo.songs();
             //if (!createOutput(m_driver.output, tuneInfo))
@@ -177,7 +179,7 @@ namespace MDPlayer.Driver.SID
             //if (!createSidEmu(m_driver.sid))
             //    return false;
 
-            SidConfig cfg = new SidConfig(setting);
+            cfg = new SidConfig(setting);
             cfg.frequency = (uint)setting.outputDevice.SampleRate;
             cfg.samplingMethod = (setting.sid.Quality & 2) == 0 ? SidConfig.sampling_method_t.INTERPOLATE : SidConfig.sampling_method_t.RESAMPLE_INTERPOLATE;
             cfg.fastSampling = (setting.sid.Quality & 1) == 0;
@@ -207,6 +209,12 @@ namespace MDPlayer.Driver.SID
         {
             if (m_engine == null) return null;
             return m_engine.GetSidRegister();
+        }
+
+        public sidplayfp GetCurrentEngineContext()
+        {
+            if (m_engine == null) return null;
+            return m_engine;
         }
 
 
