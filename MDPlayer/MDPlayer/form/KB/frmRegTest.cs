@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Driver.libsidplayfp.builders.resid_builder;
+using Driver.libsidplayfp.sidplayfp;
+using MDPlayer.Driver.SID;
+
 namespace MDPlayer.form
 {
     public partial class frmRegTest : frmChipBase
@@ -105,8 +109,8 @@ namespace MDPlayer.form
                     return Audio.GetAPURegister(0);
                 });
 
-                AddChip("SID", 2, 0x19, (Select) => {
-                    return Audio.GetSIDRegister(Select-1);
+                AddChip("SID", 3, 0x19, (Select) => {
+                    return Audio.GetSIDRegister(Select);
                 });
             }
 
@@ -309,6 +313,7 @@ namespace MDPlayer.form
             //if (RegMan.needRefresh) { frameBuffer.clearScreen(); RegMan.needRefresh = false; }
             var Name = RegMan.GetName();
             var Name2 = RegMan.GetName2();
+            var p = RegMan.getCurrentPage();
             //var MaxPage = RegMan.getPageSize();
             //var regSize = RegMan.getRegisterSize(); // Max
             //var actualRegSize = RegMan.getRegisterSize();//Reg.Length >= regSize ? regSize : Reg.Length; //TODO: Change this
@@ -321,7 +326,8 @@ namespace MDPlayer.form
             if (RegMan.GetName().Contains("SID"))
             {
                 //y += 8;
-
+                sid CurSID = Audio.GetCurrentSIDContext();
+                //sid CurSID = ChipRegister.SID;
                 var a = RegMan.GetData();
                 if (a == null) return;
                 uint[] r = (uint[])a;
@@ -438,14 +444,23 @@ namespace MDPlayer.form
                     $"{((filtermode & 0b00000100) == 0x04 ? "HIGHPASS" : "--------")} " +
                     $"{((filtermode & 0b00000010) == 0x02 ? "BANDPASS" : "--------")} " +
                     $"{((filtermode & 0b00000001) == 0x01 ? "LOWPASS" : "-------")}");
-
-
                 DrawBuff.drawFont4(frameBuffer, 2, y + 48, 0, $"MAIN VOLUME {mainvolume:X2}");
 
+                y += 56;
+
+                SidTuneInfo sti = CurSID.tuneInfo;
+                SidConfig cfg = CurSID.cfg;
+                sidplayfp curengine = CurSID.GetCurrentEngineContext();
+                SidInfo si = curengine.info();
+
+                DrawBuff.drawFont4(frameBuffer, 2, y, 0, $"LOAD ADDR {sti.getLoadAddr():X4}h");
+                DrawBuff.drawFont4(frameBuffer, 2, y + 8, 0, $"INIT ADDR {sti.getInitAddr():X4}h");
+                DrawBuff.drawFont4(frameBuffer, 2, y + 16, 0, $"PLAY ADDR {sti.getPlayAddr():X4}h");
+                DrawBuff.drawFont4(frameBuffer, 2, y + 24, 0, $"{sti.sidModel((uint)p)} {sti.getClockSpeed()}; CUR:{cfg.defaultSidModel} SPD:{si.getSpeedString()}");
 
 
-
-                return;
+                y += 32;
+                //return;
             }
 
 
@@ -461,7 +476,7 @@ namespace MDPlayer.form
                 }
                 y += 8;
             }*/
-                var p = RegMan.getCurrentPage();
+
             var Reg = RegMan.GetData();
 
             if(Reg is byte[])

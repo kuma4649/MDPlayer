@@ -9,6 +9,7 @@ using MDPlayer.form;
 using musicDriverInterface;
 using MDSound.np.chip;
 using NAudio.Wave;
+using MDPlayer.Driver.SID;
 
 namespace MDPlayer
 {
@@ -112,6 +113,11 @@ namespace MDPlayer
         internal static object GetSIDRegister(int chipID)
         {
             return chipRegister.getSIDRegister(chipID);
+        }
+        
+        internal static sid GetCurrentSIDContext()
+        {
+            return chipRegister.SID;
         }
 
         internal static okim6295.okim6295Info GetOKIM6295Info(int chipID)

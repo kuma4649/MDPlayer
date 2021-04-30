@@ -67,7 +67,7 @@ namespace MDPlayer
         public uint[] getSIDRegister(int chipID)
         {
             if (SID == null) return null;
-            return SID.GetRegisterFromSid()[0];
+            return SID.GetRegisterFromSid()[chipID];
         }
 
         private int[] noteTbl = new int[] { 2, 4, 5, -1, 6, 8, 9, -1, 10, 12, 13, -1, 14, 0, 1, -1 };
