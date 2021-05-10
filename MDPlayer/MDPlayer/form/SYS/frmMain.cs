@@ -6297,7 +6297,7 @@ namespace MDPlayer.form
             string buf = "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\r\n";
             buf += "\r\n";
             buf += "<RYM2612Params patchName = \"MDPlayer\" category = \"Piano\" rating = \"3\" type = \"User\" >\r\n";
-            int alg = 0, fb = 0;
+            int alg = 0, fb = 0, ams = 0, pms = 0;
 
             if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
             {
@@ -6307,10 +6307,12 @@ namespace MDPlayer.form
 
                 alg = (fmRegister[p][0xb0 + c] & 0x07) >> 0;
                 fb = (fmRegister[p][0xb0 + c] & 0x38) >> 3;
+                ams = (fmRegister[p][0xb4 + c] & 0x30) >> 4;
+                pms = (fmRegister[p][0xb4 + c] & 0x07) >> 0;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    int ops = i * 4;
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
                     int tl = 127 - ((fmRegister[p][0x40 + ops + c] & 0x7f) >> 0);
                     int vel = 0;
                     if (carriers[alg][i])
@@ -6327,14 +6329,13 @@ namespace MDPlayer.form
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(fmRegister[p][0x30 + ops + c] & 0x0f) >> 0]));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
                     int dt = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;
-                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    dt = (dt >= 4) ? (dt - 4) : (dt - 3);
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x70 + ops + c] & 0x1f) >> 0));
-                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - ((fmRegister[p][0x80 + ops + c] & 0xf0) >> 4)));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x1f) >> 0));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x50 + ops + c] & 0x1f) >> 0));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x80) >> 7));
-                    //int ops = (i == 0) ? 0 : ((i == 1) ? 4 : ((i == 2) ? 8 : 12));
                 }
 
             }
@@ -6344,11 +6345,12 @@ namespace MDPlayer.form
 
                 alg = (ym2151Register[0x20 + ch] & 0x07) >> 0;
                 fb = (ym2151Register[0x20 + ch] & 0x38) >> 3;
+                ams = (ym2151Register[0x38 + ch] & 0x03) >> 0;
+                pms = (ym2151Register[0x38 + ch] & 0x70) >> 4;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    //int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 16 : 24));
-                    int ops = i * 8;
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
                     int tl = 127 - ((ym2151Register[0x60 + ops + ch] & 0x7f) >> 0);
                     int vel = 0;
                     if (carriers[alg][i])
@@ -6366,10 +6368,10 @@ namespace MDPlayer.form
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(ym2151Register[0x40 + ops + ch] & 0x0f) >> 0]));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
                     int dt = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;
-                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    dt = (dt >= 4) ? (dt - 4) : (dt - 3);
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xc0 + ops + ch] & 0x1f) >> 0));
-                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - ((ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4)));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x1f) >> 0));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0x80 + ops + ch] & 0x1f) >> 0));
                     op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7));
@@ -6399,10 +6401,10 @@ namespace MDPlayer.form
             buf += "  <PARAM id=\"LFO_Enable\" value=\"0.0\"/>\r\n";
             buf += string.Format("  <PARAM id=\"Feedback\" value=\"{0}.0\"/>\r\n", fb);
             buf += "  <PARAM id=\"FMSMW\" value=\"46.84000015258789\"/>\r\n";
-            buf += "  <PARAM id=\"FMS\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"FMS\" value=\"{0}.0\"/>\r\n", pms);
             buf += "  <PARAM id=\"DAC_Prescaler\" value=\"0.0\"/>\r\n";
-            buf += string.Format("  <PARAM id=\"Algorithm\" value=\"{0}.0\"/>\r\n", alg);
-            buf += "  <PARAM id=\"AMS\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"Algorithm\" value=\"{0}.0\"/>\r\n", alg + 1);
+            buf += string.Format("  <PARAM id=\"AMS\" value=\"{0}.0\"/>\r\n", ams);
             buf += "  <PARAM id=\"masterTune\"/>\r\n";
             buf += "</RYM2612Params>\r\n";
 
