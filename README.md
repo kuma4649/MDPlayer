@@ -404,6 +404,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・そんそん さん  
     ・欧場豪 さん  
     ・sgq1205 さん  
+    ・千霧＠ぶっちぎりP(but80) さん  
 
     ・Visual Studio Community 2015/2017  
     ・MinGW/msys  
@@ -540,6 +541,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・PMD(PMDDotNET)  
   ・MGSDRV  
   ・Z80dotNet  
+  ・mucom88torym2612  
   
   
   

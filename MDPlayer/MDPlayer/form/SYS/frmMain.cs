@@ -5382,6 +5382,9 @@ namespace MDPlayer.form
                         case EnmInstFormat.OPNI:
                             getInstChForOPNI(chip, ch, chipID);
                             break;
+                        case EnmInstFormat.RYM2612:
+                            getInstChForRYM2612(chip, ch, chipID);
+                            break;
                     }
                 }
             }
@@ -6259,6 +6262,172 @@ namespace MDPlayer.form
 
                 fs.Write(n, 0, n.Length);
 
+            }
+        }
+
+        private void getInstChForRYM2612(EnmChip chip, int ch, int chipID)
+        {
+            //  
+            //  以下のコードを使用、参考にさせていただいております。ありがとうございます！
+            //  
+            //  Title:
+            //      mucom88torym2612
+            //  Author:
+            //      千霧＠ぶっちぎりP(but80) 様
+            //  URL:
+            //      https://github.com/but80/mucom88torym2612/
+            //      Github
+            //        but80/mucom88torym2612
+            //  License:
+            //      MIT License
+            //
+
+            List<string>[] op = new List<string>[4] { new List<string>(), new List<string>(), new List<string>(), new List<string>() };
+            bool[][] carriers = new bool[][]{
+                    new bool[]{ false, false, false, true},
+                    new bool[]{ false, false, false, true},
+                    new bool[]{ false, false, false, true},
+                    new bool[]{ false, false, false, true},
+                    new bool[]{ false, true, false, true},
+                    new bool[]{ false, true, true, true},
+                    new bool[]{ false, true, true, true},
+                    new bool[]{ true, true, true, true}
+                };
+            int[] muls = new int[] { 0, 1054, 1581, 2635, 3689, 4743, 5797, 6851, 7905, 8959, 10013, 10540, 11594, 12648, 14229, 15000 };
+            string buf = "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\r\n";
+            buf += "\r\n";
+            buf += "<RYM2612Params patchName = \"MDPlayer\" category = \"Piano\" rating = \"3\" type = \"User\" >\r\n";
+            int alg = 0, fb = 0;
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) ? Audio.GetFMRegister(chipID) : (chip == EnmChip.YM2608 ? Audio.GetYM2608Register(chipID) : (chip == EnmChip.YM2203 ? new int[][] { Audio.GetYM2203Register(chipID), null } : Audio.GetYM2610Register(chipID)));
+
+                alg = (fmRegister[p][0xb0 + c] & 0x07) >> 0;
+                fb = (fmRegister[p][0xb0 + c] & 0x38) >> 3;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = i * 4;
+                    int tl = 127 - ((fmRegister[p][0x40 + ops + c] & 0x7f) >> 0);
+                    int vel = 0;
+                    if (carriers[alg][i])
+                    {
+                        vel = tl / 2;
+                        tl -= vel;
+                    }
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Vel\" value=\"{1}.0\"/>", i + 1, vel));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}TL\" value=\"{1}.0\"/>", i + 1, tl));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}SSGEG\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x90 + ops + c] & 0x0f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RS\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RR\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x80 + ops + c] & 0x0f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MW\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(fmRegister[p][0x30 + ops + c] & 0x0f) >> 0]));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
+                    int dt = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;
+                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x70 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - (fmRegister[p][0x80 + ops + c] & 0xf0) >> 4));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x50 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x80) >> 7));
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 4 : ((i == 2) ? 8 : 12));
+                }
+
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                alg = (ym2151Register[0x20 + ch] & 0x07) >> 0;
+                fb = (ym2151Register[0x20 + ch] & 0x38) >> 3;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 16 : 24));
+                    int ops = i * 8;
+                    int tl = 127 - ((ym2151Register[0x60 + ops + ch] & 0x7f) >> 0);
+                    int vel = 0;
+                    if (carriers[alg][i])
+                    {
+                        vel = tl / 2;
+                        tl -= vel;
+                    }
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Vel\" value=\"{1}.0\"/>", i + 1, vel));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}TL\" value=\"{1}.0\"/>", i + 1, tl));
+
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}SSGEG\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RS\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RR\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xe0 + ops + ch] & 0x0f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MW\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(ym2151Register[0x40 + ops + ch] & 0x0f) >> 0]));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
+                    int dt = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;
+                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xc0 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0x80 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7));
+
+                    //int dt2 = (byte)((ym2151Register[0xc0 + ops + ch] & 0xc0) >> 6); //DT2
+                }
+
+            }
+
+            for (int i = 0; i < op[0].Count; i++)
+            {
+                buf += op[3][i] + "\r\n";
+                buf += op[2][i] + "\r\n";
+                buf += op[1][i] + "\r\n";
+                buf += op[0][i] + "\r\n";
+            }
+
+            buf += "  <PARAM id=\"volume\" value=\"0.699999988079071\"/>\r\n";
+            buf += "  <PARAM id=\"Ladder_Effect\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"Output_Filtering\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"Polyphony\" value=\"8.0\"/>\r\n";
+            buf += "  <PARAM id=\"TimerA\" value=\"0.2000000029802322\"/>\r\n";
+            buf += "  <PARAM id=\"Spec_Mode\" value=\"2.0\"/>\r\n";
+            buf += "  <PARAM id=\"Pitchbend_Range\" value=\"7.0\"/>\r\n";
+            buf += "  <PARAM id=\"Legato_Retrig\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"LFO_Speed\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"LFO_Enable\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"Feedback\" value=\"{0}.0\"/>\r\n", fb);
+            buf += "  <PARAM id=\"FMSMW\" value=\"46.84000015258789\"/>\r\n";
+            buf += "  <PARAM id=\"FMS\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"DAC_Prescaler\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"Algorithm\" value=\"{0}.0\"/>\r\n", alg);
+            buf += "  <PARAM id=\"AMS\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"masterTune\"/>\r\n";
+            buf += "</RYM2612Params>\r\n";
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = "音色ファイル.rym2612";
+            sfd.Filter = "RYM2612ファイル(*.rym2612)|*.rym2612|すべてのファイル(*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.Title = "名前を付けて保存";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (FileStream fs = new FileStream(
+                sfd.FileName,
+                FileMode.Create,
+                FileAccess.Write))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(buf);
+                }
             }
         }
 
