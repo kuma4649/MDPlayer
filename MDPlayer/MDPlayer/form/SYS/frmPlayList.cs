@@ -850,7 +850,7 @@ namespace MDPlayer.form
             dgvList.Rows[hti.RowIndex].Selected = true;
         }
 
-        private void dgvList_DragDrop(object sender, DragEventArgs e)
+        public void dgvList_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {

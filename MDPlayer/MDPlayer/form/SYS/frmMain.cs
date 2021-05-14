@@ -4048,7 +4048,6 @@ namespace MDPlayer.form
 
         private void pbScreen_DragDrop(object sender, DragEventArgs e)
         {
-
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
@@ -4056,7 +4055,11 @@ namespace MDPlayer.form
                 try
                 {
 
+                    //曲を停止
                     frmPlayList.Stop();
+                    this.stop();
+                    while (!Audio.isStopped)
+                        Application.DoEvents();
 
                     frmPlayList.getPlayList().AddFile(filename);
                     //frmPlayList.AddList(filename);

@@ -703,7 +703,7 @@
     <value>Exit</value>
   </data>
   <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
@@ -757,31 +757,31 @@
     <value>Change playback order</value>
   </data>
   <data name="操作ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="操作ToolStripMenuItem.Text" xml:space="preserve">
     <value>Operation</value>
   </data>
   <data name="tsmiOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiOption.Text" xml:space="preserve">
     <value>Option</value>
   </data>
   <data name="tsmiPlayList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiPlayList.Text" xml:space="preserve">
     <value>Playlist</value>
   </data>
   <data name="tsmiOpenInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiOpenInfo.Text" xml:space="preserve">
     <value>Music Information</value>
   </data>
   <data name="tsmiOpenMixer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiOpenMixer.Text" xml:space="preserve">
     <value>Mixer</value>
@@ -805,7 +805,7 @@
     <value>MIDI keyboard</value>
   </data>
   <data name="その他ウィンドウ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="その他ウィンドウ表示ToolStripMenuItem.Text" xml:space="preserve">
     <value>Other</value>
@@ -835,7 +835,7 @@
     <value>x4</value>
   </data>
   <data name="tsmiChangeZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiChangeZoom.Text" xml:space="preserve">
     <value>Resize window</value>
@@ -943,19 +943,19 @@
     <value>SID</value>
   </data>
   <data name="レジスタダンプ表示ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="レジスタダンプ表示ToolStripMenuItem.Text" xml:space="preserve">
     <value>Register dump</value>
   </data>
   <data name="tsmiVisualizer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 26</value>
+    <value>175, 26</value>
   </data>
   <data name="tsmiVisualizer.Text" xml:space="preserve">
     <value>Visualizer</value>
   </data>
   <data name="cmsMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 286</value>
+    <value>176, 264</value>
   </data>
   <data name="&gt;&gt;cmsMenu.Name" xml:space="preserve">
     <value>cmsMenu</value>
@@ -2700,6 +2700,12 @@
   <data name="&gt;&gt;sIDToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tsmiVisualizer.Name" xml:space="preserve">
+    <value>tsmiVisualizer</value>
+  </data>
+  <data name="&gt;&gt;tsmiVisualizer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
   </data>
@@ -2711,12 +2717,6 @@
   </data>
   <data name="&gt;&gt;keyboardHook1.Type" xml:space="preserve">
     <value>HongliangSoft.Utilities.Gui.KeyboardHook, MDPlayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;tsmiVisualizer.Name" xml:space="preserve">
-    <value>tsmiVisualizer</value>
-  </data>
-  <data name="&gt;&gt;tsmiVisualizer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

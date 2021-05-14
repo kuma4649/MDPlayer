@@ -165,6 +165,7 @@ namespace MDPlayer.form
             this.sN76489ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiVisualizer = new System.Windows.Forms.ToolStripMenuItem();
             this.opeButtonSetting = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.opeButtonStop = new System.Windows.Forms.Button();
@@ -185,7 +186,6 @@ namespace MDPlayer.form
             this.opeButtonOpen = new System.Windows.Forms.Button();
             this.opeButtonMode = new System.Windows.Forms.Button();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiVisualizer = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -1153,8 +1153,15 @@ namespace MDPlayer.form
             resources.ApplyResources(this.sIDToolStripMenuItem, "sIDToolStripMenuItem");
             this.sIDToolStripMenuItem.Click += new System.EventHandler(this.RegisterDumpMenuItem_Click);
             // 
+            // tsmiVisualizer
+            // 
+            this.tsmiVisualizer.Name = "tsmiVisualizer";
+            resources.ApplyResources(this.tsmiVisualizer, "tsmiVisualizer");
+            this.tsmiVisualizer.Click += new System.EventHandler(this.tsmiVisWave_Click);
+            // 
             // opeButtonSetting
             // 
+            this.opeButtonSetting.AllowDrop = true;
             this.opeButtonSetting.BackColor = System.Drawing.Color.Black;
             this.opeButtonSetting.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonSetting, "opeButtonSetting");
@@ -1167,11 +1174,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonSetting, resources.GetString("opeButtonSetting.ToolTip"));
             this.opeButtonSetting.UseVisualStyleBackColor = false;
             this.opeButtonSetting.Click += new System.EventHandler(this.opeButtonSetting_Click);
+            this.opeButtonSetting.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonSetting.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonSetting.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonSetting.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonStop
             // 
+            this.opeButtonStop.AllowDrop = true;
             this.opeButtonStop.BackColor = System.Drawing.Color.Black;
             this.opeButtonStop.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonStop, "opeButtonStop");
@@ -1184,11 +1194,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonStop, resources.GetString("opeButtonStop.ToolTip"));
             this.opeButtonStop.UseVisualStyleBackColor = false;
             this.opeButtonStop.Click += new System.EventHandler(this.opeButtonStop_Click);
+            this.opeButtonStop.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonStop.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonStop.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonStop.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonPause
             // 
+            this.opeButtonPause.AllowDrop = true;
             this.opeButtonPause.BackColor = System.Drawing.Color.Black;
             this.opeButtonPause.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonPause, "opeButtonPause");
@@ -1201,11 +1214,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonPause, resources.GetString("opeButtonPause.ToolTip"));
             this.opeButtonPause.UseVisualStyleBackColor = false;
             this.opeButtonPause.Click += new System.EventHandler(this.opeButtonPause_Click);
+            this.opeButtonPause.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonPause.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonPause.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonPause.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonFadeout
             // 
+            this.opeButtonFadeout.AllowDrop = true;
             this.opeButtonFadeout.BackColor = System.Drawing.Color.Black;
             this.opeButtonFadeout.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonFadeout, "opeButtonFadeout");
@@ -1218,11 +1234,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonFadeout, resources.GetString("opeButtonFadeout.ToolTip"));
             this.opeButtonFadeout.UseVisualStyleBackColor = false;
             this.opeButtonFadeout.Click += new System.EventHandler(this.opeButtonFadeout_Click);
+            this.opeButtonFadeout.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonFadeout.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonFadeout.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonFadeout.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonPrevious
             // 
+            this.opeButtonPrevious.AllowDrop = true;
             this.opeButtonPrevious.BackColor = System.Drawing.Color.Black;
             this.opeButtonPrevious.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonPrevious, "opeButtonPrevious");
@@ -1235,11 +1254,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonPrevious, resources.GetString("opeButtonPrevious.ToolTip"));
             this.opeButtonPrevious.UseVisualStyleBackColor = false;
             this.opeButtonPrevious.Click += new System.EventHandler(this.opeButtonPrevious_Click);
+            this.opeButtonPrevious.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonPrevious.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonPrevious.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonPrevious.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonSlow
             // 
+            this.opeButtonSlow.AllowDrop = true;
             this.opeButtonSlow.BackColor = System.Drawing.Color.Black;
             this.opeButtonSlow.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonSlow, "opeButtonSlow");
@@ -1252,11 +1274,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonSlow, resources.GetString("opeButtonSlow.ToolTip"));
             this.opeButtonSlow.UseVisualStyleBackColor = false;
             this.opeButtonSlow.Click += new System.EventHandler(this.opeButtonSlow_Click);
+            this.opeButtonSlow.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonSlow.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonSlow.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonSlow.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonPlay
             // 
+            this.opeButtonPlay.AllowDrop = true;
             this.opeButtonPlay.BackColor = System.Drawing.Color.Black;
             this.opeButtonPlay.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonPlay, "opeButtonPlay");
@@ -1269,11 +1294,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonPlay, resources.GetString("opeButtonPlay.ToolTip"));
             this.opeButtonPlay.UseVisualStyleBackColor = false;
             this.opeButtonPlay.Click += new System.EventHandler(this.opeButtonPlay_Click);
+            this.opeButtonPlay.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonPlay.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonPlay.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonPlay.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonFast
             // 
+            this.opeButtonFast.AllowDrop = true;
             this.opeButtonFast.BackColor = System.Drawing.Color.Black;
             this.opeButtonFast.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonFast, "opeButtonFast");
@@ -1286,11 +1314,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonFast, resources.GetString("opeButtonFast.ToolTip"));
             this.opeButtonFast.UseVisualStyleBackColor = false;
             this.opeButtonFast.Click += new System.EventHandler(this.opeButtonFast_Click);
+            this.opeButtonFast.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonFast.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonFast.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonFast.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonNext
             // 
+            this.opeButtonNext.AllowDrop = true;
             this.opeButtonNext.BackColor = System.Drawing.Color.Black;
             this.opeButtonNext.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonNext, "opeButtonNext");
@@ -1303,11 +1334,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonNext, resources.GetString("opeButtonNext.ToolTip"));
             this.opeButtonNext.UseVisualStyleBackColor = false;
             this.opeButtonNext.Click += new System.EventHandler(this.opeButtonNext_Click);
+            this.opeButtonNext.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonNext.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonNext.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonNext.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonZoom
             // 
+            this.opeButtonZoom.AllowDrop = true;
             this.opeButtonZoom.BackColor = System.Drawing.Color.Black;
             this.opeButtonZoom.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonZoom, "opeButtonZoom");
@@ -1320,11 +1354,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonZoom, resources.GetString("opeButtonZoom.ToolTip"));
             this.opeButtonZoom.UseVisualStyleBackColor = false;
             this.opeButtonZoom.Click += new System.EventHandler(this.opeButtonZoom_Click);
+            this.opeButtonZoom.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonZoom.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonZoom.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonZoom.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonMIDIKBD
             // 
+            this.opeButtonMIDIKBD.AllowDrop = true;
             this.opeButtonMIDIKBD.BackColor = System.Drawing.Color.Black;
             this.opeButtonMIDIKBD.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonMIDIKBD, "opeButtonMIDIKBD");
@@ -1337,11 +1374,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonMIDIKBD, resources.GetString("opeButtonMIDIKBD.ToolTip"));
             this.opeButtonMIDIKBD.UseVisualStyleBackColor = false;
             this.opeButtonMIDIKBD.Click += new System.EventHandler(this.opeButtonMIDIKBD_Click);
+            this.opeButtonMIDIKBD.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonMIDIKBD.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonMIDIKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonMIDIKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonVST
             // 
+            this.opeButtonVST.AllowDrop = true;
             this.opeButtonVST.BackColor = System.Drawing.Color.Black;
             this.opeButtonVST.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonVST, "opeButtonVST");
@@ -1354,11 +1394,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonVST, resources.GetString("opeButtonVST.ToolTip"));
             this.opeButtonVST.UseVisualStyleBackColor = false;
             this.opeButtonVST.Click += new System.EventHandler(this.opeButtonVST_Click);
+            this.opeButtonVST.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonVST.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonVST.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonVST.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonKBD
             // 
+            this.opeButtonKBD.AllowDrop = true;
             this.opeButtonKBD.BackColor = System.Drawing.Color.Black;
             this.opeButtonKBD.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonKBD, "opeButtonKBD");
@@ -1371,11 +1414,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonKBD, resources.GetString("opeButtonKBD.ToolTip"));
             this.opeButtonKBD.UseVisualStyleBackColor = false;
             this.opeButtonKBD.Click += new System.EventHandler(this.opeButtonKBD_Click);
+            this.opeButtonKBD.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonKBD.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonKBD.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonKBD.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonMixer
             // 
+            this.opeButtonMixer.AllowDrop = true;
             this.opeButtonMixer.BackColor = System.Drawing.Color.Black;
             this.opeButtonMixer.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonMixer, "opeButtonMixer");
@@ -1388,11 +1434,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonMixer, resources.GetString("opeButtonMixer.ToolTip"));
             this.opeButtonMixer.UseVisualStyleBackColor = false;
             this.opeButtonMixer.Click += new System.EventHandler(this.opeButtonMixer_Click);
+            this.opeButtonMixer.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonMixer.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonMixer.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonMixer.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonInformation
             // 
+            this.opeButtonInformation.AllowDrop = true;
             this.opeButtonInformation.BackColor = System.Drawing.Color.Black;
             this.opeButtonInformation.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonInformation, "opeButtonInformation");
@@ -1405,11 +1454,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonInformation, resources.GetString("opeButtonInformation.ToolTip"));
             this.opeButtonInformation.UseVisualStyleBackColor = false;
             this.opeButtonInformation.Click += new System.EventHandler(this.opeButtonInformation_Click);
+            this.opeButtonInformation.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonInformation.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonInformation.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonInformation.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonPlayList
             // 
+            this.opeButtonPlayList.AllowDrop = true;
             this.opeButtonPlayList.BackColor = System.Drawing.Color.Black;
             this.opeButtonPlayList.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonPlayList, "opeButtonPlayList");
@@ -1422,11 +1474,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonPlayList, resources.GetString("opeButtonPlayList.ToolTip"));
             this.opeButtonPlayList.UseVisualStyleBackColor = false;
             this.opeButtonPlayList.Click += new System.EventHandler(this.opeButtonPlayList_Click);
+            this.opeButtonPlayList.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonPlayList.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonPlayList.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonPlayList.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonOpen
             // 
+            this.opeButtonOpen.AllowDrop = true;
             this.opeButtonOpen.BackColor = System.Drawing.Color.Black;
             this.opeButtonOpen.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonOpen, "opeButtonOpen");
@@ -1439,11 +1494,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonOpen, resources.GetString("opeButtonOpen.ToolTip"));
             this.opeButtonOpen.UseVisualStyleBackColor = false;
             this.opeButtonOpen.Click += new System.EventHandler(this.opeButtonOpen_Click);
+            this.opeButtonOpen.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonOpen.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonOpen.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonOpen.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // opeButtonMode
             // 
+            this.opeButtonMode.AllowDrop = true;
             this.opeButtonMode.BackColor = System.Drawing.Color.Black;
             this.opeButtonMode.BackgroundImage = global::MDPlayer.Properties.Resources.ccFadeout;
             resources.ApplyResources(this.opeButtonMode, "opeButtonMode");
@@ -1456,18 +1514,14 @@ namespace MDPlayer.form
             this.toolTip1.SetToolTip(this.opeButtonMode, resources.GetString("opeButtonMode.ToolTip"));
             this.opeButtonMode.UseVisualStyleBackColor = false;
             this.opeButtonMode.Click += new System.EventHandler(this.opeButtonMode_Click);
+            this.opeButtonMode.DragDrop += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragDrop);
+            this.opeButtonMode.DragEnter += new System.Windows.Forms.DragEventHandler(this.pbScreen_DragEnter);
             this.opeButtonMode.MouseEnter += new System.EventHandler(this.opeButton_MouseEnter);
             this.opeButtonMode.MouseLeave += new System.EventHandler(this.opeButton_MouseLeave);
             // 
             // keyboardHook1
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
-            // 
-            // tsmiVisualizer
-            // 
-            this.tsmiVisualizer.Name = "tsmiVisualizer";
-            resources.ApplyResources(this.tsmiVisualizer, "tsmiVisualizer");
-            this.tsmiVisualizer.Click += new System.EventHandler(this.tsmiVisWave_Click);
             // 
             // frmMain
             // 
