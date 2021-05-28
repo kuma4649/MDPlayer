@@ -5370,10 +5370,12 @@ namespace MDPlayer
                 string fn = Resources.cntSettingFileName;
                 if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), fn)))
                 {
+                    //アプリケーションと同じフォルダに設定ファイルがあるならそちらを使用する
                     Common.settingFilePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
                 }
                 else
                 {
+                    //上記以外は、アプリケーション向けデータフォルダを使用する
                     Common.settingFilePath = Common.GetApplicationDataFolder(true);
                 }
 

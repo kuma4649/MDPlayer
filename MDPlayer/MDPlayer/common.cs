@@ -424,12 +424,101 @@ namespace MDPlayer
 
         public static string GetApplicationDataFolder(bool make = false)
         {
-            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            fullPath = System.IO.Path.Combine(fullPath, "KumaApp", AssemblyTitle);
-            if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+            try
+            {
+                string appPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string fullPath;
+                fullPath = System.IO.Path.Combine(appPath, "KumaApp", AssemblyTitle);
+                if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
 
-            return fullPath;
+                return fullPath;
+            }
+            catch
+            {
+                return null;
+            }
         }
+
+        public static string GetOperationFolder(bool make = false)
+        {
+            try
+            {
+                string appDataFolder = GetApplicationDataFolder(false);
+                if (string.IsNullOrEmpty(appDataFolder)) return null;
+                string fullPath = System.IO.Path.Combine(appDataFolder, "operation");
+                if (!System.IO.Directory.Exists(fullPath)) System.IO.Directory.CreateDirectory(fullPath);
+                else
+                    //存在するならそのフォルダの中身をクリア
+                    DeleteDataUnderDirectory(fullPath);
+                return fullPath;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        ///ディクトリを空にする
+        ///
+        /// 以下のサイトのメソッドを使用しています。ありがとうございます！
+        ///from
+        ///がんず Work's Diary
+        ///URL : https://gannzuswork.hatenablog.com/entry/2021/05/23/%E3%80%90C%23_%E9%80%86%E5%BC%95%E3%81%8D%E3%80%91%E6%8C%87%E5%AE%9A%E3%81%AE%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%82%92%E5%89%8A%E9%99%A4
+        ///
+        /// </summary>
+        public static void DeleteDataUnderDirectory(string directory)
+        {
+            DirectoryInfo DB = new DirectoryInfo(directory);
+
+            //ファイル消す
+            foreach (FileInfo file in DB.GetFiles())
+            {
+                file.Delete();
+            }
+
+            //フォルダも消す
+            foreach (DirectoryInfo dir in DB.GetDirectories())
+            {
+                //フォルダ以下のすべてのファイル、フォルダの属性を削除
+                RemoveReadonlyAttribute(dir);
+
+                //フォルダを根こそぎ削除
+                dir.Delete(true);
+            }
+
+
+        }
+
+
+        /// <summary>
+        /// 
+        ///フォルダ/ファイルの属性を変更する
+        ///
+        /// 以下のサイトのメソッドを使用しています。ありがとうございます！
+        ///from
+        ///がんず Work's Diary
+        ///URL : https://gannzuswork.hatenablog.com/entry/2021/05/23/%E3%80%90C%23_%E9%80%86%E5%BC%95%E3%81%8D%E3%80%91%E6%8C%87%E5%AE%9A%E3%81%AE%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%82%92%E5%89%8A%E9%99%A4
+        ///
+        /// </summary>
+        public static void RemoveReadonlyAttribute(DirectoryInfo dirInfo)
+        {
+            //基のフォルダの属性を変更
+            if ((dirInfo.Attributes & FileAttributes.ReadOnly) ==
+                FileAttributes.ReadOnly)
+                dirInfo.Attributes = FileAttributes.Normal;
+            //フォルダ内のすべてのファイルの属性を変更
+            foreach (FileInfo fi in dirInfo.GetFiles())
+                if ((fi.Attributes & FileAttributes.ReadOnly) ==
+                    FileAttributes.ReadOnly)
+                    fi.Attributes = FileAttributes.Normal;
+            //サブフォルダの属性を回帰的に変更
+            foreach (DirectoryInfo di in dirInfo.GetDirectories())
+                RemoveReadonlyAttribute(di);
+        }
+
+
 
         public static Stream GetOPNARyhthmStream(string fn)
         {

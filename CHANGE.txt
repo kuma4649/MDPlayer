@@ -1,4 +1,7 @@
 更新履歴
+STBL170 2021/05/29
+  コマンドラインからmdp.batを使用してMDPlayerを操作できるようにした。
+
 STBL169 2021/05/28 2nd
   mucomDotNET差し替え
 

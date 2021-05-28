@@ -113,6 +113,9 @@ namespace MDPlayer.form
             "Zoom\r\nNow:x4\r\nNext:x1",
         };
 
+        private FileSystemWatcher watcher = null;
+        private long now = 0;
+        private string opeFolder;
 
         public frmMain()
         {
@@ -319,6 +322,154 @@ namespace MDPlayer.form
             opeButtonMode
             };
 
+            log.ForcedWrite("frmMain_Load:STEP 09");
+
+            //operationフォルダクリア
+            opeFolder = Common.GetOperationFolder(true);
+            startWatch(opeFolder);
+
+        }
+
+        private void startWatch(string opeFolder)
+        {
+            if (watcher != null) return;
+
+            watcher = new System.IO.FileSystemWatcher();
+            watcher.Path = Path.GetDirectoryName(opeFolder);
+            watcher.NotifyFilter =
+                (
+                System.IO.NotifyFilters.LastAccess
+                | System.IO.NotifyFilters.LastWrite
+                | System.IO.NotifyFilters.FileName
+                | System.IO.NotifyFilters.DirectoryName
+                );
+            watcher.Filter = "";// Path.GetFileName(opeFolder);
+            watcher.SynchronizingObject = this;
+
+            watcher.Changed += new System.IO.FileSystemEventHandler(watcher_Changed);
+            watcher.Created += new System.IO.FileSystemEventHandler(watcher_Changed);
+
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private void stopWatch()
+        {
+            watcher.EnableRaisingEvents = false;
+            watcher.Dispose();
+            watcher = null;
+        }
+
+        private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)
+        {
+            try
+            {
+                switch (e.ChangeType)
+                {
+                    case System.IO.WatcherChangeTypes.Changed:
+                    case System.IO.WatcherChangeTypes.Created:
+
+                        long n = DateTime.Now.Ticks / 10000000L;
+                        if (now == n) return;
+                        now = n;
+
+                        string trgFile = Path.Combine(opeFolder, "ope.txt");
+                        if (!File.Exists(trgFile)) return;
+                        string[] lins = null;
+                        int retry = 30;
+                        while (retry > 0)
+                        {
+                            try
+                            {
+                                lins = File.ReadAllLines(trgFile);
+                                retry = 0;
+                            }
+                            catch (IOException ioe)
+                            {
+                                System.Threading.Thread.Sleep(100);
+                                retry--;
+                            }
+                        }
+
+                        try
+                        {
+                            File.Delete(trgFile);
+                        }
+                        catch(Exception deleteEx)
+                        {
+                            log.ForcedWrite(deleteEx);
+                        }
+
+                        remote(lins);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+        }
+
+
+        private void remote(string[] lines)
+        {
+            try
+            {
+                foreach(string line in lines)
+                {
+                    int n = Math.Min(
+                        line.IndexOf(' ') == -1 ? int.MaxValue : line.IndexOf(' '),
+                        line.IndexOf('\t') == -1 ? int.MaxValue : line.IndexOf('\t')
+                        );
+                    if (n == int.MaxValue) n = line.Length - 1;
+                    string command = line.Substring(0, n + 1).ToUpper().Trim();
+                    string optionLine = line.Substring(n).Trim();
+
+                    switch (command)
+                    {
+                        case "PLAY":
+                            if (!string.IsNullOrEmpty(optionLine))
+                            {
+                                if (optionLine[0] == '\"' && optionLine[optionLine.Length - 1] == '\"')
+                                {
+                                    optionLine = optionLine.Substring(1, optionLine.Length - 2);
+                                }
+                                AddFileAndPlay(new string[] { optionLine });
+                            }
+                            else
+                                tsmiPlay_Click(null, null);
+                            break;
+                        case "STOP":
+                            tsmiStop_Click(null, null);
+                            break;
+                        case "NEXT":
+                            tsmiNext_Click(null, null);
+                            break;
+                        case "PREV":
+                            opeButtonPrevious_Click(null,null);
+                            break;
+                        case "FADEOUT":
+                            tsmiFadeOut_Click(null, null);
+                            break;
+                        case "FAST":
+                            tsmiFf_Click(null, null);
+                            break;
+                        case "SLOW":
+                            tsmiSlow_Click(null, null);
+                            break;
+                        case "PAUSE":
+                            tsmiPause_Click(null, null);
+                            break;
+                        case "CLOSE":
+                            Close();
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
@@ -8718,48 +8869,50 @@ namespace MDPlayer.form
             string[] fn = fileOpen(true);
 
             if (fn != null)
+                AddFileAndPlay(fn);
+
+        }
+
+        private void AddFileAndPlay(string[] fn)
+        {
+            if (Audio.isPaused)
             {
-                if (Audio.isPaused)
-                {
-                    Audio.Pause();
-                }
-
-                if (fn.Length == 1)
-                {
-                    frmPlayList.Stop();
-
-                    //frmPlayList.AddList(fn[0]);
-                    frmPlayList.getPlayList().AddFile(fn[0]);
-
-                    if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
-                    {
-                        if (!loadAndPlay(0, 0, fn[0], "")) return;
-                        frmPlayList.setStart(-1);
-                    }
-                    oldParam = new MDChipParams();
-
-                    frmPlayList.Play();
-                }
-                else
-                {
-                    frmPlayList.Stop();
-
-                    try
-                    {
-                        foreach (string f in fn)
-                        {
-                            frmPlayList.getPlayList().AddFile(f);
-                            //frmPlayList.AddList(f);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                    }
-                }
+                Audio.Pause();
             }
 
+            if (fn.Length == 1)
+            {
+                frmPlayList.Stop();
 
+                //frmPlayList.AddList(fn[0]);
+                frmPlayList.getPlayList().AddFile(fn[0]);
+
+                if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
+                {
+                    if (!loadAndPlay(0, 0, fn[0], "")) return;
+                    frmPlayList.setStart(-1);
+                }
+                oldParam = new MDChipParams();
+
+                frmPlayList.Play();
+            }
+            else
+            {
+                frmPlayList.Stop();
+
+                try
+                {
+                    foreach (string f in fn)
+                    {
+                        frmPlayList.getPlayList().AddFile(f);
+                        //frmPlayList.AddList(f);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+            }
         }
 
         private void tsmiExit_Click(object sender, EventArgs e)

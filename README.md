@@ -447,6 +447,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・MSX Resource Center  
     ・msxnet  
     ・Xyzさんのツイートのリンク先(https://twitter.com/XyzGonGivItToYa/status/1216942514902634496?s=20)  
+    ・がんず Work's Diary
 
 [FAQ]  
   

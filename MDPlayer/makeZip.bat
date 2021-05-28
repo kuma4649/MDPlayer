@@ -27,6 +27,7 @@ rem del /Q .\output\*.config
 del /Q .\output\*.bat
 rem del /Q .\output\MGSDRV.COM
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
+copy /Y MDPlayer\mdp.bat   .\output
 
 rem -- withoutVSTŒü‚¯
 Xcopy   .\MDPlayer\*.*                                                         ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\ /E /R /Y /I /K
