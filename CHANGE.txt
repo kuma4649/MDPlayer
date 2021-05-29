@@ -1,4 +1,10 @@
 更新履歴
+STBL171 2021/05/29 2nd
+  コマンドラインからMDPlayerを操作コマンドを増やした。
+            LOOP  
+            MIXER  
+            INFO  
+
 STBL170 2021/05/29
   コマンドラインからmdp.batを使用してMDPlayerを操作できるようにした。
 

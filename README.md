@@ -137,6 +137,21 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
       RF5C164のDual演奏  
       歌詞表示  
 
+  ・コマンドラインからmdp.batを使用してMDPlayerを操作できるようにした♪  
+        mdp.batのコマンドは以下の通り。  
+            PLAY [file]  
+            STOP  
+            NEXT  
+            PREV  
+            FADEOUT  
+            FAST  
+            SLOW  
+            PAUSE  
+            CLOSE  
+            LOOP  
+            MIXER  
+            INFO  
+  
 [ちょっと分かりずらい操作]  
   ・各ウィンドウのタイトルバーをダブルクリック(トグル)すると常に前面に表示するようになります。  
 

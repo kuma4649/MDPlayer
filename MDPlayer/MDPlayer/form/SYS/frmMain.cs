@@ -116,6 +116,9 @@ namespace MDPlayer.form
         private FileSystemWatcher watcher = null;
         private long now = 0;
         private string opeFolder;
+        private object remoteLockObj = new object();
+        private bool remoteBusy = false;
+        private List<string[]> remoteReq = new List<string[]>();
 
         public frmMain()
         {
@@ -342,6 +345,8 @@ namespace MDPlayer.form
                 | System.IO.NotifyFilters.LastWrite
                 | System.IO.NotifyFilters.FileName
                 | System.IO.NotifyFilters.DirectoryName
+                | System.IO.NotifyFilters.CreationTime
+                | System.IO.NotifyFilters.Attributes
                 );
             watcher.Filter = "";// Path.GetFileName(opeFolder);
             watcher.SynchronizingObject = this;
@@ -361,6 +366,25 @@ namespace MDPlayer.form
 
         private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)
         {
+            string trgFile = Path.Combine(opeFolder, "ope.txt");
+
+            lock (remoteLockObj)
+            {
+                if (remoteBusy)
+                {
+                    try
+                    {
+                        File.Delete(trgFile);
+                    }
+                    catch (Exception deleteEx)
+                    {
+                        log.ForcedWrite(deleteEx);
+                    }
+                    return;
+                }
+                remoteBusy = true;
+            }
+
             try
             {
                 switch (e.ChangeType)
@@ -368,11 +392,21 @@ namespace MDPlayer.form
                     case System.IO.WatcherChangeTypes.Changed:
                     case System.IO.WatcherChangeTypes.Created:
 
-                        long n = DateTime.Now.Ticks / 10000000L;
-                        if (now == n) return;
+                        long n = DateTime.Now.Ticks / 1_000_000L;
+                        if (now == n)
+                        {
+                            try
+                            {
+                                File.Delete(trgFile);
+                            }
+                            catch (Exception deleteEx)
+                            {
+                                log.ForcedWrite(deleteEx);
+                            }
+                            return;
+                        }
                         now = n;
 
-                        string trgFile = Path.Combine(opeFolder, "ope.txt");
                         if (!File.Exists(trgFile)) return;
                         string[] lins = null;
                         int retry = 30;
@@ -383,7 +417,7 @@ namespace MDPlayer.form
                                 lins = File.ReadAllLines(trgFile);
                                 retry = 0;
                             }
-                            catch (IOException ioe)
+                            catch (IOException)
                             {
                                 System.Threading.Thread.Sleep(100);
                                 retry--;
@@ -394,12 +428,12 @@ namespace MDPlayer.form
                         {
                             File.Delete(trgFile);
                         }
-                        catch(Exception deleteEx)
+                        catch (Exception deleteEx)
                         {
                             log.ForcedWrite(deleteEx);
                         }
 
-                        remote(lins);
+                        remoteReq.Add(lins);
 
                         break;
                 }
@@ -407,6 +441,13 @@ namespace MDPlayer.form
             catch (Exception ex)
             {
                 log.ForcedWrite(ex);
+            }
+            finally
+            {
+                lock (remoteLockObj)
+                {
+                    remoteBusy = false;
+                }
             }
         }
 
@@ -462,6 +503,15 @@ namespace MDPlayer.form
                             break;
                         case "CLOSE":
                             Close();
+                            break;
+                        case "LOOP":
+                            tsmiPlayMode_Click(null,null);
+                            break;
+                        case "MIXER":
+                            tsmiOpenMixer_Click(null,null);
+                            break;
+                        case "INFO":
+                            tsmiOpenInfo_Click(null,null);
                             break;
                     }
                 }
@@ -4289,6 +4339,10 @@ namespace MDPlayer.form
             reqAllScreenInit = false;
         }
 
+
+        /// <summary>
+        /// ！！このメソッドはメインスレッドで動いていません！！
+        /// </summary>
         private void screenMainLoop()
         {
             double nextFrame = (double)System.Environment.TickCount;
@@ -4578,6 +4632,32 @@ namespace MDPlayer.form
                     if (Audio.Stopped && frmPlayList.isPlaying())
                     {
                         nextPlayMode();
+                    }
+                }
+
+                //remote対応
+                if (remoteReq.Count > 0)
+                {
+                    string[] lin = null;
+                    while (remoteReq.Count > 0)
+                    {
+                        lin = remoteReq[0];
+                        remoteReq.Remove(lin);
+                    }
+
+                    if (lin != null)
+                    {
+                        if (lin[0].Trim().ToUpper() == "CLOSE")
+                        {
+                            this.BeginInvoke((Action)Close);
+                        }
+                        else
+                        {
+                            this.Invoke(//Asyncしないこと
+                                (Action<string[]>)remote
+                                , new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
+                                );
+                        }
                     }
                 }
 
