@@ -1,4 +1,7 @@
 更新履歴
+STBL172 2021/06/05
+  mucomDotNET差し替え
+
 STBL171 2021/05/29 2nd
   コマンドラインからMDPlayerを操作コマンドを増やした。
             LOOP  
