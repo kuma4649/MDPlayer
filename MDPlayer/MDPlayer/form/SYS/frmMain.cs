@@ -6983,7 +6983,7 @@ namespace MDPlayer.form
                             , (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4 //SL
                         )
                         , string.Format(
-                            "{0,3} {1,3} {2,3} {3,3}   0 {4,3}\r\n"
+                            "{0,3} {1,3} {2,3} {3,3} {4,3} {5,3}\r\n"
                             , ym2151Register[0x60 + ops + ch] & 0x7f //TL
                             , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
                             , ym2151Register[0x40 + ops + ch] & 0x0f //ML
