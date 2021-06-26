@@ -8,10 +8,6 @@ rem chcp 65001                                           2> nul
 rem S-JISに戻すときは                                    2> nul
 rem chcp 932                                             2> nul
 
-rem 削除                                                 2> nul
-del %appdata%\KumaApp\MDPlayer\operation\ope.txt         2> nul
-rem 操作ファイル作成                                     2> nul
-echo %1 %2 > %appdata%\KumaApp\MDPlayer\operation\ope.txt
-rem キャッシュをフラッシュ                               2> nul
-dir %appdata%\KumaApp\MDPlayer\operation\ope.txt   > nul 2> nul
+rem mdc起動　　　　　                                     2> nul
+mdc %1 %2
 echo on

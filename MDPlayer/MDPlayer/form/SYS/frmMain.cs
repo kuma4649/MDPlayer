@@ -113,7 +113,8 @@ namespace MDPlayer.form
             "Zoom\r\nNow:x4\r\nNext:x1",
         };
 
-        private FileSystemWatcher watcher = null;
+        //private FileSystemWatcher watcher = null;
+        private mmfControl mmf = null;
         private long now = 0;
         private string opeFolder;
         private object remoteLockObj = new object();
@@ -327,42 +328,42 @@ namespace MDPlayer.form
 
             log.ForcedWrite("frmMain_Load:STEP 09");
 
-            //operationフォルダクリア
-            opeFolder = Common.GetOperationFolder(true);
-            startWatch(opeFolder);
-
+            ////operationフォルダクリア
+            //opeFolder = Common.GetOperationFolder(true);
+            //startWatch(opeFolder);
+            mmf = new mmfControl(false, "MDPlayer", 1024 * 4);
         }
 
-        private void startWatch(string opeFolder)
-        {
-            if (watcher != null) return;
+        //private void startWatch(string opeFolder)
+        //{
+        //    if (watcher != null) return;
 
-            watcher = new System.IO.FileSystemWatcher();
-            watcher.Path = Path.GetDirectoryName(opeFolder);
-            watcher.NotifyFilter =
-                (
-                System.IO.NotifyFilters.LastAccess
-                | System.IO.NotifyFilters.LastWrite
-                | System.IO.NotifyFilters.FileName
-                | System.IO.NotifyFilters.DirectoryName
-                | System.IO.NotifyFilters.CreationTime
-                | System.IO.NotifyFilters.Attributes
-                );
-            watcher.Filter = "";// Path.GetFileName(opeFolder);
-            watcher.SynchronizingObject = this;
+        //    watcher = new System.IO.FileSystemWatcher();
+        //    watcher.Path = Path.GetDirectoryName(opeFolder);
+        //    watcher.NotifyFilter =
+        //        (
+        //        System.IO.NotifyFilters.LastAccess
+        //        | System.IO.NotifyFilters.LastWrite
+        //        | System.IO.NotifyFilters.FileName
+        //        | System.IO.NotifyFilters.DirectoryName
+        //        | System.IO.NotifyFilters.CreationTime
+        //        | System.IO.NotifyFilters.Attributes
+        //        );
+        //    watcher.Filter = "";// Path.GetFileName(opeFolder);
+        //    watcher.SynchronizingObject = this;
 
-            watcher.Changed += new System.IO.FileSystemEventHandler(watcher_Changed);
-            watcher.Created += new System.IO.FileSystemEventHandler(watcher_Changed);
+        //    watcher.Changed += new System.IO.FileSystemEventHandler(watcher_Changed);
+        //    watcher.Created += new System.IO.FileSystemEventHandler(watcher_Changed);
 
-            watcher.EnableRaisingEvents = true;
-        }
+        //    watcher.EnableRaisingEvents = true;
+        //}
 
-        private void stopWatch()
-        {
-            watcher.EnableRaisingEvents = false;
-            watcher.Dispose();
-            watcher = null;
-        }
+        //private void stopWatch()
+        //{
+        //    watcher.EnableRaisingEvents = false;
+        //    watcher.Dispose();
+        //    watcher = null;
+        //}
 
         private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)
         {
@@ -452,68 +453,69 @@ namespace MDPlayer.form
         }
 
 
-        private void remote(string[] lines)
+        private void remote(string line)
         {
             try
             {
-                foreach(string line in lines)
+                int n = Math.Min(
+                    line.IndexOf(' ') == -1 ? int.MaxValue : line.IndexOf(' '),
+                    line.IndexOf('\t') == -1 ? int.MaxValue : line.IndexOf('\t')
+                    );
+                string command = line;
+                string optionLine = "";
+                if (n != int.MaxValue)
                 {
-                    int n = Math.Min(
-                        line.IndexOf(' ') == -1 ? int.MaxValue : line.IndexOf(' '),
-                        line.IndexOf('\t') == -1 ? int.MaxValue : line.IndexOf('\t')
-                        );
-                    if (n == int.MaxValue) n = line.Length - 1;
-                    string command = line.Substring(0, n + 1).ToUpper().Trim();
-                    string optionLine = line.Substring(n).Trim();
+                    command = line.Substring(0, n + 1).ToUpper().Trim();
+                    optionLine = line.Substring(n).Trim();
+                }
 
-                    switch (command)
-                    {
-                        case "PLAY":
-                            if (!string.IsNullOrEmpty(optionLine))
+                switch (command)
+                {
+                    case "PLAY":
+                        if (!string.IsNullOrEmpty(optionLine))
+                        {
+                            if (optionLine[0] == '\"' && optionLine[optionLine.Length - 1] == '\"')
                             {
-                                if (optionLine[0] == '\"' && optionLine[optionLine.Length - 1] == '\"')
-                                {
-                                    optionLine = optionLine.Substring(1, optionLine.Length - 2);
-                                }
-                                AddFileAndPlay(new string[] { optionLine });
+                                optionLine = optionLine.Substring(1, optionLine.Length - 2);
                             }
-                            else
-                                tsmiPlay_Click(null, null);
-                            break;
-                        case "STOP":
-                            tsmiStop_Click(null, null);
-                            break;
-                        case "NEXT":
-                            tsmiNext_Click(null, null);
-                            break;
-                        case "PREV":
-                            opeButtonPrevious_Click(null,null);
-                            break;
-                        case "FADEOUT":
-                            tsmiFadeOut_Click(null, null);
-                            break;
-                        case "FAST":
-                            tsmiFf_Click(null, null);
-                            break;
-                        case "SLOW":
-                            tsmiSlow_Click(null, null);
-                            break;
-                        case "PAUSE":
-                            tsmiPause_Click(null, null);
-                            break;
-                        case "CLOSE":
-                            Close();
-                            break;
-                        case "LOOP":
-                            tsmiPlayMode_Click(null,null);
-                            break;
-                        case "MIXER":
-                            tsmiOpenMixer_Click(null,null);
-                            break;
-                        case "INFO":
-                            tsmiOpenInfo_Click(null,null);
-                            break;
-                    }
+                            AddFileAndPlay(new string[] { optionLine });
+                        }
+                        else
+                            tsmiPlay_Click(null, null);
+                        break;
+                    case "STOP":
+                        tsmiStop_Click(null, null);
+                        break;
+                    case "NEXT":
+                        tsmiNext_Click(null, null);
+                        break;
+                    case "PREV":
+                        opeButtonPrevious_Click(null, null);
+                        break;
+                    case "FADEOUT":
+                        tsmiFadeOut_Click(null, null);
+                        break;
+                    case "FAST":
+                        tsmiFf_Click(null, null);
+                        break;
+                    case "SLOW":
+                        tsmiSlow_Click(null, null);
+                        break;
+                    case "PAUSE":
+                        tsmiPause_Click(null, null);
+                        break;
+                    case "CLOSE":
+                        Close();
+                        break;
+                    case "LOOP":
+                        tsmiPlayMode_Click(null, null);
+                        break;
+                    case "MIXER":
+                        tsmiOpenMixer_Click(null, null);
+                        break;
+                    case "INFO":
+                        tsmiOpenInfo_Click(null, null);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -1338,6 +1340,9 @@ namespace MDPlayer.form
             setting.Save();
 
             log.ForcedWrite("frmMain_FormClosing:STEP 06");
+
+            mmf.Close();
+
             log.ForcedWrite("終了処理完了");
 
         }
@@ -4636,28 +4641,20 @@ namespace MDPlayer.form
                 }
 
                 //remote対応
-                if (remoteReq.Count > 0)
+                string msg = mmf.GetMessage();
+                if (!string.IsNullOrEmpty(msg))
                 {
-                    string[] lin = null;
-                    while (remoteReq.Count > 0)
+                    if (msg.Trim().ToUpper() == "CLOSE")
                     {
-                        lin = remoteReq[0];
-                        remoteReq.Remove(lin);
+                        this.BeginInvoke((Action)Close);
                     }
-
-                    if (lin != null)
+                    else
                     {
-                        if (lin[0].Trim().ToUpper() == "CLOSE")
-                        {
-                            this.BeginInvoke((Action)Close);
-                        }
-                        else
-                        {
-                            this.Invoke(//Asyncしないこと
-                                (Action<string[]>)remote
-                                , new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
-                                );
-                        }
+                        this.Invoke(//Asyncしないこと
+                            (Action<string>)remote
+                            //, new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
+                            ,msg
+                            );
                     }
                 }
 
