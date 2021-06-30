@@ -516,6 +516,20 @@ namespace MDPlayer.form
                     case "INFO":
                         tsmiOpenInfo_Click(null, null);
                         break;
+                    case "SPLAY":
+                        
+                        string lin = optionLine.Trim();
+                        string mName = lin.Substring(0, lin.IndexOf(" "));
+                        lin = lin.Substring(lin.IndexOf(" ")).Trim();
+                        int count = int.Parse(lin.Substring(0, lin.IndexOf(" ")));
+                        lin = lin.Substring(lin.IndexOf(" ")).Trim();
+                        string path = lin.Trim();
+                        mmfControl mml2vgmMmf = new mmfControl(true, mName, count);
+                        byte[] buf = mml2vgmMmf.GetBytes();
+                        
+                        bufferPlay(buf, path);
+
+                        break;
                 }
             }
             catch (Exception ex)
@@ -7261,6 +7275,51 @@ namespace MDPlayer.form
                 LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
 
                 Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
+                newParam.ym2612[0].fileFormat = format;
+                newParam.ym2612[1].fileFormat = format;
+
+                if (srcBuf != null)
+                {
+                    this.Invoke((Action)playdata);
+                    if (Audio.errMsg != "") return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                srcBuf = null;
+                MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}", ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool bufferPlay(byte[] buf,string fullPath)
+        {
+            try
+            {
+                if (Audio.flgReinit) flgReinit = true;
+                if (setting.other.InitAlways) flgReinit = true;
+                reinit(setting);
+
+                if (Audio.isPaused)
+                {
+                    Audio.Pause();
+                }
+
+                string playingFileName = fullPath;
+                string playingArcFileName = "";
+                EnmFileFormat format = EnmFileFormat.unknown;
+                List<Tuple<string, byte[]>> extFile = null;
+                format = Common.CheckExt(fullPath);
+                srcBuf = buf;
+
+                //再生前に音量のバランスを設定する
+                LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
+
+                Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, 0, 0, extFile);
                 newParam.ym2612[0].fileFormat = format;
                 newParam.ym2612[1].fileFormat = format;
 

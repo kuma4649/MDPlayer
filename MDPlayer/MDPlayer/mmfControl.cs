@@ -67,6 +67,20 @@ namespace MDPlayer
 
             return msg;
         }
+        public byte[] GetBytes()
+        {
+            lock (lockobj)
+            {
+                using (var map = MemoryMappedFile.OpenExisting(mmfName))
+                using (MemoryMappedViewAccessor view = map.CreateViewAccessor())
+                {
+                    mmfBuf = new byte[mmfSize];
+                    view.ReadArray(0, mmfBuf, 0, mmfBuf.Length);
+                }
+            }
+
+            return mmfBuf;
+        }
 
         public void SendMessage(string msg)
         {
