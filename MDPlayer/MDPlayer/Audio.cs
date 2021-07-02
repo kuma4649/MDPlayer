@@ -1032,6 +1032,10 @@ namespace MDPlayer
         {
             log.ForcedWrite("Audio:Init:Begin");
 
+            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
+            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+            trd.Start();
+
             log.ForcedWrite("Audio:Init:STEP 01");
 
             naudioWrap = new NAudioWrap((int)setting.outputDevice.SampleRate, trdVgmVirtualFunction);
@@ -1436,10 +1440,6 @@ namespace MDPlayer
             naudioWrap.Start(Audio.setting);
 
             log.ForcedWrite("Audio:Init:Complete");
-
-            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
-            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
-            trd.Start();
 
         }
 
@@ -6069,7 +6069,7 @@ namespace MDPlayer
                 vstMng.ReleaseAllMIDIout();
                 vstMng.Close();
 
-                //realChip.Close();
+                realChip=null;
             }
             catch (Exception ex)
             {
