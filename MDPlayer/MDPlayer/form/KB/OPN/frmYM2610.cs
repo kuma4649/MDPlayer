@@ -391,9 +391,16 @@ namespace MDPlayer.form
                     int ft = YM2610Register[0][0x00 + ch * 2];
                     int ct = YM2610Register[0][0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp) * ssgMul;// 7987200 = MasterClock
-                    channel.note = Common.searchSSGNote(ftone);
+                    if (tp == 0)
+                    {
+                        channel.note = -1;
+                        channel.volume = 0;
+                    }
+                    else
+                    {
+                        float ftone = masterClock / (64.0f * (float)tp) * ssgMul;// 7987200 = MasterClock
+                        channel.note = Common.searchSSGNote(ftone);
+                    }
                 }
 
             }

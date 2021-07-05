@@ -1,4 +1,7 @@
 更新履歴
+STBL179 2021/07/06
+  鍵盤表示:OPNA/B:SSGのfnumが0の時は消音していると判断するように変更。
+
 STBL178 2021/07/03
   scci.dll,RealChipCtlWrapの差し替え。
   RealChipの初期化処理修正。
