@@ -7337,7 +7337,7 @@ namespace MDPlayer.form
                 MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}", ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
+            frmPlayList.Play();
             return true;
         }
 

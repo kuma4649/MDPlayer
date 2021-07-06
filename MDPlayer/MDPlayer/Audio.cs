@@ -2161,6 +2161,12 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.RealModel);
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.RealModel);
 
                 chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
                 chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);

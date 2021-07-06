@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Security.AccessControl;
 using System.Text;

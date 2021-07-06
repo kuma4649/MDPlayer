@@ -297,7 +297,7 @@ namespace MDPlayer.form
                     if (tp == 0)
                     {
                         channel.note = -1;
-                        channel.volume = 0;
+                        //channel.volume = 0;
                     }
                     else
                     {
