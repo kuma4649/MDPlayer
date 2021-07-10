@@ -1066,7 +1066,10 @@ namespace MDPlayer.form
                 , null
                 , null
                 );
-            setting.YM2612Type[0].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+            if (setting.YM2612Type[0].realChipInfo == null)
+            {
+                setting.YM2612Type[0].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+            }
             setting.YM2612Type[0].realChipInfo[0].UseWait = ucSI.cbSendWait.Checked;
             setting.YM2612Type[0].realChipInfo[0].UseWaitBoost = ucSI.cbTwice.Checked;
             setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation = ucSI.cbEmulationPCMOnly.Checked;
