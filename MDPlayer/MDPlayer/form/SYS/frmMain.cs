@@ -186,6 +186,20 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite("frmMain(コンストラクタ):setting is null");
             }
+            else
+            {
+                if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                {
+                    DialogResult res= MessageBox.Show(
+                        "ウィンドウの位置情報を初期化しますか？",
+                        "MDPlayer",
+                        MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if(res== DialogResult.Yes)
+                    {
+                        ClearWindowPos();
+                    }
+                }
+            }
 
             log.ForcedWrite("起動時のAudio初期化処理開始");
 
@@ -204,6 +218,10 @@ namespace MDPlayer.form
 
         }
 
+        private void ClearWindowPos()
+        {
+            setting.location = new Setting.Location();
+        }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
