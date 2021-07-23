@@ -1057,6 +1057,7 @@ namespace MDPlayer
                 {
                     Audio.setting.AY8910Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.AY8910Type[i].UseEmu = new bool[1];
+                    Audio.setting.AY8910Type[i].UseEmu[0] = true;
                     Audio.setting.AY8910Type[i].UseReal = new bool[1];
                 }
             }
@@ -1067,6 +1068,7 @@ namespace MDPlayer
                 {
                     Audio.setting.C140Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.C140Type[i].UseEmu = new bool[1];
+                    Audio.setting.C140Type[i].UseEmu[0] = true;
                     Audio.setting.C140Type[i].UseReal = new bool[1];
                 }
             }
@@ -1077,6 +1079,7 @@ namespace MDPlayer
                 {
                     Audio.setting.HuC6280Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.HuC6280Type[i].UseEmu = new bool[1];
+                    Audio.setting.HuC6280Type[i].UseEmu[0] = true;
                     Audio.setting.HuC6280Type[i].UseReal = new bool[1];
                 }
             }
@@ -1087,6 +1090,7 @@ namespace MDPlayer
                 {
                     Audio.setting.SEGAPCMType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.SEGAPCMType[i].UseEmu = new bool[1];
+                    Audio.setting.SEGAPCMType[i].UseEmu[0] = true;
                     Audio.setting.SEGAPCMType[i].UseReal = new bool[1];
                 }
             }
@@ -1097,6 +1101,7 @@ namespace MDPlayer
                 {
                     Audio.setting.SN76489Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.SN76489Type[i].UseEmu = new bool[2];
+                    Audio.setting.SN76489Type[i].UseEmu[0] = true;
                     Audio.setting.SN76489Type[i].UseReal = new bool[1];
                 }
             }
@@ -1107,6 +1112,7 @@ namespace MDPlayer
                 {
                     Audio.setting.Y8950Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.Y8950Type[i].UseEmu = new bool[1];
+                    Audio.setting.Y8950Type[i].UseEmu[0] = true;
                     Audio.setting.Y8950Type[i].UseReal = new bool[1];
                 }
             }
@@ -1117,6 +1123,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2151Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2151Type[i].UseEmu = new bool[3];
+                    Audio.setting.YM2151Type[i].UseEmu[0] = true;
                     Audio.setting.YM2151Type[i].UseReal = new bool[1];
                 }
             }
@@ -1127,6 +1134,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2203Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2203Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2203Type[i].UseEmu[0] = true;
                     Audio.setting.YM2203Type[i].UseReal = new bool[1];
                 }
             }
@@ -1137,6 +1145,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2413Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2413Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2413Type[i].UseEmu[0] = true;
                     Audio.setting.YM2413Type[i].UseReal = new bool[1];
                 }
             }
@@ -1147,6 +1156,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2608Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2608Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2608Type[i].UseEmu[0] = true;
                     Audio.setting.YM2608Type[i].UseReal = new bool[1];
                 }
             }
@@ -1176,6 +1186,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2612Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2612Type[i].UseEmu = new bool[3];
+                    Audio.setting.YM2612Type[i].UseEmu[0] = true;
                     Audio.setting.YM2612Type[i].UseReal = new bool[1];
                 }
             }
@@ -1186,6 +1197,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM3526Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM3526Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM3526Type[i].UseEmu[0] = true;
                     Audio.setting.YM3526Type[i].UseReal = new bool[1];
                 }
             }
@@ -1196,6 +1208,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM3812Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM3812Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM3812Type[i].UseEmu[0] = true;
                     Audio.setting.YM3812Type[i].UseReal = new bool[1];
                 }
             }
@@ -1206,6 +1219,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF262Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF262Type[i].UseEmu = new bool[1];
+                    Audio.setting.YMF262Type[i].UseEmu[0] = true;
                     Audio.setting.YMF262Type[i].UseReal = new bool[1];
                 }
             }
@@ -1216,6 +1230,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF271Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF271Type[i].UseEmu = new bool[1];
+                    Audio.setting.YMF271Type[i].UseEmu[0] = true;
                     Audio.setting.YMF271Type[i].UseReal = new bool[1];
                 }
             }
@@ -1226,6 +1241,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF278BType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF278BType[i].UseEmu = new bool[1];
+                    Audio.setting.YMF278BType[i].UseEmu[0] = true;
                     Audio.setting.YMF278BType[i].UseReal = new bool[1];
                 }
             }
@@ -1236,6 +1252,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMZ280BType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMZ280BType[i].UseEmu = new bool[1];
+                    Audio.setting.YMZ280BType[i].UseEmu[0] = true;
                     Audio.setting.YMZ280BType[i].UseReal = new bool[1];
                 }
             }
