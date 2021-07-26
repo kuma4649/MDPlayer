@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "document", "document", "{4B
 		makeZip.bat = makeZip.bat
 		MDPlayer\mdp.bat = MDPlayer\mdp.bat
 		..\README.md = ..\README.md
+		README_EN.md = README_EN.md
 		MDPlayer\removeZoneIdent.bat = MDPlayer\removeZoneIdent.bat
 		開発メモ.txt = 開発メモ.txt
 	EndProjectSection
