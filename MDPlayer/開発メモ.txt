@@ -1,0 +1,19 @@
+ビルド方法
+
+　VisualStudio Community 2019向けにソリューションが作られています。
+　ビルドは基本的にVisualStudioを起動してビルドを行うだけです。
+  但し以下のライブラリ、プログラムを用意する必要とする場合があります。
+  併記した方法でファイルをコピーしてください
+
+    必要なファイル　　　　　　コピー方法
+    c86ctl.dll                MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    c86ctl.ini                MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    Jacobi.Vst.Core.dll       MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    Jacobi.Vst.Interop.dll    MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+  　MDSound.dll               MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    MGSDRV.COM                MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    musicDriverInterface.dll  MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    RealChipWrap.dll          MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    scci.dll                  MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    scciconfig.exe            MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
+    Z80dotNet.dll             MDPlayerのバイナリ(bin.zip)に同梱されているファイルを MDPlayer\lib にコピー
