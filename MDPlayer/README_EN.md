@@ -13,12 +13,11 @@ Player for VGM files, etc. (a performance tool that emulates Mega Drive sound ch
     Twitter(@kumakumakumaT_T)  
     Github Issues(https://github.com/kuma4649/MDPlayer/issues)  
   Important! Important!  
-  Please contact the authors of VGMPlay, NRTDRV, and other great software  
   Please do not contact the authors of VGMPlay, NRTDRV and other great software directly about MDPlayer.  
   We will do our best to help you, but we may not always be able to meet your needs. Please understand.  
   
 [Supported formats].  
-  VGM (so-called vgm files)  
+  .VGM (so-called vgm files)  
   .VGZ (gziped vgm file)  
   .NRD (Performance file of the driver that plays 2 OPMs and AY8910 on NRTDRV X1)  
   .XGM (file for MegaDrive)  
@@ -34,9 +33,9 @@ Player for VGM files, etc. (a performance tool that emulates Mega Drive sound ch
   .MND (Performance file of the driver which uses MNDRV X68000(OPM,OKIM6258) & Markyuryunit(OPNAx2))  
   .MUC (file for MUCOM88Windows)  
   .MUB (file for MUCOM88Windows)  
-  .M (file for PMD)  
-  .M2 (files for PMD)  
-  .MZ (files for PMD)  
+  .M   (file for PMD)  
+  .M2  (file for PMD)  
+  .MZ  (file for PMD)  
   .WAV (TBD audio files)  
   .MP3 (TBD audio files)  
   .AIF (TBD audio files)  
