@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NAudio.Midi;
@@ -6941,14 +6942,28 @@ namespace MDPlayer.form
             return ret;
         }
 
+        private IEnumerable<string> GetFileSearcePathList(string srcFn)
+        {
+            yield return System.IO.Path.GetDirectoryName(srcFn);
+            IEnumerable<string> fileSerachPaths =
+                this.setting
+                    .FileSearchPathList
+                    .Split(';')
+                    .Where(path => !String.IsNullOrEmpty(path));
+            foreach (string path in fileSerachPaths) yield return path;
+        }
+
         private byte[] getExtendFileAllBytes(string srcFn, string extFn, object archive)
         {
             try
             {
                 if (archive == null)
                 {
-                    string trgFn = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(srcFn), extFn).Trim();
-                    if (!System.IO.File.Exists(trgFn)) return null;
+                    string trgFn =
+                        this.GetFileSearcePathList(srcFn)
+                            .Select(dirPath => System.IO.Path.Combine(dirPath, extFn).Trim())
+                            .FirstOrDefault(path => System.IO.File.Exists(path));
+                    if (trgFn == default(string)) return null;
                     return System.IO.File.ReadAllBytes(trgFn);
                 }
                 else
