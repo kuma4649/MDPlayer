@@ -2,3 +2,4 @@ MAME         - mame_license.txt
 vgmplay      - GPL.txt
 libsidplayfp - GPL.txt
 sidplayfp    - GPL.txt
+mucom88torym2612 - MIT

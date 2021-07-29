@@ -2503,9 +2503,9 @@ namespace MDPlayer
                     int tl = fmRegisterYM2608[chipID][0][0x11] & 0x3f;
                     for (int i = 0; i < 6; i++)
                     {
-                        if ((dData & (0x1 << i)) > 0)
+                        if ((dData & (0x1 << i)) != 0)
                         {
-                            int il = fmRegisterYM2608[chipID][0][0x18 + i] & 0x1f;
+                            int il = (fmRegisterYM2608[chipID][0][0x18 + i] & 0x1f) * (((dData & 0x80) == 0) ? 1 : 0);
                             int pan = (fmRegisterYM2608[chipID][0][0x18 + i] & 0xc0) >> 6;
                             fmVolYM2608Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
                             fmVolYM2608Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
@@ -2838,7 +2838,7 @@ namespace MDPlayer
                             if ((dData & (0x1 << i)) != 0)
                             {
                                 //int il = fmRegisterYM2610[chipID][1][0x08 + i] & 0x1f;
-                                int pan = (fmRegisterYM2610[chipID][1][0x08 + i] & 0xc0) >> 6;
+                                int pan = ((fmRegisterYM2610[chipID][1][0x08 + i] & 0xc0) >> 6) * (((dData & 0x80) == 0) ? 1 : 0);
                                 //fmVolYM2610Rhythm[chipID][i][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 2) > 0 ? 1 : 0);
                                 //fmVolYM2610Rhythm[chipID][i][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 1) > 0 ? 1 : 0);
                                 fmVolYM2610Rhythm[chipID][i][0] = ((pan & 2) > 0 ? 1 : 0);
@@ -3512,21 +3512,24 @@ namespace MDPlayer
                     {
                         if (dPort == 0 && dAddr == 0x2b)
                         {
-                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[0]) 
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 0 && dAddr == 0x2a)
                         {
-                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[0])
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                         else if (dPort == 1 && dAddr == 0xb6)
                         {
-                            if (ctYM2612[chipID].UseEmu[0]) mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
-                            if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[0])
+                                mds.WriteYM2612((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[1]) mds.WriteYM3438((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                            //if (ctYM2612[chipID].UseEmu[2]) mds.WriteYM2612mame((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
                         }
                     }
                 }

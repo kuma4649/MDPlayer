@@ -41,6 +41,7 @@ namespace MDPlayer.form
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbDispType1 = new System.Windows.Forms.ToolStripButton();
             this.tsbDispType2 = new System.Windows.Forms.ToolStripButton();
+            this.tsbFFT = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -90,10 +91,11 @@ namespace MDPlayer.form
             this.tsbHeight3,
             this.toolStripSeparator1,
             this.tsbDispType1,
-            this.tsbDispType2});
+            this.tsbDispType2,
+            this.tsbFFT});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(164, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(187, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbHeight1
@@ -151,6 +153,17 @@ namespace MDPlayer.form
             this.tsbDispType2.Text = "type 2";
             this.tsbDispType2.Click += new System.EventHandler(this.tsbDispType2_Click);
             // 
+            // tsbFFT
+            // 
+            this.tsbFFT.CheckOnClick = true;
+            this.tsbFFT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbFFT.Image = ((System.Drawing.Image)(resources.GetObject("tsbFFT.Image")));
+            this.tsbFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbFFT.Name = "tsbFFT";
+            this.tsbFFT.Size = new System.Drawing.Size(23, 22);
+            this.tsbFFT.Text = "tsbFFT";
+            this.tsbFFT.Click += new System.EventHandler(this.tsbFFT_Click);
+            // 
             // frmVisWave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -188,5 +201,6 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbDispType1;
         private System.Windows.Forms.ToolStripButton tsbDispType2;
+        private System.Windows.Forms.ToolStripButton tsbFFT;
     }
 }

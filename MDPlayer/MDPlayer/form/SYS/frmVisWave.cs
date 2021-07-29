@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Dsp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,7 @@ namespace MDPlayer.form
         private Bitmap bmp;
         private int dispType=1;
         private double dispHeight=1.0;
+        private bool fft = false;
 
         public frmVisWave(frmMain frm)
         {
@@ -34,6 +36,17 @@ namespace MDPlayer.form
             Audio.CopyWaveBuffer(buf);
 
             g.Clear(Color.Black);
+
+            if (fft)
+            {
+                float[] a = ConvertTo(buf[0]);
+                FFTProcess(a);
+                buf[0] = ConvertTo(a);
+
+                a = ConvertTo(buf[1]);
+                FFTProcess(a);
+                buf[1] = ConvertTo2(a);
+            }
 
             for (int ch = 0; ch < 2; ch++)
             {
@@ -126,6 +139,68 @@ namespace MDPlayer.form
         {
             dispHeight = 0.3;
 
+        }
+
+
+        public float[] ConvertTo(short[] src)
+        {
+            for (int i = 0; i < src.Length; i++)
+            {
+                destF[i] = src[i] / 32768.0f;
+            }
+            return destF;
+        }
+
+        public short[] ConvertTo(float[] src)
+        {
+            for (int i = 0; i < src.Length/2; i++)
+            {
+                destS[i*2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+                destS[i*2+1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+            }
+            return destS;
+        }
+        public short[] ConvertTo2(float[] src)
+        {
+            for (int i = 0; i < src.Length/2; i++)
+            {
+                destS2[i * 2] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+                destS2[i * 2+1] = (short)(Math.Min(Math.Max(-src[i] * 150.0f * 32768.0f*0.6, short.MinValue), short.MaxValue));
+            }
+            return destS2;
+        }
+
+        private float[] destF = new float[2048];
+        private short[] destS = new short[2048];
+        private short[] destS2 = new short[2048];
+        private Complex[] fftsample = new Complex[2048];
+
+        public void FFTProcess(float[] sdata)
+        {
+
+            //var res = new float[fftsampleRange / 2];
+
+            for (int i = 0; i < sdata.Length; i++)
+            {
+                fftsample[i].X = (float)(sdata[i] * FastFourierTransform.HammingWindow(i, sdata.Length));
+                fftsample[i].Y = 0;
+            }
+
+            FastFourierTransform.FFT(true, (int)Math.Log(sdata.Length, 2), fftsample);
+
+            for (int i = 0; i < sdata.Length; i++)
+            {
+                //sdata[i] = (float)Math.Log(Math.Sqrt(fftsample[i].X * fftsample[i].X + fftsample[i].Y * fftsample[i].Y))/20;//Dbに変換
+                sdata[i] = (float)Math.Sqrt(fftsample[i].X * fftsample[i].X + fftsample[i].Y * fftsample[i].Y);//パワースペクトル
+            }
+
+            //return res;
+
+        }
+
+        private void tsbFFT_Click(object sender, EventArgs e)
+        {
+            fft= tsbFFT.Checked;
         }
     }
 }

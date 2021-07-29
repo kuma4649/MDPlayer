@@ -536,6 +536,7 @@
     <Compile Include="form\SYS\frmVisWave.Designer.cs">
       <DependentUpon>frmVisWave.cs</DependentUpon>
     </Compile>
+    <Compile Include="mmfControl.cs" />
     <Compile Include="OpeManager.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="VST\frmVST.cs">

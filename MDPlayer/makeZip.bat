@@ -10,6 +10,7 @@ del /Q .\output\plugin\*.*
 mkdir  .\output\plugin\driver
 del /Q .\output\plugin\driver\*.*
 
+xcopy   .\mdc\bin\Release\*.*          .\output\ /E /R /Y /I /K
 xcopy   .\mdpc\bin\Release\*.*         .\output\ /E /R /Y /I /K
 xcopy   .\MDPlayer\bin\x86\Release\*.* .\output\ /E /R /Y /I /K
 xcopy   ..\licenses                    .\output\licenses\ /E /R /Y /I /K
@@ -27,6 +28,7 @@ rem del /Q .\output\*.config
 del /Q .\output\*.bat
 rem del /Q .\output\MGSDRV.COM
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
+copy /Y MDPlayer\mdp.bat   .\output
 
 rem -- withoutVSTŒü‚¯
 Xcopy   .\MDPlayer\*.*                                                         ..\..\MDPlayerWithoutVST\MDPlayer\MDPlayer\ /E /R /Y /I /K

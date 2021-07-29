@@ -1066,7 +1066,10 @@ namespace MDPlayer.form
                 , null
                 , null
                 );
-            setting.YM2612Type[0].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+            if (setting.YM2612Type[0].realChipInfo == null)
+            {
+                setting.YM2612Type[0].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+            }
             setting.YM2612Type[0].realChipInfo[0].UseWait = ucSI.cbSendWait.Checked;
             setting.YM2612Type[0].realChipInfo[0].UseWaitBoost = ucSI.cbTwice.Checked;
             setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation = ucSI.cbEmulationPCMOnly.Checked;
@@ -1701,6 +1704,8 @@ namespace MDPlayer.form
             ct.UseReal[0] = rb_SCCI.Checked;
             ct.realChipInfo = new Setting.ChipType2.RealChipInfo[rb_SCCI_E == null ? 1 : 3];
             for (int i = 0; i < ct.realChipInfo.Length; i++) ct.realChipInfo[i] = new Setting.ChipType2.RealChipInfo();
+            int v;
+            Setting.ChipType2.RealChipInfo rci;
             if (rb_SCCI.Checked)
             {
                 if (cmb_SCCI.SelectedItem != null)
@@ -1708,10 +1713,14 @@ namespace MDPlayer.form
                     string n = cmb_SCCI.SelectedItem.ToString();
                     n = n.Substring(0, n.IndexOf(")")).Substring(1);
                     string[] ns = n.Split(':');
-                    ct.realChipInfo[0].InterfaceName = ns[0];
-                    ct.realChipInfo[0].SoundLocation = int.Parse(ns[1]);
-                    ct.realChipInfo[0].BusID = int.Parse(ns[2]);
-                    ct.realChipInfo[0].SoundChip = int.Parse(ns[3]);
+                    rci = ct.realChipInfo[0];
+                    rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                    if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
+                    rci.SoundLocation = v;
+                    if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
+                    rci.BusID = v;
+                    if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
+                    rci.SoundChip = v;
                 }
             }
 
@@ -1730,20 +1739,28 @@ namespace MDPlayer.form
                     string n = cmb_SCCI_E1.SelectedItem.ToString();
                     n = n.Substring(0, n.IndexOf(")")).Substring(1);
                     string[] ns = n.Split(':');
-                    ct.realChipInfo[1].InterfaceName = ns[0];
-                    ct.realChipInfo[1].SoundLocation = int.Parse(ns[1]);
-                    ct.realChipInfo[1].BusID = int.Parse(ns[2]);
-                    ct.realChipInfo[1].SoundChip = int.Parse(ns[3]);
+                    rci = ct.realChipInfo[1];
+                    rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                    if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
+                    rci.SoundLocation = v;
+                    if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
+                    rci.BusID = v;
+                    if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
+                    rci.SoundChip = v;
                 }
                 if (cmb_SCCI_E2.SelectedItem != null)
                 {
                     string n = cmb_SCCI_E2.SelectedItem.ToString();
                     n = n.Substring(0, n.IndexOf(")")).Substring(1);
                     string[] ns = n.Split(':');
-                    ct.realChipInfo[2].InterfaceName = ns[0];
-                    ct.realChipInfo[2].SoundLocation = int.Parse(ns[1]);
-                    ct.realChipInfo[2].BusID = int.Parse(ns[2]);
-                    ct.realChipInfo[2].SoundChip = int.Parse(ns[3]);
+                    rci = ct.realChipInfo[2];
+                    rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                    if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
+                    rci.SoundLocation = v;
+                    if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
+                    rci.BusID = v;
+                    if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
+                    rci.SoundChip = v;
                 }
             }
 

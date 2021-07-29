@@ -3688,7 +3688,8 @@ namespace MDPlayer.form
             resources.GetString("cmbInstFormat.Items11"),
             resources.GetString("cmbInstFormat.Items12"),
             resources.GetString("cmbInstFormat.Items13"),
-            resources.GetString("cmbInstFormat.Items14")});
+            resources.GetString("cmbInstFormat.Items14"),
+            resources.GetString("cmbInstFormat.Items15")});
             resources.ApplyResources(this.cmbInstFormat, "cmbInstFormat");
             this.cmbInstFormat.Name = "cmbInstFormat";
             // 

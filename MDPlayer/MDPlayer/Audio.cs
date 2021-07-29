@@ -1032,6 +1032,10 @@ namespace MDPlayer
         {
             log.ForcedWrite("Audio:Init:Begin");
 
+            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
+            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+            trd.Start();
+
             log.ForcedWrite("Audio:Init:STEP 01");
 
             naudioWrap = new NAudioWrap((int)setting.outputDevice.SampleRate, trdVgmVirtualFunction);
@@ -1053,6 +1057,7 @@ namespace MDPlayer
                 {
                     Audio.setting.AY8910Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.AY8910Type[i].UseEmu = new bool[1];
+                    Audio.setting.AY8910Type[i].UseEmu[0] = true;
                     Audio.setting.AY8910Type[i].UseReal = new bool[1];
                 }
             }
@@ -1063,6 +1068,7 @@ namespace MDPlayer
                 {
                     Audio.setting.C140Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.C140Type[i].UseEmu = new bool[1];
+                    Audio.setting.C140Type[i].UseEmu[0] = true;
                     Audio.setting.C140Type[i].UseReal = new bool[1];
                 }
             }
@@ -1073,6 +1079,7 @@ namespace MDPlayer
                 {
                     Audio.setting.HuC6280Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.HuC6280Type[i].UseEmu = new bool[1];
+                    Audio.setting.HuC6280Type[i].UseEmu[0] = true;
                     Audio.setting.HuC6280Type[i].UseReal = new bool[1];
                 }
             }
@@ -1083,6 +1090,7 @@ namespace MDPlayer
                 {
                     Audio.setting.SEGAPCMType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.SEGAPCMType[i].UseEmu = new bool[1];
+                    Audio.setting.SEGAPCMType[i].UseEmu[0] = true;
                     Audio.setting.SEGAPCMType[i].UseReal = new bool[1];
                 }
             }
@@ -1093,6 +1101,7 @@ namespace MDPlayer
                 {
                     Audio.setting.SN76489Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.SN76489Type[i].UseEmu = new bool[2];
+                    Audio.setting.SN76489Type[i].UseEmu[0] = true;
                     Audio.setting.SN76489Type[i].UseReal = new bool[1];
                 }
             }
@@ -1103,6 +1112,7 @@ namespace MDPlayer
                 {
                     Audio.setting.Y8950Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.Y8950Type[i].UseEmu = new bool[1];
+                    Audio.setting.Y8950Type[i].UseEmu[0] = true;
                     Audio.setting.Y8950Type[i].UseReal = new bool[1];
                 }
             }
@@ -1113,6 +1123,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2151Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2151Type[i].UseEmu = new bool[3];
+                    Audio.setting.YM2151Type[i].UseEmu[0] = true;
                     Audio.setting.YM2151Type[i].UseReal = new bool[1];
                 }
             }
@@ -1123,6 +1134,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2203Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2203Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2203Type[i].UseEmu[0] = true;
                     Audio.setting.YM2203Type[i].UseReal = new bool[1];
                 }
             }
@@ -1133,6 +1145,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2413Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2413Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2413Type[i].UseEmu[0] = true;
                     Audio.setting.YM2413Type[i].UseReal = new bool[1];
                 }
             }
@@ -1143,6 +1156,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2608Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2608Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM2608Type[i].UseEmu[0] = true;
                     Audio.setting.YM2608Type[i].UseReal = new bool[1];
                 }
             }
@@ -1172,6 +1186,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM2612Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2612Type[i].UseEmu = new bool[3];
+                    Audio.setting.YM2612Type[i].UseEmu[0] = true;
                     Audio.setting.YM2612Type[i].UseReal = new bool[1];
                 }
             }
@@ -1182,6 +1197,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM3526Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM3526Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM3526Type[i].UseEmu[0] = true;
                     Audio.setting.YM3526Type[i].UseReal = new bool[1];
                 }
             }
@@ -1192,6 +1208,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YM3812Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM3812Type[i].UseEmu = new bool[1];
+                    Audio.setting.YM3812Type[i].UseEmu[0] = true;
                     Audio.setting.YM3812Type[i].UseReal = new bool[1];
                 }
             }
@@ -1202,6 +1219,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF262Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF262Type[i].UseEmu = new bool[1];
+                    Audio.setting.YMF262Type[i].UseEmu[0] = true;
                     Audio.setting.YMF262Type[i].UseReal = new bool[1];
                 }
             }
@@ -1212,6 +1230,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF271Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF271Type[i].UseEmu = new bool[1];
+                    Audio.setting.YMF271Type[i].UseEmu[0] = true;
                     Audio.setting.YMF271Type[i].UseReal = new bool[1];
                 }
             }
@@ -1222,6 +1241,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMF278BType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMF278BType[i].UseEmu = new bool[1];
+                    Audio.setting.YMF278BType[i].UseEmu[0] = true;
                     Audio.setting.YMF278BType[i].UseReal = new bool[1];
                 }
             }
@@ -1232,6 +1252,7 @@ namespace MDPlayer
                 {
                     Audio.setting.YMZ280BType[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YMZ280BType[i].UseEmu = new bool[1];
+                    Audio.setting.YMZ280BType[i].UseEmu[0] = true;
                     Audio.setting.YMZ280BType[i].UseReal = new bool[1];
                 }
             }
@@ -1436,10 +1457,6 @@ namespace MDPlayer
             naudioWrap.Start(Audio.setting);
 
             log.ForcedWrite("Audio:Init:Complete");
-
-            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
-            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
-            trd.Start();
 
         }
 
@@ -2161,6 +2178,12 @@ namespace MDPlayer
                 chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.RealModel);
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.VirtualModel); //PSG TONE でリセット
                 chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.RealModel);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.VirtualModel);
+                chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.RealModel);
 
                 chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
                 chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
@@ -4577,8 +4600,16 @@ namespace MDPlayer
                         chip.ID = (byte)i;
                         chip.Option = null;
 
-                        if ((i == 0 && (setting.YM2612Type[0].UseEmu[0] || setting.YM2612Type[0].UseReal[0]))
-                            || (i == 1 && setting.YM2612Type[1].UseEmu[0] || setting.YM2612Type[1].UseReal[0]))
+                        if (
+                            (i == 0 && (
+                                (setting.YM2612Type[0].UseEmu[0] || setting.YM2612Type[0].realChipInfo[0].OnlyPCMEmulation )
+                                || setting.YM2612Type[0].UseReal[0])
+                            )
+                            || (i == 1 && 
+                                (setting.YM2612Type[1].UseEmu[0] || setting.YM2612Type[1].realChipInfo[0].OnlyPCMEmulation)
+                                || setting.YM2612Type[1].UseReal[0]
+                            )
+                        )
                         {
                             if (ym2612 == null) ym2612 = new ym2612();
                             chip.type = MDSound.MDSound.enmInstrumentType.YM2612;
@@ -6069,7 +6100,7 @@ namespace MDPlayer
                 vstMng.ReleaseAllMIDIout();
                 vstMng.Close();
 
-                //realChip.Close();
+                realChip=null;
             }
             catch (Exception ex)
             {

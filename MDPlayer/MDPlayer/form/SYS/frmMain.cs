@@ -114,6 +114,13 @@ namespace MDPlayer.form
             "Zoom\r\nNow:x4\r\nNext:x1",
         };
 
+        //private FileSystemWatcher watcher = null;
+        private mmfControl mmf = null;
+        private long now = 0;
+        private string opeFolder;
+        private object remoteLockObj = new object();
+        private bool remoteBusy = false;
+        private List<string[]> remoteReq = new List<string[]>();
 
         public frmMain()
         {
@@ -180,6 +187,20 @@ namespace MDPlayer.form
             {
                 log.ForcedWrite("frmMain(コンストラクタ):setting is null");
             }
+            else
+            {
+                if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                {
+                    DialogResult res= MessageBox.Show(
+                        "ウィンドウの位置情報を初期化しますか？",
+                        "MDPlayer",
+                        MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if(res== DialogResult.Yes)
+                    {
+                        ClearWindowPos();
+                    }
+                }
+            }
 
             log.ForcedWrite("起動時のAudio初期化処理開始");
 
@@ -198,6 +219,10 @@ namespace MDPlayer.form
 
         }
 
+        private void ClearWindowPos()
+        {
+            setting.location = new Setting.Location();
+        }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -320,6 +345,216 @@ namespace MDPlayer.form
             opeButtonMode
             };
 
+            log.ForcedWrite("frmMain_Load:STEP 09");
+
+            ////operationフォルダクリア
+            //opeFolder = Common.GetOperationFolder(true);
+            //startWatch(opeFolder);
+            mmf = new mmfControl(false, "MDPlayer", 1024 * 4);
+        }
+
+        //private void startWatch(string opeFolder)
+        //{
+        //    if (watcher != null) return;
+
+        //    watcher = new System.IO.FileSystemWatcher();
+        //    watcher.Path = Path.GetDirectoryName(opeFolder);
+        //    watcher.NotifyFilter =
+        //        (
+        //        System.IO.NotifyFilters.LastAccess
+        //        | System.IO.NotifyFilters.LastWrite
+        //        | System.IO.NotifyFilters.FileName
+        //        | System.IO.NotifyFilters.DirectoryName
+        //        | System.IO.NotifyFilters.CreationTime
+        //        | System.IO.NotifyFilters.Attributes
+        //        );
+        //    watcher.Filter = "";// Path.GetFileName(opeFolder);
+        //    watcher.SynchronizingObject = this;
+
+        //    watcher.Changed += new System.IO.FileSystemEventHandler(watcher_Changed);
+        //    watcher.Created += new System.IO.FileSystemEventHandler(watcher_Changed);
+
+        //    watcher.EnableRaisingEvents = true;
+        //}
+
+        //private void stopWatch()
+        //{
+        //    watcher.EnableRaisingEvents = false;
+        //    watcher.Dispose();
+        //    watcher = null;
+        //}
+
+        private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)
+        {
+            string trgFile = Path.Combine(opeFolder, "ope.txt");
+
+            lock (remoteLockObj)
+            {
+                if (remoteBusy)
+                {
+                    try
+                    {
+                        File.Delete(trgFile);
+                    }
+                    catch (Exception deleteEx)
+                    {
+                        log.ForcedWrite(deleteEx);
+                    }
+                    return;
+                }
+                remoteBusy = true;
+            }
+
+            try
+            {
+                switch (e.ChangeType)
+                {
+                    case System.IO.WatcherChangeTypes.Changed:
+                    case System.IO.WatcherChangeTypes.Created:
+
+                        long n = DateTime.Now.Ticks / 1_000_000L;
+                        if (now == n)
+                        {
+                            try
+                            {
+                                File.Delete(trgFile);
+                            }
+                            catch (Exception deleteEx)
+                            {
+                                log.ForcedWrite(deleteEx);
+                            }
+                            return;
+                        }
+                        now = n;
+
+                        if (!File.Exists(trgFile)) return;
+                        string[] lins = null;
+                        int retry = 30;
+                        while (retry > 0)
+                        {
+                            try
+                            {
+                                lins = File.ReadAllLines(trgFile);
+                                retry = 0;
+                            }
+                            catch (IOException)
+                            {
+                                System.Threading.Thread.Sleep(100);
+                                retry--;
+                            }
+                        }
+
+                        try
+                        {
+                            File.Delete(trgFile);
+                        }
+                        catch (Exception deleteEx)
+                        {
+                            log.ForcedWrite(deleteEx);
+                        }
+
+                        remoteReq.Add(lins);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
+            finally
+            {
+                lock (remoteLockObj)
+                {
+                    remoteBusy = false;
+                }
+            }
+        }
+
+
+        private void remote(string line)
+        {
+            try
+            {
+                int n = Math.Min(
+                    line.IndexOf(' ') == -1 ? int.MaxValue : line.IndexOf(' '),
+                    line.IndexOf('\t') == -1 ? int.MaxValue : line.IndexOf('\t')
+                    );
+                string command = line;
+                string optionLine = "";
+                if (n != int.MaxValue)
+                {
+                    command = line.Substring(0, n + 1).ToUpper().Trim();
+                    optionLine = line.Substring(n).Trim();
+                }
+
+                switch (command)
+                {
+                    case "PLAY":
+                        if (!string.IsNullOrEmpty(optionLine))
+                        {
+                            if (optionLine[0] == '\"' && optionLine[optionLine.Length - 1] == '\"')
+                            {
+                                optionLine = optionLine.Substring(1, optionLine.Length - 2);
+                            }
+                            AddFileAndPlay(new string[] { optionLine });
+                        }
+                        else
+                            tsmiPlay_Click(null, null);
+                        break;
+                    case "STOP":
+                        tsmiStop_Click(null, null);
+                        break;
+                    case "NEXT":
+                        tsmiNext_Click(null, null);
+                        break;
+                    case "PREV":
+                        opeButtonPrevious_Click(null, null);
+                        break;
+                    case "FADEOUT":
+                        tsmiFadeOut_Click(null, null);
+                        break;
+                    case "FAST":
+                        tsmiFf_Click(null, null);
+                        break;
+                    case "SLOW":
+                        tsmiSlow_Click(null, null);
+                        break;
+                    case "PAUSE":
+                        tsmiPause_Click(null, null);
+                        break;
+                    case "CLOSE":
+                        Close();
+                        break;
+                    case "LOOP":
+                        tsmiPlayMode_Click(null, null);
+                        break;
+                    case "MIXER":
+                        tsmiOpenMixer_Click(null, null);
+                        break;
+                    case "INFO":
+                        tsmiOpenInfo_Click(null, null);
+                        break;
+                    case "SPLAY":
+                        
+                        string lin = optionLine.Trim();
+                        string mName = lin.Substring(0, lin.IndexOf(" "));
+                        lin = lin.Substring(lin.IndexOf(" ")).Trim();
+                        int count = int.Parse(lin.Substring(0, lin.IndexOf(" ")));
+                        lin = lin.Substring(lin.IndexOf(" ")).Trim();
+                        string path = lin.Trim();
+                        mmfControl mml2vgmMmf = new mmfControl(true, mName, count);
+                        byte[] buf = mml2vgmMmf.GetBytes();
+                        
+                        bufferPlay(buf, path);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+            }
         }
 
         private void SystemEvents_SessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
@@ -1138,6 +1373,9 @@ namespace MDPlayer.form
             setting.Save();
 
             log.ForcedWrite("frmMain_FormClosing:STEP 06");
+
+            mmf.Close();
+
             log.ForcedWrite("終了処理完了");
 
         }
@@ -4049,7 +4287,6 @@ namespace MDPlayer.form
 
         private void pbScreen_DragDrop(object sender, DragEventArgs e)
         {
-
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
@@ -4057,7 +4294,11 @@ namespace MDPlayer.form
                 try
                 {
 
+                    //曲を停止
                     frmPlayList.Stop();
+                    this.stop();
+                    while (!Audio.isStopped)
+                        Application.DoEvents();
 
                     frmPlayList.getPlayList().AddFile(filename);
                     //frmPlayList.AddList(filename);
@@ -4136,6 +4377,10 @@ namespace MDPlayer.form
             reqAllScreenInit = false;
         }
 
+
+        /// <summary>
+        /// ！！このメソッドはメインスレッドで動いていません！！
+        /// </summary>
         private void screenMainLoop()
         {
             double nextFrame = (double)System.Environment.TickCount;
@@ -4425,6 +4670,24 @@ namespace MDPlayer.form
                     if (Audio.Stopped && frmPlayList.isPlaying())
                     {
                         nextPlayMode();
+                    }
+                }
+
+                //remote対応
+                string msg = mmf.GetMessage();
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    if (msg.Trim().ToUpper() == "CLOSE")
+                    {
+                        this.BeginInvoke((Action)Close);
+                    }
+                    else
+                    {
+                        this.Invoke(//Asyncしないこと
+                            (Action<string>)remote
+                            //, new object[] { lin }//配列が引数の場合はこの様に指定する必要あり
+                            ,msg
+                            );
                     }
                 }
 
@@ -5383,6 +5646,9 @@ namespace MDPlayer.form
                         case EnmInstFormat.OPNI:
                             getInstChForOPNI(chip, ch, chipID);
                             break;
+                        case EnmInstFormat.RYM2612:
+                            getInstChForRYM2612(chip, ch, chipID);
+                            break;
                     }
                 }
             }
@@ -6263,6 +6529,178 @@ namespace MDPlayer.form
             }
         }
 
+        private void getInstChForRYM2612(EnmChip chip, int ch, int chipID)
+        {
+            //  
+            //  以下のコードを使用、参考にさせていただいております。ありがとうございます！
+            //  
+            //  Title:
+            //      mucom88torym2612
+            //  Author:
+            //      千霧＠ぶっちぎりP(but80) 様
+            //  URL:
+            //      https://github.com/but80/mucom88torym2612/
+            //      Github
+            //        but80/mucom88torym2612
+            //  License:
+            //      MIT License
+            //
+
+            List<string>[] op = new List<string>[4] { new List<string>(), new List<string>(), new List<string>(), new List<string>() };
+            int[] muls = new int[] { 0, 1054, 1581, 2635, 3689, 4743, 5797, 6851, 7905, 8959, 10013, 10540, 11594, 12648, 14229, 15000 };
+            string buf = "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\r\n";
+            buf += "\r\n";
+            int alg = 0, fb = 0, ams = 0, pms = 0;
+            
+            GD3 gd3 = Audio.GetGD3();
+            string patch_Name = "MDPlayer_{0}";
+            if (gd3 != null)
+            {
+                string pn = gd3.TrackName;
+                if (string.IsNullOrEmpty(pn)) pn = gd3.TrackNameJ;
+                if (!string.IsNullOrEmpty(pn))
+                {
+                    patch_Name = pn + "_{0}";
+                }
+            }
+            patch_Name = string.Format(patch_Name, DateTime.UtcNow.Ticks);
+            buf += $"<RYM2612Params patchName = \"{patch_Name}\" category = \"Piano\" rating = \"3\" type = \"User\" >\r\n";
+
+            if (chip == EnmChip.YM2612 || chip == EnmChip.YM2608 || chip == EnmChip.YM2203 || chip == EnmChip.YM2610)
+            {
+                int p = (ch > 2) ? 1 : 0;
+                int c = (ch > 2) ? ch - 3 : ch;
+                int[][] fmRegister = (chip == EnmChip.YM2612) 
+                    ? Audio.GetFMRegister(chipID) 
+                    : (chip == EnmChip.YM2608 
+                        ? Audio.GetYM2608Register(chipID) 
+                        : (chip == EnmChip.YM2203 
+                            ? new int[][] { Audio.GetYM2203Register(chipID), null } 
+                            : Audio.GetYM2610Register(chipID)
+                        )
+                    );
+
+                alg = (fmRegister[p][0xb0 + c] & 0x07) >> 0;
+                fb = (fmRegister[p][0xb0 + c] & 0x38) >> 3;
+                ams = (fmRegister[p][0xb4 + c] & 0x30) >> 4;
+                pms = (fmRegister[p][0xb4 + c] & 0x07) >> 0;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 8 : ((i == 2) ? 4 : 12));
+                    int tl = 127 - ((fmRegister[p][0x40 + ops + c] & 0x7f) >> 0);
+                    int vel = 0;
+                    int ssg = fmRegister[p][0x90 + ops + c] & 0x0f;
+                    ssg = ((ssg & 0x8) == 0) ? 0 : ((ssg & 0x7) + 1);
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Vel\" value=\"{1}.0\"/>", i + 1, vel));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}TL\" value=\"{1}.0\"/>", i + 1, tl));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}SSGEG\" value=\"{1}.0\"/>", i + 1, ssg));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RS\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x50 + ops + c] & 0xc0) >> 6));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RR\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x80 + ops + c] & 0x0f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MW\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(fmRegister[p][0x30 + ops + c] & 0x0f) >> 0]));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
+                    int dt = (fmRegister[p][0x30 + ops + c] & 0x70) >> 4;
+                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x70 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - ((fmRegister[p][0x80 + ops + c] & 0xf0) >> 4)));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x50 + ops + c] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (fmRegister[p][0x60 + ops + c] & 0x80) >> 7));
+                }
+
+            }
+            else if (chip == EnmChip.YM2151)
+            {
+                int[] ym2151Register = Audio.GetYM2151Register(chipID);
+
+                alg = (ym2151Register[0x20 + ch] & 0x07) >> 0;
+                fb = (ym2151Register[0x20 + ch] & 0x38) >> 3;
+                ams = (ym2151Register[0x38 + ch] & 0x03) >> 0;
+                pms = (ym2151Register[0x38 + ch] & 0x70) >> 4;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int ops = (i == 0) ? 0 : ((i == 1) ? 16 : ((i == 2) ? 8 : 24));
+                    int tl = 127 - ((ym2151Register[0x60 + ops + ch] & 0x7f) >> 0);
+                    int vel = 0;
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Vel\" value=\"{1}.0\"/>", i + 1, vel));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}TL\" value=\"{1}.0\"/>", i + 1, tl));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}SSGEG\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RS\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}RR\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xe0 + ops + ch] & 0x0f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MW\" value=\"0.0\"/>", i + 1));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}MUL\" value=\"{1}.0\"/>", i + 1, muls[(ym2151Register[0x40 + ops + ch] & 0x0f) >> 0]));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}Fixed\" value=\"0.0\"/>", i + 1));
+                    int dt = (ym2151Register[0x40 + ops + ch] & 0x70) >> 4;
+                    dt = (dt >= 4) ? (4 - dt) : dt;
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}DT\" value=\"{1}.0\"/>", i + 1, dt));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xc0 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D2L\" value=\"{1}.0\"/>", i + 1, 15 - ((ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4)));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}D1R\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AR\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0x80 + ops + ch] & 0x1f) >> 0));
+                    op[i].Add(string.Format("  <PARAM id=\"OP{0}AM\" value=\"{1}.0\"/>", i + 1, (ym2151Register[0xa0 + ops + ch] & 0x80) >> 7));
+
+                }
+
+            }
+
+            for (int i = 0; i < op[0].Count; i++)
+            {
+                buf += op[3][i] + "\r\n";
+                buf += op[2][i] + "\r\n";
+                buf += op[1][i] + "\r\n";
+                buf += op[0][i] + "\r\n";
+            }
+
+            buf += "  <PARAM id=\"volume\" value=\"0.699999988079071\"/>\r\n";//-0.00db
+            buf += "  <PARAM id=\"Ladder_Effect\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"Output_Filtering\" value=\"1.0\"/>\r\n";//Crystal clear
+            buf += "  <PARAM id=\"Polyphony\" value=\"6.0\"/>\r\n";
+            buf += "  <PARAM id=\"TimerA\" value=\"0.0\"/>\r\n";//RETRIG RATE 1200
+            buf += "  <PARAM id=\"Spec_Mode\" value=\"2.0\"/>\r\n";//1.0:float mode  2.0:int mode
+            buf += "  <PARAM id=\"Pitchbend_Range\" value=\"2.0\"/>\r\n";
+            buf += "  <PARAM id=\"Legato_Retrig\" value=\"0.0\"/>\r\n";
+            buf += "  <PARAM id=\"LFO_Speed\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"LFO_Enable\" value=\"{0}.0\"/>\r\n", (pms != 0 || ams != 0) ? 1 : 0);
+            buf += string.Format("  <PARAM id=\"Feedback\" value=\"{0}.0\"/>\r\n", fb);
+            buf += "  <PARAM id=\"FMSMW\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"FMS\" value=\"{0}.0\"/>\r\n", pms);
+            buf += "  <PARAM id=\"DAC_Prescaler\" value=\"0.0\"/>\r\n";
+            buf += string.Format("  <PARAM id=\"Algorithm\" value=\"{0}.0\"/>\r\n", alg + 1);
+            buf += string.Format("  <PARAM id=\"AMS\" value=\"{0}.0\"/>\r\n", ams);
+            buf += "  <PARAM id=\"masterTune\"/>\r\n";
+            buf += "</RYM2612Params>\r\n";
+
+
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = $"{patch_Name}.rym2612";
+            sfd.Filter = "RYM2612ファイル(*.rym2612)|*.rym2612|すべてのファイル(*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.Title = "名前を付けて保存";
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (FileStream fs = new FileStream(
+                sfd.FileName,
+                FileMode.Create,
+                FileAccess.Write))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(buf);
+                }
+            }
+
+        }
+
         private void getInstChForOPNI(EnmChip chip, int ch, int chipID)
         {
 
@@ -6575,7 +7013,7 @@ namespace MDPlayer.form
                             , (ym2151Register[0xe0 + ops + ch] & 0xf0) >> 4 //SL
                         )
                         , string.Format(
-                            "{0,3} {1,3} {2,3} {3,3}   0 {4,3}\r\n"
+                            "{0,3} {1,3} {2,3} {3,3} {4,3} {5,3}\r\n"
                             , ym2151Register[0x60 + ops + ch] & 0x7f //TL
                             , (ym2151Register[0x80 + ops + ch] & 0xc0) >> 6 //KS
                             , ym2151Register[0x40 + ops + ch] & 0x0f //ML
@@ -6874,6 +7312,51 @@ namespace MDPlayer.form
                 return false;
             }
 
+            return true;
+        }
+
+        public bool bufferPlay(byte[] buf,string fullPath)
+        {
+            try
+            {
+                if (Audio.flgReinit) flgReinit = true;
+                if (setting.other.InitAlways) flgReinit = true;
+                reinit(setting);
+
+                if (Audio.isPaused)
+                {
+                    Audio.Pause();
+                }
+
+                string playingFileName = fullPath;
+                string playingArcFileName = "";
+                EnmFileFormat format = EnmFileFormat.unknown;
+                List<Tuple<string, byte[]>> extFile = null;
+                format = Common.CheckExt(fullPath);
+                srcBuf = buf;
+
+                //再生前に音量のバランスを設定する
+                LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
+
+                Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, 0, 0, extFile);
+                newParam.ym2612[0].fileFormat = format;
+                newParam.ym2612[1].fileFormat = format;
+
+                if (srcBuf != null)
+                {
+                    this.Invoke((Action)playdata);
+                    if (Audio.errMsg != "") return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                srcBuf = null;
+                MessageBox.Show(string.Format("ファイルの読み込みに失敗しました。\r\nメッセージ={0}", ex.Message), "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            frmPlayList.Play();
             return true;
         }
 
@@ -8555,48 +9038,50 @@ namespace MDPlayer.form
             string[] fn = fileOpen(true);
 
             if (fn != null)
+                AddFileAndPlay(fn);
+
+        }
+
+        private void AddFileAndPlay(string[] fn)
+        {
+            if (Audio.isPaused)
             {
-                if (Audio.isPaused)
-                {
-                    Audio.Pause();
-                }
-
-                if (fn.Length == 1)
-                {
-                    frmPlayList.Stop();
-
-                    //frmPlayList.AddList(fn[0]);
-                    frmPlayList.getPlayList().AddFile(fn[0]);
-
-                    if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
-                    {
-                        if (!loadAndPlay(0, 0, fn[0], "")) return;
-                        frmPlayList.setStart(-1);
-                    }
-                    oldParam = new MDChipParams();
-
-                    frmPlayList.Play();
-                }
-                else
-                {
-                    frmPlayList.Stop();
-
-                    try
-                    {
-                        foreach (string f in fn)
-                        {
-                            frmPlayList.getPlayList().AddFile(f);
-                            //frmPlayList.AddList(f);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        log.ForcedWrite(ex);
-                    }
-                }
+                Audio.Pause();
             }
 
+            if (fn.Length == 1)
+            {
+                frmPlayList.Stop();
 
+                //frmPlayList.AddList(fn[0]);
+                frmPlayList.getPlayList().AddFile(fn[0]);
+
+                if (Common.CheckExt(fn[0]) != EnmFileFormat.M3U && Common.CheckExt(fn[0]) != EnmFileFormat.ZIP)
+                {
+                    if (!loadAndPlay(0, 0, fn[0], "")) return;
+                    frmPlayList.setStart(-1);
+                }
+                oldParam = new MDChipParams();
+
+                frmPlayList.Play();
+            }
+            else
+            {
+                frmPlayList.Stop();
+
+                try
+                {
+                    foreach (string f in fn)
+                    {
+                        frmPlayList.getPlayList().AddFile(f);
+                        //frmPlayList.AddList(f);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.ForcedWrite(ex);
+                }
+            }
         }
 
         private void tsmiExit_Click(object sender, EventArgs e)
