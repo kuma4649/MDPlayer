@@ -220,6 +220,8 @@ namespace MDPlayer.Driver.MoonDriver
          -1, -1, -1, -1, -1, -1
         };
         private int[] pcmKeyonB = new int[24];
+        public bool isOPL3 = false;
+
         public int[] GetPCMKeyOn()
         {
             for(int i = 0; i < pcmKeyonB.Length; i++)
@@ -3210,8 +3212,15 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_DAT1), a
             //ret
-            chipRegister.setYMF278BRegister(0, 0, d, e, model);
-            //Console.WriteLine("fm1out:{0:x02}:{1:x02}:", d, e);
+            if (isOPL3)
+            {
+                chipRegister.setYMF262Register(0, 0, d, e, model);
+            }
+            else
+            {
+                chipRegister.setYMF278BRegister(0, 0, d, e, model);
+                //Console.WriteLine("fm1out:{0:x02}:{1:x02}:", d, e);
+            }
         }
 
         private void moon_fm2_out()
@@ -3223,7 +3232,14 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_DAT2), a
             //ret
-            chipRegister.setYMF278BRegister(0, 1, d, e, model);
+            if (isOPL3)
+            {
+                chipRegister.setYMF262Register(0, 1, d, e, model);
+            }
+            else
+            {
+                chipRegister.setYMF278BRegister(0, 1, d, e, model);
+            }
             //Console.WriteLine("fm2out:{0:x02}:{1:x02}:", d, e);
         }
 
@@ -3236,7 +3252,15 @@ namespace MDPlayer.Driver.MoonDriver
             //ld  a, e
             //out	(MOON_WDAT),a
             //ret
-            chipRegister.setYMF278BRegister(0, 2, d, e, model);
+            if (isOPL3)
+            {
+                //chipRegister.setYMF262Register(0, 2, d, e, model);
+            }
+            else
+            {
+                chipRegister.setYMF278BRegister(0, 2, d, e, model);
+            }
+
             backDat = e;
             //Console.WriteLine("wave out:{0:x02}:{1:x02}:", d, e);
         }

@@ -2653,27 +2653,59 @@ namespace MDPlayer
 
                 MasterVolume = setting.balance.MasterVolume;
 
-                MDSound.ymf278b ymf278b = new MDSound.ymf278b();
+                byte sg = vgmBuf[7];
 
-                chip = new MDSound.MDSound.Chip();
-                chip.type = MDSound.MDSound.enmInstrumentType.YMF278B;
-                chip.ID = 0;
-                chip.Instrument = ymf278b;
-                chip.Update = ymf278b.Update;
-                chip.Start = ymf278b.Start;
-                chip.Stop = ymf278b.Stop;
-                chip.Reset = ymf278b.Reset;
-                chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
-                chip.Volume = setting.balance.YMF278BVolume;
-                chip.Clock = 33868800;// 4000000;
-                chip.Option = new object[] { Common.GetApplicationFolder() };
+                bool isOPL3 = false;
+                if ((sg & 2) != 0) isOPL3 = true;
 
-                hiyorimiDeviceFlag |= 0x2;
+                if (isOPL3)
+                {
+                    MDSound.ymf262 ymf262 = new ymf262();
 
-                chipLED.PriOPL4 = 1;
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YMF262;
+                    chip.ID = 0;
+                    chip.Instrument = ymf262;
+                    chip.Update = ymf262.Update;
+                    chip.Start = ymf262.Start;
+                    chip.Stop = ymf262.Stop;
+                    chip.Reset = ymf262.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YMF262Volume;
+                    chip.Clock = 14318180;
+                    chip.Option = new object[] { Common.GetApplicationFolder() };
 
-                lstChips.Add(chip);
-                useChip.Add(EnmChip.YMF278B);
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    chipLED.PriOPL3 = 1;
+
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YMF262);
+                }
+                else
+                {
+                    MDSound.ymf278b ymf278b = new MDSound.ymf278b();
+
+                    chip = new MDSound.MDSound.Chip();
+                    chip.type = MDSound.MDSound.enmInstrumentType.YMF278B;
+                    chip.ID = 0;
+                    chip.Instrument = ymf278b;
+                    chip.Update = ymf278b.Update;
+                    chip.Start = ymf278b.Start;
+                    chip.Stop = ymf278b.Stop;
+                    chip.Reset = ymf278b.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YMF278BVolume;
+                    chip.Clock = 33868800;
+                    chip.Option = new object[] { Common.GetApplicationFolder() };
+
+                    hiyorimiDeviceFlag |= 0x2;
+
+                    chipLED.PriOPL4 = 1;
+
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YMF278B);
+                }
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -2685,11 +2717,15 @@ namespace MDPlayer
 
                 chipRegister.initChipRegister(lstChips.ToArray());
 
-                SetYMF278BVolume(true, setting.balance.YMF278BVolume);
+                if (isOPL3) SetYMF262Volume(true, setting.balance.YMF262Volume);
+                else SetYMF278BVolume(true, setting.balance.YMF278BVolume);
                 //chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, enmModel.RealModel);
+
+                ((MDPlayer.Driver.MoonDriver.MoonDriver)driverVirtual).isOPL3 = isOPL3;
+                ((MDPlayer.Driver.MoonDriver.MoonDriver)driverReal).isOPL3 = isOPL3;
 
                 driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.Unuse }
                     , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
