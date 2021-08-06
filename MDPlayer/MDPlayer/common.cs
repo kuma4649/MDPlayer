@@ -669,6 +669,7 @@ namespace MDPlayer
         , YMF262 = 9
         , YM2413 = 10
         , YM3526 = 11
+        , K051649 = 13
         , SPPCM = 42
         , C140 = 43
         , SEGAPCM = 44

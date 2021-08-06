@@ -75,6 +75,7 @@ namespace MDPlayer
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scK051649 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3526 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM3812 = new RSoundChip[2] { null, null };
@@ -1061,6 +1062,17 @@ namespace MDPlayer
                     Audio.setting.AY8910Type[i].UseReal = new bool[1];
                 }
             }
+            if (Audio.setting.K051649Type == null || Audio.setting.K051649Type.Length < 2)
+            {
+                Audio.setting.K051649Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
+                for (int i = 0; i < 2; i++)
+                {
+                    Audio.setting.K051649Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                    Audio.setting.K051649Type[i].UseEmu = new bool[1];
+                    Audio.setting.K051649Type[i].UseEmu[0] = true;
+                    Audio.setting.K051649Type[i].UseReal = new bool[1];
+                }
+            }
             if (Audio.setting.C140Type == null || Audio.setting.C140Type.Length < 2)
             {
                 Audio.setting.C140Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
@@ -1324,6 +1336,8 @@ namespace MDPlayer
                     if (scYM2203[i] != null) scYM2203[i].init();
                     scAY8910[i] = realChip.GetRealChip(Audio.setting.AY8910Type[i]);
                     if (scAY8910[i] != null) scAY8910[i].init();
+                    scK051649[i] = realChip.GetRealChip(Audio.setting.K051649Type[i]);
+                    if (scK051649[i] != null) scK051649[i].init();
                     scYM2413[i] = realChip.GetRealChip(Audio.setting.YM2413Type[i]);
                     if (scYM2413[i] != null) scYM2413[i].init();
                     scYM3526[i] = realChip.GetRealChip(Audio.setting.YM3526Type[i]);
@@ -1366,6 +1380,7 @@ namespace MDPlayer
                 , scC140
                 , scSEGAPCM
                 , scAY8910
+                , scK051649
                 );
             chipRegister.initChipRegister(null);
 

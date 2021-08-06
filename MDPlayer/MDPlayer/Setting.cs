@@ -5231,6 +5231,13 @@ namespace MDPlayer
                 for (int i = 0; i < this.AY8910Type.Length; i++) setting.AY8910Type[i] = this.AY8910Type[i].Copy();
             }
 
+            setting.K051649Type = null;
+            if (this.K051649Type != null)
+            {
+                setting.K051649Type = new ChipType2[this.K051649Type.Length];
+                for (int i = 0; i < this.K051649Type.Length; i++) setting.K051649Type[i] = this.K051649Type[i].Copy();
+            }
+
             setting.YM2151Type = null;
             if (this.YM2151Type != null)
             {

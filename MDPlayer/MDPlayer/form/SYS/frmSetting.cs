@@ -181,6 +181,11 @@ namespace MDPlayer.form
                     , ucSI.cmbYM3812P_SCCI, ucSI.rbYM3812P_SCCI
                     , ucSI.cmbYM3812S_SCCI, ucSI.rbYM3812S_SCCI
                     );
+
+                SetRealCombo(EnmRealChipType.K051649
+                    , ucSI.cmbK051649P_Real, ucSI.rbK051649P_Real
+                    , ucSI.cmbK051649S_Real, ucSI.rbK051649S_Real
+                    );
             }
 
             copyFromMIDIoutListA(dgvMIDIoutListB);
@@ -404,6 +409,17 @@ namespace MDPlayer.form
                     , ucSI.rbAY8910S_Emu
                     , ucSI.rbAY8910S_Real
                     , ucSI.cmbAY8910S_Real);
+
+                SetRealParam(setting.K051649Type[0]
+                    , ucSI.rbK051649P_Silent
+                    , ucSI.rbK051649P_Emu
+                    , ucSI.rbK051649P_Real
+                    , ucSI.cmbK051649P_Real);
+                SetRealParam(setting.K051649Type[1]
+                    , ucSI.rbK051649S_Silent
+                    , ucSI.rbK051649S_Emu
+                    , ucSI.rbK051649S_Real
+                    , ucSI.cmbK051649S_Real);
 
                 SetRealParam(setting.YM2413Type[0]
                     , ucSI.rbYM2413P_Silent
@@ -1258,6 +1274,26 @@ namespace MDPlayer.form
                 , ucSI.rbAY8910S_Real
                 , ucSI.cmbAY8910S_Real
                 , ucSI.rbAY8910S_Emu
+                , null, null, null, null, null
+                );
+
+
+            setting.K051649Type = new Setting.ChipType2[2];
+            setting.K051649Type[0] = new Setting.ChipType2();
+            SetChipType2FromControls(
+                setting.K051649Type[0]
+                , ucSI.rbK051649P_Real
+                , ucSI.cmbK051649P_Real
+                , ucSI.rbK051649P_Emu
+                , null, null, null, null, null
+                );
+
+            setting.K051649Type[1] = new Setting.ChipType2();
+            SetChipType2FromControls(
+                setting.K051649Type[1]
+                , ucSI.rbK051649S_Real
+                , ucSI.cmbK051649S_Real
+                , ucSI.rbK051649S_Emu
                 , null, null, null, null, null
                 );
 

@@ -4840,8 +4840,11 @@ namespace MDPlayer.form
                 newInfo = "MDPlayer";
             }
 
-            this.Invoke((Action<string>)SetTitle,newInfo);
-
+            try
+            {
+                this.Invoke((Action<string>)SetTitle, newInfo);
+            }
+            catch { }
         }
 
         private void SetTitle(string newInfo)

@@ -35,6 +35,7 @@ namespace MDPlayer
         private Setting.ChipType2[] ctYMF278B = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctYMZ280B = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctAY8910 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctK051649 = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctYM2413 = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctHuC6280 = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctY8950 = new Setting.ChipType2[2] { null, null };
@@ -48,6 +49,7 @@ namespace MDPlayer
         private RSoundChip[] scYM2151 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
         private RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scK051649 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2413 = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2610EA = new RSoundChip[2] { null, null };
@@ -434,6 +436,7 @@ namespace MDPlayer
             , RSoundChip[] scC140
             , RSoundChip[] scSEGAPCM
             , RSoundChip[] scAY8910
+            , RSoundChip[] scK051649
             )
         {
             this.setting = setting;
@@ -456,6 +459,7 @@ namespace MDPlayer
             this.scC140 = scC140;
             this.scSEGAPCM = scSEGAPCM;
             this.scAY8910 = scAY8910;
+            this.scK051649 = scK051649;
 
             this.ctYM2612 = new Setting.ChipType2[] { setting.YM2612Type[0], setting.YM2612Type[1] };
             this.ctSN76489 = new Setting.ChipType2[] { setting.SN76489Type[0], setting.SN76489Type[1] };
@@ -463,6 +467,7 @@ namespace MDPlayer
             this.ctYM2151 = new Setting.ChipType2[] { setting.YM2151Type[0], setting.YM2151Type[1] };
             this.ctYM2203 = new Setting.ChipType2[] { setting.YM2203Type[0], setting.YM2203Type[1] };
             this.ctAY8910 = new Setting.ChipType2[] { setting.AY8910Type[0], setting.AY8910Type[1] };
+            this.ctK051649 = new Setting.ChipType2[] { setting.K051649Type[0], setting.K051649Type[1] };
             this.ctYM2413 = new Setting.ChipType2[] { setting.YM2413Type[0], setting.YM2413Type[1] };
             this.ctYM2610 = new Setting.ChipType2[] { setting.YM2610Type[0], setting.YM2610Type[1] };
             this.ctYMF262 = new Setting.ChipType2[] { setting.YMF262Type[0], setting.YMF262Type[1] };
@@ -4519,7 +4524,13 @@ namespace MDPlayer
                         data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
                     }
                 }
-                mds.WriteK051649(chipid, (int)adr, data);
+                if (!ctK051649[chipid].UseReal[0])
+                    mds.WriteK051649(chipid, (int)adr, data);
+            }
+            else
+            {
+                if (scK051649[chipid] == null) return;
+                scK051649[chipid].setRegister((int)adr , data);
             }
         }
 

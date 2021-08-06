@@ -138,12 +138,12 @@ namespace MDPlayer.Driver.MoonDriver
 
         public override void oneFrameProc()
         {
-            if (model == EnmModel.RealModel)
-            {
-                Stopped = true;
-                vgmCurLoop = int.MaxValue;
-                return;
-            }
+            //if (model == EnmModel.RealModel)
+            //{
+            //    Stopped = true;
+            //    vgmCurLoop = int.MaxValue;
+            //    return;
+            //}
 
             try
             {
