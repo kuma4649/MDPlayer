@@ -4530,9 +4530,41 @@ namespace MDPlayer
             else
             {
                 if (scK051649[chipid] == null) return;
-                scK051649[chipid].setRegister((int)adr , data);
+                //scK051649[chipid].setRegister((int)adr, data);
+                if ((adr & 1) == 0)
+                {
+                    sccR_port = (adr >> 1);
+                    sccR_offset = data;
+                }
+                else
+                {
+                    sccR_dat = data;
+
+                    switch (sccR_port)
+                    {
+                        case 0x00:
+                            sccR_offset += 0x00;
+                            break;
+                        case 0x01:
+                            sccR_offset += 0x80;
+                            break;
+                        case 0x02:
+                            sccR_offset += 0x8a;
+                            break;
+                        case 0x03:
+                            sccR_offset += 0x8f;
+                            break;
+                    }
+
+                    scK051649[chipid].setRegister(
+                        (int)((uint)setting.Debug_SCCbaseAddress | sccR_offset)
+                        , (int)sccR_dat);
+                }
             }
         }
+        private uint sccR_port;
+        private uint sccR_offset;
+        private uint sccR_dat;
 
         public void writeK053260(byte chipid, uint adr, byte data, EnmModel model)
         {

@@ -605,6 +605,20 @@ namespace MDPlayer
             }
         }
 
+        private int _Debug_SCCbaseAddress = 0x9800;
+        public int Debug_SCCbaseAddress
+        {
+            get
+            {
+                return _Debug_SCCbaseAddress;
+            }
+
+            set
+            {
+                _Debug_SCCbaseAddress = value;
+            }
+        }
+
         private Other _other = new Other();
         public Other other
         {

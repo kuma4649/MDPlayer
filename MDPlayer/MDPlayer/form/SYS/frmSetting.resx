@@ -11057,6 +11057,36 @@
   <data name="&gt;&gt;tpOther.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <data name="label67.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label67.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label67.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 97</value>
+  </data>
+  <data name="label67.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 12</value>
+  </data>
+  <data name="label67.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="label67.Text" xml:space="preserve">
+    <value>SCC base address     $</value>
+  </data>
+  <data name="&gt;&gt;label67.Name" xml:space="preserve">
+    <value>label67</value>
+  </data>
+  <data name="&gt;&gt;label67.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label67.Parent" xml:space="preserve">
+    <value>tpOmake</value>
+  </data>
+  <data name="&gt;&gt;label67.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -11085,7 +11115,7 @@
     <value>tpOmake</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btVST.Location" type="System.Drawing.Point, System.Drawing">
     <value>417, 54</value>
@@ -11112,7 +11142,34 @@
     <value>tpOmake</value>
   </data>
   <data name="&gt;&gt;btVST.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="tbSCCbaseAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 94</value>
+  </data>
+  <data name="tbSCCbaseAddress.MaxLength" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="tbSCCbaseAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 19</value>
+  </data>
+  <data name="tbSCCbaseAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="tbSCCbaseAddress.Text" xml:space="preserve">
+    <value>9800</value>
+  </data>
+  <data name="&gt;&gt;tbSCCbaseAddress.Name" xml:space="preserve">
+    <value>tbSCCbaseAddress</value>
+  </data>
+  <data name="&gt;&gt;tbSCCbaseAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbSCCbaseAddress.Parent" xml:space="preserve">
+    <value>tpOmake</value>
+  </data>
+  <data name="&gt;&gt;tbSCCbaseAddress.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="tbVST.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 56</value>
@@ -11136,7 +11193,7 @@
     <value>tpOmake</value>
   </data>
   <data name="&gt;&gt;tbVST.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="cbDispFrameCounter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -11187,7 +11244,7 @@
     <value>tpOmake</value>
   </data>
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="tpOmake.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 40</value>

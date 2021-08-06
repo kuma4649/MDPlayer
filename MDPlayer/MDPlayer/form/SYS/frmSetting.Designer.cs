@@ -467,8 +467,10 @@ namespace MDPlayer.form
             this.cbAutoOpen = new System.Windows.Forms.CheckBox();
             this.cbUseLoopTimes = new System.Windows.Forms.CheckBox();
             this.tpOmake = new System.Windows.Forms.TabPage();
+            this.label67 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.btVST = new System.Windows.Forms.Button();
+            this.tbSCCbaseAddress = new System.Windows.Forms.TextBox();
             this.tbVST = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbDispFrameCounter = new System.Windows.Forms.CheckBox();
@@ -3843,13 +3845,20 @@ namespace MDPlayer.form
             // 
             // tpOmake
             // 
+            this.tpOmake.Controls.Add(this.label67);
             this.tpOmake.Controls.Add(this.label14);
             this.tpOmake.Controls.Add(this.btVST);
+            this.tpOmake.Controls.Add(this.tbSCCbaseAddress);
             this.tpOmake.Controls.Add(this.tbVST);
             this.tpOmake.Controls.Add(this.groupBox5);
             resources.ApplyResources(this.tpOmake, "tpOmake");
             this.tpOmake.Name = "tpOmake";
             this.tpOmake.UseVisualStyleBackColor = true;
+            // 
+            // label67
+            // 
+            resources.ApplyResources(this.label67, "label67");
+            this.label67.Name = "label67";
             // 
             // label14
             // 
@@ -3862,6 +3871,11 @@ namespace MDPlayer.form
             this.btVST.Name = "btVST";
             this.btVST.UseVisualStyleBackColor = true;
             this.btVST.Click += new System.EventHandler(this.btVST_Click);
+            // 
+            // tbSCCbaseAddress
+            // 
+            resources.ApplyResources(this.tbSCCbaseAddress, "tbSCCbaseAddress");
+            this.tbSCCbaseAddress.Name = "tbSCCbaseAddress";
             // 
             // tbVST
             // 
@@ -4564,5 +4578,7 @@ namespace MDPlayer.form
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.ComboBox cmbSampleRate;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.TextBox tbSCCbaseAddress;
     }
 }

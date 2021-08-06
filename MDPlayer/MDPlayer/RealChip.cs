@@ -305,6 +305,17 @@ namespace MDPlayer
                             ct.realChipInfo[0].InterfaceName = iInfo.cInterfaceName;
                             ret.Add(ct);
                         }
+                        else if (realChipType2 == EnmRealChipType.K051649 && (t == 12 || t == 13))
+                        {
+                            Setting.ChipType2 ct = new Setting.ChipType2();
+                            ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                            ct.realChipInfo[0].SoundLocation = 0;
+                            ct.realChipInfo[0].BusID = i;
+                            ct.realChipInfo[0].SoundChip = s;
+                            ct.realChipInfo[0].ChipName = sc.getSoundChipInfo().cSoundChipName;
+                            ct.realChipInfo[0].InterfaceName = iInfo.cInterfaceName;
+                            ret.Add(ct);
+                        }
                         else
                         {
                             //互換指定をチェック

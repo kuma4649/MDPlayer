@@ -521,6 +521,7 @@ namespace MDPlayer.form
 
             cbDispFrameCounter.Checked = setting.Debug_DispFrameCounter;
             cbHiyorimiMode.Checked = setting.HiyorimiMode;
+            tbSCCbaseAddress.Text = string.Format("{0:X04}", setting.Debug_SCCbaseAddress);
 
             cbUseLoopTimes.Checked = setting.other.UseLoopTimes;
             tbLoopTimes.Enabled = cbUseLoopTimes.Checked;
@@ -1494,9 +1495,15 @@ namespace MDPlayer.form
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
             setting.other.ExAll = cbExALL.Checked;
             setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
-
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
-
+            try
+            {
+                setting.Debug_SCCbaseAddress = Convert.ToInt32(tbSCCbaseAddress.Text, 16);
+            }
+            catch
+            {
+                setting.Debug_SCCbaseAddress = 0x9800;
+            }
 
             setting.HiyorimiMode = cbHiyorimiMode.Checked;
 
