@@ -114,8 +114,7 @@ namespace MDPlayer.form
 
         public void screenDrawParams()
         {
-            int tp = 0;
-            //int tp = parent.setting.K051649Type[0].UseReal[0] ? 1 : 0;
+            int tp = parent.setting.K051649Type[0].UseReal[0] ? 1 : 0;
 
             for (int c = 0; c < 5; c++)
             {
@@ -138,7 +137,7 @@ namespace MDPlayer.form
                 {
                     int fx = i % 8;
                     int fy = i / 8;
-                    DrawBuff.font4HexByte(frameBuffer, x * 4 * 26 + 4 * 10 + fx * 8, y * 8 * 6 + 8 * 7 + fy * 8, tp, ref oyc.inst[i], nyc.inst[i]);
+                    DrawBuff.font4HexByte(frameBuffer, x * 4 * 26 + 4 * 10 + fx * 8, y * 8 * 6 + 8 * 7 + fy * 8, 0, ref oyc.inst[i], nyc.inst[i]);
                 }
             }
         }

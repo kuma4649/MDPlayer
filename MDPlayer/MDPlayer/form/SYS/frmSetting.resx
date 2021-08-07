@@ -11075,6 +11075,9 @@
   <data name="label67.Text" xml:space="preserve">
     <value>SCC base address     $</value>
   </data>
+  <data name="label67.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label67.Name" xml:space="preserve">
     <value>label67</value>
   </data>
@@ -11158,6 +11161,9 @@
   </data>
   <data name="tbSCCbaseAddress.Text" xml:space="preserve">
     <value>9800</value>
+  </data>
+  <data name="tbSCCbaseAddress.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;tbSCCbaseAddress.Name" xml:space="preserve">
     <value>tbSCCbaseAddress</value>

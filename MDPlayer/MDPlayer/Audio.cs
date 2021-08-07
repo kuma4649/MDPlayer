@@ -6603,6 +6603,8 @@ namespace MDPlayer
             chipRegister.softResetYM3812(1, model);
             chipRegister.softResetYMF262(0, model);
             chipRegister.softResetYMF262(1, model);
+            chipRegister.softResetK051649(0, model);
+            chipRegister.softResetK051649(1, model);
             chipRegister.softResetMIDI(0, model);
             chipRegister.softResetMIDI(1, model);
 
@@ -7128,7 +7130,7 @@ namespace MDPlayer
 
         public static K051649.k051649_state GetK051649Register(int chipID)
         {
-            return mds.ReadK051649Status(chipID);
+            return chipRegister.scc_k051649.GetK051649_State((byte)chipID);//  mds.ReadK051649Status(chipID);
         }
 
         public static MIDIParam GetMIDIInfos(int chipID)

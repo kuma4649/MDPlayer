@@ -380,6 +380,10 @@ namespace MDPlayer
             }
         };
 
+        public MDSound.K051649 scc_k051649 = new K051649();
+        private uint sccR_port;
+        private uint sccR_offset;
+        private uint sccR_dat;
         public byte[] K051649tKeyOnOff = new byte[] { 0, 0 };
         public bool[][] maskChK051649 = new bool[][]
         {
@@ -489,6 +493,9 @@ namespace MDPlayer
             midiExport = new MIDIExport(setting);
             midiExport.fmRegisterYM2612 = fmRegisterYM2612;
             midiExport.fmRegisterYM2151 = fmRegisterYM2151;
+
+            scc_k051649.Start(0, 100, 200);
+            scc_k051649.Start(1, 100, 200);
         }
 
 
@@ -4510,27 +4517,38 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriK051649 = 2;
             else chipLED.SecK051649 = 2;
 
+
+            if ((adr & 1) != 0)
+            {
+                if ((adr >> 1) == 3)//keyonoff
+                {
+                    K051649tKeyOnOff[chipid] = data;
+                    data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
+                    data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
+                    data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
+                    data &= (byte)(maskChK051649[chipid][3] ? 0xf7 : 0xff);
+                    data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
+                }
+            }
+
             if (model == EnmModel.VirtualModel)
             {
-                if ((adr & 1) != 0)
-                {
-                    if ((adr >> 1) == 3)//keyonoff
-                    {
-                        K051649tKeyOnOff[chipid] = data;
-                        data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
-                        data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
-                        data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
-                        data &= (byte)(maskChK051649[chipid][3] ? 0xf7 : 0xff);
-                        data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
-                    }
-                }
                 if (!ctK051649[chipid].UseReal[0])
+                {
                     mds.WriteK051649(chipid, (int)adr, data);
+
+                    //レジスタのデータを退避
+                    scc_k051649.Write(chipid, 0, (int)adr, data);
+                }
             }
             else
             {
                 if (scK051649[chipid] == null) return;
-                //scK051649[chipid].setRegister((int)adr, data);
+
+                //レジスタのデータを退避
+                scc_k051649.Write(chipid, 0, (int)adr, data);
+
+
                 if ((adr & 1) == 0)
                 {
                     sccR_port = (adr >> 1);
@@ -4562,9 +4580,21 @@ namespace MDPlayer
                 }
             }
         }
-        private uint sccR_port;
-        private uint sccR_offset;
-        private uint sccR_dat;
+
+        public void softResetK051649(int chipID, EnmModel model)
+        {
+            int i;
+
+            // 全チャネルボリュームzero
+            for (i = 0; i < 5; i++)
+            {
+                writeK051649((byte)chipID, (uint)((0x00 << 1) + 0), (byte)i, model);
+                writeK051649((byte)chipID, (uint)((0x02 << 1) + 1), 0x00, model);
+                writeK051649((byte)chipID, (uint)((0x00 << 1) + 0), (byte)i, model);
+                writeK051649((byte)chipID, (uint)((0x03 << 1) + 1), 0x00, model);
+            }
+
+        }
 
         public void writeK053260(byte chipid, uint adr, byte data, EnmModel model)
         {
