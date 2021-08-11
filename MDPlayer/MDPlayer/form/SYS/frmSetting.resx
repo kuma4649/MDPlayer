@@ -10268,11 +10268,89 @@
   <data name="&gt;&gt;tpPlayList.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <data name="btnSearchPath.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnSearchPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>411, 127</value>
+  </data>
+  <data name="btnSearchPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="btnSearchPath.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="btnSearchPath.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;btnSearchPath.Name" xml:space="preserve">
+    <value>btnSearchPath</value>
+  </data>
+  <data name="&gt;&gt;btnSearchPath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSearchPath.Parent" xml:space="preserve">
+    <value>tpOther</value>
+  </data>
+  <data name="&gt;&gt;btnSearchPath.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tbSearchPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 129</value>
+  </data>
+  <data name="tbSearchPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 19</value>
+  </data>
+  <data name="tbSearchPath.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;tbSearchPath.Name" xml:space="preserve">
+    <value>tbSearchPath</value>
+  </data>
+  <data name="&gt;&gt;tbSearchPath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbSearchPath.Parent" xml:space="preserve">
+    <value>tpOther</value>
+  </data>
+  <data name="&gt;&gt;tbSearchPath.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label68.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label68.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label68.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 132</value>
+  </data>
+  <data name="label68.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 12</value>
+  </data>
+  <data name="label68.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="label68.Text" xml:space="preserve">
+    <value>Search paths on additional file</value>
+  </data>
+  <data name="&gt;&gt;label68.Name" xml:space="preserve">
+    <value>label68</value>
+  </data>
+  <data name="&gt;&gt;label68.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label68.Parent" xml:space="preserve">
+    <value>tpOther</value>
+  </data>
+  <data name="&gt;&gt;label68.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="cbNonRenderingForPause.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbNonRenderingForPause.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 131</value>
+    <value>240, 171</value>
   </data>
   <data name="cbNonRenderingForPause.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 16</value>
@@ -10293,13 +10371,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbNonRenderingForPause.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="cbWavSwitch.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbWavSwitch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 202</value>
+    <value>14, 242</value>
   </data>
   <data name="cbWavSwitch.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 16</value>
@@ -10320,7 +10398,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbWavSwitch.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="cbUseGetInst.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10347,7 +10425,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbUseGetInst.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="cmbInstFormat.Items" xml:space="preserve">
     <value>FMP7</value>
@@ -10464,13 +10542,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="cbDumpSwitch.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbDumpSwitch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 152</value>
+    <value>14, 192</value>
   </data>
   <data name="cbDumpSwitch.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 16</value>
@@ -10491,7 +10569,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbDumpSwitch.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="btnWavPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>404, 16</value>
@@ -10566,7 +10644,7 @@
     <value>2</value>
   </data>
   <data name="gbWav.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 205</value>
+    <value>7, 245</value>
   </data>
   <data name="gbWav.Size" type="System.Drawing.Size, System.Drawing">
     <value>433, 45</value>
@@ -10584,7 +10662,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;gbWav.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="btnDumpPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>404, 16</value>
@@ -10659,7 +10737,7 @@
     <value>2</value>
   </data>
   <data name="gbDump.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 154</value>
+    <value>7, 194</value>
   </data>
   <data name="gbDump.Size" type="System.Drawing.Size, System.Drawing">
     <value>433, 45</value>
@@ -10677,13 +10755,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;gbDump.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="label30.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 132</value>
+    <value>136, 172</value>
   </data>
   <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 12</value>
@@ -10704,10 +10782,10 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="tbScreenFrameRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 129</value>
+    <value>80, 169</value>
   </data>
   <data name="tbScreenFrameRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 19</value>
@@ -10725,13 +10803,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;tbScreenFrameRate.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="label29.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label29.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 132</value>
+    <value>5, 172</value>
   </data>
   <data name="label29.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 12</value>
@@ -10752,7 +10830,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="lblLoopTimes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10779,7 +10857,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;lblLoopTimes.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="btnDataPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>411, 102</value>
@@ -10803,7 +10881,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;btnDataPath.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="tbLoopTimes.Location" type="System.Drawing.Point, System.Drawing">
     <value>282, 5</value>
@@ -10824,7 +10902,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;tbLoopTimes.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="tbDataPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 104</value>
@@ -10845,7 +10923,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;tbDataPath.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="label19.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10872,13 +10950,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="btnResetPosition.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="btnResetPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 321</value>
+    <value>129, 361</value>
   </data>
   <data name="btnResetPosition.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 23</value>
@@ -10899,13 +10977,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;btnResetPosition.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="btnOpenSettingFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="btnOpenSettingFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 321</value>
+    <value>277, 361</value>
   </data>
   <data name="btnOpenSettingFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 23</value>
@@ -10926,13 +11004,13 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;btnOpenSettingFolder.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="cbExALL.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbExALL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 298</value>
+    <value>14, 338</value>
   </data>
   <data name="cbExALL.Size" type="System.Drawing.Size, System.Drawing">
     <value>207, 16</value>
@@ -10953,10 +11031,10 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbExALL.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="cbInitAlways.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 256</value>
+    <value>14, 296</value>
   </data>
   <data name="cbInitAlways.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 39</value>
@@ -10977,7 +11055,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbInitAlways.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="cbAutoOpen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -11004,7 +11082,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbAutoOpen.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
   </data>
   <data name="cbUseLoopTimes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -11031,7 +11109,7 @@
     <value>tpOther</value>
   </data>
   <data name="&gt;&gt;cbUseLoopTimes.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>23</value>
   </data>
   <data name="tpOther.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 40</value>

@@ -2089,6 +2089,8 @@ namespace MDPlayer
                 ym2608 = new ym2608();
                 ym2610 ym2610 = null;
                 ym2610 = new ym2610();
+                ym2151 ym2151 = null;
+                ym2151 = new ym2151();
                 Func<string, Stream> fn = Common.GetOPNARyhthmStream;
 
                 if (useChipFromMub[0] != EnmChip.Unuse)
@@ -2167,6 +2169,25 @@ namespace MDPlayer
                     chip.Option = null;
                     lstChips.Add(chip);
                     useChip.Add(EnmChip.S_YM2610);
+                }
+
+                if (useChipFromMub[4] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 0;
+                    chipLED.PriOPM = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
+                    chip.Instrument = ym2151;
+                    chip.Update = ym2151.Update;
+                    chip.Start = ym2151.Start;
+                    chip.Stop = ym2151.Stop;
+                    chip.Reset = ym2151.Reset;
+                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YM2151Volume;
+                    chip.Clock = Driver.MucomDotNET.OPMbaseclock;
+                    chip.Option = null;
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YM2151);
                 }
 
                 if (hiyorimiNecessary) hiyorimiNecessary = true;

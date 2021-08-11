@@ -530,6 +530,7 @@ namespace MDPlayer.form
             cbUseGetInst.Checked = setting.other.UseGetInst;
             cbUseGetInst_CheckedChanged(null, null);
             tbDataPath.Text = setting.other.DefaultDataPath;
+            tbSearchPath.Text = setting.FileSearchPathList;
             cmbInstFormat.SelectedIndex = (int)setting.other.InstFormat;
             tbScreenFrameRate.Text = setting.other.ScreenFrameRate.ToString();
             cbAutoOpen.Checked = setting.other.AutoOpen;
@@ -1475,6 +1476,7 @@ namespace MDPlayer.form
 
             setting.other.UseGetInst = cbUseGetInst.Checked;
             setting.other.DefaultDataPath = tbDataPath.Text;
+            setting.FileSearchPathList = tbSearchPath.Text;
             setting.other.InstFormat = (EnmInstFormat)cmbInstFormat.SelectedIndex;
             if (int.TryParse(tbScreenFrameRate.Text, out i))
             {
@@ -2112,6 +2114,21 @@ namespace MDPlayer.form
 
         }
 
+        private void btnSearchPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "フォルダーを指定してください。";
+
+
+            if (fbd.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            tbSearchPath.Text = fbd.SelectedPath;
+
+        }
+
         private void cbUseGetInst_CheckedChanged(object sender, EventArgs e)
         {
             lblInstFormat.Enabled = cbUseGetInst.Checked;
@@ -2661,6 +2678,7 @@ namespace MDPlayer.form
         {
 
         }
+
     }
 
 

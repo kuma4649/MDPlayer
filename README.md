@@ -421,6 +421,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
     ・欧場豪 さん  
     ・sgq1205 さん  
     ・千霧＠ぶっちぎりP(but80) さん  
+    ・ひぽぽ さん  
+    ・Ichiro Ota さん  
 
     ・Visual Studio Community 2015/2017  
     ・MinGW/msys  

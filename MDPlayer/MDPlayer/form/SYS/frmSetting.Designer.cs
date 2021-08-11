@@ -437,6 +437,9 @@ namespace MDPlayer.form
             this.label2 = new System.Windows.Forms.Label();
             this.cbEmptyPlayList = new System.Windows.Forms.CheckBox();
             this.tpOther = new System.Windows.Forms.TabPage();
+            this.btnSearchPath = new System.Windows.Forms.Button();
+            this.tbSearchPath = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
             this.cbNonRenderingForPause = new System.Windows.Forms.CheckBox();
             this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
@@ -3618,6 +3621,9 @@ namespace MDPlayer.form
             // 
             // tpOther
             // 
+            this.tpOther.Controls.Add(this.btnSearchPath);
+            this.tpOther.Controls.Add(this.tbSearchPath);
+            this.tpOther.Controls.Add(this.label68);
             this.tpOther.Controls.Add(this.cbNonRenderingForPause);
             this.tpOther.Controls.Add(this.cbWavSwitch);
             this.tpOther.Controls.Add(this.cbUseGetInst);
@@ -3642,6 +3648,23 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tpOther, "tpOther");
             this.tpOther.Name = "tpOther";
             this.tpOther.UseVisualStyleBackColor = true;
+            // 
+            // btnSearchPath
+            // 
+            resources.ApplyResources(this.btnSearchPath, "btnSearchPath");
+            this.btnSearchPath.Name = "btnSearchPath";
+            this.btnSearchPath.UseVisualStyleBackColor = true;
+            this.btnSearchPath.Click += new System.EventHandler(this.btnSearchPath_Click);
+            // 
+            // tbSearchPath
+            // 
+            resources.ApplyResources(this.tbSearchPath, "tbSearchPath");
+            this.tbSearchPath.Name = "tbSearchPath";
+            // 
+            // label68
+            // 
+            resources.ApplyResources(this.label68, "label68");
+            this.label68.Name = "label68";
             // 
             // cbNonRenderingForPause
             // 
@@ -4580,5 +4603,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.ComboBox cmbSampleRate;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.TextBox tbSCCbaseAddress;
+        private System.Windows.Forms.Button btnSearchPath;
+        private System.Windows.Forms.TextBox tbSearchPath;
+        private System.Windows.Forms.Label label68;
     }
 }

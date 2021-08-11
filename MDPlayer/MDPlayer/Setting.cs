@@ -5342,6 +5342,8 @@ namespace MDPlayer
                 for (int i = 0; i < this.SEGAPCMType.Length; i++) setting.SEGAPCMType[i] = this.SEGAPCMType[i].Copy();
             }
 
+            setting.FileSearchPathList = this.FileSearchPathList;
+
             //setting.YM2151SType = this.YM2151SType.Copy();
             //setting.YM2203SType = this.YM2203SType.Copy();
             //setting.YM2413SType = this.YM2413SType.Copy();

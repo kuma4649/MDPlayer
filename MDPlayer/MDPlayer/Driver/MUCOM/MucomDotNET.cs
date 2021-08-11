@@ -19,6 +19,7 @@ namespace MDPlayer.Driver
         public string PlayingFileName { get; internal set; }
         public const int OPNAbaseclock = 7987200;
         public const int OPNBbaseclock = 8000000;
+        public const int OPMbaseclock = 3579545;
         private enmMUCOMFileType mtype;
 
         public MucomDotNET(InstanceMarker mucomDotNET_Im)
@@ -57,6 +58,7 @@ namespace MDPlayer.Driver
         {
             List<EnmChip> ret = new List<EnmChip>();
             ret.Add(EnmChip.YM2608);
+            ret.Add(EnmChip.Unuse);
             ret.Add(EnmChip.Unuse);
             ret.Add(EnmChip.Unuse);
             ret.Add(EnmChip.Unuse);
@@ -129,6 +131,7 @@ namespace MDPlayer.Driver
             ret.Add(EnmChip.Unuse);
             ret.Add(EnmChip.Unuse);
             ret.Add(EnmChip.Unuse);
+            ret.Add(EnmChip.Unuse);
 
             if (chipsCount > 0)
             {
@@ -179,6 +182,19 @@ namespace MDPlayer.Driver
                         n += pageCount[3][i];
                     }
                     if (n > 0) ret[3] = EnmChip.S_YM2610;
+                }
+            }
+
+            if (chipsCount > 4)
+            {
+                if (partCount[4] > 0)
+                {
+                    uint n = 0;
+                    for (int i = 0; i < partCount[4]; i++)
+                    {
+                        n += pageCount[4][i];
+                    }
+                    if (n > 0) ret[4] = EnmChip.YM2151;
                 }
             }
 
@@ -392,6 +408,7 @@ namespace MDPlayer.Driver
             ca = new mucomChipAction(OPNA2Write, null, null); lca.Add(ca);
             ca = new mucomChipAction(OPNB1Write, WriteOPNB1PCMData, null); lca.Add(ca);
             ca = new mucomChipAction(OPNB2Write, WriteOPNB2PCMData, null); lca.Add(ca);
+            ca = new mucomChipAction(OPM1Write, null, null); lca.Add(ca);
             mucomDriver.Init(
                 lca,
                 ret
@@ -431,6 +448,7 @@ namespace MDPlayer.Driver
             ca = new mucomChipAction(OPNA2Write, null, null); lca.Add(ca);
             ca = new mucomChipAction(OPNB1Write, WriteOPNB1PCMData, null); lca.Add(ca);
             ca = new mucomChipAction(OPNB2Write, WriteOPNB2PCMData, null); lca.Add(ca);
+            ca = new mucomChipAction(OPM1Write, null, null); lca.Add(ca);
             mucomDriver.Init(
                 lca,
                 buf.ToArray()
@@ -486,6 +504,14 @@ namespace MDPlayer.Driver
             if (cd.port == -1) return;
 
             chipRegister.setYM2610Register(1, cd.port, cd.address, cd.data, model);
+        }
+        private void OPM1Write(ChipDatum cd)
+        {
+            if (cd == null) return;
+            if (cd.address == -1) return;
+            if (cd.data == -1) return;
+
+            chipRegister.setYM2151Register(0, cd.port, cd.address, cd.data, model, 0, 0);
         }
 
         private void WriteOPNB1PCMData(byte[] dat, int v, int v2)
