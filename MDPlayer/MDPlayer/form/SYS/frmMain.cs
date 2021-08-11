@@ -7428,9 +7428,9 @@ namespace MDPlayer.form
         private IEnumerable<string> GetFileSearcePathList(string srcFn)
         {
             yield return System.IO.Path.GetDirectoryName(srcFn);
+            string fileSearchPathList = this.setting.FileSearchPathList ?? "";
             IEnumerable<string> fileSerachPaths =
-                this.setting
-                    .FileSearchPathList
+                fileSearchPathList
                     .Split(';')
                     .Where(path => !String.IsNullOrEmpty(path));
             foreach (string path in fileSerachPaths) yield return path;
