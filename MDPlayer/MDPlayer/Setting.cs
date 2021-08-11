@@ -16,6 +16,12 @@ namespace MDPlayer
         {
         }
 
+        public string FileSearchPathList
+        {
+            get;
+            set;
+        }
+
         private OutputDevice _outputDevice = new OutputDevice();
         public OutputDevice outputDevice
         {
