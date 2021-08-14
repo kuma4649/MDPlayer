@@ -6684,13 +6684,16 @@ namespace MDPlayer
 
                 if (Stopped || Paused)
                 {
-                    if (setting.other.NonRenderingForPause)
+                    if (setting.other.NonRenderingForPause
+                        || driverVirtual is nsf
+                        )
                     {
                         for (int d = offset; d < offset + sampleCount; d++) buffer[d] = 0;
                         return sampleCount;
                     }
 
-                    return mds.Update(buffer, offset, sampleCount, null);
+                    int ret = mds.Update(buffer, offset, sampleCount, null);
+                    return ret;
                 }
 
                 if (driverVirtual is nsf)

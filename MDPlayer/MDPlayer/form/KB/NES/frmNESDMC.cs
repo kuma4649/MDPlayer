@@ -137,11 +137,14 @@ namespace MDPlayer.form
             newParam.triChannel.note = (reg2[step + 0] & 0x7f) == 0 ? -1 : note;
             if ((reg2[step + 0] & 0x80) == 0)
             {
-                //if ((reg2[13] & 0x4) == 0)
-                if ((reg2[step + 1] & 0x4) == 0)
+                if ((reg2[step + 13] & 0x04) == 0)
+                    //if ((reg2[step + 1] & 0x4) == 0)
                     newParam.triChannel.note = -1;
             }
-            newParam.triChannel.volume = newParam.triChannel.note == -1 ? 0 : 19;
+
+            newParam.dmcChannel.volumeR = (reg2[step + 9] & 0x7f); //Load counter 
+
+            newParam.triChannel.volume = newParam.triChannel.note <0 ? 0 : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
             newParam.triChannel.dda = (reg2[step + 0] & 0x80) != 0;//LengthCounterHalt
             newParam.triChannel.nfrq = (reg2[step + 0] & 0x7f);// linear counter load (R) 
             newParam.triChannel.pantp = (reg2[step + 3] & 0xf8) >> 3;//Length counter load
@@ -158,7 +161,6 @@ namespace MDPlayer.form
             newParam.dmcChannel.dda = (reg2[step + 8] & 0x80) != 0; //IRQ enable
             newParam.dmcChannel.noise = (reg2[step + 8] & 0x40) != 0; //loop 
             newParam.dmcChannel.volumeL = (reg2[step + 8] & 0x0f); //frequency
-            newParam.dmcChannel.volumeR = (reg2[step + 9] & 0x7f); //Load counter 
             newParam.dmcChannel.nfrq = reg2[step + 10]; //Sample address
             newParam.dmcChannel.pantp = reg2[step + 11]; //Sample length
             newParam.dmcChannel.volume = ((reg2[step + 1] & 0x10) != 0) ? 19 : 0;
