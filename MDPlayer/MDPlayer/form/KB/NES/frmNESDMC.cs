@@ -156,14 +156,22 @@ namespace MDPlayer.form
             newParam.noiseChannel.volumeR = reg2[step + 6] & 0x0f; //noise period 
             newParam.noiseChannel.nfrq = (reg2[step + 7] & 0xf8) >> 3; //Length counter load 
                                                                 //newParam.noiseChannel.volume = ((reg2[1] & 0x8) != 0) ? newParam.noiseChannel.volume : 0;
-            newParam.noiseChannel.volume = ((reg2[step + 1] & 0x8) != 0) ? ((reg2[step + 4] & 0x10) != 0 ? newParam.noiseChannel.volume : 19) : 0;
+            newParam.noiseChannel.volume = 
+                ((reg2[step + 13] & 0x8) != 0) 
+                ? ((reg2[step + 4] & 0x10) != 0 
+                    ? newParam.noiseChannel.volume 
+                    : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9)) 
+                : 0;
 
             newParam.dmcChannel.dda = (reg2[step + 8] & 0x80) != 0; //IRQ enable
             newParam.dmcChannel.noise = (reg2[step + 8] & 0x40) != 0; //loop 
             newParam.dmcChannel.volumeL = (reg2[step + 8] & 0x0f); //frequency
             newParam.dmcChannel.nfrq = reg2[step + 10]; //Sample address
             newParam.dmcChannel.pantp = reg2[step + 11]; //Sample length
-            newParam.dmcChannel.volume = ((reg2[step + 1] & 0x10) != 0) ? 19 : 0;
+            newParam.dmcChannel.volume = 
+                ((reg2[step + 13] & 0x10) == 0) 
+                ? 0 
+                : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
         }
 
         public void screenDrawParams()

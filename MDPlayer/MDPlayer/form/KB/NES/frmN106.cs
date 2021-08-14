@@ -178,7 +178,7 @@ namespace MDPlayer.form
                 nyc.note = (nyc.volumeL == 0 || !nyc.bit[0]) ? -1 : v;
 
                 nyc.bank = info[ch].wavelen & 127;
-                nyc.bank = nyc.bank < 0 ? 0 : nyc.bank;
+                nyc.bank = nyc.bank <= 0 ? (info[ch].wavelen > 127 ? 127 : 0) : nyc.bank;
                 if (nyc.aryWave16bit == null) nyc.aryWave16bit = new short[280];
                 for (int i = 0; i < 280; i++)
                 {
