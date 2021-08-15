@@ -9404,22 +9404,29 @@ namespace MDPlayer.form
 
         private void RedrawButton(Button button, int zoom, Bitmap image)
         {
-            const int size = 16;
-            if (button.Size.Width != size * zoom) button.Size = new Size(size * zoom, size * zoom);
-
-            Bitmap canvas;
-            if (button.BackgroundImage != null && button.BackgroundImage.Width == size * zoom)
-                canvas = new Bitmap(button.BackgroundImage);
-            else
-                canvas = new Bitmap(button.Width, button.Height);
-            using (Graphics g = Graphics.FromImage(canvas))
+            try
             {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                g.Clear(Color.Black);
-                g.DrawImage(image, 0, 0, size * zoom, size * zoom);
-            }
+                const int size = 16;
+                if (button.Size.Width != size * zoom) button.Size = new Size(size * zoom, size * zoom);
 
-            button.BackgroundImage = canvas;
+                Bitmap canvas;
+                if (button.BackgroundImage != null && button.BackgroundImage.Width == size * zoom)
+                    canvas = new Bitmap(button.BackgroundImage);
+                else
+                    canvas = new Bitmap(button.Width, button.Height);
+                using (Graphics g = Graphics.FromImage(canvas))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    g.Clear(Color.Black);
+                    g.DrawImage(image, 0, 0, size * zoom, size * zoom);
+                }
+
+                button.BackgroundImage = canvas;
+            }
+            catch
+            {
+                ;
+            }
         }
 
         private void opeButtonSetting_Click(object sender, EventArgs e)

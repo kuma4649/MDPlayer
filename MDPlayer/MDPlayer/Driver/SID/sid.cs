@@ -121,7 +121,11 @@ namespace MDPlayer.Driver.SID
             chipRegister.SID = this;
             m_engine.fastForward(100);
             m_engine.play(b, length);
-            for (int i = 0; i < length/2; i++) oneFrameProc();
+            for (int i = 0; i < length / 2; i++)
+            {
+                oneFrameProc();
+                visWB.Enq(b[i * 2 + 0], b[i * 2 + 1]);
+            }
 
             return length;
         }
@@ -203,7 +207,11 @@ namespace MDPlayer.Driver.SID
 
         }
 
-
+        public void visWaveBufferCopy(short[][] dest)
+        {
+            visWB.Copy(dest);
+        }
+        MDSound.visWaveBuffer visWB = new MDSound.visWaveBuffer();
 
         public uint[][] GetRegisterFromSid()
         {

@@ -1368,7 +1368,7 @@ namespace MDPlayer
             }
         }
 
-        public byte[] getNESRegister(int chipID, EnmModel model)
+        public byte[] getNESRegisterAPU(int chipID, EnmModel model)
         {
             if (chipID == 0) chipLED.PriNES = 2;
             else chipLED.SecNES = 2;
@@ -1377,7 +1377,28 @@ namespace MDPlayer
             {
                 //if (!ctNES[chipID].UseScci)
                 //{
-                return mds.ReadNES((byte)chipID);
+                return mds.ReadNESapu((byte)chipID);
+                //}
+            }
+            else
+            {
+                return null;
+                //if (scNES[chipID] == null) return;
+
+                //scNES[chipID].setRegister(dAddr, dData);
+            }
+        }
+
+        public byte[] getNESRegisterDMC(int chipID, EnmModel model)
+        {
+            if (chipID == 0) chipLED.PriNES = 2;
+            else chipLED.SecNES = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctNES[chipID].UseScci)
+                //{
+                return mds.ReadNESdmc((byte)chipID);
                 //}
             }
             else

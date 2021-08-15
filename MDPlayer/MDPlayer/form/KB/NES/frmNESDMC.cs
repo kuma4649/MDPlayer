@@ -124,54 +124,56 @@ namespace MDPlayer.form
             }
 
             byte[] reg2 = Audio.GetDMCRegister(chipID);
-            int step = 0;
-            if (reg2 == null)
-            {
-                step = 8;
-                reg2 = reg;
-            }
             if (reg2 == null) return;
 
-            freq = (reg2[step+3] & 0x07) * 0x100 + reg2[step + 2];
+            int tri = reg2[0x10];
+            int noi = reg2[0x11];
+            int dpc = reg2[0x12];
+
+            freq = (reg2[3] & 0x07) * 0x100 + reg2[2];
             note = 92 - (int)((12 * (Math.Log(freq) / LOG_2 - LOG2_440) + NOTE_440HZ + 0.5));
-            newParam.triChannel.note = (reg2[step + 0] & 0x7f) == 0 ? -1 : note;
-            if ((reg2[step + 0] & 0x80) == 0)
+            newParam.triChannel.note = (reg2[0] & 0x7f) == 0 ? -1 : note;
+            if ((reg2[0] & 0x80) == 0)
             {
-                if ((reg2[step + 13] & 0x04) == 0)
+                if ((reg2[13] & 0x04) == 0)
                     //if ((reg2[step + 1] & 0x4) == 0)
                     newParam.triChannel.note = -1;
             }
 
-            newParam.dmcChannel.volumeR = (reg2[step + 9] & 0x7f); //Load counter 
+            newParam.dmcChannel.volumeR = (reg2[9] & 0x7f); //Load counter 
+            tri = tri == 0 ? 0 : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
+            newParam.triChannel.volume = newParam.triChannel.note <0 ? 0 : tri;
+            newParam.triChannel.dda = (reg2[0] & 0x80) != 0;//LengthCounterHalt
+            newParam.triChannel.nfrq = (reg2[0] & 0x7f);// linear counter load (R) 
+            newParam.triChannel.pantp = (reg2[3] & 0xf8) >> 3;//Length counter load
 
-            newParam.triChannel.volume = newParam.triChannel.note <0 ? 0 : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
-            newParam.triChannel.dda = (reg2[step + 0] & 0x80) != 0;//LengthCounterHalt
-            newParam.triChannel.nfrq = (reg2[step + 0] & 0x7f);// linear counter load (R) 
-            newParam.triChannel.pantp = (reg2[step + 3] & 0xf8) >> 3;//Length counter load
-
-            newParam.noiseChannel.volume = Math.Min((int)((reg2[step + 4] & 0xf) * 1.33), 19);
-            newParam.noiseChannel.dda = (reg2[step + 4] & 0x20) != 0; //Envelope loop / length counter halt
-            newParam.noiseChannel.noise = (reg2[step + 4] & 0x10) != 0; //constant volume 
-            newParam.noiseChannel.volumeL = (reg2[step + 6] & 0x80) >> 7; //Loop noise 
-            newParam.noiseChannel.volumeR = reg2[step + 6] & 0x0f; //noise period 
-            newParam.noiseChannel.nfrq = (reg2[step + 7] & 0xf8) >> 3; //Length counter load 
+            newParam.noiseChannel.volume = Math.Min((int)((reg2[4] & 0xf) * 1.33), 19);
+            newParam.noiseChannel.dda = (reg2[4] & 0x20) != 0; //Envelope loop / length counter halt
+            newParam.noiseChannel.noise = (reg2[4] & 0x10) != 0; //constant volume 
+            newParam.noiseChannel.volumeL = (reg2[6] & 0x80) >> 7; //Loop noise 
+            newParam.noiseChannel.volumeR = reg2[6] & 0x0f; //noise period 
+            newParam.noiseChannel.nfrq = (reg2[7] & 0xf8) >> 3; //Length counter load 
                                                                 //newParam.noiseChannel.volume = ((reg2[1] & 0x8) != 0) ? newParam.noiseChannel.volume : 0;
-            newParam.noiseChannel.volume = 
-                ((reg2[step + 13] & 0x8) != 0) 
-                ? ((reg2[step + 4] & 0x10) != 0 
-                    ? newParam.noiseChannel.volume 
-                    : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9)) 
-                : 0;
+            noi = noi == 0 ? 0 : 1;// (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
+            //newParam.noiseChannel.volume =
+            //((reg2[13] & 0x8) != 0)
+            //? ((reg2[4] & 0x10) != 0 ? newParam.noiseChannel.volume : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9))
+            //: 0;
+            newParam.noiseChannel.volume =
+            ((reg2[13] & 0x8) != 0)
+            ? ((reg2[4] & 0x10) != 0 ? newParam.noiseChannel.volume * noi : ((10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9) * noi))
+            : 0;
 
-            newParam.dmcChannel.dda = (reg2[step + 8] & 0x80) != 0; //IRQ enable
-            newParam.dmcChannel.noise = (reg2[step + 8] & 0x40) != 0; //loop 
-            newParam.dmcChannel.volumeL = (reg2[step + 8] & 0x0f); //frequency
-            newParam.dmcChannel.nfrq = reg2[step + 10]; //Sample address
-            newParam.dmcChannel.pantp = reg2[step + 11]; //Sample length
+            dpc = dpc == 0 ? 0 : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
+            newParam.dmcChannel.dda = (reg2[8] & 0x80) != 0; //IRQ enable
+            newParam.dmcChannel.noise = (reg2[8] & 0x40) != 0; //loop 
+            newParam.dmcChannel.volumeL = (reg2[8] & 0x0f); //frequency
+            newParam.dmcChannel.nfrq = reg2[10]; //Sample address
+            newParam.dmcChannel.pantp = reg2[11]; //Sample length
             newParam.dmcChannel.volume = 
-                ((reg2[step + 13] & 0x10) == 0) 
+                ((reg2[13] & 0x10) == 0) 
                 ? 0 
-                : (10 + (128 - newParam.dmcChannel.volumeR) / 128 * 9);
+                : dpc;
         }
 
         public void screenDrawParams()

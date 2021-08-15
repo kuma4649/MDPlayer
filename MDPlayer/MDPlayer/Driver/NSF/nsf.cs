@@ -231,6 +231,8 @@ namespace MDPlayer
         public Int32 song;
 
         private Bus apu_bus;
+
+
         private Bus stack;
         private Layer layer;
         private MDSound.np.DCFilter dcf;                        // 最終出力段に掛ける直流フィルタ
@@ -637,6 +639,8 @@ namespace MDPlayer
                 //{
                 b[offset + i * 2] = (Int16)_out[0];
                 b[offset + i * 2 + 1] = (Int16)_out[1];
+
+                visWB.Enq((Int16)_out[0], (Int16)_out[1]);
                 //}
                 //else // if not 2 channels, presume mono
                 //{
@@ -661,6 +665,13 @@ namespace MDPlayer
 
             return length;
         }
+
+        public void visWaveBufferCopy(short[][] dest)
+        {
+            visWB.Copy(dest);
+        }
+
+        MDSound.visWaveBuffer visWB = new MDSound.visWaveBuffer();
 
         public bool playtime_detected = false;
 

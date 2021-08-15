@@ -195,6 +195,17 @@ namespace MDPlayer
 
         public static void CopyWaveBuffer(short[][] dest)
         {
+            if (driverVirtual is nsf)
+            {
+                ((nsf)driverVirtual).visWaveBufferCopy(dest);
+                return;
+            }
+            else if (driverVirtual is sid)
+            {
+                ((sid)driverVirtual).visWaveBufferCopy(dest);
+                return;
+            }
+
             if (mds == null) return;
             mds.visWaveBuffer.Copy(dest);
         }
@@ -7250,7 +7261,7 @@ namespace MDPlayer
             else reg = chipRegister.nes_apu.chip.reg;
 
             //vgm向け
-            if (reg == null) reg = chipRegister.getNESRegister(chipID, EnmModel.VirtualModel);
+            if (reg == null) reg = chipRegister.getNESRegisterAPU(chipID, EnmModel.VirtualModel);
 
             return reg;
         }
@@ -7268,7 +7279,7 @@ namespace MDPlayer
                 else reg = chipRegister.nes_dmc.chip.reg;
 
                 //vgm向け
-                //if (reg == null) reg = chipRegister.getNESRegister(chipID, enmModel.VirtualModel);
+                if (reg == null) reg = chipRegister.getNESRegisterDMC(chipID, EnmModel.VirtualModel);
 
                 return reg;
             }
