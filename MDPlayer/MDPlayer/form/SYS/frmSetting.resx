@@ -1588,7 +1588,7 @@
     <value>2</value>
   </data>
   <data name="trkbNSFLPF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 287</value>
+    <value>194, 274</value>
   </data>
   <data name="trkbNSFLPF.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -1612,7 +1612,7 @@
     <value>True</value>
   </data>
   <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 287</value>
+    <value>163, 274</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 12</value>
@@ -1639,7 +1639,7 @@
     <value>True</value>
   </data>
   <data name="label52.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 287</value>
+    <value>11, 274</value>
   </data>
   <data name="label52.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 12</value>
@@ -1663,7 +1663,7 @@
     <value>2</value>
   </data>
   <data name="trkbNSFHPF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 287</value>
+    <value>44, 274</value>
   </data>
   <data name="trkbNSFHPF.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -1683,32 +1683,62 @@
   <data name="&gt;&gt;trkbNSFHPF.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="cbNSFDmc_TriNull.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbNSFDmc_DPCMReverse.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="cbNSFDmc_TriNull.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 171</value>
+  <data name="cbNSFDmc_DPCMReverse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="cbNSFDmc_TriNull.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 16</value>
+  <data name="cbNSFDmc_DPCMReverse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 193</value>
   </data>
-  <data name="cbNSFDmc_TriNull.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbNSFDmc_DPCMReverse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 16</value>
+  </data>
+  <data name="cbNSFDmc_DPCMReverse.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="cbNSFDmc_TriNull.Text" xml:space="preserve">
-    <value>TRI null</value>
+  <data name="cbNSFDmc_DPCMReverse.Text" xml:space="preserve">
+    <value>DPCM Reverse</value>
   </data>
-  <data name="&gt;&gt;cbNSFDmc_TriNull.Name" xml:space="preserve">
-    <value>cbNSFDmc_TriNull</value>
+  <data name="&gt;&gt;cbNSFDmc_DPCMReverse.Name" xml:space="preserve">
+    <value>cbNSFDmc_DPCMReverse</value>
   </data>
-  <data name="&gt;&gt;cbNSFDmc_TriNull.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbNSFDmc_DPCMReverse.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cbNSFDmc_TriNull.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbNSFDmc_DPCMReverse.Parent" xml:space="preserve">
     <value>groupBox10</value>
   </data>
-  <data name="&gt;&gt;cbNSFDmc_TriNull.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbNSFDmc_DPCMReverse.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="cbNSFDmc_RandomizeTri.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbNSFDmc_RandomizeTri.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 171</value>
+  </data>
+  <data name="cbNSFDmc_RandomizeTri.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 16</value>
+  </data>
+  <data name="cbNSFDmc_RandomizeTri.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="cbNSFDmc_RandomizeTri.Text" xml:space="preserve">
+    <value>Randomize TRI</value>
+  </data>
+  <data name="&gt;&gt;cbNSFDmc_RandomizeTri.Name" xml:space="preserve">
+    <value>cbNSFDmc_RandomizeTri</value>
+  </data>
+  <data name="&gt;&gt;cbNSFDmc_RandomizeTri.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbNSFDmc_RandomizeTri.Parent" xml:space="preserve">
+    <value>groupBox10</value>
+  </data>
+  <data name="&gt;&gt;cbNSFDmc_RandomizeTri.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="cbNSFDmc_TriMute.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1735,7 +1765,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_TriMute.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cbNSFDmc_RandomizeNoise.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1762,7 +1792,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_RandomizeNoise.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="cbNSFDmc_DPCMAntiClick.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1789,7 +1819,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_DPCMAntiClick.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="cbNSFDmc_EnablePNoise.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1816,7 +1846,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_EnablePNoise.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="cbNSFDmc_Enable4011.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1843,7 +1873,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_Enable4011.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="cbNSFDmc_NonLinearMixer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1870,7 +1900,7 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_NonLinearMixer.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="cbNSFDmc_UnmuteOnReset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1897,13 +1927,13 @@
     <value>groupBox10</value>
   </data>
   <data name="&gt;&gt;cbNSFDmc_UnmuteOnReset.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="groupBox10.Location" type="System.Drawing.Point, System.Drawing">
     <value>224, 3</value>
   </data>
   <data name="groupBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 200</value>
+    <value>210, 217</value>
   </data>
   <data name="groupBox10.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1951,10 +1981,10 @@
     <value>0</value>
   </data>
   <data name="groupBox12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 209</value>
+    <value>223, 226</value>
   </data>
   <data name="groupBox12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 62</value>
+    <value>210, 45</value>
   </data>
   <data name="groupBox12.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>

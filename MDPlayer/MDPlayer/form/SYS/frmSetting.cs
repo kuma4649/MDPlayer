@@ -680,7 +680,8 @@ namespace MDPlayer.form
             cbNSFDmc_DPCMAntiClick.Checked = setting.nsf.DMCDPCMAntiClick;
             cbNSFDmc_RandomizeNoise.Checked = setting.nsf.DMCRandomizeNoise;
             cbNSFDmc_TriMute.Checked = setting.nsf.DMCTRImute;
-            cbNSFDmc_TriNull.Checked = setting.nsf.DMCTRINull;
+            cbNSFDmc_RandomizeTri.Checked = setting.nsf.DMCRandomizeTRI;
+            cbNSFDmc_DPCMReverse.Checked = setting.nsf.DMCDPCMReverse;
 
             cbNSFMmc5_NonLinearMixer.Checked = setting.nsf.MMC5NonLinearMixer;
             cbNSFMmc5_PhaseRefresh.Checked = setting.nsf.MMC5PhaseRefresh;
@@ -1588,7 +1589,8 @@ namespace MDPlayer.form
             setting.nsf.DMCDPCMAntiClick = cbNSFDmc_DPCMAntiClick.Checked;
             setting.nsf.DMCRandomizeNoise = cbNSFDmc_RandomizeNoise.Checked;
             setting.nsf.DMCTRImute = cbNSFDmc_TriMute.Checked;
-            setting.nsf.DMCTRINull = cbNSFDmc_TriNull.Checked;
+            setting.nsf.DMCRandomizeTRI = cbNSFDmc_RandomizeTri.Checked;
+            setting.nsf.DMCDPCMReverse = cbNSFDmc_DPCMReverse.Checked;
 
             setting.nsf.MMC5NonLinearMixer = cbNSFMmc5_NonLinearMixer.Checked;
             setting.nsf.MMC5PhaseRefresh = cbNSFMmc5_PhaseRefresh.Checked;

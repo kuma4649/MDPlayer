@@ -344,7 +344,7 @@ namespace MDPlayer
             apu_bus.DetachAll();
 
             ld = new NESDetector();
-//            ld = new NESDetectorEx();
+            //            ld = new NESDetectorEx();
             ld.Reset();
             stack.Attach(ld);
 
@@ -356,14 +356,15 @@ namespace MDPlayer
             chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_PHASE_REFRESH, setting.nsf.NESPhaseRefresh ? 1 : 0);
             chipRegister.nes_apu.SetOption((int)MDSound.np.np_nes_apu.OPT.OPT_DUTY_SWAP, setting.nsf.NESDutySwap ? 1 : 0);
 
-            chipRegister.nes_dmc.SetOption(0, setting.nsf.DMCUnmuteOnReset ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(1, setting.nsf.DMCNonLinearMixer ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(2, setting.nsf.DMCEnable4011 ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(3, setting.nsf.DMCEnablePnoise ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(4, setting.nsf.DMCDPCMAntiClick ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(5, setting.nsf.DMCRandomizeNoise ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(6, setting.nsf.DMCTRImute ? 1 : 0);
-            chipRegister.nes_dmc.SetOption(7, setting.nsf.DMCTRINull ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_ENABLE_4011, setting.nsf.DMCEnable4011 ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_ENABLE_PNOISE, setting.nsf.DMCEnablePnoise ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_UNMUTE_ON_RESET, setting.nsf.DMCUnmuteOnReset ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_DPCM_ANTI_CLICK, setting.nsf.DMCDPCMAntiClick ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_NONLINEAR_MIXER, setting.nsf.DMCNonLinearMixer ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_RANDOMIZE_NOISE, setting.nsf.DMCRandomizeNoise ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_TRI_MUTE, setting.nsf.DMCTRImute ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_RANDOMIZE_TRI, setting.nsf.DMCRandomizeTRI ? 1 : 0);
+            chipRegister.nes_dmc.SetOption((int)MDSound.np.np_nes_dmc.OPT.OPT_DPCM_REVERSE, setting.nsf.DMCDPCMReverse ? 1 : 0);
 
             if (use_fds)
             {

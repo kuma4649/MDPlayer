@@ -4799,6 +4799,34 @@ namespace MDPlayer
                 }
             }
 
+            public bool _DMCRandomizeTRI = false;
+            public bool DMCRandomizeTRI
+            {
+                get
+                {
+                    return _DMCRandomizeTRI;
+                }
+
+                set
+                {
+                    _DMCRandomizeTRI = value;
+                }
+            }
+
+            public bool _DMCDPCMReverse = false;
+            public bool DMCDPCMReverse 
+            {
+                get
+                {
+                    return _DMCDPCMReverse;
+                }
+
+                set
+                {
+                    _DMCDPCMReverse = value;
+                }
+            }
+
             public NSF Copy()
             {
                 NSF NSF = new NSF();
@@ -4819,7 +4847,9 @@ namespace MDPlayer
                 NSF.DMCDPCMAntiClick = this.DMCDPCMAntiClick;
                 NSF.DMCRandomizeNoise = this.DMCRandomizeNoise;
                 NSF.DMCTRImute = this.DMCTRImute;
-                NSF.DMCTRINull = this.DMCTRINull;
+                NSF.DMCRandomizeTRI = this.DMCRandomizeTRI;
+                NSF.DMCDPCMReverse = this.DMCDPCMReverse;
+                //NSF.DMCTRINull = this.DMCTRINull;
 
                 NSF.MMC5NonLinearMixer = this.MMC5NonLinearMixer;
                 NSF.MMC5PhaseRefresh = this.MMC5PhaseRefresh;
