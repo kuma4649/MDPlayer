@@ -165,25 +165,47 @@ namespace MDPlayer.form
         {
             if (oldPlayIndex != -1)
             {
-                dgvList.Rows[oldPlayIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
+                ResetColor(oldPlayIndex);
             }
 
             if (newPlayingIndex >= 0 && newPlayingIndex < dgvList.Rows.Count)
             {
-                dgvList.Rows[newPlayingIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = ">";
+                SetColor(newPlayingIndex);
             }
             else if (newPlayingIndex == -1)
             {
                 newPlayingIndex = dgvList.Rows.Count - 1;
-                dgvList.Rows[newPlayingIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = ">";
+                SetColor(newPlayingIndex);
             }
             else if (newPlayingIndex == -2)
             {
                 newPlayingIndex = 0;
-                dgvList.Rows[newPlayingIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = ">";
+                SetColor(newPlayingIndex);
             }
             playIndex = newPlayingIndex;
             oldPlayIndex = newPlayingIndex;
+        }
+
+        private void SetColor(int rowIndex)
+        {
+            dgvList.Rows[rowIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = ">";
+            for (int i = 0; i < dgvList.Rows[rowIndex].Cells.Count; i++)
+            {
+                dgvList.Rows[rowIndex].Cells[i].Style.ForeColor = Color.LightGreen;
+                dgvList.Rows[rowIndex].Cells[i].Style.SelectionForeColor = Color.LightGreen;
+            }
+        }
+
+        private static Color clrLightBlue = Color.FromArgb(255, 192, 192, 255);
+
+        private void ResetColor(int rowIndex)
+        {
+            dgvList.Rows[rowIndex].Cells[dgvList.Columns["clmPlayingNow"].Index].Value = " ";
+            for (int i = 0; i < dgvList.Rows[rowIndex].Cells.Count; i++)
+            {
+                dgvList.Rows[rowIndex].Cells[i].Style.ForeColor = clrLightBlue;
+                dgvList.Rows[rowIndex].Cells[i].Style.SelectionForeColor = Color.White;
+            }
         }
 
         private void dgvList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

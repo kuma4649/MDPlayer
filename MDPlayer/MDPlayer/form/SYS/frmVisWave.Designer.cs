@@ -101,7 +101,7 @@ namespace MDPlayer.form
             // tsbHeight1
             // 
             this.tsbHeight1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbHeight1.Image = ((System.Drawing.Image)(resources.GetObject("tsbHeight1.Image")));
+            this.tsbHeight1.Image = global::MDPlayer.Properties.Resources.vHeight1;
             this.tsbHeight1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbHeight1.Name = "tsbHeight1";
             this.tsbHeight1.Size = new System.Drawing.Size(23, 22);
@@ -111,7 +111,7 @@ namespace MDPlayer.form
             // tsbHeight2
             // 
             this.tsbHeight2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbHeight2.Image = ((System.Drawing.Image)(resources.GetObject("tsbHeight2.Image")));
+            this.tsbHeight2.Image = global::MDPlayer.Properties.Resources.vHeight2;
             this.tsbHeight2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbHeight2.Name = "tsbHeight2";
             this.tsbHeight2.Size = new System.Drawing.Size(23, 22);
@@ -121,7 +121,7 @@ namespace MDPlayer.form
             // tsbHeight3
             // 
             this.tsbHeight3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbHeight3.Image = ((System.Drawing.Image)(resources.GetObject("tsbHeight3.Image")));
+            this.tsbHeight3.Image = global::MDPlayer.Properties.Resources.vHeight3;
             this.tsbHeight3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbHeight3.Name = "tsbHeight3";
             this.tsbHeight3.Size = new System.Drawing.Size(23, 22);
@@ -136,7 +136,7 @@ namespace MDPlayer.form
             // tsbDispType1
             // 
             this.tsbDispType1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDispType1.Image = ((System.Drawing.Image)(resources.GetObject("tsbDispType1.Image")));
+            this.tsbDispType1.Image = global::MDPlayer.Properties.Resources.vType1;
             this.tsbDispType1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDispType1.Name = "tsbDispType1";
             this.tsbDispType1.Size = new System.Drawing.Size(23, 22);
@@ -146,7 +146,7 @@ namespace MDPlayer.form
             // tsbDispType2
             // 
             this.tsbDispType2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDispType2.Image = ((System.Drawing.Image)(resources.GetObject("tsbDispType2.Image")));
+            this.tsbDispType2.Image = global::MDPlayer.Properties.Resources.vType2;
             this.tsbDispType2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDispType2.Name = "tsbDispType2";
             this.tsbDispType2.Size = new System.Drawing.Size(23, 22);
@@ -157,11 +157,11 @@ namespace MDPlayer.form
             // 
             this.tsbFFT.CheckOnClick = true;
             this.tsbFFT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbFFT.Image = ((System.Drawing.Image)(resources.GetObject("tsbFFT.Image")));
+            this.tsbFFT.Image = global::MDPlayer.Properties.Resources.vType3;
             this.tsbFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFFT.Name = "tsbFFT";
             this.tsbFFT.Size = new System.Drawing.Size(23, 22);
-            this.tsbFFT.Text = "tsbFFT";
+            this.tsbFFT.Text = "FFT";
             this.tsbFFT.Click += new System.EventHandler(this.tsbFFT_Click);
             // 
             // frmVisWave

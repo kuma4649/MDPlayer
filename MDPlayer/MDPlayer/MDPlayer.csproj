@@ -893,6 +893,12 @@
     <Content Include="Resources\addPL.png" />
     <Content Include="Resources\ccFadeout.png" />
     <Content Include="Resources\ccFast.png" />
+    <Content Include="Resources\vHeight1.png" />
+    <Content Include="Resources\vHeight2.png" />
+    <Content Include="Resources\vHeight3.png" />
+    <Content Include="Resources\vType1.png" />
+    <Content Include="Resources\vType2.png" />
+    <Content Include="Resources\vType3.png" />
     <None Include="Resources\ccInformation.png" />
     <Content Include="Resources\ccKBD.png" />
     <Content Include="Resources\ccLoop.png" />
