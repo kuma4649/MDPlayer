@@ -872,10 +872,24 @@ namespace MDPlayer.form
             dgvList.Rows[hti.RowIndex].Selected = true;
         }
 
+        private object relock = new object();
+        private bool reent = false;
+
         public void dgvList_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            lock (relock)
             {
+                if (reent) return;
+                reent = true;
+            }
+
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+            try
+            {
+                this.Enabled = false;
+                this.timer1.Enabled = false;
+
                 string[] filename = ((string[])e.Data.GetData(DataFormats.FileDrop));
 
                 //ドロップされたアイテムがフォルダーの場合は下位フォルダー内も含めた
@@ -896,43 +910,49 @@ namespace MDPlayer.form
                 //曲を停止
                 Stop();
                 frmMain.stop();
-                while(!Audio.isStopped)
+                while (!Audio.isStopped)
                     Application.DoEvents();
 
-                try
+                int buIndex = i;
+
+                playList.InsertFile(ref i, filename);
+
+                if (buIndex <= oldPlayIndex)
                 {
-                    int buIndex = i;
-
-                    playList.InsertFile(ref i,filename);
-
-                    if (buIndex < oldPlayIndex)
-                    {
-                        oldPlayIndex += i - buIndex;
-                    }
-                    i = buIndex;
-
-                    //選択位置の曲を再生する
-                    string fn = playList.lstMusic[i].fileName;
-                    if (
-                        fn.ToLower().LastIndexOf(".lzh") == -1
-                        && fn.ToLower().LastIndexOf(".zip") == -1
-                        && fn.ToLower().LastIndexOf(".m3u") == -1
-                        //&& fn.ToLower().LastIndexOf(".sid") == -1
-                        )
-                    {
-                        frmMain.loadAndPlay(0, 0, fn);
-                        setStart(i);// -1);
-                        frmMain.oldParam = new MDChipParams();
-                        Play();
-                    }
+                    oldPlayIndex += i - buIndex;
                 }
-                catch (Exception ex)
+                i = buIndex;
+
+                //選択位置の曲を再生する
+                string fn = playList.lstMusic[i].fileName;
+                if (
+                    fn.ToLower().LastIndexOf(".lzh") == -1
+                    && fn.ToLower().LastIndexOf(".zip") == -1
+                    && fn.ToLower().LastIndexOf(".m3u") == -1
+                    //&& fn.ToLower().LastIndexOf(".sid") == -1
+                    )
                 {
-                    log.ForcedWrite(ex);
-                    MessageBox.Show("ファイルの読み込みに失敗しました。");
+                    frmMain.loadAndPlay(0, 0, fn);
+                    setStart(i);// -1);
+                    frmMain.oldParam = new MDChipParams();
+                    Play();
                 }
-
             }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                MessageBox.Show("ファイルの読み込みに失敗しました。");
+            }
+            finally
+            {
+                this.Enabled = true;
+                this.timer1.Enabled = true;
+                lock (relock)
+                {
+                    reent = false;
+                }
+            }
+
         }
 
         private void GetTrueFileNameList(List<string> res, IEnumerable<string> files)

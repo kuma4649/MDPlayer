@@ -23,15 +23,17 @@ namespace MDPlayer
                 return;
             }
 
+            frmMain frm=null;
             try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new frmMain());
+                frm = new frmMain();
+                Application.Run(frm);
             }
-            catch (ObjectDisposedException)
+            catch(InvalidOperationException)
             {
-                ;//無視する
+                ;
             }
             catch (Exception e)
             {

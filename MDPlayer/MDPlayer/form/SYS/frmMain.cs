@@ -4407,129 +4407,10 @@ namespace MDPlayer.form
                     continue;
                 }
 
+
                 screenChangeParams();
+                screenChangeParamsForms();
 
-                for (int chipID = 0; chipID < 2; chipID++)
-                {
-                    if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) frmMCD[chipID].screenChangeParams();
-                    else frmMCD[chipID] = null;
-
-                    if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) frmRf5c68[chipID].screenChangeParams();
-                    else frmRf5c68[chipID] = null;
-
-                    if (frmC140[chipID] != null && !frmC140[chipID].isClosed) frmC140[chipID].screenChangeParams();
-                    else frmC140[chipID] = null;
-
-                    if (frmS5B[chipID] != null && !frmS5B[chipID].isClosed) frmS5B[chipID].screenChangeParams();
-                    else frmS5B[chipID] = null;
-
-                    if (frmDMG[chipID] != null && !frmDMG[chipID].isClosed) frmDMG[chipID].screenChangeParams();
-                    else frmDMG[chipID] = null;
-
-                    if (frmPPZ8[chipID] != null && !frmPPZ8[chipID].isClosed) frmPPZ8[chipID].screenChangeParams();
-                    else frmPPZ8[chipID] = null;
-
-                    if (frmYMZ280B[chipID] != null && !frmYMZ280B[chipID].isClosed) frmYMZ280B[chipID].screenChangeParams();
-                    else frmYMZ280B[chipID] = null;
-
-                    if (frmC352[chipID] != null && !frmC352[chipID].isClosed) frmC352[chipID].screenChangeParams();
-                    else frmC352[chipID] = null;
-
-                    if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) frmMultiPCM[chipID].screenChangeParams();
-                    else frmMultiPCM[chipID] = null;
-
-                    if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) frmQSound[chipID].screenChangeParams();
-                    else frmQSound[chipID] = null;
-
-                    if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) frmYM2608[chipID].screenChangeParams();
-                    else frmYM2608[chipID] = null;
-
-                    if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) frmYM2151[chipID].screenChangeParams();
-                    else frmYM2151[chipID] = null;
-
-                    if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) frmYM2203[chipID].screenChangeParams();
-                    else frmYM2203[chipID] = null;
-
-                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) frmYM2413[chipID].screenChangeParams();
-                    else frmYM2413[chipID] = null;
-
-                    if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) frmYM2610[chipID].screenChangeParams();
-                    else frmYM2610[chipID] = null;
-
-                    if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) frmYM2612[chipID].screenChangeParams();
-                    else frmYM2612[chipID] = null;
-
-                    if (frmYM3526[chipID] != null && !frmYM3526[chipID].isClosed) frmYM3526[chipID].screenChangeParams();
-                    else frmYM3526[chipID] = null;
-
-                    if (frmY8950[chipID] != null && !frmY8950[chipID].isClosed) frmY8950[chipID].screenChangeParams();
-                    else frmY8950[chipID] = null;
-
-                    if (frmYM3812[chipID] != null && !frmYM3812[chipID].isClosed) frmYM3812[chipID].screenChangeParams();
-                    else frmYM3812[chipID] = null;
-
-                    if (frmYMF262[chipID] != null && !frmYMF262[chipID].isClosed) frmYMF262[chipID].screenChangeParams();
-                    else frmYMF262[chipID] = null;
-
-                    if (frmYMF271[chipID] != null && !frmYMF271[chipID].isClosed) frmYMF271[chipID].screenChangeParams();
-                    else frmYMF271[chipID] = null;
-
-                    if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed) frmYMF278B[chipID].screenChangeParams();
-                    else frmYMF278B[chipID] = null;
-
-                    if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) frmOKIM6258[chipID].screenChangeParams();
-                    else frmOKIM6258[chipID] = null;
-
-                    if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) frmOKIM6295[chipID].screenChangeParams();
-                    else frmOKIM6295[chipID] = null;
-
-                    if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) frmSN76489[chipID].screenChangeParams();
-                    else frmSN76489[chipID] = null;
-
-                    if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenChangeParams();
-                    else frmSegaPCM[chipID] = null;
-
-                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
-                    {
-                        frmAY8910[chipID].screenChangeParams();
-                    }
-                    else frmAY8910[chipID] = null;
-
-                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
-                    else frmHuC6280[chipID] = null;
-
-                    if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) frmK051649[chipID].screenChangeParams();
-                    else frmK051649[chipID] = null;
-
-                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenChangeParams();
-                    else frmMIDI[chipID] = null;
-
-                    if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) frmNESDMC[chipID].screenChangeParams();
-                    else frmNESDMC[chipID] = null;
-
-                    if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed) frmFDS[chipID].screenChangeParams();
-                    else frmFDS[chipID] = null;
-
-                    if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) frmMMC5[chipID].screenChangeParams();
-                    else frmMMC5[chipID] = null;
-
-                    if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) frmVRC6[chipID].screenChangeParams();
-                    else frmVRC6[chipID] = null;
-
-                    if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) frmVRC7[chipID].screenChangeParams();
-                    else frmVRC7[chipID] = null;
-
-                    if (frmN106[chipID] != null && !frmN106[chipID].isClosed) frmN106[chipID].screenChangeParams();
-                    else frmN106[chipID] = null;
-
-                }
-                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
-                else frmYM2612MIDI = null;
-                if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenChangeParams();
-                else frmMixer2 = null;
-
-                if (frmRegTest != null && !frmRegTest.isClosed) frmRegTest.screenChangeParams();
-                else frmRegTest = null;
 
                 if ((double)System.Environment.TickCount >= nextFrame + period)
                 {
@@ -4537,125 +4418,9 @@ namespace MDPlayer.form
                     continue;
                 }
 
-                screenDrawParams();
 
-                for (int chipID = 0; chipID < 2; chipID++)
-                {
-                    if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) { frmMCD[chipID].screenDrawParams(); frmMCD[chipID].update(); }
-                    else frmMCD[chipID] = null;
-
-                    if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) { frmRf5c68[chipID].screenDrawParams(); frmRf5c68[chipID].update(); }
-                    else frmRf5c68[chipID] = null;
-
-                    if (frmC140[chipID] != null && !frmC140[chipID].isClosed) { frmC140[chipID].screenDrawParams(); frmC140[chipID].update(); }
-                    else frmC140[chipID] = null;
-
-                    if (frmPPZ8[chipID] != null && !frmPPZ8[chipID].isClosed) { frmPPZ8[chipID].screenDrawParams(); frmPPZ8[chipID].update(); }
-                    else frmPPZ8[chipID] = null;
-
-                    if (frmS5B[chipID] != null && !frmS5B[chipID].isClosed) { frmS5B[chipID].screenDrawParams(); frmS5B[chipID].update(); }
-                    else frmS5B[chipID] = null;
-
-                    if (frmDMG[chipID] != null && !frmDMG[chipID].isClosed) { frmDMG[chipID].screenDrawParams(); frmDMG[chipID].update(); }
-                    else frmDMG[chipID] = null;
-
-                    if (frmYMZ280B[chipID] != null && !frmYMZ280B[chipID].isClosed) { frmYMZ280B[chipID].screenDrawParams(); frmYMZ280B[chipID].update(); }
-                    else frmYMZ280B[chipID] = null;
-
-                    if (frmC352[chipID] != null && !frmC352[chipID].isClosed) { frmC352[chipID].screenDrawParams(); frmC352[chipID].update(); }
-                    else frmC352[chipID] = null;
-
-                    if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) { frmMultiPCM[chipID].screenDrawParams(); frmMultiPCM[chipID].update(); }
-                    else frmMultiPCM[chipID] = null;
-
-                    if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) { frmQSound[chipID].screenDrawParams(); frmQSound[chipID].update(); }
-                    else frmQSound[chipID] = null;
-
-                    if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) { frmYM2608[chipID].screenDrawParams(); frmYM2608[chipID].update(); }
-                    else frmYM2608[chipID] = null;
-
-                    if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) { frmYM2151[chipID].screenDrawParams(); frmYM2151[chipID].update(); }
-                    else frmYM2151[chipID] = null;
-
-                    if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) { frmYM2203[chipID].screenDrawParams(); frmYM2203[chipID].update(); }
-                    else frmYM2203[chipID] = null;
-
-                    if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) { frmYM2413[chipID].screenDrawParams(); frmYM2413[chipID].update(); }
-                    else frmYM2413[chipID] = null;
-
-                    if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) { frmYM2610[chipID].screenDrawParams(); frmYM2610[chipID].update(); }
-                    else frmYM2610[chipID] = null;
-
-                    if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) { frmYM2612[chipID].screenDrawParams(); frmYM2612[chipID].update(); }
-                    else frmYM2612[chipID] = null;
-
-                    if (frmYM3526[chipID] != null && !frmYM3526[chipID].isClosed) { frmYM3526[chipID].screenDrawParams(); frmYM3526[chipID].update(); }
-                    else frmYM3526[chipID] = null;
-
-                    if (frmY8950[chipID] != null && !frmY8950[chipID].isClosed) { frmY8950[chipID].screenDrawParams(); frmY8950[chipID].update(); }
-                    else frmY8950[chipID] = null;
-
-                    if (frmYM3812[chipID] != null && !frmYM3812[chipID].isClosed) { frmYM3812[chipID].screenDrawParams(); frmYM3812[chipID].update(); }
-                    else frmYM3812[chipID] = null;
-
-                    if (frmYMF262[chipID] != null && !frmYMF262[chipID].isClosed) { frmYMF262[chipID].screenDrawParams(); frmYMF262[chipID].update(); }
-                    else frmYMF262[chipID] = null;
-
-                    if (frmYMF271[chipID] != null && !frmYMF271[chipID].isClosed) { frmYMF271[chipID].screenDrawParams(); frmYMF271[chipID].update(); }
-                    else frmYMF271[chipID] = null;
-
-                    if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed) { frmYMF278B[chipID].screenDrawParams(); frmYMF278B[chipID].update(); }
-                    else frmYMF278B[chipID] = null;
-
-                    if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) { frmOKIM6258[chipID].screenDrawParams(); frmOKIM6258[chipID].update(); }
-                    else frmOKIM6258[chipID] = null;
-
-                    if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) { frmOKIM6295[chipID].screenDrawParams(); frmOKIM6295[chipID].update(); }
-                    else frmOKIM6295[chipID] = null;
-
-                    if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) { frmSN76489[chipID].screenDrawParams(); frmSN76489[chipID].update(); }
-                    else frmSN76489[chipID] = null;
-
-                    if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) { frmSegaPCM[chipID].screenDrawParams(); frmSegaPCM[chipID].update(); }
-                    else frmSegaPCM[chipID] = null;
-
-                    if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) { frmAY8910[chipID].screenDrawParams(); frmAY8910[chipID].update(); }
-                    else frmAY8910[chipID] = null;
-
-                    if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) { frmHuC6280[chipID].screenDrawParams(); frmHuC6280[chipID].update(); }
-                    else frmHuC6280[chipID] = null;
-
-                    if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) { frmK051649[chipID].screenDrawParams(); frmK051649[chipID].update(); }
-                    else frmK051649[chipID] = null;
-
-                    if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) { frmMIDI[chipID].screenDrawParams(); frmMIDI[chipID].update(); }
-                    else frmMIDI[chipID] = null;
-
-                    if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) { frmNESDMC[chipID].screenDrawParams(); frmNESDMC[chipID].update(); }
-                    else frmNESDMC[chipID] = null;
-
-                    if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) { frmVRC6[chipID].screenDrawParams(); frmVRC6[chipID].update(); }
-                    else frmVRC6[chipID] = null;
-
-                    if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) { frmVRC7[chipID].screenDrawParams(); frmVRC7[chipID].update(); }
-                    else frmVRC7[chipID] = null;
-
-                    if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed) { frmFDS[chipID].screenDrawParams(); frmFDS[chipID].update(); }
-                    else frmFDS[chipID] = null;
-
-                    if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) { frmMMC5[chipID].screenDrawParams(); frmMMC5[chipID].update(); }
-                    else frmMMC5[chipID] = null;
-
-                    if (frmN106[chipID] != null && !frmN106[chipID].isClosed) { frmN106[chipID].screenDrawParams(); frmN106[chipID].update(); }
-                    else frmN106[chipID] = null;
-
-                }
-                if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) { frmYM2612MIDI.screenDrawParams(); frmYM2612MIDI.update(); }
-                else frmYM2612MIDI = null;
-                if (frmMixer2 != null && !frmMixer2.isClosed) { frmMixer2.screenDrawParams(); frmMixer2.update(); }
-                else frmMixer2 = null;
-
-                if (frmRegTest != null && !frmRegTest.isClosed) { frmRegTest.screenDrawParams(); frmRegTest.update(); } else frmRegTest = null;
+                this.Invoke((Action)(screenDrawParams));
+                this.Invoke((Action)(screenDrawParamsForms));
 
 
                 nextFrame += period;
@@ -4755,6 +4520,132 @@ namespace MDPlayer.form
 
         }
 
+        private void screenChangeParamsForms()
+        {
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) frmMCD[chipID].screenChangeParams();
+                else frmMCD[chipID] = null;
+
+                if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) frmRf5c68[chipID].screenChangeParams();
+                else frmRf5c68[chipID] = null;
+
+                if (frmC140[chipID] != null && !frmC140[chipID].isClosed) frmC140[chipID].screenChangeParams();
+                else frmC140[chipID] = null;
+
+                if (frmS5B[chipID] != null && !frmS5B[chipID].isClosed) frmS5B[chipID].screenChangeParams();
+                else frmS5B[chipID] = null;
+
+                if (frmDMG[chipID] != null && !frmDMG[chipID].isClosed) frmDMG[chipID].screenChangeParams();
+                else frmDMG[chipID] = null;
+
+                if (frmPPZ8[chipID] != null && !frmPPZ8[chipID].isClosed) frmPPZ8[chipID].screenChangeParams();
+                else frmPPZ8[chipID] = null;
+
+                if (frmYMZ280B[chipID] != null && !frmYMZ280B[chipID].isClosed) frmYMZ280B[chipID].screenChangeParams();
+                else frmYMZ280B[chipID] = null;
+
+                if (frmC352[chipID] != null && !frmC352[chipID].isClosed) frmC352[chipID].screenChangeParams();
+                else frmC352[chipID] = null;
+
+                if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) frmMultiPCM[chipID].screenChangeParams();
+                else frmMultiPCM[chipID] = null;
+
+                if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) frmQSound[chipID].screenChangeParams();
+                else frmQSound[chipID] = null;
+
+                if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) frmYM2608[chipID].screenChangeParams();
+                else frmYM2608[chipID] = null;
+
+                if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) frmYM2151[chipID].screenChangeParams();
+                else frmYM2151[chipID] = null;
+
+                if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) frmYM2203[chipID].screenChangeParams();
+                else frmYM2203[chipID] = null;
+
+                if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) frmYM2413[chipID].screenChangeParams();
+                else frmYM2413[chipID] = null;
+
+                if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) frmYM2610[chipID].screenChangeParams();
+                else frmYM2610[chipID] = null;
+
+                if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) frmYM2612[chipID].screenChangeParams();
+                else frmYM2612[chipID] = null;
+
+                if (frmYM3526[chipID] != null && !frmYM3526[chipID].isClosed) frmYM3526[chipID].screenChangeParams();
+                else frmYM3526[chipID] = null;
+
+                if (frmY8950[chipID] != null && !frmY8950[chipID].isClosed) frmY8950[chipID].screenChangeParams();
+                else frmY8950[chipID] = null;
+
+                if (frmYM3812[chipID] != null && !frmYM3812[chipID].isClosed) frmYM3812[chipID].screenChangeParams();
+                else frmYM3812[chipID] = null;
+
+                if (frmYMF262[chipID] != null && !frmYMF262[chipID].isClosed) frmYMF262[chipID].screenChangeParams();
+                else frmYMF262[chipID] = null;
+
+                if (frmYMF271[chipID] != null && !frmYMF271[chipID].isClosed) frmYMF271[chipID].screenChangeParams();
+                else frmYMF271[chipID] = null;
+
+                if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed) frmYMF278B[chipID].screenChangeParams();
+                else frmYMF278B[chipID] = null;
+
+                if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) frmOKIM6258[chipID].screenChangeParams();
+                else frmOKIM6258[chipID] = null;
+
+                if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) frmOKIM6295[chipID].screenChangeParams();
+                else frmOKIM6295[chipID] = null;
+
+                if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) frmSN76489[chipID].screenChangeParams();
+                else frmSN76489[chipID] = null;
+
+                if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) frmSegaPCM[chipID].screenChangeParams();
+                else frmSegaPCM[chipID] = null;
+
+                if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed)
+                {
+                    frmAY8910[chipID].screenChangeParams();
+                }
+                else frmAY8910[chipID] = null;
+
+                if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) frmHuC6280[chipID].screenChangeParams();
+                else frmHuC6280[chipID] = null;
+
+                if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) frmK051649[chipID].screenChangeParams();
+                else frmK051649[chipID] = null;
+
+                if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) frmMIDI[chipID].screenChangeParams();
+                else frmMIDI[chipID] = null;
+
+                if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) frmNESDMC[chipID].screenChangeParams();
+                else frmNESDMC[chipID] = null;
+
+                if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed) frmFDS[chipID].screenChangeParams();
+                else frmFDS[chipID] = null;
+
+                if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) frmMMC5[chipID].screenChangeParams();
+                else frmMMC5[chipID] = null;
+
+                if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) frmVRC6[chipID].screenChangeParams();
+                else frmVRC6[chipID] = null;
+
+                if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) frmVRC7[chipID].screenChangeParams();
+                else frmVRC7[chipID] = null;
+
+                if (frmN106[chipID] != null && !frmN106[chipID].isClosed) frmN106[chipID].screenChangeParams();
+                else frmN106[chipID] = null;
+
+            }
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) frmYM2612MIDI.screenChangeParams();
+            else frmYM2612MIDI = null;
+            if (frmMixer2 != null && !frmMixer2.isClosed) frmMixer2.screenChangeParams();
+            else frmMixer2 = null;
+
+            if (frmRegTest != null && !frmRegTest.isClosed) frmRegTest.screenChangeParams();
+            else frmRegTest = null;
+
+        }
+
         private void screenDrawParams()
         {
             // 描画
@@ -4846,6 +4737,128 @@ namespace MDPlayer.form
                 this.Invoke((Action<string>)SetTitle, newInfo);
             }
             catch { }
+        }
+
+        private void screenDrawParamsForms()
+        {
+            for (int chipID = 0; chipID < 2; chipID++)
+            {
+                if (frmMCD[chipID] != null && !frmMCD[chipID].isClosed) { frmMCD[chipID].screenDrawParams(); frmMCD[chipID].update(); }
+                else frmMCD[chipID] = null;
+
+                if (frmRf5c68[chipID] != null && !frmRf5c68[chipID].isClosed) { frmRf5c68[chipID].screenDrawParams(); frmRf5c68[chipID].update(); }
+                else frmRf5c68[chipID] = null;
+
+                if (frmC140[chipID] != null && !frmC140[chipID].isClosed) { frmC140[chipID].screenDrawParams(); frmC140[chipID].update(); }
+                else frmC140[chipID] = null;
+
+                if (frmPPZ8[chipID] != null && !frmPPZ8[chipID].isClosed) { frmPPZ8[chipID].screenDrawParams(); frmPPZ8[chipID].update(); }
+                else frmPPZ8[chipID] = null;
+
+                if (frmS5B[chipID] != null && !frmS5B[chipID].isClosed) { frmS5B[chipID].screenDrawParams(); frmS5B[chipID].update(); }
+                else frmS5B[chipID] = null;
+
+                if (frmDMG[chipID] != null && !frmDMG[chipID].isClosed) { frmDMG[chipID].screenDrawParams(); frmDMG[chipID].update(); }
+                else frmDMG[chipID] = null;
+
+                if (frmYMZ280B[chipID] != null && !frmYMZ280B[chipID].isClosed) { frmYMZ280B[chipID].screenDrawParams(); frmYMZ280B[chipID].update(); }
+                else frmYMZ280B[chipID] = null;
+
+                if (frmC352[chipID] != null && !frmC352[chipID].isClosed) { frmC352[chipID].screenDrawParams(); frmC352[chipID].update(); }
+                else frmC352[chipID] = null;
+
+                if (frmMultiPCM[chipID] != null && !frmMultiPCM[chipID].isClosed) { frmMultiPCM[chipID].screenDrawParams(); frmMultiPCM[chipID].update(); }
+                else frmMultiPCM[chipID] = null;
+
+                if (frmQSound[chipID] != null && !frmQSound[chipID].isClosed) { frmQSound[chipID].screenDrawParams(); frmQSound[chipID].update(); }
+                else frmQSound[chipID] = null;
+
+                if (frmYM2608[chipID] != null && !frmYM2608[chipID].isClosed) { frmYM2608[chipID].screenDrawParams(); frmYM2608[chipID].update(); }
+                else frmYM2608[chipID] = null;
+
+                if (frmYM2151[chipID] != null && !frmYM2151[chipID].isClosed) { frmYM2151[chipID].screenDrawParams(); frmYM2151[chipID].update(); }
+                else frmYM2151[chipID] = null;
+
+                if (frmYM2203[chipID] != null && !frmYM2203[chipID].isClosed) { frmYM2203[chipID].screenDrawParams(); frmYM2203[chipID].update(); }
+                else frmYM2203[chipID] = null;
+
+                if (frmYM2413[chipID] != null && !frmYM2413[chipID].isClosed) { frmYM2413[chipID].screenDrawParams(); frmYM2413[chipID].update(); }
+                else frmYM2413[chipID] = null;
+
+                if (frmYM2610[chipID] != null && !frmYM2610[chipID].isClosed) { frmYM2610[chipID].screenDrawParams(); frmYM2610[chipID].update(); }
+                else frmYM2610[chipID] = null;
+
+                if (frmYM2612[chipID] != null && !frmYM2612[chipID].isClosed) { frmYM2612[chipID].screenDrawParams(); frmYM2612[chipID].update(); }
+                else frmYM2612[chipID] = null;
+
+                if (frmYM3526[chipID] != null && !frmYM3526[chipID].isClosed) { frmYM3526[chipID].screenDrawParams(); frmYM3526[chipID].update(); }
+                else frmYM3526[chipID] = null;
+
+                if (frmY8950[chipID] != null && !frmY8950[chipID].isClosed) { frmY8950[chipID].screenDrawParams(); frmY8950[chipID].update(); }
+                else frmY8950[chipID] = null;
+
+                if (frmYM3812[chipID] != null && !frmYM3812[chipID].isClosed) { frmYM3812[chipID].screenDrawParams(); frmYM3812[chipID].update(); }
+                else frmYM3812[chipID] = null;
+
+                if (frmYMF262[chipID] != null && !frmYMF262[chipID].isClosed) { frmYMF262[chipID].screenDrawParams(); frmYMF262[chipID].update(); }
+                else frmYMF262[chipID] = null;
+
+                if (frmYMF271[chipID] != null && !frmYMF271[chipID].isClosed) { frmYMF271[chipID].screenDrawParams(); frmYMF271[chipID].update(); }
+                else frmYMF271[chipID] = null;
+
+                if (frmYMF278B[chipID] != null && !frmYMF278B[chipID].isClosed) { frmYMF278B[chipID].screenDrawParams(); frmYMF278B[chipID].update(); }
+                else frmYMF278B[chipID] = null;
+
+                if (frmOKIM6258[chipID] != null && !frmOKIM6258[chipID].isClosed) { frmOKIM6258[chipID].screenDrawParams(); frmOKIM6258[chipID].update(); }
+                else frmOKIM6258[chipID] = null;
+
+                if (frmOKIM6295[chipID] != null && !frmOKIM6295[chipID].isClosed) { frmOKIM6295[chipID].screenDrawParams(); frmOKIM6295[chipID].update(); }
+                else frmOKIM6295[chipID] = null;
+
+                if (frmSN76489[chipID] != null && !frmSN76489[chipID].isClosed) { frmSN76489[chipID].screenDrawParams(); frmSN76489[chipID].update(); }
+                else frmSN76489[chipID] = null;
+
+                if (frmSegaPCM[chipID] != null && !frmSegaPCM[chipID].isClosed) { frmSegaPCM[chipID].screenDrawParams(); frmSegaPCM[chipID].update(); }
+                else frmSegaPCM[chipID] = null;
+
+                if (frmAY8910[chipID] != null && !frmAY8910[chipID].isClosed) { frmAY8910[chipID].screenDrawParams(); frmAY8910[chipID].update(); }
+                else frmAY8910[chipID] = null;
+
+                if (frmHuC6280[chipID] != null && !frmHuC6280[chipID].isClosed) { frmHuC6280[chipID].screenDrawParams(); frmHuC6280[chipID].update(); }
+                else frmHuC6280[chipID] = null;
+
+                if (frmK051649[chipID] != null && !frmK051649[chipID].isClosed) { frmK051649[chipID].screenDrawParams(); frmK051649[chipID].update(); }
+                else frmK051649[chipID] = null;
+
+                if (frmMIDI[chipID] != null && !frmMIDI[chipID].isClosed) { frmMIDI[chipID].screenDrawParams(); frmMIDI[chipID].update(); }
+                else frmMIDI[chipID] = null;
+
+                if (frmNESDMC[chipID] != null && !frmNESDMC[chipID].isClosed) { frmNESDMC[chipID].screenDrawParams(); frmNESDMC[chipID].update(); }
+                else frmNESDMC[chipID] = null;
+
+                if (frmVRC6[chipID] != null && !frmVRC6[chipID].isClosed) { frmVRC6[chipID].screenDrawParams(); frmVRC6[chipID].update(); }
+                else frmVRC6[chipID] = null;
+
+                if (frmVRC7[chipID] != null && !frmVRC7[chipID].isClosed) { frmVRC7[chipID].screenDrawParams(); frmVRC7[chipID].update(); }
+                else frmVRC7[chipID] = null;
+
+                if (frmFDS[chipID] != null && !frmFDS[chipID].isClosed) { frmFDS[chipID].screenDrawParams(); frmFDS[chipID].update(); }
+                else frmFDS[chipID] = null;
+
+                if (frmMMC5[chipID] != null && !frmMMC5[chipID].isClosed) { frmMMC5[chipID].screenDrawParams(); frmMMC5[chipID].update(); }
+                else frmMMC5[chipID] = null;
+
+                if (frmN106[chipID] != null && !frmN106[chipID].isClosed) { frmN106[chipID].screenDrawParams(); frmN106[chipID].update(); }
+                else frmN106[chipID] = null;
+
+            }
+            if (frmYM2612MIDI != null && !frmYM2612MIDI.isClosed) { frmYM2612MIDI.screenDrawParams(); frmYM2612MIDI.update(); }
+            else frmYM2612MIDI = null;
+            if (frmMixer2 != null && !frmMixer2.isClosed) { frmMixer2.screenDrawParams(); frmMixer2.update(); }
+            else frmMixer2 = null;
+
+            if (frmRegTest != null && !frmRegTest.isClosed) { frmRegTest.screenDrawParams(); frmRegTest.update(); } else frmRegTest = null;
+
         }
 
         private void SetTitle(string newInfo)
