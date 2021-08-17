@@ -237,7 +237,7 @@ namespace MDPlayer
             }
         }
 
-        public void InsertFile(int index,string[] filenames)
+        public void InsertFile(ref int index,string[] filenames)
         {
             try
             {

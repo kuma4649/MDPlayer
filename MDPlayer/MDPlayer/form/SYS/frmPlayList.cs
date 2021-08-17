@@ -901,7 +901,15 @@ namespace MDPlayer.form
 
                 try
                 {
-                    playList.InsertFile(i,filename);
+                    int buIndex = i;
+
+                    playList.InsertFile(ref i,filename);
+
+                    if (buIndex < oldPlayIndex)
+                    {
+                        oldPlayIndex += i - buIndex;
+                    }
+                    i = buIndex;
 
                     //選択位置の曲を再生する
                     string fn = playList.lstMusic[i].fileName;
