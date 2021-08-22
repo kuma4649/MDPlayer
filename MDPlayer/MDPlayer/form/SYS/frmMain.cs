@@ -5941,8 +5941,8 @@ namespace MDPlayer.form
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
                 n = string.Format("@xx:{{\r\n  {0:D3} {1:D3}\r\n"
-                    , ym2151Register[0x20 + ch] & 0x07 //AL
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
+                    , ym2151Register[0x20 + ch] & 0x07 //AL
                     );
 
                 for (int i = 0; i < 4; i++)
@@ -6004,8 +6004,8 @@ namespace MDPlayer.form
                 int[] ym2151Register = Audio.GetYM2151Register(chipID);
 
                 n = string.Format("@xx:{{\r\n  {0:D3}, {1:D3}\r\n"
-                    , ym2151Register[0x20 + ch] & 0x07 //AL
                     , (ym2151Register[0x20 + ch] & 0x38) >> 3//FB
+                    , ym2151Register[0x20 + ch] & 0x07 //AL
                     );
 
                 for (int i = 0; i < 4; i++)
