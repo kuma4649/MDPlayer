@@ -7306,8 +7306,17 @@ namespace MDPlayer.form
                     }
                 }
 
-                //再生前に音量のバランスを設定する
-                LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
+                if (Path.GetExtension(playingFileName).ToUpper() == ".MDX")
+                {
+                    if (setting.outputDevice.SampleRate != 44100)
+                    {
+                        MessageBox.Show("MDXファイルを再生する場合はサンプリングレートを44.1kHzに設定してください。", "MDPlayer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+                    //再生前に音量のバランスを設定する
+                    LoadPresetMixerBalance(playingFileName, playingArcFileName, format);
 
                 Audio.SetVGMBuffer(format, srcBuf, playingFileName, playingArcFileName, m, songNo, extFile);
                 newParam.ym2612[0].fileFormat = format;
