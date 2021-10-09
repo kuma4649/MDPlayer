@@ -90,6 +90,7 @@ namespace MDPlayer.form
             this.label52 = new System.Windows.Forms.Label();
             this.trkbNSFHPF = new System.Windows.Forms.TrackBar();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cbNSFDmc_DPCMReverse = new System.Windows.Forms.CheckBox();
             this.cbNSFDmc_RandomizeTri = new System.Windows.Forms.CheckBox();
             this.cbNSFDmc_TriMute = new System.Windows.Forms.CheckBox();
             this.cbNSFDmc_RandomizeNoise = new System.Windows.Forms.CheckBox();
@@ -486,7 +487,6 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.cbNSFDmc_DPCMReverse = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -1076,6 +1076,12 @@ namespace MDPlayer.form
             resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.TabStop = false;
+            // 
+            // cbNSFDmc_DPCMReverse
+            // 
+            resources.ApplyResources(this.cbNSFDmc_DPCMReverse, "cbNSFDmc_DPCMReverse");
+            this.cbNSFDmc_DPCMReverse.Name = "cbNSFDmc_DPCMReverse";
+            this.cbNSFDmc_DPCMReverse.UseVisualStyleBackColor = true;
             // 
             // cbNSFDmc_RandomizeTri
             // 
@@ -3716,7 +3722,8 @@ namespace MDPlayer.form
             resources.GetString("cmbInstFormat.Items12"),
             resources.GetString("cmbInstFormat.Items13"),
             resources.GetString("cmbInstFormat.Items14"),
-            resources.GetString("cmbInstFormat.Items15")});
+            resources.GetString("cmbInstFormat.Items15"),
+            resources.GetString("cmbInstFormat.Items16")});
             resources.ApplyResources(this.cmbInstFormat, "cmbInstFormat");
             this.cmbInstFormat.Name = "cmbInstFormat";
             // 
@@ -3980,12 +3987,6 @@ namespace MDPlayer.form
             this.llOpenGithub.Name = "llOpenGithub";
             this.llOpenGithub.TabStop = true;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
-            // 
-            // cbNSFDmc_DPCMReverse
-            // 
-            resources.ApplyResources(this.cbNSFDmc_DPCMReverse, "cbNSFDmc_DPCMReverse");
-            this.cbNSFDmc_DPCMReverse.Name = "cbNSFDmc_DPCMReverse";
-            this.cbNSFDmc_DPCMReverse.UseVisualStyleBackColor = true;
             // 
             // frmSetting
             // 

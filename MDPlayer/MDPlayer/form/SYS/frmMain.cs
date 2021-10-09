@@ -5665,6 +5665,9 @@ namespace MDPlayer.form
                         case EnmInstFormat.RYM2612:
                             getInstChForRYM2612(chip, ch, chipID);
                             break;
+                        case EnmInstFormat.SendMML2VGM:
+                            getInstChForSendMML2VGM(chip, ch, chipID);
+                            break;
                     }
                 }
             }
@@ -5812,6 +5815,32 @@ namespace MDPlayer.form
 
         private void getInstChForMML2VGM(EnmChip chip, int ch, int chipID)
         {
+            string n = getInstChForMML2VGMFormat(chip, ch, chipID);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForSendMML2VGM(EnmChip chip, int ch, int chipID)
+        {
+            string n = getInstChForMML2VGMFormat(chip, ch, chipID);
+            if (string.IsNullOrEmpty(n)) return;
+
+            mmfControl mmf = new mmfControl(true, "mml2vgmFMVoicePool", 1024 * 4);
+            try
+            {
+                mmf.SendMessage(string.Join(":", "SendVoice", n));
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("メッセージが長すぎ");
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("mml2vgmの共有メモリが見つかりませんでした");
+            }
+        }
+
+        private string getInstChForMML2VGMFormat(EnmChip chip, int ch, int chipID)
+        {
 
             string n = "";
 
@@ -5877,11 +5906,11 @@ namespace MDPlayer.form
             else if (chip == EnmChip.HuC6280)
             {
                 MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
-                if (huc6280Register == null) return;
+                if (huc6280Register == null) return null;
                 MDSound.Ootake_PSG.PSG psg = huc6280Register.Psg[ch];
-                if (psg == null) return;
-                if (psg.wave == null) return;
-                if (psg.wave.Length != 32) return;
+                if (psg == null) return null;
+                if (psg.wave == null) return null;
+                if (psg.wave.Length != 32) return null;
 
                 n = "'@ H xx,\r\n   +0 +1 +2 +3 +4 +5 +6 +7\r\n";
 
@@ -5900,7 +5929,7 @@ namespace MDPlayer.form
                 }
             }
 
-            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+            return n;
         }
 
         private void getInstChForMUSICLALF(EnmChip chip, int ch, int chipID)
