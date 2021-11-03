@@ -1316,15 +1316,13 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
             {
-                if (!ctAY8910[chipID].UseReal[0])
-                {
-                    mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
-                }
+                if (ctAY8910[chipID].UseReal[0]) return;
+                mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
             }
             else
             {
                 if (scAY8910[chipID] == null) return;
-                scAY8910[chipID].setRegister(dAddr + 0x100, dData);
+                scAY8910[chipID].setRegister(dAddr + 0x000, dData);
             }
         }
 
