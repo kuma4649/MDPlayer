@@ -158,6 +158,24 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
 
   
   
+[ちょっと分かりずらい設定項目]  
+  ・[Options]ウィンドウ > [other]タブ > [Search paths on additional file]  
+    このテキストボックスにパスを入力しておくと、  
+    曲データを再生するときに追加で参照されるファイルをその場所を検索するようになります。  
+    パスは;区切りで複数列挙可能です。  
+    ドライバ毎に追加で探すファイルは以下の通りです。  
+      ・レコンポーザ(.RCP)  
+        .CM6 / .GSD  
+      ・MoonDriver(.MDR)  
+        .PCM  
+      ・MXDRV(.MDX)  
+        .PDX  
+      ・MNDRV(.MND)  
+        .PND  
+    尚、PMDDotNETの場合は環境変数PMDで指定されたパスを参照します。  
+
+  
+  
 [G.I.M.I.C.関連情報]  
   ・SSG volumeについて  
     SSG volumeは、ミキサー画面右下の「G.OPN」「G.OPNA」フェーダーで調節してください。  

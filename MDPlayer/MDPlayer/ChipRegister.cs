@@ -1317,7 +1317,8 @@ namespace MDPlayer
             if (model == EnmModel.VirtualModel)
             {
                 if (ctAY8910[chipID].UseReal[0]) return;
-                mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
+                if (ctAY8910[chipID].UseEmu[0]) mds.WriteAY8910((byte)chipID, (byte)dAddr, (byte)dData);
+                else if (ctAY8910[chipID].UseEmu[1]) mds.WriteAY8910mame((byte)chipID, (byte)dAddr, (byte)dData);
             }
             else
             {
@@ -4755,6 +4756,28 @@ namespace MDPlayer
             }
         }
 
+        public void writeWSwan(byte ChipID, byte Port, byte Data, EnmModel model)
+        {
+            if (ChipID == 0) chipLED.PriWSW = 2;
+            else chipLED.SecWSW = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WriteWSwan(ChipID, Port, Data);
+            }
+        }
+
+        public void writeWSwanMem(byte ChipID, int Port, byte Data, EnmModel model)
+        {
+            if (ChipID == 0) chipLED.PriWSW = 2;
+            else chipLED.SecWSW = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WriteWSwanMem(ChipID, Port, Data);
+            }
+        }
+
         public void writePOKEY(byte ChipID, byte Port, byte Data, EnmModel model)
         {
             if (ChipID == 0) chipLED.PriPOK = 2;
@@ -4923,6 +4946,29 @@ namespace MDPlayer
                         }
                     }
                     scYM2203[chipID].dClock = scYM2203[chipID].SetMasterClock((uint)clock);
+                }
+            }
+        }
+
+        public void writeAY8910Clock(byte chipID, int clock, EnmModel model)
+        {
+            if (model == EnmModel.VirtualModel)
+            {
+            }
+            else
+            {
+                if (scAY8910 != null && scAY8910[chipID] != null)
+                {
+                    if (scAY8910[chipID] is RC86ctlSoundChip)
+                    {
+                        Nc86ctl.ChipType ct = ((RC86ctlSoundChip)scAY8910[chipID]).ChipType;
+                        //YM2149が選ばれている場合は周波数を2倍にする
+                        if (ct == Nc86ctl.ChipType.CHIP_YM2149)
+                        {
+                            clock *= 2;
+                        }
+                    }
+                    scAY8910[chipID].dClock = scAY8910[chipID].SetMasterClock((uint)clock);
                 }
             }
         }

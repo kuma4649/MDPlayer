@@ -346,8 +346,14 @@ namespace MDPlayer
                 {
                     NIRealChip rc = nc86ctl.getChipInterface(i);
                     NIGimic2 gm = rc.QueryInterface();
-                    ChipType cct = gm.getModuleType();
                     Devinfo di = gm.getModuleInfo();
+                    ChipType cct = gm.getModuleType();
+                    if (cct == ChipType.CHIP_UNKNOWN)
+                    {
+                        if (di.Devname == "GMC-S2149") cct = ChipType.CHIP_YM2149;
+                        else if (di.Devname == "GMC-S8910") cct = ChipType.CHIP_AY38910;
+                        else if (di.Devname == "GMC-S2413") cct = ChipType.CHIP_YM2413;
+                    }
                     Setting.ChipType2 ct = null;
                     int o = -1;
                     switch (realChipType2)
@@ -369,8 +375,8 @@ namespace MDPlayer
                             }
                             break;
                         case EnmRealChipType.AY8910:
-                            if (   (cct == ChipType.CHIP_UNKNOWN && di.Devname == "GMC-S2149")
-                                || (cct == ChipType.CHIP_UNKNOWN && di.Devname == "GMC-S8910")
+                            if (   cct == ChipType.CHIP_YM2149
+                                || cct == ChipType.CHIP_AY38910
                                 || cct == ChipType.CHIP_YM2608 
                                 || cct == ChipType.CHIP_YMF288 
                                 || cct == ChipType.CHIP_YM2203)
@@ -388,9 +394,7 @@ namespace MDPlayer
                             }
                             break;
                         case EnmRealChipType.YM2413:
-                            if (   cct == ChipType.CHIP_YM2413
-                                || (cct == ChipType.CHIP_UNKNOWN && di.Devname == "GMC-S2413")
-                                )
+                            if (cct == ChipType.CHIP_YM2413)
                             {
                                 ct = new Setting.ChipType2();
                                 ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
@@ -605,7 +609,14 @@ namespace MDPlayer
             realChip = rc;
             NIGimic2 gm = rc.QueryInterface();
             dClock = gm.getPLLClock();
+            Devinfo di = gm.getModuleInfo();
             ChipType = gm.getModuleType();
+            if (ChipType == ChipType.CHIP_UNKNOWN)
+            {
+                if (di.Devname == "GMC-S2149") ChipType = ChipType.CHIP_YM2149;
+                else if (di.Devname == "GMC-S8910") ChipType = ChipType.CHIP_AY38910;
+                else if (di.Devname == "GMC-S2413") ChipType = ChipType.CHIP_YM2413;
+            }
             if (ChipType == ChipType.CHIP_YM2608)
             {
                 //setRegister(0x2d, 00);

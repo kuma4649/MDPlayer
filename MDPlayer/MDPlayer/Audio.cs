@@ -3955,6 +3955,10 @@ namespace MDPlayer
                 if (useChip.Contains(EnmChip.AY8910) || useChip.Contains(EnmChip.S_AY8910))
                     SetAY8910Volume(true, setting.balance.AY8910Volume);
 
+                if (useChip.Contains(EnmChip.AY8910))
+                    chipRegister.writeAY8910Clock(0, clockAY8910, EnmModel.RealModel);
+                if (useChip.Contains(EnmChip.S_AY8910))
+                    chipRegister.writeAY8910Clock(1, clockAY8910, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, YM2151ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2151))
@@ -5269,17 +5273,38 @@ namespace MDPlayer
 
                 if (((vgm)driverVirtual).AY8910ClockValue != 0)
                 {
-                    MDSound.ay8910 ay8910 = new MDSound.ay8910();
+                    MDSound.ay8910 ay8910 = null;
+                    MDSound.ay8910_mame ay8910mame = null;
+
                     for (int i = 0; i < (((vgm)driverVirtual).AY8910DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
                         chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
                         chip.ID = (byte)i;
-                        chip.Instrument = ay8910;
-                        chip.Update = ay8910.Update;
-                        chip.Start = ay8910.Start;
-                        chip.Stop = ay8910.Stop;
-                        chip.Reset = ay8910.Reset;
+
+                        if ((i == 0 && setting.AY8910Type[0].UseEmu[0])
+                            || (i == 1 && setting.AY8910Type[1].UseEmu[0]))
+                        {
+                            if (ay8910 == null) ay8910 = new ay8910();
+                            chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                            chip.Instrument = ay8910;
+                            chip.Update = ay8910.Update;
+                            chip.Start = ay8910.Start;
+                            chip.Stop = ay8910.Stop;
+                            chip.Reset = ay8910.Reset;
+                        }
+                        else if ((i == 0 && setting.AY8910Type[0].UseEmu[1])
+                            || (i == 1 && setting.AY8910Type[1].UseEmu[1]))
+                        {
+                            if (ay8910mame == null) ay8910mame = new ay8910_mame();
+                            chip.type = MDSound.MDSound.enmInstrumentType.AY8910mame;
+                            chip.Instrument = ay8910mame;
+                            chip.Update = ay8910mame.Update;
+                            chip.Start = ay8910mame.Start;
+                            chip.Stop = ay8910mame.Stop;
+                            chip.Reset = ay8910mame.Reset;
+                        }
+
                         chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.AY8910Volume;
                         chip.Clock = (((vgm)driverVirtual).AY8910ClockValue & 0x7fffffff) / 2;
@@ -5410,6 +5435,32 @@ namespace MDPlayer
 
                         lstChips.Add(chip);
                         useChip.Add(i == 0 ? EnmChip.SAA1099 : EnmChip.S_SAA1099);
+                    }
+                }
+
+                if (((vgm)driverVirtual).WSwanClockValue != 0)
+                {
+                    MDSound.ws_audio WSwan = new ws_audio();
+                    for (int i = 0; i < (((vgm)driverVirtual).WSwanDualChipFlag ? 2 : 1); i++)
+                    {
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.WSwan;
+                        chip.ID = (byte)i;
+                        chip.Instrument = WSwan;
+                        chip.Update = WSwan.Update;
+                        chip.Start = WSwan.Start;
+                        chip.Stop = WSwan.Stop;
+                        chip.Reset = WSwan.Reset;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                        chip.Volume = setting.balance.WSwanVolume;
+                        chip.Clock = (((vgm)driverVirtual).WSwanClockValue & 0x3fffffff);
+                        hiyorimiDeviceFlag |= 0x2;
+
+                        if (i == 0) chipLED.PriWSW = 1;
+                        else chipLED.SecWSW = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(i == 0 ? EnmChip.WSwan : EnmChip.S_WSwan);
                     }
                 }
 
@@ -5758,8 +5809,12 @@ namespace MDPlayer
                     }
                 }
 
+
+
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
+
+
 
                 if (mds == null)
                     mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
@@ -5767,6 +5822,8 @@ namespace MDPlayer
                     mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
+
+
 
                 if (useChip.Contains(EnmChip.YM2203) || useChip.Contains(EnmChip.S_YM2203))
                 {
@@ -5799,6 +5856,10 @@ namespace MDPlayer
                     SetYM2610AdpcmBVolume(true, setting.balance.YM2610AdpcmBVolume);
                 }
 
+                if (useChip.Contains(EnmChip.AY8910))
+                    chipRegister.writeAY8910Clock(0, (int)((vgm)driverVirtual).AY8910ClockValue, EnmModel.RealModel);
+                if (useChip.Contains(EnmChip.S_AY8910))
+                    chipRegister.writeAY8910Clock(1, (int)((vgm)driverVirtual).AY8910ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, (int)((vgm)driverVirtual).YM2151ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2151))

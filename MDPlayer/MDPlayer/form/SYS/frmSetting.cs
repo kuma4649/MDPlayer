@@ -403,12 +403,17 @@ namespace MDPlayer.form
                     , ucSI.rbAY8910P_Silent
                     , ucSI.rbAY8910P_Emu
                     , ucSI.rbAY8910P_Real
-                    , ucSI.cmbAY8910P_Real);
+                    , ucSI.cmbAY8910P_Real
+                    , null,null,null
+                    , ucSI.rbAY8910P_Emu2);
+
                 SetRealParam(setting.AY8910Type[1]
                     , ucSI.rbAY8910S_Silent
                     , ucSI.rbAY8910S_Emu
                     , ucSI.rbAY8910S_Real
-                    , ucSI.cmbAY8910S_Real);
+                    , ucSI.cmbAY8910S_Real
+                    , null, null, null
+                    , ucSI.rbAY8910S_Emu2);
 
                 SetRealParam(setting.K051649Type[0]
                     , ucSI.rbK051649P_Silent
@@ -1268,7 +1273,8 @@ namespace MDPlayer.form
                 , ucSI.rbAY8910P_Real
                 , ucSI.cmbAY8910P_Real
                 , ucSI.rbAY8910P_Emu
-                , null, null, null, null, null
+                , ucSI.rbAY8910P_Emu2
+                , null, null, null, null
                 );
 
             setting.AY8910Type[1] = new Setting.ChipType2();
@@ -1277,7 +1283,8 @@ namespace MDPlayer.form
                 , ucSI.rbAY8910S_Real
                 , ucSI.cmbAY8910S_Real
                 , ucSI.rbAY8910S_Emu
-                , null, null, null, null, null
+                , ucSI.rbAY8910S_Emu2
+                , null, null, null, null
                 );
 
 

@@ -2100,6 +2100,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _WSwanVolume = 0;
+            public int WSwanVolume
+            {
+                get
+                {
+                    if (_WSwanVolume > 20 || _WSwanVolume < -192) _WSwanVolume = 0;
+                    return _WSwanVolume;
+                }
+
+                set
+                {
+                    _WSwanVolume = value;
+                    if (_WSwanVolume > 20 || _WSwanVolume < -192) _WSwanVolume = 0;
+                }
+            }
+
             private int _POKEYVolume = 0;
             public int POKEYVolume
             {
