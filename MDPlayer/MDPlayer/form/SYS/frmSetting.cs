@@ -44,6 +44,7 @@ namespace MDPlayer.form
 
             this.cmbLatency.SelectedIndex = 5;
             this.cmbWaitTime.SelectedIndex = 0;
+            cbUnuseRealChip.Checked = setting.unuseRealChip;
 
             //ASIOサポートチェック
             if (!AsioOut.isSupported())
@@ -1064,6 +1065,7 @@ namespace MDPlayer.form
 
             #region Sound
 
+            setting.unuseRealChip = cbUnuseRealChip.Checked;
             setting.YM2612Type = new Setting.ChipType2[2];
             setting.YM2612Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(

@@ -785,6 +785,8 @@ namespace MDPlayer
         }
 
         public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
+        public bool unuseRealChip { get; set; }
+
         private KeyBoardHook _keyBoardHook = new KeyBoardHook();
 
         [Serializable]
@@ -5388,6 +5390,7 @@ namespace MDPlayer
                 for (int i = 0; i < this.SEGAPCMType.Length; i++) setting.SEGAPCMType[i] = this.SEGAPCMType[i].Copy();
             }
 
+            setting.unuseRealChip = this.unuseRealChip;
             setting.FileSearchPathList = this.FileSearchPathList;
 
             //setting.YM2151SType = this.YM2151SType.Copy();

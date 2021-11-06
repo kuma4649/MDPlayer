@@ -145,14 +145,20 @@
   <data name="lblLatency.Text" xml:space="preserve">
     <value>遅延時間(レンダリングバッファ)</value>
   </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>遅延演奏</value>
+  <data name="cbUnuseRealChip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>261, 16</value>
+  </data>
+  <data name="cbUnuseRealChip.Text" xml:space="preserve">
+    <value>C86ctl/SCCIを使用しない (再起動が必要です。)</value>
   </data>
   <data name="cbHiyorimiMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>335, 16</value>
   </data>
   <data name="cbHiyorimiMode.Text" xml:space="preserve">
     <value>日和見モード(出力タブ：遅延時間100ms以下の時、使用を推奨)</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>遅延演奏</value>
   </data>
   <data name="label51.Text" xml:space="preserve">
     <value>テンポが速かったり、音が途切れる場合に調整すると改善することがあります。通常は5000。</value>
