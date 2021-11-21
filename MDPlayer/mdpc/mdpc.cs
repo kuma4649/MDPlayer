@@ -283,6 +283,7 @@ namespace mdpc
             Audio.Init(setting);
             Audio.SetVGMBuffer(format, vgmBuf, srcFn, "", 0, 0, null);
             Audio.Play(setting);
+            Audio.GO();
         }
 
     }

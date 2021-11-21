@@ -5156,6 +5156,8 @@ namespace MDPlayer.form
                     ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
+                Audio.GO();
+
                 if (frmInfo != null)
                 {
                     frmInfo.update();

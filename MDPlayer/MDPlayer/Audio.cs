@@ -1914,7 +1914,6 @@ namespace MDPlayer
             {
                 naudioFileReader = new AudioFileReader(naudioFileName);
                 naudioWs = new NAudio.Wave.SampleProviders.SampleToWaveProvider16(naudioFileReader);
-                Stopped = false;
                 return true;
             }
 
@@ -2053,8 +2052,6 @@ namespace MDPlayer
                 //Play
 
                 Paused = false;
-
-                Stopped = false;
                 oneTimeReset = false;
 
                 return true;
@@ -2257,7 +2254,6 @@ namespace MDPlayer
                     realChip.WaitOPNADPCMData(setting.YM2608Type[0].realChipInfo[0].SoundLocation == -1);
                 }
 
-                Stopped = false;
                 oneTimeReset = false;
 
                 return true;
@@ -2424,7 +2420,6 @@ namespace MDPlayer
                     realChip.WaitOPNADPCMData(setting.YM2608Type[0].realChipInfo[0].SoundLocation == -1);
                 }
 
-                Stopped = false;
                 oneTimeReset = false;
 
                 return true;
@@ -2622,8 +2617,6 @@ namespace MDPlayer
 
 
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -2789,8 +2782,6 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -2951,8 +2942,6 @@ namespace MDPlayer
                 oneTimeReset = false;
 
                 Thread.Sleep(500);
-
-                Stopped = false;
 
                 return true;
             }
@@ -3201,8 +3190,6 @@ namespace MDPlayer
                 Paused = false;
                 oneTimeReset = false;
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -3371,8 +3358,6 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -3461,8 +3446,6 @@ namespace MDPlayer
                 oneTimeReset = false;
 
                 Thread.Sleep(500);
-
-                Stopped = false;
 
                 return true;
             }
@@ -4015,8 +3998,6 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -4164,8 +4145,6 @@ namespace MDPlayer
                 oneTimeReset = false;
 
                 Thread.Sleep(500);
-
-                Stopped = false;
 
                 return true;
             }
@@ -4383,8 +4362,6 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -4393,6 +4370,11 @@ namespace MDPlayer
                 return false;
             }
 
+        }
+
+        public static void GO()
+        {
+            Stopped = false;
         }
 
         public static bool hesPlay(Setting setting)
@@ -4484,8 +4466,6 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
-
                 return true;
             }
             catch (Exception ex)
@@ -4550,8 +4530,6 @@ namespace MDPlayer
                 oneTimeReset = false;
 
                 Thread.Sleep(500);
-
-                Stopped = false;
 
                 return true;
             }
@@ -5979,7 +5957,7 @@ namespace MDPlayer
 
                 Thread.Sleep(500);
 
-                Stopped = false;
+                //Stopped = false;
 
                 return true;
             }

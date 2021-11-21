@@ -3970,6 +3970,9 @@ namespace MDPlayer
             setYM2612Register((byte)chipID, p, 0x44 + c, fmRegisterYM2612[chipID][p][0x44 + c], EnmModel.RealModel, -1);
             setYM2612Register((byte)chipID, p, 0x48 + c, fmRegisterYM2612[chipID][p][0x48 + c], EnmModel.RealModel, -1);
             setYM2612Register((byte)chipID, p, 0x4c + c, fmRegisterYM2612[chipID][p][0x4c + c], EnmModel.RealModel, -1);
+
+            if (mask) mds.setYM2612Mask(chipID, ch);
+            else mds.resetYM2612Mask(chipID, ch);
         }
 
         public void setMaskOKIM6258(int chipID, bool mask)
