@@ -307,29 +307,29 @@ namespace MDPlayer
                 {
                     int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
                     int kt = Tables.kbl[(i % 12) * 2 + 1];
-                    drawKbn(screen, 32 + kx, y * 8 + 8, kt, tp);
+                    drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp);
                 }
 
                 if (y < 13)
                 {
-                    ChYM2608_P(screen, 0, y * 8 + 8, y, false, tp);
+                    ChYM2608_P(screen, 1, y * 8 + 8, y, false, tp);
                 }
 
                 if (y < 6 || y == 12)
                 {
-                    drawPanP(screen, 24, y * 8 + 8, 3, tp);
+                    drawPanP(screen, 25, y * 8 + 8, 3, tp);
                 }
 
                 int d = 99;
                 if (y > 5 && y < 9)
                 {
-                    Volume(screen, 256, 8 + y * 8, 0, ref d, 0, tp);
+                    Volume(screen, 289, 8 + y * 8, 0, ref d, 0, tp);
                 }
                 else
                 {
-                    Volume(screen, 256, 8 + y * 8, 1, ref d, 0, tp);
+                    Volume(screen, 289, 8 + y * 8, 1, ref d, 0, tp);
                     d = 99;
-                    Volume(screen, 256, 8 + y * 8, 2, ref d, 0, tp);
+                    Volume(screen, 289, 8 + y * 8, 2, ref d, 0, tp);
                 }
             }
 
@@ -703,6 +703,44 @@ namespace MDPlayer
                 oi[47] = ni[47];
             }
         }
+        public static void InstOPNA(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
+        {
+            int sx = (c % 3) * 4 * 25 + x;
+            int sy = (c / 3) * 8 * 6 + y;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 11; i++)
+                {
+                    if (oi[i + j * 11] != ni[i + j * 11])
+                    {
+                        drawFont4Int(screen, sx + i * 8 + (i > 5 ? 4 : 0), sy + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 11]);
+                        oi[i + j * 11] = ni[i + j * 11];
+                    }
+                }
+            }
+
+            if (oi[44] != ni[44])
+            {
+                drawFont4Int(screen, sx + 8 * 4, sy - 16, 0, 2, ni[44]);
+                oi[44] = ni[44];
+            }
+            if (oi[45] != ni[45])
+            {
+                drawFont4Int(screen, sx + 8 * 6, sy - 16, 0, 2, ni[45]);
+                oi[45] = ni[45];
+            }
+            if (oi[46] != ni[46])
+            {
+                drawFont4Int(screen, sx + 8 * 8 + 4, sy - 16, 0, 2, ni[46]);
+                oi[46] = ni[46];
+            }
+            if (oi[47] != ni[47])
+            {
+                drawFont4Int(screen, sx + 8 * 11, sy - 16, 0, 2, ni[47]);
+                oi[47] = ni[47];
+            }
+        }
 
         public static void Inst(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni, int[] ot, int[] nt)
         {
@@ -1009,7 +1047,7 @@ namespace MDPlayer
             int sy = 0;
             if (c == 1 || c == 2) { t = 4; }
             if (c == 2) { sy = 4; }
-            x = x * 4 * 13 + 8 * 2;
+            x = x * 4 * 15 + 20;
 
             for (int i = 0; i <= 19; i++)
             {
@@ -1116,6 +1154,41 @@ namespace MDPlayer
                 if (nt / 12 < 10)
                 {
                     drawFont8(screen, 280 + x, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
+        public static void KeyBoardOPNA(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx = 0;
+            int kt = 0;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 296 + x, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 296 + x, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 312 + x, y, 1, Tables.kbo[nt / 12]);
                 }
             }
 
@@ -1444,7 +1517,7 @@ namespace MDPlayer
                 return;
             }
 
-            drawPanP(screen, c * 4 * 13 + 8, 8 * 14, nt, ntp);
+            drawPanP(screen, c * 4 * 15 + 12, 8 * 14, nt, ntp);
             ot = nt;
             otp = ntp;
         }
@@ -1769,7 +1842,7 @@ namespace MDPlayer
                 return;
             }
 
-            ChYM2608_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
+            ChYM2608_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, tp);
             om = nm;
         }
 
@@ -1781,7 +1854,7 @@ namespace MDPlayer
                 return;
             }
 
-            Ch3YM2612_P(screen, 0, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
+            Ch3YM2612_P(screen, 1, 8 + ch * 8, ch, nm == null ? false : (bool)nm, ne, tp);
             om = nm;
             oe = ne;
         }
@@ -2550,6 +2623,19 @@ namespace MDPlayer
             }
 
             drawTnP(screen, x * 4, y * 4 + c * 8, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public static void TnOPNA(FrameBuffer screen, int x, int y, int c, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawTnP(screen, x * 4 + 1, y * 4 + c * 8, nt, ntp);
             ot = nt;
             otp = ntp;
         }
@@ -3975,12 +4061,12 @@ namespace MDPlayer
         {
             if (screen == null) return;
 
-            drawFont4(screen, x + 1 * 4, y, mask ? 1 : 0, "B");
-            drawFont4(screen, x + 14 * 4, y, mask ? 1 : 0, "S");
-            drawFont4(screen, x + 27 * 4, y, mask ? 1 : 0, "C");
-            drawFont4(screen, x + 40 * 4, y, mask ? 1 : 0, "H");
-            drawFont4(screen, x + 53 * 4, y, mask ? 1 : 0, "T");
-            drawFont4(screen, x + 66 * 4, y, mask ? 1 : 0, "R");
+            drawFont4(screen, x + 0 * 4, y, mask ? 1 : 0, "B");
+            drawFont4(screen, x + 15 * 4, y, mask ? 1 : 0, "S");
+            drawFont4(screen, x + 30 * 4, y, mask ? 1 : 0, "C");
+            drawFont4(screen, x + 45 * 4, y, mask ? 1 : 0, "H");
+            drawFont4(screen, x + 60 * 4, y, mask ? 1 : 0, "T");
+            drawFont4(screen, x + 75 * 4, y, mask ? 1 : 0, "R");
         }
 
         public static void ChYM2610_P(FrameBuffer screen, int x, int y, int ch, bool mask, int tp)
