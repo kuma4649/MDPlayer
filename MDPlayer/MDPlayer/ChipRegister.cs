@@ -3529,6 +3529,7 @@ namespace MDPlayer
             {
                 //PCMデータをマスクする
                 if (maskFMChYM2612[chipID][5]) dData = 0x00;
+                //Console.WriteLine("{0:x02}",dData);
             }
 
             if (model == EnmModel.VirtualModel)
