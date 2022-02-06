@@ -2,11 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MDPlayer.Driver
 {
@@ -222,7 +218,7 @@ namespace MDPlayer.Driver
 
 #if DEBUG
             //実チップスレッドは処理をスキップ(デバッグ向け)
-            if (model == EnmModel.RealModel) return true;
+            //if (model == EnmModel.RealModel) return true;
 #endif
 
             if (mtype == enmMUCOMFileType.MUC) return initMUC();
@@ -241,8 +237,8 @@ namespace MDPlayer.Driver
             //実チップスレッドは処理をスキップ(デバッグ向け)
             if (model == EnmModel.RealModel)
             {
-                Stopped = true;
-                return;
+                //Stopped = true;
+                //return;
             }
 #endif
 

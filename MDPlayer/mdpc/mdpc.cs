@@ -18,11 +18,11 @@ namespace mdpc
         private string desFn;
         public const int FCC_VGM = 0x206D6756;  // "Vgm "
         private Setting setting;
-        private WaveWriter ww;
+        //private WaveWriter ww;
         private EnmFileFormat format;
         private byte[] vgmBuf;
-        private double vgmSpeed;
-        private MDPlayer.baseDriver driver;
+        //private double vgmSpeed;
+        //private MDPlayer.baseDriver driver;
         private bool emuOnly=false;
 
         public mdpc(string[] args)

@@ -210,7 +210,7 @@ namespace MDPlayer.Driver
 
             if (PMDDriver == null) PMDDriver = im.GetDriver("PMDDotNET.Driver.Driver");
 
-            bool notSoundBoard2 = false;
+            //bool notSoundBoard2 = false;
             bool isLoadADPCM = true;
             bool loadADPCMOnly = false;
 
@@ -343,7 +343,7 @@ namespace MDPlayer.Driver
         {
             if (PMDDriver == null) PMDDriver = im.GetDriver("PMDDotNET.Driver.Driver");
 
-            bool notSoundBoard2 = false;
+            //bool notSoundBoard2 = false;
             bool isLoadADPCM = true;
             bool loadADPCMOnly = false;
             List<MmlDatum> buf = new List<MmlDatum>();

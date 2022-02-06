@@ -196,6 +196,7 @@
     <Compile Include="Driver\MNDRV\mpcm.cs" />
     <Compile Include="Driver\MNDRV\reg.cs" />
     <Compile Include="Driver\MoonDriver\MoonDriver.cs" />
+    <Compile Include="Driver\MoonDriver\MoonDriverDotNET.cs" />
     <Compile Include="Driver\MUCOM\MucomDotNET.cs" />
     <Compile Include="Driver\MXDRV\depend.cs" />
     <Compile Include="Driver\MXDRV\MXDRV.cs" />
@@ -870,6 +871,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Driver\SID\debugMemo.txt" />
+    <Content Include="lang\MoonDriverDotNETmessage.ja-JP.txt" />
+    <Content Include="lang\MoonDriverDotNETmessage.txt" />
     <Content Include="lang\PMDDotNETmessage.ja-JP.txt" />
     <Content Include="lang\PMDDotNETmessage.txt" />
     <Content Include="lib\c86ctl.dll" />
@@ -877,6 +880,15 @@
     <Content Include="lib\Jacobi.Vst.Interop.dll" />
     <Content Include="lib\MDSound.dll" />
     <Content Include="lib\Z80dotNet.dll" />
+    <Content Include="plugin\driver\MoonDriverDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\driver\MoonDriverDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\driver\MoonDriverDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="plugin\driver\mucomDotNETCommon.dll" />
     <Content Include="plugin\driver\mucomDotNETCompiler.dll" />
     <Content Include="plugin\driver\mucomDotNETDriver.dll" />

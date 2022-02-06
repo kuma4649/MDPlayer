@@ -1,4 +1,7 @@
 更新履歴
+STBL214 2022/02/06
+  Core:moondriverDotNETに暫定対応(.mdlファイルのみ。mdrファイルは既存のプログラムで動作します。)
+
 STBL213 2021/12/30
   Core:vgm:StreamのDelta-PCMによるデータのデコンプ処理の修正
 

@@ -117,7 +117,7 @@ namespace MDPlayer.form
         //private FileSystemWatcher watcher = null;
         private mmfControl mmf = null;
         private long now = 0;
-        private string opeFolder;
+        private string opeFolder = "";
         private object remoteLockObj = new object();
         private bool remoteBusy = false;
         private List<string[]> remoteReq = new List<string[]>();
@@ -5455,6 +5455,12 @@ namespace MDPlayer.form
             if (ext == ".mdr")
             {
                 format = EnmFileFormat.MDR;
+                return buf;
+            }
+
+            if (ext == ".mdl")
+            {
+                format = EnmFileFormat.MDL;
                 return buf;
             }
 

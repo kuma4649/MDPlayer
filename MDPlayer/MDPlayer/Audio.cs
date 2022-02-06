@@ -172,6 +172,8 @@ namespace MDPlayer
         public static InstanceMarker mucomDotNETim { get; private set; }
         public static InstanceMarker PMDDotNETim { get; private set; }
 
+        public static InstanceMarker moonDriverDotNETim { get; private set; }
+
 
         public static List<vstMng.vstInfo2> getVSTInfos()
         {
@@ -1477,6 +1479,9 @@ namespace MDPlayer
             PMDDotNETim = new InstanceMarker();
             PMDDotNETim.LoadCompilerDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\PMDDotNETCompiler.dll"));
             PMDDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\PMDDotNETDriver.dll"));
+            moonDriverDotNETim = new InstanceMarker();
+            moonDriverDotNETim.LoadCompilerDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\moonDriverDotNETCompiler.dll"));
+            moonDriverDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\moonDriverDotNETDriver.dll"));
 
             log.ForcedWrite("Audio:Init:STEP 10");
 
@@ -1745,6 +1750,22 @@ namespace MDPlayer
                     ((Driver.MoonDriver.MoonDriver)driverReal).ExtendFile = (ExtendFile != null && ExtendFile.Count > 0) ? ExtendFile[0] : null;
                 }
                 return mdrPlay(setting);
+            }
+
+            if (PlayingFileFormat == EnmFileFormat.MDL)
+            {
+                driverVirtual = new Driver.MoonDriverDotNET(moonDriverDotNETim);
+                driverVirtual.setting = setting;
+                ((Driver.MoonDriverDotNET)driverVirtual).PlayingFileName = PlayingFileName;
+                driverReal = null;
+                if (setting.outputDevice.DeviceType != Common.DEV_Null && !setting.YM2608Type[0].UseEmu[0])
+                {
+                    driverReal = new Driver.MoonDriverDotNET(moonDriverDotNETim);
+                    driverReal.setting = setting;
+                    ((Driver.MoonDriverDotNET)driverReal).PlayingFileName = PlayingFileName;
+                }
+
+                return mdlPlay_moonDriverDotNET(setting, Driver.MoonDriverDotNET.enmMoonDriverFileType.MDL);
             }
 
             if (PlayingFileFormat == EnmFileFormat.MDX)
@@ -2419,6 +2440,127 @@ namespace MDPlayer
                 {
                     realChip.WaitOPNADPCMData(setting.YM2608Type[0].realChipInfo[0].SoundLocation == -1);
                 }
+
+                oneTimeReset = false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.ForcedWrite(ex);
+                return false;
+            }
+
+        }
+
+        public static bool mdlPlay_moonDriverDotNET(Setting setting, Driver.MoonDriverDotNET.enmMoonDriverFileType fileType)
+        {
+
+            try
+            {
+
+                if (vgmBuf == null || setting == null) return false;
+
+                if (fileType == Driver.MoonDriverDotNET.enmMoonDriverFileType.MDL)
+                {
+                    vgmBuf = ((Driver.MoonDriverDotNET)driverVirtual).Compile(vgmBuf);
+                }
+                EnmChip[] useChipFromMdr = new EnmChip[] { EnmChip.YMF278B };
+
+                //Stop();
+                chipRegister.resetChips();
+                ResetFadeOutParam();
+                useChip.Clear();
+
+                startTrdVgmReal();
+
+                List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
+                MDSound.MDSound.Chip chip;
+
+                hiyorimiNecessary = setting.HiyorimiMode;
+
+                chipLED = new ChipLEDs();
+                MasterVolume = setting.balance.MasterVolume;
+
+                ymf278b ymf278b = null;
+                ymf278b = new ymf278b();
+                //Func<string, Stream> fn = Common.GetOPNARyhthmStream;
+
+                if (useChipFromMdr[0] != EnmChip.Unuse)
+                {
+                    chip = new MDSound.MDSound.Chip();
+                    chip.ID = 0;
+                    chipLED.PriOPL4 = 1;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YMF278B;
+                    chip.Instrument = ymf278b;
+                    chip.Update = ymf278b.Update;
+                    chip.Start = ymf278b.Start;
+                    chip.Stop = ymf278b.Stop;
+                    chip.Reset = ymf278b.Reset;
+                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    chip.Volume = setting.balance.YMF278BVolume;
+                    chip.Clock = 33868800;
+                    chip.Option = null;// new object[] { fn };
+                    lstChips.Add(chip);
+                    useChip.Add(EnmChip.YMF278B);
+                    //clockYM2608 = Driver.MucomDotNET.OPNAbaseclock;
+                }
+
+                if (hiyorimiNecessary) hiyorimiNecessary = true;
+                else hiyorimiNecessary = false;
+
+                if (mds == null)
+                    mds = new MDSound.MDSound((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+                else
+                    mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
+
+                chipRegister.initChipRegister(lstChips.ToArray());
+
+                //SetYM2608Volume(true, setting.balance.YM2608Volume);
+                //SetYM2608FMVolume(true, setting.balance.YM2608FMVolume);
+                //SetYM2608PSGVolume(true, setting.balance.YM2608PSGVolume);
+                //SetYM2608RhythmVolume(true, setting.balance.YM2608RhythmVolume);
+                //SetYM2608AdpcmVolume(true, setting.balance.YM2608AdpcmVolume);
+
+                //chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(0, 0, 0x2d, 0x00, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(0, 0, 0x29, 0x82, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(0, 0, 0x29, 0x82, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(1, 0, 0x29, 0x82, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.VirtualModel); //PSG TONE でリセット
+                //chipRegister.setYM2608Register(0, 0, 0x07, 0x38, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(0, 0, 0x08, 0x00, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(0, 0, 0x09, 0x00, EnmModel.RealModel);
+                //chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.VirtualModel);
+                //chipRegister.setYM2608Register(0, 0, 0x0a, 0x00, EnmModel.RealModel);
+
+                //chipRegister.writeYM2608Clock(0, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
+                //chipRegister.writeYM2608Clock(1, Driver.MucomDotNET.OPNAbaseclock, EnmModel.RealModel);
+                //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
+                //chipRegister.setYM2608SSGVolume(1, setting.balance.GimicOPNAVolume, EnmModel.RealModel);
+
+
+                if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.YMF278B }
+                    , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)
+                    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                if (driverReal != null)
+                {
+                    if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YMF278B }
+                        , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
+                        , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+
+                //Play
+
+                Paused = false;
+
+                //if (driverReal != null && setting.YMF278BType[0].UseReal[0])
+                //{
+                //    realChip.WaitOPL4PCMData(setting.YMF278BType[0].realChipInfo[0].SoundLocation == -1);
+                //}
 
                 oneTimeReset = false;
 
