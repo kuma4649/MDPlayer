@@ -1803,6 +1803,7 @@ namespace MDPlayer.form
                     rci.BusID = v;
                     if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
                     rci.SoundChip = v;
+                    ct.UseReal[1] = true;
                 }
                 if (cmb_SCCI_E2.SelectedItem != null)
                 {
@@ -1817,6 +1818,7 @@ namespace MDPlayer.form
                     rci.BusID = v;
                     if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
                     rci.SoundChip = v;
+                    ct.UseReal[2] = true;
                 }
             }
 
