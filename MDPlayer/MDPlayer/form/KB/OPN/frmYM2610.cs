@@ -248,7 +248,7 @@ namespace MDPlayer.form
             if (divInd < 0 || divInd > 2) divInd = 0;
             float fmDiv = fmDivTbl[divInd];
             float ssgDiv = ssgDivTbl[divInd];
-            ssgMul = ssgMul * ssgDiv / 4;
+            ssgMul = ssgMul / ssgDiv * 4;
 
             //int masterClock = Audio.clockYM2610;
             //int defaultMasterClock = 8000000;

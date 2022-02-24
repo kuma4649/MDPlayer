@@ -122,7 +122,7 @@ namespace MDPlayer.form
             newParam.channels[2].ex = isFmEx;
 
             int defaultMasterClock = 7987200 / 2;
-            float ssgMul = 1.0f;
+            double ssgMul = 1.0;
             int masterClock = defaultMasterClock;
             if (Audio.clockYM2203 != 0)
             {
@@ -134,7 +134,7 @@ namespace MDPlayer.form
             if (divInd < 0 || divInd > 2) divInd = 0;
             float fmDiv = fmDivTbl[divInd];
             float ssgDiv = ssgDivTbl[divInd];
-            ssgMul = ssgMul * ssgDiv / 4;
+            ssgMul = ssgMul / ssgDiv * 4;
 
             for (int ch = 0; ch < 3; ch++)
             {
@@ -265,7 +265,7 @@ namespace MDPlayer.form
                     int ct = ym2203Register[0x01 + ch * 2];
                     int tp = (ct << 8) | ft;
                     if (tp == 0) tp = 1;
-                    float ftone = 7987200.0f / (64.0f * (float)tp) * ssgMul;// 7987200 = MasterClock(↓のメソッドが7987200を基準としたテーブルの為)
+                    float ftone = (float)(7987200.0 / (64.0 * tp) * ssgMul);// 7987200 = MasterClock(↓のメソッドが7987200を基準としたテーブルの為)
                     channel.note = Common.searchSSGNote(ftone);
                 }
 
