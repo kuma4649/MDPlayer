@@ -1,4 +1,7 @@
 更新履歴
+STBL217 2022/02/26
+  Core:AY/DCSG/OPM:実チップを指定すると落ちていたのを修正。
+
 STBL216 2022/02/25
   Core:OPN系:Prescaler変更時のSSGの計算を修正。
 

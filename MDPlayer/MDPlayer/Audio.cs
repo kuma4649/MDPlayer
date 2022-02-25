@@ -4754,8 +4754,8 @@ namespace MDPlayer
                         chip.ID = (byte)i;
                         chip.Option = null;
 
-                        if ((i == 0 && setting.SN76489Type[0].UseEmu[0])
-                            || (i == 1 && setting.SN76489Type[1].UseEmu[0]))
+                        if ((i == 0 && (setting.SN76489Type[0].UseEmu[0] || setting.SN76489Type[0].UseReal[0]))
+                            || (i == 1 && (setting.SN76489Type[1].UseEmu[0] || setting.SN76489Type[1].UseReal[0])))
                         {
                             if (sn76489 == null) sn76489 = new sn76489();
                             chip.type = MDSound.MDSound.enmInstrumentType.SN76489;
@@ -5145,7 +5145,8 @@ namespace MDPlayer
                         chip = new MDSound.MDSound.Chip();
                         chip.ID = (byte)i;
 
-                        if ((i == 0 && setting.YM2151Type[0].UseEmu[0]) || (i == 1 && setting.YM2151Type[1].UseEmu[0]))
+                        if ((i == 0 && (setting.YM2151Type[0].UseEmu[0] || setting.YM2151Type[0].UseReal[0])) 
+                         || (i == 1 && (setting.YM2151Type[1].UseEmu[0] || setting.YM2151Type[1].UseReal[0])))
                         {
                             if (ym2151 == null) ym2151 = new MDSound.ym2151();
                             chip.type = MDSound.MDSound.enmInstrumentType.YM2151;
@@ -5402,8 +5403,8 @@ namespace MDPlayer
                         chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
                         chip.ID = (byte)i;
 
-                        if ((i == 0 && setting.AY8910Type[0].UseEmu[0])
-                            || (i == 1 && setting.AY8910Type[1].UseEmu[0]))
+                        if ((i == 0 && (setting.AY8910Type[0].UseEmu[0] || setting.AY8910Type[0].UseReal[0]))
+                            || (i == 1 && (setting.AY8910Type[1].UseEmu[0] || setting.AY8910Type[1].UseReal[0])))
                         {
                             if (ay8910 == null) ay8910 = new ay8910();
                             chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
