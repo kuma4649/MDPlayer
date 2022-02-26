@@ -43,7 +43,10 @@ namespace MDPlayer
         {
             for (int chipID = 0; chipID < 2; chipID++)
             {
-                if (setting.YM2151Type[chipID].UseRealChipFreqDiff[0])
+                if (chipID != 0
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff != null
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff.Length > 0
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff[0])
                 {
                     YM2151Hosei[chipID] = 0;
                     continue;

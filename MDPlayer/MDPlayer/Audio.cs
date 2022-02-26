@@ -3058,7 +3058,9 @@ namespace MDPlayer
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, 4000000, EnmModel.RealModel);
                 chipRegister.use4MYM2151scci[0] = false;
-                if (setting.YM2151Type[0].UseRealChipFreqDiff[0])
+                if (setting.YM2151Type[0].UseRealChipFreqDiff != null
+                    && setting.YM2151Type[0].UseRealChipFreqDiff.Length > 0
+                    && setting.YM2151Type[0].UseRealChipFreqDiff[0])
                 {
                     chipRegister.use4MYM2151scci[0] = true;
                 }
@@ -5994,14 +5996,19 @@ namespace MDPlayer
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, (int)((vgm)driverVirtual).YM2151ClockValue, EnmModel.RealModel);
                 chipRegister.use4MYM2151scci[0] = false;
-                if (setting.YM2151Type[0].UseRealChipFreqDiff[0] && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
+                if (setting.YM2151Type[0].UseRealChipFreqDiff != null
+                    && setting.YM2151Type[0].UseRealChipFreqDiff.Length >0
+                    && setting.YM2151Type[0].UseRealChipFreqDiff[0] 
+                    && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
                 {
                     chipRegister.use4MYM2151scci[0] = true;
                 }
                 if (useChip.Contains(EnmChip.S_YM2151))
                     chipRegister.writeYM2151Clock(1, (int)((vgm)driverVirtual).YM2151ClockValue, EnmModel.RealModel);
                 chipRegister.use4MYM2151scci[1] = false;
-                if (setting.YM2151Type[1].UseRealChipFreqDiff[0] && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
+                if (setting.YM2151Type[1].UseRealChipFreqDiff != null
+                    && setting.YM2151Type[1].UseRealChipFreqDiff.Length > 0
+                    && setting.YM2151Type[1].UseRealChipFreqDiff[0] && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
                 {
                     chipRegister.use4MYM2151scci[1] = true;
                 }
