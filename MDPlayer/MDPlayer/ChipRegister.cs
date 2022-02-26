@@ -46,7 +46,8 @@ namespace MDPlayer
         private RSoundChip[] scSN76489 =  new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2612 =   new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2608 =   new RSoundChip[2] { null, null };
-        private RSoundChip[] scYM2151 =   new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
+        private RSoundChip[] scYM2151_4M = new RSoundChip[2] { null, null };
         private RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
         private RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
         private RSoundChip[] scK051649 = new RSoundChip[2] { null, null };
@@ -421,6 +422,8 @@ namespace MDPlayer
         private int volF = 1;
         private MIDIExport midiExport = null;
 
+        public bool[] use4MYM2151scci { get; private set; } = new bool[2] { false, false };
+
         public ChipRegister(Setting setting
             , MDSound.MDSound mds
             , RealChip nScci
@@ -429,6 +432,7 @@ namespace MDPlayer
             , RSoundChip[] scSN76489
             , RSoundChip[] scYM2608
             , RSoundChip[] scYM2151
+            , RSoundChip[] scYM2151_4M
             , RSoundChip[] scYM2203
             , RSoundChip[] scYM2413
             , RSoundChip[] scYM2610
@@ -451,6 +455,7 @@ namespace MDPlayer
             this.scYM2612 = scYM2612;
             this.scYM2608 = scYM2608;
             this.scYM2151 = scYM2151;
+            this.scYM2151_4M = scYM2151_4M;
             this.scSN76489 = scSN76489;
             this.scYM2203 = scYM2203;
             this.scYM2413 = scYM2413;
@@ -516,7 +521,7 @@ namespace MDPlayer
 
             for (int chipID = 0; chipID < 2; chipID++)
             {
-
+                use4MYM2151scci[chipID] = false;
                 fmRegisterYM2612[chipID] = new int[2][] { new int[0x100], new int[0x100] };
                 for (int i = 0; i < 0x100; i++)
                 {
@@ -1082,19 +1087,33 @@ namespace MDPlayer
         {
             if (ctYM2151 == null) return;
 
+            RSoundChip sc = null;
+            if (!use4MYM2151scci[chipID])
+            {
+                if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                    sc = scYM2151[chipID];
+            }
+            else
+            {
+                if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                    sc = scYM2151_4M[chipID];
+            }
+
+
             if (chipID == 0) chipLED.PriOPM = 2;
             else chipLED.SecOPM = 2;
 
             if (
                 (model == EnmModel.VirtualModel && (ctYM2151[chipID] == null || !ctYM2151[chipID].UseReal[0]))
-                || (model == EnmModel.RealModel && (scYM2151 != null && scYM2151[chipID] != null))
+                || (model == EnmModel.RealModel && sc != null)
                 )
             {
                 fmRegisterYM2151[chipID][dAddr] = dData;
                 midiExport.outMIDIData(EnmChip.YM2151, chipID, dPort, dAddr, dData, hosei, vgmFrameCounter);
             }
 
-            if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0]) || (model == EnmModel.VirtualModel && !ctYM2151[chipID].UseReal[0]))
+            if ((model == EnmModel.RealModel && ctYM2151[chipID].UseReal[0])
+                || (model == EnmModel.VirtualModel && !ctYM2151[chipID].UseReal[0]))
             {
                 if (dAddr == 0x08) //Key-On/Off
                 {
@@ -1151,7 +1170,7 @@ namespace MDPlayer
                             }
                             else
                             {
-                                if (scYM2151 != null && scYM2151[chipID] != null) scYM2151[chipID].setRegister(0x60 + i * 8 + ch, 127);
+                                if (sc != null) sc.setRegister(0x60 + i * 8 + ch, 127);
                             }
                         }
                     }
@@ -1178,13 +1197,14 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2151[chipID] == null) return;
+
+                if (sc == null) return;
 
                 if (dAddr >= 0x28 && dAddr <= 0x2f)
                 {
                     if (hosei == 0)
                     {
-                        scYM2151[chipID].setRegister(dAddr, dData);
+                        sc.setRegister(dAddr, dData);
                     }
                     else
                     {
@@ -1204,13 +1224,13 @@ namespace MDPlayer
                         }
 
                         note = (note < 3) ? note : ((note < 6) ? (note + 1) : ((note < 9) ? (note + 2) : (note + 3)));
-                        if (scYM2151[chipID] != null)
-                            scYM2151[chipID].setRegister(dAddr, (oct << 4) | note);
+                        if (sc != null)
+                            sc.setRegister(dAddr, (oct << 4) | note);
                     }
                 }
                 else
                 {
-                    scYM2151[chipID].setRegister(dAddr, dData);
+                    sc.setRegister(dAddr, dData);
                 }
             }
 
@@ -1229,8 +1249,20 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2151[chipID] != null)
-                    scYM2151[chipID].setRegister(dAddr, dData);
+                RSoundChip sc = null;
+                if (!use4MYM2151scci[chipID])
+                {
+                    if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                        sc = scYM2151[chipID];
+                }
+                else
+                {
+                    if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                        sc = scYM2151_4M[chipID];
+                }
+
+                if (sc != null)
+                    sc.setRegister(dAddr, dData);
             }
         }
 
@@ -4149,6 +4181,7 @@ namespace MDPlayer
         private int[] HuC6280CurrentCh = new int[2] { 0, 0 };
         internal sid SID;
 
+
         public void setFadeoutVolYM2203(int chipID, int v)
         {
             nowYM2203FadeoutVol[chipID] = v;
@@ -4280,9 +4313,21 @@ namespace MDPlayer
 
         public void setYM2151SyncWait(byte chipID, int wait)
         {
-            if (scYM2151[chipID] != null && ctYM2151[chipID].realChipInfo[0].UseWait)
+            RSoundChip sc = null;
+            if (!use4MYM2151scci[chipID])
             {
-                scYM2151[chipID].setRegister(-1, (int)(wait * (ctYM2151[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
+                if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                    sc = scYM2151[chipID];
+            }
+            else
+            {
+                if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                    sc = scYM2151_4M[chipID];
+            }
+
+            if (sc != null && ctYM2151[chipID].realChipInfo[0].UseWait)
+            {
+                sc.setRegister(-1, (int)(wait * (ctYM2151[chipID].realChipInfo[0].UseWaitBoost ? 2.0 : 1.0)));
             }
         }
 
@@ -4307,10 +4352,21 @@ namespace MDPlayer
         {
             if (model == EnmModel.VirtualModel) return;
 
-            if (scYM2151[chipID] != null && ctYM2151[chipID].realChipInfo[0].UseWait)
+            RSoundChip sc = null;
+            if (!use4MYM2151scci[chipID])
+            {
+                if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                    sc = scYM2151[chipID];
+            }
+            else
+            {
+                if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                    sc = scYM2151_4M[chipID];
+            }
+            if (sc != null && ctYM2151[chipID].realChipInfo[0].UseWait)
             {
                 realChip.SendData();
-                while (!scYM2151[chipID].isBufferEmpty()) { }
+                while (!sc.isBufferEmpty()) { }
             }
         }
 
@@ -4328,9 +4384,21 @@ namespace MDPlayer
 
         public int getYM2151Clock(byte chipID)
         {
-            if (scYM2151[chipID] == null) return -1;
+            RSoundChip sc = null;
+            if (!use4MYM2151scci[chipID])
+            {
+                if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                    sc = scYM2151[chipID];
+            }
+            else
+            {
+                if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                    sc = scYM2151_4M[chipID];
+            }
 
-            return (int)scYM2151[chipID].dClock;
+            if (sc == null) return -1;
+
+            return (int)sc.dClock;
         }
 
 
@@ -4924,9 +4992,20 @@ namespace MDPlayer
             }
             else
             {
-                if (scYM2151 != null && scYM2151[chipID] != null)
+                RSoundChip sc = null;
+                if (!use4MYM2151scci[chipID])
                 {
-                    scYM2151[chipID].dClock = scYM2151[chipID].SetMasterClock((uint)clock);                    
+                    if (scYM2151 != null && scYM2151.Length > chipID && scYM2151[chipID] != null)
+                        sc = scYM2151[chipID];
+                }
+                else
+                {
+                    if (scYM2151_4M != null && scYM2151_4M.Length > chipID && scYM2151_4M[chipID] != null)
+                        sc = scYM2151_4M[chipID];
+                }
+                if (sc != null)
+                {
+                    sc.dClock = sc.SetMasterClock((uint)clock);                    
                 }
             }
         }

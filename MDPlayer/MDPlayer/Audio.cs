@@ -72,6 +72,7 @@ namespace MDPlayer
         private static RSoundChip[] scYM2612 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scSN76489 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2151 = new RSoundChip[2] { null, null };
+        private static RSoundChip[] scYM2151_4M = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2608 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scYM2203 = new RSoundChip[2] { null, null };
         private static RSoundChip[] scAY8910 = new RSoundChip[2] { null, null };
@@ -1141,15 +1142,15 @@ namespace MDPlayer
                     Audio.setting.Y8950Type[i].UseReal = new bool[1];
                 }
             }
-            if (Audio.setting.YM2151Type == null || Audio.setting.YM2151Type.Length < 2)
+            if (Audio.setting.YM2151Type == null || Audio.setting.YM2151Type.Length < 2 || (Audio.setting.YM2151Type[0].realChipInfo!=null && Audio.setting.YM2151Type[0].realChipInfo.Length<2))
             {
                 Audio.setting.YM2151Type = new Setting.ChipType2[] { new Setting.ChipType2(), new Setting.ChipType2() };
                 for (int i = 0; i < 2; i++)
                 {
-                    Audio.setting.YM2151Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
+                    Audio.setting.YM2151Type[i].realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo(), new Setting.ChipType2.RealChipInfo() };
                     Audio.setting.YM2151Type[i].UseEmu = new bool[3];
                     Audio.setting.YM2151Type[i].UseEmu[0] = true;
-                    Audio.setting.YM2151Type[i].UseReal = new bool[1];
+                    Audio.setting.YM2151Type[i].UseReal = new bool[2];
                 }
             }
             if (Audio.setting.YM2203Type == null || Audio.setting.YM2203Type.Length < 2)
@@ -1343,8 +1344,10 @@ namespace MDPlayer
                     if (scSN76489[i] != null) scSN76489[i].init();
                     scYM2608[i] = realChip.GetRealChip(Audio.setting.YM2608Type[i]);
                     if (scYM2608[i] != null) scYM2608[i].init();
-                    scYM2151[i] = realChip.GetRealChip(Audio.setting.YM2151Type[i]);
+                    scYM2151[i] = realChip.GetRealChip(Audio.setting.YM2151Type[i], 3);
                     if (scYM2151[i] != null) scYM2151[i].init();
+                    scYM2151_4M[i] = realChip.GetRealChip(Audio.setting.YM2151Type[i], 4);
+                    if (scYM2151_4M[i] != null) scYM2151_4M[i].init();
                     scYM2203[i] = realChip.GetRealChip(Audio.setting.YM2203Type[i]);
                     if (scYM2203[i] != null) scYM2203[i].init();
                     scAY8910[i] = realChip.GetRealChip(Audio.setting.AY8910Type[i]);
@@ -1382,6 +1385,7 @@ namespace MDPlayer
                 , scSN76489
                 , scYM2608
                 , scYM2151
+                , scYM2151_4M
                 , scYM2203
                 , scYM2413
                 , scYM2610
@@ -3050,12 +3054,17 @@ namespace MDPlayer
 
                 SetYM2151Volume(true, setting.balance.YM2151Volume);
 
+
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, 4000000, EnmModel.RealModel);
-                //chipRegister.writeYM2151Clock(1, 4000000, enmModel.RealModel);
-
+                chipRegister.use4MYM2151scci[0] = false;
+                if (setting.YM2151Type[0].UseRealChipFreqDiff[0])
+                {
+                    chipRegister.use4MYM2151scci[0] = true;
+                }
                 driverVirtual.SetYM2151Hosei(4000000);
-                if(driverReal!=null) driverReal.SetYM2151Hosei(4000000);
+                if (driverReal != null) driverReal.SetYM2151Hosei(4000000);
+
                 //chipRegister.setYM2203SSGVolume(0, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2203SSGVolume(1, setting.balance.GimicOPNVolume, enmModel.RealModel);
                 //chipRegister.setYM2608SSGVolume(0, setting.balance.GimicOPNAVolume, enmModel.RealModel);
@@ -5981,10 +5990,21 @@ namespace MDPlayer
                     chipRegister.writeAY8910Clock(0, (int)((vgm)driverVirtual).AY8910ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_AY8910))
                     chipRegister.writeAY8910Clock(1, (int)((vgm)driverVirtual).AY8910ClockValue, EnmModel.RealModel);
+
                 if (useChip.Contains(EnmChip.YM2151))
                     chipRegister.writeYM2151Clock(0, (int)((vgm)driverVirtual).YM2151ClockValue, EnmModel.RealModel);
+                chipRegister.use4MYM2151scci[0] = false;
+                if (setting.YM2151Type[0].UseRealChipFreqDiff[0] && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
+                {
+                    chipRegister.use4MYM2151scci[0] = true;
+                }
                 if (useChip.Contains(EnmChip.S_YM2151))
                     chipRegister.writeYM2151Clock(1, (int)((vgm)driverVirtual).YM2151ClockValue, EnmModel.RealModel);
+                chipRegister.use4MYM2151scci[1] = false;
+                if (setting.YM2151Type[1].UseRealChipFreqDiff[0] && ((vgm)driverVirtual).YM2151ClockValue == 4000_000)
+                {
+                    chipRegister.use4MYM2151scci[1] = true;
+                }
                 if (useChip.Contains(EnmChip.YM2203))
                     chipRegister.writeYM2203Clock(0, (int)((vgm)driverVirtual).YM2203ClockValue, EnmModel.RealModel);
                 if (useChip.Contains(EnmChip.S_YM2203))

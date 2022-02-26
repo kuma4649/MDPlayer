@@ -21,5 +21,6 @@ namespace MDPlayer.form
         {
             cbTwice.Enabled = cbSendWait.Checked;
         }
+
     }
 }

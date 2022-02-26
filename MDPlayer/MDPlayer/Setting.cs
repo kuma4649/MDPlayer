@@ -5252,6 +5252,10 @@ namespace MDPlayer
                 }
             }
 
+            private bool[] _useRealChipFreqDiff = null;
+            public bool[] UseRealChipFreqDiff { get => _useRealChipFreqDiff; set => _useRealChipFreqDiff = value; }
+
+
 
             public ChipType2 Copy()
             {
@@ -5280,6 +5284,7 @@ namespace MDPlayer
 
                 ct.LatencyForEmulation = this.LatencyForEmulation;
                 ct.LatencyForReal = this.LatencyForReal;
+                ct.UseRealChipFreqDiff = this.UseRealChipFreqDiff;
 
                 return ct;
             }

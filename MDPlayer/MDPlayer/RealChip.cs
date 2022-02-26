@@ -223,8 +223,17 @@ namespace MDPlayer
 
         public RSoundChip GetRealChip(Setting.ChipType2 ChipType2, int ind = 0)
         {
-            if (ChipType2.realChipInfo.Length < ind + 1) return null;
-            if (ChipType2.realChipInfo[ind] == null) return null;
+            if (ind == 3 || ind == 4)
+            {
+                if (ChipType2.realChipInfo.Length < ind - 3 + 1) return null;
+                if (ChipType2.realChipInfo[ind - 3] == null) return null;
+                ind -= 3;
+            }
+            else
+            {
+                if (ChipType2.realChipInfo.Length < ind + 1) return null;
+                if (ChipType2.realChipInfo[ind] == null) return null;
+            }
 
             if (nScci != null)
             {

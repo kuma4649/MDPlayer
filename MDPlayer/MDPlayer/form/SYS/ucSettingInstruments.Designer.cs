@@ -33,9 +33,15 @@
             this.rbYM2151P_Silent = new System.Windows.Forms.RadioButton();
             this.rbYM2151P_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbYM2151P_Real4M = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbYM2151P_SCCI4M = new System.Windows.Forms.ComboBox();
             this.rbYM2151P_EmuX68Sound = new System.Windows.Forms.RadioButton();
             this.rbYM2151P_EmuMame = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbYM2151S_Real4M = new System.Windows.Forms.CheckBox();
+            this.cmbYM2151S_SCCI4M = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.cmbYM2151S_SCCI = new System.Windows.Forms.ComboBox();
             this.rbYM2151S_SCCI = new System.Windows.Forms.RadioButton();
             this.rbYM2151S_Silent = new System.Windows.Forms.RadioButton();
@@ -174,11 +180,13 @@
             this.cmbAY8910P_Real = new System.Windows.Forms.ComboBox();
             this.rbAY8910P_Real = new System.Windows.Forms.RadioButton();
             this.rbAY8910P_Silent = new System.Windows.Forms.RadioButton();
+            this.rbAY8910P_Emu2 = new System.Windows.Forms.RadioButton();
             this.rbAY8910P_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
             this.cmbAY8910S_Real = new System.Windows.Forms.ComboBox();
             this.rbAY8910S_Real = new System.Windows.Forms.RadioButton();
             this.rbAY8910S_Silent = new System.Windows.Forms.RadioButton();
+            this.rbAY8910S_Emu2 = new System.Windows.Forms.RadioButton();
             this.rbAY8910S_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.cmbK051649S_Real = new System.Windows.Forms.ComboBox();
@@ -190,8 +198,6 @@
             this.rbK051649P_Real = new System.Windows.Forms.RadioButton();
             this.rbK051649P_Silent = new System.Windows.Forms.RadioButton();
             this.rbK051649P_Emu = new System.Windows.Forms.RadioButton();
-            this.rbAY8910P_Emu2 = new System.Windows.Forms.RadioButton();
-            this.rbAY8910S_Emu2 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -227,7 +233,7 @@
             // 
             this.cmbYM2151P_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151P_SCCI.FormattingEnabled = true;
-            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(220, 34);
+            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(151, 35);
             this.cmbYM2151P_SCCI.Name = "cmbYM2151P_SCCI";
             this.cmbYM2151P_SCCI.Size = new System.Drawing.Size(185, 20);
             this.cmbYM2151P_SCCI.TabIndex = 2;
@@ -235,7 +241,7 @@
             // rbYM2151P_SCCI
             // 
             this.rbYM2151P_SCCI.AutoSize = true;
-            this.rbYM2151P_SCCI.Location = new System.Drawing.Point(165, 35);
+            this.rbYM2151P_SCCI.Location = new System.Drawing.Point(4, 36);
             this.rbYM2151P_SCCI.Name = "rbYM2151P_SCCI";
             this.rbYM2151P_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2151P_SCCI.TabIndex = 1;
@@ -258,16 +264,19 @@
             this.rbYM2151P_Emu.Checked = true;
             this.rbYM2151P_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151P_Emu.Name = "rbYM2151P_Emu";
-            this.rbYM2151P_Emu.Size = new System.Drawing.Size(116, 16);
+            this.rbYM2151P_Emu.Size = new System.Drawing.Size(88, 16);
             this.rbYM2151P_Emu.TabIndex = 0;
             this.rbYM2151P_Emu.TabStop = true;
-            this.rbYM2151P_Emu.Text = "Emulation (fmgen)";
+            this.rbYM2151P_Emu.Text = "Emu (fmgen)";
             this.rbYM2151P_Emu.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cbYM2151P_Real4M);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI4M);
             this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_SCCI);
             this.groupBox1.Controls.Add(this.rbYM2151P_Silent);
@@ -276,53 +285,112 @@
             this.groupBox1.Controls.Add(this.rbYM2151P_Emu);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(411, 60);
+            this.groupBox1.Size = new System.Drawing.Size(411, 89);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "YM2151(Primary)";
             // 
+            // cbYM2151P_Real4M
+            // 
+            this.cbYM2151P_Real4M.AutoSize = true;
+            this.cbYM2151P_Real4M.Location = new System.Drawing.Point(62, 63);
+            this.cbYM2151P_Real4M.Name = "cbYM2151P_Real4M";
+            this.cbYM2151P_Real4M.Size = new System.Drawing.Size(66, 16);
+            this.cbYM2151P_Real4M.TabIndex = 4;
+            this.cbYM2151P_Real4M.Text = "4.00MHz";
+            this.cbYM2151P_Real4M.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(60, 38);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Def. (3.58MHz)";
+            // 
+            // cmbYM2151P_SCCI4M
+            // 
+            this.cmbYM2151P_SCCI4M.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2151P_SCCI4M.FormattingEnabled = true;
+            this.cmbYM2151P_SCCI4M.Location = new System.Drawing.Point(151, 61);
+            this.cmbYM2151P_SCCI4M.Name = "cmbYM2151P_SCCI4M";
+            this.cmbYM2151P_SCCI4M.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151P_SCCI4M.TabIndex = 2;
+            // 
             // rbYM2151P_EmuX68Sound
             // 
             this.rbYM2151P_EmuX68Sound.AutoSize = true;
-            this.rbYM2151P_EmuX68Sound.Location = new System.Drawing.Point(4, 35);
+            this.rbYM2151P_EmuX68Sound.Location = new System.Drawing.Point(249, 13);
             this.rbYM2151P_EmuX68Sound.Name = "rbYM2151P_EmuX68Sound";
-            this.rbYM2151P_EmuX68Sound.Size = new System.Drawing.Size(135, 16);
+            this.rbYM2151P_EmuX68Sound.Size = new System.Drawing.Size(107, 16);
             this.rbYM2151P_EmuX68Sound.TabIndex = 0;
-            this.rbYM2151P_EmuX68Sound.Text = "Emulation (X68Sound)";
+            this.rbYM2151P_EmuX68Sound.Text = "Emu (X68Sound)";
             this.rbYM2151P_EmuX68Sound.UseVisualStyleBackColor = true;
             // 
             // rbYM2151P_EmuMame
             // 
             this.rbYM2151P_EmuMame.AutoSize = true;
-            this.rbYM2151P_EmuMame.Location = new System.Drawing.Point(222, 13);
+            this.rbYM2151P_EmuMame.Location = new System.Drawing.Point(156, 13);
             this.rbYM2151P_EmuMame.Name = "rbYM2151P_EmuMame";
-            this.rbYM2151P_EmuMame.Size = new System.Drawing.Size(115, 16);
+            this.rbYM2151P_EmuMame.Size = new System.Drawing.Size(87, 16);
             this.rbYM2151P_EmuMame.TabIndex = 0;
-            this.rbYM2151P_EmuMame.Text = "Emulation (mame)";
+            this.rbYM2151P_EmuMame.Text = "Emu (mame)";
             this.rbYM2151P_EmuMame.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cbYM2151S_Real4M);
+            this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI4M);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_Silent);
             this.groupBox2.Controls.Add(this.rbYM2151S_EmuX68Sound);
             this.groupBox2.Controls.Add(this.rbYM2151S_EmuMame);
             this.groupBox2.Controls.Add(this.rbYM2151S_Emu);
-            this.groupBox2.Location = new System.Drawing.Point(3, 69);
+            this.groupBox2.Location = new System.Drawing.Point(3, 98);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(411, 60);
+            this.groupBox2.Size = new System.Drawing.Size(411, 89);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YM2151(Secondary)";
+            // 
+            // cbYM2151S_Real4M
+            // 
+            this.cbYM2151S_Real4M.AutoSize = true;
+            this.cbYM2151S_Real4M.Location = new System.Drawing.Point(62, 63);
+            this.cbYM2151S_Real4M.Name = "cbYM2151S_Real4M";
+            this.cbYM2151S_Real4M.Size = new System.Drawing.Size(66, 16);
+            this.cbYM2151S_Real4M.TabIndex = 5;
+            this.cbYM2151S_Real4M.Text = "4.00MHz";
+            this.cbYM2151S_Real4M.UseVisualStyleBackColor = true;
+            // 
+            // cmbYM2151S_SCCI4M
+            // 
+            this.cmbYM2151S_SCCI4M.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYM2151S_SCCI4M.FormattingEnabled = true;
+            this.cmbYM2151S_SCCI4M.Location = new System.Drawing.Point(151, 61);
+            this.cmbYM2151S_SCCI4M.Name = "cmbYM2151S_SCCI4M";
+            this.cmbYM2151S_SCCI4M.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151S_SCCI4M.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(60, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 12);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Def. (3.58MHz)";
             // 
             // cmbYM2151S_SCCI
             // 
             this.cmbYM2151S_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151S_SCCI.FormattingEnabled = true;
-            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(220, 34);
+            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(151, 35);
             this.cmbYM2151S_SCCI.Name = "cmbYM2151S_SCCI";
             this.cmbYM2151S_SCCI.Size = new System.Drawing.Size(185, 20);
             this.cmbYM2151S_SCCI.TabIndex = 2;
@@ -330,7 +398,7 @@
             // rbYM2151S_SCCI
             // 
             this.rbYM2151S_SCCI.AutoSize = true;
-            this.rbYM2151S_SCCI.Location = new System.Drawing.Point(165, 35);
+            this.rbYM2151S_SCCI.Location = new System.Drawing.Point(4, 36);
             this.rbYM2151S_SCCI.Name = "rbYM2151S_SCCI";
             this.rbYM2151S_SCCI.Size = new System.Drawing.Size(46, 16);
             this.rbYM2151S_SCCI.TabIndex = 1;
@@ -350,21 +418,21 @@
             // rbYM2151S_EmuX68Sound
             // 
             this.rbYM2151S_EmuX68Sound.AutoSize = true;
-            this.rbYM2151S_EmuX68Sound.Location = new System.Drawing.Point(4, 35);
+            this.rbYM2151S_EmuX68Sound.Location = new System.Drawing.Point(249, 13);
             this.rbYM2151S_EmuX68Sound.Name = "rbYM2151S_EmuX68Sound";
-            this.rbYM2151S_EmuX68Sound.Size = new System.Drawing.Size(135, 16);
+            this.rbYM2151S_EmuX68Sound.Size = new System.Drawing.Size(107, 16);
             this.rbYM2151S_EmuX68Sound.TabIndex = 0;
-            this.rbYM2151S_EmuX68Sound.Text = "Emulation (X68Sound)";
+            this.rbYM2151S_EmuX68Sound.Text = "Emu (X68Sound)";
             this.rbYM2151S_EmuX68Sound.UseVisualStyleBackColor = true;
             // 
             // rbYM2151S_EmuMame
             // 
             this.rbYM2151S_EmuMame.AutoSize = true;
-            this.rbYM2151S_EmuMame.Location = new System.Drawing.Point(222, 13);
+            this.rbYM2151S_EmuMame.Location = new System.Drawing.Point(156, 13);
             this.rbYM2151S_EmuMame.Name = "rbYM2151S_EmuMame";
-            this.rbYM2151S_EmuMame.Size = new System.Drawing.Size(115, 16);
+            this.rbYM2151S_EmuMame.Size = new System.Drawing.Size(87, 16);
             this.rbYM2151S_EmuMame.TabIndex = 0;
-            this.rbYM2151S_EmuMame.Text = "Emulation (mame)";
+            this.rbYM2151S_EmuMame.Text = "Emu (mame)";
             this.rbYM2151S_EmuMame.UseVisualStyleBackColor = true;
             // 
             // rbYM2151S_Emu
@@ -373,10 +441,10 @@
             this.rbYM2151S_Emu.Checked = true;
             this.rbYM2151S_Emu.Location = new System.Drawing.Point(62, 13);
             this.rbYM2151S_Emu.Name = "rbYM2151S_Emu";
-            this.rbYM2151S_Emu.Size = new System.Drawing.Size(116, 16);
+            this.rbYM2151S_Emu.Size = new System.Drawing.Size(88, 16);
             this.rbYM2151S_Emu.TabIndex = 0;
             this.rbYM2151S_Emu.TabStop = true;
-            this.rbYM2151S_Emu.Text = "Emulation (fmgen)";
+            this.rbYM2151S_Emu.Text = "Emu (fmgen)";
             this.rbYM2151S_Emu.UseVisualStyleBackColor = true;
             // 
             // cmbYM2203P_SCCI
@@ -418,7 +486,7 @@
             this.groupBox3.Controls.Add(this.rbYM2203P_SCCI);
             this.groupBox3.Controls.Add(this.rbYM2203P_Silent);
             this.groupBox3.Controls.Add(this.rbYM2203P_Emu);
-            this.groupBox3.Location = new System.Drawing.Point(3, 135);
+            this.groupBox3.Location = new System.Drawing.Point(3, 193);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(411, 38);
             this.groupBox3.TabIndex = 1;
@@ -443,7 +511,7 @@
             this.groupBox4.Controls.Add(this.rbYM2203S_SCCI);
             this.groupBox4.Controls.Add(this.rbYM2203S_Silent);
             this.groupBox4.Controls.Add(this.rbYM2203S_Emu);
-            this.groupBox4.Location = new System.Drawing.Point(3, 179);
+            this.groupBox4.Location = new System.Drawing.Point(3, 237);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(411, 38);
             this.groupBox4.TabIndex = 1;
@@ -530,7 +598,7 @@
             this.groupBox5.Controls.Add(this.rbYM2608P_SCCI);
             this.groupBox5.Controls.Add(this.rbYM2608P_Silent);
             this.groupBox5.Controls.Add(this.rbYM2608P_Emu);
-            this.groupBox5.Location = new System.Drawing.Point(3, 311);
+            this.groupBox5.Location = new System.Drawing.Point(3, 369);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(411, 38);
             this.groupBox5.TabIndex = 2;
@@ -555,7 +623,7 @@
             this.groupBox6.Controls.Add(this.rbYM2608S_SCCI);
             this.groupBox6.Controls.Add(this.rbYM2608S_Silent);
             this.groupBox6.Controls.Add(this.rbYM2608S_Emu);
-            this.groupBox6.Location = new System.Drawing.Point(3, 355);
+            this.groupBox6.Location = new System.Drawing.Point(3, 413);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(411, 38);
             this.groupBox6.TabIndex = 2;
@@ -646,7 +714,7 @@
             this.groupBox7.Controls.Add(this.rbYM2610BP_SCCI);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Silent);
             this.groupBox7.Controls.Add(this.rbYM2610BP_Emu);
-            this.groupBox7.Location = new System.Drawing.Point(3, 399);
+            this.groupBox7.Location = new System.Drawing.Point(3, 457);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(411, 64);
             this.groupBox7.TabIndex = 3;
@@ -712,7 +780,7 @@
             this.groupBox8.Controls.Add(this.rbYM2610BS_Silent);
             this.groupBox8.Controls.Add(this.rbYM2610BS_Emu);
             this.groupBox8.Controls.Add(this.rbYM2610BES_SCCI);
-            this.groupBox8.Location = new System.Drawing.Point(3, 469);
+            this.groupBox8.Location = new System.Drawing.Point(3, 527);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(411, 64);
             this.groupBox8.TabIndex = 3;
@@ -869,7 +937,7 @@
             this.groupBox9.Controls.Add(this.rbYM2612P_EmuNuked);
             this.groupBox9.Controls.Add(this.rbYM2612P_EmuMame);
             this.groupBox9.Controls.Add(this.rbYM2612P_Emu);
-            this.groupBox9.Location = new System.Drawing.Point(3, 539);
+            this.groupBox9.Location = new System.Drawing.Point(3, 597);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(411, 60);
             this.groupBox9.TabIndex = 4;
@@ -916,7 +984,7 @@
             this.groupBox10.Controls.Add(this.rbYM2612S_EmuNuked);
             this.groupBox10.Controls.Add(this.rbYM2612S_EmuMame);
             this.groupBox10.Controls.Add(this.rbYM2612S_Emu);
-            this.groupBox10.Location = new System.Drawing.Point(3, 605);
+            this.groupBox10.Location = new System.Drawing.Point(3, 663);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(411, 60);
             this.groupBox10.TabIndex = 4;
@@ -1024,7 +1092,7 @@
             this.groupBox11.Controls.Add(this.rbSN76489P_Silent);
             this.groupBox11.Controls.Add(this.rbSN76489P_Emu2);
             this.groupBox11.Controls.Add(this.rbSN76489P_Emu);
-            this.groupBox11.Location = new System.Drawing.Point(3, 1000);
+            this.groupBox11.Location = new System.Drawing.Point(3, 1058);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(411, 64);
             this.groupBox11.TabIndex = 5;
@@ -1060,7 +1128,7 @@
             this.groupBox12.Controls.Add(this.rbSN76489S_Silent);
             this.groupBox12.Controls.Add(this.rbSN76489S_Emu2);
             this.groupBox12.Controls.Add(this.rbSN76489S_Emu);
-            this.groupBox12.Location = new System.Drawing.Point(3, 1070);
+            this.groupBox12.Location = new System.Drawing.Point(3, 1128);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(411, 64);
             this.groupBox12.TabIndex = 5;
@@ -1125,7 +1193,7 @@
             this.groupBox13.Controls.Add(this.cbSendWait);
             this.groupBox13.Controls.Add(this.cbEmulationPCMOnly);
             this.groupBox13.Controls.Add(this.cbTwice);
-            this.groupBox13.Location = new System.Drawing.Point(3, 671);
+            this.groupBox13.Location = new System.Drawing.Point(3, 729);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(411, 59);
             this.groupBox13.TabIndex = 6;
@@ -1140,7 +1208,7 @@
             this.groupBox14.Controls.Add(this.rbC140S_SCCI);
             this.groupBox14.Controls.Add(this.rbC140S_Silent);
             this.groupBox14.Controls.Add(this.rbC140S_Emu);
-            this.groupBox14.Location = new System.Drawing.Point(3, 1186);
+            this.groupBox14.Location = new System.Drawing.Point(3, 1244);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(411, 40);
             this.groupBox14.TabIndex = 6;
@@ -1196,7 +1264,7 @@
             this.groupBox15.Controls.Add(this.rbC140P_Real);
             this.groupBox15.Controls.Add(this.rbC140P_Silent);
             this.groupBox15.Controls.Add(this.rbC140P_Emu);
-            this.groupBox15.Location = new System.Drawing.Point(3, 1140);
+            this.groupBox15.Location = new System.Drawing.Point(3, 1198);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(411, 40);
             this.groupBox15.TabIndex = 7;
@@ -1252,7 +1320,7 @@
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_SCCI);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Silent);
             this.groupBox16.Controls.Add(this.rbSEGAPCMS_Emu);
-            this.groupBox16.Location = new System.Drawing.Point(3, 1278);
+            this.groupBox16.Location = new System.Drawing.Point(3, 1336);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(411, 40);
             this.groupBox16.TabIndex = 8;
@@ -1308,7 +1376,7 @@
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_SCCI);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Silent);
             this.groupBox17.Controls.Add(this.rbSEGAPCMP_Emu);
-            this.groupBox17.Location = new System.Drawing.Point(3, 1232);
+            this.groupBox17.Location = new System.Drawing.Point(3, 1290);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(411, 40);
             this.groupBox17.TabIndex = 9;
@@ -1364,7 +1432,7 @@
             this.groupBox18.Controls.Add(this.rbYMF262P_SCCI);
             this.groupBox18.Controls.Add(this.rbYMF262P_Silent);
             this.groupBox18.Controls.Add(this.rbYMF262P_Emu);
-            this.groupBox18.Location = new System.Drawing.Point(3, 912);
+            this.groupBox18.Location = new System.Drawing.Point(3, 970);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(411, 38);
             this.groupBox18.TabIndex = 3;
@@ -1420,7 +1488,7 @@
             this.groupBox19.Controls.Add(this.rbYMF262S_SCCI);
             this.groupBox19.Controls.Add(this.rbYMF262S_Silent);
             this.groupBox19.Controls.Add(this.rbYMF262S_Emu);
-            this.groupBox19.Location = new System.Drawing.Point(3, 956);
+            this.groupBox19.Location = new System.Drawing.Point(3, 1014);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(411, 38);
             this.groupBox19.TabIndex = 4;
@@ -1476,7 +1544,7 @@
             this.groupBox20.Controls.Add(this.rbYM3812P_SCCI);
             this.groupBox20.Controls.Add(this.rbYM3812P_Silent);
             this.groupBox20.Controls.Add(this.rbYM3812P_Emu);
-            this.groupBox20.Location = new System.Drawing.Point(3, 824);
+            this.groupBox20.Location = new System.Drawing.Point(3, 882);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(411, 38);
             this.groupBox20.TabIndex = 3;
@@ -1532,7 +1600,7 @@
             this.groupBox21.Controls.Add(this.rbYM3812S_SCCI);
             this.groupBox21.Controls.Add(this.rbYM3812S_Silent);
             this.groupBox21.Controls.Add(this.rbYM3812S_Emu);
-            this.groupBox21.Location = new System.Drawing.Point(3, 868);
+            this.groupBox21.Location = new System.Drawing.Point(3, 926);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(411, 38);
             this.groupBox21.TabIndex = 4;
@@ -1588,7 +1656,7 @@
             this.groupBox22.Controls.Add(this.rbYM3526S_SCCI);
             this.groupBox22.Controls.Add(this.rbYM3526S_Silent);
             this.groupBox22.Controls.Add(this.rbYM3526S_Emu);
-            this.groupBox22.Location = new System.Drawing.Point(3, 780);
+            this.groupBox22.Location = new System.Drawing.Point(3, 838);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(411, 38);
             this.groupBox22.TabIndex = 6;
@@ -1644,7 +1712,7 @@
             this.groupBox23.Controls.Add(this.rbYM3526P_SCCI);
             this.groupBox23.Controls.Add(this.rbYM3526P_Silent);
             this.groupBox23.Controls.Add(this.rbYM3526P_Emu);
-            this.groupBox23.Location = new System.Drawing.Point(3, 736);
+            this.groupBox23.Location = new System.Drawing.Point(3, 794);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(411, 38);
             this.groupBox23.TabIndex = 5;
@@ -1700,7 +1768,7 @@
             this.groupBox24.Controls.Add(this.rbYM2413S_Real);
             this.groupBox24.Controls.Add(this.rbYM2413S_Silent);
             this.groupBox24.Controls.Add(this.rbYM2413S_Emu);
-            this.groupBox24.Location = new System.Drawing.Point(3, 267);
+            this.groupBox24.Location = new System.Drawing.Point(3, 325);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(411, 38);
             this.groupBox24.TabIndex = 3;
@@ -1756,7 +1824,7 @@
             this.groupBox25.Controls.Add(this.rbYM2413P_Real);
             this.groupBox25.Controls.Add(this.rbYM2413P_Silent);
             this.groupBox25.Controls.Add(this.rbYM2413P_Emu);
-            this.groupBox25.Location = new System.Drawing.Point(3, 223);
+            this.groupBox25.Location = new System.Drawing.Point(3, 281);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(411, 38);
             this.groupBox25.TabIndex = 4;
@@ -1813,7 +1881,7 @@
             this.groupBox26.Controls.Add(this.rbAY8910P_Silent);
             this.groupBox26.Controls.Add(this.rbAY8910P_Emu2);
             this.groupBox26.Controls.Add(this.rbAY8910P_Emu);
-            this.groupBox26.Location = new System.Drawing.Point(3, 1324);
+            this.groupBox26.Location = new System.Drawing.Point(3, 1382);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(411, 64);
             this.groupBox26.TabIndex = 6;
@@ -1849,6 +1917,16 @@
             this.rbAY8910P_Silent.Text = "Silent";
             this.rbAY8910P_Silent.UseVisualStyleBackColor = true;
             // 
+            // rbAY8910P_Emu2
+            // 
+            this.rbAY8910P_Emu2.AutoSize = true;
+            this.rbAY8910P_Emu2.Location = new System.Drawing.Point(200, 15);
+            this.rbAY8910P_Emu2.Name = "rbAY8910P_Emu2";
+            this.rbAY8910P_Emu2.Size = new System.Drawing.Size(111, 16);
+            this.rbAY8910P_Emu2.TabIndex = 0;
+            this.rbAY8910P_Emu2.Text = "Emulation(mame)";
+            this.rbAY8910P_Emu2.UseVisualStyleBackColor = true;
+            // 
             // rbAY8910P_Emu
             // 
             this.rbAY8910P_Emu.AutoSize = true;
@@ -1857,6 +1935,7 @@
             this.rbAY8910P_Emu.Name = "rbAY8910P_Emu";
             this.rbAY8910P_Emu.Size = new System.Drawing.Size(112, 16);
             this.rbAY8910P_Emu.TabIndex = 0;
+            this.rbAY8910P_Emu.TabStop = true;
             this.rbAY8910P_Emu.Text = "Emulation(fmgen)";
             this.rbAY8910P_Emu.UseVisualStyleBackColor = true;
             // 
@@ -1869,7 +1948,7 @@
             this.groupBox27.Controls.Add(this.rbAY8910S_Silent);
             this.groupBox27.Controls.Add(this.rbAY8910S_Emu2);
             this.groupBox27.Controls.Add(this.rbAY8910S_Emu);
-            this.groupBox27.Location = new System.Drawing.Point(3, 1394);
+            this.groupBox27.Location = new System.Drawing.Point(3, 1452);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(411, 64);
             this.groupBox27.TabIndex = 7;
@@ -1905,6 +1984,16 @@
             this.rbAY8910S_Silent.Text = "Silent";
             this.rbAY8910S_Silent.UseVisualStyleBackColor = true;
             // 
+            // rbAY8910S_Emu2
+            // 
+            this.rbAY8910S_Emu2.AutoSize = true;
+            this.rbAY8910S_Emu2.Location = new System.Drawing.Point(200, 15);
+            this.rbAY8910S_Emu2.Name = "rbAY8910S_Emu2";
+            this.rbAY8910S_Emu2.Size = new System.Drawing.Size(111, 16);
+            this.rbAY8910S_Emu2.TabIndex = 0;
+            this.rbAY8910S_Emu2.Text = "Emulation(mame)";
+            this.rbAY8910S_Emu2.UseVisualStyleBackColor = true;
+            // 
             // rbAY8910S_Emu
             // 
             this.rbAY8910S_Emu.AutoSize = true;
@@ -1913,6 +2002,7 @@
             this.rbAY8910S_Emu.Name = "rbAY8910S_Emu";
             this.rbAY8910S_Emu.Size = new System.Drawing.Size(112, 16);
             this.rbAY8910S_Emu.TabIndex = 0;
+            this.rbAY8910S_Emu.TabStop = true;
             this.rbAY8910S_Emu.Text = "Emulation(fmgen)";
             this.rbAY8910S_Emu.UseVisualStyleBackColor = true;
             // 
@@ -1924,7 +2014,7 @@
             this.groupBox28.Controls.Add(this.rbK051649S_Real);
             this.groupBox28.Controls.Add(this.rbK051649S_Silent);
             this.groupBox28.Controls.Add(this.rbK051649S_Emu);
-            this.groupBox28.Location = new System.Drawing.Point(3, 1510);
+            this.groupBox28.Location = new System.Drawing.Point(3, 1568);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(411, 40);
             this.groupBox28.TabIndex = 9;
@@ -1980,7 +2070,7 @@
             this.groupBox29.Controls.Add(this.rbK051649P_Real);
             this.groupBox29.Controls.Add(this.rbK051649P_Silent);
             this.groupBox29.Controls.Add(this.rbK051649P_Emu);
-            this.groupBox29.Location = new System.Drawing.Point(3, 1464);
+            this.groupBox29.Location = new System.Drawing.Point(3, 1522);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(411, 40);
             this.groupBox29.TabIndex = 8;
@@ -2028,26 +2118,6 @@
             this.rbK051649P_Emu.Text = "Emulation";
             this.rbK051649P_Emu.UseVisualStyleBackColor = true;
             // 
-            // rbAY8910P_Emu2
-            // 
-            this.rbAY8910P_Emu2.AutoSize = true;
-            this.rbAY8910P_Emu2.Location = new System.Drawing.Point(200, 15);
-            this.rbAY8910P_Emu2.Name = "rbAY8910P_Emu2";
-            this.rbAY8910P_Emu2.Size = new System.Drawing.Size(111, 16);
-            this.rbAY8910P_Emu2.TabIndex = 0;
-            this.rbAY8910P_Emu2.Text = "Emulation(mame)";
-            this.rbAY8910P_Emu2.UseVisualStyleBackColor = true;
-            // 
-            // rbAY8910S_Emu2
-            // 
-            this.rbAY8910S_Emu2.AutoSize = true;
-            this.rbAY8910S_Emu2.Location = new System.Drawing.Point(200, 15);
-            this.rbAY8910S_Emu2.Name = "rbAY8910S_Emu2";
-            this.rbAY8910S_Emu2.Size = new System.Drawing.Size(111, 16);
-            this.rbAY8910S_Emu2.TabIndex = 0;
-            this.rbAY8910S_Emu2.Text = "Emulation(mame)";
-            this.rbAY8910S_Emu2.UseVisualStyleBackColor = true;
-            // 
             // ucSettingInstruments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2083,7 +2153,7 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Name = "ucSettingInstruments";
-            this.Size = new System.Drawing.Size(417, 1558);
+            this.Size = new System.Drawing.Size(417, 1612);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -2311,5 +2381,11 @@
         public System.Windows.Forms.RadioButton rbK051649P_Emu;
         public System.Windows.Forms.RadioButton rbAY8910P_Emu2;
         public System.Windows.Forms.RadioButton rbAY8910S_Emu2;
+        public System.Windows.Forms.ComboBox cmbYM2151P_SCCI4M;
+        public System.Windows.Forms.ComboBox cmbYM2151S_SCCI4M;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.CheckBox cbYM2151P_Real4M;
+        public System.Windows.Forms.CheckBox cbYM2151S_Real4M;
     }
 }

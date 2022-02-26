@@ -789,7 +789,14 @@ namespace MDPlayer
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, (vgmBuf[vgmAdr] & 0x80) == 0 ? YM2151Hosei[0] : YM2151Hosei[1], vgmFrameCounter);
+            chipRegister.setYM2151Register(
+                (vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1,
+                0,
+                vgmBuf[vgmAdr + 1],
+                vgmBuf[vgmAdr + 2],
+                model,
+                (vgmBuf[vgmAdr] & 0x80) == 0 ? YM2151Hosei[0] : YM2151Hosei[1],
+                vgmFrameCounter);
             vgmAdr += 3;
         }
 
