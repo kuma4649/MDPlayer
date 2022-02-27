@@ -745,6 +745,7 @@ namespace MDPlayer
             if (realChip != null)
             {
                 realChip.Close();
+                realChip = null;
             }
         }
 
@@ -1523,7 +1524,7 @@ namespace MDPlayer
 
         private static void seqDie()
         {
-            Close();
+            Close(false);
             RealChipClose();
         }
 
@@ -6365,7 +6366,7 @@ namespace MDPlayer
             catch { }
         }
 
-        public static void Close()
+        public static void Close(bool isRealChipClose=true)
         {
             try
             {
@@ -6392,7 +6393,7 @@ namespace MDPlayer
                 vstMng.ReleaseAllMIDIout();
                 vstMng.Close();
 
-                realChip=null;
+                if (isRealChipClose) realChip = null;
             }
             catch (Exception ex)
             {
@@ -6846,6 +6847,10 @@ namespace MDPlayer
             chipRegister.softResetYMF262(1, model);
             chipRegister.softResetK051649(0, model);
             chipRegister.softResetK051649(1, model);
+            chipRegister.softResetC140(0, model);
+            chipRegister.softResetC140(1, model);
+            chipRegister.softResetSEGAPCM(0, model);
+            chipRegister.softResetSEGAPCM(1, model);
             chipRegister.softResetMIDI(0, model);
             chipRegister.softResetMIDI(1, model);
 

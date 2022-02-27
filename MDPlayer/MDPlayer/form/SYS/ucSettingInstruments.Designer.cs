@@ -33,15 +33,19 @@
             this.rbYM2151P_Silent = new System.Windows.Forms.RadioButton();
             this.rbYM2151P_Emu = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbYM2151P_RealDefAutoAdjust = new System.Windows.Forms.CheckBox();
             this.cbYM2151P_Real4M = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbYM2151P_SCCI4M = new System.Windows.Forms.ComboBox();
             this.rbYM2151P_EmuX68Sound = new System.Windows.Forms.RadioButton();
             this.rbYM2151P_EmuMame = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbYM2151S_RealDefAutoAdjust = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbYM2151S_Real4M = new System.Windows.Forms.CheckBox();
             this.cmbYM2151S_SCCI4M = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.cmbYM2151S_SCCI = new System.Windows.Forms.ComboBox();
             this.rbYM2151S_SCCI = new System.Windows.Forms.RadioButton();
             this.rbYM2151S_Silent = new System.Windows.Forms.RadioButton();
@@ -233,9 +237,9 @@
             // 
             this.cmbYM2151P_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151P_SCCI.FormattingEnabled = true;
-            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(151, 35);
+            this.cmbYM2151P_SCCI.Location = new System.Drawing.Point(228, 35);
             this.cmbYM2151P_SCCI.Name = "cmbYM2151P_SCCI";
-            this.cmbYM2151P_SCCI.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151P_SCCI.Size = new System.Drawing.Size(177, 20);
             this.cmbYM2151P_SCCI.TabIndex = 2;
             // 
             // rbYM2151P_SCCI
@@ -274,7 +278,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cbYM2151P_RealDefAutoAdjust);
             this.groupBox1.Controls.Add(this.cbYM2151P_Real4M);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI4M);
             this.groupBox1.Controls.Add(this.cmbYM2151P_SCCI);
@@ -290,6 +296,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "YM2151(Primary)";
             // 
+            // cbYM2151P_RealDefAutoAdjust
+            // 
+            this.cbYM2151P_RealDefAutoAdjust.AutoSize = true;
+            this.cbYM2151P_RealDefAutoAdjust.Location = new System.Drawing.Point(141, 37);
+            this.cbYM2151P_RealDefAutoAdjust.Name = "cbYM2151P_RealDefAutoAdjust";
+            this.cbYM2151P_RealDefAutoAdjust.Size = new System.Drawing.Size(81, 16);
+            this.cbYM2151P_RealDefAutoAdjust.TabIndex = 6;
+            this.cbYM2151P_RealDefAutoAdjust.Text = "AutoAdjust";
+            this.cbYM2151P_RealDefAutoAdjust.UseVisualStyleBackColor = true;
+            // 
             // cbYM2151P_Real4M
             // 
             this.cbYM2151P_Real4M.AutoSize = true;
@@ -300,22 +316,31 @@
             this.cbYM2151P_Real4M.Text = "4.00MHz";
             this.cbYM2151P_Real4M.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(154, 64);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "(non Adjust)";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(60, 38);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 12);
+            this.label3.Size = new System.Drawing.Size(75, 12);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Def. (3.58MHz)";
+            this.label3.Text = "3.58MHz(Def.)";
             // 
             // cmbYM2151P_SCCI4M
             // 
             this.cmbYM2151P_SCCI4M.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151P_SCCI4M.FormattingEnabled = true;
-            this.cmbYM2151P_SCCI4M.Location = new System.Drawing.Point(151, 61);
+            this.cmbYM2151P_SCCI4M.Location = new System.Drawing.Point(228, 61);
             this.cmbYM2151P_SCCI4M.Name = "cmbYM2151P_SCCI4M";
-            this.cmbYM2151P_SCCI4M.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151P_SCCI4M.Size = new System.Drawing.Size(177, 20);
             this.cmbYM2151P_SCCI4M.TabIndex = 2;
             // 
             // rbYM2151P_EmuX68Sound
@@ -342,9 +367,11 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cbYM2151S_RealDefAutoAdjust);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.cbYM2151S_Real4M);
             this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI4M);
-            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.cmbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_SCCI);
             this.groupBox2.Controls.Add(this.rbYM2151S_Silent);
@@ -357,6 +384,34 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YM2151(Secondary)";
+            // 
+            // cbYM2151S_RealDefAutoAdjust
+            // 
+            this.cbYM2151S_RealDefAutoAdjust.AutoSize = true;
+            this.cbYM2151S_RealDefAutoAdjust.Location = new System.Drawing.Point(141, 37);
+            this.cbYM2151S_RealDefAutoAdjust.Name = "cbYM2151S_RealDefAutoAdjust";
+            this.cbYM2151S_RealDefAutoAdjust.Size = new System.Drawing.Size(81, 16);
+            this.cbYM2151S_RealDefAutoAdjust.TabIndex = 9;
+            this.cbYM2151S_RealDefAutoAdjust.Text = "AutoAdjust";
+            this.cbYM2151S_RealDefAutoAdjust.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(154, 64);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 12);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "(non Adjust)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(60, 38);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 12);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "3.58MHz(Def.)";
             // 
             // cbYM2151S_Real4M
             // 
@@ -372,27 +427,18 @@
             // 
             this.cmbYM2151S_SCCI4M.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151S_SCCI4M.FormattingEnabled = true;
-            this.cmbYM2151S_SCCI4M.Location = new System.Drawing.Point(151, 61);
+            this.cmbYM2151S_SCCI4M.Location = new System.Drawing.Point(228, 61);
             this.cmbYM2151S_SCCI4M.Name = "cmbYM2151S_SCCI4M";
-            this.cmbYM2151S_SCCI4M.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151S_SCCI4M.Size = new System.Drawing.Size(177, 20);
             this.cmbYM2151S_SCCI4M.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(60, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 12);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Def. (3.58MHz)";
             // 
             // cmbYM2151S_SCCI
             // 
             this.cmbYM2151S_SCCI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYM2151S_SCCI.FormattingEnabled = true;
-            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(151, 35);
+            this.cmbYM2151S_SCCI.Location = new System.Drawing.Point(228, 35);
             this.cmbYM2151S_SCCI.Name = "cmbYM2151S_SCCI";
-            this.cmbYM2151S_SCCI.Size = new System.Drawing.Size(185, 20);
+            this.cmbYM2151S_SCCI.Size = new System.Drawing.Size(177, 20);
             this.cmbYM2151S_SCCI.TabIndex = 2;
             // 
             // rbYM2151S_SCCI
@@ -2384,8 +2430,12 @@
         public System.Windows.Forms.ComboBox cmbYM2151P_SCCI4M;
         public System.Windows.Forms.ComboBox cmbYM2151S_SCCI4M;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
         public System.Windows.Forms.CheckBox cbYM2151P_Real4M;
         public System.Windows.Forms.CheckBox cbYM2151S_Real4M;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.CheckBox cbYM2151P_RealDefAutoAdjust;
+        public System.Windows.Forms.CheckBox cbYM2151S_RealDefAutoAdjust;
     }
 }

@@ -1070,7 +1070,16 @@ namespace MDPlayer.form
             StopMIDIInMonitoring();
             Request req = new Request(enmRequest.Die);
             OpeManager.RequestToAudio(req);
-            while (!req.end)//自殺リクエストはコールバック無し
+            int timeout = 100;
+            while (!req.end && timeout-- > 0)//自殺リクエストはコールバック無し
+            {
+                System.Threading.Thread.Sleep(1);
+            }
+
+            req = new Request(enmRequest.Stop);
+            OpeManager.RequestToAudio(req);
+            timeout = 100;
+            while (!req.end && timeout-- > 0)
             {
                 System.Threading.Thread.Sleep(1);
             }
@@ -4172,12 +4181,12 @@ namespace MDPlayer.form
             OpeManager.RequestToAudio(req);
             while (!req.end) System.Threading.Thread.Sleep(1);
             
-            req = new Request(enmRequest.Die);
-            OpeManager.RequestToAudio(req);
-            while (!req.end) System.Threading.Thread.Sleep(1);
+            //req = new Request(enmRequest.Die);
+            //OpeManager.RequestToAudio(req);
+            //while (!req.end) System.Threading.Thread.Sleep(1);
             
-            //Audio.Stop();
-            Audio.Close();
+            Audio.Stop();
+            Audio.Close(false);
 
             this.setting = setting;
             this.setting.Save();

@@ -4985,6 +4985,20 @@ namespace MDPlayer
             }
         }
 
+        public void softResetSEGAPCM(int chipID, EnmModel model)
+        {
+            // 全チャネルキーオフ
+            for (int ch = 0; ch < 16; ch++)
+                writeSEGAPCM((byte)chipID, 0x86 + ch * 8, 0x01, model);
+
+            // ボリュームオフ
+            for (int ch = 0; ch < 16; ch++)
+            {
+                writeSEGAPCM((byte)chipID, 0x02 + ch * 8, 0x00, model);
+                writeSEGAPCM((byte)chipID, 0x03 + ch * 8, 0x00, model);
+            }
+        }
+
         public void writeYM2151Clock(byte chipID, int clock, EnmModel model)
         {
             if (model == EnmModel.VirtualModel)
@@ -5243,6 +5257,19 @@ namespace MDPlayer
             }
         }
 
+        public void softResetC140(int chipID, EnmModel model)
+        {
+            // 全チャネルキーオフ
+            for (int ch = 0; ch < 24; ch++)
+                writeC140((byte)chipID, (uint)(0x05 + ch * 16), 0x00, model);
+
+            // ボリュームオフ
+            for (int ch = 0; ch < 24; ch++)
+            {
+                writeC140((byte)chipID, (uint)(0x00 + ch * 16), 0x00, model);
+                writeC140((byte)chipID, (uint)(0x01 + ch * 16), 0x00, model);
+            }
+        }
 
         //
         // 鍵盤のボリューム表示のため音量を取得する

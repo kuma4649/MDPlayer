@@ -385,9 +385,14 @@ namespace MDPlayer.form
                     , null, ucSI.cmbYM2151P_SCCI4M, null
                     , ucSI.rbYM2151P_EmuMame
                     , ucSI.rbYM2151P_EmuX68Sound);
+
                 ucSI.cbYM2151P_Real4M.Checked = false;
                 if (setting.YM2151Type[0].UseRealChipFreqDiff != null && setting.YM2151Type[0].UseRealChipFreqDiff.Length > 0)
                     ucSI.cbYM2151P_Real4M.Checked = setting.YM2151Type[0].UseRealChipFreqDiff[0];
+                
+                ucSI.cbYM2151P_RealDefAutoAdjust.Checked = true;
+                if (setting.YM2151Type[0].UseRealChipAutoAdjust != null && setting.YM2151Type[0].UseRealChipAutoAdjust.Length > 0)
+                    ucSI.cbYM2151P_RealDefAutoAdjust.Checked = setting.YM2151Type[0].UseRealChipAutoAdjust[0];
 
                 SetRealParam(setting.YM2151Type[1]
                     , ucSI.rbYM2151S_Silent
@@ -397,9 +402,14 @@ namespace MDPlayer.form
                     , null, ucSI.cmbYM2151P_SCCI4M, null
                     , ucSI.rbYM2151S_EmuMame
                     , ucSI.rbYM2151S_EmuX68Sound);
+
                 ucSI.cbYM2151S_Real4M.Checked = false;
                 if (setting.YM2151Type[1].UseRealChipFreqDiff != null && setting.YM2151Type[1].UseRealChipFreqDiff.Length > 0)
                     ucSI.cbYM2151S_Real4M.Checked = setting.YM2151Type[1].UseRealChipFreqDiff[0];
+
+                ucSI.cbYM2151S_RealDefAutoAdjust.Checked = true;
+                if (setting.YM2151Type[1].UseRealChipAutoAdjust != null && setting.YM2151Type[1].UseRealChipAutoAdjust.Length > 0)
+                    ucSI.cbYM2151S_RealDefAutoAdjust.Checked = setting.YM2151Type[1].UseRealChipAutoAdjust[0];
 
                 SetRealParam(setting.YM2203Type[0]
                     , ucSI.rbYM2203P_Silent
@@ -1256,6 +1266,8 @@ namespace MDPlayer.form
                 );
             setting.YM2151Type[0].UseRealChipFreqDiff = new bool[1];
             setting.YM2151Type[0].UseRealChipFreqDiff[0] = ucSI.cbYM2151P_Real4M.Checked;
+            setting.YM2151Type[0].UseRealChipAutoAdjust = new bool[1];
+            setting.YM2151Type[0].UseRealChipAutoAdjust[0] = ucSI.cbYM2151P_RealDefAutoAdjust.Checked;
 
             setting.YM2151Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
@@ -1272,6 +1284,8 @@ namespace MDPlayer.form
                 );
             setting.YM2151Type[1].UseRealChipFreqDiff = new bool[1];
             setting.YM2151Type[1].UseRealChipFreqDiff[0] = ucSI.cbYM2151S_Real4M.Checked;
+            setting.YM2151Type[1].UseRealChipAutoAdjust = new bool[1];
+            setting.YM2151Type[1].UseRealChipAutoAdjust[0] = ucSI.cbYM2151S_RealDefAutoAdjust.Checked;
 
 
             setting.YM2203Type = new Setting.ChipType2[2];
