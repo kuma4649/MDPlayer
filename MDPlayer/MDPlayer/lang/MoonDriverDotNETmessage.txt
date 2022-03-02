@@ -1,0 +1,4 @@
+﻿
+;Console向け
+E0600=MoonDriverDotNETConsoleの引数がありません\r\nUsage:\r\n    MoonDriverDotNETConsole [/DotNEToption] [/option] filename[.mdm] [filename[.M]]]\r\nDotNETOption:\r\n    -LOGLEVEL=[FATAL|ERROR|WARNING|INFO|DEBUG|TRACE] Set LOG Level.(Default:INFO)\r\n    -XML                                             Output xml File.\r\n    -SRC                                             Output src Files.\r\n    -PCMPACK:pcmFileName                             Pack pcm file.\r\nOption:\r\n
+E0601=.mdlファイルを指定してください

@@ -43,6 +43,24 @@ namespace MDPlayer
         {
             for (int chipID = 0; chipID < 2; chipID++)
             {
+                if (chipID != 0
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff != null
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff.Length > 0
+                    && setting.YM2151Type[chipID].UseRealChipFreqDiff[0])
+                {
+                    YM2151Hosei[chipID] = 0;
+                    continue;
+                }
+                if (chipID == 0
+                    && setting.YM2151Type[chipID].UseRealChipAutoAdjust != null
+                    && setting.YM2151Type[chipID].UseRealChipAutoAdjust.Length > 0
+                    && !setting.YM2151Type[chipID].UseRealChipAutoAdjust[0]
+                    )
+                {
+                    YM2151Hosei[chipID] = 0;
+                    continue;
+                }
+
                 YM2151Hosei[chipID] = Common.GetYM2151Hosei(YM2151ClockValue, 3579545);
                 if (model == EnmModel.RealModel)
                 {

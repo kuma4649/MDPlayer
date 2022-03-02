@@ -223,8 +223,17 @@ namespace MDPlayer
 
         public RSoundChip GetRealChip(Setting.ChipType2 ChipType2, int ind = 0)
         {
-            if (ChipType2.realChipInfo.Length < ind + 1) return null;
-            if (ChipType2.realChipInfo[ind] == null) return null;
+            if (ind == 3 || ind == 4)
+            {
+                if (ChipType2.realChipInfo.Length < ind - 3 + 1) return null;
+                if (ChipType2.realChipInfo[ind - 3] == null) return null;
+                ind -= 3;
+            }
+            else
+            {
+                if (ChipType2.realChipInfo.Length < ind + 1) return null;
+                if (ChipType2.realChipInfo[ind] == null) return null;
+            }
 
             if (nScci != null)
             {
@@ -346,7 +355,14 @@ namespace MDPlayer
                 {
                     NIRealChip rc = nc86ctl.getChipInterface(i);
                     NIGimic2 gm = rc.QueryInterface();
+                    Devinfo di = gm.getModuleInfo();
                     ChipType cct = gm.getModuleType();
+                    if (cct == ChipType.CHIP_UNKNOWN)
+                    {
+                        if (di.Devname == "GMC-S2149") cct = ChipType.CHIP_YM2149;
+                        else if (di.Devname == "GMC-S8910") cct = ChipType.CHIP_AY38910;
+                        else if (di.Devname == "GMC-S2413") cct = ChipType.CHIP_YM2413;
+                    }
                     Setting.ChipType2 ct = null;
                     int o = -1;
                     switch (realChipType2)
@@ -362,13 +378,14 @@ namespace MDPlayer
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
                             break;
                         case EnmRealChipType.AY8910:
-                            if (cct == ChipType.CHIP_UNKNOWN 
+                            if (   cct == ChipType.CHIP_YM2149
+                                || cct == ChipType.CHIP_AY38910
                                 || cct == ChipType.CHIP_YM2608 
                                 || cct == ChipType.CHIP_YMF288 
                                 || cct == ChipType.CHIP_YM2203)
@@ -380,22 +397,22 @@ namespace MDPlayer
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
                             break;
                         case EnmRealChipType.YM2413:
-                            if (cct == ChipType.CHIP_YM2413 || cct== ChipType.CHIP_UNKNOWN)
+                            if (cct == ChipType.CHIP_YM2413)
                             {
                                 ct = new Setting.ChipType2();
-                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo()};
+                                ct.realChipInfo = new Setting.ChipType2.RealChipInfo[] { new Setting.ChipType2.RealChipInfo() };
                                 ct.realChipInfo[0].SoundLocation = -1;
                                 ct.realChipInfo[0].BusID = i;
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
@@ -410,7 +427,7 @@ namespace MDPlayer
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
@@ -425,7 +442,7 @@ namespace MDPlayer
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
@@ -442,7 +459,7 @@ namespace MDPlayer
                                 string seri = gm.getModuleInfo().Serial;
                                 if (!int.TryParse(seri, out o)) o = -1;
                                 ct.realChipInfo[0].SoundChip = o;
-                                ct.realChipInfo[0].ChipName = gm.getModuleInfo().Devname;
+                                ct.realChipInfo[0].ChipName = di.Devname;
                                 ct.realChipInfo[0].InterfaceName = gm.getMBInfo().Devname;
                                 ct.realChipInfo[0].ChipType = (int)cct;
                             }
@@ -515,7 +532,21 @@ namespace MDPlayer
 
         override public void init()
         {
+            realChip = null;
+            int n = scci.NSoundInterfaceManager_.getInterfaceCount();
+            if (BusID >= n)
+            {
+                return;
+            }
+
             NSoundInterface nsif = scci.NSoundInterfaceManager_.getInterface(BusID);
+            
+
+            int c = nsif.getSoundChipCount();
+            if (SoundChip >= c)
+            {
+                return;
+            }
             NSoundChip nsc = nsif.getSoundChip(SoundChip);
             realChip = nsc;
             dClock = (uint)nsc.getSoundChipClock();
@@ -533,16 +564,19 @@ namespace MDPlayer
 
         override public void setRegister(int adr, int dat)
         {
+            if (realChip == null) return;
             realChip.setRegister(adr, dat);
         }
 
         override public int getRegister(int adr)
         {
+            if (realChip == null) return -1;
             return realChip.getRegister(adr);
         }
 
         override public bool isBufferEmpty()
         {
+            if (realChip == null) return false;
             return realChip.isBufferEmpty();
         }
 
@@ -554,6 +588,7 @@ namespace MDPlayer
         override public uint SetMasterClock(uint mClock)
         {
             //SCCIはクロックの変更不可
+            if (realChip == null) return 0;
 
             return (uint)realChip.getSoundChipClock();
         }
@@ -561,6 +596,7 @@ namespace MDPlayer
         override public void setSSGVolume(byte vol)
         {
             //SCCIはSSG音量の変更不可
+            if (realChip == null) return;
         }
 
     }
@@ -582,7 +618,14 @@ namespace MDPlayer
             realChip = rc;
             NIGimic2 gm = rc.QueryInterface();
             dClock = gm.getPLLClock();
+            Devinfo di = gm.getModuleInfo();
             ChipType = gm.getModuleType();
+            if (ChipType == ChipType.CHIP_UNKNOWN)
+            {
+                if (di.Devname == "GMC-S2149") ChipType = ChipType.CHIP_YM2149;
+                else if (di.Devname == "GMC-S8910") ChipType = ChipType.CHIP_AY38910;
+                else if (di.Devname == "GMC-S2413") ChipType = ChipType.CHIP_YM2413;
+            }
             if (ChipType == ChipType.CHIP_YM2608)
             {
                 //setRegister(0x2d, 00);

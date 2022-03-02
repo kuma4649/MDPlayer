@@ -57,6 +57,7 @@ namespace MDPlayer
         public uint HuC6280ClockValue;
         public uint QSoundClockValue;
         public uint SAA1099ClockValue;
+        public uint WSwanClockValue;
         public uint X1_010ClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
@@ -94,6 +95,7 @@ namespace MDPlayer
         public bool HuC6280DualChipFlag;
         public bool C140DualChipFlag;
         public bool SAA1099DualChipFlag;
+        public bool WSwanDualChipFlag;
         public bool X1_010DualChipFlag;
         public bool C352DualChipFlag;
         public bool GA20DualChipFlag;
@@ -487,7 +489,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb9] = vcHuC6280;
             vgmCmdTbl[0xba] = vcK053260;
             vgmCmdTbl[0xbb] = vcPOKEY;
-            vgmCmdTbl[0xbc] = vcDummy2Ope;
+            vgmCmdTbl[0xbc] = vcWSwan;
             vgmCmdTbl[0xbd] = vcSAA1099;
             vgmCmdTbl[0xbe] = vcDummy2Ope;
             vgmCmdTbl[0xbf] = vcGA20;
@@ -496,7 +498,7 @@ namespace MDPlayer
             vgmCmdTbl[0xc3] = vcMultiPCMSetBank;
             vgmCmdTbl[0xc4] = vcQSound;
             vgmCmdTbl[0xc5] = vcDummy3Ope;
-            vgmCmdTbl[0xc6] = vcDummy3Ope;
+            vgmCmdTbl[0xc6] = vcWSwanMem;
             vgmCmdTbl[0xc7] = vcDummy3Ope;
 
             vgmCmdTbl[0xc8] = vcX1_010;
@@ -787,7 +789,14 @@ namespace MDPlayer
 
         private void vcYM2151()
         {
-            chipRegister.setYM2151Register((vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1, 0, vgmBuf[vgmAdr + 1], vgmBuf[vgmAdr + 2], model, (vgmBuf[vgmAdr] & 0x80) == 0 ? YM2151Hosei[0] : YM2151Hosei[1], vgmFrameCounter);
+            chipRegister.setYM2151Register(
+                (vgmBuf[vgmAdr] & 0x80) == 0 ? 0 : 1,
+                0,
+                vgmBuf[vgmAdr + 1],
+                vgmBuf[vgmAdr + 2],
+                model,
+                (vgmBuf[vgmAdr] & 0x80) == 0 ? YM2151Hosei[0] : YM2151Hosei[1],
+                vgmFrameCounter);
             vgmAdr += 3;
         }
 
@@ -807,6 +816,18 @@ namespace MDPlayer
         {
             chipRegister.writeSAA1099((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
+        }
+
+        private void vcWSwan()
+        {
+            chipRegister.writeWSwan((byte)((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1), (byte)(vgmBuf[vgmAdr + 1] & 0x7f), vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcWSwanMem()
+        {
+            chipRegister.writeWSwanMem(0, (int)((vgmBuf[vgmAdr + 0x01] & 0xFF) | ((vgmBuf[vgmAdr + 0x02] & 0xFF) << 8)), vgmBuf[vgmAdr + 0x03], model);
+            vgmAdr += 4;
         }
 
         private void vcPOKEY()
@@ -1788,8 +1809,8 @@ namespace MDPlayer
 
                     ValSize = (byte)((BitDec + 7) / 8);
                     OutMask = (uint)((1 << BitDec) - 1);
-                    InPos = vgmBuf[Adr + 0xa];// Data + 0x0A;
-                    InDataEnd = vgmBuf[Adr + DataSize];// Data + DataSize;
+                    InPos = Adr + 0xa;
+                    InDataEnd = Adr + DataSize;
                     InShift = 0;
                     OutShift = (byte)(BitDec - BitCmp);
                     OutDataEnd = Bank.DataSize;// Bank.Data + Bank.DataSize;
@@ -1958,6 +1979,7 @@ namespace MDPlayer
             MultiPCMClockValue = 0;
             SAA1099ClockValue = 0;
             X1_010ClockValue = 0;
+            WSwanClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -2444,6 +2466,19 @@ namespace MDPlayer
                 }
                 if (version >= 0x0171)
                 {
+                    if (vgmDataOffset > 0xc0)
+                    {
+
+                        uint WSwanclock = getLE32(0xc0);
+                        if (WSwanclock != 0)
+                        {
+                            WSwanClockValue = WSwanclock & 0x3fff_ffff;
+                            WSwanDualChipFlag = (WSwanclock & 0x4000_0000) != 0;
+                            if (WSwanDualChipFlag) chips.Add("WSwanx2");
+                            else chips.Add("WSwan");
+                        }
+                    }
+
                     if (vgmDataOffset > 0xc8)
                     {
 

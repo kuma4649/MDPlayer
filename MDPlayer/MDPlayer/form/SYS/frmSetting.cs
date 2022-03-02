@@ -44,6 +44,7 @@ namespace MDPlayer.form
 
             this.cmbLatency.SelectedIndex = 5;
             this.cmbWaitTime.SelectedIndex = 0;
+            cbUnuseRealChip.Checked = setting.unuseRealChip;
 
             //ASIOサポートチェック
             if (!AsioOut.isSupported())
@@ -150,6 +151,11 @@ namespace MDPlayer.form
                 SetRealCombo(EnmRealChipType.YM2151
                     , ucSI.cmbYM2151P_SCCI, ucSI.rbYM2151P_SCCI
                     , ucSI.cmbYM2151S_SCCI, ucSI.rbYM2151S_SCCI
+                    );
+
+                SetRealCombo(EnmRealChipType.YM2151
+                    , ucSI.cmbYM2151P_SCCI4M, null
+                    , ucSI.cmbYM2151S_SCCI4M, null
                     );
 
                 SetRealCombo(EnmRealChipType.YM2203
@@ -376,17 +382,34 @@ namespace MDPlayer.form
                     , ucSI.rbYM2151P_Emu
                     , ucSI.rbYM2151P_SCCI
                     , ucSI.cmbYM2151P_SCCI
-                    , null, null, null
+                    , null, ucSI.cmbYM2151P_SCCI4M, null
                     , ucSI.rbYM2151P_EmuMame
                     , ucSI.rbYM2151P_EmuX68Sound);
+
+                ucSI.cbYM2151P_Real4M.Checked = false;
+                if (setting.YM2151Type[0].UseRealChipFreqDiff != null && setting.YM2151Type[0].UseRealChipFreqDiff.Length > 0)
+                    ucSI.cbYM2151P_Real4M.Checked = setting.YM2151Type[0].UseRealChipFreqDiff[0];
+                
+                ucSI.cbYM2151P_RealDefAutoAdjust.Checked = true;
+                if (setting.YM2151Type[0].UseRealChipAutoAdjust != null && setting.YM2151Type[0].UseRealChipAutoAdjust.Length > 0)
+                    ucSI.cbYM2151P_RealDefAutoAdjust.Checked = setting.YM2151Type[0].UseRealChipAutoAdjust[0];
+
                 SetRealParam(setting.YM2151Type[1]
                     , ucSI.rbYM2151S_Silent
                     , ucSI.rbYM2151S_Emu
                     , ucSI.rbYM2151S_SCCI
                     , ucSI.cmbYM2151S_SCCI
-                    , null, null, null
+                    , null, ucSI.cmbYM2151P_SCCI4M, null
                     , ucSI.rbYM2151S_EmuMame
                     , ucSI.rbYM2151S_EmuX68Sound);
+
+                ucSI.cbYM2151S_Real4M.Checked = false;
+                if (setting.YM2151Type[1].UseRealChipFreqDiff != null && setting.YM2151Type[1].UseRealChipFreqDiff.Length > 0)
+                    ucSI.cbYM2151S_Real4M.Checked = setting.YM2151Type[1].UseRealChipFreqDiff[0];
+
+                ucSI.cbYM2151S_RealDefAutoAdjust.Checked = true;
+                if (setting.YM2151Type[1].UseRealChipAutoAdjust != null && setting.YM2151Type[1].UseRealChipAutoAdjust.Length > 0)
+                    ucSI.cbYM2151S_RealDefAutoAdjust.Checked = setting.YM2151Type[1].UseRealChipAutoAdjust[0];
 
                 SetRealParam(setting.YM2203Type[0]
                     , ucSI.rbYM2203P_Silent
@@ -403,12 +426,17 @@ namespace MDPlayer.form
                     , ucSI.rbAY8910P_Silent
                     , ucSI.rbAY8910P_Emu
                     , ucSI.rbAY8910P_Real
-                    , ucSI.cmbAY8910P_Real);
+                    , ucSI.cmbAY8910P_Real
+                    , null,null,null
+                    , ucSI.rbAY8910P_Emu2);
+
                 SetRealParam(setting.AY8910Type[1]
                     , ucSI.rbAY8910S_Silent
                     , ucSI.rbAY8910S_Emu
                     , ucSI.rbAY8910S_Real
-                    , ucSI.cmbAY8910S_Real);
+                    , ucSI.cmbAY8910S_Real
+                    , null, null, null
+                    , ucSI.rbAY8910S_Emu2);
 
                 SetRealParam(setting.K051649Type[0]
                     , ucSI.rbK051649P_Silent
@@ -909,7 +937,7 @@ namespace MDPlayer.form
 
             if (cmbP2A != null)
             {
-                if (ChipType2.realChipInfo[1] != null)
+                if (ChipType2.realChipInfo.Length==2 && ChipType2.realChipInfo[1] != null)
                 {
                     n = string.Format("({0}:{1}:{2}:{3})"
                     , ChipType2.realChipInfo[1].InterfaceName
@@ -981,7 +1009,7 @@ namespace MDPlayer.form
                 || (
                     (ChipType2.UseReal.Length > 1 && ChipType2.UseReal[1])
                     && !cmbP2A.Enabled
-                    && !cmbP2B.Enabled)
+                    && (cmbP2B == null || (cmbP2B != null && !cmbP2B.Enabled)))
                 )
             {
                 rbEmu.Checked = true;
@@ -1059,10 +1087,12 @@ namespace MDPlayer.form
 
             #region Sound
 
+            setting.unuseRealChip = cbUnuseRealChip.Checked;
             setting.YM2612Type = new Setting.ChipType2[2];
             setting.YM2612Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2612Type[0]
+                EnmChip.YM2612
+                , setting.YM2612Type[0]
                 , ucSI.rbYM2612P_SCCI
                 , ucSI.cmbYM2612P_SCCI
                 , ucSI.rbYM2612P_Emu
@@ -1075,7 +1105,8 @@ namespace MDPlayer.form
 
             setting.YM2612Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2612Type[1]
+                EnmChip.S_YM2612
+                , setting.YM2612Type[1]
                 , ucSI.rbYM2612S_SCCI
                 , ucSI.cmbYM2612S_SCCI
                 , ucSI.rbYM2612S_Emu
@@ -1108,7 +1139,8 @@ namespace MDPlayer.form
             setting.SN76489Type = new Setting.ChipType2[2];
             setting.SN76489Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.SN76489Type[0]
+                EnmChip.SN76489
+                , setting.SN76489Type[0]
                 , ucSI.rbSN76489P_SCCI
                 , ucSI.cmbSN76489P_SCCI
                 , ucSI.rbSN76489P_Emu
@@ -1121,7 +1153,8 @@ namespace MDPlayer.form
 
             setting.SN76489Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.SN76489Type[1]
+                EnmChip.S_SN76489
+                , setting.SN76489Type[1]
                 , ucSI.rbSN76489S_SCCI
                 , ucSI.cmbSN76489S_SCCI
                 , ucSI.rbSN76489S_Emu
@@ -1147,7 +1180,8 @@ namespace MDPlayer.form
             setting.YM2608Type = new Setting.ChipType2[2];
             setting.YM2608Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2608Type[0]
+                EnmChip.YM2608
+                , setting.YM2608Type[0]
                 , ucSI.rbYM2608P_SCCI
                 , ucSI.cmbYM2608P_SCCI
                 , ucSI.rbYM2608P_Emu
@@ -1160,7 +1194,8 @@ namespace MDPlayer.form
 
             setting.YM2608Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2608Type[1]
+                EnmChip.S_YM2608
+                , setting.YM2608Type[1]
                 , ucSI.rbYM2608S_SCCI
                 , ucSI.cmbYM2608S_SCCI
                 , ucSI.rbYM2608S_Emu
@@ -1188,7 +1223,8 @@ namespace MDPlayer.form
             setting.YM2610Type = new Setting.ChipType2[2];
             setting.YM2610Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2610Type[0]
+                EnmChip.YM2610
+                , setting.YM2610Type[0]
                 , ucSI.rbYM2610BP_SCCI
                 , ucSI.cmbYM2610BP_SCCI
                 , ucSI.rbYM2610BP_Emu
@@ -1201,7 +1237,8 @@ namespace MDPlayer.form
 
             setting.YM2610Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2610Type[1]
+                EnmChip.S_YM2610
+                , setting.YM2610Type[1]
                 , ucSI.rbYM2610BS_SCCI
                 , ucSI.cmbYM2610BS_SCCI
                 , ucSI.rbYM2610BS_Emu
@@ -1216,35 +1253,46 @@ namespace MDPlayer.form
             setting.YM2151Type = new Setting.ChipType2[2];
             setting.YM2151Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2151Type[0]
+                EnmChip.YM2151
+                ,setting.YM2151Type[0]
                 , ucSI.rbYM2151P_SCCI
                 , ucSI.cmbYM2151P_SCCI
                 , ucSI.rbYM2151P_Emu
                 , ucSI.rbYM2151P_EmuMame
                 , ucSI.rbYM2151P_EmuX68Sound
                 , null
-                , null
+                , ucSI.cmbYM2151P_SCCI4M
                 , null
                 );
+            setting.YM2151Type[0].UseRealChipFreqDiff = new bool[1];
+            setting.YM2151Type[0].UseRealChipFreqDiff[0] = ucSI.cbYM2151P_Real4M.Checked;
+            setting.YM2151Type[0].UseRealChipAutoAdjust = new bool[1];
+            setting.YM2151Type[0].UseRealChipAutoAdjust[0] = ucSI.cbYM2151P_RealDefAutoAdjust.Checked;
 
             setting.YM2151Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2151Type[1]
+                EnmChip.S_YM2151
+                ,setting.YM2151Type[1]
                 , ucSI.rbYM2151S_SCCI
                 , ucSI.cmbYM2151S_SCCI
                 , ucSI.rbYM2151S_Emu
                 , ucSI.rbYM2151S_EmuMame
                 , ucSI.rbYM2151S_EmuX68Sound
                 , null
-                , null
+                , ucSI.cmbYM2151P_SCCI4M
                 , null
                 );
+            setting.YM2151Type[1].UseRealChipFreqDiff = new bool[1];
+            setting.YM2151Type[1].UseRealChipFreqDiff[0] = ucSI.cbYM2151S_Real4M.Checked;
+            setting.YM2151Type[1].UseRealChipAutoAdjust = new bool[1];
+            setting.YM2151Type[1].UseRealChipAutoAdjust[0] = ucSI.cbYM2151S_RealDefAutoAdjust.Checked;
 
 
             setting.YM2203Type = new Setting.ChipType2[2];
             setting.YM2203Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2203Type[0]
+                EnmChip.YM2203
+                , setting.YM2203Type[0]
                 , ucSI.rbYM2203P_SCCI
                 , ucSI.cmbYM2203P_SCCI
                 , ucSI.rbYM2203P_Emu
@@ -1253,7 +1301,8 @@ namespace MDPlayer.form
 
             setting.YM2203Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2203Type[1]
+                EnmChip.S_YM2203
+                , setting.YM2203Type[1]
                 , ucSI.rbYM2203S_SCCI
                 , ucSI.cmbYM2203S_SCCI
                 , ucSI.rbYM2203S_Emu
@@ -1264,27 +1313,32 @@ namespace MDPlayer.form
             setting.AY8910Type = new Setting.ChipType2[2];
             setting.AY8910Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.AY8910Type[0]
+                EnmChip.AY8910
+                , setting.AY8910Type[0]
                 , ucSI.rbAY8910P_Real
                 , ucSI.cmbAY8910P_Real
                 , ucSI.rbAY8910P_Emu
-                , null, null, null, null, null
+                , ucSI.rbAY8910P_Emu2
+                , null, null, null, null
                 );
 
             setting.AY8910Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.AY8910Type[1]
+                EnmChip.S_AY8910
+                , setting.AY8910Type[1]
                 , ucSI.rbAY8910S_Real
                 , ucSI.cmbAY8910S_Real
                 , ucSI.rbAY8910S_Emu
-                , null, null, null, null, null
+                , ucSI.rbAY8910S_Emu2
+                , null, null, null, null
                 );
 
 
             setting.K051649Type = new Setting.ChipType2[2];
             setting.K051649Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.K051649Type[0]
+                EnmChip.K051649
+                , setting.K051649Type[0]
                 , ucSI.rbK051649P_Real
                 , ucSI.cmbK051649P_Real
                 , ucSI.rbK051649P_Emu
@@ -1293,7 +1347,8 @@ namespace MDPlayer.form
 
             setting.K051649Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.K051649Type[1]
+                EnmChip.S_K051649
+                , setting.K051649Type[1]
                 , ucSI.rbK051649S_Real
                 , ucSI.cmbK051649S_Real
                 , ucSI.rbK051649S_Emu
@@ -1304,7 +1359,8 @@ namespace MDPlayer.form
             setting.YM2413Type = new Setting.ChipType2[2];
             setting.YM2413Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2413Type[0]
+                EnmChip.YM2413
+                , setting.YM2413Type[0]
                 , ucSI.rbYM2413P_Real
                 , ucSI.cmbYM2413P_Real
                 , ucSI.rbYM2413P_Emu
@@ -1313,7 +1369,8 @@ namespace MDPlayer.form
 
             setting.YM2413Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM2413Type[1]
+                EnmChip.S_YM2413
+                , setting.YM2413Type[1]
                 , ucSI.rbYM2413S_Real
                 , ucSI.cmbYM2413S_Real
                 , ucSI.rbYM2413S_Emu
@@ -1324,7 +1381,8 @@ namespace MDPlayer.form
             setting.C140Type = new Setting.ChipType2[2];
             setting.C140Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.C140Type[0]
+                EnmChip.C140
+                , setting.C140Type[0]
                 , ucSI.rbC140P_Real
                 , ucSI.cmbC140P_SCCI
                 , ucSI.rbC140P_Emu
@@ -1333,7 +1391,8 @@ namespace MDPlayer.form
 
             setting.C140Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.C140Type[1]
+                EnmChip.S_C140
+                , setting.C140Type[1]
                 , ucSI.rbC140S_SCCI
                 , ucSI.cmbC140S_SCCI
                 , ucSI.rbC140S_Emu
@@ -1344,7 +1403,8 @@ namespace MDPlayer.form
             setting.SEGAPCMType = new Setting.ChipType2[2];
             setting.SEGAPCMType[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.SEGAPCMType[0]
+                EnmChip.SEGAPCM
+                , setting.SEGAPCMType[0]
                 , ucSI.rbSEGAPCMP_SCCI
                 , ucSI.cmbSEGAPCMP_SCCI
                 , ucSI.rbSEGAPCMP_Emu
@@ -1353,7 +1413,8 @@ namespace MDPlayer.form
 
             setting.SEGAPCMType[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.SEGAPCMType[1]
+                EnmChip.S_SEGAPCM
+                , setting.SEGAPCMType[1]
                 , ucSI.rbSEGAPCMS_SCCI
                 , ucSI.cmbSEGAPCMS_SCCI
                 , ucSI.rbSEGAPCMS_Emu
@@ -1364,7 +1425,8 @@ namespace MDPlayer.form
             setting.YM3526Type = new Setting.ChipType2[2];
             setting.YM3526Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM3526Type[0]
+                EnmChip.YM3526
+                , setting.YM3526Type[0]
                 , ucSI.rbYM3526P_SCCI
                 , ucSI.cmbYM3526P_SCCI
                 , ucSI.rbYM3526P_Emu
@@ -1373,7 +1435,8 @@ namespace MDPlayer.form
 
             setting.YM3526Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM3526Type[1]
+                EnmChip.S_YM3526
+                , setting.YM3526Type[1]
                 , ucSI.rbYM3526S_SCCI
                 , ucSI.cmbYM3526S_SCCI
                 , ucSI.rbYM3526S_Emu
@@ -1384,7 +1447,8 @@ namespace MDPlayer.form
             setting.YM3812Type = new Setting.ChipType2[2];
             setting.YM3812Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM3812Type[0]
+                EnmChip.YM3812
+                , setting.YM3812Type[0]
                 , ucSI.rbYM3812P_SCCI
                 , ucSI.cmbYM3812P_SCCI
                 , ucSI.rbYM3812P_Emu
@@ -1393,7 +1457,8 @@ namespace MDPlayer.form
 
             setting.YM3812Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YM3812Type[1]
+                EnmChip.S_YM3812
+                , setting.YM3812Type[1]
                 , ucSI.rbYM3812S_SCCI
                 , ucSI.cmbYM3812S_SCCI
                 , ucSI.rbYM3812S_Emu
@@ -1404,7 +1469,8 @@ namespace MDPlayer.form
             setting.YMF262Type = new Setting.ChipType2[2];
             setting.YMF262Type[0] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YMF262Type[0]
+                EnmChip.YMF262
+                , setting.YMF262Type[0]
                 , ucSI.rbYMF262P_SCCI
                 , ucSI.cmbYMF262P_SCCI
                 , ucSI.rbYMF262P_Emu
@@ -1413,7 +1479,8 @@ namespace MDPlayer.form
 
             setting.YMF262Type[1] = new Setting.ChipType2();
             SetChipType2FromControls(
-                setting.YMF262Type[1]
+                EnmChip.S_YMF262
+                , setting.YMF262Type[1]
                 , ucSI.rbYMF262S_SCCI
                 , ucSI.cmbYMF262S_SCCI
                 , ucSI.rbYMF262S_Emu
@@ -1736,7 +1803,8 @@ namespace MDPlayer.form
         }
 
         private static void SetChipType2FromControls(
-            Setting.ChipType2 ct
+            EnmChip chip
+            , Setting.ChipType2 ct
             , RadioButton rb_SCCI
             , ComboBox cmb_SCCI
             , RadioButton rb_EMU0
@@ -1779,38 +1847,62 @@ namespace MDPlayer.form
             if (rb_EMU1 != null) ct.UseEmu[1] = rb_EMU1.Checked;
             if (rb_EMU2 != null) ct.UseEmu[2] = rb_EMU2.Checked;
 
-            if (rb_SCCI_E != null && rb_SCCI_E.Checked)
+            if (chip == EnmChip.YM2610 || chip == EnmChip.S_YM2610)
             {
-                if (cmb_SCCI_E1.SelectedItem != null)
+                if (rb_SCCI_E != null && rb_SCCI_E.Checked)
+                {
+                    if (cmb_SCCI_E1.SelectedItem != null)
+                    {
+                        string n = cmb_SCCI_E1.SelectedItem.ToString();
+                        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                        string[] ns = n.Split(':');
+                        rci = ct.realChipInfo[1];
+                        rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                        if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
+                        rci.SoundLocation = v;
+                        if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
+                        rci.BusID = v;
+                        if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
+                        rci.SoundChip = v;
+                        ct.UseReal[1] = true;
+                    }
+                    if (cmb_SCCI_E2.SelectedItem != null)
+                    {
+                        string n = cmb_SCCI_E2.SelectedItem.ToString();
+                        n = n.Substring(0, n.IndexOf(")")).Substring(1);
+                        string[] ns = n.Split(':');
+                        rci = ct.realChipInfo[2];
+                        rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                        if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
+                        rci.SoundLocation = v;
+                        if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
+                        rci.BusID = v;
+                        if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
+                        rci.SoundChip = v;
+                        ct.UseReal[2] = true;
+                    }
+                }
+            }
+            else if (chip == EnmChip.YM2151 || chip == EnmChip.S_YM2151)
+            {
+                if (cmb_SCCI_E1.SelectedItem != null && ct.UseReal[0])
                 {
                     string n = cmb_SCCI_E1.SelectedItem.ToString();
                     n = n.Substring(0, n.IndexOf(")")).Substring(1);
                     string[] ns = n.Split(':');
-                    rci = ct.realChipInfo[1];
-                    rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
+                    rci = ct.realChipInfo[0];
+                    Setting.ChipType2.RealChipInfo rci2 = new Setting.ChipType2.RealChipInfo();
+                    ct.realChipInfo = new Setting.ChipType2.RealChipInfo[2] { rci, rci2 };
+                    rci2.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
                     if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
-                    rci.SoundLocation = v;
+                    rci2.SoundLocation = v;
                     if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
-                    rci.BusID = v;
+                    rci2.BusID = v;
                     if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
-                    rci.SoundChip = v;
-                }
-                if (cmb_SCCI_E2.SelectedItem != null)
-                {
-                    string n = cmb_SCCI_E2.SelectedItem.ToString();
-                    n = n.Substring(0, n.IndexOf(")")).Substring(1);
-                    string[] ns = n.Split(':');
-                    rci = ct.realChipInfo[2];
-                    rci.InterfaceName = string.Join(":", ns, 0, ns.Length - 3);
-                    if (!int.TryParse(ns[ns.Length - 3], out v)) v = 0;
-                    rci.SoundLocation = v;
-                    if (!int.TryParse(ns[ns.Length - 2], out v)) v = 0;
-                    rci.BusID = v;
-                    if (!int.TryParse(ns[ns.Length - 1], out v)) v = 0;
-                    rci.SoundChip = v;
+                    rci2.SoundChip = v;
+                    ct.UseReal = new bool[2] { true, true };
                 }
             }
-
         }
 
         /// <summary>

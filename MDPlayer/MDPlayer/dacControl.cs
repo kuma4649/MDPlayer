@@ -151,9 +151,9 @@ namespace MDPlayer
                         prevChn = Port; // by default don't restore channel
                                         // get current channel for supported chips
                         if (chip.DstChipType2 == 0x05)
-                            ;   // TODO
+                        { }   // TODO
                         else if (chip.DstChipType2 == 0x05)
-                            ;   // TODO
+                        { }   // TODO
                         else if (chip.DstChipType2 == 0x1B)
                             prevChn = chipRegister.ReadHuC6280Register(chip.DstChipID, 0x00, model);
 

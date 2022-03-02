@@ -785,6 +785,8 @@ namespace MDPlayer
         }
 
         public KeyBoardHook keyBoardHook { get => _keyBoardHook; set => _keyBoardHook = value; }
+        public bool unuseRealChip { get; set; }
+
         private KeyBoardHook _keyBoardHook = new KeyBoardHook();
 
         [Serializable]
@@ -2097,6 +2099,22 @@ namespace MDPlayer
                 {
                     _SAA1099Volume = value;
                     if (_SAA1099Volume > 20 || _SAA1099Volume < -192) _SAA1099Volume = 0;
+                }
+            }
+
+            private int _WSwanVolume = 0;
+            public int WSwanVolume
+            {
+                get
+                {
+                    if (_WSwanVolume > 20 || _WSwanVolume < -192) _WSwanVolume = 0;
+                    return _WSwanVolume;
+                }
+
+                set
+                {
+                    _WSwanVolume = value;
+                    if (_WSwanVolume > 20 || _WSwanVolume < -192) _WSwanVolume = 0;
                 }
             }
 
@@ -5234,6 +5252,12 @@ namespace MDPlayer
                 }
             }
 
+            private bool[] _useRealChipFreqDiff = null;
+            public bool[] UseRealChipFreqDiff { get => _useRealChipFreqDiff; set => _useRealChipFreqDiff = value; }
+
+            private bool[] _useRealChipAutoAdjust = null;
+            public bool[] UseRealChipAutoAdjust { get => _useRealChipAutoAdjust; set => _useRealChipAutoAdjust = value; }
+
 
             public ChipType2 Copy()
             {
@@ -5262,6 +5286,8 @@ namespace MDPlayer
 
                 ct.LatencyForEmulation = this.LatencyForEmulation;
                 ct.LatencyForReal = this.LatencyForReal;
+                ct.UseRealChipFreqDiff = this.UseRealChipFreqDiff;
+                ct.UseRealChipAutoAdjust = this.UseRealChipAutoAdjust;
 
                 return ct;
             }
@@ -5372,6 +5398,7 @@ namespace MDPlayer
                 for (int i = 0; i < this.SEGAPCMType.Length; i++) setting.SEGAPCMType[i] = this.SEGAPCMType[i].Copy();
             }
 
+            setting.unuseRealChip = this.unuseRealChip;
             setting.FileSearchPathList = this.FileSearchPathList;
 
             //setting.YM2151SType = this.YM2151SType.Copy();

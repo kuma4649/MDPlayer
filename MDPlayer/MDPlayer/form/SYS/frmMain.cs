@@ -117,7 +117,7 @@ namespace MDPlayer.form
         //private FileSystemWatcher watcher = null;
         private mmfControl mmf = null;
         private long now = 0;
-        private string opeFolder;
+        private string opeFolder = "";
         private object remoteLockObj = new object();
         private bool remoteBusy = false;
         private List<string[]> remoteReq = new List<string[]>();
@@ -1070,7 +1070,16 @@ namespace MDPlayer.form
             StopMIDIInMonitoring();
             Request req = new Request(enmRequest.Die);
             OpeManager.RequestToAudio(req);
-            while (!req.end)//自殺リクエストはコールバック無し
+            int timeout = 100;
+            while (!req.end && timeout-- > 0)//自殺リクエストはコールバック無し
+            {
+                System.Threading.Thread.Sleep(1);
+            }
+
+            req = new Request(enmRequest.Stop);
+            OpeManager.RequestToAudio(req);
+            timeout = 100;
+            while (!req.end && timeout-- > 0)
             {
                 System.Threading.Thread.Sleep(1);
             }
@@ -4172,12 +4181,12 @@ namespace MDPlayer.form
             OpeManager.RequestToAudio(req);
             while (!req.end) System.Threading.Thread.Sleep(1);
             
-            req = new Request(enmRequest.Die);
-            OpeManager.RequestToAudio(req);
-            while (!req.end) System.Threading.Thread.Sleep(1);
+            //req = new Request(enmRequest.Die);
+            //OpeManager.RequestToAudio(req);
+            //while (!req.end) System.Threading.Thread.Sleep(1);
             
-            //Audio.Stop();
-            Audio.Close();
+            Audio.Stop();
+            Audio.Close(false);
 
             this.setting = setting;
             this.setting.Save();
@@ -5156,6 +5165,8 @@ namespace MDPlayer.form
                     ResetChannelMask(EnmChip.FDS, chipID, 0);
                 }
 
+                Audio.GO();
+
                 if (frmInfo != null)
                 {
                     frmInfo.update();
@@ -5456,6 +5467,12 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".mdl")
+            {
+                format = EnmFileFormat.MDL;
+                return buf;
+            }
+
             if (ext == ".mdx")
             {
                 format = EnmFileFormat.MDX;
@@ -5587,7 +5604,18 @@ namespace MDPlayer.form
 
                 if (chip == EnmChip.YM2413)
                 {
-                    getInstChForMGSC(chip, ch, chipID);
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForMGSC(chip, ch, chipID);
+                    }
                     return;
                 }
                 else if (chip == EnmChip.YM3812 || chip == EnmChip.YMF262 || chip == EnmChip.YMF278B)
@@ -5595,6 +5623,10 @@ namespace MDPlayer.form
                     if (setting.other.InstFormat == EnmInstFormat.OPLI)
                     {
                         getInstChForOPLI(chip, ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
                     }
                 }
                 else if (chip == EnmChip.VRC7)
@@ -5664,6 +5696,9 @@ namespace MDPlayer.form
                             break;
                         case EnmInstFormat.RYM2612:
                             getInstChForRYM2612(chip, ch, chipID);
+                            break;
+                        case EnmInstFormat.SendMML2VGM:
+                            getInstChForSendMML2VGM(chip, ch, chipID);
                             break;
                     }
                 }
@@ -5812,6 +5847,34 @@ namespace MDPlayer.form
 
         private void getInstChForMML2VGM(EnmChip chip, int ch, int chipID)
         {
+            string n = getInstChForMML2VGMFormat(chip, ch, chipID);
+            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+        }
+
+        private void getInstChForSendMML2VGM(EnmChip chip, int ch, int chipID)
+        {
+            string n = getInstChForMML2VGMFormat(chip, ch, chipID);
+            if (string.IsNullOrEmpty(n)) return;
+
+            mmfControl mmf = new mmfControl(true, "mml2vgmFMVoicePool", 1024 * 4);
+            try
+            {
+                mmf.SendMessage(string.Join(":", "SendVoice", n));
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("メッセージが長すぎ");
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("mml2vgmの共有メモリが見つかりませんでした");
+            }
+        }
+
+        private int[] slot1Tbl = new int[] { 0, 1, 2, 6, 7, 8, 12, 13, 14 };
+        private int[] slot2Tbl = new int[] { 3, 4, 5, 9, 10, 11, 15, 16, 17 };
+        private string getInstChForMML2VGMFormat(EnmChip chip, int ch, int chipID)
+        {
 
             string n = "";
 
@@ -5877,11 +5940,11 @@ namespace MDPlayer.form
             else if (chip == EnmChip.HuC6280)
             {
                 MDSound.Ootake_PSG.huc6280_state huc6280Register = Audio.GetHuC6280Register(chipID);
-                if (huc6280Register == null) return;
+                if (huc6280Register == null) return null;
                 MDSound.Ootake_PSG.PSG psg = huc6280Register.Psg[ch];
-                if (psg == null) return;
-                if (psg.wave == null) return;
-                if (psg.wave.Length != 32) return;
+                if (psg == null) return null;
+                if (psg.wave == null) return null;
+                if (psg.wave.Length != 32) return null;
 
                 n = "'@ H xx,\r\n   +0 +1 +2 +3 +4 +5 +6 +7\r\n";
 
@@ -5899,8 +5962,52 @@ namespace MDPlayer.form
                         );
                 }
             }
+            else if (chip == EnmChip.YM2413)
+            {
+                //OPLL
+                int[] regs = Audio.GetYM2413Register(chipID);
+            }
+            else if (chip == EnmChip.YM3812)
+            {
+                //OPL2
+                //'@ L No "Name"
+                //'@ AR DR SL RR KSL TL MT AM VIB EGT KSR WS
+                //'@ AR DR SL RR KSL TL MT AM VIB EGT KSR WS
+                //'@ CNT FB
 
-            if (!string.IsNullOrEmpty(n)) Clipboard.SetText(n);
+                int[] regs = Audio.GetYM3812Register(chipID);
+                int slot;
+                if (ch < 0 || ch > 8) return null;
+
+                n = "'@ L No \"MDP\"\r\n   AR DR SL RR KSL TL MT AM VIB EGT KSR WS\r\n";
+                for (int i = 0; i < 2; i ++)
+                {
+                    if (i == 0) slot = slot1Tbl[ch];
+                    else slot = slot2Tbl[ch];
+
+                    slot = (slot % 6) + 8 * (slot / 6);
+                    n += string.Format("'@ {0:D2},{1:D2},{2:D2},{3:D2}, {4:D2},{5:D2},{6:D2},{7:D2}, {8:D2}, {9:D2}, {10:D2},{11:D2}\r\n"
+                        , regs[0x60+slot]>>4
+                        ,regs[0x60 + slot] & 0xf
+                        ,regs[0x80 + slot] >> 4
+                        ,regs[0x80 + slot] & 0xf
+                        ,regs[0x40 + slot] >> 6
+                        ,regs[0x40 + slot] & 0x3f
+                        ,regs[0x20 + slot] & 0xf
+                        ,regs[0x20 + slot] >> 7
+                        ,(regs[0x20 + slot] >> 6) & 1
+                        ,(regs[0x20 + slot] >> 5) & 1
+                        ,(regs[0x20 + slot] >> 4) & 1
+                        ,(regs[0xe0 + slot] & 3)
+                        );
+                }
+                n += string.Format("   CNT FB\r\n'@  {0:D2},{1:D2}\r\n"
+                    ,(regs[0xc0 + ch] & 1)
+                    ,(regs[0xc0 + ch] >> 1) & 7
+                    );
+            }
+
+            return n;
         }
 
         private void getInstChForMUSICLALF(EnmChip chip, int ch, int chipID)
