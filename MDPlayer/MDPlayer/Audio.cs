@@ -2216,9 +2216,9 @@ namespace MDPlayer
                     chip.Start = ym2151.Start;
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = Driver.MucomDotNET.OPMbaseclock;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Option = null;
                     lstChips.Add(chip);
                     useChip.Add(EnmChip.YM2151);
@@ -2663,9 +2663,9 @@ namespace MDPlayer
                             chip.Reset = ym2151_x68sound.Reset;
                         }
 
-                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = 4000000;
+                        chip.SamplingRate = (UInt32)chip.Clock / 64;
                         chip.Option = null;
 
                         hiyorimiDeviceFlag |= 0x2;
@@ -2988,9 +2988,9 @@ namespace MDPlayer
                     chip.Start = ym2151.Start;
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Option = null;
                 }
                 else if (setting.YM2151Type[0].UseEmu[1])
@@ -3004,8 +3004,8 @@ namespace MDPlayer
                     chip.Start = ym2151mame.Start;
                     chip.Stop = ym2151mame.Stop;
                     chip.Reset = ym2151mame.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Clock = 4000000;
                     chip.Option = null;
                 }
@@ -3020,9 +3020,9 @@ namespace MDPlayer
                     chip.Start = mdxOPM.Start;
                     chip.Stop = mdxOPM.Stop;
                     chip.Reset = mdxOPM.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Option = new object[3] { 1, 0, 0 };
                 }
                 if (chip != null)
@@ -3155,9 +3155,9 @@ namespace MDPlayer
                     chip.Start = ym2151.Start;
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Option = null;
                 }
                 else if (setting.YM2151Type[0].UseEmu[1])
@@ -3171,9 +3171,9 @@ namespace MDPlayer
                     chip.Start = ym2151mame.Start;
                     chip.Stop = ym2151mame.Stop;
                     chip.Reset = ym2151mame.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Option = null;
                 }
                 else if (setting.YM2151Type[0].UseEmu[2])
@@ -3187,9 +3187,9 @@ namespace MDPlayer
                     chip.Start = mdxOPM.Start;
                     chip.Stop = mdxOPM.Stop;
                     chip.Reset = mdxOPM.Reset;
-                    chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.YM2151Volume;
                     chip.Clock = 4000000;
+                    chip.SamplingRate = (UInt32)chip.Clock / 64;
                     chip.Option = new object[3] { 1, 0, 0 };
                 }
                 if (chip != null)
@@ -3888,9 +3888,9 @@ namespace MDPlayer
                                 chip.Reset = ym2151_x68sound.Reset;
                             }
 
-                            chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                             chip.Volume = setting.balance.YM2151Volume;
                             chip.Clock = dInfo.Clock;
+                            chip.SamplingRate = (UInt32)chip.Clock / 64;
                             YM2151ClockValue = (int)chip.Clock;
                             chip.Option = null;
                             //hiyorimiDeviceFlag |= 0x2;
@@ -5189,9 +5189,9 @@ namespace MDPlayer
                             chip.Reset = ym2151_x68sound.Reset;
                         }
 
-                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = setting.balance.YM2151Volume;
                         chip.Clock = ((vgm)driverVirtual).YM2151ClockValue;
+                        chip.SamplingRate = (UInt32)chip.Clock / 64;
                         chip.Option = null;
 
                         hiyorimiDeviceFlag |= 0x2;
