@@ -2422,6 +2422,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _uPD7759Volume = 0;
+            public int uPD7759Volume
+            {
+                get
+                {
+                    if (_uPD7759Volume > 20 || _uPD7759Volume < -192) _uPD7759Volume = 0;
+                    return _uPD7759Volume;
+                }
+
+                set
+                {
+                    _uPD7759Volume = value;
+                    if (_uPD7759Volume > 20 || _uPD7759Volume < -192) _uPD7759Volume = 0;
+                }
+            }
+
             private int _QSoundVolume = 0;
             public int QSoundVolume
             {

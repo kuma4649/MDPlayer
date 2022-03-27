@@ -69,6 +69,7 @@ namespace MDPlayer
         public uint DMGClockValue;
         public uint NESClockValue;
         public uint MultiPCMClockValue;
+        public uint uPD7759ClockValue;
         public uint POKEYClockValue;
 
         public bool YM2612DualChipFlag;
@@ -105,6 +106,7 @@ namespace MDPlayer
         public bool DMGDualChipFlag;
         public bool NESDualChipFlag;
         public bool MultiPCMDualChipFlag;
+        public bool uPD7759DualChipFlag;
         public bool POKEYDualChipFlag;
 
         public dacControl dacControl = null;
@@ -482,7 +484,7 @@ namespace MDPlayer
             vgmCmdTbl[0xb3] = vcDMG;
             vgmCmdTbl[0xb4] = vcNES;
             vgmCmdTbl[0xb5] = vcMultiPCM;
-            vgmCmdTbl[0xb6] = vcDummy2Ope;
+            vgmCmdTbl[0xb6] = vcuPD7759;
             vgmCmdTbl[0xb7] = vcOKIM6258;
 
             vgmCmdTbl[0xb8] = vcOKIM6295;
@@ -625,6 +627,13 @@ namespace MDPlayer
         private void vcMultiPCM()
         {
             chipRegister.setMultiPCMRegister((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
+            vgmAdr += 3;
+        }
+
+        private void vcuPD7759()
+        {
+            //if(model== EnmModel.VirtualModel) Console.WriteLine("adr:{0} data:{1:x02}",vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2]);
+            chipRegister.setuPD7759Register((vgmBuf[vgmAdr + 1] & 0x80) == 0 ? 0 : 1, vgmBuf[vgmAdr + 1] & 0x7f, vgmBuf[vgmAdr + 2], model);
             vgmAdr += 3;
         }
 
@@ -1041,6 +1050,12 @@ namespace MDPlayer
                             // MultiPCM
                             chipRegister.writeMultiPCMPCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
                             dumpData(model, "MultiPCM_PCMData", vgmAdr + 15, bLen - 8);
+                            break;
+
+                        case 0x8a:
+                            // uPD7759
+                            chipRegister.writeuPD7759PCMData(chipID, romSize, startAddress, bLen - 8, vgmBuf, vgmAdr + 15, model);
+                            dumpData(model, "uPD7759_PCMData", vgmAdr + 15, bLen - 8);
                             break;
 
                         case 0x8b:
@@ -1977,6 +1992,7 @@ namespace MDPlayer
             K054539ClockValue = 0;
             NESClockValue = 0;
             MultiPCMClockValue = 0;
+            uPD7759ClockValue = 0;
             SAA1099ClockValue = 0;
             X1_010ClockValue = 0;
             WSwanClockValue = 0;
@@ -2331,6 +2347,18 @@ namespace MDPlayer
                             MultiPCMDualChipFlag = (MultiPCMclock & 0x40000000) != 0;
                             if (MultiPCMDualChipFlag) chips.Add("MultiPCMx2");
                             else chips.Add("MultiPCM");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0x8c)
+                    {
+                        uint uPD7759clock = getLE32(0x8c);
+                        if (uPD7759clock != 0)
+                        {
+                            uPD7759ClockValue = uPD7759clock & 0xbfff_ffff;
+                            uPD7759DualChipFlag = (uPD7759clock & 0x40000000) != 0;
+                            if (uPD7759DualChipFlag) chips.Add("uPD7759x2");
+                            else chips.Add("uPD7759");
                         }
                     }
 

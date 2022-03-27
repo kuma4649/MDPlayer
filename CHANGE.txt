@@ -1,4 +1,7 @@
 更新履歴
+STBL222 2022/03/27
+  Core:VGM:uPD7759:uPD7759対応
+
 STBL221 2022/03/04
   Core:OPM:YM2151 の SamplingRate を Clock から算出するようにしました（折返しノイズ使用音色対策）
   (HoppingTappyさんからプルリクいただきました！ありがとうございます！！)

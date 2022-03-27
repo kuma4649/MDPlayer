@@ -591,6 +591,7 @@ namespace MDPlayer
         , FME7
         , RF5C68
         , MultiPCM
+        , uPD7759
         , YMF271
         , YMZ280B
         , QSound
@@ -640,6 +641,7 @@ namespace MDPlayer
         , S_FME7
         , S_RF5C68
         , S_MultiPCM
+        , S_uPD7759
         , S_YMF271
         , S_YMZ280B
         , S_QSound

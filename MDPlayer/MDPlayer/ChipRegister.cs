@@ -1493,6 +1493,20 @@ namespace MDPlayer
             }
         }
 
+        public void setuPD7759Register(int chipID, int dAddr, int dData, EnmModel model)
+        {
+            if (chipID == 0) chipLED.PriuPD7759 = 2;
+            else chipLED.SecuPD7759 = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                mds.WriteuPD7759((byte)chipID, (byte)dAddr, (byte)dData);
+            }
+            else
+            {
+            }
+        }
+
         public multipcm._MultiPCM getMultiPCMRegister(int chipID)
         {
             if (chipID == 0) chipLED.PriMPCM = 2;
@@ -4877,6 +4891,15 @@ namespace MDPlayer
 
             if (model == EnmModel.VirtualModel)
                 mds.WriteMultiPCMPCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
+        }
+
+        public void writeuPD7759PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
+        {
+            if (chipid == 0) chipLED.PriuPD7759 = 2;
+            else chipLED.SecuPD7759 = 2;
+
+            if (model == EnmModel.VirtualModel)
+                mds.WriteuPD7759PCMData(chipid, ROMSize, DataStart, DataLength, romdata, SrcStartAdr);
         }
 
         public void writeYMF271PCMData(byte chipid, uint ROMSize, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
