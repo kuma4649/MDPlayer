@@ -5515,6 +5515,36 @@ namespace MDPlayer.form
                 return buf;
             }
 
+            if (ext == ".xgz")
+            {
+                int xnum;
+                buf = new byte[1024]; // 1Kbytesずつ処理する
+
+                FileStream xinStream // 入力ストリーム
+                  = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+                GZipStream xdecompStream // 解凍ストリーム
+                  = new GZipStream(
+                    xinStream, // 入力元となるストリームを指定
+                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+                MemoryStream xoutStream // 出力ストリーム
+                  = new MemoryStream();
+
+                using (xinStream)
+                using (xoutStream)
+                using (xdecompStream)
+                {
+                    while ((xnum = xdecompStream.Read(buf, 0, buf.Length)) > 0)
+                    {
+                        xoutStream.Write(buf, 0, xnum);
+                    }
+                }
+
+                format = EnmFileFormat.XGM;
+                return buf;
+            }
+
             if (ext == ".zgm")
             {
                 format = EnmFileFormat.ZGM;

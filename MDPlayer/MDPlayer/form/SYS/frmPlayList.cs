@@ -32,7 +32,7 @@ namespace MDPlayer.form
         private Random rand = new System.Random();
         private bool IsInitialOpenFolder = true;
 
-        private string[] sext = ".vgm;.vgz;.zip;.lzh;.nrd;.xgm;.zgm;.s98;.nsf;.hes;.sid;.mnd;.mgs;.mdr;.mdx;.mub;.muc;.m;.m2;.mz;.mml;.mid;.rcp;.wav;.mp3;.aiff;.m3u".Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+        private string[] sext = ".vgm;.vgz;.zip;.lzh;.nrd;.xgm;.xgz;.zgm;.s98;.nsf;.hes;.sid;.mnd;.mgs;.mdr;.mdx;.mub;.muc;.m;.m2;.mz;.mml;.mid;.rcp;.wav;.mp3;.aiff;.m3u".Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 
         public frmPlayList(frmMain frm)
         {
@@ -722,7 +722,7 @@ namespace MDPlayer.form
                            ext == ".VGM" || ext == ".VGZ" || ext == ".ZIP" || ext == ".NRD" 
                         || ext == ".XGM" || ext == ".S98" || ext == ".NSF" || ext == ".HES"
                         || ext == ".SID" || ext == ".MID" || ext == ".RCP" || ext == ".M3U"
-                        || ext == ".MDR"
+                        || ext == ".MDR" || ext == ".XGZ"
                         )
                     {
                         playList.AddFile(fn);
