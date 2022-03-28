@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -357,10 +358,10 @@ namespace MDPlayer
             return n;
         }
 
-        public static int searchPCMNote(int ml,int mul)
+        public static int searchPCMNote(int ml, int mul)
         {
             int m = int.MaxValue;
-            ml = ml % (1024*mul);
+            ml = ml % (1024 * mul);
             int n = 0;
             for (int i = 0; i < 12; i++)
             {
@@ -546,6 +547,42 @@ namespace MDPlayer
             {
                 return null;
             }
+        }
+
+
+
+
+
+        public static byte[] unzipFile(string filename, ZipArchiveEntry entry=null)
+        {
+            int xnum;
+            byte[] buf = new byte[1024]; // 1Kbytesずつ処理する
+
+            Stream xinStream; // 入力ストリーム
+            if (entry == null)
+                xinStream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            else
+                xinStream = entry.Open();
+
+            GZipStream xdecompStream // 解凍ストリーム
+              = new GZipStream(
+                xinStream, // 入力元となるストリームを指定
+                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
+
+            MemoryStream xoutStream // 出力ストリーム
+              = new MemoryStream();
+
+            using (xinStream)
+            using (xoutStream)
+            using (xdecompStream)
+            {
+                while ((xnum = xdecompStream.Read(buf, 0, buf.Length)) > 0)
+                {
+                    xoutStream.Write(buf, 0, xnum);
+                }
+            }
+
+            return xoutStream.ToArray();
         }
 
     }

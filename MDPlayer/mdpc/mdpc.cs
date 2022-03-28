@@ -246,32 +246,9 @@ namespace mdpc
                 return buf;
             }
 
-            int num;
-            buf = new byte[1024]; // 1Kbytesずつ処理する
-
-            FileStream inStream // 入力ストリーム
-              = new FileStream(filename, FileMode.Open, FileAccess.Read);
-
-            GZipStream decompStream // 解凍ストリーム
-              = new GZipStream(
-                inStream, // 入力元となるストリームを指定
-                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-            MemoryStream outStream // 出力ストリーム
-              = new MemoryStream();
-
-            using (inStream)
-            using (outStream)
-            using (decompStream)
-            {
-                while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                {
-                    outStream.Write(buf, 0, num);
-                }
-            }
-
+            buf = Common.unzipFile(filename);
             format = EnmFileFormat.VGM;
-            return outStream.ToArray();
+            return buf;
         }
 
         private void procMain()

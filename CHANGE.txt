@@ -1,4 +1,7 @@
 更新履歴
+STBL224 2022/03/29
+  Core:XGM:1024byte以上のXGZが読み込めなかったバグを修正
+
 STBL223 2022/03/28
   Core:XGM:XGZ対応
 

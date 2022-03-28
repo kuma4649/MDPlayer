@@ -5517,30 +5517,7 @@ namespace MDPlayer.form
 
             if (ext == ".xgz")
             {
-                int xnum;
-                buf = new byte[1024]; // 1Kbytesずつ処理する
-
-                FileStream xinStream // 入力ストリーム
-                  = new FileStream(filename, FileMode.Open, FileAccess.Read);
-
-                GZipStream xdecompStream // 解凍ストリーム
-                  = new GZipStream(
-                    xinStream, // 入力元となるストリームを指定
-                    CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                MemoryStream xoutStream // 出力ストリーム
-                  = new MemoryStream();
-
-                using (xinStream)
-                using (xoutStream)
-                using (xdecompStream)
-                {
-                    while ((xnum = xdecompStream.Read(buf, 0, buf.Length)) > 0)
-                    {
-                        xoutStream.Write(buf, 0, xnum);
-                    }
-                }
-
+                buf = Common.unzipFile(filename);
                 format = EnmFileFormat.XGM;
                 return buf;
             }
@@ -5596,32 +5573,8 @@ namespace MDPlayer.form
                 return buf;
             }
 
-            int num;
-            buf = new byte[1024]; // 1Kbytesずつ処理する
-
-            FileStream inStream // 入力ストリーム
-              = new FileStream(filename, FileMode.Open, FileAccess.Read);
-
-            GZipStream decompStream // 解凍ストリーム
-              = new GZipStream(
-                inStream, // 入力元となるストリームを指定
-                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-            MemoryStream outStream // 出力ストリーム
-              = new MemoryStream();
-
-            using (inStream)
-            using (outStream)
-            using (decompStream)
-            {
-                while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                {
-                    outStream.Write(buf, 0, num);
-                }
-            }
-
             format = EnmFileFormat.VGM;
-            return outStream.ToArray();
+            return Common.unzipFile(filename);
         }
 
         public void getInstCh(EnmChip chip, int ch, int chipID)
@@ -7653,31 +7606,7 @@ namespace MDPlayer.form
                     uint vgm = (UInt32)buf[0] + (UInt32)buf[1] * 0x100 + (UInt32)buf[2] * 0x10000 + (UInt32)buf[3] * 0x1000000;
                     if (vgm != FCC_VGM)
                     {
-                        int num;
-                        buf = new byte[1024]; // 1Kbytesずつ処理する
-
-                        Stream inStream // 入力ストリーム
-                          = entry.Open();
-
-                        GZipStream decompStream // 解凍ストリーム
-                          = new GZipStream(
-                            inStream, // 入力元となるストリームを指定
-                            CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                        MemoryStream outStream // 出力ストリーム
-                          = new MemoryStream();
-
-                        using (inStream)
-                        using (outStream)
-                        using (decompStream)
-                        {
-                            while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                            {
-                                outStream.Write(buf, 0, num);
-                            }
-                        }
-
-                        buf = outStream.ToArray();
+                        buf = Common.unzipFile(null, entry);
                     }
                 }
                 catch (Exception ex)

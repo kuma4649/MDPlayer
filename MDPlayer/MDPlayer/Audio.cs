@@ -416,42 +416,15 @@ namespace MDPlayer
             else if (file.ToLower().LastIndexOf(".xgz") != -1)
             {
 
-                //XGZかもしれないので確認する
+                buf = null;
                 try
                 {
-                    int num;
-                    buf = new byte[1024]; // 1Kbytesずつ処理する
-
                     if (entry == null || entry is ZipArchiveEntry)
                     {
-                        Stream inStream; // 入力ストリーム
                         if (entry == null)
-                        {
-                            inStream = new FileStream(file, FileMode.Open, FileAccess.Read);
-                        }
+                            buf = Common.unzipFile(file, null);
                         else
-                        {
-                            inStream = ((ZipArchiveEntry)entry).Open();
-                        }
-                        GZipStream decompStream // 解凍ストリーム
-                          = new GZipStream(
-                            inStream, // 入力元となるストリームを指定
-                            CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                        MemoryStream outStream // 出力ストリーム
-                          = new MemoryStream();
-
-                        using (inStream)
-                        using (outStream)
-                        using (decompStream)
-                        {
-                            while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                            {
-                                outStream.Write(buf, 0, num);
-                            }
-                        }
-
-                        buf = outStream.ToArray();
+                            buf = Common.unzipFile(null, (ZipArchiveEntry)entry);
                     }
                     else
                     {
@@ -712,39 +685,13 @@ namespace MDPlayer
                     //VGZかもしれないので確認する
                     try
                     {
-                        int num;
-                        buf = new byte[1024]; // 1Kbytesずつ処理する
-
                         if (entry == null || entry is ZipArchiveEntry)
                         {
-                            Stream inStream; // 入力ストリーム
+                            buf = null;
                             if (entry == null)
-                            {
-                                inStream = new FileStream(file, FileMode.Open, FileAccess.Read);
-                            }
+                                buf = Common.unzipFile(file, null);
                             else
-                            {
-                                inStream = ((ZipArchiveEntry)entry).Open();
-                            }
-                            GZipStream decompStream // 解凍ストリーム
-                              = new GZipStream(
-                                inStream, // 入力元となるストリームを指定
-                                CompressionMode.Decompress); // 解凍（圧縮解除）を指定
-
-                            MemoryStream outStream // 出力ストリーム
-                              = new MemoryStream();
-
-                            using (inStream)
-                            using (outStream)
-                            using (decompStream)
-                            {
-                                while ((num = decompStream.Read(buf, 0, buf.Length)) > 0)
-                                {
-                                    outStream.Write(buf, 0, num);
-                                }
-                            }
-
-                            buf = outStream.ToArray();
+                                buf = Common.unzipFile(null, (ZipArchiveEntry)entry);
                         }
                         else
                         {
