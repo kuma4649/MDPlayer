@@ -1,4 +1,7 @@
 更新履歴
+STBL225 2022/03/29 2nd
+  Core:MDSound差し替え
+
 STBL224 2022/03/29
   Core:XGM:1024byte以上のXGZが読み込めなかったバグを修正
 

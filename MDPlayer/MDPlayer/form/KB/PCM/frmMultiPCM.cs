@@ -181,40 +181,40 @@ namespace MDPlayer.form
 
             for (int ch = 0; ch < 28; ch++)
             {
-                int oct = (int)(((MultiPCMRegister.Slots[ch].Regs[3] >> 4) - 1) & 0xf);
+                int oct = (int)(((MultiPCMRegister.slots[ch].regs[3] >> 4) - 1) & 0xf);
                 oct = ((oct & 0x8) != 0) ? (oct - 16) : oct;
                 oct = oct + 4;//基音を o5 にしてます
-                int pitch = (int)(((MultiPCMRegister.Slots[ch].Regs[3] & 0xf) << 6) | (MultiPCMRegister.Slots[ch].Regs[2] >> 2));
+                int pitch = (int)(((MultiPCMRegister.slots[ch].regs[3] & 0xf) << 6) | (MultiPCMRegister.slots[ch].regs[2] >> 2));
 
                 int nt = Math.Max(Math.Min(oct * 12 + pitch / 85, 7 * 12), 0);
                 newParam.channels[ch].note = nt;
 
-                int d = (int)(MultiPCMRegister.Slots[ch].Pan);
+                int d = (int)(MultiPCMRegister.slots[ch].pan);
                 d = (d == 0) ? 0xf:d;
                 newParam.channels[ch].pan = (int)(((((d & 0xc) >> 2) * 4) << 4) | (((d & 0x3) * 4) << 0));
 
-                newParam.channels[ch].bit[0] = (bool)((MultiPCMRegister.Slots[ch].Regs[4] & 0x80) != 0);
-                newParam.channels[ch].freq = (int)(((MultiPCMRegister.Slots[ch].Regs[3] & 0xf) << 6) | (MultiPCMRegister.Slots[ch].Regs[2] >> 2));
-                newParam.channels[ch].bit[1] = (bool)((MultiPCMRegister.Slots[ch].Regs[5] & 1) != 0);//TL Interpolation
-                newParam.channels[ch].inst[1] = (int)((MultiPCMRegister.Slots[ch].Regs[5] >> 1) & 0x7f);//TL
-                newParam.channels[ch].inst[2] = (int)((MultiPCMRegister.Slots[ch].Regs[6] >> 3) & 7);//LFO freq
-                newParam.channels[ch].inst[3] = (int)((MultiPCMRegister.Slots[ch].Regs[6]) & 7);//PLFO
-                newParam.channels[ch].inst[4] = (int)((MultiPCMRegister.Slots[ch].Regs[7]) & 7);//ALFO
+                newParam.channels[ch].bit[0] = (bool)((MultiPCMRegister.slots[ch].regs[4] & 0x80) != 0);
+                newParam.channels[ch].freq = (int)(((MultiPCMRegister.slots[ch].regs[3] & 0xf) << 6) | (MultiPCMRegister.slots[ch].regs[2] >> 2));
+                newParam.channels[ch].bit[1] = (bool)((MultiPCMRegister.slots[ch].regs[5] & 1) != 0);//TL Interpolation
+                newParam.channels[ch].inst[1] = (int)((MultiPCMRegister.slots[ch].regs[5] >> 1) & 0x7f);//TL
+                newParam.channels[ch].inst[2] = (int)((MultiPCMRegister.slots[ch].regs[6] >> 3) & 7);//LFO freq
+                newParam.channels[ch].inst[3] = (int)((MultiPCMRegister.slots[ch].regs[6]) & 7);//PLFO
+                newParam.channels[ch].inst[4] = (int)((MultiPCMRegister.slots[ch].regs[7]) & 7);//ALFO
 
-                if (MultiPCMRegister.Slots[ch].Sample != null)
+                if (MultiPCMRegister.slots[ch].sample != null)
                 {
-                    newParam.channels[ch].inst[0] = (int)MultiPCMRegister.Slots[ch].Regs[1];
-                    newParam.channels[ch].sadr = (int)MultiPCMRegister.Slots[ch].Sample.Start;
-                    newParam.channels[ch].eadr = (int)MultiPCMRegister.Slots[ch].Sample.End;
-                    newParam.channels[ch].ladr = (int)MultiPCMRegister.Slots[ch].Sample.Loop;
-                    newParam.channels[ch].inst[5] = (int)MultiPCMRegister.Slots[ch].Sample.LFOVIB;
-                    newParam.channels[ch].inst[6] = (int)MultiPCMRegister.Slots[ch].Sample.AR;
-                    newParam.channels[ch].inst[7] = (int)MultiPCMRegister.Slots[ch].Sample.DR1;
-                    newParam.channels[ch].inst[8] = (int)MultiPCMRegister.Slots[ch].Sample.DR2;
-                    newParam.channels[ch].inst[9] = (int)MultiPCMRegister.Slots[ch].Sample.DL;
-                    newParam.channels[ch].inst[10] = (int)MultiPCMRegister.Slots[ch].Sample.RR;
-                    newParam.channels[ch].inst[11] = (int)MultiPCMRegister.Slots[ch].Sample.KRS;
-                    newParam.channels[ch].inst[12] = (int)MultiPCMRegister.Slots[ch].Sample.AM;
+                    newParam.channels[ch].inst[0] = (int)MultiPCMRegister.slots[ch].regs[1];
+                    newParam.channels[ch].sadr = (int)MultiPCMRegister.slots[ch].sample.start;
+                    newParam.channels[ch].eadr = (int)MultiPCMRegister.slots[ch].sample.end;
+                    newParam.channels[ch].ladr = (int)MultiPCMRegister.slots[ch].sample.loop;
+                    newParam.channels[ch].inst[5] = (int)MultiPCMRegister.slots[ch].sample.lfo_vibrato_reg;
+                    newParam.channels[ch].inst[6] = (int)MultiPCMRegister.slots[ch].sample.attack_reg;
+                    newParam.channels[ch].inst[7] = (int)MultiPCMRegister.slots[ch].sample.decay1_reg;
+                    newParam.channels[ch].inst[8] = (int)MultiPCMRegister.slots[ch].sample.decay2_reg;
+                    newParam.channels[ch].inst[9] = (int)MultiPCMRegister.slots[ch].sample.decay_level;
+                    newParam.channels[ch].inst[10] = (int)MultiPCMRegister.slots[ch].sample.release_reg;
+                    newParam.channels[ch].inst[11] = (int)MultiPCMRegister.slots[ch].sample.key_rate_scale;
+                    newParam.channels[ch].inst[12] = (int)MultiPCMRegister.slots[ch].sample.lfo_amplitude_reg;
                 }
 
                 if (newParam.channels[ch].bit[0])
