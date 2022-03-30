@@ -2119,6 +2119,7 @@ namespace MDPlayer
                     vgmBuf = ((Driver.MucomDotNET)driverVirtual).Compile(vgmBuf);
                 }
                 EnmChip[] useChipFromMub = ((Driver.MucomDotNET)driverVirtual).useChipsFromMub(vgmBuf);
+                ((Driver.MucomDotNET)driverVirtual).GetMUBTAGOption(vgmBuf);
 
                 //Stop();
                 chipRegister.resetChips();
@@ -2233,7 +2234,7 @@ namespace MDPlayer
                     chip.Stop = ym2151.Stop;
                     chip.Reset = ym2151.Reset;
                     chip.Volume = setting.balance.YM2151Volume;
-                    chip.Clock = Driver.MucomDotNET.OPMbaseclock;
+                    chip.Clock = (uint)((Driver.MucomDotNET)driverVirtual).OPMClock;
                     chip.SamplingRate = (UInt32)chip.Clock / 64;// (UInt32)setting.outputDevice.SampleRate;
                     chip.Option = null;
                     lstChips.Add(chip);
@@ -2285,6 +2286,14 @@ namespace MDPlayer
                     if (!driverReal.init(vgmBuf, chipRegister, EnmModel.RealModel, new EnmChip[] { EnmChip.YM2608 }
                         , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
                         , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000))) return false;
+                }
+
+                if (((Driver.MucomDotNET)driverVirtual).SSGExtend)
+                {
+                    try { mds.ChangeYM2608_PSGMode(0, 1); } catch { }
+                    try { mds.ChangeYM2608_PSGMode(1, 1); } catch { }
+                    try { mds.ChangeYM2610_PSGMode(0, 1); } catch { }
+                    try { mds.ChangeYM2610_PSGMode(1, 1); } catch { }
                 }
 
                 //Play

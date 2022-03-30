@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace MDPlayer.Driver
@@ -13,6 +14,10 @@ namespace MDPlayer.Driver
         private iDriver mucomDriver = null;
 
         public string PlayingFileName { get; internal set; }
+        public bool SSGExtend { get; private set; }
+        public bool CarrierCorrection { get; private set; }
+        public int OPMClock { get; private set; }
+
         public const int OPNAbaseclock = 7987200;
         public const int OPNBbaseclock = 8000000;
         public const int OPMbaseclock = 3579545;
@@ -197,6 +202,91 @@ namespace MDPlayer.Driver
             return ret.ToArray();
         }
 
+        public void GetMUBTAGOption(byte[] bufMub)
+        {
+            List<Tuple<string, string>> tags = GetTagsByteArray(bufMub);
+
+            if (tags == null) return;
+            if (tags.Count < 1) return;
+
+            foreach (var tag in tags)
+            {
+                if (tag == null) continue;
+                if (string.IsNullOrEmpty(tag.Item1)) continue;
+
+                CarrierCorrection = false;
+                OPMClock = OPMbaseclock;
+                SSGExtend = false;
+
+                if (tag.Item1.ToLower().Trim() == "carriercorrection")
+                {
+                    if (!string.IsNullOrEmpty(tag.Item2))
+                    {
+                        string val = tag.Item2.ToLower().Trim();
+
+                        if (val == "yes" || val == "y" || val == "1" || val == "true" || val == "t")
+                        {
+                            CarrierCorrection = true;
+                        }
+                    }
+                }
+                else if (tag.Item1.ToLower().Trim() == "opmclockmode")
+                {
+                    if (!string.IsNullOrEmpty(tag.Item2))
+                    {
+                        string val = tag.Item2.ToLower().Trim();
+
+                        if (val == "x68000" || val == "x68k" || val == "x68" || val == "x" || val == "4000000" || val == "x680x0")
+                        {
+                            OPMClock = 4000_000;
+                        }
+                    }
+                }
+                else if (tag.Item1.ToLower().Trim() == "ssgextend")
+                {
+                    if (!string.IsNullOrEmpty(tag.Item2))
+                    {
+                        string val = tag.Item2.ToLower().Trim();
+
+                        if (val == "on" || val == "yes" || val == "y" || val == "1" || val == "true" || val == "t")
+                        {
+                            SSGExtend = true;
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        private List<Tuple<string, string>> GetTagsByteArray(byte[] buf)
+        {
+            var text = System.Text.Encoding.GetEncoding("shift_jis").GetString(buf)
+                .Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => x.IndexOf("#") == 0);
+
+            List<Tuple<string, string>> tags = new List<Tuple<string, string>>();
+            foreach (string v in text)
+            {
+                try
+                {
+                    int p = v.IndexOf(' ');
+                    string tag = "";
+                    string ele = "";
+                    if (p >= 0)
+                    {
+                        tag = v.Substring(1, p).Trim().ToLower();
+                        ele = v.Substring(p + 1).Trim();
+                        Tuple<string, string> item = new Tuple<string, string>(tag, ele);
+                        tags.Add(item);
+                    }
+                }
+                catch { }
+            }
+
+            return tags;
+        }
+
         public override bool init(byte[] vgmBuf, ChipRegister chipRegister, EnmModel model, EnmChip[] useChip, uint latency, uint waitTime)
         {
             GD3 = getGD3Info(vgmBuf, 0);
@@ -237,10 +327,11 @@ namespace MDPlayer.Driver
             //実チップスレッドは処理をスキップ(デバッグ向け)
             if (model == EnmModel.RealModel)
             {
-                //Stopped = true;
-                //return;
+                Stopped = true;
+                return;
             }
 #endif
+            if (Stopped) return;
 
             try
             {
@@ -261,10 +352,10 @@ namespace MDPlayer.Driver
 
                 if (mucomDriver.GetStatus() < 1)
                 {
-                    if (mucomDriver.GetStatus() == 0)
-                    {
-                        Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
-                    }
+                    //if (mucomDriver.GetStatus() == 0 && !Stopped)
+                    //{
+                    //    Thread.Sleep((int)(setting.outputDevice.SampleRate/latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    //}
                     Stopped = true;
                 }
             }

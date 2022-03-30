@@ -1,4 +1,7 @@
 更新履歴
+STBL226 2022/03/30
+  mucomDotNET:SSGExtendタグに対応
+
 STBL225 2022/03/29 2nd
   Core:MDSound差し替え
 

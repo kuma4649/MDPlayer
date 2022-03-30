@@ -95,6 +95,7 @@ namespace MDPlayer.Driver
                 return;
             }
 #endif
+            if (Stopped) return;
 
             try
             {
@@ -115,10 +116,10 @@ namespace MDPlayer.Driver
 
                 if (moonDriverDriver.GetStatus() < 1)
                 {
-                    if (moonDriverDriver.GetStatus() == 0)
-                    {
-                        Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
-                    }
+                    //if (moonDriverDriver.GetStatus() == 0)
+                    //{
+                    //    Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    //}
                     Stopped = true;
                 }
             }
