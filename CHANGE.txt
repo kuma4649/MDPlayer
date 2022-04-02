@@ -1,4 +1,7 @@
 更新履歴
+STBL227 2022/04/02
+  mucomDotNET更新
+
 STBL226 2022/03/30
   mucomDotNET:SSGExtendタグに対応
 
