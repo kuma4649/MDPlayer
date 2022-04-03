@@ -1,4 +1,8 @@
 更新履歴
+STBL229 2022/04/04
+  Core:MDSound差し替え
+  mucomDotNET更新
+
 STBL228 2022/04/03
   mucomDotNET更新
 
