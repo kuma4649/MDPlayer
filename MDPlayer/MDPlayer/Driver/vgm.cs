@@ -435,52 +435,34 @@ namespace MDPlayer
             vgmCmdTbl[0x8e] = vcWaitNSamplesAndSendYM26120x2a;
             vgmCmdTbl[0x8f] = vcWaitNSamplesAndSendYM26120x2a;
 
-                vgmCmdTbl[0x90] = vcSetupStreamControl;
-                vgmCmdTbl[0x91] = vcSetStreamData;
-                vgmCmdTbl[0x92] = vcSetStreamFrequency;
-                vgmCmdTbl[0x93] = vcStartStream;
-                vgmCmdTbl[0x94] = vcStopStream;
-                vgmCmdTbl[0x95] = vcStartStreamFastCall;
+            vgmCmdTbl[0x90] = vcSetupStreamControl;
+            vgmCmdTbl[0x91] = vcSetStreamData;
+            vgmCmdTbl[0x92] = vcSetStreamFrequency;
+            vgmCmdTbl[0x93] = vcStartStream;
+            vgmCmdTbl[0x94] = vcStopStream;
+            vgmCmdTbl[0x95] = vcStartStreamFastCall;
 
             vgmCmdTbl[0xa0] = vcAY8910;
             vgmCmdTbl[0xa1] = vcYM2413;
             vgmCmdTbl[0xa2] = vcYM2612Port0;
             vgmCmdTbl[0xa3] = vcYM2612Port1;
             vgmCmdTbl[0xa4] = vcYM2151;
-            vgmCmdTbl[0xa5] = vcYM2203; 
+            vgmCmdTbl[0xa5] = vcYM2203;
             vgmCmdTbl[0xa6] = vcYM2608Port0;
             vgmCmdTbl[0xa7] = vcYM2608Port1;
 
             vgmCmdTbl[0xa8] = vcYM2610Port0;
             vgmCmdTbl[0xa9] = vcYM2610Port1;
             vgmCmdTbl[0xaa] = vcYM3812;
-            vgmCmdTbl[0xab] = vcDummy2Ope;
+            vgmCmdTbl[0xab] = vcYM3526;
             vgmCmdTbl[0xac] = vcY8950;
             vgmCmdTbl[0xad] = vcYMZ280B;
             vgmCmdTbl[0xae] = vcYMF262Port0;
             vgmCmdTbl[0xaf] = vcYMF262Port1;
 
-            //if ((useChip & enmUseChip.RF5C164) == enmUseChip.RF5C164)
-            //{
             vgmCmdTbl[0xb0] = vcRf5c68;
-            vgmCmdTbl[0xc1] = vcRf5c68MemoryWrite;
             vgmCmdTbl[0xb1] = vcRf5c164;
-            vgmCmdTbl[0xc2] = vcRf5c164MemoryWrite;
-            //}
-            //else
-            //{
-            //    vgmCmdTbl[0xb1] = vcDummy2Ope;
-            //    vgmCmdTbl[0xc2] = vcDummy3Ope;
-            //}
-
-            //if ((useChip & enmUseChip.PWM) == enmUseChip.PWM)
-            //{
             vgmCmdTbl[0xb2] = vcPWM;
-            //}
-            //else
-            //{
-                //vgmCmdTbl[0xb2] = vcDummy2Ope;
-            //}
             vgmCmdTbl[0xb3] = vcDMG;
             vgmCmdTbl[0xb4] = vcNES;
             vgmCmdTbl[0xb5] = vcMultiPCM;
@@ -497,6 +479,8 @@ namespace MDPlayer
             vgmCmdTbl[0xbf] = vcGA20;
 
             vgmCmdTbl[0xc0] = vcSEGAPCM;
+            vgmCmdTbl[0xc1] = vcRf5c68MemoryWrite;
+            vgmCmdTbl[0xc2] = vcRf5c164MemoryWrite;
             vgmCmdTbl[0xc3] = vcMultiPCMSetBank;
             vgmCmdTbl[0xc4] = vcQSound;
             vgmCmdTbl[0xc5] = vcDummy3Ope;

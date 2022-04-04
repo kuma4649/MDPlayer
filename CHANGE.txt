@@ -1,4 +1,10 @@
 更新履歴
+STBL231 2022/04/05
+  mucomDotNET更新
+
+STBL230 2022/04/04
+  vgm:OPL(YM3526)のdualChip対応
+
 STBL229 2022/04/04
   Core:MDSound差し替え
   mucomDotNET更新
