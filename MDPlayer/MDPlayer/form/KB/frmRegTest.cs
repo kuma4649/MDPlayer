@@ -40,7 +40,8 @@ namespace MDPlayer.form
             public bool needRefresh = false;
              List<ChipData> ChipList = new List<ChipData>();
 
-            public RegisterManager() {
+            public RegisterManager() { 
+                // コメントはページ番号 (0-index)
                 AddChip("YMF278B", 3, 0x100, (Select) => { // 0
                     return Audio.GetYMF278BRegister(0)[Select];
                 });
@@ -61,55 +62,55 @@ namespace MDPlayer.form
                     return Audio.GetYM2608Register(0);
                 });
 
-                AddChip("YM2612", 1, 0x200, (Select) => {
+                AddChip("YM2612", 1, 0x200, (Select) => { // 8
                     return Audio.GetFMRegister(0);
                 });
 
-                AddChip("C140", 1, 0x200, (Select) => {
+                AddChip("C140", 1, 0x200, (Select) => { // 9
                     return Audio.GetC140Register(0);
                 });
 
-                AddChip("QSOUND", 1, 0x200, (Select) => {
+                AddChip("QSOUND", 1, 0x200, (Select) => { // 10
                     return Audio.GetQSoundRegister(0);
                 });
 
-                AddChip("SEGAPCM", 1, 0x200, (Select) => {
+                AddChip("SEGAPCM", 1, 0x200, (Select) => { // 11
                     return Audio.GetSEGAPCMRegister(0);
                 });
 
-                AddChip("YMZ280B", 1, 0x100, (Select) => {
+                AddChip("YMZ280B", 1, 0x100, (Select) => { // 12
                     return Audio.GetYMZ280BRegister(0);
                 });
 
-                AddChip("SN76489", 1, 8, (Select) => {
+                AddChip("SN76489", 1, 8, (Select) => { // 13
                     return Audio.GetPSGRegister(0);
                 });
 
-                AddChip("AY", 1, 16, (Select) => {
+                AddChip("AY", 1, 16, (Select) => { // 14
                     return Audio.GetAY8910Register(0);
                 });
 
-                AddChip("C352", 1, 0x400, (Select) => {
+                AddChip("C352", 1, 0x400, (Select) => { // 15
                     return Audio.GetC352Register(0);
                 });
 
-                AddChip("YM2203", 1, 0x200, (Select) => {
+                AddChip("YM2203", 1, 0x200, (Select) => { // 16
                     return Audio.GetYM2203Register(0);
                 });
 
-                AddChip("YM2413", 1, 0x100, (Select) => {
+                AddChip("YM2413", 1, 0x100, (Select) => { // 17
                     return Audio.GetYM2413Register(0);
                 });
 
-                AddChip("YM3812", 1, 0x100, (Select) => {
+                AddChip("YM3812", 1, 0x100, (Select) => { // 18
                     return Audio.GetYM3812Register(0);
                 });
 
-                AddChip("NES", 1, 0x30, (Select) => {
+                AddChip("NES", 1, 0x30, (Select) => { // 19
                     return Audio.GetAPURegister(0);
                 });
 
-                AddChip("SID", 3, 0x19, (Select) => {
+                AddChip("SID", 3, 0x19, (Select) => { // 20, 21, 22
                     return Audio.GetSIDRegister(Select);
                 });
             }
@@ -513,7 +514,7 @@ namespace MDPlayer.form
                 ushort[] r = (ushort[])Reg;
                 for (var i = 0; i < r.Length; i++)
                 {
-                    if (i % 16 == 0)
+                    if (i % 8 == 0)
                     {
                         y += 8;
                         DrawBuff.drawFont4(frameBuffer, 2, y - 8, 0, $"{i:X3}:");
