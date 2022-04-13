@@ -1,4 +1,8 @@
 更新履歴
+STBL233 2022/04/13
+  mdl/mdr:MoonDriverDotNET:mdrファイルもMoonDriverDotNETを使用するよう修正。
+  OPL4-NOUSE&EX-OPL3が宣言されているデータのみOPL3で演奏するよう修正。
+
 STBL232 2022/04/05 2nd
   レジスターダンプ画面:PullRequestの反映：パラメータ表示バグの修正。
   (くろまさんからプルリクいただきました！ありがとうございます！！)
