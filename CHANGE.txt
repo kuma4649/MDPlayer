@@ -1,4 +1,7 @@
 更新履歴
+STBL234 2022/04/13 2nd
+  mdl/mdr:MoonDriverDotNET:OPL4-NOUSEとEX-OPL3の設定の組み合わせをチェックするように修正
+
 STBL233 2022/04/13
   mdl/mdr:MoonDriverDotNET:mdrファイルもMoonDriverDotNETを使用するよう修正。
   OPL4-NOUSE&EX-OPL3が宣言されているデータのみOPL3で演奏するよう修正。

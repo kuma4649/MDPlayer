@@ -2530,6 +2530,12 @@ namespace MDPlayer
                 bool OPL4_NOUSE = ((sndgen & 1) == 0);
                 EnmChip[] useChipFromMdr = new EnmChip[] { EnmChip.YMF278B };
 
+                if (OPL4_NOUSE && !EX_OPL3)
+                {
+                    errMsg = "OPL4_NOUSEとEX_OPL3の組み合わせが不正です。";
+                    return false;
+                }
+
                 if (EX_OPL3 && OPL4_NOUSE)
                 {
                     MDSound.ymf262 ymf262 = new ymf262();
