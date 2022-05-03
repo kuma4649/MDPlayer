@@ -1060,13 +1060,17 @@ namespace MDPlayer
             return "";
         }
 
+        private static System.Threading.Thread trd = null;
         public static void Init(Setting setting)
         {
             log.ForcedWrite("Audio:Init:Begin");
 
-            System.Threading.Thread trd = new System.Threading.Thread(trdIF);
-            trd.Priority = System.Threading.ThreadPriority.BelowNormal;
-            trd.Start();
+            if (trd == null)
+            {
+                trd = new System.Threading.Thread(trdIF);
+                trd.Priority = System.Threading.ThreadPriority.BelowNormal;
+                trd.Start();
+            }
 
             log.ForcedWrite("Audio:Init:STEP 01");
 
@@ -6692,15 +6696,32 @@ namespace MDPlayer
         {
             if (e.Exception != null)
             {
-                System.Windows.Forms.MessageBox.Show(
-                    string.Format("デバイスが何らかの原因で停止しました。\r\nメッセージ:\r\n{0}\r\nスタックトレース:\r\n{1}"
-                    , e.Exception.Message
-                    , e.Exception.StackTrace)
-                    , "エラー"
-                    , System.Windows.Forms.MessageBoxButtons.OK
-                    , System.Windows.Forms.MessageBoxIcon.Error);
+                if (e.Exception.Message.IndexOf("NoDriver calling waveOutWrite") >= 0
+                    || e.Exception.Message.IndexOf("HRESULT") >= 0
+                    || e.Exception.Message.IndexOf("DirectSound buffer") >= 0)
+                {
+                    log.ForcedWrite(e.Exception);
+                }
+                else
+                {
+                    log.ForcedWrite(e.Exception);
+                    System.Windows.Forms.MessageBox.Show(
+                        string.Format("デバイスが何らかの原因で停止しました。\r\nメッセージ:\r\n{0}\r\nスタックトレース:\r\n{1}"
+                        , e.Exception.Message
+                        , e.Exception.StackTrace)
+                        , "エラー"
+                        , System.Windows.Forms.MessageBoxButtons.OK
+                        , System.Windows.Forms.MessageBoxIcon.Error);
+                }
+
                 flgReinit = true;
 
+                try
+                {
+                    Stopped = true;
+                    Stop();
+                }
+                catch { }
                 try
                 {
                     naudioWrap.Stop();
