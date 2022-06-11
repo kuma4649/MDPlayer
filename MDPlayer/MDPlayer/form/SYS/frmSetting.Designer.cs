@@ -488,6 +488,7 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
+            this.cbAdjustTLParam = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -3704,6 +3705,7 @@ namespace MDPlayer.form
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbAdjustTLParam);
             this.groupBox4.Controls.Add(this.cmbInstFormat);
             this.groupBox4.Controls.Add(this.lblInstFormat);
             resources.ApplyResources(this.groupBox4, "groupBox4");
@@ -3995,6 +3997,12 @@ namespace MDPlayer.form
             this.llOpenGithub.Name = "llOpenGithub";
             this.llOpenGithub.TabStop = true;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
+            // 
+            // cbAdjustTLParam
+            // 
+            resources.ApplyResources(this.cbAdjustTLParam, "cbAdjustTLParam");
+            this.cbAdjustTLParam.Name = "cbAdjustTLParam";
+            this.cbAdjustTLParam.UseVisualStyleBackColor = true;
             // 
             // frmSetting
             // 
@@ -4626,5 +4634,6 @@ namespace MDPlayer.form
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.CheckBox cbNSFDmc_DPCMReverse;
         private System.Windows.Forms.CheckBox cbUnuseRealChip;
+        private System.Windows.Forms.CheckBox cbAdjustTLParam;
     }
 }

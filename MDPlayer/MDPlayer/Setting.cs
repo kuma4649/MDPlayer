@@ -1554,6 +1554,7 @@ namespace MDPlayer
             public bool EmptyPlayList { get => _EmptyPlayList; set => _EmptyPlayList = value; }
             public bool ExAll { get; set; } = false;
             public bool NonRenderingForPause { get; set; } = false;
+            public bool AdjustTLParam { get; set; } = false;
 
             public Other Copy()
             {
@@ -1581,6 +1582,7 @@ namespace MDPlayer
                 other.EmptyPlayList = this.EmptyPlayList;
                 other.ExAll = this.ExAll;
                 other.NonRenderingForPause = this.NonRenderingForPause;
+                other.AdjustTLParam = this.AdjustTLParam;
 
                 return other;
             }

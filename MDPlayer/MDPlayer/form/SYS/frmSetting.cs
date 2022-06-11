@@ -576,6 +576,7 @@ namespace MDPlayer.form
             tbImageExt.Text = setting.other.ImageExt;
             cbInitAlways.Checked = setting.other.InitAlways;
             cbEmptyPlayList.Checked = setting.other.EmptyPlayList;
+            cbAdjustTLParam.Checked = setting.other.AdjustTLParam;
 
             cbUseMIDIExport.Checked = setting.midiExport.UseMIDIExport;
             gbMIDIExport.Enabled = cbUseMIDIExport.Checked;
@@ -1565,6 +1566,8 @@ namespace MDPlayer.form
             setting.other.EmptyPlayList = cbEmptyPlayList.Checked;
             setting.other.ExAll = cbExALL.Checked;
             setting.other.NonRenderingForPause = cbNonRenderingForPause.Checked;
+            setting.other.AdjustTLParam = cbAdjustTLParam.Checked;
+
             setting.Debug_DispFrameCounter = cbDispFrameCounter.Checked;
             try
             {
