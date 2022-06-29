@@ -3564,7 +3564,7 @@ namespace MDPlayer
 
                 List<MDSound.MDSound.Chip> lstChips = new List<MDSound.MDSound.Chip>();
 
-                //MDSound.MDSound.Chip chip;
+                MDSound.MDSound.Chip chip;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
 
@@ -3599,8 +3599,38 @@ namespace MDPlayer
                 //
                 //chips initialization
                 //
+                
+                MDSound.ym2609 ym2609 = null;
 
+                foreach (Driver.ZGM.ZgmChip.Chip ch in ((Driver.ZGM.zgm)driverVirtual).chips)
+                {
+                    if (ch.Device == Driver.ZGM.EnmZGMDevice.YM2609)
+                    {
+                        if (ym2609 == null) ym2609 = new ym2609();
 
+                        chip = new MDSound.MDSound.Chip();
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM2609;
+                        chip.ID = (byte)0;
+                        chip.Instrument = ym2609;
+                        chip.Update = ym2609.Update;
+                        chip.Start = ym2609.Start;
+                        chip.Stop = ym2609.Stop;
+                        chip.Reset = ym2609.Reset;
+                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                        chip.Volume = 0;
+                        chip.Clock = (uint)ch.defineInfo.clock;
+                        chip.Option = null;
+
+                        //hiyorimiDeviceFlag |= 0x2;
+
+                        //if (i == 0) chipLED.PriC140 = 1;
+                        //else chipLED.SecC140 = 1;
+
+                        lstChips.Add(chip);
+                        useChip.Add(EnmChip.YM2609);
+
+                    }
+                }
 
                 if (hiyorimiDeviceFlag == 0x3 && hiyorimiNecessary) hiyorimiNecessary = true;
                 else hiyorimiNecessary = false;
@@ -3611,6 +3641,9 @@ namespace MDPlayer
                     mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
+
+                //log.Write("参照用使用音源の登録(ZGM)");
+                //((Driver.ZGM.zgm)driverVirtual).SetupDicChipCmdNo();
 
                 Paused = false;
                 oneTimeReset = false;

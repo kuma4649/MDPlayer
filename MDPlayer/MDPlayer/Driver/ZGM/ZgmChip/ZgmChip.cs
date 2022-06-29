@@ -13,7 +13,7 @@ namespace MDPlayer.Driver.ZGM.ZgmChip
         protected byte[] vgmBuf;
 
         public string name;
-        public DefineInfo defineInfo;
+        //public DefineInfo defineInfo;
 
         public ZgmChip(int ch) : base(ch)
         {

@@ -2825,6 +2825,42 @@ namespace MDPlayer
             writeYM2608(chipID, 1, 0x10, 0x9C, model); // FLAGリセット        }
         }
 
+
+        public void writeYM2609(int chipID, int dPort, int dAddr, int dData, EnmModel model)
+        {
+            //if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctYM2609[chipID].UseReal[0] && ctYM2609[chipID].UseEmu[0])
+                {
+                    mds.WriteYM2609((byte)chipID, (byte)dPort, (byte)dAddr, (byte)dData);
+                }
+            }
+            //else
+            {
+                //if (scYM2609[chipID] == null) return;
+
+                //scYM2609[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+        }
+
+        public void writeYM2609AdpcmA(int chipID, byte[] buf, EnmModel model)
+        {
+            //if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctYM2609[chipID].UseReal[0] && ctYM2609[chipID].UseEmu[0])
+                {
+                    mds.WriteYM2609_SetAdpcmA((byte)chipID, buf);
+                }
+            }
+            //else
+            {
+                //if (scYM2609[chipID] == null) return;
+
+                //scYM2609[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+        }
+
+
         public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, EnmModel model)
         {
             if (ctYM2610 == null) return;

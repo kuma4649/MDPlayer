@@ -645,6 +645,7 @@ namespace MDPlayer
         , P86
         , POKEY
         , WSwan
+            ,YM2609
 
         , S_SN76489
         , S_YM2612
@@ -695,6 +696,7 @@ namespace MDPlayer
         , S_P86
         , S_POKEY
         , S_WSwan
+            , S_YM2609
 
     }
 

@@ -29,6 +29,7 @@ namespace MDPlayer.Driver.ZGM.ZgmChip
                 lock (lockobj) { return _ChMasks; }
             }
         }
+        public DefineInfo defineInfo;
 
         public int currentCh { get; internal set; }
 
