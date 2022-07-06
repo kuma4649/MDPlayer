@@ -1,4 +1,7 @@
 更新履歴
+STBL239 2022/07/06
+  Core:ZGM:OPNA2:PCMデータとOperatorの波形データの高速転送に対応
+
 STBL238 2022/06/29
   Core:ZGM:OPNA2:zgmのプレイバックに対応。但しOPNA2のみ。
 

@@ -2860,6 +2860,41 @@ namespace MDPlayer
             }
         }
 
+        public void writeYM2609SetOperatorWaveDic(int chipID,int n, byte[] wav, EnmModel model)
+        {
+            //if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctYM2609[chipID].UseReal[0] && ctYM2609[chipID].UseEmu[0])
+                {
+                    mds.WriteYM2609_SetOperatorWaveDic((byte)chipID, n, wav);
+                }
+            }
+            //else
+            {
+                //if (scYM2609[chipID] == null) return;
+
+                //scYM2609[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+
+        }
+
+        public void writeYM2609SetAdpcm012(int chipID, int n, byte[] pcm012Buf, EnmModel model)
+        {
+            //if (model == EnmModel.VirtualModel)
+            {
+                //if (!ctYM2609[chipID].UseReal[0] && ctYM2609[chipID].UseEmu[0])
+                {
+                    mds.WriteYM2609_SetAdpcm012((byte)chipID, n, pcm012Buf);
+                }
+            }
+            //else
+            {
+                //if (scYM2609[chipID] == null) return;
+
+                //scYM2609[chipID].setRegister(dPort * 0x100 + dAddr, dData);
+            }
+
+        }
 
         public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, EnmModel model)
         {

@@ -617,37 +617,60 @@ namespace MDPlayer.Driver.ZGM
                         vgmAdr += (uint)bLen + 7;
                         break;
                     }
+                    else if (bType == 4)
+                    {
+                        int blockSize = 1024 * 2;
+                        for (int j = 0; j < bLen - 8; j += blockSize + 2)
+                        {
+                            int n = vgmBuf[vgmAdr + 15 + j];
+                            byte[] wav = new byte[blockSize];
+                            for (int i = 0; i < blockSize; i++)
+                            {
+                                wav[i] = vgmBuf[vgmAdr + 17 + i + j];
+                            }
+                            chipRegister.writeYM2609SetOperatorWaveDic( chip.Index, n, wav,model);
+                        }
+                        vgmAdr += (uint)bLen + 7;
+                        break;
+                    }
 
-                    int adpcmAdrP = adpcmAdr >> 8;
-                    adpcmAdr = (byte)adpcmAdr;
-
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x20, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x21, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x00, model);
-                                                         
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x00, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x80, model);
-                                                         
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x61, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x68, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x01, 0x00, model);
-                                                         
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x02, (byte)(startAddress >> 2), model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x03, (byte)(startAddress >> 10), model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x04, 0xff, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x05, 0xff, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x0c, 0xff, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x0d, 0xff, model);
-                    //};
-                    //// データ転送
+                    byte[] pcm012Buf = new byte[bLen];
                     for (int cnt = 0; cnt < bLen - 8; cnt++)
                     {
-                        chipRegister.writeYM2609(chip.Index,adpcmAdrP, adpcmAdr+ 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                        pcm012Buf[cnt] = vgmBuf[vgmAdr + 15 + cnt];
                     }
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP, adpcmAdr + 0x00, 0x00, model);
-                    chipRegister.writeYM2609(chip.Index, adpcmAdrP, adpcmAdr + 0x10, 0x80, model);
+                    chipRegister.writeYM2609SetAdpcm012(chip.Index, bType, pcm012Buf, model);
 
-                    //dumpData(dummyChip, "YM2609_ADPCM", vgmAdr + 15, bLen - 8);
+                    //int adpcmAdrP = adpcmAdr >> 8;
+                    //adpcmAdr = (byte)adpcmAdr;
+
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x20, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x21, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x00, model);
+                                                         
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x00, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x10, 0x80, model);
+                                                         
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x61, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x00, 0x68, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x01, 0x00, model);
+                                                         
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x02, (byte)(startAddress >> 2), model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x03, (byte)(startAddress >> 10), model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x04, 0xff, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x05, 0xff, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x0c, 0xff, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP,adpcmAdr+ 0x0d, 0xff, model);
+                    ////};
+                    ////// データ転送
+                    //for (int cnt = 0; cnt < bLen - 8; cnt++)
+                    //{
+                    //    chipRegister.writeYM2609(chip.Index,adpcmAdrP, adpcmAdr+ 0x08, vgmBuf[vgmAdr + 15 + cnt], model);
+                    //}
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP, adpcmAdr + 0x00, 0x00, model);
+                    //chipRegister.writeYM2609(chip.Index, adpcmAdrP, adpcmAdr + 0x10, 0x80, model);
+
+                    ////dumpData(dummyChip, "YM2609_ADPCM", vgmAdr + 15, bLen - 8);
                     vgmAdr += (uint)bLen + 7;
                     break;
                 //case Driver.ZGM.ZgmChip.SEGAPCM _:// 0x80:
