@@ -3588,6 +3588,7 @@ namespace MDPlayer
                 //    , (uint)(setting.outputDevice.SampleRate * setting.LatencySCCI / 1000)
                 //    , (uint)(setting.outputDevice.SampleRate * setting.outputDevice.WaitTime / 1000)))
                 //    return false;
+                driverReal.Stopped = true;
 
                 hiyorimiNecessary = setting.HiyorimiMode;
                 int hiyorimiDeviceFlag = 0;
@@ -6672,11 +6673,11 @@ namespace MDPlayer
         {
             uint cnt = 0;
 
-            if (driverVirtual != null)
+            if (driverVirtual != null && !driverVirtual.Stopped)
             {
                 cnt = driverVirtual.vgmCurLoop;
             }
-            if (driverReal != null)
+            if (driverReal != null && !driverReal.Stopped)
             {
                 cnt = Math.Min(driverReal.vgmCurLoop, cnt);
             }

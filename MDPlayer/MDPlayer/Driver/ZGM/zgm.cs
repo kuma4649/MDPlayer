@@ -184,6 +184,8 @@ namespace MDPlayer.Driver.ZGM
             this.latency = latency;
             this.waitTime = waitTime;
 
+            LoopCounter = 0;
+
             if (!getZGMInfo(vgmBuf)) return false;
 
             vgmAdr = (uint)vgmDataOffset;
@@ -191,7 +193,6 @@ namespace MDPlayer.Driver.ZGM
             vgmAnalyze = true;
             Counter = 0;
             TotalCounter = 0;
-            LoopCounter = 0;
             vgmCurLoop = 0;
             Stopped = false;
             vgmFrameCounter = -latency - waitTime;
