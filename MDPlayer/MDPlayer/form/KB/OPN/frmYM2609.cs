@@ -185,7 +185,7 @@ namespace MDPlayer.form
                 int octav;
                 int n = -1;
 
-                if ((ch != 2 || !isFmEx[0]) && (ch != 8 || isFmEx[1]))
+                if ((ch != 2 || !isFmEx[0]) && (ch != 8 || !isFmEx[1]))
                 {
                     octav = (ym2609Register[p][0xa4 + c] & 0x38) >> 3;
                     freq = ym2609Register[p][0xa0 + c] + (ym2609Register[p][0xa4 + c] & 0x07) * 0x100;
