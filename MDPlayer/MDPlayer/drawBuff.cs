@@ -344,6 +344,53 @@ namespace MDPlayer
             }
         }
 
+        public static void screenInitYM2609(FrameBuffer screen, int tp)
+        {
+            //YM2609
+            for (int y = 0; y < 12 + 6 + 12 + 4; y++)
+            {
+                //drawFont8(screen, 296, y * 8 + 8, 1, "   ");
+                for (int i = 0; i < 96; i++)
+                {
+                    int kx = Tables.kbl[(i % 12) * 2] + i / 12 * 28;
+                    int kt = Tables.kbl[(i % 12) * 2 + 1];
+                    drawKbn(screen, 33 + kx, y * 8 + 8, kt, tp);
+                }
+
+                //if (y < 13)
+                //{
+                //    ChYM2608_P(screen, 1, y * 8 + 8, y, false, tp);
+                //}
+
+                //if (y < 6 || y == 12)
+                //{
+                //    drawPanP(screen, 25, y * 8 + 8, 3, tp);
+                //}
+
+                int d = 99;
+                if (y > 5 && y < 9)
+                {
+                    Volume(screen, 289, 8 + y * 8, 0, ref d, 0, tp);
+                }
+                else
+                {
+                    Volume(screen, 289, 8 + y * 8, 1, ref d, 0, tp);
+                    d = 99;
+                    Volume(screen, 289, 8 + y * 8, 2, ref d, 0, tp);
+                }
+            }
+
+            //for (int y = 0; y < 6; y++)
+            //{
+            //    int d = 99;
+            //    PanYM2608Rhythm(screen, y, ref d, 3, ref d, tp);
+            //    d = 99;
+            //    VolumeYM2608Rhythm(screen, y, 1, ref d, 0, tp);
+            //    d = 99;
+            //    VolumeYM2608Rhythm(screen, y, 2, ref d, 0, tp);
+            //}
+        }
+
         public static void screenInitYM2612(FrameBuffer screen, int tp, bool onlyPCM, bool isXGM)
         {
             if (screen == null) return;
@@ -739,6 +786,40 @@ namespace MDPlayer
             {
                 drawFont4Int(screen, sx + 8 * 11, sy - 16, 0, 2, ni[47]);
                 oi[47] = ni[47];
+            }
+        }
+
+        public static void InstOPNA2(FrameBuffer screen, int x, int y, int c, int[] oi, int[] ni)
+        {
+            int sx = x;
+            int sy = y;
+
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 16; i++)
+                {
+                    if (oi[i + j * 16] != ni[i + j * 16])
+                    {
+                        drawFont4Int(screen, sx + i * 8 + (i > 5 ? 4 : 0), sy + j * 8, 0, (i == 5) ? 3 : 2, ni[i + j * 16]);
+                        oi[i + j * 16] = ni[i + j * 16];
+                    }
+                }
+            }
+
+            if (oi[64] != ni[64])
+            {
+                drawFont4Int(screen, sx + 4 * 9, sy - 16, 0, 2, ni[64]);
+                oi[64] = ni[64];
+            }
+            if (oi[65] != ni[65])
+            {
+                drawFont4Int(screen, sx + 4 * 14, sy - 16, 0, 2, ni[65]);
+                oi[65] = ni[65];
+            }
+            if (oi[66] != ni[66])
+            {
+                drawFont4Int(screen, sx + 4 * 19, sy - 16, 0, 2, ni[66]);
+                oi[66] = ni[66];
             }
         }
 
@@ -1481,6 +1562,18 @@ namespace MDPlayer
             }
 
             drawPanType3P(screen, 24, 8 + c * 8, nt, tp);
+            ot = nt;
+        }
+
+        public static void PanType4(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawPanType4P(screen, x, y, nt, tp);
             ot = nt;
         }
 
@@ -3671,6 +3764,20 @@ namespace MDPlayer
             screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
             p = ((t & 0xf0) >> 4);
             p = p == 0 ? 0 : ((p + 1) / 4);
+            screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+
+        }
+
+        public static void drawPanType4P(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            int p = t / 5;
+            screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+            p = t % 5;
             screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
 
         }

@@ -11,6 +11,7 @@ namespace MDPlayer
         public byte PriOPN = 0;
         public byte PriOPN2 = 0;
         public byte PriOPNA = 0;
+        public byte PriOPNA2 = 0;
         public byte PriOPNB = 0;
         public byte PriOPL = 0;
         public byte PriY8950 = 0;
@@ -62,6 +63,7 @@ namespace MDPlayer
         public byte SecOPN = 0;
         public byte SecOPN2 = 0;
         public byte SecOPNA = 0;
+        public byte SecOPNA2 = 0;
         public byte SecOPNB = 0;
         public byte SecOPL = 0;
         public byte SecY8950 = 0;

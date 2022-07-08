@@ -186,6 +186,8 @@ namespace MDPlayer.form
             this.opeButtonOpen = new System.Windows.Forms.Button();
             this.opeButtonMode = new System.Windows.Forms.Button();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
+            this.tsmiPOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -330,7 +332,8 @@ namespace MDPlayer.form
             this.tsmiPOPN,
             this.tsmiPOPN2,
             this.tsmiPOPNA,
-            this.tsmiPOPNB});
+            this.tsmiPOPNB,
+            this.tsmiPOPNA2});
             this.tsmiCPOPN.Name = "tsmiCPOPN";
             resources.ApplyResources(this.tsmiCPOPN, "tsmiCPOPN");
             // 
@@ -637,7 +640,8 @@ namespace MDPlayer.form
             this.tsmiSOPN,
             this.tsmiSOPN2,
             this.tsmiSOPNA,
-            this.tsmiSOPNB});
+            this.tsmiSOPNB,
+            this.tsmiSOPNA2});
             this.tsmiCSOPN.Name = "tsmiCSOPN";
             resources.ApplyResources(this.tsmiCSOPN, "tsmiCSOPN");
             // 
@@ -1523,6 +1527,18 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
+            // tsmiPOPNA2
+            // 
+            this.tsmiPOPNA2.Name = "tsmiPOPNA2";
+            resources.ApplyResources(this.tsmiPOPNA2, "tsmiPOPNA2");
+            this.tsmiPOPNA2.Click += new System.EventHandler(this.tsmiPOPNA2_Click);
+            // 
+            // tsmiSOPNA2
+            // 
+            this.tsmiSOPNA2.Name = "tsmiSOPNA2";
+            resources.ApplyResources(this.tsmiSOPNA2, "tsmiSOPNA2");
+            this.tsmiSOPNA2.Click += new System.EventHandler(this.tsmiSOPNA2_Click);
+            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1721,6 +1737,8 @@ namespace MDPlayer.form
         private System.Windows.Forms.Button opeButtonOpen;
         private System.Windows.Forms.Button opeButtonMode;
         private System.Windows.Forms.ToolStripMenuItem tsmiVisualizer;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPOPNA2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSOPNA2;
     }
 }
 

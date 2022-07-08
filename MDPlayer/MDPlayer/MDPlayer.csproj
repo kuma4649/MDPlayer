@@ -314,6 +314,12 @@
     <Compile Include="form\frmBase.Designer.cs">
       <DependentUpon>frmBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\KB\OPN\frmYM2609.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\KB\OPN\frmYM2609.designer.cs">
+      <DependentUpon>frmYM2609.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\KB\OPX\frmYMF271.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -668,6 +674,9 @@
     <EmbeddedResource Include="form\frmBase.resx">
       <DependentUpon>frmBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="form\KB\OPN\frmYM2609.resx">
+      <DependentUpon>frmYM2609.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\KB\OPX\frmYMF271.resx">
       <DependentUpon>frmYMF271.cs</DependentUpon>
     </EmbeddedResource>
@@ -905,6 +914,7 @@
     <Content Include="Resources\addPL.png" />
     <Content Include="Resources\ccFadeout.png" />
     <Content Include="Resources\ccFast.png" />
+    <None Include="Resources\planeYM2609.png" />
     <Content Include="Resources\vHeight1.png" />
     <Content Include="Resources\vHeight2.png" />
     <Content Include="Resources\vHeight3.png" />

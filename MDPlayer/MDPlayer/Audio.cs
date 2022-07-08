@@ -38,6 +38,7 @@ namespace MDPlayer
         public static int clockYM2203 = 0;
         public static int clockYM2413 = 0;
         public static int clockYM2608 = 0;
+        public static int clockYM2609 = 0;
         public static int clockYM2610 = 0;
         public static int clockYM2612 = 0;
         public static int clockYMF278B = 0;
@@ -3624,8 +3625,9 @@ namespace MDPlayer
 
                         //hiyorimiDeviceFlag |= 0x2;
 
-                        //if (i == 0) chipLED.PriC140 = 1;
-                        //else chipLED.SecC140 = 1;
+                        //if (i == 0) 
+                            chipLED.PriOPNA2 = 1;
+                        //else chipLED.SecOPNA2 = 1;
 
                         lstChips.Add(chip);
                         useChip.Add(EnmChip.YM2609);
@@ -7436,6 +7438,11 @@ namespace MDPlayer
             return chipRegister.fmRegisterYM2608[chipID];
         }
 
+        public static int[][] GetYM2609Register(int chipID)
+        {
+            return chipRegister.fmRegisterYM2609[chipID];
+        }
+
         public static int[][] GetYM2610Register(int chipID)
         {
             return chipRegister.fmRegisterYM2610[chipID];
@@ -7722,6 +7729,11 @@ namespace MDPlayer
         public static int[] GetYM2608KeyOn(int chipID)
         {
             return chipRegister.fmKeyOnYM2608[chipID];
+        }
+
+        public static int[] GetYM2609KeyOn(int chipID)
+        {
+            return chipRegister.fmKeyOnYM2609[chipID];
         }
 
         public static int[] GetYM2610KeyOn(int chipID)
@@ -8360,6 +8372,16 @@ namespace MDPlayer
             return chipRegister.GetYM2608RhythmVolume(chipID);
         }
 
+        public static int[] GetYM2609Volume(int chipID)
+        {
+            return chipRegister.GetYM2609Volume(chipID);
+        }
+
+        public static int[][] GetYM2609RhythmVolume(int chipID)
+        {
+            return chipRegister.GetYM2609RhythmVolume(chipID);
+        }
+
         public static int[] GetYM2608AdpcmVolume(int chipID)
         {
             return chipRegister.GetYM2608AdpcmVolume(chipID);
@@ -8393,6 +8415,11 @@ namespace MDPlayer
         public static int[] GetYM2608Ch3SlotVolume(int chipID)
         {
             return chipRegister.GetYM2608Ch3SlotVolume(chipID);
+        }
+
+        public static int[] GetYM2609Ch3SlotVolume(int chipID)
+        {
+            return chipRegister.GetYM2609Ch3SlotVolume(chipID);
         }
 
         public static int[] GetYM2610Ch3SlotVolume(int chipID)

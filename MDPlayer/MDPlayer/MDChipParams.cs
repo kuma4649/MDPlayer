@@ -58,9 +58,9 @@ namespace MDPlayer
             public bool loopFlg = false;//YMZ280B
             public int echo = -1;
 
-            public int[] inst = new int[48];
-            public int[] typ = new int[48];
-            public bool[] bit = new bool[48];
+            public int[] inst = new int[67];
+            public int[] typ = new int[67];
+            public bool[] bit = new bool[67];
             public short[] aryWave16bit = null;
 
             public Channel()
@@ -271,6 +271,36 @@ namespace MDPlayer
 
         }
         public YM2608[] ym2608 = new YM2608[] { new YM2608(), new YM2608() };
+
+        public class YM2609
+        {
+            public bool lfoSw = false;
+            public int lfoFrq = -1;
+            public int nfrq = -1;
+            public int efrq = -1;
+            public int etype = -1;
+            public int timerA = -1;
+            public int timerB = -1;
+            public int rhythmTotalLevel = -1;
+            public int adpcmLevel = -1;
+
+            public Channel[] channels = new Channel[] {
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(), new Channel(),
+                new Channel(), new Channel(),new Channel() //FM 0-11 12-17
+                ,new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel()
+                ,new Channel(), new Channel(), new Channel() //SSG 18-30
+                ,new Channel(), new Channel(), new Channel(),new Channel(), new Channel(), new Channel() //RHYTHM 
+                ,new Channel(),new Channel(),new Channel() //ADPCM012
+                ,new Channel(), new Channel(), new Channel(),new Channel(), new Channel(), new Channel() //ADPCM-A
+            };
+
+        }
+        public YM2609[] ym2609 = new YM2609[] { new YM2609(), new YM2609() };
 
         public class YM2610
         {
