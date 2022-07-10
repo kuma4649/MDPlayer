@@ -915,6 +915,7 @@
     <Content Include="Resources\ccFadeout.png" />
     <Content Include="Resources\ccFast.png" />
     <None Include="Resources\planeYM2609.png" />
+    <None Include="Resources\rPSG2.png" />
     <Content Include="Resources\vHeight1.png" />
     <Content Include="Resources\vHeight2.png" />
     <Content Include="Resources\vHeight3.png" />

@@ -8417,10 +8417,19 @@ namespace MDPlayer
             return chipRegister.GetYM2608Ch3SlotVolume(chipID);
         }
 
+
+
         public static int[] GetYM2609Ch3SlotVolume(int chipID)
         {
             return chipRegister.GetYM2609Ch3SlotVolume(chipID);
         }
+
+        public static byte[] GetYM2609UserWave(int chipID, int p, int n)
+        {
+            return chipRegister.readYM2609GetUserWave(chipID, p, n, EnmModel.VirtualModel);
+        }
+
+
 
         public static int[] GetYM2610Ch3SlotVolume(int chipID)
         {

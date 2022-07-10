@@ -312,6 +312,17 @@ namespace MDPlayer.form
                         channel.note = Common.searchSSGNote(ftone);
                     }
                 }
+
+                channel.bank = (ym2609Register[psgPort[p]][psgAdr[p] + 0x01 + c * 2] & 0xf0) >> 4;
+                if (channel.bank > 9)
+                {
+                    channel.PSGWave = Audio.GetYM2609UserWave(chipID, p, channel.bank - 10);
+                }
+                else
+                {
+                    channel.PSGWave = null;
+                }
+
             }
 
         }
@@ -388,6 +399,26 @@ namespace MDPlayer.form
 
                 DrawBuff.ChYM2608(frameBuffer, c + 18, ref oyc.mask, nyc.mask, tp);
                 DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + (c + 18) * 8, 0, ref oyc.freq, nyc.freq);
+
+                DrawBuff.font4YM2609Duty(frameBuffer,
+                    1 + 4 * 92 + (c % 6) * 4 * 14 + (((c / 3) & 1) == 0 ? 0 : (4 * 16)),
+                    8 * 21 + (c / 6) * 8 * 6,
+                    0, ref oyc.bank, nyc.bank);
+
+                if (nyc.bank < 0) continue;
+                if (nyc.bank <10)
+                {
+                    DrawBuff.WaveFormYM2609Preset(frameBuffer,
+                        1 + 4 * 97 + (c % 6) * 4 * 14 + (((c / 3) & 1) == 0 ? 0 : (4 * 16)),
+                        20 * 8 + (c / 6) * 8 * 6,
+                        ref oyc.volumeRR, nyc.bank);
+                    continue;
+                }
+
+                DrawBuff.WaveFormYM2609User(frameBuffer,
+                    1 + 4 * 97 + (c % 6) * 4 * 14 + (((c / 3) & 1) == 0 ? 0 : (4 * 16)),
+                    23 * 8 + (c / 6) * 8 * 6,
+                    ref oyc.PSGWave, nyc.PSGWave);
             }
 
         }

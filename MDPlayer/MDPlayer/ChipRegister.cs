@@ -2856,6 +2856,7 @@ namespace MDPlayer
         }
 
 
+
         public void writeYM2609(int chipID, int dPort, int dAddr, int dData, EnmModel model)
         {
             if (chipID == 0) chipLED.PriOPNA2 = 2;
@@ -3002,6 +3003,12 @@ namespace MDPlayer
             }
 
         }
+
+        public byte[] readYM2609GetUserWave(int chipID,int p,int n,EnmModel model)
+        {
+            return mds.ReadYM2609_GetPSGUserWave((byte)chipID, p, n);
+        }
+
 
         public void setYM2610Register(int chipID, int dPort, int dAddr, int dData, EnmModel model)
         {

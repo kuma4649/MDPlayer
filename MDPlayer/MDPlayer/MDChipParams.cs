@@ -62,6 +62,7 @@ namespace MDPlayer
             public int[] typ = new int[67];
             public bool[] bit = new bool[67];
             public short[] aryWave16bit = null;
+            public byte[] PSGWave = null;
 
             public Channel()
             {

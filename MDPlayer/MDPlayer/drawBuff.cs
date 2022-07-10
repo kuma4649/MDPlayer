@@ -22,6 +22,7 @@ namespace MDPlayer
         private static byte[][] rPan2;
         private static byte[] rPSGEnv;
         private static byte[][] rPSGMode;
+        private static byte[] rPSG2;
         private static byte[][] rType;
         private static byte[][] rVol;
         private static byte[] rWavGraph;
@@ -89,6 +90,8 @@ namespace MDPlayer
             rPSGMode[3] = getByteArray(Resources.rPSGMode_04);
             rPSGMode[4] = getByteArray(Resources.rPSGMode_05);
             rPSGMode[5] = getByteArray(Resources.rPSGMode_06);
+
+            rPSG2 = getByteArray(Resources.rPSG2);
 
             rType = new byte[6][];
             rType[0] = getByteArray(Resources.rType_01);
@@ -2293,6 +2296,38 @@ namespace MDPlayer
                 oi[i] = ni[i];
             }
         }
+        
+        public static void WaveFormYM2609User(FrameBuffer screen, int x, int y, ref byte[] oi, byte[] ni)
+        {
+            if (oi == null) oi = new byte[64];
+
+            for (int i = 0; i < 32; i++)
+            {
+                byte l = (byte)((ni[i * 2] + ni[i * 2 + 1]) / 2);
+                if (oi[i] == l) continue;
+                oi[i] = l;
+
+                int n = (l / 8);
+                int m = 0;
+                m = (n > 7) ? 8 : n;
+                screen.drawByteArray(x + i, y, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 15) ? 8 : ((n - 8) < 0 ? 0 : (n - 8));
+                screen.drawByteArray(x + i, y - 8, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 23) ? 8 : ((n - 16) < 0 ? 0 : (n - 16));
+                screen.drawByteArray(x + i, y - 16, rWavGraph, 64, m, 0, 1, 8);
+                m = (n > 31) ? 8 : ((n - 24) < 0 ? 0 : (n - 24));
+                screen.drawByteArray(x + i, y - 23, rWavGraph, 64, m + 1, 0, 1, 7);
+
+            }
+        }
+
+        public static void WaveFormYM2609Preset(FrameBuffer screen, int x, int y, ref int oi, int ni)
+        {
+            if (oi == ni) return;
+            oi = ni;
+
+            screen.drawByteArray(x, y, rPSG2, 320, ni * 32, 0, 32, 32);
+        }
 
         public static void DDAToHuC6280(FrameBuffer screen, int c, ref bool od, bool nd)
         {
@@ -3077,6 +3112,14 @@ namespace MDPlayer
             drawFont4Hex16Bit(screen, x, y, t, nn);
             on = nn;
         }
+        
+        public static void font4YM2609Duty(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
+        {
+            if (on == nn) return;
+
+            drawFont4YM2609Duty(screen, x, y, t, nn);
+            on = nn;
+        }
 
         public static void font4Hex20Bit(FrameBuffer screen, int x, int y, int t, ref int on, int nn)
         {
@@ -3574,6 +3617,30 @@ namespace MDPlayer
             drawFont4(screen, x, y, t, Tables.hexCh[n]);
 
             return;
+        }
+
+        public static void drawFont4YM2609Duty(FrameBuffer screen, int x, int y, int t, int num)
+        {
+            if (num == 0)
+            {
+                drawFont4(screen, x, y, t, "SQ.W ");
+            }
+            else if (num < 8)
+            {
+                drawFont4(screen, x, y, t, String.Format("DT{0}/8", 8 - num));
+            }
+            else if (num == 8)
+            {
+                drawFont4(screen, x, y, t, "TRI. ");
+            }
+            else if (num == 9)
+            {
+                drawFont4(screen, x, y, t, "SAW  ");
+            }
+            else
+            {
+                drawFont4(screen, x, y, t, "USER ");
+            }
         }
 
         public static void drawFont4Hex20Bit(FrameBuffer screen, int x, int y, int t, int num)

@@ -1972,6 +1972,16 @@ namespace MDPlayer.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap rPSG2 {
+            get {
+                object obj = ResourceManager.GetObject("rPSG2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap rPSGEnv {
             get {
                 object obj = ResourceManager.GetObject("rPSGEnv", resourceCulture);
