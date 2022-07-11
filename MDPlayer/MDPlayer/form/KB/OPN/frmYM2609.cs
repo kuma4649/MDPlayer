@@ -122,6 +122,7 @@ namespace MDPlayer.form
             int[] fmKeyYM2609 = Audio.GetYM2609KeyOn(chipID);
             int[] ym2609Vol = Audio.GetYM2609Volume(chipID);
             int[] ym2609Ch3SlotVol = Audio.GetYM2609Ch3SlotVolume(chipID);
+            int[][] ym2609Rhythm = Audio.GetYM2609RhythmVolume(chipID);
 
             isFmEx[0] = (ym2609Register[0][0x27] & 0x40) > 0;
             isFmEx[1] = (ym2609Register[2][0x27] & 0x40) > 0;
@@ -143,6 +144,7 @@ namespace MDPlayer.form
             float ssgDiv = ssgDivTbl[divInd];
             ssgMul = ssgMul / ssgDiv * 4;
 
+            //FM
             for (int ch = 0; ch < 12; ch++)
             {
                 int p = ch / 3;
@@ -224,7 +226,7 @@ namespace MDPlayer.form
                     if ((fmKeyYM2609[ch] & 0x10) > 0 && ((m & 0x10) != 0))
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
-                    int v = ((m & 0x10) != 0) ? ym2609Register[p][0x40 + c] : 127;
+                    int v = ((m & 0x10) != 0) ? (ym2609Register[p][0x40 + c] & 0x7f) : 127;
                     newParam.channels[ch].volumeL = 
                         Math.Min(Math.Max(
                             (int)((127 - v) / 127.0 * ((ym2609Register[p][0xb4 + 2] & 0x80) != 0 ? 1 : 0) 
@@ -239,26 +241,27 @@ namespace MDPlayer.form
                 newParam.channels[ch].note = n;
 
             }
-
+            //FMex
             for (int ch = 12; ch < 18; ch++) //FM EX
             {
                 int c = exReg[ch % 3];
-                int p = (ch - 12) / 3;
+                int p = (ch - 12) / 3 * 2;
 
                 newParam.channels[ch].pan = 0;
 
-                if (isFmEx[ch > 14 ? 1 : 0])
+                int f = ch < 15 ? 0 : 1;
+                if (isFmEx[f])
                 {
                     int m = md[ym2609Register[p][0xb0 + 2] & 7];
                     if (parent.setting.other.ExAll) m = 0xf0;
-                    int op = (ch - 12) % 3;
+                    int op = (ch - (11 + f * 3));
                     op = op == 1 ? 2 : (op == 2 ? 1 : op);
 
                     int freq = ym2609Register[p][0xa8 + c] + (ym2609Register[p][0xac + c] & 0x07) * 0x100;
                     int octav = (ym2609Register[p][0xac + c] & 0x38) >> 3;
                     newParam.channels[ch].freq = (freq & 0x7ff) | ((octav & 7) << 11);
                     int n = -1;
-                    if ((fmKeyYM2609[2] & (0x10 << (ch - 5))) != 0 && ((m & (0x10 << op)) != 0))
+                    if ((fmKeyYM2609[2] & (0x10 << (ch - (11 + f * 3)))) != 0 && ((m & (0x10 << op)) != 0))
                     {
                         float ff = freq / ((2 << 20) / (masterClock / (24 * fmDiv))) * (2 << (octav + 2));
                         ff /= 1038f;
@@ -266,9 +269,9 @@ namespace MDPlayer.form
                     }
                     newParam.channels[ch].note = n;
 
-                    int v = ((m & (0x10 << op)) != 0) ? ym2609Register[p][0x42 + op * 4] : 127;
+                    int v = ((m & (0x10 << op)) != 0) ? (ym2609Register[p][0x42 + op * 4] & 0x7f) : 127;
                     newParam.channels[ch].volumeL =
-                        Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2609Ch3SlotVol[ch - 5] / 80.0), 0), 19);
+                        Math.Min(Math.Max((int)((127 - v) / 127.0 * ym2609Ch3SlotVol[ch - (11 - f)] / 80.0), 0), 19);
                 }
                 else
                 {
@@ -276,7 +279,7 @@ namespace MDPlayer.form
                     newParam.channels[ch].volumeL = 0;
                 }
             }
-
+            //PSG
             for (int ch = 18; ch < 30; ch++) //PSG 1-12
             {
                 int c = (ch - 18) % 3;
@@ -323,6 +326,14 @@ namespace MDPlayer.form
                     channel.PSGWave = null;
                 }
 
+            }
+            //RHYTHM
+            for (int ch = 30; ch < 42; ch++) 
+            {
+                newParam.channels[ch].pan = (ym2609Register[0][0x18 + ch - 13] & 0xc0) >> 6;
+                newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2609Rhythm[ch -30][0] / 80, 0), 19);
+                newParam.channels[ch].volumeR = Math.Min(Math.Max(ym2609Rhythm[ch - 30][1] / 80, 0), 19);
+               // newParam.channels[ch].volumeRL = ym2609Register[0][ch - 13 + 0x18] & 0x1f;
             }
 
         }
@@ -420,6 +431,26 @@ namespace MDPlayer.form
                     23 * 8 + (c / 6) * 8 * 6,
                     ref oyc.PSGWave, nyc.PSGWave);
             }
+
+            for (int c = 0; c < 6; c++)
+            {
+                //Rhythm
+                MDChipParams.Channel oyc = oldParam.channels[c + 30];
+                MDChipParams.Channel nyc = newParam.channels[c + 30];
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 32, ref oyc.volumeL, nyc.volumeL, 0);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 32+4, ref oyc.volumeR, nyc.volumeR, 0);
+                //DrawBuff.PanYM2608Rhythm(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                //DrawBuff.font4Int2(frameBuffer, c * 4 * 15 + 4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
+
+                //ADPCMA
+                oyc = oldParam.channels[c + 36];
+                nyc = newParam.channels[c + 36];
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 33, ref oyc.volumeL, nyc.volumeL, 0);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 33 + 4, ref oyc.volumeR, nyc.volumeR, 0);
+                //DrawBuff.PanYM2608Rhythm(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                //DrawBuff.font4Int2(frameBuffer, c * 4 * 15 + 4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
+            }
+            //DrawBuff.ChYM2608Rhythm(frameBuffer, 0, ref oldParam.channels[30].mask, newParam.channels[30].mask, tp);
 
         }
     }

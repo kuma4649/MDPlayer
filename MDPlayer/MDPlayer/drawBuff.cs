@@ -1147,6 +1147,26 @@ namespace MDPlayer
 
         }
 
+        public static void VolumeYM2609Rhythm(FrameBuffer screen, int x, int y, ref int ov, int nv, int tp)
+        {
+            if (ov == nv) return;
+
+            int t = 4;
+
+            for (int i = 0; i <= 19; i++)
+            {
+                VolumeP(screen, x + i * 2, y , (1 + t), tp);
+            }
+
+            for (int i = 0; i <= nv; i++)
+            {
+                VolumeP(screen, x + i * 2, y , i > 17 ? (2 + t) : (0 + t), tp);
+            }
+
+            ov = nv;
+
+        }
+
         public static void VolumeYM2610Rhythm(FrameBuffer screen, int x, int c, ref int ov, int nv, int tp)
         {
 
