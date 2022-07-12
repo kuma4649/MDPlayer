@@ -154,7 +154,10 @@ namespace MDPlayer
         };
 
 
-        public int[][][] fmRegisterYM2609 = new int[][][] { new int[][] { null, null }, new int[][] { null, null }, new int[][] { null, null }, new int[][] { null, null } };
+        public int[][][] fmRegisterYM2609 = new int[][][] {
+            new int[][] { null, null },
+            new int[][] { null, null } 
+        };
         public int[][] fmKeyOnYM2609 = new int[][] { null, null, null, null };
         public int[][] fmVolYM2609 = new int[][] {
             new int[18] { 0,0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
@@ -164,6 +167,14 @@ namespace MDPlayer
         public int[][][] fmVolYM2609Rhythm = new int[][][] {
             new int[12][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
             , new int[12][] { new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2], new int[2] }
+        };
+        public int[][][] fmVolYM2609Adpcm = new int[][][] {
+            new int[][] { new int[2], new int[2], new int[2] },
+            new int[][] { new int[2], new int[2], new int[2] } 
+        };
+        public int[][][] fmVolYM2609AdpcmPan = new int[][][] {
+            new int[][] { new int[2], new int[2], new int[2] },
+            new int[][] { new int[2], new int[2], new int[2] }
         };
         public int[] adpcmACurrentChYM2609 = new int[2] { 0, 0 };
         public int[][] adpcmAVolYM2609 = new int[2][] { new int[6], new int[6] };
@@ -2957,6 +2968,108 @@ namespace MDPlayer
                     }
                 }
 
+                //ADPCM012
+                if (dPort == 1)
+                {
+                    if (dAddr == 0x00)// dAddr:0x00 = key on / dump bit0
+                    {
+                        if (dData == 0xa0)
+                        {
+                            if (fmVolYM2609AdpcmPan[chipID][0][0] != 0)
+                                fmVolYM2609Adpcm[chipID][0][0] =
+                                    (int)((256 * 0.5 * fmRegisterYM2609[chipID][1][0x0b] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][0][0]);
+                            if (fmVolYM2609AdpcmPan[chipID][0][1] != 0)
+                                fmVolYM2609Adpcm[chipID][0][1] =
+                                    (int)((256 * 0.5 * fmRegisterYM2609[chipID][1][0x0b] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][0][1]);
+                        }
+                        else
+                        {
+                            //fmVolYM2609Adpcm[chipID][0][0] = 0;
+                            //fmVolYM2609Adpcm[chipID][0][1] = 0;
+                        }
+                    }
+                    if (dAddr == 0x01 || dAddr == 0x07)//pan
+                    {
+                        fmVolYM2609AdpcmPan[chipID][0][0] =
+                            (
+                                (fmRegisterYM2609[chipID][1][0x01] & 0x80) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][1][0x07] & 0xc0) >> 6))
+                            );
+                        fmVolYM2609AdpcmPan[chipID][0][1] =
+                            (
+                                (fmRegisterYM2609[chipID][1][0x01] & 0x40) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][1][0x07] & 0x30) >> 4))
+                            );
+                    }
+                }
+
+                if (dPort == 3)
+                {
+                    if (dAddr == 0x00)//key on
+                    {
+                        if (dData == 0xa0)//dumpはむし
+                        {
+                            if (fmVolYM2609AdpcmPan[chipID][1][0] != 0)
+                                fmVolYM2609Adpcm[chipID][1][0] =
+                                    (int)((256 * 0.5 * fmRegisterYM2609[chipID][3][0x0b] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][1][0]);
+                            if (fmVolYM2609AdpcmPan[chipID][1][0] != 0)
+                                fmVolYM2609Adpcm[chipID][1][1] =
+                                   (int)((256 * 0.5 * fmRegisterYM2609[chipID][3][0x0b] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][1][1]);
+                        }
+                    }
+
+                    if (dAddr == 0x01 || dAddr == 0x07)//pan
+                    {
+                        fmVolYM2609AdpcmPan[chipID][1][0] =
+                            (
+                                (fmRegisterYM2609[chipID][3][0x01] & 0x80) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][3][0x07] & 0xc0) >> 6))
+                            );
+                        fmVolYM2609AdpcmPan[chipID][1][1] =
+                            (
+                                (fmRegisterYM2609[chipID][3][0x01] & 0x40) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][3][0x07] & 0x30) >> 4))
+                            );
+                    }
+
+                    if (dAddr == 0x11)//key on
+                    {
+                        if (dData == 0xa0)//dumpはむし
+                        {
+                            if (fmVolYM2609AdpcmPan[chipID][2][0] != 0)
+                                fmVolYM2609Adpcm[chipID][2][0] =
+                                    (int)((256 * 0.5 * fmRegisterYM2609[chipID][3][0x1c] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][2][0]);
+                            if (fmVolYM2609AdpcmPan[chipID][2][0] != 0)
+                                fmVolYM2609Adpcm[chipID][2][1] =
+                                   (int)((256 * 0.5 * fmRegisterYM2609[chipID][3][0x1c] / 64.0)
+                                    * fmVolYM2609AdpcmPan[chipID][2][1]);
+                        }
+                    }
+                    if (dAddr == 0x12 || dAddr == 0x18)//pan
+                    {
+                        fmVolYM2609AdpcmPan[chipID][2][0] =
+                            (
+                                (fmRegisterYM2609[chipID][3][0x12] & 0x80) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][3][0x18] & 0xc0) >> 6))
+                            );
+                        fmVolYM2609AdpcmPan[chipID][2][1] =
+                            (
+                                (fmRegisterYM2609[chipID][3][0x12] & 0x40) == 0
+                                ? 0
+                                : (4 - ((fmRegisterYM2609[chipID][3][0x18] & 0x30) >> 4))
+                            );
+                    }
+                }
             }
 
 
@@ -5568,6 +5681,11 @@ namespace MDPlayer
                     if (fmVolYM2609Rhythm[chipID][i][0] > 0) { fmVolYM2609Rhythm[chipID][i][0] -= 50; if (fmVolYM2609Rhythm[chipID][i][0] < 0) fmVolYM2609Rhythm[chipID][i][0] = 0; }
                     if (fmVolYM2609Rhythm[chipID][i][1] > 0) { fmVolYM2609Rhythm[chipID][i][1] -= 50; if (fmVolYM2609Rhythm[chipID][i][1] < 0) fmVolYM2609Rhythm[chipID][i][1] = 0; }
                 }
+                for (int i = 0; i < 3; i++)
+                {
+                    if (fmVolYM2609Adpcm[chipID][i][0] > 0) { fmVolYM2609Adpcm[chipID][i][0] -= 50; if (fmVolYM2609Adpcm[chipID][i][0] < 0) fmVolYM2609Rhythm[chipID][i][0] = 0; }
+                    if (fmVolYM2609Adpcm[chipID][i][1] > 0) { fmVolYM2609Adpcm[chipID][i][1] -= 50; if (fmVolYM2609Adpcm[chipID][i][1] < 0) fmVolYM2609Rhythm[chipID][i][1] = 0; }
+                }
 
 
                 for (int i = 0; i < 9; i++)
@@ -5688,6 +5806,16 @@ namespace MDPlayer
         public int[] GetYM2608AdpcmVolume(int chipID)
         {
             return fmVolYM2608Adpcm[chipID];
+        }
+
+        public int[][] GetYM2609AdpcmVolume(int chipID)
+        {
+            return fmVolYM2609Adpcm[chipID];
+        }
+
+        public int[][] GetYM2609AdpcmPan(int chipID)
+        {
+            return fmVolYM2609AdpcmPan[chipID];
         }
 
         public int[] GetYM2610AdpcmVolume(int chipID)

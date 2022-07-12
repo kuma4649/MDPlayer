@@ -1,4 +1,7 @@
 更新履歴
+STBL245 2022/07/12
+  OPNA2:ADPCM012の表示追加
+
 STBL244 2022/07/11
   OPNA2:FMexを使用したデータを再生すると落ちるバグを修正。(Thanks! Some Spoony Bard!)
         RhythmとADPCM-Aのメーターが動くように機能追加。

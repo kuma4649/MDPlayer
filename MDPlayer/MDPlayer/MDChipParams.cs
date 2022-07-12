@@ -28,7 +28,11 @@ namespace MDPlayer
         {
 
             public int pan = -1;
+            public int panL = -1;
+            public int panR = -1;
             public int pantp = -1;
+            public int panLtp = -1;
+            public int panRtp = -1;
             public int note = -1;
             public int volume = -1;
             public int volumeL = -1;

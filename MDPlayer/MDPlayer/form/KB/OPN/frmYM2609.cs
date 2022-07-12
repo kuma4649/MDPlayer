@@ -123,6 +123,8 @@ namespace MDPlayer.form
             int[] ym2609Vol = Audio.GetYM2609Volume(chipID);
             int[] ym2609Ch3SlotVol = Audio.GetYM2609Ch3SlotVolume(chipID);
             int[][] ym2609Rhythm = Audio.GetYM2609RhythmVolume(chipID);
+            int[][] ym2609AdpcmVol = Audio.GetYM2609AdpcmVolume(chipID);
+            int[][] ym2609AdpcmPan = Audio.GetYM2609AdpcmPan(chipID);
 
             isFmEx[0] = (ym2609Register[0][0x27] & 0x40) > 0;
             isFmEx[1] = (ym2609Register[2][0x27] & 0x40) > 0;
@@ -336,6 +338,27 @@ namespace MDPlayer.form
                // newParam.channels[ch].volumeRL = ym2609Register[0][ch - 13 + 0x18] & 0x1f;
             }
 
+
+            //ADPCM012
+            for (int ch = 42; ch < 45; ch++)
+            {
+                int p = ch == 42 ? 1 : 3;
+                int sft = ch != 44 ? 0 : 0x11;
+
+                newParam.channels[ch].panL = ym2609AdpcmPan[ch - 42][0];
+                newParam.channels[ch].panR = ym2609AdpcmPan[ch - 42][1];
+                newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2609AdpcmVol[ch - 42][0] / 80, 0), 19);
+                newParam.channels[ch].volumeR = Math.Min(Math.Max(ym2609AdpcmVol[ch - 42][1] / 80, 0), 19);
+                int delta = (ym2609Register[p][sft + 0x0a] << 8) | ym2609Register[p][sft + 0x09];
+                newParam.channels[ch].freq = delta;
+                float frq = (float)(delta / 9447.0f);
+                newParam.channels[ch].note = (ym2609Register[p][sft + 0x00] & 0x80) != 0 ? (Common.searchYM2608Adpcm(frq) - 1) : -1;
+                if ((ym2609Register[p][sft + 0x01] & 0xc0) == 0)
+                {
+                    newParam.channels[ch].note = -1;
+                }
+            }
+
         }
 
         private int[] psgPort = new int[4] { 0, 1, 2, 2 };
@@ -452,6 +475,20 @@ namespace MDPlayer.form
             }
             //DrawBuff.ChYM2608Rhythm(frameBuffer, 0, ref oldParam.channels[30].mask, newParam.channels[30].mask, tp);
 
+            for (int c = 0; c < 3; c++)
+            {
+                //ADPCM
+                MDChipParams.Channel oyc = oldParam.channels[c + 42];
+                MDChipParams.Channel nyc = newParam.channels[c + 42];
+
+                DrawBuff.Volume(frameBuffer, 289, (31 + c) * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 289, (31 + c) * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                DrawBuff.PanType5(frameBuffer, 25, (31 + c) * 8, ref oyc.panL, nyc.panL, tp);
+                DrawBuff.PanType5(frameBuffer, 29, (31 + c) * 8, ref oyc.panR, nyc.panR, tp);
+                DrawBuff.KeyBoardOPNA(frameBuffer, 33, (31 + c) * 8, ref oyc.note, nyc.note, tp);
+                //DrawBuff.ChYM2608(frameBuffer, 12, ref oyc.mask, nyc.mask, tp);
+                DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, (31+c) * 8, 0, ref oyc.freq, nyc.freq);
+            }
         }
     }
 }
