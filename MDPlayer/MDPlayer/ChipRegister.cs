@@ -2962,8 +2962,20 @@ namespace MDPlayer
                         {
                             int il = (adpcmAVolYM2609[chipID][i]) * (((dData & 0x80) == 0) ? 1 : 0);
                             int pan = adpcmAPanYM2609[chipID][i];
-                            fmVolYM2609Rhythm[chipID][i + 6][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 0x20) > 0 ? 1 : 0);
-                            fmVolYM2609Rhythm[chipID][i + 6][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0) * ((pan & 0x04) > 0 ? 1 : 0);
+                            int panL3 =
+                                (
+                                    (pan & 0x20) == 0
+                                    ? 0
+                                    : (4 - ((pan &0x18)>>3))
+                                );
+                            int panR3 =
+                                (
+                                    (pan & 0x04) == 0
+                                    ? 0
+                                    : (4 - ((pan & 0x3) >> 0))
+                                );
+                            fmVolYM2609Rhythm[chipID][i + 6][0] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panL3/4.0);
+                            fmVolYM2609Rhythm[chipID][i + 6][1] = (int)(256 * 6 * ((tl * il) >> 4) / 127.0 * panR3/4.0);
                         }
                     }
                 }

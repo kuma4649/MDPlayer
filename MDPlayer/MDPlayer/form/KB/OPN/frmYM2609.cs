@@ -188,6 +188,10 @@ namespace MDPlayer.form
                 int freq;
                 int octav;
                 int n = -1;
+                int panL;
+                int panR;
+                int panL3;
+                int panR3;
 
                 if ((ch != 2 || !isFmEx[0]) && (ch != 8 || !isFmEx[1]))
                 {
@@ -211,8 +215,24 @@ namespace MDPlayer.form
                     v = (((con & 0x40) != 0) && ((m & 0x40) != 0) && v > (ym2609Register[p][0x48 + c] & 0x7f)) ? (ym2609Register[p][0x48 + c] & 0x7f) : v;
                     //OP4
                     v = (((con & 0x80) != 0) && ((m & 0x80) != 0) && v > (ym2609Register[p][0x4c + c] & 0x7f)) ? (ym2609Register[p][0x4c + c] & 0x7f) : v;
-                    newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2609Register[p][0xb4 + c] & 0x80) != 0 ? 1 : 0) * ym2609Vol[ch] / 80.0), 0), 19);
-                    newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((127 - v) / 127.0 * ((ym2609Register[p][0xb4 + c] & 0x40) != 0 ? 1 : 0) * ym2609Vol[ch] / 80.0), 0), 19);
+
+                    panL =
+                        (
+                            (ym2609Register[p][0xb4 + c] & 0x80) == 0
+                            ? 0
+                            : (4 - ((ym2609Register[p][0xa4 + c] & 0xc0) >> 6))
+                        );
+                    panR =
+                        (
+                            (ym2609Register[p][0xb4 + c] & 0x40) == 0
+                            ? 0
+                            : (4 - ((ym2609Register[p][0xb0 + c] & 0xc0) >> 6))
+                        );
+
+                    newParam.channels[ch].volumeL = 
+                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panL/4.0 * ym2609Vol[ch] / 80.0), 0), 19);
+                    newParam.channels[ch].volumeR = 
+                        Math.Min(Math.Max((int)((127 - v) / 127.0 * panR/4.0 * ym2609Vol[ch] / 80.0), 0), 19);
 
                 }
                 else
@@ -229,14 +249,28 @@ namespace MDPlayer.form
                         n = Math.Min(Math.Max(Common.searchYM2608Adpcm(ff) - 1, 0), 95);
 
                     int v = ((m & 0x10) != 0) ? (ym2609Register[p][0x40 + c] & 0x7f) : 127;
+
+                    panL3 =
+                        (
+                            (ym2609Register[p][0xb4 + 2] & 0x80) == 0
+                            ? 0
+                            : (4 - ((ym2609Register[p][0xa4 + 2] & 0xc0) >> 6))
+                        );
+                    panR3 =
+                        (
+                            (ym2609Register[p][0xb4 + 2] & 0x40) == 0
+                            ? 0
+                            : (4 - ((ym2609Register[p][0xb0 + 2] & 0xc0) >> 6))
+                        );
+
                     newParam.channels[ch].volumeL = 
                         Math.Min(Math.Max(
-                            (int)((127 - v) / 127.0 * ((ym2609Register[p][0xb4 + 2] & 0x80) != 0 ? 1 : 0) 
+                            (int)((127 - v) / 127.0 * panL3/4.0
                             * ym2609Ch3SlotVol[0] / 80.0)
                             , 0), 19);
                     newParam.channels[ch].volumeR = 
                         Math.Min(Math.Max(
-                            (int)((127 - v) / 127.0 * ((ym2609Register[p][0xb4 + 2] & 0x40) != 0 ? 1 : 0) 
+                            (int)((127 - v) / 127.0 * panR3 / 4.0
                             * ym2609Ch3SlotVol[0] / 80.0)
                             , 0), 19);
                 }
