@@ -315,6 +315,7 @@ namespace MDPlayer.form
                     newParam.channels[ch].volumeL = 0;
                 }
             }
+            
             //PSG
             for (int ch = 18; ch < 30; ch++) //PSG 1-12
             {
@@ -363,6 +364,15 @@ namespace MDPlayer.form
                 }
 
             }
+
+            for(int ch = 0; ch < 4; ch++)
+            {
+                newParam.nfrq[ch] = ym2609Register[psgPort[ch]][psgAdr[ch] + 0x06] & 0x1f;
+                newParam.efrq[ch] = ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0c] * 0x100 
+                    + ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0b];
+                newParam.etype[ch] = (ym2609Register[psgPort[ch]][psgAdr[ch] + 0x0d] & 0xf);
+            }
+
             //RHYTHM
             for (int ch = 30; ch < 42; ch++) 
             {
@@ -488,6 +498,14 @@ namespace MDPlayer.form
                     23 * 8 + (c / 6) * 8 * 6,
                     ref oyc.PSGWave, nyc.PSGWave);
             }
+
+            for (int ch = 0; ch < 4; ch++)
+            {
+                DrawBuff.Nfrq(frameBuffer, 143 + (ch % 2) * 58, 40 + (ch / 2) * 12, ref oldParam.nfrq[ch], newParam.nfrq[ch]);
+                DrawBuff.Efrq(frameBuffer, 143 + (ch % 2) * 58, 42 + (ch / 2) * 12, ref oldParam.efrq[ch], newParam.efrq[ch]);
+                DrawBuff.Etype(frameBuffer, 143 + (ch % 2) * 58, 44 + (ch / 2) * 12, ref oldParam.etype[ch], newParam.etype[ch]);
+            }
+
 
             for (int c = 0; c < 6; c++)
             {

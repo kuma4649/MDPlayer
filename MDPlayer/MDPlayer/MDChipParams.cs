@@ -281,9 +281,9 @@ namespace MDPlayer
         {
             public bool lfoSw = false;
             public int lfoFrq = -1;
-            public int nfrq = -1;
-            public int efrq = -1;
-            public int etype = -1;
+            public int[] nfrq = new int[] { -1, -1, -1, -1 };
+            public int[] efrq = new int[] { -1, -1, -1, -1 };
+            public int[] etype = new int[] { -1, -1, -1, -1 };
             public int timerA = -1;
             public int timerB = -1;
             public int rhythmTotalLevel = -1;
