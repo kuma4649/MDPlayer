@@ -1612,6 +1612,18 @@ namespace MDPlayer
             ot = nt;
         }
 
+        public static void PanType6(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+
+            if (ot == nt)
+            {
+                return;
+            }
+
+            drawPanType6P(screen, x, y, nt, tp);
+            ot = nt;
+        }
+
         public static void PanType2(FrameBuffer screen, int x,int y, ref int ot, int nt, int tp)
         {
 
@@ -1646,6 +1658,19 @@ namespace MDPlayer
             }
 
             drawPanP(screen, c * 4 * 15 + 12, 8 * 14, nt, ntp);
+            ot = nt;
+            otp = ntp;
+        }
+
+        public static void PanYM2609Rhythm(FrameBuffer screen, int x,int y, ref int ot, int nt, ref int otp, int ntp)
+        {
+
+            if (ot == nt && otp == ntp)
+            {
+                return;
+            }
+
+            drawPanP(screen, x, y, nt, ntp);
             ot = nt;
             otp = ntp;
         }
@@ -3891,6 +3916,30 @@ namespace MDPlayer
             int p = t ;
             screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
         }
+
+        public static void drawPanType6P(FrameBuffer screen, int x, int y, int t, int tp)
+        {
+            if (screen == null)
+            {
+                return;
+            }
+
+            int p=0;
+            if ((t & 0x20) != 0)
+            {
+                p = 4 - ((t & 0x18) >> 3);
+            }
+            screen.drawByteArray(x, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+
+            p = 0;
+            if ((t & 0x04) != 0)
+            {
+                p = 4 - ((t & 0x03) >> 0);
+            }
+            screen.drawByteArray(x + 4, y, rPan2[tp], 32, p * 4, 0, 4, 8);
+
+        }
+
 
         private static void drawMIDILCD_FaderP(FrameBuffer screen, int MIDImodule, int faderType, int x, int y, int value)
         {

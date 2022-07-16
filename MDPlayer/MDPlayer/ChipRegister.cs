@@ -178,7 +178,10 @@ namespace MDPlayer
         };
         public int[] adpcmACurrentChYM2609 = new int[2] { 0, 0 };
         public int[][] adpcmAVolYM2609 = new int[2][] { new int[6], new int[6] };
-        public int[][] adpcmAPanYM2609 = new int[2][] { new int[6], new int[6] };
+        public int[][] adpcmAPanYM2609 = new int[][] {
+            new int[6] { -1, -1, -1, -1, -1, -1 }
+            , new int[6] { -1, -1, -1, -1, -1, -1 }
+        };
 
         public int[][][] fmRegisterYM2610 = new int[][][] { new int[][] { null, null }, new int[][] { null, null } };
         public int[][] fmKeyOnYM2610 = new int[][] { null, null };
@@ -5808,6 +5811,14 @@ namespace MDPlayer
         public int[][] GetYM2609RhythmVolume(int chipID)
         {
             return fmVolYM2609Rhythm[chipID];
+        }
+        public int[] GetYM2609AdpcmAPan(int chipID)
+        {
+            return adpcmAPanYM2609[chipID];
+        }
+        public int[] GetYM2609AdpcmAVol(int chipID)
+        {
+            return adpcmAVolYM2609[chipID];
         }
 
         public int[][] GetYM2610RhythmVolume(int chipID)

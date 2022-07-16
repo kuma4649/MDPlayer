@@ -123,6 +123,8 @@ namespace MDPlayer.form
             int[] ym2609Vol = Audio.GetYM2609Volume(chipID);
             int[] ym2609Ch3SlotVol = Audio.GetYM2609Ch3SlotVolume(chipID);
             int[][] ym2609Rhythm = Audio.GetYM2609RhythmVolume(chipID);
+            int[] ym2609AdpcmAPan = Audio.GetYM2609AdpcmAPan(chipID);
+            int[] ym2609AdpcmAVol = Audio.GetYM2609AdpcmAVol(chipID);
             int[][] ym2609AdpcmVol = Audio.GetYM2609AdpcmVolume(chipID);
             int[][] ym2609AdpcmPan = Audio.GetYM2609AdpcmPan(chipID);
 
@@ -390,10 +392,22 @@ namespace MDPlayer.form
             //RHYTHM
             for (int ch = 30; ch < 42; ch++) 
             {
-                newParam.channels[ch].pan = (ym2609Register[0][0x18 + ch - 13] & 0xc0) >> 6;
+                if (ch < 36)
+                {
+                    //Rhythm
+                    newParam.channels[ch].pan = (ym2609Register[0][0x18 + ch - 30] & 0xc0) >> 6;
+                    newParam.channels[ch].volumeRL = ym2609Register[0][0x18 + ch - 30] & 0x1f;
+                }
+                else
+                {
+                    //ADPCM-A
+                    newParam.channels[ch].pan = ym2609AdpcmAPan[ch - 36];
+                    newParam.channels[ch].volumeRL = ym2609AdpcmAVol[ch - 36] & 0x1f;
+                }
+
                 newParam.channels[ch].volumeL = Math.Min(Math.Max(ym2609Rhythm[ch -30][0] / 80, 0), 19);
                 newParam.channels[ch].volumeR = Math.Min(Math.Max(ym2609Rhythm[ch - 30][1] / 80, 0), 19);
-               // newParam.channels[ch].volumeRL = ym2609Register[0][ch - 13 + 0x18] & 0x1f;
+
             }
 
 
@@ -496,7 +510,8 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c + 18];
                 MDChipParams.Channel nyc = newParam.channels[c + 18];
 
-                DrawBuff.Volume(frameBuffer, 289, 8 + (c + 18) * 8, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.Volume(frameBuffer, 288 + 1, 8 + (c + 18) * 8, 1, ref oyc.volumeL, nyc.volume * ((nyc.pan & 0x2) != 0 ? 1 : 0), tp);
+                DrawBuff.Volume(frameBuffer, 288 + 1, 8 + (c + 18) * 8, 2, ref oyc.volumeR, nyc.volume * ((nyc.pan & 0x1) != 0 ? 1 : 0), tp);
                 DrawBuff.KeyBoardOPNA(frameBuffer, 33, (c + 18) * 8 + 8, ref oyc.note, nyc.note, tp);
                 DrawBuff.Pan(frameBuffer, 25, 8 + (c + 18) * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
                 DrawBuff.TnOPNA(frameBuffer, 64, 2, c + 18, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2);
@@ -538,20 +553,19 @@ namespace MDPlayer.form
                 //Rhythm
                 MDChipParams.Channel oyc = oldParam.channels[c + 30];
                 MDChipParams.Channel nyc = newParam.channels[c + 30];
-                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 32, ref oyc.volumeL, nyc.volumeL, 0);
-                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 32+4, ref oyc.volumeR, nyc.volumeR, 0);
-                //DrawBuff.PanYM2608Rhythm(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                //DrawBuff.font4Int2(frameBuffer, c * 4 * 15 + 4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 107 + 1 + c * 68, 8 * 32, ref oyc.volumeL, nyc.volumeL, 0);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 107 + 1 + c * 68, 8 * 32 + 4, ref oyc.volumeR, nyc.volumeR, 0);
+                DrawBuff.PanYM2609Rhythm(frameBuffer, 4 * 105 + 1 + c * 68, 8 * 32, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
+                DrawBuff.font4Int2(frameBuffer, 4 * 103 + 1 + c * 68, 8 * 32, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
 
                 //ADPCMA
                 oyc = oldParam.channels[c + 36];
                 nyc = newParam.channels[c + 36];
-                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 33, ref oyc.volumeL, nyc.volumeL, 0);
-                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 97 + 1 + c * 64, 8 * 33 + 4, ref oyc.volumeR, nyc.volumeR, 0);
-                //DrawBuff.PanYM2608Rhythm(frameBuffer, c, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                //DrawBuff.font4Int2(frameBuffer, c * 4 * 15 + 4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 107 + 1 + c * 68, 8 * 33, ref oyc.volumeL, nyc.volumeL, 0);
+                DrawBuff.VolumeYM2609Rhythm(frameBuffer, 4 * 107 + 1 + c * 68, 8 * 33 + 4, ref oyc.volumeR, nyc.volumeR, 0);
+                DrawBuff.PanType6(frameBuffer, 4 * 105 + 1 + c * 68, 8 * 33, ref oyc.pan, nyc.pan, tp);
+                DrawBuff.font4Int2(frameBuffer, 4 * 103 + 1 + c * 68, 8 * 33, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
             }
-            //DrawBuff.ChYM2608Rhythm(frameBuffer, 0, ref oldParam.channels[30].mask, newParam.channels[30].mask, tp);
 
             for (int c = 0; c < 3; c++)
             {

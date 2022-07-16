@@ -22,6 +22,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   .VGZ (vgmファイルをgzipしたもの)  
   .NRD (NRTDRV X1でOPM2個とAY8910を鳴らすドライバの演奏ファイル)  
   .XGM (MegaDrive向けファイル)  
+  .ZGM (mml2vgmで生成可能なVGM拡張フォーマットファイル)  
   .S98 (主に日本製レトロPC向けファイル)  
   .MID (StandardMIDIファイル。フォーマット0/1対応)  
   .RCP (レコポンファイル CM6,GSDの送信可)  
@@ -46,7 +47,8 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   ・現在、以下の主にメガドライブ系音源チップのエミュレーションによる再生が可能です。  
      
       AY8910    , YM2612   , SN76489 , RF5C164 , PWM     , C140(C219) , OKIM6295 , OKIM6258(PCM8,MPCM含)  
-      , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2610/B   , HuC6280  , C352  
+      , SEGAPCM , YM2151   , YM2203  , YM2413  , YM2608  , YM2609     , YM2610/B 
+      , HuC6280 , C352     
       , K054539 , NES_APU  , NES_DMC , NES_FDS , MMC5    , FME7       , N160     , VRC6  
       , VRC7    , MultiPCM , YMF262  , YMF271  , YMF278B , YMZ280B    , DMG      , QSound  
       , S5B     , GA20     , X1-010  , SAA1099
@@ -56,10 +58,11 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
      
       YM2612        , SN76489    , RF5C164  
       , AY8910      , C140(C219) , C352    , SEGAPCM  
-      , Y8950       , YM2151     , YM2203  , YM2413     , YM2608 , YM2610/B , YM3526 , YM3812  
+      , Y8950       , YM2151     , YM2203  , YM2413     , YM2608 , YM2609 , YM2610/B 
+      , YM3526      , YM3812     
       , YMF262      , YMF278B    , YMZ280B , MultiPCM   
       , HuC6280     , MIDI       
-      , NES_APU&DMC , NES_FDS    , MMC5    , N106(N163) , VRC6     , VRC7 , PPZ8    
+      , NES_APU&DMC , NES_FDS    , MMC5    , N106(N163) , VRC6   , VRC7   , PPZ8    
   
       チャンネル(鍵盤)を左クリックすることでマスクさせることができます。  
       右クリックすると全チャンネルのマスクを解除します。  
@@ -227,7 +230,7 @@ VGMファイルなどのPlayer(メガドライブ音源チップなどのエミ�
   
   
 [必要な動作環境]  
-  ・恐らく、WindowsVista(32bit)以降のOS。私はWindows10Home(x64)を使用しています。  
+  ・恐らく、WindowsVista(32bit)以降のOS。私はWindows11Home(x64)を使用しています。  
   XPでは動作しません。  
   
   ・.NET Framework4をインストールしている必要あり。  

@@ -8381,6 +8381,14 @@ namespace MDPlayer
         {
             return chipRegister.GetYM2609RhythmVolume(chipID);
         }
+        public static int[] GetYM2609AdpcmAPan(int chipID)
+        {
+            return chipRegister.GetYM2609AdpcmAPan(chipID);
+        }
+        public static int[] GetYM2609AdpcmAVol(int chipID)
+        {
+            return chipRegister.GetYM2609AdpcmAVol(chipID);
+        }
 
         public static int[] GetYM2608AdpcmVolume(int chipID)
         {
