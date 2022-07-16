@@ -1,4 +1,7 @@
 更新履歴
+STBL248 2022/07/16
+  OPNA2:Timer-A/B値、ハードLFO2系統の値、リズム/ADPCM-Aのトータルレベル値、ADPCM012のEGControl値の表示を追加
+
 STBL247 2022/07/14
   OPNA2:PSGのnoise値、エンベロープ値、エンベロープ種の表示を追加
 

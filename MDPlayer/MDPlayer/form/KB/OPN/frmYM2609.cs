@@ -146,6 +146,20 @@ namespace MDPlayer.form
             float ssgDiv = ssgDivTbl[divInd];
             ssgMul = ssgMul / ssgDiv * 4;
 
+            newParam.timerA = ym2609Register[0][0x24] | ((ym2609Register[0][0x25] & 0x3) << 8);
+            newParam.timerB = ym2609Register[0][0x26];
+
+            newParam.lfoSw[0] = (ym2609Register[0][0x22] & 0x8) != 0;
+            newParam.lfoFrq[0] = (ym2609Register[0][0x22] & 0x7);
+            newParam.lfoSw[1] = (ym2609Register[2][0x22] & 0x8) != 0;
+            newParam.lfoFrq[1] = (ym2609Register[2][0x22] & 0x7);
+
+            newParam.rhythmTotalLevel[0] = ym2609Register[0][0x11];
+            newParam.rhythmTotalLevel[1] = ym2609Register[1][0x12];
+            newParam.adpcmLevel[0] = ym2609Register[1][0x0b];
+            newParam.adpcmLevel[1] = ym2609Register[3][0x0b];
+            newParam.adpcmLevel[2] = ym2609Register[3][0x1c];
+
             //FM
             for (int ch = 0; ch < 12; ch++)
             {
@@ -418,6 +432,18 @@ namespace MDPlayer.form
             //    : parent.setting.YM2609Type[1].realChipInfo[0].SoundLocation;
             //int tp = !ChipType2 ? 0 : (chipSoundLocation < 0 ? 2 : 1);
             int tp = 0;
+
+            DrawBuff.font4Hex12Bit(frameBuffer, 230 * 4 + 1, 38 * 4, 0, ref oldParam.timerA, newParam.timerA);
+            DrawBuff.font4HexByte(frameBuffer, 230 * 4 + 1, 40 * 4, 0, ref oldParam.timerB, newParam.timerB);
+            DrawBuff.LfoSw(frameBuffer, 229 * 4 + 1, 42 * 4, ref oldParam.lfoSw[0], newParam.lfoSw[0]);
+            DrawBuff.LfoFrq(frameBuffer, 229 * 4 + 1, 44 * 4, ref oldParam.lfoFrq[0], newParam.lfoFrq[0]);
+            DrawBuff.LfoSw(frameBuffer, 229 * 4 + 1, 46 * 4, ref oldParam.lfoSw[1], newParam.lfoSw[1]);
+            DrawBuff.LfoFrq(frameBuffer, 229 * 4 + 1, 48 * 4, ref oldParam.lfoFrq[1], newParam.lfoFrq[1]);
+            DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 50 * 4, 0, 3, ref oldParam.rhythmTotalLevel[0], newParam.rhythmTotalLevel[0]);
+            DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 52 * 4, 0, 3, ref oldParam.rhythmTotalLevel[1], newParam.rhythmTotalLevel[1]);
+            DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 54 * 4, 0, 3, ref oldParam.adpcmLevel[0], newParam.adpcmLevel[0]);
+            DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 56 * 4, 0, 3, ref oldParam.adpcmLevel[1], newParam.adpcmLevel[1]);
+            DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 58 * 4, 0, 3, ref oldParam.adpcmLevel[2], newParam.adpcmLevel[2]);
 
             for (int c = 0; c < 18; c++)
             {

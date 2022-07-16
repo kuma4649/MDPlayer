@@ -279,15 +279,15 @@ namespace MDPlayer
 
         public class YM2609
         {
-            public bool lfoSw = false;
-            public int lfoFrq = -1;
+            public bool[] lfoSw =new bool[] { false, false };
+            public int[] lfoFrq = new int[] { -1, -1 };
             public int[] nfrq = new int[] { -1, -1, -1, -1 };
             public int[] efrq = new int[] { -1, -1, -1, -1 };
             public int[] etype = new int[] { -1, -1, -1, -1 };
             public int timerA = -1;
             public int timerB = -1;
-            public int rhythmTotalLevel = -1;
-            public int adpcmLevel = -1;
+            public int[] rhythmTotalLevel = new int[] { -1, -1 };
+            public int[] adpcmLevel = new int[] { -1, -1, -1 };
 
             public Channel[] channels = new Channel[] {
                 new Channel(), new Channel(), new Channel(), new Channel(),
