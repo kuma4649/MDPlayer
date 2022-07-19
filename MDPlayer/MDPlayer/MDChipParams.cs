@@ -288,6 +288,12 @@ namespace MDPlayer
             public int timerB = -1;
             public int[] rhythmTotalLevel = new int[] { -1, -1 };
             public int[] adpcmLevel = new int[] { -1, -1, -1 };
+            public bool eqLowSw = false;
+            public bool eqMidSw = false;
+            public bool eqHiSw = false;
+            public int[] eqLow = new int[] {  -1, -1, -1 };
+            public int[] eqMid = new int[] {  -1, -1, -1 };
+            public int[] eqHi = new int[] {  -1, -1, -1 };
 
             public Channel[] channels = new Channel[] {
                 new Channel(), new Channel(), new Channel(), new Channel(),

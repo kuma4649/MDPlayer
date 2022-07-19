@@ -162,6 +162,21 @@ namespace MDPlayer.form
             newParam.adpcmLevel[1] = ym2609Register[3][0x0b];
             newParam.adpcmLevel[2] = ym2609Register[3][0x1c];
 
+            newParam.eqLowSw = ym2609Register[0][0xc0]!=0;
+            newParam.eqLow[0] = ym2609Register[0][0xc1];
+            newParam.eqLow[1] = ym2609Register[0][0xc2];
+            newParam.eqLow[2] = ym2609Register[0][0xc3];
+
+            newParam.eqMidSw = ym2609Register[0][0xc4]!=0;
+            newParam.eqMid[0] = ym2609Register[0][0xc5];
+            newParam.eqMid[1] = ym2609Register[0][0xc6];
+            newParam.eqMid[2] = ym2609Register[0][0xc7];
+
+            newParam.eqHiSw = ym2609Register[0][0xc8]!=0;
+            newParam.eqHi[0] = ym2609Register[0][0xc9];
+            newParam.eqHi[1] = ym2609Register[0][0xca];
+            newParam.eqHi[2] = ym2609Register[0][0xcb];
+
             //FM
             for (int ch = 0; ch < 12; ch++)
             {
@@ -458,6 +473,18 @@ namespace MDPlayer.form
             DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 54 * 4, 0, 3, ref oldParam.adpcmLevel[0], newParam.adpcmLevel[0]);
             DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 56 * 4, 0, 3, ref oldParam.adpcmLevel[1], newParam.adpcmLevel[1]);
             DrawBuff.font4Int3(frameBuffer, 229 * 4 + 1, 58 * 4, 0, 3, ref oldParam.adpcmLevel[2], newParam.adpcmLevel[2]);
+            DrawBuff.drawNESSw(frameBuffer, 220 * 4 + 1, 62 * 4, ref oldParam.eqLowSw, newParam.eqLowSw);
+            DrawBuff.font4Int3(frameBuffer, 222 * 4 + 1, 62 * 4, 0, 3, ref oldParam.eqLow[0], newParam.eqLow[0]);
+            DrawBuff.font4Int3(frameBuffer, 226 * 4 + 1, 62 * 4, 0, 3, ref oldParam.eqLow[1], newParam.eqLow[1]);
+            DrawBuff.font4Int3(frameBuffer, 230 * 4 + 1, 62 * 4, 0, 3, ref oldParam.eqLow[2], newParam.eqLow[2]);
+            DrawBuff.drawNESSw(frameBuffer, 220 * 4 + 1, 64 * 4, ref oldParam.eqMidSw, newParam.eqMidSw);
+            DrawBuff.font4Int3(frameBuffer, 222 * 4 + 1, 64 * 4, 0, 3, ref oldParam.eqMid[0], newParam.eqMid[0]);
+            DrawBuff.font4Int3(frameBuffer, 226 * 4 + 1, 64 * 4, 0, 3, ref oldParam.eqMid[1], newParam.eqMid[1]);
+            DrawBuff.font4Int3(frameBuffer, 230 * 4 + 1, 64 * 4, 0, 3, ref oldParam.eqMid[2], newParam.eqMid[2]);
+            DrawBuff.drawNESSw(frameBuffer, 220 * 4 + 1, 66 * 4, ref oldParam.eqHiSw, newParam.eqHiSw);
+            DrawBuff.font4Int3(frameBuffer, 222 * 4 + 1, 66 * 4, 0, 3, ref oldParam.eqHi[0], newParam.eqHi[0]);
+            DrawBuff.font4Int3(frameBuffer, 226 * 4 + 1, 66 * 4, 0, 3, ref oldParam.eqHi[1], newParam.eqHi[1]);
+            DrawBuff.font4Int3(frameBuffer, 230 * 4 + 1, 66 * 4, 0, 3, ref oldParam.eqHi[2], newParam.eqHi[2]);
 
             for (int c = 0; c < 18; c++)
             {
