@@ -1,4 +1,8 @@
 更新履歴
+STBL253 2022/10/05
+  Core:共有メモリ処理を廃止。ファイルによる処理に変更。
+  mucomDotNET:SSGExtendが有効にならないケースがあったのを修正
+
 STBL252 2022/08/27
   mucomDotNET更新
 

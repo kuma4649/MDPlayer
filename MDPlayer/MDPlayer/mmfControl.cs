@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MDPlayer
 {
-    public class mmfControl
+    public class mmfControl : KumaCom
     {
         private object lockobj = new object();
         private MemoryMappedFile _map;
@@ -26,7 +26,7 @@ namespace MDPlayer
             if (!isClient) Open(mmfName, mmfSize);
         }
 
-        public void Open(string mmfName, int mmfSize)
+        public override bool Open(string mmfName, int mmfSize)
         {
             try
             {
@@ -48,14 +48,16 @@ namespace MDPlayer
                         log.Write(ex.Message + ex.StackTrace);
                     }
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 log.Write(ex.Message + ex.StackTrace);
+                return false;
             }
         }
 
-        public void Close()
+        public override void Close()
         {
             lock (lockobj)
             {
@@ -71,7 +73,7 @@ namespace MDPlayer
             }
         }
 
-        public string GetMessage()
+        public override string GetMessage()
         {
             string msg = "";
 
@@ -96,7 +98,7 @@ namespace MDPlayer
 
             return msg;
         }
-        public byte[] GetBytes()
+        public override byte[] GetBytes()
         {
             try
             {
@@ -118,7 +120,7 @@ namespace MDPlayer
             return mmfBuf;
         }
 
-        public void SendMessage(string msg)
+        public override void SendMessage(string msg)
         {
             try
             {

@@ -209,14 +209,14 @@ namespace MDPlayer.Driver
             if (tags == null) return;
             if (tags.Count < 1) return;
 
+            CarrierCorrection = false;
+            OPMClock = OPMbaseclock;
+            SSGExtend = false;
+
             foreach (var tag in tags)
             {
                 if (tag == null) continue;
                 if (string.IsNullOrEmpty(tag.Item1)) continue;
-
-                CarrierCorrection = false;
-                OPMClock = OPMbaseclock;
-                SSGExtend = false;
 
                 if (tag.Item1.ToLower().Trim() == "carriercorrection")
                 {

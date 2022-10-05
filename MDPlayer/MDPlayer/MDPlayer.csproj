@@ -308,6 +308,7 @@
     <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
     <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="fileCom.cs" />
     <Compile Include="form\frmBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -543,6 +544,7 @@
     <Compile Include="form\SYS\frmVisWave.Designer.cs">
       <DependentUpon>frmVisWave.cs</DependentUpon>
     </Compile>
+    <Compile Include="KumaCom.cs" />
     <Compile Include="mmfControl.cs" />
     <Compile Include="OpeManager.cs" />
     <Compile Include="Request.cs" />
