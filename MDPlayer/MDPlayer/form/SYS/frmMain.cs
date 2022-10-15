@@ -7576,7 +7576,7 @@ namespace MDPlayer.form
         {
             if (!setting.other.AdjustTLParam) return;
 
-            int[] algs = new int[] { 0x8, 0x8, 0x8, 0x8, 0xc, 0xe, 0xe, 0xe };
+            int[] algs = new int[] { 0x8, 0x8, 0x8, 0x8, 0xa, 0xe, 0xe, 0xe };
             int min = int.MaxValue;
 
             //最小値を調べる
