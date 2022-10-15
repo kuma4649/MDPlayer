@@ -125,10 +125,10 @@ namespace MDPlayer.Driver
 
                 if (PMDDriver.GetStatus() < 1)
                 {
-                    if (PMDDriver.GetStatus() == 0)
-                    {
-                        Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
-                    }
+                    //if (PMDDriver.GetStatus() == 0)
+                    //{
+                        //Thread.Sleep((int)(latency * 2.0));//実際の音声が発音しきるまでlatency*2の分だけ待つ
+                    //}
                     Stopped = true;
                 }
             }

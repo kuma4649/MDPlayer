@@ -1,4 +1,7 @@
 更新履歴
+STBL256 2022/10/15 3rd
+  Core:PMDDotNET演奏完了後にフリーズが発生するのを修正
+
 STBL255 2022/10/15 2nd
   PMDDotNET更新
 (Thanks!! pedipanol.)
