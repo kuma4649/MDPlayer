@@ -1002,72 +1002,81 @@ namespace MDPlayer.form
             if (!playing) return;
             if (setting == null) return;
 
-            string fn = "";
-            string arcFn = "";
-
-            Audio.getPlayingFileName(out fn, out arcFn);
-
-            if (fn == ofn && arcFn == oafn) return;
-            ofn = fn;
-            oafn = arcFn;
-
-            exts[0] = setting.other.TextExt.Split(';');
-            exts[1] = setting.other.MMLExt.Split(';');
-            exts[2] = setting.other.ImageExt.Split(';');
-
-            string bfn = Path.Combine(Path.GetDirectoryName(fn), Path.GetFileNameWithoutExtension(fn));
-            string bfnfld = Path.Combine(Path.GetDirectoryName(fn), Path.GetFileName(Path.GetDirectoryName(fn)));
-
-            text = "";
-            foreach (string ext in exts[0])
+            try
             {
-                if (File.Exists(bfn + "." + ext))
-                {
-                    text = bfn + "." + ext;
-                    break;
-                }
-                if (File.Exists(bfnfld + "." + ext))
-                {
-                    text = bfnfld + "." + ext;
-                    break;
-                }
-            }
-            mml = "";
-            foreach (string ext in exts[1])
-            {
-                if (File.Exists(bfn + "." + ext))
-                {
-                    mml = bfn + "." + ext;
-                    break;
-                }
-                if (File.Exists(bfnfld + "." + ext))
-                {
-                    mml = bfnfld + "." + ext;
-                    break;
-                }
-            }
-            img = "";
-            foreach (string ext in exts[2])
-            {
-                if (File.Exists(bfn + "." + ext))
-                {
-                    img = bfn + "." + ext;
-                    break;
-                }
-                if (File.Exists(bfnfld + "." + ext))
-                {
-                    img = bfnfld + "." + ext;
-                    break;
-                }
-            }
+                string fn = "";
+                string arcFn = "";
 
-            tsbTextExt.Enabled = (text != "");
-            tsbMMLExt.Enabled = (mml != "");
-            tsbImgExt.Enabled = (img != "");
+                Audio.getPlayingFileName(out fn, out arcFn);
 
-            if (setting.other.AutoOpenText && text != "") tsbTextExt_Click(null, null);
-            if (setting.other.AutoOpenMML && mml != "") tsbMMLExt_Click(null, null);
-            if (setting.other.AutoOpenImg && img != "") tsbImgExt_Click(null, null);
+                if (fn == ofn && arcFn == oafn) return;
+                ofn = fn;
+                oafn = arcFn;
+
+                exts[0] = setting.other.TextExt.Split(';');
+                exts[1] = setting.other.MMLExt.Split(';');
+                exts[2] = setting.other.ImageExt.Split(';');
+
+                string dir = Path.GetDirectoryName(fn);
+                string bfn = Path.Combine(dir, Path.GetFileNameWithoutExtension(fn));
+                string bfnfld = Path.Combine(dir, Path.GetFileName(dir));
+
+                text = "";
+                foreach (string ext in exts[0])
+                {
+                    if (File.Exists(bfn + "." + ext))
+                    {
+                        text = bfn + "." + ext;
+                        break;
+                    }
+                    if (File.Exists(bfnfld + "." + ext))
+                    {
+                        text = bfnfld + "." + ext;
+                        break;
+                    }
+                }
+                mml = "";
+                foreach (string ext in exts[1])
+                {
+                    if (File.Exists(bfn + "." + ext))
+                    {
+                        mml = bfn + "." + ext;
+                        break;
+                    }
+                    if (File.Exists(bfnfld + "." + ext))
+                    {
+                        mml = bfnfld + "." + ext;
+                        break;
+                    }
+                }
+                img = "";
+                foreach (string ext in exts[2])
+                {
+                    if (File.Exists(bfn + "." + ext))
+                    {
+                        img = bfn + "." + ext;
+                        break;
+                    }
+                    if (File.Exists(bfnfld + "." + ext))
+                    {
+                        img = bfnfld + "." + ext;
+                        break;
+                    }
+                }
+
+                tsbTextExt.Enabled = (text != "");
+                tsbMMLExt.Enabled = (mml != "");
+                tsbImgExt.Enabled = (img != "");
+
+                if (setting.other.AutoOpenText && text != "") tsbTextExt_Click(null, null);
+                if (setting.other.AutoOpenMML && mml != "") tsbMMLExt_Click(null, null);
+                if (setting.other.AutoOpenImg && img != "") tsbImgExt_Click(null, null);
+            }
+            catch 
+            {
+                //解析できないファイル名の場合は無視
+                ;
+            }
         }
 
         private void tsbTextExt_Click(object sender, EventArgs e)
