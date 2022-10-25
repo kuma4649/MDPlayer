@@ -36,6 +36,8 @@ namespace MDPlayer
             }
         }
 
+        public WaveFormat OutputWaveFormat => throw new NotImplementedException();
+
         public event EventHandler<StoppedEventArgs> PlaybackStopped;
 
         public void Dispose()
