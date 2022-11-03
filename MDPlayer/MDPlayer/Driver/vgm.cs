@@ -819,7 +819,9 @@ namespace MDPlayer
 
         private void vcWSwanMem()
         {
-            chipRegister.writeWSwanMem(0, (int)((vgmBuf[vgmAdr + 0x01] & 0xFF) | ((vgmBuf[vgmAdr + 0x02] & 0xFF) << 8)), vgmBuf[vgmAdr + 0x03], model);
+            chipRegister.writeWSwanMem(0,
+                (int)((vgmBuf[vgmAdr + 0x02] & 0xFF) | ((vgmBuf[vgmAdr + 0x01] & 0xFF) << 8)),
+                vgmBuf[vgmAdr + 0x03], model);
             vgmAdr += 4;
         }
 

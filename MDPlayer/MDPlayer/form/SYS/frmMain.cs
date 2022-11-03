@@ -5699,23 +5699,49 @@ namespace MDPlayer.form
                 }
                 else if (chip == EnmChip.YM3812 || chip == EnmChip.YMF262 || chip == EnmChip.YMF278B)
                 {
-                    if (setting.other.InstFormat == EnmInstFormat.OPLI)
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(EnmChip.YM3812, ch, chipID);
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.OPLI)
                     {
                         getInstChForOPLI(chip, ch, chipID);
                     }
                     else
                     {
-                        getInstChForSendMML2VGM(chip, ch, chipID);
                     }
                 }
                 else if (chip == EnmChip.VRC7)
                 {
-                    getInstChForMGSC(chip, ch, chipID);
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForMGSC(chip, ch, chipID);
+                    }
                     return;
                 }
                 else if (chip == EnmChip.K051649)
                 {
-                    if (setting.other.InstFormat == EnmInstFormat.MGSCSCC_PLAIN)
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.MGSCSCC_PLAIN)
                     {
                         getInstChForMGSCSCCPLAIN(ch, chipID);
                     }
@@ -5727,7 +5753,18 @@ namespace MDPlayer.form
                 }
                 else if (chip == EnmChip.N163)
                 {
-                    getInstChForMCK(chip, ch, chipID);
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
+                    }
+                    else
+                    {
+                        getInstChForMCK(chip, ch, chipID);
+                    }
                     return;
                 }
                 else if(chip== EnmChip.HuC6280)
@@ -6159,6 +6196,8 @@ namespace MDPlayer.form
                     ,(regs[0xc0 + ch] >> 1) & 7
                     );
             }
+
+            //VRC7/K051649/N163
 
             return n;
         }
