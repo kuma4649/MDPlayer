@@ -58,6 +58,7 @@ namespace MDPlayer
         public uint QSoundClockValue;
         public uint SAA1099ClockValue;
         public uint WSwanClockValue;
+        public uint ES5503ClockValue;
         public uint X1_010ClockValue;
         public uint C352ClockValue;
         public byte C352ClockDivider;
@@ -96,6 +97,7 @@ namespace MDPlayer
         public bool HuC6280DualChipFlag;
         public bool C140DualChipFlag;
         public bool SAA1099DualChipFlag;
+        public bool ES5503DualChipFlag;
         public bool WSwanDualChipFlag;
         public bool X1_010DualChipFlag;
         public bool C352DualChipFlag;
@@ -112,6 +114,7 @@ namespace MDPlayer
         public dacControl dacControl = null;
         public bool isPcmRAMWrite = false;
         public bool useChipYM2612Ch6 = false;
+        public int ES5503Ch = 2;
         //public Setting setting = null;
 
 
@@ -501,7 +504,7 @@ namespace MDPlayer
             vgmCmdTbl[0xd2] = vcK051649;
             vgmCmdTbl[0xd3] = vcK054539;
             vgmCmdTbl[0xd4] = vcC140;
-            vgmCmdTbl[0xd5] = vcDummy3Ope;
+            vgmCmdTbl[0xd5] = vcES5503;
             vgmCmdTbl[0xd6] = vcDummy3Ope;
             vgmCmdTbl[0xd7] = vcDummy3Ope;
 
@@ -881,7 +884,7 @@ namespace MDPlayer
                 chipID = 1;
             }
 
-            switch (bType & 0xc0)
+            switch (bType & 0xe0)
             {
                 case 0x00:
                 case 0x40:
@@ -1122,6 +1125,34 @@ namespace MDPlayer
                             case 0xc2:
                                 chipRegister.writeNESPCMData(chipID, stAdr, dataSize, vgmBuf, vgmAdr + 9, model);
                                 dumpData(model, "NES_PCMData", vgmAdr + 9, dataSize);
+                                break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        log.ForcedWrite(e);
+                    }
+
+                    vgmAdr += bLen + 7;
+                    break;
+                case 0xe0:
+                    uint stAdr_E = getLE32(vgmAdr + 7);
+                    uint dataSize_E = bLen - 2;
+                    uint ROMData_E = vgmAdr + 9;
+                    if ((bType & 0x20) != 0)
+                    {
+                        stAdr_E = getLE32(vgmAdr + 7);
+                        dataSize_E = bLen - 4;
+                        ROMData_E = vgmAdr + 11;
+                    }
+
+                    try
+                    {
+                        switch (bType)
+                        {
+                            case 0xe1:
+                                chipRegister.writeES5503PCMData(chipID, stAdr_E, dataSize_E, vgmBuf, vgmAdr + 11, model);
+                                dumpData(model, "ES5503_PCMData", vgmAdr + 9, dataSize_E);
                                 break;
                         }
                     }
@@ -1516,6 +1547,15 @@ namespace MDPlayer
             uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
             byte data = vgmBuf[vgmAdr + 3];
             chipRegister.writeC140(id, adr, data, model);
+            vgmAdr += 4;
+        }
+
+        private void vcES5503()//0xD5 pp aa dd
+        {
+            byte id = (byte)((vgmBuf[vgmAdr + 1] & 0x80) != 0 ? 1 : 0);
+            uint adr = (uint)((vgmBuf[vgmAdr + 1] & 0x7f) * 0x100 + (vgmBuf[vgmAdr + 2] & 0xff));
+            byte data = vgmBuf[vgmAdr + 3];
+            chipRegister.writeES5503(id, adr, data, model);
             vgmAdr += 4;
         }
 
@@ -1982,6 +2022,7 @@ namespace MDPlayer
             SAA1099ClockValue = 0;
             X1_010ClockValue = 0;
             WSwanClockValue = 0;
+            ES5503ClockValue = 0;
 
 
             //ヘッダーを読み込めるサイズをもっているかチェック
@@ -2503,6 +2544,21 @@ namespace MDPlayer
                             SAA1099DualChipFlag = (SAA1099clock & 0x4000_0000) != 0;
                             if (SAA1099DualChipFlag) chips.Add("SAA1099x2");
                             else chips.Add("SAA1099");
+                        }
+                    }
+
+                    if (vgmDataOffset > 0xcc)
+                    {
+
+                        uint ES5503clock = getLE32(0xcc);
+                        if (ES5503clock != 0)
+                        {
+                            ES5503ClockValue = ES5503clock & 0x3fff_ffff;//def=7159090
+                            ES5503DualChipFlag = (ES5503clock & 0x4000_0000) != 0;
+                            ES5503Ch = vgmBuf[0xd4];
+                            //if (ES5503Ch == 1) ES5503Ch = 2;
+                            if (ES5503DualChipFlag) chips.Add("ES5503x2");
+                            else chips.Add("ES5503");
                         }
                     }
 

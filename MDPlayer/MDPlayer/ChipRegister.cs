@@ -41,6 +41,7 @@ namespace MDPlayer
         private Setting.ChipType2[] ctY8950 = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctSEGAPCM = new Setting.ChipType2[2] { null, null };
         private Setting.ChipType2[] ctC140 = new Setting.ChipType2[2] { null, null };
+        private Setting.ChipType2[] ctES5503 = new Setting.ChipType2[2] { null, null };
 
         private RealChip realChip = null;
         private RSoundChip[] scSN76489 =  new RSoundChip[2] { null, null };
@@ -518,6 +519,7 @@ namespace MDPlayer
             this.ctYM3812 = new Setting.ChipType2[] { setting.YM3812Type[0], setting.YM3812Type[1] };
             this.ctY8950 = new Setting.ChipType2[] { setting.Y8950Type[0], setting.Y8950Type[1] };
             this.ctC140 = new Setting.ChipType2[] { setting.C140Type[0], setting.C140Type[1] };
+            this.ctES5503 = new Setting.ChipType2[] { setting.ES5503Type[0], setting.ES5503Type[1] };
             this.ctSEGAPCM = new Setting.ChipType2[] { setting.SEGAPCMType[0], setting.SEGAPCMType[1] };
 
             initChipRegister(null);
@@ -5630,6 +5632,37 @@ namespace MDPlayer
                 writeC140((byte)chipID, (uint)(0x01 + ch * 16), 0x00, model);
             }
         }
+
+        public void writeES5503(byte chipID, uint adr, byte data, EnmModel model)
+        {
+            if (chipID == 0) chipLED.PriES53 = 2;
+            else chipLED.SecES53 = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                if (ctES5503[chipID] == null || !ctES5503[chipID].UseReal[0])
+                    mds.WriteES5503(chipID, (int)adr, data);
+            }
+        }
+
+        public void writeES5503PCMData(byte chipID, uint DataStart, uint DataLength, byte[] romdata, uint SrcStartAdr, EnmModel model)
+        {
+            if (chipID == 0) chipLED.PriES53 = 2;
+            else chipLED.SecES53 = 2;
+
+            if (model == EnmModel.VirtualModel)
+            {
+                for (uint i = 0; i < DataLength; i++)
+                {
+                    mds.WriteES5503Mem(chipID, (int)(DataStart + i), romdata[SrcStartAdr + i]);
+                    //Console.WriteLine("{0:X}:{1:X}", (int)(DataStart + i), romdata[SrcStartAdr + i]);
+                }
+            }
+            else
+            {
+            }
+        }
+
 
         //
         // 鍵盤のボリューム表示のため音量を取得する

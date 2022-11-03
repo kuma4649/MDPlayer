@@ -512,6 +512,19 @@ namespace MDPlayer
             }
         }
 
+        private ChipType2[] _ES5503Type = null;
+        public ChipType2[] ES5503Type
+        {
+            get
+            {
+                return _ES5503Type;
+            }
+
+            set
+            {
+                _ES5503Type = value;
+            }
+        }
         //private ChipType2 _C140SType = new ChipType2();
         //public ChipType2 C140SType
         //{
@@ -2104,6 +2117,22 @@ namespace MDPlayer
                 }
             }
 
+            private int _ES5503Volume = 0;
+            public int ES5503Volume
+            {
+                get
+                {
+                    if (_ES5503Volume > 20 || _ES5503Volume < -192) _ES5503Volume = 0;
+                    return _ES5503Volume;
+                }
+
+                set
+                {
+                    _ES5503Volume = value;
+                    if (_ES5503Volume > 20 || _ES5503Volume < -192) _ES5503Volume = 0;
+                }
+            }
+
             private int _WSwanVolume = 0;
             public int WSwanVolume
             {
@@ -2545,6 +2574,7 @@ namespace MDPlayer
                 Balance.SN76489Volume = this.SN76489Volume;
                 Balance.HuC6280Volume = this.HuC6280Volume;
                 Balance.SAA1099Volume = this.SAA1099Volume;
+                Balance.ES5503Volume = this.ES5503Volume;
 
                 Balance.RF5C164Volume = this.RF5C164Volume;
                 Balance.RF5C68Volume = this.RF5C68Volume;
@@ -5437,6 +5467,13 @@ namespace MDPlayer
             {
                 setting.C140Type = new ChipType2[this.C140Type.Length];
                 for (int i = 0; i < this.C140Type.Length; i++) setting.C140Type[i] = this.C140Type[i].Copy();
+            }
+
+            setting.ES5503Type = null;
+            if (this.ES5503Type != null)
+            {
+                setting.ES5503Type = new ChipType2[this.ES5503Type.Length];
+                for (int i = 0; i < this.ES5503Type.Length; i++) setting.ES5503Type[i] = this.ES5503Type[i].Copy();
             }
 
             setting.SEGAPCMType = null;
