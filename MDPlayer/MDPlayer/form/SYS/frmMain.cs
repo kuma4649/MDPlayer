@@ -5730,6 +5730,22 @@ namespace MDPlayer.form
                     getInstChForMCK(chip, ch, chipID);
                     return;
                 }
+                else if(chip== EnmChip.HuC6280)
+                {
+                    if (setting.other.InstFormat == EnmInstFormat.MML2VGM)
+                    {
+
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.SendMML2VGM)
+                    {
+                        getInstChForSendMML2VGM(chip, ch, chipID);
+                    }
+                    else if (setting.other.InstFormat == EnmInstFormat.HUSIC)
+                    {
+                        getInstChForHuSIC(chip, ch, chipID);
+                    }
+                    return;
+                }
                 else
                 {
                     switch (setting.other.InstFormat)
@@ -5757,9 +5773,6 @@ namespace MDPlayer.form
                             break;
                         case EnmInstFormat.NRTDRV:
                             getInstChForNRTDRV(chip, ch, chipID);
-                            break;
-                        case EnmInstFormat.HUSIC:
-                            getInstChForHuSIC(chip, ch, chipID);
                             break;
                         case EnmInstFormat.VOPM:
                             getInstChForVOPM(chip, ch, chipID);
