@@ -329,75 +329,118 @@ namespace MDPlayer.form
             this.tpKeyBoard = new System.Windows.Forms.TabPage();
             this.cbUseKeyBoardHook = new System.Windows.Forms.CheckBox();
             this.gbUseKeyBoardHook = new System.Windows.Forms.GroupBox();
-            this.lblKeyBoardHookNotice = new System.Windows.Forms.Label();
-            this.btNextClr = new System.Windows.Forms.Button();
-            this.btPrevClr = new System.Windows.Forms.Button();
-            this.btPlayClr = new System.Windows.Forms.Button();
-            this.btPauseClr = new System.Windows.Forms.Button();
-            this.btFastClr = new System.Windows.Forms.Button();
-            this.btFadeoutClr = new System.Windows.Forms.Button();
-            this.btSlowClr = new System.Windows.Forms.Button();
-            this.btStopClr = new System.Windows.Forms.Button();
-            this.btNextSet = new System.Windows.Forms.Button();
-            this.btPrevSet = new System.Windows.Forms.Button();
-            this.btPlaySet = new System.Windows.Forms.Button();
-            this.btPauseSet = new System.Windows.Forms.Button();
-            this.btFastSet = new System.Windows.Forms.Button();
-            this.btFadeoutSet = new System.Windows.Forms.Button();
-            this.btSlowSet = new System.Windows.Forms.Button();
-            this.btStopSet = new System.Windows.Forms.Button();
-            this.label50 = new System.Windows.Forms.Label();
-            this.lblNextKey = new System.Windows.Forms.Label();
-            this.lblFastKey = new System.Windows.Forms.Label();
-            this.lblPlayKey = new System.Windows.Forms.Label();
-            this.lblSlowKey = new System.Windows.Forms.Label();
-            this.lblPrevKey = new System.Windows.Forms.Label();
-            this.lblFadeoutKey = new System.Windows.Forms.Label();
-            this.lblPauseKey = new System.Windows.Forms.Label();
-            this.lblStopKey = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btPpcClr = new System.Windows.Forms.Button();
+            this.cbPpcShift = new System.Windows.Forms.CheckBox();
+            this.btPpcSet = new System.Windows.Forms.Button();
+            this.label76 = new System.Windows.Forms.Label();
+            this.lblPpcKey = new System.Windows.Forms.Label();
+            this.cbPpcAlt = new System.Windows.Forms.CheckBox();
+            this.cbPpcCtrl = new System.Windows.Forms.CheckBox();
+            this.btDpcClr = new System.Windows.Forms.Button();
+            this.cbDpcShift = new System.Windows.Forms.CheckBox();
+            this.btDpcSet = new System.Windows.Forms.Button();
+            this.label74 = new System.Windows.Forms.Label();
+            this.lblDpcKey = new System.Windows.Forms.Label();
+            this.cbDpcAlt = new System.Windows.Forms.CheckBox();
+            this.cbDpcCtrl = new System.Windows.Forms.CheckBox();
+            this.btUpcClr = new System.Windows.Forms.Button();
+            this.btRmvClr = new System.Windows.Forms.Button();
+            this.cbUpcShift = new System.Windows.Forms.CheckBox();
             this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox17 = new System.Windows.Forms.PictureBox();
-            this.cbNextAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox16 = new System.Windows.Forms.PictureBox();
-            this.cbFastAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
-            this.cbPlayAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.cbSlowAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.cbPrevAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.cbFadeoutAlt = new System.Windows.Forms.CheckBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.cbPauseAlt = new System.Windows.Forms.CheckBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.cbStopAlt = new System.Windows.Forms.CheckBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.cbNextCtrl = new System.Windows.Forms.CheckBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.cbFastCtrl = new System.Windows.Forms.CheckBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.cbPlayCtrl = new System.Windows.Forms.CheckBox();
-            this.cbStopShift = new System.Windows.Forms.CheckBox();
-            this.cbSlowCtrl = new System.Windows.Forms.CheckBox();
-            this.cbPauseShift = new System.Windows.Forms.CheckBox();
-            this.cbPrevCtrl = new System.Windows.Forms.CheckBox();
-            this.cbFadeoutShift = new System.Windows.Forms.CheckBox();
-            this.cbFadeoutCtrl = new System.Windows.Forms.CheckBox();
-            this.cbPrevShift = new System.Windows.Forms.CheckBox();
-            this.cbPauseCtrl = new System.Windows.Forms.CheckBox();
-            this.cbSlowShift = new System.Windows.Forms.CheckBox();
-            this.cbStopCtrl = new System.Windows.Forms.CheckBox();
-            this.cbPlayShift = new System.Windows.Forms.CheckBox();
-            this.cbNextShift = new System.Windows.Forms.CheckBox();
+            this.cbRmvShift = new System.Windows.Forms.CheckBox();
+            this.btUpcSet = new System.Windows.Forms.Button();
             this.cbFastShift = new System.Windows.Forms.CheckBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.btDmvClr = new System.Windows.Forms.Button();
+            this.lblUpcKey = new System.Windows.Forms.Label();
+            this.btRmvSet = new System.Windows.Forms.Button();
+            this.cbUpcAlt = new System.Windows.Forms.CheckBox();
+            this.cbDmvShift = new System.Windows.Forms.CheckBox();
+            this.cbUpcCtrl = new System.Windows.Forms.CheckBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.btUmvClr = new System.Windows.Forms.Button();
+            this.cbRmvAlt = new System.Windows.Forms.CheckBox();
+            this.cbUmvShift = new System.Windows.Forms.CheckBox();
+            this.cbRmvCtrl = new System.Windows.Forms.CheckBox();
+            this.btNextClr = new System.Windows.Forms.Button();
+            this.lblRmvKey = new System.Windows.Forms.Label();
+            this.cbNextShift = new System.Windows.Forms.CheckBox();
+            this.btPrevClr = new System.Windows.Forms.Button();
+            this.cbPlayShift = new System.Windows.Forms.CheckBox();
+            this.btPlayClr = new System.Windows.Forms.Button();
+            this.cbStopCtrl = new System.Windows.Forms.CheckBox();
+            this.btPauseClr = new System.Windows.Forms.Button();
+            this.cbSlowShift = new System.Windows.Forms.CheckBox();
+            this.btFastClr = new System.Windows.Forms.Button();
+            this.cbPauseCtrl = new System.Windows.Forms.CheckBox();
+            this.btFadeoutClr = new System.Windows.Forms.Button();
+            this.cbPrevShift = new System.Windows.Forms.CheckBox();
+            this.btSlowClr = new System.Windows.Forms.Button();
+            this.cbFadeoutCtrl = new System.Windows.Forms.CheckBox();
+            this.btDmvSet = new System.Windows.Forms.Button();
+            this.btStopClr = new System.Windows.Forms.Button();
+            this.btUmvSet = new System.Windows.Forms.Button();
+            this.cbFadeoutShift = new System.Windows.Forms.CheckBox();
+            this.btNextSet = new System.Windows.Forms.Button();
+            this.cbPrevCtrl = new System.Windows.Forms.CheckBox();
+            this.btPrevSet = new System.Windows.Forms.Button();
+            this.cbPauseShift = new System.Windows.Forms.CheckBox();
+            this.btPlaySet = new System.Windows.Forms.Button();
+            this.cbSlowCtrl = new System.Windows.Forms.CheckBox();
+            this.btPauseSet = new System.Windows.Forms.Button();
+            this.cbStopShift = new System.Windows.Forms.CheckBox();
+            this.btFastSet = new System.Windows.Forms.Button();
+            this.label71 = new System.Windows.Forms.Label();
+            this.cbPlayCtrl = new System.Windows.Forms.CheckBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.btFadeoutSet = new System.Windows.Forms.Button();
+            this.label44 = new System.Windows.Forms.Label();
+            this.btSlowSet = new System.Windows.Forms.Button();
+            this.cbFastCtrl = new System.Windows.Forms.CheckBox();
+            this.btStopSet = new System.Windows.Forms.Button();
+            this.cbDmvCtrl = new System.Windows.Forms.CheckBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.cbUmvCtrl = new System.Windows.Forms.CheckBox();
+            this.lblDmvKey = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.lblUmvKey = new System.Windows.Forms.Label();
+            this.cbNextCtrl = new System.Windows.Forms.CheckBox();
+            this.lblNextKey = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.lblFastKey = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.lblPlayKey = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.lblSlowKey = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.lblPrevKey = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.lblFadeoutKey = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.lblPauseKey = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.lblStopKey = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.cbStopAlt = new System.Windows.Forms.CheckBox();
+            this.cbDmvAlt = new System.Windows.Forms.CheckBox();
+            this.pictureBox17 = new System.Windows.Forms.PictureBox();
+            this.cbUmvAlt = new System.Windows.Forms.CheckBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.cbNextAlt = new System.Windows.Forms.CheckBox();
+            this.cbPauseAlt = new System.Windows.Forms.CheckBox();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.cbFastAlt = new System.Windows.Forms.CheckBox();
+            this.cbFadeoutAlt = new System.Windows.Forms.CheckBox();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.cbPlayAlt = new System.Windows.Forms.CheckBox();
+            this.cbPrevAlt = new System.Windows.Forms.CheckBox();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.cbSlowAlt = new System.Windows.Forms.CheckBox();
+            this.lblKeyBoardHookNotice = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.cbStopWin = new System.Windows.Forms.CheckBox();
             this.cbPauseWin = new System.Windows.Forms.CheckBox();
@@ -446,6 +489,7 @@ namespace MDPlayer.form
             this.cbWavSwitch = new System.Windows.Forms.CheckBox();
             this.cbUseGetInst = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbAdjustTLParam = new System.Windows.Forms.CheckBox();
             this.cmbInstFormat = new System.Windows.Forms.ComboBox();
             this.lblInstFormat = new System.Windows.Forms.Label();
             this.cbDumpSwitch = new System.Windows.Forms.CheckBox();
@@ -488,7 +532,6 @@ namespace MDPlayer.form
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.llOpenGithub = new System.Windows.Forms.LinkLabel();
-            this.cbAdjustTLParam = new System.Windows.Forms.CheckBox();
             this.gbWaveOut.SuspendLayout();
             this.gbAsioOut.SuspendLayout();
             this.gbWasapiOut.SuspendLayout();
@@ -564,14 +607,15 @@ namespace MDPlayer.form
             this.groupBox2.SuspendLayout();
             this.tpKeyBoard.SuspendLayout();
             this.gbUseKeyBoardHook.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.tpBalance.SuspendLayout();
             this.groupBox25.SuspendLayout();
             this.groupBox18.SuspendLayout();
@@ -2870,240 +2914,229 @@ namespace MDPlayer.form
             // gbUseKeyBoardHook
             // 
             resources.ApplyResources(this.gbUseKeyBoardHook, "gbUseKeyBoardHook");
+            this.gbUseKeyBoardHook.Controls.Add(this.panel1);
             this.gbUseKeyBoardHook.Controls.Add(this.lblKeyBoardHookNotice);
-            this.gbUseKeyBoardHook.Controls.Add(this.btNextClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPrevClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPlayClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPauseClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btFastClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btFadeoutClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btSlowClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btStopClr);
-            this.gbUseKeyBoardHook.Controls.Add(this.btNextSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPrevSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPlaySet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btPauseSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btFastSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btFadeoutSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btSlowSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.btStopSet);
-            this.gbUseKeyBoardHook.Controls.Add(this.label50);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblNextKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblFastKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblPlayKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblSlowKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblPrevKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblFadeoutKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblPauseKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.lblStopKey);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox14);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox17);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbNextAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox16);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFastAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox15);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPlayAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox13);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbSlowAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox12);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPrevAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox11);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFadeoutAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.pictureBox10);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPauseAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.label37);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbStopAlt);
-            this.gbUseKeyBoardHook.Controls.Add(this.label45);
-            this.gbUseKeyBoardHook.Controls.Add(this.label46);
-            this.gbUseKeyBoardHook.Controls.Add(this.label48);
-            this.gbUseKeyBoardHook.Controls.Add(this.label38);
-            this.gbUseKeyBoardHook.Controls.Add(this.label39);
-            this.gbUseKeyBoardHook.Controls.Add(this.label40);
-            this.gbUseKeyBoardHook.Controls.Add(this.label41);
-            this.gbUseKeyBoardHook.Controls.Add(this.label42);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbNextCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.label43);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFastCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.label44);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPlayCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbStopShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbSlowCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPauseShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPrevCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFadeoutShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFadeoutCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPrevShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPauseCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbSlowShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbStopCtrl);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbPlayShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbNextShift);
-            this.gbUseKeyBoardHook.Controls.Add(this.cbFastShift);
             this.gbUseKeyBoardHook.Name = "gbUseKeyBoardHook";
             this.gbUseKeyBoardHook.TabStop = false;
             // 
-            // lblKeyBoardHookNotice
+            // panel1
             // 
-            resources.ApplyResources(this.lblKeyBoardHookNotice, "lblKeyBoardHookNotice");
-            this.lblKeyBoardHookNotice.ForeColor = System.Drawing.Color.Red;
-            this.lblKeyBoardHookNotice.Name = "lblKeyBoardHookNotice";
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.btPpcClr);
+            this.panel1.Controls.Add(this.cbPpcShift);
+            this.panel1.Controls.Add(this.btPpcSet);
+            this.panel1.Controls.Add(this.label76);
+            this.panel1.Controls.Add(this.lblPpcKey);
+            this.panel1.Controls.Add(this.cbPpcAlt);
+            this.panel1.Controls.Add(this.cbPpcCtrl);
+            this.panel1.Controls.Add(this.btDpcClr);
+            this.panel1.Controls.Add(this.cbDpcShift);
+            this.panel1.Controls.Add(this.btDpcSet);
+            this.panel1.Controls.Add(this.label74);
+            this.panel1.Controls.Add(this.lblDpcKey);
+            this.panel1.Controls.Add(this.cbDpcAlt);
+            this.panel1.Controls.Add(this.cbDpcCtrl);
+            this.panel1.Controls.Add(this.btUpcClr);
+            this.panel1.Controls.Add(this.btRmvClr);
+            this.panel1.Controls.Add(this.cbUpcShift);
+            this.panel1.Controls.Add(this.pictureBox14);
+            this.panel1.Controls.Add(this.cbRmvShift);
+            this.panel1.Controls.Add(this.btUpcSet);
+            this.panel1.Controls.Add(this.cbFastShift);
+            this.panel1.Controls.Add(this.label72);
+            this.panel1.Controls.Add(this.btDmvClr);
+            this.panel1.Controls.Add(this.lblUpcKey);
+            this.panel1.Controls.Add(this.btRmvSet);
+            this.panel1.Controls.Add(this.cbUpcAlt);
+            this.panel1.Controls.Add(this.cbDmvShift);
+            this.panel1.Controls.Add(this.cbUpcCtrl);
+            this.panel1.Controls.Add(this.label69);
+            this.panel1.Controls.Add(this.btUmvClr);
+            this.panel1.Controls.Add(this.cbRmvAlt);
+            this.panel1.Controls.Add(this.cbUmvShift);
+            this.panel1.Controls.Add(this.cbRmvCtrl);
+            this.panel1.Controls.Add(this.btNextClr);
+            this.panel1.Controls.Add(this.lblRmvKey);
+            this.panel1.Controls.Add(this.cbNextShift);
+            this.panel1.Controls.Add(this.btPrevClr);
+            this.panel1.Controls.Add(this.cbPlayShift);
+            this.panel1.Controls.Add(this.btPlayClr);
+            this.panel1.Controls.Add(this.cbStopCtrl);
+            this.panel1.Controls.Add(this.btPauseClr);
+            this.panel1.Controls.Add(this.cbSlowShift);
+            this.panel1.Controls.Add(this.btFastClr);
+            this.panel1.Controls.Add(this.cbPauseCtrl);
+            this.panel1.Controls.Add(this.btFadeoutClr);
+            this.panel1.Controls.Add(this.cbPrevShift);
+            this.panel1.Controls.Add(this.btSlowClr);
+            this.panel1.Controls.Add(this.cbFadeoutCtrl);
+            this.panel1.Controls.Add(this.btDmvSet);
+            this.panel1.Controls.Add(this.btStopClr);
+            this.panel1.Controls.Add(this.btUmvSet);
+            this.panel1.Controls.Add(this.cbFadeoutShift);
+            this.panel1.Controls.Add(this.btNextSet);
+            this.panel1.Controls.Add(this.cbPrevCtrl);
+            this.panel1.Controls.Add(this.btPrevSet);
+            this.panel1.Controls.Add(this.cbPauseShift);
+            this.panel1.Controls.Add(this.btPlaySet);
+            this.panel1.Controls.Add(this.cbSlowCtrl);
+            this.panel1.Controls.Add(this.btPauseSet);
+            this.panel1.Controls.Add(this.cbStopShift);
+            this.panel1.Controls.Add(this.btFastSet);
+            this.panel1.Controls.Add(this.label71);
+            this.panel1.Controls.Add(this.cbPlayCtrl);
+            this.panel1.Controls.Add(this.label70);
+            this.panel1.Controls.Add(this.btFadeoutSet);
+            this.panel1.Controls.Add(this.label44);
+            this.panel1.Controls.Add(this.btSlowSet);
+            this.panel1.Controls.Add(this.cbFastCtrl);
+            this.panel1.Controls.Add(this.btStopSet);
+            this.panel1.Controls.Add(this.cbDmvCtrl);
+            this.panel1.Controls.Add(this.label43);
+            this.panel1.Controls.Add(this.cbUmvCtrl);
+            this.panel1.Controls.Add(this.lblDmvKey);
+            this.panel1.Controls.Add(this.label50);
+            this.panel1.Controls.Add(this.lblUmvKey);
+            this.panel1.Controls.Add(this.cbNextCtrl);
+            this.panel1.Controls.Add(this.lblNextKey);
+            this.panel1.Controls.Add(this.label42);
+            this.panel1.Controls.Add(this.lblFastKey);
+            this.panel1.Controls.Add(this.label41);
+            this.panel1.Controls.Add(this.lblPlayKey);
+            this.panel1.Controls.Add(this.label40);
+            this.panel1.Controls.Add(this.lblSlowKey);
+            this.panel1.Controls.Add(this.label39);
+            this.panel1.Controls.Add(this.lblPrevKey);
+            this.panel1.Controls.Add(this.label38);
+            this.panel1.Controls.Add(this.lblFadeoutKey);
+            this.panel1.Controls.Add(this.label48);
+            this.panel1.Controls.Add(this.lblPauseKey);
+            this.panel1.Controls.Add(this.label46);
+            this.panel1.Controls.Add(this.lblStopKey);
+            this.panel1.Controls.Add(this.label45);
+            this.panel1.Controls.Add(this.cbStopAlt);
+            this.panel1.Controls.Add(this.cbDmvAlt);
+            this.panel1.Controls.Add(this.pictureBox17);
+            this.panel1.Controls.Add(this.cbUmvAlt);
+            this.panel1.Controls.Add(this.label37);
+            this.panel1.Controls.Add(this.cbNextAlt);
+            this.panel1.Controls.Add(this.cbPauseAlt);
+            this.panel1.Controls.Add(this.pictureBox16);
+            this.panel1.Controls.Add(this.pictureBox10);
+            this.panel1.Controls.Add(this.cbFastAlt);
+            this.panel1.Controls.Add(this.cbFadeoutAlt);
+            this.panel1.Controls.Add(this.pictureBox15);
+            this.panel1.Controls.Add(this.pictureBox11);
+            this.panel1.Controls.Add(this.cbPlayAlt);
+            this.panel1.Controls.Add(this.cbPrevAlt);
+            this.panel1.Controls.Add(this.pictureBox13);
+            this.panel1.Controls.Add(this.pictureBox12);
+            this.panel1.Controls.Add(this.cbSlowAlt);
+            this.panel1.Name = "panel1";
             // 
-            // btNextClr
+            // btPpcClr
             // 
-            resources.ApplyResources(this.btNextClr, "btNextClr");
-            this.btNextClr.Name = "btNextClr";
-            this.btNextClr.UseVisualStyleBackColor = true;
-            this.btNextClr.Click += new System.EventHandler(this.btNextClr_Click);
+            resources.ApplyResources(this.btPpcClr, "btPpcClr");
+            this.btPpcClr.Name = "btPpcClr";
+            this.btPpcClr.UseVisualStyleBackColor = true;
+            this.btPpcClr.Click += new System.EventHandler(this.btPpcClr_Click);
             // 
-            // btPrevClr
+            // cbPpcShift
             // 
-            resources.ApplyResources(this.btPrevClr, "btPrevClr");
-            this.btPrevClr.Name = "btPrevClr";
-            this.btPrevClr.UseVisualStyleBackColor = true;
-            this.btPrevClr.Click += new System.EventHandler(this.btPrevClr_Click);
+            resources.ApplyResources(this.cbPpcShift, "cbPpcShift");
+            this.cbPpcShift.Name = "cbPpcShift";
+            this.cbPpcShift.UseVisualStyleBackColor = true;
             // 
-            // btPlayClr
+            // btPpcSet
             // 
-            resources.ApplyResources(this.btPlayClr, "btPlayClr");
-            this.btPlayClr.Name = "btPlayClr";
-            this.btPlayClr.UseVisualStyleBackColor = true;
-            this.btPlayClr.Click += new System.EventHandler(this.btPlayClr_Click);
+            resources.ApplyResources(this.btPpcSet, "btPpcSet");
+            this.btPpcSet.Name = "btPpcSet";
+            this.btPpcSet.UseVisualStyleBackColor = true;
+            this.btPpcSet.Click += new System.EventHandler(this.btPpcSet_Click);
             // 
-            // btPauseClr
+            // label76
             // 
-            resources.ApplyResources(this.btPauseClr, "btPauseClr");
-            this.btPauseClr.Name = "btPauseClr";
-            this.btPauseClr.UseVisualStyleBackColor = true;
-            this.btPauseClr.Click += new System.EventHandler(this.btPauseClr_Click);
+            resources.ApplyResources(this.label76, "label76");
+            this.label76.Name = "label76";
             // 
-            // btFastClr
+            // lblPpcKey
             // 
-            resources.ApplyResources(this.btFastClr, "btFastClr");
-            this.btFastClr.Name = "btFastClr";
-            this.btFastClr.UseVisualStyleBackColor = true;
-            this.btFastClr.Click += new System.EventHandler(this.btFastClr_Click);
+            resources.ApplyResources(this.lblPpcKey, "lblPpcKey");
+            this.lblPpcKey.Name = "lblPpcKey";
             // 
-            // btFadeoutClr
+            // cbPpcAlt
             // 
-            resources.ApplyResources(this.btFadeoutClr, "btFadeoutClr");
-            this.btFadeoutClr.Name = "btFadeoutClr";
-            this.btFadeoutClr.UseVisualStyleBackColor = true;
-            this.btFadeoutClr.Click += new System.EventHandler(this.btFadeoutClr_Click);
+            resources.ApplyResources(this.cbPpcAlt, "cbPpcAlt");
+            this.cbPpcAlt.Name = "cbPpcAlt";
+            this.cbPpcAlt.UseVisualStyleBackColor = true;
             // 
-            // btSlowClr
+            // cbPpcCtrl
             // 
-            resources.ApplyResources(this.btSlowClr, "btSlowClr");
-            this.btSlowClr.Name = "btSlowClr";
-            this.btSlowClr.UseVisualStyleBackColor = true;
-            this.btSlowClr.Click += new System.EventHandler(this.btSlowClr_Click);
+            resources.ApplyResources(this.cbPpcCtrl, "cbPpcCtrl");
+            this.cbPpcCtrl.Name = "cbPpcCtrl";
+            this.cbPpcCtrl.UseVisualStyleBackColor = true;
             // 
-            // btStopClr
+            // btDpcClr
             // 
-            resources.ApplyResources(this.btStopClr, "btStopClr");
-            this.btStopClr.Name = "btStopClr";
-            this.btStopClr.UseVisualStyleBackColor = true;
-            this.btStopClr.Click += new System.EventHandler(this.btStopClr_Click);
+            resources.ApplyResources(this.btDpcClr, "btDpcClr");
+            this.btDpcClr.Name = "btDpcClr";
+            this.btDpcClr.UseVisualStyleBackColor = true;
+            this.btDpcClr.Click += new System.EventHandler(this.btDpcClr_Click);
             // 
-            // btNextSet
+            // cbDpcShift
             // 
-            resources.ApplyResources(this.btNextSet, "btNextSet");
-            this.btNextSet.Name = "btNextSet";
-            this.btNextSet.UseVisualStyleBackColor = true;
-            this.btNextSet.Click += new System.EventHandler(this.btNextSet_Click);
+            resources.ApplyResources(this.cbDpcShift, "cbDpcShift");
+            this.cbDpcShift.Name = "cbDpcShift";
+            this.cbDpcShift.UseVisualStyleBackColor = true;
             // 
-            // btPrevSet
+            // btDpcSet
             // 
-            resources.ApplyResources(this.btPrevSet, "btPrevSet");
-            this.btPrevSet.Name = "btPrevSet";
-            this.btPrevSet.UseVisualStyleBackColor = true;
-            this.btPrevSet.Click += new System.EventHandler(this.btPrevSet_Click);
+            resources.ApplyResources(this.btDpcSet, "btDpcSet");
+            this.btDpcSet.Name = "btDpcSet";
+            this.btDpcSet.UseVisualStyleBackColor = true;
+            this.btDpcSet.Click += new System.EventHandler(this.btDpcSet_Click);
             // 
-            // btPlaySet
+            // label74
             // 
-            resources.ApplyResources(this.btPlaySet, "btPlaySet");
-            this.btPlaySet.Name = "btPlaySet";
-            this.btPlaySet.UseVisualStyleBackColor = true;
-            this.btPlaySet.Click += new System.EventHandler(this.btPlaySet_Click);
+            resources.ApplyResources(this.label74, "label74");
+            this.label74.Name = "label74";
             // 
-            // btPauseSet
+            // lblDpcKey
             // 
-            resources.ApplyResources(this.btPauseSet, "btPauseSet");
-            this.btPauseSet.Name = "btPauseSet";
-            this.btPauseSet.UseVisualStyleBackColor = true;
-            this.btPauseSet.Click += new System.EventHandler(this.btPauseSet_Click);
+            resources.ApplyResources(this.lblDpcKey, "lblDpcKey");
+            this.lblDpcKey.Name = "lblDpcKey";
             // 
-            // btFastSet
+            // cbDpcAlt
             // 
-            resources.ApplyResources(this.btFastSet, "btFastSet");
-            this.btFastSet.Name = "btFastSet";
-            this.btFastSet.UseVisualStyleBackColor = true;
-            this.btFastSet.Click += new System.EventHandler(this.btFastSet_Click);
+            resources.ApplyResources(this.cbDpcAlt, "cbDpcAlt");
+            this.cbDpcAlt.Name = "cbDpcAlt";
+            this.cbDpcAlt.UseVisualStyleBackColor = true;
             // 
-            // btFadeoutSet
+            // cbDpcCtrl
             // 
-            resources.ApplyResources(this.btFadeoutSet, "btFadeoutSet");
-            this.btFadeoutSet.Name = "btFadeoutSet";
-            this.btFadeoutSet.UseVisualStyleBackColor = true;
-            this.btFadeoutSet.Click += new System.EventHandler(this.btFadeoutSet_Click);
+            resources.ApplyResources(this.cbDpcCtrl, "cbDpcCtrl");
+            this.cbDpcCtrl.Name = "cbDpcCtrl";
+            this.cbDpcCtrl.UseVisualStyleBackColor = true;
             // 
-            // btSlowSet
+            // btUpcClr
             // 
-            resources.ApplyResources(this.btSlowSet, "btSlowSet");
-            this.btSlowSet.Name = "btSlowSet";
-            this.btSlowSet.UseVisualStyleBackColor = true;
-            this.btSlowSet.Click += new System.EventHandler(this.btSlowSet_Click);
+            resources.ApplyResources(this.btUpcClr, "btUpcClr");
+            this.btUpcClr.Name = "btUpcClr";
+            this.btUpcClr.UseVisualStyleBackColor = true;
+            this.btUpcClr.Click += new System.EventHandler(this.btUpcClr_Click);
             // 
-            // btStopSet
+            // btRmvClr
             // 
-            resources.ApplyResources(this.btStopSet, "btStopSet");
-            this.btStopSet.Name = "btStopSet";
-            this.btStopSet.UseVisualStyleBackColor = true;
-            this.btStopSet.Click += new System.EventHandler(this.btStopSet_Click);
+            resources.ApplyResources(this.btRmvClr, "btRmvClr");
+            this.btRmvClr.Name = "btRmvClr";
+            this.btRmvClr.UseVisualStyleBackColor = true;
+            this.btRmvClr.Click += new System.EventHandler(this.btRmvClr_Click);
             // 
-            // label50
+            // cbUpcShift
             // 
-            resources.ApplyResources(this.label50, "label50");
-            this.label50.Name = "label50";
-            // 
-            // lblNextKey
-            // 
-            resources.ApplyResources(this.lblNextKey, "lblNextKey");
-            this.lblNextKey.Name = "lblNextKey";
-            // 
-            // lblFastKey
-            // 
-            resources.ApplyResources(this.lblFastKey, "lblFastKey");
-            this.lblFastKey.Name = "lblFastKey";
-            // 
-            // lblPlayKey
-            // 
-            resources.ApplyResources(this.lblPlayKey, "lblPlayKey");
-            this.lblPlayKey.Name = "lblPlayKey";
-            // 
-            // lblSlowKey
-            // 
-            resources.ApplyResources(this.lblSlowKey, "lblSlowKey");
-            this.lblSlowKey.Name = "lblSlowKey";
-            // 
-            // lblPrevKey
-            // 
-            resources.ApplyResources(this.lblPrevKey, "lblPrevKey");
-            this.lblPrevKey.Name = "lblPrevKey";
-            // 
-            // lblFadeoutKey
-            // 
-            resources.ApplyResources(this.lblFadeoutKey, "lblFadeoutKey");
-            this.lblFadeoutKey.Name = "lblFadeoutKey";
-            // 
-            // lblPauseKey
-            // 
-            resources.ApplyResources(this.lblPauseKey, "lblPauseKey");
-            this.lblPauseKey.Name = "lblPauseKey";
-            // 
-            // lblStopKey
-            // 
-            resources.ApplyResources(this.lblStopKey, "lblStopKey");
-            this.lblStopKey.Name = "lblStopKey";
+            resources.ApplyResources(this.cbUpcShift, "cbUpcShift");
+            this.cbUpcShift.Name = "cbUpcShift";
+            this.cbUpcShift.UseVisualStyleBackColor = true;
             // 
             // pictureBox14
             // 
@@ -3112,6 +3145,457 @@ namespace MDPlayer.form
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.TabStop = false;
             // 
+            // cbRmvShift
+            // 
+            resources.ApplyResources(this.cbRmvShift, "cbRmvShift");
+            this.cbRmvShift.Name = "cbRmvShift";
+            this.cbRmvShift.UseVisualStyleBackColor = true;
+            // 
+            // btUpcSet
+            // 
+            resources.ApplyResources(this.btUpcSet, "btUpcSet");
+            this.btUpcSet.Name = "btUpcSet";
+            this.btUpcSet.UseVisualStyleBackColor = true;
+            this.btUpcSet.Click += new System.EventHandler(this.btUpcSet_Click);
+            // 
+            // cbFastShift
+            // 
+            resources.ApplyResources(this.cbFastShift, "cbFastShift");
+            this.cbFastShift.Name = "cbFastShift";
+            this.cbFastShift.UseVisualStyleBackColor = true;
+            // 
+            // label72
+            // 
+            resources.ApplyResources(this.label72, "label72");
+            this.label72.Name = "label72";
+            // 
+            // btDmvClr
+            // 
+            resources.ApplyResources(this.btDmvClr, "btDmvClr");
+            this.btDmvClr.Name = "btDmvClr";
+            this.btDmvClr.UseVisualStyleBackColor = true;
+            this.btDmvClr.Click += new System.EventHandler(this.btDmvClr_Click);
+            // 
+            // lblUpcKey
+            // 
+            resources.ApplyResources(this.lblUpcKey, "lblUpcKey");
+            this.lblUpcKey.Name = "lblUpcKey";
+            // 
+            // btRmvSet
+            // 
+            resources.ApplyResources(this.btRmvSet, "btRmvSet");
+            this.btRmvSet.Name = "btRmvSet";
+            this.btRmvSet.UseVisualStyleBackColor = true;
+            this.btRmvSet.Click += new System.EventHandler(this.btRmvSet_Click);
+            // 
+            // cbUpcAlt
+            // 
+            resources.ApplyResources(this.cbUpcAlt, "cbUpcAlt");
+            this.cbUpcAlt.Name = "cbUpcAlt";
+            this.cbUpcAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbDmvShift
+            // 
+            resources.ApplyResources(this.cbDmvShift, "cbDmvShift");
+            this.cbDmvShift.Name = "cbDmvShift";
+            this.cbDmvShift.UseVisualStyleBackColor = true;
+            // 
+            // cbUpcCtrl
+            // 
+            resources.ApplyResources(this.cbUpcCtrl, "cbUpcCtrl");
+            this.cbUpcCtrl.Name = "cbUpcCtrl";
+            this.cbUpcCtrl.UseVisualStyleBackColor = true;
+            // 
+            // label69
+            // 
+            resources.ApplyResources(this.label69, "label69");
+            this.label69.Name = "label69";
+            // 
+            // btUmvClr
+            // 
+            resources.ApplyResources(this.btUmvClr, "btUmvClr");
+            this.btUmvClr.Name = "btUmvClr";
+            this.btUmvClr.UseVisualStyleBackColor = true;
+            this.btUmvClr.Click += new System.EventHandler(this.btUmvClr_Click);
+            // 
+            // cbRmvAlt
+            // 
+            resources.ApplyResources(this.cbRmvAlt, "cbRmvAlt");
+            this.cbRmvAlt.Name = "cbRmvAlt";
+            this.cbRmvAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbUmvShift
+            // 
+            resources.ApplyResources(this.cbUmvShift, "cbUmvShift");
+            this.cbUmvShift.Name = "cbUmvShift";
+            this.cbUmvShift.UseVisualStyleBackColor = true;
+            // 
+            // cbRmvCtrl
+            // 
+            resources.ApplyResources(this.cbRmvCtrl, "cbRmvCtrl");
+            this.cbRmvCtrl.Name = "cbRmvCtrl";
+            this.cbRmvCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btNextClr
+            // 
+            resources.ApplyResources(this.btNextClr, "btNextClr");
+            this.btNextClr.Name = "btNextClr";
+            this.btNextClr.UseVisualStyleBackColor = true;
+            this.btNextClr.Click += new System.EventHandler(this.btNextClr_Click);
+            // 
+            // lblRmvKey
+            // 
+            resources.ApplyResources(this.lblRmvKey, "lblRmvKey");
+            this.lblRmvKey.Name = "lblRmvKey";
+            // 
+            // cbNextShift
+            // 
+            resources.ApplyResources(this.cbNextShift, "cbNextShift");
+            this.cbNextShift.Name = "cbNextShift";
+            this.cbNextShift.UseVisualStyleBackColor = true;
+            // 
+            // btPrevClr
+            // 
+            resources.ApplyResources(this.btPrevClr, "btPrevClr");
+            this.btPrevClr.Name = "btPrevClr";
+            this.btPrevClr.UseVisualStyleBackColor = true;
+            this.btPrevClr.Click += new System.EventHandler(this.btPrevClr_Click);
+            // 
+            // cbPlayShift
+            // 
+            resources.ApplyResources(this.cbPlayShift, "cbPlayShift");
+            this.cbPlayShift.Name = "cbPlayShift";
+            this.cbPlayShift.UseVisualStyleBackColor = true;
+            // 
+            // btPlayClr
+            // 
+            resources.ApplyResources(this.btPlayClr, "btPlayClr");
+            this.btPlayClr.Name = "btPlayClr";
+            this.btPlayClr.UseVisualStyleBackColor = true;
+            this.btPlayClr.Click += new System.EventHandler(this.btPlayClr_Click);
+            // 
+            // cbStopCtrl
+            // 
+            resources.ApplyResources(this.cbStopCtrl, "cbStopCtrl");
+            this.cbStopCtrl.Name = "cbStopCtrl";
+            this.cbStopCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btPauseClr
+            // 
+            resources.ApplyResources(this.btPauseClr, "btPauseClr");
+            this.btPauseClr.Name = "btPauseClr";
+            this.btPauseClr.UseVisualStyleBackColor = true;
+            this.btPauseClr.Click += new System.EventHandler(this.btPauseClr_Click);
+            // 
+            // cbSlowShift
+            // 
+            resources.ApplyResources(this.cbSlowShift, "cbSlowShift");
+            this.cbSlowShift.Name = "cbSlowShift";
+            this.cbSlowShift.UseVisualStyleBackColor = true;
+            // 
+            // btFastClr
+            // 
+            resources.ApplyResources(this.btFastClr, "btFastClr");
+            this.btFastClr.Name = "btFastClr";
+            this.btFastClr.UseVisualStyleBackColor = true;
+            this.btFastClr.Click += new System.EventHandler(this.btFastClr_Click);
+            // 
+            // cbPauseCtrl
+            // 
+            resources.ApplyResources(this.cbPauseCtrl, "cbPauseCtrl");
+            this.cbPauseCtrl.Name = "cbPauseCtrl";
+            this.cbPauseCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btFadeoutClr
+            // 
+            resources.ApplyResources(this.btFadeoutClr, "btFadeoutClr");
+            this.btFadeoutClr.Name = "btFadeoutClr";
+            this.btFadeoutClr.UseVisualStyleBackColor = true;
+            this.btFadeoutClr.Click += new System.EventHandler(this.btFadeoutClr_Click);
+            // 
+            // cbPrevShift
+            // 
+            resources.ApplyResources(this.cbPrevShift, "cbPrevShift");
+            this.cbPrevShift.Name = "cbPrevShift";
+            this.cbPrevShift.UseVisualStyleBackColor = true;
+            // 
+            // btSlowClr
+            // 
+            resources.ApplyResources(this.btSlowClr, "btSlowClr");
+            this.btSlowClr.Name = "btSlowClr";
+            this.btSlowClr.UseVisualStyleBackColor = true;
+            this.btSlowClr.Click += new System.EventHandler(this.btSlowClr_Click);
+            // 
+            // cbFadeoutCtrl
+            // 
+            resources.ApplyResources(this.cbFadeoutCtrl, "cbFadeoutCtrl");
+            this.cbFadeoutCtrl.Name = "cbFadeoutCtrl";
+            this.cbFadeoutCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btDmvSet
+            // 
+            resources.ApplyResources(this.btDmvSet, "btDmvSet");
+            this.btDmvSet.Name = "btDmvSet";
+            this.btDmvSet.UseVisualStyleBackColor = true;
+            this.btDmvSet.Click += new System.EventHandler(this.btDmvSet_Click);
+            // 
+            // btStopClr
+            // 
+            resources.ApplyResources(this.btStopClr, "btStopClr");
+            this.btStopClr.Name = "btStopClr";
+            this.btStopClr.UseVisualStyleBackColor = true;
+            this.btStopClr.Click += new System.EventHandler(this.btStopClr_Click);
+            // 
+            // btUmvSet
+            // 
+            resources.ApplyResources(this.btUmvSet, "btUmvSet");
+            this.btUmvSet.Name = "btUmvSet";
+            this.btUmvSet.UseVisualStyleBackColor = true;
+            this.btUmvSet.Click += new System.EventHandler(this.btUmvSet_Click);
+            // 
+            // cbFadeoutShift
+            // 
+            resources.ApplyResources(this.cbFadeoutShift, "cbFadeoutShift");
+            this.cbFadeoutShift.Name = "cbFadeoutShift";
+            this.cbFadeoutShift.UseVisualStyleBackColor = true;
+            // 
+            // btNextSet
+            // 
+            resources.ApplyResources(this.btNextSet, "btNextSet");
+            this.btNextSet.Name = "btNextSet";
+            this.btNextSet.UseVisualStyleBackColor = true;
+            this.btNextSet.Click += new System.EventHandler(this.btNextSet_Click);
+            // 
+            // cbPrevCtrl
+            // 
+            resources.ApplyResources(this.cbPrevCtrl, "cbPrevCtrl");
+            this.cbPrevCtrl.Name = "cbPrevCtrl";
+            this.cbPrevCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btPrevSet
+            // 
+            resources.ApplyResources(this.btPrevSet, "btPrevSet");
+            this.btPrevSet.Name = "btPrevSet";
+            this.btPrevSet.UseVisualStyleBackColor = true;
+            this.btPrevSet.Click += new System.EventHandler(this.btPrevSet_Click);
+            // 
+            // cbPauseShift
+            // 
+            resources.ApplyResources(this.cbPauseShift, "cbPauseShift");
+            this.cbPauseShift.Name = "cbPauseShift";
+            this.cbPauseShift.UseVisualStyleBackColor = true;
+            // 
+            // btPlaySet
+            // 
+            resources.ApplyResources(this.btPlaySet, "btPlaySet");
+            this.btPlaySet.Name = "btPlaySet";
+            this.btPlaySet.UseVisualStyleBackColor = true;
+            this.btPlaySet.Click += new System.EventHandler(this.btPlaySet_Click);
+            // 
+            // cbSlowCtrl
+            // 
+            resources.ApplyResources(this.cbSlowCtrl, "cbSlowCtrl");
+            this.cbSlowCtrl.Name = "cbSlowCtrl";
+            this.cbSlowCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btPauseSet
+            // 
+            resources.ApplyResources(this.btPauseSet, "btPauseSet");
+            this.btPauseSet.Name = "btPauseSet";
+            this.btPauseSet.UseVisualStyleBackColor = true;
+            this.btPauseSet.Click += new System.EventHandler(this.btPauseSet_Click);
+            // 
+            // cbStopShift
+            // 
+            resources.ApplyResources(this.cbStopShift, "cbStopShift");
+            this.cbStopShift.Name = "cbStopShift";
+            this.cbStopShift.UseVisualStyleBackColor = true;
+            // 
+            // btFastSet
+            // 
+            resources.ApplyResources(this.btFastSet, "btFastSet");
+            this.btFastSet.Name = "btFastSet";
+            this.btFastSet.UseVisualStyleBackColor = true;
+            this.btFastSet.Click += new System.EventHandler(this.btFastSet_Click);
+            // 
+            // label71
+            // 
+            resources.ApplyResources(this.label71, "label71");
+            this.label71.Name = "label71";
+            // 
+            // cbPlayCtrl
+            // 
+            resources.ApplyResources(this.cbPlayCtrl, "cbPlayCtrl");
+            this.cbPlayCtrl.Name = "cbPlayCtrl";
+            this.cbPlayCtrl.UseVisualStyleBackColor = true;
+            // 
+            // label70
+            // 
+            resources.ApplyResources(this.label70, "label70");
+            this.label70.Name = "label70";
+            // 
+            // btFadeoutSet
+            // 
+            resources.ApplyResources(this.btFadeoutSet, "btFadeoutSet");
+            this.btFadeoutSet.Name = "btFadeoutSet";
+            this.btFadeoutSet.UseVisualStyleBackColor = true;
+            this.btFadeoutSet.Click += new System.EventHandler(this.btFadeoutSet_Click);
+            // 
+            // label44
+            // 
+            resources.ApplyResources(this.label44, "label44");
+            this.label44.Name = "label44";
+            // 
+            // btSlowSet
+            // 
+            resources.ApplyResources(this.btSlowSet, "btSlowSet");
+            this.btSlowSet.Name = "btSlowSet";
+            this.btSlowSet.UseVisualStyleBackColor = true;
+            this.btSlowSet.Click += new System.EventHandler(this.btSlowSet_Click);
+            // 
+            // cbFastCtrl
+            // 
+            resources.ApplyResources(this.cbFastCtrl, "cbFastCtrl");
+            this.cbFastCtrl.Name = "cbFastCtrl";
+            this.cbFastCtrl.UseVisualStyleBackColor = true;
+            // 
+            // btStopSet
+            // 
+            resources.ApplyResources(this.btStopSet, "btStopSet");
+            this.btStopSet.Name = "btStopSet";
+            this.btStopSet.UseVisualStyleBackColor = true;
+            this.btStopSet.Click += new System.EventHandler(this.btStopSet_Click);
+            // 
+            // cbDmvCtrl
+            // 
+            resources.ApplyResources(this.cbDmvCtrl, "cbDmvCtrl");
+            this.cbDmvCtrl.Name = "cbDmvCtrl";
+            this.cbDmvCtrl.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            resources.ApplyResources(this.label43, "label43");
+            this.label43.Name = "label43";
+            // 
+            // cbUmvCtrl
+            // 
+            resources.ApplyResources(this.cbUmvCtrl, "cbUmvCtrl");
+            this.cbUmvCtrl.Name = "cbUmvCtrl";
+            this.cbUmvCtrl.UseVisualStyleBackColor = true;
+            // 
+            // lblDmvKey
+            // 
+            resources.ApplyResources(this.lblDmvKey, "lblDmvKey");
+            this.lblDmvKey.Name = "lblDmvKey";
+            // 
+            // label50
+            // 
+            resources.ApplyResources(this.label50, "label50");
+            this.label50.Name = "label50";
+            // 
+            // lblUmvKey
+            // 
+            resources.ApplyResources(this.lblUmvKey, "lblUmvKey");
+            this.lblUmvKey.Name = "lblUmvKey";
+            // 
+            // cbNextCtrl
+            // 
+            resources.ApplyResources(this.cbNextCtrl, "cbNextCtrl");
+            this.cbNextCtrl.Name = "cbNextCtrl";
+            this.cbNextCtrl.UseVisualStyleBackColor = true;
+            // 
+            // lblNextKey
+            // 
+            resources.ApplyResources(this.lblNextKey, "lblNextKey");
+            this.lblNextKey.Name = "lblNextKey";
+            // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
+            // lblFastKey
+            // 
+            resources.ApplyResources(this.lblFastKey, "lblFastKey");
+            this.lblFastKey.Name = "lblFastKey";
+            // 
+            // label41
+            // 
+            resources.ApplyResources(this.label41, "label41");
+            this.label41.Name = "label41";
+            // 
+            // lblPlayKey
+            // 
+            resources.ApplyResources(this.lblPlayKey, "lblPlayKey");
+            this.lblPlayKey.Name = "lblPlayKey";
+            // 
+            // label40
+            // 
+            resources.ApplyResources(this.label40, "label40");
+            this.label40.Name = "label40";
+            // 
+            // lblSlowKey
+            // 
+            resources.ApplyResources(this.lblSlowKey, "lblSlowKey");
+            this.lblSlowKey.Name = "lblSlowKey";
+            // 
+            // label39
+            // 
+            resources.ApplyResources(this.label39, "label39");
+            this.label39.Name = "label39";
+            // 
+            // lblPrevKey
+            // 
+            resources.ApplyResources(this.lblPrevKey, "lblPrevKey");
+            this.lblPrevKey.Name = "lblPrevKey";
+            // 
+            // label38
+            // 
+            resources.ApplyResources(this.label38, "label38");
+            this.label38.Name = "label38";
+            // 
+            // lblFadeoutKey
+            // 
+            resources.ApplyResources(this.lblFadeoutKey, "lblFadeoutKey");
+            this.lblFadeoutKey.Name = "lblFadeoutKey";
+            // 
+            // label48
+            // 
+            resources.ApplyResources(this.label48, "label48");
+            this.label48.Name = "label48";
+            // 
+            // lblPauseKey
+            // 
+            resources.ApplyResources(this.lblPauseKey, "lblPauseKey");
+            this.lblPauseKey.Name = "lblPauseKey";
+            // 
+            // label46
+            // 
+            resources.ApplyResources(this.label46, "label46");
+            this.label46.Name = "label46";
+            // 
+            // lblStopKey
+            // 
+            resources.ApplyResources(this.lblStopKey, "lblStopKey");
+            this.lblStopKey.Name = "lblStopKey";
+            // 
+            // label45
+            // 
+            resources.ApplyResources(this.label45, "label45");
+            this.label45.Name = "label45";
+            // 
+            // cbStopAlt
+            // 
+            resources.ApplyResources(this.cbStopAlt, "cbStopAlt");
+            this.cbStopAlt.Name = "cbStopAlt";
+            this.cbStopAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbDmvAlt
+            // 
+            resources.ApplyResources(this.cbDmvAlt, "cbDmvAlt");
+            this.cbDmvAlt.Name = "cbDmvAlt";
+            this.cbDmvAlt.UseVisualStyleBackColor = true;
+            // 
             // pictureBox17
             // 
             this.pictureBox17.Image = global::MDPlayer.Properties.Resources.ccFadeout;
@@ -3119,11 +3603,28 @@ namespace MDPlayer.form
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.TabStop = false;
             // 
+            // cbUmvAlt
+            // 
+            resources.ApplyResources(this.cbUmvAlt, "cbUmvAlt");
+            this.cbUmvAlt.Name = "cbUmvAlt";
+            this.cbUmvAlt.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.Name = "label37";
+            // 
             // cbNextAlt
             // 
             resources.ApplyResources(this.cbNextAlt, "cbNextAlt");
             this.cbNextAlt.Name = "cbNextAlt";
             this.cbNextAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbPauseAlt
+            // 
+            resources.ApplyResources(this.cbPauseAlt, "cbPauseAlt");
+            this.cbPauseAlt.Name = "cbPauseAlt";
+            this.cbPauseAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox16
             // 
@@ -3132,11 +3633,24 @@ namespace MDPlayer.form
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.TabStop = false;
             // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = global::MDPlayer.Properties.Resources.ccNext;
+            resources.ApplyResources(this.pictureBox10, "pictureBox10");
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.TabStop = false;
+            // 
             // cbFastAlt
             // 
             resources.ApplyResources(this.cbFastAlt, "cbFastAlt");
             this.cbFastAlt.Name = "cbFastAlt";
             this.cbFastAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbFadeoutAlt
+            // 
+            resources.ApplyResources(this.cbFadeoutAlt, "cbFadeoutAlt");
+            this.cbFadeoutAlt.Name = "cbFadeoutAlt";
+            this.cbFadeoutAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox15
             // 
@@ -3145,11 +3659,24 @@ namespace MDPlayer.form
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.TabStop = false;
             // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = global::MDPlayer.Properties.Resources.ccFast;
+            resources.ApplyResources(this.pictureBox11, "pictureBox11");
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.TabStop = false;
+            // 
             // cbPlayAlt
             // 
             resources.ApplyResources(this.cbPlayAlt, "cbPlayAlt");
             this.cbPlayAlt.Name = "cbPlayAlt";
             this.cbPlayAlt.UseVisualStyleBackColor = true;
+            // 
+            // cbPrevAlt
+            // 
+            resources.ApplyResources(this.cbPrevAlt, "cbPrevAlt");
+            this.cbPrevAlt.Name = "cbPrevAlt";
+            this.cbPrevAlt.UseVisualStyleBackColor = true;
             // 
             // pictureBox13
             // 
@@ -3158,12 +3685,6 @@ namespace MDPlayer.form
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.TabStop = false;
             // 
-            // cbSlowAlt
-            // 
-            resources.ApplyResources(this.cbSlowAlt, "cbSlowAlt");
-            this.cbSlowAlt.Name = "cbSlowAlt";
-            this.cbSlowAlt.UseVisualStyleBackColor = true;
-            // 
             // pictureBox12
             // 
             this.pictureBox12.Image = global::MDPlayer.Properties.Resources.ccPlay;
@@ -3171,194 +3692,17 @@ namespace MDPlayer.form
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.TabStop = false;
             // 
-            // cbPrevAlt
+            // cbSlowAlt
             // 
-            resources.ApplyResources(this.cbPrevAlt, "cbPrevAlt");
-            this.cbPrevAlt.Name = "cbPrevAlt";
-            this.cbPrevAlt.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.cbSlowAlt, "cbSlowAlt");
+            this.cbSlowAlt.Name = "cbSlowAlt";
+            this.cbSlowAlt.UseVisualStyleBackColor = true;
             // 
-            // pictureBox11
+            // lblKeyBoardHookNotice
             // 
-            this.pictureBox11.Image = global::MDPlayer.Properties.Resources.ccFast;
-            resources.ApplyResources(this.pictureBox11, "pictureBox11");
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.TabStop = false;
-            // 
-            // cbFadeoutAlt
-            // 
-            resources.ApplyResources(this.cbFadeoutAlt, "cbFadeoutAlt");
-            this.cbFadeoutAlt.Name = "cbFadeoutAlt";
-            this.cbFadeoutAlt.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::MDPlayer.Properties.Resources.ccNext;
-            resources.ApplyResources(this.pictureBox10, "pictureBox10");
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.TabStop = false;
-            // 
-            // cbPauseAlt
-            // 
-            resources.ApplyResources(this.cbPauseAlt, "cbPauseAlt");
-            this.cbPauseAlt.Name = "cbPauseAlt";
-            this.cbPauseAlt.UseVisualStyleBackColor = true;
-            // 
-            // label37
-            // 
-            resources.ApplyResources(this.label37, "label37");
-            this.label37.Name = "label37";
-            // 
-            // cbStopAlt
-            // 
-            resources.ApplyResources(this.cbStopAlt, "cbStopAlt");
-            this.cbStopAlt.Name = "cbStopAlt";
-            this.cbStopAlt.UseVisualStyleBackColor = true;
-            // 
-            // label45
-            // 
-            resources.ApplyResources(this.label45, "label45");
-            this.label45.Name = "label45";
-            // 
-            // label46
-            // 
-            resources.ApplyResources(this.label46, "label46");
-            this.label46.Name = "label46";
-            // 
-            // label48
-            // 
-            resources.ApplyResources(this.label48, "label48");
-            this.label48.Name = "label48";
-            // 
-            // label38
-            // 
-            resources.ApplyResources(this.label38, "label38");
-            this.label38.Name = "label38";
-            // 
-            // label39
-            // 
-            resources.ApplyResources(this.label39, "label39");
-            this.label39.Name = "label39";
-            // 
-            // label40
-            // 
-            resources.ApplyResources(this.label40, "label40");
-            this.label40.Name = "label40";
-            // 
-            // label41
-            // 
-            resources.ApplyResources(this.label41, "label41");
-            this.label41.Name = "label41";
-            // 
-            // label42
-            // 
-            resources.ApplyResources(this.label42, "label42");
-            this.label42.Name = "label42";
-            // 
-            // cbNextCtrl
-            // 
-            resources.ApplyResources(this.cbNextCtrl, "cbNextCtrl");
-            this.cbNextCtrl.Name = "cbNextCtrl";
-            this.cbNextCtrl.UseVisualStyleBackColor = true;
-            // 
-            // label43
-            // 
-            resources.ApplyResources(this.label43, "label43");
-            this.label43.Name = "label43";
-            // 
-            // cbFastCtrl
-            // 
-            resources.ApplyResources(this.cbFastCtrl, "cbFastCtrl");
-            this.cbFastCtrl.Name = "cbFastCtrl";
-            this.cbFastCtrl.UseVisualStyleBackColor = true;
-            // 
-            // label44
-            // 
-            resources.ApplyResources(this.label44, "label44");
-            this.label44.Name = "label44";
-            // 
-            // cbPlayCtrl
-            // 
-            resources.ApplyResources(this.cbPlayCtrl, "cbPlayCtrl");
-            this.cbPlayCtrl.Name = "cbPlayCtrl";
-            this.cbPlayCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbStopShift
-            // 
-            resources.ApplyResources(this.cbStopShift, "cbStopShift");
-            this.cbStopShift.Name = "cbStopShift";
-            this.cbStopShift.UseVisualStyleBackColor = true;
-            // 
-            // cbSlowCtrl
-            // 
-            resources.ApplyResources(this.cbSlowCtrl, "cbSlowCtrl");
-            this.cbSlowCtrl.Name = "cbSlowCtrl";
-            this.cbSlowCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbPauseShift
-            // 
-            resources.ApplyResources(this.cbPauseShift, "cbPauseShift");
-            this.cbPauseShift.Name = "cbPauseShift";
-            this.cbPauseShift.UseVisualStyleBackColor = true;
-            // 
-            // cbPrevCtrl
-            // 
-            resources.ApplyResources(this.cbPrevCtrl, "cbPrevCtrl");
-            this.cbPrevCtrl.Name = "cbPrevCtrl";
-            this.cbPrevCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbFadeoutShift
-            // 
-            resources.ApplyResources(this.cbFadeoutShift, "cbFadeoutShift");
-            this.cbFadeoutShift.Name = "cbFadeoutShift";
-            this.cbFadeoutShift.UseVisualStyleBackColor = true;
-            // 
-            // cbFadeoutCtrl
-            // 
-            resources.ApplyResources(this.cbFadeoutCtrl, "cbFadeoutCtrl");
-            this.cbFadeoutCtrl.Name = "cbFadeoutCtrl";
-            this.cbFadeoutCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbPrevShift
-            // 
-            resources.ApplyResources(this.cbPrevShift, "cbPrevShift");
-            this.cbPrevShift.Name = "cbPrevShift";
-            this.cbPrevShift.UseVisualStyleBackColor = true;
-            // 
-            // cbPauseCtrl
-            // 
-            resources.ApplyResources(this.cbPauseCtrl, "cbPauseCtrl");
-            this.cbPauseCtrl.Name = "cbPauseCtrl";
-            this.cbPauseCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbSlowShift
-            // 
-            resources.ApplyResources(this.cbSlowShift, "cbSlowShift");
-            this.cbSlowShift.Name = "cbSlowShift";
-            this.cbSlowShift.UseVisualStyleBackColor = true;
-            // 
-            // cbStopCtrl
-            // 
-            resources.ApplyResources(this.cbStopCtrl, "cbStopCtrl");
-            this.cbStopCtrl.Name = "cbStopCtrl";
-            this.cbStopCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cbPlayShift
-            // 
-            resources.ApplyResources(this.cbPlayShift, "cbPlayShift");
-            this.cbPlayShift.Name = "cbPlayShift";
-            this.cbPlayShift.UseVisualStyleBackColor = true;
-            // 
-            // cbNextShift
-            // 
-            resources.ApplyResources(this.cbNextShift, "cbNextShift");
-            this.cbNextShift.Name = "cbNextShift";
-            this.cbNextShift.UseVisualStyleBackColor = true;
-            // 
-            // cbFastShift
-            // 
-            resources.ApplyResources(this.cbFastShift, "cbFastShift");
-            this.cbFastShift.Name = "cbFastShift";
-            this.cbFastShift.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.lblKeyBoardHookNotice, "lblKeyBoardHookNotice");
+            this.lblKeyBoardHookNotice.ForeColor = System.Drawing.Color.Red;
+            this.lblKeyBoardHookNotice.Name = "lblKeyBoardHookNotice";
             // 
             // label47
             // 
@@ -3712,6 +4056,12 @@ namespace MDPlayer.form
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
+            // cbAdjustTLParam
+            // 
+            resources.ApplyResources(this.cbAdjustTLParam, "cbAdjustTLParam");
+            this.cbAdjustTLParam.Name = "cbAdjustTLParam";
+            this.cbAdjustTLParam.UseVisualStyleBackColor = true;
+            // 
             // cmbInstFormat
             // 
             this.cmbInstFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3998,12 +4348,6 @@ namespace MDPlayer.form
             this.llOpenGithub.TabStop = true;
             this.llOpenGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOpenGithub_LinkClicked);
             // 
-            // cbAdjustTLParam
-            // 
-            resources.ApplyResources(this.cbAdjustTLParam, "cbAdjustTLParam");
-            this.cbAdjustTLParam.Name = "cbAdjustTLParam";
-            this.cbAdjustTLParam.UseVisualStyleBackColor = true;
-            // 
             // frmSetting
             // 
             resources.ApplyResources(this, "$this");
@@ -4126,14 +4470,16 @@ namespace MDPlayer.form
             this.tpKeyBoard.PerformLayout();
             this.gbUseKeyBoardHook.ResumeLayout(false);
             this.gbUseKeyBoardHook.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.tpBalance.ResumeLayout(false);
             this.tpBalance.PerformLayout();
             this.groupBox25.ResumeLayout(false);
@@ -4635,5 +4981,48 @@ namespace MDPlayer.form
         private System.Windows.Forms.CheckBox cbNSFDmc_DPCMReverse;
         private System.Windows.Forms.CheckBox cbUnuseRealChip;
         private System.Windows.Forms.CheckBox cbAdjustTLParam;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btDmvClr;
+        private System.Windows.Forms.CheckBox cbDmvShift;
+        private System.Windows.Forms.Button btUmvClr;
+        private System.Windows.Forms.CheckBox cbUmvShift;
+        private System.Windows.Forms.Button btDmvSet;
+        private System.Windows.Forms.Button btUmvSet;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.CheckBox cbDmvCtrl;
+        private System.Windows.Forms.CheckBox cbUmvCtrl;
+        private System.Windows.Forms.Label lblDmvKey;
+        private System.Windows.Forms.Label lblUmvKey;
+        private System.Windows.Forms.CheckBox cbDmvAlt;
+        private System.Windows.Forms.CheckBox cbUmvAlt;
+        private System.Windows.Forms.Button btRmvClr;
+        private System.Windows.Forms.CheckBox cbRmvShift;
+        private System.Windows.Forms.Button btRmvSet;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.CheckBox cbRmvAlt;
+        private System.Windows.Forms.CheckBox cbRmvCtrl;
+        private System.Windows.Forms.Label lblRmvKey;
+        private System.Windows.Forms.Button btPpcClr;
+        private System.Windows.Forms.CheckBox cbPpcShift;
+        private System.Windows.Forms.Button btPpcSet;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.Label lblPpcKey;
+        private System.Windows.Forms.CheckBox cbPpcAlt;
+        private System.Windows.Forms.CheckBox cbPpcCtrl;
+        private System.Windows.Forms.Button btDpcClr;
+        private System.Windows.Forms.CheckBox cbDpcShift;
+        private System.Windows.Forms.Button btDpcSet;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label lblDpcKey;
+        private System.Windows.Forms.CheckBox cbDpcAlt;
+        private System.Windows.Forms.CheckBox cbDpcCtrl;
+        private System.Windows.Forms.Button btUpcClr;
+        private System.Windows.Forms.CheckBox cbUpcShift;
+        private System.Windows.Forms.Button btUpcSet;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label lblUpcKey;
+        private System.Windows.Forms.CheckBox cbUpcAlt;
+        private System.Windows.Forms.CheckBox cbUpcCtrl;
     }
 }

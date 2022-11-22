@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using System.Threading;
 
 namespace MDPlayer.form
 {
@@ -1115,6 +1116,50 @@ namespace MDPlayer.form
             {
                 ;
             }
+        }
+
+        public void upCursor()
+        {
+            if (dgvList.SelectedRows.Count < 1)
+            {
+                if (dgvList.Rows.Count < 1) return;
+                dgvList.Rows[0].Selected = true;
+                return;
+            }
+
+            int c = dgvList.SelectedRows[0].Index;
+            dgvList.Rows[c].Selected = false;
+            c--;
+            if (c < 0) c = 0;
+            dgvList.Rows[c].Selected = true;
+        }
+
+        public void downCursor()
+        {
+            if (dgvList.SelectedRows.Count < 1)
+            {
+                if (dgvList.Rows.Count < 1) return;
+                dgvList.Rows[dgvList.Rows.Count - 1].Selected = true;
+                return;
+            }
+
+            int c = dgvList.SelectedRows[0].Index;
+            dgvList.Rows[c].Selected = false;
+            c++;
+            if (c >= dgvList.Rows.Count) c = dgvList.Rows.Count - 1;
+            dgvList.Rows[c].Selected = true;
+        }
+
+        public void playCursor()
+        {
+            if (dgvList.SelectedRows.Count < 1)
+            {
+                if (dgvList.Rows.Count < 1) return;
+                dgvList.Rows[0].Selected = true;
+            }
+
+            KeyEventArgs kea = new KeyEventArgs(Keys.Enter);
+            frmPlayList_KeyDown(null, kea);
         }
 
     }

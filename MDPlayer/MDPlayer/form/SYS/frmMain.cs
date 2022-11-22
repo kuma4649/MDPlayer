@@ -5390,6 +5390,36 @@ namespace MDPlayer.form
             }
         }
 
+        public void up_master_volume()
+        {
+            Audio.SetMasterVolume(false, 1);
+        }
+
+        public void down_master_volume()
+        {
+            Audio.SetMasterVolume(false, -1);
+        }
+
+        public void reset_master_volume()
+        {
+            Audio.SetMasterVolume(true, 0);
+        }
+
+        public void up_playlist_cursor()
+        {
+            frmPlayList.upCursor();
+        }
+
+        public void down_playlist_cursor()
+        {
+            frmPlayList.downCursor();
+        }
+
+        public void play_playlist_cursor()
+        {
+            frmPlayList.playCursor();
+        }
+
         public void ff()
         {
             if (Audio.isPaused)
@@ -9569,6 +9599,47 @@ namespace MDPlayer.form
                 return;
             }
 
+            info = setting.keyBoardHook.Umv;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                up_master_volume();
+                return;
+            }
+
+            info = setting.keyBoardHook.Dmv;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                down_master_volume();
+                return;
+            }
+
+            info = setting.keyBoardHook.Rmv;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                reset_master_volume();
+                return;
+            }
+
+            info = setting.keyBoardHook.Upc;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                up_playlist_cursor();
+                return;
+            }
+
+            info = setting.keyBoardHook.Dpc;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                down_playlist_cursor();
+                return;
+            }
+
+            info = setting.keyBoardHook.Ppc;
+            if (info.Key == k && info.Shift == Shift && info.Ctrl == Ctrl && info.Alt == Alt)
+            {
+                play_playlist_cursor();
+                return;
+            }
 
         }
 

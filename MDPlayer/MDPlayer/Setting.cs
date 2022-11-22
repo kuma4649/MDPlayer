@@ -4495,6 +4495,12 @@ namespace MDPlayer
             public HookKeyInfo Play { get => _Play; set => _Play = value; }
             public HookKeyInfo Next { get => _Next; set => _Next = value; }
             public HookKeyInfo Fast { get => _Fast; set => _Fast = value; }
+            public HookKeyInfo Umv { get => _Umv; set => _Umv = value; }
+            public HookKeyInfo Dmv { get => _Dmv; set => _Dmv = value; }
+            public HookKeyInfo Rmv { get => _Rmv; set => _Rmv = value; }
+            public HookKeyInfo Upc { get => _Upc; set => _Upc = value; }
+            public HookKeyInfo Dpc { get => _Dpc; set => _Dpc = value; }
+            public HookKeyInfo Ppc { get => _Ppc; set => _Ppc = value; }
             private HookKeyInfo _Stop = new HookKeyInfo();
             private HookKeyInfo _Pause = new HookKeyInfo();
             private HookKeyInfo _Fadeout = new HookKeyInfo();
@@ -4503,6 +4509,12 @@ namespace MDPlayer
             private HookKeyInfo _Play = new HookKeyInfo();
             private HookKeyInfo _Next = new HookKeyInfo();
             private HookKeyInfo _Fast = new HookKeyInfo();
+            private HookKeyInfo _Umv = new HookKeyInfo();
+            private HookKeyInfo _Dmv = new HookKeyInfo();
+            private HookKeyInfo _Rmv = new HookKeyInfo();
+            private HookKeyInfo _Upc = new HookKeyInfo();
+            private HookKeyInfo _Dpc = new HookKeyInfo();
+            private HookKeyInfo _Ppc = new HookKeyInfo();
 
             public KeyBoardHook Copy()
             {
@@ -4516,6 +4528,12 @@ namespace MDPlayer
                 keyBoard.Play = this.Play.Copy();
                 keyBoard.Next = this.Next.Copy();
                 keyBoard.Fast = this.Fast.Copy();
+                keyBoard.Umv = this.Umv.Copy();
+                keyBoard.Dmv = this.Dmv.Copy();
+                keyBoard.Rmv = this.Rmv.Copy();
+                keyBoard.Upc = this.Upc.Copy();
+                keyBoard.Dpc = this.Dpc.Copy();
+                keyBoard.Ppc = this.Ppc.Copy();
 
                 return keyBoard;
             }

@@ -7547,11 +7547,2873 @@
   <data name="gbUseKeyBoardHook.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="panel1.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btPpcClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btPpcClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 408</value>
+  </data>
+  <data name="btPpcClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPpcClr.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="btPpcClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btPpcClr.Name" xml:space="preserve">
+    <value>btPpcClr</value>
+  </data>
+  <data name="&gt;&gt;btPpcClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPpcClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPpcClr.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cbPpcShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPpcShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbPpcShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 411</value>
+  </data>
+  <data name="cbPpcShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPpcShift.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;cbPpcShift.Name" xml:space="preserve">
+    <value>cbPpcShift</value>
+  </data>
+  <data name="&gt;&gt;cbPpcShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPpcShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPpcShift.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btPpcSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btPpcSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 408</value>
+  </data>
+  <data name="btPpcSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPpcSet.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="btPpcSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btPpcSet.Name" xml:space="preserve">
+    <value>btPpcSet</value>
+  </data>
+  <data name="&gt;&gt;btPpcSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPpcSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPpcSet.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label76.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label76.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label76.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 411</value>
+  </data>
+  <data name="label76.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 12</value>
+  </data>
+  <data name="label76.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="label76.Text" xml:space="preserve">
+    <value>Play P.List Cur.</value>
+  </data>
+  <data name="&gt;&gt;label76.Name" xml:space="preserve">
+    <value>label76</value>
+  </data>
+  <data name="&gt;&gt;label76.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label76.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label76.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblPpcKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPpcKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblPpcKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 413</value>
+  </data>
+  <data name="lblPpcKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblPpcKey.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="lblPpcKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblPpcKey.Name" xml:space="preserve">
+    <value>lblPpcKey</value>
+  </data>
+  <data name="&gt;&gt;lblPpcKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPpcKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPpcKey.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="cbPpcAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPpcAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbPpcAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 411</value>
+  </data>
+  <data name="cbPpcAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPpcAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="&gt;&gt;cbPpcAlt.Name" xml:space="preserve">
+    <value>cbPpcAlt</value>
+  </data>
+  <data name="&gt;&gt;cbPpcAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPpcAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPpcAlt.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="cbPpcCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPpcCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbPpcCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 411</value>
+  </data>
+  <data name="cbPpcCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPpcCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="&gt;&gt;cbPpcCtrl.Name" xml:space="preserve">
+    <value>cbPpcCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbPpcCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPpcCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPpcCtrl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="btDpcClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btDpcClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 379</value>
+  </data>
+  <data name="btDpcClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btDpcClr.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="btDpcClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btDpcClr.Name" xml:space="preserve">
+    <value>btDpcClr</value>
+  </data>
+  <data name="&gt;&gt;btDpcClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btDpcClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btDpcClr.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cbDpcShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDpcShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDpcShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 382</value>
+  </data>
+  <data name="cbDpcShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDpcShift.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;cbDpcShift.Name" xml:space="preserve">
+    <value>cbDpcShift</value>
+  </data>
+  <data name="&gt;&gt;cbDpcShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDpcShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDpcShift.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="btDpcSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btDpcSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 379</value>
+  </data>
+  <data name="btDpcSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btDpcSet.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="btDpcSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btDpcSet.Name" xml:space="preserve">
+    <value>btDpcSet</value>
+  </data>
+  <data name="&gt;&gt;btDpcSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btDpcSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btDpcSet.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label74.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label74.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label74.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 382</value>
+  </data>
+  <data name="label74.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 12</value>
+  </data>
+  <data name="label74.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label74.Text" xml:space="preserve">
+    <value>Down P.List Cur.</value>
+  </data>
+  <data name="&gt;&gt;label74.Name" xml:space="preserve">
+    <value>label74</value>
+  </data>
+  <data name="&gt;&gt;label74.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label74.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label74.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="lblDpcKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDpcKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblDpcKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 384</value>
+  </data>
+  <data name="lblDpcKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblDpcKey.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="lblDpcKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblDpcKey.Name" xml:space="preserve">
+    <value>lblDpcKey</value>
+  </data>
+  <data name="&gt;&gt;lblDpcKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDpcKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblDpcKey.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="cbDpcAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDpcAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDpcAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 382</value>
+  </data>
+  <data name="cbDpcAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDpcAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="&gt;&gt;cbDpcAlt.Name" xml:space="preserve">
+    <value>cbDpcAlt</value>
+  </data>
+  <data name="&gt;&gt;cbDpcAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDpcAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDpcAlt.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="cbDpcCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDpcCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDpcCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 382</value>
+  </data>
+  <data name="cbDpcCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDpcCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;cbDpcCtrl.Name" xml:space="preserve">
+    <value>cbDpcCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbDpcCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDpcCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDpcCtrl.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="btUpcClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btUpcClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 350</value>
+  </data>
+  <data name="btUpcClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btUpcClr.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="btUpcClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btUpcClr.Name" xml:space="preserve">
+    <value>btUpcClr</value>
+  </data>
+  <data name="&gt;&gt;btUpcClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btUpcClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btUpcClr.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="btRmvClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btRmvClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 321</value>
+  </data>
+  <data name="btRmvClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btRmvClr.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="btRmvClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btRmvClr.Name" xml:space="preserve">
+    <value>btRmvClr</value>
+  </data>
+  <data name="&gt;&gt;btRmvClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btRmvClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btRmvClr.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="cbUpcShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUpcShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUpcShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 353</value>
+  </data>
+  <data name="cbUpcShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUpcShift.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;cbUpcShift.Name" xml:space="preserve">
+    <value>cbUpcShift</value>
+  </data>
+  <data name="&gt;&gt;cbUpcShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUpcShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUpcShift.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="pictureBox14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 32</value>
+  </data>
+  <data name="pictureBox14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox14.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;pictureBox14.Name" xml:space="preserve">
+    <value>pictureBox14</value>
+  </data>
+  <data name="&gt;&gt;pictureBox14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox14.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox14.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="cbRmvShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbRmvShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbRmvShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 324</value>
+  </data>
+  <data name="cbRmvShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbRmvShift.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;cbRmvShift.Name" xml:space="preserve">
+    <value>cbRmvShift</value>
+  </data>
+  <data name="&gt;&gt;cbRmvShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbRmvShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbRmvShift.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="btUpcSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btUpcSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 350</value>
+  </data>
+  <data name="btUpcSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btUpcSet.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="btUpcSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btUpcSet.Name" xml:space="preserve">
+    <value>btUpcSet</value>
+  </data>
+  <data name="&gt;&gt;btUpcSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btUpcSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btUpcSet.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="cbFastShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFastShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 210</value>
+  </data>
+  <data name="cbFastShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFastShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFastShift.Name" xml:space="preserve">
+    <value>cbFastShift</value>
+  </data>
+  <data name="&gt;&gt;cbFastShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFastShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFastShift.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="label72.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label72.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label72.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 353</value>
+  </data>
+  <data name="label72.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 12</value>
+  </data>
+  <data name="label72.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="label72.Text" xml:space="preserve">
+    <value>Up P.List Cur.</value>
+  </data>
+  <data name="&gt;&gt;label72.Name" xml:space="preserve">
+    <value>label72</value>
+  </data>
+  <data name="&gt;&gt;label72.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label72.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label72.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="btDmvClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btDmvClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 292</value>
+  </data>
+  <data name="btDmvClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btDmvClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btDmvClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btDmvClr.Name" xml:space="preserve">
+    <value>btDmvClr</value>
+  </data>
+  <data name="&gt;&gt;btDmvClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btDmvClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btDmvClr.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="lblUpcKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblUpcKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblUpcKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 355</value>
+  </data>
+  <data name="lblUpcKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblUpcKey.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="lblUpcKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblUpcKey.Name" xml:space="preserve">
+    <value>lblUpcKey</value>
+  </data>
+  <data name="&gt;&gt;lblUpcKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblUpcKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblUpcKey.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="btRmvSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btRmvSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 321</value>
+  </data>
+  <data name="btRmvSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btRmvSet.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="btRmvSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btRmvSet.Name" xml:space="preserve">
+    <value>btRmvSet</value>
+  </data>
+  <data name="&gt;&gt;btRmvSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btRmvSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btRmvSet.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="cbUpcAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUpcAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUpcAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 353</value>
+  </data>
+  <data name="cbUpcAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUpcAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;cbUpcAlt.Name" xml:space="preserve">
+    <value>cbUpcAlt</value>
+  </data>
+  <data name="&gt;&gt;cbUpcAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUpcAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUpcAlt.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="cbDmvShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDmvShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDmvShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 295</value>
+  </data>
+  <data name="cbDmvShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDmvShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbDmvShift.Name" xml:space="preserve">
+    <value>cbDmvShift</value>
+  </data>
+  <data name="&gt;&gt;cbDmvShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDmvShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDmvShift.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="cbUpcCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUpcCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUpcCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 353</value>
+  </data>
+  <data name="cbUpcCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUpcCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;cbUpcCtrl.Name" xml:space="preserve">
+    <value>cbUpcCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbUpcCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUpcCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUpcCtrl.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="label69.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label69.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label69.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 324</value>
+  </data>
+  <data name="label69.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 12</value>
+  </data>
+  <data name="label69.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="label69.Text" xml:space="preserve">
+    <value>Reset M.Vol </value>
+  </data>
+  <data name="&gt;&gt;label69.Name" xml:space="preserve">
+    <value>label69</value>
+  </data>
+  <data name="&gt;&gt;label69.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label69.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label69.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="btUmvClr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btUmvClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 263</value>
+  </data>
+  <data name="btUmvClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btUmvClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btUmvClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btUmvClr.Name" xml:space="preserve">
+    <value>btUmvClr</value>
+  </data>
+  <data name="&gt;&gt;btUmvClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btUmvClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btUmvClr.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="cbRmvAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbRmvAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbRmvAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 324</value>
+  </data>
+  <data name="cbRmvAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbRmvAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;cbRmvAlt.Name" xml:space="preserve">
+    <value>cbRmvAlt</value>
+  </data>
+  <data name="&gt;&gt;cbRmvAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbRmvAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbRmvAlt.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="cbUmvShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUmvShift.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUmvShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 266</value>
+  </data>
+  <data name="cbUmvShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUmvShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbUmvShift.Name" xml:space="preserve">
+    <value>cbUmvShift</value>
+  </data>
+  <data name="&gt;&gt;cbUmvShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUmvShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUmvShift.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="cbRmvCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbRmvCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbRmvCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 324</value>
+  </data>
+  <data name="cbRmvCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbRmvCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;cbRmvCtrl.Name" xml:space="preserve">
+    <value>cbRmvCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbRmvCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbRmvCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbRmvCtrl.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="btNextClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 234</value>
+  </data>
+  <data name="btNextClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btNextClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btNextClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btNextClr.Name" xml:space="preserve">
+    <value>btNextClr</value>
+  </data>
+  <data name="&gt;&gt;btNextClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btNextClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btNextClr.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="lblRmvKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRmvKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblRmvKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 326</value>
+  </data>
+  <data name="lblRmvKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblRmvKey.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="lblRmvKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblRmvKey.Name" xml:space="preserve">
+    <value>lblRmvKey</value>
+  </data>
+  <data name="&gt;&gt;lblRmvKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRmvKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblRmvKey.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="cbNextShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbNextShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 237</value>
+  </data>
+  <data name="cbNextShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbNextShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbNextShift.Name" xml:space="preserve">
+    <value>cbNextShift</value>
+  </data>
+  <data name="&gt;&gt;cbNextShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbNextShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbNextShift.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="btPrevClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 118</value>
+  </data>
+  <data name="btPrevClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPrevClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPrevClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btPrevClr.Name" xml:space="preserve">
+    <value>btPrevClr</value>
+  </data>
+  <data name="&gt;&gt;btPrevClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPrevClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPrevClr.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <data name="cbPlayShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPlayShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 181</value>
+  </data>
+  <data name="cbPlayShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPlayShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPlayShift.Name" xml:space="preserve">
+    <value>cbPlayShift</value>
+  </data>
+  <data name="&gt;&gt;cbPlayShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPlayShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPlayShift.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="btPlayClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 176</value>
+  </data>
+  <data name="btPlayClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPlayClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPlayClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btPlayClr.Name" xml:space="preserve">
+    <value>btPlayClr</value>
+  </data>
+  <data name="&gt;&gt;btPlayClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPlayClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPlayClr.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
+  <data name="cbStopCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbStopCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 36</value>
+  </data>
+  <data name="cbStopCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbStopCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbStopCtrl.Name" xml:space="preserve">
+    <value>cbStopCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbStopCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbStopCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbStopCtrl.ZOrder" xml:space="preserve">
+    <value>39</value>
+  </data>
+  <data name="btPauseClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 60</value>
+  </data>
+  <data name="btPauseClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPauseClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPauseClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btPauseClr.Name" xml:space="preserve">
+    <value>btPauseClr</value>
+  </data>
+  <data name="&gt;&gt;btPauseClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPauseClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPauseClr.ZOrder" xml:space="preserve">
+    <value>40</value>
+  </data>
+  <data name="cbSlowShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbSlowShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 152</value>
+  </data>
+  <data name="cbSlowShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbSlowShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbSlowShift.Name" xml:space="preserve">
+    <value>cbSlowShift</value>
+  </data>
+  <data name="&gt;&gt;cbSlowShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbSlowShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbSlowShift.ZOrder" xml:space="preserve">
+    <value>41</value>
+  </data>
+  <data name="btFastClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 205</value>
+  </data>
+  <data name="btFastClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btFastClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btFastClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btFastClr.Name" xml:space="preserve">
+    <value>btFastClr</value>
+  </data>
+  <data name="&gt;&gt;btFastClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btFastClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btFastClr.ZOrder" xml:space="preserve">
+    <value>42</value>
+  </data>
+  <data name="cbPauseCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPauseCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 65</value>
+  </data>
+  <data name="cbPauseCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPauseCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPauseCtrl.Name" xml:space="preserve">
+    <value>cbPauseCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbPauseCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPauseCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPauseCtrl.ZOrder" xml:space="preserve">
+    <value>43</value>
+  </data>
+  <data name="btFadeoutClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 89</value>
+  </data>
+  <data name="btFadeoutClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btFadeoutClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btFadeoutClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutClr.Name" xml:space="preserve">
+    <value>btFadeoutClr</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutClr.ZOrder" xml:space="preserve">
+    <value>44</value>
+  </data>
+  <data name="cbPrevShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPrevShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 123</value>
+  </data>
+  <data name="cbPrevShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPrevShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPrevShift.Name" xml:space="preserve">
+    <value>cbPrevShift</value>
+  </data>
+  <data name="&gt;&gt;cbPrevShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPrevShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPrevShift.ZOrder" xml:space="preserve">
+    <value>45</value>
+  </data>
+  <data name="btSlowClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 147</value>
+  </data>
+  <data name="btSlowClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btSlowClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btSlowClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btSlowClr.Name" xml:space="preserve">
+    <value>btSlowClr</value>
+  </data>
+  <data name="&gt;&gt;btSlowClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btSlowClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btSlowClr.ZOrder" xml:space="preserve">
+    <value>46</value>
+  </data>
+  <data name="cbFadeoutCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFadeoutCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 94</value>
+  </data>
+  <data name="cbFadeoutCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFadeoutCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutCtrl.Name" xml:space="preserve">
+    <value>cbFadeoutCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutCtrl.ZOrder" xml:space="preserve">
+    <value>47</value>
+  </data>
+  <data name="btDmvSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btDmvSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 292</value>
+  </data>
+  <data name="btDmvSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btDmvSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btDmvSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btDmvSet.Name" xml:space="preserve">
+    <value>btDmvSet</value>
+  </data>
+  <data name="&gt;&gt;btDmvSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btDmvSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btDmvSet.ZOrder" xml:space="preserve">
+    <value>48</value>
+  </data>
+  <data name="btStopClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 31</value>
+  </data>
+  <data name="btStopClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btStopClr.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btStopClr.Text" xml:space="preserve">
+    <value>Clr</value>
+  </data>
+  <data name="&gt;&gt;btStopClr.Name" xml:space="preserve">
+    <value>btStopClr</value>
+  </data>
+  <data name="&gt;&gt;btStopClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btStopClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btStopClr.ZOrder" xml:space="preserve">
+    <value>49</value>
+  </data>
+  <data name="btUmvSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btUmvSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 263</value>
+  </data>
+  <data name="btUmvSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btUmvSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btUmvSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btUmvSet.Name" xml:space="preserve">
+    <value>btUmvSet</value>
+  </data>
+  <data name="&gt;&gt;btUmvSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btUmvSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btUmvSet.ZOrder" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="cbFadeoutShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFadeoutShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 94</value>
+  </data>
+  <data name="cbFadeoutShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFadeoutShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutShift.Name" xml:space="preserve">
+    <value>cbFadeoutShift</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutShift.ZOrder" xml:space="preserve">
+    <value>51</value>
+  </data>
+  <data name="btNextSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 234</value>
+  </data>
+  <data name="btNextSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btNextSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btNextSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btNextSet.Name" xml:space="preserve">
+    <value>btNextSet</value>
+  </data>
+  <data name="&gt;&gt;btNextSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btNextSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btNextSet.ZOrder" xml:space="preserve">
+    <value>52</value>
+  </data>
+  <data name="cbPrevCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPrevCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 123</value>
+  </data>
+  <data name="cbPrevCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPrevCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPrevCtrl.Name" xml:space="preserve">
+    <value>cbPrevCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbPrevCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPrevCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPrevCtrl.ZOrder" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="btPrevSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 118</value>
+  </data>
+  <data name="btPrevSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPrevSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPrevSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btPrevSet.Name" xml:space="preserve">
+    <value>btPrevSet</value>
+  </data>
+  <data name="&gt;&gt;btPrevSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPrevSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPrevSet.ZOrder" xml:space="preserve">
+    <value>54</value>
+  </data>
+  <data name="cbPauseShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPauseShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 65</value>
+  </data>
+  <data name="cbPauseShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPauseShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPauseShift.Name" xml:space="preserve">
+    <value>cbPauseShift</value>
+  </data>
+  <data name="&gt;&gt;cbPauseShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPauseShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPauseShift.ZOrder" xml:space="preserve">
+    <value>55</value>
+  </data>
+  <data name="btPlaySet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 176</value>
+  </data>
+  <data name="btPlaySet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPlaySet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPlaySet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btPlaySet.Name" xml:space="preserve">
+    <value>btPlaySet</value>
+  </data>
+  <data name="&gt;&gt;btPlaySet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPlaySet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPlaySet.ZOrder" xml:space="preserve">
+    <value>56</value>
+  </data>
+  <data name="cbSlowCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbSlowCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 152</value>
+  </data>
+  <data name="cbSlowCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbSlowCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbSlowCtrl.Name" xml:space="preserve">
+    <value>cbSlowCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbSlowCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbSlowCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbSlowCtrl.ZOrder" xml:space="preserve">
+    <value>57</value>
+  </data>
+  <data name="btPauseSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 60</value>
+  </data>
+  <data name="btPauseSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btPauseSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btPauseSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btPauseSet.Name" xml:space="preserve">
+    <value>btPauseSet</value>
+  </data>
+  <data name="&gt;&gt;btPauseSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btPauseSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btPauseSet.ZOrder" xml:space="preserve">
+    <value>58</value>
+  </data>
+  <data name="cbStopShift.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbStopShift.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 36</value>
+  </data>
+  <data name="cbStopShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbStopShift.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbStopShift.Name" xml:space="preserve">
+    <value>cbStopShift</value>
+  </data>
+  <data name="&gt;&gt;cbStopShift.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbStopShift.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbStopShift.ZOrder" xml:space="preserve">
+    <value>59</value>
+  </data>
+  <data name="btFastSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 205</value>
+  </data>
+  <data name="btFastSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btFastSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btFastSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btFastSet.Name" xml:space="preserve">
+    <value>btFastSet</value>
+  </data>
+  <data name="&gt;&gt;btFastSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btFastSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btFastSet.ZOrder" xml:space="preserve">
+    <value>60</value>
+  </data>
+  <data name="label71.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label71.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label71.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 295</value>
+  </data>
+  <data name="label71.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 12</value>
+  </data>
+  <data name="label71.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label71.Text" xml:space="preserve">
+    <value>Down M.Vol </value>
+  </data>
+  <data name="&gt;&gt;label71.Name" xml:space="preserve">
+    <value>label71</value>
+  </data>
+  <data name="&gt;&gt;label71.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label71.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label71.ZOrder" xml:space="preserve">
+    <value>61</value>
+  </data>
+  <data name="cbPlayCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPlayCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 181</value>
+  </data>
+  <data name="cbPlayCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPlayCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPlayCtrl.Name" xml:space="preserve">
+    <value>cbPlayCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbPlayCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPlayCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPlayCtrl.ZOrder" xml:space="preserve">
+    <value>62</value>
+  </data>
+  <data name="label70.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label70.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label70.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 266</value>
+  </data>
+  <data name="label70.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 12</value>
+  </data>
+  <data name="label70.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label70.Text" xml:space="preserve">
+    <value>Up M.Vol </value>
+  </data>
+  <data name="&gt;&gt;label70.Name" xml:space="preserve">
+    <value>label70</value>
+  </data>
+  <data name="&gt;&gt;label70.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label70.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label70.ZOrder" xml:space="preserve">
+    <value>63</value>
+  </data>
+  <data name="btFadeoutSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 89</value>
+  </data>
+  <data name="btFadeoutSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btFadeoutSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btFadeoutSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutSet.Name" xml:space="preserve">
+    <value>btFadeoutSet</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btFadeoutSet.ZOrder" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="label44.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label44.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 237</value>
+  </data>
+  <data name="label44.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 12</value>
+  </data>
+  <data name="label44.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label44.Text" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="&gt;&gt;label44.Name" xml:space="preserve">
+    <value>label44</value>
+  </data>
+  <data name="&gt;&gt;label44.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label44.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label44.ZOrder" xml:space="preserve">
+    <value>65</value>
+  </data>
+  <data name="btSlowSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 147</value>
+  </data>
+  <data name="btSlowSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btSlowSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btSlowSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btSlowSet.Name" xml:space="preserve">
+    <value>btSlowSet</value>
+  </data>
+  <data name="&gt;&gt;btSlowSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btSlowSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btSlowSet.ZOrder" xml:space="preserve">
+    <value>66</value>
+  </data>
+  <data name="cbFastCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFastCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 210</value>
+  </data>
+  <data name="cbFastCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFastCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFastCtrl.Name" xml:space="preserve">
+    <value>cbFastCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbFastCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFastCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFastCtrl.ZOrder" xml:space="preserve">
+    <value>67</value>
+  </data>
+  <data name="btStopSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 31</value>
+  </data>
+  <data name="btStopSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="btStopSet.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="btStopSet.Text" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="&gt;&gt;btStopSet.Name" xml:space="preserve">
+    <value>btStopSet</value>
+  </data>
+  <data name="&gt;&gt;btStopSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btStopSet.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btStopSet.ZOrder" xml:space="preserve">
+    <value>68</value>
+  </data>
+  <data name="cbDmvCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDmvCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDmvCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 295</value>
+  </data>
+  <data name="cbDmvCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDmvCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbDmvCtrl.Name" xml:space="preserve">
+    <value>cbDmvCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbDmvCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDmvCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDmvCtrl.ZOrder" xml:space="preserve">
+    <value>69</value>
+  </data>
+  <data name="label43.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label43.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 210</value>
+  </data>
+  <data name="label43.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 12</value>
+  </data>
+  <data name="label43.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label43.Text" xml:space="preserve">
+    <value>3x Speed</value>
+  </data>
+  <data name="&gt;&gt;label43.Name" xml:space="preserve">
+    <value>label43</value>
+  </data>
+  <data name="&gt;&gt;label43.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label43.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label43.ZOrder" xml:space="preserve">
+    <value>70</value>
+  </data>
+  <data name="cbUmvCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUmvCtrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUmvCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 266</value>
+  </data>
+  <data name="cbUmvCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUmvCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbUmvCtrl.Name" xml:space="preserve">
+    <value>cbUmvCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbUmvCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUmvCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUmvCtrl.ZOrder" xml:space="preserve">
+    <value>71</value>
+  </data>
+  <data name="lblDmvKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDmvKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblDmvKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 297</value>
+  </data>
+  <data name="lblDmvKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblDmvKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblDmvKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblDmvKey.Name" xml:space="preserve">
+    <value>lblDmvKey</value>
+  </data>
+  <data name="&gt;&gt;lblDmvKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDmvKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblDmvKey.ZOrder" xml:space="preserve">
+    <value>72</value>
+  </data>
+  <data name="label50.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 15</value>
+  </data>
+  <data name="label50.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 12</value>
+  </data>
+  <data name="label50.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="label50.Text" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="&gt;&gt;label50.Name" xml:space="preserve">
+    <value>label50</value>
+  </data>
+  <data name="&gt;&gt;label50.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label50.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
+    <value>73</value>
+  </data>
+  <data name="lblUmvKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblUmvKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblUmvKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 268</value>
+  </data>
+  <data name="lblUmvKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblUmvKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblUmvKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblUmvKey.Name" xml:space="preserve">
+    <value>lblUmvKey</value>
+  </data>
+  <data name="&gt;&gt;lblUmvKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblUmvKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblUmvKey.ZOrder" xml:space="preserve">
+    <value>74</value>
+  </data>
+  <data name="cbNextCtrl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbNextCtrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 237</value>
+  </data>
+  <data name="cbNextCtrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbNextCtrl.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbNextCtrl.Name" xml:space="preserve">
+    <value>cbNextCtrl</value>
+  </data>
+  <data name="&gt;&gt;cbNextCtrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbNextCtrl.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbNextCtrl.ZOrder" xml:space="preserve">
+    <value>75</value>
+  </data>
+  <data name="lblNextKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblNextKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 239</value>
+  </data>
+  <data name="lblNextKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblNextKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblNextKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblNextKey.Name" xml:space="preserve">
+    <value>lblNextKey</value>
+  </data>
+  <data name="&gt;&gt;lblNextKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblNextKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblNextKey.ZOrder" xml:space="preserve">
+    <value>76</value>
+  </data>
+  <data name="label42.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label42.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 181</value>
+  </data>
+  <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 12</value>
+  </data>
+  <data name="label42.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label42.Text" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="&gt;&gt;label42.Name" xml:space="preserve">
+    <value>label42</value>
+  </data>
+  <data name="&gt;&gt;label42.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label42.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label42.ZOrder" xml:space="preserve">
+    <value>77</value>
+  </data>
+  <data name="lblFastKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblFastKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 210</value>
+  </data>
+  <data name="lblFastKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblFastKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblFastKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblFastKey.Name" xml:space="preserve">
+    <value>lblFastKey</value>
+  </data>
+  <data name="&gt;&gt;lblFastKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblFastKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblFastKey.ZOrder" xml:space="preserve">
+    <value>78</value>
+  </data>
+  <data name="label41.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label41.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 152</value>
+  </data>
+  <data name="label41.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 12</value>
+  </data>
+  <data name="label41.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label41.Text" xml:space="preserve">
+    <value>Slow Play</value>
+  </data>
+  <data name="&gt;&gt;label41.Name" xml:space="preserve">
+    <value>label41</value>
+  </data>
+  <data name="&gt;&gt;label41.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label41.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label41.ZOrder" xml:space="preserve">
+    <value>79</value>
+  </data>
+  <data name="lblPlayKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPlayKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 181</value>
+  </data>
+  <data name="lblPlayKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblPlayKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblPlayKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblPlayKey.Name" xml:space="preserve">
+    <value>lblPlayKey</value>
+  </data>
+  <data name="&gt;&gt;lblPlayKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPlayKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPlayKey.ZOrder" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="label40.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label40.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 123</value>
+  </data>
+  <data name="label40.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 12</value>
+  </data>
+  <data name="label40.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label40.Text" xml:space="preserve">
+    <value>Prev</value>
+  </data>
+  <data name="&gt;&gt;label40.Name" xml:space="preserve">
+    <value>label40</value>
+  </data>
+  <data name="&gt;&gt;label40.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label40.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label40.ZOrder" xml:space="preserve">
+    <value>81</value>
+  </data>
+  <data name="lblSlowKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblSlowKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 152</value>
+  </data>
+  <data name="lblSlowKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblSlowKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblSlowKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblSlowKey.Name" xml:space="preserve">
+    <value>lblSlowKey</value>
+  </data>
+  <data name="&gt;&gt;lblSlowKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSlowKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblSlowKey.ZOrder" xml:space="preserve">
+    <value>82</value>
+  </data>
+  <data name="label39.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 94</value>
+  </data>
+  <data name="label39.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 12</value>
+  </data>
+  <data name="label39.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label39.Text" xml:space="preserve">
+    <value>Fade Out</value>
+  </data>
+  <data name="&gt;&gt;label39.Name" xml:space="preserve">
+    <value>label39</value>
+  </data>
+  <data name="&gt;&gt;label39.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label39.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label39.ZOrder" xml:space="preserve">
+    <value>83</value>
+  </data>
+  <data name="lblPrevKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPrevKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 123</value>
+  </data>
+  <data name="lblPrevKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblPrevKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblPrevKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblPrevKey.Name" xml:space="preserve">
+    <value>lblPrevKey</value>
+  </data>
+  <data name="&gt;&gt;lblPrevKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPrevKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPrevKey.ZOrder" xml:space="preserve">
+    <value>84</value>
+  </data>
+  <data name="label38.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label38.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 65</value>
+  </data>
+  <data name="label38.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 12</value>
+  </data>
+  <data name="label38.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="&gt;&gt;label38.Name" xml:space="preserve">
+    <value>label38</value>
+  </data>
+  <data name="&gt;&gt;label38.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label38.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label38.ZOrder" xml:space="preserve">
+    <value>85</value>
+  </data>
+  <data name="lblFadeoutKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblFadeoutKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 94</value>
+  </data>
+  <data name="lblFadeoutKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblFadeoutKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblFadeoutKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblFadeoutKey.Name" xml:space="preserve">
+    <value>lblFadeoutKey</value>
+  </data>
+  <data name="&gt;&gt;lblFadeoutKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblFadeoutKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblFadeoutKey.ZOrder" xml:space="preserve">
+    <value>86</value>
+  </data>
+  <data name="label48.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
+    <value>201, 15</value>
+  </data>
+  <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 12</value>
+  </data>
+  <data name="label48.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label48.Text" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="&gt;&gt;label48.Name" xml:space="preserve">
+    <value>label48</value>
+  </data>
+  <data name="&gt;&gt;label48.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label48.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
+    <value>87</value>
+  </data>
+  <data name="lblPauseKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPauseKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 65</value>
+  </data>
+  <data name="lblPauseKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblPauseKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblPauseKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblPauseKey.Name" xml:space="preserve">
+    <value>lblPauseKey</value>
+  </data>
+  <data name="&gt;&gt;lblPauseKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPauseKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPauseKey.ZOrder" xml:space="preserve">
+    <value>88</value>
+  </data>
+  <data name="label46.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
+    <value>165, 15</value>
+  </data>
+  <data name="label46.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 12</value>
+  </data>
+  <data name="label46.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label46.Text" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="&gt;&gt;label46.Name" xml:space="preserve">
+    <value>label46</value>
+  </data>
+  <data name="&gt;&gt;label46.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label46.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label46.ZOrder" xml:space="preserve">
+    <value>89</value>
+  </data>
+  <data name="lblStopKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblStopKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 36</value>
+  </data>
+  <data name="lblStopKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 12</value>
+  </data>
+  <data name="lblStopKey.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lblStopKey.Text" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="&gt;&gt;lblStopKey.Name" xml:space="preserve">
+    <value>lblStopKey</value>
+  </data>
+  <data name="&gt;&gt;lblStopKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblStopKey.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblStopKey.ZOrder" xml:space="preserve">
+    <value>90</value>
+  </data>
+  <data name="label45.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label45.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 15</value>
+  </data>
+  <data name="label45.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 12</value>
+  </data>
+  <data name="label45.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label45.Text" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="&gt;&gt;label45.Name" xml:space="preserve">
+    <value>label45</value>
+  </data>
+  <data name="&gt;&gt;label45.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label45.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label45.ZOrder" xml:space="preserve">
+    <value>91</value>
+  </data>
+  <data name="cbStopAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbStopAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 36</value>
+  </data>
+  <data name="cbStopAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbStopAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbStopAlt.Name" xml:space="preserve">
+    <value>cbStopAlt</value>
+  </data>
+  <data name="&gt;&gt;cbStopAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbStopAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbStopAlt.ZOrder" xml:space="preserve">
+    <value>92</value>
+  </data>
+  <data name="cbDmvAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDmvAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbDmvAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 295</value>
+  </data>
+  <data name="cbDmvAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbDmvAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbDmvAlt.Name" xml:space="preserve">
+    <value>cbDmvAlt</value>
+  </data>
+  <data name="&gt;&gt;cbDmvAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbDmvAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbDmvAlt.ZOrder" xml:space="preserve">
+    <value>93</value>
+  </data>
+  <data name="pictureBox17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 90</value>
+  </data>
+  <data name="pictureBox17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox17.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;pictureBox17.Name" xml:space="preserve">
+    <value>pictureBox17</value>
+  </data>
+  <data name="&gt;&gt;pictureBox17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox17.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox17.ZOrder" xml:space="preserve">
+    <value>94</value>
+  </data>
+  <data name="cbUmvAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbUmvAlt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbUmvAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 266</value>
+  </data>
+  <data name="cbUmvAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbUmvAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbUmvAlt.Name" xml:space="preserve">
+    <value>cbUmvAlt</value>
+  </data>
+  <data name="&gt;&gt;cbUmvAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbUmvAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbUmvAlt.ZOrder" xml:space="preserve">
+    <value>95</value>
+  </data>
+  <data name="label37.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label37.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 36</value>
+  </data>
+  <data name="label37.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 12</value>
+  </data>
+  <data name="label37.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="&gt;&gt;label37.Name" xml:space="preserve">
+    <value>label37</value>
+  </data>
+  <data name="&gt;&gt;label37.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label37.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
+    <value>96</value>
+  </data>
+  <data name="cbNextAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbNextAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 237</value>
+  </data>
+  <data name="cbNextAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbNextAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbNextAlt.Name" xml:space="preserve">
+    <value>cbNextAlt</value>
+  </data>
+  <data name="&gt;&gt;cbNextAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbNextAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbNextAlt.ZOrder" xml:space="preserve">
+    <value>97</value>
+  </data>
+  <data name="cbPauseAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPauseAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 65</value>
+  </data>
+  <data name="cbPauseAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPauseAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPauseAlt.Name" xml:space="preserve">
+    <value>cbPauseAlt</value>
+  </data>
+  <data name="&gt;&gt;cbPauseAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPauseAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPauseAlt.ZOrder" xml:space="preserve">
+    <value>98</value>
+  </data>
+  <data name="pictureBox16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 119</value>
+  </data>
+  <data name="pictureBox16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox16.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;pictureBox16.Name" xml:space="preserve">
+    <value>pictureBox16</value>
+  </data>
+  <data name="&gt;&gt;pictureBox16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox16.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox16.ZOrder" xml:space="preserve">
+    <value>99</value>
+  </data>
+  <data name="pictureBox10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 233</value>
+  </data>
+  <data name="pictureBox10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox10.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;pictureBox10.Name" xml:space="preserve">
+    <value>pictureBox10</value>
+  </data>
+  <data name="&gt;&gt;pictureBox10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox10.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox10.ZOrder" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="cbFastAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFastAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 210</value>
+  </data>
+  <data name="cbFastAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFastAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFastAlt.Name" xml:space="preserve">
+    <value>cbFastAlt</value>
+  </data>
+  <data name="&gt;&gt;cbFastAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFastAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFastAlt.ZOrder" xml:space="preserve">
+    <value>101</value>
+  </data>
+  <data name="cbFadeoutAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbFadeoutAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 94</value>
+  </data>
+  <data name="cbFadeoutAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbFadeoutAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutAlt.Name" xml:space="preserve">
+    <value>cbFadeoutAlt</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbFadeoutAlt.ZOrder" xml:space="preserve">
+    <value>102</value>
+  </data>
+  <data name="pictureBox15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 61</value>
+  </data>
+  <data name="pictureBox15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox15.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;pictureBox15.Name" xml:space="preserve">
+    <value>pictureBox15</value>
+  </data>
+  <data name="&gt;&gt;pictureBox15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox15.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox15.ZOrder" xml:space="preserve">
+    <value>103</value>
+  </data>
+  <data name="pictureBox11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 206</value>
+  </data>
+  <data name="pictureBox11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox11.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;pictureBox11.Name" xml:space="preserve">
+    <value>pictureBox11</value>
+  </data>
+  <data name="&gt;&gt;pictureBox11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox11.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox11.ZOrder" xml:space="preserve">
+    <value>104</value>
+  </data>
+  <data name="cbPlayAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPlayAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 181</value>
+  </data>
+  <data name="cbPlayAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPlayAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPlayAlt.Name" xml:space="preserve">
+    <value>cbPlayAlt</value>
+  </data>
+  <data name="&gt;&gt;cbPlayAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPlayAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPlayAlt.ZOrder" xml:space="preserve">
+    <value>105</value>
+  </data>
+  <data name="cbPrevAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbPrevAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 123</value>
+  </data>
+  <data name="cbPrevAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbPrevAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbPrevAlt.Name" xml:space="preserve">
+    <value>cbPrevAlt</value>
+  </data>
+  <data name="&gt;&gt;cbPrevAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbPrevAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbPrevAlt.ZOrder" xml:space="preserve">
+    <value>106</value>
+  </data>
+  <data name="pictureBox13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 148</value>
+  </data>
+  <data name="pictureBox13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox13.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Name" xml:space="preserve">
+    <value>pictureBox13</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.ZOrder" xml:space="preserve">
+    <value>107</value>
+  </data>
+  <data name="pictureBox12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 177</value>
+  </data>
+  <data name="pictureBox12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="pictureBox12.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;pictureBox12.Name" xml:space="preserve">
+    <value>pictureBox12</value>
+  </data>
+  <data name="&gt;&gt;pictureBox12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox12.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox12.ZOrder" xml:space="preserve">
+    <value>108</value>
+  </data>
+  <data name="cbSlowAlt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbSlowAlt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 152</value>
+  </data>
+  <data name="cbSlowAlt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cbSlowAlt.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;cbSlowAlt.Name" xml:space="preserve">
+    <value>cbSlowAlt</value>
+  </data>
+  <data name="&gt;&gt;cbSlowAlt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbSlowAlt.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbSlowAlt.ZOrder" xml:space="preserve">
+    <value>109</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 22</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>480, 329</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>gbUseKeyBoardHook</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="lblKeyBoardHookNotice.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lblKeyBoardHookNotice.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 277</value>
+    <value>4, 363</value>
   </data>
   <data name="lblKeyBoardHookNotice.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 12</value>
@@ -7575,1681 +10437,13 @@
     <value>gbUseKeyBoardHook</value>
   </data>
   <data name="&gt;&gt;lblKeyBoardHookNotice.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btNextClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 243</value>
-  </data>
-  <data name="btNextClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btNextClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btNextClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btNextClr.Name" xml:space="preserve">
-    <value>btNextClr</value>
-  </data>
-  <data name="&gt;&gt;btNextClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btNextClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btNextClr.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="btPrevClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 127</value>
-  </data>
-  <data name="btPrevClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPrevClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPrevClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btPrevClr.Name" xml:space="preserve">
-    <value>btPrevClr</value>
-  </data>
-  <data name="&gt;&gt;btPrevClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPrevClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPrevClr.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="btPlayClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 185</value>
-  </data>
-  <data name="btPlayClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPlayClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPlayClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btPlayClr.Name" xml:space="preserve">
-    <value>btPlayClr</value>
-  </data>
-  <data name="&gt;&gt;btPlayClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPlayClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPlayClr.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="btPauseClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 69</value>
-  </data>
-  <data name="btPauseClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPauseClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPauseClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btPauseClr.Name" xml:space="preserve">
-    <value>btPauseClr</value>
-  </data>
-  <data name="&gt;&gt;btPauseClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPauseClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPauseClr.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="btFastClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 214</value>
-  </data>
-  <data name="btFastClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btFastClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btFastClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btFastClr.Name" xml:space="preserve">
-    <value>btFastClr</value>
-  </data>
-  <data name="&gt;&gt;btFastClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btFastClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btFastClr.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="btFadeoutClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 98</value>
-  </data>
-  <data name="btFadeoutClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btFadeoutClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btFadeoutClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutClr.Name" xml:space="preserve">
-    <value>btFadeoutClr</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutClr.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="btSlowClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 156</value>
-  </data>
-  <data name="btSlowClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btSlowClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btSlowClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btSlowClr.Name" xml:space="preserve">
-    <value>btSlowClr</value>
-  </data>
-  <data name="&gt;&gt;btSlowClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btSlowClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btSlowClr.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="btStopClr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>391, 40</value>
-  </data>
-  <data name="btStopClr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btStopClr.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btStopClr.Text" xml:space="preserve">
-    <value>Clr</value>
-  </data>
-  <data name="&gt;&gt;btStopClr.Name" xml:space="preserve">
-    <value>btStopClr</value>
-  </data>
-  <data name="&gt;&gt;btStopClr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btStopClr.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btStopClr.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="btNextSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 243</value>
-  </data>
-  <data name="btNextSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btNextSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btNextSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btNextSet.Name" xml:space="preserve">
-    <value>btNextSet</value>
-  </data>
-  <data name="&gt;&gt;btNextSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btNextSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btNextSet.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="btPrevSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 127</value>
-  </data>
-  <data name="btPrevSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPrevSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPrevSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btPrevSet.Name" xml:space="preserve">
-    <value>btPrevSet</value>
-  </data>
-  <data name="&gt;&gt;btPrevSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPrevSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPrevSet.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="btPlaySet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 185</value>
-  </data>
-  <data name="btPlaySet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPlaySet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPlaySet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btPlaySet.Name" xml:space="preserve">
-    <value>btPlaySet</value>
-  </data>
-  <data name="&gt;&gt;btPlaySet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPlaySet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPlaySet.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="btPauseSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 69</value>
-  </data>
-  <data name="btPauseSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btPauseSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btPauseSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btPauseSet.Name" xml:space="preserve">
-    <value>btPauseSet</value>
-  </data>
-  <data name="&gt;&gt;btPauseSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btPauseSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btPauseSet.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="btFastSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 214</value>
-  </data>
-  <data name="btFastSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btFastSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btFastSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btFastSet.Name" xml:space="preserve">
-    <value>btFastSet</value>
-  </data>
-  <data name="&gt;&gt;btFastSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btFastSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btFastSet.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="btFadeoutSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 98</value>
-  </data>
-  <data name="btFadeoutSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btFadeoutSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btFadeoutSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutSet.Name" xml:space="preserve">
-    <value>btFadeoutSet</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btFadeoutSet.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="btSlowSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 156</value>
-  </data>
-  <data name="btSlowSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btSlowSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btSlowSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btSlowSet.Name" xml:space="preserve">
-    <value>btSlowSet</value>
-  </data>
-  <data name="&gt;&gt;btSlowSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btSlowSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btSlowSet.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="btStopSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 40</value>
-  </data>
-  <data name="btStopSet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="btStopSet.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="btStopSet.Text" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="&gt;&gt;btStopSet.Name" xml:space="preserve">
-    <value>btStopSet</value>
-  </data>
-  <data name="&gt;&gt;btStopSet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btStopSet.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;btStopSet.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="label50.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 24</value>
-  </data>
-  <data name="label50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 12</value>
-  </data>
-  <data name="label50.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="label50.Text" xml:space="preserve">
-    <value>Key</value>
-  </data>
-  <data name="&gt;&gt;label50.Name" xml:space="preserve">
-    <value>label50</value>
-  </data>
-  <data name="&gt;&gt;label50.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label50.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="lblNextKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblNextKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 248</value>
-  </data>
-  <data name="lblNextKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblNextKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblNextKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblNextKey.Name" xml:space="preserve">
-    <value>lblNextKey</value>
-  </data>
-  <data name="&gt;&gt;lblNextKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblNextKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblNextKey.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="lblFastKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblFastKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 219</value>
-  </data>
-  <data name="lblFastKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblFastKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblFastKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblFastKey.Name" xml:space="preserve">
-    <value>lblFastKey</value>
-  </data>
-  <data name="&gt;&gt;lblFastKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblFastKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblFastKey.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="lblPlayKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblPlayKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 190</value>
-  </data>
-  <data name="lblPlayKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblPlayKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblPlayKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblPlayKey.Name" xml:space="preserve">
-    <value>lblPlayKey</value>
-  </data>
-  <data name="&gt;&gt;lblPlayKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPlayKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblPlayKey.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="lblSlowKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblSlowKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 161</value>
-  </data>
-  <data name="lblSlowKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblSlowKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblSlowKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblSlowKey.Name" xml:space="preserve">
-    <value>lblSlowKey</value>
-  </data>
-  <data name="&gt;&gt;lblSlowKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblSlowKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblSlowKey.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="lblPrevKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblPrevKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 132</value>
-  </data>
-  <data name="lblPrevKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblPrevKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblPrevKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblPrevKey.Name" xml:space="preserve">
-    <value>lblPrevKey</value>
-  </data>
-  <data name="&gt;&gt;lblPrevKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPrevKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblPrevKey.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="lblFadeoutKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblFadeoutKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 103</value>
-  </data>
-  <data name="lblFadeoutKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblFadeoutKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblFadeoutKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblFadeoutKey.Name" xml:space="preserve">
-    <value>lblFadeoutKey</value>
-  </data>
-  <data name="&gt;&gt;lblFadeoutKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblFadeoutKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblFadeoutKey.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="lblPauseKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblPauseKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 74</value>
-  </data>
-  <data name="lblPauseKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblPauseKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblPauseKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblPauseKey.Name" xml:space="preserve">
-    <value>lblPauseKey</value>
-  </data>
-  <data name="&gt;&gt;lblPauseKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPauseKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblPauseKey.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="lblStopKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblStopKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 45</value>
-  </data>
-  <data name="lblStopKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 12</value>
-  </data>
-  <data name="lblStopKey.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblStopKey.Text" xml:space="preserve">
-    <value>(None)</value>
-  </data>
-  <data name="&gt;&gt;lblStopKey.Name" xml:space="preserve">
-    <value>lblStopKey</value>
-  </data>
-  <data name="&gt;&gt;lblStopKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblStopKey.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;lblStopKey.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="pictureBox14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 41</value>
-  </data>
-  <data name="pictureBox14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox14.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;pictureBox14.Name" xml:space="preserve">
-    <value>pictureBox14</value>
-  </data>
-  <data name="&gt;&gt;pictureBox14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox14.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox14.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="pictureBox17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 99</value>
-  </data>
-  <data name="pictureBox17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox17.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;pictureBox17.Name" xml:space="preserve">
-    <value>pictureBox17</value>
-  </data>
-  <data name="&gt;&gt;pictureBox17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox17.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox17.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="cbNextAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbNextAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 246</value>
-  </data>
-  <data name="cbNextAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbNextAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbNextAlt.Name" xml:space="preserve">
-    <value>cbNextAlt</value>
-  </data>
-  <data name="&gt;&gt;cbNextAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbNextAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbNextAlt.ZOrder" xml:space="preserve">
-    <value>28</value>
-  </data>
-  <data name="pictureBox16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 128</value>
-  </data>
-  <data name="pictureBox16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox16.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="&gt;&gt;pictureBox16.Name" xml:space="preserve">
-    <value>pictureBox16</value>
-  </data>
-  <data name="&gt;&gt;pictureBox16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox16.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox16.ZOrder" xml:space="preserve">
-    <value>29</value>
-  </data>
-  <data name="cbFastAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFastAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 219</value>
-  </data>
-  <data name="cbFastAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFastAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFastAlt.Name" xml:space="preserve">
-    <value>cbFastAlt</value>
-  </data>
-  <data name="&gt;&gt;cbFastAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFastAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFastAlt.ZOrder" xml:space="preserve">
-    <value>30</value>
-  </data>
-  <data name="pictureBox15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 70</value>
-  </data>
-  <data name="pictureBox15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox15.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;pictureBox15.Name" xml:space="preserve">
-    <value>pictureBox15</value>
-  </data>
-  <data name="&gt;&gt;pictureBox15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox15.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox15.ZOrder" xml:space="preserve">
-    <value>31</value>
-  </data>
-  <data name="cbPlayAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPlayAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 190</value>
-  </data>
-  <data name="cbPlayAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPlayAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPlayAlt.Name" xml:space="preserve">
-    <value>cbPlayAlt</value>
-  </data>
-  <data name="&gt;&gt;cbPlayAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPlayAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPlayAlt.ZOrder" xml:space="preserve">
-    <value>32</value>
-  </data>
-  <data name="pictureBox13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 157</value>
-  </data>
-  <data name="pictureBox13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox13.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;pictureBox13.Name" xml:space="preserve">
-    <value>pictureBox13</value>
-  </data>
-  <data name="&gt;&gt;pictureBox13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox13.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox13.ZOrder" xml:space="preserve">
-    <value>33</value>
-  </data>
-  <data name="cbSlowAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbSlowAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 161</value>
-  </data>
-  <data name="cbSlowAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbSlowAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbSlowAlt.Name" xml:space="preserve">
-    <value>cbSlowAlt</value>
-  </data>
-  <data name="&gt;&gt;cbSlowAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbSlowAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbSlowAlt.ZOrder" xml:space="preserve">
-    <value>34</value>
-  </data>
-  <data name="pictureBox12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 186</value>
-  </data>
-  <data name="pictureBox12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox12.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;pictureBox12.Name" xml:space="preserve">
-    <value>pictureBox12</value>
-  </data>
-  <data name="&gt;&gt;pictureBox12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox12.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox12.ZOrder" xml:space="preserve">
-    <value>35</value>
-  </data>
-  <data name="cbPrevAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPrevAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 132</value>
-  </data>
-  <data name="cbPrevAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPrevAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPrevAlt.Name" xml:space="preserve">
-    <value>cbPrevAlt</value>
-  </data>
-  <data name="&gt;&gt;cbPrevAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPrevAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPrevAlt.ZOrder" xml:space="preserve">
-    <value>36</value>
-  </data>
-  <data name="pictureBox11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 215</value>
-  </data>
-  <data name="pictureBox11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox11.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Name" xml:space="preserve">
-    <value>pictureBox11</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox11.ZOrder" xml:space="preserve">
-    <value>37</value>
-  </data>
-  <data name="cbFadeoutAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFadeoutAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 103</value>
-  </data>
-  <data name="cbFadeoutAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFadeoutAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutAlt.Name" xml:space="preserve">
-    <value>cbFadeoutAlt</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutAlt.ZOrder" xml:space="preserve">
-    <value>38</value>
-  </data>
-  <data name="pictureBox10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 242</value>
-  </data>
-  <data name="pictureBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="pictureBox10.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Name" xml:space="preserve">
-    <value>pictureBox10</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;pictureBox10.ZOrder" xml:space="preserve">
-    <value>39</value>
-  </data>
-  <data name="cbPauseAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPauseAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 74</value>
-  </data>
-  <data name="cbPauseAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPauseAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPauseAlt.Name" xml:space="preserve">
-    <value>cbPauseAlt</value>
-  </data>
-  <data name="&gt;&gt;cbPauseAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPauseAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPauseAlt.ZOrder" xml:space="preserve">
-    <value>40</value>
-  </data>
-  <data name="label37.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label37.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 45</value>
-  </data>
-  <data name="label37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 12</value>
-  </data>
-  <data name="label37.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label37.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="&gt;&gt;label37.Name" xml:space="preserve">
-    <value>label37</value>
-  </data>
-  <data name="&gt;&gt;label37.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label37.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
-    <value>41</value>
-  </data>
-  <data name="cbStopAlt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbStopAlt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 45</value>
-  </data>
-  <data name="cbStopAlt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbStopAlt.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbStopAlt.Name" xml:space="preserve">
-    <value>cbStopAlt</value>
-  </data>
-  <data name="&gt;&gt;cbStopAlt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbStopAlt.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbStopAlt.ZOrder" xml:space="preserve">
-    <value>42</value>
-  </data>
-  <data name="label45.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label45.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 24</value>
-  </data>
-  <data name="label45.Size" type="System.Drawing.Size, System.Drawing">
-    <value>29, 12</value>
-  </data>
-  <data name="label45.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label45.Text" xml:space="preserve">
-    <value>Shift</value>
-  </data>
-  <data name="&gt;&gt;label45.Name" xml:space="preserve">
-    <value>label45</value>
-  </data>
-  <data name="&gt;&gt;label45.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label45.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label45.ZOrder" xml:space="preserve">
-    <value>43</value>
-  </data>
-  <data name="label46.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 24</value>
-  </data>
-  <data name="label46.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 12</value>
-  </data>
-  <data name="label46.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label46.Text" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="&gt;&gt;label46.Name" xml:space="preserve">
-    <value>label46</value>
-  </data>
-  <data name="&gt;&gt;label46.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label46.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label46.ZOrder" xml:space="preserve">
-    <value>44</value>
-  </data>
-  <data name="label48.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
-    <value>199, 24</value>
-  </data>
-  <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 12</value>
-  </data>
-  <data name="label48.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label48.Text" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="&gt;&gt;label48.Name" xml:space="preserve">
-    <value>label48</value>
-  </data>
-  <data name="&gt;&gt;label48.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label48.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
-    <value>45</value>
-  </data>
-  <data name="label38.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label38.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 74</value>
-  </data>
-  <data name="label38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 12</value>
-  </data>
-  <data name="label38.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label38.Text" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="&gt;&gt;label38.Name" xml:space="preserve">
-    <value>label38</value>
-  </data>
-  <data name="&gt;&gt;label38.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label38.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label38.ZOrder" xml:space="preserve">
-    <value>46</value>
-  </data>
-  <data name="label39.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 103</value>
-  </data>
-  <data name="label39.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 12</value>
-  </data>
-  <data name="label39.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label39.Text" xml:space="preserve">
-    <value>Fade Out</value>
-  </data>
-  <data name="&gt;&gt;label39.Name" xml:space="preserve">
-    <value>label39</value>
-  </data>
-  <data name="&gt;&gt;label39.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label39.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label39.ZOrder" xml:space="preserve">
-    <value>47</value>
-  </data>
-  <data name="label40.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label40.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 132</value>
-  </data>
-  <data name="label40.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 12</value>
-  </data>
-  <data name="label40.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label40.Text" xml:space="preserve">
-    <value>Prev</value>
-  </data>
-  <data name="&gt;&gt;label40.Name" xml:space="preserve">
-    <value>label40</value>
-  </data>
-  <data name="&gt;&gt;label40.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label40.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label40.ZOrder" xml:space="preserve">
-    <value>48</value>
-  </data>
-  <data name="label41.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label41.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 161</value>
-  </data>
-  <data name="label41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 12</value>
-  </data>
-  <data name="label41.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label41.Text" xml:space="preserve">
-    <value>Slow Play</value>
-  </data>
-  <data name="&gt;&gt;label41.Name" xml:space="preserve">
-    <value>label41</value>
-  </data>
-  <data name="&gt;&gt;label41.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label41.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label41.ZOrder" xml:space="preserve">
-    <value>49</value>
-  </data>
-  <data name="label42.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label42.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 190</value>
-  </data>
-  <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
-    <value>27, 12</value>
-  </data>
-  <data name="label42.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label42.Text" xml:space="preserve">
-    <value>Play</value>
-  </data>
-  <data name="&gt;&gt;label42.Name" xml:space="preserve">
-    <value>label42</value>
-  </data>
-  <data name="&gt;&gt;label42.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label42.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label42.ZOrder" xml:space="preserve">
-    <value>50</value>
-  </data>
-  <data name="cbNextCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbNextCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 246</value>
-  </data>
-  <data name="cbNextCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbNextCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbNextCtrl.Name" xml:space="preserve">
-    <value>cbNextCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbNextCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbNextCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbNextCtrl.ZOrder" xml:space="preserve">
-    <value>51</value>
-  </data>
-  <data name="label43.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label43.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 219</value>
-  </data>
-  <data name="label43.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 12</value>
-  </data>
-  <data name="label43.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label43.Text" xml:space="preserve">
-    <value>3x Speed</value>
-  </data>
-  <data name="&gt;&gt;label43.Name" xml:space="preserve">
-    <value>label43</value>
-  </data>
-  <data name="&gt;&gt;label43.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label43.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label43.ZOrder" xml:space="preserve">
-    <value>52</value>
-  </data>
-  <data name="cbFastCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFastCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 219</value>
-  </data>
-  <data name="cbFastCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFastCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFastCtrl.Name" xml:space="preserve">
-    <value>cbFastCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbFastCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFastCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFastCtrl.ZOrder" xml:space="preserve">
-    <value>53</value>
-  </data>
-  <data name="label44.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label44.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 246</value>
-  </data>
-  <data name="label44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 12</value>
-  </data>
-  <data name="label44.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="label44.Text" xml:space="preserve">
-    <value>Fwd</value>
-  </data>
-  <data name="&gt;&gt;label44.Name" xml:space="preserve">
-    <value>label44</value>
-  </data>
-  <data name="&gt;&gt;label44.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label44.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;label44.ZOrder" xml:space="preserve">
-    <value>54</value>
-  </data>
-  <data name="cbPlayCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPlayCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 190</value>
-  </data>
-  <data name="cbPlayCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPlayCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPlayCtrl.Name" xml:space="preserve">
-    <value>cbPlayCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbPlayCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPlayCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPlayCtrl.ZOrder" xml:space="preserve">
-    <value>55</value>
-  </data>
-  <data name="cbStopShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbStopShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 45</value>
-  </data>
-  <data name="cbStopShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbStopShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbStopShift.Name" xml:space="preserve">
-    <value>cbStopShift</value>
-  </data>
-  <data name="&gt;&gt;cbStopShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbStopShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbStopShift.ZOrder" xml:space="preserve">
-    <value>56</value>
-  </data>
-  <data name="cbSlowCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbSlowCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 161</value>
-  </data>
-  <data name="cbSlowCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbSlowCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbSlowCtrl.Name" xml:space="preserve">
-    <value>cbSlowCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbSlowCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbSlowCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbSlowCtrl.ZOrder" xml:space="preserve">
-    <value>57</value>
-  </data>
-  <data name="cbPauseShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPauseShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 74</value>
-  </data>
-  <data name="cbPauseShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPauseShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPauseShift.Name" xml:space="preserve">
-    <value>cbPauseShift</value>
-  </data>
-  <data name="&gt;&gt;cbPauseShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPauseShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPauseShift.ZOrder" xml:space="preserve">
-    <value>58</value>
-  </data>
-  <data name="cbPrevCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPrevCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 132</value>
-  </data>
-  <data name="cbPrevCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPrevCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPrevCtrl.Name" xml:space="preserve">
-    <value>cbPrevCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbPrevCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPrevCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPrevCtrl.ZOrder" xml:space="preserve">
-    <value>59</value>
-  </data>
-  <data name="cbFadeoutShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFadeoutShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 103</value>
-  </data>
-  <data name="cbFadeoutShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFadeoutShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutShift.Name" xml:space="preserve">
-    <value>cbFadeoutShift</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutShift.ZOrder" xml:space="preserve">
-    <value>60</value>
-  </data>
-  <data name="cbFadeoutCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFadeoutCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 103</value>
-  </data>
-  <data name="cbFadeoutCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFadeoutCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutCtrl.Name" xml:space="preserve">
-    <value>cbFadeoutCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFadeoutCtrl.ZOrder" xml:space="preserve">
-    <value>61</value>
-  </data>
-  <data name="cbPrevShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPrevShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 132</value>
-  </data>
-  <data name="cbPrevShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPrevShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPrevShift.Name" xml:space="preserve">
-    <value>cbPrevShift</value>
-  </data>
-  <data name="&gt;&gt;cbPrevShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPrevShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPrevShift.ZOrder" xml:space="preserve">
-    <value>62</value>
-  </data>
-  <data name="cbPauseCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPauseCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 74</value>
-  </data>
-  <data name="cbPauseCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPauseCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPauseCtrl.Name" xml:space="preserve">
-    <value>cbPauseCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbPauseCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPauseCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPauseCtrl.ZOrder" xml:space="preserve">
-    <value>63</value>
-  </data>
-  <data name="cbSlowShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbSlowShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 161</value>
-  </data>
-  <data name="cbSlowShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbSlowShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbSlowShift.Name" xml:space="preserve">
-    <value>cbSlowShift</value>
-  </data>
-  <data name="&gt;&gt;cbSlowShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbSlowShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbSlowShift.ZOrder" xml:space="preserve">
-    <value>64</value>
-  </data>
-  <data name="cbStopCtrl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbStopCtrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 45</value>
-  </data>
-  <data name="cbStopCtrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbStopCtrl.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbStopCtrl.Name" xml:space="preserve">
-    <value>cbStopCtrl</value>
-  </data>
-  <data name="&gt;&gt;cbStopCtrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbStopCtrl.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbStopCtrl.ZOrder" xml:space="preserve">
-    <value>65</value>
-  </data>
-  <data name="cbPlayShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbPlayShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 190</value>
-  </data>
-  <data name="cbPlayShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbPlayShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbPlayShift.Name" xml:space="preserve">
-    <value>cbPlayShift</value>
-  </data>
-  <data name="&gt;&gt;cbPlayShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbPlayShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbPlayShift.ZOrder" xml:space="preserve">
-    <value>66</value>
-  </data>
-  <data name="cbNextShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbNextShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 246</value>
-  </data>
-  <data name="cbNextShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbNextShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbNextShift.Name" xml:space="preserve">
-    <value>cbNextShift</value>
-  </data>
-  <data name="&gt;&gt;cbNextShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbNextShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbNextShift.ZOrder" xml:space="preserve">
-    <value>67</value>
-  </data>
-  <data name="cbFastShift.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbFastShift.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 219</value>
-  </data>
-  <data name="cbFastShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="cbFastShift.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;cbFastShift.Name" xml:space="preserve">
-    <value>cbFastShift</value>
-  </data>
-  <data name="&gt;&gt;cbFastShift.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbFastShift.Parent" xml:space="preserve">
-    <value>gbUseKeyBoardHook</value>
-  </data>
-  <data name="&gt;&gt;cbFastShift.ZOrder" xml:space="preserve">
-    <value>68</value>
   </data>
   <data name="gbUseKeyBoardHook.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 3</value>
   </data>
   <data name="gbUseKeyBoardHook.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 360</value>
+    <value>480, 387</value>
   </data>
   <data name="gbUseKeyBoardHook.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>

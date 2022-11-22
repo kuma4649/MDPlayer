@@ -839,6 +839,42 @@ namespace MDPlayer.form
             lblNextKey.Text = setting.keyBoardHook.Next.Key;
             btNextClr.Enabled = (lblNextKey.Text != "(None)" && !string.IsNullOrEmpty(lblNextKey.Text));
 
+            cbUmvShift.Checked = setting.keyBoardHook.Umv.Shift;
+            cbUmvCtrl.Checked = setting.keyBoardHook.Umv.Ctrl;
+            cbUmvAlt.Checked = setting.keyBoardHook.Umv.Alt;
+            lblUmvKey.Text = setting.keyBoardHook.Umv.Key;
+            btUmvClr.Enabled = (lblUmvKey.Text != "(None)" && !string.IsNullOrEmpty(lblUmvKey.Text));
+
+            cbDmvShift.Checked = setting.keyBoardHook.Dmv.Shift;
+            cbDmvCtrl.Checked = setting.keyBoardHook.Dmv.Ctrl;
+            cbDmvAlt.Checked = setting.keyBoardHook.Dmv.Alt;
+            lblDmvKey.Text = setting.keyBoardHook.Dmv.Key;
+            btDmvClr.Enabled = (lblDmvKey.Text != "(None)" && !string.IsNullOrEmpty(lblDmvKey.Text));
+
+            cbRmvShift.Checked = setting.keyBoardHook.Rmv.Shift;
+            cbRmvCtrl.Checked = setting.keyBoardHook.Rmv.Ctrl;
+            cbRmvAlt.Checked = setting.keyBoardHook.Rmv.Alt;
+            lblRmvKey.Text = setting.keyBoardHook.Rmv.Key;
+            btRmvClr.Enabled = (lblRmvKey.Text != "(None)" && !string.IsNullOrEmpty(lblRmvKey.Text));
+
+            cbUpcShift.Checked = setting.keyBoardHook.Upc.Shift;
+            cbUpcCtrl.Checked = setting.keyBoardHook.Upc.Ctrl;
+            cbUpcAlt.Checked = setting.keyBoardHook.Upc.Alt;
+            lblUpcKey.Text = setting.keyBoardHook.Upc.Key;
+            btUpcClr.Enabled = (lblUpcKey.Text != "(None)" && !string.IsNullOrEmpty(lblUpcKey.Text));
+
+            cbDpcShift.Checked = setting.keyBoardHook.Dpc.Shift;
+            cbDpcCtrl.Checked = setting.keyBoardHook.Dpc.Ctrl;
+            cbDpcAlt.Checked = setting.keyBoardHook.Dpc.Alt;
+            lblDpcKey.Text = setting.keyBoardHook.Dpc.Key;
+            btDpcClr.Enabled = (lblDpcKey.Text != "(None)" && !string.IsNullOrEmpty(lblDpcKey.Text));
+
+            cbPpcShift.Checked = setting.keyBoardHook.Ppc.Shift;
+            cbPpcCtrl.Checked = setting.keyBoardHook.Ppc.Ctrl;
+            cbPpcAlt.Checked = setting.keyBoardHook.Ppc.Alt;
+            lblPpcKey.Text = setting.keyBoardHook.Ppc.Key;
+            btPpcClr.Enabled = (lblPpcKey.Text != "(None)" && !string.IsNullOrEmpty(lblPpcKey.Text));
+
             cbExALL.Checked = setting.other.ExAll;
             cbNonRenderingForPause.Checked = setting.other.NonRenderingForPause;
 
@@ -1800,6 +1836,42 @@ namespace MDPlayer.form
             setting.keyBoardHook.Next.Alt = cbNextAlt.Checked;
             setting.keyBoardHook.Next.Key = string.IsNullOrEmpty(lblNextKey.Text) ? "(None)" : lblNextKey.Text;
 
+            setting.keyBoardHook.Umv.Shift = cbUmvShift.Checked;
+            setting.keyBoardHook.Umv.Ctrl = cbUmvCtrl.Checked;
+            setting.keyBoardHook.Umv.Win = false;
+            setting.keyBoardHook.Umv.Alt = cbUmvAlt.Checked;
+            setting.keyBoardHook.Umv.Key = string.IsNullOrEmpty(lblUmvKey.Text) ? "(None)" : lblUmvKey.Text;
+
+            setting.keyBoardHook.Dmv.Shift = cbDmvShift.Checked;
+            setting.keyBoardHook.Dmv.Ctrl = cbDmvCtrl.Checked;
+            setting.keyBoardHook.Dmv.Win = false;
+            setting.keyBoardHook.Dmv.Alt = cbDmvAlt.Checked;
+            setting.keyBoardHook.Dmv.Key = string.IsNullOrEmpty(lblDmvKey.Text) ? "(None)" : lblDmvKey.Text;
+
+            setting.keyBoardHook.Rmv.Shift = cbRmvShift.Checked;
+            setting.keyBoardHook.Rmv.Ctrl = cbRmvCtrl.Checked;
+            setting.keyBoardHook.Rmv.Win = false;
+            setting.keyBoardHook.Rmv.Alt = cbRmvAlt.Checked;
+            setting.keyBoardHook.Rmv.Key = string.IsNullOrEmpty(lblRmvKey.Text) ? "(None)" : lblRmvKey.Text;
+
+            setting.keyBoardHook.Upc.Shift = cbUpcShift.Checked;
+            setting.keyBoardHook.Upc.Ctrl = cbUpcCtrl.Checked;
+            setting.keyBoardHook.Upc.Win = false;
+            setting.keyBoardHook.Upc.Alt = cbUpcAlt.Checked;
+            setting.keyBoardHook.Upc.Key = string.IsNullOrEmpty(lblUpcKey.Text) ? "(None)" : lblUpcKey.Text;
+
+            setting.keyBoardHook.Dpc.Shift = cbDpcShift.Checked;
+            setting.keyBoardHook.Dpc.Ctrl = cbDpcCtrl.Checked;
+            setting.keyBoardHook.Dpc.Win = false;
+            setting.keyBoardHook.Dpc.Alt = cbDpcAlt.Checked;
+            setting.keyBoardHook.Dpc.Key = string.IsNullOrEmpty(lblDpcKey.Text) ? "(None)" : lblDpcKey.Text;
+
+            setting.keyBoardHook.Ppc.Shift = cbPpcShift.Checked;
+            setting.keyBoardHook.Ppc.Ctrl = cbPpcCtrl.Checked;
+            setting.keyBoardHook.Ppc.Win = false;
+            setting.keyBoardHook.Ppc.Alt = cbPpcAlt.Checked;
+            setting.keyBoardHook.Ppc.Key = string.IsNullOrEmpty(lblPpcKey.Text) ? "(None)" : lblPpcKey.Text;
+
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -2689,6 +2761,152 @@ namespace MDPlayer.form
 
             frmMain.keyHookMeth = keyHookMeth;
         }
+
+        private void btUmvSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblUmvKey;
+            btSet = btUmvSet;
+            btClr = btUmvClr;
+            btOK = btnOK;
+            btNextSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btUmvClr_Click(object sender, EventArgs e)
+        {
+            lblUmvKey.Text = "(None)";
+            btUmvClr.Enabled = false;
+        }
+
+        private void btDmvSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblDmvKey;
+            btSet = btDmvSet;
+            btClr = btDmvClr;
+            btOK = btnOK;
+            btDmvSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btDmvClr_Click(object sender, EventArgs e)
+        {
+            lblDmvKey.Text = "(None)";
+            btDmvClr.Enabled = false;
+        }
+
+        private void btRmvSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblRmvKey;
+            btSet = btRmvSet;
+            btClr = btRmvClr;
+            btOK = btnOK;
+            btRmvSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btRmvClr_Click(object sender, EventArgs e)
+        {
+            lblRmvKey.Text = "(None)";
+            btRmvClr.Enabled = false;
+        }
+
+        private void btUpcSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblUpcKey;
+            btSet = btUpcSet;
+            btClr = btUpcClr;
+            btOK = btnOK;
+            btUpcSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btUpcClr_Click(object sender, EventArgs e)
+        {
+            lblUpcKey.Text = "(None)";
+            btUpcClr.Enabled = false;
+        }
+
+        private void btDpcSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblDpcKey;
+            btSet = btDpcSet;
+            btClr = btDpcClr;
+            btOK = btnOK;
+            btDpcSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btDpcClr_Click(object sender, EventArgs e)
+        {
+            lblDpcKey.Text = "(None)";
+            btDpcClr.Enabled = false;
+        }
+
+        private void btPpcSet_Click(object sender, EventArgs e)
+        {
+            lblKey = lblPpcKey;
+            btSet = btPpcSet;
+            btClr = btPpcClr;
+            btOK = btnOK;
+            btPpcSet.Enabled = false;
+            btnOK.Enabled = false;
+            lblKey.Text = "入力待ち";
+            lblKey.ForeColor = System.Drawing.Color.Red;
+
+            lblNotice = lblKeyBoardHookNotice;
+            lblKeyBoardHookNotice.Visible = true;
+
+            frmMain.keyHookMeth = keyHookMeth;
+        }
+
+        private void btPpcClr_Click(object sender, EventArgs e)
+        {
+            lblPpcKey.Text = "(None)";
+            btPpcClr.Enabled = false;
+        }
+
+
+
+
+
+
+
+
 
         public static Label lblKey = null;
         public static Label lblNotice = null;
