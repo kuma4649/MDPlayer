@@ -492,6 +492,9 @@ namespace MDPlayer
 
                     music.converted = gd3.Converted;
                     music.notes = gd3.Notes;
+
+                    music.version = gd3.Version;
+                    music.useChips = gd3.UsedChips;
                 }
                 else
                 {
@@ -740,7 +743,8 @@ namespace MDPlayer
                 music.composer = gd3.Composer;
                 music.composerJ = gd3.ComposerJ;
                 music.vgmby = gd3.VGMBy;
-
+                music.version = Version;
+                music.useChips = gd3.UsedChips;
                 music.converted = gd3.Converted;
                 music.notes = gd3.Notes;
 

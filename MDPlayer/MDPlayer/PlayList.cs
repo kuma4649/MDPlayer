@@ -36,6 +36,8 @@ namespace MDPlayer
             public string vgmby;
             public string remark;
             public string duration;
+            public string version = "";
+            public string useChips = "";
 
             public string time = "";
             public string loopStartTime = "";
@@ -201,6 +203,8 @@ namespace MDPlayer
                 row.Cells[dgvList.Columns["clmDuration"].Index].Value = music.duration;
                 row.Cells[dgvList.Columns["clmVGMby"].Index].Value = music.vgmby;
                 row.Cells[dgvList.Columns["clmSongNo"].Index].Value = music.songNo;
+                row.Cells[dgvList.Columns["ClmVersion"].Index].Value = music.version;
+                row.Cells[dgvList.Columns["ClmUseChips"].Index].Value = music.useChips;
                 row.Tag = music;
 
                 ret.Add(row);

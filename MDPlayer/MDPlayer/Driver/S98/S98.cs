@@ -18,7 +18,7 @@ namespace MDPlayer
         public const int FCC_BOM = 0x00BFBBEF;	// BOM
 
         public S98Info s98Info;
-        private List<string> chips = null;
+        public List<string> chips = null;
         private uint musicPtr = 0;
         private double oneSyncTime;
         private double musicStep = 1;// setting.outputDevice.SampleRate / 60.0;
@@ -38,6 +38,7 @@ namespace MDPlayer
             {
                 if (Common.getLE24(buf, 0) != FCC_S98) return null;
                 int Format = (int)(buf[3] - '0');
+                gd3.Version = String.Format("S98Version {0}", Format);
                 uint TAGAdr = Common.getLE32(buf, 0x10);
                 if (Format < 2)
                 {
@@ -148,6 +149,13 @@ namespace MDPlayer
                     }
                 }
 
+                this.vgmBuf = buf;
+                getInformationHeader();
+                if (chips.Count>0)
+                {
+                    gd3.UsedChips = String.Join(",", chips);
+                }
+
             }
             catch (Exception e)
             {
@@ -179,7 +187,7 @@ namespace MDPlayer
             GD3 = getGD3Info(vgmBuf, 0);
             //if (GD3 == null) return false;
 
-            if (!getInformationHeader()) return false;
+            //if (!getInformationHeader()) return false;
 
             if (model == EnmModel.RealModel)
             {
@@ -265,7 +273,8 @@ namespace MDPlayer
             }
 
             byte[] devIDs = new byte[256];
-
+            chips = new List<string>();
+            //chips.Add(String.Format("S98Version {0}", s98Info.FormatVersion));
             s98Info.DeviceInfos = new List<S98DevInfo>();
             if (s98Info.DeviceCount == 0)
             {
