@@ -3633,7 +3633,7 @@ namespace MDPlayer
                         chip.Start = ym2609.Start;
                         chip.Stop = ym2609.Stop;
                         chip.Reset = ym2609.Reset;
-                        chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                        chip.SamplingRate = 55467;// (UInt32)setting.outputDevice.SampleRate;
                         chip.Volume = 0;
                         chip.Clock = (uint)ch.defineInfo.clock;
                         chip.Option = null;
@@ -7128,6 +7128,7 @@ namespace MDPlayer
                     ProcTimePer1Frame = (int)((double)stwh.ElapsedMilliseconds / (sampleCount + 1) * 1000000.0);
                 }
 
+                //waveWriter.Write(buffer, offset, sampleCount);
                 //VST
                 vstMng.VST_Update(buffer, offset, sampleCount);
 

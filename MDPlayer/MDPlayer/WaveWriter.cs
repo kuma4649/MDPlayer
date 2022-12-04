@@ -108,6 +108,7 @@ namespace MDPlayer
             {
                 dest.WriteByte((byte)(buffer[offset + i] & 0xff));
                 dest.WriteByte((byte)((buffer[offset + i] & 0xff00) >> 8));
+                //if (buffer[offset + i] != 0) Console.WriteLine("{0:x}", buffer[offset + i]);
             }
             len += sampleCount * 2;
         }
