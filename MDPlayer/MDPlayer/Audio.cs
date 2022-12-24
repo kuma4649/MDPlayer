@@ -2063,12 +2063,31 @@ namespace MDPlayer
 
                 if (useOPLL)
                 {
-                    ym2413 ym2413 = null;
+                    //ym2413 ym2413 = null;
+                    //chip = new MDSound.MDSound.Chip();
+                    //ym2413 = new ym2413();
+                    //chip.ID = 0;
+                    //chipLED.PriOPLL = 1;
+                    //chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
+                    //chip.Instrument = ym2413;
+                    //chip.Update = ym2413.Update;
+                    //chip.Start = ym2413.Start;
+                    //chip.Stop = ym2413.Stop;
+                    //chip.Reset = ym2413.Reset;
+                    //chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    //chip.Volume = setting.balance.YM2413Volume;
+                    //chip.Clock = Driver.MGSDRV.MGSDRV.baseclockYM2413;
+                    //chip.Option = null;
+                    //lstChips.Add(chip);
+                    //useChip.Add(EnmChip.YM2413);
+                    //clockYM2413 = (int)Driver.MGSDRV.MGSDRV.baseclockYM2413;
+
+                    MDSound.emu2413 ym2413 = null;
                     chip = new MDSound.MDSound.Chip();
-                    ym2413 = new ym2413();
+                    ym2413 = new MDSound.emu2413();
                     chip.ID = 0;
                     chipLED.PriOPLL = 1;
-                    chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
+                    chip.type = MDSound.MDSound.enmInstrumentType.YM2413emu;
                     chip.Instrument = ym2413;
                     chip.Update = ym2413.Update;
                     chip.Start = ym2413.Start;
@@ -2114,6 +2133,12 @@ namespace MDPlayer
                     mds.Init((UInt32)setting.outputDevice.SampleRate, samplingBuffer, lstChips.ToArray());
 
                 chipRegister.initChipRegister(lstChips.ToArray());
+
+                if (useOPLL)
+                {
+                    chipRegister.setYM2413Register(0, 14, 32, EnmModel.VirtualModel);
+                    //chipRegister.setYM2610Register(0, 0, 0x11, 0xc0, EnmModel.VirtualModel);
+                }
 
                 if (!driverVirtual.init(vgmBuf, chipRegister, EnmModel.VirtualModel, new EnmChip[] { EnmChip.AY8910, EnmChip.YM2413, EnmChip.K051649 }
                     , (uint)(setting.outputDevice.SampleRate * setting.LatencyEmulation / 1000)

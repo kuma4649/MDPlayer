@@ -1712,7 +1712,8 @@ namespace MDPlayer
             {
                 if (!ctYM2413[chipID].UseReal[0])
                 {
-                    mds.WriteYM2413((byte)chipID, (byte)dAddr, (byte)dData);
+                    //mds.WriteYM2413((byte)chipID, (byte)dAddr, (byte)dData);
+                    mds.WriteYM2413emu((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
             else
