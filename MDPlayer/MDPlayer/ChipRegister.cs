@@ -1638,6 +1638,9 @@ namespace MDPlayer
         {
             if (ctYM2413 == null) return;
 
+            //if (model == EnmModel.RealModel) return;
+            //Console.WriteLine("AA:{0:x} DD:{1:x}", dAddr, dData);
+
             if (chipID == 0) chipLED.PriOPLL = 2;
             else chipLED.SecOPLL = 2;
 
@@ -1674,13 +1677,13 @@ namespace MDPlayer
 
                 if (dAddr<0x36 || !rmYM2413[chipID])
                 {
-                    dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
-                    dData = inst | dData;
+                    //dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
+                    //dData = inst | dData;
                 }
                 else
                 {
-                    dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
-                    if (dAddr > 0x36) dData = (dData << 4) | dData;
+                    //dData = Math.Min(tl + nowYM2413FadeoutVol[chipID], 0x0f);
+                    //if (dAddr > 0x36) dData = (dData << 4) | dData;
                 }
             }
 
@@ -1699,13 +1702,13 @@ namespace MDPlayer
                     }
                 }
 
-                dData = (dData & 0x20)
-                    | (maskFMChYM2413[chipID][9] ? 0 : (dData & 0x10))
-                    | (maskFMChYM2413[chipID][10] ? 0 : (dData & 0x08))
-                    | (maskFMChYM2413[chipID][11] ? 0 : (dData & 0x04))
-                    | (maskFMChYM2413[chipID][12] ? 0 : (dData & 0x02))
-                    | (maskFMChYM2413[chipID][13] ? 0 : (dData & 0x01))
-                    ;
+                //dData = (dData & 0x20)
+                //    | (maskFMChYM2413[chipID][9] ? 0 : (dData & 0x10))
+                //    | (maskFMChYM2413[chipID][10] ? 0 : (dData & 0x08))
+                //    | (maskFMChYM2413[chipID][11] ? 0 : (dData & 0x04))
+                //    | (maskFMChYM2413[chipID][12] ? 0 : (dData & 0x02))
+                //    | (maskFMChYM2413[chipID][13] ? 0 : (dData & 0x01))
+                //    ;
             }
 
             if (model == EnmModel.VirtualModel)
@@ -1713,6 +1716,7 @@ namespace MDPlayer
                 if (!ctYM2413[chipID].UseReal[0])
                 {
                     //mds.WriteYM2413((byte)chipID, (byte)dAddr, (byte)dData);
+                    //Console.WriteLine("A:{0:x} D:{1:x}",dAddr,dData);
                     mds.WriteYM2413emu((byte)chipID, (byte)dAddr, (byte)dData);
                 }
             }
