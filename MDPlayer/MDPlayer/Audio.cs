@@ -2041,24 +2041,63 @@ namespace MDPlayer
 
                 if (useAY)
                 {
+                    //ay8910 ay8910 = null;
+                    //chip = new MDSound.MDSound.Chip();
+                    //ay8910 = new ay8910();
+                    //chip.ID = 0;
+                    //chipLED.PriAY10 = 1;
+                    //chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                    //chip.Instrument = ay8910;
+                    //chip.Update = ay8910.Update;
+                    //chip.Start = ay8910.Start;
+                    //chip.Stop = ay8910.Stop;
+                    //chip.Reset = ay8910.Reset;
+                    //chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
+                    //chip.Volume = setting.balance.AY8910Volume;
+                    //chip.Clock = Driver.MGSDRV.MGSDRV.baseclockAY8910 / 2;
+                    //chip.Option = null;
+                    //lstChips.Add(chip);
+                    //useChip.Add(EnmChip.AY8910);
+                    //clockAY8910 = (int)Driver.MGSDRV.MGSDRV.baseclockAY8910;
+
                     ay8910 ay8910 = null;
+                    ay8910_mame ay8910mame = null;
                     chip = new MDSound.MDSound.Chip();
-                    ay8910 = new ay8910();
-                    chip.ID = 0;
-                    chipLED.PriAY10 = 1;
                     chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
-                    chip.Instrument = ay8910;
-                    chip.Update = ay8910.Update;
-                    chip.Start = ay8910.Start;
-                    chip.Stop = ay8910.Stop;
-                    chip.Reset = ay8910.Reset;
+                    chip.ID = (byte)0;
+
+                    if ((setting.AY8910Type[0].UseEmu[0] || setting.AY8910Type[0].UseReal[0]))
+                    {
+                        if (ay8910 == null) ay8910 = new ay8910();
+                        chip.type = MDSound.MDSound.enmInstrumentType.AY8910;
+                        chip.Instrument = ay8910;
+                        chip.Update = ay8910.Update;
+                        chip.Start = ay8910.Start;
+                        chip.Stop = ay8910.Stop;
+                        chip.Reset = ay8910.Reset;
+                    }
+                    else if ((setting.AY8910Type[0].UseEmu[1]))
+                    {
+                        if (ay8910mame == null) ay8910mame = new ay8910_mame();
+                        chip.type = MDSound.MDSound.enmInstrumentType.AY8910mame;
+                        chip.Instrument = ay8910mame;
+                        chip.Update = ay8910mame.Update;
+                        chip.Start = ay8910mame.Start;
+                        chip.Stop = ay8910mame.Stop;
+                        chip.Reset = ay8910mame.Reset;
+                    }
+
                     chip.SamplingRate = (UInt32)setting.outputDevice.SampleRate;
                     chip.Volume = setting.balance.AY8910Volume;
                     chip.Clock = Driver.MGSDRV.MGSDRV.baseclockAY8910 / 2;
+                    clockAY8910 = (int)Driver.MGSDRV.MGSDRV.baseclockAY8910;
                     chip.Option = null;
+
+                    chipLED.PriAY10 = 1;
+
                     lstChips.Add(chip);
                     useChip.Add(EnmChip.AY8910);
-                    clockAY8910 = (int)Driver.MGSDRV.MGSDRV.baseclockAY8910;
+
                 }
 
                 if (useOPLL)
@@ -3758,7 +3797,7 @@ namespace MDPlayer
                 ym2151 ym2151 = null;
                 ym2151_mame ym2151mame = null;
                 ym2151_x68sound ym2151_x68sound = null;
-                ym2413 ym2413 = null;
+                MDSound.emu2413 ym2413 = null;
                 ym3526 ym3526 = null;
                 ym3812 ym3812 = null;
                 ymf262 ymf262 = null;
@@ -3995,7 +4034,7 @@ namespace MDPlayer
                             chip = new MDSound.MDSound.Chip();
                             if (ym2413 == null)
                             {
-                                ym2413 = new ym2413();
+                                ym2413 = new MDSound.emu2413();
                                 chip.ID = 0;
                                 chipLED.PriOPLL = 1;
                             }
@@ -4846,7 +4885,7 @@ namespace MDPlayer
                     Instrument opll = null;
                     if (!((vgm)driverVirtual).YM2413VRC7Flag)
                     {
-                        opll = new MDSound.ym2413();
+                        opll = new MDSound.emu2413();// MDSound.ym2413();
                     }
                     else
                     {
@@ -4856,7 +4895,7 @@ namespace MDPlayer
                     for (int i = 0; i < (((vgm)driverVirtual).YM2413DualChipFlag ? 2 : 1); i++)
                     {
                         chip = new MDSound.MDSound.Chip();
-                        chip.type = MDSound.MDSound.enmInstrumentType.YM2413;
+                        chip.type = MDSound.MDSound.enmInstrumentType.YM2413emu;
                         chip.ID = (byte)i;
                         chip.Instrument = opll;
                         chip.Update = opll.Update;
@@ -7330,8 +7369,11 @@ namespace MDPlayer
             vol = mds.getYMZ280BVisVolume();
             if (vol != null) visVolume.ymz280b = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
+            visVolume.ay8910 = 0;
             vol = mds.getAY8910VisVolume();
             if (vol != null) visVolume.ay8910 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
+            vol = mds.getAY8910mameVisVolume();
+            if (vol != null) visVolume.ay8910 += (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
 
             vol = mds.getSN76489VisVolume();
             if (vol != null) visVolume.sn76489 = (short)getMonoVolume(vol[0][0][0], vol[0][0][1], vol[1][0][0], vol[1][0][1]);
