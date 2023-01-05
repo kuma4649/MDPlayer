@@ -113,27 +113,27 @@ namespace MDPlayer
             try
             {
                 //trackName
-                GD3.TrackName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.TrackName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.TrackName = ""; }
                 //trackNameJ
-                GD3.TrackNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.TrackNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.TrackNameJ = ""; }
                 //gameName
-                GD3.GameName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.GameName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.GameName = ""; }
                 //gameNameJ
-                GD3.GameNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.GameNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.GameNameJ = ""; }
                 //systemName
-                GD3.SystemName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.SystemName = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.SystemName = ""; }
                 //systemNameJ
-                GD3.SystemNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.SystemNameJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.SystemNameJ = ""; }
                 //Composer
-                GD3.Composer = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.Composer = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.Composer = ""; }
                 //ComposerJ
-                GD3.ComposerJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.ComposerJ = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.ComposerJ = ""; }
                 //Converted
-                GD3.Converted = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.Converted = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.Converted = ""; }
                 //VGMBy
-                GD3.VGMBy = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.VGMBy = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.VGMBy = ""; }
                 //Notes
-                GD3.Notes = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr));
+                try { GD3.Notes = Encoding.Unicode.GetString(Common.getByteArray(buf, ref adr)); } catch { GD3.Notes = ""; }
                 //Lyric(独自拡張)
                 byte[] bLyric = Common.getByteArray(buf, ref adr);
                 if (bLyric != null)

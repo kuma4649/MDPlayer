@@ -7862,7 +7862,14 @@ namespace MDPlayer.form
 
                 if (zfn == null || zfn == "")
                 {
-                    srcBuf = getAllBytes(fn, out format);
+                    try
+                    {
+                        srcBuf = getAllBytes(fn, out format);
+                    }
+                    catch
+                    {
+                        srcBuf = null;
+                    }
                     extFile = getExtendFile(fn, srcBuf, format);
                 }
                 else
