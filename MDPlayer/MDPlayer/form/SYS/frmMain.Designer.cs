@@ -53,6 +53,7 @@ namespace MDPlayer.form
             this.tsmiPOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPNA = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPNB = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPOPX = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,6 +98,7 @@ namespace MDPlayer.form
             this.tsmiSOPN2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNA = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPNB = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPM = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSOPX = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSYMZ280B = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,6 +168,7 @@ namespace MDPlayer.form
             this.aY8910ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiVisualizer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOutputwavFile = new System.Windows.Forms.ToolStripMenuItem();
             this.opeButtonSetting = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.opeButtonStop = new System.Windows.Forms.Button();
@@ -186,8 +189,6 @@ namespace MDPlayer.form
             this.opeButtonOpen = new System.Windows.Forms.Button();
             this.opeButtonMode = new System.Windows.Forms.Button();
             this.keyboardHook1 = new HongliangSoft.Utilities.Gui.KeyboardHook();
-            this.tsmiPOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSOPNA2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.cmsOpenOtherPanel.SuspendLayout();
             this.cmsMenu.SuspendLayout();
@@ -360,6 +361,12 @@ namespace MDPlayer.form
             this.tsmiPOPNB.Name = "tsmiPOPNB";
             resources.ApplyResources(this.tsmiPOPNB, "tsmiPOPNB");
             this.tsmiPOPNB.Click += new System.EventHandler(this.tsmiPOPNB_Click);
+            // 
+            // tsmiPOPNA2
+            // 
+            this.tsmiPOPNA2.Name = "tsmiPOPNA2";
+            resources.ApplyResources(this.tsmiPOPNA2, "tsmiPOPNA2");
+            this.tsmiPOPNA2.Click += new System.EventHandler(this.tsmiPOPNA2_Click);
             // 
             // tsmiPOPM
             // 
@@ -669,6 +676,12 @@ namespace MDPlayer.form
             resources.ApplyResources(this.tsmiSOPNB, "tsmiSOPNB");
             this.tsmiSOPNB.Click += new System.EventHandler(this.tsmiSOPNB_Click);
             // 
+            // tsmiSOPNA2
+            // 
+            this.tsmiSOPNA2.Name = "tsmiSOPNA2";
+            resources.ApplyResources(this.tsmiSOPNA2, "tsmiSOPNA2");
+            this.tsmiSOPNA2.Click += new System.EventHandler(this.tsmiSOPNA2_Click);
+            // 
             // tsmiSOPM
             // 
             this.tsmiSOPM.Name = "tsmiSOPM";
@@ -843,7 +856,8 @@ namespace MDPlayer.form
             this.その他ウィンドウ表示ToolStripMenuItem,
             this.tsmiChangeZoom,
             this.レジスタダンプ表示ToolStripMenuItem,
-            this.tsmiVisualizer});
+            this.tsmiVisualizer,
+            this.tsmiOutputwavFile});
             this.cmsMenu.Name = "contextMenuStrip1";
             resources.ApplyResources(this.cmsMenu, "cmsMenu");
             // 
@@ -1162,6 +1176,13 @@ namespace MDPlayer.form
             this.tsmiVisualizer.Name = "tsmiVisualizer";
             resources.ApplyResources(this.tsmiVisualizer, "tsmiVisualizer");
             this.tsmiVisualizer.Click += new System.EventHandler(this.tsmiVisWave_Click);
+            // 
+            // tsmiOutputwavFile
+            // 
+            this.tsmiOutputwavFile.CheckOnClick = true;
+            this.tsmiOutputwavFile.Name = "tsmiOutputwavFile";
+            resources.ApplyResources(this.tsmiOutputwavFile, "tsmiOutputwavFile");
+            this.tsmiOutputwavFile.Click += new System.EventHandler(this.tsmiOutputwavFile_Click);
             // 
             // opeButtonSetting
             // 
@@ -1527,18 +1548,6 @@ namespace MDPlayer.form
             // 
             this.keyboardHook1.KeyboardHooked += new HongliangSoft.Utilities.Gui.KeyboardHookedEventHandler(this.keyboardHook1_KeyboardHooked);
             // 
-            // tsmiPOPNA2
-            // 
-            this.tsmiPOPNA2.Name = "tsmiPOPNA2";
-            resources.ApplyResources(this.tsmiPOPNA2, "tsmiPOPNA2");
-            this.tsmiPOPNA2.Click += new System.EventHandler(this.tsmiPOPNA2_Click);
-            // 
-            // tsmiSOPNA2
-            // 
-            this.tsmiSOPNA2.Name = "tsmiSOPNA2";
-            resources.ApplyResources(this.tsmiSOPNA2, "tsmiSOPNA2");
-            this.tsmiSOPNA2.Click += new System.EventHandler(this.tsmiSOPNA2_Click);
-            // 
             // frmMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1739,6 +1748,7 @@ namespace MDPlayer.form
         private System.Windows.Forms.ToolStripMenuItem tsmiVisualizer;
         private System.Windows.Forms.ToolStripMenuItem tsmiPOPNA2;
         private System.Windows.Forms.ToolStripMenuItem tsmiSOPNA2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOutputwavFile;
     }
 }
 

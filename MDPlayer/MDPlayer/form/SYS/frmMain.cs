@@ -206,6 +206,8 @@ namespace MDPlayer.form
 
             log.ForcedWrite("起動時のAudio初期化処理開始");
 
+            tsmiOutputwavFile.Checked = setting.other.WavSwitch;
+
             Audio.frmMain = this;
             Audio.Init(setting);
 
@@ -10162,5 +10164,9 @@ namespace MDPlayer.form
             lstOpeButtonActive[7] = Audio.isFF;//FFbutton
         }
 
+        private void tsmiOutputwavFile_Click(object sender, EventArgs e)
+        {
+            setting.other.WavSwitch = tsmiOutputwavFile.Checked;
+        }
     }
 }
