@@ -926,9 +926,9 @@ namespace MDPlayer.form
 
                 //選択位置の曲を再生する
                 string fn = playList.lstMusic[i].fileName;
-                if (playList.lstMusic[i].arcType!= EnmArcType.LZH 
-                    && playList.lstMusic[i].arcType!= EnmArcType.ZIP
-                    && playList.lstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1
+                if (playList.lstMusic[i].arcType != EnmArcType.LZH
+                    && playList.lstMusic[i].arcType != EnmArcType.ZIP
+                    && (playList.lstMusic[i].arcFileName == null || playList.lstMusic[i].arcFileName.ToLower().LastIndexOf(".m3u") == -1)
                     && fn.ToLower().LastIndexOf(".lzh") == -1
                     && fn.ToLower().LastIndexOf(".zip") == -1
                     && fn.ToLower().LastIndexOf(".m3u") == -1
