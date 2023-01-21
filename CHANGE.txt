@@ -1,4 +1,8 @@
 更新履歴
+STBL272 2023/01/21 2nd
+  DCSG:鍵盤:fnumとvolumeの値表示追加
+  AY8910:鍵盤:fnum,volumeの値表示追加EnvSwの表示追加
+
 STBL271 2023/01/21
   nsf:DMC IRQに暫定対応
 

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using MDPlayer.Properties;
+using static MDPlayer.Setting;
 
 namespace MDPlayer.form
 {
@@ -87,11 +88,18 @@ namespace MDPlayer.form
 
                 int v = (AY8910Register[0x08 + ch] & 0x1f);
                 v = v > 15 ? 15 : v;
+                channel.volumeL = v;
                 channel.volume = (int)(((t || n) ? 1 : 0) * v * (20.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
                 {
                     channel.volume--;
                 }
+
+                int ft = AY8910Register[0x00 + ch * 2];
+                int ct = AY8910Register[0x01 + ch * 2];
+                int tp = (ct << 8) | ft;
+                if (tp == 0) tp = 1;
+                channel.freq = tp;
 
                 if (channel.volume == 0)
                 {
@@ -99,13 +107,11 @@ namespace MDPlayer.form
                 }
                 else
                 {
-                    int ft = AY8910Register[0x00 + ch * 2];
-                    int ct = AY8910Register[0x01 + ch * 2];
-                    int tp = (ct << 8) | ft;
-                    if (tp == 0) tp = 1;
                     float ftone = Audio.clockAY8910 / (8.0f * (float)tp); 
                     channel.note = searchSSGNote(ftone);
                 }
+
+                channel.ex = (AY8910Register[0x08 + ch] & 0xf0) != 0;
 
             }
         }
@@ -124,7 +130,7 @@ namespace MDPlayer.form
 
                 //Volume
                 int d = 99;
-                DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
+                DrawBuff.Volume(screen, 280, 8 + ch * 8, 0, ref d, 0, tp);
 
                 bool? db = null;
                 DrawBuff.ChAY8910(screen, ch, ref db, false, tp);
@@ -147,12 +153,19 @@ namespace MDPlayer.form
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 0, ref oyc.volume, nyc.volume, tp);
-                DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                DrawBuff.Volume(frameBuffer, 280, 8 + c * 8, 0, ref oyc.volume, nyc.volume, tp);
+                //DrawBuff.KeyBoard(frameBuffer, c, ref oyc.note, nyc.note, tp);
+                DrawBuff.KeyBoardDCSG(frameBuffer, 32, 8 + c * 8, ref oyc.note, nyc.note, tp);
                 DrawBuff.ToneNoise(frameBuffer, 6, 2, c, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2 + (nyc.mask == true ? 1 : 0));
 
                 DrawBuff.ChAY8910(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
-
+                if (oyc.volumeL != nyc.volumeL)
+                {
+                    DrawBuff.drawFont4(frameBuffer, 272, 8 + c * 8, 0, nyc.volumeL.ToString("00"));
+                    oyc.volumeL = nyc.volumeL;
+                }
+                DrawBuff.font4Hex12Bit(frameBuffer, 256, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.drawNESSw(frameBuffer, 268, 8 + c * 8, ref oyc.ex, nyc.ex);
             }
 
             DrawBuff.Nfrq(frameBuffer, 5, 8, ref oldParam.nfrq, newParam.nfrq);

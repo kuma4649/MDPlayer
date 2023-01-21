@@ -268,7 +268,7 @@ namespace MDPlayer
                 DrawBuff.ChSN76489_P(screen, 0, ch * 8 + 8, ch, false, tp);
 
                 int d = 99;
-                DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
+                //DrawBuff.Volume(screen, 256, 8 + ch * 8, 0, ref d, 0, tp);
             }
         }
 
@@ -1258,6 +1258,41 @@ namespace MDPlayer
                 if (nt / 12 < 10)
                 {
                     drawFont8(screen, 280 + x, y, 1, Tables.kbo[nt / 12]);
+                }
+            }
+
+            ot = nt;
+        }
+
+        public static void KeyBoardDCSG(FrameBuffer screen, int x, int y, ref int ot, int nt, int tp)
+        {
+            if (ot == nt) return;
+
+            int kx;
+            int kt;
+
+            if (ot >= 0 && ot < 12 * 8)
+            {
+                kx = Tables.kbl[(ot % 12) * 2] + ot / 12 * 28;
+                kt = Tables.kbl[(ot % 12) * 2 + 1];
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            if (nt >= 0 && nt < 12 * 8)
+            {
+                kx = Tables.kbl[(nt % 12) * 2] + nt / 12 * 28;
+                kt = Tables.kbl[(nt % 12) * 2 + 1] + 4;
+                drawKbn(screen, x + kx, y, kt, tp);
+            }
+
+            drawFont8(screen, 288 + x, y, 1, "   ");
+
+            if (nt >= 0)
+            {
+                drawFont8(screen, 288 + x, y, 1, Tables.kbn[nt % 12]);
+                if (nt / 12 < 10)
+                {
+                    drawFont8(screen, 304 + x, y, 1, Tables.kbo[nt / 12]);
                 }
             }
 

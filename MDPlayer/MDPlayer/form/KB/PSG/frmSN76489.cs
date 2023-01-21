@@ -109,7 +109,9 @@ namespace MDPlayer.form
 
                     newParam.channels[ch].volumeL = 0;
                     newParam.channels[ch].volumeR = 0;
+                    newParam.channels[ch].volume = 0;
                     newParam.channels[ch].pan = 0;
+                    newParam.channels[ch].freq = 0;
                 }
                 //Noise Ch
                 newParam.channels[3].freq = 0;
@@ -126,7 +128,8 @@ namespace MDPlayer.form
                         //Tone Ch
                         for (int ch = 0; ch < 3; ch++)
                         {
-                            if (psgRegister[ch * 2 + 1] != 15)
+                            newParam.channels[ch].freq = psgRegister[ch * 2];
+                            if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq != 0)
                             {
                                 float ftone = Audio.clockSN76489 / (2.0f * psgRegister[ch * 2] * 16.0f);
 
@@ -139,6 +142,7 @@ namespace MDPlayer.form
 
                             newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
                             newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol1[ch][0]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].volume = Math.Max(psgVol[ch][0], psgVol1[ch][0]);
                             newParam.channels[ch].pan = Math.Min(Math.Max(newParam.channels[ch].volumeR,0),15)*0x10 
                                 + Math.Min(Math.Max(newParam.channels[ch].volumeL, 0), 15);
                         }
@@ -148,6 +152,7 @@ namespace MDPlayer.form
                         newParam.channels[3].freq = psgRegister1[4];//ch3Freq
                         newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
                         newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol1[3][0]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].volume = Math.Max(psgVol[3][0], psgVol1[3][0]);
                         newParam.channels[3].pan = Math.Min(Math.Max(newParam.channels[3].volumeR, 0), 15) * 0x10 
                             + Math.Min(Math.Max(newParam.channels[3].volumeL, 0), 15);
                     }
@@ -156,7 +161,8 @@ namespace MDPlayer.form
                         //Tone Ch
                         for (int ch = 0; ch < 3; ch++)
                         {
-                            if (psgRegister[ch * 2 + 1] != 15)
+                            newParam.channels[ch].freq = psgRegister[ch * 2];
+                            if (psgRegister[ch * 2 + 1] != 15 && newParam.channels[ch].freq !=0)
                             {
                                 newParam.channels[ch].note = searchPSGNote(psgRegister[ch * 2]);
                             }
@@ -167,6 +173,7 @@ namespace MDPlayer.form
 
                             newParam.channels[ch].volumeL = Math.Min(Math.Max((int)((psgVol[ch][0]) / (15.0 / 19.0)), 0), 19);
                             newParam.channels[ch].volumeR = Math.Min(Math.Max((int)((psgVol[ch][1]) / (15.0 / 19.0)), 0), 19);
+                            newParam.channels[ch].volume = Math.Max(psgVol[ch][0], psgVol[ch][1]);
                             newParam.channels[ch].pan = (psgRegisterPan >> ch) & 0x11;
                             newParam.channels[ch].pan = ((newParam.channels[ch].pan) & 0x1) | (newParam.channels[ch].pan >> 3);
                         }
@@ -176,6 +183,7 @@ namespace MDPlayer.form
                         newParam.channels[3].freq = psgRegister[4];//ch3Freq
                         newParam.channels[3].volumeL = Math.Min(Math.Max((int)((psgVol[3][0]) / (15.0 / 19.0)), 0), 19);
                         newParam.channels[3].volumeR = Math.Min(Math.Max((int)((psgVol[3][1]) / (15.0 / 19.0)), 0), 19);
+                        newParam.channels[3].volume = Math.Max(psgVol[3][0], psgVol[3][1]);
                         newParam.channels[3].pan = (psgRegisterPan >> 3) & 0x11;
                         newParam.channels[3].pan = ((newParam.channels[3].pan) & 0x1) | (newParam.channels[3].pan >> 3);
                     }
@@ -197,9 +205,9 @@ namespace MDPlayer.form
                 osc = oldParam.channels[c];
                 nsc = newParam.channels[c];
 
-                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
-                DrawBuff.Volume(frameBuffer, 256, 8 + c * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
-                DrawBuff.KeyBoard(frameBuffer, c, ref osc.note, nsc.note, tp);
+                DrawBuff.Volume(frameBuffer, 280, 8 + c * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
+                DrawBuff.Volume(frameBuffer, 280, 8 + c * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
+                DrawBuff.KeyBoardDCSG(frameBuffer,32, 8+c*8, ref osc.note, nsc.note, tp);
                 DrawBuff.ChSN76489(frameBuffer, c, ref osc.mask, nsc.mask, tp);
                 if (NGPFlag)
                 {
@@ -209,12 +217,23 @@ namespace MDPlayer.form
                 {
                     DrawBuff.Pan(frameBuffer, 24, 8 + c * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
                 }
+                if (osc.volume != nsc.volume)
+                {
+                    DrawBuff.drawFont4(frameBuffer, 272, 8+c*8, 0, nsc.volume.ToString("00"));
+                    osc.volume = nsc.volume;
+                }
+                DrawBuff.font4Hex12Bit(frameBuffer, 256, 8 + c * 8, 0, ref osc.freq, nsc.freq);
             }
 
             osc = oldParam.channels[3];
             nsc = newParam.channels[3];
-            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
-            DrawBuff.Volume(frameBuffer, 256, 8 + 3 * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
+            DrawBuff.Volume(frameBuffer, 280, 8 + 3 * 8, 1, ref osc.volumeL, nsc.volumeL, tp);
+            DrawBuff.Volume(frameBuffer, 280, 8 + 3 * 8, 2, ref osc.volumeR, nsc.volumeR, tp);
+            if (osc.volume != nsc.volume)
+            {
+                DrawBuff.drawFont4(frameBuffer, 272, 8 + 3 * 8, 0, nsc.volume.ToString("00"));
+                osc.volume = nsc.volume;
+            }
             DrawBuff.ChSN76489(frameBuffer, 3, ref osc.mask, nsc.mask, tp);
             DrawBuff.ChSN76489Noise(frameBuffer, ref osc, nsc, tp);
             if (NGPFlag)
@@ -225,11 +244,6 @@ namespace MDPlayer.form
             else
             {
                 DrawBuff.Pan(frameBuffer, 24, 8 + 3 * 8, ref osc.pan, nsc.pan, ref osc.pantp, tp);
-            }
-            if (osc.freq != nsc.freq)
-            {
-                DrawBuff.drawFont4(frameBuffer, 172, 32, 0, nsc.freq.ToString("0000"));
-                osc.freq = nsc.freq;
             }
 
         }
