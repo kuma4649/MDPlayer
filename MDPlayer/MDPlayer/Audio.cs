@@ -723,13 +723,17 @@ namespace MDPlayer
                 GD3 gd3 = new GD3();
                 if (vgmGd3 != 0)
                 {
-                    uint vgmGd3Id = Common.getLE32(buf, vgmGd3 + 0x14);
-                    if (vgmGd3Id != vgm.FCC_GD3)
+                    try
                     {
-                        musics.Add(music);
-                        return musics;
+                        uint vgmGd3Id = Common.getLE32(buf, vgmGd3 + 0x14);
+                        if (vgmGd3Id != vgm.FCC_GD3)
+                        {
+                            musics.Add(music);
+                            return musics;
+                        }
+                        gd3 = (new vgm(setting)).getGD3Info(buf, vgmGd3);
                     }
-                    gd3 = (new vgm(setting)).getGD3Info(buf, vgmGd3);
+                    catch { }
                 }
 
                 uint TotalCounter = Common.getLE32(buf, 0x18);

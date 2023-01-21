@@ -286,7 +286,7 @@ namespace MDPlayer
             chipRegister.nes_apu.chip = chipRegister.nes_apu.apu.NES_APU_np_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_apu.Reset();
             chipRegister.nes_dmc.chip = chipRegister.nes_dmc.dmc.NES_DMC_np_Create(Common.NsfClock, setting.outputDevice.SampleRate);
-            chipRegister.nes_dmc.Reset();
+            chipRegister.nes_dmc.Reset(chipRegister.nes_cpu);
             chipRegister.nes_fds.chip = chipRegister.nes_fds.fds.NES_FDS_Create(Common.NsfClock, setting.outputDevice.SampleRate);
             chipRegister.nes_fds.Reset();
             chipRegister.nes_n106.SetClock(Common.NsfClock);

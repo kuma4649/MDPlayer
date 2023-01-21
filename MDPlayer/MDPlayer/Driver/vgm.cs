@@ -2629,12 +2629,16 @@ namespace MDPlayer
             uint vgmGd3 = getLE32(0x14);
             if (vgmGd3 != 0)
             {
-                uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
-                if (vgmGd3Id != FCC_GD3) return false;
-                uint adr = vgmGd3 + 12 + 0x14;
-                GD3 = Common.getGD3Info(vgmBuf, adr);
-                GD3.UsedChips = UsedChips;
-                //GD3 = Common.getGD3Info(vgmBuf, vgmGd3);
+                try
+                {
+                    uint vgmGd3Id = getLE32(vgmGd3 + 0x14);
+                    if (vgmGd3Id != FCC_GD3) return false;
+                    uint adr = vgmGd3 + 12 + 0x14;
+                    GD3 = Common.getGD3Info(vgmBuf, adr);
+                    GD3.UsedChips = UsedChips;
+                    //GD3 = Common.getGD3Info(vgmBuf, vgmGd3);
+                }
+                catch { }
             }
 
             return true;
