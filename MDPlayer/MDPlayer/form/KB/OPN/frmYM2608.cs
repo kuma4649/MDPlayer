@@ -288,7 +288,8 @@ namespace MDPlayer.form
                 bool n = (ym2608Register[0][0x07] & (0x8 << ch)) == 0;
                 channel.tn = (t ? 1 : 0) + (n ? 2 : 0);
 
-                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (20.0 / 16.0));
+                channel.volumeL = ym2608Register[0][0x08 + ch] & 0xf;
+                channel.volume = (int)(((t || n) ? 1 : 0) * (ym2608Register[0][0x08 + ch] & 0xf) * (15.0 / 16.0));
                 if (!t && !n && channel.volume > 0)
                 {
                     channel.volume--;
@@ -315,7 +316,7 @@ namespace MDPlayer.form
                         channel.note = Common.searchSSGNote(ftone);
                     }
                 }
-
+                channel.ex = (ym2608Register[0][0x08 + ch] & 0xf0) != 0;
             }
 
             newParam.nfrq = ym2608Register[0][0x06] & 0x1f;
@@ -324,8 +325,9 @@ namespace MDPlayer.form
 
             //ADPCM
             newParam.channels[12].pan = (ym2608Register[1][0x01] & 0xc0) >> 6; // ((ym2608Register[1][0x01] & 0xc0) >> 6) != 0 ? ((ym2608Register[1][0x01] & 0xc0) >> 6) : newParam.channels[12].pan;
-            newParam.channels[12].volumeL = Math.Min(Math.Max(ym2608AdpcmVol[0] / 80, 0), 19);
-            newParam.channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 80, 0), 19);
+            newParam.channels[12].volume = ym2608Register[1][0x0b];
+            newParam.channels[12].volumeL = Math.Min(Math.Max(ym2608AdpcmVol[0] / 90, 0), 15);
+            newParam.channels[12].volumeR = Math.Min(Math.Max(ym2608AdpcmVol[1] / 90, 0), 15);
             int delta = (ym2608Register[1][0x0a] << 8) | ym2608Register[1][0x09];
             newParam.channels[12].freq = delta;
             float frq = (float)(delta / 9447.0f);
@@ -358,73 +360,64 @@ namespace MDPlayer.form
 
             for (int c = 0; c < 9; c++)
             {
-
                 MDChipParams.Channel oyc = oldParam.channels[c];
                 MDChipParams.Channel nyc = newParam.channels[c];
 
-                if (c ==2)
+                if (c == 2)
                 {
-                    DrawBuff.Volume(frameBuffer, 288+1, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, 288+1, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
                     DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    DrawBuff.KeyBoardOPNA(frameBuffer, 33,8+c*8, ref oyc.note, nyc.note, tp);
-                    DrawBuff.InstOPNA(frameBuffer, 4, 17*8, c, oyc.inst, nyc.inst);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 33, 8 + c * 8, ref oyc.note, nyc.note, tp);
+                    DrawBuff.InstOPNA(frameBuffer, 4, 17 * 8, c, oyc.inst, nyc.inst);
                     DrawBuff.Ch3YM2608(frameBuffer, c, ref oyc.mask, nyc.mask, ref oyc.ex, nyc.ex, tp);
                     DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
-                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else if (c < 6)
                 {
-                    DrawBuff.Volume(frameBuffer, 288+1, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
-                    DrawBuff.Volume(frameBuffer, 288+1, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + c * 8, 1, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + c * 8, 2, ref oyc.volumeR, nyc.volumeR, tp);
                     DrawBuff.Pan(frameBuffer, 25, 8 + c * 8, ref oyc.pan, nyc.pan, ref oyc.pantp, tp);
-                    DrawBuff.KeyBoardOPNA(frameBuffer,33,8+c*8, ref oyc.note, nyc.note, tp);
-                    DrawBuff.InstOPNA(frameBuffer, 4, 17*8, c, oyc.inst, nyc.inst);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 33, 8 + c * 8, ref oyc.note, nyc.note, tp);
+                    DrawBuff.InstOPNA(frameBuffer, 4, 17 * 8, c, oyc.inst, nyc.inst);
                     DrawBuff.ChYM2608(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
                     DrawBuff.Slot(frameBuffer, 1 + 4 * 64, 8 + c * 8, ref oyc.slot, nyc.slot);
-                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + c * 8, 0, ref oyc.freq, nyc.freq);
                 }
                 else
                 {
-                    DrawBuff.Volume(frameBuffer, 288+1, 8 + (c+3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
-                    //if (c == 7 && oyc.note != nyc.note)
-                    //{
-                        //Console.WriteLine("note:{0}", nyc.note);
-                        //int[][] ym2608Register = Audio.GetYM2608Register(chipID);
-                        //int freq1 = ym2608Register[0][0xa9] + (ym2608Register[0][0xad] ) * 0x100;
-                        //int freq2 = ym2608Register[0][0xa8] + (ym2608Register[0][0xac] ) * 0x100;
-                        //int freq3 = ym2608Register[0][0xaa] + (ym2608Register[0][0xae] ) * 0x100;
-                        //int freq4 = ym2608Register[0][0xa2] + (ym2608Register[0][0xa6] ) * 0x100;
-                        //Console.WriteLine("frq:{0:x4} {1:x4} {2:x4} {3:x4}", freq1, freq2, freq3, freq4);
-                    //}
-                    DrawBuff.KeyBoardOPNA(frameBuffer,33, 8+(c+3)*8, ref oyc.note, nyc.note, tp);
+                    DrawBuff.Volume(frameBuffer, 272 + 1, 8 + (c + 3) * 8, 0, ref oyc.volumeL, nyc.volumeL, tp);
+                    DrawBuff.KeyBoardOPNA(frameBuffer, 33, 8 + (c + 3) * 8, ref oyc.note, nyc.note, tp);
                     DrawBuff.ChYM2608(frameBuffer, c, ref oyc.mask, nyc.mask, tp);
-                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + (c+3) * 8, 0, ref oyc.freq, nyc.freq);
+                    DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + (c + 3) * 8, 0, ref oyc.freq, nyc.freq);
                 }
-
-
             }
+
             //SSG
             for (int c = 0; c < 3; c++)
             {
                 MDChipParams.Channel oyc = oldParam.channels[c + 9];
                 MDChipParams.Channel nyc = newParam.channels[c + 9];
 
-                DrawBuff.Volume(frameBuffer, 289, 8 + (c+6) * 8, 0, ref oyc.volume, nyc.volume, tp);
-                DrawBuff.KeyBoardOPNA(frameBuffer,33, (c+6)*8 + 8, ref oyc.note, nyc.note, tp);
-                DrawBuff.TnOPNA(frameBuffer, 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp*2);
+                DrawBuff.VolumeShort(frameBuffer, 280 + 1, 8 + (c + 6) * 8, 0, ref oyc.volume, nyc.volume, tp);
+                DrawBuff.KeyBoardOPNA(frameBuffer, 33, (c + 6) * 8 + 8, ref oyc.note, nyc.note, tp);
+                DrawBuff.TnOPNA(frameBuffer, 6, 2, c + 6, ref oyc.tn, nyc.tn, ref oyc.tntp, tp * 2);
 
                 DrawBuff.ChYM2608(frameBuffer, c + 9, ref oyc.mask, nyc.mask, tp);
-                DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + (c + 6) * 8, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + (c + 6) * 8, 0, ref oyc.freq, nyc.freq);
+                DrawBuff.font4HexByte(frameBuffer, 272 + 1, 8 + (c + 6) * 8, 0, ref oyc.volumeL, nyc.volumeL);
+                DrawBuff.drawNESSw(frameBuffer, 268 + 1, 8 + c * 8, ref oyc.ex, nyc.ex);
             }
 
             //ADPCM
-            DrawBuff.Volume(frameBuffer, 289, 8 + 12 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
-            DrawBuff.Volume(frameBuffer, 289, 8 + 12 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
+            DrawBuff.VolumeShort(frameBuffer, 280+1, 8 + 12 * 8, 1, ref oldParam.channels[12].volumeL, newParam.channels[12].volumeL, tp);
+            DrawBuff.VolumeShort(frameBuffer, 280+1, 8 + 12 * 8, 2, ref oldParam.channels[12].volumeR, newParam.channels[12].volumeR, tp);
             DrawBuff.Pan(frameBuffer, 25, 8 + 12 * 8, ref oldParam.channels[12].pan, newParam.channels[12].pan, ref oldParam.channels[12].pantp, tp);
             DrawBuff.KeyBoardOPNA(frameBuffer, 33,8+12*8, ref oldParam.channels[12].note, newParam.channels[12].note, tp);
             DrawBuff.ChYM2608(frameBuffer, 12, ref oldParam.channels[12].mask, newParam.channels[12].mask, tp);
-            DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 68, 8 + 12 * 8, 0, ref oldParam.channels[12].freq, newParam.channels[12].freq);
+            DrawBuff.font4Hex16Bit(frameBuffer, 1 + 4 * 78, 8 + 12 * 8, 0, ref oldParam.channels[12].freq, newParam.channels[12].freq);
+            DrawBuff.font4HexByte(frameBuffer, 272 + 1, 8 + 12 * 8, 0, ref oldParam.channels[12].volume, newParam.channels[12].volume);
 
             //Rhythm
             for (int c = 0; c < 6; c++)
@@ -438,7 +431,6 @@ namespace MDPlayer.form
                 DrawBuff.font4Int2(frameBuffer, c * 4*15+4, 28 * 4, 0, 0, ref oyc.volumeRL, nyc.volumeRL);
             }
             DrawBuff.ChYM2608Rhythm(frameBuffer, 0, ref oldParam.channels[13].mask, newParam.channels[13].mask, tp);
-
 
             DrawBuff.font4Hex12Bit(frameBuffer, 85 * 4, 30 * 4, 0, ref oldParam.timerA, newParam.timerA);
             DrawBuff.font4HexByte(frameBuffer, 85 * 4, 32 * 4, 0, ref oldParam.timerB, newParam.timerB);
