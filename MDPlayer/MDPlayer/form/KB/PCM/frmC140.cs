@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+#if X64
+using MDPlayerx64.Properties;
+#else
 using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer.form
 {

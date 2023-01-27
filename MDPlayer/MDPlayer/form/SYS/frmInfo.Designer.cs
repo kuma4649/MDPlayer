@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 namespace MDPlayer.form
 {
     partial class frmInfo
@@ -248,7 +252,7 @@ namespace MDPlayer.form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::MDPlayer.Properties.Resources.planeB;
+            this.BackgroundImage = Resources.planeB;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(324, 229);
             this.Controls.Add(this.rtbLyrics);

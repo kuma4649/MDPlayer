@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer.form
 {
@@ -37,7 +41,11 @@ namespace MDPlayer.form
             // 
             // pbScreen
             // 
+#if X64
+            this.pbScreen.Image = Resources.planePPZ8;
+#else
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planePPZ8;
+#endif
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(321, 145);

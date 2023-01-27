@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+#if X64
+using MDPlayerx64.Properties;
+#else
 using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer.form
 {

@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 using System;
 using System.Collections.Generic;
 
@@ -336,7 +340,7 @@ namespace MDPlayer.form
             // tsbOpenPlayList
             // 
             this.tsbOpenPlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbOpenPlayList.Image = global::MDPlayer.Properties.Resources.openPL;
+            this.tsbOpenPlayList.Image = Resources.openPL;
             resources.ApplyResources(this.tsbOpenPlayList, "tsbOpenPlayList");
             this.tsbOpenPlayList.Name = "tsbOpenPlayList";
             this.tsbOpenPlayList.Click += new System.EventHandler(this.tsbOpenPlayList_Click);
@@ -344,7 +348,7 @@ namespace MDPlayer.form
             // tsbSavePlayList
             // 
             this.tsbSavePlayList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSavePlayList.Image = global::MDPlayer.Properties.Resources.savePL;
+            this.tsbSavePlayList.Image = Resources.savePL;
             resources.ApplyResources(this.tsbSavePlayList, "tsbSavePlayList");
             this.tsbSavePlayList.Name = "tsbSavePlayList";
             this.tsbSavePlayList.Click += new System.EventHandler(this.tsbSavePlayList_Click);
@@ -357,7 +361,7 @@ namespace MDPlayer.form
             // tsbAddMusic
             // 
             this.tsbAddMusic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddMusic.Image = global::MDPlayer.Properties.Resources.addPL;
+            this.tsbAddMusic.Image = Resources.addPL;
             resources.ApplyResources(this.tsbAddMusic, "tsbAddMusic");
             this.tsbAddMusic.Name = "tsbAddMusic";
             this.tsbAddMusic.Click += new System.EventHandler(this.tsbAddMusic_Click);
@@ -365,7 +369,7 @@ namespace MDPlayer.form
             // tsbAddFolder
             // 
             this.tsbAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAddFolder.Image = global::MDPlayer.Properties.Resources.addFolderPL;
+            this.tsbAddFolder.Image = Resources.addFolderPL;
             resources.ApplyResources(this.tsbAddFolder, "tsbAddFolder");
             this.tsbAddFolder.Name = "tsbAddFolder";
             this.tsbAddFolder.Click += new System.EventHandler(this.tsbAddFolder_Click);
@@ -378,7 +382,7 @@ namespace MDPlayer.form
             // tsbUp
             // 
             this.tsbUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUp.Image = global::MDPlayer.Properties.Resources.upPL;
+            this.tsbUp.Image = Resources.upPL;
             resources.ApplyResources(this.tsbUp, "tsbUp");
             this.tsbUp.Name = "tsbUp";
             this.tsbUp.Click += new System.EventHandler(this.tsbUp_Click);
@@ -386,7 +390,7 @@ namespace MDPlayer.form
             // tsbDown
             // 
             this.tsbDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDown.Image = global::MDPlayer.Properties.Resources.downPL;
+            this.tsbDown.Image = Resources.downPL;
             resources.ApplyResources(this.tsbDown, "tsbDown");
             this.tsbDown.Name = "tsbDown";
             this.tsbDown.Click += new System.EventHandler(this.tsbDown_Click);
@@ -400,7 +404,7 @@ namespace MDPlayer.form
             // 
             this.tsbJapanese.CheckOnClick = true;
             this.tsbJapanese.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbJapanese.Image = global::MDPlayer.Properties.Resources.japPL;
+            this.tsbJapanese.Image = Resources.japPL;
             resources.ApplyResources(this.tsbJapanese, "tsbJapanese");
             this.tsbJapanese.Name = "tsbJapanese";
             this.tsbJapanese.Click += new System.EventHandler(this.toolStripButton1_Click);
@@ -414,7 +418,7 @@ namespace MDPlayer.form
             // 
             this.tsbTextExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbTextExt, "tsbTextExt");
-            this.tsbTextExt.Image = global::MDPlayer.Properties.Resources.txtPL;
+            this.tsbTextExt.Image = Resources.txtPL;
             this.tsbTextExt.Name = "tsbTextExt";
             this.tsbTextExt.Click += new System.EventHandler(this.tsbTextExt_Click);
             // 
@@ -422,7 +426,7 @@ namespace MDPlayer.form
             // 
             this.tsbMMLExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbMMLExt, "tsbMMLExt");
-            this.tsbMMLExt.Image = global::MDPlayer.Properties.Resources.mmlPL;
+            this.tsbMMLExt.Image = Resources.mmlPL;
             this.tsbMMLExt.Name = "tsbMMLExt";
             this.tsbMMLExt.Click += new System.EventHandler(this.tsbMMLExt_Click);
             // 
@@ -430,7 +434,7 @@ namespace MDPlayer.form
             // 
             this.tsbImgExt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.tsbImgExt, "tsbImgExt");
-            this.tsbImgExt.Image = global::MDPlayer.Properties.Resources.imgPL;
+            this.tsbImgExt.Image =  Resources.imgPL;
             this.tsbImgExt.Name = "tsbImgExt";
             this.tsbImgExt.Click += new System.EventHandler(this.tsbImgExt_Click);
             // 

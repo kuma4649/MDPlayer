@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 using System;
 using System.Reflection;
 using System.Text;
@@ -14,10 +18,21 @@ namespace MDPlayer
         public static bool debug = false;
 #endif
         public static bool consoleEchoBack = false;
-        private static Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+        private static Encoding sjisEnc;
         public static string path = "";
 
-        public static void ForcedWrite(string msg)
+        static log()
+        {
+#if X64
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#else
+#endif
+
+            sjisEnc = Encoding.GetEncoding("Shift_JIS");
+
+        }
+
+    public static void ForcedWrite(string msg)
         {
             try
             {

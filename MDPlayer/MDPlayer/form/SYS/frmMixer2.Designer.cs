@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 namespace MDPlayer.form
 {
     partial class frmMixer2
@@ -45,7 +49,7 @@ namespace MDPlayer.form
             // pbScreen
             // 
             this.pbScreen.ContextMenuStrip = this.ctxtMenu;
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMixer;
+            this.pbScreen.Image = Resources.planeMixer;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(320, 288);

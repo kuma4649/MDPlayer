@@ -5,7 +5,11 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if X64
+using MDPlayerx64.Properties;
+#else
 using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer
 {

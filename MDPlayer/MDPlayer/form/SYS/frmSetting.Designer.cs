@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 namespace MDPlayer.form
 {
     partial class frmSetting
@@ -2612,56 +2616,56 @@ namespace MDPlayer.form
             // 
             // pictureBox8
             // 
-            this.pictureBox8.Image = global::MDPlayer.Properties.Resources.ccNext;
+            this.pictureBox8.Image = Resources.ccNext;
             resources.ApplyResources(this.pictureBox8, "pictureBox8");
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.TabStop = false;
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = global::MDPlayer.Properties.Resources.ccFast;
+            this.pictureBox7.Image = Resources.ccFast;
             resources.ApplyResources(this.pictureBox7, "pictureBox7");
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.TabStop = false;
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = global::MDPlayer.Properties.Resources.ccPlay;
+            this.pictureBox6.Image = Resources.ccPlay;
             resources.ApplyResources(this.pictureBox6, "pictureBox6");
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.TabStop = false;
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = global::MDPlayer.Properties.Resources.ccSlow;
+            this.pictureBox5.Image = Resources.ccSlow;
             resources.ApplyResources(this.pictureBox5, "pictureBox5");
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::MDPlayer.Properties.Resources.ccStop;
+            this.pictureBox4.Image = Resources.ccStop;
             resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::MDPlayer.Properties.Resources.ccPause;
+            this.pictureBox3.Image = Resources.ccPause;
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::MDPlayer.Properties.Resources.ccPrevious;
+            this.pictureBox2.Image = Resources.ccPrevious;
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::MDPlayer.Properties.Resources.ccFadeout;
+            this.pictureBox1.Image = Resources.ccFadeout;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
@@ -3140,7 +3144,7 @@ namespace MDPlayer.form
             // 
             // pictureBox14
             // 
-            this.pictureBox14.Image = global::MDPlayer.Properties.Resources.ccStop;
+            this.pictureBox14.Image = Resources.ccStop;
             resources.ApplyResources(this.pictureBox14, "pictureBox14");
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.TabStop = false;
@@ -3598,7 +3602,7 @@ namespace MDPlayer.form
             // 
             // pictureBox17
             // 
-            this.pictureBox17.Image = global::MDPlayer.Properties.Resources.ccFadeout;
+            this.pictureBox17.Image = Resources.ccFadeout;
             resources.ApplyResources(this.pictureBox17, "pictureBox17");
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.TabStop = false;
@@ -3628,14 +3632,14 @@ namespace MDPlayer.form
             // 
             // pictureBox16
             // 
-            this.pictureBox16.Image = global::MDPlayer.Properties.Resources.ccPrevious;
+            this.pictureBox16.Image = Resources.ccPrevious;
             resources.ApplyResources(this.pictureBox16, "pictureBox16");
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.TabStop = false;
             // 
             // pictureBox10
             // 
-            this.pictureBox10.Image = global::MDPlayer.Properties.Resources.ccNext;
+            this.pictureBox10.Image = Resources.ccNext;
             resources.ApplyResources(this.pictureBox10, "pictureBox10");
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.TabStop = false;
@@ -3654,14 +3658,14 @@ namespace MDPlayer.form
             // 
             // pictureBox15
             // 
-            this.pictureBox15.Image = global::MDPlayer.Properties.Resources.ccPause;
+            this.pictureBox15.Image = Resources.ccPause;
             resources.ApplyResources(this.pictureBox15, "pictureBox15");
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.TabStop = false;
             // 
             // pictureBox11
             // 
-            this.pictureBox11.Image = global::MDPlayer.Properties.Resources.ccFast;
+            this.pictureBox11.Image = Resources.ccFast;
             resources.ApplyResources(this.pictureBox11, "pictureBox11");
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.TabStop = false;
@@ -3680,14 +3684,14 @@ namespace MDPlayer.form
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = global::MDPlayer.Properties.Resources.ccSlow;
+            this.pictureBox13.Image = Resources.ccSlow;
             resources.ApplyResources(this.pictureBox13, "pictureBox13");
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.TabStop = false;
             // 
             // pictureBox12
             // 
-            this.pictureBox12.Image = global::MDPlayer.Properties.Resources.ccPlay;
+            this.pictureBox12.Image = Resources.ccPlay;
             resources.ApplyResources(this.pictureBox12, "pictureBox12");
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.TabStop = false;
@@ -4309,7 +4313,7 @@ namespace MDPlayer.form
             // logoPictureBox
             // 
             resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
-            this.logoPictureBox.Image = global::MDPlayer.Properties.Resources.FeliAndMD2;
+            this.logoPictureBox.Image = Resources.FeliAndMD2;
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
             this.logoPictureBox.TabStop = false;

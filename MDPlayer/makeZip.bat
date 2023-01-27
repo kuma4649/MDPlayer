@@ -9,10 +9,17 @@ mkdir  .\output\plugin
 del /Q .\output\plugin\*.*
 mkdir  .\output\plugin\driver
 del /Q .\output\plugin\driver\*.*
+mkdir  .\output\x64
+del /Q .\output\x64\*.*
+mkdir  .\output\x64\plugin
+del /Q .\output\x64\plugin\*.*
+mkdir  .\output\x64\plugin\driver
+del /Q .\output\x64\plugin\driver\*.*
 
 xcopy   .\mdc\bin\Release\*.*          .\output\ /E /R /Y /I /K
 xcopy   .\mdpc\bin\Release\*.*         .\output\ /E /R /Y /I /K
 xcopy   .\MDPlayer\bin\x86\Release\*.* .\output\ /E /R /Y /I /K
+xcopy   .\MDPlayerx64\bin\x64\Release\net6.0-windows\*.* .\output\x64 /E /R /Y /I /K
 xcopy   ..\licenses                    .\output\licenses\ /E /R /Y /I /K
 copy /Y .\MDPlayer\lib\scci*.*         .\output
 copy /Y .\MDPlayer\lib\c86ctl.*        .\output

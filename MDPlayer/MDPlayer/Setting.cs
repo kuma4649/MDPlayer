@@ -5,7 +5,11 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+#if X64
+using MDPlayerx64.Properties;
+#else
 using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer
 {

@@ -1,5 +1,9 @@
 ﻿
+#if X64
+using MDPlayerx64.Properties;
+#else
 using MDPlayer.Properties;
+#endif
 
 namespace MDPlayer.form
 {
@@ -39,7 +43,7 @@ namespace MDPlayer.form
             // pbScreen
             // 
             this.pbScreen.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeDMG;
+            this.pbScreen.Image =   Resources.planeDMG;
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(336, 72);

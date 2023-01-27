@@ -1,4 +1,8 @@
-﻿using MDPlayer.Properties;
+﻿#if X64
+using MDPlayerx64.Properties;
+#else
+using MDPlayer.Properties;
+#endif
 namespace MDPlayer.form
 {
     partial class frmMIDI
@@ -36,7 +40,11 @@ namespace MDPlayer.form
             // 
             // pbScreen
             // 
+#if X64
+            this.pbScreen.Image = Resources.planeMIDI_GM;
+#else
             this.pbScreen.Image = global::MDPlayer.Properties.Resources.planeMIDI_GM;
+#endif
             this.pbScreen.Location = new System.Drawing.Point(0, 0);
             this.pbScreen.Name = "pbScreen";
             this.pbScreen.Size = new System.Drawing.Size(440, 352);
@@ -62,7 +70,7 @@ namespace MDPlayer.form
 
         }
 
-        #endregion
+#endregion
 
         public System.Windows.Forms.PictureBox pbScreen;
     }

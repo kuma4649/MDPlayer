@@ -30,24 +30,24 @@ namespace MDPlayer
         {
             try
             {
-                mmfBuf = new byte[mmfSize];
+                //mmfBuf = new byte[mmfSize];
 
-                lock (lockobj)
-                {
-                    _map = MemoryMappedFile.CreateNew(mmfName, mmfSize);
-                    try
-                    {
-                        MemoryMappedFileSecurity permission = _map.GetAccessControl();
-                        permission.AddAccessRule(
-                          new AccessRule<MemoryMappedFileRights>("Everyone",
-                            MemoryMappedFileRights.FullControl, AccessControlType.Allow));
-                        _map.SetAccessControl(permission);
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Write(ex.Message + ex.StackTrace);
-                    }
-                }
+                //lock (lockobj)
+                //{
+                //    _map = MemoryMappedFile.CreateNew(mmfName, mmfSize);
+                //    try
+                //    {
+                //        MemoryMappedFileSecurity permission = _map.GetAccessControl();
+                //        permission.AddAccessRule(
+                //          new AccessRule<MemoryMappedFileRights>("Everyone",
+                //            MemoryMappedFileRights.FullControl, AccessControlType.Allow));
+                //        _map.SetAccessControl(permission);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        log.Write(ex.Message + ex.StackTrace);
+                //    }
+                //}
                 return true;
             }
             catch (Exception ex)

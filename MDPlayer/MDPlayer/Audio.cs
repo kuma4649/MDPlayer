@@ -10,11 +10,14 @@ using musicDriverInterface;
 using MDSound.np.chip;
 using NAudio.Wave;
 using MDPlayer.Driver.SID;
+using System.Reflection;
 
 namespace MDPlayer
 {
     public class Audio
     {
+
+
         public static frmMain frmMain = null;
         public static vstMng vstMng = new vstMng();
         public static Setting setting = null;
@@ -1526,7 +1529,11 @@ namespace MDPlayer
             PMDDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\PMDDotNETDriver.dll"));
             moonDriverDotNETim = new InstanceMarker();
             moonDriverDotNETim.LoadCompilerDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\moonDriverDotNETCompiler.dll"));
+#if X64
+            moonDriverDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\MoonDriverDotNETDriver.dll"));
+#else
             moonDriverDotNETim.LoadDriverDll(Path.Combine(System.Windows.Forms.Application.StartupPath, "plugin\\driver\\moonDriverDotNETDriver.dll"));
+#endif
 
             log.ForcedWrite("Audio:Init:STEP 10");
 
@@ -2220,6 +2227,7 @@ namespace MDPlayer
                 {
                     vgmBuf = ((Driver.MucomDotNET)driverVirtual).Compile(vgmBuf);
                 }
+                if (vgmBuf == null) return false;
                 EnmChip[] useChipFromMub = ((Driver.MucomDotNET)driverVirtual).useChipsFromMub(vgmBuf);
                 ((Driver.MucomDotNET)driverVirtual).GetMUBTAGOption(vgmBuf);
 
