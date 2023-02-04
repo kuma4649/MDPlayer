@@ -651,7 +651,9 @@
     <None Include="..\MDPlayer\lib\Jacobi.Vst.Interop.dll" Link="lib\Jacobi.Vst.Interop.dll" />
     <None Include="..\MDPlayer\lib\MDSound.dll" Link="lib\MDSound.dll" />
     <None Include="..\MDPlayer\lib\MDSound.pdb" Link="lib\MDSound.pdb" />
-    <None Include="..\MDPlayer\lib\MGSDRV.COM" Link="lib\MGSDRV.COM" />
+    <None Include="..\MDPlayer\lib\MGSDRV.COM" Link="lib\MGSDRV.COM">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\MDPlayer\lib\Z80dotNet.dll" Link="lib\Z80dotNet.dll" />
     <None Include="..\MDPlayer\plugin\driver\musicDriverInterface.dll" Link="plugin\driver\musicDriverInterface.dll" />
     <None Include="..\MDPlayer\plugin\driver\PMDDotNETCommon.dll" Link="plugin\driver\PMDDotNETCommon.dll">

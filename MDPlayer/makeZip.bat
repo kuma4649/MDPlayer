@@ -34,6 +34,8 @@ del /Q .\output\*.pdb
 rem del /Q .\output\*.config
 del /Q .\output\*.bat
 rem del /Q .\output\MGSDRV.COM
+del /Q .\output\x64\*.pdb
+del /Q .\output\x64\*.bat
 copy /Y MDPlayer\removeZoneIdent.bat   .\output
 copy /Y MDPlayer\mdp.bat   .\output
 

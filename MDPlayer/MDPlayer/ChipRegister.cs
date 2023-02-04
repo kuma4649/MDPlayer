@@ -422,6 +422,8 @@ namespace MDPlayer
             new bool[]{ false, false, false, false, false},
             new bool[]{ false, false, false, false, false}
         };
+        private byte[] K051649_curCh = new byte[] { 0, 0 };
+        private byte[][] K051649_vol = new byte[2][] { new byte[] { 0, 0, 0, 0, 0 }, new byte[] { 0, 0, 0, 0, 0 } };
 
         public byte[][] pcmRegisterSEGAPCM = new byte[2][] { null, null };
         public bool[][] pcmKeyOnSEGAPCM = new bool[2][] { null, null };
@@ -1697,9 +1699,13 @@ namespace MDPlayer
                     }
                     else
                     {
-                        if (kiYM2413[chipID].Off[c + 9]) kiYM2413[chipID].On[c + 9] = true;
+                        if (kiYM2413[chipID].Off[c + 9])
+                        {
+                            kiYM2413[chipID].On[c + 9] = true;
+                        }
                         kiYM2413[chipID].Off[c + 9] = false;
                     }
+                    if (maskFMChYM2413[chipID][9 + c]) dData &= (0xef >> c);
                 }
 
                 //dData = (dData & 0x20)
@@ -4471,13 +4477,14 @@ namespace MDPlayer
         public void setK051649Mask(int chipID, int ch)
         {
             maskChK051649[chipID][ch] = true;
-            writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID],EnmModel.VirtualModel);
+            writeK051649((byte)chipID, (2 << 1) | 1, K051649_vol[chipID][ch], EnmModel.VirtualModel);
         }
 
         public void resetK051649Mask(int chipID, int ch)
         {
             maskChK051649[chipID][ch] = false;
-            writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], EnmModel.VirtualModel);
+            writeK051649((byte)chipID, (2 << 1) | 1, K051649_vol[chipID][ch], EnmModel.VirtualModel);
+            //writeK051649((byte)chipID, (3 << 1) | 1, K051649tKeyOnOff[chipID], EnmModel.VirtualModel);
         }
 
         public void setDMGMask(int chipID, int ch)
@@ -4967,17 +4974,29 @@ namespace MDPlayer
             if (chipid == 0) chipLED.PriK051649 = 2;
             else chipLED.SecK051649 = 2;
 
+            byte bdata = data;
 
+            if ((adr & 1) == 0)
+            {
+                K051649_curCh[chipid] = (byte)Math.Min(Math.Max((data & 0x7), 0), 4);
+
+            }
             if ((adr & 1) != 0)
             {
-                if ((adr >> 1) == 3)//keyonoff
+                if ((adr >> 1) == 2)//volume
                 {
                     K051649tKeyOnOff[chipid] = data;
-                    data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
-                    data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
-                    data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
-                    data &= (byte)(maskChK051649[chipid][3] ? 0xf7 : 0xff);
-                    data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
+                    try
+                    {
+                        K051649_vol[chipid][K051649_curCh[chipid]] = data;
+                    }
+                    catch { }
+                    data= (byte)(maskChK051649[chipid][K051649_curCh[chipid]] ? 0x00: data);
+                    //data &= (byte)(maskChK051649[chipid][0] ? 0xfe : 0xff);
+                    //data &= (byte)(maskChK051649[chipid][1] ? 0xfd : 0xff);
+                    //data &= (byte)(maskChK051649[chipid][2] ? 0xfb : 0xff);
+                    //data &= (byte)(maskChK051649[chipid][3] ? 0xf7 : 0xff);
+                    //data &= (byte)(maskChK051649[chipid][4] ? 0xef : 0xff);
                 }
             }
 
@@ -4988,7 +5007,7 @@ namespace MDPlayer
                     mds.WriteK051649(chipid, (int)adr, data);
 
                     //レジスタのデータを退避
-                    scc_k051649.Write(chipid, 0, (int)adr, data);
+                    scc_k051649.Write(chipid, 0, (int)adr, bdata);
                 }
             }
             else
@@ -4996,7 +5015,7 @@ namespace MDPlayer
                 if (scK051649[chipid] == null) return;
 
                 //レジスタのデータを退避
-                scc_k051649.Write(chipid, 0, (int)adr, data);
+                scc_k051649.Write(chipid, 0, (int)adr, bdata);
 
 
                 if ((adr & 1) == 0)
