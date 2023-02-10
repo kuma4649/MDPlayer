@@ -181,6 +181,10 @@ namespace MDPlayer.form
                     ((ppz8State[ch].pan < 6) ? 0xf : (4 * (9 - ppz8State[ch].pan)))
                 | (((ppz8State[ch].pan > 4) ? 0xf : (4 * ppz8State[ch].pan)) * 0x10);
 
+                ushort p = ppz8State[ch].pan;
+                newParam.channels[ch].pan = ((p > 0 && p < 6) ? 0xf : (4 * (9 - ppz8State[ch].pan)))
+                | (((p > 4 && p < 10) ? 0xf : (4 * (p - 1))) * 0x10);
+
                 if (ppz8State[ch].KeyOn)
                 {
                     newParam.channels[ch].volumeL = Math.Min((ppz8State[ch].volume * (newParam.channels[ch].pan & 0xf)) / 8, 19);

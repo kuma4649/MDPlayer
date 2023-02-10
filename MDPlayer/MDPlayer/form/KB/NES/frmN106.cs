@@ -21,6 +21,10 @@ namespace MDPlayer.form
         public bool isClosed = false;
         public int x = -1;
         public int y = -1;
+
+        //ch表示リバース
+        private bool rev = true;
+
         private int frameSizeW = 0;
         private int frameSizeH = 0;
         private int chipID = 0;
@@ -131,15 +135,17 @@ namespace MDPlayer.form
                 return;
             }
 
+            int vch = rev ? (7 - ch) : ch;
+
             if (m != 0)
             {
                 //クリップボードに音色をコピーする
-                parent.getInstCh(EnmChip.N163, ch, chipID);
+                parent.getInstCh(EnmChip.N163, vch, chipID);
             }
             else
             {
                 //マスク
-                parent.SetChannelMask(EnmChip.N163, chipID, ch);
+                parent.SetChannelMask(EnmChip.N163, chipID, vch);
                 return;
             }
         }
@@ -209,18 +215,20 @@ namespace MDPlayer.form
             MDChipParams.Channel oyc;
             MDChipParams.Channel nyc;
 
+
             for (int ch = 0; ch < 8; ch++)
             {
-                oyc = oldParam.channels[ch];
-                nyc = newParam.channels[ch];
+                int vch = rev ? (7 - ch) : ch;
+                oyc = oldParam.channels[vch];
+                nyc = newParam.channels[vch];
 
                 //Enable
                 DrawBuff.drawNESSw(frameBuffer, 6 * 4, ch * 24 + 8
-                    , ref oldParam.channels[ch].bit[1], newParam.channels[ch].bit[1]);
+                    , ref oyc.bit[1], nyc.bit[1]);
 
                 //Key
                 DrawBuff.drawNESSw(frameBuffer, 7 * 4, ch * 24 + 8
-                    , ref oldParam.channels[ch].bit[0], newParam.channels[ch].bit[0]);
+                    , ref oyc.bit[0], nyc.bit[0]);
 
                 //vol
                 DrawBuff.Volume(frameBuffer, 256, 8 + ch * 3 * 8, 0, ref oyc.volume, nyc.volume, 0);
@@ -234,7 +242,9 @@ namespace MDPlayer.form
 
                 if (oyc.aryWave16bit == null && nyc.aryWave16bit!=null) oyc.aryWave16bit = new short[nyc.aryWave16bit.Length];
                 DrawBuff.WaveFormToN106(frameBuffer, 10 * 4, ch * 24 + 16, ref oyc.aryWave16bit, nyc.aryWave16bit);
-                DrawBuff.ChN163(frameBuffer, ch, ref oldParam.channels[ch].mask, newParam.channels[ch].mask, 0);
+                DrawBuff.ChN163(frameBuffer, ch, ref oyc.mask, nyc.mask, 0);
+
+                //DrawBuff.drawFont8(frameBuffer, 4 * 4, ch * 24 + 8, 0, (vch + 1).ToString());
 
             }
         }
